@@ -868,15 +868,6 @@ void PeerConnection::CreateAnswer(
     return;
   }
 
-  if (!session_->remote_description() ||
-      session_->remote_description()->type() !=
-          SessionDescriptionInterface::kOffer) {
-    std::string error = "CreateAnswer called without remote offer.";
-    LOG(LS_ERROR) << error;
-    PostCreateSessionDescriptionFailure(observer, error);
-    return;
-  }
-
   PeerConnectionInterface::RTCOfferAnswerOptions offer_answer_options;
   if (!ConvertConstraintsToOfferAnswerOptions(constraints,
                                               &offer_answer_options)) {
@@ -886,9 +877,7 @@ void PeerConnection::CreateAnswer(
     return;
   }
 
-  cricket::MediaSessionOptions session_options;
-  GetOptionsForAnswer(offer_answer_options, &session_options);
-  session_->CreateAnswer(observer, session_options);
+  InternalCreateAnswer(observer, offer_answer_options);
 }
 
 void PeerConnection::CreateAnswer(CreateSessionDescriptionObserver* observer,
@@ -896,6 +885,23 @@ void PeerConnection::CreateAnswer(CreateSessionDescriptionObserver* observer,
   TRACE_EVENT0("webrtc", "PeerConnection::CreateAnswer");
   if (!observer) {
     LOG(LS_ERROR) << "CreateAnswer - observer is NULL.";
+    return;
+  }
+
+  InternalCreateAnswer(observer, options);
+}
+
+void PeerConnection::InternalCreateAnswer(
+    CreateSessionDescriptionObserver* observer,
+    const RTCOfferAnswerOptions& options) {
+  RTC_DCHECK(observer);
+
+  if (!session_->remote_description() ||
+      session_->remote_description()->type() !=
+          SessionDescriptionInterface::kOffer) {
+    std::string error = "CreateAnswer called without remote offer.";
+    LOG(LS_ERROR) << error;
+    PostCreateSessionDescriptionFailure(observer, error);
     return;
   }
 
@@ -1016,6 +1022,27 @@ void PeerConnection::SetRemoteDescription(
     PostSetSessionDescriptionFailure(observer, "SessionDescription is NULL.");
     return;
   }
+
+  const cricket::SessionDescription* remote_desc = desc->description();
+  const cricket::ContentInfo* audio_content = GetFirstAudioContent(remote_desc);
+  const cricket::ContentInfo* video_content = GetFirstVideoContent(remote_desc);
+  const cricket::AudioContentDescription* audio_desc =
+      GetFirstAudioContentDescription(remote_desc);
+  const cricket::VideoContentDescription* video_desc =
+      GetFirstVideoContentDescription(remote_desc);
+  const cricket::DataContentDescription* data_desc =
+      GetFirstDataContentDescription(remote_desc);
+
+  // Need to remove tracks before applying the session description to
+  // WebRtcSession, otherwise the voice/video channel will have already been
+  // deleted.
+  if (audio_content && audio_content->rejected) {
+    RemoveTracks(cricket::MEDIA_TYPE_AUDIO);
+  }
+  if (video_content && video_content->rejected) {
+    RemoveTracks(cricket::MEDIA_TYPE_VIDEO);
+  }
+
   // Update stats here so that we have the most recent stats for tracks and
   // streams that might be removed by updating the session description.
   stats_->UpdateStats(kStatsOutputLevelStandard);
@@ -1033,16 +1060,6 @@ void PeerConnection::SetRemoteDescription(
     AllocateSctpSids(role);
   }
 
-  const cricket::SessionDescription* remote_desc = desc->description();
-  const cricket::ContentInfo* audio_content = GetFirstAudioContent(remote_desc);
-  const cricket::ContentInfo* video_content = GetFirstVideoContent(remote_desc);
-  const cricket::AudioContentDescription* audio_desc =
-      GetFirstAudioContentDescription(remote_desc);
-  const cricket::VideoContentDescription* video_desc =
-      GetFirstVideoContentDescription(remote_desc);
-  const cricket::DataContentDescription* data_desc =
-      GetFirstDataContentDescription(remote_desc);
-
   // Check if the descriptions include streams, just in case the peer supports
   // MSID, but doesn't indicate so with "a=msid-semantic".
   if (remote_desc->msid_supported() ||
@@ -1057,32 +1074,24 @@ void PeerConnection::SetRemoteDescription(
 
   // Find all audio rtp streams and create corresponding remote AudioTracks
   // and MediaStreams.
-  if (audio_content) {
-    if (audio_content->rejected) {
-      RemoveTracks(cricket::MEDIA_TYPE_AUDIO);
-    } else {
-      bool default_audio_track_needed =
-          !remote_peer_supports_msid_ &&
-          MediaContentDirectionHasSend(audio_desc->direction());
-      UpdateRemoteStreamsList(GetActiveStreams(audio_desc),
-                              default_audio_track_needed, audio_desc->type(),
-                              new_streams);
-    }
+  if (audio_content && !audio_content->rejected) {
+    bool default_audio_track_needed =
+        !remote_peer_supports_msid_ &&
+        MediaContentDirectionHasSend(audio_desc->direction());
+    UpdateRemoteStreamsList(GetActiveStreams(audio_desc),
+                            default_audio_track_needed, audio_desc->type(),
+                            new_streams);
   }
 
   // Find all video rtp streams and create corresponding remote VideoTracks
   // and MediaStreams.
-  if (video_content) {
-    if (video_content->rejected) {
-      RemoveTracks(cricket::MEDIA_TYPE_VIDEO);
-    } else {
-      bool default_video_track_needed =
-          !remote_peer_supports_msid_ &&
-          MediaContentDirectionHasSend(video_desc->direction());
-      UpdateRemoteStreamsList(GetActiveStreams(video_desc),
-                              default_video_track_needed, video_desc->type(),
-                              new_streams);
-    }
+  if (video_content && !video_content->rejected) {
+    bool default_video_track_needed =
+        !remote_peer_supports_msid_ &&
+        MediaContentDirectionHasSend(video_desc->direction());
+    UpdateRemoteStreamsList(GetActiveStreams(video_desc),
+                            default_video_track_needed, video_desc->type(),
+                            new_streams);
   }
 
   // Update the DataChannels with the information from the remote peer.

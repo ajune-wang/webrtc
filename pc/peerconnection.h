@@ -281,6 +281,9 @@ class PeerConnection : public PeerConnectionInterface,
     return signaling_state_ == PeerConnectionInterface::kClosed;
   }
 
+  void InternalCreateAnswer(CreateSessionDescriptionObserver* observer,
+                            const RTCOfferAnswerOptions& options);
+
   // Returns a MediaSessionOptions struct with options decided by |options|,
   // the local MediaStreams and DataChannels.
   void GetOptionsForOffer(

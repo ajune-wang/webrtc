@@ -298,6 +298,8 @@ class WebRtcSession :
     return pending_remote_description_.get();
   }
 
+  void SetAudioPlayout(bool playout);
+
   // Get the id used as a media stream track's "id" field from ssrc.
   virtual bool GetLocalTrackIdBySsrc(uint32_t ssrc, std::string* track_id);
   virtual bool GetRemoteTrackIdBySsrc(uint32_t ssrc, std::string* track_id);
@@ -596,6 +598,7 @@ class WebRtcSession :
   // only have 0 or 1 channel each.
   // These channels are owned by ChannelManager.
   std::vector<cricket::VoiceChannel*> voice_channels_;
+  bool audio_playout_ = true;
   std::vector<cricket::VideoChannel*> video_channels_;
   // |rtp_data_channel_| is used if in RTP data channel mode, |sctp_transport_|
   // when using SCTP.

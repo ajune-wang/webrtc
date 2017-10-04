@@ -140,6 +140,8 @@ class PeerConnection : public PeerConnectionInterface,
   bool RemoveIceCandidates(
       const std::vector<cricket::Candidate>& candidates) override;
 
+  void SetAudioPlayout(bool playout) override;
+
   void RegisterUMAObserver(UMAObserver* observer) override;
 
   RTCError SetBitrate(const BitrateParameters& bitrate) override;

@@ -1271,6 +1271,16 @@ void WebRtcSession::MaybeStartGathering() {
   transport_controller_->MaybeStartGathering();
 }
 
+void WebRtcSession::SetAudioPlayout(bool playout) {
+  if (audio_playout_ == playout) {
+    return;
+  }
+  audio_playout_ = playout;
+  for (const auto& channel : voice_channels_) {
+    channel->SetPlayout(playout);
+  }
+}
+
 bool WebRtcSession::GetLocalTrackIdBySsrc(uint32_t ssrc,
                                           std::string* track_id) {
   if (!local_description()) {
@@ -1828,6 +1838,7 @@ bool WebRtcSession::CreateVoiceChannel(const cricket::ContentInfo* content,
 
   voice_channels_.push_back(voice_channel);
 
+  voice_channel->SetPlayout(audio_playout_);
   voice_channel->SignalRtcpMuxFullyActive.connect(
       this, &WebRtcSession::DestroyRtcpTransport_n);
   voice_channel->SignalDtlsSrtpSetupFailure.connect(

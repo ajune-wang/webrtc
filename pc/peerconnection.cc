@@ -1218,6 +1218,10 @@ bool PeerConnection::RemoveIceCandidates(
   return session_->RemoveRemoteIceCandidates(candidates);
 }
 
+void PeerConnection::SetAudioPlayout(bool playout) {
+  session_->SetAudioPlayout(playout);
+}
+
 void PeerConnection::RegisterUMAObserver(UMAObserver* observer) {
   TRACE_EVENT0("webrtc", "PeerConnection::RegisterUmaObserver");
   uma_observer_ = observer;

@@ -224,7 +224,7 @@ class BaseChannel
   //
   // When any of these properties change, UpdateMediaSendRecvState_w should be
   // called.
-  bool IsReadyToReceiveMedia_w() const;
+  virtual bool IsReadyToReceiveMedia_w() const;
   bool IsReadyToSendMedia_w() const;
   rtc::Thread* signaling_thread() { return signaling_thread_; }
 
@@ -429,6 +429,7 @@ class VoiceChannel : public BaseChannel {
                bool srtp_required);
   ~VoiceChannel();
 
+  void SetPlayout(bool playout);
   // Configure sending media on the stream with SSRC |ssrc|
   // If there is only one sending stream SSRC 0 can be used.
   bool SetAudioSend(uint32_t ssrc,
@@ -499,6 +500,7 @@ class VoiceChannel : public BaseChannel {
   void OnPacketReceived(bool rtcp,
                         rtc::CopyOnWriteBuffer* packet,
                         const rtc::PacketTime& packet_time) override;
+  bool IsReadyToReceiveMedia_w() const override;
   void UpdateMediaSendRecvState_w() override;
   bool SetLocalContent_w(const MediaContentDescription* content,
                          ContentAction action,
@@ -530,6 +532,7 @@ class VoiceChannel : public BaseChannel {
   // Last AudioRecvParameters sent down to the media_channel() via
   // SetRecvParameters.
   AudioRecvParameters last_recv_params_;
+  bool playout_ = false;
 };
 
 // VideoChannel is a specialization for video.

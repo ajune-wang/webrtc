@@ -1457,6 +1457,14 @@ VoiceChannel::~VoiceChannel() {
   Deinit();
 }
 
+void VoiceChannel::SetPlayout(bool playout) {
+  if (playout_ == playout) {
+    return;
+  }
+  playout_ = playout;
+  UpdateMediaSendRecvState();
+}
+
 bool VoiceChannel::SetAudioSend(uint32_t ssrc,
                                 bool enable,
                                 const AudioOptions* options,
@@ -1632,7 +1640,6 @@ void VoiceChannel::OnPacketReceived(bool rtcp,
 }
 
 void BaseChannel::UpdateMediaSendRecvState() {
-  RTC_DCHECK(network_thread_->IsCurrent());
   invoker_.AsyncInvoke<void>(
       RTC_FROM_HERE, worker_thread_,
       Bind(&BaseChannel::UpdateMediaSendRecvState_w, this));
@@ -1677,6 +1684,10 @@ void BaseChannel::UpdateTransportOverhead() {
         RTC_FROM_HERE, worker_thread_,
         Bind(&MediaChannel::OnTransportOverheadChanged, media_channel_,
              transport_overhead_per_packet));
+}
+
+bool VoiceChannel::IsReadyToReceiveMedia_w() const {
+  return BaseChannel::IsReadyToReceiveMedia_w() && playout_;
 }
 
 void VoiceChannel::UpdateMediaSendRecvState_w() {

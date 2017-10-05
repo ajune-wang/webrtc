@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4f357fbd_1da9e7df",
+        "filename": "modules/audio_processing/test/py_quality_assessment/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-10-05T09:17:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7792510_433e8e1a",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 19
+      },
+      "revId": "43ac1e0b3bdd63b24322bbf4ea1dc4527b94bd94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a10cdb49_e2f835e1",
         "filename": "modules/audio_processing/test/py_quality_assessment/README.md",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "acc18986_7f3d1d83",
+        "filename": "modules/audio_processing/test/py_quality_assessment/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-10-05T09:17:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a10cdb49_e2f835e1",
+      "range": {
+        "startLine": 96,
+        "startChar": 2,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "43ac1e0b3bdd63b24322bbf4ea1dc4527b94bd94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6315bfc6_dc84faa4",
         "filename": "modules/audio_processing/test/py_quality_assessment/README.md",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2017-10-04T13:08:51Z",
       "side": 1,
       "message": "Just FYI. The setup you described is not very intuitive, though possible.\nThe fact is that POLQA scores require a comparison with a reference, and when I read your example I immediately wonder what the reference is (which depends on the used test data generators).\n\nMaybe this example is not the most straightforward, but I\u0027m perfectly fine with leaving it as it is. Just wanted to make sure that we are aware of what I said above.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "revId": "43ac1e0b3bdd63b24322bbf4ea1dc4527b94bd94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e908a433_c2eee4ff",
+        "filename": "modules/audio_processing/test/py_quality_assessment/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-10-05T09:17:45Z",
+      "side": 1,
+      "message": "I couldn\u0027t come up with a better one. Most scores use a reference. Reworded a little.",
+      "parentUuid": "6315bfc6_dc84faa4",
       "range": {
         "startLine": 99,
         "startChar": 0,
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "2f412780_2a411e07",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment_boxplot.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-10-05T09:17:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05de0744_8456a563",
+      "revId": "43ac1e0b3bdd63b24322bbf4ea1dc4527b94bd94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0975d74c_3ed56b57",
         "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment_boxplot.py",
         "patchSetId": 3
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "7fd2d64a_b8c30476",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment_boxplot.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-10-05T09:17:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0975d74c_3ed56b57",
+      "revId": "43ac1e0b3bdd63b24322bbf4ea1dc4527b94bd94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a243acb2_55579d17",
         "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment_export.py",
         "patchSetId": 3
@@ -119,6 +227,24 @@
       "revId": "43ac1e0b3bdd63b24322bbf4ea1dc4527b94bd94",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59d57f8_403bfb22",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment_export.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-10-05T09:17:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a243acb2_55579d17",
+      "revId": "43ac1e0b3bdd63b24322bbf4ea1dc4527b94bd94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

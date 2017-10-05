@@ -222,7 +222,7 @@
       'gn', 'asan', 'lsan', 'clang', 'openh264_release_bot', 'x64'
     ],
     'msan_clang_release_bot_x64': [
-      'gn', 'msan', 'clang', 'openh264_release_bot', 'x64'
+      'gn', 'msan', 'clang', 'openh264_release_bot', 'x64', 'no_lld'
     ],
     'tsan_clang_release_bot_x64': [
       'gn', 'tsan', 'clang', 'openh264_release_bot', 'x64'
@@ -259,7 +259,8 @@
       'x64', 'no_rtc_tests'
     ],
     'memcheck_release_bot_x64': [
-      'memcheck', 'gn', 'openh264_release_bot', 'x64', 'use_default_libcxx'
+      'memcheck', 'gn', 'openh264_release_bot', 'x64', 'use_default_libcxx',
+      'no_lld'
     ],
 
     # iOS
@@ -426,6 +427,10 @@
 
     'no_clang': {
       'gn_args': 'is_clang=false',
+    },
+
+    'no_lld': {
+      'gn_args': 'use_lld=false',
     },
 
     'no_rtc_tests': {

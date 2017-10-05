@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89adc3a0_342b5a4e",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-05T14:10:09Z",
+      "side": 1,
+      "message": "The field trial string sounds a bit like a garbled version of PacketsInBweWindow. How about BweWindowSize (or BweWindowSizeInPackets if you think that the unit is really important) instead?",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "9d419327de62d60a83443140843ad62a6f029c9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a227788_8101c9fe",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-05T14:10:09Z",
+      "side": 1,
+      "message": "If this will be fed in by non-webrtc applications, maybe we want a softer error handling mechanism than CHECK?",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 16
+      },
+      "revId": "9d419327de62d60a83443140843ad62a6f029c9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7c35e567_f69c23e1",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-05T14:51:30Z",
+      "side": 1,
+      "message": "BweWindowSizeInPackets is OK with me, but that means only removing \"Experiment\".\n\nI think the unit is important as it otherwise is difficult to understand what the value means.",
+      "parentUuid": "89adc3a0_342b5a4e",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "9d419327de62d60a83443140843ad62a6f029c9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a227788_8101c9fe",
         "filename": "modules/congestion_controller/delay_based_bwe.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-05T14:10:09Z",
       "side": 1,
       "message": "If this will be fed in by non-webrtc applications, maybe we want a softer error handling mechanism than CHECK?",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 16
+      },
+      "revId": "9d419327de62d60a83443140843ad62a6f029c9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "464befac_39200d16",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-05T14:51:30Z",
+      "side": 1,
+      "message": "Don\u0027t know about that. We can\u0027t return an error to the application, and I\u0027m pretty sure the applications would like to know if they fail to set this correctly? We could of course just warn, do you think that\u0027d be a better option?",
+      "parentUuid": "2a227788_8101c9fe",
       "range": {
         "startLine": 61,
         "startChar": 4,

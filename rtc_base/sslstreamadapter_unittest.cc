@@ -8,7 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-
 #include <algorithm>
 #include <memory>
 #include <set>
@@ -23,9 +22,9 @@
 #include "rtc_base/sslstreamadapter.h"
 #include "rtc_base/stream.h"
 
-using ::testing::WithParamInterface;
-using ::testing::Values;
 using ::testing::Combine;
+using ::testing::Values;
+using ::testing::WithParamInterface;
 using ::testing::tuple;
 
 static const int kBlockSize = 4096;
@@ -151,22 +150,20 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
                            public sigslot::has_slots<> {
  public:
   SSLDummyStreamBase(SSLStreamAdapterTestBase* test,
-                     const std::string &side,
+                     const std::string& side,
                      rtc::StreamInterface* in,
-                     rtc::StreamInterface* out) :
-      test_base_(test),
-      side_(side),
-      in_(in),
-      out_(out),
-      first_packet_(true) {
+                     rtc::StreamInterface* out)
+      : test_base_(test), side_(side), in_(in), out_(out), first_packet_(true) {
     in_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventIn);
     out_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventOut);
   }
 
   rtc::StreamState GetState() const override { return rtc::SS_OPEN; }
 
-  rtc::StreamResult Read(void* buffer, size_t buffer_len,
-                         size_t* read, int* error) override {
+  rtc::StreamResult Read(void* buffer,
+                         size_t buffer_len,
+                         size_t* read,
+                         int* error) override {
     rtc::StreamResult r;
 
     r = in_->Read(buffer, buffer_len, read, error);
@@ -205,13 +202,17 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
   }
 
   // Write to the outgoing FifoBuffer
-  rtc::StreamResult WriteData(const void* data, size_t data_len,
-                              size_t* written, int* error) {
+  rtc::StreamResult WriteData(const void* data,
+                              size_t data_len,
+                              size_t* written,
+                              int* error) {
     return out_->Write(data, data_len, written, error);
   }
 
-  rtc::StreamResult Write(const void* data, size_t data_len,
-                          size_t* written, int* error) override;
+  rtc::StreamResult Write(const void* data,
+                          size_t data_len,
+                          size_t* written,
+                          int* error) override;
 
   void Close() override {
     RTC_LOG(LS_INFO) << "Closing outbound stream";
@@ -231,17 +232,14 @@ class SSLDummyStreamTLS : public SSLDummyStreamBase {
   SSLDummyStreamTLS(SSLStreamAdapterTestBase* test,
                     const std::string& side,
                     rtc::FifoBuffer* in,
-                    rtc::FifoBuffer* out) :
-      SSLDummyStreamBase(test, side, in, out) {
-  }
+                    rtc::FifoBuffer* out)
+      : SSLDummyStreamBase(test, side, in, out) {}
 };
 
-class BufferQueueStream : public rtc::BufferQueue,
-                          public rtc::StreamInterface {
+class BufferQueueStream : public rtc::BufferQueue, public rtc::StreamInterface {
  public:
   BufferQueueStream(size_t capacity, size_t default_size)
-      : rtc::BufferQueue(capacity, default_size) {
-  }
+      : rtc::BufferQueue(capacity, default_size) {}
 
   // Implementation of abstract StreamInterface methods.
 
@@ -249,8 +247,10 @@ class BufferQueueStream : public rtc::BufferQueue,
   rtc::StreamState GetState() const override { return rtc::SS_OPEN; }
 
   // Reading a buffer queue stream will either succeed or block.
-  rtc::StreamResult Read(void* buffer, size_t buffer_len,
-                         size_t* read, int* error) override {
+  rtc::StreamResult Read(void* buffer,
+                         size_t buffer_len,
+                         size_t* read,
+                         int* error) override {
     if (!ReadFront(buffer, buffer_len, read)) {
       return rtc::SR_BLOCK;
     }
@@ -258,8 +258,10 @@ class BufferQueueStream : public rtc::BufferQueue,
   }
 
   // Writing to a buffer queue stream will either succeed or block.
-  rtc::StreamResult Write(const void* data, size_t data_len,
-                          size_t* written, int* error) override {
+  rtc::StreamResult Write(const void* data,
+                          size_t data_len,
+                          size_t* written,
+                          int* error) override {
     if (!WriteBack(data, data_len, written)) {
       return rtc::SR_BLOCK;
     }
@@ -270,13 +272,9 @@ class BufferQueueStream : public rtc::BufferQueue,
   void Close() override {}
 
  protected:
-  void NotifyReadableForTest() override {
-    PostEvent(rtc::SE_READ, 0);
-  }
+  void NotifyReadableForTest() override { PostEvent(rtc::SE_READ, 0); }
 
-  void NotifyWritableForTest() override {
-    PostEvent(rtc::SE_WRITE, 0);
-  }
+  void NotifyWritableForTest() override { PostEvent(rtc::SE_WRITE, 0); }
 };
 
 class SSLDummyStreamDTLS : public SSLDummyStreamBase {
@@ -284,9 +282,8 @@ class SSLDummyStreamDTLS : public SSLDummyStreamBase {
   SSLDummyStreamDTLS(SSLStreamAdapterTestBase* test,
                      const std::string& side,
                      BufferQueueStream* in,
-                     BufferQueueStream* out) :
-      SSLDummyStreamBase(test, side, in, out) {
-  }
+                     BufferQueueStream* out)
+      : SSLDummyStreamBase(test, side, in, out) {}
 };
 
 static const int kFifoBufferSize = 4096;
@@ -449,10 +446,8 @@ class SSLStreamAdapterTestBase : public testing::Test,
   }
 
   void TestHandshake(bool expect_success = true) {
-    server_ssl_->SetMode(dtls_ ? rtc::SSL_MODE_DTLS :
-                         rtc::SSL_MODE_TLS);
-    client_ssl_->SetMode(dtls_ ? rtc::SSL_MODE_DTLS :
-                         rtc::SSL_MODE_TLS);
+    server_ssl_->SetMode(dtls_ ? rtc::SSL_MODE_DTLS : rtc::SSL_MODE_TLS);
+    client_ssl_->SetMode(dtls_ ? rtc::SSL_MODE_DTLS : rtc::SSL_MODE_TLS);
 
     if (!dtls_) {
       // Make sure we simulate a reliable network for TLS.
@@ -478,8 +473,8 @@ class SSLStreamAdapterTestBase : public testing::Test,
 
     // Now run the handshake
     if (expect_success) {
-      EXPECT_TRUE_WAIT((client_ssl_->GetState() == rtc::SS_OPEN)
-                       && (server_ssl_->GetState() == rtc::SS_OPEN),
+      EXPECT_TRUE_WAIT((client_ssl_->GetState() == rtc::SS_OPEN) &&
+                           (server_ssl_->GetState() == rtc::SS_OPEN),
                        handshake_wait_);
     } else {
       EXPECT_TRUE_WAIT(client_ssl_->GetState() == rtc::SS_CLOSED,
@@ -540,9 +535,11 @@ class SSLStreamAdapterTestBase : public testing::Test,
     }
   }
 
-  rtc::StreamResult DataWritten(SSLDummyStreamBase *from, const void *data,
-                                size_t data_len, size_t *written,
-                                int *error) {
+  rtc::StreamResult DataWritten(SSLDummyStreamBase* from,
+                                const void* data,
+                                size_t data_len,
+                                size_t* written,
+                                int* error) {
     // Randomly drop loss_ percent of packets
     if (rtc::CreateRandomId() % 100 < static_cast<uint32_t>(loss_)) {
       RTC_LOG(LS_VERBOSE) << "Randomly dropping packet, size=" << data_len;
@@ -558,7 +555,7 @@ class SSLStreamAdapterTestBase : public testing::Test,
     // Optionally damage application data (type 23). Note that we don't damage
     // handshake packets and we damage the last byte to keep the header
     // intact but break the MAC.
-    if (damage_ && (*static_cast<const unsigned char *>(data) == 23)) {
+    if (damage_ && (*static_cast<const unsigned char*>(data) == 23)) {
       std::vector<char> buf(data_len);
 
       RTC_LOG(LS_VERBOSE) << "Damaging packet";
@@ -572,31 +569,19 @@ class SSLStreamAdapterTestBase : public testing::Test,
     return from->WriteData(data, data_len, written, error);
   }
 
-  void SetDelay(int delay) {
-    delay_ = delay;
-  }
+  void SetDelay(int delay) { delay_ = delay; }
   int GetDelay() { return delay_; }
 
-  void SetLoseFirstPacket(bool lose) {
-    lose_first_packet_ = lose;
-  }
+  void SetLoseFirstPacket(bool lose) { lose_first_packet_ = lose; }
   bool GetLoseFirstPacket() { return lose_first_packet_; }
 
-  void SetLoss(int percent) {
-    loss_ = percent;
-  }
+  void SetLoss(int percent) { loss_ = percent; }
 
-  void SetDamage() {
-    damage_ = true;
-  }
+  void SetDamage() { damage_ = true; }
 
-  void SetMtu(size_t mtu) {
-    mtu_ = mtu;
-  }
+  void SetMtu(size_t mtu) { mtu_ = mtu; }
 
-  void SetHandshakeWait(int wait) {
-    handshake_wait_ = wait;
-  }
+  void SetHandshakeWait(int wait) { handshake_wait_ = wait; }
 
   void SetDtlsSrtpCryptoSuites(const std::vector<int>& ciphers, bool client) {
     if (client)
@@ -633,28 +618,24 @@ class SSLStreamAdapterTestBase : public testing::Test,
       return server_ssl_->GetSslVersion();
   }
 
-  bool ExportKeyingMaterial(const char *label,
-                            const unsigned char *context,
+  bool ExportKeyingMaterial(const char* label,
+                            const unsigned char* context,
                             size_t context_len,
                             bool use_context,
                             bool client,
-                            unsigned char *result,
+                            unsigned char* result,
                             size_t result_len) {
     if (client)
-      return client_ssl_->ExportKeyingMaterial(label,
-                                               context, context_len,
-                                               use_context,
-                                               result, result_len);
+      return client_ssl_->ExportKeyingMaterial(label, context, context_len,
+                                               use_context, result, result_len);
     else
-      return server_ssl_->ExportKeyingMaterial(label,
-                                               context, context_len,
-                                               use_context,
-                                               result, result_len);
+      return server_ssl_->ExportKeyingMaterial(label, context, context_len,
+                                               use_context, result, result_len);
   }
 
   // To be implemented by subclasses.
   virtual void WriteData() = 0;
-  virtual void ReadData(rtc::StreamInterface *stream) = 0;
+  virtual void ReadData(rtc::StreamInterface* stream) = 0;
   virtual void TestTransfer(int size) = 0;
 
  protected:
@@ -662,12 +643,12 @@ class SSLStreamAdapterTestBase : public testing::Test,
   std::string client_private_key_pem_;
   rtc::KeyParams client_key_type_;
   rtc::KeyParams server_key_type_;
-  SSLDummyStreamBase *client_stream_;  // freed by client_ssl_ destructor
-  SSLDummyStreamBase *server_stream_;  // freed by server_ssl_ destructor
+  SSLDummyStreamBase* client_stream_;  // freed by client_ssl_ destructor
+  SSLDummyStreamBase* server_stream_;  // freed by server_ssl_ destructor
   std::unique_ptr<rtc::SSLStreamAdapter> client_ssl_;
   std::unique_ptr<rtc::SSLStreamAdapter> server_ssl_;
-  rtc::SSLIdentity *client_identity_;  // freed by client_ssl_ destructor
-  rtc::SSLIdentity *server_identity_;  // freed by server_ssl_ destructor
+  rtc::SSLIdentity* client_identity_;  // freed by client_ssl_ destructor
+  rtc::SSLIdentity* server_identity_;  // freed by server_ssl_ destructor
   int delay_;
   size_t mtu_;
   int loss_;
@@ -689,8 +670,7 @@ class SSLStreamAdapterTestTLS
                                  ::testing::get<0>(GetParam()),
                                  ::testing::get<1>(GetParam())),
         client_buffer_(kFifoBufferSize),
-        server_buffer_(kFifoBufferSize) {
-  }
+        server_buffer_(kFifoBufferSize) {}
 
   void CreateStreams() override {
     client_stream_ =
@@ -725,8 +705,8 @@ class SSLStreamAdapterTestTLS
     recv_stream_.GetSize(&received);
 
     EXPECT_EQ(static_cast<size_t>(size), received);
-    EXPECT_EQ(0, memcmp(send_stream_.GetBuffer(),
-                        recv_stream_.GetBuffer(), size));
+    EXPECT_EQ(0,
+              memcmp(send_stream_.GetBuffer(), recv_stream_.GetBuffer(), size));
   }
 
   void WriteData() override {
@@ -765,7 +745,7 @@ class SSLStreamAdapterTestTLS
     }
   };
 
-  void ReadData(rtc::StreamInterface *stream) override {
+  void ReadData(rtc::StreamInterface* stream) override {
     char buffer[1600];
     size_t bread;
     int err2;
@@ -815,12 +795,13 @@ class SSLStreamAdapterTestDTLS
         sent_(0) {}
 
   SSLStreamAdapterTestDTLS(const std::string& cert_pem,
-                           const std::string& private_key_pem) :
-      SSLStreamAdapterTestBase(cert_pem, private_key_pem, true),
-      client_buffer_(kBufferCapacity, kDefaultBufferSize),
-      server_buffer_(kBufferCapacity, kDefaultBufferSize),
-      packet_size_(1000), count_(0), sent_(0) {
-  }
+                           const std::string& private_key_pem)
+      : SSLStreamAdapterTestBase(cert_pem, private_key_pem, true),
+        client_buffer_(kBufferCapacity, kDefaultBufferSize),
+        server_buffer_(kBufferCapacity, kDefaultBufferSize),
+        packet_size_(1000),
+        count_(0),
+        sent_(0) {}
 
   void CreateStreams() override {
     client_stream_ =
@@ -830,7 +811,7 @@ class SSLStreamAdapterTestDTLS
   }
 
   void WriteData() override {
-    unsigned char *packet = new unsigned char[1600];
+    unsigned char* packet = new unsigned char[1600];
 
     while (sent_ < count_) {
       unsigned int rand_state = sent_;
@@ -855,10 +836,10 @@ class SSLStreamAdapterTestDTLS
       }
     }
 
-    delete [] packet;
+    delete[] packet;
   }
 
-  void ReadData(rtc::StreamInterface *stream) override {
+  void ReadData(rtc::StreamInterface* stream) override {
     unsigned char buffer[2000];
     size_t bread;
     int err2;
@@ -906,7 +887,7 @@ class SSLStreamAdapterTestDTLS
       WAIT(false, 2000);
       EXPECT_EQ(0U, received_.size());
     } else if (loss_ == 0) {
-        EXPECT_EQ_WAIT(static_cast<size_t>(sent_), received_.size(), 1000);
+      EXPECT_EQ_WAIT(static_cast<size_t>(sent_), received_.size(), 1000);
     } else {
       RTC_LOG(LS_INFO) << "Sent " << sent_ << " packets; received "
                        << received_.size();
@@ -941,9 +922,8 @@ rtc::StreamResult SSLDummyStreamBase::Write(const void* data, size_t data_len,
 
 class SSLStreamAdapterTestDTLSFromPEMStrings : public SSLStreamAdapterTestDTLS {
  public:
-  SSLStreamAdapterTestDTLSFromPEMStrings() :
-      SSLStreamAdapterTestDTLS(kCERT_PEM, kRSA_PRIVATE_KEY_PEM) {
-  }
+  SSLStreamAdapterTestDTLSFromPEMStrings()
+      : SSLStreamAdapterTestDTLS(kCERT_PEM, kRSA_PRIVATE_KEY_PEM) {}
 };
 
 class SSLStreamAdapterTestDTLSCertChain : public SSLStreamAdapterTestDTLS {
@@ -994,7 +974,7 @@ TEST_F(SSLStreamAdapterTestDTLSCertChain, TruncatedHandshake) {
   std::unique_ptr<rtc::SSLCertificate> peer_cert =
       client_ssl_->GetPeerCertificate();
   ASSERT_NE(peer_cert->GetChain(), nullptr);
-  ASSERT_EQ(peer_cert->GetChain()->GetSize(), 2u);
+  ASSERT_EQ(peer_cert->GetChain()->GetSize(), 3u);
   ASSERT_EQ(peer_cert->GetChain()->Get(0).ToPEMString(), kCACert);
   ASSERT_EQ(peer_cert->GetChain()->Get(1).ToPEMString(), kCERT_PEM);
 }
@@ -1289,28 +1269,28 @@ TEST_P(SSLStreamAdapterTestDTLS, TestDTLSSrtpKeyAndSaltLengths) {
   int key_len;
   int salt_len;
 
-  ASSERT_FALSE(rtc::GetSrtpKeyAndSaltLengths(
-      rtc::SRTP_INVALID_CRYPTO_SUITE, &key_len, &salt_len));
+  ASSERT_FALSE(rtc::GetSrtpKeyAndSaltLengths(rtc::SRTP_INVALID_CRYPTO_SUITE,
+                                             &key_len, &salt_len));
 
-  ASSERT_TRUE(rtc::GetSrtpKeyAndSaltLengths(
-      rtc::SRTP_AES128_CM_SHA1_32, &key_len, &salt_len));
-  ASSERT_EQ(128/8, key_len);
-  ASSERT_EQ(112/8, salt_len);
+  ASSERT_TRUE(rtc::GetSrtpKeyAndSaltLengths(rtc::SRTP_AES128_CM_SHA1_32,
+                                            &key_len, &salt_len));
+  ASSERT_EQ(128 / 8, key_len);
+  ASSERT_EQ(112 / 8, salt_len);
 
-  ASSERT_TRUE(rtc::GetSrtpKeyAndSaltLengths(
-      rtc::SRTP_AES128_CM_SHA1_80, &key_len, &salt_len));
-  ASSERT_EQ(128/8, key_len);
-  ASSERT_EQ(112/8, salt_len);
+  ASSERT_TRUE(rtc::GetSrtpKeyAndSaltLengths(rtc::SRTP_AES128_CM_SHA1_80,
+                                            &key_len, &salt_len));
+  ASSERT_EQ(128 / 8, key_len);
+  ASSERT_EQ(112 / 8, salt_len);
 
-  ASSERT_TRUE(rtc::GetSrtpKeyAndSaltLengths(
-      rtc::SRTP_AEAD_AES_128_GCM, &key_len, &salt_len));
-  ASSERT_EQ(128/8, key_len);
-  ASSERT_EQ(96/8, salt_len);
+  ASSERT_TRUE(rtc::GetSrtpKeyAndSaltLengths(rtc::SRTP_AEAD_AES_128_GCM,
+                                            &key_len, &salt_len));
+  ASSERT_EQ(128 / 8, key_len);
+  ASSERT_EQ(96 / 8, salt_len);
 
-  ASSERT_TRUE(rtc::GetSrtpKeyAndSaltLengths(
-      rtc::SRTP_AEAD_AES_256_GCM, &key_len, &salt_len));
-  ASSERT_EQ(256/8, key_len);
-  ASSERT_EQ(96/8, salt_len);
+  ASSERT_TRUE(rtc::GetSrtpKeyAndSaltLengths(rtc::SRTP_AEAD_AES_256_GCM,
+                                            &key_len, &salt_len));
+  ASSERT_EQ(256 / 8, key_len);
+  ASSERT_EQ(96 / 8, salt_len);
 };
 
 // Test an exporter
@@ -1320,16 +1300,14 @@ TEST_P(SSLStreamAdapterTestDTLS, TestDTLSExporter) {
   unsigned char server_out[20];
 
   bool result;
-  result = ExportKeyingMaterial(kExporterLabel,
-                                kExporterContext, kExporterContextLen,
-                                true, true,
-                                client_out, sizeof(client_out));
+  result = ExportKeyingMaterial(kExporterLabel, kExporterContext,
+                                kExporterContextLen, true, true, client_out,
+                                sizeof(client_out));
   ASSERT_TRUE(result);
 
-  result = ExportKeyingMaterial(kExporterLabel,
-                                kExporterContext, kExporterContextLen,
-                                true, false,
-                                server_out, sizeof(server_out));
+  result = ExportKeyingMaterial(kExporterLabel, kExporterContext,
+                                kExporterContextLen, true, false, server_out,
+                                sizeof(server_out));
   ASSERT_TRUE(result);
 
   ASSERT_TRUE(!memcmp(client_out, server_out, sizeof(client_out)));

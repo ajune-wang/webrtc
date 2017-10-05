@@ -38,7 +38,6 @@
 
 namespace {
   bool g_use_time_callback_for_testing = false;
-  const int kMaxSupportedCertChainDepth = 3;
 }
 
 namespace rtc {
@@ -1115,17 +1114,6 @@ int OpenSSLStreamAdapter::SSLVerifyCallback(X509_STORE_CTX* store, void* arg) {
 #if defined(OPENSSL_IS_BORINGSSL)
   // Record the peer's certificate.
   STACK_OF(X509)* chain = SSL_get_peer_full_cert_chain(ssl);
-  if (sk_X509_num(chain) >= kMaxSupportedCertChainDepth) {
-    LOG(LS_INFO) << "Certificate chain depth " << sk_X509_num(chain)
-                 << "Ignore chained certificate higher than "
-                 << kMaxSupportedCertChainDepth;
-    for (size_t i = sk_X509_num(chain) - 1; i >= kMaxSupportedCertChainDepth;
-         --i) {
-      X509* cert = sk_X509_delete(chain, i);
-      X509_free(cert);
-    }
-  }
-
   stream->peer_certificate_.reset(new OpenSSLCertificate(chain));
 #else
   // Record the peer's certificate.

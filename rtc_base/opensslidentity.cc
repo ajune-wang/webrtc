@@ -604,12 +604,13 @@ bool OpenSSLIdentity::ConfigureIdentity(SSL_CTX* ctx) {
     LogSSLErrors("Configuring key and certificate");
     return false;
   }
-  // If Chains are available, use it.
+  // If a chain is available, use it.
   std::unique_ptr<SSLCertChain> cert_chain = certificate_->GetChain();
-  for (size_t i = 0; cert_chain != nullptr && i < cert_chain->GetSize(); ++i) {
+  size_t chain_size = (cert_chain == nullptr) ? 0 : cert_chain->GetSize();
+  for (size_t i = 0; i < chain_size; ++i) {
     const OpenSSLCertificate* cert =
         reinterpret_cast<const OpenSSLCertificate*>(&cert_chain->Get(i));
-    if (!SSL_CTX_add_extra_chain_cert(ctx, cert->GetX509Reference())) {
+    if (SSL_CTX_add_extra_chain_cert(ctx, cert->GetX509Reference()) != 1) {
       LogSSLErrors("Configuring intermediate certificate");
       return false;
     }

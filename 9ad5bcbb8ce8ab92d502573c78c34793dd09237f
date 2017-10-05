@@ -22,6 +22,30 @@
       "revId": "9ad5bcbb8ce8ab92d502573c78c34793dd09237f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33aec715_bc7f2a61",
+        "filename": "test/fuzzers/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-05T12:09:36Z",
+      "side": 1,
+      "message": "I\u0027d rather not add back a dependency on build_with_chromium into webrtc build files.\n\nIf there\u0027s a way to adjust chromium\u0027s .gn file to tweak the value of rtc_link_task_queue_impl, or adjust dependencies for fuzzers in some other way, that might work.\n\nThe way I understand these things, even in a fuzzer build of chromium, most of the produced executables, including the main chrome executable, should link with chromium\u0027s TaskQueue implementation. So then we can\u0027t set rtc_link_task_queue to true, it\u0027s too global.\n\nCurrent cl ensures that webrtc fuzzer executables use webrtc\u0027s TaskQueue implementation. That makes sense to me. They probably used to link chromium\u0027s implementation from webrtc_overrides. \n\nIf we really want to keep doing that, we\u0027ll need to handle this in some other way, injecting a dependency on chromium\u0027s target webrtc_overrides:task_queue_impl into webrtc\u0027s fuzzer targets.\nDon\u0027t know how to do that, but it seems messy. Such a change would need to go into the reland of https://chromium-review.googlesource.com/c/chromium/src/+/681814, which adds the target in question.",
+      "parentUuid": "15fe7dc4_0f75f2f3",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "9ad5bcbb8ce8ab92d502573c78c34793dd09237f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

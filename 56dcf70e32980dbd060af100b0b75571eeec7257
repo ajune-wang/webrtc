@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "35b8da92_672c695a",
+        "filename": "webrtc/api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-05T16:56:06Z",
+      "side": 1,
+      "message": "Ah. Well, RTCConfiguration members aren\u0027t allowed to be modified by default, so that shouldn\u0027t be a problem.\n\nSee the API documentation here: https://cs.chromium.org/chromium/src/third_party/webrtc/api/peerconnectioninterface.h?q\u003dpeerconnectioninterface.h\u0026dr\u003dCSs\u0026l\u003d734\n\nAnd how it\u0027s done:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peerconnection.cc?dr\u003dC\u0026l\u003d1142",
+      "parentUuid": "9e74a3c9_004e16d9",
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10f5e130_601a8b0b",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 1

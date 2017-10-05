@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9e74a3c9_004e16d9",
+        "filename": "webrtc/api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-05T16:53:03Z",
+      "side": 1,
+      "message": "My main point is that we may not want to allow most of the objects to be changed runtime, and for some it may not even make sense to do so.",
+      "parentUuid": "005417fa_5267df36",
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10f5e130_601a8b0b",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 1

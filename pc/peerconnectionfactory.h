@@ -86,8 +86,6 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   bool StartAecDump(rtc::PlatformFile file, int64_t max_size_bytes) override;
   void StopAecDump() override;
   // TODO(ivoc) Remove after Chrome is updated.
-  bool StartRtcEventLog(rtc::PlatformFile file) override { return false; }
-  // TODO(ivoc) Remove after Chrome is updated.
   bool StartRtcEventLog(rtc::PlatformFile file,
                         int64_t max_size_bytes) override {
     return false;

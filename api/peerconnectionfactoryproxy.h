@@ -68,7 +68,6 @@ BEGIN_SIGNALING_PROXY_MAP(PeerConnectionFactory)
   PROXY_METHOD0(void, StopAecDump)
   // TODO(ivoc): Remove the StartRtcEventLog and StopRtcEventLog functions as
   // soon as they are removed from PeerConnectionFactoryInterface.
-  PROXY_METHOD1(bool, StartRtcEventLog, rtc::PlatformFile)
   PROXY_METHOD2(bool, StartRtcEventLog, rtc::PlatformFile, int64_t)
   PROXY_METHOD0(void, StopRtcEventLog)
 END_PROXY_MAP()

@@ -70,6 +70,30 @@
       "revId": "80457889b8d295d7af87c2b15fa8e1dbba36f83a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8af2053_d4840ea1",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-05T02:25:56Z",
+      "side": 1,
+      "message": "I made this comment before I saw Sami\u0027s email and the \"Pointer handling and JNI\" section of his doc. If we\u0027re settling on storing these objects in lightweight wrappers, that\u0027s fine with me.",
+      "parentUuid": "bcb3268e_2b84f0f0",
+      "range": {
+        "startLine": 308,
+        "startChar": 16,
+        "endLine": 308,
+        "endChar": 36
+      },
+      "revId": "80457889b8d295d7af87c2b15fa8e1dbba36f83a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

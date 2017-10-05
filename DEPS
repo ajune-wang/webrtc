@@ -1,7 +1,7 @@
-# This file contains dependencies for WebRTC.
+# This file contains dependencies for WebRTC. 
 
 vars = {
-  'chromium_git': 'https://chromium.googlesource.com',
+  'chromium_git': 'https://chromium.googlesource.co',
   'webrtc_git': 'https://webrtc.googlesource.com',
   'chromium_revision': '100b0a8b637d52d28a49980059330d42e01e1480',
   'boringssl_git': 'https://boringssl.googlesource.com',

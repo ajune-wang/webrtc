@@ -14,6 +14,7 @@
 #include <map>
 #include <vector>
 
+#include "call/rtp_packet_sink_interface.h"
 #include "modules/include/module.h"
 #include "modules/include/module_common_types.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
@@ -55,16 +56,12 @@ class StreamStatistician {
   virtual bool IsPacketInOrder(uint16_t sequence_number) const = 0;
 };
 
-class ReceiveStatistics : public ReceiveStatisticsProvider {
+class ReceiveStatistics : public ReceiveStatisticsProvider,
+                          public RtpPacketSinkInterface {
  public:
   ~ReceiveStatistics() override = default;
 
   static ReceiveStatistics* Create(Clock* clock);
-
-  // Updates the receive statistics with this packet.
-  virtual void IncomingPacket(const RTPHeader& rtp_header,
-                              size_t packet_length,
-                              bool retransmitted) = 0;
 
   // Increment counter for number of FEC packets received.
   virtual void FecPacketReceived(const RTPHeader& header,

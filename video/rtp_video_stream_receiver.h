@@ -161,8 +161,6 @@ class RtpVideoStreamReceiver : public RtpData,
                                          size_t packet_length,
                                          const RTPHeader& header);
   void NotifyReceiverOfFecPacket(const RTPHeader& header);
-  bool IsPacketInOrder(const RTPHeader& header) const;
-  bool IsPacketRetransmitted(const RTPHeader& header, bool in_order) const;
   void UpdateHistograms();
   bool IsRedEnabled() const;
   void InsertSpsPpsIntoTracker(uint8_t payload_type);

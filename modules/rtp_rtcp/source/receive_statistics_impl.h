@@ -23,7 +23,8 @@
 
 namespace webrtc {
 
-class StreamStatisticianImpl : public StreamStatistician {
+class StreamStatisticianImpl : public StreamStatistician,
+                               public RtpPacketSinkInterface {
  public:
   StreamStatisticianImpl(uint32_t ssrc,
                          Clock* clock,
@@ -43,9 +44,9 @@ class StreamStatisticianImpl : public StreamStatistician {
                                int64_t min_rtt) const override;
   bool IsPacketInOrder(uint16_t sequence_number) const override;
 
-  void IncomingPacket(const RTPHeader& rtp_header,
-                      size_t packet_length,
-                      bool retransmitted);
+  // Implement RtpPacketSinkInterface
+  void OnRtpPacket(const RtpPacketReceived& packet) override;
+
   void FecPacketReceived(const RTPHeader& header, size_t packet_length);
   void SetMaxReorderingThreshold(int max_reordering_threshold);
 
@@ -54,9 +55,7 @@ class StreamStatisticianImpl : public StreamStatistician {
   RtcpStatistics CalculateRtcpStatistics()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(stream_lock_);
   void UpdateJitter(const RTPHeader& header, NtpTime receive_time);
-  StreamDataCounters UpdateCounters(const RTPHeader& rtp_header,
-                                    size_t packet_length,
-                                    bool retransmitted);
+  StreamDataCounters UpdateCounters(const RtpPacketReceived& packet);
 
   const uint32_t ssrc_;
   Clock* const clock_;
@@ -103,10 +102,10 @@ class ReceiveStatisticsImpl : public ReceiveStatistics,
   // Implement ReceiveStatisticsProvider.
   std::vector<rtcp::ReportBlock> RtcpReportBlocks(size_t max_blocks) override;
 
+  // Implement RtpPacketSinkInterface
+  void OnRtpPacket(const RtpPacketReceived& packet) override;
+
   // Implement ReceiveStatistics.
-  void IncomingPacket(const RTPHeader& header,
-                      size_t packet_length,
-                      bool retransmitted) override;
   void FecPacketReceived(const RTPHeader& header,
                          size_t packet_length) override;
   StreamStatistician* GetStatistician(uint32_t ssrc) const override;

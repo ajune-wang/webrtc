@@ -26,7 +26,7 @@ class VoEBaseTest : public ::testing::Test {
   }
 
   ~VoEBaseTest() {
-    EXPECT_EQ(0, base_->Terminate());
+    base_->Terminate();
     EXPECT_EQ(1, base_->Release());
     EXPECT_TRUE(VoiceEngine::Delete(voe_));
   }
@@ -37,12 +37,8 @@ class VoEBaseTest : public ::testing::Test {
   rtc::scoped_refptr<AudioProcessing> apm_;
 };
 
-TEST_F(VoEBaseTest, InitWithExternalAudioDevice) {
-  EXPECT_EQ(0, base_->Init(&adm_, apm_.get()));
-}
-
 TEST_F(VoEBaseTest, CreateChannelAfterInit) {
-  EXPECT_EQ(0, base_->Init(&adm_, apm_.get(), nullptr));
+  base_->Init(&adm_, apm_.get(), nullptr);
   int channelID = base_->CreateChannel();
   EXPECT_NE(channelID, -1);
   EXPECT_EQ(0, base_->DeleteChannel(channelID));

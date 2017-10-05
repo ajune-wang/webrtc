@@ -95,13 +95,10 @@ class WEBRTC_DLLEXPORT VoEBase {
   // If NULL is passed for either of ADM or AudioDecoderFactory, VoiceEngine
   // will create its own. Returns -1 in case of an error, 0 otherwise.
   // TODO(ajm): Remove default NULLs.
-  virtual int Init(AudioDeviceModule* external_adm = NULL,
-                   AudioProcessing* external_apm = nullptr,
-                   const rtc::scoped_refptr<AudioDecoderFactory>&
-                       decoder_factory = nullptr) = 0;
-  // This method is WIP - DO NOT USE!
-  // Returns NULL before Init() is called.
-  virtual AudioDeviceModule* audio_device_module() = 0;
+  virtual void Init(AudioDeviceModule* audio_device,
+                    AudioProcessing* audio_processing,
+                    const rtc::scoped_refptr<AudioDecoderFactory>&
+                        decoder_factory) = 0;
 
   // This method is WIP - DO NOT USE!
   // Returns NULL before Init() is called.
@@ -109,7 +106,7 @@ class WEBRTC_DLLEXPORT VoEBase {
 
   // Terminates all VoiceEngine functions and releases allocated resources.
   // Returns 0.
-  virtual int Terminate() = 0;
+  virtual void Terminate() = 0;
 
   // Creates a new channel and allocates the required resources for it.
   // The second version accepts a |config| struct which includes an Audio Coding

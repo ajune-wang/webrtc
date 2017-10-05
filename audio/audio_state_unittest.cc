@@ -26,21 +26,8 @@ const int kBytesPerSample = 2;
 
 struct ConfigHelper {
   ConfigHelper() : audio_mixer(AudioMixerImpl::Create()) {
-    EXPECT_CALL(mock_voice_engine, audio_device_module())
-        .Times(testing::AtLeast(1));
     EXPECT_CALL(mock_voice_engine, audio_transport())
         .WillRepeatedly(testing::Return(&audio_transport));
-
-    auto device = static_cast<MockAudioDeviceModule*>(
-        voice_engine().audio_device_module());
-
-    // Populate the audio transport proxy pointer to the most recent
-    // transport connected to the Audio Device.
-    ON_CALL(*device, RegisterAudioCallback(testing::_))
-        .WillByDefault(testing::Invoke([this](AudioTransport* transport) {
-          registered_audio_transport = transport;
-          return 0;
-        }));
 
     audio_state_config.voice_engine = &mock_voice_engine;
     audio_state_config.audio_mixer = audio_mixer;

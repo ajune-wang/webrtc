@@ -17,6 +17,7 @@
 namespace webrtc {
 
 class AudioProcessing;
+class AudioTransport;
 class VoiceEngine;
 
 // WORK IN PROGRESS
@@ -43,6 +44,7 @@ class AudioState : public rtc::RefCountInterface {
   };
 
   virtual AudioProcessing* audio_processing() = 0;
+  virtual AudioTransport* audio_transport() = 0;
 
   // TODO(solenberg): Replace scoped_refptr with shared_ptr once we can use it.
   static rtc::scoped_refptr<AudioState> Create(

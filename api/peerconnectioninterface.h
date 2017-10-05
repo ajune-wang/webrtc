@@ -615,9 +615,19 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     return std::vector<rtc::scoped_refptr<RtpReceiverInterface>>();
   }
 
+  // Deprecated - please use version below.
+  //
+  // This is an older stats implementation that uses non-standard stats
+  // identifiers and structures. It's not being actively maintained, so it's
+  // recommended to use the version below instead.
+  //
+  // If you need a stat that's available in the old implementation but not the
+  // new implementation, please file a bug (or comment on the bug if one
+  // already exists).
   virtual bool GetStats(StatsObserver* observer,
                         MediaStreamTrackInterface* track,
                         StatsOutputLevel level) = 0;
+
   // Gets stats using the new stats collection API, see webrtc/api/stats/. These
   // will replace old stats collection API when the new API has matured enough.
   // TODO(hbos): Default implementation that does nothing only exists as to not

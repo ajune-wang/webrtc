@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "68a84b7a_9ae81cc2",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-05T11:13:59Z",
+      "side": 1,
+      "message": "It depends on what we want to test. I would be more happy if the videoengine and the tests didn\u0027t have any codec specific knowledge (I know this is far from the case today) and we could use codec names like \"foo\" instead. I\u0027m trying to rip out the internal SW codecs so soon we won\u0027t have any internal support for H264, and then we can remove a lot of stuff from here.",
+      "parentUuid": "ccb4baf0_f569e18b",
+      "range": {
+        "startLine": 569,
+        "startChar": 11,
+        "endLine": 569,
+        "endChar": 51
+      },
+      "revId": "6f3f066377977dd97f38c5313f65972c2ef2308d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fc39c9f4_8340e1e9",
         "filename": "modules/video_coding/codecs/h264/h264.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-05T08:40:27Z",
       "side": 1,
       "message": "So CBP is a true subset of all other profiles here?",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 51
+      },
+      "revId": "6f3f066377977dd97f38c5313f65972c2ef2308d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd1bfbf5_0a94f578",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-05T11:13:59Z",
+      "side": 1,
+      "message": "Yes. I read the H264 spec from https://www.itu.int/rec/T-REC-H.264-201704-I/en.\n\nThe main points are this:\nConformance of a bitstream to the Constrained Baseline profile is indicated by profile_idc being equal to 66 with constraint_set1_flag being equal to 1.\n\nAnd then for the other profiles (e.g. High) it says:\nDecoders conforming to the High profile at a specific level shall be capable of decoding all bitstreams in which either or both of the following conditions are true:\n * (profile_idc is equal to 77 or constraint_set1_flag is equal to 1) and the combination of level_idc and constraint_set3_flag represent a level less than or equal to the specified level,\n * profile_idc is equal to 100 and level_idc represents a level less than or equal to the specified level.\n\nThe key here is constraint_set1_flag for CBP and decoders conforming to some of the higher profiles are required to be able to decode these bitstreams.\n\nI reduced the number of profiles I added, because we are kind of running out of payload types... Supporting High and Baseline is the most critical for now. We can consider adding more profiles in the future.",
+      "parentUuid": "fc39c9f4_8340e1e9",
       "range": {
         "startLine": 66,
         "startChar": 5,

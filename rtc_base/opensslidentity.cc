@@ -27,6 +27,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/openssl.h"
 #include "rtc_base/openssldigest.h"
+#include "rtc_base/ptr_util.h"
 
 namespace rtc {
 
@@ -279,16 +280,18 @@ static void PrintCert(X509* x509) {
 }
 #endif
 
-OpenSSLCertificate::OpenSSLCertificate(X509* x509) : x509_(x509) {
-  AddReference(x509_);
+OpenSSLCertificate::OpenSSLCertificate(X509* x509) {
+  x509_stack_ = sk_X509_new_null();
+  sk_X509_push(x509_stack_, x509);
+  AddReference(x509);
 }
 
 OpenSSLCertificate::OpenSSLCertificate(STACK_OF(X509) * chain) {
-  x509_ = sk_X509_value(chain, 0);
-  AddReference(x509_);
-  for (size_t i = 1; i < sk_X509_num(chain); ++i) {
+  x509_stack_ = sk_X509_new_null();
+  for (size_t i = 0; i < sk_X509_num(chain); ++i) {
     X509* x509 = sk_X509_value(chain, i);
-    cert_chain_.push_back(new OpenSSLCertificate(x509));
+    AddReference(x509);
+    sk_X509_push(x509_stack_, x509);
   }
 }
 
@@ -327,10 +330,10 @@ OpenSSLCertificate* OpenSSLCertificate::FromPEMString(
   }
   BIO_free(bio);  // Frees the BIO, but not the pointed-to string.
 
-  if (sk_X509_num(x509s) == 0)
-    return nullptr;
-
-  OpenSSLCertificate* ret = new OpenSSLCertificate(x509s);
+  OpenSSLCertificate* ret = nullptr;
+  if (sk_X509_num(x509s) != 0) {
+    ret = new OpenSSLCertificate(x509s);
+  }
   sk_X509_pop_free(x509s, X509_free);
   return ret;
 }
@@ -339,7 +342,7 @@ OpenSSLCertificate* OpenSSLCertificate::FromPEMString(
 // and before CleanupSSL.
 bool OpenSSLCertificate::GetSignatureDigestAlgorithm(
     std::string* algorithm) const {
-  int nid = OBJ_obj2nid(x509_->sig_alg->algorithm);
+  int nid = OBJ_obj2nid(GetLeafCertificate()->sig_alg->algorithm);
   switch (nid) {
     case NID_md5WithRSA:
     case NID_md5WithRSAEncryption:
@@ -381,18 +384,21 @@ bool OpenSSLCertificate::GetSignatureDigestAlgorithm(
 }
 
 std::unique_ptr<SSLCertChain> OpenSSLCertificate::GetChain() const {
-  if (cert_chain_.empty()) {
+  if (sk_X509_num(x509_stack_) <= 1) {
     return nullptr;
   }
-  std::unique_ptr<SSLCertChain> chain(new SSLCertChain(cert_chain_));
-  return chain;
+  std::vector<std::unique_ptr<SSLCertificate>> certs;
+  for (size_t i = 1; i < sk_X509_num(x509_stack_); ++i) {
+    certs.emplace_back(new OpenSSLCertificate(sk_X509_value(x509_stack_, i)));
+  }
+  return rtc::MakeUnique<SSLCertChain>(std::move(certs));
 }
 
 bool OpenSSLCertificate::ComputeDigest(const std::string& algorithm,
                                        unsigned char* digest,
                                        size_t size,
                                        size_t* length) const {
-  return ComputeDigest(x509_, algorithm, digest, size, length);
+  return ComputeDigest(GetLeafCertificate(), algorithm, digest, size, length);
 }
 
 bool OpenSSLCertificate::ComputeDigest(const X509* x509,
@@ -417,28 +423,19 @@ bool OpenSSLCertificate::ComputeDigest(const X509* x509,
 }
 
 OpenSSLCertificate::~OpenSSLCertificate() {
-  X509_free(x509_);
-  for (SSLCertificate* cert : cert_chain_) {
-    delete cert;
-  }
+  sk_X509_pop_free(x509_stack_, X509_free);
 }
 
 X509* OpenSSLCertificate::GetX509Reference() const {
-  if (x509_ != nullptr) {
-    AddReference(x509_);
+  X509* x509 = GetLeafCertificate();
+  if (x509 != nullptr) {
+    AddReference(x509);
   }
-  return x509_;
+  return x509;
 }
 
 OpenSSLCertificate* OpenSSLCertificate::GetReference() const {
-  STACK_OF(X509)* stack_x509 = sk_X509_new_null();
-  sk_X509_push(stack_x509, x509_);
-  for (auto cert_it = cert_chain_.begin(); cert_it != cert_chain_.end();
-       ++cert_it) {
-    OpenSSLCertificate* cert = reinterpret_cast<OpenSSLCertificate*>(*cert_it);
-    sk_X509_push(stack_x509, cert->x509());
-  }
-  return new OpenSSLCertificate(stack_x509);
+  return new OpenSSLCertificate(x509_stack_);
 }
 
 std::string OpenSSLCertificate::ToPEMString() const {
@@ -446,20 +443,17 @@ std::string OpenSSLCertificate::ToPEMString() const {
   if (!bio) {
     FATAL() << "unreachable code";
   }
-  if (!PEM_write_bio_X509(bio, x509_)) {
-    BIO_free(bio);
-    FATAL() << "unreachable code";
+  for (size_t i = 0; i < sk_X509_num(x509_stack_); ++i) {
+    if (!PEM_write_bio_X509(bio, sk_X509_value(x509_stack_, i))) {
+      BIO_free(bio);
+      FATAL() << "unreachable code";
+    }
   }
   BIO_write(bio, "\0", 1);
   char* buffer;
   BIO_get_mem_data(bio, &buffer);
   std::string ret(buffer);
   BIO_free(bio);
-  for (size_t i = 0; i < cert_chain_.size(); ++i) {
-    OpenSSLCertificate* cert =
-        reinterpret_cast<OpenSSLCertificate*>(cert_chain_[i]);
-    ret += cert->ToPEMString();
-  }
   return ret;
 }
 
@@ -472,9 +466,11 @@ void OpenSSLCertificate::ToDER(Buffer* der_buffer) const {
   if (!bio) {
     FATAL() << "unreachable code";
   }
-  if (!i2d_X509_bio(bio, x509_)) {
-    BIO_free(bio);
-    FATAL() << "unreachable code";
+  for (size_t i = 0; i < sk_X509_num(x509_stack_); ++i) {
+    if (!i2d_X509_bio(bio, sk_X509_value(x509_stack_, i))) {
+      BIO_free(bio);
+      FATAL() << "unreachable code";
+    }
   }
   char* data;
   size_t length = BIO_get_mem_data(bio, &data);
@@ -491,20 +487,21 @@ void OpenSSLCertificate::AddReference(X509* x509) const {
 #endif
 }
 
+X509* OpenSSLCertificate::GetLeafCertificate() const {
+  return sk_X509_value(x509_stack_, 0);
+}
+
 bool OpenSSLCertificate::operator==(const OpenSSLCertificate& other) const {
-  if (this->cert_chain_.size() != other.cert_chain_.size()) {
+  if (sk_X509_num(x509_stack_) != sk_X509_num(other.x509_stack_)) {
     return false;
   }
-  for (size_t i = 0; i < cert_chain_.size(); ++i) {
-    OpenSSLCertificate* cert =
-        reinterpret_cast<OpenSSLCertificate*>(cert_chain_[i]);
-    OpenSSLCertificate* other_cert =
-        reinterpret_cast<OpenSSLCertificate*>(other.cert_chain_[i]);
-    if (*cert != *other_cert) {
+  for (size_t i = 0; i < sk_X509_num(x509_stack_); ++i) {
+    if (X509_cmp(sk_X509_value(x509_stack_, i),
+                 sk_X509_value(other.x509_stack_, i)) != 0) {
       return false;
     }
   }
-  return X509_cmp(this->x509_, other.x509_) == 0;
+  return true;
 }
 
 bool OpenSSLCertificate::operator!=(const OpenSSLCertificate& other) const {
@@ -513,7 +510,7 @@ bool OpenSSLCertificate::operator!=(const OpenSSLCertificate& other) const {
 
 // Documented in sslidentity.h.
 int64_t OpenSSLCertificate::CertificateExpirationTime() const {
-  ASN1_TIME* expire_time = X509_get_notAfter(x509_);
+  ASN1_TIME* expire_time = X509_get_notAfter(GetLeafCertificate());
   bool long_format;
 
   if (expire_time->type == V_ASN1_UTCTIME) {

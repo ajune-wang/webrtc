@@ -110,7 +110,7 @@ TEST_F(OpenSSLCertificateTest, ThreeCert) {
   auto certificate =
       rtc::WrapUnique<OpenSSLCertificate>(new OpenSSLCertificate(x509s));
   std::unique_ptr<SSLCertChain> chain = certificate->GetChain();
-  ASSERT_EQ(chain->GetSize(), (size_t)2);
+  ASSERT_EQ(chain->GetSize(), 2u);
   ASSERT_EQ(chain->Get(0).ToPEMString(), kCert1);
   ASSERT_EQ(chain->Get(1).ToPEMString(), kCert2);
 }
@@ -141,6 +141,6 @@ TEST_F(OpenSSLCertificateTest, FromPEMString) {
   auto chain_cert2 = rtc::WrapUnique<OpenSSLCertificate>(
       OpenSSLCertificate::FromPEMString(std::string(kCert1) + kCert2));
   ASSERT_EQ(cert1->ToPEMString(), kCert1);
-  ASSERT_EQ(chain_cert2->GetChain()->GetSize(), (size_t)1);
+  ASSERT_EQ(chain_cert2->GetChain()->GetSize(), 1u);
   ASSERT_EQ(chain_cert2->GetChain()->Get(0).ToPEMString(), kCert2);
 }

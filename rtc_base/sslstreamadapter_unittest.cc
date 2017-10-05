@@ -971,19 +971,32 @@ class SSLStreamAdapterTestDTLSCertChain : public SSLStreamAdapterTestDTLS {
     }
 
     client_ssl_->SetIdentity(client_identity_);
-    server_identity_ = rtc::SSLIdentity::FromPEMStrings(
-        kLeafKey, std::string(kLeafCert) + kCACert);
-    server_ssl_->SetIdentity(server_identity_);
   }
 };
 
-TEST_F(SSLStreamAdapterTestDTLSCertChain, Handshake) {
+TEST_F(SSLStreamAdapterTestDTLSCertChain, CorrectHandshake) {
+  server_identity_ = rtc::SSLIdentity::FromPEMStrings(
+      kLeafKey, std::string(kLeafCert) + kCACert);
+  server_ssl_->SetIdentity(server_identity_);
   TestHandshake();
   std::unique_ptr<rtc::SSLCertificate> peer_cert =
       client_ssl_->GetPeerCertificate();
   ASSERT_NE(peer_cert->GetChain(), nullptr);
-  ASSERT_EQ(peer_cert->GetChain()->GetSize(), (size_t)1);
+  ASSERT_EQ(peer_cert->GetChain()->GetSize(), 1u);
   ASSERT_EQ(peer_cert->GetChain()->Get(0).ToPEMString(), kCACert);
+}
+
+TEST_F(SSLStreamAdapterTestDTLSCertChain, TruncatedHandshake) {
+  server_identity_ = rtc::SSLIdentity::FromPEMStrings(
+      kLeafKey, std::string(kLeafCert) + kCACert + kCERT_PEM + kCERT_PEM);
+  server_ssl_->SetIdentity(server_identity_);
+  TestHandshake();
+  std::unique_ptr<rtc::SSLCertificate> peer_cert =
+      client_ssl_->GetPeerCertificate();
+  ASSERT_NE(peer_cert->GetChain(), nullptr);
+  ASSERT_EQ(peer_cert->GetChain()->GetSize(), 2u);
+  ASSERT_EQ(peer_cert->GetChain()->Get(0).ToPEMString(), kCACert);
+  ASSERT_EQ(peer_cert->GetChain()->Get(1).ToPEMString(), kCERT_PEM);
 }
 
 // Basic tests: TLS

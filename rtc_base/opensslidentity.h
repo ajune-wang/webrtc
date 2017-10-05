@@ -75,7 +75,7 @@ class OpenSSLCertificate : public SSLCertificate {
 
   OpenSSLCertificate* GetReference() const override;
 
-  X509* x509() const { return x509_; }
+  X509* x509() const { return GetLeafCertificate(); }
   X509* GetX509Reference() const;
 
   std::string ToPEMString() const override;
@@ -103,10 +103,9 @@ class OpenSSLCertificate : public SSLCertificate {
 
  private:
   void AddReference(X509* x509) const;
+  X509* GetLeafCertificate() const;
 
-  X509* x509_;
-  // Non-leaf certificate chain.
-  std::vector<SSLCertificate*> cert_chain_;
+  STACK_OF(X509) * x509_stack_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(OpenSSLCertificate);
 };

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f337df9_c69cefba",
+        "filename": "sdk/objc/Framework/UnitTests/RTCAudioSessionTest.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-05T08:21:42Z",
+      "side": 1,
+      "message": "We want to test only public interfaces. I think in this case it makes sense but keep it in mind for future use cases.",
+      "revId": "e4738a9f5fc9269ada2e381d7be66d0d303ea756",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

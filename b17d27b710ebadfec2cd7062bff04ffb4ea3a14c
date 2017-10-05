@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "f3124199_39499e35",
+        "filename": "tools_webrtc/android/release_aar.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-10-05T12:58:14Z",
+      "side": 1,
+      "message": "I\u0027d say that file is wrong as well. There should be one extra line break before SCRIPT_DIR.",
+      "parentUuid": "532582dc_024b844f",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 10
+      },
+      "revId": "b17d27b710ebadfec2cd7062bff04ffb4ea3a14c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fff8af7_812cc926",
         "filename": "tools_webrtc/android/release_aar.py",
         "patchSetId": 4
@@ -187,6 +211,30 @@
       "revId": "b17d27b710ebadfec2cd7062bff04ffb4ea3a14c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51cb2b2b_7160c42f",
+        "filename": "tools_webrtc/android/release_aar.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-10-05T12:58:14Z",
+      "side": 1,
+      "message": "I see, that makes sense.",
+      "parentUuid": "e5475491_6cb5a87e",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "b17d27b710ebadfec2cd7062bff04ffb4ea3a14c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

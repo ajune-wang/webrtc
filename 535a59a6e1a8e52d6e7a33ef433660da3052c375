@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3548932_abdf9494",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-05T11:46:18Z",
+      "side": 1,
+      "message": "WEBRTC_USE_ is a more common prefix for #defines in the C++ code. On the other hand, rtc_ is used as a prefix in gn files. Not sure where it is best to be inconsistent.",
+      "range": {
+        "startLine": 168,
+        "startChar": 22,
+        "endLine": 168,
+        "endChar": 38
+      },
+      "revId": "535a59a6e1a8e52d6e7a33ef433660da3052c375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

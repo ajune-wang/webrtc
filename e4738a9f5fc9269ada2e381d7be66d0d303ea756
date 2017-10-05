@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6d81b63a_db5cd2da",
+        "filename": "sdk/objc/Framework/Classes/Audio/RTCAudioSession.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2017-10-05T10:45:17Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "140494de_295b8dc6",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 36
+      },
+      "revId": "e4738a9f5fc9269ada2e381d7be66d0d303ea756",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f337df9_c69cefba",
         "filename": "sdk/objc/Framework/UnitTests/RTCAudioSessionTest.mm",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2017-10-05T08:21:42Z",
       "side": 1,
       "message": "We want to test only public interfaces. I think in this case it makes sense but keep it in mind for future use cases.",
+      "revId": "e4738a9f5fc9269ada2e381d7be66d0d303ea756",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b11fe62b_d1936379",
+        "filename": "sdk/objc/Framework/UnitTests/RTCAudioSessionTest.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2017-10-05T10:45:17Z",
+      "side": 1,
+      "message": "Agreed. The best approach would be to wrap AVAudioSession into something like id\u003cRTCAVAudioSessionProtocol\u003e and inject that into [RTAudioSession initWithAudioSession:], but that requires substantial changes.",
+      "parentUuid": "1f337df9_c69cefba",
       "revId": "e4738a9f5fc9269ada2e381d7be66d0d303ea756",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

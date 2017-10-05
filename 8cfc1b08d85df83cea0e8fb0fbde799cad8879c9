@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dc6ca5ff_ceda65b0",
+        "filename": "call/call.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-05T08:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2ce5592_d97505af",
+      "range": {
+        "startLine": 794,
+        "startChar": 0,
+        "endLine": 795,
+        "endChar": 42
+      },
+      "revId": "8cfc1b08d85df83cea0e8fb0fbde799cad8879c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8560f812_682cd8fb",
         "filename": "video/payload_router.cc",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-04T14:35:33Z",
       "side": 1,
       "message": "Here we are implicitly assuming that |ssrcs| is sorted in simulcast order. That should be fine with the current implementation, since |ssrcs| is set from the VideoSendStream::Config::Rtp struct. But can we add some test here, to avoid having a bad surprise in the future?\n\nI guess we can\u0027t get the SSRCs from the |rtp_modules|, since they are set later in the VideoSendStreamImpl ctor... :(",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 29
+      },
+      "revId": "8cfc1b08d85df83cea0e8fb0fbde799cad8879c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cc03de1_7d9b7e26",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-05T08:34:22Z",
+      "side": 1,
+      "message": "Added a comment. Will look into adding a test.",
+      "parentUuid": "8560f812_682cd8fb",
       "range": {
         "startLine": 137,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "89ec7d27_b9dff2bf",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-05T08:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6332281d_25958506",
+      "range": {
+        "startLine": 145,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 23
+      },
+      "revId": "8cfc1b08d85df83cea0e8fb0fbde799cad8879c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b26d0aff_5ab4d9fd",
         "filename": "video/payload_router.cc",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2017-10-04T14:35:33Z",
       "side": 1,
       "message": "Maybe add RTC_DCHECK_LT(stream_index, params_.size());",
+      "range": {
+        "startLine": 210,
+        "startChar": 2,
+        "endLine": 210,
+        "endChar": 51
+      },
+      "revId": "8cfc1b08d85df83cea0e8fb0fbde799cad8879c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f73a1bf_24f3b998",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-05T08:34:22Z",
+      "side": 1,
+      "message": "There is a check in the constructor:\nRTC_DCHECK_EQ(ssrcs.size(), rtp_modules.size());\nMaybe enough?",
+      "parentUuid": "b26d0aff_5ab4d9fd",
       "range": {
         "startLine": 210,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6cb62698_cf25e28f",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-05T08:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f0e3b3c_cb0f0474",
+      "range": {
+        "startLine": 211,
+        "startChar": 2,
+        "endLine": 211,
+        "endChar": 33
+      },
+      "revId": "8cfc1b08d85df83cea0e8fb0fbde799cad8879c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32a5496d_5f7fa425",
         "filename": "video/payload_router.h",
         "patchSetId": 7
@@ -137,6 +257,30 @@
       "revId": "8cfc1b08d85df83cea0e8fb0fbde799cad8879c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814ceea0_038e4349",
+        "filename": "video/payload_router.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-05T08:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32a5496d_5f7fa425",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 29
+      },
+      "revId": "8cfc1b08d85df83cea0e8fb0fbde799cad8879c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "461f26da_3516177c",
+        "filename": "api/peerconnectionfactoryproxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-05T15:50:03Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this TODO is still relevant, but I\u0027m keeping it around for now. Similarly for the other files.",
+      "revId": "809043f8808c048e4e393d1e6ff8aacf2bdddc4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

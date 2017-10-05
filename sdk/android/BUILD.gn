@@ -421,6 +421,7 @@ android_library("libjingle_peerconnection_java") {
     "api/org/webrtc/StatsReport.java",
     "api/org/webrtc/SurfaceTextureHelper.java",
     "api/org/webrtc/SurfaceViewRenderer.java",
+    "api/org/webrtc/TurnCustomizer.java",
     "api/org/webrtc/VideoCapturer.java",
     "api/org/webrtc/VideoCodecInfo.java",
     "api/org/webrtc/VideoCodecStatus.java",

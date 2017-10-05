@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "005417fa_5267df36",
+        "filename": "webrtc/api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-05T04:02:54Z",
+      "side": 1,
+      "message": "I don\u0027t follow your comment. What\u0027s the difference between doing:\n\npc \u003d pc_factory-\u003eCreatePeerConnection(config, ...);\npc-\u003eSetBitrateAllocationStrategy(strategy);\n\nAnd:\n\nconfig.bitrate_allocation_strategy \u003d strategy;\npc-\u003eSetBitrateAllocationStrategy(strategy);\n\nOr are you talking about when it needs to be changed post-construction?\n\nauto config \u003d pc-\u003eGetConfiguration();\nconfig.bitrate_allocation_strategy \u003d strategy;\npc-\u003eSetConfiguration(config);\n\nCopying an RTCConfiguration should be relatively cheap if that\u0027s what you\u0027re concerned about. And there are some practical benefits of this approach in general, besides it being a smaller API surface. Sometimes optimizations are possible when multiple things are being changed at once (fewer thread hops for instance). And sometimes the application *wants* multiple things to change in one atomic operation.",
+      "parentUuid": "fb4dd937_6c09ab04",
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10f5e130_601a8b0b",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 1

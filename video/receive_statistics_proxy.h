@@ -13,6 +13,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 #include "api/optional.h"
 #include "call/video_receive_stream.h"
@@ -94,6 +95,26 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   // Implements CallStatsObserver.
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
 
+  class HistogramPercentileCounter {
+   public:
+    // Values below |long_tail_boundary| are stored in the array.
+    // Values above - in the map.
+    explicit HistogramPercentileCounter(size_t long_tail_boundary);
+    void Add(uint32_t value);
+    void Remove(uint32_t value);
+    void Add(const HistogramPercentileCounter& other);
+    void AddMany(uint32_t value, int count);
+    // Argument in percents.
+    rtc::Optional<uint32_t> GetPercentile(uint8_t percentile);
+
+   private:
+    std::vector<int> histogram_low_;
+    std::map<uint32_t, int> histogram_high_;
+    size_t long_tail_boundary_;
+    size_t total_elements_;
+    size_t total_elements_low_;
+  };
+
  private:
   struct SampleCounter {
     SampleCounter() : sum(0), num_samples(0) {}
@@ -114,6 +135,8 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   };
 
   struct ContentSpecificStats {
+    ContentSpecificStats();
+
     void Add(const ContentSpecificStats& other);
 
     SampleCounter e2e_delay_counter;
@@ -124,6 +147,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
     SampleCounter received_height;
     SampleCounter qp_counter;
     FrameCounts frame_counts;
+    HistogramPercentileCounter interframe_delay_percentiles;
   };
 
   void UpdateHistograms() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);

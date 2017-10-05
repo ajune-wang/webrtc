@@ -287,12 +287,7 @@ OpenSSLCertificate::OpenSSLCertificate(X509* x509) {
 }
 
 OpenSSLCertificate::OpenSSLCertificate(STACK_OF(X509) * chain) {
-  x509_stack_ = sk_X509_new_null();
-  for (size_t i = 0; i < sk_X509_num(chain); ++i) {
-    X509* x509 = sk_X509_value(chain, i);
-    AddReference(x509);
-    sk_X509_push(x509_stack_, x509);
-  }
+  x509_stack_ = X509_chain_up_ref(chain);
 }
 
 OpenSSLCertificate* OpenSSLCertificate::Generate(
@@ -466,11 +461,9 @@ void OpenSSLCertificate::ToDER(Buffer* der_buffer) const {
   if (!bio) {
     FATAL() << "unreachable code";
   }
-  for (size_t i = 0; i < sk_X509_num(x509_stack_); ++i) {
-    if (!i2d_X509_bio(bio, sk_X509_value(x509_stack_, i))) {
-      BIO_free(bio);
-      FATAL() << "unreachable code";
-    }
+  if (!i2d_X509_bio(bio, sk_X509_value(x509_stack_, 0))) {
+    BIO_free(bio);
+    FATAL() << "unreachable code";
   }
   char* data;
   size_t length = BIO_get_mem_data(bio, &data);

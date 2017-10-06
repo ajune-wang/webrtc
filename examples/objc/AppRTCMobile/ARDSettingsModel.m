@@ -150,11 +150,11 @@ static NSArray<NSString *> *videoCodecsStaticValues() {
 #pragma mark -
 
 - (NSString *)defaultVideoResolutionSetting {
-  return [self availableVideoResolutions][0];
+  return [self availableVideoResolutions].firstObject;
 }
 
 - (NSString *)defaultVideoCodecSetting {
-  return videoCodecsStaticValues()[0];
+  return videoCodecsStaticValues().firstObject;
 }
 
 - (int)videoResolutionComponentAtIndex:(int)index inString:(NSString *)resolution {
@@ -169,10 +169,20 @@ static NSArray<NSString *> *videoCodecsStaticValues() {
 }
 
 - (void)registerStoreDefaults {
-  [ARDSettingsStore setDefaultsForVideoResolution:[self defaultVideoResolutionSetting]
+  NSString *defaultVideoResolutionSetting = [self defaultVideoResolutionSetting];
+  BOOL audioOnly = (defaultVideoResolutionSetting.length == 0);
+
+  // The iOS simulator doesn't provide any sort of camera capture
+  // support or emulation (http://goo.gl/rHAnC1) so don't bother
+  // trying to open a local stream.
+#if TARGET_IPHONE_SIMULATOR
+  audioOnly = YES;
+#endif
+
+  [ARDSettingsStore setDefaultsForVideoResolution:defaultVideoResolutionSetting
                                        videoCodec:[self defaultVideoCodecSetting]
                                           bitrate:nil
-                                        audioOnly:NO
+                                        audioOnly:audioOnly
                                     createAecDump:NO
                                useLevelController:NO
                              useManualAudioConfig:YES];

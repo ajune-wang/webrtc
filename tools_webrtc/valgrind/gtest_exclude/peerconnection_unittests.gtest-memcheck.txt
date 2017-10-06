@@ -6,4 +6,5 @@ PeerConnectionEndToEndTest.*
 PeerConnectionIceUnitTest.*
 PeerConnectionIntegrationTest.*
 PeerConnectionInterfaceTest.*
+PeerConnectionMediaUnitTest.*
 RTCStatsIntegrationTest.*

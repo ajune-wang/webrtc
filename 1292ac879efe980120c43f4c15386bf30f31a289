@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70a86871_d8fae18b",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1053,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T21:21:04Z",
+      "side": 1,
+      "message": "Personal preference, but this might be clearer with an explicit if statement:\n\nif (entry-\u003edestruction_timestamp()) {\n  RTC_DCHECK(!GetConnection(addr));\n  entry-\u003ereset_destruction_timestamp();\n} else {\n  RTC_DCHECK(GetConnection(addr));\n}\n\nAlso then the comments could be split up into the two branches.",
+      "revId": "1292ac879efe980120c43f4c15386bf30f31a289",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38297da5_17582b6f",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T21:21:04Z",
+      "side": 1,
+      "message": "This might be more clear if it was inverted:\n\nif (entry-\u003edestruction_timestamp() \u0026\u0026 timestamp \u003d\u003d *entry-\u003edestruction_timestamp()) {",
+      "revId": "1292ac879efe980120c43f4c15386bf30f31a289",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39dd1471_a6b50f1c",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T21:21:04Z",
+      "side": 1,
+      "message": "rtc::Optional has an implicit bool value, so calling |has_value()| here is not necessary.",
+      "revId": "1292ac879efe980120c43f4c15386bf30f31a289",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

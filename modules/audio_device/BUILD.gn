@@ -367,6 +367,29 @@ if (rtc_include_tests) {
   }
 }
 
+if (rtc_include_internal_audio_device) {
+  rtc_executable("adm_test") {
+    sources = [
+      "adm_test.cc",
+      "audio_device_factory.cc",
+      "audio_device_factory.h",
+      "audio_device_proxy.cc",
+      "audio_device_proxy.h",
+    ]
+
+    if (!build_with_chromium && is_clang) {
+      # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+    }
+
+    deps = [
+      ":audio_device",
+      "../../system_wrappers:metrics_default",
+      "//build/win:default_exe_manifest",
+    ]
+  }
+}
+
 if (!build_with_chromium && is_android) {
   android_library("audio_device_java") {
     java_files = [

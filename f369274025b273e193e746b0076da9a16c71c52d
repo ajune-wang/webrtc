@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6bb64a4_27da379f",
+        "filename": "webrtc/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T21:18:16Z",
+      "side": 1,
+      "message": "Should return false if this returns an error.",
+      "revId": "f369274025b273e193e746b0076da9a16c71c52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5513041b_7c49caad",
+        "filename": "webrtc/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T21:18:16Z",
+      "side": 1,
+      "message": "May want to try setting this earlier (before or after ReconfigurePortAllocator_n), to reduce the chance of there being a config that ends up partially-set. In other words, \"try things that can fail before things that are guaranteed to succeed\" (like SetIceConfig).",
+      "revId": "f369274025b273e193e746b0076da9a16c71c52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd3d23d9_22248369",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T21:18:16Z",
+      "side": 1,
+      "message": "nit: \"Pluggable\"",
+      "revId": "f369274025b273e193e746b0076da9a16c71c52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a63b753_f2176d37",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T21:18:16Z",
+      "side": 1,
+      "message": "Something I brought up in the previous version of this CL is that the track ID may not be granular enough. Pretty soon, we\u0027ll be implementing RTCPriorityType (see the WebRTC spec), which is *per-encoding* when using simulcast, so more granular that per-track.\n\nThe bitrate allocation algorithm that uses RTCPriorityType will be slightly different than our default algorithm, so it seems like using BitrateAllocationStrategy would be a convenient way to inject this different algorithm. If we don\u0027t do that, the other alternative that comes to mind would be wiring up RTCPriorityType all the way to BitrateAllocator (e.g., adding it as a parameter to AddObserver), but that may be more work/more to maintain.\n\nAnyway, we don\u0027t need to figure this out in THIS code review. But I thought it would be a good time to bring it up, in case other reviewers have some thoughts.",
+      "revId": "f369274025b273e193e746b0076da9a16c71c52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

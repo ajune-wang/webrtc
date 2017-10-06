@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e114c913_4e27ef9f",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "Does this constructor need the fake certificate generator? It looks like the only test that uses one passes it in explicitly. If so, the \"fake_certificate_generator_\" member variable may also be unneeded.",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1a1ca0f_e4370183",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "Does returning a lambda end up being cleaner than the alternative? I\u0027m curious where you learned to do this, you\u0027re much better at C++11 than me.",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29de8ea7_0f9bee44",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "nit: \"WithSdes\" instead of \"WhenSdes\"?",
+      "range": {
+        "startLine": 280,
+        "startChar": 37,
+        "endLine": 280,
+        "endChar": 71
+      },
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e784f0b_376cce67",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "Looks like this is missing the EXPECT_FALSE at the end.",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84177a8a_25d57f95",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "May want to mention that it also verifies that if multiple CreateOffer/Answer calls are made while waiting for the certificate, they all complete after it\u0027s generated.",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e262790_021741cc",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "Do these need a default case?",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc516c8f_40ea72b1",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "May be a little overkill, but I\u0027m pretty impressed.",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9374fa9e_45667c37",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "nit: ASSERT_EQ, since this is verifying an assumption of the test? That may just be my personal preference for differentiating assert/expect though.",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756e8d4e_e4cd547c",
+        "filename": "pc/test/fakertccertificategenerator.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "Could use a comment.",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd2b5791_54fa235a",
+        "filename": "pc/test/fakertccertificategenerator.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-06T04:50:57Z",
+      "side": 1,
+      "message": "I like how simple this is; I probably would have gone overkill by caching the \"GenerateCertificateAsync\" arguments and posting a message when set_should_wait(true) is called. But that would really be more complex than necessary for test code.\n\nCould still use a comment saying something like \"post a message in a loop until set_should_wait(true) is called\".",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

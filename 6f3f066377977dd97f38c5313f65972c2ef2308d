@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "94e7d028_dcec877b",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-06T10:55:22Z",
+      "side": 1,
+      "message": "The code for negotiating codecs is in mediasession with corresponding tests in mediasession_unittest.cc. Taylor filed an issue for adding tests for H264 profiles here: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8345. We also have some related tests in h264/profile_level_id_unittest.cc that I added a while back.",
+      "parentUuid": "f1cfec02_f434a6f0",
+      "range": {
+        "startLine": 569,
+        "startChar": 11,
+        "endLine": 569,
+        "endChar": 51
+      },
+      "revId": "6f3f066377977dd97f38c5313f65972c2ef2308d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc39c9f4_8340e1e9",
         "filename": "modules/video_coding/codecs/h264/h264.cc",
         "patchSetId": 3
@@ -141,6 +165,30 @@
       "revId": "6f3f066377977dd97f38c5313f65972c2ef2308d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c0142e5_a7ed5164",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-06T10:55:22Z",
+      "side": 1,
+      "message": "Yes, the latest patch set only contains High, Constrained Baseline, and Baseline.",
+      "parentUuid": "0403878e_bfc31246",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 51
+      },
+      "revId": "6f3f066377977dd97f38c5313f65972c2ef2308d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

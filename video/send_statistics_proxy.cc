@@ -27,7 +27,7 @@ namespace {
 const float kEncodeTimeWeigthFactor = 0.5f;
 
 const char kVp8ForcedFallbackEncoderFieldTrial[] =
-    "WebRTC-VP8-Forced-Fallback-Encoder";
+    "WebRTC-VP8-Forced-Fallback-Encoder-x";
 const char kVp8SwCodecName[] = "libvpx";
 
 // Used by histograms. Values of entries should not be changed.
@@ -81,7 +81,7 @@ bool IsForcedFallbackPossible(const CodecSpecificInfo* codec_info) {
           codec_info->codecSpecific.VP8.temporalIdx == kNoTemporalIdx);
 }
 
-rtc::Optional<int> GetFallbackIntervalFromFieldTrial() {
+rtc::Optional<int> GetFallbackMaxPixelsFromFieldTrial() {
   if (!webrtc::field_trial::IsEnabled(kVp8ForcedFallbackEncoderFieldTrial))
     return rtc::Optional<int>();
 
@@ -90,20 +90,16 @@ rtc::Optional<int> GetFallbackIntervalFromFieldTrial() {
   if (group.empty())
     return rtc::Optional<int>();
 
-  int low_kbps;
-  int high_kbps;
-  int min_low_ms;
   int min_pixels;
-  if (sscanf(group.c_str(), "Enabled-%d,%d,%d,%d", &low_kbps, &high_kbps,
-             &min_low_ms, &min_pixels) != 4) {
+  int max_pixels;
+  if (sscanf(group.c_str(), "Enabled-%d,%d", &min_pixels, &max_pixels) != 2) {
     return rtc::Optional<int>();
   }
 
-  if (min_low_ms <= 0 || min_pixels <= 0 || low_kbps <= 0 ||
-      high_kbps <= low_kbps) {
+  if (min_pixels <= 0 || max_pixels <= 0 || max_pixels < min_pixels) {
     return rtc::Optional<int>();
   }
-  return rtc::Optional<int>(min_low_ms);
+  return rtc::Optional<int>(max_pixels);
 }
 }  // namespace
 
@@ -117,7 +113,7 @@ SendStatisticsProxy::SendStatisticsProxy(
     : clock_(clock),
       payload_name_(config.encoder_settings.payload_name),
       rtp_config_(config.rtp),
-      min_first_fallback_interval_ms_(GetFallbackIntervalFromFieldTrial()),
+      fallback_max_pixels_(GetFallbackMaxPixelsFromFieldTrial()),
       content_type_(content_type),
       start_ms_(clock->TimeInMilliseconds()),
       last_sent_frame_timestamp_(0),
@@ -675,7 +671,7 @@ void SendStatisticsProxy::OnSetEncoderTargetRate(uint32_t bitrate_bps) {
 
 void SendStatisticsProxy::UpdateEncoderFallbackStats(
     const CodecSpecificInfo* codec_info) {
-  if (!min_first_fallback_interval_ms_ ||
+  if (!fallback_max_pixels_ ||
       !uma_container_->fallback_info_.is_possible) {
     return;
   }
@@ -698,11 +694,11 @@ void SendStatisticsProxy::UpdateEncoderFallbackStats(
     }
     if (is_active && fallback_info->on_off_events == 0) {
       // The minimum set time should have passed for the first fallback (else
-      // skip to avoid fallback due to failure).
+      // skip to avoid fallback due to failure).  // Fix.
       int64_t elapsed_ms = fallback_info->elapsed_ms;
       if (fallback_info->last_update_ms)
         elapsed_ms += now_ms - *(fallback_info->last_update_ms);
-      if (elapsed_ms < *min_first_fallback_interval_ms_) {
+      if (elapsed_ms < 1000) {  // *min_first_fallback_interval_ms_) {
         fallback_info->is_possible = false;
         return;
       }

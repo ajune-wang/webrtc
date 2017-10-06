@@ -43,7 +43,7 @@ namespace {
 const char kVp8PostProcArmFieldTrial[] = "WebRTC-VP8-Postproc-Config-Arm";
 const char kVp8GfBoostFieldTrial[] = "WebRTC-VP8-GfBoost";
 const char kVp8ForceFallbackEncoderFieldTrial[] =
-    "WebRTC-VP8-Forced-Fallback-Encoder";
+    "WebRTC-VP8-Forced-Fallback-Encoder-x";
 
 const int kTokenPartitions = VP8_ONE_TOKENPARTITION;
 enum { kVp8ErrorPropagationTh = 30 };
@@ -121,17 +121,13 @@ rtc::Optional<int> GetForcedFallbackMinPixelsFromFieldTrialGroup() {
   if (group.empty())
     return rtc::Optional<int>();
 
-  int low_kbps;
-  int high_kbps;
-  int min_low_ms;
   int min_pixels;
-  if (sscanf(group.c_str(), "Enabled-%d,%d,%d,%d", &low_kbps, &high_kbps,
-             &min_low_ms, &min_pixels) != 4) {
+  int max_pixels;
+  if (sscanf(group.c_str(), "Enabled-%d,%d", &min_pixels, &max_pixels) != 2) {
     return rtc::Optional<int>();
   }
 
-  if (min_low_ms <= 0 || min_pixels <= 0 || low_kbps <= 0 ||
-      high_kbps <= low_kbps) {
+  if (min_pixels <= 0 || max_pixels <= 0 || max_pixels < min_pixels) {
     return rtc::Optional<int>();
   }
   return rtc::Optional<int>(min_pixels);
@@ -946,7 +942,6 @@ int VP8EncoderImpl::GetEncodedPartitions(
         (codec_.mode == kScreensharing) ? VideoContentType::SCREENSHARE
                                         : VideoContentType::UNSPECIFIED;
     encoded_images_[encoder_idx].timing_.flags = TimingFrameFlags::kInvalid;
-
     int qp = -1;
     vpx_codec_control(&encoders_[encoder_idx], VP8E_GET_LAST_QUANTIZER_64, &qp);
     temporal_layers_[stream_idx]->FrameEncoded(

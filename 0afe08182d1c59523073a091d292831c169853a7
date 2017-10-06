@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "36a497d8_bcf81ca0",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T10:09:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb13421a_8e1c11c4",
+      "range": {
+        "startLine": 56,
+        "startChar": 45,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "0afe08182d1c59523073a091d292831c169853a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd4c2be3_5e7198b5",
         "filename": "video/receive_statistics_proxy.cc",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "86ade08c_3d430968",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T10:09:32Z",
+      "side": 1,
+      "message": "No. I added it just in case, but on the second thought it doesn\u0027t make sense to remove anything from the histogram. Removed it.",
+      "parentUuid": "171e53d5_f49375b8",
+      "range": {
+        "startLine": 859,
+        "startChar": 64,
+        "endLine": 859,
+        "endChar": 0
+      },
+      "revId": "0afe08182d1c59523073a091d292831c169853a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6db6a1dc_2f77679f",
         "filename": "video/receive_statistics_proxy.cc",
         "patchSetId": 2
@@ -91,6 +139,30 @@
       "revId": "0afe08182d1c59523073a091d292831c169853a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9c34da_63949b09",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T10:09:32Z",
+      "side": 1,
+      "message": "I think it\u0027s more clear to just return the found value immediately. It doesn\u0027t make reader to look there the loop will be broken too. Also, in case if no value is found inside the loop, empty optional shouldn\u0027t be silently returned, because something is terribly broken. NOTREACHED makes it more clear to the reader that element should be found and the only way we don\u0027t have any percentile is when we have 0 elements.",
+      "parentUuid": "6db6a1dc_2f77679f",
+      "range": {
+        "startLine": 902,
+        "startChar": 35,
+        "endLine": 902,
+        "endChar": 0
+      },
+      "revId": "0afe08182d1c59523073a091d292831c169853a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "21be93be_9315a016",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T10:09:32Z",
+      "side": 1,
+      "message": "Changed to Add().",
+      "parentUuid": "874312c2_6bc00222",
+      "range": {
+        "startLine": 106,
+        "startChar": 44,
+        "endLine": 106,
+        "endChar": 0
+      },
+      "revId": "0afe08182d1c59523073a091d292831c169853a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21a13c27_e6a43b7b",
         "filename": "video/receive_statistics_proxy.h",
         "patchSetId": 2
@@ -137,6 +233,30 @@
       "revId": "0afe08182d1c59523073a091d292831c169853a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33be348b_15273013",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T10:09:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21a13c27_e6a43b7b",
+      "range": {
+        "startLine": 108,
+        "startChar": 62,
+        "endLine": 108,
+        "endChar": 0
+      },
+      "revId": "0afe08182d1c59523073a091d292831c169853a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "359d4427_c580b228",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T10:09:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5da00fa_83830063",
+      "range": {
+        "startLine": 112,
+        "startChar": 44,
+        "endLine": 112,
+        "endChar": 0
+      },
+      "revId": "0afe08182d1c59523073a091d292831c169853a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cecc52e6_0bcf24df",
         "filename": "video/receive_statistics_proxy.h",
         "patchSetId": 2
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "30bff9b3_5d2e6a9b",
+        "filename": "video/receive_statistics_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T10:09:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cecc52e6_0bcf24df",
+      "range": {
+        "startLine": 113,
+        "startChar": 31,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "0afe08182d1c59523073a091d292831c169853a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69154b92_8cffdee9",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 2
@@ -206,6 +374,30 @@
       "revId": "0afe08182d1c59523073a091d292831c169853a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33bae767_5cce3d77",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T10:09:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69154b92_8cffdee9",
+      "range": {
+        "startLine": 1010,
+        "startChar": 73,
+        "endLine": 1010,
+        "endChar": 0
+      },
+      "revId": "0afe08182d1c59523073a091d292831c169853a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

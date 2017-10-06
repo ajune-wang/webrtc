@@ -237,6 +237,30 @@
       "revId": "6f3f066377977dd97f38c5313f65972c2ef2308d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0966d34e_c4419ac6",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-10-06T12:09:32Z",
+      "side": 1,
+      "message": "*newer",
+      "parentUuid": "bf15d528_470cea10",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 51
+      },
+      "revId": "6f3f066377977dd97f38c5313f65972c2ef2308d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

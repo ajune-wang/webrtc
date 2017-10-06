@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a7d9fb4_14d1d8af",
+        "filename": "sdk/android/api/org/webrtc/TurnCustomizer.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-06T07:18:16Z",
+      "side": 1,
+      "message": "webrtc::TurnCustomizer has a virtual destructor so we can just implement nativeFree here?",
+      "revId": "b38ae4bf6d740b5b4718f5b20ba7537d6bc6c569",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "695dc989_88b7952a",
+        "filename": "sdk/android/src/jni/pc/java_native_conversion.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-06T07:18:16Z",
+      "side": 1,
+      "message": "nit: other objects in this file are not postfixed with _obj, I\u0027d prefer not to postfix this one either for consistency",
+      "range": {
+        "startLine": 483,
+        "startChar": 10,
+        "endLine": 483,
+        "endChar": 31
+      },
+      "revId": "b38ae4bf6d740b5b4718f5b20ba7537d6bc6c569",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

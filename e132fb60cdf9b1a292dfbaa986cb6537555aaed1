@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f64519b_336a6b5f",
+        "filename": "sdk/android/api/org/webrtc/TurnCustomizer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-06T12:14:59Z",
+      "side": 1,
+      "message": "nit: name nativeFreeTurnCustomizer for consistency with other files",
+      "range": {
+        "startLine": 25,
+        "startChar": 29,
+        "endLine": 25,
+        "endChar": 56
+      },
+      "revId": "e132fb60cdf9b1a292dfbaa986cb6537555aaed1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c48829e_3240fe93",
+        "filename": "sdk/android/src/jni/pc/turncustomizer_jni.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-06T12:14:59Z",
+      "side": 1,
+      "message": "nit: Why is this include needed?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 58
+      },
+      "revId": "e132fb60cdf9b1a292dfbaa986cb6537555aaed1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

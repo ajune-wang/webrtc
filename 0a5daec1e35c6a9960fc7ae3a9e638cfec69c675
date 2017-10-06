@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7057d7d_85c18c71",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-06T07:21:44Z",
+      "side": 1,
+      "message": "Are we waiting with adding vp9?\n\nIn general I think picture id is a concept that we could make generic, and not specific to vp8/vp9/av1. We could then leave it to the rtp module to decide whether it wants to send it or not (and it will choose not to for h.264 for example). If we do it that way, I\u0027d suggest that we let it be int64_t here and shorten it in in the rtp module instead, since some codecs and transports may want more bits than others.\n\nWDYT?",
+      "range": {
+        "startLine": 111,
+        "startChar": 5,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "0a5daec1e35c6a9960fc7ae3a9e638cfec69c675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b61e1420_d11a75d6",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-06T07:21:44Z",
+      "side": 1,
+      "message": "Should this be of the type RtpPayloadState instead? That would make GetState() simpler.",
+      "range": {
+        "startLine": 124,
+        "startChar": 10,
+        "endLine": 124,
+        "endChar": 21
+      },
+      "revId": "0a5daec1e35c6a9960fc7ae3a9e638cfec69c675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e66a89c5_0e766aa3",
+        "filename": "video/payload_router_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-06T07:21:44Z",
+      "side": 1,
+      "message": "Is there a reason this is set to screenshare here?",
+      "revId": "0a5daec1e35c6a9960fc7ae3a9e638cfec69c675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

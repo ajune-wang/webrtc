@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "a1f11af9_2b8b3a25",
+        "filename": "webrtc/api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35b8da92_672c695a",
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10f5e130_601a8b0b",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 1
@@ -111,6 +129,30 @@
       "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c74dd0_1c679878",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f5e130_601a8b0b",
+      "range": {
+        "startLine": 48,
+        "startChar": 31,
+        "endLine": 48,
+        "endChar": 39
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -160,6 +202,54 @@
     },
     {
       "key": {
+        "uuid": "eca8fcd2_fdd69350",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "This way saves one line. If you feel not too strong about it, I\u0027d prefer to keep it like this.",
+      "parentUuid": "a53f6903_7ed20a6d",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 71
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b942f192_c41820d7",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c90b892a_ceeefa15",
+      "range": {
+        "startLine": 52,
+        "startChar": 50,
+        "endLine": 52,
+        "endChar": 66
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce834a24_58e5fb00",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 1
@@ -180,6 +270,30 @@
       "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16d228c5_a7f0a7ea",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce834a24_58e5fb00",
+      "range": {
+        "startLine": 53,
+        "startChar": 40,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +320,30 @@
     },
     {
       "key": {
+        "uuid": "86001fe3_4ddca415",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6a89bba_e416946e",
+      "range": {
+        "startLine": 57,
+        "startChar": 40,
+        "endLine": 57,
+        "endChar": 41
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "394ff645_46993627",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 1
@@ -226,6 +364,30 @@
       "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c191192_52b45d45",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "394ff645_46993627",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 13
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -252,6 +414,30 @@
     },
     {
       "key": {
+        "uuid": "96a2e2a0_bf5f76a2",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1753236_a8a80288",
+      "range": {
+        "startLine": 95,
+        "startChar": 6,
+        "endLine": 95,
+        "endChar": 24
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78414910_73deadc2",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 1
@@ -272,6 +458,30 @@
       "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2b87d4f_122a8c28",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78414910_73deadc2",
+      "range": {
+        "startLine": 112,
+        "startChar": 25,
+        "endLine": 112,
+        "endChar": 43
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -298,6 +508,30 @@
     },
     {
       "key": {
+        "uuid": "08662c08_4576c095",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "612a43c5_e2b0b729",
+      "range": {
+        "startLine": 115,
+        "startChar": 43,
+        "endLine": 115,
+        "endChar": 66
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c08cfdc_e5a9cd8a",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 1
@@ -318,6 +552,30 @@
       "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19bdb7ac_c61815de",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-06T17:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c08cfdc_e5a9cd8a",
+      "range": {
+        "startLine": 118,
+        "startChar": 42,
+        "endLine": 118,
+        "endChar": 60
+      },
+      "revId": "56dcf70e32980dbd060af100b0b75571eeec7257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

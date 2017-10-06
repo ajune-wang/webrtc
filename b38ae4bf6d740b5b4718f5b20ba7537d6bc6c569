@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "631138f3_2870c2ec",
+        "filename": "sdk/android/api/org/webrtc/TurnCustomizer.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2017-10-06T07:56:48Z",
+      "side": 1,
+      "message": "The object is created entirely \"outside\" of webrtc, so I really want to keep\npossibility of doing own management outside of webrtc.\nThe only reason I added the disposeImpl was so that I shouldn\u0027t have to make the field\nprotected.\n\nwdyt ?",
+      "parentUuid": "8a7d9fb4_14d1d8af",
+      "revId": "b38ae4bf6d740b5b4718f5b20ba7537d6bc6c569",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "695dc989_88b7952a",
         "filename": "sdk/android/src/jni/pc/java_native_conversion.cc",
         "patchSetId": 16
@@ -39,6 +57,30 @@
       "revId": "b38ae4bf6d740b5b4718f5b20ba7537d6bc6c569",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60336812_1f4b0287",
+        "filename": "sdk/android/src/jni/pc/java_native_conversion.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2017-10-06T07:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "695dc989_88b7952a",
+      "range": {
+        "startLine": 483,
+        "startChar": 10,
+        "endLine": 483,
+        "endChar": 31
+      },
+      "revId": "b38ae4bf6d740b5b4718f5b20ba7537d6bc6c569",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

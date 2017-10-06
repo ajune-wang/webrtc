@@ -22,6 +22,30 @@
       "revId": "47bec849853f28b93de53667fa0cf4724dd1e712",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d30977_f011e307",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-06T11:17:45Z",
+      "side": 1,
+      "message": "No, I use the fact that it can get negative in the logic below. Instead of comparing before subtracting, I subtract and then compare against zero. It should be faster because comparing in the first place would involve subtracting either way. Also, it allows to have fraction as 0, because it will make elements_to_skip -1 here. Then we will be able to clip it correctly to 0.",
+      "parentUuid": "a65aac77_4bb86b61",
+      "range": {
+        "startLine": 866,
+        "startChar": 24,
+        "endLine": 866,
+        "endChar": 0
+      },
+      "revId": "47bec849853f28b93de53667fa0cf4724dd1e712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

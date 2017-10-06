@@ -15,6 +15,11 @@
 
 #include "media/engine/webrtcvideodecoderfactory.h"
 
+namespace webrtc {
+std::unique_ptr<VideoDecoder> CreateInternalVideoDecoder(
+    const SdpVideoFormat& format);
+}  // namespace webrtc
+
 namespace cricket {
 
 class InternalDecoderFactory : public WebRtcVideoDecoderFactory {
@@ -23,8 +28,9 @@ class InternalDecoderFactory : public WebRtcVideoDecoderFactory {
   virtual ~InternalDecoderFactory();
 
   // WebRtcVideoDecoderFactory implementation.
-  webrtc::VideoDecoder* CreateVideoDecoder(
-      webrtc::VideoCodecType type) override;
+  webrtc::VideoDecoder* CreateVideoDecoderWithParams(
+      const VideoCodec& codec,
+      VideoDecoderParams params) override;
 
   void DestroyVideoDecoder(webrtc::VideoDecoder* decoder) override;
 };

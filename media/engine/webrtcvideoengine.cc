@@ -113,15 +113,13 @@ class CricketDecoderFactoryAdapter : public DecoderFactoryAdapter {
  public:
   explicit CricketDecoderFactoryAdapter(
       std::unique_ptr<WebRtcVideoDecoderFactory> external_decoder_factory)
-      : internal_decoder_factory_(new InternalDecoderFactory()),
-        external_decoder_factory_(std::move(external_decoder_factory)) {}
+      : external_decoder_factory_(std::move(external_decoder_factory)) {}
 
  private:
   std::unique_ptr<webrtc::VideoDecoder> CreateVideoDecoder(
       const VideoCodec& codec,
       const VideoDecoderParams& decoder_params) const override;
 
-  const std::unique_ptr<WebRtcVideoDecoderFactory> internal_decoder_factory_;
   const std::unique_ptr<WebRtcVideoDecoderFactory> external_decoder_factory_;
 };
 
@@ -2194,23 +2192,21 @@ std::unique_ptr<webrtc::VideoDecoder>
 CricketDecoderFactoryAdapter::CreateVideoDecoder(
     const VideoCodec& codec,
     const VideoDecoderParams& decoder_params) const {
+  std::unique_ptr<webrtc::VideoDecoder> internal_decoder =
+      webrtc::CreateInternalVideoDecoder(
+          webrtc::SdpVideoFormat(codec.name, codec.params));
+
   if (external_decoder_factory_ != nullptr) {
     std::unique_ptr<webrtc::VideoDecoder> external_decoder =
         CreateScopedVideoDecoder(external_decoder_factory_.get(), codec,
                                  decoder_params);
     if (external_decoder) {
-      webrtc::VideoCodecType type =
-          webrtc::PayloadStringToCodecType(codec.name);
-      std::unique_ptr<webrtc::VideoDecoder> internal_decoder(
+      return std::unique_ptr<webrtc::VideoDecoder>(
           new webrtc::VideoDecoderSoftwareFallbackWrapper(
-              type, std::move(external_decoder)));
-      return internal_decoder;
+              std::move(internal_decoder), std::move(external_decoder)));
     }
   }
 
-  std::unique_ptr<webrtc::VideoDecoder> internal_decoder(
-      internal_decoder_factory_->CreateVideoDecoderWithParams(codec,
-                                                              decoder_params));
   return internal_decoder;
 }
 

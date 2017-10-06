@@ -363,7 +363,8 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
   }
   if (config_.sw_fallback_decoder) {
     decoder_ = rtc::MakeUnique<VideoDecoderSoftwareFallbackWrapper>(
-        config_.codec_settings.codecType, std::move(decoder_));
+        CreateInternalVideoDecoder(SdpVideoFormat(codec.name, codec.params)),
+        std::move(decoder_));
   }
 
   EXPECT_TRUE(encoder_) << "Encoder not successfully created.";

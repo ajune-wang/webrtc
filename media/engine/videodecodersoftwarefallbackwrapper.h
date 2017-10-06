@@ -23,8 +23,9 @@ namespace webrtc {
 // hardware restrictions, such as max resolution.
 class VideoDecoderSoftwareFallbackWrapper : public VideoDecoder {
  public:
-  VideoDecoderSoftwareFallbackWrapper(VideoCodecType codec_type,
-                                      std::unique_ptr<VideoDecoder> decoder);
+  VideoDecoderSoftwareFallbackWrapper(
+      std::unique_ptr<VideoDecoder> sw_fallback_decoder,
+      std::unique_ptr<VideoDecoder> hw_decoder);
 
   int32_t InitDecode(const VideoCodec* codec_settings,
                      int32_t number_of_cores) override;
@@ -46,9 +47,8 @@ class VideoDecoderSoftwareFallbackWrapper : public VideoDecoder {
  private:
   bool InitFallbackDecoder();
 
-  const VideoCodecType codec_type_;
-  std::unique_ptr<VideoDecoder> decoder_;
-  bool decoder_initialized_;
+  std::unique_ptr<VideoDecoder> hw_decoder_;
+  bool hw_decoder_initialized_;
 
   VideoCodec codec_settings_;
   int32_t number_of_cores_;

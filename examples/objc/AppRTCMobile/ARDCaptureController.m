@@ -34,6 +34,11 @@
       _usingFrontCamera ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack;
   AVCaptureDevice *device = [self findDeviceForPosition:position];
   AVCaptureDeviceFormat *format = [self selectFormatForDevice:device];
+
+  if (format == nil) {
+    return;
+  }
+
   NSInteger fps = [self selectFpsForFormat:format];
 
   [_capturer startCaptureWithDevice:device format:format fps:fps];
@@ -77,7 +82,6 @@
     }
   }
 
-  NSAssert(selectedFormat != nil, @"No suitable capture format found.");
   return selectedFormat;
 }
 

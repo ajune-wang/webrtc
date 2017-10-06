@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "684194e2_cea4d806",
+        "filename": "rtc_base/refcount.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-06T12:52:28Z",
+      "side": 1,
+      "message": "This is the change from a pure reland.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "de8f9090eab62c1104e25290230b2a8162d140f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

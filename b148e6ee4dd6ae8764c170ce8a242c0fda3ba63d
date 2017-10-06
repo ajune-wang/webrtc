@@ -16,6 +16,24 @@
       "revId": "b148e6ee4dd6ae8764c170ce8a242c0fda3ba63d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a34b4e0_eb5c9439",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a146164a_c0cc1e4d",
+      "revId": "b148e6ee4dd6ae8764c170ce8a242c0fda3ba63d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

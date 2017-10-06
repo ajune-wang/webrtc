@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "82281523_73daa74c",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e114c913_4e27ef9f",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1a1ca0f_e4370183",
         "filename": "pc/peerconnection_crypto_unittest.cc",
         "patchSetId": 18
@@ -30,6 +48,24 @@
       "writtenOn": "2017-10-06T04:50:57Z",
       "side": 1,
       "message": "Does returning a lambda end up being cleaner than the alternative? I\u0027m curious where you learned to do this, you\u0027re much better at C++11 than me.",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59311d7e_e427e6e1",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "For predicates that don\u0027t take any arguments (like this one) there isn\u0027t really that big of a difference (i.e., you could just pass it in as HaveDtlsFingerprint if it had content and transport as args). But for predicates that take arguments (like HaveProtocol), it\u0027s the only real way to do so because you always want a function with two args to pass into the matching functions.\n\nIn functional programming languages like Haskell, there is a mechanism called \u0027Currying\u0027 (https://en.wikipedia.org/wiki/Currying) which lets you specify some of the arguments and get a function that takes the remaining arguments as a result, so this mechanism is used quite frequently in those languages. This way of returning lambdas is C++\u0027s closest form of currying.",
+      "parentUuid": "d1a1ca0f_e4370183",
       "revId": "3b360fd414bb60045a307823d1d46967a7176050",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "75bc3081_d56f17f3",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29de8ea7_0f9bee44",
+      "range": {
+        "startLine": 280,
+        "startChar": 37,
+        "endLine": 280,
+        "endChar": 71
+      },
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e784f0b_376cce67",
         "filename": "pc/peerconnection_crypto_unittest.cc",
         "patchSetId": 18
@@ -73,6 +133,24 @@
       "revId": "3b360fd414bb60045a307823d1d46967a7176050",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bda1c21_0d3b1be8",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "Good catch, thanks.",
+      "parentUuid": "7e784f0b_376cce67",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "7706ccab_c344e1df",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84177a8a_25d57f95",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e262790_021741cc",
         "filename": "pc/peerconnection_crypto_unittest.cc",
         "patchSetId": 18
@@ -107,6 +203,24 @@
       "revId": "3b360fd414bb60045a307823d1d46967a7176050",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ac69467_04dacada",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "Yes, otherwise MSVC complains :-)",
+      "parentUuid": "0e262790_021741cc",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "573d8a67_63e0e367",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "There\u0027s a bit of a learning curve with parameterized tests, and the default error descriptions can be poor, but they really shine when you need to do matrix tests, especially if you have multiple tests for each condition (i.e., multiple TEST_P\u0027s).",
+      "parentUuid": "bc516c8f_40ea72b1",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9374fa9e_45667c37",
         "filename": "pc/peerconnection_crypto_unittest.cc",
         "patchSetId": 18
@@ -141,6 +273,24 @@
       "revId": "3b360fd414bb60045a307823d1d46967a7176050",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "795a5238_1380703e",
+        "filename": "pc/peerconnection_crypto_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-06T17:17:37Z",
+      "side": 1,
+      "message": "I agree, also changed the ASSERTs as the bottom of the test to EXPECT.",
+      "parentUuid": "9374fa9e_45667c37",
+      "revId": "3b360fd414bb60045a307823d1d46967a7176050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

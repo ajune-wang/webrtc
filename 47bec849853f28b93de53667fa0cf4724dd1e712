@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a65aac77_4bb86b61",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-06T10:55:34Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be size_t as well then?",
+      "range": {
+        "startLine": 866,
+        "startChar": 24,
+        "endLine": 866,
+        "endChar": 0
+      },
+      "revId": "47bec849853f28b93de53667fa0cf4724dd1e712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -70,6 +70,24 @@
       "revId": "5e1f2caf95e4d76ed0626617ba152f4ec5ca56b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "395ecf44_29686955",
+        "filename": "pc/webrtcsession.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:09:13Z",
+      "side": 1,
+      "message": "Anything that\u0027s per-transport (per-RTP session) would go in RtpTransport ultimately, and anything that\u0027s per-call would go in PeerConnection. I always forget what category RtpStreamReceiverController and RtpTransportControllerSend fall into.\n\nBut for now, I guess it\u0027s fine to put the code wherever it\u0027s convenient, since we know we\u0027ll have to shuffle things around later anyway.",
+      "parentUuid": "55d1cbdf_dba91877",
+      "revId": "5e1f2caf95e4d76ed0626617ba152f4ec5ca56b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

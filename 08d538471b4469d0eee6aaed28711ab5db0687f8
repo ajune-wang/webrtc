@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "6cb86547_d386ad1f",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "Where does BaseChannel need to call IsExternalAuthActive and SetupDtlsSrtp? I assumed they could be called internally.\n\nBut if having three separate pointers is needed now, that\u0027s fine; I just thought we might be far enough along to avoid it.",
+      "parentUuid": "556c3ee7_d4ec14a6",
+      "revId": "08d538471b4469d0eee6aaed28711ab5db0687f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "37744c07_4981ed5c",
         "filename": "pc/transportcontroller.h",
         "patchSetId": 1

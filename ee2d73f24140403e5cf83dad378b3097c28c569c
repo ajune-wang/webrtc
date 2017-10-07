@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "897d744f_75578c0a",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "nit: I think it would be simpler to just have one method that checks \"if (!network_thread_-\u003eIsCurrent())\" and invokes itself. I realize the existing code doesn\u0027t do that, but I\u0027m not sure if there\u0027s a good reason why. Having two versions of every method (normal and \"_n\") is a lot of boilerplate code.\n\nI guess we could also just add a TODO and/or bug to change all the methods to do this in one CL.",
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8136e81b_91d06f19",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "nit: \"existing\"",
+      "range": {
+        "startLine": 933,
+        "startChar": 23,
+        "endLine": 933,
+        "endChar": 49
+      },
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d343065c_77b4addc",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "Should at least DCHECK that it\u0027s the same type of transport (insecure RTP). Same for the other cases.",
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14628e45_6a7e7b7e",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "If the map is changed to store unique_ptrs, this could use MakeUnique, with an std::move below.",
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d70546b9_c963539d",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "nit: \" transport, which doesn\u0027t exist\"",
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa9a315_1e9aaed8",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "Can you add in a comment that these methods aren\u0027t currently used, but the plan is to transition WebRtcSession and BaseChannel to use them instead of CreateDtlsTransport?",
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96eba7ff_839d91df",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "Should RtpTransportWrapper* be a unique_ptr?",
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91156355_a0be7919",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "I\u0027d view this test as testing 3 things:\n\n1. CreateRtpTransport returns an existing transport if one already exists\n2. Removing one reference (calling DestroyTransport once) doesn\u0027t destroy the transport if one reference still exists.\n3. Removing the last reference actually does destroy it.\n\nI think it would be better to have these as 3 separate tests. Probably don\u0027t need to duplicate all 3 for SRTP, but if you wanted to, you could use TEST_P for that (the parameter being \"RTP or SRTP\").\n\nAlso, with TEST_P, you can define \"\u003c\u003c\" operators for the enum so that the test names are more descriptive. See what Steve did in this CL: https://webrtc-review.googlesource.com/c/src/+/1160/21/pc/peerconnection_crypto_unittest.cc",
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12585640_135a2be4",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-07T18:02:35Z",
+      "side": 1,
+      "message": "If we add more DCHECKs as suggested, may want a death test for them too. Like:\n\nCreateRtpTransport(\"foo\", true);\nCreateSrtpTransport(\"foo\", true);",
+      "revId": "ee2d73f24140403e5cf83dad378b3097c28c569c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

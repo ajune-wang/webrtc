@@ -199,6 +199,8 @@ class Call {
 
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
 
+  virtual AudioState* GetAudioState() = 0;
+
   virtual ~Call() {}
 };
 

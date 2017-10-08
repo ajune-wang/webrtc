@@ -224,6 +224,8 @@ class Call : public webrtc::Call,
 
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
+  webrtc::AudioState* GetAudioState() override;
+
   // Implements BitrateObserver.
   void OnNetworkChanged(uint32_t bitrate_bps,
                         uint8_t fraction_loss,
@@ -1166,6 +1168,10 @@ void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {
   video_send_delay_stats_->OnSentPacket(sent_packet.packet_id,
                                         clock_->TimeInMilliseconds());
   transport_send_->send_side_cc()->OnSentPacket(sent_packet);
+}
+
+webrtc::AudioState* Call::GetAudioState() {
+  return config_.audio_state;
 }
 
 void Call::OnNetworkChanged(uint32_t target_bitrate_bps,

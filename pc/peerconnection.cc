@@ -44,6 +44,7 @@
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
+#include "voice_engine/include/voe_base.h"
 
 namespace {
 
@@ -1216,6 +1217,19 @@ bool PeerConnection::RemoveIceCandidates(
     const std::vector<cricket::Candidate>& candidates) {
   TRACE_EVENT0("webrtc", "PeerConnection::RemoveIceCandidates");
   return session_->RemoveRemoteIceCandidates(candidates);
+}
+
+void PeerConnection::SetAudioPlayout(bool playout) {
+  if (!worker_thread()->IsCurrent()) {
+    worker_thread()->Invoke<void>(
+        RTC_FROM_HERE,
+        rtc::Bind(&PeerConnection::SetAudioPlayout, this, playout));
+    return;
+  }
+  VoiceEngine* engine = call_->GetAudioState()->voice_engine();
+  VoEBase* voe = VoEBase::GetInterface(engine);
+  voe->EnablePlayout(playout);
+  voe->Release();
 }
 
 void PeerConnection::RegisterUMAObserver(UMAObserver* observer) {

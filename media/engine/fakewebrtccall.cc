@@ -634,4 +634,8 @@ void FakeCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
   }
 }
 
+webrtc::AudioState* FakeCall::GetAudioState() {
+  return config_.audio_state;
+}
+
 }  // namespace cricket

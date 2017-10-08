@@ -303,6 +303,7 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   void OnTransportOverheadChanged(webrtc::MediaType media,
                                   int transport_overhead_per_packet) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
+  webrtc::AudioState* GetAudioState() override;
 
   webrtc::Call::Config config_;
   webrtc::NetworkState audio_network_state_;

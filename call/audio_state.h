@@ -43,6 +43,7 @@ class AudioState : public rtc::RefCountInterface {
   };
 
   virtual AudioProcessing* audio_processing() = 0;
+  virtual VoiceEngine* voice_engine() = 0;
 
   // TODO(solenberg): Replace scoped_refptr with shared_ptr once we can use it.
   static rtc::scoped_refptr<AudioState> Create(

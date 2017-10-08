@@ -13,6 +13,7 @@ include_rules = [
   "+modules/video_render",
   "+p2p",
   "+system_wrappers",
+  "+voice_engine/include",
 ]
 
 specific_include_rules = {

@@ -32,7 +32,7 @@ class AudioState final : public webrtc::AudioState {
     return config_.audio_processing.get();
   }
 
-  VoiceEngine* voice_engine();
+  VoiceEngine* voice_engine() override;
   rtc::scoped_refptr<AudioMixer> mixer();
   bool typing_noise_detected() const;
 

@@ -104,6 +104,7 @@ public class WebRtcAudioTrack {
    */
   private class AudioTrackThread extends Thread {
     private volatile boolean keepAlive = true;
+    private volatile boolean playing = false;
 
     public AudioTrackThread(String name) {
       super(name);
@@ -114,35 +115,61 @@ public class WebRtcAudioTrack {
       Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
       Logging.d(TAG, "AudioTrackThread" + WebRtcAudioUtils.getThreadInfo());
 
-      try {
-        // In MODE_STREAM mode we can optionally prime the output buffer by
-        // writing up to bufferSizeInBytes (from constructor) before starting.
-        // This priming will avoid an immediate underrun, but is not required.
-        // TODO(henrika): initial tests have shown that priming is not required.
-        audioTrack.play();
-      } catch (IllegalStateException e) {
-        reportWebRtcAudioTrackStartError("AudioTrack.play failed: " + e.getMessage());
-        releaseAudioResources();
-        return;
-      }
-      // We have seen reports that AudioTrack.play() can sometimes start in a
-      // paued mode (e.g. when application is in background mode).
-      // TODO(henrika): consider calling reportWebRtcAudioTrackStartError()
-      // and release audio resources here as well. For now, let the thread start
-      // and hope that the audio session can be restored later.
-      if (audioTrack.getPlayState() != AudioTrack.PLAYSTATE_PLAYING) {
-        Logging.w(TAG, "AudioTrack failed to enter playing state.");
-      }
-
+      boolean lastPlaying = false;
       // Fixed size in bytes of each 10ms block of audio data that we ask for
       // using callbacks to the native WebRTC client.
       final int sizeInBytes = byteBuffer.capacity();
 
       while (keepAlive) {
+        if (playing && !lastPlaying) {
+          try {
+            // In MODE_STREAM mode we can optionally prime the output buffer by
+            // writing up to bufferSizeInBytes (from constructor) before starting.
+            // This priming will avoid an immediate underrun, but is not required.
+            // TODO(henrika): initial tests have shown that priming is not required.
+            audioTrack.play();
+          } catch (IllegalStateException e) {
+            reportWebRtcAudioTrackStartError("AudioTrack.play failed: " + e.getMessage());
+            releaseAudioResources();
+            return;
+          }
+          // We have seen reports that AudioTrack.play() can sometimes start in a
+          // paued mode (e.g. when application is in background mode).
+          // TODO(henrika): consider calling reportWebRtcAudioTrackStartError()
+          // and release audio resources here as well. For now, let the thread start
+          // and hope that the audio session can be restored later.
+          if (audioTrack.getPlayState() != AudioTrack.PLAYSTATE_PLAYING) {
+            Logging.w(TAG, "AudioTrack failed to enter playing state.");
+          }
+        }
+        if (!playing && lastPlaying) {
+          // Stops playing the audio data. Since the instance was created in
+          // MODE_STREAM mode, audio will stop playing after the last buffer that
+          // was written has been played.
+          if (audioTrack != null) {
+            Logging.d(TAG, "Stopping the audio track...");
+            try {
+              audioTrack.stop();
+              Logging.d(TAG, "The audio track has now been stopped.");
+            } catch (IllegalStateException e) {
+              Logging.e(TAG, "AudioTrack.stop failed: " + e.getMessage());
+            }
+          }
+        }
+        lastPlaying = playing;
+
         // Get 10ms of PCM data from the native WebRTC client. Audio data is
         // written into the common ByteBuffer using the address that was
         // cached at construction.
         nativeGetPlayoutData(sizeInBytes, nativeAudioTrack);
+
+        // If not playing, just loop getting playout data. This is needed to
+        // pump data through the stack so that we get stats/etc. for it.
+        // TODO(deadbeef): This is a busy loop currently... If this were
+        // productionized, would need to do something about that.
+        if (!playing) {
+          continue;
+        }
         // Write data until all data has been written to the audio sink.
         // Upon return, the buffer position will have been advanced to reflect
         // the amount of data that was successfully written to the AudioTrack.
@@ -175,19 +202,6 @@ public class WebRtcAudioTrack {
         // TODO(henrika): it is possible to create a delay estimate here by
         // counting number of written frames and subtracting the result from
         // audioTrack.getPlaybackHeadPosition().
-      }
-
-      // Stops playing the audio data. Since the instance was created in
-      // MODE_STREAM mode, audio will stop playing after the last buffer that
-      // was written has been played.
-      if (audioTrack != null) {
-        Logging.d(TAG, "Stopping the audio track...");
-        try {
-          audioTrack.stop();
-          Logging.d(TAG, "The audio track has now been stopped.");
-        } catch (IllegalStateException e) {
-          Logging.e(TAG, "AudioTrack.stop failed: " + e.getMessage());
-        }
       }
     }
 
@@ -286,19 +300,23 @@ public class WebRtcAudioTrack {
     }
     logMainParameters();
     logMainParametersExtended();
+    audioThread = new AudioTrackThread("AudioTrackJavaThread");
+    audioThread.start();
     return true;
   }
 
   private boolean startPlayout() {
     Logging.d(TAG, "startPlayout");
+    assertTrue(audioThread != null);
+    audioThread.playing = true;
+    /*
     assertTrue(audioTrack != null);
     assertTrue(audioThread == null);
     if (audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
       reportWebRtcAudioTrackStartError("AudioTrack instance is not successfully initialized.");
       return false;
     }
-    audioThread = new AudioTrackThread("AudioTrackJavaThread");
-    audioThread.start();
+    */
     return true;
   }
 
@@ -306,8 +324,9 @@ public class WebRtcAudioTrack {
     Logging.d(TAG, "stopPlayout");
     assertTrue(audioThread != null);
     logUnderrunCount();
-    audioThread.stopThread();
+    audioThread.playing = false;
 
+    /*
     final Thread aThread = audioThread;
     audioThread = null;
     if (aThread != null) {
@@ -320,6 +339,7 @@ public class WebRtcAudioTrack {
     }
 
     releaseAudioResources();
+    */
     return true;
   }
 

@@ -359,6 +359,9 @@ public class PeerConnection {
 
   public native void setRemoteDescription(SdpObserver observer, SessionDescription sdp);
 
+  // True if remote audio should be played out. Defaults to true.
+  public native void setAudioPlayout(boolean playout);
+
   public boolean setConfiguration(RTCConfiguration config) {
     return nativeSetConfiguration(config, nativeObserver);
   }

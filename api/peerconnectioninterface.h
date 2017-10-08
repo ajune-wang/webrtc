@@ -757,6 +757,11 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     return false;
   }
 
+  // Enable/disable playout of received audio streams. Enabled by default. Note
+  // that even if playout is enabled, streams will only be played out if the
+  // appropriate SDP is also applied.
+  virtual void SetAudioPlayout(bool playout) {}
+
   // Register a metric observer (used by chromium).
   //
   // There can only be one observer at a time. Before the observer is

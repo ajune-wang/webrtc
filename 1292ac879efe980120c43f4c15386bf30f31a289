@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a3aa88ff_d6cab30b",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1053,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-08T18:46:28Z",
+      "side": 1,
+      "message": "You\u0027re right; I was avoiding the \"if\" condition being run in release mode, but that\u0027s a small price to pay for code readability.",
+      "parentUuid": "70a86871_d8fae18b",
+      "revId": "1292ac879efe980120c43f4c15386bf30f31a289",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38297da5_17582b6f",
         "filename": "p2p/base/turnport.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c251a6d6_867e9af8",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-08T18:46:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38297da5_17582b6f",
+      "revId": "1292ac879efe980120c43f4c15386bf30f31a289",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39dd1471_a6b50f1c",
         "filename": "p2p/base/turnport.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2017-10-06T21:21:04Z",
       "side": 1,
       "message": "rtc::Optional has an implicit bool value, so calling |has_value()| here is not necessary.",
+      "revId": "1292ac879efe980120c43f4c15386bf30f31a289",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc4de2d_6abd141c",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-08T18:46:28Z",
+      "side": 1,
+      "message": "Since this will appear in a log if the DCHECK is hit, I thought it may be useful to be explicit, since the person looking at the log may not know it\u0027s an Optional.",
+      "parentUuid": "39dd1471_a6b50f1c",
       "revId": "1292ac879efe980120c43f4c15386bf30f31a289",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

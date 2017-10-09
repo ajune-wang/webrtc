@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b88032ed_bd9df93f",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-09T11:57:39Z",
+      "side": 1,
+      "message": "nit: Can you make this javadoc?",
+      "revId": "626dbeb3ed9de4182388a7fcb9c728cfd6baf943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f107b75_788d2206",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-09T11:57:39Z",
+      "side": 1,
+      "message": "nit: literal comment",
+      "range": {
+        "startLine": 1242,
+        "startChar": 66,
+        "endLine": 1242,
+        "endChar": 70
+      },
+      "revId": "626dbeb3ed9de4182388a7fcb9c728cfd6baf943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8cbe96_a29b12d0",
+        "filename": "sdk/android/src/jni/pc/peerconnectionobserver_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-09T11:57:39Z",
+      "side": 1,
+      "message": "nit: I think this could be extracted into a helper method?",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 3
+      },
+      "revId": "626dbeb3ed9de4182388a7fcb9c728cfd6baf943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d167f4da_967763bc",
+        "filename": "sdk/android/src/jni/pc/peerconnectionobserver_jni.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-09T11:57:39Z",
+      "side": 1,
+      "message": "Can you add a comment that these must be called from within local ref frame, otherwise they will leak references.",
+      "revId": "626dbeb3ed9de4182388a7fcb9c728cfd6baf943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a74fb818_ae181bc6",
+        "filename": "sdk/android/src/jni/pc/peerconnectionobserver_jni.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-09T11:57:39Z",
+      "side": 1,
+      "message": "nit: I would prefer these two methods to have different names instead of relying on overloading i.e. AddNativeAudioTrackToJavaStream",
+      "range": {
+        "startLine": 80,
+        "startChar": 7,
+        "endLine": 80,
+        "endChar": 33
+      },
+      "revId": "626dbeb3ed9de4182388a7fcb9c728cfd6baf943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

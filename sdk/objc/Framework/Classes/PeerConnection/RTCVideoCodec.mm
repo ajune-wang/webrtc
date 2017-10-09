@@ -47,6 +47,12 @@
       initWithNativeSdpVideoFormat:webrtc::SdpVideoFormat(videoCodec.name, videoCodec.params)];
 }
 
+- (instancetype)copyWithZone:(NSZone *)zone {
+  RTCVideoCodecInfo *copy =
+      [[RTCVideoCodecInfo allocWithZone:zone] initWithName:self.name parameters:self.parameters];
+  return copy;
+}
+
 - (BOOL)isEqualToCodecInfo:(RTCVideoCodecInfo *)info {
   if (!info ||
       ![self.name isEqualToString:info.name] ||

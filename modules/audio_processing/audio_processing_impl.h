@@ -41,9 +41,11 @@ class AudioProcessingImpl : public AudioProcessing {
   explicit AudioProcessingImpl(const webrtc::Config& config);
   // AudioProcessingImpl takes ownership of capture post processor and
   // beamformer.
-  AudioProcessingImpl(const webrtc::Config& config,
-                      std::unique_ptr<PostProcessing> capture_post_processor,
-                      NonlinearBeamformer* beamformer);
+  AudioProcessingImpl(
+      const webrtc::Config& config,
+      std::unique_ptr<PostProcessing> capture_post_processor,
+      std::function<EchoControl*(int sample_rate_hz)> echo_control_factory,
+      NonlinearBeamformer* beamformer);
   ~AudioProcessingImpl() override;
   int Initialize() override;
   int Initialize(int capture_input_sample_rate_hz,
@@ -140,6 +142,9 @@ class AudioProcessingImpl : public AudioProcessing {
 
   // Submodule interface implementations.
   std::unique_ptr<HighPassFilter> high_pass_filter_impl_;
+
+  // EchoControl factory method.
+  std::function<EchoControl*(int sample_rate_hz)> echo_control_factory_;
 
   class ApmSubmoduleStates {
    public:

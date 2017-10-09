@@ -43,6 +43,7 @@ class ProcessingConfig;
 
 class EchoCancellation;
 class EchoControlMobile;
+class EchoControl;
 class GainControl;
 class HighPassFilter;
 class LevelEstimator;
@@ -378,6 +379,7 @@ class AudioProcessing : public rtc::RefCountInterface {
   static AudioProcessing* Create(
       const webrtc::Config& config,
       std::unique_ptr<PostProcessing> capture_post_processor,
+      std::function<EchoControl*(int sample_rate_hz)> echo_control_factory,
       NonlinearBeamformer* beamformer);
   ~AudioProcessing() override {}
 

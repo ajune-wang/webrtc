@@ -1304,7 +1304,7 @@ TEST_F(ApmTest, AgcOnlyAdaptsWhenTargetSignalIsPresent) {
   testing::NiceMock<MockNonlinearBeamformer>* beamformer =
       new testing::NiceMock<MockNonlinearBeamformer>(geometry, 1u);
   std::unique_ptr<AudioProcessing> apm(
-      AudioProcessing::Create(config, nullptr, beamformer));
+      AudioProcessing::Create(config, nullptr, nullptr, beamformer));
   EXPECT_EQ(kNoErr, apm->gain_control()->Enable(true));
   ChannelBuffer<float> src_buf(kSamplesPerChannel, kNumInputChannels);
   ChannelBuffer<float> dest_buf(kSamplesPerChannel, kNumOutputChannels);
@@ -2898,14 +2898,14 @@ TEST(ApmConfiguration, EnablePostProcessing) {
   auto mock_post_processor =
       std::unique_ptr<PostProcessing>(mock_post_processor_ptr);
   rtc::scoped_refptr<AudioProcessing> apm = AudioProcessing::Create(
-      webrtc_config, std::move(mock_post_processor), nullptr);
+      webrtc_config, std::move(mock_post_processor), nullptr, nullptr);
 
   AudioFrame audio;
   audio.num_channels_ = 1;
   SetFrameSampleRate(&audio, AudioProcessing::NativeRate::kSampleRate16kHz);
 
   EXPECT_CALL(*mock_post_processor_ptr, Process(testing::_)).Times(1);
-  std::cout << apm->ProcessStream(&audio) << std::endl;
+  apm->ProcessStream(&audio);
 }
 
 }  // namespace webrtc

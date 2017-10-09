@@ -946,6 +946,8 @@ class SSLStreamAdapterTestDTLSFromPEMStrings : public SSLStreamAdapterTestDTLS {
   }
 };
 
+// Test fixture for certificate chaining. Server will push more than one
+// certificates.
 class SSLStreamAdapterTestDTLSCertChain : public SSLStreamAdapterTestDTLS {
  public:
   SSLStreamAdapterTestDTLSCertChain() : SSLStreamAdapterTestDTLS("", ""){};
@@ -981,9 +983,9 @@ TEST_F(SSLStreamAdapterTestDTLSCertChain, TwoCertHandshake) {
   TestHandshake();
   std::unique_ptr<rtc::SSLCertificate> peer_cert =
       client_ssl_->GetPeerCertificate();
-  ASSERT_NE(peer_cert->GetChain(), nullptr);
-  ASSERT_EQ(peer_cert->GetChain()->GetSize(), 1u);
-  ASSERT_EQ(peer_cert->GetChain()->Get(0).ToPEMString(), kCACert);
+  ASSERT_NE(nullptr, peer_cert->GetChain());
+  ASSERT_EQ(1u, peer_cert->GetChain()->GetSize());
+  EXPECT_EQ(kCACert, peer_cert->GetChain()->Get(0).ToPEMString());
 }
 
 TEST_F(SSLStreamAdapterTestDTLSCertChain, FourCertHandshake) {
@@ -993,11 +995,11 @@ TEST_F(SSLStreamAdapterTestDTLSCertChain, FourCertHandshake) {
   TestHandshake();
   std::unique_ptr<rtc::SSLCertificate> peer_cert =
       client_ssl_->GetPeerCertificate();
-  ASSERT_NE(peer_cert->GetChain(), nullptr);
-  ASSERT_EQ(peer_cert->GetChain()->GetSize(), 3u);
-  ASSERT_EQ(peer_cert->GetChain()->Get(0).ToPEMString(), kCACert);
-  ASSERT_EQ(peer_cert->GetChain()->Get(1).ToPEMString(), kCERT_PEM);
-  ASSERT_EQ(peer_cert->GetChain()->Get(2).ToPEMString(), kCERT_PEM);
+  ASSERT_NE(nullptr, peer_cert->GetChain());
+  ASSERT_EQ(3u, peer_cert->GetChain()->GetSize());
+  EXPECT_EQ(kCACert, peer_cert->GetChain()->Get(0).ToPEMString());
+  EXPECT_EQ(kCERT_PEM, peer_cert->GetChain()->Get(1).ToPEMString());
+  EXPECT_EQ(kCERT_PEM, peer_cert->GetChain()->Get(2).ToPEMString());
 }
 
 // Basic tests: TLS

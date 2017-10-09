@@ -17,6 +17,7 @@ using rtc::OpenSSLCertificate;
 using rtc::SSLCertChain;
 
 namespace {
+// Some random certificates, they are not related.
 const char kCert1[] =
     "-----BEGIN CERTIFICATE-----\n"
     "MIIB8TCCAZugAwIBAgIJAL9GDdi6iSRZMA0GCSqGSIb3DQEBCwUAMFQxCzAJBgNV\n"
@@ -73,74 +74,63 @@ const char kCert3[] =
     "B0OR+5pFFNTJPoNlqpdrDsGrDu7JlUtk0ZLZzYyKXbgy2qXxfd4OWzXXjxpLMszZ\n"
     "LDIpOAkj\n"
     "-----END CERTIFICATE-----\n";
+
+STACK_OF(X509) * MakeX509Stack(const std::vector<std::string>& certPEMs) {
+  STACK_OF(X509)* x509s = sk_X509_new_null();
+  std::unique_ptr<OpenSSLCertificate> ssl_certificate;
+  for (const auto pem : certPEMs) {
+    ssl_certificate.reset(OpenSSLCertificate::FromPEMString(pem));
+    X509* x509 = ssl_certificate->x509();
+    sk_X509_push(x509s, ssl_certificate->x509());
+    X509_up_ref(x509);
+  }
+  return x509s;
+}
+
 }  // namespace
 
-class OpenSSLCertificateTest : public testing::Test {
- public:
-  OpenSSLCertificateTest() {}
-  ~OpenSSLCertificateTest() {}
-
-  void SetUp() override {
-    leaf_cert = rtc::WrapUnique<OpenSSLCertificate>(
-        OpenSSLCertificate::FromPEMString(kCert3));
-    int_cert1 = rtc::WrapUnique<OpenSSLCertificate>(
-        OpenSSLCertificate::FromPEMString(kCert1));
-    int_cert2 = rtc::WrapUnique<OpenSSLCertificate>(
-        OpenSSLCertificate::FromPEMString(kCert2));
-    x509s = sk_X509_new_null();
-    sk_X509_push(x509s, leaf_cert->x509());
-    sk_X509_push(x509s, int_cert1->x509());
-    sk_X509_push(x509s, int_cert2->x509());
-  }
-  std::unique_ptr<OpenSSLCertificate> leaf_cert;
-  std::unique_ptr<OpenSSLCertificate> int_cert1;
-  std::unique_ptr<OpenSSLCertificate> int_cert2;
-
-  STACK_OF(X509) * x509s;
-};
-
-TEST_F(OpenSSLCertificateTest, OneCert) {
+TEST(OpenSSLCertificateTestForChain, NullChainReturnedForLeafCertificate) {
   auto leaf_cert = rtc::WrapUnique<OpenSSLCertificate>(
       OpenSSLCertificate::FromPEMString(kCert3));
   std::unique_ptr<SSLCertChain> chain = leaf_cert->GetChain();
-  EXPECT_EQ(chain, nullptr);
+  EXPECT_EQ(nullptr, chain);
 }
 
-TEST_F(OpenSSLCertificateTest, ThreeCert) {
-  auto certificate =
-      rtc::WrapUnique<OpenSSLCertificate>(new OpenSSLCertificate(x509s));
-  std::unique_ptr<SSLCertChain> chain = certificate->GetChain();
-  ASSERT_EQ(chain->GetSize(), 2u);
-  ASSERT_EQ(chain->Get(0).ToPEMString(), kCert1);
-  ASSERT_EQ(chain->Get(1).ToPEMString(), kCert2);
+TEST(OpenSSLCertificateTestForChain, ToPEMString) {
+  STACK_OF(X509)* x509s = MakeX509Stack({kCert3, kCert2, kCert1});
+  OpenSSLCertificate cert1(x509s);
+  OpenSSLCertificate cert2(sk_X509_value(x509s, 0));
+  EXPECT_EQ(std::string(kCert3) + kCert2 + kCert1, cert1.ToPEMString());
+  EXPECT_EQ(kCert3, cert2.ToPEMString());
+  sk_X509_pop_free(x509s, X509_free);
 }
 
-TEST_F(OpenSSLCertificateTest, CompareCert) {
-  auto cert1 =
-      rtc::WrapUnique<OpenSSLCertificate>(new OpenSSLCertificate(x509s));
-  auto cert2 =
-      rtc::WrapUnique<OpenSSLCertificate>(new OpenSSLCertificate(x509s));
-  auto cert3 = rtc::WrapUnique<OpenSSLCertificate>(
-      new OpenSSLCertificate(sk_X509_value(x509s, 0)));
-  ASSERT_TRUE(*cert1 == *cert2);
-  ASSERT_TRUE(*cert1 != *cert3);
-}
-
-TEST_F(OpenSSLCertificateTest, ToPEMString) {
-  auto cert1 =
-      rtc::WrapUnique<OpenSSLCertificate>(new OpenSSLCertificate(x509s));
-  auto cert2 = rtc::WrapUnique<OpenSSLCertificate>(
-      new OpenSSLCertificate(sk_X509_value(x509s, 0)));
-  ASSERT_EQ(cert1->ToPEMString(), std::string(kCert3) + kCert1 + kCert2);
-  ASSERT_EQ(cert2->ToPEMString(), kCert3);
-}
-
-TEST_F(OpenSSLCertificateTest, FromPEMString) {
+TEST(OpenSSLCertificateTestForChain, FromPEMString) {
   auto cert1 = rtc::WrapUnique<OpenSSLCertificate>(
       OpenSSLCertificate::FromPEMString(kCert1));
   auto chain_cert2 = rtc::WrapUnique<OpenSSLCertificate>(
       OpenSSLCertificate::FromPEMString(std::string(kCert1) + kCert2));
-  ASSERT_EQ(cert1->ToPEMString(), kCert1);
-  ASSERT_EQ(chain_cert2->GetChain()->GetSize(), 1u);
-  ASSERT_EQ(chain_cert2->GetChain()->Get(0).ToPEMString(), kCert2);
+  EXPECT_EQ(kCert1, cert1->ToPEMString());
+  ASSERT_EQ(1u, chain_cert2->GetChain()->GetSize());
+  EXPECT_EQ(kCert2, chain_cert2->GetChain()->Get(0).ToPEMString());
+}
+
+TEST(OpenSSLCertificateTestForChain, ThreeCertificateChain) {
+  STACK_OF(X509)* x509s = MakeX509Stack({kCert3, kCert2, kCert1});
+  OpenSSLCertificate certificate(x509s);
+  std::unique_ptr<SSLCertChain> chain = certificate.GetChain();
+  ASSERT_EQ(2u, chain->GetSize());
+  EXPECT_EQ(kCert2, chain->Get(0).ToPEMString());
+  EXPECT_EQ(kCert1, chain->Get(1).ToPEMString());
+  sk_X509_pop_free(x509s, X509_free);
+}
+
+TEST(OpenSSLCertificateTestForChain, CompareChainCert) {
+  STACK_OF(X509)* x509s = MakeX509Stack({kCert3, kCert2, kCert1});
+  OpenSSLCertificate cert1(x509s);
+  OpenSSLCertificate cert2(x509s);
+  OpenSSLCertificate cert3(sk_X509_value(x509s, 0));
+  EXPECT_TRUE(cert1 == cert2);
+  EXPECT_TRUE(cert1 != cert3);
+  sk_X509_pop_free(x509s, X509_free);
 }

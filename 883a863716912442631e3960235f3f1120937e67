@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d920f21_c0462600",
+        "filename": "examples/objc/AppRTCMobile/ARDCaptureController.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2017-10-09T09:40:35Z",
+      "side": 1,
+      "message": "Agreed. I\u0027d even prefer an assert if possible. I\u0027ll look into it.",
+      "parentUuid": "0e34eb5e_4162bf27",
+      "revId": "883a863716912442631e3960235f3f1120937e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7efd3c4_1b902356",
         "filename": "examples/objc/AppRTCMobile/ARDSettingsModel.m",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "883a863716912442631e3960235f3f1120937e67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f0de87_92b68f21",
+        "filename": "examples/objc/AppRTCMobile/ARDSettingsModel.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2017-10-09T09:40:35Z",
+      "side": 1,
+      "message": "firstObject actually returns nil if the array is empty.",
+      "parentUuid": "c7efd3c4_1b902356",
+      "revId": "883a863716912442631e3960235f3f1120937e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

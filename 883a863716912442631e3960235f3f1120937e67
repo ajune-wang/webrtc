@@ -104,6 +104,24 @@
       "revId": "883a863716912442631e3960235f3f1120937e67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028711b1_48e95eb5",
+        "filename": "examples/objc/AppRTCMobile/ARDSettingsStore.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2017-10-09T11:04:05Z",
+      "side": 1,
+      "message": "Nice! :)",
+      "parentUuid": "2b67bcb3_6354ff56",
+      "revId": "883a863716912442631e3960235f3f1120937e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

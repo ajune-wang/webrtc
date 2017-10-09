@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4f5f7be9_5e5b68be",
+        "filename": "webrtc/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-09T09:39:27Z",
+      "side": 1,
+      "message": "\u003e Should return false if this returns an error.\n\nIt would be even better if this Set-method could never fail. See comment below.",
+      "parentUuid": "d6bb64a4_27da379f",
+      "revId": "f369274025b273e193e746b0076da9a16c71c52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5513041b_7c49caad",
         "filename": "webrtc/pc/peerconnection.cc",
         "patchSetId": 2
@@ -30,6 +48,29 @@
       "writtenOn": "2017-10-06T21:18:16Z",
       "side": 1,
       "message": "May want to try setting this earlier (before or after ReconfigurePortAllocator_n), to reduce the chance of there being a config that ends up partially-set. In other words, \"try things that can fail before things that are guaranteed to succeed\" (like SetIceConfig).",
+      "revId": "f369274025b273e193e746b0076da9a16c71c52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3b4f22a_ace1c6cb",
+        "filename": "webrtc/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-09T09:39:27Z",
+      "side": 1,
+      "message": "It looks like this function always succeeds. So delete the return value, to simplify callers.",
+      "range": {
+        "startLine": 1312,
+        "startChar": 21,
+        "endLine": 1312,
+        "endChar": 22
+      },
       "revId": "f369274025b273e193e746b0076da9a16c71c52d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -64,6 +105,24 @@
       "writtenOn": "2017-10-06T21:18:16Z",
       "side": 1,
       "message": "Something I brought up in the previous version of this CL is that the track ID may not be granular enough. Pretty soon, we\u0027ll be implementing RTCPriorityType (see the WebRTC spec), which is *per-encoding* when using simulcast, so more granular that per-track.\n\nThe bitrate allocation algorithm that uses RTCPriorityType will be slightly different than our default algorithm, so it seems like using BitrateAllocationStrategy would be a convenient way to inject this different algorithm. If we don\u0027t do that, the other alternative that comes to mind would be wiring up RTCPriorityType all the way to BitrateAllocator (e.g., adding it as a parameter to AddObserver), but that may be more work/more to maintain.\n\nAnyway, we don\u0027t need to figure this out in THIS code review. But I thought it would be a good time to bring it up, in case other reviewers have some thoughts.",
+      "revId": "f369274025b273e193e746b0076da9a16c71c52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f7f1941_1e4c3e36",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-09T09:39:27Z",
+      "side": 1,
+      "message": "It sounds like all \"standard\" track metadata should be passed down to the allocation strategy.\n\nI take it the bitrate allocator controls allocation per ssrc (is that \"per rtp-stream\" in the spec\u0027s language) and for simulcast, one track may correspond to multiple rtp streams?",
+      "parentUuid": "5a63b753_f2176d37",
       "revId": "f369274025b273e193e746b0076da9a16c71c52d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

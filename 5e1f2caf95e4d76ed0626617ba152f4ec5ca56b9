@@ -88,6 +88,24 @@
       "revId": "5e1f2caf95e4d76ed0626617ba152f4ec5ca56b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ef06e67_c368fafb",
+        "filename": "pc/webrtcsession.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-09T06:33:09Z",
+      "side": 1,
+      "message": "\u003e Anything that\u0027s per-transport (per-RTP session) would go in RtpTransport ultimately, and anything that\u0027s per-call would go in PeerConnection. I always forget what category RtpStreamReceiverController and RtpTransportControllerSend fall into.\n\nThey are per RTP session, so in the unbundled case, PeerConnection should have more than one and pass references Call (which fits reasonably well with the organization of Call as long as there\u0027s one RTP session for audio and one for video, while fully-unbundled case is going to require some larger reorganization of Call). And it sounds like they ultimately belong with RtpTransport, so at some point, they should move there in some form.\n\nThe current code for these classes is shaped based on two considerations: (i) what Call needs when creating audio and video streams, (ii) what\u0027s needed by our internal media backends. But not by what actually goes on in BaseChannel/RtpTransport.",
+      "parentUuid": "395ecf44_29686955",
+      "revId": "5e1f2caf95e4d76ed0626617ba152f4ec5ca56b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

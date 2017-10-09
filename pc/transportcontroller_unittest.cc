@@ -30,6 +30,7 @@ static const char kIceUfrag2[] = "TESTICEUFRAG0002";
 static const char kIcePwd2[] = "TESTICEPWD00000000000002";
 static const char kIceUfrag3[] = "TESTICEUFRAG0003";
 static const char kIcePwd3[] = "TESTICEPWD00000000000003";
+static const bool kRtcpMuxEnabled = true;
 
 namespace cricket {
 
@@ -905,5 +906,92 @@ TEST_F(TransportControllerTest, NeedsIceRestart) {
   EXPECT_FALSE(transport_controller_->NeedsIceRestart("audio"));
   EXPECT_TRUE(transport_controller_->NeedsIceRestart("video"));
 }
+
+enum class RTPTransportType { kRtp, kSrtp };
+std::ostream& operator<<(std::ostream& out, RTPTransportType value) {
+  switch (value) {
+    case RTPTransportType::kRtp:
+      return out << "RTP";
+    case RTPTransportType::kSrtp:
+      return out << "SRTP";
+    default:
+      return out << "unknown";
+  }
+}
+
+// Tests the TransportController can correctly create and destroy the RTP
+// transports.
+class TransportControllerRTPTransportTest
+    : public TransportControllerTest,
+      public ::testing::WithParamInterface<RTPTransportType> {
+ protected:
+  // Helper function to create two RTP transports.
+  void CreateRtpTransports(RTPTransportType type,
+                           const std::string& transport_name1,
+                           const std::string& transport_name2) {
+    if (type == RTPTransportType::kRtp) {
+      transport1_ = transport_controller_->CreateRtpTransport(transport_name1,
+                                                              kRtcpMuxEnabled);
+      transport2_ = transport_controller_->CreateRtpTransport(transport_name2,
+                                                              kRtcpMuxEnabled);
+    } else if (type == RTPTransportType::kSrtp) {
+      transport1_ = transport_controller_->CreateSrtpTransport(transport_name1,
+                                                               kRtcpMuxEnabled);
+      transport2_ = transport_controller_->CreateSrtpTransport(transport_name2,
+                                                               kRtcpMuxEnabled);
+    }
+    EXPECT_NE(nullptr, transport1_);
+    EXPECT_NE(nullptr, transport2_);
+  }
+
+  webrtc::RtpTransportInternal* transport1_ = nullptr;
+  webrtc::RtpTransportInternal* transport2_ = nullptr;
+};
+
+TEST_P(TransportControllerRTPTransportTest, CreateTransport) {
+  auto type = GetParam();
+  const std::string transport_name = "transport";
+  CreateRtpTransports(type, transport_name, transport_name);
+  // The TransportController is expected to return the existing one when using
+  // the same transport name.
+  EXPECT_EQ(transport1_, transport2_);
+  // Creating different type of RTP transport with same name is not allowed.
+  if (type == RTPTransportType::kRtp) {
+    EXPECT_DEATH(transport_controller_->CreateSrtpTransport(transport_name,
+                                                            kRtcpMuxEnabled),
+                 "");
+  } else if (type == RTPTransportType::kSrtp) {
+    EXPECT_DEATH(transport_controller_->CreateRtpTransport(transport_name,
+                                                           kRtcpMuxEnabled),
+                 "");
+  } else {
+    // This shouldn't happen.
+    EXPECT_TRUE(false);
+  }
+}
+
+// Tests the RTP transport is not actually destroyed if there are still
+// references exist.
+TEST_P(TransportControllerRTPTransportTest, DestroyTransportWithReference) {
+  const std::string transport_name = "transport";
+  CreateRtpTransports(GetParam(), transport_name, transport_name);
+  transport_controller_->DestroyTransport(transport_name);
+  EXPECT_NE(nullptr, transport1_->rtp_packet_transport());
+  EXPECT_EQ(nullptr, transport1_->rtcp_packet_transport());
+}
+
+// Tests the RTP is actually destroyed if there is no reference to it.
+TEST_P(TransportControllerRTPTransportTest, DestroyTransportWithNoReference) {
+  const std::string transport_name = "transport";
+  CreateRtpTransports(GetParam(), transport_name, transport_name);
+  transport_controller_->DestroyTransport(transport_name);
+  transport_controller_->DestroyTransport(transport_name);
+  EXPECT_DEATH(transport1_->IsWritable(false), "");
+}
+
+INSTANTIATE_TEST_CASE_P(TransportControllerTest,
+                        TransportControllerRTPTransportTest,
+                        ::testing::Values(RTPTransportType::kRtp,
+                                          RTPTransportType::kSrtp));
 
 }  // namespace cricket

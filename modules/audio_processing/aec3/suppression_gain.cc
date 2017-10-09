@@ -193,6 +193,11 @@ void GainToNoAudibleEcho(
   } else {
     nearend_masking_margin = config.param.gain_mask.m7;
   }
+  const float one_minus_nearend_masking_margin =
+      1.0f - config.param.gain_mask.m7;
+
+  const float masker_margin = linear_echo_estimate ? config.param.gain_mask.m1
+                                                   : config.param.gain_mask.m8;
 
   for (size_t k = 0; k < gain->size(); ++k) {
     const float unity_gain_masker = std::max(nearend[k], masker[k]);
@@ -201,7 +206,12 @@ void GainToNoAudibleEcho(
         unity_gain_masker <= 0.f) {
       (*gain)[k] = 1.f;
     } else {
-      (*gain)[k] = config.param.gain_mask.m1 * masker[k] * one_by_echo[k];
+      RTC_DCHECK_GT(0.f, one_minus_nearend_masking_margin);
+      RTC_DCHECK_GT(0.f, unity_gain_masker);
+      (*gain)[k] = std::max(0.f, (1.f - echo[k] / unity_gain_masker) /
+                                     one_minus_nearend_masking_margin);
+      (*gain)[k] =
+          std::max(masker_margin * masker[k] * one_by_echo[k], (*gain)[k]);
     }
 
     (*gain)[k] = std::min(std::max((*gain)[k], min_gain[k]), max_gain[k]);

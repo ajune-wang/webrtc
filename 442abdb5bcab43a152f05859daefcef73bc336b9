@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "723acff2_eb4c9ab2",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T22:17:35Z",
+      "side": 1,
+      "message": "Surround with ** like the other L2 titles.",
+      "range": {
+        "startLine": 126,
+        "startChar": 3,
+        "endLine": 127,
+        "endChar": 0
+      },
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efed20e8_705813a1",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T22:17:35Z",
+      "side": 1,
+      "message": "Please use em dashes for consistency with the rest of the document.",
+      "range": {
+        "startLine": 135,
+        "startChar": 16,
+        "endLine": 135,
+        "endChar": 19
+      },
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d31022bf_adfae33c",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T22:17:35Z",
+      "side": 1,
+      "message": "Maybe also mention step 0: Add the new API that we want users to use instead.",
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "954ecf0e_8b64bbc1",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T22:17:35Z",
+      "side": 1,
+      "message": "WebRTC",
+      "range": {
+        "startLine": 154,
+        "startChar": 61,
+        "endLine": 154,
+        "endChar": 67
+      },
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31082c4a_d530fe6c",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T22:17:35Z",
+      "side": 1,
+      "message": "I don\u0027t think you need the quotes here.",
+      "range": {
+        "startLine": 158,
+        "startChar": 28,
+        "endLine": 158,
+        "endChar": 33
+      },
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cf9134b_49c866f8",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T22:17:35Z",
+      "side": 1,
+      "message": "Remove; the client is responsible for creation no matter how we choose to handle dependency injection.\n\nAlternatively: \"leaving ownership of the object with the API client.\"",
+      "range": {
+        "startLine": 159,
+        "startChar": 16,
+        "endLine": 159,
+        "endChar": 28
+      },
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e76f0fba_26cc3532",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T22:17:35Z",
+      "side": 1,
+      "message": "I wonder of we can trim the rationale on lines 163-192 a bit? E.g.\n\nThe common alternatives are to supply the dependency with a smart pointer that transfers ownership (e.g., `rtc::scoped_refptr` or `std::unique_ptr`). Each has pros and cons, but\n\n* picking a single approach and using it consistently is preferable, and\n* with non-ownership-transfering injection, clients can easily transfer ownership to a smart pointer that they arrange to have the same lifetime as the WebRTC object into which the dependency is injected.",
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

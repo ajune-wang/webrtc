@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d09eb8a_2447acbb",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-10T14:23:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb91c3a0_c314de93",
+      "range": {
+        "startLine": 129,
+        "startChar": 44,
+        "endLine": 129,
+        "endChar": 0
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a61c992_3742b100",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3853904f_f01763b1",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-10T14:23:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a61c992_3742b100",
+      "range": {
+        "startLine": 192,
+        "startChar": 38,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eb3d498d_3bf84fbb",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-10T14:23:06Z",
+      "side": 1,
+      "message": "Changed so the map is cleared in this case.",
+      "parentUuid": "c68e2fc1_f028de13",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 0
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5e3ad5b0_59ebcfec",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2017-10-10T13:47:52Z",
       "side": 1,
       "message": "Can we dump one of |sent_fps_counter_| or |encoded_frame_rate_tracker_|? Don\u0027t they measure the same thing?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 29
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0bcb1b0_c9da86af",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-10T14:23:06Z",
+      "side": 1,
+      "message": "|sent_fps_counter_| holds and logs stats for the whole call (currently min, max, average). Should look into so only one could be used.",
+      "parentUuid": "5e3ad5b0_59ebcfec",
       "range": {
         "startLine": 218,
         "startChar": 0,

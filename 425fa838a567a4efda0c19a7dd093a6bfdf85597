@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dd13d86_4509645f",
+        "filename": "api/audio_codecs/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-10-10T12:34:14Z",
+      "side": 1,
+      "message": "Do we really need these #defines still?",
+      "revId": "425fa838a567a4efda0c19a7dd093a6bfdf85597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

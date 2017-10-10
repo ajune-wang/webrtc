@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a8f1c68_a084c6ba",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-10T16:58:14Z",
+      "side": 1,
+      "message": "All properties on RTCVideoCodecInfo are readonly, Can\u0027t we get away with not copying here?",
+      "range": {
+        "startLine": 35,
+        "startChar": 28,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "652fee57_210dcf1c",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-10T16:58:14Z",
+      "side": 1,
+      "message": "Do the Encoder/Decoder PriorityLists need to be separate classes? Seems like they should be identical.",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6e847e8_223016b8",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoDecoder.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-10T16:58:14Z",
+      "side": 1,
+      "message": "Consider adding a comment here explaining why this is unused.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe433c03_103455fc",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoEncoder.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-10T16:58:14Z",
+      "side": 1,
+      "message": "Ditto about comment.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3d1e7a_70372003",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoDecoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-10T16:58:14Z",
+      "side": 1,
+      "message": "We should mark init as NS_DESIGNATED_INITIALIZER if it isn\u0027t already since it performs required setup.",
+      "range": {
+        "startLine": 82,
+        "startChar": 10,
+        "endLine": 82,
+        "endChar": 14
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d278a192_bc6e4b5a",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-10T16:58:14Z",
+      "side": 1,
+      "message": "I want to move these constants to some header where they are externally exposed, however that doesn\u0027t need to happen in this CL.",
+      "range": {
+        "startLine": 41,
+        "startChar": 17,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

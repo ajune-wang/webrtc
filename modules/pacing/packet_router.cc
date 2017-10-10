@@ -209,10 +209,8 @@ bool PacketRouter::SendRemb(uint32_t bitrate_bps,
     return false;
   }
 
-  // The Add* and Remove* methods above ensure that this (and only this) module
-  // has REMB enabled. REMB should be disabled on all other modules, because
-  // otherwise, they will send REMB with stale info.
-  RTC_DCHECK(active_remb_module_->REMB());
+  // The Add* and Remove* methods above ensure that REMB is disabled on all
+  // other modules, because otherwise, they will send REMB with stale info.
   active_remb_module_->SetREMBData(bitrate_bps, ssrcs);
 
   return true;
@@ -266,8 +264,7 @@ void PacketRouter::MaybeRemoveRembModuleCandidate(RtpRtcp* candidate_module,
 
 void PacketRouter::UnsetActiveRembModule() {
   RTC_CHECK(active_remb_module_);
-  RTC_DCHECK(active_remb_module_->REMB());
-  active_remb_module_->SetREMBStatus(false);
+  active_remb_module_->UnsetRemb();
   active_remb_module_ = nullptr;
 }
 
@@ -287,14 +284,8 @@ void PacketRouter::DetermineActiveRembModule() {
     new_active_remb_module_ = nullptr;
   }
 
-  if (new_active_remb_module_ != active_remb_module_) {
-    if (active_remb_module_) {
-      UnsetActiveRembModule();
-    }
-    if (new_active_remb_module_) {
-      RTC_DCHECK(!new_active_remb_module_->REMB());
-      new_active_remb_module_->SetREMBStatus(true);
-    }
+  if (new_active_remb_module_ != active_remb_module_ && active_remb_module_) {
+    UnsetActiveRembModule();
   }
 
   active_remb_module_ = new_active_remb_module_;

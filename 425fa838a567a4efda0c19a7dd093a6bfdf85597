@@ -16,6 +16,24 @@
       "revId": "425fa838a567a4efda0c19a7dd093a6bfdf85597",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bffb289_43d6085f",
+        "filename": "api/audio_codecs/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T12:37:12Z",
+      "side": 1,
+      "message": "Unfortunately yes. I hope to be able to get rid of them soon, though.",
+      "parentUuid": "0dd13d86_4509645f",
+      "revId": "425fa838a567a4efda0c19a7dd093a6bfdf85597",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

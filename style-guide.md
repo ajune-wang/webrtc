@@ -93,6 +93,30 @@ instead of       | use
 [gn-templ]: https://chromium.googlesource.com/chromium/src/tools/gn/+/HEAD/docs/language.md#Templates
 [gn-target]: https://chromium.googlesource.com/chromium/src/tools/gn/+/HEAD/docs/language.md#Targets
 
+### `visibility`: Be restrictive by default
+
+By default, any build target can depend on any other build target. If
+you set the `visibility` of a target, only those targets that match
+one of the patterns in the `visibility` list may depend on it
+([documentation][gn-visibility-doc]).
+
+[gn-visibility-doc]: https://chromium.googlesource.com/chromium/src/+/HEAD/tools/gn/docs/reference.md#visibility
+
+If most targets in a `BUILD.gn` file should have the same visibility,
+you can declare a `visibility` list at file scope; it will be the
+default visibility for all subsequent build targets in that file.
+
+#### Rule
+
+Prefer to reduce the visibility of build targets as much as possible,
+as long as this doesn't make things unduly inconvenient. For example:
+
+* If a target is used only by one or a tiny number of other targets,
+  prefer to list them explicitly: `visibility = [ ":foo", ":bar" ]`
+* If a target is used only by targets in the same `BUILD.gn` file:
+  `visibility = [ ":*" ]`. (This is often useful as a file-scoped
+  default.)
+
 ### Conditional compilation with the C preprocessor
 
 Avoid using the C preprocessor to conditionally enable or disable

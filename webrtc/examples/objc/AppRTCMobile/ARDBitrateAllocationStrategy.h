@@ -8,16 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#import <Foundation/Foundation.h>
-#import "WebRTC/RTCConfiguration.h"
+#import "WebRTC/RTCPeerConnection.h"
 
 @interface ARDBitrateAllocationStrategy : NSObject
 
-+ (ARDBitrateAllocationStrategy*)
-    createAudioPriorityBitrateAllocationStrategyForConfiguration:(RTCConfiguration*)configuration
-                                                  withAudioTrack:(NSString*)audioTrackID
-                                          sufficientAudioBitrate:(uint32_t)sufficientAudioBitrate;
-
-- (instancetype)init NS_UNAVAILABLE;
+- (void)setAudioPriorityStrategy:(RTCPeerConnection *)peerConnection
+                    audioTrackId:(NSString *)audioTrackId;
 
 @end

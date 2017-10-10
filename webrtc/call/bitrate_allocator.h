@@ -14,9 +14,9 @@
 #include <stdint.h>
 
 #include <map>
-#include <string>
 #include <utility>
 #include <vector>
+#include <string>
 
 #include "webrtc/rtc_base/bitrateallocationstrategy.h"
 #include "webrtc/rtc_base/scoped_ref_ptr.h"

@@ -13,35 +13,35 @@
 
 #include "webrtc/rtc_base/bitrateallocationstrategy.h"
 
+constexpr uint32_t kSufficientAudioBitrate = 16000;
+
 @implementation ARDBitrateAllocationStrategy {
-  rtc::AudioPriorityBitrateAllocationStrategy* _strategy;
+  rtc::AudioPriorityBitrateAllocationStrategy* audio_priority_strategy_;
+  __weak RTCPeerConnection* _peerConnection;
 }
 
-+ (ARDBitrateAllocationStrategy*)
-    createAudioPriorityBitrateAllocationStrategyForConfiguration:(RTCConfiguration*)configuration
-                                                  withAudioTrack:(NSString*)audioTrackID
-                                          sufficientAudioBitrate:(uint32_t)sufficientAudioBitrate {
-  return [[ARDBitrateAllocationStrategy alloc] initWithConfiguration:configuration
-                                                      withAudioTrack:audioTrackID
-                                              sufficientAudioBitrate:sufficientAudioBitrate];
-}
-
-- (instancetype)initWithConfiguration:(RTCConfiguration*)configuration
-                       withAudioTrack:(NSString*)audioTrackID
-               sufficientAudioBitrate:(uint32_t)sufficientAudioBitrate {
-  if (self = [super init]) {
-    _strategy = new rtc::AudioPriorityBitrateAllocationStrategy(
-        std::string(audioTrackID.UTF8String), sufficientAudioBitrate);
-    configuration.bitrateAllocationStrategy =
-        [[RTCBitrateAllocationStrategy alloc] initWith:_strategy];
-  }
+- (id)init {
+  if (self = [super init]) audio_priority_strategy_ = nullptr;
+  _peerConnection = nil;
   return self;
 }
 
+- (void)setAudioPriorityStrategy:(RTCPeerConnection*)peerConnection
+                    audioTrackId:(NSString*)audioTrackId {
+  _peerConnection = peerConnection;
+  audio_priority_strategy_ = new rtc::AudioPriorityBitrateAllocationStrategy(
+      std::string(audioTrackId.UTF8String), kSufficientAudioBitrate);
+  [peerConnection setBitrateAllocationStrategy:[[RTCBitrateAllocationStrategy alloc]
+                                                   initWith:audio_priority_strategy_]];
+}
+
 - (void)dealloc {
-  if (_strategy) {
-    delete _strategy;
-    _strategy = nullptr;
+  if (_peerConnection) {
+    [_peerConnection setBitrateAllocationStrategy:nil];
+  }
+  if (audio_priority_strategy_) {
+    delete audio_priority_strategy_;
+    audio_priority_strategy_ = nullptr;
   }
 }
 

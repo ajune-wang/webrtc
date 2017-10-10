@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 The WebRTC project authors. All Rights Reserved.
+ *  Copyright 2015 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -10,6 +10,7 @@
 
 #import <WebRTC/RTCMacros.h>
 #import <WebRTC/RTCMediaStreamTrack.h>
+#include "webrtc/rtc_base/scoped_ref_ptr.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +25,7 @@ RTC_EXPORT
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWith:(rtc::BitrateAllocationStrategy*)strategy;
 
-/** Native bitrate allocation strategy. */
+/** The audio source for this audio track. */
 @property(nonatomic, readonly) rtc::BitrateAllocationStrategy* strategy;
 
 @end

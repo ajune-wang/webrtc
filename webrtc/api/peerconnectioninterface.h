@@ -468,12 +468,6 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // interval specified in milliseconds by the uniform distribution [a, b].
     rtc::Optional<rtc::IntervalRange> ice_regather_interval_range;
 
-    // If not set default WebRTC allocator will be used. May be changed during
-    // an active session. The strategy is owned by application and it is
-    // responsible for keeping it alive as long as any of its peerconnections
-    // are using it.
-    rtc::BitrateAllocationStrategy* bitrate_allocation_strategy = nullptr;
-
     //
     // Don't forget to update operator== if adding something.
     //
@@ -777,6 +771,16 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // Setting |current_bitrate_bps| will reset the current bitrate estimate
   // to the provided value.
   virtual RTCError SetBitrate(const BitrateParameters& bitrate) = 0;
+
+  // SetBitrateAllocationStrategy sets current strategy. If not set default
+  // WebRTC allocator will be used. May be changed during an active session.
+  // Should be set to null before the strategy is destroyed. The strategy is
+  // owned by application and it is responsible for keeping it alive as long as
+  // any of its peerconnections are using it.
+  virtual RTCError SetBitrateAllocationStrategy(
+      rtc::BitrateAllocationStrategy* bitrate_allocation_strategy) {
+    return RTCError(RTCErrorType::UNSUPPORTED_OPERATION);
+  }
 
   // Returns the current SignalingState.
   virtual SignalingState signaling_state() = 0;

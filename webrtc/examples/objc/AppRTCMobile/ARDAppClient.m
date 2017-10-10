@@ -50,7 +50,6 @@ static NSString * const kARDMediaStreamId = @"ARDAMS";
 static NSString * const kARDAudioTrackId = @"ARDAMSa0";
 static NSString * const kARDVideoTrackId = @"ARDAMSv0";
 static NSString * const kARDVideoTrackKind = @"video";
-static uint32_t const kSufficientAudioBitrate = 16000;
 
 // TODO(tkchin): Add these as UI options.
 static BOOL const kARDAppClientEnableTracing = NO;
@@ -534,13 +533,14 @@ static int const kKbpsMultiplier = 1000;
   RTCMediaConstraints *constraints = [self defaultPeerConnectionConstraints];
   RTCConfiguration *config = [[RTCConfiguration alloc] init];
   config.iceServers = _iceServers;
-  _bitrateAllocationStrategy = [ARDBitrateAllocationStrategy
-      createAudioPriorityBitrateAllocationStrategyForConfiguration:config
-                                                    withAudioTrack:kARDAudioTrackId
-                                            sufficientAudioBitrate:kSufficientAudioBitrate];
   _peerConnection = [_factory peerConnectionWithConfiguration:config
                                                   constraints:constraints
                                                      delegate:self];
+
+  // Create bitrate allocation strategy
+  _bitrateAllocationStrategy = [ARDBitrateAllocationStrategy new];
+  [_bitrateAllocationStrategy setAudioPriorityStrategy:_peerConnection
+                                          audioTrackId:kARDAudioTrackId];
 
   // Create AV senders.
   [self createMediaSenders];

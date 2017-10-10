@@ -132,6 +132,9 @@ class PeerConnection : public PeerConnectionInterface,
 
   RTCError SetBitrate(const BitrateParameters& bitrate) override;
 
+  RTCError SetBitrateAllocationStrategy(
+      rtc::BitrateAllocationStrategy* bitrate_allocation_strategy) override;
+
   bool StartRtcEventLog(rtc::PlatformFile file,
                         int64_t max_size_bytes) override;
   void StopRtcEventLog() override;
@@ -386,9 +389,6 @@ class PeerConnection : public PeerConnectionInterface,
   //
   // Returns RTCError::OK() if there are no issues.
   RTCError ValidateConfiguration(const RTCConfiguration& config) const;
-
-  void SetBitrateAllocationStrategy(
-      rtc::BitrateAllocationStrategy* bitrate_allocation_strategy);
 
   // Storing the factory as a scoped reference pointer ensures that the memory
   // in the PeerConnectionFactoryImpl remains available as long as the

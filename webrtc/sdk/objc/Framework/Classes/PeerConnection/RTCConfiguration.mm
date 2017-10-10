@@ -14,7 +14,6 @@
 
 #import "RTCIceServer+Private.h"
 #import "RTCIntervalRange+Private.h"
-#import "WebRTC/RTCBitrateAllocationStrategy.h"
 #import "WebRTC/RTCLogging.h"
 
 #include "webrtc/rtc_base/rtccertificategenerator.h"
@@ -42,7 +41,6 @@
     _shouldPresumeWritableWhenFullyRelayed;
 @synthesize iceCheckMinInterval = _iceCheckMinInterval;
 @synthesize iceRegatherIntervalRange = _iceRegatherIntervalRange;
-@synthesize bitrateAllocationStrategy = _bitrateAllocationStrategy;
 
 - (instancetype)init {
   // Copy defaults.
@@ -93,10 +91,6 @@
       const rtc::IntervalRange &nativeIntervalRange = config.ice_regather_interval_range.value();
       _iceRegatherIntervalRange =
           [[RTCIntervalRange alloc] initWithNativeIntervalRange:nativeIntervalRange];
-    }
-    if (config.bitrate_allocation_strategy) {
-      _bitrateAllocationStrategy =
-          [[RTCBitrateAllocationStrategy alloc] initWith:config.bitrate_allocation_strategy];
     }
   }
   return self;
@@ -184,9 +178,7 @@
     nativeConfig->ice_regather_interval_range =
         rtc::Optional<rtc::IntervalRange>(*nativeIntervalRange);
   }
-  if (_bitrateAllocationStrategy) {
-    nativeConfig->bitrate_allocation_strategy = _bitrateAllocationStrategy.strategy;
-  }
+
   return nativeConfig.release();
 }
 

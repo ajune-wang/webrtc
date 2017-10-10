@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "925d9f84_d70a316b",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5018
+      },
+      "writtenOn": "2017-10-10T10:05:29Z",
+      "side": 1,
+      "message": "I don\u0027t know but I think you should also have this above (but modified for WebRTC):\n\n  # By default, we should check out everything needed to run on the main\n  # chromium waterfalls. This var can be also be set to \"small\", in order\n  # to skip things are not strictly needed to build chromium for development\n  # purposes.\n  \u0027checkout_configuration\u0027: \u0027default\u0027,",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 94
+      },
+      "revId": "cb1a6f563eb96dd2c001c8fecf70d0af15e55c91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

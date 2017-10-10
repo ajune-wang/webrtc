@@ -187,6 +187,30 @@
       "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dd00385_c4e96eae",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-10T15:09:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e0bcb1b0_c9da86af",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 29
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

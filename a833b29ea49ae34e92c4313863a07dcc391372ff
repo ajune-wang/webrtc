@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbe8bf81_bce05c6e",
+        "filename": "video/picture_id_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-10-10T07:27:24Z",
+      "side": 1,
+      "message": "Add a comment why the test passes here \u003d\u003e the rewriting is in place.",
+      "range": {
+        "startLine": 368,
+        "startChar": 20,
+        "endLine": 368,
+        "endChar": 52
+      },
+      "revId": "a833b29ea49ae34e92c4313863a07dcc391372ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

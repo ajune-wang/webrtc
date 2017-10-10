@@ -22,6 +22,30 @@
       "revId": "adc9dcaf63eb1d4a9ce2d848d420358a881956f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54789664_8f199c4d",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-10-10T11:28:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8b72f67d_881e7d1c",
+      "range": {
+        "startLine": 6,
+        "startChar": 25,
+        "endLine": 8,
+        "endChar": 13
+      },
+      "revId": "adc9dcaf63eb1d4a9ce2d848d420358a881956f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

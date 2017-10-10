@@ -70,6 +70,30 @@
       "revId": "591a5ba7f1b155d1d88affa9ba6a49c4cb2d85b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d857e56_dbe0f30f",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-10-10T12:27:14Z",
+      "side": 1,
+      "message": "No, it wasn\u0027t in any GN target. Ok, let\u0027s keep it here for now, I will just rename the target and I will land this. Maybe \u0027bitrate_allocator.cc\u0027 should also go here, I will give it a try.",
+      "parentUuid": "ad5a5750_41efa111",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 26
+      },
+      "revId": "591a5ba7f1b155d1d88affa9ba6a49c4cb2d85b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

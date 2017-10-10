@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2538132_706a1d06",
+        "filename": "examples/objc/AppRTCMobile/ARDCaptureController.m",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-10T12:44:09Z",
+      "side": 1,
+      "message": "Do we need to duplicate this message? If there is no legitimate way this code path is exercised, we could do the assert for release builds also using the RTC_CHECK macro.",
+      "revId": "562fbb084e969e3d3c9bebb7d907f12932750a4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "469d2959_8bf6c449",
+        "filename": "examples/objc/AppRTCMobile/ARDSettingsModel.m",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-10T12:44:09Z",
+      "side": 1,
+      "message": "Is this case not covered by `defaultVideoResolutionSetting.length` being 0 on the simulator?",
+      "revId": "562fbb084e969e3d3c9bebb7d907f12932750a4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

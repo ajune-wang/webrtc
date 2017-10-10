@@ -22,6 +22,30 @@
       "revId": "cb1a6f563eb96dd2c001c8fecf70d0af15e55c91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39b694db_af14ab15",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-10-10T10:56:48Z",
+      "side": 1,
+      "message": "Done, I thought we were inheriting from Chromium but thinking about it probably it is the right thing to do.",
+      "parentUuid": "925d9f84_d70a316b",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 94
+      },
+      "revId": "cb1a6f563eb96dd2c001c8fecf70d0af15e55c91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

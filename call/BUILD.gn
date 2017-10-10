@@ -88,6 +88,15 @@ rtc_source_set("rtp_sender") {
   ]
 }
 
+rtc_source_set("bitrate_allocator_header") {
+  sources = [
+    "bitrate_allocator.h",
+  ]
+  deps = [
+    "../rtc_base:sequenced_task_checker",
+  ]
+}
+
 rtc_static_library("call") {
   sources = [
     "bitrate_allocator.cc",
@@ -110,6 +119,7 @@ rtc_static_library("call") {
   ]
 
   deps = [
+    ":bitrate_allocator_header",
     ":call_interfaces",
     ":rtp_interfaces",
     ":rtp_receiver",
@@ -168,6 +178,7 @@ if (rtc_include_tests) {
       "bitrate_allocator_unittest.cc",
       "bitrate_estimator_tests.cc",
       "call_unittest.cc",
+      "fake_rtp_transport_controller_send.h",
       "flexfec_receive_stream_unittest.cc",
       "rtcp_demuxer_unittest.cc",
       "rtp_demuxer_unittest.cc",
@@ -175,6 +186,7 @@ if (rtc_include_tests) {
       "rtx_receive_stream_unittest.cc",
     ]
     deps = [
+      ":bitrate_allocator_header",
       ":call",
       ":mock_rtp_interfaces",
       ":rtp_interfaces",
@@ -187,6 +199,7 @@ if (rtc_include_tests) {
       "../modules/audio_device:mock_audio_device",
       "../modules/audio_mixer",
       "../modules/bitrate_controller",
+      "../modules/congestion_controller:congestion_controller",
       "../modules/congestion_controller:mock_congestion_controller",
       "../modules/pacing",
       "../modules/pacing:mock_paced_sender",

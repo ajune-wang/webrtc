@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49767283_d25cccfd",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-10T15:05:44Z",
+      "side": 1,
+      "message": "nit: ownership",
+      "range": {
+        "startLine": 798,
+        "startChar": 60,
+        "endLine": 798,
+        "endChar": 68
+      },
+      "revId": "01c51a4639d092a8b6d99e2638dcd0e0d147e8d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a3ff792_cf84cb6d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-10T15:05:44Z",
+      "side": 1,
+      "message": "Please document assumption that functor always executes.",
+      "range": {
+        "startLine": 1316,
+        "startChar": 0,
+        "endLine": 1316,
+        "endChar": 80
+      },
+      "revId": "01c51a4639d092a8b6d99e2638dcd0e0d147e8d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cf98f77_3da01543",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-10T15:05:44Z",
+      "side": 1,
+      "message": "nit \"given output object\"",
+      "range": {
+        "startLine": 442,
+        "startChar": 52,
+        "endLine": 442,
+        "endChar": 58
+      },
+      "revId": "01c51a4639d092a8b6d99e2638dcd0e0d147e8d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

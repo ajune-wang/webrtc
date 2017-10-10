@@ -79,6 +79,7 @@
 #include "api/jsep.h"
 #include "api/mediastreaminterface.h"
 #include "api/rtcerror.h"
+#include "api/rtceventlogoutput.h"
 #include "api/rtpreceiverinterface.h"
 #include "api/rtpsenderinterface.h"
 #include "api/stats/rtcstatscollectorcallback.h"
@@ -791,6 +792,13 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // TODO(ivoc): Make this pure virtual when Chrome is updated.
   virtual bool StartRtcEventLog(rtc::PlatformFile file,
                                 int64_t max_size_bytes) {
+    return false;
+  }
+
+  // Start RtcEventLog using an existing output-sink. Takes wnership of |output|
+  // and passes it on to Call, which will take the ownership. If the
+  // operation fails the output will be closed and deallocated.
+  virtual bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output) {
     return false;
   }
 

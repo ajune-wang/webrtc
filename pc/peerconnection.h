@@ -146,6 +146,7 @@ class PeerConnection : public PeerConnectionInterface,
 
   bool StartRtcEventLog(rtc::PlatformFile file,
                         int64_t max_size_bytes) override;
+  bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output) override;
   void StopRtcEventLog() override;
 
   void Close() override;
@@ -441,6 +442,31 @@ class PeerConnection : public PeerConnectionInterface,
   // Starts recording an RTC event log using the supplied platform file.
   // This function should only be called from the worker thread.
   bool StartRtcEventLog_w(rtc::PlatformFile file, int64_t max_size_bytes);
+
+  // TODO(eladalon): !!!
+  // TODO(eladalon): We're using this class because it's not currently possible
+  // to pass an object without a copy-constructor (such as a unique_ptr) to
+  // Bind. This work-around should be replaced by a version of Bind that would
+  // not have this limitation. The class is intentioanlly not templatized, so as
+  // to discourage its use.
+  class RtcEventLogOutputOwner {
+   public:
+    RtcEventLogOutputOwner(std::unique_ptr<webrtc::RtcEventLogOutput> output)
+        : output_(std::move(output)) {}
+
+    RtcEventLogOutputOwner(const RtcEventLogOutputOwner& other) {
+      // Hack alert - casting constness away!
+      output_ = std::move(const_cast<RtcEventLogOutputOwner*>(&other)->output_);
+    }
+
+    std::unique_ptr<webrtc::RtcEventLogOutput> output_;
+  };
+
+  // TODO(eladalon): !!! Document.
+  // This function should only be called from the worker thread.
+  bool StartRtcEventLog_w_NAME(
+      RtcEventLogOutputOwner output_owner);  // TODO(eladalon): !!! Rename
+
   // Stops recording an RTC event log.
   // This function should only be called from the worker thread.
   void StopRtcEventLog_w();

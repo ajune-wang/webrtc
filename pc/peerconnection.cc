@@ -1307,6 +1307,13 @@ bool PeerConnection::StartRtcEventLog(rtc::PlatformFile file,
                                max_size_bytes));
 }
 
+bool PeerConnection::StartRtcEventLog(
+    std::unique_ptr<RtcEventLogOutput> output) {
+  return worker_thread()->Invoke<bool>(
+      RTC_FROM_HERE, rtc::Bind(&PeerConnection::StartRtcEventLog_w_NAME, this,
+                               RtcEventLogOutputOwner(std::move(output))));
+}
+
 void PeerConnection::StopRtcEventLog() {
   worker_thread()->Invoke<void>(
       RTC_FROM_HERE, rtc::Bind(&PeerConnection::StopRtcEventLog_w, this));
@@ -2544,6 +2551,14 @@ bool PeerConnection::StartRtcEventLog_w(rtc::PlatformFile file,
 
   return event_log_->StartLogging(
       rtc::MakeUnique<RtcEventLogOutputFile>(file, max_size));
+}
+
+bool PeerConnection::StartRtcEventLog_w_NAME(
+    RtcEventLogOutputOwner output_owner) {
+  if (!event_log_) {
+    return false;
+  }
+  return event_log_->StartLogging(std::move(output_owner.output_));
 }
 
 void PeerConnection::StopRtcEventLog_w() {

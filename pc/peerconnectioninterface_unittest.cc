@@ -3199,6 +3199,7 @@ TEST_F(PeerConnectionInterfaceTest, CurrentAndPendingDescriptions) {
   EXPECT_EQ(local_answer_ptr, pc_->current_local_description());
 }
 
+// TODO(eladalon): !!!
 // Tests that it won't crash when calling StartRtcEventLog or StopRtcEventLog
 // after the PeerConnection is closed.
 TEST_F(PeerConnectionInterfaceTest,

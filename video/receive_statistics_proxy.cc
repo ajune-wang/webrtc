@@ -628,9 +628,9 @@ void ReceiveStatisticsProxy::DataCountersUpdated(
 
 void ReceiveStatisticsProxy::OnDecodedFrame(rtc::Optional<uint8_t> qp,
                                             VideoContentType content_type) {
-  uint64_t now = clock_->TimeInMilliseconds();
-
   rtc::CritScope lock(&crit_);
+
+  uint64_t now = clock_->TimeInMilliseconds();
 
   ContentSpecificStats* content_specific_stats =
       &content_specific_stats_[content_type];

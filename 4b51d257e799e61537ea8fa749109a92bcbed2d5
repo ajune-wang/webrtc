@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e9f3b59_e1dd3d2b",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5017
+      },
+      "writtenOn": "2017-10-10T08:14:43Z",
+      "side": 1,
+      "message": "GetOutputDir according to the Chromium Python style guide. Maybe even _GetOutputDir makes sense?",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 18
+      },
+      "revId": "4b51d257e799e61537ea8fa749109a92bcbed2d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da56ae1f_cd88259d",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5017
+      },
+      "writtenOn": "2017-10-10T08:14:43Z",
+      "side": 1,
+      "message": "ParseArgs or even _ParseArgs",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 14
+      },
+      "revId": "4b51d257e799e61537ea8fa749109a92bcbed2d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

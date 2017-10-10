@@ -21,6 +21,7 @@ namespace webrtc {
 
 class MockProcessThread : public ProcessThread {
  public:
+  MockProcessThread() : ProcessThread("mock") {}
   // TODO(nisse): Valid overrides commented out, because the gmock
   // methods don't use any override declarations, and we want to avoid
   // warnings from -Winconsistent-missing-override. See

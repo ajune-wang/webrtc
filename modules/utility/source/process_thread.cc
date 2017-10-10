@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/utility/source/process_thread_impl.h"
+#include "modules/utility/include/process_thread.h"
 
 #include "modules/include/module.h"
 #include "rtc_base/checks.h"
@@ -32,22 +32,19 @@ int64_t GetNextCallbackTime(Module* module, int64_t time_now) {
   }
   return time_now + interval;
 }
-}
-
-ProcessThread::~ProcessThread() {}
+}  // namespace
 
 // static
-std::unique_ptr<ProcessThread> ProcessThread::Create(
-    const char* thread_name) {
-  return std::unique_ptr<ProcessThread>(new ProcessThreadImpl(thread_name));
+std::unique_ptr<ProcessThread> ProcessThread::Create(const char* thread_name) {
+  return std::unique_ptr<ProcessThread>(new ProcessThread(thread_name));
 }
 
-ProcessThreadImpl::ProcessThreadImpl(const char* thread_name)
+ProcessThread::ProcessThread(const char* thread_name)
     : wake_up_(EventWrapper::Create()),
       stop_(false),
       thread_name_(thread_name) {}
 
-ProcessThreadImpl::~ProcessThreadImpl() {
+ProcessThread::~ProcessThread() {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(!thread_.get());
   RTC_DCHECK(!stop_);
@@ -58,7 +55,7 @@ ProcessThreadImpl::~ProcessThreadImpl() {
   }
 }
 
-void ProcessThreadImpl::Start() {
+void ProcessThread::Start() {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(!thread_.get());
   if (thread_.get())
@@ -70,13 +67,13 @@ void ProcessThreadImpl::Start() {
     m.module->ProcessThreadAttached(this);
 
   thread_.reset(
-      new rtc::PlatformThread(&ProcessThreadImpl::Run, this, thread_name_));
+      new rtc::PlatformThread(&ProcessThread::Run, this, thread_name_));
   thread_->Start();
 }
 
-void ProcessThreadImpl::Stop() {
+void ProcessThread::Stop() {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
-  if(!thread_.get())
+  if (!thread_.get())
     return;
 
   {
@@ -94,7 +91,7 @@ void ProcessThreadImpl::Stop() {
     m.module->ProcessThreadAttached(nullptr);
 }
 
-void ProcessThreadImpl::WakeUp(Module* module) {
+void ProcessThread::WakeUp(Module* module) {
   // Allowed to be called on any thread.
   {
     rtc::CritScope lock(&lock_);
@@ -106,7 +103,7 @@ void ProcessThreadImpl::WakeUp(Module* module) {
   wake_up_->Set();
 }
 
-void ProcessThreadImpl::PostTask(std::unique_ptr<rtc::QueuedTask> task) {
+void ProcessThread::PostTask(std::unique_ptr<rtc::QueuedTask> task) {
   // Allowed to be called on any thread.
   {
     rtc::CritScope lock(&lock_);
@@ -115,8 +112,7 @@ void ProcessThreadImpl::PostTask(std::unique_ptr<rtc::QueuedTask> task) {
   wake_up_->Set();
 }
 
-void ProcessThreadImpl::RegisterModule(Module* module,
-                                       const rtc::Location& from) {
+void ProcessThread::RegisterModule(Module* module, const rtc::Location& from) {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(module) << from.ToString();
 
@@ -149,15 +145,14 @@ void ProcessThreadImpl::RegisterModule(Module* module,
   wake_up_->Set();
 }
 
-void ProcessThreadImpl::DeRegisterModule(Module* module) {
+void ProcessThread::DeRegisterModule(Module* module) {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(module);
 
   {
     rtc::CritScope lock(&lock_);
-    modules_.remove_if([&module](const ModuleCallback& m) {
-        return m.module == module;
-      });
+    modules_.remove_if(
+        [&module](const ModuleCallback& m) { return m.module == module; });
   }
 
   // Notify the module that it's been detached.
@@ -165,11 +160,11 @@ void ProcessThreadImpl::DeRegisterModule(Module* module) {
 }
 
 // static
-bool ProcessThreadImpl::Run(void* obj) {
-  return static_cast<ProcessThreadImpl*>(obj)->Process();
+bool ProcessThread::Run(void* obj) {
+  return static_cast<ProcessThread*>(obj)->Process();
 }
 
-bool ProcessThreadImpl::Process() {
+bool ProcessThread::Process() {
   TRACE_EVENT1("webrtc", "ProcessThreadImpl", "name", thread_name_);
   int64_t now = rtc::TimeMillis();
   int64_t next_checkpoint = now + (1000 * 60);

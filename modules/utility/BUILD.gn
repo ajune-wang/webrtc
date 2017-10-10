@@ -16,8 +16,7 @@ rtc_static_library("utility") {
     "include/process_thread.h",
     "source/helpers_android.cc",
     "source/jvm_android.cc",
-    "source/process_thread_impl.cc",
-    "source/process_thread_impl.h",
+    "source/process_thread.cc",
   ]
 
   if (!build_with_chromium && is_clang) {
@@ -64,7 +63,7 @@ if (rtc_include_tests) {
       visibility = [ "..:modules_unittests" ]
     }
     sources = [
-      "source/process_thread_impl_unittest.cc",
+      "source/process_thread_unittest.cc",
     ]
     deps = [
       ":utility",

@@ -116,6 +116,30 @@
       "revId": "4d083bbdb448de7c4ac71697625459c6d32d8ed1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c1b1d71_363e7578",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-10T15:56:44Z",
+      "side": 1,
+      "message": "It does. One question then - what happens to data that was set, but never sent due to unset?",
+      "parentUuid": "7cf92363_3095cedb",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 28
+      },
+      "revId": "4d083bbdb448de7c4ac71697625459c6d32d8ed1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

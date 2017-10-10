@@ -81,6 +81,24 @@
       "revId": "6c0c55c31817ecfa32409424495eb68b31828c40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9104bc26_a5836668",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-10T15:56:44Z",
+      "side": 0,
+      "message": "Well, the TODO was about removing. You\u0027ve removed, as per the TODO - thanks.",
+      "parentUuid": "8e5456b6_5b945a10",
+      "revId": "6c0c55c31817ecfa32409424495eb68b31828c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

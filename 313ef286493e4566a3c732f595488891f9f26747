@@ -22,6 +22,30 @@
       "revId": "313ef286493e4566a3c732f595488891f9f26747",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f61810_293dee4d",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T11:49:52Z",
+      "side": 1,
+      "message": "It\u0027s probably a good idea to have a separate doc where we can write down special rules for api/. I\u0027m guessing that what we want there w.r.t. `visibility` is a rule that says that api/ should only contain code intended to be used directly by our users (plus test code in test/ subdirectories); such a rule would implicitly mean that api/ should not contain targets with restricted visibility.\n\nSuch a document would be a separate CL, though.",
+      "parentUuid": "16454100_8a282ff3",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 11
+      },
+      "revId": "313ef286493e4566a3c732f595488891f9f26747",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

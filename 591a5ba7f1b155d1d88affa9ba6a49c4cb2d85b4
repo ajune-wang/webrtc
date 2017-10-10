@@ -22,6 +22,30 @@
       "revId": "591a5ba7f1b155d1d88affa9ba6a49c4cb2d85b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d8abac7_1af8cc1f",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-10-10T12:20:17Z",
+      "side": 1,
+      "message": "Thanks for reporting this. Stefan I think we should add this to \"call\" but it will create a cyclic dependency. If we have to keep it in a separate target we should probably drop the _header from the name though.",
+      "parentUuid": "f1ff76d1_6deffc1d",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 26
+      },
+      "revId": "591a5ba7f1b155d1d88affa9ba6a49c4cb2d85b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

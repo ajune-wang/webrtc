@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ec6c30f_6fc7bf93",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5017
+      },
+      "writtenOn": "2017-10-10T09:50:23Z",
+      "side": 1,
+      "message": "Somewhere in this region you need the line\n\u0027checkout_instrumented_libraries\u0027: \u0027checkout_linux and checkout_configuration \u003d\u003d \"default\"\u0027,\nor we\u0027ll never get the hooks triggered, I think.\nMight only have any real effect for the MSan bot.",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 54
+      },
+      "revId": "391ee13d6bd63ae52ba8ce77d5d90c776cbd7392",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

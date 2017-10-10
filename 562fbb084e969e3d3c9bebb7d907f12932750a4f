@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "b4c37c59_93eeb9db",
+        "filename": "examples/objc/AppRTCMobile/ARDSettingsModel.m",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-10T17:11:13Z",
+      "side": 1,
+      "message": "why not check for nil? Are there legitimate cases where this is set to the empty string?",
+      "range": {
+        "startLine": 173,
+        "startChar": 20,
+        "endLine": 173,
+        "endChar": 49
+      },
+      "revId": "562fbb084e969e3d3c9bebb7d907f12932750a4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "469d2959_8bf6c449",
         "filename": "examples/objc/AppRTCMobile/ARDSettingsModel.m",
         "patchSetId": 3

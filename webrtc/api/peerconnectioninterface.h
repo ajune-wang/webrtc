@@ -89,6 +89,7 @@
 #include "webrtc/media/base/mediachannel.h"
 #include "webrtc/media/base/videocapturer.h"
 #include "webrtc/p2p/base/portallocator.h"
+#include "webrtc/rtc_base/bitrateallocationstrategy.h"
 #include "webrtc/rtc_base/fileutils.h"
 #include "webrtc/rtc_base/network.h"
 #include "webrtc/rtc_base/rtccertificate.h"
@@ -466,6 +467,12 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // starting a new ICE generation. The regathering happens continuously with
     // interval specified in milliseconds by the uniform distribution [a, b].
     rtc::Optional<rtc::IntervalRange> ice_regather_interval_range;
+
+    // If not set default WebRTC allocator will be used. May be changed during
+    // an active session. The strategy is owned by application and it is
+    // responsible for keeping it alive as long as any of its peerconnections
+    // are using it.
+    rtc::BitrateAllocationStrategy* bitrate_allocation_strategy = nullptr;
 
     //
     // Don't forget to update operator== if adding something.

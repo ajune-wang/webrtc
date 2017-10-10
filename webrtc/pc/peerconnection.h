@@ -387,6 +387,9 @@ class PeerConnection : public PeerConnectionInterface,
   // Returns RTCError::OK() if there are no issues.
   RTCError ValidateConfiguration(const RTCConfiguration& config) const;
 
+  void SetBitrateAllocationStrategy(
+      rtc::BitrateAllocationStrategy* bitrate_allocation_strategy);
+
   // Storing the factory as a scoped reference pointer ensures that the memory
   // in the PeerConnectionFactoryImpl remains available as long as the
   // PeerConnection is running. It is passed to PeerConnection as a raw pointer.

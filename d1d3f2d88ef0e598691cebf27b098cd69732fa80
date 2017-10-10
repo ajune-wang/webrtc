@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb91c3a0_c314de93",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-10T13:47:52Z",
+      "side": 1,
+      "message": "Maybe \"kMaxEncodedFrameWindowMs / 10\" (or some other constant) instead of 100?",
+      "range": {
+        "startLine": 129,
+        "startChar": 44,
+        "endLine": 129,
+        "endChar": 0
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a61c992_3742b100",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-10T13:47:52Z",
+      "side": 1,
+      "message": "Why not simply access |encoded_frames_| directly?",
+      "range": {
+        "startLine": 192,
+        "startChar": 38,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c68e2fc1_f028de13",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-10T13:47:52Z",
+      "side": 1,
+      "message": "Should we really discard the new frame if we have too many in flight? Couldn\u0027t we just cull more aggressively in the RemoveOld() instead?",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 0
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e3ad5b0_59ebcfec",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-10T13:47:52Z",
+      "side": 1,
+      "message": "Can we dump one of |sent_fps_counter_| or |encoded_frame_rate_tracker_|? Don\u0027t they measure the same thing?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 29
+      },
+      "revId": "d1d3f2d88ef0e598691cebf27b098cd69732fa80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

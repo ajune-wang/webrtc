@@ -46,6 +46,30 @@
       "revId": "591a5ba7f1b155d1d88affa9ba6a49c4cb2d85b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad5a5750_41efa111",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-10T12:23:39Z",
+      "side": 1,
+      "message": "Was it not part of any target at all before? I don\u0027t have any strong opinions about what target to place it in.",
+      "parentUuid": "2d8abac7_1af8cc1f",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 26
+      },
+      "revId": "591a5ba7f1b155d1d88affa9ba6a49c4cb2d85b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

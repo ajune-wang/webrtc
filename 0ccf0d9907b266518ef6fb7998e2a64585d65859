@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0ee6ca70_06d60e5b",
+        "filename": "pc/peerconnectionendtoend_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T12:46:35Z",
+      "side": 1,
+      "message": "Yes: This test is the only user of CreateForwardingMockDecoderFactory which I included in the new anonymous namespace above. If the preprocessor drops the whole function body, that function is unused, and the compiler complains.\n\nI could omit this change if I didn\u0027t put CreateForwardingMockDecoderFactory() and CreateForwardingMockDecoder() in the anonymous namespace, but they obviously belong in there, so I felt it was better to include them in it, all things considered.",
+      "parentUuid": "af4c136d_5fe3ccc9",
+      "revId": "0ccf0d9907b266518ef6fb7998e2a64585d65859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8756fb2_fc2c189c",
         "filename": "pc/peerconnectionendtoend_unittest.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "0ccf0d9907b266518ef6fb7998e2a64585d65859",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e26fd8b5_5809a8b2",
+        "filename": "pc/peerconnectionendtoend_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-10T12:46:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8756fb2_fc2c189c",
+      "revId": "0ccf0d9907b266518ef6fb7998e2a64585d65859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

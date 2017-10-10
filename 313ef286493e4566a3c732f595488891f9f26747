@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16454100_8a282ff3",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5090
+      },
+      "writtenOn": "2017-10-10T11:40:54Z",
+      "side": 1,
+      "message": "Do we also need a rule for the targets under api/? Do they have different visibility requirements compared to internal targets?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 11
+      },
+      "revId": "313ef286493e4566a3c732f595488891f9f26747",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

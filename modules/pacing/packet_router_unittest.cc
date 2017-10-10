@@ -43,16 +43,6 @@ using ::testing::SaveArg;
 constexpr int kProbeMinProbes = 5;
 constexpr int kProbeMinBytes = 1000;
 
-class MockRtpRtcpWithRembTracking : public MockRtpRtcp {
- public:
-  MockRtpRtcpWithRembTracking() {
-    ON_CALL(*this, SetREMBStatus(_)).WillByDefault(SaveArg<0>(&remb_));
-    ON_CALL(*this, REMB()).WillByDefault(ReturnPointee(&remb_));
-  }
-
- private:
-  bool remb_ = false;
-};
 }  // namespace
 
 TEST(PacketRouterTest, Sanity_NoModuleRegistered_TimeToSendPacket) {
@@ -376,53 +366,12 @@ TEST(PacketRouterTest, RemovalOfNeverAddedReceiveModuleDisallowed) {
 }
 #endif  // RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 
-// TODO(eladalon): Remove this test; it should be covered by:
-// 1. SendCandidatePreferredOverReceiveCandidate_SendModuleAddedFirst
-// 2. SendCandidatePreferredOverReceiveCandidate_ReceiveModuleAddedFirst
-// 3. LowerEstimateToSendRemb
-// (Not removing in this CL to prove it doesn't break this test.)
-TEST(PacketRouterRembTest, PreferSendModuleOverReceiveModule) {
-  rtc::ScopedFakeClock clock;
-  NiceMock<MockRtpRtcpWithRembTracking> rtp_recv;
-  NiceMock<MockRtpRtcpWithRembTracking> rtp_send;
-  PacketRouter packet_router;
-
-  packet_router.AddReceiveRtpModule(&rtp_recv, true);
-  ASSERT_TRUE(rtp_recv.REMB());
-
-  const uint32_t bitrate_estimate = 456;
-  const std::vector<uint32_t> ssrcs = {1234};
-
-  packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate);
-
-  // Call OnReceiveBitrateChanged twice to get a first estimate.
-  clock.AdvanceTime(rtc::TimeDelta::FromMilliseconds(1000));
-  EXPECT_CALL(rtp_recv, SetREMBData(bitrate_estimate, ssrcs)).Times(1);
-  packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate);
-
-  // Add a send module, which should be preferred over the receive module.
-  packet_router.AddSendRtpModule(&rtp_send, true);
-  EXPECT_FALSE(rtp_recv.REMB());
-  EXPECT_TRUE(rtp_send.REMB());
-
-  // Lower bitrate to send another REMB packet.
-  EXPECT_CALL(rtp_send, SetREMBData(bitrate_estimate - 100, ssrcs)).Times(1);
-  packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate - 100);
-
-  packet_router.RemoveSendRtpModule(&rtp_send);
-  EXPECT_TRUE(rtp_recv.REMB());
-  EXPECT_FALSE(rtp_send.REMB());
-
-  packet_router.RemoveReceiveRtpModule(&rtp_recv);
-}
-
 TEST(PacketRouterRembTest, LowerEstimateToSendRemb) {
   rtc::ScopedFakeClock clock;
-  NiceMock<MockRtpRtcpWithRembTracking> rtp;
+  NiceMock<MockRtpRtcp> rtp;
   PacketRouter packet_router;
 
   packet_router.AddSendRtpModule(&rtp, true);
-  EXPECT_TRUE(rtp.REMB());
 
   uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
@@ -441,7 +390,6 @@ TEST(PacketRouterRembTest, LowerEstimateToSendRemb) {
   packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate);
 
   packet_router.RemoveSendRtpModule(&rtp);
-  EXPECT_FALSE(rtp.REMB());
 }
 
 TEST(PacketRouterRembTest, VerifyIncreasingAndDecreasing) {
@@ -453,7 +401,6 @@ TEST(PacketRouterRembTest, VerifyIncreasingAndDecreasing) {
   uint32_t bitrate_estimate[] = {456, 789};
   std::vector<uint32_t> ssrcs = {1234, 5678};
 
-  ON_CALL(rtp, REMB()).WillByDefault(Return(true));
   packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate[0]);
 
   // Call OnReceiveBitrateChanged twice to get a first estimate.
@@ -479,7 +426,6 @@ TEST(PacketRouterRembTest, NoRembForIncreasedBitrate) {
   uint32_t bitrate_estimate = 456;
   std::vector<uint32_t> ssrcs = {1234, 5678};
 
-  ON_CALL(rtp, REMB()).WillByDefault(Return(true));
   packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate);
 
   // Call OnReceiveBitrateChanged twice to get a first estimate.
@@ -510,7 +456,6 @@ TEST(PacketRouterRembTest, ChangeSendRtpModule) {
   uint32_t bitrate_estimate = 456;
   std::vector<uint32_t> ssrcs = {1234, 5678};
 
-  ON_CALL(rtp_send, REMB()).WillByDefault(Return(true));
   packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate);
 
   // Call OnReceiveBitrateChanged twice to get a first estimate.
@@ -525,9 +470,6 @@ TEST(PacketRouterRembTest, ChangeSendRtpModule) {
 
   // Remove the sending module -> should get remb on the second module.
   packet_router.RemoveSendRtpModule(&rtp_send);
-
-  ON_CALL(rtp_send, REMB()).WillByDefault(Return(false));
-  ON_CALL(rtp_recv, REMB()).WillByDefault(Return(true));
 
   packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate);
 
@@ -547,7 +489,6 @@ TEST(PacketRouterRembTest, OnlyOneRembForRepeatedOnReceiveBitrateChanged) {
   uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
 
-  ON_CALL(rtp, REMB()).WillByDefault(Return(true));
   packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate);
 
   // Call OnReceiveBitrateChanged twice to get a first estimate.
@@ -570,10 +511,9 @@ TEST(PacketRouterRembTest, SetMaxDesiredReceiveBitrateLimitsSetREMBData) {
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
   clock.AdvanceTime(rtc::TimeDelta::FromMilliseconds(1000));
-  NiceMock<MockRtpRtcpWithRembTracking> remb_sender;
+  NiceMock<MockRtpRtcp> remb_sender;
   constexpr bool remb_candidate = true;
   packet_router.AddSendRtpModule(&remb_sender, remb_candidate);
-  ASSERT_TRUE(remb_sender.REMB());
 
   const uint32_t cap_bitrate = 100000;
   EXPECT_CALL(remb_sender, SetREMBData(Le(cap_bitrate), _)).Times(AtLeast(1));
@@ -594,10 +534,9 @@ TEST(PacketRouterRembTest,
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
   clock.AdvanceTime(rtc::TimeDelta::FromMilliseconds(1000));
-  NiceMock<MockRtpRtcpWithRembTracking> remb_sender;
+  NiceMock<MockRtpRtcp> remb_sender;
   constexpr bool remb_candidate = true;
   packet_router.AddSendRtpModule(&remb_sender, remb_candidate);
-  ASSERT_TRUE(remb_sender.REMB());
 
   const uint32_t measured_bitrate_bps = 150000;
   const uint32_t cap_bitrate_bps = measured_bitrate_bps - 5000;
@@ -617,10 +556,9 @@ TEST(PacketRouterRembTest,
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
   clock.AdvanceTime(rtc::TimeDelta::FromMilliseconds(1000));
-  NiceMock<MockRtpRtcpWithRembTracking> remb_sender;
+  NiceMock<MockRtpRtcp> remb_sender;
   constexpr bool remb_candidate = true;
   packet_router.AddSendRtpModule(&remb_sender, remb_candidate);
-  ASSERT_TRUE(remb_sender.REMB());
 
   const uint32_t measured_bitrate_bps = 150000;
   const uint32_t cap_bitrate_bps = measured_bitrate_bps;
@@ -640,10 +578,9 @@ TEST(PacketRouterRembTest,
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
   clock.AdvanceTime(rtc::TimeDelta::FromMilliseconds(1000));
-  NiceMock<MockRtpRtcpWithRembTracking> remb_sender;
+  NiceMock<MockRtpRtcp> remb_sender;
   constexpr bool remb_candidate = true;
   packet_router.AddSendRtpModule(&remb_sender, remb_candidate);
-  ASSERT_TRUE(remb_sender.REMB());
 
   const uint32_t measured_bitrate_bps = 150000;
   const uint32_t cap_bitrate_bps = measured_bitrate_bps + 500;
@@ -663,10 +600,9 @@ TEST(PacketRouterRembTest,
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
   clock.AdvanceTime(rtc::TimeDelta::FromMilliseconds(1000));
-  NiceMock<MockRtpRtcpWithRembTracking> remb_sender;
+  NiceMock<MockRtpRtcp> remb_sender;
   constexpr bool remb_candidate = true;
   packet_router.AddSendRtpModule(&remb_sender, remb_candidate);
-  ASSERT_TRUE(remb_sender.REMB());
 
   const uint32_t measured_bitrate_bps = 150000;
   const uint32_t cap_bitrate_bps = measured_bitrate_bps + 5000;
@@ -687,10 +623,9 @@ TEST(PacketRouterRembTest,
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
   clock.AdvanceTime(rtc::TimeDelta::FromMilliseconds(1000));
-  NiceMock<MockRtpRtcpWithRembTracking> remb_sender;
+  NiceMock<MockRtpRtcp> remb_sender;
   constexpr bool remb_candidate = true;
   packet_router.AddSendRtpModule(&remb_sender, remb_candidate);
-  ASSERT_TRUE(remb_sender.REMB());
 
   // Set cap.
   EXPECT_CALL(remb_sender, SetREMBData(100000, _)).Times(1);
@@ -713,13 +648,11 @@ TEST(PacketRouterRembTest, NoSendingRtpModule) {
   NiceMock<MockRtpRtcp> rtp;
   PacketRouter packet_router;
 
-  EXPECT_CALL(rtp, SetREMBStatus(true)).Times(1);
   packet_router.AddReceiveRtpModule(&rtp, true);
 
   uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
 
-  ON_CALL(rtp, REMB()).WillByDefault(Return(true));
   packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate);
 
   // Call OnReceiveBitrateChanged twice to get a first estimate.
@@ -731,19 +664,18 @@ TEST(PacketRouterRembTest, NoSendingRtpModule) {
   EXPECT_CALL(rtp, SetREMBData(bitrate_estimate - 100, ssrcs)).Times(1);
   packet_router.OnReceiveBitrateChanged(ssrcs, bitrate_estimate - 100);
 
-  EXPECT_CALL(rtp, SetREMBStatus(false)).Times(1);
+  EXPECT_CALL(rtp, UnsetRemb()).Times(1);
   packet_router.RemoveReceiveRtpModule(&rtp);
 }
 
 TEST(PacketRouterRembTest, NonCandidateSendRtpModuleNotUsedForRemb) {
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
-  NiceMock<MockRtpRtcpWithRembTracking> module;
+  NiceMock<MockRtpRtcp> module;
 
   constexpr bool remb_candidate = false;
 
   packet_router.AddSendRtpModule(&module, remb_candidate);
-  EXPECT_FALSE(module.REMB());
 
   constexpr uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
@@ -758,12 +690,11 @@ TEST(PacketRouterRembTest, NonCandidateSendRtpModuleNotUsedForRemb) {
 TEST(PacketRouterRembTest, CandidateSendRtpModuleUsedForRemb) {
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
-  NiceMock<MockRtpRtcpWithRembTracking> module;
+  NiceMock<MockRtpRtcp> module;
 
   constexpr bool remb_candidate = true;
 
   packet_router.AddSendRtpModule(&module, remb_candidate);
-  EXPECT_TRUE(module.REMB());
 
   constexpr uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
@@ -778,12 +709,11 @@ TEST(PacketRouterRembTest, CandidateSendRtpModuleUsedForRemb) {
 TEST(PacketRouterRembTest, NonCandidateReceiveRtpModuleNotUsedForRemb) {
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
-  NiceMock<MockRtpRtcpWithRembTracking> module;
+  NiceMock<MockRtpRtcp> module;
 
   constexpr bool remb_candidate = false;
 
   packet_router.AddReceiveRtpModule(&module, remb_candidate);
-  ASSERT_FALSE(module.REMB());
 
   constexpr uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
@@ -798,12 +728,11 @@ TEST(PacketRouterRembTest, NonCandidateReceiveRtpModuleNotUsedForRemb) {
 TEST(PacketRouterRembTest, CandidateReceiveRtpModuleUsedForRemb) {
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
-  NiceMock<MockRtpRtcpWithRembTracking> module;
+  NiceMock<MockRtpRtcp> module;
 
   constexpr bool remb_candidate = true;
 
   packet_router.AddReceiveRtpModule(&module, remb_candidate);
-  EXPECT_TRUE(module.REMB());
 
   constexpr uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
@@ -819,19 +748,16 @@ TEST(PacketRouterRembTest,
      SendCandidatePreferredOverReceiveCandidate_SendModuleAddedFirst) {
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
-  NiceMock<MockRtpRtcpWithRembTracking> send_module;
-  NiceMock<MockRtpRtcpWithRembTracking> receive_module;
+  NiceMock<MockRtpRtcp> send_module;
+  NiceMock<MockRtpRtcp> receive_module;
 
   constexpr bool remb_candidate = true;
 
   // Send module added - activated.
   packet_router.AddSendRtpModule(&send_module, remb_candidate);
-  ASSERT_TRUE(send_module.REMB());
 
   // Receive module added - the send module remains the active one.
   packet_router.AddReceiveRtpModule(&receive_module, remb_candidate);
-  EXPECT_TRUE(send_module.REMB());
-  EXPECT_FALSE(receive_module.REMB());
 
   constexpr uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
@@ -850,19 +776,16 @@ TEST(PacketRouterRembTest,
      SendCandidatePreferredOverReceiveCandidate_ReceiveModuleAddedFirst) {
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
-  NiceMock<MockRtpRtcpWithRembTracking> send_module;
-  NiceMock<MockRtpRtcpWithRembTracking> receive_module;
+  NiceMock<MockRtpRtcp> send_module;
+  NiceMock<MockRtpRtcp> receive_module;
 
   constexpr bool remb_candidate = true;
 
   // Receive module added - activated.
   packet_router.AddReceiveRtpModule(&receive_module, remb_candidate);
-  ASSERT_TRUE(receive_module.REMB());
 
   // Send module added - replaces receive module as active.
   packet_router.AddSendRtpModule(&send_module, remb_candidate);
-  EXPECT_FALSE(receive_module.REMB());
-  EXPECT_TRUE(send_module.REMB());
 
   constexpr uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
@@ -880,21 +803,17 @@ TEST(PacketRouterRembTest,
 TEST(PacketRouterRembTest, ReceiveModuleTakesOverWhenLastSendModuleRemoved) {
   rtc::ScopedFakeClock clock;
   PacketRouter packet_router;
-  NiceMock<MockRtpRtcpWithRembTracking> send_module;
-  NiceMock<MockRtpRtcpWithRembTracking> receive_module;
+  NiceMock<MockRtpRtcp> send_module;
+  NiceMock<MockRtpRtcp> receive_module;
 
   constexpr bool remb_candidate = true;
 
   // Send module active, receive module inactive.
   packet_router.AddSendRtpModule(&send_module, remb_candidate);
   packet_router.AddReceiveRtpModule(&receive_module, remb_candidate);
-  ASSERT_TRUE(send_module.REMB());
-  ASSERT_FALSE(receive_module.REMB());
 
   // Send module removed - receive module becomes active.
   packet_router.RemoveSendRtpModule(&send_module);
-  EXPECT_FALSE(send_module.REMB());
-  EXPECT_TRUE(receive_module.REMB());
   constexpr uint32_t bitrate_estimate = 456;
   const std::vector<uint32_t> ssrcs = {1234};
   EXPECT_CALL(send_module, SetREMBData(_, _)).Times(0);

@@ -339,13 +339,15 @@ class RtpRtcp : public Module {
   // Returns current Receiver Reference Time Report (RTTR) status.
   virtual bool RtcpXrRrtrStatus() const = 0;
 
-  // (REMB) Receiver Estimated Max Bitrate.
-  virtual bool REMB() const = 0;
-
-  virtual void SetREMBStatus(bool enable) = 0;
-
-  virtual void SetREMBData(uint32_t bitrate,
+  RTC_DEPRECATED void SetREMBStatus(bool enable) {
+    if (!enable)
+      UnsetRemb();
+  }
+  // Schedules sending remb on next and following sender/receiver reports.
+  virtual void SetREMBData(uint32_t bitrate_bps,
                            const std::vector<uint32_t>& ssrcs) = 0;
+  // Stops sending remb on next and following sender/receiver reports.
+  virtual void UnsetRemb() = 0;
 
   // (TMMBR) Temporary Max Media Bit Rate
   virtual bool TMMBR() const = 0;

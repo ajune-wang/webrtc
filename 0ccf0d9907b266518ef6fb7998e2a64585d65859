@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af4c136d_5fe3ccc9",
+        "filename": "pc/peerconnectionendtoend_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-10-10T12:41:49Z",
+      "side": 1,
+      "message": "Is this related to the CL?",
+      "revId": "0ccf0d9907b266518ef6fb7998e2a64585d65859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8756fb2_fc2c189c",
+        "filename": "pc/peerconnectionendtoend_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-10-10T12:41:49Z",
+      "side": 1,
+      "message": "s/Funny/Custom\n\nUnicorns aren\u0027t funny - they\u0027re adorable!",
+      "revId": "0ccf0d9907b266518ef6fb7998e2a64585d65859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -23,6 +23,10 @@
 
 namespace rtc {
 
+namespace {
+const int64_t KMaxAllowedTimeAdjustmentMs = 10;
+}
+
 // Implements moving max: can add samples to it and calculate maximum over some
 // fixed moving window.
 //
@@ -44,6 +48,10 @@ class MovingMaxCounter {
   void Reset();
 
  private:
+  // Adjusts input time in case of a clock drift to make it increasing.
+  // Adjusted value is returned. It will be adjusted by at most
+  // KMaxAllowedTimeAdjustmentMs
+  int64_t AdjustTime(int64_t time_ms);
   // Throws out obsolete samples.
   void RollWindow(int64_t new_time_ms);
   const int64_t window_length_ms_;
@@ -54,9 +62,7 @@ class MovingMaxCounter {
   // pair, the older pair is discarded. As a result, the sequence of timestamps
   // is strictly increasing, and the sequence of samples is strictly decreasing.
   std::deque<std::pair<int64_t, T>> samples_;
-#if RTC_DCHECK_IS_ON
   int64_t last_call_time_ms_ = std::numeric_limits<int64_t>::min();
-#endif
   RTC_DISALLOW_COPY_AND_ASSIGN(MovingMaxCounter);
 };
 
@@ -66,6 +72,7 @@ MovingMaxCounter<T>::MovingMaxCounter(int64_t window_length_ms)
 
 template <class T>
 void MovingMaxCounter<T>::Add(const T& sample, int64_t current_time_ms) {
+  current_time_ms = AdjustTime(current_time_ms);
   RollWindow(current_time_ms);
   // Remove samples that will never be maximum in any window: newly added sample
   // will always be in all windows the previous samples are. Thus, smaller or
@@ -84,6 +91,7 @@ void MovingMaxCounter<T>::Add(const T& sample, int64_t current_time_ms) {
 
 template <class T>
 rtc::Optional<T> MovingMaxCounter<T>::Max(int64_t current_time_ms) {
+  current_time_ms = AdjustTime(current_time_ms);
   RollWindow(current_time_ms);
   rtc::Optional<T> res;
   if (!samples_.empty()) {
@@ -98,11 +106,18 @@ void MovingMaxCounter<T>::Reset() {
 }
 
 template <class T>
+int64_t MovingMaxCounter<T>::AdjustTime(int64_t time_ms) {
+  if (time_ms < last_call_time_ms_) {
+    return std::min(last_call_time_ms_, time_ms + KMaxAllowedTimeAdjustmentMs);
+  } else {
+    return time_ms;
+  }
+}
+
+template <class T>
 void MovingMaxCounter<T>::RollWindow(int64_t new_time_ms) {
-#if RTC_DCHECK_IS_ON
   RTC_DCHECK_GE(new_time_ms, last_call_time_ms_);
   last_call_time_ms_ = new_time_ms;
-#endif
   const int64_t window_begin_ms = new_time_ms - window_length_ms_;
   auto it = samples_.begin();
   while (it != samples_.end() && it->first < window_begin_ms) {

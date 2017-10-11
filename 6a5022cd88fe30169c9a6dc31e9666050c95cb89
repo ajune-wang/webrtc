@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "1ff7e657_1d21f7c6",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T09:22:28Z",
+      "side": 1,
+      "message": "Done, implemented is as a type with generics 😎.\n\nAlthough in its more generic form maybe it should have a more generic name? It\u0027s really just a dictionary with a method for getting the keys in the order they were inserted.\n\nBut it\u0027s also used as the parameter when constructing the default factories, so having a name that accurately describes what it\u0027s used for in this context is also useful.",
+      "parentUuid": "65929fa3_fccffa1a",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6e847e8_223016b8",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoDecoder.mm",
         "patchSetId": 1
@@ -343,6 +367,30 @@
       "writtenOn": "2017-10-11T07:44:05Z",
       "side": 1,
       "message": "They are kind of exposed through `+highProfileCodecInfo` and `+baselineProfileCodecInfo` in this class in this CL but on a slightly higher level.",
+      "range": {
+        "startLine": 41,
+        "startChar": 17,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a19727c8_739de0ee",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T09:22:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fc819ef3_5968a15e",
       "range": {
         "startLine": 41,
         "startChar": 17,

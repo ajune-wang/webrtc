@@ -134,6 +134,30 @@
     },
     {
       "key": {
+        "uuid": "3eeaf108_d51ed0e1",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T09:22:28Z",
+      "side": 1,
+      "message": "Because I use them as keys in an NSDictionary. I realize now that they are immutable though, so actually `copyWithZone:` could just return `self` instead of actually constructing a copy, fixed that.",
+      "parentUuid": "75d2225c_dd78cd36",
+      "range": {
+        "startLine": 87,
+        "startChar": 41,
+        "endLine": 87,
+        "endChar": 50
+      },
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cb691c5_f9a0e9da",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
         "patchSetId": 3

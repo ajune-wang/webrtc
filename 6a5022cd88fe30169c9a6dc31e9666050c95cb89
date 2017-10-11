@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f84cac8e_2c1070c6",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-11T08:45:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "00862878_6cec18f7",
+      "range": {
+        "startLine": 35,
+        "startChar": 28,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "652fee57_210dcf1c",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "The difference is that one of them holds Class\u003cRTCVideoEncoder\u003e and the other holds Class\u003cRTCVideoDecoder\u003e.\n\nIn general it would be nice to just have single codec classes encompassing both encoding and decoding to avoid a lot of duplication across all of the encoding/decoding code but that\u0027s out of scope of this CL I guess :)",
       "parentUuid": "652fee57_210dcf1c",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65929fa3_fccffa1a",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-11T08:45:34Z",
+      "side": 1,
+      "message": "Yeah, I\u0027d like to change this to something like RTCVideoCodecPriorityList and unify them because conceptually they are the same, differing only in types.",
+      "parentUuid": "c00d7209_75344c26",
       "range": {
         "startLine": 69,
         "startChar": 16,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75d2225c_dd78cd36",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-11T08:45:34Z",
+      "side": 1,
+      "message": "Why is it necessary to implement this?",
+      "range": {
+        "startLine": 87,
+        "startChar": 41,
+        "endLine": 87,
+        "endChar": 50
+      },
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "00862878_6cec18f7",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T07:44:05Z",
+      "side": 1,
+      "message": "This is mainly to show that we are making an immutable array out of a mutable one. Potentially a user could call `addFormat:withClass:` after this method, changing the supported formats. And returning a reference to the mutable array would be bad, because the role of this class is to keep the dictionary and array in sync.\n\nThe RTCVideoCodecInfo instances shouldn\u0027t be copied by this call since it\u0027s a default shallow copy.",
+      "parentUuid": "0a8f1c68_a084c6ba",
+      "range": {
+        "startLine": 35,
+        "startChar": 28,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "652fee57_210dcf1c",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c00d7209_75344c26",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T07:44:05Z",
+      "side": 1,
+      "message": "The difference is that one of them holds Class\u003cRTCVideoEncoder\u003e and the other holds Class\u003cRTCVideoDecoder\u003e.\n\nIn general it would be nice to just have single codec classes encompassing both encoding and decoding to avoid a lot of duplication across all of the encoding/decoding code but that\u0027s out of scope of this CL I guess :)",
+      "parentUuid": "652fee57_210dcf1c",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "022fecfd_c18e313a",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoDecoder.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T07:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e847e8_223016b8",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe433c03_103455fc",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoEncoder.mm",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b3bb808_8933be9d",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoEncoder.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T07:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe433c03_103455fc",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3942b838_5b129bd7",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoDecoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T07:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d3d1e7a_70372003",
+      "range": {
+        "startLine": 82,
+        "startChar": 10,
+        "endLine": 82,
+        "endChar": 14
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d278a192_bc6e4b5a",
         "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
         "patchSetId": 1
@@ -137,6 +257,29 @@
       "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc819ef3_5968a15e",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-11T07:44:05Z",
+      "side": 1,
+      "message": "They are kind of exposed through `+highProfileCodecInfo` and `+baselineProfileCodecInfo` in this class in this CL but on a slightly higher level.",
+      "range": {
+        "startLine": 41,
+        "startChar": 17,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

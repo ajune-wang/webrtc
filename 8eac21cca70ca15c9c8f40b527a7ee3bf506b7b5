@@ -81,6 +81,24 @@
       "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03f41ad_3d61fccc",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T18:58:19Z",
+      "side": 1,
+      "message": "It may be a little overkill, but I don\u0027t think it would hurt. It\u0027s possible AudioPriorityBitrateAllocationStrategyTest\u0027s implementation could change in the future to NOT use DistributeBitratesEvenly, for example, and no one would notice that the code no longer has test coverage. But I\u0027ll let you decide.",
+      "parentUuid": "4655fae5_907ff498",
+      "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

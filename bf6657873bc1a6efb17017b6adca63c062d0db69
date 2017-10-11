@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3eb3a3c2_568d7391",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T00:35:02Z",
+      "side": 1,
+      "message": "uber nit: The extra \u0027g\u0027 messed up formatting; either merge the two paragraphs or put a newline between them?",
+      "revId": "bf6657873bc1a6efb17017b6adca63c062d0db69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

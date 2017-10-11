@@ -204,6 +204,24 @@
       "revId": "f369274025b273e193e746b0076da9a16c71c52d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0113141_01edad46",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T00:35:02Z",
+      "side": 1,
+      "message": "Actually, it turns out that VideoBitrateAllocator is responsible for allocating between simulcast streams. BitrateAllocator only operates on the track level. So forget about my earlier comment for now.",
+      "parentUuid": "6f7f1941_1e4c3e36",
+      "revId": "f369274025b273e193e746b0076da9a16c71c52d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

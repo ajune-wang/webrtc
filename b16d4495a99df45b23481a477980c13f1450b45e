@@ -185,6 +185,24 @@
     },
     {
       "key": {
+        "uuid": "58371576_606ac925",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodecFactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-11T09:17:32Z",
+      "side": 1,
+      "message": "Agreed, can we go with codecInfo instead of Format here and elsewhere?",
+      "parentUuid": "1d53ee9c_73625f0f",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fddae00d_ac967618",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodecFactory.h",
         "patchSetId": 3

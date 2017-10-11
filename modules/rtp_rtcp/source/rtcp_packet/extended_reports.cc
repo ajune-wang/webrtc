@@ -126,9 +126,9 @@ size_t ExtendedReports::BlockLength() const {
 bool ExtendedReports::Create(uint8_t* packet,
                              size_t* index,
                              size_t max_length,
-                             RtcpPacket::PacketReadyCallback* callback) const {
+                             ReadyCallback callback) const {
   while (*index + BlockLength() > max_length) {
-    if (!OnBufferFull(packet, index, callback))
+    if (!OnBufferFull(index, callback))
       return false;
   }
   size_t index_end = *index + BlockLength();

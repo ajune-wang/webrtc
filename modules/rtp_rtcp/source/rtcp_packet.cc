@@ -30,20 +30,18 @@ rtc::Buffer RtcpPacket::Build() const {
 
 bool RtcpPacket::BuildExternalBuffer(uint8_t* buffer,
                                      size_t max_length,
-                                     PacketReadyCallback* callback) const {
+                                     ReadyCallback callback) const {
   size_t index = 0;
   if (!Create(buffer, &index, max_length, callback))
     return false;
-  return OnBufferFull(buffer, &index, callback);
+  return OnBufferFull(&index, callback);
 }
 
-bool RtcpPacket::OnBufferFull(uint8_t* packet,
-                              size_t* index,
-                              PacketReadyCallback* callback) const {
+bool RtcpPacket::OnBufferFull(size_t* index, ReadyCallback callback) const {
   if (*index == 0)
     return false;
   RTC_DCHECK(callback) << "Fragmentation not supported.";
-  callback->OnPacketReady(packet, *index);
+  callback(*index);
   *index = 0;
   return true;
 }

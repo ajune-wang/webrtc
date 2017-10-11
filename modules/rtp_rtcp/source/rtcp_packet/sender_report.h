@@ -62,7 +62,7 @@ class SenderReport : public RtcpPacket {
   bool Create(uint8_t* packet,
               size_t* index,
               size_t max_length,
-              RtcpPacket::PacketReadyCallback* callback) const override;
+              ReadyCallback callback) const override;
 
  private:
   const size_t kSenderBaseLength = 24;

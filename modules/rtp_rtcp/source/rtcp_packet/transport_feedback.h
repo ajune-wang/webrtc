@@ -74,7 +74,7 @@ class TransportFeedback : public Rtpfb {
   bool Create(uint8_t* packet,
               size_t* position,
               size_t max_length,
-              PacketReadyCallback* callback) const override;
+              ReadyCallback callback) const override;
 
  private:
   // Size in bytes of a delta time in rtcp packet.

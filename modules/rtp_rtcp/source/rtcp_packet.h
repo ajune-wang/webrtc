@@ -13,6 +13,7 @@
 
 #include "rtc_base/basictypes.h"
 #include "rtc_base/buffer.h"
+#include "rtc_base/function_view.h"
 
 namespace webrtc {
 namespace rtcp {
@@ -49,14 +50,7 @@ class RtcpPacket {
   // not contain all data in this RtcpPacket; if a packet cannot fit in
   // max_length bytes, it will be fragmented and multiple calls to this
   // callback will be made.
-  class PacketReadyCallback {
-   public:
-    virtual void OnPacketReady(uint8_t* data, size_t length) = 0;
-
-   protected:
-    PacketReadyCallback() {}
-    virtual ~PacketReadyCallback() {}
-  };
+  using ReadyCallback = rtc::FunctionView<void(size_t length)>;
 
   virtual ~RtcpPacket() {}
 
@@ -68,7 +62,7 @@ class RtcpPacket {
   // will be used for all calls to callback.
   bool BuildExternalBuffer(uint8_t* buffer,
                            size_t max_length,
-                           PacketReadyCallback* callback) const;
+                           ReadyCallback callback) const;
 
   // Size of this packet in bytes (including headers).
   virtual size_t BlockLength() const = 0;
@@ -79,7 +73,7 @@ class RtcpPacket {
   virtual bool Create(uint8_t* packet,
                       size_t* index,
                       size_t max_length,
-                      PacketReadyCallback* callback) const = 0;
+                      ReadyCallback callback) const = 0;
 
  protected:
   // Size of the rtcp common header.
@@ -92,9 +86,7 @@ class RtcpPacket {
                            uint8_t* buffer,
                            size_t* pos);
 
-  bool OnBufferFull(uint8_t* packet,
-                    size_t* index,
-                    PacketReadyCallback* callback) const;
+  bool OnBufferFull(size_t* index, ReadyCallback callback) const;
   // Size of the rtcp packet as written in header.
   size_t HeaderLength() const;
 };

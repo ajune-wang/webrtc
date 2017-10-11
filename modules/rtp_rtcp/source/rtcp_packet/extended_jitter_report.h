@@ -41,7 +41,7 @@ class ExtendedJitterReport : public RtcpPacket {
   bool Create(uint8_t* packet,
               size_t* index,
               size_t max_length,
-              RtcpPacket::PacketReadyCallback* callback) const override;
+              ReadyCallback callback) const override;
 
  private:
   static constexpr size_t kJitterSizeBytes = 4;

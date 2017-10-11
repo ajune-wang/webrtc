@@ -75,13 +75,12 @@ size_t ExtendedJitterReport::BlockLength() const {
   return kHeaderLength + kJitterSizeBytes * inter_arrival_jitters_.size();
 }
 
-bool ExtendedJitterReport::Create(
-    uint8_t* packet,
-    size_t* index,
-    size_t max_length,
-    RtcpPacket::PacketReadyCallback* callback) const {
+bool ExtendedJitterReport::Create(uint8_t* packet,
+                                  size_t* index,
+                                  size_t max_length,
+                                  ReadyCallback callback) const {
   while (*index + BlockLength() > max_length) {
-    if (!OnBufferFull(packet, index, callback))
+    if (!OnBufferFull(index, callback))
       return false;
   }
   const size_t index_end = *index + BlockLength();

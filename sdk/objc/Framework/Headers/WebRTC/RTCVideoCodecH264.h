@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 
 #import <WebRTC/RTCMacros.h>
+#import <WebRTC/RTCVideoCodec.h>
 #import <WebRTC/RTCVideoCodecFactory.h>
 
 /** Class for H264 specific config. */
@@ -26,25 +27,17 @@ RTC_EXPORT
 
 @end
 
-/** Encoder. */
 RTC_EXPORT
 @interface RTCVideoEncoderH264 : NSObject<RTCVideoEncoder>
 
-- (instancetype)initWithCodecInfo:(RTCVideoCodecInfo *)codecInfo;
++ (RTCVideoCodecInfo *)highProfileCodecInfo;
++ (RTCVideoCodecInfo *)baselineProfileCodecInfo;
 
 @end
 
-/** Decoder. */
 RTC_EXPORT
 @interface RTCVideoDecoderH264 : NSObject<RTCVideoDecoder>
-@end
 
-/** Encoder factory. */
-RTC_EXPORT
-@interface RTCVideoEncoderFactoryH264 : NSObject<RTCVideoEncoderFactory>
-@end
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
-/** Decoder factory. */
-RTC_EXPORT
-@interface RTCVideoDecoderFactoryH264 : NSObject<RTCVideoDecoderFactory>
 @end

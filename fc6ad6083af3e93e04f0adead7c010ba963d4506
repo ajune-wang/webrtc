@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c322ee99_f73c1285",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T01:07:26Z",
+      "side": 1,
+      "message": "Would prefer passing the object in via a raw pointer, and allowing chromium to manage its lifetime. The API contract would be \"the RtcEventLogOutput must be usable until StopRtcEventLog or Close is called\".\n\nI\u0027m in the process of adding something to our new style guide that talks about this: https://webrtc-review.googlesource.com/c/src/+/8143/1",
+      "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd462a84_fdf361b2",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -13,6 +30,70 @@
       "writtenOn": "2017-10-10T15:51:13Z",
       "side": 1,
       "message": "Taylor, any suggestions of a better way to accomplish this?",
+      "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90ced752_90bf40ee",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T01:07:26Z",
+      "side": 1,
+      "message": "See comment in the header file; I think this problem would be avoided entirely if PeerConnection didn\u0027t have to take ownership.",
+      "parentUuid": "cd462a84_fdf361b2",
+      "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "546cec0d_6a121c32",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3208,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T01:07:26Z",
+      "side": 1,
+      "message": "nit: StartAndStopLoggingToFileAfterPeerConnectionClosed, and similar naming scheme for test below? \"ClosedByFile\" sounds a bit odd.",
+      "range": {
+        "startLine": 3208,
+        "startChar": 7,
+        "endLine": 3208,
+        "endChar": 57
+      },
+      "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd8b57d_9f45c13c",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3221,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T01:07:26Z",
+      "side": 1,
+      "message": "May want to clarify that we\u0027re talking about RtcEventLogOutput",
+      "range": {
+        "startLine": 3221,
+        "startChar": 68,
+        "endLine": 3221,
+        "endChar": 74
+      },
       "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -56,12 +56,29 @@
 #ifdef HAVE_NO_MEDIA
   return [self initWithNoMedia];
 #else
-  return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
-                       nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
-                 legacyNativeVideoEncoderFactory:new webrtc::ObjCVideoEncoderFactory(
-                                                     [[RTCVideoEncoderFactoryH264 alloc] init])
-                 legacyNativeVideoDecoderFactory:new webrtc::ObjCVideoDecoderFactory(
-                                                     [[RTCVideoDecoderFactoryH264 alloc] init])];
+  RTCVideoCodecPriorityList<Class<RTCVideoEncoder> > *encoderList =
+      [[RTCVideoCodecPriorityList alloc] init];
+  [encoderList addCodecInfo:[RTCVideoEncoderH264 highProfileCodecInfo]
+                  withClass:[RTCVideoEncoderH264 class]];
+  [encoderList addCodecInfo:[RTCVideoEncoderH264 baselineProfileCodecInfo]
+                  withClass:[RTCVideoEncoderH264 class]];
+
+  id<RTCVideoEncoderFactory> encoderFactory =
+      [[RTCDefaultVideoEncoderFactory alloc] initWithEncoderPriorityList:encoderList];
+
+  RTCVideoCodecPriorityList<Class<RTCVideoDecoder> > *decoderList =
+      [[RTCVideoCodecPriorityList alloc] init];
+  [decoderList addCodecInfo:[[RTCVideoCodecInfo alloc] initWithName:@"H264"]
+                  withClass:[RTCVideoDecoderH264 class]];
+
+  id<RTCVideoDecoderFactory> decoderFactory =
+      [[RTCDefaultVideoDecoderFactory alloc] initWithDecoderPriorityList:decoderList];
+
+  return
+      [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
+                    nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
+              legacyNativeVideoEncoderFactory:new webrtc::ObjCVideoEncoderFactory(encoderFactory)
+              legacyNativeVideoDecoderFactory:new webrtc::ObjCVideoDecoderFactory(decoderFactory)];
 #endif
 }
 

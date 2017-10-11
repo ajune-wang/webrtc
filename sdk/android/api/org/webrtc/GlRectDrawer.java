@@ -22,7 +22,10 @@ import java.util.Map;
  * be an OES texture or YUV textures in I420 format. The GL state must be preserved between draw
  * calls, this is intentional to maximize performance. The function release() must be called
  * manually to free the resources held by this object.
+ *
+ * Deprecated, use RectGlVideoFrameDrawer instead.
  */
+@Deprecated
 public class GlRectDrawer implements RendererCommon.GlDrawer {
   // clang-format off
   // Simple vertex shader, used for both YUV and OES.

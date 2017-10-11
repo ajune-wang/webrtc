@@ -77,7 +77,21 @@ public class SurfaceViewRenderer
    * reinitialize the renderer after a previous init()/release() cycle.
    */
   public void init(EglBase.Context sharedContext, RendererCommon.RendererEvents rendererEvents) {
-    init(sharedContext, rendererEvents, EglBase.CONFIG_PLAIN, new GlRectDrawer());
+    init(sharedContext, rendererEvents, EglBase.CONFIG_PLAIN, new RectGlVideoFrameDrawer());
+  }
+
+  /**
+   * Initialize this class, sharing resources with |sharedContext|. The custom |drawer| will be used
+   * for drawing frames on the EGLSurface. This class is responsible for calling release() on
+   * |drawer|. It is allowed to call init() to reinitialize the renderer after a previous
+   * init()/release() cycle.
+   */
+  @Deprecated
+  public void init(final EglBase.Context sharedContext,
+      RendererCommon.RendererEvents rendererEvents, final int[] configAttributes,
+      RendererCommon.GlDrawer drawer) {
+    init(sharedContext, rendererEvents, configAttributes,
+        new GlDrawerToGlVideoFrameDrawerAdapter(drawer));
   }
 
   /**
@@ -88,7 +102,7 @@ public class SurfaceViewRenderer
    */
   public void init(final EglBase.Context sharedContext,
       RendererCommon.RendererEvents rendererEvents, final int[] configAttributes,
-      RendererCommon.GlDrawer drawer) {
+      GlVideoFrameDrawer drawer) {
     ThreadUtils.checkIsOnMainThread();
     this.rendererEvents = rendererEvents;
     synchronized (layoutLock) {

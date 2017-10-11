@@ -51,7 +51,7 @@ public class VideoFrameDrawer {
    * Helper class for uploading YUV bytebuffer frames to textures that handles stride > width. This
    * class keeps an internal ByteBuffer to avoid unnecessary allocations for intermediate copies.
    */
-  private static class YuvUploader {
+  static class YuvUploader {
     // Intermediate copy buffer for uploading yuv frames that are not packed, i.e. stride > width.
     // TODO(magjed): Investigate when GL_UNPACK_ROW_LENGTH is available, or make a custom shader
     // that handles stride and compare performance with intermediate copy.

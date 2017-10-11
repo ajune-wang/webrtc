@@ -46,6 +46,30 @@
       "revId": "313ef286493e4566a3c732f595488891f9f26747",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c55cec4a_2a9eb4f4",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-10-11T13:43:39Z",
+      "side": 1,
+      "message": "Ok, fair enough.",
+      "parentUuid": "c9f61810_293dee4d",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 11
+      },
+      "revId": "313ef286493e4566a3c732f595488891f9f26747",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

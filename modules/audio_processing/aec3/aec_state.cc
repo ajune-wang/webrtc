@@ -10,7 +10,7 @@
 
 #include "modules/audio_processing/aec3/aec_state.h"
 
-#include <math.h>
+#include <cmath>
 #include <numeric>
 #include <vector>
 
@@ -165,7 +165,7 @@ void AecState::Update(const std::vector<std::array<float, kFftLengthBy2Plus1>>&
   // TODO(peah): Add the delay in this computation to ensure that the render and
   // capture signals are properly aligned.
   RTC_DCHECK_LT(0, x.size());
-  const float max_sample = fabs(*std::max_element(
+  const float max_sample = std::abs(*std::max_element(
       x.begin(), x.end(), [](float a, float b) { return a * a < b * b; }));
   const bool saturated_echo =
       previous_max_sample_ * 100 > 1600 && SaturatedCapture();

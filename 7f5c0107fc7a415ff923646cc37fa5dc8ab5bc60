@@ -140,6 +140,30 @@
       "revId": "7f5c0107fc7a415ff923646cc37fa5dc8ab5bc60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1703723_fd0dc6ce",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-11T07:26:46Z",
+      "side": 1,
+      "message": "Ah—if the other class lives too long, it may keep referring to the signal receivers after they\u0027re gone; and if it doesn\u0027t live long enough, the signal receivers will be disconnected prematurely.\n\nDoes sigslot have any mechanism to prevent the former kind of error?",
+      "parentUuid": "cc485710_6638c368",
+      "range": {
+        "startLine": 70,
+        "startChar": 47,
+        "endLine": 70,
+        "endChar": 63
+      },
+      "revId": "7f5c0107fc7a415ff923646cc37fa5dc8ab5bc60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

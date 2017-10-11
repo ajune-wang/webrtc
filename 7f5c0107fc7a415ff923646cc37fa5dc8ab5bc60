@@ -164,6 +164,30 @@
       "revId": "7f5c0107fc7a415ff923646cc37fa5dc8ab5bc60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2de55ca5_373db4ce",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T16:25:35Z",
+      "side": 1,
+      "message": "Well, signal/slot connections are cleaned up when either the signal/slot is destroyed, so it\u0027s safe. But it still would be odd if I called \"bar-\u003eSignalFoo().connect(this, \u0026Me::OnFoo)\", then deleted \"bar\", but still got signals afterwards. I\u0027d consider that a bug with the Bar class, unless BarInterface documents that this is expected behavior.\n\nI can\u0027t think of any situation where that could happen in our current code, though. Usually, it\u0027s the latter situation you describe. Typically we use signals/slots for code where we have a hierarchical object ownership model, with signals only traveling up the hierarchy.",
+      "parentUuid": "d1703723_fd0dc6ce",
+      "range": {
+        "startLine": 70,
+        "startChar": 47,
+        "endLine": 70,
+        "endChar": 63
+      },
+      "revId": "7f5c0107fc7a415ff923646cc37fa5dc8ab5bc60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

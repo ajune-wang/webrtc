@@ -65,13 +65,14 @@
 namespace webrtc {
 
 // static
+// TODO(henrika): remove id parameter when all clients are updated.
 rtc::scoped_refptr<AudioDeviceModule> AudioDeviceModule::Create(
     const int32_t id,
     const AudioLayer audio_layer) {
   LOG(INFO) << __FUNCTION__;
   // Create the generic reference counted (platform independent) implementation.
   rtc::scoped_refptr<AudioDeviceModuleImpl> audioDevice(
-      new rtc::RefCountedObject<AudioDeviceModuleImpl>(id, audio_layer));
+      new rtc::RefCountedObject<AudioDeviceModuleImpl>(audio_layer));
 
   // Ensure that the current platform is supported.
   if (audioDevice->CheckPlatform() == -1) {
@@ -92,9 +93,8 @@ rtc::scoped_refptr<AudioDeviceModule> AudioDeviceModule::Create(
   return audioDevice;
 }
 
-AudioDeviceModuleImpl::AudioDeviceModuleImpl(const int32_t id,
-                                             const AudioLayer audioLayer)
-    : id_(id), audio_layer_(audioLayer) {
+AudioDeviceModuleImpl::AudioDeviceModuleImpl(const AudioLayer audioLayer)
+    : audio_layer_(audioLayer) {
   LOG(INFO) << __FUNCTION__;
 }
 
@@ -208,22 +208,7 @@ int32_t AudioDeviceModuleImpl::CreatePlatformSpecificObjects() {
     LOG(INFO) << "Attempting to use Linux PulseAudio APIs...";
     // Linux PulseAudio implementation.
     audio_device_.reset(new AudioDeviceLinuxPulse());
-    if (audio_device_->Init() == AudioDeviceGeneric::InitStatus::OK) {
-      LOG(INFO) << "Linux PulseAudio APIs will be utilized";
-    } else {
-      LOG(WARNING) << "Failed to initialize Linux PulseAudio "
-                      "implementation.";
-      audio_device_.reset(nullptr);
-#endif
-#if defined(LINUX_ALSA)
-      // Revert to Linux ALSA implementation instead.
-      audio_device_.reset(new AudioDeviceLinuxALSA());
-      audio_layer_ = kLinuxAlsaAudio;
-      LOG(WARNING) << "Linux PulseAudio is not supported => ALSA APIs will "
-                      "be utilized instead.";
-#endif
-#if defined(LINUX_PULSE)
-    }
+    LOG(INFO) << "Linux PulseAudio APIs will be utilized";
 #endif
   } else if (audio_layer == kLinuxAlsaAudio) {
 #if defined(LINUX_ALSA)
@@ -252,7 +237,7 @@ int32_t AudioDeviceModuleImpl::CreatePlatformSpecificObjects() {
 
   // Dummy ADM implementation.
   if (audio_layer == kDummyAudio) {
-    audio_device_.reset(new AudioDeviceDummy(Id()));
+    audio_device_.reset(new AudioDeviceDummy());
     LOG(INFO) << "Dummy Audio APIs will be utilized.";
   }
 #endif  // if defined(WEBRTC_DUMMY_AUDIO_BUILD)
@@ -267,7 +252,6 @@ int32_t AudioDeviceModuleImpl::CreatePlatformSpecificObjects() {
 
 int32_t AudioDeviceModuleImpl::AttachAudioBuffer() {
   LOG(INFO) << __FUNCTION__;
-  audio_device_buffer_.SetId(id_);
   audio_device_->AttachAudioBuffer(&audio_device_buffer_);
   return 0;
 }

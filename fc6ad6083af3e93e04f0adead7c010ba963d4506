@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "ef15a1c1_7be68247",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-11T14:01:00Z",
+      "side": 1,
+      "message": "I would suggest deprecating this method.\n\nIf we want to keep the functionality in webrtc, I think the right way is to either expose the RtcEventLogOutputFile class in hte api, or add a Create... function or static method somewhere in the api which accepts a file (in some form) and returns a unique_ptr\u003cRtcEventLogOutput\u003e and is implemented by creating a RtcEventLogOutputFile (without exposing the class itself).",
+      "range": {
+        "startLine": 1303,
+        "startChar": 21,
+        "endLine": 1303,
+        "endChar": 37
+      },
+      "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd462a84_fdf361b2",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3

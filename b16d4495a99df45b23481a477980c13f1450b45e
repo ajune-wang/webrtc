@@ -2,6 +2,91 @@
   "comments": [
     {
       "key": {
+        "uuid": "82102316_62770956",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "Should we ensure encoderClass is not nil and gracefully handle it? I know it\u0027s declared as nonnull but runtime introspection can be finicky so maybe additional check wouldn\u0027t hurt?",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9bcbc25_8689acf9",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "Same comment here",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61454276_abed83dd",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCVideoCodecH264.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "Should the file be renamed to match the name of the class it\u0027s now containing as single resident? :)",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e64913f_508ee490",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoDecoderH264.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "(__unused RTCVideoCodecInfo *)info would increase readability and clarify intent",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f944c1f0_26836468",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "nit: this #import should go after the #include s",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75d2225c_dd78cd36",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
         "patchSetId": 3
@@ -19,6 +104,98 @@
         "endLine": 87,
         "endChar": 50
       },
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eb8b954_3812e077",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "It\u0027s needed for the serialization when adding to NSDictionary/NSArray I think. \nI have similar question. I don\u0027t remember if conformation to the protocol needs to be exposed in the public declaration or will it suffice to simply implement the protocol in the implementation?",
+      "parentUuid": "75d2225c_dd78cd36",
+      "range": {
+        "startLine": 87,
+        "startChar": 41,
+        "endLine": 87,
+        "endChar": 50
+      },
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cb691c5_f9a0e9da",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "Specifying init methods in protocols is usually not a good idea.\nHow about, have RTCEncoder superclass with this init method that RTCVideoEncoder/RTCVideoDecoder classes can subclass?",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15e46c8d_ba52abfd",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodecFactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "Document the class and the methods. Here and bellow",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d53ee9c_73625f0f",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodecFactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "I find it confusing that we\u0027re using the codec and format naming interchangeably. Can we stick with just one?",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddae00d_ac967618",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodecFactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "Add documentation elaborating how should priority be interpreted. Is it connected to the order in which formats are added? Should priority be determined in FIFO or LIFO etc.",
       "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

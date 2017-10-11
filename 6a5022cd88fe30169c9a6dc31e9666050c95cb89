@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "cc0819c6_432bd856",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoDecoderH264.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-11T09:03:59Z",
+      "side": 1,
+      "message": "To me this is an anti-pattern that stems from the fact that initWithCodecInfo was declared in a protocol this class conforms to. (See my comment there for more info)\nIdeally, initWithCodecInfo would be a designated initializer calling [super init] and the RTCUIApplicationStatusObserver would be done here. The previous init method would be unavailable.",
+      "parentUuid": "3942b838_5b129bd7",
+      "range": {
+        "startLine": 82,
+        "startChar": 10,
+        "endLine": 82,
+        "endChar": 14
+      },
+      "revId": "6a5022cd88fe30169c9a6dc31e9666050c95cb89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d278a192_bc6e4b5a",
         "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
         "patchSetId": 1

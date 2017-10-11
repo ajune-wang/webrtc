@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "a57a8d62_cf6121f2",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-11T08:11:19Z",
+      "side": 1,
+      "message": "Good point. But the thing I wanted to get across was that the new and the old must co-exist for a short while, so that clients never have to change at the exact moment they update WebRTC past the breaking change. In other words, the suggested alternative must already exist during points (1) and (2).",
+      "parentUuid": "66ab4f2d_ef4fd74e",
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "954ecf0e_8b64bbc1",
         "filename": "style-guide.md",
         "patchSetId": 1
@@ -166,6 +184,30 @@
       "side": 1,
       "message": "I never know which to use. I thought maybe \"webrtc\" was the codebase and \"WebRTC\" was the overall platform. Anyway, done.",
       "parentUuid": "954ecf0e_8b64bbc1",
+      "range": {
+        "startLine": 154,
+        "startChar": 61,
+        "endLine": 154,
+        "endChar": 67
+      },
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abcd4c30_3ac19f7f",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-11T08:11:19Z",
+      "side": 1,
+      "message": "Oh. I always just figured that \"webrtc\" was the informal variant that didn\u0027t require quite so much work with the Shift key.",
+      "parentUuid": "4d1cd286_e04022c0",
       "range": {
         "startLine": 154,
         "startChar": 61,
@@ -301,6 +343,24 @@
       "side": 1,
       "message": "I trimmed it down, but mostly kept the last paragraph as-is, since I think it will be more readable to an uninformed engineer; does it look acceptable?",
       "parentUuid": "e76f0fba_26cc3532",
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad484a18_294b4c48",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-11T08:11:19Z",
+      "side": 1,
+      "message": "Yes, much better. I made an additional suggestion, but you don\u0027t have to take it.",
+      "parentUuid": "3006a9b3_57ed8727",
       "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63d68e70_cb962473",
+        "filename": "style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-11T08:11:19Z",
+      "side": 1,
+      "message": "Period before OR after the closing **. (I think I\u0027d prefer before, but I\u0027m honestly not sure.)",
+      "range": {
+        "startLine": 159,
+        "startChar": 26,
+        "endLine": 159,
+        "endChar": 30
+      },
+      "revId": "564b4996bf2949d6174a04ad2e34d9b7c71d23ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2fbb16d_7677a451",
+        "filename": "style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-11T08:11:19Z",
+      "side": 1,
+      "message": "\"For example, it may create a wrapper class that owns both a `PeerConnection` and its dependencies.\" ? Since the point is to hand the dependencies over to someone who\u0027ll own them and dispose of them at the proper time, regardless of whether the ownership is implemented with unique_ptr.",
+      "revId": "564b4996bf2949d6174a04ad2e34d9b7c71d23ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

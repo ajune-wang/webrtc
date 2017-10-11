@@ -2051,6 +2051,29 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_EQ(-1, media_channel1_->max_bps());
   }
 
+  void SocketOptionsMergedOnSetTransport() {
+    constexpr int kSndBufSize = 4000;
+    constexpr int kRcvBufSize = 8000;
+
+    CreateChannels(0, 0);
+
+    channel1_->SetOption(cricket::BaseChannel::ST_RTP,
+                         rtc::Socket::Option::OPT_SNDBUF, kSndBufSize);
+    channel2_->SetOption(cricket::BaseChannel::ST_RTP,
+                         rtc::Socket::Option::OPT_RCVBUF, kRcvBufSize);
+
+    channel1_->SetTransports(channel2_->rtp_dtls_transport(),
+                             channel2_->rtcp_dtls_transport());
+
+    int option_val;
+    ASSERT_TRUE(channel1_->rtp_dtls_transport()->GetOption(
+        rtc::Socket::Option::OPT_SNDBUF, &option_val));
+    EXPECT_EQ(kSndBufSize, option_val);
+    ASSERT_TRUE(channel1_->rtp_dtls_transport()->GetOption(
+        rtc::Socket::Option::OPT_RCVBUF, &option_val));
+    EXPECT_EQ(kRcvBufSize, option_val);
+  }
+
  protected:
   void WaitForThreads() { WaitForThreads(rtc::ArrayView<rtc::Thread*>()); }
   static void ProcessThreadQueue(rtc::Thread* thread) {
@@ -2624,6 +2647,10 @@ TEST_F(VoiceChannelSingleThreadTest, CanChangeMaxBitrate) {
   Base::CanChangeMaxBitrate();
 }
 
+TEST_F(VoiceChannelSingleThreadTest, SocketOptionsMergedOnSetTransport) {
+  Base::SocketOptionsMergedOnSetTransport();
+}
+
 // VoiceChannelDoubleThreadTest
 TEST_F(VoiceChannelDoubleThreadTest, TestInit) {
   Base::TestInit();
@@ -2983,6 +3010,10 @@ TEST_F(VoiceChannelDoubleThreadTest, CanChangeMaxBitrate) {
   Base::CanChangeMaxBitrate();
 }
 
+TEST_F(VoiceChannelDoubleThreadTest, SocketOptionsMergedOnSetTransport) {
+  Base::SocketOptionsMergedOnSetTransport();
+}
+
 // VideoChannelSingleThreadTest
 TEST_F(VideoChannelSingleThreadTest, TestInit) {
   Base::TestInit();
@@ -3212,6 +3243,10 @@ TEST_F(VideoChannelSingleThreadTest, DefaultMaxBitrateIsUnlimited) {
 
 TEST_F(VideoChannelSingleThreadTest, CanChangeMaxBitrate) {
   Base::CanChangeMaxBitrate();
+}
+
+TEST_F(VideoChannelSingleThreadTest, SocketOptionsMergedOnSetTransport) {
+  Base::SocketOptionsMergedOnSetTransport();
 }
 
 // VideoChannelDoubleThreadTest
@@ -3445,6 +3480,10 @@ TEST_F(VideoChannelDoubleThreadTest, CanChangeMaxBitrate) {
   Base::CanChangeMaxBitrate();
 }
 
+TEST_F(VideoChannelDoubleThreadTest, SocketOptionsMergedOnSetTransport) {
+  Base::SocketOptionsMergedOnSetTransport();
+}
+
 // RtpDataChannelSingleThreadTest
 class RtpDataChannelSingleThreadTest : public ChannelTest<DataTraits> {
  public:
@@ -3641,6 +3680,10 @@ TEST_F(RtpDataChannelSingleThreadTest, TestMediaMonitor) {
   Base::TestMediaMonitor();
 }
 
+TEST_F(RtpDataChannelSingleThreadTest, SocketOptionsMergedOnSetTransport) {
+  Base::SocketOptionsMergedOnSetTransport();
+}
+
 TEST_F(RtpDataChannelSingleThreadTest, TestSendData) {
   CreateChannels(0, 0);
   EXPECT_TRUE(SendInitiate());
@@ -3771,6 +3814,10 @@ TEST_F(RtpDataChannelDoubleThreadTest, SendWithWritabilityLoss) {
 
 TEST_F(RtpDataChannelDoubleThreadTest, TestMediaMonitor) {
   Base::TestMediaMonitor();
+}
+
+TEST_F(RtpDataChannelDoubleThreadTest, SocketOptionsMergedOnSetTransport) {
+  Base::SocketOptionsMergedOnSetTransport();
 }
 
 TEST_F(RtpDataChannelDoubleThreadTest, TestSendData) {

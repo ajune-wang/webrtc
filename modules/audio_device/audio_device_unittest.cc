@@ -466,12 +466,13 @@ class AudioDeviceTest : public ::testing::Test {
     AudioDeviceModule::AudioLayer audio_layer;
     int got_platform_audio_layer =
         audio_device_->ActiveAudioLayer(&audio_layer);
-    if (got_platform_audio_layer != 0 ||
-        audio_layer == AudioDeviceModule::kLinuxAlsaAudio) {
+    if (got_platform_audio_layer != 0) {
       requirements_satisfied_ = false;
     }
     if (requirements_satisfied_) {
-      EXPECT_EQ(0, audio_device_->Init());
+      requirements_satisfied_ = (audio_device_->Init() == 0);
+    }
+    if (requirements_satisfied_) {
       const int16_t num_playout_devices = audio_device_->PlayoutDevices();
       const int16_t num_record_devices = audio_device_->RecordingDevices();
       requirements_satisfied_ =

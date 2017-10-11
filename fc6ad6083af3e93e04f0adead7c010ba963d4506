@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "f1e9ff0c_1b77d1d1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-11T14:09:41Z",
+      "side": 1,
+      "message": "Returning a unique_ptr from a Create method would not work well if ownership is supposed to lie outside the log. Exposing RtcEventLogOutputFile might be a good idea, but it also seems like a quite large change. I suggest keeping as-is for now.",
+      "parentUuid": "ef15a1c1_7be68247",
+      "range": {
+        "startLine": 1303,
+        "startChar": 21,
+        "endLine": 1303,
+        "endChar": 37
+      },
+      "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd462a84_fdf361b2",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3

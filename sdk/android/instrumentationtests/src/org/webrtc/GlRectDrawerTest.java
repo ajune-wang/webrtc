@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BaseJUnit4ClassRunner.class)
+@SuppressWarnings("deprecation") // GlRectDrawer is deprecated
 public class GlRectDrawerTest {
   // Resolution of the test image.
   private static final int WIDTH = 16;

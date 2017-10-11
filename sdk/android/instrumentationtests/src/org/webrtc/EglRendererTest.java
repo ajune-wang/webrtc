@@ -105,7 +105,7 @@ public class EglRendererTest {
     PeerConnectionFactory.initializeAndroidGlobals(
         InstrumentationRegistry.getTargetContext(), true /* videoHwAcceleration */);
     eglRenderer = new EglRenderer("TestRenderer: ");
-    eglRenderer.init(null /* sharedContext */, EglBase.CONFIG_RGBA, new GlRectDrawer());
+    eglRenderer.init(null /* sharedContext */, EglBase.CONFIG_RGBA, new RectGlVideoFrameDrawer());
     oesTextureId = GlUtil.generateTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES);
     surfaceTexture = new SurfaceTexture(oesTextureId);
     surfaceTexture.setDefaultBufferSize(1 /* width */, 1 /* height */);
@@ -321,7 +321,7 @@ public class EglRendererTest {
     // paused.
     eglRenderer.disableFpsReduction();
     eglRenderer.addFrameListener(
-        testFrameListener, 1f /* scaleFactor */, null, true /* applyFpsReduction */);
+        testFrameListener, 1f /* scaleFactor */, true /* applyFpsReduction */, null /* drawer */);
     feedFrame(1);
     assertTrue(testFrameListener.waitForBitmap(RENDER_WAIT_MS));
     checkBitmapContent(testFrameListener.resetAndGetBitmap(), 1);
@@ -330,7 +330,7 @@ public class EglRendererTest {
     // renderer is paused.
     eglRenderer.pauseVideo();
     eglRenderer.addFrameListener(
-        testFrameListener, 1f /* scaleFactor */, null, true /* applyFpsReduction */);
+        testFrameListener, 1f /* scaleFactor */, true /* applyFpsReduction */, null /* drawer */);
     feedFrame(1);
     assertFalse(testFrameListener.waitForBitmap(RENDER_WAIT_MS));
   }

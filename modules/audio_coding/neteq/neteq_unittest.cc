@@ -479,8 +479,7 @@ TEST_F(NetEqDecodingTest, MAYBE_TestBitExactness) {
                    FLAG_gen_ref);
 }
 
-#if !defined(WEBRTC_IOS) && !defined(WEBRTC_ANDROID) &&             \
-    defined(WEBRTC_NETEQ_UNITTEST_BITEXACT) &&                      \
+#if defined(WEBRTC_NETEQ_UNITTEST_BITEXACT) &&                      \
     defined(WEBRTC_CODEC_OPUS)
 #define MAYBE_TestOpusBitExactness TestOpusBitExactness
 #else

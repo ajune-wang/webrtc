@@ -43,6 +43,7 @@
 #include "rtc_base/stringutils.h"
 #include "rtc_base/virtualsocketserver.h"
 #include "test/gmock.h"
+#include "test/testsupport/fileutils.h"
 
 #ifdef WEBRTC_ANDROID
 #include "pc/test/androidtestinitializer.h"
@@ -3207,10 +3208,21 @@ TEST_F(PeerConnectionInterfaceTest,
   // The RtcEventLog will be reset when the PeerConnection is closed.
   pc_->Close();
 
-  rtc::PlatformFile file = 0;
+  auto test_info = ::testing::UnitTest::GetInstance()->current_test_info();
+  std::string filename = webrtc::test::OutputPath() +
+                         test_info->test_case_name() +
+                         test_info->name();
+  // Ensure no leftovers from previous runs, which might not have terminated
+  // in an orderly fashion.
+  remove(filename.c_str());
+
+  rtc::PlatformFile file = rtc::CreatePlatformFile(filename);
   int64_t max_size_bytes = 1024;
   EXPECT_FALSE(pc_->StartRtcEventLog(file, max_size_bytes));
   pc_->StopRtcEventLog();
+
+  // Cleanup.
+  remove(filename.c_str());
 }
 
 // Test that generated offers/answers include "ice-option:trickle".

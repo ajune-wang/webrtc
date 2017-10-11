@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf88c112_9e46b738",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-11T16:52:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffddc431_49ac5b1b",
+      "range": {
+        "startLine": 92,
+        "startChar": 34,
+        "endLine": 92,
+        "endChar": 38
+      },
+      "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6845d98_2185ef31",
         "filename": "webrtc/rtc_base/bitrateallocationstrategy_unittest.cc",
         "patchSetId": 3
@@ -36,6 +60,24 @@
       "writtenOn": "2017-10-11T01:17:20Z",
       "side": 1,
       "message": "Good tests! Do you plan to add tests for SetAllBitratesToMinimum and DistributeBitratesEvenly by themselves?",
+      "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4655fae5_907ff498",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-11T16:52:44Z",
+      "side": 1,
+      "message": "These tests are making use of the functions and essentially test the functions as well. Do you think it is worth the effort to add dedicated tests?",
+      "parentUuid": "d6845d98_2185ef31",
       "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

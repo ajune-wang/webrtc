@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77bab8f5_82a81e74",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-10-11T07:44:03Z",
+      "side": 1,
+      "message": "hoose \u003d\u003e Choose",
+      "revId": "a7428ff6d42d0c315de5fe0ee46cb90f71ea5c0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "618cbf6e_e89b5151",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-10-11T07:44:03Z",
+      "side": 1,
+      "message": "std::max not needed as lag_estimates[k].accuracy \u003e best_accuracy and best_accuracy is initialized to 0.f",
+      "revId": "a7428ff6d42d0c315de5fe0ee46cb90f71ea5c0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

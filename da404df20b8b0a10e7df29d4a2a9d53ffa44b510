@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b880181_5d6d8b39",
+        "filename": "modules/audio_processing/agc2/gain_controller2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-10-11T12:20:09Z",
+      "side": 1,
+      "message": "You should probably use 10.f and 20.f as that will cause the float variant of Pow to be used, which in turn returns a float which matches the type of fixed_gain_.",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "da404df20b8b0a10e7df29d4a2a9d53ffa44b510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "063d05bf_79dd4ea2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-10-11T12:20:09Z",
+      "side": 1,
+      "message": "Is there a reason for why it is not done like that already now?",
+      "revId": "da404df20b8b0a10e7df29d4a2a9d53ffa44b510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

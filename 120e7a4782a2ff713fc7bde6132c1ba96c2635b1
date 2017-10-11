@@ -401,6 +401,24 @@
     },
     {
       "key": {
+        "uuid": "b8e7a6bc_55016425",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-10-11T12:20:09Z",
+      "side": 1,
+      "message": "Thanks for the answer!\n\nHaving looked at another CL which does the same thing, I actually think that it is good to put it as you did it. It can for sure cause extra initializations as you point out. But since ApplyConfig is only called before the call is started, and should ideally only be called once, that is fine.\n\nMy view is that it is best doing it the way you\u0027ve done it. But lets discuss it more offline if you think it is needed.",
+      "parentUuid": "c9f91b81_37b27bd2",
+      "revId": "120e7a4782a2ff713fc7bde6132c1ba96c2635b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15d544f3_0401014c",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 5

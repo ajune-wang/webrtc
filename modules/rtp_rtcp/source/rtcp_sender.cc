@@ -87,8 +87,7 @@ RTCPSender::FeedbackState::FeedbackState()
       has_last_xr_rr(false),
       module(nullptr) {}
 
-class PacketContainer : public rtcp::CompoundPacket,
-                        public rtcp::RtcpPacket::PacketReadyCallback {
+class PacketContainer : public rtcp::CompoundPacket {
  public:
   PacketContainer(Transport* transport, RtcEventLog* event_log)
       : transport_(transport), event_log_(event_log), bytes_sent_(0) {}
@@ -97,20 +96,18 @@ class PacketContainer : public rtcp::CompoundPacket,
       delete packet;
   }
 
-  void OnPacketReady(uint8_t* data, size_t length) override {
-    if (transport_->SendRtcp(data, length)) {
-      bytes_sent_ += length;
-      if (event_log_) {
-        event_log_->Log(rtc::MakeUnique<RtcEventRtcpPacketOutgoing>(
-            rtc::ArrayView<const uint8_t>(data, length)));
-      }
-    }
-  }
-
   size_t SendPackets(size_t max_payload_length) {
     RTC_DCHECK_LE(max_payload_length, IP_PACKET_SIZE);
     uint8_t buffer[IP_PACKET_SIZE];
-    BuildExternalBuffer(buffer, max_payload_length, this);
+    BuildExternalBuffer(buffer, max_payload_length, [&](size_t length) {
+      if (transport_->SendRtcp(buffer, length)) {
+        bytes_sent_ += length;
+        if (event_log_) {
+          event_log_->Log(rtc::MakeUnique<RtcEventRtcpPacketOutgoing>(
+              rtc::ArrayView<const uint8_t>(buffer, length)));
+        }
+      }
+    });
     return bytes_sent_;
   }
 
@@ -957,30 +954,6 @@ void RTCPSender::SetVideoBitrateAllocation(const BitrateAllocation& bitrate) {
 }
 
 bool RTCPSender::SendFeedbackPacket(const rtcp::TransportFeedback& packet) {
-  class Sender : public rtcp::RtcpPacket::PacketReadyCallback {
-   public:
-    Sender(Transport* transport, RtcEventLog* event_log)
-        : transport_(transport), event_log_(event_log), send_failure_(false) {}
-
-    void OnPacketReady(uint8_t* data, size_t length) override {
-      if (transport_->SendRtcp(data, length)) {
-        if (event_log_) {
-          event_log_->Log(rtc::MakeUnique<RtcEventRtcpPacketOutgoing>(
-              rtc::ArrayView<const uint8_t>(data, length)));
-        }
-      } else {
-        send_failure_ = true;
-      }
-    }
-
-    Transport* const transport_;
-    RtcEventLog* const event_log_;
-    bool send_failure_;
-    // TODO(terelius): We would like to
-    // RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(Sender);
-    // but we can't because of an incorrect warning (C4822) in MVS 2013.
-  } sender(transport_, event_log_);
-
   size_t max_packet_size;
   {
     rtc::CritScope lock(&critical_section_rtcp_sender_);
@@ -991,8 +964,19 @@ bool RTCPSender::SendFeedbackPacket(const rtcp::TransportFeedback& packet) {
 
   RTC_DCHECK_LE(max_packet_size, IP_PACKET_SIZE);
   uint8_t buffer[IP_PACKET_SIZE];
-  return packet.BuildExternalBuffer(buffer, max_packet_size, &sender) &&
-         !sender.send_failure_;
+  bool send_failure = false;
+  auto callback = [&](size_t length) {
+    if (transport_->SendRtcp(buffer, length)) {
+      if (event_log_) {
+        event_log_->Log(rtc::MakeUnique<RtcEventRtcpPacketOutgoing>(
+            rtc::ArrayView<const uint8_t>(buffer, length)));
+      }
+    } else {
+      send_failure = true;
+    }
+  };
+  return packet.BuildExternalBuffer(buffer, max_packet_size, callback) &&
+         !send_failure;
 }
 
 }  // namespace webrtc

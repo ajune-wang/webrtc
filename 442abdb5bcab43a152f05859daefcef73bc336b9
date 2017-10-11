@@ -314,6 +314,29 @@
     },
     {
       "key": {
+        "uuid": "ad121fda_39635418",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-11T10:48:55Z",
+      "side": 1,
+      "message": "nit: Assuming one means the application hosting WebRTC, it might be worth it to make this a bit more explicit. One might understand that PeerConnection, once receiving a raw pointer, could then understand it as passing ownership or not, depending on the particular function being called, and if ownership is passed, might then wrap the raw pointer in a unique pointer. Or was that meant?",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 24
+      },
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e76f0fba_26cc3532",
         "filename": "style-guide.md",
         "patchSetId": 1

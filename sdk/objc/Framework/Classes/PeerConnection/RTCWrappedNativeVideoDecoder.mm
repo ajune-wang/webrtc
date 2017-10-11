@@ -17,6 +17,11 @@
   std::unique_ptr<webrtc::VideoDecoder> _wrappedDecoder;
 }
 
+- (instancetype)initWithCodecInfo:(RTCVideoCodecInfo *)info {
+  RTC_NOTREACHED() << "This class must be initialized with a native decoder to be wrapped.";
+  return nil;
+}
+
 - (instancetype)initWithNativeDecoder:(std::unique_ptr<webrtc::VideoDecoder>)decoder {
   if (self = [super init]) {
     _wrappedDecoder = std::move(decoder);

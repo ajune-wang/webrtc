@@ -33,4 +33,33 @@ RTC_EXPORT
 
 @end
 
+#pragma mark - Codec List for Default Factories
+
+RTC_EXPORT
+@interface RTCVideoCodecPriorityList <ObjectType> : NSObject
+
+- (void)addFormat:(RTCVideoCodecInfo *)codecInfo withClass:(ObjectType)codecClass;
+- (NSArray<RTCVideoCodecInfo *> *)formatsByPriority;
+- (ObjectType)codecClassForFormat:(RTCVideoCodecInfo *)codecInfo;
+
+@end
+
+#pragma mark - Default Factories
+
+RTC_EXPORT
+@interface RTCDefaultVideoEncoderFactory : NSObject <RTCVideoEncoderFactory>
+
+- (instancetype)initWithEncoderPriorityList:
+        (RTCVideoCodecPriorityList<Class<RTCVideoEncoder>> *)codecList;
+
+@end
+
+RTC_EXPORT
+@interface RTCDefaultVideoDecoderFactory : NSObject <RTCVideoDecoderFactory>
+
+- (instancetype)initWithDecoderPriorityList:
+        (RTCVideoCodecPriorityList<Class<RTCVideoDecoder>> *)codecList;
+
+@end
+
 NS_ASSUME_NONNULL_END

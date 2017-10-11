@@ -10,23 +10,7 @@
 
 #import "WebRTC/RTCVideoCodecH264.h"
 
-#include <vector>
-
 #import "RTCVideoCodec+Private.h"
-#import "WebRTC/RTCVideoCodec.h"
-
-#include "rtc_base/timeutils.h"
-#include "sdk/objc/Framework/Classes/Video/objc_frame_buffer.h"
-#include "system_wrappers/include/field_trial.h"
-
-const char kHighProfileExperiment[] = "WebRTC-H264HighProfile";
-static NSString *kH264CodecName = @"H264";
-static NSString *kLevel31ConstrainedHigh = @"640c1f";
-static NSString *kLevel31ConstrainedBaseline = @"42e01f";
-
-bool IsHighProfileEnabled() {
-  return webrtc::field_trial::IsEnabled(kHighProfileExperiment);
-}
 
 // H264 specific settings.
 @implementation RTCCodecSpecificInfoH264
@@ -36,61 +20,11 @@ bool IsHighProfileEnabled() {
 - (webrtc::CodecSpecificInfo)nativeCodecSpecificInfo {
   webrtc::CodecSpecificInfo codecSpecificInfo;
   codecSpecificInfo.codecType = webrtc::kVideoCodecH264;
-  codecSpecificInfo.codec_name = [kH264CodecName cStringUsingEncoding:NSUTF8StringEncoding];
+  codecSpecificInfo.codec_name = "H264";
   codecSpecificInfo.codecSpecific.H264.packetization_mode =
       (webrtc::H264PacketizationMode)_packetizationMode;
 
   return codecSpecificInfo;
-}
-
-@end
-
-// Encoder factory.
-@implementation RTCVideoEncoderFactoryH264
-
-- (NSArray<RTCVideoCodecInfo *> *)supportedCodecs {
-  NSMutableArray<RTCVideoCodecInfo *> *codecs = [NSMutableArray array];
-  NSString *codecName = kH264CodecName;
-
-  if (IsHighProfileEnabled()) {
-    NSDictionary<NSString *, NSString *> *constrainedHighParams = @{
-      @"profile-level-id" : kLevel31ConstrainedHigh,
-      @"level-asymmetry-allowed" : @"1",
-      @"packetization-mode" : @"1",
-    };
-    RTCVideoCodecInfo *constrainedHighInfo =
-        [[RTCVideoCodecInfo alloc] initWithName:codecName parameters:constrainedHighParams];
-    [codecs addObject:constrainedHighInfo];
-  }
-
-  NSDictionary<NSString *, NSString *> *constrainedBaselineParams = @{
-    @"profile-level-id" : kLevel31ConstrainedBaseline,
-    @"level-asymmetry-allowed" : @"1",
-    @"packetization-mode" : @"1",
-  };
-  RTCVideoCodecInfo *constrainedBaselineInfo =
-      [[RTCVideoCodecInfo alloc] initWithName:codecName parameters:constrainedBaselineParams];
-  [codecs addObject:constrainedBaselineInfo];
-
-  return [codecs copy];
-}
-
-- (id<RTCVideoEncoder>)createEncoder:(RTCVideoCodecInfo *)info {
-  return [[RTCVideoEncoderH264 alloc] initWithCodecInfo:info];
-}
-
-@end
-
-// Decoder factory.
-@implementation RTCVideoDecoderFactoryH264
-
-- (id<RTCVideoDecoder>)createDecoder:(RTCVideoCodecInfo *)info {
-  return [[RTCVideoDecoderH264 alloc] init];
-}
-
-- (NSArray<RTCVideoCodecInfo *> *)supportedCodecs {
-  NSString *codecName = kH264CodecName;
-  return @[ [[RTCVideoCodecInfo alloc] initWithName:codecName parameters:nil] ];
 }
 
 @end

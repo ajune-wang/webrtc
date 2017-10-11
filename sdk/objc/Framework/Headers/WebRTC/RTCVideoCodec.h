@@ -84,7 +84,7 @@ typedef NS_ENUM(NSUInteger, RTCVideoCodecMode) {
 
 /** Holds information to identify a codec. Corresponds to cricket::VideoCodec. */
 RTC_EXPORT
-@interface RTCVideoCodecInfo : NSObject
+@interface RTCVideoCodecInfo : NSObject <NSCopying>
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -137,6 +137,7 @@ RTC_EXPORT
 RTC_EXPORT
 @protocol RTCVideoEncoder <NSObject>
 
+- (instancetype)initWithCodecInfo:(RTCVideoCodecInfo *)info;
 - (void)setCallback:(RTCVideoEncoderCallback)callback;
 - (NSInteger)startEncodeWithSettings:(RTCVideoEncoderSettings *)settings
                        numberOfCores:(int)numberOfCores;
@@ -158,6 +159,7 @@ RTC_EXPORT
 RTC_EXPORT
 @protocol RTCVideoDecoder <NSObject>
 
+- (instancetype)initWithCodecInfo:(RTCVideoCodecInfo *)info;
 - (void)setCallback:(RTCVideoDecoderCallback)callback;
 - (NSInteger)startDecodeWithSettings:(RTCVideoEncoderSettings *)settings
                        numberOfCores:(int)numberOfCores;

@@ -78,6 +78,10 @@ void decompressionOutputCallback(void *decoder,
   return self;
 }
 
+- (instancetype)initWithCodecInfo:(RTCVideoCodecInfo *)info {
+  return [self init];
+}
+
 - (void)dealloc {
   [self destroyDecompressionSession];
   [self setVideoFormat:nullptr];

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffddc431_49ac5b1b",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T01:17:20Z",
+      "side": 1,
+      "message": "\"up to\"",
+      "range": {
+        "startLine": 92,
+        "startChar": 34,
+        "endLine": 92,
+        "endChar": 38
+      },
+      "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6845d98_2185ef31",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-11T01:17:20Z",
+      "side": 1,
+      "message": "Good tests! Do you plan to add tests for SetAllBitratesToMinimum and DistributeBitratesEvenly by themselves?",
+      "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

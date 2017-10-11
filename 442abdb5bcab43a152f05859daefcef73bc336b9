@@ -337,6 +337,30 @@
     },
     {
       "key": {
+        "uuid": "2318e763_ce636b08",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-11T11:57:19Z",
+      "side": 1,
+      "message": "Actually, what we should do is publish a style guide rule that forbids raw pointers to own the stuff they point to. I have one written up somewhere...\n\nBut perhaps it\u0027s not even necessary. Both Chromium (https://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md#object-ownership-and-calling-conventions) and Google (https://google.github.io/styleguide/cppguide.html#Ownership_and_Smart_Pointers) have rules that say almost exactly what I have in mind for WebRTC.\n\nAnyway, the bottom line is that transferring ownership in raw pointers is only a short step up from being mean to puppies, so we shouldn\u0027t need to point it out.",
+      "parentUuid": "ad121fda_39635418",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 24
+      },
+      "revId": "442abdb5bcab43a152f05859daefcef73bc336b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e76f0fba_26cc3532",
         "filename": "style-guide.md",
         "patchSetId": 1

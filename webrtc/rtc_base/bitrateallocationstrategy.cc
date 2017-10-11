@@ -45,16 +45,16 @@ std::vector<uint32_t> BitrateAllocationStrategy::DistributeBitratesEvenly(
   } else {
     // If sum_min_bitrates < available_bitrate < sum_max_bitrates allocate
     // bitrates evenly up to max_bitrate_bps starting from the track with the
-    // lowest max_bitrate_bps. Remainder of available bitrate split evenly among
+    // lowest max_bitrate_bps. Reminder of available bitrate split evenly among
     // remaining tracks.
     std::multimap<uint32_t, size_t> max_bitrate_sorted_configs;
     for (const TrackConfig** track_configs_it = track_configs.begin();
-         track_configs_it != track_configs.end(); ++track_configs_it) {
-      max_bitrate_sorted_configs.insert(
-          std::make_pair((*track_configs_it)->max_bitrate_bps,
-                         track_configs_it - track_configs.begin()));
+         track_configs_it != track_configs.end(); track_configs_it++) {
+      max_bitrate_sorted_configs.insert(std::pair<uint32_t, size_t>(
+          (*track_configs_it)->max_bitrate_bps,
+          track_configs_it - track_configs.begin()));
     }
-    uint32_t total_available_increase = available_bitrate - sum_min_bitrates;
+    uint32_t total_available_increase = (available_bitrate - sum_min_bitrates);
     int processed_configs = 0;
     for (const auto& track_config_pair : max_bitrate_sorted_configs) {
       uint32_t available_increase =
@@ -85,14 +85,14 @@ std::vector<uint32_t> AudioPriorityBitrateAllocationStrategy::AllocateBitrates(
   size_t audio_config_index = -1;
   uint32_t sum_min_bitrates = 0;
 
-  for (const auto*& track_config : track_configs) {
+  for (auto*& track_config : track_configs) {
     sum_min_bitrates += track_config->min_bitrate_bps;
     if (track_config->track_id == audio_track_id_) {
       audio_track_config = track_config;
       audio_config_index = &track_config - &track_configs[0];
     }
   }
-  if (audio_track_config == nullptr) {
+  if (audio_track_config == NULL) {
     return DistributeBitratesEvenly(track_configs, available_bitrate);
   }
   auto safe_sufficient_audio_bitrate = std::min(
@@ -109,14 +109,13 @@ std::vector<uint32_t> AudioPriorityBitrateAllocationStrategy::AllocateBitrates(
           available_bitrate - sum_min_bitrates;
       return track_allocations;
     } else {
-      // Setting audio track minimum to safe_sufficient_audio_bitrate will
-      // allow using DistributeBitratesEvenly to allocate at least sufficient
-      // bitrate for audio and the rest evenly.
+      const TrackConfig* saved_track_config = track_configs[audio_config_index];
       TrackConfig sufficient_track_config(*track_configs[audio_config_index]);
       sufficient_track_config.min_bitrate_bps = safe_sufficient_audio_bitrate;
       track_configs[audio_config_index] = &sufficient_track_config;
       std::vector<uint32_t> track_allocations =
           DistributeBitratesEvenly(track_configs, available_bitrate);
+      track_configs[audio_config_index] = saved_track_config;
       return track_allocations;
     }
   }

@@ -19,9 +19,9 @@
 
 - (instancetype)initWith:(rtc::BitrateAllocationStrategy*)strategy {
   RTC_DCHECK(strategy);
-  if (self = [super init]) {
-    _strategy = strategy;
-  }
+
+  _strategy = strategy;
+
   return self;
 }
 

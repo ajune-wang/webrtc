@@ -22,9 +22,7 @@
 
 namespace rtc {
 
-// Pluggable strategy allows configuration of bitrate allocation per media
-// track.
-//
+// Plugable strategy allows configuration of bitrate allocation per media track.
 // The strategy should provide allocation for every track passed with
 // track_configs in AllocateBitrates. The allocations are constrained by
 // max_bitrate_bps, min_bitrate_bps defining the track supported range and

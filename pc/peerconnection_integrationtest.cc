@@ -2583,6 +2583,24 @@ TEST_F(PeerConnectionIntegrationTest, CalleeClosesSctpDataChannel) {
   EXPECT_TRUE_WAIT(!callee()->data_observer()->IsOpen(), kDefaultTimeout);
 }
 
+TEST_F(PeerConnectionIntegrationTest, SctpDataChannelConfigSentToOtherSide) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  webrtc::DataChannelInit init;
+  init.id = 53;
+  init.maxRetransmits = 52;
+  caller()->CreateDataChannel(&init);
+  caller()->AddAudioVideoMediaStream();
+  callee()->AddAudioVideoMediaStream();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE(callee()->data_channel());
+  EXPECT_EQ(init.id, callee()->data_channel()->id());
+  EXPECT_EQ(kDataChannelLabel, callee()->data_channel()->label());
+  EXPECT_EQ(init.maxRetransmits, callee()->data_channel()->maxRetransmits());
+  EXPECT_FALSE(callee()->data_channel()->negotiated());
+}
+
 // Test usrsctp's ability to process unordered data stream, where data actually
 // arrives out of order using simulated delays. Previously there have been some
 // bugs in this area.

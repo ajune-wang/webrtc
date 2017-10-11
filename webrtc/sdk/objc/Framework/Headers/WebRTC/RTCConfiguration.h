@@ -14,6 +14,7 @@
 
 @class RTCIceServer;
 @class RTCIntervalRange;
+@class RTCBitrateAllocationStrategy;
 
 /**
  * Represents the ice transport policy. This exposes the same states in C++,
@@ -125,6 +126,11 @@ RTC_EXPORT
  *  interval specified in milliseconds by the uniform distribution [a, b].
  */
 @property(nonatomic, strong, nullable) RTCIntervalRange *iceRegatherIntervalRange;
+
+/** If not set default WebRTC allocator will be used. May be changed during
+ *  an active session.
+ */
+@property(nonatomic, strong, nullable) RTCBitrateAllocationStrategy *bitrateAllocationStrategy;
 
 - (instancetype)init;
 

@@ -274,6 +274,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     bool redetermine_role_on_ice_restart;
     rtc::Optional<int> ice_check_min_interval;
     rtc::Optional<rtc::IntervalRange> ice_regather_interval_range;
+    rtc::BitrateAllocationStrategy* bitrate_allocation_strategy;
   };
   static_assert(sizeof(stuff_being_tested_for_equality) == sizeof(*this),
                 "Did you add something to RTCConfiguration and forget to "
@@ -309,7 +310,8 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          enable_ice_renomination == o.enable_ice_renomination &&
          redetermine_role_on_ice_restart == o.redetermine_role_on_ice_restart &&
          ice_check_min_interval == o.ice_check_min_interval &&
-         ice_regather_interval_range == o.ice_regather_interval_range;
+         ice_regather_interval_range == o.ice_regather_interval_range &&
+         bitrate_allocation_strategy == o.bitrate_allocation_strategy;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
@@ -511,6 +513,10 @@ bool PeerConnection::Initialize(
       this, &PeerConnection::OnDataChannelDestroyed);
   session_->SignalDataChannelOpenMessage.connect(
       this, &PeerConnection::OnDataChannelOpenMessage);
+
+  if (configuration.bitrate_allocation_strategy) {
+    SetBitrateAllocationStrategy(configuration.bitrate_allocation_strategy);
+  }
 
   configuration_ = configuration;
   return true;
@@ -1143,6 +1149,8 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
       configuration.ice_candidate_pool_size;
   modified_config.prune_turn_ports = configuration.prune_turn_ports;
   modified_config.ice_check_min_interval = configuration.ice_check_min_interval;
+  modified_config.bitrate_allocation_strategy =
+      configuration.bitrate_allocation_strategy;
   if (configuration != modified_config) {
     LOG(LS_ERROR) << "Modifying the configuration in an unsupported way.";
     return SafeSetError(RTCErrorType::INVALID_MODIFICATION, error);
@@ -1194,6 +1202,8 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
       configuration_.ice_check_min_interval) {
     session_->SetIceConfig(session_->ParseIceConfig(modified_config));
   }
+
+  SetBitrateAllocationStrategy(modified_config.bitrate_allocation_strategy);
 
   configuration_ = modified_config;
   return SafeSetError(RTCErrorType::NONE, error);
@@ -1283,6 +1293,19 @@ RTCError PeerConnection::SetBitrate(const BitrateParameters& bitrate) {
   call_->SetBitrateConfigMask(mask);
 
   return RTCError::OK();
+}
+
+void PeerConnection::SetBitrateAllocationStrategy(
+    rtc::BitrateAllocationStrategy* bitrate_allocation_strategy) {
+  rtc::Thread* worker_thread = factory_->worker_thread();
+  if (!worker_thread->IsCurrent()) {
+    worker_thread->Invoke<void>(
+        RTC_FROM_HERE, rtc::Bind(&PeerConnection::SetBitrateAllocationStrategy,
+                                 this, bitrate_allocation_strategy));
+    return;
+  }
+  RTC_DCHECK(call_.get());
+  call_->SetBitrateAllocationStrategy(bitrate_allocation_strategy);
 }
 
 bool PeerConnection::StartRtcEventLog(rtc::PlatformFile file,

@@ -122,3 +122,56 @@ not `#ifdef` or `#if defined()`:
 When combined with the `-Wundef` compiler option, this produces
 compile time warnings if preprocessor symbols are misspelled, or used
 without corresponding build rules to set them.
+
+## **API design**
+
+We should take great care in adding new things to the "public" API,
+located in the api/ subdirectory. It's easy to add something, but more
+difficult to change it, since our default policy is to not make
+breaking changes without doing the following.
+
+### Breaking changes
+
+Breaking changes—meaning changes to an API that may cause existing
+client code to break—should be handled using the following process:
+
+1. If applicable, mark the old API as deprecated, with comments
+   explaining the reason for the deprecation and the suggested
+   alternative.
+2. Announce the change to discuss-webrtc@googlegroups.com and
+   webrtc-users@google.com (internal list).
+3. Later, make the breaking change.
+
+Even seemingly trivial breaking changes should follow this process -
+at the minimum, informing discuss-webrtc. It's difficult to guess what
+features developers depend on; it's likely that even the most obscure
+feature is being used by at least one person.
+
+### Dependency injection
+
+"Dependency injection" refers to the ability for a client of the API
+to "inject" one of the API's dependencies. For example, an application
+with its own video encoder may wish to inject it in place of WebRTC's
+"built-in" encoders.
+
+When designing an API that uses dependency injection, **prefer to
+supply the dependency via a raw pointer, leaving ownership of the
+object with the API client.**. A comment should describe the scope
+during which the object must remain usable; for example, "until
+`PeerConnectionInterface::Close` is called."
+
+The common alternatives are to supply the dependency via a
+reference-counting smart pointer (`rtc::scoped_refptr`), or a smart
+pointer that transfers ownership (`std::unique_ptr`). Each has pros
+and cons, but:
+
+* Picking a single approach that's used consistently improves code
+  readability.
+* The other approaches have some disadvantages that can't be avoided,
+  as mentioned in the
+  [Google C++ style guide](https://google.github.io/styleguide/cppguide.html#Ownership_and_Smart_Pointers).
+* The API client is always able to use its own preferred ownership
+  model on top of WebRTC, with the use of adapter/wrapper objects.
+    - For example, it may create a class that wraps a PeerConnection
+      and owns its dependencies, if it wants `std::unique_ptr`
+      semantics.

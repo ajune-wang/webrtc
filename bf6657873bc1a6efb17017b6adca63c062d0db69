@@ -16,6 +16,24 @@
       "revId": "bf6657873bc1a6efb17017b6adca63c062d0db69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a038f3c1_fa292292",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-11T16:44:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3eb3a3c2_568d7391",
+      "revId": "bf6657873bc1a6efb17017b6adca63c062d0db69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

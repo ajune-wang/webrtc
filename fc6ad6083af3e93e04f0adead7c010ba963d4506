@@ -90,6 +90,30 @@
     },
     {
       "key": {
+        "uuid": "0b94b3ec_bea4762c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-12T14:03:54Z",
+      "side": 1,
+      "message": "Niels, I want to make sure I understand correctly - are you suggesting exposing to the API a function called CreateRtcEventLogOutputFile, but not the implementation of RtcEventLogOutputFile, so that RtcEventLogOutputFile would be an implementation detail of WebRTC, but still accessible to the hosting application? If so, I\u0027m in favor.",
+      "parentUuid": "c17f85b9_fe7bfeba",
+      "range": {
+        "startLine": 1303,
+        "startChar": 21,
+        "endLine": 1303,
+        "endChar": 37
+      },
+      "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd462a84_fdf361b2",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3

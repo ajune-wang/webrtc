@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17d74fe7_899a3998",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-12T09:03:59Z",
+      "side": 1,
+      "message": "Not sure about this implementation.\nI can easily see how someone could use it like this and end up in completely wrong state.\n\n```\nRTCVideoCodecPriorityList *list \u003d [RTC.. new];\n[list addCodecInfo:H264Info withClass:[RTCEncoder class]];\n[list addCodecInfo:H264Info withClass:[RTCDecoder class]];\n```\n\nWhat do you think?",
+      "revId": "6a13bd6f2a048613d1f86dcb7600cad21077fa60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a32ffb6_6d1a6128",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-12T09:03:59Z",
+      "side": 1,
+      "message": "Keep this in the init and keep `configureWithCodecInfo` to purely configure the codec info.",
+      "revId": "6a13bd6f2a048613d1f86dcb7600cad21077fa60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea85df0_1256d82b",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-12T09:03:59Z",
+      "side": 1,
+      "message": "Documentation? :)",
+      "revId": "6a13bd6f2a048613d1f86dcb7600cad21077fa60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

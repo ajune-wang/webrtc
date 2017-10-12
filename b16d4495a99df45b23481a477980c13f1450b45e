@@ -283,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "873a0e57_c29fab7c",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-12T09:03:59Z",
+      "side": 1,
+      "message": "|  (I don\u0027t think there is a way to specify that a parameter should be a Class object that \n|  represents a class that subclasses a specific other class?)\n\nYes, generics don\u0027t support such thing. One thing we could do is to do a runtime check using `isKindOfClass` etall. Not as elegant as generics but it would do the trick.",
+      "parentUuid": "047c35ff_61518dc4",
+      "revId": "b16d4495a99df45b23481a477980c13f1450b45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15e46c8d_ba52abfd",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodecFactory.h",
         "patchSetId": 3

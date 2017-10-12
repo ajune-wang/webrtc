@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfc09f0d_18aaa8aa",
+        "filename": "modules/remote_bitrate_estimator/test/estimators/nada.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-10-12T14:58:11Z",
+      "side": 1,
+      "message": "do you also need members like PayloadType, Marker[bit], Timestamp?",
+      "range": {
+        "startLine": 66,
+        "startChar": 36,
+        "endLine": 66,
+        "endChar": 0
+      },
+      "revId": "b13d78b7c1f9ac3a35453c89f9eb848c693aca9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be72b50a_aeb37806",
+        "filename": "modules/remote_bitrate_estimator/test/estimators/nada.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-10-12T14:58:11Z",
+      "side": 1,
+      "message": "use SetPayloadSize function instead, it better shows intent here.\n(internally those two functions do almost the same, in particular they do not allocate any new memory, at least in this case)",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 15
+      },
+      "revId": "b13d78b7c1f9ac3a35453c89f9eb848c693aca9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

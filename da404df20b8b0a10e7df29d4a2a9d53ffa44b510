@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "800e5fbd_ced06678",
+        "filename": "modules/audio_processing/agc2/gain_controller2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-10-12T12:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b880181_5d6d8b39",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "da404df20b8b0a10e7df29d4a2a9d53ffa44b510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "063d05bf_79dd4ea2",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 6
@@ -36,6 +60,24 @@
       "writtenOn": "2017-10-11T12:20:09Z",
       "side": 1,
       "message": "Is there a reason for why it is not done like that already now?",
+      "revId": "da404df20b8b0a10e7df29d4a2a9d53ffa44b510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b2f6223_7a2fbba0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-10-12T12:04:20Z",
+      "side": 1,
+      "message": "Yes, it\u0027s because of injection, which is not there yet, but this CL is done in preparation of it. Let me explain.\n\nThe AudioProcessingImpl class ctor cannot use the |config_.gain_controller2.enabled| flag because it\u0027s always set to its default. If the client enables AGC2, it would need that AudioProcessingImpl::ApplyConfig() becomes responsible for the instantiation of AGC2, but we cannot do this because, when AGC2 will become injectable, then AudioProcessingImpl doesn\u0027t know how to instantiate different implementations. In fact, as discussed offline, we will most likely adopt a configuration scheme in which the common AGC params are passed through ApplyConfig, whereas the implementation-specific ones are passed via the AGC implementation ctor.\n\nI have changed the comment, explaining that line 395 will be replaced by an ownership move operation - the injected AGC will be owned by AudioProcessingImpl.\n\nAn alternative to this is injecting a factory instead. But at this point it is an unnecessarily complex way to go.\n\nWDYT?",
+      "parentUuid": "063d05bf_79dd4ea2",
       "revId": "da404df20b8b0a10e7df29d4a2a9d53ffa44b510",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

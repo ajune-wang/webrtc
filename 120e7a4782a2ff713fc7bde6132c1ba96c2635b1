@@ -419,6 +419,24 @@
     },
     {
       "key": {
+        "uuid": "59924e07_a639b0de",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-10-12T12:04:20Z",
+      "side": 1,
+      "message": "Yup, let\u0027s discuss offline. Briefly, I think it\u0027s better for all the sub-modules to compare the current config to the new one, and then re-init and/or apply the new config to each sub-module depending on what has changed. Currently, this is partially done for those module that have an enabled flag in |capture_nonlocked_|. I probably miss details why we need the latter, that\u0027s why it would good to discuss further.",
+      "parentUuid": "b8e7a6bc_55016425",
+      "revId": "120e7a4782a2ff713fc7bde6132c1ba96c2635b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15d544f3_0401014c",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 5

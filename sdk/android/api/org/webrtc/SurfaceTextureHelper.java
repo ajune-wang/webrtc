@@ -248,6 +248,21 @@ public class SurfaceTextureHelper {
     });
   }
 
+  public VideoFrame.I420Buffer textureToYUV(final VideoFrame.TextureBuffer textureBuffer) {
+    if (textureBuffer.getTextureId() != oesTextureId) {
+      throw new IllegalStateException("textureToByteBuffer called with unexpected textureId");
+    }
+
+    final VideoFrame.I420Buffer[] result = new VideoFrame.I420Buffer[1];
+    ThreadUtils.invokeAtFrontUninterruptibly(handler, () -> {
+      if (yuvConverter == null) {
+        yuvConverter = new YuvConverter();
+      }
+      result[0] = yuvConverter.convert(textureBuffer);
+    });
+    return result[0];
+  }
+
   private void updateTexImage() {
     // SurfaceTexture.updateTexImage apparently can compete and deadlock with eglSwapBuffers,
     // as observed on Nexus 5. Therefore, synchronize it with the EGL functions.

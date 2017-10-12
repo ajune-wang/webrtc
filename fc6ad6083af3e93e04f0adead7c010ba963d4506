@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "c17f85b9_fe7bfeba",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-12T13:40:40Z",
+      "side": 1,
+      "message": "The Create method would transfer ownership to the application. Depending on how we decide to do the other method, it would either pass ownership back into StartRtcEventLog, or it would keep ownership and pass raw pointer.\n\nThe unique_ptr convention would be nice and concise, instead of\n\npc-\u003eStartRtcEventLog(file, 4711);\n\none would write\n\npc-\u003eStartRtcEventLog(CreateRtcEventLogOutputFile(file, 4711));",
+      "parentUuid": "f1e9ff0c_1b77d1d1",
+      "range": {
+        "startLine": 1303,
+        "startChar": 21,
+        "endLine": 1303,
+        "endChar": 37
+      },
+      "revId": "fc6ad6083af3e93e04f0adead7c010ba963d4506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd462a84_fdf361b2",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3

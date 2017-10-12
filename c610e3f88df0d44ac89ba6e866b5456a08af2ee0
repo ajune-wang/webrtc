@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdfb84a7_e6582b21",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-12T10:13:39Z",
+      "side": 1,
+      "message": "This still looks a bit strange. If I get this right, BuildExternalBuffer will invoke the callback just before returning? Cant it simply return the length instead (as return value, or using an output argument (size_t*)?",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 23
+      },
+      "revId": "c610e3f88df0d44ac89ba6e866b5456a08af2ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

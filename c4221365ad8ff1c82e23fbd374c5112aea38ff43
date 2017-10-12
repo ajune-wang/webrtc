@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce990778_e3eab366",
+        "filename": "rtc_base/moving_max_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-12T11:04:26Z",
+      "side": 1,
+      "message": "You\u0027re not allowed to have anonymous namespaces in header files: https://google.github.io/styleguide/cppguide.html#Unnamed_Namespaces_and_Static_Variables\n\nIn this case, putting this constant in the private section of MovingMaxCounter is probably best.",
+      "revId": "c4221365ad8ff1c82e23fbd374c5112aea38ff43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43b4d6f7_4f827a5b",
+        "filename": "rtc_base/moving_max_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-12T11:04:26Z",
+      "side": 1,
+      "message": "Lower-case k.\n\nAlso, since we don\u0027t want to have to allocate space for this variable, it\u0027s probably better to use the enum hack instead:\n\n  enum : int64_t { kMaxAllowedTimeAdjustmentMs \u003d 10 };",
+      "range": {
+        "startLine": 27,
+        "startChar": 14,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "c4221365ad8ff1c82e23fbd374c5112aea38ff43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9be17d1_33cfdf2c",
+        "filename": "rtc_base/moving_max_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-12T11:04:26Z",
+      "side": 1,
+      "message": "It\u0027ll only ever be adjusted upwards, right?",
+      "revId": "c4221365ad8ff1c82e23fbd374c5112aea38ff43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1530b34e_0d8cbe22",
+        "filename": "rtc_base/moving_max_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-12T11:04:26Z",
+      "side": 1,
+      "message": "This function can be const, since it doesn\u0027t modify the object.",
+      "revId": "c4221365ad8ff1c82e23fbd374c5112aea38ff43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a754b32_4cd0e3d5",
+        "filename": "rtc_base/moving_max_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-12T11:04:26Z",
+      "side": 1,
+      "message": "I think this entire function body is equivalent to\n\n  return rtc::SafeClamp\u003cint64_t\u003e(last_call_time_ms_, time_ms,\n                                 time_ms + kMaxAllowedTimeAdjustmentMs);\n\nThat is, it returns the point in the [time_ms, time_ms + kMaxAllowedTimeAdjustmentMs] interval that\u0027s closest to last_call_time_ms_.",
+      "revId": "c4221365ad8ff1c82e23fbd374c5112aea38ff43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

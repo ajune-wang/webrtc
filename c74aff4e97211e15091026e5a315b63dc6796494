@@ -1,0 +1,323 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7220c677_9e21ec10",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "Were you going to resolve this before landing?",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc26cdcf_b2912aad",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "This timeout could lead to flaky tests on slow bots; I\u0027d suggest changing to 10 seconds. We\u0027re not really testing that things complete in a specific time here; the timeouts are more a practical detail.",
+      "range": {
+        "startLine": 40,
+        "startChar": 38,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47536612_faa6b751",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "nit: May want to call \"GetIceCandidatesFromRemoteDescription\", just to make it extra clear where they\u0027re coming from. I wondered about this when reading the test code.",
+      "range": {
+        "startLine": 58,
+        "startChar": 44,
+        "endLine": 58,
+        "endChar": 66
+      },
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "361566b4_a5665eb9",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "firewall_ and nss_ don\u0027t appear used",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 56
+      },
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf994bb_f7a2cde8",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "nit: I\u0027m not sure I see the benefit of NewClientAddress, since making an address only takes one line of code, and putting the IP/port in the test itself may make the test more readable.",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dfc98fb_08a21857",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "May want to ASSERT_GT(caller-\u003eobserver()-\u003eGetCandidatesByMline(0), 0), just as a sanity check. If somehow the test infrastructure broke and no candidates were gathered, we may not notice.",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b930354c_c53dde4c",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "nit: \"IfNoIceCredentials\"?",
+      "range": {
+        "startLine": 308,
+        "startChar": 60,
+        "endLine": 308,
+        "endChar": 65
+      },
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0ff5d67_a11e5633",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "nit: \"following\"?",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a0269d2_a32176eb",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "ASSERT_TRUE here?",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fddc647_93b6089b",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "Ok, so this test adds a candidate, then sets a remote description with a different candidate, and expects the remote description to contain both? May want to clarify that with comments (either above the test or inside it, or both).",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a01d56d8_bf50df11",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "nit: EXPECT_EQ?",
+      "range": {
+        "startLine": 426,
+        "startChar": 2,
+        "endLine": 426,
+        "endChar": 11
+      },
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cd9ff24_cda466f8",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "May also want to test that the minimum/maximum lengths ARE accepted. Also, it might be simpler as a non-parameterized test. Could do something like:\n\nEXPECT_FALSE(SetLocalDescriptionWithUfragPwdLength(3, 22));\nEXPECT_FALSE(SetLocalDescriptionWithUfragPwdLength(257, 22));\nEXPECT_FALSE(SetLocalDescriptionWithUfragPwdLength(4, 21));\nEXPECT_FALSE(SetLocalDescriptionWithUfragPwdLength(4, 257));\nEXPECT_TRUE(SetLocalDescriptionWithUfragPwdLength(4, 22));\nEXPECT_TRUE(SetLocalDescriptionWithUfragPwdLength(256, 256));",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d74558fe_03099f94",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "Can you mention in a comment why the addresses are converted to URI strings before being compared?",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88adc65d_f490b633",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "I don\u0027t think I see why this needs both the offer and answer.",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ace2f3d8_31c707c1",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "I\u0027m actually a bit surprised this works, since the caller/callee should have negotiated RTCP muxing, which I\u0027d expect to cause RTCP candidates to be ignored (just like candidates for other transports are ignored after BUNDLE is negotiated).\n\nDo you know what\u0027s going on? Also, if the test is specifically meant to be testing an RTP and an RTCP candidate, and not just two arbitrary candidates, should probably call that out in a comment.",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58d188d5_0349718e",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "May be worth adding a comment like:\n\"Test that when continual gathering is enabled, and a network interface goes down, the candidate is signaled as removed and removed from the local description.\"\n\nThis may not be entirely obvious from the test name/body.",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "074e453a_9271ecc3",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-12T01:34:22Z",
+      "side": 1,
+      "message": "Is there any test that verifies the answer *doesn\u0027t* have a new ufrag/password if the offer didn\u0027t?",
+      "revId": "c74aff4e97211e15091026e5a315b63dc6796494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

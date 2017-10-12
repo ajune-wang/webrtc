@@ -234,6 +234,11 @@ SSLCertificate* SSLCertificate::FromPEMString(const std::string& pem_string) {
 }
 
 // static
+SSLCertificate* SSLCertificate::FromPEMChainString(const std::string& pem_string) {
+  return OpenSSLCertificate::FromPEMChainString(pem_string);
+}
+
+// static
 SSLIdentity* SSLIdentity::GenerateWithExpiration(const std::string& common_name,
                                                  const KeyParams& key_params,
                                                  time_t certificate_lifetime) {
@@ -263,6 +268,12 @@ SSLIdentity* SSLIdentity::GenerateForTest(const SSLIdentityParams& params) {
 SSLIdentity* SSLIdentity::FromPEMStrings(const std::string& private_key,
                                          const std::string& certificate) {
   return OpenSSLIdentity::FromPEMStrings(private_key, certificate);
+}
+
+// static
+SSLIdentity* SSLIdentity::FromPEMChainStrings(const std::string& private_key,
+                                              const std::string& certificate) {
+  return OpenSSLIdentity::FromPEMChainStrings(private_key, certificate);
 }
 
 bool operator==(const SSLIdentity& a, const SSLIdentity& b) {

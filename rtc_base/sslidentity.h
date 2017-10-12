@@ -57,6 +57,8 @@ class SSLCertificate {
   // parsing was successful.
   // Caller is responsible for freeing the returned object.
   static SSLCertificate* FromPEMString(const std::string& pem_string);
+  // Creates a certificate with chain.
+  static SSLCertificate* FromPEMChainString(const std::string& pem_string);
   virtual ~SSLCertificate() {}
 
   // Returns a new SSLCertificate object instance wrapping the same
@@ -73,6 +75,9 @@ class SSLCertificate {
 
   // Returns a PEM encoded string representation of the certificate.
   virtual std::string ToPEMString() const = 0;
+
+  // Returns a PEM encoded string representation of the certificate with chain.
+  virtual std::string ToPEMChainString() const = 0;
 
   // Provides a DER encoded binary representation of the certificate.
   virtual void ToDER(Buffer* der_buffer) const = 0;
@@ -228,6 +233,11 @@ class SSLIdentity {
   // Construct an identity from a private key and a certificate.
   static SSLIdentity* FromPEMStrings(const std::string& private_key,
                                      const std::string& certificate);
+
+  // Construct an identity from a private key and a certificate. If
+  // certifcate contain chains, the chain will be parsed.
+  static SSLIdentity* FromPEMChainStrings(const std::string& private_key,
+                                          const std::string& certificate);
 
   virtual ~SSLIdentity() {}
 

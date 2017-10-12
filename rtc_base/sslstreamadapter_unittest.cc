@@ -977,7 +977,7 @@ class SSLStreamAdapterTestDTLSCertChain : public SSLStreamAdapterTestDTLS {
 };
 
 TEST_F(SSLStreamAdapterTestDTLSCertChain, TwoCertHandshake) {
-  server_identity_ = rtc::SSLIdentity::FromPEMStrings(
+  server_identity_ = rtc::SSLIdentity::FromPEMChainStrings(
       kLeafKey, std::string(kLeafCert) + kCACert);
   server_ssl_->SetIdentity(server_identity_);
   TestHandshake();
@@ -989,7 +989,7 @@ TEST_F(SSLStreamAdapterTestDTLSCertChain, TwoCertHandshake) {
 }
 
 TEST_F(SSLStreamAdapterTestDTLSCertChain, FourCertHandshake) {
-  server_identity_ = rtc::SSLIdentity::FromPEMStrings(
+  server_identity_ = rtc::SSLIdentity::FromPEMChainStrings(
       kLeafKey, std::string(kLeafCert) + kCACert + kCERT_PEM + kCERT_PEM);
   server_ssl_->SetIdentity(server_identity_);
   TestHandshake();

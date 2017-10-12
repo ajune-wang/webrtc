@@ -16,11 +16,11 @@
 #include "rtc_base/win32.h"  // NOLINT
 
 #include <openssl/bio.h>
+#include <openssl/bn.h>
+#include <openssl/crypto.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
-#include <openssl/bn.h>
 #include <openssl/rsa.h>
-#include <openssl/crypto.h>
 
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
@@ -144,7 +144,7 @@ static X509* MakeCertificate(EVP_PKEY* pkey, const SSLIdentityParams& params) {
   RTC_LOG(LS_INFO) << "Returning certificate";
   return x509;
 
- error:
+error:
   BN_free(serial_number);
   X509_NAME_free(name);
   X509_free(x509);
@@ -291,7 +291,8 @@ OpenSSLCertificate::OpenSSLCertificate(STACK_OF(X509) * chain) {
 }
 
 OpenSSLCertificate* OpenSSLCertificate::Generate(
-    OpenSSLKeyPair* key_pair, const SSLIdentityParams& params) {
+    OpenSSLKeyPair* key_pair,
+    const SSLIdentityParams& params) {
   SSLIdentityParams actual_params(params);
   if (actual_params.common_name.empty()) {
     // Use a random string, arbitrarily 8chars long.
@@ -311,6 +312,24 @@ OpenSSLCertificate* OpenSSLCertificate::Generate(
 }
 
 OpenSSLCertificate* OpenSSLCertificate::FromPEMString(
+    const std::string& pem_string) {
+  BIO* bio = BIO_new_mem_buf(const_cast<char*>(pem_string.c_str()), -1);
+  if (!bio)
+    return nullptr;
+  BIO_set_mem_eof_return(bio, 0);
+  X509* x509 =
+      PEM_read_bio_X509(bio, nullptr, nullptr, const_cast<char*>("\0"));
+  BIO_free(bio);  // Frees the BIO, but not the pointed-to string.
+
+  if (!x509)
+    return nullptr;
+
+  OpenSSLCertificate* ret = new OpenSSLCertificate(x509);
+  X509_free(x509);
+  return ret;
+}
+
+OpenSSLCertificate* OpenSSLCertificate::FromPEMChainString(
     const std::string& pem_string) {
   BIO* bio = BIO_new_mem_buf(const_cast<char*>(pem_string.c_str()), -1);
   if (!bio)
@@ -438,6 +457,23 @@ std::string OpenSSLCertificate::ToPEMString() const {
   if (!bio) {
     FATAL() << "unreachable code";
   }
+  if (!PEM_write_bio_X509(bio, sk_X509_value(x509_stack_, 0))) {
+    BIO_free(bio);
+    FATAL() << "unreachable code";
+  }
+  BIO_write(bio, "\0", 1);
+  char* buffer;
+  BIO_get_mem_data(bio, &buffer);
+  std::string ret(buffer);
+  BIO_free(bio);
+  return ret;
+}
+
+std::string OpenSSLCertificate::ToPEMChainString() const {
+  BIO* bio = BIO_new(BIO_s_mem());
+  if (!bio) {
+    FATAL() << "unreachable code";
+  }
   for (size_t i = 0; i < sk_X509_num(x509_stack_); ++i) {
     if (!PEM_write_bio_X509(bio, sk_X509_value(x509_stack_, i))) {
       BIO_free(bio);
@@ -485,16 +521,8 @@ X509* OpenSSLCertificate::GetLeafCertificate() const {
 }
 
 bool OpenSSLCertificate::operator==(const OpenSSLCertificate& other) const {
-  if (sk_X509_num(x509_stack_) != sk_X509_num(other.x509_stack_)) {
-    return false;
-  }
-  for (size_t i = 0; i < sk_X509_num(x509_stack_); ++i) {
-    if (X509_cmp(sk_X509_value(x509_stack_, i),
-                 sk_X509_value(other.x509_stack_, i)) != 0) {
-      return false;
-    }
-  }
-  return true;
+  return X509_cmp(sk_X509_value(x509_stack_, 0),
+                  sk_X509_value(other.x509_stack_, 0)) == 0;
 }
 
 bool OpenSSLCertificate::operator!=(const OpenSSLCertificate& other) const {
@@ -560,9 +588,8 @@ OpenSSLIdentity* OpenSSLIdentity::GenerateForTest(
   return GenerateInternal(params);
 }
 
-SSLIdentity* OpenSSLIdentity::FromPEMStrings(
-    const std::string& private_key,
-    const std::string& certificate) {
+SSLIdentity* OpenSSLIdentity::FromPEMStrings(const std::string& private_key,
+                                             const std::string& certificate) {
   std::unique_ptr<OpenSSLCertificate> cert(
       OpenSSLCertificate::FromPEMString(certificate));
   if (!cert) {
@@ -577,8 +604,26 @@ SSLIdentity* OpenSSLIdentity::FromPEMStrings(
     return nullptr;
   }
 
-  return new OpenSSLIdentity(key_pair,
-                             cert.release());
+  return new OpenSSLIdentity(key_pair, cert.release());
+}
+
+SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(const std::string& private_key,
+                                                  const std::string& certificate) {
+  std::unique_ptr<OpenSSLCertificate> cert(
+      OpenSSLCertificate::FromPEMChainString(certificate));
+  if (!cert) {
+    LOG(LS_ERROR) << "Failed to create OpenSSLCertificate from PEM string.";
+    return nullptr;
+  }
+
+  OpenSSLKeyPair* key_pair =
+      OpenSSLKeyPair::FromPrivateKeyPEMString(private_key);
+  if (!key_pair) {
+    LOG(LS_ERROR) << "Failed to create key pair from PEM string.";
+    return nullptr;
+  }
+
+  return new OpenSSLIdentity(key_pair, cert.release());
 }
 
 const OpenSSLCertificate& OpenSSLIdentity::certificate() const {
@@ -593,7 +638,7 @@ OpenSSLIdentity* OpenSSLIdentity::GetReference() const {
 bool OpenSSLIdentity::ConfigureIdentity(SSL_CTX* ctx) {
   // 1 is the documented success return code.
   if (SSL_CTX_use_certificate(ctx, certificate_->x509()) != 1 ||
-     SSL_CTX_use_PrivateKey(ctx, key_pair_->pkey()) != 1) {
+      SSL_CTX_use_PrivateKey(ctx, key_pair_->pkey()) != 1) {
     LogSSLErrors("Configuring key and certificate");
     return false;
   }

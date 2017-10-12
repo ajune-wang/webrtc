@@ -70,6 +70,9 @@ class OpenSSLCertificate : public SSLCertificate {
   static OpenSSLCertificate* Generate(OpenSSLKeyPair* key_pair,
                                       const SSLIdentityParams& params);
   static OpenSSLCertificate* FromPEMString(const std::string& pem_string);
+  // Creates certificate from string, if there are multiple
+  // certificates, the chain is built based on the order.
+  static OpenSSLCertificate* FromPEMChainString(const std::string& pem_string);
 
   ~OpenSSLCertificate() override;
 
@@ -79,7 +82,9 @@ class OpenSSLCertificate : public SSLCertificate {
   X509* GetX509Reference() const;
 
   std::string ToPEMString() const override;
+  std::string ToPEMChainString() const override;
   void ToDER(Buffer* der_buffer) const override;
+  // Both operators only check leaf certificate and ignore chaining.
   bool operator==(const OpenSSLCertificate& other) const;
   bool operator!=(const OpenSSLCertificate& other) const;
 
@@ -120,6 +125,8 @@ class OpenSSLIdentity : public SSLIdentity {
   static OpenSSLIdentity* GenerateForTest(const SSLIdentityParams& params);
   static SSLIdentity* FromPEMStrings(const std::string& private_key,
                                      const std::string& certificate);
+  static SSLIdentity* FromPEMChainStrings(const std::string& private_key,
+                                          const std::string& certificate);
   ~OpenSSLIdentity() override;
 
   const OpenSSLCertificate& certificate() const override;

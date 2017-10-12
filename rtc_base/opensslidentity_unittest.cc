@@ -96,21 +96,21 @@ TEST(OpenSSLCertificateTestForChain, NullChainReturnedForLeafCertificate) {
   EXPECT_EQ(nullptr, chain);
 }
 
-TEST(OpenSSLCertificateTestForChain, ToPEMString) {
+TEST(OpenSSLCertificateTestForChain, ToPEMChainString) {
   STACK_OF(X509)* x509s = MakeX509Stack({kCert3, kCert2, kCert1});
   OpenSSLCertificate cert1(x509s);
   OpenSSLCertificate cert2(sk_X509_value(x509s, 0));
-  EXPECT_EQ(std::string(kCert3) + kCert2 + kCert1, cert1.ToPEMString());
+  EXPECT_EQ(std::string(kCert3) + kCert2 + kCert1, cert1.ToPEMChainString());
   EXPECT_EQ(kCert3, cert2.ToPEMString());
   sk_X509_pop_free(x509s, X509_free);
 }
 
-TEST(OpenSSLCertificateTestForChain, FromPEMString) {
+TEST(OpenSSLCertificateTestForChain, FromPEMChainString) {
   auto cert1 = rtc::WrapUnique<OpenSSLCertificate>(
-      OpenSSLCertificate::FromPEMString(kCert1));
+      OpenSSLCertificate::FromPEMChainString(kCert1));
   auto chain_cert2 = rtc::WrapUnique<OpenSSLCertificate>(
-      OpenSSLCertificate::FromPEMString(std::string(kCert1) + kCert2));
-  EXPECT_EQ(kCert1, cert1->ToPEMString());
+      OpenSSLCertificate::FromPEMChainString(std::string(kCert1) + kCert2));
+  EXPECT_EQ(kCert1, cert1->ToPEMChainString());
   ASSERT_EQ(1u, chain_cert2->GetChain()->GetSize());
   EXPECT_EQ(kCert2, chain_cert2->GetChain()->Get(0).ToPEMString());
 }
@@ -131,6 +131,7 @@ TEST(OpenSSLCertificateTestForChain, CompareChainCert) {
   OpenSSLCertificate cert2(x509s);
   OpenSSLCertificate cert3(sk_X509_value(x509s, 0));
   EXPECT_TRUE(cert1 == cert2);
-  EXPECT_TRUE(cert1 != cert3);
+  // Equal only check leaf certificate.
+  EXPECT_TRUE(cert1 == cert3);
   sk_X509_pop_free(x509s, X509_free);
 }

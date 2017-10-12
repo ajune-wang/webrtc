@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d81dcfc5_0952f107",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5742
+      },
+      "writtenOn": "2017-10-12T23:45:25Z",
+      "side": 1,
+      "message": "One thing that worries me is the reliance on order.\nI know why we want to do it, but I believe comments should stress the importance of the ordering of each repeated field in this log.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4831917a_ad991d66",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5742
+      },
+      "writtenOn": "2017-10-12T23:45:25Z",
+      "side": 1,
+      "message": "this",
+      "range": {
+        "startLine": 16,
+        "startChar": 49,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8772ef02_45510d2a",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5742
+      },
+      "writtenOn": "2017-10-12T23:45:25Z",
+      "side": 1,
+      "message": "Logs can be decoded into structs as long as for each event type, the corresponding subsequence of batches (i.e. batches with the oneof value of that type) has correct order. No matter how that subsequence of batches is interspersed among batches of other types of events.\n\nHowever,decoding could be made simpler if sequences of batches were written alongside sequences of event types. The drawback of that would be some more constant overhead to the EventStream. Do we care about that, or are we ok with it being amortized over the repeated fields within?\n\n// Example pairing.\nmessage IncomingRtpPackets {\n repeated IncomingRtpPacket incoming_rtp_packets \u003d 1;\n repeated Batch batches \u003d 2;\n}",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad7795e_428c1348",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5742
+      },
+      "writtenOn": "2017-10-12T23:45:25Z",
+      "side": 1,
+      "message": "Since we already depend on ordering of several repeated fields, I\u0027m okay with ms if WebRTC people are.",
+      "range": {
+        "startLine": 98,
+        "startChar": 61,
+        "endLine": 98,
+        "endChar": 63
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88330483_45e5d3f0",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5742
+      },
+      "writtenOn": "2017-10-12T23:45:25Z",
+      "side": 1,
+      "message": "uint32?",
+      "range": {
+        "startLine": 124,
+        "startChar": 11,
+        "endLine": 124,
+        "endChar": 16
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

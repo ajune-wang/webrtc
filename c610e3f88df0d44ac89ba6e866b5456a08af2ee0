@@ -22,6 +22,30 @@
       "revId": "c610e3f88df0d44ac89ba6e866b5456a08af2ee0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "245030e6_460e4b43",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-10-12T10:30:05Z",
+      "side": 1,
+      "message": "No, it can call callback several times when there is too much to put into single packet.\n(there is a comment about it near PacketReadyCallback definition)\n\nOn a second though.... it seems confusing to pass external buffer then.\nso may be it would be cleaner to change this line to something like\nBuild(max_payload_length, [\u0026](rtc::ArrayView\u003cconst uint8_t\u003e packet) {\nI\u0027ll make a sample",
+      "parentUuid": "fdfb84a7_e6582b21",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 23
+      },
+      "revId": "c610e3f88df0d44ac89ba6e866b5456a08af2ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

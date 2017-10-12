@@ -48,13 +48,12 @@ size_t RapidResyncRequest::BlockLength() const {
   return kHeaderLength + kCommonFeedbackLength;
 }
 
-bool RapidResyncRequest::Create(
-    uint8_t* packet,
-    size_t* index,
-    size_t max_length,
-    RtcpPacket::PacketReadyCallback* callback) const {
+bool RapidResyncRequest::Create(uint8_t* packet,
+                                size_t* index,
+                                size_t max_length,
+                                PacketReadyCallback callback) const {
   while (*index + BlockLength() > max_length) {
-    if (!OnBufferFull(packet, index, callback))
+    if (!OnBufferFull(index, callback))
       return false;
   }
 

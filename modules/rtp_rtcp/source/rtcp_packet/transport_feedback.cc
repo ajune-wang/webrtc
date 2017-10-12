@@ -554,12 +554,12 @@ size_t TransportFeedback::BlockLength() const {
 bool TransportFeedback::Create(uint8_t* packet,
                                size_t* position,
                                size_t max_length,
-                               PacketReadyCallback* callback) const {
+                               PacketReadyCallback callback) const {
   if (num_seq_no_ == 0)
     return false;
 
   while (*position + BlockLength() > max_length) {
-    if (!OnBufferFull(packet, position, callback))
+    if (!OnBufferFull(position, callback))
       return false;
   }
   const size_t position_end = *position + BlockLength();

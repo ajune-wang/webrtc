@@ -121,9 +121,6 @@ void AecState::Update(const std::vector<std::array<float, kFftLengthBy2Plus1>>&
                       rtc::ArrayView<const float> x,
                       const std::array<float, kBlockSize>& s,
                       bool echo_leakage_detected) {
-  // Update the echo audibility evaluator.
-  echo_audibility_.Update(x, s);
-
   // Store input parameters.
   echo_leakage_detected_ = echo_leakage_detected;
 
@@ -161,6 +158,9 @@ void AecState::Update(const std::vector<std::array<float, kFftLengthBy2Plus1>>&
     erl_estimator_.Update(X2, Y2);
   }
 
+  // Update the echo audibility evaluator.
+  echo_audibility_.Update(x, s, !!filter_delay_);
+
   // Detect and flag echo saturation.
   // TODO(peah): Add the delay in this computation to ensure that the render and
   // capture signals are properly aligned.
@@ -168,7 +168,7 @@ void AecState::Update(const std::vector<std::array<float, kFftLengthBy2Plus1>>&
   const float max_sample = fabs(*std::max_element(
       x.begin(), x.end(), [](float a, float b) { return a * a < b * b; }));
   const bool saturated_echo =
-      previous_max_sample_ * 100 > 1600 && SaturatedCapture();
+      (previous_max_sample_ * 100 > 1600) && SaturatedCapture();
   previous_max_sample_ = max_sample;
 
   // Counts the blocks since saturation.
@@ -178,20 +178,17 @@ void AecState::Update(const std::vector<std::array<float, kFftLengthBy2Plus1>>&
   echo_saturation_ = blocks_since_last_saturation_ < kSaturationLeakageBlocks;
 
   // Flag whether the linear filter estimate is usable.
-  constexpr size_t kEchoPathChangeConvergenceBlocks = 2 * kNumBlocksPerSecond;
-  usable_linear_estimate_ =
-      (!echo_saturation_) &&
-      (!render_received_ ||
-       blocks_with_filter_adaptation_ > kEchoPathChangeConvergenceBlocks) &&
-      filter_delay_ && echo_path_change_counter_ <= 0 && external_delay_;
+  usable_linear_estimate_ = (!echo_saturation_) && UpdatedLinearFilter() &&
+                            filter_delay_ && echo_path_change_counter_ <= 0 &&
+                            external_delay_;
 
   // After an amount of active render samples for which an echo should have been
   // detected in the capture signal if the ERL was not infinite, flag that a
   // headset is used.
   constexpr size_t kHeadSetDetectionBlocks = 5 * kNumBlocksPerSecond;
-  headset_detected_ = !external_delay_ && !filter_delay_ &&
-                      (!render_received_ || blocks_with_filter_adaptation_ >=
-                                                kHeadSetDetectionBlocks);
+  headset_detected_ =
+      !filter_delay_ && (!render_received_ || blocks_with_filter_adaptation_ >=
+                                                  kHeadSetDetectionBlocks);
 
   // Update the room reverb estimate.
   UpdateReverb(adaptive_filter_impulse_response);
@@ -276,7 +273,8 @@ void AecState::UpdateReverb(
 }
 
 void AecState::EchoAudibility::Update(rtc::ArrayView<const float> x,
-                                      const std::array<float, kBlockSize>& s) {
+                                      const std::array<float, kBlockSize>& s,
+                                      bool echo_detected) {
   auto result_x = std::minmax_element(x.begin(), x.end());
   auto result_s = std::minmax_element(s.begin(), s.end());
   const float x_abs =
@@ -284,10 +282,18 @@ void AecState::EchoAudibility::Update(rtc::ArrayView<const float> x,
   const float s_abs =
       std::max(std::abs(*result_s.first), std::abs(*result_s.second));
 
-  if (x_abs < 5.f) {
-    ++low_farend_counter_;
+  if (echo_detected) {
+    if (x_abs < 10.f) {
+      ++low_farend_counter_;
+    } else {
+      low_farend_counter_ = 0;
+    }
   } else {
-    low_farend_counter_ = 0;
+    if (x_abs < 100.f) {
+      ++low_farend_counter_;
+    } else {
+      low_farend_counter_ = 0;
+    }
   }
 
   // The echo is deemed as not audible if the echo estimate is on the level of
@@ -296,7 +302,8 @@ void AecState::EchoAudibility::Update(rtc::ArrayView<const float> x,
   // any residual echo that is below the quantization noise level. Furthermore,
   // cases where the render signal is very close to zero are also identified as
   // not producing audible echo.
-  inaudible_echo_ = max_nearend_ > 500 && s_abs < 30.f;
+  inaudible_echo_ =
+      (max_nearend_ > 500 && s_abs < 30.f) || (!echo_detected && x_abs < 500);
   inaudible_echo_ = inaudible_echo_ || low_farend_counter_ > 20;
 }
 

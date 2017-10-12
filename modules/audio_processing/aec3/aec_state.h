@@ -92,6 +92,11 @@ class AecState {
     echo_audibility_.UpdateWithOutput(e);
   }
 
+  // Returns whether the linear filter should have been able to adapt properly.
+  bool UpdatedLinearFilter() const {
+    return blocks_with_filter_adaptation_ >= kEchoPathChangeConvergenceBlocks;
+  }
+
   // Returns whether the echo subtractor can be used to determine the residual
   // echo.
   bool LinearEchoEstimate() const {
@@ -115,7 +120,8 @@ class AecState {
   class EchoAudibility {
    public:
     void Update(rtc::ArrayView<const float> x,
-                const std::array<float, kBlockSize>& s);
+                const std::array<float, kBlockSize>& s,
+                bool echo_detected);
     void UpdateWithOutput(rtc::ArrayView<const float> e);
     bool InaudibleEcho() const { return inaudible_echo_; }
 

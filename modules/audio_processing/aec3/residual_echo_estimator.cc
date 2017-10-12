@@ -74,9 +74,6 @@ void RenderNoisePower(
   }
 }
 
-// Assume a minimum echo path gain of -33 dB for headsets.
-constexpr float kHeadsetEchoPathGain = 0.0005f;
-
 }  // namespace
 
 ResidualEchoEstimator::ResidualEchoEstimator(
@@ -105,7 +102,6 @@ void ResidualEchoEstimator::Estimate(
   RenderNoisePower(render_buffer, &X2_noise_floor_, &X2_noise_floor_counter_);
 
   // Estimate the residual echo power.
-
   if (aec_state.LinearEchoEstimate()) {
     RTC_DCHECK(aec_state.FilterDelay());
     const int filter_delay = *aec_state.FilterDelay();
@@ -120,7 +116,6 @@ void ResidualEchoEstimator::Estimate(
       const int delay_use = static_cast<int>(*delay);
 
       // Computes the spectral power over the blocks surrounding the delay.
-      RTC_DCHECK_LT(delay_use, kResidualEchoPowerRenderWindowSize);
       EchoGeneratingPower(
           render_buffer, std::max(0, delay_use - 1),
           std::min(kResidualEchoPowerRenderWindowSize - 1, delay_use + 1), &X2);
@@ -136,7 +131,8 @@ void ResidualEchoEstimator::Estimate(
         X2.begin(), X2.end(), X2_noise_floor_.begin(), X2.begin(),
         [](float a, float b) { return std::max(0.f, a - 10.f * b); });
 
-    NonLinearEstimate(aec_state.HeadsetDetected(), X2, Y2, R2);
+    NonLinearEstimate(aec_state.UpdatedLinearFilter(),
+                      aec_state.SaturatedEcho(), X2, Y2, R2);
     AddEchoReverb(*R2, aec_state.SaturatedEcho(),
                   std::min(static_cast<size_t>(kAdaptiveFilterLength),
                            delay.value_or(kAdaptiveFilterLength)),
@@ -144,8 +140,7 @@ void ResidualEchoEstimator::Estimate(
   }
 
   // If the echo is deemed inaudible, set the residual echo to zero.
-  if (aec_state.InaudibleEcho() &&
-      (aec_state.ExternalDelay() || aec_state.HeadsetDetected())) {
+  if (aec_state.InaudibleEcho()) {
     R2->fill(0.f);
   }
 
@@ -183,17 +178,26 @@ void ResidualEchoEstimator::LinearEstimate(
 }
 
 void ResidualEchoEstimator::NonLinearEstimate(
-    bool headset_detected,
+    bool updated_filter,
+    bool saturated_echo,
     const std::array<float, kFftLengthBy2Plus1>& X2,
     const std::array<float, kFftLengthBy2Plus1>& Y2,
     std::array<float, kFftLengthBy2Plus1>* R2) {
   // Choose gains.
+  constexpr float kAdaptedGain = 0.001f;
+
   const float echo_path_gain_lf =
-      headset_detected ? kHeadsetEchoPathGain : config_.param.ep_strength.lf;
+      saturated_echo
+          ? 1000
+          : (updated_filter ? kAdaptedGain : config_.param.ep_strength.lf);
   const float echo_path_gain_mf =
-      headset_detected ? kHeadsetEchoPathGain : config_.param.ep_strength.mf;
+      saturated_echo
+          ? 1000
+          : (updated_filter ? kAdaptedGain : config_.param.ep_strength.mf);
   const float echo_path_gain_hf =
-      headset_detected ? kHeadsetEchoPathGain : config_.param.ep_strength.hf;
+      saturated_echo
+          ? 1000
+          : (updated_filter ? kAdaptedGain : config_.param.ep_strength.hf);
 
   // Compute preliminary residual echo.
   std::transform(

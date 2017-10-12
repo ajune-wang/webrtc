@@ -111,6 +111,11 @@ bool VerifyCandidate(const Candidate& cand, std::string* error) {
     }
   }
 
+  if (cand.transport_name().empty()) {
+    *error = "candidate does not have a transport specified";
+    return false;
+  }
+
   return true;
 }
 

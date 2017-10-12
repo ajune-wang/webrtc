@@ -234,7 +234,8 @@ SSLCertificate* SSLCertificate::FromPEMString(const std::string& pem_string) {
 }
 
 // static
-SSLCertificate* SSLCertificate::FromPEMChainString(const std::string& pem_string) {
+SSLCertificate* SSLCertificate::FromPEMChainString(
+    const std::string& pem_string) {
   return OpenSSLCertificate::FromPEMChainString(pem_string);
 }
 

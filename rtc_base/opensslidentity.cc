@@ -607,8 +607,9 @@ SSLIdentity* OpenSSLIdentity::FromPEMStrings(const std::string& private_key,
   return new OpenSSLIdentity(key_pair, cert.release());
 }
 
-SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(const std::string& private_key,
-                                                  const std::string& certificate) {
+SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
+    const std::string& private_key,
+    const std::string& certificate) {
   std::unique_ptr<OpenSSLCertificate> cert(
       OpenSSLCertificate::FromPEMChainString(certificate));
   if (!cert) {

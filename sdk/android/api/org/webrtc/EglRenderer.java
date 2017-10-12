@@ -40,11 +40,11 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
   private static class FrameListenerAndParams {
     public final FrameListener listener;
     public final float scale;
-    public final RendererCommon.GlDrawer drawer;
+    public final GlVideoFrameDrawer drawer;
     public final boolean applyFpsReduction;
 
-    public FrameListenerAndParams(FrameListener listener, float scale,
-        RendererCommon.GlDrawer drawer, boolean applyFpsReduction) {
+    public FrameListenerAndParams(
+        FrameListener listener, float scale, GlVideoFrameDrawer drawer, boolean applyFpsReduction) {
       this.listener = listener;
       this.scale = scale;
       this.drawer = drawer;
@@ -96,8 +96,7 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
   // EGL and GL resources for drawing YUV/OES textures. After initilization, these are only accessed
   // from the render thread.
   private EglBase eglBase;
-  private final VideoFrameDrawer frameDrawer = new VideoFrameDrawer();
-  private RendererCommon.GlDrawer drawer;
+  private GlVideoFrameDrawer drawer;
   private final Matrix drawMatrix = new Matrix();
 
   // Pending frame to render. Serves as a queue with size 1. Synchronized on |frameLock|.
@@ -153,6 +152,12 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
     this.name = name;
   }
 
+  @Deprecated
+  public void init(final EglBase.Context sharedContext, final int[] configAttributes,
+      RendererCommon.GlDrawer drawer) {
+    init(sharedContext, configAttributes, new GlDrawerToGlVideoFrameDrawerAdapter(drawer));
+  }
+
   /**
    * Initialize this class, sharing resources with |sharedContext|. The custom |drawer| will be used
    * for drawing frames on the EGLSurface. This class is responsible for calling release() on
@@ -160,7 +165,7 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
    * init()/release() cycle.
    */
   public void init(final EglBase.Context sharedContext, final int[] configAttributes,
-      RendererCommon.GlDrawer drawer) {
+      GlVideoFrameDrawer drawer) {
     synchronized (handlerLock) {
       if (renderThreadHandler != null) {
         throw new IllegalStateException(name + "Already initialized");
@@ -225,10 +230,9 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
       // Release EGL and GL resources on render thread.
       renderThreadHandler.postAtFrontOfQueue(() -> {
         if (drawer != null) {
-          drawer.release();
+          drawer.dispose();
           drawer = null;
         }
-        frameDrawer.release();
         if (bitmapTextureFramebuffer != null) {
           bitmapTextureFramebuffer.release();
           bitmapTextureFramebuffer = null;
@@ -342,6 +346,21 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
     setFpsReduction(0 /* fps */);
   }
 
+  /** Deprecated in favor of the new signature that takes a GlVideoFrameDrawer. */
+  @Deprecated
+  public void addFrameListener(
+      final FrameListener listener, final float scale, final RendererCommon.GlDrawer drawer) {
+    addFrameListener(listener, scale, drawer, false /* applyFpsReduction */);
+  }
+
+  /** Deprecated in favor of the new signature that takes a GlVideoFrameDrawer. */
+  @Deprecated
+  public void addFrameListener(final FrameListener listener, final float scale,
+      final RendererCommon.GlDrawer drawer, final boolean applyFpsReduction) {
+    addFrameListener(listener, scale, applyFpsReduction,
+        drawer == null ? null : new GlDrawerToGlVideoFrameDrawerAdapter(drawer));
+  }
+
   /**
    * Register a callback to be invoked when a new video frame has been received. This version uses
    * the drawer of the EglRenderer that was passed in init.
@@ -352,7 +371,7 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
    *                 required.
    */
   public void addFrameListener(final FrameListener listener, final float scale) {
-    addFrameListener(listener, scale, null, false /* applyFpsReduction */);
+    addFrameListener(listener, scale, false /* applyFpsReduction */, null /* drawer */);
   }
 
   /**
@@ -362,28 +381,14 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
    *                 It should be lightweight and must not call removeFrameListener.
    * @param scale    The scale of the Bitmap passed to the callback, or 0 if no Bitmap is
    *                 required.
-   * @param drawer   Custom drawer to use for this frame listener or null to use the default one.
-   */
-  public void addFrameListener(
-      final FrameListener listener, final float scale, final RendererCommon.GlDrawer drawerParam) {
-    addFrameListener(listener, scale, drawerParam, false /* applyFpsReduction */);
-  }
-
-  /**
-   * Register a callback to be invoked when a new video frame has been received.
-   *
-   * @param listener The callback to be invoked. The callback will be invoked on the render thread.
-   *                 It should be lightweight and must not call removeFrameListener.
-   * @param scale    The scale of the Bitmap passed to the callback, or 0 if no Bitmap is
-   *                 required.
-   * @param drawer   Custom drawer to use for this frame listener or null to use the default one.
    * @param applyFpsReduction This callback will not be called for frames that have been dropped by
    *                          FPS reduction.
+   * @param drawer   Custom drawer to use for this frame listener or null to use the default one.
    */
   public void addFrameListener(final FrameListener listener, final float scale,
-      final RendererCommon.GlDrawer drawerParam, final boolean applyFpsReduction) {
+      final boolean applyFpsReduction, final GlVideoFrameDrawer drawer) {
     postToRenderThread(() -> {
-      final RendererCommon.GlDrawer listenerDrawer = drawerParam == null ? drawer : drawerParam;
+      final GlVideoFrameDrawer listenerDrawer = drawer == null ? this.drawer : drawer;
       frameListeners.add(
           new FrameListenerAndParams(listener, scale, listenerDrawer, applyFpsReduction));
     });
@@ -582,7 +587,7 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
     if (shouldRenderFrame) {
       GLES20.glClearColor(0 /* red */, 0 /* green */, 0 /* blue */, 0 /* alpha */);
       GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-      frameDrawer.drawFrame(frame, drawer, drawMatrix, 0 /* viewportX */, 0 /* viewportY */,
+      drawer.drawFrame(frame, drawMatrix, 0 /* viewportX */, 0 /* viewportY */,
           eglBase.surfaceWidth(), eglBase.surfaceHeight());
 
       final long swapBuffersStartTimeNs = System.nanoTime();
@@ -638,8 +643,8 @@ public class EglRenderer implements VideoRenderer.Callbacks, VideoSink {
 
       GLES20.glClearColor(0 /* red */, 0 /* green */, 0 /* blue */, 0 /* alpha */);
       GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-      frameDrawer.drawFrame(frame, listenerAndParams.drawer, drawMatrix, 0 /* viewportX */,
-          0 /* viewportY */, scaledWidth, scaledHeight);
+      listenerAndParams.drawer.drawFrame(
+          frame, drawMatrix, 0 /* viewportX */, 0 /* viewportY */, scaledWidth, scaledHeight);
 
       final ByteBuffer bitmapBuffer = ByteBuffer.allocateDirect(scaledWidth * scaledHeight * 4);
       GLES20.glViewport(0, 0, scaledWidth, scaledHeight);

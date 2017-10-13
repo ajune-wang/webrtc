@@ -22,11 +22,10 @@
 #import "WebRTC/RTCVideoCodec.h"
 #import "WebRTC/RTCVideoFrame.h"
 #import "WebRTC/RTCVideoFrameBuffer.h"
-#import "helpers.h"
-#include "libyuv/convert_from.h"
 #include "common_video/h264/h264_bitstream_parser.h"
 #include "common_video/h264/profile_level_id.h"
 #include "common_video/include/bitrate_adjuster.h"
+#include "libyuv/convert_from.h"
 #include "modules/include/module_common_types.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/buffer.h"
@@ -34,6 +33,13 @@
 #include "rtc_base/timeutils.h"
 #include "sdk/objc/Framework/Classes/VideoToolbox/nalu_rewriter.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/field_trial.h"
+
+#import "helpers.h"
+
+static NSString *kH264CodecName = @"H264";
+static NSString *kLevel31ConstrainedHigh = @"640c1f";
+static NSString *kLevel31ConstrainedBaseline = @"42e01f";
 
 @interface RTCVideoEncoderH264 ()
 
@@ -289,6 +295,38 @@ CFStringRef ExtractProfile(webrtc::SdpVideoFormat videoFormat) {
   std::vector<uint8_t> _nv12ScaleBuffer;
 }
 
++ (RTCVideoCodecInfo *)highProfileCodecInfo {
+  NSDictionary<NSString *, NSString *> *constrainedHighParams = @{
+    @"profile-level-id" : kLevel31ConstrainedHigh,
+    @"level-asymmetry-allowed" : @"1",
+    @"packetization-mode" : @"1",
+  };
+  return [[RTCVideoCodecInfo alloc] initWithName:kH264CodecName parameters:constrainedHighParams];
+}
+
++ (RTCVideoCodecInfo *)baselineProfileCodecInfo {
+  NSDictionary<NSString *, NSString *> *constrainedBaselineParams = @{
+    @"profile-level-id" : kLevel31ConstrainedBaseline,
+    @"level-asymmetry-allowed" : @"1",
+    @"packetization-mode" : @"1",
+  };
+  return
+      [[RTCVideoCodecInfo alloc] initWithName:kH264CodecName parameters:constrainedBaselineParams];
+}
+
+- (instancetype)init {
+  if (self = [super init]) {
+    _bitrateAdjuster.reset(new webrtc::BitrateAdjuster(webrtc::Clock::GetRealTimeClock(), .5, .95));
+    _packetizationMode = RTCH264PacketizationModeNonInterleaved;
+
+#if defined(WEBRTC_IOS)
+    [RTCUIApplicationStatusObserver prepareForUse];
+#endif
+  }
+
+  return self;
+}
+
 // .5 is set as a mininum to prevent overcompensating for large temporary
 // overshoots. We don't want to degrade video quality too badly.
 // .95 is set to prevent oscillations. When a lower bitrate is set on the
@@ -297,24 +335,21 @@ CFStringRef ExtractProfile(webrtc::SdpVideoFormat videoFormat) {
 // conditions, 0.95 seems to give us better overall bitrate over long periods
 // of time.
 - (instancetype)initWithCodecInfo:(RTCVideoCodecInfo *)codecInfo {
-  if (self = [super init]) {
-    _codecInfo = codecInfo;
-    _bitrateAdjuster.reset(new webrtc::BitrateAdjuster(
-        webrtc::Clock::GetRealTimeClock(), .5, .95));
-    _packetizationMode = RTCH264PacketizationModeNonInterleaved;
-    _profile = ExtractProfile([codecInfo nativeSdpVideoFormat]);
-    LOG(LS_INFO) << "Using profile " << CFStringToString(_profile);
-    RTC_CHECK([codecInfo.name isEqualToString:@"H264"]);
-
-#if defined(WEBRTC_IOS)
-    [RTCUIApplicationStatusObserver prepareForUse];
-#endif
+  if (self = [self init]) {
+    [self configureWithCodecInfo:codecInfo];
   }
   return self;
 }
 
 - (void)dealloc {
   [self destroyCompressionSession];
+}
+
+- (void)configureWithCodecInfo:(RTCVideoCodecInfo *)codecInfo {
+  _codecInfo = codecInfo;
+  _profile = ExtractProfile([codecInfo nativeSdpVideoFormat]);
+  LOG(LS_INFO) << "Using profile " << CFStringToString(_profile);
+  RTC_CHECK([codecInfo.name isEqualToString:@"H264"]);
 }
 
 - (NSInteger)startEncodeWithSettings:(RTCVideoEncoderSettings *)settings

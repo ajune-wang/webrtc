@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40e24aa6_f6550235",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-13T04:39:48Z",
+      "side": 1,
+      "message": "Is there a bug for making rtc::Bind support moving its arguments? chromium\u0027s Bind appears to.",
+      "revId": "2eb8f7d292ef3d15080e431ad385df6f75243466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

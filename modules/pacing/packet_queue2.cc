@@ -20,29 +20,10 @@ namespace webrtc {
 PacketQueue2::Stream::Stream() : bytes(0) {}
 PacketQueue2::Stream::~Stream() {}
 
-PacketQueue2::Packet::Packet(RtpPacketSender::Priority priority,
-                             uint32_t ssrc,
-                             uint16_t seq_number,
-                             int64_t capture_time_ms,
-                             int64_t enqueue_time_ms,
-                             size_t length_in_bytes,
-                             bool retransmission,
-                             uint64_t enqueue_order)
-    : priority(priority),
-      ssrc(ssrc),
-      sequence_number(seq_number),
-      capture_time_ms(capture_time_ms),
-      enqueue_time_ms(enqueue_time_ms),
-      bytes(length_in_bytes),
-      retransmission(retransmission),
-      enqueue_order(enqueue_order) {}
-
-PacketQueue2::Packet::Packet(const Packet& other) = default;
-
-PacketQueue2::Packet::~Packet() {}
-
 PacketQueue2::PacketQueue2(const Clock* clock)
-    : clock_(clock), time_last_updated_(clock_->TimeInMilliseconds()) {}
+    : PacketQueue(clock),
+      clock_(clock),
+      time_last_updated_(clock_->TimeInMilliseconds()) {}
 
 PacketQueue2::~PacketQueue2() {}
 
@@ -89,11 +70,11 @@ void PacketQueue2::Push(const Packet& packet_to_insert) {
   size_bytes_ += packet.bytes;
 }
 
-const PacketQueue2::Packet& PacketQueue2::Top() {
+const PacketQueue2::Packet& PacketQueue2::BeginPop() {
   return GetHighestPriorityStream()->packet_queue.top();
 }
 
-void PacketQueue2::Pop() {
+void PacketQueue2::FinalizePop(const Packet& packet) {
   RTC_CHECK(!paused_);
   if (!Empty()) {
     Stream* streams_ = GetHighestPriorityStream();

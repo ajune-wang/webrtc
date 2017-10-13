@@ -16,6 +16,24 @@
       "revId": "2eb8f7d292ef3d15080e431ad385df6f75243466",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a7eaf6e_9783cb4e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-13T14:30:39Z",
+      "side": 1,
+      "message": "I think Niels would be more knowledgeable about this. Also, let me send kwiberg@ a link to this question.",
+      "parentUuid": "40e24aa6_f6550235",
+      "revId": "2eb8f7d292ef3d15080e431ad385df6f75243466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

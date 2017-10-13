@@ -76,6 +76,20 @@ rtc::scoped_refptr<I420Buffer> I420Buffer::Create(int width,
 }
 
 // static
+rtc::scoped_refptr<I420BufferMutableInterface>
+I420BufferMutableInterface::Create(
+    int width, int height) {
+  return I420Buffer::Create(width, height);
+}
+
+// static
+rtc::scoped_refptr<I420BufferMutableInterface>
+I420BufferMutableInterface::Create(
+    int width, int height, int stride_y, int stride_u, int stride_v) {
+  return I420Buffer::Create(width, height, stride_y, stride_u, stride_v);
+}
+
+// static
 rtc::scoped_refptr<I420Buffer> I420Buffer::Copy(
     const I420BufferInterface& source) {
   return Copy(source.width(), source.height(),

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "892d883d_4a6f1673",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-13T10:16:27Z",
+      "side": 1,
+      "message": "About ownership, there\u0027s been more discussion on ownership of injected objects. I think I suggested raw pointer here...\n\nSince PeerConnection is reference counted, it\u0027s not obvious to the application when it is safe to delete the strategy (same applies to turn_customizer above). So I\u0027m afraid the safe way is to  change this to unique_ptr. Sorry about that. \n\nAnd then there may be additional complications, if RTCConfiguration is expected to be copyable.",
+      "range": {
+        "startLine": 484,
+        "startChar": 42,
+        "endLine": 484,
+        "endChar": 47
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b362e36_8487c2a9",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-13T10:16:27Z",
+      "side": 1,
+      "message": "This changes looks mostly independent to the rest of the cl. In future cls, please separate out changes like this, even if small, it makes it easier both to review the change, and to select the right reviewers.",
+      "range": {
+        "startLine": 240,
+        "startChar": 33,
+        "endLine": 240,
+        "endChar": 58
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed03bbd8_de66c91f",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-13T10:16:27Z",
+      "side": 1,
+      "message": "This will disappear when cl https://webrtc-review.googlesource.com/c/src/+/4820 is landed, and this one rebased, right?",
+      "range": {
+        "startLine": 136,
+        "startChar": 16,
+        "endLine": 136,
+        "endChar": 24
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -2124,7 +2124,7 @@ VideoFrame CreateVideoFrame(int width, int height, uint8_t data) {
   const int kSizeY = width * height * 2;
   std::unique_ptr<uint8_t[]> buffer(new uint8_t[kSizeY]);
   memset(buffer.get(), data, kSizeY);
-  VideoFrame frame(I420Buffer::Create(width, height), kVideoRotation_0, data);
+  VideoFrame frame(I420BufferInterface::Create(width, height), kVideoRotation_0, data);
   frame.set_timestamp(data);
   // Use data as a ms timestamp.
   frame.set_timestamp_us(data * rtc::kNumMicrosecsPerMillisec);

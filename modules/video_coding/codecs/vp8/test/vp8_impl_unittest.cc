@@ -160,7 +160,7 @@ class TestVp8Impl : public ::testing::Test {
     EXPECT_EQ(stride_y, 176);
     EXPECT_EQ(stride_uv, 96);
     rtc::scoped_refptr<I420Buffer> stride_buffer(
-        I420Buffer::Create(kWidth, kHeight, stride_y, stride_uv, stride_uv));
+        I420BufferInterface::Create(kWidth, kHeight, stride_y, stride_uv, stride_uv));
 
     // No scaling in our case, just a copy, to add stride to the image.
     stride_buffer->ScaleFrom(*compact_buffer);

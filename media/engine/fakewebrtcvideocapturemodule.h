@@ -66,7 +66,7 @@ class FakeWebRtcVideoCaptureModule : public webrtc::VideoCaptureModule {
     if (!running_) return;
 
     rtc::scoped_refptr<webrtc::I420Buffer> buffer =
-        webrtc::I420Buffer::Create(w, h);
+        webrtc::I420BufferInterface::Create(w, h);
     // Initialize memory to satisfy DrMemory tests. See
     // https://bugs.chromium.org/p/libyuv/issues/detail?id=377
     buffer->InitializeData();

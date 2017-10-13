@@ -57,7 +57,7 @@ class ReceiveStatisticsProxyTest
   }
 
   VideoFrame CreateFrame(int width, int height) {
-    VideoFrame frame(I420Buffer::Create(width, height), 0, 0, kVideoRotation_0);
+    VideoFrame frame(I420BufferInterface::Create(width, height), 0, 0, kVideoRotation_0);
     frame.set_ntp_time_ms(fake_clock_.CurrentNtpInMilliseconds());
     return frame;
   }
@@ -192,7 +192,7 @@ TEST_F(ReceiveStatisticsProxyTest, OnDecodedFrameWithoutQpResetsQpSum) {
 
 TEST_F(ReceiveStatisticsProxyTest, OnRenderedFrameIncreasesFramesRendered) {
   EXPECT_EQ(0u, statistics_proxy_->GetStats().frames_rendered);
-  webrtc::VideoFrame frame(webrtc::I420Buffer::Create(1, 1), 0, 0,
+  webrtc::VideoFrame frame(webrtc::I420BufferInterface::Create(1, 1), 0, 0,
                            webrtc::kVideoRotation_0);
   for (uint32_t i = 1; i <= 3; ++i) {
     statistics_proxy_->OnRenderedFrame(frame);
@@ -681,7 +681,7 @@ TEST_F(ReceiveStatisticsProxyTest, DoesNotReportStaleFramerates) {
   const int kHeight = 240;
 
   rtc::scoped_refptr<VideoFrameBuffer> video_frame_buffer(
-      I420Buffer::Create(kWidth, kHeight));
+      I420BufferInterface::Create(kWidth, kHeight));
   VideoFrame frame(video_frame_buffer, kVideoRotation_0, 0);
 
   for (int i = 0; i < kDefaultFps; ++i) {

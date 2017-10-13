@@ -355,7 +355,7 @@ int SimulcastEncoderAdapter::Encode(
       }
     } else {
       rtc::scoped_refptr<I420Buffer> dst_buffer =
-          I420Buffer::Create(dst_width, dst_height);
+          I420BufferInterface::Create(dst_width, dst_height);
       rtc::scoped_refptr<I420BufferInterface> src_buffer =
           input_image.video_frame_buffer()->ToI420();
       libyuv::I420Scale(src_buffer->DataY(), src_buffer->StrideY(),

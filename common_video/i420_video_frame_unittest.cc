@@ -25,7 +25,7 @@ namespace {
 
 rtc::scoped_refptr<I420Buffer> CreateGradient(int width, int height) {
   rtc::scoped_refptr<I420Buffer> buffer(
-      I420Buffer::Create(width, height));
+      I420BufferInterface::Create(width, height));
   // Initialize with gradient, Y = 128(x/w + y/h), U = 256 x/w, V = 256 y/h
   for (int x = 0; x < width; x++) {
     for (int y = 0; y < height; y++) {
@@ -116,7 +116,7 @@ void CheckRotate(int width,
 }  // namespace
 
 TEST(TestVideoFrame, WidthHeightValues) {
-  VideoFrame frame(I420Buffer::Create(10, 10, 10, 14, 90),
+  VideoFrame frame(I420BufferInterface::Create(10, 10, 10, 14, 90),
                    webrtc::kVideoRotation_0,
                    789 * rtc::kNumMicrosecsPerMillisec);
   const int valid_value = 10;
@@ -205,7 +205,7 @@ TEST(TestVideoFrame, TextureInitialValues) {
 
 TEST(TestI420FrameBuffer, Copy) {
   rtc::scoped_refptr<I420Buffer> buf1(
-      I420Buffer::Create(20, 10));
+      I420BufferInterface::Create(20, 10));
   memset(buf1->MutableDataY(), 1, 200);
   memset(buf1->MutableDataU(), 2, 50);
   memset(buf1->MutableDataV(), 3, 50);
@@ -218,7 +218,7 @@ TEST(TestI420FrameBuffer, Scale) {
 
   // Pure scaling, no cropping.
   rtc::scoped_refptr<I420Buffer> scaled_buffer(
-      I420Buffer::Create(150, 75));
+      I420BufferInterface::Create(150, 75));
 
   scaled_buffer->ScaleFrom(*buf);
   CheckCrop(*scaled_buffer, 0.0, 0.0, 1.0, 1.0);
@@ -229,7 +229,7 @@ TEST(TestI420FrameBuffer, CropXCenter) {
 
   // Pure center cropping, no scaling.
   rtc::scoped_refptr<I420Buffer> scaled_buffer(
-      I420Buffer::Create(100, 100));
+      I420BufferInterface::Create(100, 100));
 
   scaled_buffer->CropAndScaleFrom(*buf, 50, 0, 100, 100);
   CheckCrop(*scaled_buffer, 0.25, 0.0, 0.5, 1.0);
@@ -240,7 +240,7 @@ TEST(TestI420FrameBuffer, CropXNotCenter) {
 
   // Non-center cropping, no scaling.
   rtc::scoped_refptr<I420Buffer> scaled_buffer(
-      I420Buffer::Create(100, 100));
+      I420BufferInterface::Create(100, 100));
 
   scaled_buffer->CropAndScaleFrom(*buf, 25, 0, 100, 100);
   CheckCrop(*scaled_buffer, 0.125, 0.0, 0.5, 1.0);
@@ -251,7 +251,7 @@ TEST(TestI420FrameBuffer, CropYCenter) {
 
   // Pure center cropping, no scaling.
   rtc::scoped_refptr<I420Buffer> scaled_buffer(
-      I420Buffer::Create(100, 100));
+      I420BufferInterface::Create(100, 100));
 
   scaled_buffer->CropAndScaleFrom(*buf, 0, 50, 100, 100);
   CheckCrop(*scaled_buffer, 0.0, 0.25, 1.0, 0.5);
@@ -262,7 +262,7 @@ TEST(TestI420FrameBuffer, CropYNotCenter) {
 
   // Non-center cropping, no scaling.
   rtc::scoped_refptr<I420Buffer> scaled_buffer(
-      I420Buffer::Create(100, 100));
+      I420BufferInterface::Create(100, 100));
 
   scaled_buffer->CropAndScaleFrom(*buf, 0, 25, 100, 100);
   CheckCrop(*scaled_buffer, 0.0, 0.125, 1.0, 0.5);
@@ -273,7 +273,7 @@ TEST(TestI420FrameBuffer, CropAndScale16x9) {
 
   // Center crop to 640 x 360 (16/9 aspect), then scale down by 2.
   rtc::scoped_refptr<I420Buffer> scaled_buffer(
-      I420Buffer::Create(320, 180));
+      I420BufferInterface::Create(320, 180));
 
   scaled_buffer->CropAndScaleFrom(*buf);
   CheckCrop(*scaled_buffer, 0.0, 0.125, 1.0, 0.75);

@@ -264,7 +264,7 @@ class TestVp8Simulcast : public ::testing::Test {
     SetUpRateAllocator();
     EXPECT_EQ(0, encoder_->InitEncode(&settings_, 1, 1200));
     EXPECT_EQ(0, decoder_->InitDecode(&settings_, 1));
-    input_buffer_ = I420Buffer::Create(kDefaultWidth, kDefaultHeight);
+    input_buffer_ = I420BufferInterface::Create(kDefaultWidth, kDefaultHeight);
     input_buffer_->InitializeData();
     input_frame_.reset(
         new VideoFrame(input_buffer_, 0, 0, webrtc::kVideoRotation_0));
@@ -515,7 +515,7 @@ class TestVp8Simulcast : public ::testing::Test {
       settings_.simulcastStream[i].height = settings_.height;
     }
     // Setting input image to new resolution.
-    input_buffer_ = I420Buffer::Create(settings_.width, settings_.height);
+    input_buffer_ = I420BufferInterface::Create(settings_.width, settings_.height);
     input_buffer_->InitializeData();
 
     input_frame_.reset(
@@ -556,7 +556,7 @@ class TestVp8Simulcast : public ::testing::Test {
     SetRates(settings_.startBitrate, 30);
     ExpectStreams(kVideoFrameKey, 1);
     // Resize |input_frame_| to the new resolution.
-    input_buffer_ = I420Buffer::Create(settings_.width, settings_.height);
+    input_buffer_ = I420BufferInterface::Create(settings_.width, settings_.height);
     input_buffer_->InitializeData();
     input_frame_.reset(
         new VideoFrame(input_buffer_, 0, 0, webrtc::kVideoRotation_0));
@@ -708,7 +708,7 @@ class TestVp8Simulcast : public ::testing::Test {
     // 1. stride > width 2. stride_y != stride_uv/2
     int stride_y = kDefaultWidth + 20;
     int stride_uv = ((kDefaultWidth + 1) / 2) + 5;
-    input_buffer_ = I420Buffer::Create(kDefaultWidth, kDefaultHeight, stride_y,
+    input_buffer_ = I420BufferInterface::Create(kDefaultWidth, kDefaultHeight, stride_y,
                                        stride_uv, stride_uv);
     input_frame_.reset(
         new VideoFrame(input_buffer_, 0, 0, webrtc::kVideoRotation_0));

@@ -19,7 +19,7 @@
 
 - (instancetype)initWithWidth:(int)width height:(int)height {
   if (self = [super init]) {
-    _i420Buffer = webrtc::I420Buffer::Create(width, height);
+    _i420Buffer = webrtc::I420BufferInterface::Create(width, height);
   }
 
   return self;
@@ -31,7 +31,7 @@
                       strideU:(int)strideU
                       strideV:(int)strideV {
   if (self = [super init]) {
-    _i420Buffer = webrtc::I420Buffer::Create(width, height, strideY, strideU, strideV);
+    _i420Buffer = webrtc::I420BufferInterface::Create(width, height, strideY, strideU, strideV);
   }
 
   return self;

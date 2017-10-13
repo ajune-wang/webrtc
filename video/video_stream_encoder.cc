@@ -801,7 +801,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
     int cropped_width = video_frame.width() - crop_width_;
     int cropped_height = video_frame.height() - crop_height_;
     rtc::scoped_refptr<I420Buffer> cropped_buffer =
-        I420Buffer::Create(cropped_width, cropped_height);
+        I420BufferInterface::Create(cropped_width, cropped_height);
     // TODO(ilnik): Remove scaling if cropping is too big, as it should never
     // happen after SinkWants signaled correctly from ReconfigureEncoder.
     if (crop_width_ < 4 && crop_height_ < 4) {

@@ -117,7 +117,7 @@ rtc::scoped_refptr<webrtc::VideoFrameBuffer> CreateBlackFrameBuffer(
     int width,
     int height) {
   rtc::scoped_refptr<webrtc::I420Buffer> buffer =
-      webrtc::I420Buffer::Create(width, height);
+      webrtc::I420BufferInterface::Create(width, height);
   webrtc::I420Buffer::SetBlack(buffer);
   return buffer;
 }

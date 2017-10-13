@@ -30,7 +30,7 @@ int32_t FakeDecoder::Decode(const EncodedImage& input,
                             const RTPFragmentationHeader* fragmentation,
                             const CodecSpecificInfo* codec_specific_info,
                             int64_t render_time_ms) {
-  VideoFrame frame(I420Buffer::Create(config_.width, config_.height),
+  VideoFrame frame(I420BufferInterface::Create(config_.width, config_.height),
                    webrtc::kVideoRotation_0,
                    render_time_ms * rtc::kNumMicrosecsPerMillisec);
   frame.set_timestamp(input._timeStamp);

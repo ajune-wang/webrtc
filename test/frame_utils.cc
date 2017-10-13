@@ -74,7 +74,7 @@ rtc::scoped_refptr<I420Buffer> ReadI420Buffer(int width, int height, FILE *f) {
   int half_width = (width + 1) / 2;
   rtc::scoped_refptr<I420Buffer> buffer(
       // Explicit stride, no padding between rows.
-      I420Buffer::Create(width, height, width, half_width, half_width));
+      I420BufferInterface::Create(width, height, width, half_width, half_width));
   size_t size_y = static_cast<size_t>(width) * height;
   size_t size_uv = static_cast<size_t>(half_width) * ((height + 1) / 2);
 

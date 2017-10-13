@@ -153,7 +153,7 @@ int32_t VCMGenericEncoder::RequestFrame(
   // VideoSendStreamTest.VideoSendStreamStopSetEncoderRateToZero, set
   // internal_source to true and use FakeEncoder. And the latter will
   // happily encode this 1x1 frame and pass it on down the pipeline.
-  return encoder_->Encode(VideoFrame(I420Buffer::Create(1, 1),
+  return encoder_->Encode(VideoFrame(I420BufferInterface::Create(1, 1),
                                      kVideoRotation_0, 0),
                           NULL, &frame_types);
   return 0;

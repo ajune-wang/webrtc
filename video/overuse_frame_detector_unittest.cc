@@ -97,7 +97,7 @@ class OveruseFrameDetectorTest : public ::testing::Test,
                                        int width,
                                        int height,
                                        int delay_us) {
-    VideoFrame frame(I420Buffer::Create(width, height),
+    VideoFrame frame(I420BufferInterface::Create(width, height),
                      webrtc::kVideoRotation_0, 0);
     uint32_t timestamp = 0;
     while (num_frames-- > 0) {
@@ -299,7 +299,7 @@ TEST_F(OveruseFrameDetectorTest, MeasuresMultipleConcurrentSamples) {
       .Times(testing::AtLeast(1));
   static const int kIntervalUs = 33 * rtc::kNumMicrosecsPerMillisec;
   static const size_t kNumFramesEncodingDelay = 3;
-  VideoFrame frame(I420Buffer::Create(kWidth, kHeight),
+  VideoFrame frame(I420BufferInterface::Create(kWidth, kHeight),
                    webrtc::kVideoRotation_0, 0);
   for (size_t i = 0; i < 1000; ++i) {
     // Unique timestamps.
@@ -321,7 +321,7 @@ TEST_F(OveruseFrameDetectorTest, UpdatesExistingSamples) {
       .Times(testing::AtLeast(1));
   static const int kIntervalUs = 33 * rtc::kNumMicrosecsPerMillisec;
   static const int kDelayUs = 30 * rtc::kNumMicrosecsPerMillisec;
-  VideoFrame frame(I420Buffer::Create(kWidth, kHeight),
+  VideoFrame frame(I420BufferInterface::Create(kWidth, kHeight),
                    webrtc::kVideoRotation_0, 0);
   uint32_t timestamp = 0;
   for (size_t i = 0; i < 1000; ++i) {

@@ -475,8 +475,9 @@ void VideoProcessor::FrameDecoded(const VideoFrame& image) {
   rtc::Buffer extracted_buffer;
   if (image.width() != config_.codec_settings.width ||
       image.height() != config_.codec_settings.height) {
-    rtc::scoped_refptr<I420Buffer> scaled_buffer(I420Buffer::Create(
-        config_.codec_settings.width, config_.codec_settings.height));
+    rtc::scoped_refptr<I420MutableBufferInterface> scaled_buffer(
+        I420BufferInterface::Create(
+            config_.codec_settings.width, config_.codec_settings.height));
     // Should be the same aspect ratio, no cropping needed.
     scaled_buffer->ScaleFrom(*image.video_frame_buffer()->ToI420());
 

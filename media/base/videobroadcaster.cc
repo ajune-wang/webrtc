@@ -114,7 +114,7 @@ VideoBroadcaster::GetBlackFrameBuffer(int width, int height) {
   if (!black_frame_buffer_ || black_frame_buffer_->width() != width ||
       black_frame_buffer_->height() != height) {
     rtc::scoped_refptr<webrtc::I420Buffer> buffer =
-        webrtc::I420Buffer::Create(width, height);
+        webrtc::I420BufferInterface::Create(width, height);
     webrtc::I420Buffer::SetBlack(buffer.get());
     black_frame_buffer_ = buffer;
   }

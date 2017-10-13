@@ -465,7 +465,7 @@ TEST_F(TestSimulcastEncoderAdapterFake, ReusesEncodersInOrder) {
   adapter_->RegisterEncodeCompleteCallback(this);
 
   // Input data.
-  rtc::scoped_refptr<VideoFrameBuffer> buffer(I420Buffer::Create(1280, 720));
+  rtc::scoped_refptr<VideoFrameBuffer> buffer(I420BufferInterface::Create(1280, 720));
   VideoFrame input_frame(buffer, 100, 1000, kVideoRotation_180);
   std::vector<FrameType> frame_types;
 
@@ -800,7 +800,7 @@ TEST_F(TestSimulcastEncoderAdapterFake, TestFailureReturnCodesFromEncodeCalls) {
 
   // Send a fake frame and assert the return is software fallback.
   rtc::scoped_refptr<I420Buffer> input_buffer =
-      I420Buffer::Create(kDefaultWidth, kDefaultHeight);
+      I420BufferInterface::Create(kDefaultWidth, kDefaultHeight);
   input_buffer->InitializeData();
   VideoFrame input_frame(input_buffer, 0, 0, webrtc::kVideoRotation_0);
   std::vector<FrameType> frame_types(3, kVideoFrameKey);

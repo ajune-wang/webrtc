@@ -150,7 +150,7 @@ void VideoEncoderSoftwareFallbackWrapperTest::EncodeFrame() {
 
 void VideoEncoderSoftwareFallbackWrapperTest::EncodeFrame(int expected_ret) {
   rtc::scoped_refptr<I420Buffer> buffer =
-      I420Buffer::Create(codec_.width, codec_.height);
+      I420BufferInterface::Create(codec_.width, codec_.height);
   I420Buffer::SetBlack(buffer);
   std::vector<FrameType> types(1, kVideoFrameKey);
 

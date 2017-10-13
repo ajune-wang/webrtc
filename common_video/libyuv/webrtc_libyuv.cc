@@ -258,7 +258,7 @@ double I420PSNR(const I420BufferInterface& ref_buffer,
   if ((ref_buffer.width() != test_buffer.width()) ||
       (ref_buffer.height() != test_buffer.height())) {
     rtc::scoped_refptr<I420Buffer> scaled_buffer =
-        I420Buffer::Create(ref_buffer.width(), ref_buffer.height());
+        I420BufferInterface::Create(ref_buffer.width(), ref_buffer.height());
     scaled_buffer->ScaleFrom(test_buffer);
     return I420PSNR(ref_buffer, *scaled_buffer);
   }
@@ -289,7 +289,7 @@ double I420SSIM(const I420BufferInterface& ref_buffer,
   if ((ref_buffer.width() != test_buffer.width()) ||
       (ref_buffer.height() != test_buffer.height())) {
     rtc::scoped_refptr<I420Buffer> scaled_buffer =
-        I420Buffer::Create(ref_buffer.width(), ref_buffer.height());
+        I420BufferInterface::Create(ref_buffer.width(), ref_buffer.height());
     scaled_buffer->ScaleFrom(test_buffer);
     return I420SSIM(ref_buffer, *scaled_buffer);
   }

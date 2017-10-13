@@ -135,6 +135,7 @@ rtc_static_library("rtc_audio_video") {
   defines = []
   libs = []
   deps = [
+    "../api:video_frame_api_i420",
     "../modules/video_coding:video_coding_utility",
   ]
   sources = [
@@ -337,6 +338,7 @@ if (rtc_include_tests) {
     include_dirs = []
     public_deps = []
     deps = [
+      "../api:video_frame_api_i420",
       "../call:video_stream_api",
       "../modules/audio_coding:rent_a_codec",
       "../modules/audio_processing:audio_processing",
@@ -521,6 +523,7 @@ if (rtc_include_tests) {
       ":rtc_media_base",
       ":rtc_media_tests_utils",
       "../api:video_frame_api",
+      "../api:video_frame_api_i420",
       "../api/audio_codecs:builtin_audio_decoder_factory",
       "../api/audio_codecs:builtin_audio_encoder_factory",
       "../api/video_codecs:video_codecs_api",

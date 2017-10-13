@@ -99,7 +99,7 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
                    &adapted_width, &adapted_height, &crop_width, &crop_height,
                    &crop_x, &crop_y, nullptr)) {
       rtc::scoped_refptr<webrtc::I420Buffer> buffer(
-          webrtc::I420Buffer::Create(adapted_width, adapted_height));
+          webrtc::I420BufferInterface::Create(adapted_width, adapted_height));
       buffer->InitializeData();
 
       OnFrame(webrtc::VideoFrame(

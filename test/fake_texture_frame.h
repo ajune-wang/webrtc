@@ -34,7 +34,7 @@ class FakeNativeBuffer : public VideoFrameBuffer {
 
  private:
   rtc::scoped_refptr<I420BufferInterface> ToI420() override {
-    rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(width_, height_);
+    rtc::scoped_refptr<I420Buffer> buffer = I420BufferInterface::Create(width_, height_);
     I420Buffer::SetBlack(buffer);
     return buffer;
   }

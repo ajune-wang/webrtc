@@ -51,7 +51,7 @@ class SquareGenerator : public FrameGenerator {
   VideoFrame* NextFrame() override {
     rtc::CritScope lock(&crit_);
 
-    rtc::scoped_refptr<I420Buffer> buffer(I420Buffer::Create(width_, height_));
+    rtc::scoped_refptr<I420Buffer> buffer(I420BufferInterface::Create(width_, height_));
 
     memset(buffer->MutableDataY(), 127, height_ * buffer->StrideY());
     memset(buffer->MutableDataU(), 127,
@@ -215,7 +215,7 @@ class SlideGenerator : public FrameGenerator {
     // to simulate variation in the slides' complexity.
     const int kSquareNum =  1 << (4 + (random_generator_.Rand(0, 3) * 4));
 
-    buffer_ = I420Buffer::Create(width_, height_);
+    buffer_ = I420BufferInterface::Create(width_, height_);
     memset(buffer_->MutableDataY(), 127, height_ * buffer_->StrideY());
     memset(buffer_->MutableDataU(), 127,
            buffer_->ChromaHeight() * buffer_->StrideU());

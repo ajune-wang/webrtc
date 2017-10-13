@@ -10,7 +10,7 @@
 
 #include <memory>
 
-#include "api/video/i420_buffer.h"
+#include "api/video/video_frame_buffer.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/video_coding/codecs/test/mock/mock_packet_manipulator.h"
 #include "modules/video_coding/codecs/test/videoprocessor.h"
@@ -104,7 +104,7 @@ TEST_F(VideoProcessorTest, ProcessFrames_FixedFramerate) {
   video_processor_->SetRates(kBitrateKbps, kFramerateFps);
 
   EXPECT_CALL(frame_reader_mock_, ReadFrame())
-      .WillRepeatedly(Return(I420Buffer::Create(kWidth, kHeight)));
+      .WillRepeatedly(Return(I420BufferInterface::Create(kWidth, kHeight)));
   EXPECT_CALL(
       encoder_mock_,
       Encode(Property(&VideoFrame::timestamp, 1 * 90000 / kFramerateFps), _, _))
@@ -130,7 +130,7 @@ TEST_F(VideoProcessorTest, ProcessFrames_VariableFramerate) {
   video_processor_->SetRates(kBitrateKbps, kStartFramerateFps);
 
   EXPECT_CALL(frame_reader_mock_, ReadFrame())
-      .WillRepeatedly(Return(I420Buffer::Create(kWidth, kHeight)));
+      .WillRepeatedly(Return(I420BufferInterface::Create(kWidth, kHeight)));
   EXPECT_CALL(encoder_mock_, Encode(Property(&VideoFrame::timestamp,
                                              1 * 90000 / kStartFramerateFps),
                                     _, _))

@@ -363,7 +363,7 @@ class VideoCaptureExternalTest : public testing::Test {
     capture_callback_.SetExpectedCapability(capability);
 
     rtc::scoped_refptr<webrtc::I420Buffer> buffer =
-        webrtc::I420Buffer::Create(kTestWidth, kTestHeight);
+        webrtc::I420BufferInterface::Create(kTestWidth, kTestHeight);
 
     memset(buffer->MutableDataY(), 127, buffer->height() * buffer->StrideY());
     memset(buffer->MutableDataU(), 127,

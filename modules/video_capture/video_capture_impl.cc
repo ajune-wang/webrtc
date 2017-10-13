@@ -164,7 +164,7 @@ int32_t VideoCaptureImpl::IncomingFrame(
     // Setting a negative source height, inverts the image (within LibYuv).
 
     // TODO(nisse): Use a pool?
-    rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(
+    rtc::scoped_refptr<I420Buffer> buffer = I420BufferInterface::Create(
         target_width, abs(target_height), stride_y, stride_uv, stride_uv);
     const int conversionResult = ConvertToI420(
         frameInfo.videoType, videoFrame, 0, 0,  // No cropping

@@ -201,7 +201,7 @@ int I420Decoder::Decode(const EncodedImage& inputImage,
   }
   // Set decoded image parameters.
   rtc::scoped_refptr<webrtc::I420Buffer> frame_buffer =
-      I420Buffer::Create(_width, _height);
+      I420BufferInterface::Create(_width, _height);
 
   // Converting from raw buffer I420Buffer.
   int ret = ConvertToI420(VideoType::kI420, buffer, 0, 0, _width, _height, 0,

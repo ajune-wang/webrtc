@@ -25,6 +25,7 @@
 #import "WebRTC/RTCVideoTrack.h"
 
 #import "ARDAppEngineClient.h"
+#import "ARDBitrateAllocationStrategy.h"
 #import "ARDJoinResponse.h"
 #import "ARDMessageResponse.h"
 #import "ARDSDPUtils.h"
@@ -51,6 +52,7 @@ static NSString * const kARDMediaStreamId = @"ARDAMS";
 static NSString * const kARDAudioTrackId = @"ARDAMSa0";
 static NSString * const kARDVideoTrackId = @"ARDAMSv0";
 static NSString * const kARDVideoTrackKind = @"video";
+static uint32_t const kSufficientAudioBitrate = 16000;
 
 // TODO(tkchin): Add these as UI options.
 static BOOL const kARDAppClientEnableTracing = NO;
@@ -105,6 +107,7 @@ static int const kKbpsMultiplier = 1000;
   ARDTimerProxy *_statsTimer;
   ARDSettingsModel *_settings;
   RTCVideoTrack *_localVideoTrack;
+  ARDBitrateAllocationStrategy *_bitrateAllocationStrategy;
 }
 
 @synthesize shouldGetStats = _shouldGetStats;
@@ -305,12 +308,14 @@ static int const kKbpsMultiplier = 1000;
   _hasReceivedSdp = NO;
   _messageQueue = [NSMutableArray array];
   _localVideoTrack = nil;
+
 #if defined(WEBRTC_IOS)
   [_factory stopAecDump];
   [_peerConnection stopRtcEventLog];
 #endif
   [_peerConnection close];
   _peerConnection = nil;
+  _bitrateAllocationStrategy = nil;
   self.state = kARDAppClientStateDisconnected;
 #if defined(WEBRTC_IOS)
   if (kARDAppClientEnableTracing) {
@@ -534,12 +539,17 @@ static int const kKbpsMultiplier = 1000;
   RTCMediaConstraints *constraints = [self defaultPeerConnectionConstraints];
   RTCConfiguration *config = [[RTCConfiguration alloc] init];
   config.iceServers = _iceServers;
+  _bitrateAllocationStrategy = [ARDBitrateAllocationStrategy
+      createAudioPriorityBitrateAllocationStrategyForConfiguration:config
+                                                    withAudioTrack:kARDAudioTrackId
+                                            sufficientAudioBitrate:kSufficientAudioBitrate];
   _peerConnection = [_factory peerConnectionWithConfiguration:config
                                                   constraints:constraints
                                                      delegate:self];
+
   // Create AV senders.
-  [self createAudioSender];
-  [self createVideoSender];
+  [self createMediaSenders];
+
   if (_isInitiator) {
     // Send offer.
     __weak ARDAppClient *weakSelf = self;
@@ -663,19 +673,6 @@ static int const kKbpsMultiplier = 1000;
   }
 }
 
-- (RTCRtpSender *)createVideoSender {
-  RTCRtpSender *sender =
-      [_peerConnection senderWithKind:kRTCMediaStreamTrackKindVideo
-                             streamId:kARDMediaStreamId];
-  _localVideoTrack = [self createLocalVideoTrack];
-  if (_localVideoTrack) {
-    sender.track = _localVideoTrack;
-    [_delegate appClient:self didReceiveLocalVideoTrack:_localVideoTrack];
-  }
-
-  return sender;
-}
-
 - (void)setMaxBitrateForPeerConnectionVideoSender {
   for (RTCRtpSender *sender in _peerConnection.senders) {
     if (sender.track != nil) {
@@ -698,16 +695,18 @@ static int const kKbpsMultiplier = 1000;
   [sender setParameters:parametersToModify];
 }
 
-- (RTCRtpSender *)createAudioSender {
+- (void)createMediaSenders {
   RTCMediaConstraints *constraints = [self defaultMediaAudioConstraints];
   RTCAudioSource *source = [_factory audioSourceWithConstraints:constraints];
   RTCAudioTrack *track = [_factory audioTrackWithSource:source
                                                 trackId:kARDAudioTrackId];
-  RTCRtpSender *sender =
-      [_peerConnection senderWithKind:kRTCMediaStreamTrackKindAudio
-                             streamId:kARDMediaStreamId];
-  sender.track = track;
-  return sender;
+  RTCMediaStream *stream = [_factory mediaStreamWithStreamId:kARDMediaStreamId];
+  [stream addAudioTrack:track];
+  _localVideoTrack = [self createLocalVideoTrack];
+  if (_localVideoTrack) {
+    [stream addVideoTrack:_localVideoTrack];
+  }
+  [_peerConnection addStream:stream];
 }
 
 - (RTCVideoTrack *)createLocalVideoTrack {

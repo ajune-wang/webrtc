@@ -480,6 +480,11 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // The object passed in must remain valid until PeerConnection::Close() is
     // called.
     webrtc::TurnCustomizer* turn_customizer = nullptr;
+    // If not set default WebRTC allocator will be used. May be changed during
+    // an active session. The strategy is owned by application and it is
+    // responsible for keeping it alive as long as any of its peerconnections
+    // are using it.
+    rtc::BitrateAllocationStrategy* bitrate_allocation_strategy = nullptr;
 
     //
     // Don't forget to update operator== if adding something.

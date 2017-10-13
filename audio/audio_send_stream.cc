@@ -236,6 +236,8 @@ void AudioSendStream::ConfigureStream(
 void AudioSendStream::Start() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   if (config_.min_bitrate_bps != -1 && config_.max_bitrate_bps != -1) {
+    // Audio BWE is enabled.
+    transport_->packet_sender()->SetAccountForAudioPackets(true);
     ConfigureBitrateObserver(config_.min_bitrate_bps, config_.max_bitrate_bps);
   }
 
@@ -627,7 +629,7 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
     config_.min_bitrate_bps = min_bitrate_bps;
     config_.max_bitrate_bps = max_bitrate_bps;
     bitrate_allocator_->AddObserver(this, min_bitrate_bps, max_bitrate_bps, 0,
-                                    true);
+                                    true, config_.track_id);
     thread_sync_event.Set();
   });
   thread_sync_event.Wait(rtc::Event::kForever);

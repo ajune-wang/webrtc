@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "941f152a_b20fd9a8",
+        "filename": "webrtc/call/bitrate_allocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-13T08:24:24Z",
+      "side": 1,
+      "message": "WEBRTC is not a common way to write it. Either WebRTC or webrtc.",
+      "range": {
+        "startLine": 99,
+        "startChar": 71,
+        "endLine": 99,
+        "endChar": 77
+      },
+      "revId": "3018db1601373c1621a249021290e30641d8d24c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

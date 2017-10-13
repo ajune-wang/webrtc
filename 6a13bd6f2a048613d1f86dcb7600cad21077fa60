@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba0769cc_86a3aad8",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-13T09:11:10Z",
+      "side": 1,
+      "message": "I think the API is pretty clear on what you should send in, considering it takes a parameter of type `RTCVideoCodecPriorityList\u003cClass\u003cRTCVideoEncoder\u003e\u003e *`. Since Obj-C is very dynamic it\u0027s still possible to declare the class without the generic type parameter as you do above and pass that in, but that problem exists with every Obj-C API that takes e.g. an array with a specified type. I still think it\u0027s nicer than having the list class duplicated for both encoder and decoder types. No?",
+      "parentUuid": "17d74fe7_899a3998",
+      "revId": "6a13bd6f2a048613d1f86dcb7600cad21077fa60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a32ffb6_6d1a6128",
         "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "99e7cb85_eaad3b9a",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-13T09:11:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a32ffb6_6d1a6128",
+      "revId": "6a13bd6f2a048613d1f86dcb7600cad21077fa60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ea85df0_1256d82b",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
         "patchSetId": 5
@@ -50,6 +86,24 @@
       "revId": "6a13bd6f2a048613d1f86dcb7600cad21077fa60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fc6f563_2b12c614",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCVideoCodec.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-13T09:11:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ea85df0_1256d82b",
+      "revId": "6a13bd6f2a048613d1f86dcb7600cad21077fa60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

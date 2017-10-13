@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2744af49_469c30c4",
+        "filename": "logging/rtc_event_log/rtc_event_log.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-13T09:47:02Z",
+      "side": 1,
+      "message": "In practice, it shouldn\u0027t matter, but I\u0027d prefer reducing this to 1000. That way, it\u0027ll be more clear that history is the main storage for events.",
+      "range": {
+        "startLine": 43,
+        "startChar": 45,
+        "endLine": 43,
+        "endChar": 50
+      },
+      "revId": "41f4f1030547fa76dfd1071003a3c4d5ed21580d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

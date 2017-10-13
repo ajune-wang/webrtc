@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3114d19e_928fd1f8",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-13T14:03:04Z",
+      "side": 1,
+      "message": "Can you remove the use of this function?",
+      "range": {
+        "startLine": 207,
+        "startChar": 15,
+        "endLine": 207,
+        "endChar": 22
+      },
+      "revId": "d4020406539be1b0133ca185436ae315f5d2638d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

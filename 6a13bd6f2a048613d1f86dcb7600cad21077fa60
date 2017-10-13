@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "79e9c285_9067c907",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-10-13T10:48:59Z",
+      "side": 1,
+      "message": "I agree. It\u0027s a tricky one and IMO both approaches are not elegant and have cons/pros.\nThe unified approach assumes the developer is familiar in the association between the RTCVideoCodecPriorityList and the class it will be consumed by (i.e RTCVideEncoderFactory). (I know they are in the same interface and all, but you get the idea).\nThe separate approach has code duplication but it\u0027s much more explicit and cognitive strain is much weaker for the reader.\n\nI\u0027ll let the popular vote decide on this one :)",
+      "parentUuid": "ba0769cc_86a3aad8",
+      "revId": "6a13bd6f2a048613d1f86dcb7600cad21077fa60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a32ffb6_6d1a6128",
         "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
         "patchSetId": 5

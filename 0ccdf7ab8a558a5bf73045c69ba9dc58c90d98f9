@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd018c72_916c3375",
+        "filename": "p2p/base/jseptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-13T03:57:11Z",
+      "side": 1,
+      "message": "This doesn\u0027t break anything? Isn\u0027t it possible currently to call AddIceCandidate with candidates without a transport name? I thought it\u0027s only RemoveIceCandidate that requires it. (Which is why we really need to fix it, it\u0027s insanely confusing).",
+      "revId": "0ccdf7ab8a558a5bf73045c69ba9dc58c90d98f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a4c9b7_e0355c28",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-13T03:57:11Z",
+      "side": 1,
+      "message": "I imagine this was added because of the check added to VerifyIceCandidate? Should be able to remove it.",
+      "revId": "0ccdf7ab8a558a5bf73045c69ba9dc58c90d98f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a86d58b8_a47d8408",
+        "filename": "examples/androidjunit/src/org/appspot/apprtc/TCPChannelClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-10-13T08:59:50Z",
+      "side": 1,
+      "message": "This will be re-enabled in https://webrtc-review.googlesource.com/c/src/+/9162.",
+      "range": {
+        "startLine": 104,
+        "startChar": 2,
+        "endLine": 104,
+        "endChar": 39
+      },
+      "revId": "f1d819ed1552896f2520f051bdb57d5699a91e48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f43b0f8c_91a8e4b8",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-13T17:28:19Z",
+      "side": 1,
+      "message": "Yeah... this could end up being an issue if the bitrate allocation strategy ends up swapped asynchronously in the underlying implementation, which seems like a reasonable possibility. So we may want to return to the original version of the CL that had a dedicated setter and transferred ownership via unique_ptr.\n\nI\u0027ll add a TODO for myself to figure out what to do about TurnCustomizer; it would be nice to fix it before things end up depending on it.\n\nSorry about causing this churn for you, Alex.",
+      "parentUuid": "892d883d_4a6f1673",
+      "range": {
+        "startLine": 484,
+        "startChar": 42,
+        "endLine": 484,
+        "endChar": 47
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b362e36_8487c2a9",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 5

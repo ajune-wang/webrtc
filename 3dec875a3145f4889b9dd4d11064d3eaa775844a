@@ -1,0 +1,453 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa54950b_a03d8fe3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "May want to add some description below explaining what\u0027s meant by \"media tests\".",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014b5a13_90b6da5e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I\u0027m now realizing, the issue with this is that if session_-\u003eSetRemoteDescription fails, we\u0027ll be left in a weird state. Remind me what issue this was fixing? Are there other alternatives?",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25250387_e971dac5",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I like this approach. Curious what you think about the builder pattern though. Don\u0027t think we need it now, but it scales to more parameters and tests doing more varied things, so it may make sense in some places.\n\nMeaning, for example:\n\nauto wrapper \u003d PCWrapperBuilder.WithAudioVideo()\n                               .WithConfig(rtc_config)\n                               .WithFakeMediaEngine(engine)\n                               .Build();",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e84d0810_200bf864",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I\u0027m not sure if categorizing tests like this into \"media_unittest\" makes sense. Typically they\u0027d go in peerconnectioninterface_unittest, since they don\u0027t require any actual interaction with the media engine; in this case they\u0027re just applying empty offers and answers with no actual media information.\n\nI guess one distinct category of tests could be \"signaling\". Basically, testing the behavior of creating offers/answers and applying them, independent of their actual contents. Verifying when you can (and can\u0027t) call different methods based on the current signaling state, and that the signaling state is updated correctly. Maybe it would make sense to put these tests in their own file? But if not, they\u0027d go in peerconnectioninterace_unittest (which may already have some of these tests).",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544c7fca_bb893778",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "May make sense to expose these string constants for the tests (e.g., kNullDescription), so we can change the contents of the strings slightly without having to fix the tests manually.\n\nMajor changes (like splitting one error into two, or changing to a different error) would still be picked up, because the test would fail (or fail to compile).",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94921118_49c9216d",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "A lot of these tests are really just \"you can\u0027t do X action in Y signaling state\", so I wonder if there\u0027d be a way to simplify this?\n\nFor example, we already have the signaling state enum, and we could add an \"action\" enum for testing:\n\nenum class Action {\n  kCreateOffer,\n  kCreateAnswer,\n  kSetLocalOffer,\n  kSetLocalPrAnswer,\n  kSetLocalAnswer,\n  kSetRemoteOffer,\n  kSetRemotePrAnswer,\n  kSetRemoteAnswer\n};\n\nThen create a matrix of allowed/disallowed actions based on state (for something sorta similar, see \"kMatrix\" in p2ptransportchannel_unittest.cc).\n\nMore nuanced things, like \"Can call CreateAnswer in stable state if remote description is an offer, but not if it\u0027s an answer\" could be handled in standalone tests. But I think this idea would cover a large number of cases.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6947e455_f66fdd9c",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I\u0027d add \"Remote\" to the test name, and \"Local\" to the test below, since that\u0027s an important detail (more important than whether it\u0027s an offer or answer in this case).",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88cd682d_be28eac0",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "Might as well have one for adding send streams, for symmetry (and because it has some value).",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad7e0181_780138ce",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I\u0027d say \"DefaultOptions\", since the constraints interface is deprecated and really we should be using the RTCOfferAnswerOptions instead when possible.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cff92fd_252b8d90",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "Not sure if it would actually make things simpler here, but it\u0027s possible to do:\n\nRTCRtpTransceiverDirection::FromMediaContentDirection(dir).send;",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb6383be_1e3968d7",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "\"Rejected\" typically means the entire m\u003d section is rejected (port value of 0), so I don\u0027t think that\u0027s the right term here. Could just use \"!DirHasRecv\".",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8241f235_3a96be95",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "Again, I\u0027d say \"Options\" instead of constraints. \"Constraints\" refers to MediaConstraintsInterface.",
+      "range": {
+        "startLine": 504,
+        "startChar": 24,
+        "endLine": 504,
+        "endChar": 49
+      },
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4afd01_71e11906",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "nit: Our style guide prefers spelling out variable names (audio_direction_), though I think the meaning is pretty obvious here so I don\u0027t really mind.",
+      "range": {
+        "startLine": 517,
+        "startChar": 33,
+        "endLine": 517,
+        "endChar": 43
+      },
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a877c070_23797171",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I think this test could get a bit more specific. You basically have two pieces of information as input: Whether the PeerConnection has media to send, and what the \"offerToReceive\" field is set to. Based on those two things, it may generate m\u003d sections that are sendonly, recvonly, or sendrecv, or no m\u003d sections at all.\n\nWith CreateAnswer, there\u0027s an extra variable in play, which is the direction in the offer. So that makes... 4 (offered direction) * 2 (whether the answerer has media to send) * 3 (offerToReceive \u003d default, -1, or 1) \u003d 24 possibilities. I\u0027m not sure the best way to test all of them (or pick a nice representative subset), but maybe you have some ideas? Either way, this is something that could impact applications severely if we end up changing the behavior without noticing, so if it\u0027s not already covered by tests, it should be.\n\nIt may already be covered somewhat at the mediasession_unittest.cc level, but that doesn\u0027t guarantee that PeerConnection is passing the right options into MediaSessionDescriptionFactory. Plus, we\u0027ll likely refactor that code in the future, which is where having a solid foundation of high-level PeerConnection tests will help us.\n\nAlso: a large part of this test is verifying that the audio/video directions are treated independently. But this could probably be covered by a couple representative tests, with the majority of tests focused on one m\u003d section.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cfe9b67_56955fd0",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "May be corner-casey, but I\u0027d add one for changing the media type (from audio to video) but keeping everything else the same.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4147101_af3432b4",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I think it may be more readable if the parameter was \"local vs remote\", and it was the test cases that verified the different individual modifications.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db8fd230_aca55f41",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "Can these tests have a comment summarizing what they\u0027re testing?",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57832c75_335d9888",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I\u0027d say \"media engine\", since this more generic than just a video encoder failing.",
+      "range": {
+        "startLine": 820,
+        "startChar": 36,
+        "endLine": 820,
+        "endChar": 48
+      },
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ce5bd0_259871a9",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "Does it make sense to check for \"ERROR_CONTENT\" like we did before? It\u0027s a legacy thing, true, but the tests above do verify error names, and ERROR_CONTENT does have a distinct meaning, as I learned recently (it means ever subsequent SLD/SRD call fails).",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98b51307_e9056cba",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "nit: \"ToMediaEngine\" instead of \"Down\"?",
+      "range": {
+        "startLine": 908,
+        "startChar": 73,
+        "endLine": 908,
+        "endChar": 77
+      },
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea1c09d9_eaefa16c",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I think this may be low-level enough that it could be covered by mediasession_unittest.cc. In the real implementation, we always support RTX so this would never happen. What do you think?",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44e4bffb_d5ff6fea",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "PeerConnection is reference-counted, and technically this may not end up destroying it because a reference is floating around in a message queue or something. So may be better to call Close.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c96291f3_e323e3bc",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "The one thing I didn\u0027t see tests for was setting local/remote provisional answers. Which would end up covered if you went with my \"signaling state/action matrix\" idea above.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab9fb109_55e397a9",
+        "filename": "pc/peerconnectionwrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "Curious why this had to change to AddStream? We\u0027re trying to shift to the more \"track-based\" model, where AddStream would become a simple shim on top of AddTrack, and possibly be deprecated.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d5a655_8612037b",
+        "filename": "tools_webrtc/valgrind/gtest_exclude/peerconnection_unittests.gtest-memcheck.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-14T20:07:19Z",
+      "side": 1,
+      "message": "I don\u0027t think any of these tests actually relied on sending media end-to-end, so are they really flaky under memcheck?",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

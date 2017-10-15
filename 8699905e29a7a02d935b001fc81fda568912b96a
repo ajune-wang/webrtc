@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eff67421_066ea224",
+        "filename": "sdk/android/api/org/webrtc/SurfaceViewRenderer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5510
+      },
+      "writtenOn": "2017-10-15T10:03:04Z",
+      "side": 1,
+      "message": "How about moving this line to SurfaceEglRenderer::surfaceChanged?",
+      "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ac8d73c_3b7f901a",
+        "filename": "sdk/android/api/org/webrtc/SurfaceViewRenderer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5510
+      },
+      "writtenOn": "2017-10-15T10:03:04Z",
+      "side": 1,
+      "message": "This seems unnecessary:\nview size change triggers onLayout;\nvideo size change triggers onFrameResolutionChanged;\nfixed size mode change invokes updateSurfaceSize;",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 3
+      },
+      "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

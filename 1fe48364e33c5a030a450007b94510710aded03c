@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11c0fc0f_f6379e69",
+        "filename": "api/ortc/icetransportinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T21:35:27Z",
+      "side": 1,
+      "message": "IceTransportInternal is meant to be the \"internal\" interface. We should constrain the public interface to just the things we want applications to have access to.",
+      "revId": "1fe48364e33c5a030a450007b94510710aded03c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "290b2ab7_5268f70d",
+        "filename": "ortc/ortcfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T21:35:27Z",
+      "side": 1,
+      "message": "Probably makes sense to put this in \"ortc/icetransportproxy.h\"",
+      "revId": "1fe48364e33c5a030a450007b94510710aded03c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e571466_0bfe9e8e",
+        "filename": "ortc/ortcfactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T21:35:27Z",
+      "side": 1,
+      "message": "PortAllocator corresponds most closely to an \"IceGatherer\" in the ORTC spec. So it should be either owned by a standalone IceGatherer object, or owned by the IceTransport, but not the OrtcFactory.",
+      "revId": "1fe48364e33c5a030a450007b94510710aded03c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdf57340_0600ddeb",
+        "filename": "pc/peerconnection_datachannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "I\u0027d add a brief summary. The previous test had:\n\n// Test that sctp_content_name/sctp_transport_name (used for stats) are correct\n// before and after BUNDLE is negotiated.",
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0467551b_498540ee",
+        "filename": "pc/peerconnection_datachannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "WithNoDataChannels?",
+      "range": {
+        "startLine": 217,
+        "startChar": 24,
+        "endLine": 217,
+        "endChar": 31
+      },
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdd39fc7_31549b37",
+        "filename": "pc/peerconnection_datachannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "May want to clarify that only the offerer creates the data channel in this test, not the answerer.",
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e052ba54_6805e1e6",
+        "filename": "pc/peerconnection_datachannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "This should also verify that the data description/content isn\u0027t rejected.",
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c436a1_cdf17c0d",
+        "filename": "pc/peerconnection_datachannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "I think it may be more readable (and possibly less code) to have 3 test cases:\n\n1. CreateDataChannel with DTLS disabled\n2. CreateDataChannel SCTP disabled\n3. SetRemoteDescription(data_offer) with SCTP disabled.\n\nThe \"default config/options\" should be covered elsewhere, I\u0027d think.",
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85df785a_a77b259a",
+        "filename": "pc/peerconnection_datachannel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "We don\u0027t need to carry this over; the QUIC code in webrtc isn\u0027t being maintained (see https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8385). At one point we were trying to add QUIC data channels directly to PeerConnection, but we\u0027re going more in the direction of exposing them via ORTC, which likely will mean all QUIC-specific code will end up in the chromium repo.",
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6610c254_81fc3136",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2600,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "nit: This is relying on a value that isn\u0027t in the test case itself, which isn\u0027t ideal. See: https://engdoc.corp.google.com/eng/doc/devguide/coding/testing/unit-testing-best-practices.md?cl\u003dhead#setUp\n\nSo to fix this, I\u0027d add a CreateDataChannel method that explicitly takes the label as an argument. So that in the test, you can see:\n\nCreateDataChannel(\"foo\", ...);\n...\nEXPECT_EQ(\"foo\", ...);",
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d69af92e_2d1a3176",
+        "filename": "pc/test/fakesctptransport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "nit: Comment should be updated",
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76b345b0_6a1519b1",
+        "filename": "pc/test/fakesctptransport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-16T22:24:33Z",
+      "side": 1,
+      "message": "nit: Could use rtc::Optional, instead of using -1 to represent \"unset value\". Though I realize you\u0027re just moving this code, so it\u0027s not that important.",
+      "revId": "4ff152eef1cfa50d13ca323a8dc9ab16922fcef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

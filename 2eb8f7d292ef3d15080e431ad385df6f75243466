@@ -34,6 +34,24 @@
       "revId": "2eb8f7d292ef3d15080e431ad385df6f75243466",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b863387_12f8a81d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-16T11:23:12Z",
+      "side": 1,
+      "message": "(Sorry for the late reply.)\n\nI don\u0027t know about rtc::Bind---but yes, C++14 has language support for moving things into a lambda capture.\n\nSince the construction used here is somewhat unsafe (output_raw will be leaked if the lambda is called 0 times, and used-after-free and double-freed if the lambda is called 2 or more times), I would recommend making an actual class that defines operator() instead. It\u0027ll set you back less than half a dozen lines of code: https://godbolt.org/g/NcKbFr",
+      "parentUuid": "6a7eaf6e_9783cb4e",
+      "revId": "2eb8f7d292ef3d15080e431ad385df6f75243466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

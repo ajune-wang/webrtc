@@ -874,15 +874,6 @@ void PeerConnection::CreateAnswer(
     return;
   }
 
-  if (!session_->remote_description() ||
-      session_->remote_description()->type() !=
-          SessionDescriptionInterface::kOffer) {
-    std::string error = "CreateAnswer called without remote offer.";
-    LOG(LS_ERROR) << error;
-    PostCreateSessionDescriptionFailure(observer, error);
-    return;
-  }
-
   PeerConnectionInterface::RTCOfferAnswerOptions offer_answer_options;
   if (!ConvertConstraintsToOfferAnswerOptions(constraints,
                                               &offer_answer_options)) {
@@ -892,9 +883,7 @@ void PeerConnection::CreateAnswer(
     return;
   }
 
-  cricket::MediaSessionOptions session_options;
-  GetOptionsForAnswer(offer_answer_options, &session_options);
-  session_->CreateAnswer(observer, session_options);
+  InternalCreateAnswer(observer, offer_answer_options);
 }
 
 void PeerConnection::CreateAnswer(CreateSessionDescriptionObserver* observer,
@@ -902,6 +891,23 @@ void PeerConnection::CreateAnswer(CreateSessionDescriptionObserver* observer,
   TRACE_EVENT0("webrtc", "PeerConnection::CreateAnswer");
   if (!observer) {
     LOG(LS_ERROR) << "CreateAnswer - observer is NULL.";
+    return;
+  }
+
+  InternalCreateAnswer(observer, options);
+}
+
+void PeerConnection::InternalCreateAnswer(
+    CreateSessionDescriptionObserver* observer,
+    const RTCOfferAnswerOptions& options) {
+  RTC_DCHECK(observer);
+
+  if (!session_->remote_description() ||
+      session_->remote_description()->type() !=
+          SessionDescriptionInterface::kOffer) {
+    std::string error = "CreateAnswer called without remote offer.";
+    LOG(LS_ERROR) << error;
+    PostCreateSessionDescriptionFailure(observer, error);
     return;
   }
 
@@ -1022,6 +1028,7 @@ void PeerConnection::SetRemoteDescription(
     PostSetSessionDescriptionFailure(observer, "SessionDescription is NULL.");
     return;
   }
+
   // Update stats here so that we have the most recent stats for tracks and
   // streams that might be removed by updating the session description.
   stats_->UpdateStats(kStatsOutputLevelStandard);
@@ -1060,6 +1067,15 @@ void PeerConnection::SetRemoteDescription(
   // We wait to signal new streams until we finish processing the description,
   // since only at that point will new streams have all their tracks.
   rtc::scoped_refptr<StreamCollection> new_streams(StreamCollection::Create());
+
+  // TODO(steveanton): When removing RTP senders/receivers in response to a
+  // rejected media section, there is some cleanup logic that expects the voice/
+  // video channel to still be set. But in this method the voice/video channel
+  // would have been destroyed by WebRtcSession's SetRemoteDescription method
+  // above, so the cleanup that relies on them fails to run. This is hard to fix
+  // with WebRtcSession and PeerConnection separated, but once the classes are
+  // merged it will be easy to call RemoveTracks right before destroying the
+  // voice/video channels.
 
   // Find all audio rtp streams and create corresponding remote AudioTracks
   // and MediaStreams.

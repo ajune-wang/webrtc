@@ -72,7 +72,8 @@ class PeerConnectionCryptoUnitTest : public ::testing::Test {
     if (!wrapper) {
       return nullptr;
     }
-    wrapper->AddAudioVideoStream("s", "a", "v");
+    wrapper->AddAudioTrack("a");
+    wrapper->AddVideoTrack("v");
     return wrapper;
   }
 

@@ -22,6 +22,30 @@
       "revId": "d4020406539be1b0133ca185436ae315f5d2638d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ac1d209_ba70b5fa",
+        "filename": "sdk/android/api/org/webrtc/YuvConverter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-16T09:22:23Z",
+      "side": 1,
+      "message": "I package protected SurfaceTextureHelper.textureToYUV. I will remove this method once VideoFrames are used by everyone.",
+      "parentUuid": "3114d19e_928fd1f8",
+      "range": {
+        "startLine": 207,
+        "startChar": 15,
+        "endLine": 207,
+        "endChar": 22
+      },
+      "revId": "d4020406539be1b0133ca185436ae315f5d2638d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

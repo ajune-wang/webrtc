@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e1441518_f7360dd3",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-16T14:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cc46a0a_2c180c72",
+      "range": {
+        "startLine": 484,
+        "startChar": 42,
+        "endLine": 484,
+        "endChar": 47
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b362e36_8487c2a9",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 5
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "75aa2ed4_20e11302",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-16T14:38:16Z",
+      "side": 1,
+      "message": "Before this CL audio BWE was enabled for audio only calls those do not involve pacer. With this CL audio BWE is enabled for video calls those do involve pacer and require this change.",
+      "parentUuid": "9b362e36_8487c2a9",
+      "range": {
+        "startLine": 240,
+        "startChar": 33,
+        "endLine": 240,
+        "endChar": 58
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed03bbd8_de66c91f",
         "filename": "call/audio_send_stream.h",
         "patchSetId": 5
@@ -116,6 +164,30 @@
       "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf1710c3_c92acea2",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-16T14:38:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ed03bbd8_de66c91f",
+      "range": {
+        "startLine": 136,
+        "startChar": 16,
+        "endLine": 136,
+        "endChar": 24
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

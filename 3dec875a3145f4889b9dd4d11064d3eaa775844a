@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "653c5982_2fcb6524",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-16T23:07:25Z",
+      "side": 1,
+      "message": "Note: This bug is exercised by the TestAVOfferWithVideoOnlyAnswer.\n\nOK, did quite a bit of digging and found the root cause. RemoveTracks goes through each removed RtpSender and calls |SetSsrc(0)| which then calls |ClearAudioSend()| on the RtpSender. ClearAudioSend is supposed to call SetAudioSend with a null sink on the voice channel, but since this happens after SetRemoteDescription is called on WebRtcSession (which destroys the voice channel), it is unsuccessful (prints the error to stdout). So there\u0027s definitely a bug here with things getting called out of order.\n\nBut this does work with the real WebRtcMediaEngine because the voice engine\u0027s destructor will go through and remove all remaining streams which will in turn clear the sink. This was only exposed by these tests because the FakeMediaEngine does not do this in the destructor, so when audio is re-offered later in the test it will try setting the sink again and DCHECK (see rtpsender.cc:43).\n\nSince this is an obscure edge case that ends up working OK in practice, I\u0027m just going to add logic to the FakeMediaEngine for removing the sinks on destruction to fix it for now. The real fix (which I\u0027ll add as a TODO) is to remove the tracks right before destroying the audio/video engines. Because of the separation between PeerConnection and WebRtcSession right now this is quite difficult, but once the classes are merged this will be easy.",
+      "parentUuid": "014b5a13_90b6da5e",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25250387_e971dac5",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -434,6 +452,24 @@
     },
     {
       "key": {
+        "uuid": "d0f95a8c_048aa985",
+        "filename": "pc/peerconnectionwrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-16T23:07:25Z",
+      "side": 1,
+      "message": "The motivation was to allow tests to remove the stream later. I\u0027ve changed this instead to use AddTrack and return the audio/video tracks separately so they can be removed by a call to RemoveTrack.",
+      "parentUuid": "ab9fb109_55e397a9",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63d5a655_8612037b",
         "filename": "tools_webrtc/valgrind/gtest_exclude/peerconnection_unittests.gtest-memcheck.txt",
         "patchSetId": 9
@@ -445,6 +481,24 @@
       "writtenOn": "2017-10-14T20:07:19Z",
       "side": 1,
       "message": "I don\u0027t think any of these tests actually relied on sending media end-to-end, so are they really flaky under memcheck?",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5058a30c_a3ed88a5",
+        "filename": "tools_webrtc/valgrind/gtest_exclude/peerconnection_unittests.gtest-memcheck.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-16T23:07:25Z",
+      "side": 1,
+      "message": "It seems like all tests that use PeerConnection fail under the memcheck, but I\u0027ll disable this and see if it passes the try bots.",
+      "parentUuid": "63d5a655_8612037b",
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6cc46a0a_2c180c72",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-16T07:21:21Z",
+      "side": 1,
+      "message": "\u003e So we may want to return to the original version of the CL that had a dedicated setter and transferred ownership via unique_ptr.\n\nSounds reasonable to me.\n \n\u003e I\u0027ll add a TODO for myself to figure out what to do about TurnCustomizer; it would be nice to fix it before things end up depending on it.\n\nPlease do, I think it should be handled in the same way. Coordinate with Jonas who added it, his project is using this feature. And I guess it would be good with a comment on RTCConfiguration saying that it can\u0027t be used to inject pointers to complex objects into webrtc. (It might be fine to have raw pointers to data which is used only for the duration of the CreatePeerConnection method, but unclear to me if that\u0027s ever going to be useful).",
+      "parentUuid": "f43b0f8c_91a8e4b8",
+      "range": {
+        "startLine": 484,
+        "startChar": 42,
+        "endLine": 484,
+        "endChar": 47
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b362e36_8487c2a9",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 5

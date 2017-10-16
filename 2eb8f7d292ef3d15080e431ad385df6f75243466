@@ -52,6 +52,24 @@
       "revId": "2eb8f7d292ef3d15080e431ad385df6f75243466",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e7da38_3bf347ea",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-16T11:49:11Z",
+      "side": 1,
+      "message": "We thought about this, and decided against it, but I don\u0027t remember why, so let\u0027s do it.",
+      "parentUuid": "0b863387_12f8a81d",
+      "revId": "2eb8f7d292ef3d15080e431ad385df6f75243466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

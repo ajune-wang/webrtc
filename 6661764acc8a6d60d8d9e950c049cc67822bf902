@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc9f9f5f_126017f8",
+        "filename": "audio/audio_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 0,
+      "message": "Will probably find it in your CL, but these parts are still needed, right?",
+      "revId": "6661764acc8a6d60d8d9e950c049cc67822bf902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e6c7b0d_f5b86433",
+        "filename": "voice_engine/voice_engine_defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 0,
+      "message": "FYI, I think I have seen other clients using this method.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "6661764acc8a6d60d8d9e950c049cc67822bf902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

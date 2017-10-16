@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd29eff3_6c65007c",
+        "filename": "media/engine/adm_helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 1,
+      "message": "nit (sorry), You mix comments with and without ending \u0027.\u0027",
+      "revId": "a851d9b6dc23203f165692864b917fe359287fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8960548a_1373ed94",
+        "filename": "media/engine/adm_helpers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 1,
+      "message": "Why extra scope?",
+      "revId": "a851d9b6dc23203f165692864b917fe359287fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24dac250_6998354c",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 1,
+      "message": "Do we support build where this flag is undefined?\nNot sure what sets it today.",
+      "revId": "a851d9b6dc23203f165692864b917fe359287fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b5aec4e_476e235f",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 1,
+      "message": "No check on APM?",
+      "revId": "a851d9b6dc23203f165692864b917fe359287fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79ebb0cb_cef4d739",
+        "filename": "voice_engine/include/voe_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 1,
+      "message": "Is this comment (regarding NULL) still valid?",
+      "range": {
+        "startLine": 95,
+        "startChar": 3,
+        "endLine": 95,
+        "endChar": 4
+      },
+      "revId": "a851d9b6dc23203f165692864b917fe359287fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3ade00e_09efefa8",
+        "filename": "voice_engine/include/voe_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 1,
+      "message": "Remove TODO(ajm)",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 3
+      },
+      "revId": "a851d9b6dc23203f165692864b917fe359287fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c76ad71_ec411a8a",
+        "filename": "voice_engine/voe_base_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 1,
+      "message": "Not inline with comment for Init() which states that NULL is valid as input.",
+      "revId": "a851d9b6dc23203f165692864b917fe359287fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a21644_ca9a2003",
+        "filename": "voice_engine/voe_base_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:35:55Z",
+      "side": 1,
+      "message": "Link to issue?",
+      "range": {
+        "startLine": 351,
+        "startChar": 2,
+        "endLine": 351,
+        "endChar": 3
+      },
+      "revId": "a851d9b6dc23203f165692864b917fe359287fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

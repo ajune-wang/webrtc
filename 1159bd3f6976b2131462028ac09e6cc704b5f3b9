@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a13b4cd6_fd9e9ecc",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-16T15:12:40Z",
+      "side": 1,
+      "message": "last_packet_was_probe_?",
+      "range": {
+        "startLine": 200,
+        "startChar": 26,
+        "endLine": 200,
+        "endChar": 51
+      },
+      "revId": "1159bd3f6976b2131462028ac09e6cc704b5f3b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed56b3f1_6ce73007",
         "filename": "modules/congestion_controller/delay_based_bwe.cc",
         "patchSetId": 1
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "Because we don\u0027t want the potentially longer inter arrivals caused by overusing while probing to be seen by the trendline estimator.",
       "parentUuid": "ed56b3f1_6ce73007",
+      "range": {
+        "startLine": 201,
+        "startChar": 20,
+        "endLine": 201,
+        "endChar": 25
+      },
+      "revId": "1159bd3f6976b2131462028ac09e6cc704b5f3b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72094610_c763689f",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-16T15:12:40Z",
+      "side": 1,
+      "message": "Hm, right, I think it deserves a comment as it isn\u0027t immediately obvious.",
+      "parentUuid": "eb0ad724_a95111c9",
       "range": {
         "startLine": 201,
         "startChar": 20,

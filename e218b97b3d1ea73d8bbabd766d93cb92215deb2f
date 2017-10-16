@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c42b9de8_782bf5d9",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-16T13:03:57Z",
+      "side": 1,
+      "message": "As we saw, this isn\u0027t true, since Invoke() on line 1338 doesn\u0027t accept move-only functors. So remove these two lines.",
+      "revId": "e218b97b3d1ea73d8bbabd766d93cb92215deb2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b8fe164_90777015",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-16T13:03:57Z",
+      "side": 1,
+      "message": "This one deserves a big fat comment about why it\u0027s necessary and under what circumstances it will work.",
+      "range": {
+        "startLine": 1328,
+        "startChar": 8,
+        "endLine": 1328,
+        "endChar": 63
+      },
+      "revId": "e218b97b3d1ea73d8bbabd766d93cb92215deb2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

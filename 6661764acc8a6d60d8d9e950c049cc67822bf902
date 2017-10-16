@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "749b9844_ed003dd8",
+        "filename": "audio/audio_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-16T11:41:28Z",
+      "side": 0,
+      "message": "Can you point me to where it is done now?\n\nAssume it is line 331 in WebRtcVoiceEngine\n\nadm()-\u003eRegisterAudioCallback(audio_state_-\u003eaudio_transport());",
+      "parentUuid": "dc9f9f5f_126017f8",
+      "revId": "6661764acc8a6d60d8d9e950c049cc67822bf902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e6c7b0d_f5b86433",
         "filename": "voice_engine/voice_engine_defines.h",
         "patchSetId": 1

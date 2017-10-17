@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a36568c_61a06c7c",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T17:27:28Z",
+      "side": 1,
+      "message": "nit: Can you spell out \"MediaOptimizations\", and add a comment explaining these values? Our style guide prefers spelling out names, and it\u0027s possible here someone would interpret \"Opt\" to mean \"Options\" (that was my first guess).",
+      "revId": "3be2b5cac5b7f4b894aadf7953725b20002afaa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b075317b_fb412656",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T17:27:28Z",
+      "side": 1,
+      "message": "Comparing times in this way will break when they wrap around, right? Can use rtc::TimeDiff to fix this.",
+      "revId": "3be2b5cac5b7f4b894aadf7953725b20002afaa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1c3d1c7_601748fe",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T17:27:28Z",
+      "side": 1,
+      "message": "nit: I\u0027d spell out MediaOptimizations here too.",
+      "revId": "3be2b5cac5b7f4b894aadf7953725b20002afaa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

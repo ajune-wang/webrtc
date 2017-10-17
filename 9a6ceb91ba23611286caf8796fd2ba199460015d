@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "955bdfb4_6a99455b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-17T08:55:42Z",
+      "side": 1,
+      "message": "This is the failing test. I suspect the reason is that the jitter calculation is based on payload_type_frequency, which I think was 0 before this cl, and set to kVideoPayloadTypeFrequency here, to avoid divide-by-zero in IsRetransmitOfOldPacket.",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 35
+      },
+      "revId": "9a6ceb91ba23611286caf8796fd2ba199460015d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

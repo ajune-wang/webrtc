@@ -16,6 +16,7 @@
 #include "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "test/gtest.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
@@ -85,8 +86,17 @@ RembReceiver::~RembReceiver() {
 
 void RembReceiver::ReceivePacket(int64_t arrival_time_ms,
                                  const MediaPacket& media_packet) {
-  recv_stats_->IncomingPacket(media_packet.header(),
-                              media_packet.payload_size(), false);
+  RtpPacketReceived packet;
+  packet.SetSsrc(media_packet.header().ssrc);
+  packet.SetSequenceNumber(media_packet.header().sequenceNumber);
+  packet.set_payload_type_frequency(
+      media_packet.header().payload_type_frequency);
+  // TODO(nisse): I think it indicates a problem with the interface
+  // that we have to allocate the payload, even though it isn't used
+  // for anything.
+  packet.SetPayloadSize(media_packet.payload_size());
+
+  recv_stats_->OnRtpPacket(packet);
 
   latest_estimate_bps_ = -1;
 

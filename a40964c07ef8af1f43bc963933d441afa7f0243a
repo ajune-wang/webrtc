@@ -22,6 +22,30 @@
       "revId": "a40964c07ef8af1f43bc963933d441afa7f0243a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9344995c_1443d761",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-17T08:12:22Z",
+      "side": 1,
+      "message": "Yes. Since ~all headers would need to be in `public` (so that they can be unit tested), we\u0027d just get the trivial split of \".h in `public`, .cc in `sources`\", which doesn\u0027t actually improve anything.\n\nIf there had been a mechanism analogous to C++\u0027s `friend`, so that we could have made unit testing targets friends of the targets they test, the situation would probably have been different. But as it is, we\u0027re probably better off using just `sources`, and using `visibility` to compartmentalize stuff instead.",
+      "parentUuid": "da64d841_76051b4e",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 59
+      },
+      "revId": "a40964c07ef8af1f43bc963933d441afa7f0243a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

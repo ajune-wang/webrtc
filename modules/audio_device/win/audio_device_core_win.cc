@@ -3021,27 +3021,23 @@ int32_t AudioDeviceWindowsCore::StopPlayout()
     return 0;
 }
 
-// ----------------------------------------------------------------------------
-//  PlayoutDelay
-// ----------------------------------------------------------------------------
-
+/*
 int32_t AudioDeviceWindowsCore::PlayoutDelay(uint16_t& delayMS) const
 {
     rtc::CritScope critScoped(&_critSect);
     delayMS = static_cast<uint16_t>(_sndCardPlayDelay);
     return 0;
 }
+*/
 
-// ----------------------------------------------------------------------------
-//  RecordingDelay
-// ----------------------------------------------------------------------------
-
+/*
 int32_t AudioDeviceWindowsCore::RecordingDelay(uint16_t& delayMS) const
 {
     rtc::CritScope critScoped(&_critSect);
     delayMS = static_cast<uint16_t>(_sndCardRecDelay);
     return 0;
 }
+*/
 
 // ----------------------------------------------------------------------------
 //  Playing

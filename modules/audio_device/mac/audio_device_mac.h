@@ -149,10 +149,6 @@ class AudioDeviceMac : public AudioDeviceGeneric {
   virtual int32_t SetStereoRecording(bool enable);
   virtual int32_t StereoRecording(bool& enabled) const;
 
-  // Delay information and control
-  virtual int32_t PlayoutDelay(uint16_t& delayMS) const;
-  virtual int32_t RecordingDelay(uint16_t& delayMS) const;
-
   virtual void AttachAudioBuffer(AudioDeviceBuffer* audioBuffer);
 
  private:

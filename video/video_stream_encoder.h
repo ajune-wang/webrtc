@@ -160,6 +160,7 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
 
   // Implements VideoSinkInterface.
   void OnFrame(const VideoFrame& video_frame) override;
+  void OnDiscardedFrame() override;
 
   // Implements VideoSendStatisticsCallback.
   void SendStatistics(uint32_t bit_rate,
@@ -174,7 +175,7 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
       const CodecSpecificInfo* codec_specific_info,
       const RTPFragmentationHeader* fragmentation) override;
 
-  void OnDroppedFrame() override;
+  void OnDroppedFrame(EncodedImageCallback::DropReason reason) override;
 
   bool EncoderPaused() const;
   void TraceFrameDropStart();

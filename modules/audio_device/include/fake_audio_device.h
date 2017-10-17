@@ -101,7 +101,6 @@ class FakeAudioDeviceModule : public AudioDeviceModule {
     *delayMS = 0;
     return 0;
   }
-  int32_t RecordingDelay(uint16_t* delayMS) const override { return 0; }
   int32_t SetRecordingSampleRate(const uint32_t samplesPerSec) override {
     return 0;
   }

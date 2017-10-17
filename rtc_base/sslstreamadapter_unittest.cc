@@ -870,8 +870,10 @@ class SSLStreamAdapterTestDTLSFromPEMStrings : public SSLStreamAdapterTestDTLS {
 // Test that we can make a handshake work
 TEST_P(SSLStreamAdapterTestTLS, TestTLSConnect) {
   TestHandshake();
-  std::unique_ptr<rtc::SSLCertChain> cert_chain = client_ssl_->GetPeerSSLCertChain();
-  std::unique_ptr<rtc::SSLCertificate> certificate = client_ssl_->GetPeerCertificate();
+  std::unique_ptr<rtc::SSLCertChain> cert_chain =
+      client_ssl_->GetPeerSSLCertChain();
+  std::unique_ptr<rtc::SSLCertificate> certificate =
+      client_ssl_->GetPeerCertificate();
   ASSERT_NE(nullptr, cert_chain);
   EXPECT_EQ(1u, cert_chain->GetSize());
   EXPECT_EQ(cert_chain->Get(0).ToPEMString(), certificate->ToPEMString());

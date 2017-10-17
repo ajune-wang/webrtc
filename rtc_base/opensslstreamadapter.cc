@@ -30,12 +30,12 @@
 #include "rtc_base/openssladapter.h"
 #include "rtc_base/openssldigest.h"
 #include "rtc_base/opensslidentity.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/safe_conversions.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/timeutils.h"
-#include "rtc_base/ptr_util.h"
 
 namespace {
   bool g_use_time_callback_for_testing = false;
@@ -1105,7 +1105,8 @@ bool OpenSSLStreamAdapter::VerifyPeerCertificate() {
   return true;
 }
 
-std::unique_ptr<SSLCertChain> OpenSSLStreamAdapter::GetPeerSSLCertChain() const {
+std::unique_ptr<SSLCertChain> OpenSSLStreamAdapter::GetPeerSSLCertChain()
+    const {
   return std::unique_ptr<SSLCertChain>(peer_cert_chain_->Copy());
 }
 
@@ -1119,10 +1120,11 @@ int OpenSSLStreamAdapter::SSLVerifyCallback(X509_STORE_CTX* store, void* arg) {
 #if defined(OPENSSL_IS_BORINGSSL)
   STACK_OF(X509)* chain = SSL_get_peer_full_cert_chain(ssl);
   // Creates certificate.
-  stream->peer_certificate_.reset(new OpenSSLCertificate(sk_X509_value(chain, 0)));
+  stream->peer_certificate_.reset(
+      new OpenSSLCertificate(sk_X509_value(chain, 0)));
   // Creates certificate chain.
   std::vector<std::unique_ptr<SSLCertificate>> cert_chain;
-  for (size_t i=0; i<sk_X509_num(chain); ++i) {
+  for (size_t i = 0; i < sk_X509_num(chain); ++i) {
     cert_chain.emplace_back(new OpenSSLCertificate(sk_X509_value(chain, i)));
   }
   stream->peer_cert_chain_.reset(new SSLCertChain(std::move(cert_chain)));

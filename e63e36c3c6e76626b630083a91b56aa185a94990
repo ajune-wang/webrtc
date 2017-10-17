@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33678b9d_6cbb4e5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T21:34:46Z",
+      "side": 1,
+      "message": "Can the CL description briefly explain how these changes fix the race?",
+      "revId": "e63e36c3c6e76626b630083a91b56aa185a94990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c47789_b64cdab2",
+        "filename": "media/engine/fakewebrtcvideoengine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T21:34:46Z",
+      "side": 1,
+      "message": "Seems like this could introduce flakiness; if the test results in an extra encoder being created, WairForCreatedVideoEncoders may happen to catch it, or it may return beforehand.\n\nAlso, the name \"WaitForCreatedVideoEncoders\" doesn\u0027t make it clear that it will fail in this case.\n\nSo I\u0027d recommend leaving this method unchanged, and handling this in the individual tests that need this verification, by waiting for some period of time and calling GetNumCreatedEncoders afterwards.",
+      "revId": "e63e36c3c6e76626b630083a91b56aa185a94990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b2f3c0f_1f57a500",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T21:34:46Z",
+      "side": 1,
+      "message": "May be helpful to have a comment explaining why the WaitForInitEncode is needed.",
+      "revId": "e63e36c3c6e76626b630083a91b56aa185a94990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02cac9eb_53b222e0",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T21:34:46Z",
+      "side": 1,
+      "message": "Two \"Change to screen content\" comments?",
+      "revId": "e63e36c3c6e76626b630083a91b56aa185a94990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "570612f1_49e7d512",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T21:34:46Z",
+      "side": 1,
+      "message": "Given that this test has a lot of \"EXPECT_EQ\"s, would be useful to have a comment summarizing the main things it\u0027s intended to test. It seems like its verifying that:\n\n1. Content type changes result in encoders being recreated a certain number of times.\n2. Other option changes result in encoders being reconfigured a certain number of times.\n3. The updated settings are reflected in the fake VideoSendStream objects.\n\nIs that the gist of it? It also may be reasonable to split those pieces into separate tests.",
+      "revId": "e63e36c3c6e76626b630083a91b56aa185a94990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1dbb66c_c358403b",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T21:34:46Z",
+      "side": 1,
+      "message": "Should this be in a separate \"RecreatesEncoderOnOptionChange\" test?",
+      "revId": "e63e36c3c6e76626b630083a91b56aa185a94990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c1f5766_e7d06345",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T21:34:46Z",
+      "side": 1,
+      "message": "Is this intended or should there be a TODO to optimize this?",
+      "revId": "e63e36c3c6e76626b630083a91b56aa185a94990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

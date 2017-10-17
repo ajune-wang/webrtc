@@ -206,6 +206,9 @@ class SSLStreamAdapter : public StreamAdapterInterface {
   // chain.
   virtual std::unique_ptr<SSLCertificate> GetPeerCertificate() const = 0;
 
+  // Retrieves the peer's certificate chain, if a connection has been established.
+  virtual std::unique_ptr<SSLCertChain> GetPeerSSLCertChain() const = 0;
+
   // Retrieves the IANA registration id of the cipher suite used for the
   // connection (e.g. 0x2F for "TLS_RSA_WITH_AES_128_CBC_SHA").
   virtual bool GetSslCipherSuite(int* cipher_suite);

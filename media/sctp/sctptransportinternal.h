@@ -77,6 +77,10 @@ class SctpTransportInternal {
   // support though. See: https://github.com/w3c/webrtc-pc/issues/979
   virtual bool Start(int local_sctp_port, int remote_sctp_port) = 0;
 
+  // Checks if a SID is available for usage (not currently in use, or in the
+  // middle of a closing procedure).
+  virtual bool IsStreamAvailable(int sid) const = 0;
+
   // NOTE: Initially there was a "Stop" method here, but it was never used, so
   // it was removed.
 

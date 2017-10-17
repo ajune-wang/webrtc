@@ -206,6 +206,7 @@ class FakeSctpTransport : public cricket::SctpTransportInternal {
     return true;
   }
   bool ReadyToSendData() override { return true; }
+  bool IsStreamAvailable(int sid) const override { return true; }
   void set_debug_name_for_testing(const char* debug_name) override {}
 
   int local_port() const { return local_port_; }

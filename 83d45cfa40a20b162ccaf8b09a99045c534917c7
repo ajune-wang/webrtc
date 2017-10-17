@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffc21da1_03fcb570",
+        "filename": "modules/audio_device/linux/audio_device_alsa_linux.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-10-17T12:25:54Z",
+      "side": 1,
+      "message": "remove, not comment out",
+      "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e45476_ea4fbdd7",
+        "filename": "modules/audio_device/linux/audio_device_pulse_linux.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-10-17T12:25:54Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dcf1710_be17ae1b",
+        "filename": "modules/audio_device/mac/audio_device_mac.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-10-17T12:25:54Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c0591bc_8b857cc9",
+        "filename": "modules/audio_device/win/audio_device_core_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3035,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-10-17T12:25:54Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

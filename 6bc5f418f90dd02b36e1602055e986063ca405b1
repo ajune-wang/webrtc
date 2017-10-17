@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5b6d54f_580c249c",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-17T14:54:57Z",
+      "side": 1,
+      "message": "Yes, this is a good point, as currently I\u0027m not aware of any application using mock implementation of this method, I think we may just make it pure virtual.",
+      "parentUuid": "83654b10_982fe34d",
+      "range": {
+        "startLine": 792,
+        "startChar": 10,
+        "endLine": 792,
+        "endChar": 18
+      },
+      "revId": "6bc5f418f90dd02b36e1602055e986063ca405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93af6992_691758eb",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "6bc5f418f90dd02b36e1602055e986063ca405b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "872770ed_2116b041",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-17T14:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93af6992_691758eb",
+      "range": {
+        "startLine": 1296,
+        "startChar": 0,
+        "endLine": 1296,
+        "endChar": 8
+      },
+      "revId": "6bc5f418f90dd02b36e1602055e986063ca405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

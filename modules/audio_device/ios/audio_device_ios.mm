@@ -61,7 +61,6 @@ namespace webrtc {
 // TODO(henrika): these value is not used in combination with built-in AEC.
 // Can most likely be removed.
 const UInt16 kFixedPlayoutDelayEstimate = 30;
-const UInt16 kFixedRecordDelayEstimate = 30;
 
 enum AudioDeviceMessageType : uint32_t {
   kMessageTypeInterruptionBegin,
@@ -351,11 +350,6 @@ int32_t AudioDeviceIOS::GetLoudspeakerStatus(bool& enabled) const {
 
 int32_t AudioDeviceIOS::PlayoutDelay(uint16_t& delayMS) const {
   delayMS = kFixedPlayoutDelayEstimate;
-  return 0;
-}
-
-int32_t AudioDeviceIOS::RecordingDelay(uint16_t& delayMS) const {
-  delayMS = kFixedRecordDelayEstimate;
   return 0;
 }
 

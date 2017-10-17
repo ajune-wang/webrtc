@@ -131,7 +131,6 @@ class FakeAudioCaptureModule
   int32_t RecordingChannel(ChannelType* channel) const override;
 
   int32_t PlayoutDelay(uint16_t* delay_ms) const override;
-  int32_t RecordingDelay(uint16_t* delay_ms) const override;
 
   int32_t SetRecordingSampleRate(const uint32_t samples_per_sec) override;
   int32_t RecordingSampleRate(uint32_t* samples_per_sec) const override;

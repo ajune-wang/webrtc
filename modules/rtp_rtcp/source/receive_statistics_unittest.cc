@@ -11,47 +11,77 @@
 #include <memory>
 
 #include "modules/rtp_rtcp/include/receive_statistics.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
+#include "rtc_base/ptr_util.h"
+#include "rtc_base/random.h"
 #include "system_wrappers/include/clock.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
+namespace {
 const size_t kPacketSize1 = 100;
 const size_t kPacketSize2 = 300;
 const uint32_t kSsrc1 = 1;
 const uint32_t kSsrc2 = 2;
 
+std::unique_ptr<RtpPacketReceived> CreatePacketWithSize(uint32_t ssrc,
+                                                        size_t packet_size) {
+  auto packet = rtc::MakeUnique<RtpPacketReceived>();
+  packet->SetSsrc(ssrc);
+  packet->SetPayloadSize(packet_size - 12);
+  packet->set_payload_type_frequency(kVideoPayloadTypeFrequency);
+  return packet;
+}
+
+std::unique_ptr<RtpPacketReceived> CreatePacketWithPayloadAndExtraHeaders(
+    uint32_t ssrc,
+    size_t payload_size) {
+  auto packet = rtc::MakeUnique<RtpPacketReceived>();
+  packet->SetCsrcs({5, 4, 3});  // Increase header size.
+  EXPECT_GT(packet->headers_size(), 12u);
+
+  packet->SetSsrc(ssrc);
+  packet->SetPayloadSize(payload_size);
+  packet->set_payload_type_frequency(kVideoPayloadTypeFrequency);
+  return packet;
+}
+
+void IncrementSequenceNumber(RtpPacketReceived* packet, uint16_t incr = 1) {
+  packet->SetSequenceNumber(packet->SequenceNumber() + incr);
+}
+
+void IncrementTimestame(RtpPacketReceived* packet, uint32_t incr) {
+  packet->SetTimestamp(packet->Timestamp() + incr);
+}
+
+}  // namespace
+
 class ReceiveStatisticsTest : public ::testing::Test {
  public:
-  ReceiveStatisticsTest() :
-      clock_(0),
-      receive_statistics_(ReceiveStatistics::Create(&clock_)) {
-    memset(&header1_, 0, sizeof(header1_));
-    header1_.ssrc = kSsrc1;
-    header1_.sequenceNumber = 100;
-    memset(&header2_, 0, sizeof(header2_));
-    header2_.ssrc = kSsrc2;
-    header2_.sequenceNumber = 100;
-  }
+  ReceiveStatisticsTest()
+      : clock_(0), receive_statistics_(ReceiveStatistics::Create(&clock_)) {}
 
  protected:
   SimulatedClock clock_;
   std::unique_ptr<ReceiveStatistics> receive_statistics_;
-  RTPHeader header1_;
-  RTPHeader header2_;
 };
 
 TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  ++header1_.sequenceNumber;
-  receive_statistics_->IncomingPacket(header2_, kPacketSize2, false);
-  ++header2_.sequenceNumber;
+  std::unique_ptr<RtpPacketReceived> packet1 =
+      CreatePacketWithSize(kSsrc1, kPacketSize1);
+  std::unique_ptr<RtpPacketReceived> packet2 =
+      CreatePacketWithSize(kSsrc2, kPacketSize2);
+  receive_statistics_->OnRtpPacket(*packet1);
+  IncrementSequenceNumber(packet1.get());
+  receive_statistics_->OnRtpPacket(*packet2);
+  IncrementSequenceNumber(packet2.get());
   clock_.AdvanceTimeMilliseconds(100);
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  ++header1_.sequenceNumber;
-  receive_statistics_->IncomingPacket(header2_, kPacketSize2, false);
-  ++header2_.sequenceNumber;
+  receive_statistics_->OnRtpPacket(*packet1);
+  IncrementSequenceNumber(packet1.get());
+  receive_statistics_->OnRtpPacket(*packet2);
+  IncrementSequenceNumber(packet2.get());
 
   StreamStatistician* statistician =
       receive_statistics_->GetStatistician(kSsrc1);
@@ -74,10 +104,10 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
   EXPECT_EQ(2u, receive_statistics_->RtcpReportBlocks(3).size());
   // Add more incoming packets and verify that they are registered in both
   // access methods.
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  ++header1_.sequenceNumber;
-  receive_statistics_->IncomingPacket(header2_, kPacketSize2, false);
-  ++header2_.sequenceNumber;
+  receive_statistics_->OnRtpPacket(*packet1);
+  IncrementSequenceNumber(packet1.get());
+  receive_statistics_->OnRtpPacket(*packet2);
+  IncrementSequenceNumber(packet2.get());
 
   receive_statistics_->GetStatistician(kSsrc1)->GetDataCounters(
       &bytes_received, &packets_received);
@@ -90,11 +120,15 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
 }
 
 TEST_F(ReceiveStatisticsTest, ActiveStatisticians) {
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  ++header1_.sequenceNumber;
+  std::unique_ptr<RtpPacketReceived> packet1 =
+      CreatePacketWithSize(kSsrc1, kPacketSize1);
+  std::unique_ptr<RtpPacketReceived> packet2 =
+      CreatePacketWithSize(kSsrc2, kPacketSize2);
+  receive_statistics_->OnRtpPacket(*packet1);
+  IncrementSequenceNumber(packet1.get(), 1);
   clock_.AdvanceTimeMilliseconds(1000);
-  receive_statistics_->IncomingPacket(header2_, kPacketSize2, false);
-  ++header2_.sequenceNumber;
+  receive_statistics_->OnRtpPacket(*packet2);
+  IncrementSequenceNumber(packet2.get());
   // Nothing should time out since only 1000 ms has passed since the first
   // packet came in.
   EXPECT_EQ(2u, receive_statistics_->RtcpReportBlocks(3).size());
@@ -107,8 +141,8 @@ TEST_F(ReceiveStatisticsTest, ActiveStatisticians) {
   // kSsrc2 should have timed out.
   EXPECT_EQ(0u, receive_statistics_->RtcpReportBlocks(3).size());
 
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  ++header1_.sequenceNumber;
+  receive_statistics_->OnRtpPacket(*packet1);
+  IncrementSequenceNumber(packet1.get());
   // kSsrc1 should be active again and the data counters should have survived.
   EXPECT_EQ(1u, receive_statistics_->RtcpReportBlocks(3).size());
   StreamStatistician* statistician =
@@ -122,7 +156,9 @@ TEST_F(ReceiveStatisticsTest, ActiveStatisticians) {
 }
 
 TEST_F(ReceiveStatisticsTest, GetReceiveStreamDataCounters) {
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
+  std::unique_ptr<RtpPacketReceived> packet =
+      CreatePacketWithSize(kSsrc1, kPacketSize1);
+  receive_statistics_->OnRtpPacket(*packet);
   StreamStatistician* statistician =
       receive_statistics_->GetStatistician(kSsrc1);
   ASSERT_TRUE(statistician != NULL);
@@ -132,7 +168,7 @@ TEST_F(ReceiveStatisticsTest, GetReceiveStreamDataCounters) {
   EXPECT_GT(counters.first_packet_time_ms, -1);
   EXPECT_EQ(1u, counters.transmitted.packets);
 
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
+  receive_statistics_->OnRtpPacket(*packet);
   statistician->GetReceiveStreamDataCounters(&counters);
   EXPECT_GT(counters.first_packet_time_ms, -1);
   EXPECT_EQ(2u, counters.transmitted.packets);
@@ -162,23 +198,25 @@ TEST_F(ReceiveStatisticsTest, RtcpCallbacks) {
   receive_statistics_->RegisterRtcpStatisticsCallback(&callback);
 
   // Add some arbitrary data, with loss and jitter.
-  header1_.sequenceNumber = 1;
+  std::unique_ptr<RtpPacketReceived> packet =
+      CreatePacketWithSize(kSsrc1, kPacketSize1);
+  packet->SetSequenceNumber(1);
   clock_.AdvanceTimeMilliseconds(7);
-  header1_.timestamp += 3;
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  header1_.sequenceNumber += 2;
+  IncrementTimestame(packet.get(), 3);
+  receive_statistics_->OnRtpPacket(*packet);
+  IncrementSequenceNumber(packet.get(), 2);
   clock_.AdvanceTimeMilliseconds(9);
-  header1_.timestamp += 9;
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  --header1_.sequenceNumber;
+  IncrementTimestame(packet.get(), 9);
+  receive_statistics_->OnRtpPacket(*packet);
+  IncrementSequenceNumber(packet.get(), -1);
   clock_.AdvanceTimeMilliseconds(13);
-  header1_.timestamp += 47;
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, true);
-  header1_.sequenceNumber += 3;
+  IncrementTimestame(packet.get(), 47);
+  receive_statistics_->OnRtpPacket(*packet);
+  IncrementSequenceNumber(packet.get(), 3);
   clock_.AdvanceTimeMilliseconds(11);
-  header1_.timestamp += 17;
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  ++header1_.sequenceNumber;
+  IncrementTimestame(packet.get(), 17);
+  receive_statistics_->OnRtpPacket(*packet);
+  IncrementSequenceNumber(packet.get(), 1);
 
   EXPECT_EQ(0u, callback.num_calls_);
 
@@ -202,23 +240,23 @@ TEST_F(ReceiveStatisticsTest, RtcpCallbacks) {
   receive_statistics_->RegisterRtcpStatisticsCallback(NULL);
 
   // Add some more data.
-  header1_.sequenceNumber = 1;
+  packet->SetSequenceNumber(1);
   clock_.AdvanceTimeMilliseconds(7);
-  header1_.timestamp += 3;
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  header1_.sequenceNumber += 2;
+  IncrementTimestame(packet.get(), 3);
+  receive_statistics_->OnRtpPacket(*packet);
+  IncrementSequenceNumber(packet.get(), 2);
   clock_.AdvanceTimeMilliseconds(9);
-  header1_.timestamp += 9;
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  --header1_.sequenceNumber;
+  IncrementTimestame(packet.get(), 9);
+  receive_statistics_->OnRtpPacket(*packet);
+  IncrementSequenceNumber(packet.get(), -1);
   clock_.AdvanceTimeMilliseconds(13);
-  header1_.timestamp += 47;
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, true);
-  header1_.sequenceNumber += 3;
+  IncrementTimestame(packet.get(), 47);
+  receive_statistics_->OnRtpPacket(*packet);
+  IncrementSequenceNumber(packet.get(), 3);
   clock_.AdvanceTimeMilliseconds(11);
-  header1_.timestamp += 17;
-  receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
-  ++header1_.sequenceNumber;
+  IncrementTimestame(packet.get(), 17);
+  receive_statistics_->OnRtpPacket(*packet);
+  IncrementSequenceNumber(packet.get());
 
   receive_statistics_->GetStatistician(kSsrc1)
       ->GetStatistics(&statistics, true);
@@ -267,16 +305,16 @@ TEST_F(ReceiveStatisticsTest, RtpCallbacks) {
   RtpTestCallback callback;
   receive_statistics_->RegisterRtpStatisticsCallback(&callback);
 
-  const size_t kHeaderLength = 20;
   const size_t kPaddingLength = 9;
 
-  // One packet of size kPacketSize1.
-  header1_.headerLength = kHeaderLength;
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength, false);
+  // One packet with payload size kPacketSize1, and non-minimal header size.
+  std::unique_ptr<RtpPacketReceived> packet =
+      CreatePacketWithPayloadAndExtraHeaders(kSsrc1, kPacketSize1);
+
+  receive_statistics_->OnRtpPacket(*packet);
   StreamDataCounters expected;
   expected.transmitted.payload_bytes = kPacketSize1;
-  expected.transmitted.header_bytes = kHeaderLength;
+  expected.transmitted.header_bytes = packet->headers_size();
   expected.transmitted.padding_bytes = 0;
   expected.transmitted.packets = 1;
   expected.retransmitted.payload_bytes = 0;
@@ -286,55 +324,56 @@ TEST_F(ReceiveStatisticsTest, RtpCallbacks) {
   expected.fec.packets = 0;
   callback.Matches(1, kSsrc1, expected);
 
-  ++header1_.sequenceNumber;
+  IncrementSequenceNumber(packet.get());
   clock_.AdvanceTimeMilliseconds(5);
-  header1_.paddingLength = 9;
+
   // Another packet of size kPacketSize1 with 9 bytes padding.
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength + kPaddingLength, false);
+  Random r(/*seed=*/1);
+  packet->SetPadding(kPaddingLength, &r);
+  receive_statistics_->OnRtpPacket(*packet);
   expected.transmitted.payload_bytes = kPacketSize1 * 2;
-  expected.transmitted.header_bytes = kHeaderLength * 2;
+  expected.transmitted.header_bytes = packet->headers_size() * 2;
   expected.transmitted.padding_bytes = kPaddingLength;
   expected.transmitted.packets = 2;
   callback.Matches(2, kSsrc1, expected);
 
   clock_.AdvanceTimeMilliseconds(5);
   // Retransmit last packet.
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength + kPaddingLength, true);
+  receive_statistics_->OnRtpPacket(*packet);
   expected.transmitted.payload_bytes = kPacketSize1 * 3;
-  expected.transmitted.header_bytes = kHeaderLength * 3;
+  expected.transmitted.header_bytes = packet->headers_size() * 3;
   expected.transmitted.padding_bytes = kPaddingLength * 2;
   expected.transmitted.packets = 3;
   expected.retransmitted.payload_bytes = kPacketSize1;
-  expected.retransmitted.header_bytes = kHeaderLength;
+  expected.retransmitted.header_bytes = packet->headers_size();
   expected.retransmitted.padding_bytes = kPaddingLength;
   expected.retransmitted.packets = 1;
   callback.Matches(3, kSsrc1, expected);
 
-  header1_.paddingLength = 0;
-  ++header1_.sequenceNumber;
+  packet->SetPadding(0, &r);
+  IncrementSequenceNumber(packet.get());
   clock_.AdvanceTimeMilliseconds(5);
   // One FEC packet.
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength, false);
-  receive_statistics_->FecPacketReceived(header1_,
-                                         kPacketSize1 + kHeaderLength);
+  // TODO(nisse): Refactor to also accept an RtpPacketReceived.
+  receive_statistics_->OnRtpPacket(*packet);
+  RTPHeader header;
+  packet->GetHeader(&header);
+  receive_statistics_->FecPacketReceived(header,
+                                         kPacketSize1 + packet->headers_size());
   expected.transmitted.payload_bytes = kPacketSize1 * 4;
-  expected.transmitted.header_bytes = kHeaderLength * 4;
+  expected.transmitted.header_bytes = packet->headers_size() * 4;
   expected.transmitted.packets = 4;
   expected.fec.payload_bytes = kPacketSize1;
-  expected.fec.header_bytes = kHeaderLength;
+  expected.fec.header_bytes = packet->headers_size();
   expected.fec.packets = 1;
   callback.Matches(5, kSsrc1, expected);
 
   receive_statistics_->RegisterRtpStatisticsCallback(NULL);
 
   // New stats, but callback should not be called.
-  ++header1_.sequenceNumber;
+  IncrementSequenceNumber(packet.get());
   clock_.AdvanceTimeMilliseconds(5);
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength, true);
+  receive_statistics_->OnRtpPacket(*packet);
   callback.Matches(5, kSsrc1, expected);
 }
 
@@ -342,29 +381,32 @@ TEST_F(ReceiveStatisticsTest, RtpCallbacksFecFirst) {
   RtpTestCallback callback;
   receive_statistics_->RegisterRtpStatisticsCallback(&callback);
 
-  const uint32_t kHeaderLength = 20;
-  header1_.headerLength = kHeaderLength;
+  // One packet with payload size kPacketSize1, and non-minimal header size.
+  std::unique_ptr<RtpPacketReceived> packet =
+      CreatePacketWithPayloadAndExtraHeaders(kSsrc1, kPacketSize1);
 
+  RTPHeader header;
+  packet->GetHeader(&header);
   // If first packet is FEC, ignore it.
-  receive_statistics_->FecPacketReceived(header1_,
-                                         kPacketSize1 + kHeaderLength);
+  receive_statistics_->FecPacketReceived(header,
+                                         kPacketSize1 + packet->headers_size());
   EXPECT_EQ(0u, callback.num_calls_);
 
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength, false);
+  receive_statistics_->OnRtpPacket(*packet);
   StreamDataCounters expected;
   expected.transmitted.payload_bytes = kPacketSize1;
-  expected.transmitted.header_bytes = kHeaderLength;
+  expected.transmitted.header_bytes = packet->headers_size();
   expected.transmitted.padding_bytes = 0;
   expected.transmitted.packets = 1;
   expected.fec.packets = 0;
   callback.Matches(1, kSsrc1, expected);
 
-  receive_statistics_->FecPacketReceived(header1_,
-                                         kPacketSize1 + kHeaderLength);
+  receive_statistics_->FecPacketReceived(header,
+                                         kPacketSize1 + packet->headers_size());
   expected.fec.payload_bytes = kPacketSize1;
-  expected.fec.header_bytes = kHeaderLength;
+  expected.fec.header_bytes = packet->headers_size();
   expected.fec.packets = 1;
   callback.Matches(2, kSsrc1, expected);
 }
+
 }  // namespace webrtc

@@ -15,7 +15,7 @@
 #include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
-// Class to hold rtp packet with metadata for receiver side.
+// Class to hold rtp packet with metadata for receiver sides.
 class RtpPacketReceived : public RtpPacket {
  public:
   RtpPacketReceived() = default;

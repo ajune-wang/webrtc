@@ -73,6 +73,7 @@ class SctpTransport : public SctpTransportInternal,
   // SctpTransportInternal overrides (see sctptransportinternal.h for comments).
   void SetTransportChannel(rtc::PacketTransportInternal* channel) override;
   bool Start(int local_port, int remote_port) override;
+  bool IsStreamAvailable(int sid) const override;
   bool OpenStream(int sid) override;
   bool ResetStream(int sid) override;
   bool SendData(const SendDataParams& params,
@@ -153,17 +154,37 @@ class SctpTransport : public SctpTransportInternal,
   // send".
   bool ready_to_send_data_ = false;
 
-  typedef std::set<uint32_t> StreamSet;
-  // When a data channel opens a stream, it goes into open_streams_.  When we
-  // want to close it, the stream's ID goes into queued_reset_streams_.  When
-  // we actually transmit a RE-CONFIG chunk with that stream ID, the ID goes
-  // into sent_reset_streams_.  When we get a response RE-CONFIG chunk back
-  // acknowledging the reset, we remove the stream ID from
-  // sent_reset_streams_.  We use sent_reset_streams_ to differentiate
-  // between acknowledgment RE-CONFIG and peer-initiated RE-CONFIGs.
-  StreamSet open_streams_;
-  StreamSet queued_reset_streams_;
-  StreamSet sent_reset_streams_;
+  // Used to keep track of the status of each stream. Specifically with regards
+  // to resets, but more information could be put here later.
+  struct StreamStatus {
+    // Reset initiated by application via ResetStream?
+    bool reset_initiated = false;
+    // Whether the actual SCTP-level messages have been sent/received.
+    bool outgoing_reset_sent = false;
+    bool outgoing_reset_received = false;
+    bool incoming_reset_received = false;
+    bool is_open() const {
+      return !reset_initiated && !incoming_reset_received &&
+             !outgoing_reset_received;
+    }
+    // We need to send an outgoing reset if the application has closed the data
+    // channel, or if we received a reset of the incoming stream from the
+    // remote endpoint, indicating the data channel was closed remotely.
+    bool need_outgoing_reset() const {
+      return (incoming_reset_received || reset_initiated) &&
+             !outgoing_reset_sent;
+    }
+    // According to the procedures in rtcweb-data-channel. See crbug.com/559394
+    // for some context.
+    bool closure_complete() const {
+      return outgoing_reset_sent && outgoing_reset_received &&
+             incoming_reset_received;
+    }
+  };
+
+  // Entries should only be removed from this map if |closure_complete| is
+  // true.
+  std::map<uint32_t, StreamStatus> stream_status_by_sid_;
 
   // A static human-readable name for debugging messages.
   const char* debug_name_ = "SctpTransport";

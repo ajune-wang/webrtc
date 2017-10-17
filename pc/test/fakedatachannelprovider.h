@@ -60,6 +60,8 @@ class FakeDataChannelProvider : public webrtc::DataChannelProviderInterface {
     connected_channels_.erase(data_channel);
   }
 
+  bool IsSidAvailable(int sid) const override { return true; }
+
   void AddSctpDataStream(int sid) override {
     RTC_CHECK(sid >= 0);
     if (!transport_available_) {

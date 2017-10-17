@@ -28,9 +28,12 @@ enum {
   MSG_CHANNELREADY,
 };
 
-bool SctpSidAllocator::AllocateSid(rtc::SSLRole role, int* sid) {
+bool SctpSidAllocator::AllocateSid(
+    rtc::SSLRole role,
+    int* sid,
+    const DataChannelProviderInterface* provider) {
   int potential_sid = (role == rtc::SSL_CLIENT) ? 0 : 1;
-  while (!IsSidAvailable(potential_sid)) {
+  while (!IsSidAvailable(potential_sid, provider)) {
     potential_sid += 2;
     if (potential_sid > static_cast<int>(cricket::kMaxSctpSid)) {
       return false;
@@ -42,8 +45,10 @@ bool SctpSidAllocator::AllocateSid(rtc::SSLRole role, int* sid) {
   return true;
 }
 
-bool SctpSidAllocator::ReserveSid(int sid) {
-  if (!IsSidAvailable(sid)) {
+bool SctpSidAllocator::ReserveSid(
+    int sid,
+    const DataChannelProviderInterface* provider) {
+  if (!IsSidAvailable(sid, provider)) {
     return false;
   }
   used_sids_.insert(sid);
@@ -57,12 +62,15 @@ void SctpSidAllocator::ReleaseSid(int sid) {
   }
 }
 
-bool SctpSidAllocator::IsSidAvailable(int sid) const {
+bool SctpSidAllocator::IsSidAvailable(
+    int sid,
+    const DataChannelProviderInterface* provider) const {
   if (sid < static_cast<int>(cricket::kMinSctpSid) ||
       sid > static_cast<int>(cricket::kMaxSctpSid)) {
     return false;
   }
-  return used_sids_.find(sid) == used_sids_.end();
+  return (used_sids_.find(sid) == used_sids_.end()) &&
+         (provider == NULL ? true : provider->IsSidAvailable(sid));
 }
 
 DataChannel::PacketQueue::PacketQueue() : byte_count_(0) {}

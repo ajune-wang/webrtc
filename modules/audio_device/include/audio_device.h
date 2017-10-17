@@ -142,9 +142,10 @@ class AudioDeviceModule : public rtc::RefCountInterface {
   virtual int32_t SetRecordingChannel(const ChannelType channel) = 0;
   virtual int32_t RecordingChannel(ChannelType* channel) const = 0;
 
-  // Delay information and control
+  // Deprecated.
+  // TODO(henrika): to be removed.
   virtual int32_t PlayoutDelay(uint16_t* delayMS) const = 0;
-  virtual int32_t RecordingDelay(uint16_t* delayMS) const = 0;
+  // virtual int32_t RecordingDelay(uint16_t* delayMS) const { return -1; }
 
   // Native sample rate controls (samples/sec)
   virtual int32_t SetRecordingSampleRate(const uint32_t samplesPerSec) = 0;

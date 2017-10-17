@@ -858,19 +858,6 @@ int32_t AudioDeviceModuleImpl::PlayoutDelay(uint16_t* delayMS) const {
   return 0;
 }
 
-int32_t AudioDeviceModuleImpl::RecordingDelay(uint16_t* delayMS) const {
-  LOG(INFO) << __FUNCTION__;
-  CHECKinitialized_();
-  uint16_t delay = 0;
-  if (audio_device_->RecordingDelay(delay) == -1) {
-    LOG(LERROR) << "failed to retrieve the recording delay";
-    return -1;
-  }
-  *delayMS = delay;
-  LOG(INFO) << "output: " << *delayMS;
-  return 0;
-}
-
 int32_t AudioDeviceModuleImpl::SetRecordingSampleRate(
     const uint32_t samplesPerSec) {
   LOG(INFO) << __FUNCTION__ << "(" << samplesPerSec << ")";

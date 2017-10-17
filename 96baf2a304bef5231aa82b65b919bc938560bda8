@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "69a27486_dc5d2d20",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-17T07:32:00Z",
+      "side": 1,
+      "message": "I\u0027m not quite following, I probably lack a bit of the context. \n\nI\u0027d only like to add that if it would have been possible to land those changes either before or after this cl, that would have made review slightly easier. But no action needed now.",
+      "parentUuid": "75aa2ed4_20e11302",
+      "range": {
+        "startLine": 240,
+        "startChar": 33,
+        "endLine": 240,
+        "endChar": 58
+      },
+      "revId": "96baf2a304bef5231aa82b65b919bc938560bda8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed03bbd8_de66c91f",
         "filename": "call/audio_send_stream.h",
         "patchSetId": 5

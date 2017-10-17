@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83654b10_982fe34d",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-17T07:32:00Z",
+      "side": 1,
+      "message": "Comment on why we need a definition of this method here. I guess it\u0027s for applications using mock implementations of this interface for testing? If this implementation should be deleted after applications are updated, add a TODO item to say so. \n\nI think it should be fine to have the dummy implementation silently discard the argument, we don\u0027t need a return value just to make it possible for the dummy implementation to fail.",
+      "range": {
+        "startLine": 792,
+        "startChar": 10,
+        "endLine": 792,
+        "endChar": 18
+      },
+      "revId": "6bc5f418f90dd02b36e1602055e986063ca405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93af6992_691758eb",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-17T07:32:00Z",
+      "side": 1,
+      "message": "Drop return value, since the method always succeeds.",
+      "range": {
+        "startLine": 1296,
+        "startChar": 0,
+        "endLine": 1296,
+        "endChar": 8
+      },
+      "revId": "6bc5f418f90dd02b36e1602055e986063ca405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

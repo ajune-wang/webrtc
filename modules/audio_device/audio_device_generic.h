@@ -113,10 +113,6 @@ class AudioDeviceGeneric {
   virtual int32_t SetStereoRecording(bool enable) = 0;
   virtual int32_t StereoRecording(bool& enabled) const = 0;
 
-  // Delay information and control
-  virtual int32_t PlayoutDelay(uint16_t& delayMS) const = 0;
-  virtual int32_t RecordingDelay(uint16_t& delayMS) const = 0;
-
   // Native sample rate controls (samples/sec)
   virtual int32_t SetRecordingSampleRate(const uint32_t samplesPerSec);
   virtual int32_t SetPlayoutSampleRate(const uint32_t samplesPerSec);

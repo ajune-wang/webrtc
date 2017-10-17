@@ -411,17 +411,6 @@ int32_t FakeAudioCaptureModule::RecordingChannel(ChannelType* channel) const {
   return 0;
 }
 
-int32_t FakeAudioCaptureModule::PlayoutDelay(uint16_t* delay_ms) const {
-  // No delay since audio frames are dropped.
-  *delay_ms = 0;
-  return 0;
-}
-
-int32_t FakeAudioCaptureModule::RecordingDelay(uint16_t* /*delay_ms*/) const {
-  RTC_NOTREACHED();
-  return 0;
-}
-
 int32_t FakeAudioCaptureModule::SetRecordingSampleRate(
     const uint32_t /*samples_per_sec*/) {
   RTC_NOTREACHED();

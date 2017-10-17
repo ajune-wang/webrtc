@@ -134,10 +134,6 @@ class AudioDeviceModuleImpl : public AudioDeviceModule {
   int32_t SetRecordingChannel(const ChannelType channel) override;
   int32_t RecordingChannel(ChannelType* channel) const override;
 
-  // Delay information and control
-  int32_t PlayoutDelay(uint16_t* delayMS) const override;
-  int32_t RecordingDelay(uint16_t* delayMS) const override;
-
   // Native sample rate controls (samples/sec)
   int32_t SetRecordingSampleRate(const uint32_t samplesPerSec) override;
   int32_t RecordingSampleRate(uint32_t* samplesPerSec) const override;

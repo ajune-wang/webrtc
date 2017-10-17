@@ -107,10 +107,6 @@ class AudioDeviceDummy : public AudioDeviceGeneric {
   int32_t SetStereoRecording(bool enable) override;
   int32_t StereoRecording(bool& enabled) const override;
 
-  // Delay information and control
-  int32_t PlayoutDelay(uint16_t& delayMS) const override;
-  int32_t RecordingDelay(uint16_t& delayMS) const override;
-
   void AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) override;
 };
 

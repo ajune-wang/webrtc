@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "311fc60e_8e531ecd",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2053,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-17T00:28:36Z",
+      "side": 1,
+      "message": "Would be nice to have a comment explaining the scenario. \"For example, audio and video may use separate socket options, but initially be unbundled, then later become bundled. When this happens, their preferred socket options should be merged to the underlying transport they share.\"",
+      "revId": "9215fe199b893d7d75e16af21487852b0d6f5130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

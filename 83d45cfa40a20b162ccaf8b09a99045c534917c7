@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4fad2d0b_d40b9ed0",
+        "filename": "modules/audio_device/linux/audio_device_alsa_linux.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-17T12:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffc21da1_03fcb570",
+      "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96e45476_ea4fbdd7",
         "filename": "modules/audio_device/linux/audio_device_pulse_linux.cc",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d190ff3_43e54438",
+        "filename": "modules/audio_device/linux/audio_device_pulse_linux.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-17T12:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e45476_ea4fbdd7",
+      "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -67,6 +103,24 @@
       "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d072b757_6f04588f",
+        "filename": "modules/audio_device/win/audio_device_core_win.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3035,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-17T12:48:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c0591bc_8b857cc9",
+      "revId": "83d45cfa40a20b162ccaf8b09a99045c534917c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

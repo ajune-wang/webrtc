@@ -176,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "f7dc53a6_13ac52f8",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T21:32:07Z",
+      "side": 1,
+      "message": "OK, I\u0027ve made a new file peerconnection_signaling_unittest.cc which has a full matrix of these tests. Also found some issues where methods did not check IsClosed so were succeeding and/or failing for the wrong reason. Those have been fixed too.",
+      "parentUuid": "94921118_49c9216d",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6947e455_f66fdd9c",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -780,6 +798,24 @@
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bc8b3f2_d0e9932a",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T21:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c96291f3_e323e3bc",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

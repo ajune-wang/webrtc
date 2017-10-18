@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "80ae23b1_2456b738",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-18T14:43:36Z",
+      "side": 1,
+      "message": "Added a test. This logig is also implicitly tested by all existing tests, because timing frames require a correct capture timestamp to be found.",
+      "parentUuid": "a8a1f092_68fdd5c9",
+      "revId": "ef6263d922fd5fa961d94a79e95b31695e039bd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efe43fea_3aca8ed8",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2017-10-18T14:11:41Z",
       "side": 1,
       "message": "why not do this in the case above?",
+      "range": {
+        "startLine": 877,
+        "startChar": 59,
+        "endLine": 877,
+        "endChar": 0
+      },
+      "revId": "ef6263d922fd5fa961d94a79e95b31695e039bd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b29b7c3_6d6da69d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-18T14:43:36Z",
+      "side": 1,
+      "message": "This is the behavior before my changes. OnDroppedFrame was just not called for dropped by encoder. I left the same behavior to not change existing metrics drastically.",
+      "parentUuid": "efe43fea_3aca8ed8",
       "range": {
         "startLine": 877,
         "startChar": 59,

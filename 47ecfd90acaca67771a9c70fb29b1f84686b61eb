@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "deada99f_74672a85",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T11:18:05Z",
+      "side": 1,
+      "message": "nit: {} for if/else",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 0
+      },
+      "revId": "47ecfd90acaca67771a9c70fb29b1f84686b61eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebacd33c_4b1a76d1",
+        "filename": "modules/pacing/packet_queue.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T11:18:05Z",
+      "side": 1,
+      "message": "Why remove this comment?",
+      "range": {
+        "startLine": 56,
+        "startChar": 26,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "47ecfd90acaca67771a9c70fb29b1f84686b61eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

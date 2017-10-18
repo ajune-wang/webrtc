@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aa0c779_2509cd05",
+        "filename": "system_wrappers/include/atomic32.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5061
+      },
+      "writtenOn": "2017-10-18T23:21:09Z",
+      "side": 1,
+      "message": "Is this check still useful if we are using std::atomic now?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 41
+      },
+      "revId": "44eaf8731b6a0465c8cb0caf4da632e6623d60e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

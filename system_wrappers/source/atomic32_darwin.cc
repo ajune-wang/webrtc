@@ -18,6 +18,13 @@
 
 namespace webrtc {
 
+// OSAtomic* has been deprecated on iOS 10.0 in favor of C++11 atomic functions
+// such as std::atomic_fetch_add(). Given that Atomic32 should eventually be
+// merged with rtc_base/atomicops.h and probably replaced by
+// std::atomic<int32_t>, let's just suppress the warning for now.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 Atomic32::Atomic32(int32_t initial_value)
     : value_(initial_value) {
   assert(Is32bitAligned());
@@ -45,5 +52,7 @@ int32_t Atomic32::operator-=(int32_t value) {
 bool Atomic32::CompareExchange(int32_t new_value, int32_t compare_value) {
   return OSAtomicCompareAndSwap32Barrier(compare_value, new_value, &value_);
 }
+
+#pragma clang diagnostic pop
 
 }  // namespace webrtc

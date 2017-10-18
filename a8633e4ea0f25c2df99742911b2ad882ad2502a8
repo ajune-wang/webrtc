@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38ea1a46_085e1deb",
+        "filename": "system_wrappers/source/atomic32.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-18T09:28:15Z",
+      "side": 1,
+      "message": "According to the deprecation warning on mac, this should be std::atomic_fetch_add_explicit(std::memory_order_relaxed).\n\nDYT that might make a difference?",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

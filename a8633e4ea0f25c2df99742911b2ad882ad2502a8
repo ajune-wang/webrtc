@@ -46,6 +46,30 @@
       "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbab14a8_d49361dc",
+        "filename": "system_wrappers/source/atomic32.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5061
+      },
+      "writtenOn": "2017-10-18T23:28:13Z",
+      "side": 1,
+      "message": "OSAtomicIncrement32Barrier installs the memory barrier but std::memory_order_relaxed doesn\u0027t seem to. I think the correct memory order to use is memory_order_seq_cst, which is the strongest and is also the default memory order of fetch_add.\n\nThe tests fail because fetch_add returns the previous stored value instead of the value after the operation, which is equivalent to the operation of i++ instead of ++i...",
+      "parentUuid": "2d3cbc72_51b2765e",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

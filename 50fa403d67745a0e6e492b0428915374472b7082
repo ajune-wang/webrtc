@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ac6173d_adac13e7",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-18T17:40:14Z",
+      "side": 1,
+      "message": "This is a signal *from* the encoder, not *to* the encoder, right? If so this comment seems incorrect.",
+      "revId": "50fa403d67745a0e6e492b0428915374472b7082",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cafd9f6_b1b720de",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-18T17:40:14Z",
+      "side": 1,
+      "message": "May be helpful to give some examples of reasons the WebRTC rate limiter may drop frames. Someone reading this may not know what \"webrtc rate limiter\" refers to; I don\u0027t see it mentioned anywhere else in the api/ comments.",
+      "revId": "50fa403d67745a0e6e492b0428915374472b7082",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

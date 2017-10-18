@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f9c9450b_bd60948d",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-18T13:16:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbc49f0c_c200b25b",
+      "range": {
+        "startLine": 62,
+        "startChar": 78,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88ef6d5e_787cf2ab",
         "filename": "media/base/videobroadcaster.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-18T12:08:07Z",
       "side": 1,
       "message": "OnDiscardedFrame here but OnDroppedFrame in video_encoder.h\nCan we use the same name in both places?\nWould it be useful to make this part of a FrameDropObserver interface or something? Then the SendStatisticsProxy could implement it as well. Need to extend the enum capture all possible reasons though.",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf4b116_8b3cc562",
+        "filename": "media/base/videobroadcaster.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-18T13:16:02Z",
+      "side": 1,
+      "message": "No, it\u0027s complicated. OnDiscardedFrame is the part of VideoSinkInterface but OnDroppedFrame is the part of EncodedImageCallback. Making FrameDropObserver is not an option, because we will have to put it into VideoSinkInterface too, which is much worse than having separate methods for signalling upward and downward on the pipeline.\n\nI used entirely different names to avoid any confusion. One is for signaling from source to sink, other is for callbacks from encoder/video sender.",
+      "parentUuid": "88ef6d5e_787cf2ab",
       "range": {
         "startLine": 53,
         "startChar": 35,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c79923a8_7edcc1b3",
+        "filename": "media/base/videosinkinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-18T13:16:02Z",
+      "side": 1,
+      "message": "No. Not all objects in the pipeline are interested in this. For example, there are a lot of Fake test classes. Also all the different video renderers don\u0027t care about discarded frames.",
+      "parentUuid": "84376372_5ae11e8c",
+      "range": {
+        "startLine": 28,
+        "startChar": 14,
+        "endLine": 28,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "248225c2_0ae66738",
         "filename": "modules/video_coding/generic_encoder.cc",
         "patchSetId": 4
@@ -85,6 +157,24 @@
       "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec7d5126_c6caeb39",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-18T13:16:02Z",
+      "side": 1,
+      "message": "Added a maximum size constraint. Old frames are pushed out of the list if there\u0027s no place for a new one.",
+      "parentUuid": "248225c2_0ae66738",
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "fa887c78_ff8a45f7",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-18T13:16:02Z",
+      "side": 1,
+      "message": "Done. This is neat.",
+      "parentUuid": "fe8dab64_b2234241",
+      "range": {
+        "startLine": 225,
+        "startChar": 65,
+        "endLine": 225,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eaf52130_85bff1c7",
         "filename": "modules/video_coding/generic_encoder.cc",
         "patchSetId": 4
@@ -131,6 +245,30 @@
       "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a06ddbca_b6177a5b",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-18T13:16:02Z",
+      "side": 1,
+      "message": "For one, if the encode_start_list is already empty - for encoders with internal sources.\n\nNow, what I added a maximum size constraint on a list, it may also happen if encoder did stall for some time because the thrown some entries away. Also, nw we don\u0027t need to do the \"else\" part and free the list if something is wrong.",
+      "parentUuid": "eaf52130_85bff1c7",
+      "range": {
+        "startLine": 269,
+        "startChar": 47,
+        "endLine": 269,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

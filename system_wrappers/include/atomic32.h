@@ -15,6 +15,8 @@
 #ifndef SYSTEM_WRAPPERS_INCLUDE_ATOMIC32_H_
 #define SYSTEM_WRAPPERS_INCLUDE_ATOMIC32_H_
 
+#include <atomic>
+
 #include <stddef.h>
 
 #include "common_types.h"  // NOLINT(build/include)
@@ -47,13 +49,13 @@ class Atomic32 {
 
  private:
   // Checks if |_value| is 32bit aligned.
-  inline bool Is32bitAligned() const {
-    return (reinterpret_cast<ptrdiff_t>(&value_) & 3) == 0;
-  }
+  // inline bool Is32bitAligned() const {
+  //   return (reinterpret_cast<ptrdiff_t>(&value_->Get()) & 3) == 0;
+  // }
 
   RTC_DISALLOW_COPY_AND_ASSIGN(Atomic32);
 
-  int32_t value_;
+  std::atomic_int value_;
 };
 
 }  // namespace webrtc

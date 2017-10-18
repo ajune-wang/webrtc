@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbc49f0c_c200b25b",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T12:08:07Z",
+      "side": 1,
+      "message": "enum class?\nnit: I think style guide says kCamelCase or ALL_CAPS for enum values.",
+      "range": {
+        "startLine": 62,
+        "startChar": 78,
+        "endLine": 62,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88ef6d5e_787cf2ab",
+        "filename": "media/base/videobroadcaster.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T12:08:07Z",
+      "side": 1,
+      "message": "OnDiscardedFrame here but OnDroppedFrame in video_encoder.h\nCan we use the same name in both places?\nWould it be useful to make this part of a FrameDropObserver interface or something? Then the SendStatisticsProxy could implement it as well. Need to extend the enum capture all possible reasons though.",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84376372_5ae11e8c",
+        "filename": "media/base/videosinkinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T12:08:07Z",
+      "side": 1,
+      "message": "Add TODO about removing default impl?",
+      "range": {
+        "startLine": 28,
+        "startChar": 14,
+        "endLine": 28,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "248225c2_0ae66738",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T12:08:07Z",
+      "side": 1,
+      "message": "perhaps unlikely, but if the encoder stops working isn\u0027t there a risk that we keep adding to this list indefinitely? Should we set a max size?",
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe8dab64_b2234241",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T12:08:07Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be .emplace_back(capture_time_ms, rtc::TimeMillis()); ?",
+      "range": {
+        "startLine": 225,
+        "startChar": 65,
+        "endLine": 225,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaf52130_85bff1c7",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T12:08:07Z",
+      "side": 1,
+      "message": "When would this be false?",
+      "range": {
+        "startLine": 269,
+        "startChar": 47,
+        "endLine": 269,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

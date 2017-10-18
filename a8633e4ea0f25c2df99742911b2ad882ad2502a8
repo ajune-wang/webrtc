@@ -22,6 +22,30 @@
       "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3cbc72_51b2765e",
+        "filename": "system_wrappers/source/atomic32.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5061
+      },
+      "writtenOn": "2017-10-18T18:52:26Z",
+      "side": 1,
+      "message": "TBH I don\u0027t know :)\n\nClang suggested me to use atomic_fetch_add() when I was building it on iOS:\n\n../../third_party/webrtc/system_wrappers/source/atomic32_darwin.cc:30:10: error: \u0027OSAtomicIncrement32Barrier\u0027 is deprecated: first deprecated in iOS 10.0 - Use std::atomic_fetch_add() from \u003catomic\u003e instead [-Werror,-Wdeprecated-declarations]\n  return OSAtomicIncrement32Barrier(\u0026value_);\n\n\nAnyway. I\u0027m just playing with the C++11 Atomic API on this CL. According to the email thread on webrtc-core, the plan is probably merging Atomic32 with rtc_base/atomicops.h. I guess for now the safest thing we can do to unblock bumping Chromoting\u0027s ios deployment target to 10.0 is just to suppress the deprecation warning in this file.",
+      "parentUuid": "38ea1a46_085e1deb",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

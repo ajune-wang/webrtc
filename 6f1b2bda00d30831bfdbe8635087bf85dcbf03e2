@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c160396_5d0afe39",
+        "filename": "call/rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-18T15:18:01Z",
+      "side": 1,
+      "message": "Should this be removed?",
+      "revId": "6f1b2bda00d30831bfdbe8635087bf85dcbf03e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a656730_0388658e",
+        "filename": "call/rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-18T15:18:01Z",
+      "side": 1,
+      "message": "Is the purpose of this to overwrite transmit_bitrate_bps with send_bandwidth_bps if there\u0027s both and audio and a video stream? i.e., when send_stream_ is set _and_ num_audio_streams_ \u003e 0?\n\nPerhaps it would be simpler to rewrite it as:\n\nif (num_video_streams_ \u003e 0) {\n...\n}\nif (num_video_streams_ \u003e 0) { \n...\n}\n?",
+      "range": {
+        "startLine": 431,
+        "startChar": 4,
+        "endLine": 431,
+        "endChar": 6
+      },
+      "revId": "6f1b2bda00d30831bfdbe8635087bf85dcbf03e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

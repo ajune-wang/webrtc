@@ -149,6 +149,7 @@ class VideoStreamEncoder::EncodeTask : public rtc::QueuedTask {
       LOG(LS_VERBOSE)
           << "Incoming frame dropped due to that the encoder is blocked.";
       ++video_stream_encoder_->dropped_frame_count_;
+      video_stream_encoder_->stats_proxy_->OnFrameDroppedInEncoderQueue();
     }
     if (log_stats_) {
       LOG(LS_INFO) << "Number of frames: captured "
@@ -722,6 +723,10 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
       incoming_frame, this, rtc::TimeMicros(), log_stats)));
 }
 
+void VideoStreamEncoder::OnDiscardedFrame() {
+  stats_proxy_->OnFrameDroppedBySource();
+}
+
 bool VideoStreamEncoder::EncoderPaused() const {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   // Pause video if paused by caller or as long as the network is down or the
@@ -860,12 +865,22 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   return result;
 }
 
-void VideoStreamEncoder::OnDroppedFrame() {
-  encoder_queue_.PostTask([this] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
-    if (quality_scaler_)
-      quality_scaler_->ReportDroppedFrame();
-  });
+void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
+  switch (reason) {
+    case DropReason::kDroppedByMediaOptimizations:
+      stats_proxy_->OnFrameDroppedByMediaOptimizations();
+      break;
+    case DropReason::kDroppedByEncoder:
+      stats_proxy_->OnFrameDroppedByEncoder();
+      break;
+  }
+  if (reason == DropReason::kDroppedByMediaOptimizations) {
+    encoder_queue_.PostTask([this] {
+      RTC_DCHECK_RUN_ON(&encoder_queue_);
+      if (quality_scaler_)
+        quality_scaler_->ReportDroppedFrame();
+    });
+  }
 }
 
 void VideoStreamEncoder::SendStatistics(uint32_t bit_rate,

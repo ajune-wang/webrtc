@@ -56,13 +56,21 @@ class EncodedImageCallback {
     bool drop_next_frame = false;
   };
 
+  // Used to signal the encoder about reason a frame is dropped.
+  // DroppedByMediaOptimizations - dropped by webrtc rate limiter.
+  // DroppedByEncoder - dropped by encoder's internal rate limiter.
+  enum DropReason : uint8_t { DroppedByMediaOptimizations, DroppedByEncoder };
+
   // Callback function which is called when an image has been encoded.
   virtual Result OnEncodedImage(
       const EncodedImage& encoded_image,
       const CodecSpecificInfo* codec_specific_info,
       const RTPFragmentationHeader* fragmentation) = 0;
 
+  // Deprecated. TODO(ilnik): Remove this in few weeks.
   virtual void OnDroppedFrame() {}
+
+  virtual void OnDroppedFrame(DropReason reason) {}
 };
 
 class VideoEncoder {

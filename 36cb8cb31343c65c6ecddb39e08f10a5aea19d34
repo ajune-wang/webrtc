@@ -96,6 +96,53 @@
     },
     {
       "key": {
+        "uuid": "330a34c9_beeb96cf",
+        "filename": "media/base/videobroadcaster.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T14:11:41Z",
+      "side": 1,
+      "message": "Ack\nMaybe extra comments would be nice though.",
+      "parentUuid": "4bf4b116_8b3cc562",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af596562_d6bee471",
+        "filename": "media/base/videosinkinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T14:11:41Z",
+      "side": 1,
+      "message": "nit: s/then/when ?",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 40
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84376372_5ae11e8c",
         "filename": "media/base/videosinkinterface.h",
         "patchSetId": 4
@@ -131,6 +178,30 @@
       "side": 1,
       "message": "No. Not all objects in the pipeline are interested in this. For example, there are a lot of Fake test classes. Also all the different video renderers don\u0027t care about discarded frames.",
       "parentUuid": "84376372_5ae11e8c",
+      "range": {
+        "startLine": 28,
+        "startChar": 14,
+        "endLine": 28,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c516555a_85351365",
+        "filename": "media/base/videosinkinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T14:11:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c79923a8_7edcc1b3",
       "range": {
         "startLine": 28,
         "startChar": 14,
@@ -260,6 +331,30 @@
       "side": 1,
       "message": "For one, if the encode_start_list is already empty - for encoders with internal sources.\n\nNow, what I added a maximum size constraint on a list, it may also happen if encoder did stall for some time because the thrown some entries away. Also, nw we don\u0027t need to do the \"else\" part and free the list if something is wrong.",
       "parentUuid": "eaf52130_85bff1c7",
+      "range": {
+        "startLine": 269,
+        "startChar": 47,
+        "endLine": 269,
+        "endChar": 0
+      },
+      "revId": "36cb8cb31343c65c6ecddb39e08f10a5aea19d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86c93d89_479973ed",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T14:11:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a06ddbca_b6177a5b",
       "range": {
         "startLine": 269,
         "startChar": 47,

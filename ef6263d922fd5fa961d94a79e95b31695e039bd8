@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8a1f092_68fdd5c9",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T14:11:41Z",
+      "side": 1,
+      "message": "Could you implement some unit tests for this logic?",
+      "revId": "ef6263d922fd5fa961d94a79e95b31695e039bd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efe43fea_3aca8ed8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-18T14:11:41Z",
+      "side": 1,
+      "message": "why not do this in the case above?",
+      "range": {
+        "startLine": 877,
+        "startChar": 59,
+        "endLine": 877,
+        "endChar": 0
+      },
+      "revId": "ef6263d922fd5fa961d94a79e95b31695e039bd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "2718a482_effae42a",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "We only need these factory methods to take parameters that are actually needed to construct the PeerConnection/Factory which are limited in number. Anything else (e.g., adding default audio/video tracks) can be called after the PeerConnection is constructed. So in this case I don\u0027t think we would ever need a builder pattern, but maybe there will be some cases where it doesn\u0027t work out.",
+      "parentUuid": "25250387_e971dac5",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e84d0810_200bf864",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -88,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "7dab68b5_5d3d3cc8",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Yeah, I wasn\u0027t sure where these tests fit. I don\u0027t want to add anything new to peerconnectioninterface_unittest if it can be avoided since the test infrastructure is worse. I think adding a new file peerconnection_signaling_unittest.cc would work here.",
+      "parentUuid": "e84d0810_200bf864",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "544c7fca_bb893778",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -99,6 +135,24 @@
       "writtenOn": "2017-10-14T20:07:19Z",
       "side": 1,
       "message": "May make sense to expose these string constants for the tests (e.g., kNullDescription), so we can change the contents of the strings slightly without having to fix the tests manually.\n\nMajor changes (like splitting one error into two, or changing to a different error) would still be picked up, because the test would fail (or fail to compile).",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1185f488_f6e1c651",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Right now these error messages are split arbitrarily between PeerConnection/WebRtcSession and even lower layers. Also some are generated (e.g., BadSdp functions in WebRtcSession). I think waiting for the classes to merge before trying to expose error messages would be the best path forward for this.",
+      "parentUuid": "544c7fca_bb893778",
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -139,6 +193,24 @@
     },
     {
       "key": {
+        "uuid": "c779327e_a3f8267c",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6947e455_f66fdd9c",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88cd682d_be28eac0",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -156,6 +228,24 @@
     },
     {
       "key": {
+        "uuid": "bef97c65_35e765a2",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88cd682d_be28eac0",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad7e0181_780138ce",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -170,6 +260,24 @@
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "599dd43e_4d418015",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad7e0181_780138ce",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -207,6 +315,24 @@
     },
     {
       "key": {
+        "uuid": "ca209e1f_3cf69bdc",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb6383be_1e3968d7",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8241f235_3a96be95",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -227,6 +353,30 @@
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b1d5caf_38de288d",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8241f235_3a96be95",
+      "range": {
+        "startLine": 504,
+        "startChar": 24,
+        "endLine": 504,
+        "endChar": 49
+      },
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -253,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "b1c9170b_ece25d2f",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db4afd01_71e11906",
+      "range": {
+        "startLine": 517,
+        "startChar": 33,
+        "endLine": 517,
+        "endChar": 43
+      },
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a877c070_23797171",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -264,6 +438,24 @@
       "writtenOn": "2017-10-14T20:07:19Z",
       "side": 1,
       "message": "I think this test could get a bit more specific. You basically have two pieces of information as input: Whether the PeerConnection has media to send, and what the \"offerToReceive\" field is set to. Based on those two things, it may generate m\u003d sections that are sendonly, recvonly, or sendrecv, or no m\u003d sections at all.\n\nWith CreateAnswer, there\u0027s an extra variable in play, which is the direction in the offer. So that makes... 4 (offered direction) * 2 (whether the answerer has media to send) * 3 (offerToReceive \u003d default, -1, or 1) \u003d 24 possibilities. I\u0027m not sure the best way to test all of them (or pick a nice representative subset), but maybe you have some ideas? Either way, this is something that could impact applications severely if we end up changing the behavior without noticing, so if it\u0027s not already covered by tests, it should be.\n\nIt may already be covered somewhat at the mediasession_unittest.cc level, but that doesn\u0027t guarantee that PeerConnection is passing the right options into MediaSessionDescriptionFactory. Plus, we\u0027ll likely refactor that code in the future, which is where having a solid foundation of high-level PeerConnection tests will help us.\n\nAlso: a large part of this test is verifying that the audio/video directions are treated independently. But this could probably be covered by a couple representative tests, with the majority of tests focused on one m\u003d section.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3054083_e3539d11",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "OK, I rewrote this as two parameterized tests, one for checking the direction in the offer and one for checking the direction/rejection in the answer. For the answer side, it runs through all 24 cases and writes the expectation as a condition which should be clear enough.",
+      "parentUuid": "a877c070_23797171",
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -287,6 +479,24 @@
     },
     {
       "key": {
+        "uuid": "f69217c7_08237d18",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cfe9b67_56955fd0",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4147101_af3432b4",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -298,6 +508,24 @@
       "writtenOn": "2017-10-14T20:07:19Z",
       "side": 1,
       "message": "I think it may be more readable if the parameter was \"local vs remote\", and it was the test cases that verified the different individual modifications.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc2abbf7_dad3e07d",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "One thing I like about the current setup is that it draws attention to the mutations by themselves. Also, moving the mutations to the TEST_P cases would lead to a bit more boilerplate as the answer generation would need to be copy/pasted.",
+      "parentUuid": "f4147101_af3432b4",
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -318,6 +546,24 @@
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2015dff_39f15fed",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db8fd230_aca55f41",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -344,6 +590,30 @@
     },
     {
       "key": {
+        "uuid": "baf47b27_6e98bed3",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57832c75_335d9888",
+      "range": {
+        "startLine": 820,
+        "startChar": 36,
+        "endLine": 820,
+        "endChar": 48
+      },
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85ce5bd0_259871a9",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -358,6 +628,24 @@
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd01f2fe_d1338f5b",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85ce5bd0_259871a9",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -384,6 +672,30 @@
     },
     {
       "key": {
+        "uuid": "6eb390fc_83511779",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98b51307_e9056cba",
+      "range": {
+        "startLine": 908,
+        "startChar": 73,
+        "endLine": 908,
+        "endChar": 77
+      },
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea1c09d9_eaefa16c",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -401,6 +713,24 @@
     },
     {
       "key": {
+        "uuid": "cd3851ff_c319faab",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea1c09d9_eaefa16c",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44e4bffb_d5ff6fea",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -412,6 +742,24 @@
       "writtenOn": "2017-10-14T20:07:19Z",
       "side": 1,
       "message": "PeerConnection is reference-counted, and technically this may not end up destroying it because a reference is floating around in a message queue or something. So may be better to call Close.",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ad56b50_cfad0c84",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "There\u0027s explicit logic in the destructor of WebRtcSessionFactory to fail any pending requests, so I don\u0027t think just calling Close would be enough.",
+      "parentUuid": "44e4bffb_d5ff6fea",
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -502,6 +850,24 @@
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d44f90_90d884b2",
+        "filename": "tools_webrtc/valgrind/gtest_exclude/peerconnection_unittests.gtest-memcheck.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-18T00:33:20Z",
+      "side": 1,
+      "message": "Looks like for some reason they occasionally will fail on the memcheck bot.",
+      "parentUuid": "5058a30c_a3ed88a5",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -6,5 +6,7 @@ PeerConnectionEndToEndTest.*
 PeerConnectionIceTest*
 PeerConnectionIntegrationTest.*
 PeerConnectionInterfaceTest.*
+PeerConnectionMediaTest*
 PeerConnectionRtpTest.*
+PeerConnectionSignalingTest*
 RTCStatsIntegrationTest.*

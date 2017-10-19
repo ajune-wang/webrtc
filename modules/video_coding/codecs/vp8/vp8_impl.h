@@ -62,6 +62,8 @@ class VP8EncoderImpl : public VP8Encoder {
 
   const char* ImplementationName() const override;
 
+  bool SupportsSimulcast(const VideoCodec* codec_settings) const override;
+
   static vpx_enc_frame_flags_t EncodeFlags(
       const TemporalLayers::FrameConfig& references);
 
@@ -116,6 +118,11 @@ class VP8EncoderImpl : public VP8Encoder {
   std::vector<vpx_codec_ctx_t> encoders_;
   std::vector<vpx_codec_enc_cfg_t> configurations_;
   std::vector<vpx_rational_t> downsampling_factors_;
+};
+
+class NonSimulcastEnabledVP8EncoderImpl : public VP8EncoderImpl {
+ public:
+  bool SupportsSimulcast(const VideoCodec* codec_settings) const override;
 };
 
 class VP8DecoderImpl : public VP8Decoder {

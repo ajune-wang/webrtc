@@ -139,7 +139,8 @@ SimulcastEncoderAdapter::SimulcastEncoderAdapter(
     : inited_(0),
       factory_(factory),
       encoded_complete_callback_(nullptr),
-      implementation_name_("SimulcastEncoderAdapter") {
+      implementation_name_("SimulcastEncoderAdapter"),
+      passthrough_calls_(false) {
   // The adapter is typically created on the worker thread, but operated on
   // the encoder task queue.
   encoder_queue_.Detach();
@@ -154,6 +155,13 @@ SimulcastEncoderAdapter::~SimulcastEncoderAdapter() {
 
 int SimulcastEncoderAdapter::Release() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&encoder_queue_);
+
+  if (passthrough_calls_) {
+    passthrough_encoder_->RegisterEncodeCompleteCallback(nullptr);
+    passthrough_encoder_->Release();
+    stored_encoders_.push(std::move(passthrough_encoder_));
+    passthrough_calls_ = false;
+  }
 
   while (!streaminfos_.empty()) {
     std::unique_ptr<VideoEncoder> encoder =
@@ -198,6 +206,31 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
   RTC_DCHECK_LE(number_of_streams, kMaxSimulcastStreams);
   const bool doing_simulcast = (number_of_streams > 1);
 
+  // Check for possible simple passthrough to the encoder directly.
+  // Need to have at least one allocated encoder to query it about simulcast
+  // capabilities.
+  if (stored_encoders_.empty()) {
+    stored_encoders_.push(
+        CreateScopedVideoEncoder(factory_, cricket::VideoCodec("VP8")));
+  }
+  if (stored_encoders_.top()->SupportsSimulcast(inst) || !doing_simulcast) {
+    passthrough_calls_ = true;
+    passthrough_encoder_ = std::move(stored_encoders_.top());
+    stored_encoders_.pop();
+    if (encoded_complete_callback_ != nullptr) {
+      passthrough_encoder_->RegisterEncodeCompleteCallback(
+          encoded_complete_callback_);
+    }
+    ret = passthrough_encoder_->InitEncode(inst, number_of_cores,
+                                           max_payload_size);
+    // To save memory, don't store encoders that we don't use.
+    DestroyStoredEncoders();
+    rtc::AtomicOps::ReleaseStore(&inited_, 1);
+    return ret;
+  } else {
+    passthrough_calls_ = false;
+  }
+
   if (doing_simulcast && !ValidSimulcastResolutions(*inst, number_of_streams)) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
@@ -217,18 +250,13 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
   for (int i = 0; i < number_of_streams; ++i) {
     VideoCodec stream_codec;
     uint32_t start_bitrate_kbps = start_bitrates[i];
-    if (!doing_simulcast) {
-      stream_codec = codec_;
-      stream_codec.numberOfSimulcastStreams = 1;
-    } else {
-      // Cap start bitrate to the min bitrate in order to avoid strange codec
-      // behavior. Since sending sending will be false, this should not matter.
-      start_bitrate_kbps =
-          std::max(codec_.simulcastStream[i].minBitrate, start_bitrate_kbps);
-      bool highest_resolution_stream = (i == (number_of_streams - 1));
-      PopulateStreamCodec(codec_, i, start_bitrate_kbps,
-                          highest_resolution_stream, &stream_codec);
-    }
+    // Cap start bitrate to the min bitrate in order to avoid strange codec
+    // behavior. Since sending sending will be false, this should not matter.
+    start_bitrate_kbps =
+        std::max(codec_.simulcastStream[i].minBitrate, start_bitrate_kbps);
+    bool highest_resolution_stream = (i == (number_of_streams - 1));
+    PopulateStreamCodec(codec_, i, start_bitrate_kbps,
+                        highest_resolution_stream, &stream_codec);
     TemporalLayersFactoryAdapter tl_factory_adapter(i,
                                                     *codec_.VP8()->tl_factory);
     stream_codec.VP8()->tl_factory = &tl_factory_adapter;
@@ -294,6 +322,12 @@ int SimulcastEncoderAdapter::Encode(
   if (!Initialized()) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
+
+  if (passthrough_calls_) {
+    return passthrough_encoder_->Encode(input_image, codec_specific_info,
+                                        frame_types);
+  }
+
   if (encoded_complete_callback_ == nullptr) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
@@ -383,6 +417,10 @@ int SimulcastEncoderAdapter::Encode(
 int SimulcastEncoderAdapter::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&encoder_queue_);
+  if (passthrough_calls_) {
+    encoded_complete_callback_ = callback;
+    return passthrough_encoder_->RegisterEncodeCompleteCallback(callback);
+  }
   encoded_complete_callback_ = callback;
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -390,6 +428,9 @@ int SimulcastEncoderAdapter::RegisterEncodeCompleteCallback(
 int SimulcastEncoderAdapter::SetChannelParameters(uint32_t packet_loss,
                                                   int64_t rtt) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&encoder_queue_);
+  if (passthrough_calls_) {
+    return passthrough_encoder_->SetChannelParameters(packet_loss, rtt);
+  }
   for (size_t stream_idx = 0; stream_idx < streaminfos_.size(); ++stream_idx) {
     streaminfos_[stream_idx].encoder->SetChannelParameters(packet_loss, rtt);
   }
@@ -402,6 +443,10 @@ int SimulcastEncoderAdapter::SetRateAllocation(const BitrateAllocation& bitrate,
 
   if (!Initialized()) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+  }
+
+  if (passthrough_calls_) {
+    return passthrough_encoder_->SetRateAllocation(bitrate, new_framerate);
   }
 
   if (new_framerate < 1) {
@@ -457,6 +502,8 @@ EncodedImageCallback::Result SimulcastEncoderAdapter::OnEncodedImage(
     const EncodedImage& encodedImage,
     const CodecSpecificInfo* codecSpecificInfo,
     const RTPFragmentationHeader* fragmentation) {
+  // In direct passthrough SimulcastAdapted doesn't register as a callback.
+  RTC_DCHECK(!passthrough_calls_);
   CodecSpecificInfo stream_codec_specific = *codecSpecificInfo;
   stream_codec_specific.codec_name = implementation_name_.c_str();
   CodecSpecificInfoVP8* vp8Info = &(stream_codec_specific.codecSpecific.VP8);
@@ -516,6 +563,10 @@ void SimulcastEncoderAdapter::DestroyStoredEncoders() {
 
 bool SimulcastEncoderAdapter::SupportsNativeHandle() const {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&encoder_queue_);
+  if (passthrough_calls_) {
+    RTC_DCHECK(passthrough_encoder_);
+    return passthrough_encoder_->SupportsNativeHandle();
+  }
   // We should not be calling this method before streaminfos_ are configured.
   RTC_DCHECK(!streaminfos_.empty());
   for (const auto& streaminfo : streaminfos_) {
@@ -531,6 +582,9 @@ VideoEncoder::ScalingSettings SimulcastEncoderAdapter::GetScalingSettings()
   // TODO(brandtr): Investigate why the sequence checker below fails on mac.
   // RTC_DCHECK_CALLED_SEQUENTIALLY(&encoder_queue_);
   // Turn off quality scaling for simulcast.
+  if (Initialized() && passthrough_calls_) {
+    return passthrough_encoder_->GetScalingSettings();
+  }
   if (!Initialized() || NumberOfStreams(codec_) != 1) {
     return VideoEncoder::ScalingSettings(false);
   }
@@ -539,7 +593,15 @@ VideoEncoder::ScalingSettings SimulcastEncoderAdapter::GetScalingSettings()
 
 const char* SimulcastEncoderAdapter::ImplementationName() const {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&encoder_queue_);
+  if (passthrough_calls_) {
+    return passthrough_encoder_->ImplementationName();
+  }
   return implementation_name_.c_str();
+}
+
+bool SimulcastEncoderAdapter::SupportsSimulcast(
+    const VideoCodec* codec_settings) const {
+  return true;
 }
 
 }  // namespace webrtc

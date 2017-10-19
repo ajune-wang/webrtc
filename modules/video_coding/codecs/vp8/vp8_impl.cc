@@ -178,6 +178,10 @@ VP8Encoder* VP8Encoder::Create() {
   return new VP8EncoderImpl();
 }
 
+VP8Encoder* VP8Encoder::CreateNonSimulcastEnabled() {
+  return new NonSimulcastEnabledVP8EncoderImpl();
+}
+
 VP8Decoder* VP8Decoder::Create() {
   return new VP8DecoderImpl();
 }
@@ -997,6 +1001,23 @@ int VP8EncoderImpl::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   encoded_complete_callback_ = callback;
   return WEBRTC_VIDEO_CODEC_OK;
+}
+
+bool VP8EncoderImpl::SupportsSimulcast(const VideoCodec* codec_settings) const {
+  if (codec_settings->numberOfSimulcastStreams == 1) {
+    return true;
+  }
+  // TODO(ilnik): Remove this once libvpx supports simulcast for same resolution
+  // streams, thus enabling simulcast for screenshare.
+  if (codec_settings->mode == VideoCodecMode::kScreensharing) {
+    return false;
+  }
+  return true;
+}
+
+bool NonSimulcastEnabledVP8EncoderImpl::SupportsSimulcast(
+    const VideoCodec* codec_settings) const {
+  return false;
 }
 
 class VP8DecoderImpl::QpSmoother {

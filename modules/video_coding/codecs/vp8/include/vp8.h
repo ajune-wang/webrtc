@@ -20,6 +20,7 @@ namespace webrtc {
 class VP8Encoder : public VideoEncoder {
  public:
   static VP8Encoder* Create();
+  static VP8Encoder* CreateNonSimulcastEnabled();
 
   virtual ~VP8Encoder() {}
 };  // end of VP8Encoder class

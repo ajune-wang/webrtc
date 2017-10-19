@@ -62,6 +62,7 @@ class SimulcastEncoderAdapter : public VP8Encoder {
 
   bool SupportsNativeHandle() const override;
   const char* ImplementationName() const override;
+  bool SupportsSimulcast(const VideoCodec* codec_settings) const override;
 
  private:
   struct StreamInfo {
@@ -108,6 +109,11 @@ class SimulcastEncoderAdapter : public VP8Encoder {
   // Store encoders in between calls to Release and InitEncode, so they don't
   // have to be recreated. Remaining encoders are destroyed by the destructor.
   std::stack<std::unique_ptr<VideoEncoder>> stored_encoders_;
+
+  // If underlying encoder supports simulcast itself, SimlucastAdapter can just
+  // passthrough all the VideoEncoder calls directly to vp8 encoder.
+  bool passthrough_calls_;
+  std::unique_ptr<VideoEncoder> passthrough_encoder_;
 };
 
 }  // namespace webrtc

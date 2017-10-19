@@ -2,6 +2,8 @@
 
 ## **General advice**
 
+### Noncompliant code
+
 Some older parts of the code violate the style guide in various ways.
 
 * If making small changes to such code, follow the style guide when
@@ -19,6 +21,13 @@ both.
 
 [chr-style]: https://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md
 [goog-style]: https://google.github.io/styleguide/cppguide.html
+
+### File names
+
+Unless there's a strong reason to do otherwise, file and directory
+names should be in all lower-case, with words separated by
+underscores: `foo.h`, `debug_discombobulator.cc`,
+`the_path/of/least_resistence.c`
 
 ### ArrayView
 

@@ -60,12 +60,15 @@ PacedSender::PacedSender(const Clock* clock,
       pacing_bitrate_kbps_(0),
       time_last_update_us_(clock->TimeInMicroseconds()),
       first_sent_packet_ms_(-1),
-      packets_(rtc::MakeUnique<PacketQueue>(clock)),
       packet_counter_(0),
       pacing_factor_(kDefaultPaceMultiplier),
       queue_time_limit(kMaxQueueLengthMs),
       account_for_audio_(false) {
   UpdateBudgetWithElapsedTime(kMinPacketLimitMs);
+  if (webrtc::field_trial::IsEnabled("WebRTC-RoundRobinPacing"))
+    packets_.reset(rtc::MakeUnique<PacketQueue2>(clock));
+  else
+    packets_.reset(rtc::MakeUnique<PacketQueue>(clock));
 }
 
 PacedSender::~PacedSender() {}

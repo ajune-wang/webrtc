@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "589e24d5_ecea913e",
+        "filename": "pc/webrtcsession.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T22:53:41Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think this needs to be called desc_owned, since it\u0027s implied.",
+      "revId": "99136713827c4e9873637b0d46674ffd001222f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0fa8ed4_ff96b6e9",
+        "filename": "pc/webrtcsession.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T22:53:41Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think this is needed. Below, can just dereference \"desc\"/\"desc_owned\" directly, or use \"local_description()\" after it\u0027s been moved.",
+      "revId": "99136713827c4e9873637b0d46674ffd001222f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485151e5_1ecf635a",
+        "filename": "pc/webrtcsession_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T22:53:41Z",
+      "side": 1,
+      "message": "I think you can use rtc::WrapUnique, FYI.",
+      "revId": "99136713827c4e9873637b0d46674ffd001222f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

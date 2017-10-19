@@ -12,7 +12,8 @@ package org.webrtc;
 
 /**
  * Interface for a video encoder that can be used with WebRTC. All calls will be made on the
- * encoding thread.
+ * encoding thread. The encoder may be constructed on a different thread and changing thread after
+ * calling release is allowed.
  */
 public interface VideoEncoder {
   /** Settings passed to the encoder by WebRTC. */

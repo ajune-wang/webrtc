@@ -71,6 +71,7 @@ PacedSender::~PacedSender() {}
 
 void PacedSender::CreateProbeCluster(int bitrate_bps) {
   rtc::CritScope cs(&critsect_);
+
   prober_->CreateProbeCluster(bitrate_bps, clock_->TimeInMilliseconds());
 }
 

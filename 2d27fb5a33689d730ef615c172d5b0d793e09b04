@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62d08a6f_b8f63694",
+        "filename": "pc/remoteaudiosource.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-19T14:12:40Z",
+      "side": 0,
+      "message": "This object leaks if main_thread_ is being stopped; in that case MessageHandler::OnMessage is never called.",
+      "range": {
+        "startLine": 151,
+        "startChar": 40,
+        "endLine": 151,
+        "endChar": 54
+      },
+      "revId": "2d27fb5a33689d730ef615c172d5b0d793e09b04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "37744500_153e9d44",
+        "filename": "sdk/android/api/org/webrtc/SurfaceEglRenderer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-19T11:56:46Z",
+      "side": 1,
+      "message": "name + \": \" + string",
+      "range": {
+        "startLine": 189,
+        "startChar": 19,
+        "endLine": 189,
+        "endChar": 32
+      },
+      "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eff67421_066ea224",
         "filename": "sdk/android/api/org/webrtc/SurfaceViewRenderer.java",
         "patchSetId": 8
@@ -16,6 +39,24 @@
       "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed7dabf_973854d8",
+        "filename": "sdk/android/api/org/webrtc/SurfaceViewRenderer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-19T11:56:46Z",
+      "side": 1,
+      "message": "Sounds reasonable but maybe best to do any logic changes in a separate CL in case it has to be reverted.",
+      "parentUuid": "eff67421_066ea224",
+      "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -35,6 +76,53 @@
         "startChar": 0,
         "endLine": 250,
         "endChar": 3
+      },
+      "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ed60d8b_597efb7b",
+        "filename": "sdk/android/api/org/webrtc/SurfaceViewRenderer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-19T11:56:46Z",
+      "side": 1,
+      "message": "This is here because when the surface is recreated, it resets back to the view size. I am not sure if updateSurfaceSize is necessary or if we will always get onLayout call though. Let\u0027s keep it at least for this CL.",
+      "parentUuid": "4ac8d73c_3b7f901a",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 3
+      },
+      "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e584128a_92b42f98",
+        "filename": "sdk/android/api/org/webrtc/SurfaceViewRenderer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-19T11:56:46Z",
+      "side": 1,
+      "message": "resourceName + \": \" + string",
+      "range": {
+        "startLine": 305,
+        "startChar": 19,
+        "endLine": 305,
+        "endChar": 31
       },
       "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

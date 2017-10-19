@@ -27,7 +27,8 @@ class Thread;
 namespace webrtc {
 
 // This class implements the audio source used by the remote audio track.
-class RemoteAudioSource : public Notifier<AudioSourceInterface> {
+class RemoteAudioSource : public Notifier<AudioSourceInterface>,
+                          private rtc::MessageHandler {
  public:
   // Creates an instance of RemoteAudioSource.
   static rtc::scoped_refptr<RemoteAudioSource> Create(
@@ -61,8 +62,7 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface> {
   void OnData(const AudioSinkInterface::Data& audio);
   void OnAudioChannelGone();
 
-  class MessageHandler;
-  void OnMessage(rtc::Message* msg);
+  void OnMessage(rtc::Message* msg) override;
 
   AudioObserverList audio_observers_;
   rtc::CriticalSection sink_lock_;

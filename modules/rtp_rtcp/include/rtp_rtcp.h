@@ -269,12 +269,9 @@ class RtpRtcp : public Module {
   virtual int32_t RemoteCNAME(uint32_t remote_ssrc,
                               char cname[RTCP_CNAME_SIZE]) const = 0;
 
-  // Returns remote NTP.
+  // Returns remote NTP and rtp timestamp from last sender report.
   // Returns -1 on failure else 0.
-  virtual int32_t RemoteNTP(uint32_t* received_ntp_secs,
-                            uint32_t* received_ntp_frac,
-                            uint32_t* rtcp_arrival_time_secs,
-                            uint32_t* rtcp_arrival_time_frac,
+  virtual int32_t RemoteNTP(NtpTime* received_ntp,
                             uint32_t* rtcp_timestamp) const = 0;
 
   // Returns -1 on failure else 0.

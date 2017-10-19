@@ -273,10 +273,7 @@ rtc::Optional<Syncable::Info> AudioReceiveStream::GetInfo() const {
           &info.latest_receive_time_ms)) {
     return rtc::Optional<Syncable::Info>();
   }
-  if (rtp_rtcp->RemoteNTP(&info.capture_time_ntp_secs,
-                          &info.capture_time_ntp_frac,
-                          nullptr,
-                          nullptr,
+  if (rtp_rtcp->RemoteNTP(&info.capture_time_ntp,
                           &info.capture_time_source_clock) != 0) {
     return rtc::Optional<Syncable::Info>();
   }

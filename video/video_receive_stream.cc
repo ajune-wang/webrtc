@@ -371,10 +371,7 @@ rtc::Optional<Syncable::Info> VideoReceiveStream::GetInfo() const {
 
   RtpRtcp* rtp_rtcp = rtp_video_stream_receiver_.rtp_rtcp();
   RTC_DCHECK(rtp_rtcp);
-  if (rtp_rtcp->RemoteNTP(&info.capture_time_ntp_secs,
-                          &info.capture_time_ntp_frac,
-                          nullptr,
-                          nullptr,
+  if (rtp_rtcp->RemoteNTP(&info.capture_time_ntp,
                           &info.capture_time_source_clock) != 0) {
     return rtc::Optional<Syncable::Info>();
   }

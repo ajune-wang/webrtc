@@ -530,15 +530,14 @@ bool RtpVideoStreamReceiver::DeliverRtcp(const uint8_t* rtcp_packet,
     // Waiting for valid rtt.
     return true;
   }
-  uint32_t ntp_secs = 0;
-  uint32_t ntp_frac = 0;
+  NtpTime ntp;
   uint32_t rtp_timestamp = 0;
-  if (rtp_rtcp_->RemoteNTP(&ntp_secs, &ntp_frac, nullptr, nullptr,
-                           &rtp_timestamp) != 0) {
+  if (rtp_rtcp_->RemoteNTP(&ntp, &rtp_timestamp) != 0) {
     // Waiting for RTCP.
     return true;
   }
-  ntp_estimator_.UpdateRtcpTimestamp(rtt, ntp_secs, ntp_frac, rtp_timestamp);
+  ntp_estimator_.UpdateRtcpTimestamp(rtt, ntp.seconds(), ntp.fractions(),
+                                     rtp_timestamp);
 
   return true;
 }

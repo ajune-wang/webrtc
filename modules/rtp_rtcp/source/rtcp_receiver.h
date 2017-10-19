@@ -71,10 +71,8 @@ class RTCPReceiver {
   int32_t CNAME(uint32_t remote_ssrc, char cname[RTCP_CNAME_SIZE]) const;
 
   // Get received NTP.
-  bool NTP(uint32_t* received_ntp_secs,
-           uint32_t* received_ntp_frac,
-           uint32_t* rtcp_arrival_time_secs,
-           uint32_t* rtcp_arrival_time_frac,
+  bool NTP(NtpTime* received_ntp,
+           NtpTime* rtcp_arrival_time,
            uint32_t* rtcp_timestamp) const;
 
   bool LastReceivedXrReferenceTimeInfo(rtcp::ReceiveTimeInfo* info) const;

@@ -174,7 +174,7 @@ TEST_F(RtcpReceiverTest, InvalidFeedbackPacketIsIgnored) {
 }
 
 TEST_F(RtcpReceiverTest, InjectSrPacket) {
-  EXPECT_FALSE(rtcp_receiver_.NTP(nullptr, nullptr, nullptr, nullptr, nullptr));
+  EXPECT_FALSE(rtcp_receiver_.NTP(nullptr, nullptr, nullptr));
 
   int64_t now = system_clock_.TimeInMilliseconds();
   rtcp::SenderReport sr;
@@ -185,7 +185,7 @@ TEST_F(RtcpReceiverTest, InjectSrPacket) {
               OnReceivedRtcpReceiverReport(IsEmpty(), _, now));
   InjectRtcpPacket(sr);
 
-  EXPECT_TRUE(rtcp_receiver_.NTP(nullptr, nullptr, nullptr, nullptr, nullptr));
+  EXPECT_TRUE(rtcp_receiver_.NTP(nullptr, nullptr, nullptr));
 }
 
 TEST_F(RtcpReceiverTest, InjectSrPacketFromUnknownSender) {
@@ -200,7 +200,7 @@ TEST_F(RtcpReceiverTest, InjectSrPacketFromUnknownSender) {
   InjectRtcpPacket(sr);
 
   // But will not flag that he's gotten sender information.
-  EXPECT_FALSE(rtcp_receiver_.NTP(nullptr, nullptr, nullptr, nullptr, nullptr));
+  EXPECT_FALSE(rtcp_receiver_.NTP(nullptr, nullptr, nullptr));
 }
 
 TEST_F(RtcpReceiverTest, InjectSrPacketCalculatesRTT) {

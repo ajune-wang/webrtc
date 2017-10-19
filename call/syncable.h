@@ -17,6 +17,7 @@
 #include <stdint.h>
 
 #include "api/optional.h"
+#include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {
 
@@ -25,8 +26,7 @@ class Syncable {
   struct Info {
     int64_t latest_receive_time_ms = 0;
     uint32_t latest_received_capture_timestamp = 0;
-    uint32_t capture_time_ntp_secs = 0;
-    uint32_t capture_time_ntp_frac = 0;
+    NtpTime capture_time_ntp;
     uint32_t capture_time_source_clock = 0;
     int current_delay_ms = 0;
   };

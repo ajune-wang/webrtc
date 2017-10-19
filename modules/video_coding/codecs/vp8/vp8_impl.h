@@ -62,6 +62,9 @@ class VP8EncoderImpl : public VP8Encoder {
 
   const char* ImplementationName() const override;
 
+  bool SupportsSimulcast(
+      const VideoCodec* codec_settings) const override;
+
   static vpx_enc_frame_flags_t EncodeFlags(
       const TemporalLayers::FrameConfig& references);
 

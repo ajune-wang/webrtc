@@ -67,8 +67,7 @@ class EncoderFactoryAdapter {
   virtual ~EncoderFactoryAdapter() {}
 
   virtual AllocatedEncoder CreateVideoEncoder(
-      const VideoCodec& codec,
-      bool is_conference_mode_screenshare) const = 0;
+      const VideoCodec& codec) const = 0;
 
   virtual std::vector<VideoCodec> GetSupportedCodecs() const = 0;
 };
@@ -99,9 +98,7 @@ class CricketEncoderFactoryAdapter : public EncoderFactoryAdapter {
         external_encoder_factory_(std::move(external_encoder_factory)) {}
 
  private:
-  AllocatedEncoder CreateVideoEncoder(
-      const VideoCodec& codec,
-      bool is_conference_mode_screenshare) const override;
+  AllocatedEncoder CreateVideoEncoder(const VideoCodec& codec) const override;
 
   std::vector<VideoCodec> GetSupportedCodecs() const override;
 
@@ -134,9 +131,7 @@ class WebRtcEncoderFactoryAdapter : public EncoderFactoryAdapter {
       : encoder_factory_(std::move(encoder_factory)) {}
 
  private:
-  AllocatedEncoder CreateVideoEncoder(
-      const VideoCodec& codec,
-      bool is_conference_mode_screenshare) const override {
+  AllocatedEncoder CreateVideoEncoder(const VideoCodec& codec) const override {
     if (!encoder_factory_)
       return AllocatedEncoder();
     const webrtc::SdpVideoFormat format(codec.name, codec.params);
@@ -1688,8 +1683,7 @@ WebRtcVideoChannel::WebRtcVideoSendStream::GetSsrcs() const {
 
 EncoderFactoryAdapter::AllocatedEncoder
 CricketEncoderFactoryAdapter::CreateVideoEncoder(
-    const VideoCodec& codec,
-    bool is_conference_mode_screenshare) const {
+    const VideoCodec& codec) const {
   // Try creating external encoder.
   if (external_encoder_factory_ != nullptr &&
       FindMatchingCodec(external_encoder_factory_->supported_codecs(), codec)) {
@@ -1719,10 +1713,7 @@ CricketEncoderFactoryAdapter::CreateVideoEncoder(
   // Try creating internal encoder.
   std::unique_ptr<webrtc::VideoEncoder> internal_encoder;
   if (FindMatchingCodec(internal_encoder_factory_->supported_codecs(), codec)) {
-    if (CodecNamesEq(codec.name.c_str(), kVp8CodecName) &&
-        is_conference_mode_screenshare && UseSimulcastScreenshare()) {
-      // TODO(sprang): Remove this adapter once libvpx supports simulcast with
-      // same-resolution substreams.
+    if (CodecNamesEq(codec.name.c_str(), kVp8CodecName)) {
       internal_encoder = std::unique_ptr<webrtc::VideoEncoder>(
           new webrtc::SimulcastEncoderAdapter(internal_encoder_factory_.get()));
     } else {
@@ -1753,13 +1744,8 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
   std::unique_ptr<webrtc::VideoEncoder> new_encoder;
   if (force_encoder_allocation || !allocated_encoder_ ||
       allocated_codec_ != codec_settings.codec) {
-    const bool is_conference_mode_screenshare =
-        parameters_.encoder_config.content_type ==
-            webrtc::VideoEncoderConfig::ContentType::kScreen &&
-        parameters_.conference_mode;
     EncoderFactoryAdapter::AllocatedEncoder new_allocated_encoder =
-        encoder_factory_->CreateVideoEncoder(codec_settings.codec,
-                                             is_conference_mode_screenshare);
+        encoder_factory_->CreateVideoEncoder(codec_settings.codec);
     new_encoder = std::unique_ptr<webrtc::VideoEncoder>(
         std::move(new_allocated_encoder.encoder));
     parameters_.config.encoder_settings.encoder = new_encoder.get();

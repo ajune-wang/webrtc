@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5177b449_095823a0",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3519,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "nit: Would it make sense to move this near the other Rtx-related tests? Also, this may already be covered by FilterOutUnsupportedRtxWhenCreatingAnswer.",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80b246c0_3c8e8f07",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "nit: \"SDP\" in all-caps. Also, we may want to make these \"sorry, closed\" messages consistent.",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e5839f7_ee57fc4f",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "Somewhere, would be helpful to have a comment summarizing what types of tests should go in each file. Here, it looks like the summary would be \"test the interaction between the PeerConnection and the underlying media engine, and test media-related aspects of SDP\".",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef988e58_c4178a27",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "nit: This is typically called an \"ID\" rather than a label. Tracks also have a \"label\" in the web API, but it\u0027s separate from the ID.",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9844064_f6ce9804",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "We should distinguish between \"inactive\" and \"no m\u003d section offered at all\". Maybe rtc::Optional could be used, such that an empty value would mean \"not offered at all\". Or you could just define a new enum, or add a new member of the tuple, or add a \"VerifyRejected\" test like below; whatever ends up being simpler.",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c8a10b6_c16c0a06",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "nit: Not sure if answerer_direction improves readability; could just do \"negotiate_send \u003d send_media_ \u0026\u0026 offer_direction.recv\" below.",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9456c16b_6abd8abc",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "nit: In general, we should avoid depending on content names (CN_AUDIO etc.) since there\u0027s no guarantee the default content name won\u0027t change later. Though practically speaking, I can\u0027t think of a good reason why we\u0027d change it, so it\u0027s probably fine.",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64668dd8_d5f545b0",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "I wonder if there\u0027s a bug to get rid of the extra period..",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d226db1_946cd653",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "Again, a brief summary of what types of tests should go in this file would be helpful for future reference.",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73938cdf_ca4a9b95",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "I don\u0027t think the default case is needed here; we\u0027ll get a compile warning (treated as error) if there\u0027s an unhandled switch case.",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a530477_fb7db953",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "I may have missed it, but there should be a test for CreateAnswer called in the stable state; it fails if the remote description is an answer, but succeeds if it\u0027s an offer (as I recall).",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -159,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "f9a91e17_fc1d759a",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1185f488_f6e1c651",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94921118_49c9216d",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -550,6 +568,24 @@
     },
     {
       "key": {
+        "uuid": "fcbd82d3_9e4195f5",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "Ack; I trust your judgement here.",
+      "parentUuid": "cc2abbf7_dad3e07d",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db8fd230_aca55f41",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 9
@@ -778,6 +814,24 @@
       "side": 1,
       "message": "There\u0027s explicit logic in the destructor of WebRtcSessionFactory to fail any pending requests, so I don\u0027t think just calling Close would be enough.",
       "parentUuid": "44e4bffb_d5ff6fea",
+      "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11b34d3d_09415f53",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T21:53:05Z",
+      "side": 1,
+      "message": "It should be enough... If it isn\u0027t I\u0027d consider that a bug. PeerConnection is ref-counted, so Close *should* do everything aside from free its memory, from the perspective of the observer.",
+      "parentUuid": "3ad56b50_cfad0c84",
       "revId": "3dec875a3145f4889b9dd4d11064d3eaa775844a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

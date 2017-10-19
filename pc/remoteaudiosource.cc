@@ -22,22 +22,6 @@
 
 namespace webrtc {
 
-class RemoteAudioSource::MessageHandler : public rtc::MessageHandler {
- public:
-  explicit MessageHandler(RemoteAudioSource* source) : source_(source) {}
-
- private:
-  ~MessageHandler() override {}
-
-  void OnMessage(rtc::Message* msg) override {
-    source_->OnMessage(msg);
-    delete this;
-  }
-
-  const rtc::scoped_refptr<RemoteAudioSource> source_;
-  RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(MessageHandler);
-};
-
 class RemoteAudioSource::Sink : public AudioSinkInterface {
  public:
   explicit Sink(RemoteAudioSource* source) : source_(source) {}
@@ -148,7 +132,7 @@ void RemoteAudioSource::OnData(const AudioSinkInterface::Data& audio) {
 void RemoteAudioSource::OnAudioChannelGone() {
   // Called when the audio channel is deleted.  It may be the worker thread
   // in libjingle or may be a different worker thread.
-  main_thread_->Post(RTC_FROM_HERE, new MessageHandler(this));
+  main_thread_->Post(RTC_FROM_HERE, this);
 }
 
 void RemoteAudioSource::OnMessage(rtc::Message* msg) {

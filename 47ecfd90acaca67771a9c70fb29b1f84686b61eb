@@ -45,6 +45,30 @@
       "revId": "47ecfd90acaca67771a9c70fb29b1f84686b61eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0753275_23630710",
+        "filename": "modules/pacing/packet_queue.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-10-19T16:07:29Z",
+      "side": 1,
+      "message": "Re-added this member when I moved the packet class from PacketQueue2 to PacketQueue. It will be removed after the experiment any way.",
+      "parentUuid": "ebacd33c_4b1a76d1",
+      "range": {
+        "startLine": 56,
+        "startChar": 26,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "47ecfd90acaca67771a9c70fb29b1f84686b61eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

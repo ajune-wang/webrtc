@@ -141,6 +141,9 @@ class HardwareVideoEncoder implements VideoEncoder {
     this.forcedKeyFrameNs = TimeUnit.MILLISECONDS.toNanos(forceKeyFrameIntervalMs);
     this.bitrateAdjuster = bitrateAdjuster;
     this.sharedContext = sharedContext;
+
+    // Allow construction on a different thread.
+    encodeThreadChecker.detachThread();
   }
 
   @Override
@@ -262,6 +265,9 @@ class HardwareVideoEncoder implements VideoEncoder {
 
     codec = null;
     outputThread = null;
+
+    // Allow changing thread after destruction.
+    encodeThreadChecker.detachThread();
 
     return returnValue;
   }

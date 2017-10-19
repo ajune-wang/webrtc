@@ -24,6 +24,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/messagedigest.h"
 #include "rtc_base/ssladapter.h"
+#include "test/gmock.h"
 
 #define ASSERT_CRYPTO(cd, s, cs) \
     ASSERT_EQ(s, cd->cryptos().size()); \
@@ -71,6 +72,7 @@ using rtc::CS_AES_CM_128_HMAC_SHA1_32;
 using rtc::CS_AES_CM_128_HMAC_SHA1_80;
 using rtc::CS_AEAD_AES_128_GCM;
 using rtc::CS_AEAD_AES_256_GCM;
+using ::testing::ElementsAre;
 using webrtc::RtpExtension;
 
 static const AudioCodec kAudioCodecs1[] = {
@@ -3510,6 +3512,32 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestSetAudioCodecs) {
   EXPECT_EQ(no_codecs, sf.audio_send_codecs());
   EXPECT_EQ(no_codecs, sf.audio_recv_codecs());
   EXPECT_EQ(no_codecs, sf.audio_sendrecv_codecs());
+}
+
+// Test that a RTX codec is removed in the answer when it is not supported by
+// the local side.
+TEST_F(MediaSessionDescriptionFactoryTest, RtxRemovedIfRtxCodecNotSupported) {
+  cricket::VideoCodec vp8_codec(100, cricket::kVp8CodecName);
+  vp8_codec.clockrate = 90000;
+
+  // Caller has a video stream with codecs for VP8 and VP8 RTX.
+  f1_.set_video_codecs(
+      {vp8_codec, cricket::VideoCodec::CreateRtxCodec(96, 100)});
+  MediaSessionOptions options;
+  AddMediaSection(cricket::MEDIA_TYPE_VIDEO, "video", cricket::MD_SENDRECV,
+                  false, &options);
+  std::unique_ptr<SessionDescription> offer(f1_.CreateOffer(options, nullptr));
+
+  // Callee has only the codec for VP8 (no RTX).
+  f2_.set_video_codecs({vp8_codec});
+
+  std::unique_ptr<SessionDescription> answer(
+      f2_.CreateAnswer(offer.get(), options, nullptr));
+
+  // Verify that the answer only has the VP8 codec and not also the VP8 RTX.
+  auto* video_desc = cricket::GetFirstVideoContentDescription(answer.get());
+  ASSERT_TRUE(video_desc);
+  EXPECT_THAT(video_desc->codecs(), ElementsAre(vp8_codec));
 }
 
 namespace {

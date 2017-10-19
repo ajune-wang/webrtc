@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a929c056_d590145f",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72f39625_c0ef8b97",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42b46a58_48900e4f",
         "filename": "pc/peerconnection_bundle_unittest.cc",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8b5b58b2_c6042992",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42b46a58_48900e4f",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3972394_3678236d",
         "filename": "pc/peerconnection_bundle_unittest.cc",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2017-10-17T00:01:56Z",
       "side": 1,
       "message": "I don\u0027t quite understand this comment; can\u0027t wrapper::set_network take ownership?",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b070aa0_500e315c",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "I\u0027ve updated the comment to be a little more clear about this. If the PeerConnectionWrapper owned the NetworkManager, then the NetworkManager would be destroyed before the PeerConnection since members of a subclass are destroyed before members of a base class.",
+      "parentUuid": "e3972394_3678236d",
       "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "faf96104_f6c305b6",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e198cb9_eba9471b",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa0b5f11_65744732",
         "filename": "pc/peerconnection_bundle_unittest.cc",
         "patchSetId": 4
@@ -84,6 +156,24 @@
       "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c88e4fe_32077209",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa0b5f11_65744732",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "8bf317fb_97a98eb1",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3122debb_2002fdfe",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "092c8523_cbc83019",
         "filename": "pc/peerconnection_bundle_unittest.cc",
         "patchSetId": 4
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "709bf4a7_f8909934",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "092c8523_cbc83019",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19666ebf_b09f1d2a",
         "filename": "pc/peerconnection_bundle_unittest.cc",
         "patchSetId": 4
@@ -135,6 +261,24 @@
       "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90714472_f8b2acaf",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19666ebf_b09f1d2a",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +305,30 @@
     },
     {
       "key": {
+        "uuid": "0cdbd6f8_28408f56",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Using the config causes this to fail, so disabling for now and leaving a note about the existing bug report for this.",
+      "parentUuid": "57c9b8dd_9ebab8b2",
+      "range": {
+        "startLine": 415,
+        "startChar": 19,
+        "endLine": 415,
+        "endChar": 25
+      },
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4b38f91_4b11a544",
         "filename": "pc/peerconnection_bundle_unittest.cc",
         "patchSetId": 4
@@ -175,6 +343,24 @@
       "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7818bf4b_4a355848",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Changed to rtcp-mux. As mentioned in the media tests CL, I\u0027d like to leave these as-is until WebRtcSession is merged into PeerConnection, at that point it will be easier to expose these error messages.",
+      "parentUuid": "f4b38f91_4b11a544",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "ffbb5f56_64f4df48",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a674e96a_4381d2cc",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "485c04ab_d05956c3",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 4
@@ -212,6 +416,24 @@
     },
     {
       "key": {
+        "uuid": "b16c5f5f_275f5088",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3060,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "485c04ab_d05956c3",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f51081c_28e1db8b",
         "filename": "pc/test/mockpeerconnectionobservers.h",
         "patchSetId": 4
@@ -226,6 +448,24 @@
       "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875bf393_6eebb3a2",
+        "filename": "pc/test/mockpeerconnectionobservers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f51081c_28e1db8b",
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +489,30 @@
       "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32a85f7_34478e9e",
+        "filename": "pc/test/mockpeerconnectionobservers.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T01:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a47d19af_dd9dca15",
+      "range": {
+        "startLine": 164,
+        "startChar": 7,
+        "endLine": 164,
+        "endChar": 20
+      },
+      "revId": "234d381e8349a835e3b7107979931bc87f7bbc30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

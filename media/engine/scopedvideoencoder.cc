@@ -40,6 +40,8 @@ class ScopedVideoEncoder : public webrtc::VideoEncoder {
   int32_t SetPeriodicKeyFrames(bool enable) override;
   bool SupportsNativeHandle() const override;
   const char* ImplementationName() const override;
+  bool SupportsSimulcast(
+      const webrtc::VideoCodec* codec_settings) const override;
 
   ~ScopedVideoEncoder() override;
 
@@ -105,6 +107,11 @@ bool ScopedVideoEncoder::SupportsNativeHandle() const {
 
 const char* ScopedVideoEncoder::ImplementationName() const {
   return encoder_->ImplementationName();
+}
+
+bool ScopedVideoEncoder::SupportsSimulcast(
+    const webrtc::VideoCodec* codec_settings) const {
+  return encoder_->SupportsSimulcast(codec_settings);
 }
 
 ScopedVideoEncoder::~ScopedVideoEncoder() {

@@ -38,7 +38,9 @@ class TestSimulcastEncoderAdapter : public TestVp8Simulcast {
 
     VideoEncoder* CreateVideoEncoder(
         const cricket::VideoCodec& codec) override {
-      return VP8Encoder::Create();
+      // Purpose is to test SimulcastEncoderAdapter, so to disable passthrough
+      // we use non-simulcast-enabled version of vp8 implimentation.
+      return VP8Encoder::CreateNonSimulcastEnabled();
     }
 
     void DestroyVideoEncoder(VideoEncoder* encoder) override { delete encoder; }
@@ -818,6 +820,58 @@ TEST_F(TestSimulcastEncoderAdapterFake, TestInitFailureCleansUpEncoders) {
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE,
             adapter_->InitEncode(&codec_, 1, 1200));
   EXPECT_TRUE(helper_->factory()->encoders().empty());
+}
+
+class TestSimulcastEncoderAdapterPassthrough : public TestVp8Simulcast {
+ public:
+  TestSimulcastEncoderAdapterPassthrough()
+      : factory_(new Vp8SimulcastEnabledEncoderFactory()) {}
+
+ protected:
+  class Vp8SimulcastEnabledEncoderFactory
+      : public cricket::WebRtcVideoEncoderFactory {
+   public:
+    Vp8SimulcastEnabledEncoderFactory() {
+      supported_codecs_.push_back(cricket::VideoCodec("VP8"));
+    }
+
+    const std::vector<cricket::VideoCodec>& supported_codecs() const override {
+      return supported_codecs_;
+    }
+
+    VideoEncoder* CreateVideoEncoder(
+        const cricket::VideoCodec& codec) override {
+      // Default vp8 implementation will be used here. It supports simulcast, so
+      // we would be able to test passthrough mode.
+      return VP8Encoder::Create();
+    }
+
+    void DestroyVideoEncoder(VideoEncoder* encoder) override { delete encoder; }
+
+    virtual ~Vp8SimulcastEnabledEncoderFactory() {}
+
+   private:
+    std::vector<cricket::VideoCodec> supported_codecs_;
+  };
+
+  VP8Encoder* CreateEncoder() override {
+    return new SimulcastEncoderAdapter(factory_.get());
+  }
+  VP8Decoder* CreateDecoder() override { return VP8Decoder::Create(); }
+
+ private:
+  std::unique_ptr<Vp8SimulcastEnabledEncoderFactory> factory_;
+};
+
+TEST_F(TestSimulcastEncoderAdapterPassthrough, UsesPassthrough) {
+  std::string kImplementationName = "libvpx";
+  EXPECT_EQ(kImplementationName, encoder_->ImplementationName());
+}
+
+TEST_F(TestSimulcastEncoderAdapter, DoNotUsePassthrough) {
+  std::string kImplementationName =
+      "SimulcastEncoderAdapter (libvpx, libvpx, libvpx)";
+  EXPECT_EQ(kImplementationName, encoder_->ImplementationName());
 }
 
 }  // namespace testing

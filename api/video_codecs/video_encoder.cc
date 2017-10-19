@@ -106,4 +106,8 @@ bool VideoEncoder::SupportsNativeHandle() const {
 const char* VideoEncoder::ImplementationName() const {
   return "unknown";
 }
+
+bool VideoEncoder::SupportsSimulcast(const VideoCodec* codec_settings) const {
+  return false;
+}
 }  // namespace webrtc

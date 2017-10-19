@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6d4dc8dd_6edc3f3d",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-19T13:52:53Z",
+      "side": 1,
+      "message": "\u003e I suppose the JNI code is an exception.\n\u003e The convention (in sdk/android/src/jni/*) is to place the bindings for CallSessionFileRotatingLogSink.java in callsessionfilerotatinglogsink_jni.cc, etc.\n\nI think I\u0027d prefer to change to underscores there too (or alternatively, UseExactlyTheSameCamelCaseAsCorresponding.java files). But opinions of those working with the android code should be more important than mine.",
+      "parentUuid": "c041160b_06bb7ee2",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "8dd1b523cb201b224419138ae58df067e401ed8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b040171e_dcd41b4c",
         "filename": "style-guide.md",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-19T12:59:55Z",
       "side": 1,
       "message": "What about api/ files? There are many words but few underscores in that folder (peerconnectionfactoryproxy.h, rtceventlogoutput.h, ...).",
+      "range": {
+        "startLine": 26,
+        "startChar": 40,
+        "endLine": 26,
+        "endChar": 55
+      },
+      "revId": "8dd1b523cb201b224419138ae58df067e401ed8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f548191_428dea0a",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-19T13:52:53Z",
+      "side": 1,
+      "message": "We\u0027d have to plan the transition to be able to fix that. Is it worth the effort? If not, style-guide needs to acknowledge that.",
+      "parentUuid": "b040171e_dcd41b4c",
       "range": {
         "startLine": 26,
         "startChar": 40,

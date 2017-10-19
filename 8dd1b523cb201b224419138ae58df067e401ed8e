@@ -93,6 +93,23 @@
       "revId": "8dd1b523cb201b224419138ae58df067e401ed8e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a43cb07_fb1bb376",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-19T17:01:54Z",
+      "side": 1,
+      "message": "We don\u0027t follow this advice in any of the directories I own (api, pc, p2p). I agree consistency is valuable (in particular, I *never* remember that the header for scoped_refptr is \"scoped_ref_ptr.h\"), but can we make the rule \"be consistent within each major subdirectory\" to avoid having to change everything?\n\nAlso, have you thought about a test naming scheme? Should it be \"foo_bar_unittest\" or \"foo_bar_unit_test\"? Also, what about other types of tests? \"peerconnectionendtoend_unittest\" is particularly egregious. Should it be \"peerconnection_endtoendtest\", \"peer_connection_end_to_end_test\", or something in the middle?",
+      "revId": "8dd1b523cb201b224419138ae58df067e401ed8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

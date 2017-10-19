@@ -1036,19 +1036,17 @@ int32_t Channel::ReceivedRTCPPacket(const uint8_t* data, size_t length) {
       (*encoder)->OnReceivedRtt(rtt);
   });
 
-  uint32_t ntp_secs = 0;
-  uint32_t ntp_frac = 0;
+  NtpTime ntp;
   uint32_t rtp_timestamp = 0;
-  if (0 !=
-      _rtpRtcpModule->RemoteNTP(&ntp_secs, &ntp_frac, NULL, NULL,
-                                &rtp_timestamp)) {
+  if (0 != _rtpRtcpModule->RemoteNTP(&ntp, &rtp_timestamp)) {
     // Waiting for RTCP.
     return 0;
   }
 
   {
     rtc::CritScope lock(&ts_stats_lock_);
-    ntp_estimator_.UpdateRtcpTimestamp(rtt, ntp_secs, ntp_frac, rtp_timestamp);
+    ntp_estimator_.UpdateRtcpTimestamp(rtt, ntp.seconds(), ntp.fractions(),
+                                       rtp_timestamp);
   }
   return 0;
 }

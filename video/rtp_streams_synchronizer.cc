@@ -25,10 +25,9 @@ bool UpdateMeasurements(StreamSynchronization::Measurements* stream,
   stream->latest_timestamp = info.latest_received_capture_timestamp;
   stream->latest_receive_time_ms = info.latest_receive_time_ms;
   bool new_rtcp_sr = false;
-  if (!stream->rtp_to_ntp.UpdateMeasurements(info.capture_time_ntp_secs,
-                                             info.capture_time_ntp_frac,
-                                             info.capture_time_source_clock,
-                                             &new_rtcp_sr)) {
+  if (!stream->rtp_to_ntp.UpdateMeasurements(
+          info.capture_time_ntp.seconds(), info.capture_time_ntp.fractions(),
+          info.capture_time_source_clock, &new_rtcp_sr)) {
     return false;
   }
   return true;

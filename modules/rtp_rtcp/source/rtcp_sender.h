@@ -64,8 +64,7 @@ class RTCPSender {
     size_t media_bytes_sent;
     uint32_t send_bitrate;
 
-    uint32_t last_rr_ntp_secs;
-    uint32_t last_rr_ntp_frac;
+    NtpTime last_rr_ntp;
     uint32_t remote_sr;
 
     bool has_last_xr_rr;

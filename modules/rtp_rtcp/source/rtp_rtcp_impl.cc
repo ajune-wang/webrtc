@@ -18,6 +18,7 @@
 
 #include "api/rtpparameters.h"
 #include "common_types.h"  // NOLINT(build/include)
+#include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
@@ -368,9 +369,7 @@ RTCPSender::FeedbackState ModuleRtpRtcpImpl::GetFeedbackState() {
   }
   state.module = this;
 
-  LastReceivedNTP(&state.last_rr_ntp_secs,
-                  &state.last_rr_ntp_frac,
-                  &state.remote_sr);
+  LastReceivedNTP(&state.last_rr_ntp, &state.remote_sr);
 
   state.has_last_xr_rr =
       rtcp_receiver_.LastReceivedXrReferenceTimeInfo(&state.last_xr_rr);
@@ -503,19 +502,9 @@ int32_t ModuleRtpRtcpImpl::RemoteCNAME(
   return rtcp_receiver_.CNAME(remote_ssrc, c_name);
 }
 
-int32_t ModuleRtpRtcpImpl::RemoteNTP(
-    uint32_t* received_ntpsecs,
-    uint32_t* received_ntpfrac,
-    uint32_t* rtcp_arrival_time_secs,
-    uint32_t* rtcp_arrival_time_frac,
-    uint32_t* rtcp_timestamp) const {
-  return rtcp_receiver_.NTP(received_ntpsecs,
-                            received_ntpfrac,
-                            rtcp_arrival_time_secs,
-                            rtcp_arrival_time_frac,
-                            rtcp_timestamp)
-             ? 0
-             : -1;
+int32_t ModuleRtpRtcpImpl::RemoteNTP(NtpTime* received_ntp,
+                                     uint32_t* rtcp_timestamp) const {
+  return rtcp_receiver_.NTP(received_ntp, nullptr, rtcp_timestamp) ? 0 : -1;
 }
 
 // Get RoundTripTime.
@@ -858,22 +847,15 @@ void ModuleRtpRtcpImpl::OnReceivedRtcpReportBlocks(
 }
 
 bool ModuleRtpRtcpImpl::LastReceivedNTP(
-    uint32_t* rtcp_arrival_time_secs,  // When we got the last report.
-    uint32_t* rtcp_arrival_time_frac,
+    NtpTime* rtcp_arrival_time,  // When we got the last report.
     uint32_t* remote_sr) const {
   // Remote SR: NTP inside the last received (mid 16 bits from sec and frac).
-  uint32_t ntp_secs = 0;
-  uint32_t ntp_frac = 0;
+  NtpTime ntp;
 
-  if (!rtcp_receiver_.NTP(&ntp_secs,
-                          &ntp_frac,
-                          rtcp_arrival_time_secs,
-                          rtcp_arrival_time_frac,
-                          NULL)) {
+  if (!rtcp_receiver_.NTP(&ntp, rtcp_arrival_time, nullptr))
     return false;
-  }
-  *remote_sr =
-      ((ntp_secs & 0x0000ffff) << 16) + ((ntp_frac & 0xffff0000) >> 16);
+
+  *remote_sr = CompactNtp(ntp);
   return true;
 }
 

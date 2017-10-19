@@ -150,10 +150,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
                       char c_name[RTCP_CNAME_SIZE]) const override;
 
   // Get remote NTP.
-  int32_t RemoteNTP(uint32_t* received_ntp_secs,
-                    uint32_t* received_ntp_frac,
-                    uint32_t* rtcp_arrival_time_secs,
-                    uint32_t* rtcp_arrival_time_frac,
+  int32_t RemoteNTP(NtpTime* received_ntp,
                     uint32_t* rtcp_timestamp) const override;
 
   int32_t AddMixedCNAME(uint32_t ssrc, const char* c_name) override;
@@ -269,9 +266,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   bool SetFecParameters(const FecProtectionParams& delta_params,
                         const FecProtectionParams& key_params) override;
 
-  bool LastReceivedNTP(uint32_t* NTPsecs,
-                       uint32_t* NTPfrac,
-                       uint32_t* remote_sr) const;
+  bool LastReceivedNTP(NtpTime* rtcp_arrival_time, uint32_t* remote_sr) const;
 
   std::vector<rtcp::TmmbItem> BoundingSet(bool* tmmbr_owner);
 

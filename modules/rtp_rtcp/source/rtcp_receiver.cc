@@ -221,30 +221,24 @@ bool RTCPReceiver::GetAndResetXrRrRtt(int64_t* rtt_ms) {
   return true;
 }
 
-bool RTCPReceiver::NTP(uint32_t* received_ntp_secs,
-                       uint32_t* received_ntp_frac,
-                       uint32_t* rtcp_arrival_time_secs,
-                       uint32_t* rtcp_arrival_time_frac,
+bool RTCPReceiver::NTP(NtpTime* received_ntp,
+                       NtpTime* rtcp_arrival_time,
                        uint32_t* rtcp_timestamp) const {
   rtc::CritScope lock(&rtcp_receiver_lock_);
   if (!last_received_sr_ntp_.Valid())
     return false;
 
   // NTP from incoming SenderReport.
-  if (received_ntp_secs)
-    *received_ntp_secs = remote_sender_ntp_time_.seconds();
-  if (received_ntp_frac)
-    *received_ntp_frac = remote_sender_ntp_time_.fractions();
+  if (received_ntp)
+    *received_ntp = remote_sender_ntp_time_;
 
   // Rtp time from incoming SenderReport.
   if (rtcp_timestamp)
     *rtcp_timestamp = remote_sender_rtp_time_;
 
   // Local NTP time when we received a RTCP packet with a send block.
-  if (rtcp_arrival_time_secs)
-    *rtcp_arrival_time_secs = last_received_sr_ntp_.seconds();
-  if (rtcp_arrival_time_frac)
-    *rtcp_arrival_time_frac = last_received_sr_ntp_.fractions();
+  if (rtcp_arrival_time)
+    *rtcp_arrival_time = last_received_sr_ntp_;
 
   return true;
 }

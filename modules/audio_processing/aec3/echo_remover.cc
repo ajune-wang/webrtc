@@ -191,8 +191,9 @@ void EchoRemoverImpl::ProcessCapture(
   // A choose and apply echo suppression gain.
   suppression_gain_.GetGain(
       E2, R2, cng_.NoiseSpectrum(), render_signal_analyzer_,
-      aec_state_.SaturatedEcho(), x, aec_state_.ForcedZeroGain(),
-      aec_state_.LinearEchoEstimate(), &high_bands_gain, &G);
+      aec_state_.SaturatedEcho(), aec_state_.SaturatingEchoPath(), x,
+      aec_state_.ForcedZeroGain(), aec_state_.LinearEchoEstimate(),
+      &high_bands_gain, &G);
   suppression_filter_.ApplyGain(comfort_noise, high_band_comfort_noise, G,
                                 high_bands_gain, y);
 
@@ -227,7 +228,24 @@ void EchoRemoverImpl::ProcessCapture(
   data_dumper_->DumpRaw("aec3_erl", aec_state_.Erl());
   data_dumper_->DumpRaw("aec3_active_render", aec_state_.ActiveRender());
   data_dumper_->DumpRaw("aec3_usable_linear_estimate",
-                        aec_state_.UsableLinearEstimate());
+                        aec_state_.UsableLinearEstimate() ? 1 : 0);
+
+  data_dumper_->DumpRaw("aec3_converged_filter",
+                        subtractor_.ConvergedFilter() ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_saturated_capture",
+                        aec_state_.SaturatedCapture() ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_saturated_echo",
+                        aec_state_.SaturatedEcho() ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_saturating_echo_path",
+                        aec_state_.SaturatingEchoPath() ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_transparent_mode",
+                        aec_state_.TransparentMode() ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_inaudible_echo",
+                        aec_state_.InaudibleEcho() ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_sufficient_filter_updates",
+                        aec_state_.SufficientFilterUpdates() ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_initial_state",
+                        aec_state_.InitialState() ? 1 : 0);
   data_dumper_->DumpRaw(
       "aec3_filter_delay",
       aec_state_.FilterDelay() ? *aec_state_.FilterDelay() : -1);

@@ -67,6 +67,9 @@ class AecState {
   // Returns whether the echo signal is saturated.
   bool SaturatedEcho() const { return echo_saturation_; }
 
+  // Returns whether the echo path can saturate.
+  bool SaturatingEchoPath() const { return saturating_echo_path_; }
+
   // Updates the capture signal saturation.
   void UpdateCaptureSaturation(bool capture_signal_saturation) {
     capture_signal_saturation_ = capture_signal_saturation;
@@ -94,7 +97,12 @@ class AecState {
 
   // Returns whether the linear filter should have been able to adapt properly.
   bool SufficientFilterUpdates() const {
-    return blocks_with_filter_adaptation_ >= kEchoPathChangeConvergenceBlocks;
+    if (SaturatingEchoPath()) {
+      return blocks_with_filter_adaptation_ >=
+             2 * kEchoPathChangeConvergenceBlocks;
+    } else {
+      return blocks_with_filter_adaptation_ >= kEchoPathChangeConvergenceBlocks;
+    }
   }
 
   // Returns whether the echo subtractor can be used to determine the residual
@@ -105,7 +113,11 @@ class AecState {
 
   // Returns whether the AEC is in an initial state.
   bool InitialState() const {
-    return capture_block_counter_ < 3 * kNumBlocksPerSecond;
+    if (SaturatingEchoPath()) {
+      return capture_block_counter_ < 6 * kNumBlocksPerSecond;
+    } else {
+      return capture_block_counter_ < 3 * kNumBlocksPerSecond;
+    }
   }
 
   // Updates the aec state.
@@ -147,12 +159,14 @@ class AecState {
   ErleEstimator erle_estimator_;
   size_t capture_block_counter_ = 0;
   size_t blocks_with_filter_adaptation_ = 0;
+  size_t blocks_with_strong_render_ = 0;
   bool usable_linear_estimate_ = false;
   bool echo_leakage_detected_ = false;
   bool capture_signal_saturation_ = false;
   bool echo_saturation_ = false;
   bool transparent_mode_ = false;
-  float previous_max_sample_ = 0.f;
+  std::array<float, kAdaptiveFilterLength> max_render_;
+  size_t max_render_index_ = 0;
   bool force_zero_gain_ = false;
   bool render_received_ = false;
   size_t force_zero_gain_counter_ = 0;
@@ -165,6 +179,8 @@ class AecState {
   EchoAudibility echo_audibility_;
   const EchoCanceller3Config config_;
   float reverb_decay_;
+  bool saturating_echo_path_ = false;
+  int saturating_echo_path_counter_ = 0;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };

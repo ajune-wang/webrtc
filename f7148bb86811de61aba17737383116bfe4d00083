@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fa1efcab_c23623a8",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3519,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "Good catch. Looks like FilterOutUnsupportedRtxWhenCreatingAnswer already covers this case.",
+      "parentUuid": "5177b449_095823a0",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80b246c0_3c8e8f07",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 14
@@ -33,6 +51,24 @@
       "revId": "f7148bb86811de61aba17737383116bfe4d00083",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c639b8c_123f8134",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "For now I\u0027m just following the error format specified in WebRtcSession. Once they are merged together we can look at cleaning them up :) I\u0027ll change the error message to SDP in both places though.",
+      "parentUuid": "80b246c0_3c8e8f07",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "0613053a_6a9f25bd",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e5839f7_ee57fc4f",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef988e58_c4178a27",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 14
@@ -67,6 +121,24 @@
       "revId": "f7148bb86811de61aba17737383116bfe4d00083",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "152a423b_742bae2f",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef988e58_c4178a27",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "39cc0221_7e56e4dd",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "Added a comment to note that MD_INACTIVE actually means that the media section was not included.",
+      "parentUuid": "d9844064_f6ce9804",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c8a10b6_c16c0a06",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 14
@@ -101,6 +191,24 @@
       "revId": "f7148bb86811de61aba17737383116bfe4d00083",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abde4345_ee8bde6d",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c8a10b6_c16c0a06",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +263,24 @@
     },
     {
       "key": {
+        "uuid": "5a44dd84_b7809a4c",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d226db1_946cd653",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73938cdf_ca4a9b95",
         "filename": "pc/peerconnection_signaling_unittest.cc",
         "patchSetId": 14
@@ -172,6 +298,24 @@
     },
     {
       "key": {
+        "uuid": "ddc65f34_22741042",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73938cdf_ca4a9b95",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a530477_fb7db953",
         "filename": "pc/peerconnection_signaling_unittest.cc",
         "patchSetId": 14
@@ -186,6 +330,24 @@
       "revId": "f7148bb86811de61aba17737383116bfe4d00083",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dab982f5_c24a7ad3",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-19T22:36:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a530477_fb7db953",
+      "revId": "f7148bb86811de61aba17737383116bfe4d00083",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -63,7 +63,6 @@ class PacketQueue2 {
   void Pop();
 
   bool Empty() const;
-  size_t SizeInPackets() const;
   uint64_t SizeInBytes() const;
 
   int64_t OldestEnqueueTimeMs() const;

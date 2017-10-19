@@ -53,7 +53,6 @@ class PacketQueue {
   void CancelPop(const Packet& packet);
   void FinalizePop(const Packet& packet);
   bool Empty() const;
-  size_t SizeInPackets() const;
   uint64_t SizeInBytes() const;
   int64_t OldestEnqueueTimeMs() const;
   void UpdateQueueTime(int64_t timestamp_ms);

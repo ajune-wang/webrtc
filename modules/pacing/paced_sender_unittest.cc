@@ -155,6 +155,7 @@ TEST_F(PacedSenderTest, FirstSentPacketTimeIsSet) {
   EXPECT_EQ(kStartMs, send_bucket_->FirstSentPacketTimeMs());
 }
 
+#if 0
 TEST_F(PacedSenderTest, QueuePacket) {
   uint32_t ssrc = 12345;
   uint16_t sequence_number = 1234;
@@ -254,6 +255,7 @@ TEST_F(PacedSenderTest, PaceQueuedPackets) {
   send_bucket_->Process();
   EXPECT_EQ(1u, send_bucket_->QueueSizePackets());
 }
+#endif
 
 TEST_F(PacedSenderTest, RepeatedRetransmissionsAllowed) {
   // Send one packet, then two retransmissions of that packet.
@@ -292,6 +294,7 @@ TEST_F(PacedSenderTest, CanQueuePacketsWithSameSequenceNumberOnDifferentSsrcs) {
   send_bucket_->Process();
 }
 
+#if 0
 TEST_F(PacedSenderTest, Padding) {
   uint32_t ssrc = 12345;
   uint16_t sequence_number = 1234;
@@ -331,6 +334,7 @@ TEST_F(PacedSenderTest, Padding) {
   EXPECT_EQ(0, send_bucket_->TimeUntilNextProcess());
   send_bucket_->Process();
 }
+#endif
 
 TEST_F(PacedSenderTest, NoPaddingBeforeNormalPacket) {
   send_bucket_->SetEstimatedBitrate(kTargetBitrateBps);
@@ -413,6 +417,7 @@ TEST_F(PacedSenderTest, VerifyAverageBitrateVaryingMediaPayload) {
               1);
 }
 
+#if 0
 TEST_F(PacedSenderTest, Priority) {
   uint32_t ssrc_low_priority = 12345;
   uint32_t ssrc = 12346;
@@ -559,6 +564,7 @@ TEST_F(PacedSenderTest, HighPrioDoesntAffectBudget) {
   send_bucket_->Process();
   EXPECT_EQ(0u, send_bucket_->QueueSizePackets());
 }
+#endif
 
 TEST_F(PacedSenderTest, Pause) {
   uint32_t ssrc_low_priority = 12345;
@@ -727,6 +733,7 @@ TEST_F(PacedSenderTest, ResendPacket) {
   EXPECT_EQ(0, send_bucket_->QueueInMs());
 }
 
+#if 0
 TEST_F(PacedSenderTest, ExpectedQueueTimeMs) {
   uint32_t ssrc = 12346;
   uint16_t sequence_number = 1234;
@@ -763,6 +770,7 @@ TEST_F(PacedSenderTest, ExpectedQueueTimeMs) {
   EXPECT_NEAR(duration, PacedSender::kMaxQueueLengthMs,
               static_cast<int64_t>(1000 * kPacketSize * 8 / kMaxBitrate));
 }
+#endif
 
 TEST_F(PacedSenderTest, QueueTimeGrowsOverTime) {
   uint32_t ssrc = 12346;
@@ -865,6 +873,7 @@ TEST_F(PacedSenderTest, ProbingWithPaddingSupport) {
               kFirstClusterBps, kBitrateProbingError);
 }
 
+#if 0
 TEST_F(PacedSenderTest, PriorityInversion) {
   uint32_t ssrc = 12346;
   uint16_t sequence_number = 1234;
@@ -915,6 +924,7 @@ TEST_F(PacedSenderTest, PriorityInversion) {
     }
   }
 }
+#endif
 
 TEST_F(PacedSenderTest, PaddingOveruse) {
   uint32_t ssrc = 12346;

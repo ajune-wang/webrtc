@@ -96,6 +96,8 @@ class RtpFrameObject : public FrameObject {
   // Equal to times nacked of the packet with the highet times nacked
   // belonging to this frame.
   int times_nacked_;
+
+  const bool sps_pps_idr_is_keyframe_;
 };
 
 }  // namespace video_coding

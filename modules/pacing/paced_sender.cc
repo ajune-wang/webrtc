@@ -59,11 +59,14 @@ PacedSender::PacedSender(const Clock* clock,
       pacing_bitrate_kbps_(0),
       time_last_update_us_(clock->TimeInMicroseconds()),
       first_sent_packet_ms_(-1),
-      packets_(new PacketQueue(clock)),
       packet_counter_(0),
       pacing_factor_(kDefaultPaceMultiplier),
       queue_time_limit(kMaxQueueLengthMs) {
   UpdateBudgetWithElapsedTime(kMinPacketLimitMs);
+  if (webrtc::field_trial::IsEnabled("WebRTC-RoundRobinPacing"))
+    packets_.reset(new PacketQueue2(clock));
+  else
+    packets_.reset(new PacketQueue(clock));
 }
 
 PacedSender::~PacedSender() {}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a3a82b5_3a59a224",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-19T08:01:23Z",
+      "side": 1,
+      "message": "Not really. It is signaled *to* VideoEncoder from GenericVideoEncoder and VideoSender. Comment is correct. This method is used to notify implementation of this interface.",
+      "parentUuid": "8ac6173d_adac13e7",
+      "revId": "50fa403d67745a0e6e492b0428915374472b7082",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5cafd9f6_b1b720de",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "50fa403d67745a0e6e492b0428915374472b7082",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bab7e64_cdac7947",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-19T08:01:23Z",
+      "side": 1,
+      "message": "Changed the comment to \u0027Media Optimizations for rate limiting purposes\u0027. It may drop frames to literally rate limit the video stream. Although i thought it would be clear from the constant name.",
+      "parentUuid": "5cafd9f6_b1b720de",
+      "revId": "50fa403d67745a0e6e492b0428915374472b7082",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

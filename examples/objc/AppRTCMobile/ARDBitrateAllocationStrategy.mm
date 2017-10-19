@@ -27,6 +27,7 @@
 - (instancetype)initWithPeerCoonnection:(RTCPeerConnection*)peerConnection
                          withAudioTrack:(NSString*)audioTrackID
                  sufficientAudioBitrate:(uint32_t)sufficientAudioBitrate {
+
   if (self = [super init]) {
     [peerConnection
         setBitrateAllocationStrategy:[[RTCBitrateAllocationStrategy alloc]

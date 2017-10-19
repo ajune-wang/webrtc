@@ -20,6 +20,13 @@ both.
 [chr-style]: https://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md
 [goog-style]: https://google.github.io/styleguide/cppguide.html
 
+### File names
+
+Unless there's a strong reason to do otherwise, file and directory
+names should be in all lower-case, with words separated by
+underscores: `foo.h`, `debug_discombobulator.cc`,
+`the_path/of/least_resistence.c`
+
 ### ArrayView
 
 When passing an array of values to a function, use `rtc::ArrayView`

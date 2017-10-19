@@ -178,6 +178,7 @@ class VideoEncoder {
   virtual int32_t SetPeriodicKeyFrames(bool enable);
   virtual bool SupportsNativeHandle() const;
   virtual const char* ImplementationName() const;
+  virtual bool SupportsSimulcast(const VideoCodec* codec_settings) const;
 };
 }  // namespace webrtc
 #endif  // API_VIDEO_CODECS_VIDEO_ENCODER_H_

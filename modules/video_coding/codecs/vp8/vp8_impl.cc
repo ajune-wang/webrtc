@@ -999,6 +999,18 @@ int VP8EncoderImpl::RegisterEncodeCompleteCallback(
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
+bool VP8EncoderImpl::SupportsSimulcast(const VideoCodec* codec_settings) const {
+  if (codec_settings->numberOfSimulcastStreams == 1) {
+    return true;
+  }
+  // TODO(ilnik): Remove this once libvpx supports simulcast for same resolution
+  // streams, thus enabling simulcast for screenshare.
+  if (codec_settings->mode == VideoCodecMode::kScreensharing) {
+    return false;
+  }
+  return true;
+}
+
 class VP8DecoderImpl::QpSmoother {
  public:
   QpSmoother() : last_sample_ms_(rtc::TimeMillis()), smoother_(kAlpha) {}

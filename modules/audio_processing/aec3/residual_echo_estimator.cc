@@ -133,15 +133,21 @@ void ResidualEchoEstimator::Estimate(
       EchoGeneratingPower(render_buffer, 0, kUnknownDelayRenderWindowSize - 1,
                           &X2);
     }
+    // TODO(peah):------------------------------------
+    EchoGeneratingPower(render_buffer, 0, kUnknownDelayRenderWindowSize - 1,
+                        &X2);
 
     // Subtract the stationary noise power to avoid stationary noise causing
     // excessive echo suppression.
-    std::transform(
-        X2.begin(), X2.end(), X2_noise_floor_.begin(), X2.begin(),
-        [](float a, float b) { return std::max(0.f, a - 10.f * b); });
+    if (!(aec_state.SaturatedEcho() || aec_state.SaturatingEchoPath())) {
+      std::transform(
+          X2.begin(), X2.end(), X2_noise_floor_.begin(), X2.begin(),
+          [](float a, float b) { return std::max(0.f, a - 10.f * b); });
+    }
 
     NonLinearEstimate(
-        aec_state.SufficientFilterUpdates(), aec_state.SaturatedEcho(),
+        aec_state.SufficientFilterUpdates(),
+        aec_state.SaturatedEcho() && aec_state.SaturatingEchoPath(),
         config_.ep_strength.bounded_erl, aec_state.TransparentMode(),
         aec_state.InitialState(), X2, Y2, R2);
 
@@ -155,7 +161,8 @@ void ResidualEchoEstimator::Estimate(
   }
 
   // If the echo is deemed inaudible, set the residual echo to zero.
-  if (aec_state.InaudibleEcho()) {
+  if (aec_state.InaudibleEcho() &&
+      (!(aec_state.SaturatedEcho() || aec_state.SaturatingEchoPath()))) {
     R2->fill(0.f);
     R2_old_.fill(0.f);
     R2_hold_counter_.fill(0.f);
@@ -204,7 +211,7 @@ void ResidualEchoEstimator::NonLinearEstimate(
   // Set echo path gains.
   if (saturated_echo) {
     // If the echo could be saturated, use a very conservative gain.
-    echo_path_gain_lf = echo_path_gain_mf = echo_path_gain_hf = 10000.f;
+    echo_path_gain_lf = echo_path_gain_mf = echo_path_gain_hf = 1000.f;
   } else if (sufficient_filter_updates && !bounded_erl) {
     // If the filter should have been able to converge, and no assumption is
     // possible on the ERL, use a low gain.

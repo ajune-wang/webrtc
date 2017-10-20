@@ -70,6 +70,30 @@
       "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89728fad_ef0f0db3",
+        "filename": "system_wrappers/source/atomic32.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-20T06:34:45Z",
+      "side": 1,
+      "message": "\u003e The tests fail because fetch_add returns the previous stored value instead of the value after the operation, which is equivalent to the operation of i++ instead of ++i...\n\nAs far as I understand, it\u0027s safe to fix by returning, e.g., std::atomic_fetch_add(...) + 1.",
+      "parentUuid": "cbab14a8_d49361dc",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

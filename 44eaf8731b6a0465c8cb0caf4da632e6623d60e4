@@ -22,6 +22,30 @@
       "revId": "44eaf8731b6a0465c8cb0caf4da632e6623d60e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffc8b70d_f2d131e6",
+        "filename": "system_wrappers/include/atomic32.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-20T06:34:45Z",
+      "side": 1,
+      "message": "I don\u0027t think so, please delete.",
+      "parentUuid": "9aa0c779_2509cd05",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 41
+      },
+      "revId": "44eaf8731b6a0465c8cb0caf4da632e6623d60e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

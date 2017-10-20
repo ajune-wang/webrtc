@@ -99,6 +99,24 @@
       "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2792359f_c513f3f5",
+        "filename": "webrtc/rtc_base/bitrateallocationstrategy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-10-20T16:32:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f03f41ad_3d61fccc",
+      "revId": "8eac21cca70ca15c9c8f40b527a7ee3bf506b7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

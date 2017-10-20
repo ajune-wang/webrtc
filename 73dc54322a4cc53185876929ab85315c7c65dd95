@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4820bd7c_391e7efe",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-20T01:48:52Z",
+      "side": 1,
+      "message": "I don\u0027t think a default case is actually needed; can just do \"return out\" below the switch statement, to get around the issue some compilers have.",
+      "revId": "73dc54322a4cc53185876929ab85315c7c65dd95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a39886c3_f14dc8de",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-20T01:48:52Z",
+      "side": 1,
+      "message": "This function is always used to create two transports with the same name... So why not just have it create one transport, and call it twice, returning the created object?",
+      "revId": "73dc54322a4cc53185876929ab85315c7c65dd95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2a758b9_66594787",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-20T01:48:52Z",
+      "side": 1,
+      "message": "I think the death test and normal \"create two references to a transport\" test would be better separated.",
+      "revId": "73dc54322a4cc53185876929ab85315c7c65dd95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

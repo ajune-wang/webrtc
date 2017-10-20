@@ -94,6 +94,30 @@
       "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a043757_b6a93b28",
+        "filename": "system_wrappers/source/atomic32.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5061
+      },
+      "writtenOn": "2017-10-20T08:31:36Z",
+      "side": 1,
+      "message": "I think std::atomic::operator++() is equivalent to std::atomic_fetch_add(...) + 1, which is what I used in the latest patch.",
+      "parentUuid": "89728fad_ef0f0db3",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "a8633e4ea0f25c2df99742911b2ad882ad2502a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

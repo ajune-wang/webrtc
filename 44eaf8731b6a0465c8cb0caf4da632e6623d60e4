@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9df431c6_48687a9e",
+        "filename": "system_wrappers/include/atomic32.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5061
+      },
+      "writtenOn": "2017-10-20T08:31:36Z",
+      "side": 1,
+      "message": "Alternatively we might just subclass std::atomic\u003cint32_t\u003e and add Value and CompareExchange. Not sure whether it\u0027s cleaner than wrapping it in a new class...",
+      "parentUuid": "ebe4bd15_d6ff2926",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 5
+      },
+      "revId": "44eaf8731b6a0465c8cb0caf4da632e6623d60e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9aa0c779_2509cd05",
         "filename": "system_wrappers/include/atomic32.h",
         "patchSetId": 9

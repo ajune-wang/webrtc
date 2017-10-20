@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "d5900f12_af175a62",
+        "filename": "system_wrappers/include/atomic32.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-20T20:51:05Z",
+      "side": 1,
+      "message": "The best option would probably be just over half a dozen separate CLs that each replace one use of Atomic32 with std::atomic\u003cint32_t\u003e. However, if we need to move swiftly, landing this CL first and the same set of half a dozen CLs afterwards is OK too---it\u0027s more work overall, but it may be a quicker way to get rid of Atomic32, given that this CL is already written.\n\nIf you do end up landing this CL, be sure to post a bug about removing Atomic32 and adding a link to that bug just before line 31.",
+      "parentUuid": "d0eaa9ba_0f924ffb",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 5
+      },
+      "revId": "44eaf8731b6a0465c8cb0caf4da632e6623d60e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9aa0c779_2509cd05",
         "filename": "system_wrappers/include/atomic32.h",
         "patchSetId": 9
@@ -165,6 +189,30 @@
       "revId": "44eaf8731b6a0465c8cb0caf4da632e6623d60e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1834ba59_794d234f",
+        "filename": "system_wrappers/include/atomic32.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-20T20:51:05Z",
+      "side": 1,
+      "message": "I agree.",
+      "parentUuid": "ffc8b70d_f2d131e6",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 41
+      },
+      "revId": "44eaf8731b6a0465c8cb0caf4da632e6623d60e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -86,6 +86,7 @@ int Resampler::Reset(int inFreq, int outFreq, size_t num_channels) {
       return -1;
   }
   num_channels_ = num_channels;
+  my_mode_ = kResamplerMode1To1;
 
   if (state1_) {
     free(state1_);

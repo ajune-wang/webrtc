@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "816434bc_52a1b540",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-20T17:53:14Z",
+      "side": 1,
+      "message": "make param const ref\nAlso, add comment describing what\u0027s expected from the implementations here.",
+      "range": {
+        "startLine": 181,
+        "startChar": 73,
+        "endLine": 181,
+        "endChar": 0
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19a68104_25c503c4",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 4
@@ -66,6 +89,109 @@
         "endLine": 116,
         "endChar": 53
       },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fc6c9b_e2da17ab",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-20T17:53:14Z",
+      "side": 1,
+      "message": "nit: put next to ctor",
+      "range": {
+        "startLine": 851,
+        "startChar": 51,
+        "endLine": 851,
+        "endChar": 0
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35833b9_51919a98",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-20T17:53:14Z",
+      "side": 1,
+      "message": "Would it be possible to parameterize the test instead, so that we run the whole test suite twice with passthrough either on or off?",
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06edb4f4_3b76a893",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-20T17:53:14Z",
+      "side": 1,
+      "message": "With this CL, I\u0027m not sure this is needed anymore.\nShould check or at least add a todo about it.",
+      "range": {
+        "startLine": 1633,
+        "startChar": 51,
+        "endLine": 1633,
+        "endChar": 0
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f1a7c4c_4bb59dcb",
+        "filename": "modules/video_coding/codecs/vp8/vp8_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-20T17:53:14Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow why this is needed.",
+      "range": {
+        "startLine": 182,
+        "startChar": 49,
+        "endLine": 182,
+        "endChar": 0
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e36a2947_05d943df",
+        "filename": "modules/video_coding/codecs/vp8/vp8_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-10-20T17:53:14Z",
+      "side": 1,
+      "message": "Validate the SimulcastStream[] in codec_settings instead. Maybe check with marpan@ what exactly libvpx can do. I think right now we\u0027re assuming each layer should be 2x larger in width/height in order for simulcast to work.",
       "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

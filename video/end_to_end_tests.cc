@@ -408,21 +408,35 @@ TEST_F(EndToEndTest, SendsAndReceivesVP9VideoRotation90) {
 #endif  // !defined(RTC_DISABLE_VP9)
 
 #if defined(WEBRTC_USE_H264)
-TEST_F(EndToEndTest, SendsAndReceivesH264) {
+class EndToEndTestH264 : public EndToEndTest,
+                         public ::testing::WithParamInterface<bool> {
+ protected:
+  EndToEndTestH264()
+      : scoped_field_trials_(
+            GetParam() ? "WebRTC-SpsPpsIdrIsH264Keyframe/Enabled/" : "") {}
+
+  const test::ScopedFieldTrials scoped_field_trials_;
+};
+
+INSTANTIATE_TEST_CASE_P(SpsPpsIdrIsKeyframe,
+                        EndToEndTestH264,
+                        ::testing::Values(false, true));
+
+TEST_P(EndToEndTestH264, SendsAndReceivesH264) {
   CodecObserver test(500, kVideoRotation_0, "H264",
                      H264Encoder::Create(cricket::VideoCodec("H264")),
                      H264Decoder::Create());
   RunBaseTest(&test);
 }
 
-TEST_F(EndToEndTest, SendsAndReceivesH264VideoRotation90) {
+TEST_P(EndToEndTestH264, SendsAndReceivesH264VideoRotation90) {
   CodecObserver test(5, kVideoRotation_90, "H264",
                      H264Encoder::Create(cricket::VideoCodec("H264")),
                      H264Decoder::Create());
   RunBaseTest(&test);
 }
 
-TEST_F(EndToEndTest, SendsAndReceivesH264PacketizationMode0) {
+TEST_P(EndToEndTestH264, SendsAndReceivesH264PacketizationMode0) {
   cricket::VideoCodec codec = cricket::VideoCodec("H264");
   codec.SetParam(cricket::kH264FmtpPacketizationMode, "0");
   CodecObserver test(500, kVideoRotation_0, "H264", H264Encoder::Create(codec),
@@ -430,14 +444,13 @@ TEST_F(EndToEndTest, SendsAndReceivesH264PacketizationMode0) {
   RunBaseTest(&test);
 }
 
-TEST_F(EndToEndTest, SendsAndReceivesH264PacketizationMode1) {
+TEST_P(EndToEndTestH264, SendsAndReceivesH264PacketizationMode1) {
   cricket::VideoCodec codec = cricket::VideoCodec("H264");
   codec.SetParam(cricket::kH264FmtpPacketizationMode, "1");
   CodecObserver test(500, kVideoRotation_0, "H264", H264Encoder::Create(codec),
                      H264Decoder::Create());
   RunBaseTest(&test);
 }
-
 #endif  // defined(WEBRTC_USE_H264)
 
 TEST_F(EndToEndTest, ReceiverUsesLocalSsrc) {

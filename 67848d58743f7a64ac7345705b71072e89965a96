@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5e0c5465_3870cdaa",
+        "filename": "api/refcountedbase.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-20T11:40:12Z",
+      "side": 1,
+      "message": "Brace initializer works, though, like\n\nmutable webrtc::webrtc_impl::RefCounter ref_count_{0};\n\nOn the other hand, I\u0027m not entirely sure why I wanted RTC_DISALLOW_COPY_AND_ASSIGN.\nBut it seems like a bad idea to copy a refcounted object including a copy of the current refcount. So should we add RTC_DISALLOW_COPY_AND_ASSIGN both here and in RefCountedObject?",
+      "parentUuid": "7e5ac4ae_e5c122cd",
+      "revId": "67848d58743f7a64ac7345705b71072e89965a96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "266d0bae_f96ee5cf",
         "filename": "rtc_base/refcounter.h",
         "patchSetId": 6

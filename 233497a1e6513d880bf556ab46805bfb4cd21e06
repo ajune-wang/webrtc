@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd7a563e_1a2b559e",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-10-20T06:52:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "573cd5c4_45f1505f",
+      "range": {
+        "startLine": 60,
+        "startChar": 16,
+        "endLine": 60,
+        "endChar": 17
+      },
+      "revId": "233497a1e6513d880bf556ab46805bfb4cd21e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97e4bc52_d0569a92",
         "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e2251f4f_7df7d933",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-10-20T06:52:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97e4bc52_d0569a92",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 16
+      },
+      "revId": "233497a1e6513d880bf556ab46805bfb4cd21e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17809dd6_52ccfc90",
         "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2017-10-19T14:05:37Z",
       "side": 1,
       "message": "If the end of the array is reached this will always select element 0, right? Maybe add an RTC_DCHECK(CanReadBytes(1))? Or is it the callers responsibility to check this?",
+      "range": {
+        "startLine": 69,
+        "startChar": 48,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "233497a1e6513d880bf556ab46805bfb4cd21e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96293b9b_e43ce3f7",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-10-20T06:52:05Z",
+      "side": 1,
+      "message": "True. One of the invocations is from the FuzzSignalInput ctor, and we cannot fail a ctor. I thought this was a reasonable solution. The fuzzer will recognize this as an unexciting input, I guess. WDYT?",
+      "parentUuid": "17809dd6_52ccfc90",
       "range": {
         "startLine": 69,
         "startChar": 48,

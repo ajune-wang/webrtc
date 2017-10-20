@@ -140,6 +140,30 @@
       "revId": "233497a1e6513d880bf556ab46805bfb4cd21e06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5555504c_a791f5a0",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-20T07:32:52Z",
+      "side": 1,
+      "message": "Ok, I guess that\u0027s fine. I think it would be good to add a comment to describe this behavior.",
+      "parentUuid": "96293b9b_e43ce3f7",
+      "range": {
+        "startLine": 69,
+        "startChar": 48,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "233497a1e6513d880bf556ab46805bfb4cd21e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

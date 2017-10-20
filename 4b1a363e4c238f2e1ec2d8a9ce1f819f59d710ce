@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf3059c2_4c8eb426",
+        "filename": "modules/video_coding/generic_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2017-10-20T23:58:25Z",
+      "side": 1,
+      "message": "FYI, this is triggering for me in a downstream project. If it matters, the context is an encoder with internal source, so I\u0027m wondering if this is a similar assumption to the last time this happened with timing frames: https://codereview.webrtc.org/2980533002/\n\nIt\u0027s also suspicious to me that RequestFrame is calling OnEncodeStarted with a capture_time of zero, and since it\u0027s TimeDiff(later, earlier), if timing_frames_info has any non-zero time, this TimeDiff will be negative.\n\nCan you revert this or otherwise the DCHECK? It\u0027s basically blocking usage of android non-opt builds.\n\nStack is:\n10-20 16:46:50.223 23853 24378 E rtc     : # Fatal error in third_party/webrtc/files/stable/webrtc/modules/video_coding/generic_encoder.cc, line 223\n10-20 16:46:50.223 23853 24378 E rtc     : # last system error: 0\n10-20 16:46:50.223 23853 24378 E rtc     : # Check failed: timing_frames_info_[simulcast_svc_idx].encode_start_list.empty() || rtc::TimeDiff(capture_time_ms, timing_frames_info_[simulcast_svc_idx] .encode_start_list.back() .capture_time_ms) \u003e\u003d 0\n10-20 16:46:50.223 23853 24378 E rtc     : # \n10-20 16:46:50.223 23853 24378 E rtc     : #\nDEBUG   :     #00 pc 000000000001d780  /system/lib64/libc.so (abort+120)\nDEBUG   :     #01 pc 0000000001a9be18  lib.so (rtc::FatalMessage::~FatalMessage()+364)\nDEBUG   :     #02 pc 0000000000af084c  lib.so (webrtc::VCMEncodedFrameCallback::OnEncodeStarted(long, unsigned long)+672)\nDEBUG   :     #03 pc 0000000000aeffec  lib.so (webrtc::VCMGenericEncoder::RequestFrame(std::__ndk1::vector\u003cwebrtc::FrameType, std::__ndk1::allocator\u003cwebrtc::FrameType\u003e\u003e const\u0026)+296)\nDEBUG   :     #04 pc 0000000000b44384  lib.so (webrtc::vcm::VideoSender::IntraFrameRequest(unsigned long)+412)\nDEBUG   :     #05 pc 0000000000a73eb8  lib.so (webrtc::VideoStreamEncoder::OnReceivedIntraFrameRequest(unsigned long)+496)\nDEBUG   :     #06 pc 0000000000a73cbc  lib.so (_ZZN6webrtc18VideoStreamEncoder27OnReceivedIntraFrameRequestEmENKUlvE_clEv+52)\nDEBUG   :     #07 pc 0000000000a7c010  lib.so (_ZN3rtc11ClosureTaskIZN6webrtc18VideoStreamEncoder27OnReceivedIntraFrameRequestEmEUlvE_E3RunEv+20)\nDEBUG   :     #08 pc 0000000001a465c4  lib.so (rtc::TaskQueue::Impl::OnWakeup(int, short, void*)+1812)\nDEBUG   :     #09 pc 0000000001a6cca8  lib.so (event_persist_closure+720)\nDEBUG   :     #10 pc 0000000001a6cec4  lib.so (event_process_active_single_queue+528)\nDEBUG   :     #11 pc 0000000001a6d458  lib.so (event_process_active+292)\nDEBUG   :     #12 pc 0000000001a6dba8  lib.so (event_base_loop+596)\nDEBUG   :     #13 pc 0000000001a45d94  lib.so (rtc::TaskQueue::Impl::ThreadMain(void*)+64)\nDEBUG   :     #14 pc 0000000001ab28bc  lib.so (rtc::PlatformThread::Run()+828)\nDEBUG   :     #15 pc 0000000001ab1efc  lib.so (rtc::PlatformThread::StartThread(void*)+16)\nDEBUG   :     #16 pc 0000000000067d18  /system/lib64/libc.so (__pthread_start(void*)+36)\nDEBUG   :     #17 pc 000000000001ec10  /system/lib64/libc.so (__start_thread+68)",
+      "range": {
+        "startLine": 219,
+        "startChar": 2,
+        "endLine": 223,
+        "endChar": 65
+      },
+      "revId": "4b1a363e4c238f2e1ec2d8a9ce1f819f59d710ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

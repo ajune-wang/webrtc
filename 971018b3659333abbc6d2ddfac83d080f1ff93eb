@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e89c339_43cb6e9e",
+        "filename": "audio/audio_state.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-20T19:20:16Z",
+      "side": 1,
+      "message": "Why not just do it?",
+      "revId": "971018b3659333abbc6d2ddfac83d080f1ff93eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a62452e_12f11df6",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-20T19:20:16Z",
+      "side": 1,
+      "message": "Sure---sounds like a swell idea.",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 62
+      },
+      "revId": "971018b3659333abbc6d2ddfac83d080f1ff93eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -164,6 +164,30 @@
       "revId": "233497a1e6513d880bf556ab46805bfb4cd21e06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60344f56_7fa9fc57",
+        "filename": "test/fuzzers/neteq_signal_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-10-20T08:40:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5555504c_a791f5a0",
+      "range": {
+        "startLine": 69,
+        "startChar": 48,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "233497a1e6513d880bf556ab46805bfb4cd21e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

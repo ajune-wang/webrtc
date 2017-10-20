@@ -88,6 +88,14 @@ class BitrateAllocator {
                    bool enforce_min_bitrate,
                    std::string track_id);
 
+  void AddObserver(BitrateAllocatorObserver* observer,
+                   uint32_t min_bitrate_bps,
+                   uint32_t max_bitrate_bps,
+                   uint32_t pad_up_bitrate_bps,
+                   bool enforce_min_bitrate,
+                   std::string track_id,
+                   double relative_bitrate);
+
   // Removes a previously added observer, but will not trigger a new bitrate
   // allocation.
   void RemoveObserver(BitrateAllocatorObserver* observer);
@@ -111,11 +119,13 @@ class BitrateAllocator {
                    uint32_t max_bitrate_bps,
                    uint32_t pad_up_bitrate_bps,
                    bool enforce_min_bitrate,
-                   std::string track_id)
+                   std::string track_id,
+                   double relative_bitrate)
         : TrackConfig(min_bitrate_bps,
                       max_bitrate_bps,
                       enforce_min_bitrate,
-                      track_id),
+                      track_id,
+                      relative_bitrate),
           observer(observer),
           pad_up_bitrate_bps(pad_up_bitrate_bps),
           allocated_bitrate_bps(-1),

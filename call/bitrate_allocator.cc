@@ -128,6 +128,17 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
                                    uint32_t pad_up_bitrate_bps,
                                    bool enforce_min_bitrate,
                                    std::string track_id) {
+  AddObserver(observer, min_bitrate_bps, max_bitrate_bps, pad_up_bitrate_bps,
+              enforce_min_bitrate, track_id, 1.0);
+}
+
+void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
+                                   uint32_t min_bitrate_bps,
+                                   uint32_t max_bitrate_bps,
+                                   uint32_t pad_up_bitrate_bps,
+                                   bool enforce_min_bitrate,
+                                   std::string track_id,
+                                   double relative_bitrate) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   auto it = FindObserverConfig(observer);
 
@@ -136,11 +147,12 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
     it->min_bitrate_bps = min_bitrate_bps;
     it->max_bitrate_bps = max_bitrate_bps;
     it->pad_up_bitrate_bps = pad_up_bitrate_bps;
+    it->relative_bitrate = relative_bitrate;
     it->enforce_min_bitrate = enforce_min_bitrate;
   } else {
-    bitrate_observer_configs_.push_back(
-        ObserverConfig(observer, min_bitrate_bps, max_bitrate_bps,
-                       pad_up_bitrate_bps, enforce_min_bitrate, track_id));
+    bitrate_observer_configs_.push_back(ObserverConfig(
+        observer, min_bitrate_bps, max_bitrate_bps, pad_up_bitrate_bps,
+        enforce_min_bitrate, track_id, relative_bitrate));
   }
 
   ObserverAllocation allocation;

@@ -34,11 +34,13 @@ class BitrateAllocationStrategy {
     TrackConfig(uint32_t min_bitrate_bps,
                 uint32_t max_bitrate_bps,
                 bool enforce_min_bitrate,
-                std::string track_id)
+                std::string track_id,
+                double relative_bitrate)
         : min_bitrate_bps(min_bitrate_bps),
           max_bitrate_bps(max_bitrate_bps),
           enforce_min_bitrate(enforce_min_bitrate),
-          track_id(track_id) {}
+          track_id(track_id),
+          relative_bitrate(relative_bitrate) {}
     TrackConfig(const TrackConfig& track_config) = default;
     virtual ~TrackConfig() = default;
     TrackConfig() {}
@@ -54,6 +56,9 @@ class BitrateAllocationStrategy {
 
     // MediaStreamTrack ID as defined by application. May be empty.
     std::string track_id;
+
+    // The relative priority for allocating bitrate to this track.
+    double relative_bitrate;
   };
 
   static std::vector<uint32_t> SetAllBitratesToMinimum(

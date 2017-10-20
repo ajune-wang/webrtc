@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bacb95b1_c9bea641",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-20T14:26:54Z",
+      "side": 1,
+      "message": "It\u0027s codec specific, yes. For now only VP8 supports it, but there is work ongoing on adding h264 support for simulcast. I believe it\u0027s not so bad adding another query method to the interface. We already have |SupportsNativeHandle| there. It\u0027s also doesn\u0027t affect all the encoders, as they can just not override the method and it will work. \n\nInitEncode approach is very difficult, as we will have to introduce a new return code, what all the encoders (including external one) would have to return if they get several streams.",
+      "parentUuid": "19a68104_25c503c4",
+      "range": {
+        "startLine": 216,
+        "startChar": 30,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e0aa32a_5431771e",
         "filename": "media/engine/simulcast_encoder_adapter.h",
         "patchSetId": 4

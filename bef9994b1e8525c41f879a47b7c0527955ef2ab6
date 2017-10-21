@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "96b77e00_0f3bceb0",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-21T14:21:17Z",
+      "side": 1,
+      "message": "I was planning to reuse WEBRTC_VIDEO_CODEC_ERR_PARAMETER. We would have to update all encoders though like you say. That\u0027s probably something we should do anyway though to catch errors.\n\nWhat I\u0027m concerned about is that the VideoEncoder interface is becoming bloated and I think we can avoid adding this function.\n\nAnother alternative implementation is to NOT wrap libvpx VP8 with SimulcastEncoderAdapter by default and make libvpx responsible for handling simulcast itself in all cases. If it detects in VP8EncoderImpl::InitEncode() it can\u0027t handle simulcast using the built-in functionality, it sets up a SimulcastEncoderAdapter itself.",
+      "parentUuid": "bacb95b1_c9bea641",
+      "range": {
+        "startLine": 216,
+        "startChar": 30,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e0aa32a_5431771e",
         "filename": "media/engine/simulcast_encoder_adapter.h",
         "patchSetId": 4

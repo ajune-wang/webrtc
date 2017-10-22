@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b351663_f6f1de03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-22T20:49:23Z",
+      "side": 1,
+      "message": "Can you add that this change is being done as preparation for merging the two classes, and to make code review for that CL easier?",
+      "revId": "8aa15e37d6005ac4c4385273d70b327e1eb5c76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b478c650_d1e5dbe3",
+        "filename": "pc/webrtcsessiondescriptionfactory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-22T20:49:23Z",
+      "side": 1,
+      "message": "nit: Period at end of comment?",
+      "revId": "8aa15e37d6005ac4c4385273d70b327e1eb5c76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

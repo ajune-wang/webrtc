@@ -102,7 +102,7 @@ TEST_P(IsacSpeedTest, IsacEncodeDecodeTest) {
 }
 
 const coding_param param_set[] =
-    {::std::tr1::make_tuple(1, 32000, string("audio_coding/speech_mono_16kHz"),
+    {::std::make_tuple(1, 32000, string("audio_coding/speech_mono_16kHz"),
                             string("pcm"), true)};
 
 INSTANTIATE_TEST_CASE_P(AllTest, IsacSpeedTest,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2ed9e6b_5438f5f4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-23T19:51:14Z",
+      "side": 1,
+      "message": "Right, here we have the only three lines that touch posted_frames_waiting_for_encode_.\n\n* We don\u0027t initialize the variable anywhere. Isn\u0027t that required? (And might that be the difference between std::atomic\u003cint\u003e and Atomic32 that you were looking for?\n\n* On line 134, we increment at the end of the constructor. OK\n\n* On line 141, we load the value to check that it\u0027s \u003e 0. Then we decrement it on line 145, and do different things depending on if the value reached 0 or not. This should probably be done with a single atomic operation; if we simply save the result of --video_stream_encoder_-\u003eposted_frames_waiting_for_encode_ in a local, we can first DCHECK that it\u0027s \u003e\u003d 0, and then do the same if condition that line 145 already does.\n\n* As for optimizing this by using a more relaxed memory ordering, I believe line 134 could use .fetch_add(1, std:: memory_order_release), and line 145 could use .fetch_sub(1, std::memory_order_acquire) (which returns the value of the variable immediately before the decrement). So,\n\n  video_stream_encoder_-\u003eposted_frames_waiting_for_encode_\n      .fetch_add(1, std:: memory_order_release);\n\nand\n\n  const int posted_frames_waiting_for_encode \u003d\n      video_stream_encoder_-\u003eposted_frames_waiting_for_encode_\n      .fetch_sub(1, std::memory_order_acquire);\n  RTC_DCHECK_GT(posted_frames_waiting_for_encode, 0);\n  if (posted_frames_waiting_for_encode \u003d\u003d 1) {\n\nI\u0027m pretty sure that release-acquire ordering is what we want, but it\u0027s probably a great idea for you too to read http://en.cppreference.com/w/cpp/atomic/memory_order#Release-Acquire_ordering (and maybe the rest of that page...) to get a sanity check.",
+      "revId": "c1bf560cddb8037043bbbaeea189f9d4661ca06d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+/*
+ *  Copyright (c) 2014 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ *
+ */
+
+#ifndef MEDIA_ENGINE_VP8_ENCODER_PROXY_H_
+#define MEDIA_ENGINE_VP8_ENCODER_PROXY_H_
+
+#include <memory>
+#include <stack>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "media/engine/simulcast_encoder_adapter.h"
+#include "media/engine/webrtcvideoencoderfactory.h"
+#include "modules/video_coding/codecs/vp8/include/vp8.h"
+#include "rtc_base/atomicops.h"
+#include "rtc_base/sequenced_task_checker.h"
+
+namespace webrtc {
+
+class VP8EncoderProxy : public VP8Encoder {
+ public:
+  explicit VP8EncoderProxy(cricket::WebRtcVideoEncoderFactory* factory);
+  virtual ~VP8EncoderProxy();
+
+  // Implements VideoEncoder.
+  int Release() override;
+  int InitEncode(const VideoCodec* inst,
+                 int number_of_cores,
+                 size_t max_payload_size) override;
+  int Encode(const VideoFrame& input_image,
+             const CodecSpecificInfo* codec_specific_info,
+             const std::vector<FrameType>* frame_types) override;
+  int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
+  int SetChannelParameters(uint32_t packet_loss, int64_t rtt) override;
+  int SetRateAllocation(const BitrateAllocation& bitrate,
+                        uint32_t new_framerate) override;
+
+  VideoEncoder::ScalingSettings GetScalingSettings() const override;
+
+  int32_t SetPeriodicKeyFrames(bool enable) override;
+  bool SupportsNativeHandle() const override;
+  const char* ImplementationName() const override;
+
+ private:
+  cricket::WebRtcVideoEncoderFactory* const factory_;
+  std::unique_ptr<VideoEncoder> encoder_;
+  EncodedImageCallback* callback_;
+};
+
+}  // namespace webrtc
+
+#endif  // MEDIA_ENGINE_VP8_ENCODER_PROXY_H_

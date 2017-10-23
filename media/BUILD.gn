@@ -162,6 +162,8 @@ rtc_static_library("rtc_audio_video") {
     "engine/videodecodersoftwarefallbackwrapper.h",
     "engine/videoencodersoftwarefallbackwrapper.cc",
     "engine/videoencodersoftwarefallbackwrapper.h",
+    "engine/vp8_encoder_proxy.cc",
+    "engine/vp8_encoder_proxy.h",
     "engine/webrtcmediaengine.cc",
     "engine/webrtcmediaengine.h",
     "engine/webrtcvideocapturer.cc",

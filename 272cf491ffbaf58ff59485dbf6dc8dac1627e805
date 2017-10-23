@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "466490e6_10828411",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-23T13:48:38Z",
+      "side": 1,
+      "message": "I think this is nicer since (i) bytes_sent no longer needs to be a member, and (ii) we avoid non-const buffer for the packet to send.\n\nAlso not sure what happened to ownership of the buffer, if BuildExternalBuffer can be deleted, that\u0027s another bonus.",
+      "range": {
+        "startLine": 100,
+        "startChar": 26,
+        "endLine": 100,
+        "endChar": 0
+      },
+      "revId": "272cf491ffbaf58ff59485dbf6dc8dac1627e805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

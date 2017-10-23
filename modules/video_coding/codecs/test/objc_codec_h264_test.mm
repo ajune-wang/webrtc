@@ -17,13 +17,27 @@
 namespace webrtc {
 
 std::unique_ptr<cricket::WebRtcVideoEncoderFactory> CreateObjCEncoderFactory() {
+  RTCVideoEncoderPriorityList *encoderList = [[RTCVideoEncoderPriorityList alloc] init];
+  [encoderList addFormat:[RTCVideoEncoderH264 highProfileCodecInfo]
+               withClass:[RTCVideoEncoderH264 class]];
+  [encoderList addFormat:[RTCVideoEncoderH264 baselineProfileCodecInfo]
+               withClass:[RTCVideoEncoderH264 class]];
+
+  id<RTCVideoEncoderFactory> encoderFactory =
+      [[RTCDefaultVideoEncoderFactory alloc] initWithEncoderPriorityList:encoderList];
   return std::unique_ptr<cricket::WebRtcVideoEncoderFactory>(
-      new ObjCVideoEncoderFactory([[RTCVideoEncoderFactoryH264 alloc] init]));
+      new ObjCVideoEncoderFactory(encoderFactory));
 }
 
 std::unique_ptr<cricket::WebRtcVideoDecoderFactory> CreateObjCDecoderFactory() {
+  RTCVideoDecoderPriorityList *decoderList = [[RTCVideoDecoderPriorityList alloc] init];
+  [decoderList addFormat:[[RTCVideoCodecInfo alloc] initWithName:@"H264"]
+               withClass:[RTCVideoDecoderH264 class]];
+
+  id<RTCVideoDecoderFactory> decoderFactory =
+      [[RTCDefaultVideoDecoderFactory alloc] initWithDecoderPriorityList:decoderList];
   return std::unique_ptr<cricket::WebRtcVideoDecoderFactory>(
-      new ObjCVideoDecoderFactory([[RTCVideoDecoderFactoryH264 alloc] init]));
+      new ObjCVideoDecoderFactory(decoderFactory));
 }
 
 }  // namespace webrtc

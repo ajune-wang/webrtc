@@ -13,13 +13,13 @@
 #import <WebRTC/RTCMacros.h>
 #import <WebRTC/RTCVideoCodec.h>
 
-RTC_EXPORT
-@interface RTCVideoDecoderVP8 : NSObject
-
-/* This returns a VP8 decoder that can be returned from a RTCVideoDecoderFactory injected into
+/* This implements a VP8 decoder that can be returned from a RTCVideoDecoderFactory injected into
  * RTCPeerConnectionFactory. Even though it implements the RTCVideoDecoder protocol, it can not be
  * used independently from the RTCPeerConnectionFactory.
  */
-+ (id<RTCVideoDecoder>)vp8Decoder;
+RTC_EXPORT
+@interface RTCVideoDecoderVP8 : RTCVideoDecoder
+
++ (id<RTCVideoDecoder>)vp8Decoder DEPRECATED_MSG_ATTRIBUTE("do alloc and init instead");
 
 @end

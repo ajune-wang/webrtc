@@ -157,8 +157,8 @@ std::unique_ptr<VideoEncoder> ObjCVideoEncoderFactory::CreateVideoEncoder(
     const SdpVideoFormat &format) {
   RTCVideoCodecInfo *info = [[RTCVideoCodecInfo alloc] initWithNativeSdpVideoFormat:format];
   id<RTCVideoEncoder> encoder = [encoder_factory_ createEncoder:info];
-  if ([encoder isKindOfClass:[RTCWrappedNativeVideoEncoder class]]) {
-    return [(RTCWrappedNativeVideoEncoder *)encoder releaseWrappedEncoder];
+  if ([encoder conformsToProtocol:@protocol(RTCWrappedNativeVideoEncoder)]) {
+    return [(id<RTCWrappedNativeVideoEncoder>)encoder releaseWrappedEncoder];
   } else {
     return std::unique_ptr<ObjCVideoEncoder>(new ObjCVideoEncoder(encoder));
   }

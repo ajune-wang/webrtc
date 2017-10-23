@@ -113,8 +113,6 @@ class OpenSSLIdentity : public SSLIdentity {
   static OpenSSLIdentity* GenerateForTest(const SSLIdentityParams& params);
   static SSLIdentity* FromPEMStrings(const std::string& private_key,
                                      const std::string& certificate);
-  static SSLIdentity* FromPEMChainStrings(const std::string& private_key,
-                                          const std::string& certificate);
   ~OpenSSLIdentity() override;
 
   const OpenSSLCertificate& certificate() const override;

@@ -46,7 +46,11 @@ class VideoProcessorIntegrationTestOpenH264
     config_.verbose = false;
     config_.hw_encoder = false;
     config_.hw_decoder = false;
+    config_.encoded_frame_checker = &h264_keyframe_checker_;
   }
+
+ private:
+  H264KeyframeChecker h264_keyframe_checker_;
 };
 
 // H264: Run with no packet loss and fixed bitrate. Quality should be very high.

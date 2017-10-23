@@ -14,9 +14,7 @@
 #include "api/video_codecs/video_decoder.h"
 #include "media/base/codec.h"
 
-@interface RTCWrappedNativeVideoDecoder : NSObject <RTCVideoDecoder>
-
-- (instancetype)initWithNativeDecoder:(std::unique_ptr<webrtc::VideoDecoder>)decoder;
+@protocol RTCWrappedNativeVideoDecoder <NSObject>
 
 /* This moves the ownership of the wrapped decoder to the caller. */
 - (std::unique_ptr<webrtc::VideoDecoder>)releaseWrappedDecoder;

@@ -22,6 +22,10 @@
 #import "WebRTC/RTCPeerConnectionFactory.h"
 #import "WebRTC/RTCRtpSender.h"
 #import "WebRTC/RTCTracing.h"
+#import "WebRTC/RTCVideoCodec.h"
+#import "WebRTC/RTCVideoCodecH264.h"
+#import "WebRTC/RTCVideoCodecVP8.h"
+#import "WebRTC/RTCVideoCodecVP9.h"
 #import "WebRTC/RTCVideoTrack.h"
 
 #import "ARDAppEngineClient.h"
@@ -32,8 +36,6 @@
 #import "ARDSignalingMessage.h"
 #import "ARDTURNClient+Internal.h"
 #import "ARDUtilities.h"
-#import "ARDVideoDecoderFactory.h"
-#import "ARDVideoEncoderFactory.h"
 #import "ARDWebSocketChannel.h"
 #import "RTCIceCandidate+JSON.h"
 #import "RTCSessionDescription+JSON.h"
@@ -131,6 +133,15 @@ static int const kKbpsMultiplier = 1000;
     _defaultPeerConnectionConstraints;
 @synthesize isLoopback = _isLoopback;
 
++ (NSArray<RTCVideoCodecInfo *> *)supportedVideoCodecs {
+  return @[
+    [RTCVideoEncoderH264 highProfileCodecInfo],
+    [RTCVideoEncoderH264 baselineProfileCodecInfo],
+    [[RTCVideoCodecInfo alloc] initWithName:@"VP8"],
+    [[RTCVideoCodecInfo alloc] initWithName:@"VP9"]
+  ];
+}
+
 - (instancetype)init {
   return [self initWithDelegate:nil];
 }
@@ -221,9 +232,41 @@ static int const kKbpsMultiplier = 1000;
   _isLoopback = isLoopback;
   self.state = kARDAppClientStateConnecting;
 
-  ARDVideoDecoderFactory *decoderFactory = [[ARDVideoDecoderFactory alloc] init];
-  ARDVideoEncoderFactory *encoderFactory = [[ARDVideoEncoderFactory alloc] init];
-  encoderFactory.preferredCodec = [settings currentVideoCodecSettingFromStore];
+  RTCVideoCodecInfo *highProfile = [RTCVideoEncoderH264 highProfileCodecInfo];
+  RTCVideoCodecInfo *baselineProfile = [RTCVideoEncoderH264 baselineProfileCodecInfo];
+  RTCVideoCodecInfo *vp8Codec = [[RTCVideoCodecInfo alloc] initWithName:@"VP8"];
+  RTCVideoCodecInfo *vp9Codec = [[RTCVideoCodecInfo alloc] initWithName:@"VP9"];
+
+  NSDictionary<RTCVideoCodecInfo *, Class<RTCVideoEncoder>> *encoderClasses = @{
+    highProfile : [RTCVideoEncoderH264 class],
+    baselineProfile : [RTCVideoEncoderH264 class],
+    vp8Codec : [RTCVideoEncoderVP8 class],
+    vp9Codec : [RTCVideoEncoderVP9 class]
+  };
+
+  RTCVideoCodecInfo *preferredCodec = [settings currentVideoCodecSettingFromStore];
+
+  NSMutableArray<RTCVideoCodecInfo *> *codecs = [[self.class supportedVideoCodecs] mutableCopy];
+  NSMutableArray<RTCVideoCodecInfo *> *orderedCodecs = [NSMutableArray array];
+  NSUInteger index = [codecs indexOfObject:preferredCodec];
+  if (index != NSNotFound) {
+    [orderedCodecs addObject:[codecs objectAtIndex:index]];
+    [codecs removeObjectAtIndex:index];
+  }
+  [orderedCodecs addObjectsFromArray:codecs];
+
+  id<RTCVideoEncoderFactory> encoderFactory =
+      [[RTCDefaultVideoEncoderFactory alloc] initWithEncoderClasses:encoderClasses
+                                                           priority:orderedCodecs];
+
+  NSDictionary<RTCVideoCodecInfo *, Class<RTCVideoDecoder>> *decoderClasses = @{
+    [[RTCVideoCodecInfo alloc] initWithName:@"H264"] : [RTCVideoDecoderH264 class],
+    [[RTCVideoCodecInfo alloc] initWithName:@"VP8"] : [RTCVideoDecoderVP8 class],
+    [[RTCVideoCodecInfo alloc] initWithName:@"VP9"] : [RTCVideoDecoderVP9 class]
+  };
+  id<RTCVideoDecoderFactory> decoderFactory =
+      [[RTCDefaultVideoDecoderFactory alloc] initWithDecoderClasses:decoderClasses];
+
   _factory = [[RTCPeerConnectionFactory alloc] initWithEncoderFactory:encoderFactory
                                                        decoderFactory:decoderFactory];
 

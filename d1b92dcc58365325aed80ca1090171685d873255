@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6680e47f_2fe5146d",
+        "filename": "rtc_base/fakesslidentity.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-23T21:09:32Z",
+      "side": 1,
+      "message": "Arguably, comments like this belong in the implementation. But I guess it\u0027s fine to have them here too.",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "d1b92dcc58365325aed80ca1090171685d873255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44fdad0a_dd6512c6",
+        "filename": "rtc_base/testutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-23T21:09:32Z",
+      "side": 1,
+      "message": "We generally don\u0027t do this sort of block comment anymore. And in this particular case, it\u0027s obvious from the StreamSink:: prefixes what class we\u0027re defining methods for.",
+      "revId": "d1b92dcc58365325aed80ca1090171685d873255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

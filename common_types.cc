@@ -19,6 +19,11 @@
 #include "rtc_base/stringutils.h"
 
 namespace webrtc {
+TODO(webrtc:1234): Resolve.
+TODO(crbug/webrtc/1234): Resolve.
+TODO(http://crbug.com/webrtc/1234): Resolve.
+TODO(1234): Resolve.
+TODO(http://bugs.webrtc.org/1234): Resolve.
 
 StreamDataCounters::StreamDataCounters() : first_packet_time_ms(-1) {}
 

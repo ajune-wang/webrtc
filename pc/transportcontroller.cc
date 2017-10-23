@@ -16,6 +16,7 @@
 #include "p2p/base/port.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/thread.h"
 
 namespace {
@@ -328,6 +329,36 @@ void TransportController::DestroyDtlsTransport_n(
   }
   // Removing a channel could cause aggregate state to change.
   UpdateAggregateStates_n();
+}
+
+webrtc::RtpTransportInternal* TransportController::CreateRtpTransport(
+    const std::string& transport_name,
+    bool rtcp_mux_enabled) {
+  return network_thread_->Invoke<webrtc::RtpTransportInternal*>(
+      RTC_FROM_HERE, rtc::Bind(&TransportController::CreateRtpTransport_n, this,
+                               transport_name, rtcp_mux_enabled));
+}
+
+webrtc::SrtpTransport* TransportController::CreateSrtpTransport(
+    const std::string& transport_name,
+    bool rtcp_mux_enabled) {
+  return network_thread_->Invoke<webrtc::SrtpTransport*>(
+      RTC_FROM_HERE, rtc::Bind(&TransportController::CreateSrtpTransport_n,
+                               this, transport_name, rtcp_mux_enabled));
+}
+
+webrtc::DtlsSrtpTransport* TransportController::CreateDtlsSrtpTransport(
+    const std::string& transport_name,
+    bool rtcp_mux_enabled) {
+  return network_thread_->Invoke<webrtc::DtlsSrtpTransport*>(
+      RTC_FROM_HERE, rtc::Bind(&TransportController::CreateDtlsSrtpTransport_n,
+                               this, transport_name, rtcp_mux_enabled));
+}
+
+void TransportController::DestroyTransport(const std::string& transport_name) {
+  network_thread_->Invoke<void>(
+      RTC_FROM_HERE, rtc::Bind(&TransportController::DestroyTransport_n, this,
+                               transport_name));
 }
 
 std::vector<std::string> TransportController::transport_names_for_testing() {
@@ -903,6 +934,115 @@ void TransportController::UpdateAggregateStates_n() {
 
 void TransportController::OnDtlsHandshakeError(rtc::SSLHandshakeError error) {
   SignalDtlsHandshakeError(error);
+}
+
+webrtc::RtpTransportInternal* TransportController::CreateRtpTransport_n(
+    const std::string& transport_name,
+    bool rtcp_mux_enabled) {
+  RTC_DCHECK(network_thread_->IsCurrent());
+
+  auto it = rtp_transport_wrappers_.find(transport_name);
+  RtpTransportWrapper* existing_transport_wrapper =
+      (it == rtp_transport_wrappers_.end() ? nullptr : it->second.get());
+
+  if (existing_transport_wrapper) {
+    // For RTP transport wrapper, |srtp_transport| and |dtls_srtp_transport| are
+    // expected to be nullptr(s).
+    RTC_DCHECK(!existing_transport_wrapper->srtp_transport);
+    RTC_DCHECK(!existing_transport_wrapper->dtls_srtp_transport);
+    existing_transport_wrapper->ref_count++;
+    return existing_transport_wrapper->rtp_transport.get();
+  }
+
+  auto new_rtp_transport =
+      rtc::MakeUnique<webrtc::RtpTransport>(rtcp_mux_enabled);
+  new_rtp_transport->SetRtpPacketTransport(CreateDtlsTransport_n(
+      transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  if (!rtcp_mux_enabled) {
+    new_rtp_transport->SetRtcpPacketTransport(CreateDtlsTransport_n(
+        transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP));
+  }
+
+  auto new_rtp_transport_wrapper = rtc::MakeUnique<RtpTransportWrapper>();
+  new_rtp_transport_wrapper->rtp_transport = std::move(new_rtp_transport);
+  new_rtp_transport_wrapper->ref_count++;
+  rtp_transport_wrappers_[transport_name] =
+      std::move(new_rtp_transport_wrapper);
+  return rtp_transport_wrappers_[transport_name]->rtp_transport.get();
+}
+
+webrtc::SrtpTransport* TransportController::CreateSrtpTransport_n(
+    const std::string& transport_name,
+    bool rtcp_mux_enabled) {
+  RTC_DCHECK(network_thread_->IsCurrent());
+
+  auto it = rtp_transport_wrappers_.find(transport_name);
+  RtpTransportWrapper* existing_transport_wrapper =
+      (it == rtp_transport_wrappers_.end() ? nullptr : it->second.get());
+
+  if (existing_transport_wrapper) {
+    // For SRTP transport wrapper, the |srtp_transport| is expected to be
+    // non-null and |dtls_srtp_transport| is expected to be a nullptr.
+    RTC_DCHECK(existing_transport_wrapper->srtp_transport);
+    RTC_DCHECK(!existing_transport_wrapper->dtls_srtp_transport);
+    existing_transport_wrapper->ref_count++;
+    return existing_transport_wrapper->srtp_transport;
+  }
+
+  auto new_srtp_transport =
+      rtc::MakeUnique<webrtc::SrtpTransport>(rtcp_mux_enabled, transport_name);
+  new_srtp_transport->SetRtpPacketTransport(CreateDtlsTransport_n(
+      transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  if (!rtcp_mux_enabled) {
+    new_srtp_transport->SetRtcpPacketTransport(CreateDtlsTransport_n(
+        transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP));
+  }
+
+  auto new_rtp_transport_wrapper = rtc::MakeUnique<RtpTransportWrapper>();
+  new_rtp_transport_wrapper->srtp_transport = new_srtp_transport.get();
+  new_rtp_transport_wrapper->rtp_transport = std::move(new_srtp_transport);
+  new_rtp_transport_wrapper->ref_count++;
+  rtp_transport_wrappers_[transport_name] =
+      std::move(new_rtp_transport_wrapper);
+  return rtp_transport_wrappers_[transport_name]->srtp_transport;
+}
+
+webrtc::DtlsSrtpTransport* TransportController::CreateDtlsSrtpTransport_n(
+    const std::string& transport_name,
+    bool rtcp_mux_enabled) {
+  RTC_DCHECK(network_thread_->IsCurrent());
+  auto it = rtp_transport_wrappers_.find(transport_name);
+  RtpTransportWrapper* existing_transport_wrapper =
+      (it == rtp_transport_wrappers_.end() ? nullptr : it->second.get());
+
+  if (existing_transport_wrapper) {
+    // For SRTP transport wrapper, the |dtls_srtp_transport| is expected to be
+    // non-null and |srtp_transport| is expected to be a nullptr.
+    RTC_DCHECK(!existing_transport_wrapper->srtp_transport);
+    RTC_DCHECK(existing_transport_wrapper->dtls_srtp_transport);
+    existing_transport_wrapper->ref_count++;
+    return existing_transport_wrapper->dtls_srtp_transport;
+  }
+  // TODO(zhihuang): Create and return a real DtlsSrtpTransport once we have
+  // that.
+  return nullptr;
+}
+
+void TransportController::DestroyTransport_n(
+    const std::string& transport_name) {
+  RTC_DCHECK(network_thread_->IsCurrent());
+
+  auto it = rtp_transport_wrappers_.find(transport_name);
+  if (it == rtp_transport_wrappers_.end()) {
+    LOG(LS_WARNING) << "Attempting to delete " << transport_name
+                    << " transport , which doesn't exist.";
+    return;
+  }
+  it->second->ref_count--;
+  if (it->second->ref_count == 0) {
+    rtp_transport_wrappers_.erase(it);
+  }
+  return;
 }
 
 }  // namespace cricket

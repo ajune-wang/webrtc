@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "84c848b6_ae7d9181",
+        "filename": "api/refcountedbase.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-23T09:23:08Z",
+      "side": 1,
+      "message": "Yes, without it, I got compilation errors on the classes inheriting it and not explicitly constructing it.",
+      "parentUuid": "7374a93a_3db32028",
+      "revId": "15868a8560994af86086e00c81b45e578385fb10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1b443c3_1da406a1",
         "filename": "api/refcountedbase.h",
         "patchSetId": 15
@@ -39,6 +57,30 @@
       "revId": "15868a8560994af86086e00c81b45e578385fb10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "042cc715_f75d513a",
+        "filename": "api/refcountedbase.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-23T09:23:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1b443c3_1da406a1",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 25
+      },
+      "revId": "15868a8560994af86086e00c81b45e578385fb10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

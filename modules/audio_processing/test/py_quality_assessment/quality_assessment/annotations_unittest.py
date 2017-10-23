@@ -27,6 +27,7 @@ class TestAnnotationsExtraction(unittest.TestCase):
   """
 
   _CLEAN_TMP_OUTPUT = True
+  _DEBUG_PLOT_VAD = False
 
   def setUp(self):
     """Create temporary folder."""
@@ -45,15 +46,26 @@ class TestAnnotationsExtraction(unittest.TestCase):
       logging.warning(self.id() + ' did not clean the temporary path ' + (
           self._tmp_path))
 
-  def testExtraction(self):
-    e = annotations.AudioAnnotationsExtractor()
-    e.Extract(self._wav_file_path)
-    vad = e.GetVad()
-    assert len(vad) > 0
-    self.assertGreaterEqual(float(np.sum(vad)) / len(vad), 0.95)
+  def testVoiceActivityDetectors(self):
+    for vad_type in annotations.AudioAnnotationsExtractor.VadType:
+      e = annotations.AudioAnnotationsExtractor(vad_type=vad_type)
+      e.Extract(self._wav_file_path)
+      vad = e.GetVad()
+      self.assertGreater(len(vad), 0)
+      self.assertGreaterEqual(float(np.sum(vad)) / len(vad), 0.95)
+
+      if self._DEBUG_PLOT_VAD:
+        level = e.GetLevel()
+        import matplotlib.pyplot as plt
+        plt.figure()
+        plt.hold(True)
+        plt.plot(level)
+        plt.plot(vad * np.max(level))
+        plt.show()
 
   def testSaveLoad(self):
-    e = annotations.AudioAnnotationsExtractor()
+    e = annotations.AudioAnnotationsExtractor(
+        vad_type=annotations.AudioAnnotationsExtractor.VadType.ENERGY_THRESHOLD)
     e.Extract(self._wav_file_path)
     e.Save(self._tmp_path)
 
@@ -64,8 +76,3 @@ class TestAnnotationsExtraction(unittest.TestCase):
     vad = np.load(os.path.join(self._tmp_path, e.GetVadFileName()))
     np.testing.assert_array_equal(e.GetVad(), vad)
     self.assertEqual(np.uint8, vad.dtype)
-
-    speech_level = np.load(os.path.join(
-        self._tmp_path, e.GetSpeechLevelFileName()))
-    np.testing.assert_array_equal(e.GetSpeechLevel(), speech_level)
-    self.assertEqual(np.float32, speech_level.dtype)

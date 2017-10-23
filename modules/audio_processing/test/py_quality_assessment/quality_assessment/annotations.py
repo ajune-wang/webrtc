@@ -10,9 +10,14 @@
 """
 
 from __future__ import division
+import enum
 import logging
 import os
+import shutil
+import struct
+import subprocess
 import sys
+import tempfile
 
 try:
   import numpy as np
@@ -27,9 +32,13 @@ class AudioAnnotationsExtractor(object):
   """Extracts annotations from audio files.
   """
 
+  @enum.unique
+  class VadType(enum.Enum):
+    ENERGY_THRESHOLD = 0  # TODO(alessiob): Swiotch to P56 standard.
+    WEBRTC = 1
+
   _LEVEL_FILENAME = 'level.npy'
   _VAD_FILENAME = 'vad.npy'
-  _SPEECH_LEVEL_FILENAME = 'speech_level.npy'
 
   # Level estimation params.
   _ONE_DB_REDUCTION = np.power(10.0, -1.0 / 20.0)
@@ -41,15 +50,24 @@ class AudioAnnotationsExtractor(object):
 
   # VAD params.
   _VAD_THRESHOLD = 1
+  _VAD_WEBRTC_PATH = os.path.join(os.path.dirname(
+      os.path.abspath(__file__)), os.pardir, os.pardir)
+  _VAD_WEBRTC_BIN_PATH = os.path.join(_VAD_WEBRTC_PATH, 'vad')
 
-  def __init__(self):
+  def __init__(self, vad_type):
     self._signal = None
     self._level = None
     self._vad = None
-    self._speech_level = None
     self._level_frame_size = None
     self._c_attack = None
     self._c_decay = None
+
+    self._vad_type = vad_type
+    if self._vad_type not in self.VadType:
+      # TODO(alessiob): Raise custom exception.
+      raise Exception('Invalid vad type: ' + self._vad_type)
+
+    assert os.path.exists(self._VAD_WEBRTC_BIN_PATH), self._VAD_WEBRTC_BIN_PATH
 
   @classmethod
   def GetLevelFileName(cls):
@@ -59,18 +77,11 @@ class AudioAnnotationsExtractor(object):
   def GetVadFileName(cls):
     return cls._VAD_FILENAME
 
-  @classmethod
-  def GetSpeechLevelFileName(cls):
-    return cls._SPEECH_LEVEL_FILENAME
-
   def GetLevel(self):
     return self._level
 
   def GetVad(self):
     return self._vad
-
-  def GetSpeechLevel(self):
-    return self._speech_level
 
   def Extract(self, filepath):
     # Load signal.
@@ -78,7 +89,7 @@ class AudioAnnotationsExtractor(object):
     if self._signal.channels != 1:
       raise NotImplementedError('multiple-channel annotations not implemented')
 
-    # level estimation params.
+    # Level estimation params.
     self._level_frame_size = int(self._signal.frame_rate / 1000 * (
         self._LEVEL_FRAME_SIZE_MS))
     self._c_attack = 0.0 if self._LEVEL_ATTACK_MS == 0 else (
@@ -91,26 +102,21 @@ class AudioAnnotationsExtractor(object):
     # Compute level.
     self._LevelEstimation()
 
-    # Naive VAD based on level thresholding. It assumes ideal clean speech
-    # with high SNR.
-    # TODO(alessiob): Maybe replace with a VAD based on stationary-noise
-    # detection.
-    vad_threshold = np.percentile(self._level, self._VAD_THRESHOLD)
-    self._vad = np.uint8(self._level > vad_threshold)
-
-    # Speech level based on VAD output.
-    self._speech_level = self._level * self._vad
-
-    # Expand to one value per sample.
-    self._level = np.repeat(self._level, self._level_frame_size)
-    self._vad = np.repeat(self._vad, self._level_frame_size)
-    self._speech_level = np.repeat(self._speech_level, self._level_frame_size)
+    if self._vad_type == self.VadType.ENERGY_THRESHOLD:
+      # Naive VAD based on level thresholding. It assumes ideal clean speech
+      # with high SNR.
+      # TODO(alessiob): Maybe replace with a VAD based on stationary-noise
+      # detection.
+      vad_threshold = np.percentile(self._level, self._VAD_THRESHOLD)
+      self._vad = np.uint8(self._level > vad_threshold)
+      self._vad = np.repeat(self._vad, self._level_frame_size)
+    elif self._vad_type == self.VadType.WEBRTC:
+      self._vad = self._RunWebRtcVad(filepath, self._signal.frame_rate)
 
   def Save(self, output_path):
+    # TODO(alessiob): Save annotations using numpy.savez_compressed.
     np.save(os.path.join(output_path, self._LEVEL_FILENAME), self._level)
     np.save(os.path.join(output_path, self._VAD_FILENAME), self._vad)
-    np.save(os.path.join(output_path, self._SPEECH_LEVEL_FILENAME),
-            self._speech_level)
 
   def _LevelEstimation(self):
     # Read samples.
@@ -132,4 +138,50 @@ class AudioAnnotationsExtractor(object):
           self._level[i], self._level[i - 1], self._c_attack if (
               self._level[i] > self._level[i - 1]) else self._c_decay)
 
-    return self._level
+    # Expand to one value per sample.
+    # TODO(alessiob): Avoid this, it's just a waste of memory.
+    self._level = np.repeat(self._level, self._level_frame_size)
+
+  @classmethod
+  def _RunWebRtcVad(cls, wav_file_path, sample_rate):
+    vad_output = None
+
+    # Create temporary output path.
+    tmp_path = tempfile.mkdtemp()
+    output_file_path = os.path.join(
+        tmp_path, os.path.split(wav_file_path)[1] + '_vad.tmp')
+
+    # Call WebRTC VAD.
+    try:
+      subprocess.call([
+          cls._VAD_WEBRTC_BIN_PATH,
+          '-i', wav_file_path,
+          '-o', output_file_path
+      ], cwd=cls._VAD_WEBRTC_PATH)
+
+      # Parse output.
+      with open(output_file_path, 'rb') as f:
+        raw_data = f.read()
+      num_bytes = len(raw_data)
+      frame_size_ms = struct.unpack('B', raw_data[0])[0]
+      assert frame_size_ms in [10, 20, 30]
+      extra_bits = struct.unpack('B', raw_data[-1])[0]
+      assert 0 <= extra_bits <= 8
+      num_frames = 8 * (num_bytes - 2) - extra_bits  # 8 frames for each byte.
+      vad_output = np.zeros(num_frames, np.uint8)
+      for i, byte in enumerate(raw_data[1:-1]):
+        byte = struct.unpack('B', byte)[0]
+        for j in range(8 if i < num_bytes - 3 else (8 - extra_bits)):
+          vad_output[i * 8 + j] = int(byte & 1)
+          byte = byte >> 1
+
+      # Expand to one value per sample.
+      # TODO(alessiob): Avoid this, it's just a waste of memory.
+      vad_output = np.repeat(vad_output, frame_size_ms * sample_rate / 1000)
+    except Exception as e:
+      logging.error('Error while running the WebRTC VAD (' + e.message + ')')
+    finally:
+      if os.path.exists(tmp_path):
+        shutil.rmtree(tmp_path)
+
+    return vad_output

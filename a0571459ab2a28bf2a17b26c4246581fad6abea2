@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b419137_b2dc0853",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/isac_speed_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-23T19:56:55Z",
+      "side": 1,
+      "message": "It looks like you didn\u0027t run git cl format. Also, optionally remove the leading :: while you\u0027re at it.",
+      "revId": "a0571459ab2a28bf2a17b26c4246581fad6abea2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fc577d2_fa478bf6",
+        "filename": "modules/audio_coding/codecs/opus/opus_fec_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-23T19:56:55Z",
+      "side": 1,
+      "message": "Again, format and remove leading ::.",
+      "revId": "a0571459ab2a28bf2a17b26c4246581fad6abea2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

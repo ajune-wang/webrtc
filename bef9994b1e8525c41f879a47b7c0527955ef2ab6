@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce626b19_1dacc4d9",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-23T13:57:33Z",
+      "side": 1,
+      "message": "Removed this method. Now return value of InitEncode is checked.",
+      "parentUuid": "816434bc_52a1b540",
+      "range": {
+        "startLine": 181,
+        "startChar": 73,
+        "endLine": 181,
+        "endChar": 0
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19a68104_25c503c4",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "7614869b_979bc9a2",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-23T13:57:33Z",
+      "side": 1,
+      "message": "I introduced new return value for InitEncode and new encoder passthrough wrapper (VP8EncoderProxy). This file is now unchanged.\n\nNo change to any other encoders is required that way.",
+      "parentUuid": "96b77e00_0f3bceb0",
+      "range": {
+        "startLine": 216,
+        "startChar": 30,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e0aa32a_5431771e",
         "filename": "media/engine/simulcast_encoder_adapter.h",
         "patchSetId": 4
@@ -116,6 +164,30 @@
       "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ebe43fe_84a0358c",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-23T13:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e0aa32a_5431771e",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 53
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "f5dd7bb6_157d74b3",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-23T13:57:33Z",
+      "side": 1,
+      "message": "This code is not removed now completely.",
+      "parentUuid": "66fc6c9b_e2da17ab",
+      "range": {
+        "startLine": 851,
+        "startChar": 51,
+        "endLine": 851,
+        "endChar": 0
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b35833b9_51919a98",
         "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
         "patchSetId": 4
@@ -156,6 +252,24 @@
       "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb562a2_11d0d04b",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-23T13:57:33Z",
+      "side": 1,
+      "message": "with the new approach it\u0027s not relevant anymore.",
+      "parentUuid": "b35833b9_51919a98",
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -182,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "87e25a14_3866ac66",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-23T13:57:33Z",
+      "side": 1,
+      "message": "With the new approach it\u0027s better to recreate it. Maybe encoder was stuck using SimulcastAdapter but with the new settings it may use plain libvpx.",
+      "parentUuid": "06edb4f4_3b76a893",
+      "range": {
+        "startLine": 1633,
+        "startChar": 51,
+        "endLine": 1633,
+        "endChar": 0
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f1a7c4c_4bb59dcb",
         "filename": "modules/video_coding/codecs/vp8/vp8_impl.cc",
         "patchSetId": 4
@@ -205,6 +343,30 @@
     },
     {
       "key": {
+        "uuid": "d0a9ecea_dfc9c4fb",
+        "filename": "modules/video_coding/codecs/vp8/vp8_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-23T13:57:33Z",
+      "side": 1,
+      "message": "Not needed in the new implementation. Removed.",
+      "parentUuid": "5f1a7c4c_4bb59dcb",
+      "range": {
+        "startLine": 182,
+        "startChar": 49,
+        "endLine": 182,
+        "endChar": 0
+      },
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e36a2947_05d943df",
         "filename": "modules/video_coding/codecs/vp8/vp8_impl.cc",
         "patchSetId": 4
@@ -219,6 +381,24 @@
       "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24215809_2f3b4107",
+        "filename": "modules/video_coding/codecs/vp8/vp8_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-10-23T13:57:33Z",
+      "side": 1,
+      "message": "This code is removed now. Instead new error code is returned by InitEncode. There already was a check for correct resolutions.",
+      "parentUuid": "e36a2947_05d943df",
+      "revId": "bef9994b1e8525c41f879a47b7c0527955ef2ab6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

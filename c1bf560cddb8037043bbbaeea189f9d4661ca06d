@@ -34,6 +34,24 @@
       "revId": "c1bf560cddb8037043bbbaeea189f9d4661ca06d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ab75d8_6c41dde1",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-24T09:12:37Z",
+      "side": 1,
+      "message": "You may be right, but at that point it\u0027s getting messy. I think generally the right thing to do is to provide abstractions, like your reference counter class, and do our best to try to avoid using atomics directly in code like this. It\u0027s kind of the same thing as with memory management---the only place where you should do manual memory management is when you implement things like unique_ptr, whose only job is to abstract away the details of memory management.\n\nI guess the abstraction we want here is something like this:\n\n  // A companion to a synchronized data structure, referred to as a \"jar\". Tracks\n  // the number of \"beans\" that we have put in the jar; because the BeanCounter isn\u0027t\n  // tightly synchronized with the jar, the actual number of beans in the jar may be\n  // more (but never less) than what the BeanCounter thinks, and thus WillRemoveABean()\n  // may sometimes falsely claim that we are about to remove the last bean, but it\n  // will never falsely claim that the bean that we\u0027re about to remove will not be the\n  // last one.\n  class BeanCounter {\n   public:\n    // Call after having added one bean to the jar.\n    void HaveAddedABean() { beans_.fetch_add(1, std::memory_order_relaxed); }\n\n    // Call before removing one bean from the jar. Returns true if the jar\n    // may now be empty.\n    bool WillRemoveABean() {\n      const int beans_before \u003d beans_.fetch_sub(1, std::memory_order_relaxed);\n      return beans_before \u003c\u003d 1;\n    }\n\n   private:\n    // Lower bound on the number of beans in the jar. Note that this may temporarily\n    // be negative, in case a WillRemoveABean() call is reordered before a\n    // HaveAddedABean() call.\n    std::atomic\u003cint\u003e beans_ \u003d 0;\n  };",
+      "parentUuid": "a0a4d9fe_d4b228a4",
+      "revId": "c1bf560cddb8037043bbbaeea189f9d4661ca06d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

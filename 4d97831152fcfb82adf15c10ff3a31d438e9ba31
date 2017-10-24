@@ -22,6 +22,30 @@
       "revId": "4d97831152fcfb82adf15c10ff3a31d438e9ba31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47e88305_6e229a7d",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-10-24T08:40:25Z",
+      "side": 1,
+      "message": "Removed this test, since it is now tested by https://webrtc-review.googlesource.com/c/src/+/14559",
+      "parentUuid": "b780541e_2a8b181d",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 209,
+        "endChar": 8
+      },
+      "revId": "4d97831152fcfb82adf15c10ff3a31d438e9ba31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

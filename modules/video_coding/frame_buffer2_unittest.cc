@@ -17,10 +17,10 @@
 
 #include "modules/video_coding/frame_object.h"
 #include "modules/video_coding/jitter_estimator.h"
-#include "modules/video_coding/sequence_number_util.h"
 #include "modules/video_coding/timing.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/random.h"
+#include "rtc_base/sequence_number_util.h"
 #include "system_wrappers/include/clock.h"
 #include "test/gmock.h"
 #include "test/gtest.h"

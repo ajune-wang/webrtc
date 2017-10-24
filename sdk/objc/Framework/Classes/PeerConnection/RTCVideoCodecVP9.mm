@@ -20,22 +20,64 @@
 
 #pragma mark - Encoder
 
-@implementation RTCVideoEncoderVP9
+@implementation RTCVideoEncoderVP9 {
+  std::unique_ptr<webrtc::VideoEncoder> _wrappedEncoder;
+}
 
+// TODO(andersc): Deprecated, to be removed.
 + (id<RTCVideoEncoder>)vp9Encoder {
-  return [[RTCWrappedNativeVideoEncoder alloc]
-      initWithNativeEncoder:std::unique_ptr<webrtc::VideoEncoder>(webrtc::VP9Encoder::Create())];
+  return [[self alloc] init];
+}
+
+- (instancetype)init {
+  if (self = [super init]) {
+    _wrappedEncoder.reset(webrtc::VP9Encoder::Create());
+  }
+
+  return self;
+}
+
+@end
+
+@interface RTCVideoEncoderVP9 (WrappedNative) <RTCWrappedNativeVideoEncoder>
+@end
+
+@implementation RTCVideoEncoderVP9 (WrappedNative)
+
+- (std::unique_ptr<webrtc::VideoEncoder>)releaseWrappedEncoder {
+  return std::move(_wrappedEncoder);
 }
 
 @end
 
 #pragma mark - Decoder
 
-@implementation RTCVideoDecoderVP9
+@implementation RTCVideoDecoderVP9 {
+  std::unique_ptr<webrtc::VideoDecoder> _wrappedDecoder;
+}
 
+// TODO(andersc): Deprecated, to be removed.
 + (id<RTCVideoDecoder>)vp9Decoder {
-  return [[RTCWrappedNativeVideoDecoder alloc]
-      initWithNativeDecoder:std::unique_ptr<webrtc::VideoDecoder>(webrtc::VP9Decoder::Create())];
+  return [[self alloc] init];
+}
+
+- (instancetype)init {
+  if (self = [super init]) {
+    _wrappedDecoder.reset(webrtc::VP9Decoder::Create());
+  }
+
+  return self;
+}
+
+@end
+
+@interface RTCVideoDecoderVP9 (WrappedNative) <RTCWrappedNativeVideoDecoder>
+@end
+
+@implementation RTCVideoDecoderVP9 (WrappedNative)
+
+- (std::unique_ptr<webrtc::VideoDecoder>)releaseWrappedDecoder {
+  return std::move(_wrappedDecoder);
 }
 
 @end

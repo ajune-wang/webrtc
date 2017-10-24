@@ -367,6 +367,7 @@ void SuppressionGain::GetGain(
     const std::array<float, kFftLengthBy2Plus1>& comfort_noise,
     const RenderSignalAnalyzer& render_signal_analyzer,
     bool saturated_echo,
+    bool saturating_echo_path,
     const std::vector<std::vector<float>>& render,
     bool force_zero_gain,
     bool linear_echo_estimate,

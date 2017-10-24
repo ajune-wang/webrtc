@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e5e5e05_b4334df4",
+        "filename": "media/engine/vp8_encoder_proxy.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-24T11:13:26Z",
+      "side": 1,
+      "message": "Add a comment describing what this class does. Maybe you should add Simulcast somewhere in the class name, it\u0027s very generic otherwise.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "53a9e4401a16ba9a3c54f534ce106bfce51cc86f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485c2df3_fadd89c8",
+        "filename": "media/engine/vp8_encoder_proxy_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-24T11:13:26Z",
+      "side": 1,
+      "message": "Can you implement this with Google Mock instead?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 2
+      },
+      "revId": "53a9e4401a16ba9a3c54f534ce106bfce51cc86f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

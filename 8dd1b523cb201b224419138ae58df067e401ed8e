@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c2865bb3_3d7b9bbc",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-24T14:01:56Z",
+      "side": 1,
+      "message": "I put this under C++, because Java and Objective-C appear to have other conventions.",
+      "revId": "8dd1b523cb201b224419138ae58df067e401ed8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c041160b_06bb7ee2",
         "filename": "style-guide.md",
         "patchSetId": 3
@@ -107,6 +124,24 @@
       "writtenOn": "2017-10-19T17:01:54Z",
       "side": 1,
       "message": "We don\u0027t follow this advice in any of the directories I own (api, pc, p2p). I agree consistency is valuable (in particular, I *never* remember that the header for scoped_refptr is \"scoped_ref_ptr.h\"), but can we make the rule \"be consistent within each major subdirectory\" to avoid having to change everything?\n\nAlso, have you thought about a test naming scheme? Should it be \"foo_bar_unittest\" or \"foo_bar_unit_test\"? Also, what about other types of tests? \"peerconnectionendtoend_unittest\" is particularly egregious. Should it be \"peerconnection_endtoendtest\", \"peer_connection_end_to_end_test\", or something in the middle?",
+      "revId": "8dd1b523cb201b224419138ae58df067e401ed8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0162300d_24735bc6",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-24T14:01:56Z",
+      "side": 1,
+      "message": "Yeah, I guess it makes sense to have the rule be something like \"If the directory already has a consistent style, follow that, but if not, follow this rule.\"\n\nAnd no, I hadn\u0027t considered test names in particular. I will admit to believing that foo_unittest was more or less universal among our files, though---I don\u0027t think I\u0027ve ever seen variants like foounittest ur foo_unit_test.",
+      "parentUuid": "9a43cb07_fb1bb376",
       "revId": "8dd1b523cb201b224419138ae58df067e401ed8e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

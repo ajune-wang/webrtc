@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2f4aef9_3ef9dcc6",
+        "filename": "modules/video_coding/codecs/test/objc_codec_h264_test.mm",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-10-24T14:42:00Z",
+      "side": 1,
+      "message": "make_unique instead? Same below in that case.",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "8dda779c395a9c08d97d90094dbf7c04fa484e1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

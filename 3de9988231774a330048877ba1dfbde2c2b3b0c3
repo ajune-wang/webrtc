@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9333f384_e79e233c",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-24T08:36:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "099cc039_160462e0",
+      "range": {
+        "startLine": 249,
+        "startChar": 50,
+        "endLine": 249,
+        "endChar": 54
+      },
+      "revId": "3de9988231774a330048877ba1dfbde2c2b3b0c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b46d36f7_52f3cd0c",
         "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "3de9988231774a330048877ba1dfbde2c2b3b0c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d36d2f0_81f7d9bb",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 8
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-24T08:36:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b46d36f7_52f3cd0c",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 0
+      },
+      "revId": "3de9988231774a330048877ba1dfbde2c2b3b0c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b17b5c45_cba53d52",
+        "filename": "modules/video_coding/codecs/test/objc_codec_h264_test.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-24T08:36:29Z",
+      "side": 1,
+      "message": "Oops no 😳, forgot to update this code. Done.",
+      "parentUuid": "c4c96b5e_c96f6ffe",
+      "range": {
+        "startLine": 20,
+        "startChar": 31,
+        "endLine": 20,
+        "endChar": 42
+      },
+      "revId": "3de9988231774a330048877ba1dfbde2c2b3b0c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4efe6747_cab136d6",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.mm",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e59c640f_90dc0d37",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-24T08:36:29Z",
+      "side": 1,
+      "message": "Have not investigated exactly why, but it will not compile without it. When casting to `Class\u003cRTCVideoEncoder\u003e` or `Class\u003cNSObject\u003e` it gives the error `No known class method for selector \u0027alloc\u0027`",
+      "parentUuid": "4efe6747_cab136d6",
+      "range": {
+        "startLine": 39,
+        "startChar": 45,
+        "endLine": 39,
+        "endChar": 46
+      },
+      "revId": "3de9988231774a330048877ba1dfbde2c2b3b0c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cc6bd90_7d0339fe",
         "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
         "patchSetId": 8
@@ -114,6 +210,30 @@
       "revId": "3de9988231774a330048877ba1dfbde2c2b3b0c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d881122e_d1cf558f",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/RTCVideoEncoderH264.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-24T08:36:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cc6bd90_7d0339fe",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "3de9988231774a330048877ba1dfbde2c2b3b0c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

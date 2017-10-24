@@ -174,6 +174,8 @@ void EchoRemoverImpl::ProcessCapture(
                     render_buffer, E2_main, Y2, x0, subtractor_output.s_main,
                     echo_leakage_detected_);
 
+  bool linear = aec_state_.LinearEchoEstimate();
+  // bool linear = true;
   // Choose the linear output.
   output_selector_.FormLinearOutput(!aec_state_.TransparentMode(), e_main, y0);
   data_dumper_->DumpWav("aec3_output_linear", kBlockSize, &y0[0],
@@ -182,17 +184,22 @@ void EchoRemoverImpl::ProcessCapture(
   const auto& E2 = output_selector_.UseSubtractorOutput() ? E2_main : Y2;
 
   // Estimate the residual echo power.
-  residual_echo_estimator_.Estimate(aec_state_, render_buffer, S2_linear, Y2,
-                                    &R2);
+  // residual_echo_estimator_.Estimate(aec_state_, render_buffer, S2_linear, Y2,
+  //                                   &R2);
+  R2.fill(0.f);
+
 
   // Estimate the comfort noise.
   cng_.Compute(aec_state_, Y2, &comfort_noise, &high_band_comfort_noise);
 
+
+
   // A choose and apply echo suppression gain.
   suppression_gain_.GetGain(
       E2, R2, cng_.NoiseSpectrum(), render_signal_analyzer_,
-      aec_state_.SaturatedEcho(), x, aec_state_.ForcedZeroGain(),
-      aec_state_.LinearEchoEstimate(), &high_bands_gain, &G);
+      aec_state_.SaturatedEcho(), aec_state_.SaturatingEchoPath(), x,
+      aec_state_.ForcedZeroGain(), linear,
+      &high_bands_gain, &G);
   suppression_filter_.ApplyGain(comfort_noise, high_band_comfort_noise, G,
                                 high_bands_gain, y);
 

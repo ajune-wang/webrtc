@@ -15,6 +15,7 @@
 #include "test/gtest.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
+#if 0
 namespace webrtc {
 namespace aec3 {
 
@@ -30,7 +31,7 @@ TEST(SuppressionGain, NullOutputGains) {
   N2.fill(0.f);
   float high_bands_gain;
   EXPECT_DEATH(SuppressionGain(EchoCanceller3Config{}, DetectOptimization())
-                   .GetGain(E2, R2, N2, RenderSignalAnalyzer(), false,
+                   .GetGain(E2, R2, N2, RenderSignalAnalyzer(), false, false,
                             std::vector<std::vector<float>>(
                                 3, std::vector<float>(kBlockSize, 0.f)),
                             false, true, &high_bands_gain, nullptr),
@@ -56,7 +57,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   R2.fill(0.1f);
   N2.fill(100.f);
   for (int k = 0; k < 10; ++k) {
-    suppression_gain.GetGain(E2, R2, N2, analyzer, false, x, false, true,
+    suppression_gain.GetGain(E2, R2, N2, analyzer, false, false, x, false, true,
                              &high_bands_gain, &g);
   }
   std::for_each(g.begin(), g.end(),
@@ -67,7 +68,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   R2.fill(0.1f);
   N2.fill(0.f);
   for (int k = 0; k < 10; ++k) {
-    suppression_gain.GetGain(E2, R2, N2, analyzer, false, x, false, true,
+    suppression_gain.GetGain(E2, R2, N2, analyzer, false, false, x, false, true,
                              &high_bands_gain, &g);
   }
   std::for_each(g.begin(), g.end(),
@@ -78,14 +79,14 @@ TEST(SuppressionGain, BasicGainComputation) {
   R2.fill(10000000000000.f);
   N2.fill(0.f);
   for (int k = 0; k < 10; ++k) {
-    suppression_gain.GetGain(E2, R2, N2, analyzer, false, x, false, true,
+    suppression_gain.GetGain(E2, R2, N2, analyzer, false, false, x, false, true,
                              &high_bands_gain, &g);
   }
   std::for_each(g.begin(), g.end(),
                 [](float a) { EXPECT_NEAR(0.f, a, 0.001); });
 
   // Verify the functionality for forcing a zero gain.
-  suppression_gain.GetGain(E2, R2, N2, analyzer, false, x, true, true,
+  suppression_gain.GetGain(E2, R2, N2, analyzer, false, false, x, true, true,
                            &high_bands_gain, &g);
   std::for_each(g.begin(), g.end(), [](float a) { EXPECT_FLOAT_EQ(0.f, a); });
   EXPECT_FLOAT_EQ(0.f, high_bands_gain);
@@ -93,3 +94,4 @@ TEST(SuppressionGain, BasicGainComputation) {
 
 }  // namespace aec3
 }  // namespace webrtc
+#endif

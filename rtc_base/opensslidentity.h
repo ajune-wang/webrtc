@@ -113,6 +113,8 @@ class OpenSSLIdentity : public SSLIdentity {
   static OpenSSLIdentity* GenerateForTest(const SSLIdentityParams& params);
   static SSLIdentity* FromPEMStrings(const std::string& private_key,
                                      const std::string& certificate);
+  static SSLIdentity* FromPEMChainStrings(const std::string& private_key,
+                                          const std::string& certificate_chain);
   ~OpenSSLIdentity() override;
 
   const OpenSSLCertificate& certificate() const override;
@@ -128,11 +130,16 @@ class OpenSSLIdentity : public SSLIdentity {
 
  private:
   OpenSSLIdentity(OpenSSLKeyPair* key_pair, OpenSSLCertificate* certificate);
+  OpenSSLIdentity(OpenSSLKeyPair* key_pair,
+                  OpenSSLCertificate* certificate,
+                  SSLCertChain* cert_chain);
 
   static OpenSSLIdentity* GenerateInternal(const SSLIdentityParams& params);
 
   std::unique_ptr<OpenSSLKeyPair> key_pair_;
   std::unique_ptr<OpenSSLCertificate> certificate_;
+  // If cert_chain_ is available, first certificate equals certificate_.
+  std::unique_ptr<SSLCertChain> cert_chain_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(OpenSSLIdentity);
 };

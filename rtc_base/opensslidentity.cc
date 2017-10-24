@@ -484,6 +484,15 @@ OpenSSLIdentity::OpenSSLIdentity(OpenSSLKeyPair* key_pair,
   RTC_DCHECK(certificate != nullptr);
 }
 
+OpenSSLIdentity::OpenSSLIdentity(OpenSSLKeyPair* key_pair,
+                                 OpenSSLCertificate* certificate,
+                                 SSLCertChain* cert_chain)
+    : key_pair_(key_pair), certificate_(certificate), cert_chain_(cert_chain) {
+  RTC_DCHECK(key_pair != nullptr);
+  RTC_DCHECK(certificate != nullptr);
+  RTC_DCHECK(cert_chain != nullptr);
+}
+
 OpenSSLIdentity::~OpenSSLIdentity() = default;
 
 OpenSSLIdentity* OpenSSLIdentity::GenerateInternal(
@@ -539,6 +548,38 @@ SSLIdentity* OpenSSLIdentity::FromPEMStrings(const std::string& private_key,
   return new OpenSSLIdentity(key_pair, cert.release());
 }
 
+SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
+    const std::string& private_key,
+    const std::string& certificate_chain) {
+  BIO* bio = BIO_new_mem_buf(const_cast<char*>(certificate_chain.c_str()), -1);
+  if (!bio)
+    return nullptr;
+  BIO_set_mem_eof_return(bio, 0);
+  std::vector<std::unique_ptr<SSLCertificate>> certs;
+  X509* x509 =
+      PEM_read_bio_X509(bio, nullptr, nullptr, const_cast<char*>("\0"));
+  while (x509 != nullptr) {
+    certs.emplace_back(new OpenSSLCertificate(x509));
+    x509 = PEM_read_bio_X509(bio, nullptr, nullptr, const_cast<char*>("\0"));
+  }
+  BIO_free(bio);  // Frees the BIO, but not the pointed-to string.
+  if (certs.empty()) {
+    LOG(LS_ERROR) << "Failed to parse certificate chain from PEM string.";
+    return nullptr;
+  }
+
+  OpenSSLKeyPair* key_pair =
+      OpenSSLKeyPair::FromPrivateKeyPEMString(private_key);
+  if (!key_pair) {
+    LOG(LS_ERROR) << "Failed to create key pair from PEM string.";
+    return nullptr;
+  }
+
+  return new OpenSSLIdentity(
+      key_pair, static_cast<OpenSSLCertificate*>(certs[0]->GetReference()),
+      new SSLCertChain(std::move(certs)));
+}
+
 const OpenSSLCertificate& OpenSSLIdentity::certificate() const {
   return *certificate_;
 }
@@ -554,6 +595,17 @@ bool OpenSSLIdentity::ConfigureIdentity(SSL_CTX* ctx) {
       SSL_CTX_use_PrivateKey(ctx, key_pair_->pkey()) != 1) {
     LogSSLErrors("Configuring key and certificate");
     return false;
+  }
+  // If a chain is available, use it.
+  if (cert_chain_ != nullptr) {
+    for (size_t i = 1; i < cert_chain_->GetSize(); ++i) {
+      const OpenSSLCertificate* cert =
+          static_cast<const OpenSSLCertificate*>(&cert_chain_->Get(i));
+      if (SSL_CTX_add_extra_chain_cert(ctx, cert->x509()) != 1) {
+        LogSSLErrors("Configuring intermediate certificate");
+        return false;
+      }
+    }
   }
   return true;
 }

@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, RTCVideoCodecMode) {
 
 /** Holds information to identify a codec. Corresponds to cricket::VideoCodec. */
 RTC_EXPORT
-@interface RTCVideoCodecInfo : NSObject <NSCoding>
+@interface RTCVideoCodecInfo : NSObject <NSCoding, NSCopying>
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -139,6 +139,8 @@ RTC_EXPORT
 
 @end
 
+// TODO(andersc): This protocol is deprecated, the superclass RTCVideoEncoder should be
+// used instead. Port all usages and add deprecation warning.
 /** Protocol for encoder implementations. */
 RTC_EXPORT
 @protocol RTCVideoEncoder <NSObject>
@@ -158,8 +160,19 @@ RTC_EXPORT
  *  disables quality scaling. */
 - (RTCVideoEncoderQpThresholds *)scalingSettings;
 
+@optional
+/** This is called by the default encoder factory after the encoder is initialized, if present. */
+- (void)configureWithCodecInfo:(RTCVideoCodecInfo *)info;
+
 @end
 
+/** Superclass for video encoders. */
+RTC_EXPORT
+@interface RTCVideoEncoder : NSObject <RTCVideoEncoder>
+@end
+
+// TODO(andersc): This protocol is deprecated, the superclass RTCVideoDecoder should be
+// used instead. Port all usages and add deprecation warning.
 /** Protocol for decoder implementations. */
 RTC_EXPORT
 @protocol RTCVideoDecoder <NSObject>
@@ -175,6 +188,15 @@ RTC_EXPORT
            renderTimeMs:(int64_t)renderTimeMs;
 - (NSString *)implementationName;
 
+@optional
+/** This is called by the default decoder factory after the decoder is initialized, if present. */
+- (void)configureWithCodecInfo:(RTCVideoCodecInfo *)info;
+
+@end
+
+/** Superclass for video decoders. */
+RTC_EXPORT
+@interface RTCVideoDecoder : NSObject <RTCVideoDecoder>
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,6 +12,7 @@
 
 #import "WebRTC/RTCCameraVideoCapturer.h"
 #import "WebRTC/RTCPeerConnection.h"
+#import "WebRTC/RTCVideoCodec.h"
 #import "WebRTC/RTCVideoTrack.h"
 
 typedef NS_ENUM(NSInteger, ARDAppClientState) {
@@ -57,6 +58,8 @@ typedef NS_ENUM(NSInteger, ARDAppClientState) {
 // Handles connections to the AppRTC server for a given room. Methods on this
 // class should only be called from the main queue.
 @interface ARDAppClient : NSObject
+
++ (NSArray<RTCVideoCodecInfo *> *)supportedVideoCodecs;
 
 // If |shouldGetStats| is true, stats will be reported in 1s intervals through
 // the delegate.

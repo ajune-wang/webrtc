@@ -53,6 +53,10 @@ NSString *const kRTCLevel31ConstrainedBaseline = @"42e01f";
       initWithNativeSdpVideoFormat:webrtc::SdpVideoFormat(videoCodec.name, videoCodec.params)];
 }
 
+- (instancetype)copyWithZone:(NSZone *)zone {
+  return self;  // This class is immutable.
+}
+
 - (BOOL)isEqualToCodecInfo:(RTCVideoCodecInfo *)info {
   if (!info ||
       ![self.name isEqualToString:info.name] ||
@@ -120,6 +124,84 @@ NSString *const kRTCLevel31ConstrainedBaseline = @"42e01f";
     _high = high;
   }
   return self;
+}
+
+@end
+
+@implementation RTCVideoEncoder
+
+#pragma mark - RTCVideoEncoder
+
+- (void)setCallback:(RTCVideoEncoderCallback)callback {
+  RTC_NOTREACHED();
+}
+
+- (NSInteger)startEncodeWithSettings:(RTCVideoEncoderSettings *)settings
+                       numberOfCores:(int)numberOfCores {
+  RTC_NOTREACHED();
+  return 0;
+}
+
+- (NSInteger)releaseEncoder {
+  RTC_NOTREACHED();
+  return 0;
+}
+
+- (NSInteger)encode:(RTCVideoFrame *)frame
+    codecSpecificInfo:(id<RTCCodecSpecificInfo>)info
+           frameTypes:(NSArray<NSNumber *> *)frameTypes {
+  RTC_NOTREACHED();
+  return 0;
+}
+
+- (int)setBitrate:(uint32_t)bitrateKbit framerate:(uint32_t)framerate {
+  RTC_NOTREACHED();
+  return 0;
+}
+
+- (NSString *)implementationName {
+  RTC_NOTREACHED();
+  return nil;
+}
+
+- (RTCVideoEncoderQpThresholds *)scalingSettings {
+  RTC_NOTREACHED();
+  return nil;
+}
+
+@end
+
+@implementation RTCVideoDecoder
+
+#pragma mark - RTCVideoDecoder
+
+- (void)setCallback:(RTCVideoDecoderCallback)callback {
+  RTC_NOTREACHED();
+}
+
+- (NSInteger)startDecodeWithSettings:(RTCVideoEncoderSettings *)settings
+                       numberOfCores:(int)numberOfCores {
+  RTC_NOTREACHED();
+  return 0;
+}
+
+- (NSInteger)releaseDecoder {
+  RTC_NOTREACHED();
+  return 0;
+}
+
+- (NSInteger)decode:(RTCEncodedImage *)encodedImage
+          missingFrames:(BOOL)missingFrames
+    fragmentationHeader:(RTCRtpFragmentationHeader *)fragmentationHeader
+      codecSpecificInfo:(__nullable id<RTCCodecSpecificInfo>)info
+           renderTimeMs:(int64_t)renderTimeMs {
+  RTC_NOTREACHED();
+  return 0;
+}
+
+- (NSString *)implementationName {
+  RTC_NOTREACHED();
+  return nil;
 }
 
 @end

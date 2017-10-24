@@ -8,9 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#import "ARDAppClient.h"
 #import "ARDSettingsModel+Private.h"
 #import "ARDSettingsStore.h"
-#import "ARDVideoEncoderFactory.h"
 #import "WebRTC/RTCCameraVideoCapturer.h"
 #import "WebRTC/RTCMediaConstraints.h"
 
@@ -66,9 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSArray<RTCVideoCodecInfo *> *)availableVideoCodecs {
-  NSArray<RTCVideoCodecInfo *> *supportedCodecs =
-      [[[ARDVideoEncoderFactory alloc] init] supportedCodecs];
-  return supportedCodecs;
+  return [ARDAppClient supportedVideoCodecs];
 }
 
 - (RTCVideoCodecInfo *)currentVideoCodecSettingFromStore {

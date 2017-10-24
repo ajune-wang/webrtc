@@ -17,13 +17,31 @@
 namespace webrtc {
 
 std::unique_ptr<cricket::WebRtcVideoEncoderFactory> CreateObjCEncoderFactory() {
+  NSDictionary *encoderClasses = @{
+        [RTCVideoEncoderH264 highProfileCodecInfo] : [RTCVideoEncoderH264 class],
+        [RTCVideoEncoderH264 baselineProfileCodecInfo] : [RTCVideoEncoderH264 class]
+  };
+  NSArray<RTCVideoCodecInfo *> *codecs = @[
+    [RTCVideoEncoderH264 highProfileCodecInfo],
+    [RTCVideoEncoderH264 baselineProfileCodecInfo]
+  ];
+
+  id<RTCVideoEncoderFactory> encoderFactory =
+      [[RTCDefaultVideoEncoderFactory alloc] initWithEncoderClasses:encoderClasses priority:codecs];
   return std::unique_ptr<cricket::WebRtcVideoEncoderFactory>(
-      new ObjCVideoEncoderFactory([[RTCVideoEncoderFactoryH264 alloc] init]));
+      new ObjCVideoEncoderFactory(encoderFactory));
 }
 
 std::unique_ptr<cricket::WebRtcVideoDecoderFactory> CreateObjCDecoderFactory() {
+  NSDictionary *decoderClasses = @{
+        [RTCVideoEncoderH264 highProfileCodecInfo] : [RTCVideoEncoderH264 class],
+        [RTCVideoEncoderH264 baselineProfileCodecInfo] : [RTCVideoEncoderH264 class]
+  };
+
+  id<RTCVideoDecoderFactory> decoderFactory =
+      [[RTCDefaultVideoDecoderFactory alloc] initWithDecoderClasses:decoderClasses];
   return std::unique_ptr<cricket::WebRtcVideoDecoderFactory>(
-      new ObjCVideoDecoderFactory([[RTCVideoDecoderFactoryH264 alloc] init]));
+      new ObjCVideoDecoderFactory(decoderFactory));
 }
 
 }  // namespace webrtc

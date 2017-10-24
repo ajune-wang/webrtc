@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad946621_79eae813",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-24T00:32:18Z",
+      "side": 1,
+      "message": "nit: Instead of having a default case, can just add \"return nullptr\" outside the switch statement. This way we\u0027ll get an error at compile time if there\u0027s an unhandled case (\"Wswitch\"), rather than at runtime.",
+      "revId": "0382a0f5fe083f4e488f922627fdcacb82b81451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0671a346_e7a7d3d1",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-24T00:32:18Z",
+      "side": 1,
+      "message": "nit: May be useful to add:\n\nelse {\n  // We don\u0027t expect to know the adapter type of remote candidates.\n  RTC_DCHECK_EQ(rtc::ADAPTER_TYPE_UNKNOWN, candidate.network_type());\n}\n\nThat way, if that assumption ever changes in the future (for example, if we add a new candidate attribute for the network type) we\u0027ll be reminded to update this code.",
+      "revId": "0382a0f5fe083f4e488f922627fdcacb82b81451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcdf1524_e1651c34",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-24T00:32:18Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think \"is_local\" is needed as a parameter. The relevant tests can just pass in ADAPTER_TYPE_UNKNOWN for a remote candidate.",
+      "revId": "0382a0f5fe083f4e488f922627fdcacb82b81451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

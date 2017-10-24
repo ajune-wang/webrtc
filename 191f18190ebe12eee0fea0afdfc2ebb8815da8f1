@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f098a62_2c88496a",
+        "filename": "media/engine/vp8_encoder_simulcast_proxy_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-24T12:25:02Z",
+      "side": 1,
+      "message": "I would like you to mock everything, i.e. InitEncode(), ImplementationName(), and CreateVideoEncoder() as well, and use the gmock functionality to control the flow.\n\nSomething like this:\n\nMockEncoder* mock_encoder \u003d new MockEncoder();\nMockWebRtcVideoEncoderFactory simulcast_factory;\n\nEXPECT_CALL(simulcast_factory, CreateVideoEncoder(_))\n    .WillOnce(testing::Return(mock_encoder));\nEXPECT_CALL(mock_encoder, InitEncode(_, _, _))\n    .WillOnce(testing::Return(WEBRTC_VIDEO_CODEC_OK));\n\nVP8EncoderSimulcastProxy simulcast_enabled_proxy(\u0026simulcast_factory);\nEXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,\n          simulcast_enabled_proxy.InitEncode(\u0026codec_settings, 4, 1200));\n\nconst char* kSimulcastEnabledImplementation \u003d \"Fake\";\nEXPECT_CALL(mock_encoder, ImplementationName())\n    .WillOnce(testing::Return(kSimulcastEnabledImplementation);\nEXPECT_EQ(kSimulcastEnabledImplementation,\n          simulcast_enabled_proxy.ImplementationName());",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "191f18190ebe12eee0fea0afdfc2ebb8815da8f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

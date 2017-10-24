@@ -399,10 +399,77 @@ if (rtc_include_tests) {
   }
 
   video_coding_modules_tests_resources = [
-    "../../resources/foreman_128x96.yuv",
-    "../../resources/foreman_160x120.yuv",
-    "../../resources/foreman_176x144.yuv",
-    "../../resources/foreman_320x240.yuv",
+    "../../resources/Bridge_r90_f7.yuv",
+    "../../resources/Bridge_r136_f7.yuv",
+    "../../resources/Bridge_r180_f7.yuv",
+    "../../resources/Bridge_r270_f7.yuv",
+    "../../resources/Bridge_r360_f7.yuv",
+
+    "../../resources/Bridge_r90_f10.yuv",
+    "../../resources/Bridge_r136_f10.yuv",
+    "../../resources/Bridge_r180_f10.yuv",
+    "../../resources/Bridge_r270_f10.yuv",
+    "../../resources/Bridge_r360_f10.yuv",
+
+    "../../resources/Bridge_r90_f15.yuv",
+    "../../resources/Bridge_r136_f15.yuv",
+    "../../resources/Bridge_r180_f15.yuv",
+    "../../resources/Bridge_r270_f15.yuv",
+    "../../resources/Bridge_r360_f15.yuv",
+
+    "../../resources/Central_Station_r90_f7.yuv",
+    "../../resources/Central_Station_r136_f7.yuv",
+    "../../resources/Central_Station_r180_f7.yuv",
+    "../../resources/Central_Station_r270_f7.yuv",
+    "../../resources/Central_Station_r360_f7.yuv",
+
+    "../../resources/Central_Station_r90_f10.yuv",
+    "../../resources/Central_Station_r136_f10.yuv",
+    "../../resources/Central_Station_r180_f10.yuv",
+    "../../resources/Central_Station_r270_f10.yuv",
+    "../../resources/Central_Station_r360_f10.yuv",
+
+    "../../resources/Central_Station_r90_f15.yuv",
+    "../../resources/Central_Station_r136_f15.yuv",
+    "../../resources/Central_Station_r180_f15.yuv",
+    "../../resources/Central_Station_r270_f15.yuv",
+    "../../resources/Central_Station_r360_f15.yuv",
+
+    "../../resources/Living_Room_r90_f7.yuv",
+    "../../resources/Living_Room_r136_f7.yuv",
+    "../../resources/Living_Room_r180_f7.yuv",
+    "../../resources/Living_Room_r270_f7.yuv",
+    "../../resources/Living_Room_r360_f7.yuv",
+
+    "../../resources/Living_Room_r90_f10.yuv",
+    "../../resources/Living_Room_r136_f10.yuv",
+    "../../resources/Living_Room_r180_f10.yuv",
+    "../../resources/Living_Room_r270_f10.yuv",
+    "../../resources/Living_Room_r360_f10.yuv",
+
+    "../../resources/Living_Room_r90_f15.yuv",
+    "../../resources/Living_Room_r136_f15.yuv",
+    "../../resources/Living_Room_r180_f15.yuv",
+    "../../resources/Living_Room_r270_f15.yuv",
+    "../../resources/Living_Room_r360_f15.yuv",
+
+    "../../resources/Street_r90_f7.yuv",
+    "../../resources/Street_r136_f7.yuv",
+    "../../resources/Street_r180_f7.yuv",
+    "../../resources/Street_r270_f7.yuv",
+    "../../resources/Street_r360_f7.yuv",
+
+    "../../resources/Street_r90_f10.yuv",
+    "../../resources/Street_r136_f10.yuv",
+    "../../resources/Street_r180_f10.yuv",
+    "../../resources/Street_r270_f10.yuv",
+    "../../resources/Street_r360_f10.yuv",
+
+    "../../resources/Street_r90_f15.yuv",
+    "../../resources/Street_r136_f15.yuv",
+    "../../resources/Street_r180_f15.yuv",
+    "../../resources/Street_r270_f15.yuv",
+    "../../resources/Street_r360_f15.yuv",
   ]
 
   if (is_ios || is_mac) {

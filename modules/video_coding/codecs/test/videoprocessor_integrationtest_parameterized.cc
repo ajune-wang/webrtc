@@ -18,9 +18,10 @@ namespace test {
 namespace {
 
 // Loop variables.
-const int kBitrates[] = {500};
-const VideoCodecType kVideoCodecType[] = {kVideoCodecVP8};
-const bool kHwCodec[] = {false};
+const int kBitrates[] = {10,  20,  30,  40,  50,  60,  70,  80,  90,  100,
+                         125, 150, 175, 200, 225, 250, 275, 300, 400, 500};
+const VideoCodecType kVideoCodecType[] = {kVideoCodecVP9};
+const bool kHwCodec[] = {false, true};
 
 // Codec settings.
 const bool kResilienceOn = false;
@@ -38,7 +39,7 @@ const VisualizationParams kVisualizationParams = {
     false,  // save_decoded_y4m
 };
 
-const int kNumFrames = 30;
+const int kClipLengthSeconds = 30;
 
 }  // namespace
 
@@ -60,20 +61,20 @@ class VideoProcessorIntegrationTestParameterized
                const std::string& filename) {
     config_.filename = filename;
     config_.input_filename = ResourcePath(filename, "yuv");
-    config_.output_filename =
-        TempFilename(OutputPath(), "plot_videoprocessor_integrationtest");
+    config_.output_filename = TempFilename(
+        OutputPath(), "videoprocessor_integrationtest_parameterized");
     config_.use_single_core = kUseSingleCore;
     config_.measure_cpu = kMeasureCpu;
     config_.verbose = true;
     config_.hw_encoder = hw_codec_;
     config_.hw_decoder = hw_codec_;
-    config_.num_frames = kNumFrames;
+    config_.num_frames = kClipLengthSeconds * framerate;
     config_.SetCodecSettings(codec_type_, kNumTemporalLayers,
                              kErrorConcealmentOn, kDenoisingOn, kFrameDropperOn,
                              kSpatialResizeOn, kResilienceOn, width, height);
 
     std::vector<RateProfile> rate_profiles = {
-        {bitrate_, framerate, kNumFrames + 1}};
+        {bitrate_, framerate, config_.num_frames + 1}};
 
     ProcessFramesAndMaybeVerify(rate_profiles, nullptr, nullptr, nullptr,
                                 &kVisualizationParams);
@@ -90,24 +91,196 @@ INSTANTIATE_TEST_CASE_P(CodecSettings,
                                            ::testing::ValuesIn(kVideoCodecType),
                                            ::testing::ValuesIn(kHwCodec)));
 
-TEST_P(VideoProcessorIntegrationTestParameterized, Process_128x96_30fps) {
-  RunTest(128, 96, 30, "foreman_128x96");
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r90_f7) {
+  RunTest(90, 160, 7, "Bridge_r90_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r136_f7) {
+  RunTest(136, 242, 7, "Bridge_r136_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r180_f7) {
+  RunTest(180, 320, 7, "Bridge_r180_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r270_f7) {
+  RunTest(270, 480, 7, "Bridge_r270_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r360_f7) {
+  RunTest(360, 640, 7, "Bridge_r360_f7");
 }
 
-TEST_P(VideoProcessorIntegrationTestParameterized, Process_160x120_30fps) {
-  RunTest(160, 120, 30, "foreman_160x120");
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r90_f10) {
+  RunTest(90, 160, 10, "Bridge_r90_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r136_f10) {
+  RunTest(136, 242, 10, "Bridge_r136_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r180_f10) {
+  RunTest(180, 320, 10, "Bridge_r180_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r270_f10) {
+  RunTest(270, 480, 10, "Bridge_r270_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r360_f10) {
+  RunTest(360, 640, 10, "Bridge_r360_f10");
 }
 
-TEST_P(VideoProcessorIntegrationTestParameterized, Process_176x144_30fps) {
-  RunTest(176, 144, 30, "foreman_176x144");
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r90_f15) {
+  RunTest(90, 160, 15, "Bridge_r90_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r136_f15) {
+  RunTest(136, 242, 15, "Bridge_r136_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r180_f15) {
+  RunTest(180, 320, 15, "Bridge_r180_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r270_f15) {
+  RunTest(270, 480, 15, "Bridge_r270_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Bridge_r360_f15) {
+  RunTest(360, 640, 15, "Bridge_r360_f15");
 }
 
-TEST_P(VideoProcessorIntegrationTestParameterized, Process_320x240_30fps) {
-  RunTest(320, 240, 30, "foreman_320x240");
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r90_f7) {
+  RunTest(90, 160, 7, "Central_Station_r90_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r136_f7) {
+  RunTest(136, 242, 7, "Central_Station_r136_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r180_f7) {
+  RunTest(180, 320, 7, "Central_Station_r180_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r270_f7) {
+  RunTest(270, 480, 7, "Central_Station_r270_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r360_f7) {
+  RunTest(360, 640, 7, "Central_Station_r360_f7");
 }
 
-TEST_P(VideoProcessorIntegrationTestParameterized, Process_352x288_30fps) {
-  RunTest(352, 288, 30, "foreman_cif");
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r90_f10) {
+  RunTest(90, 160, 10, "Central_Station_r90_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r136_f10) {
+  RunTest(136, 242, 10, "Central_Station_r136_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r180_f10) {
+  RunTest(180, 320, 10, "Central_Station_r180_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r270_f10) {
+  RunTest(270, 480, 10, "Central_Station_r270_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r360_f10) {
+  RunTest(360, 640, 10, "Central_Station_r360_f10");
+}
+
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r90_f15) {
+  RunTest(90, 160, 15, "Central_Station_r90_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r136_f15) {
+  RunTest(136, 242, 15, "Central_Station_r136_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r180_f15) {
+  RunTest(180, 320, 15, "Central_Station_r180_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r270_f15) {
+  RunTest(270, 480, 15, "Central_Station_r270_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Central_Station_r360_f15) {
+  RunTest(360, 640, 15, "Central_Station_r360_f15");
+}
+
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r90_f7) {
+  RunTest(90, 160, 7, "Living_Room_r90_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r136_f7) {
+  RunTest(136, 242, 7, "Living_Room_r136_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r180_f7) {
+  RunTest(180, 320, 7, "Living_Room_r180_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r270_f7) {
+  RunTest(270, 480, 7, "Living_Room_r270_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r360_f7) {
+  RunTest(360, 640, 7, "Living_Room_r360_f7");
+}
+
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r90_f10) {
+  RunTest(90, 160, 10, "Living_Room_r90_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r136_f10) {
+  RunTest(136, 242, 10, "Living_Room_r136_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r180_f10) {
+  RunTest(180, 320, 10, "Living_Room_r180_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r270_f10) {
+  RunTest(270, 480, 10, "Living_Room_r270_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r360_f10) {
+  RunTest(360, 640, 10, "Living_Room_r360_f10");
+}
+
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r90_f15) {
+  RunTest(90, 160, 15, "Living_Room_r90_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r136_f15) {
+  RunTest(136, 242, 15, "Living_Room_r136_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r180_f15) {
+  RunTest(180, 320, 15, "Living_Room_r180_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r270_f15) {
+  RunTest(270, 480, 15, "Living_Room_r270_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Living_Room_r360_f15) {
+  RunTest(360, 640, 15, "Living_Room_r360_f15");
+}
+
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r90_f7) {
+  RunTest(90, 160, 7, "Street_r90_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r136_f7) {
+  RunTest(136, 242, 7, "Street_r136_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r180_f7) {
+  RunTest(180, 320, 7, "Street_r180_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r270_f7) {
+  RunTest(270, 480, 7, "Street_r270_f7");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r360_f7) {
+  RunTest(360, 640, 7, "Street_r360_f7");
+}
+
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r90_f10) {
+  RunTest(90, 160, 10, "Street_r90_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r136_f10) {
+  RunTest(136, 242, 10, "Street_r136_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r180_f10) {
+  RunTest(180, 320, 10, "Street_r180_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r270_f10) {
+  RunTest(270, 480, 10, "Street_r270_f10");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r360_f10) {
+  RunTest(360, 640, 10, "Street_r360_f10");
+}
+
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r90_f15) {
+  RunTest(90, 160, 15, "Street_r90_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r136_f15) {
+  RunTest(136, 242, 15, "Street_r136_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r180_f15) {
+  RunTest(180, 320, 15, "Street_r180_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r270_f15) {
+  RunTest(270, 480, 15, "Street_r270_f15");
+}
+TEST_P(VideoProcessorIntegrationTestParameterized, Street_r360_f15) {
+  RunTest(360, 640, 15, "Street_r360_f15");
 }
 
 }  // namespace test

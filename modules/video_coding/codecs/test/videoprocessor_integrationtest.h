@@ -146,9 +146,9 @@ class VideoProcessorIntegrationTest : public testing::Test {
     float key_framesize_kbits;
   };
 
-  void CreateEncoderAndDecoder();
+  bool CreateEncoderAndDecoder();
   void DestroyEncoderAndDecoder();
-  void SetUpAndInitObjects(rtc::TaskQueue* task_queue,
+  bool SetUpAndInitObjects(rtc::TaskQueue* task_queue,
                            const int initial_bitrate_kbps,
                            const int initial_framerate_fps,
                            const VisualizationParams* visualization_params);

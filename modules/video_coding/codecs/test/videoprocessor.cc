@@ -124,7 +124,7 @@ VideoProcessor::VideoProcessor(webrtc::VideoEncoder* encoder,
 
 VideoProcessor::~VideoProcessor() = default;
 
-void VideoProcessor::Init() {
+bool VideoProcessor::Init() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
   RTC_DCHECK(!initialized_) << "VideoProcessor already initialized.";
   initialized_ = true;
@@ -138,16 +138,21 @@ void VideoProcessor::Init() {
       << "Failed to register decode complete callback";
 
   // Initialize the encoder and decoder.
-  RTC_CHECK_EQ(
-      encoder_->InitEncode(&config_.codec_settings, config_.NumberOfCores(),
-                           config_.networking_config.max_payload_size_in_bytes),
-      WEBRTC_VIDEO_CODEC_OK)
-      << "Failed to initialize VideoEncoder";
+  if (encoder_->InitEncode(
+          &config_.codec_settings, config_.NumberOfCores(),
+          config_.networking_config.max_payload_size_in_bytes) !=
+      WEBRTC_VIDEO_CODEC_OK) {
+    encoder_->Release();
+    return false;
+  }
 
-  RTC_CHECK_EQ(
-      decoder_->InitDecode(&config_.codec_settings, config_.NumberOfCores()),
-      WEBRTC_VIDEO_CODEC_OK)
-      << "Failed to initialize VideoDecoder";
+  if (decoder_->InitDecode(&config_.codec_settings, config_.NumberOfCores()) !=
+      WEBRTC_VIDEO_CODEC_OK) {
+    decoder_->Release();
+    return false;
+  }
+
+  return true;
 }
 
 void VideoProcessor::Release() {

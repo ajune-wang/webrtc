@@ -71,7 +71,7 @@ class VideoProcessor {
   ~VideoProcessor();
 
   // Sets up callbacks and initializes the encoder and decoder.
-  void Init();
+  bool Init();
 
   // Tears down callbacks and releases the encoder and decoder.
   void Release();

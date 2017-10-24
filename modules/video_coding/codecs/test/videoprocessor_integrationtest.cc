@@ -132,8 +132,11 @@ void VideoProcessorIntegrationTest::ProcessFramesAndMaybeVerify(
   rtc::TaskQueue task_queue("VidProc TQ");
   rtc::Event sync_event(false, false);
 
-  SetUpAndInitObjects(&task_queue, rate_profiles[0].target_kbps,
-                      rate_profiles[0].input_fps, visualization_params);
+
+  if (!SetUpAndInitObjects(&task_queue, rate_profiles[0].target_kbps,
+                           rate_profiles[0].input_fps, visualization_params)) {
+    return;
+  }
   MaybePrintSettings();
 
   // Set initial rates.
@@ -243,7 +246,7 @@ void VideoProcessorIntegrationTest::ProcessFramesAndMaybeVerify(
   }
 }
 
-void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
+bool VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
   std::unique_ptr<cricket::WebRtcVideoEncoderFactory> encoder_factory;
   if (config_.hw_encoder) {
 #if defined(WEBRTC_ANDROID)
@@ -317,8 +320,10 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
         config_.codec_settings.codecType, std::move(decoder_));
   }
 
-  EXPECT_TRUE(encoder_) << "Encoder not successfully created.";
-  EXPECT_TRUE(decoder_) << "Decoder not successfully created.";
+  if (!encoder_ || !decoder_) {
+    return false;
+  }
+  return true;
 }
 
 void VideoProcessorIntegrationTest::DestroyEncoderAndDecoder() {
@@ -326,12 +331,14 @@ void VideoProcessorIntegrationTest::DestroyEncoderAndDecoder() {
   decoder_.reset();
 }
 
-void VideoProcessorIntegrationTest::SetUpAndInitObjects(
+bool VideoProcessorIntegrationTest::SetUpAndInitObjects(
     rtc::TaskQueue* task_queue,
     const int initial_bitrate_kbps,
     const int initial_framerate_fps,
     const VisualizationParams* visualization_params) {
-  CreateEncoderAndDecoder();
+  if (!CreateEncoderAndDecoder()) {
+    return false;
+  }
 
   // Create file objects for quality analysis.
   analysis_frame_reader_.reset(new YuvFrameReaderImpl(
@@ -376,15 +383,18 @@ void VideoProcessorIntegrationTest::SetUpAndInitObjects(
   config_.codec_settings.maxFramerate = initial_framerate_fps;
 
   rtc::Event sync_event(false, false);
-  task_queue->PostTask([this, &sync_event]() {
+  bool init_succeeded = false;
+  task_queue->PostTask([this, &sync_event, &init_succeeded]() {
     processor_ = rtc::MakeUnique<VideoProcessor>(
         encoder_.get(), decoder_.get(), analysis_frame_reader_.get(),
         analysis_frame_writer_.get(), packet_manipulator_.get(), config_,
         &stats_, encoded_frame_writer_.get(), decoded_frame_writer_.get());
-    processor_->Init();
+    init_succeeded = processor_->Init();
     sync_event.Set();
   });
   sync_event.Wait(rtc::Event::kForever);
+
+  return init_succeeded;
 }
 
 void VideoProcessorIntegrationTest::ReleaseAndCloseObjects(

@@ -16,6 +16,24 @@
       "revId": "c1bf560cddb8037043bbbaeea189f9d4661ca06d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a4d9fe_d4b228a4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-24T07:05:26Z",
+      "side": 1,
+      "message": "\u003e Right, here we have the only three lines that touch posted_frames_waiting_for_encode_.\n\u003e \n\u003e * We don\u0027t initialize the variable anywhere. Isn\u0027t that required? (And might that be the difference between std::atomic\u003cint\u003e and Atomic32 that you were looking for?\n\nGood catch. And the linux_memcheck bot seems to agree. We\u0027ll see if it works better with this fixed.\n \n\u003e I\u0027m pretty sure that release-acquire ordering is what we want, but it\u0027s probably a great idea for you too to read http://en.cppreference.com/w/cpp/atomic/memory_order#Release-Acquire_ordering (and maybe the rest of that page...) to get a sanity check.\n\nI\u0027m thinking that maybe memory_order_relaxed is sufficient. As far as I understand, the purpose of the counter is just to drop frames if we have more than one in flight; synchronization of the data accessed by the task should be provided by the TaskQueue machinery.\n\nBut I\u0027m not sure I want to introduce subtle changes to memory order in this cl.",
+      "parentUuid": "a2ed9e6b_5438f5f4",
+      "revId": "c1bf560cddb8037043bbbaeea189f9d4661ca06d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

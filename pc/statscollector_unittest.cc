@@ -26,7 +26,6 @@
 #include "pc/test/fakedatachannelprovider.h"
 #include "pc/test/fakevideotracksource.h"
 #include "pc/test/mock_peerconnection.h"
-#include "pc/test/mock_webrtcsession.h"
 #include "pc/videotrack.h"
 #include "rtc_base/base64.h"
 #include "rtc_base/fakesslidentity.h"
@@ -569,14 +568,12 @@ class StatsCollectorTest : public testing::Test {
         media_engine_(new cricket::FakeMediaEngine()),
         pc_factory_(new FakePeerConnectionFactory(
             std::unique_ptr<cricket::MediaEngineInterface>(media_engine_))),
-        pc_(pc_factory_),
-        session_(&pc_) {
-    pc_.set_session_for_testing(&session_);
+        pc_(pc_factory_) {
     // By default, we ignore session GetStats calls.
-    EXPECT_CALL(session_, GetSessionStats(_)).WillRepeatedly(ReturnNull());
+    EXPECT_CALL(pc_, GetSessionStats(_)).WillRepeatedly(ReturnNull());
     // Add default returns for mock classes.
-    EXPECT_CALL(session_, video_channel()).WillRepeatedly(ReturnNull());
-    EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+    EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
+    EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
     EXPECT_CALL(pc_, sctp_data_channels())
         .WillRepeatedly(ReturnRef(data_channels_));
     EXPECT_CALL(pc_, GetSenders()).WillRepeatedly(Return(
@@ -598,8 +595,8 @@ class StatsCollectorTest : public testing::Test {
     transport_stats.transport_name = kTransportName;
     transport_stats.channel_stats.push_back(channel_stats);
 
-    session_stats_.transport_stats[kTransportName] = transport_stats;
-    session_stats_.proxy_to_transport[vc_name] = kTransportName;
+    pc_stats_.transport_stats[kTransportName] = transport_stats;
+    pc_stats_.proxy_to_transport[vc_name] = kTransportName;
   }
 
   // Adds a outgoing video track with a given SSRC into the stats.
@@ -609,7 +606,7 @@ class StatsCollectorTest : public testing::Test {
                                         webrtc::FakeVideoTrackSource::Create(),
                                         rtc::Thread::Current());
     stream_->AddTrack(track_);
-    EXPECT_CALL(session_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
+    EXPECT_CALL(pc_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
         .WillRepeatedly(DoAll(SetArgPointee<1>(kLocalTrackId), Return(true)));
   }
 
@@ -620,7 +617,7 @@ class StatsCollectorTest : public testing::Test {
                                         webrtc::FakeVideoTrackSource::Create(),
                                         rtc::Thread::Current());
     stream_->AddTrack(track_);
-    EXPECT_CALL(session_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
+    EXPECT_CALL(pc_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
         .WillRepeatedly(DoAll(SetArgPointee<1>(kRemoteTrackId), Return(true)));
     }
 
@@ -632,7 +629,7 @@ class StatsCollectorTest : public testing::Test {
     audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(
         kLocalTrackId);
     stream_->AddTrack(audio_track_);
-    EXPECT_CALL(session_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
+    EXPECT_CALL(pc_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
         .WillOnce(DoAll(SetArgPointee<1>(kLocalTrackId), Return(true)));
   }
 
@@ -644,7 +641,7 @@ class StatsCollectorTest : public testing::Test {
     audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(
         kRemoteTrackId);
     stream_->AddTrack(audio_track_);
-    EXPECT_CALL(session_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
+    EXPECT_CALL(pc_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
         .WillOnce(DoAll(SetArgPointee<1>(kRemoteTrackId), Return(true)));
   }
 
@@ -681,10 +678,10 @@ class StatsCollectorTest : public testing::Test {
 
     // Instruct the session to return stats containing the transport channel.
     InitSessionStats(vc_name);
-    EXPECT_CALL(session_, GetSessionStats(_))
+    EXPECT_CALL(pc_, GetSessionStats(_))
         .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
           return std::unique_ptr<SessionStats>(
-              new SessionStats(session_stats_));
+              new SessionStats(pc_stats_));
         }));
 
     // Constructs an ssrc stats update.
@@ -693,9 +690,9 @@ class StatsCollectorTest : public testing::Test {
     if (voice_receiver_info)
       stats_read->receivers.push_back(*voice_receiver_info);
 
-    EXPECT_CALL(session_, voice_channel()).WillRepeatedly(
+    EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(
         Return(voice_channel));
-    EXPECT_CALL(session_, video_channel()).WillRepeatedly(ReturnNull());
+    EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
     EXPECT_CALL(*media_channel, GetStats(_))
         .WillOnce(DoAll(SetArgPointee<0>(*stats_read), Return(true)));
 
@@ -767,8 +764,8 @@ class StatsCollectorTest : public testing::Test {
     transport_stats.transport_name = "audio";
     transport_stats.channel_stats.push_back(channel_stats);
 
-    SessionStats session_stats;
-    session_stats.transport_stats[transport_stats.transport_name] =
+    SessionStats pc_stats;
+    pc_stats.transport_stats[transport_stats.transport_name] =
         transport_stats;
 
     // Fake certificate to report
@@ -777,16 +774,16 @@ class StatsCollectorTest : public testing::Test {
             new rtc::FakeSSLIdentity(local_cert))));
 
     // Configure MockWebRtcSession
-    EXPECT_CALL(session_,
+    EXPECT_CALL(pc_,
                 GetLocalCertificate(transport_stats.transport_name, _))
         .WillOnce(DoAll(SetArgPointee<1>(local_certificate), Return(true)));
-    EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(
+    EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(
                               transport_stats.transport_name))
         .WillOnce(Return(remote_cert.release()));
-    EXPECT_CALL(session_, GetSessionStats(_))
-        .WillOnce(Invoke([&session_stats](const ChannelNamePairs&) {
+    EXPECT_CALL(pc_, GetSessionStats(_))
+        .WillOnce(Invoke([&pc_stats](const ChannelNamePairs&) {
           return std::unique_ptr<SessionStats>(
-              new SessionStats(session_stats));
+              new SessionStats(pc_stats));
         }));
 
     stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
@@ -844,9 +841,8 @@ class StatsCollectorTest : public testing::Test {
   cricket::FakeMediaEngine* media_engine_;
   rtc::scoped_refptr<FakePeerConnectionFactory> pc_factory_;
   MockPeerConnection pc_;
-  MockWebRtcSession session_;
   FakeDataChannelProvider data_channel_provider_;
-  SessionStats session_stats_;
+  SessionStats pc_stats_;
   rtc::scoped_refptr<webrtc::MediaStream> stream_;
   rtc::scoped_refptr<webrtc::VideoTrack> track_;
   rtc::scoped_refptr<FakeAudioTrack> audio_track_;
@@ -918,18 +914,18 @@ TEST_F(StatsCollectorTest, ExtractDataInfo) {
 TEST_F(StatsCollectorTest, BytesCounterHandles64Bits) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   const char kVideoChannelName[] = "video";
 
   InitSessionStats(kVideoChannelName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   MockVideoMediaChannel* media_channel = new MockVideoMediaChannel();
@@ -951,8 +947,8 @@ TEST_F(StatsCollectorTest, BytesCounterHandles64Bits) {
   video_sender_info.bytes_sent = kBytesSent;
   stats_read.senders.push_back(video_sender_info);
 
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(Return(&video_channel));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillOnce(DoAll(SetArgPointee<0>(stats_read),
                       Return(true)));
@@ -967,17 +963,17 @@ TEST_F(StatsCollectorTest, BytesCounterHandles64Bits) {
 TEST_F(StatsCollectorTest, AudioBandwidthEstimationInfoIsReported) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   const char kAudioChannelName[] = "audio";
 
   InitSessionStats(kAudioChannelName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(pc_stats_));
       }));
 
   MockVoiceMediaChannel* media_channel = new MockVoiceMediaChannel();
@@ -1008,9 +1004,9 @@ TEST_F(StatsCollectorTest, AudioBandwidthEstimationInfoIsReported) {
   call_stats.send_bandwidth_bps = kSendBandwidth;
   call_stats.recv_bandwidth_bps = kRecvBandwidth;
   call_stats.pacer_delay_ms = kPacerDelay;
-  EXPECT_CALL(session_, GetCallStats()).WillRepeatedly(Return(call_stats));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(Return(&voice_channel));
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, GetCallStats()).WillRepeatedly(Return(call_stats));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(Return(&voice_channel));
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillOnce(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
@@ -1034,18 +1030,18 @@ TEST_F(StatsCollectorTest, AudioBandwidthEstimationInfoIsReported) {
 TEST_F(StatsCollectorTest, VideoBandwidthEstimationInfoIsReported) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   const char kVideoChannelName[] = "video";
 
   InitSessionStats(kVideoChannelName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   MockVideoMediaChannel* media_channel = new MockVideoMediaChannel();
@@ -1076,9 +1072,9 @@ TEST_F(StatsCollectorTest, VideoBandwidthEstimationInfoIsReported) {
   call_stats.send_bandwidth_bps = kSendBandwidth;
   call_stats.recv_bandwidth_bps = kRecvBandwidth;
   call_stats.pacer_delay_ms = kPacerDelay;
-  EXPECT_CALL(session_, GetCallStats()).WillRepeatedly(Return(call_stats));
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(Return(&video_channel));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, GetCallStats()).WillRepeatedly(Return(call_stats));
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillOnce(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
@@ -1106,9 +1102,9 @@ TEST_F(StatsCollectorTest, SessionObjectExists) {
   StatsReports reports;  // returned values.
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
-  const StatsReport* session_report = FindNthReportByType(
+  const StatsReport* pc_report = FindNthReportByType(
       reports, StatsReport::kStatsReportTypeSession, 1);
-  EXPECT_FALSE(session_report == NULL);
+  EXPECT_FALSE(pc_report == NULL);
 }
 
 // This test verifies that only one object of type "googSession" exists
@@ -1120,12 +1116,12 @@ TEST_F(StatsCollectorTest, OnlyOneSessionObjectExists) {
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
-  const StatsReport* session_report = FindNthReportByType(
+  const StatsReport* pc_report = FindNthReportByType(
       reports, StatsReport::kStatsReportTypeSession, 1);
-  EXPECT_FALSE(session_report == NULL);
-  session_report = FindNthReportByType(
+  EXPECT_FALSE(pc_report == NULL);
+  pc_report = FindNthReportByType(
       reports, StatsReport::kStatsReportTypeSession, 2);
-  EXPECT_EQ(NULL, session_report);
+  EXPECT_EQ(NULL, pc_report);
 }
 
 // This test verifies that the empty track report exists in the returned stats
@@ -1159,17 +1155,17 @@ TEST_F(StatsCollectorTest, TrackObjectExistsWithoutUpdateStats) {
 TEST_F(StatsCollectorTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   const char kVideoChannelName[] = "video";
   InitSessionStats(kVideoChannelName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   MockVideoMediaChannel* media_channel = new MockVideoMediaChannel();
@@ -1189,8 +1185,8 @@ TEST_F(StatsCollectorTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
   video_sender_info.bytes_sent = kBytesSent;
   stats_read.senders.push_back(video_sender_info);
 
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(Return(&video_channel));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
     .WillOnce(DoAll(SetArgPointee<0>(stats_read),
                     Return(true)));
@@ -1234,9 +1230,9 @@ TEST_F(StatsCollectorTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
 TEST_F(StatsCollectorTest, TransportObjectLinkedFromSsrcObject) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   MockVideoMediaChannel* media_channel = new MockVideoMediaChannel();
@@ -1258,17 +1254,17 @@ TEST_F(StatsCollectorTest, TransportObjectLinkedFromSsrcObject) {
   video_sender_info.bytes_sent = kBytesSent;
   stats_read.senders.push_back(video_sender_info);
 
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(Return(&video_channel));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
     .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read),
                           Return(true)));
 
   InitSessionStats(kVcName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
@@ -1322,9 +1318,9 @@ TEST_F(StatsCollectorTest, RemoteSsrcInfoIsAbsent) {
 TEST_F(StatsCollectorTest, RemoteSsrcInfoIsPresent) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   MockVideoMediaChannel* media_channel = new MockVideoMediaChannel();
@@ -1338,10 +1334,10 @@ TEST_F(StatsCollectorTest, RemoteSsrcInfoIsPresent) {
 
   // Instruct the session to return stats containing the transport channel.
   InitSessionStats(kVcName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   // Constructs an ssrc stats update.
@@ -1355,8 +1351,8 @@ TEST_F(StatsCollectorTest, RemoteSsrcInfoIsPresent) {
   video_sender_info.remote_stats.push_back(remote_ssrc_stats);
   stats_read.senders.push_back(video_sender_info);
 
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(Return(&video_channel));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
     .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read),
                           Return(true)));
@@ -1376,17 +1372,17 @@ TEST_F(StatsCollectorTest, RemoteSsrcInfoIsPresent) {
 TEST_F(StatsCollectorTest, ReportsFromRemoteTrack) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   const char kVideoChannelName[] = "video";
   InitSessionStats(kVideoChannelName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   MockVideoMediaChannel* media_channel = new MockVideoMediaChannel();
@@ -1406,8 +1402,8 @@ TEST_F(StatsCollectorTest, ReportsFromRemoteTrack) {
   video_receiver_info.packets_concealed = kNumOfPacketsConcealed;
   stats_read.receivers.push_back(video_receiver_info);
 
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(Return(&video_channel));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillOnce(DoAll(SetArgPointee<0>(stats_read),
                       Return(true)));
@@ -1571,9 +1567,9 @@ TEST_F(StatsCollectorTest, ChainlessCertificateReportsCreated) {
 TEST_F(StatsCollectorTest, NoTransport) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   StatsReports reports;  // returned values.
@@ -1586,15 +1582,15 @@ TEST_F(StatsCollectorTest, NoTransport) {
   transport_stats.transport_name = "audio";
   transport_stats.channel_stats.push_back(channel_stats);
 
-  SessionStats session_stats;
-  session_stats.transport_stats[transport_stats.transport_name] =
+  SessionStats pc_stats;
+  pc_stats.transport_stats[transport_stats.transport_name] =
       transport_stats;
 
   // Configure MockWebRtcSession
-  EXPECT_CALL(session_, GetSessionStats(_))
-      .WillRepeatedly(Invoke([&session_stats](const ChannelNamePairs&) {
+  EXPECT_CALL(pc_, GetSessionStats(_))
+      .WillRepeatedly(Invoke([&pc_stats](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats));
+            new SessionStats(pc_stats));
       }));
 
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
@@ -1630,9 +1626,9 @@ TEST_F(StatsCollectorTest, NoTransport) {
 TEST_F(StatsCollectorTest, NoCertificates) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   StatsReports reports;  // returned values.
@@ -1645,15 +1641,15 @@ TEST_F(StatsCollectorTest, NoCertificates) {
   transport_stats.transport_name = "audio";
   transport_stats.channel_stats.push_back(channel_stats);
 
-  SessionStats session_stats;
-  session_stats.transport_stats[transport_stats.transport_name] =
+  SessionStats pc_stats;
+  pc_stats.transport_stats[transport_stats.transport_name] =
       transport_stats;
 
   // Configure MockWebRtcSession
-  EXPECT_CALL(session_, GetSessionStats(_))
-      .WillRepeatedly(Invoke([&session_stats](const ChannelNamePairs&) {
+  EXPECT_CALL(pc_, GetSessionStats(_))
+      .WillRepeatedly(Invoke([&pc_stats](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats));
+            new SessionStats(pc_stats));
       }));
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
@@ -1695,9 +1691,9 @@ TEST_F(StatsCollectorTest, UnsupportedDigestIgnored) {
 TEST_F(StatsCollectorTest, FilterOutNegativeInitialValues) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   MockVoiceMediaChannel* media_channel = new MockVoiceMediaChannel();
@@ -1714,7 +1710,7 @@ TEST_F(StatsCollectorTest, FilterOutNegativeInitialValues) {
   rtc::scoped_refptr<FakeAudioTrackWithInitValue> local_track(
       new rtc::RefCountedObject<FakeAudioTrackWithInitValue>(kLocalTrackId));
   stream_->AddTrack(local_track);
-  EXPECT_CALL(session_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
+  EXPECT_CALL(pc_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
       .WillOnce(DoAll(SetArgPointee<1>(kLocalTrackId), Return(true)));
   stats.AddStream(stream_);
   stats.AddLocalAudioTrack(local_track.get(), kSsrcOfTrack);
@@ -1724,17 +1720,17 @@ TEST_F(StatsCollectorTest, FilterOutNegativeInitialValues) {
       webrtc::MediaStream::Create("remotestreamlabel"));
   rtc::scoped_refptr<FakeAudioTrackWithInitValue> remote_track(
       new rtc::RefCountedObject<FakeAudioTrackWithInitValue>(kRemoteTrackId));
-  EXPECT_CALL(session_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
+  EXPECT_CALL(pc_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
       .WillOnce(DoAll(SetArgPointee<1>(kRemoteTrackId), Return(true)));
   remote_stream->AddTrack(remote_track);
   stats.AddStream(remote_stream);
 
   // Instruct the session to return stats containing the transport channel.
   InitSessionStats(kVcName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   cricket::VoiceSenderInfo voice_sender_info;
@@ -1759,8 +1755,8 @@ TEST_F(StatsCollectorTest, FilterOutNegativeInitialValues) {
   stats_read.senders.push_back(voice_sender_info);
   stats_read.receivers.push_back(voice_receiver_info);
 
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(Return(&voice_channel));
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(Return(&voice_channel));
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
@@ -1805,9 +1801,9 @@ TEST_F(StatsCollectorTest, FilterOutNegativeInitialValues) {
 TEST_F(StatsCollectorTest, GetStatsFromLocalAudioTrack) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   MockVoiceMediaChannel* media_channel = new MockVoiceMediaChannel();
@@ -1841,9 +1837,9 @@ TEST_F(StatsCollectorTest, GetStatsFromLocalAudioTrack) {
 TEST_F(StatsCollectorTest, GetStatsFromRemoteStream) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   MockVoiceMediaChannel* media_channel = new MockVoiceMediaChannel();
@@ -1871,9 +1867,9 @@ TEST_F(StatsCollectorTest, GetStatsFromRemoteStream) {
 TEST_F(StatsCollectorTest, GetStatsAfterRemoveAudioStream) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   MockVoiceMediaChannel* media_channel = new MockVoiceMediaChannel();
@@ -1888,10 +1884,10 @@ TEST_F(StatsCollectorTest, GetStatsAfterRemoveAudioStream) {
 
   // Instruct the session to return stats containing the transport channel.
   InitSessionStats(kVcName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   stats.RemoveLocalAudioTrack(audio_track_.get(), kSsrcOfTrack);
@@ -1902,8 +1898,8 @@ TEST_F(StatsCollectorTest, GetStatsAfterRemoveAudioStream) {
   cricket::VoiceMediaInfo stats_read;
   stats_read.senders.push_back(voice_sender_info);
 
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(Return(&voice_channel));
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(Return(&voice_channel));
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read),
                             Return(true)));
@@ -1935,9 +1931,9 @@ TEST_F(StatsCollectorTest, GetStatsAfterRemoveAudioStream) {
 TEST_F(StatsCollectorTest, LocalAndRemoteTracksWithSameSsrc) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   MockVoiceMediaChannel* media_channel = new MockVoiceMediaChannel();
@@ -1957,17 +1953,17 @@ TEST_F(StatsCollectorTest, LocalAndRemoteTracksWithSameSsrc) {
       webrtc::MediaStream::Create("remotestreamlabel"));
   rtc::scoped_refptr<FakeAudioTrack> remote_track(
       new rtc::RefCountedObject<FakeAudioTrack>(kRemoteTrackId));
-  EXPECT_CALL(session_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
+  EXPECT_CALL(pc_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
       .WillOnce(DoAll(SetArgPointee<1>(kRemoteTrackId), Return(true)));
   remote_stream->AddTrack(remote_track);
   stats.AddStream(remote_stream);
 
   // Instruct the session to return stats containing the transport channel.
   InitSessionStats(kVcName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   cricket::VoiceSenderInfo voice_sender_info;
@@ -1985,8 +1981,8 @@ TEST_F(StatsCollectorTest, LocalAndRemoteTracksWithSameSsrc) {
   stats_read.senders.push_back(voice_sender_info);
   stats_read.receivers.push_back(voice_receiver_info);
 
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(Return(&voice_channel));
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(Return(&voice_channel));
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read),
                             Return(true)));
@@ -2025,9 +2021,9 @@ TEST_F(StatsCollectorTest, LocalAndRemoteTracksWithSameSsrc) {
 TEST_F(StatsCollectorTest, TwoLocalTracksWithSameSsrc) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   MockVoiceMediaChannel* media_channel = new MockVoiceMediaChannel();
@@ -2060,7 +2056,7 @@ TEST_F(StatsCollectorTest, TwoLocalTracksWithSameSsrc) {
   static const std::string kNewTrackId = "new_track_id";
   rtc::scoped_refptr<FakeAudioTrack> new_audio_track(
       new rtc::RefCountedObject<FakeAudioTrack>(kNewTrackId));
-  EXPECT_CALL(session_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
+  EXPECT_CALL(pc_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
       .WillOnce(DoAll(SetArgPointee<1>(kNewTrackId), Return(true)));
   stream_->AddTrack(new_audio_track);
 
@@ -2079,18 +2075,18 @@ TEST_F(StatsCollectorTest, TwoLocalTracksWithSameSsrc) {
 TEST_F(StatsCollectorTest, VerifyVideoSendSsrcStats) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   const char kVideoChannelName[] = "video";
 
   InitSessionStats(kVideoChannelName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   MockVideoMediaChannel* media_channel = new MockVideoMediaChannel();
@@ -2110,8 +2106,8 @@ TEST_F(StatsCollectorTest, VerifyVideoSendSsrcStats) {
   video_sender_info.qp_sum = rtc::Optional<uint64_t>(11);
   stats_read.senders.push_back(video_sender_info);
 
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(Return(&video_channel));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillOnce(DoAll(SetArgPointee<0>(stats_read), Return(true)));
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
@@ -2127,18 +2123,18 @@ TEST_F(StatsCollectorTest, VerifyVideoSendSsrcStats) {
 TEST_F(StatsCollectorTest, VerifyVideoReceiveSsrcStats) {
   StatsCollectorForTest stats(&pc_);
 
-  EXPECT_CALL(session_, GetLocalCertificate(_, _))
+  EXPECT_CALL(pc_, GetLocalCertificate(_, _))
       .WillRepeatedly(Return(false));
-  EXPECT_CALL(session_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+  EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
       .WillRepeatedly(Return(nullptr));
 
   const char kVideoChannelName[] = "video";
 
   InitSessionStats(kVideoChannelName);
-  EXPECT_CALL(session_, GetSessionStats(_))
+  EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
         return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+            new SessionStats(pc_stats_));
       }));
 
   MockVideoMediaChannel* media_channel = new MockVideoMediaChannel();
@@ -2158,8 +2154,8 @@ TEST_F(StatsCollectorTest, VerifyVideoReceiveSsrcStats) {
   video_receiver_info.qp_sum = rtc::Optional<uint64_t>(11);
   stats_read.receivers.push_back(video_receiver_info);
 
-  EXPECT_CALL(session_, video_channel()).WillRepeatedly(Return(&video_channel));
-  EXPECT_CALL(session_, voice_channel()).WillRepeatedly(ReturnNull());
+  EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
+  EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
       .WillOnce(DoAll(SetArgPointee<0>(stats_read), Return(true)));
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6f2c22a_bb8fdfbd",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-10-24T15:12:40Z",
+      "side": 1,
+      "message": "Why are there two conditions for some of these? Why would it be set but zero but still filtered out?",
+      "range": {
+        "startLine": 112,
+        "startChar": 26,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "915c50f0b8be1d6d2ed76d7f867c8aed09eba802",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "213673eb_883e88c8",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-10-24T15:12:40Z",
+      "side": 1,
+      "message": "nr_of_ isn\u0027t a very common prefix for these kinds of things in WebRTC. num_ or _count are more common. Also, does the number matter, or is it just important whether it\u0027s zero or not?",
+      "revId": "915c50f0b8be1d6d2ed76d7f867c8aed09eba802",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a8cc415_d942e2dd",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-10-24T15:12:40Z",
+      "side": 1,
+      "message": "Is there no way of getting AudioProcessing::GetStatistics to return Optionals for these values? Seems like that\u0027s the place that should know if the stats are valid or not.",
+      "revId": "915c50f0b8be1d6d2ed76d7f867c8aed09eba802",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

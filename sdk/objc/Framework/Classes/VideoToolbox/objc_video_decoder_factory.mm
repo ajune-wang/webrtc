@@ -112,8 +112,8 @@ std::unique_ptr<VideoDecoder> ObjCVideoDecoderFactory::CreateVideoDecoder(
     if ([codecName isEqualToString:codecInfo.name]) {
       id<RTCVideoDecoder> decoder = [decoder_factory_ createDecoder:codecInfo];
 
-      if ([decoder isKindOfClass:[RTCWrappedNativeVideoDecoder class]]) {
-        return [(RTCWrappedNativeVideoDecoder *)decoder releaseWrappedDecoder];
+      if ([decoder conformsToProtocol:@protocol(RTCWrappedNativeVideoDecoder)]) {
+        return [(id<RTCWrappedNativeVideoDecoder>)decoder releaseWrappedDecoder];
       } else {
         return std::unique_ptr<ObjCVideoDecoder>(new ObjCVideoDecoder(decoder));
       }

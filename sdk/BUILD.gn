@@ -314,10 +314,10 @@ if (is_ios || is_mac) {
 
     rtc_static_library("peerconnectionfactory_objc") {
       sources = [
+        "objc/Framework/Classes/PeerConnection/RTCCodecSpecificInfoH264.mm",
         "objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactory+Native.h",
         "objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactory+Private.h",
         "objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactory.mm",
-        "objc/Framework/Classes/PeerConnection/RTCVideoCodecH264.mm",
       ]
 
       public_configs = [ ":common_config_objc" ]
@@ -393,6 +393,7 @@ if (is_ios || is_mac) {
         "objc/Framework/Classes/PeerConnection/RTCDataChannel.mm",
         "objc/Framework/Classes/PeerConnection/RTCDataChannelConfiguration+Private.h",
         "objc/Framework/Classes/PeerConnection/RTCDataChannelConfiguration.mm",
+        "objc/Framework/Classes/PeerConnection/RTCDefaultVideoCodecFactory.mm",
         "objc/Framework/Classes/PeerConnection/RTCEncodedImage.mm",
         "objc/Framework/Classes/PeerConnection/RTCIceCandidate+Private.h",
         "objc/Framework/Classes/PeerConnection/RTCIceCandidate.mm",
@@ -448,9 +449,7 @@ if (is_ios || is_mac) {
         "objc/Framework/Classes/PeerConnection/RTCVideoTrack+Private.h",
         "objc/Framework/Classes/PeerConnection/RTCVideoTrack.mm",
         "objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoDecoder.h",
-        "objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoDecoder.mm",
         "objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoEncoder.h",
-        "objc/Framework/Classes/PeerConnection/RTCWrappedNativeVideoEncoder.mm",
         "objc/Framework/Headers/WebRTC/RTCAVFoundationVideoSource.h",
         "objc/Framework/Headers/WebRTC/RTCAudioSource.h",
         "objc/Framework/Headers/WebRTC/RTCAudioTrack.h",

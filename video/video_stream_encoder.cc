@@ -380,7 +380,6 @@ VideoStreamEncoder::VideoStreamEncoder(
     SendStatisticsProxy* stats_proxy,
     const VideoSendStream::Config::EncoderSettings& settings,
     rtc::VideoSinkInterface<VideoFrame>* pre_encode_callback,
-    EncodedFrameObserver* encoder_timing,
     std::unique_ptr<OveruseFrameDetector> overuse_detector)
     : shutdown_event_(true /* manual_reset */, false),
       number_of_cores_(number_of_cores),
@@ -396,7 +395,6 @@ VideoStreamEncoder::VideoStreamEncoder(
               : new OveruseFrameDetector(
                     GetCpuOveruseOptions(settings.full_overuse_time),
                     this,
-                    encoder_timing,
                     stats_proxy)),
       stats_proxy_(stats_proxy),
       pre_encode_callback_(pre_encode_callback),

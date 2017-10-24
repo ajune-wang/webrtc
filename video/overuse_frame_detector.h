@@ -66,7 +66,6 @@ class OveruseFrameDetector {
  public:
   OveruseFrameDetector(const CpuOveruseOptions& options,
                        AdaptationObserverInterface* overuse_observer,
-                       EncodedFrameObserver* encoder_timing_,
                        CpuOveruseMetricsObserver* metrics_observer);
   virtual ~OveruseFrameDetector();
 
@@ -129,7 +128,6 @@ class OveruseFrameDetector {
 
   // Observer getting overuse reports.
   AdaptationObserverInterface* const observer_;
-  EncodedFrameObserver* const encoder_timing_;
 
   // Stats metrics.
   CpuOveruseMetricsObserver* const metrics_observer_;

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa5a55bc_7074e662",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2017-10-25T17:54:07Z",
+      "side": 1,
+      "message": "Is this check needed here? \nassertTrue(audioThread !\u003d null);\nso aThread should also be non null?",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 15
+      },
+      "revId": "0f7612ec97a8c68d1b75345a0da2aab6609b04a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cf12ce7_17edf829",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2017-10-25T17:54:07Z",
+      "side": 1,
+      "message": "May be slightly different wording here so it is not confused with exactly same messages in run()?",
+      "range": {
+        "startLine": 299,
+        "startChar": 6,
+        "endLine": 299,
+        "endChar": 13
+      },
+      "revId": "0f7612ec97a8c68d1b75345a0da2aab6609b04a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb57716b_f1aee9c8",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioTrack.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2017-10-25T17:54:07Z",
+      "side": 1,
+      "message": "May this affect a/v sync since audio playback is now 20 ms behind of video (actual audio data will start playing after 20 ms silence)?",
+      "revId": "0f7612ec97a8c68d1b75345a0da2aab6609b04a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

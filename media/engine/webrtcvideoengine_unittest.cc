@@ -2646,7 +2646,13 @@ class WebRtcVideoChannelFlexfecRecvTest : public WebRtcVideoChannelTest {
 
 TEST_F(WebRtcVideoChannelFlexfecRecvTest,
        DefaultFlexfecCodecHasTransportCcAndRembFeedbackParam) {
-  EXPECT_TRUE(cricket::HasTransportCc(GetEngineCodec("flexfec-03")));
+  cricket::VideoCodec foo = GetEngineCodec("flexfec-03");
+  LOG(LS_ERROR) << "### codec: " << foo.ToString();
+  LOG(LS_ERROR) << "### codec number of params: " << foo.params.size();
+  for (const auto& p : foo.params) {
+    LOG(LS_ERROR) << "### " << p.first << " -> " << p.second;
+  }
+  EXPECT_TRUE(cricket::HasTransportCc(foo)) << foo.ToString();
   EXPECT_TRUE(cricket::HasRemb(GetEngineCodec("flexfec-03")));
 }
 

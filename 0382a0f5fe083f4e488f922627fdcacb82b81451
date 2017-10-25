@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "bcdf24fd_b2bb65e1",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-25T22:37:28Z",
+      "side": 1,
+      "message": "When the spec PR has merged, add a link to the spec here.",
+      "revId": "0382a0f5fe083f4e488f922627fdcacb82b81451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b131014b_779d7c48",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-25T22:37:28Z",
+      "side": 1,
+      "message": "These don\u0027t match with the PR. Should the PR be updated or should this be updated? Also, prefer listing things in the same order as the spec.",
+      "revId": "0382a0f5fe083f4e488f922627fdcacb82b81451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115b2c0d_4abb1e1c",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-25T22:37:28Z",
+      "side": 1,
+      "message": "Prefer the same order as the spec (here and all other files like the .cc, unittest/integrationtest and - if possible - the rtcstatscollector.cc).",
+      "revId": "0382a0f5fe083f4e488f922627fdcacb82b81451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ad946621_79eae813",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 9
@@ -13,6 +64,24 @@
       "writtenOn": "2017-10-24T00:32:18Z",
       "side": 1,
       "message": "nit: Instead of having a default case, can just add \"return nullptr\" outside the switch statement. This way we\u0027ll get an error at compile time if there\u0027s an unhandled case (\"Wswitch\"), rather than at runtime.",
+      "revId": "0382a0f5fe083f4e488f922627fdcacb82b81451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a2c8b61_943cc791",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-25T22:37:28Z",
+      "side": 1,
+      "message": "But still do RTC_NOTREACHED() there I assume, in case compilation flags changes in the future?",
+      "parentUuid": "ad946621_79eae813",
       "revId": "0382a0f5fe083f4e488f922627fdcacb82b81451",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f65dd62_26a9318c",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-25T08:25:54Z",
+      "side": 1,
+      "message": "These checks were in the code before my change, and I was afraid to remove them. I know there are several stats that can report some sort of default value when they\u0027re uninitialized, like -100. I thought that these invalid values might get filtered out here.",
+      "parentUuid": "f6f2c22a_bb8fdfbd",
+      "range": {
+        "startLine": 112,
+        "startChar": 26,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "915c50f0b8be1d6d2ed76d7f867c8aed09eba802",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "213673eb_883e88c8",
         "filename": "pc/statscollector.cc",
         "patchSetId": 1
@@ -53,6 +77,24 @@
       "writtenOn": "2017-10-24T15:12:40Z",
       "side": 1,
       "message": "Is there no way of getting AudioProcessing::GetStatistics to return Optionals for these values? Seems like that\u0027s the place that should know if the stats are valid or not.",
+      "revId": "915c50f0b8be1d6d2ed76d7f867c8aed09eba802",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c916d395_01160c60",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-25T08:25:54Z",
+      "side": 1,
+      "message": "I agree that that would be a nicer solution, but I think that APM doesn\u0027t actually know if there are receive streams or not. It may be possible to guess it based on how long ago it was since there were calls to ProcessReverseStream(), but that\u0027s a bit hacky. That\u0027s why I put this logic on this level, where we actually have the information of how many receive streams there are. Does that make sense?",
+      "parentUuid": "0a8cc415_d942e2dd",
       "revId": "915c50f0b8be1d6d2ed76d7f867c8aed09eba802",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

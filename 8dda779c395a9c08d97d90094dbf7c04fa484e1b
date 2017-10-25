@@ -22,6 +22,30 @@
       "revId": "8dda779c395a9c08d97d90094dbf7c04fa484e1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e69fc3cd_e46c61a1",
+        "filename": "modules/video_coding/codecs/test/objc_codec_h264_test.mm",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-10-25T07:47:43Z",
+      "side": 1,
+      "message": "I get `error: no member named \u0027make_unique\u0027 in namespace \u0027std\u0027`. I also can\u0027t find it used anywhere else in WebRTC, but I found some comment about not being able to use it yet.",
+      "parentUuid": "e2f4aef9_3ef9dcc6",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "8dda779c395a9c08d97d90094dbf7c04fa484e1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

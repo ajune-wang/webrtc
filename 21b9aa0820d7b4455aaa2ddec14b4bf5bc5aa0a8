@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45f798e7_1a0a5df6",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-10-25T14:36:11Z",
+      "side": 1,
+      "message": "Remove unused code.",
+      "range": {
+        "startLine": 1539,
+        "startChar": 0,
+        "endLine": 1542,
+        "endChar": 45
+      },
+      "revId": "21b9aa0820d7b4455aaa2ddec14b4bf5bc5aa0a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

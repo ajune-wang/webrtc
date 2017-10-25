@@ -13,6 +13,8 @@
 
 #include <string>
 
+#include "rtc_base/task_queue.h"
+
 namespace webrtc {
 class ReceiveStatisticsProvider;
 class Transport;
@@ -42,11 +44,25 @@ struct RtcpTransceiverConfig {
   // Transport to send rtcp packets to. Should be set.
   Transport* outgoing_transport = nullptr;
 
-  // Minimum period to send receiver reports and attached messages.
-  int min_periodic_report_ms = 1000;
+  // Queue for scheduling deayed tasks, e.g. sending periodic compound packets.
+  rtc::TaskQueue* task_queue = nullptr;
 
   // Rtcp report block generator for outgoing receiver reports.
   ReceiveStatisticsProvider* receive_statistics = nullptr;
+
+  //
+  // Tuning parameters.
+  //
+  // Delay before 1st periodic compound packet.
+  int initial_delay_ms = 5;
+
+  // Minimum period between periodic compound packets.
+  int min_periodic_report_ms = 1000;
+
+  //
+  // Flags for features, experiments, etc.
+  //
+  bool schedule_periodic_compound_packets = true;
 };
 
 }  // namespace webrtc

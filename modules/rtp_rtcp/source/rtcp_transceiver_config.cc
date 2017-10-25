@@ -27,6 +27,10 @@ bool RtcpTransceiverConfig::Validate() const {
     LOG(LS_WARNING)
         << debug_id
         << "Ssrc 0 may be treated by some implementation as invalid.";
+  if (cname.empty()) {
+    LOG(LS_ERROR) << debug_id << "missing cname.";
+    return false;
+  }
   if (cname.size() > 255) {
     LOG(LS_ERROR) << debug_id << "cname can be maximum 255 characters.";
     return false;

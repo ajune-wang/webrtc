@@ -22,6 +22,30 @@
       "revId": "7700927793985023e4816f3eccc9392f79efe614",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d5449ff_3ab99e82",
+        "filename": "modules/desktop_capture/mac/window_list_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2017-10-26T20:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a1f4c8f_fed0e109",
+      "range": {
+        "startLine": 100,
+        "startChar": 68,
+        "endLine": 100,
+        "endChar": 0
+      },
+      "revId": "7700927793985023e4816f3eccc9392f79efe614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

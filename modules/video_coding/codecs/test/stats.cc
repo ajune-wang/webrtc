@@ -179,6 +179,7 @@ void Stats::PrintSummary() const {
   }
   int avg_qp = (total_qp_count > 0) ? (total_qp / total_qp_count) : -1;
   printf("Average QP: %d\n", avg_qp);
+  printf("\n");
 }
 
 }  // namespace test

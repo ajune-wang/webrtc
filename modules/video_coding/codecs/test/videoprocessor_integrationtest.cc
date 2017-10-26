@@ -132,7 +132,8 @@ class VideoProcessorIntegrationTest::CpuProcessTime final {
   }
   void Print() const {
     if (config_.measure_cpu) {
-      printf("CPU usage %%: %f\n", GetUsagePercent() / config_.NumberOfCores());
+      printf("CPU usage: %f %%\n", GetUsagePercent() / config_.NumberOfCores());
+      printf("\n");
     }
   }
 
@@ -169,7 +170,7 @@ void VideoProcessorIntegrationTest::ProcessFramesAndMaybeVerify(
 
   SetUpAndInitObjects(&task_queue, rate_profiles[0].target_kbps,
                       rate_profiles[0].input_fps, visualization_params);
-  MaybePrintSettings();
+  PrintSettings();
 
   // Set initial rates.
   int rate_update_index = 0;
@@ -227,6 +228,7 @@ void VideoProcessorIntegrationTest::ProcessFramesAndMaybeVerify(
   ReleaseAndCloseObjects(&task_queue);
 
   // Calculate and print rate control statistics.
+  printf("Rate control statistics\n==\n");
   rate_update_index = 0;
   frame_number = 0;
   ResetRateControlMetrics(rate_update_index, rate_profiles);
@@ -257,6 +259,7 @@ void VideoProcessorIntegrationTest::ProcessFramesAndMaybeVerify(
 
   // Calculate and print other statistics.
   EXPECT_EQ(num_frames, static_cast<int>(stats_.size()));
+  printf("Encode/decode statistics\n==\n");
   stats_.PrintSummary();
   cpu_process_time_->Print();
 
@@ -271,6 +274,7 @@ void VideoProcessorIntegrationTest::ProcessFramesAndMaybeVerify(
   if (quality_thresholds) {
     VerifyQuality(psnr_result, ssim_result, *quality_thresholds);
   }
+  printf("Quality statistics\n==\n");
   PrintQualityMetrics(psnr_result, ssim_result);
 
   // Remove analysis file.
@@ -405,7 +409,7 @@ void VideoProcessorIntegrationTest::SetUpAndInitObjects(
 
   cpu_process_time_.reset(new CpuProcessTime(config_));
   packet_manipulator_.reset(new PacketManipulatorImpl(
-      &packet_reader_, config_.networking_config, config_.verbose));
+      &packet_reader_, config_.networking_config, false));
 
   config_.codec_settings.minBitrate = 0;
   config_.codec_settings.startBitrate = initial_bitrate_kbps;
@@ -559,15 +563,15 @@ void VideoProcessorIntegrationTest::PrintRateControlMetrics(
   printf("\n");
 }
 
-void VideoProcessorIntegrationTest::MaybePrintSettings() const {
-  if (!config_.verbose)
-    return;
-
+void VideoProcessorIntegrationTest::PrintSettings() const {
+  printf("VideoProcessor settings\n==\n");
+  printf(" Total # of frames: %d", analysis_frame_reader_->NumberOfFrames());
   printf("%s\n", config_.ToString().c_str());
-  printf(" Total # of frames: %d\n", analysis_frame_reader_->NumberOfFrames());
+
+  printf("VideoProcessorIntegrationTest settings\n==\n");
   const char* encoder_name = encoder_->ImplementationName();
-  const char* decoder_name = decoder_->ImplementationName();
   printf(" Encoder implementation name: %s\n", encoder_name);
+  const char* decoder_name = decoder_->ImplementationName();
   printf(" Decoder implementation name: %s\n", decoder_name);
   if (strcmp(encoder_name, decoder_name) == 0) {
     printf(" Codec implementation name  : %s_%s\n",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "634955b2_a554dd00",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-26T07:05:59Z",
+      "side": 1,
+      "message": "This makes me confused, maybe you have to educate me on what sdes and cname is. I\u0027ve had a quick look at https://tools.ietf.org/html/rfc3550#section-6.5, and as I read it, cnames are per send-stream. Then it seems strange both to have a global (and mandatory) setting, and to use the feedback ssrc.\n\nE.g., for a receive only RTP session, should we even send any SDES?",
+      "range": {
+        "startLine": 93,
+        "startChar": 25,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "0457fb941052c9739e12b6e3654e2ae8bdb80575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

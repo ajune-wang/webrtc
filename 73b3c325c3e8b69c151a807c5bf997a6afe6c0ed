@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8f190fdb_a73d1f5f",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-26T14:25:58Z",
+      "side": 1,
+      "message": "Could you clarify this?",
+      "parentUuid": "d81dcfc5_0952f107",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4831917a_ad991d66",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2c311f27_e320e678",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-26T14:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4831917a_ad991d66",
+      "range": {
+        "startLine": 16,
+        "startChar": 49,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8772ef02_45510d2a",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2017-10-12T23:45:25Z",
       "side": 1,
       "message": "Logs can be decoded into structs as long as for each event type, the corresponding subsequence of batches (i.e. batches with the oneof value of that type) has correct order. No matter how that subsequence of batches is interspersed among batches of other types of events.\n\nHowever,decoding could be made simpler if sequences of batches were written alongside sequences of event types. The drawback of that would be some more constant overhead to the EventStream. Do we care about that, or are we ok with it being amortized over the repeated fields within?\n\n// Example pairing.\nmessage IncomingRtpPackets {\n repeated IncomingRtpPacket incoming_rtp_packets \u003d 1;\n repeated Batch batches \u003d 2;\n}",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e58b8b10_51835283",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-26T14:25:58Z",
+      "side": 1,
+      "message": "Done as discussed offline.",
+      "parentUuid": "8772ef02_45510d2a",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "30e16255_21f3b062",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-26T14:25:58Z",
+      "side": 1,
+      "message": "Note that we won\u0027t be able to recover the exact order between events. For example, we might log an RTCP the same millisecond that we log a BWE reduction. We won\u0027t be able to tell which happened first, but will have to rely on heuristics like \"if the RTCP contained lots of loss then it is probably the cause of the BWE reduction\". \n\nThis can even happen between events of the same event type since we are planning to encode RTP packets for different SSRCs as separate batches.",
+      "parentUuid": "fad7795e_428c1348",
+      "range": {
+        "startLine": 98,
+        "startChar": 61,
+        "endLine": 98,
+        "endChar": 63
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88330483_45e5d3f0",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2017-10-12T23:45:25Z",
       "side": 1,
       "message": "uint32?",
+      "range": {
+        "startLine": 124,
+        "startChar": 11,
+        "endLine": 124,
+        "endChar": 16
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fe74908_18bce756",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-26T14:25:58Z",
+      "side": 1,
+      "message": "I\u0027ve changes this and a few other places but it is not entirely trivial. The C style guide prefers signed and the actual C-code uses a mixture of signed an unsigned. Regardless of what we chose, we might end up with a bunch of implicit casts.",
+      "parentUuid": "88330483_45e5d3f0",
       "range": {
         "startLine": 124,
         "startChar": 11,

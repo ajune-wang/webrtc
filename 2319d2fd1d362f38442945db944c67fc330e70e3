@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c62b865_b7b90831",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-10-26T10:15:53Z",
+      "side": 1,
+      "message": "Re: for a receive only RTP session\n\nrtp spec seems to always require cname, but explain its usefulness only for sending participant.\nAlso, RtpVideoStreamReceiver doesn\u0027t set cname.\nTo be backward compatible I made cname optional.",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 0
+      },
+      "revId": "2319d2fd1d362f38442945db944c67fc330e70e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

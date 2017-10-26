@@ -22,6 +22,30 @@
       "revId": "0457fb941052c9739e12b6e3654e2ae8bdb80575",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a37c58de_b366fb5e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-10-26T10:15:53Z",
+      "side": 1,
+      "message": "comment near cname in the RtcpTransceiverConfig slightly expanded.\n\nhttps://tools.ietf.org/html/rfc3550#section-6 note 2 and \nhttps://tools.ietf.org/html/rfc3550#section-6.5.1 have a bit more details about cname, \ncname identify participant/end-point, not a stream.\n\nSince RTP was designed for multi-participant conferences, sdes supports mixing details about different end points. e.g. relay server may mix cnames from different participants.\n\nWebRTC supports only peer-to-peer, i.e. only single remote participant, thus it is \u0027global\u0027.",
+      "parentUuid": "634955b2_a554dd00",
+      "range": {
+        "startLine": 93,
+        "startChar": 25,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "0457fb941052c9739e12b6e3654e2ae8bdb80575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

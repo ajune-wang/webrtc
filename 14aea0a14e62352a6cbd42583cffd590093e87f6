@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "646d8e9d_15776c2f",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-26T23:14:23Z",
+      "side": 1,
+      "message": "nit: I don\u0027t see the benefit of this method. Often we have \"Create\" methods on pure virtual interfaces, where it\u0027s not possible to construct the object directly because we want to decouple the interface from the implementation. But in this case that\u0027s not necessary.",
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a27e6bb_37ad875e",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-26T23:14:23Z",
+      "side": 1,
+      "message": "I think we should discuss the merits of the overall approach of putting structured (JSON) information in the text log itself. My thinking was: we can use the RtcEventLog to carry the structured information, and the text log for human-readable information. So I\u0027m not sure if having something in the middle provides a lot of added benefit. What do you think? Maybe we can have a separate meeting about this (and invite other people from the team to attend if interested).",
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c24d15ce_b5b3650b",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-26T23:14:23Z",
+      "side": 1,
+      "message": "I assume at some point, we plan to add more intelligence to this method, to say *why* one candidate pair is prioritized over another. We\u0027ve talked about this a bit, but do you have any ideas on how to effectively do this, and keep this logic in sync with the ICE implementation?\n\nI have one idea: encapsulate the ICE candidate pair selection responsibility into a separate object, which both P2PTransportChannel and IceLogger can depend on. This object would communicate both its selected pair, and the deciding factor(s), in some structured way. You have any other ideas?",
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aac57aa_5627c1b8",
+        "filename": "p2p/base/icelogger.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-26T23:14:23Z",
+      "side": 1,
+      "message": "I think this is a great interface design in general. It has just enough methods to acquire the necessary information, without depending too much on the current ICE implementation.",
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

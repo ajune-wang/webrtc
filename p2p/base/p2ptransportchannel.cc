@@ -129,6 +129,8 @@ P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
   if (weak_ping_interval) {
     weak_ping_interval_ = static_cast<int>(weak_ping_interval);
   }
+
+  ice_logger = webrtc::icelog::IceLogger::Create();
 }
 
 P2PTransportChannel::~P2PTransportChannel() {
@@ -144,6 +146,8 @@ void P2PTransportChannel::AddAllocatorSession(
   session->set_generation(static_cast<uint32_t>(allocator_sessions_.size()));
   session->SignalPortReady.connect(this, &P2PTransportChannel::OnPortReady);
   session->SignalPortsPruned.connect(this, &P2PTransportChannel::OnPortsPruned);
+  session->SignalCandidateReady.connect(this,
+                                        &P2PTransportChannel::OnCandidateReady);
   session->SignalCandidatesReady.connect(
       this, &P2PTransportChannel::OnCandidatesReady);
   session->SignalCandidatesRemoved.connect(
@@ -175,6 +179,8 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
   connection->SignalDestroyed.connect(
       this, &P2PTransportChannel::OnConnectionDestroyed);
   connection->SignalNominated.connect(this, &P2PTransportChannel::OnNominated);
+  connection->SignalPingResponseReceived.connect(
+      this, &P2PTransportChannel::OnPingResponseReceived);
   had_connection_ = true;
 }
 
@@ -572,6 +578,10 @@ void P2PTransportChannel::OnPortReady(PortAllocatorSession *session,
   SortConnectionsAndUpdateState();
 }
 
+void P2PTransportChannel::OnCandidateReady(Port* port, const Candidate& c) {
+  ice_logger->LogCandidateGathered(port, c);
+}
+
 // A new candidate is available, let listeners know
 void P2PTransportChannel::OnCandidatesReady(
     PortAllocatorSession* session,
@@ -760,6 +770,10 @@ void P2PTransportChannel::OnNominated(Connection* conn) {
         << "Not switching the selected connection on controlled side yet: "
         << conn->ToString();
   }
+}
+
+void P2PTransportChannel::OnPingResponseReceived(Connection* conn) {
+  ice_logger->LogConnectionPingResponseReceived(conn);
 }
 
 void P2PTransportChannel::AddRemoteCandidate(const Candidate& candidate) {
@@ -1442,6 +1456,7 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
     }
     LOG_J(LS_INFO, this) << "New selected connection: "
                          << selected_connection_->ToString();
+    ice_logger->LogConnectionReselected(old_selected_connection, conn);
     SignalRouteChange(this, selected_connection_->remote_candidate());
     // This is a temporary, but safe fix to webrtc issue 5705.
     // TODO(honghaiz): Make all ENOTCONN error routed through the transport

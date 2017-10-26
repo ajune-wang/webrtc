@@ -1375,13 +1375,15 @@ std::string Connection::ToString() const {
   ss << "Conn[" << ToDebugId() << ":" << port_->content_name() << ":"
      << local.id() << ":" << local.component() << ":" << local.generation()
      << ":" << local.type() << ":" << local.protocol() << ":"
-     << local.address().ToSensitiveString() << "->" << remote.id() << ":"
-     << remote.component() << ":" << remote.priority() << ":" << remote.type()
-     << ":" << remote.protocol() << ":" << remote.address().ToSensitiveString()
-     << "|" << CONNECT_STATE_ABBREV[connected()]
-     << RECEIVE_STATE_ABBREV[receiving()] << WRITE_STATE_ABBREV[write_state()]
-     << ICESTATE[static_cast<int>(state())] << "|" << remote_nomination() << "|"
-     << nomination() << "|" << priority() << "|";
+     << local.network_name() << ":" << local.address().ToSensitiveString()
+     << "->" << remote.id() << ":" << remote.component() << ":"
+     << remote.priority() << ":" << remote.type() << ":" << remote.protocol()
+     << ":" << remote.network_name() << ":"
+     << remote.address().ToSensitiveString() << "|"
+     << CONNECT_STATE_ABBREV[connected()] << RECEIVE_STATE_ABBREV[receiving()]
+     << WRITE_STATE_ABBREV[write_state()] << ICESTATE[static_cast<int>(state())]
+     << "|" << remote_nomination() << "|" << nomination() << "|" << priority()
+     << "|";
   if (rtt_ < DEFAULT_RTT) {
     ss << rtt_ << "]";
   } else {
@@ -1418,6 +1420,7 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
 
   stats_.recv_ping_responses++;
 
+  SignalPingResponseReceived(this);
   MaybeUpdateLocalCandidate(request, response);
 }
 

@@ -479,17 +479,15 @@ int64_t OpenSSLCertificate::CertificateExpirationTime() const {
 
 OpenSSLIdentity::OpenSSLIdentity(OpenSSLKeyPair* key_pair,
                                  OpenSSLCertificate* certificate)
-    : key_pair_(key_pair), certificate_(certificate) {
+    : key_pair_(key_pair), cert_chain_(new SSLCertChain(certificate)) {
   RTC_DCHECK(key_pair != nullptr);
   RTC_DCHECK(certificate != nullptr);
 }
 
 OpenSSLIdentity::OpenSSLIdentity(OpenSSLKeyPair* key_pair,
-                                 OpenSSLCertificate* certificate,
                                  SSLCertChain* cert_chain)
-    : key_pair_(key_pair), certificate_(certificate), cert_chain_(cert_chain) {
+    : key_pair_(key_pair), cert_chain_(cert_chain) {
   RTC_DCHECK(key_pair != nullptr);
-  RTC_DCHECK(certificate != nullptr);
   RTC_DCHECK(cert_chain != nullptr);
 }
 
@@ -575,38 +573,37 @@ SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
     return nullptr;
   }
 
-  return new OpenSSLIdentity(
-      key_pair, static_cast<OpenSSLCertificate*>(certs[0]->GetReference()),
-      new SSLCertChain(std::move(certs)));
+  return new OpenSSLIdentity(key_pair, new SSLCertChain(std::move(certs)));
 }
 
 const OpenSSLCertificate& OpenSSLIdentity::certificate() const {
-  return *certificate_;
+  return *static_cast<const OpenSSLCertificate*>(&cert_chain_->Get(0));
 }
 
 OpenSSLIdentity* OpenSSLIdentity::GetReference() const {
-  return new OpenSSLIdentity(key_pair_->GetReference(),
-                             certificate_->GetReference());
+  return new OpenSSLIdentity(
+      key_pair_->GetReference(),
+      static_cast<OpenSSLCertificate*>(cert_chain_->Get(0).GetReference()));
 }
 
 bool OpenSSLIdentity::ConfigureIdentity(SSL_CTX* ctx) {
   // 1 is the documented success return code.
-  if (SSL_CTX_use_certificate(ctx, certificate_->x509()) != 1 ||
+  const OpenSSLCertificate* cert =
+      static_cast<const OpenSSLCertificate*>(&cert_chain_->Get(0));
+  if (SSL_CTX_use_certificate(ctx, cert->x509()) != 1 ||
       SSL_CTX_use_PrivateKey(ctx, key_pair_->pkey()) != 1) {
     LogSSLErrors("Configuring key and certificate");
     return false;
   }
   // If a chain is available, use it.
-  if (cert_chain_ != nullptr) {
-    for (size_t i = 1; i < cert_chain_->GetSize(); ++i) {
-      const OpenSSLCertificate* cert =
-          static_cast<const OpenSSLCertificate*>(&cert_chain_->Get(i));
-      if (SSL_CTX_add_extra_chain_cert(ctx, cert->x509()) != 1) {
-        LogSSLErrors("Configuring intermediate certificate");
-        return false;
-      }
+  for (size_t i = 1; i < cert_chain_->GetSize(); ++i) {
+    cert = static_cast<const OpenSSLCertificate*>(&cert_chain_->Get(i));
+    if (SSL_CTX_add_extra_chain_cert(ctx, cert->x509()) != 1) {
+      LogSSLErrors("Configuring intermediate certificate");
+      return false;
     }
   }
+
   return true;
 }
 
@@ -620,7 +617,8 @@ std::string OpenSSLIdentity::PublicKeyToPEMString() const {
 
 bool OpenSSLIdentity::operator==(const OpenSSLIdentity& other) const {
   return *this->key_pair_ == *other.key_pair_ &&
-         *this->certificate_ == *other.certificate_;
+      *static_cast<const OpenSSLCertificate*>(&this->cert_chain_->Get(0)) ==
+      *static_cast<const OpenSSLCertificate*>(&other.cert_chain_->Get(0));
 }
 
 bool OpenSSLIdentity::operator!=(const OpenSSLIdentity& other) const {

@@ -931,7 +931,7 @@ class SSLStreamAdapterTestDTLSFromPEMStrings : public SSLStreamAdapterTestDTLS {
 };
 
 // Test fixture for certificate chaining. Server will push more than one
-// certificates.
+// certificate.
 class SSLStreamAdapterTestDTLSCertChain : public SSLStreamAdapterTestDTLS {
  public:
   SSLStreamAdapterTestDTLSCertChain() : SSLStreamAdapterTestDTLS("", ""){};

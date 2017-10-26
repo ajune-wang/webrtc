@@ -130,14 +130,12 @@ class OpenSSLIdentity : public SSLIdentity {
 
  private:
   OpenSSLIdentity(OpenSSLKeyPair* key_pair, OpenSSLCertificate* certificate);
-  OpenSSLIdentity(OpenSSLKeyPair* key_pair,
-                  OpenSSLCertificate* certificate,
-                  SSLCertChain* cert_chain);
+  OpenSSLIdentity(OpenSSLKeyPair* key_pair, SSLCertChain* cert_chain);
 
   static OpenSSLIdentity* GenerateInternal(const SSLIdentityParams& params);
 
   std::unique_ptr<OpenSSLKeyPair> key_pair_;
-  std::unique_ptr<OpenSSLCertificate> certificate_;
+  // std::unique_ptr<OpenSSLCertificate> certificate_;
   // If cert_chain_ is available, first certificate equals certificate_.
   std::unique_ptr<SSLCertChain> cert_chain_;
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3336da69_2ea29152",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T11:21:27Z",
+      "side": 1,
+      "message": "You can probably afford to say what rename is being considered. \"Add an RTC_ prefix.\" maybe.",
+      "range": {
+        "startLine": 224,
+        "startChar": 31,
+        "endLine": 224,
+        "endChar": 44
+      },
+      "revId": "8613ffa4cf3dd06e9cb3443f8ddd8d4ad9dd4f6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

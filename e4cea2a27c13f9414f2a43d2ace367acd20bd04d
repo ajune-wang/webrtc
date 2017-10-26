@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "222bc262_ca56393a",
+        "filename": "pc/channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T20:40:59Z",
+      "side": 1,
+      "message": "Comments for these two methods.",
+      "revId": "e4cea2a27c13f9414f2a43d2ace367acd20bd04d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e897c371_111a5cda",
+        "filename": "pc/srtptransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T20:40:59Z",
+      "side": 1,
+      "message": "I wonder if it might be a good time to create a struct for these parameters:\n- cs\n- key\n- key_len\n- extension_ids\n\nCould also use rtc::ArrayView for the key.\n\nWDYT?\n\n(This is just an idea for a later CL maybe)",
+      "revId": "e4cea2a27c13f9414f2a43d2ace367acd20bd04d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

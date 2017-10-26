@@ -16,6 +16,24 @@
       "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c893d83_d781f060",
+        "filename": "p2p/base/packetsocketfactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T21:46:03Z",
+      "side": 1,
+      "message": "Yes, but I hope no one would have relied on the uninitialized value before.",
+      "parentUuid": "8c608f84_12073807",
+      "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

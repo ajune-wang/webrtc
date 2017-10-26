@@ -558,7 +558,7 @@ StatsCollector::UpdateStats(PeerConnectionInterface::StatsOutputLevel level) {
 
   // TODO(pthatcher): Merge PeerConnection and WebRtcSession so there is no
   // pc_->session().
-  if (pc_->session_created()) {
+  //if (pc_->session_created()) {
     // TODO(tommi): All of these hop over to the worker thread to fetch
     // information.  We could use an AsyncInvoker to run all of these and post
     // the information back to the signaling thread where we can create and
@@ -572,7 +572,7 @@ StatsCollector::UpdateStats(PeerConnectionInterface::StatsOutputLevel level) {
     ExtractSenderInfo();
     ExtractDataInfo();
     UpdateTrackReports();
-  }
+  //}
 }
 
 StatsReport* StatsCollector::PrepareReport(

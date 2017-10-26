@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6eaa8f35_01f1385c",
+        "filename": "api/candidate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T22:01:04Z",
+      "side": 0,
+      "message": "Are you sure it\u0027s safe to remove these? This is an API header, so there could be out-of-tree callers.",
+      "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f7ff7aa_70a5f2c8",
+        "filename": "api/candidate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T22:01:04Z",
+      "side": 0,
+      "message": "Just curious, since it\u0027s been a while since I weeded out style checker warnings: Does it now complain about inline methods like this one (not a constructor or destructor, not virtual), or are you fixing them proactively?",
+      "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

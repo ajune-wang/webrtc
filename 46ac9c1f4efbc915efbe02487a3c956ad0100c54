@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "12dd608a_c5fb2c01",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T10:39:05Z",
+      "side": 1,
+      "message": "// TODO(bugs.webrtc.org/8452): Remove these backwards compatibility wrappers.",
+      "revId": "46ac9c1f4efbc915efbe02487a3c956ad0100c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90dc641a_51f506ce",
         "filename": "rtc_base/logging.h",
         "patchSetId": 7
@@ -42,6 +59,40 @@
         "endLine": 372,
         "endChar": 73
       },
+      "revId": "46ac9c1f4efbc915efbe02487a3c956ad0100c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d890a7de_346b98b5",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T10:39:05Z",
+      "side": 1,
+      "message": "You define LOG_F and LOG_T_F identically in both branches...",
+      "revId": "46ac9c1f4efbc915efbe02487a3c956ad0100c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0636f12e_7b6eba78",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T10:39:05Z",
+      "side": 1,
+      "message": "393-394 is a duplicate of 391-392. And it\u0027s also the same as lines 396-397, so you could hoist them out of the #if, maybe.",
       "revId": "46ac9c1f4efbc915efbe02487a3c956ad0100c54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

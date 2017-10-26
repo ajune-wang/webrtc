@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a1f4c8f_fed0e109",
+        "filename": "modules/desktop_capture/mac/window_list_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2017-10-26T20:37:04Z",
+      "side": 1,
+      "message": "Can you file a bug for this rather than giving yourself as the contact? If you can recommend a timeline for removing it, that would be helpful.",
+      "range": {
+        "startLine": 100,
+        "startChar": 68,
+        "endLine": 100,
+        "endChar": 0
+      },
+      "revId": "7700927793985023e4816f3eccc9392f79efe614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -154,13 +154,12 @@ int TestConfig::TemporalLayerForFrame(int frame_idx) const {
 }
 
 std::string TestConfig::ToString() const {
+  std::string codec_type = CodecTypeToPayloadString(codec_settings.codecType);
   std::stringstream ss;
-  ss << "Video config:";
   ss << "\n Filename         : " << filename;
   ss << "\n # CPU cores used : " << NumberOfCores();
-  ss << "\n Codec settings:";
-  ss << "\n  Codec type        : "
-     << CodecTypeToPayloadString(codec_settings.codecType);
+  ss << "\n General:";
+  ss << "\n  Codec type        : " << codec_type;
   ss << "\n  Start bitrate     : " << codec_settings.startBitrate << " kbps";
   ss << "\n  Max bitrate       : " << codec_settings.maxBitrate << " kbps";
   ss << "\n  Min bitrate       : " << codec_settings.minBitrate << " kbps";
@@ -168,6 +167,7 @@ std::string TestConfig::ToString() const {
   ss << "\n  Height            : " << codec_settings.height;
   ss << "\n  Max frame rate    : " << codec_settings.maxFramerate;
   ss << "\n  QPmax             : " << codec_settings.qpMax;
+  ss << "\n " << codec_type << " specific: ";
   ss << CodecSpecificToString(codec_settings);
   return ss.str();
 }

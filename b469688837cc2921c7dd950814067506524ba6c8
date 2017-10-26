@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b51fac75_6aa84720",
+        "filename": "p2p/base/packetsocketfactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-10-26T04:37:38Z",
+      "side": 1,
+      "message": "So the clang style plugin is ok with this, but not \"\u003d default\" where the constructor is declared? For my own benefit: do you know why?",
+      "revId": "b469688837cc2921c7dd950814067506524ba6c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

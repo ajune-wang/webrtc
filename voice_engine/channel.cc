@@ -996,9 +996,11 @@ void Channel::OnRtpPacket(const RtpPacketReceived& packet) {
   header.payload_type_frequency =
       rtp_payload_registry_->GetPayloadTypeFrequency(header.payloadType);
   if (header.payload_type_frequency >= 0) {
-    bool in_order = IsPacketInOrder(header);
-    rtp_receive_statistics_->IncomingPacket(
-        header, packet.size(), IsPacketRetransmitted(header, in_order));
+    // TODO(nisse): Used to pass retransmitted = IsPacketRetransmitted(*header,
+    // in_order). Like in RtpVideoStreamReceiver, infering in_order and
+    // retransmitted is delegated to the object returned by
+    // rtp_receive_statistics_->GetStatistician().
+    rtp_receive_statistics_->OnRtpPacket(packet);
     rtp_payload_registry_->SetIncomingPayloadType(header);
 
     ReceivePacket(packet.data(), packet.size(), header);

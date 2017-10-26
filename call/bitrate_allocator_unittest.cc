@@ -18,6 +18,7 @@
 #include "test/gtest.h"
 
 using testing::NiceMock;
+using ::testing::_;
 
 namespace webrtc {
 
@@ -516,6 +517,135 @@ TEST_F(BitrateAllocatorTest, PassProbingInterval) {
   EXPECT_EQ(5000, observer.last_probing_interval_ms_);
 
   allocator_->RemoveObserver(&observer);
+}
+
+class PriorityBitrateAllocatorTest : public ::testing::Test {
+ protected:
+  PriorityBitrateAllocatorTest()
+      : allocator_(new PriorityBitrateAllocator(&limit_observer_)) {
+    allocator_->OnNetworkChanged(300000u, 0, 0, kDefaultProbingIntervalMs);
+  }
+  ~PriorityBitrateAllocatorTest() {}
+
+  NiceMock<MockLimitObserver> limit_observer_;
+  std::unique_ptr<PriorityBitrateAllocator> allocator_;
+};
+
+TEST_F(PriorityBitrateAllocatorTest, OneObserverBasic) {
+  TestBitrateObserver observer;
+  const uint32_t kMinSendBitrateBps = 100000;
+  const uint32_t kPadUpToBitrateBps = 50000;
+  EXPECT_CALL(limit_observer_, OnAllocationLimitsChanged(_, _))
+      .Times(testing::AnyNumber());
+  EXPECT_CALL(limit_observer_, OnAllocationLimitsChanged(kMinSendBitrateBps,
+                                                         kPadUpToBitrateBps));
+
+  allocator_->AddObserver(&observer, kMinSendBitrateBps, 600000,
+                          kPadUpToBitrateBps, true, "", 2.0);
+  allocator_->OnNetworkChanged(300000, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(300000u, observer.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer);
+}
+
+TEST_F(PriorityBitrateAllocatorTest, TwoObserversBasic) {
+  TestBitrateObserver observer1;
+  TestBitrateObserver observer2;
+  allocator_->AddObserver(&observer1, 0, 600000, 0, false, "low", 2.0);
+  allocator_->AddObserver(&observer2, 0, 600000, 0, false, "low2", 2.0);
+  allocator_->OnNetworkChanged(400000, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(200000u, observer1.last_bitrate_bps_);
+  EXPECT_EQ(200000u, observer2.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer1);
+  allocator_->RemoveObserver(&observer2);
+}
+
+TEST_F(PriorityBitrateAllocatorTest, TwoObserversBothAllocatedAboveMin) {
+  TestBitrateObserver observer1;
+  TestBitrateObserver observer2;
+  allocator_->AddObserver(&observer1, 100000, 600000, 0, false, "low", 2.0);
+  allocator_->AddObserver(&observer2, 100000, 600000, 0, false, "med", 4.0);
+  allocator_->OnNetworkChanged(500000, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(200000u, observer1.last_bitrate_bps_);
+  EXPECT_EQ(300000u, observer2.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer1);
+  allocator_->RemoveObserver(&observer2);
+}
+
+TEST_F(PriorityBitrateAllocatorTest, TwoObserversOneAllocatedToMax) {
+  TestBitrateObserver observer1;
+  TestBitrateObserver observer2;
+  allocator_->AddObserver(&observer1, 100000, 500000, 0, false, "low", 2.0);
+  allocator_->AddObserver(&observer2, 100000, 500000, 0, false, "med", 4.0);
+  allocator_->OnNetworkChanged(900000, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(400000u, observer1.last_bitrate_bps_);
+  EXPECT_EQ(500000u, observer2.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer1);
+  allocator_->RemoveObserver(&observer2);
+}
+
+TEST_F(PriorityBitrateAllocatorTest, ThreeObserversBasic) {
+  TestBitrateObserver observer1;
+  TestBitrateObserver observer2;
+  TestBitrateObserver observer3;
+  allocator_->AddObserver(&observer1, 0, 300000, 0, false, "low", 2.0);
+  allocator_->AddObserver(&observer2, 0, 600000, 0, false, "med", 4.0);
+  allocator_->AddObserver(&observer3, 0, 1000000, 0, false, "high", 8.0);
+  allocator_->OnNetworkChanged(1400000, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(200000u, observer1.last_bitrate_bps_);
+  EXPECT_EQ(400000u, observer2.last_bitrate_bps_);
+  EXPECT_EQ(800000u, observer3.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer1);
+  allocator_->RemoveObserver(&observer2);
+  allocator_->RemoveObserver(&observer3);
+}
+
+TEST_F(PriorityBitrateAllocatorTest, ThreeObserversOneAllocatedToMax) {
+  TestBitrateObserver observer1;
+  TestBitrateObserver observer2;
+  TestBitrateObserver observer3;
+  allocator_->AddObserver(&observer1, 100000, 300000, 0, false, "low", 2.0);
+  allocator_->AddObserver(&observer2, 100000, 600000, 0, false, "med", 4.0);
+  allocator_->AddObserver(&observer3, 100000, 400000, 0, false, "high", 8.0);
+  allocator_->OnNetworkChanged(900000, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(200000u, observer1.last_bitrate_bps_);
+  EXPECT_EQ(300000u, observer2.last_bitrate_bps_);
+  EXPECT_EQ(400000u, observer3.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer1);
+  allocator_->RemoveObserver(&observer2);
+  allocator_->RemoveObserver(&observer3);
+}
+
+TEST_F(PriorityBitrateAllocatorTest, ThreeObserversTwoAllocatedToMax) {
+  TestBitrateObserver observer1;
+  TestBitrateObserver observer2;
+  TestBitrateObserver observer3;
+  allocator_->AddObserver(&observer1, 100000, 400000, 0, false, "low", 2.0);
+  // Scaled allocation above the min allocation is the same for these two,
+  // meaning they will get allocated  their max at the same time.
+  // Scaled (target allocation) = (max - min) / relative bitrate
+  allocator_->AddObserver(&observer2, 100000, 300000, 0, false, "med", 4.0);
+  allocator_->AddObserver(&observer3, 100000, 500000, 0, false, "high", 8.0);
+  allocator_->OnNetworkChanged(1100000, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(300000u, observer1.last_bitrate_bps_);
+  EXPECT_EQ(300000u, observer2.last_bitrate_bps_);
+  EXPECT_EQ(500000u, observer3.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer1);
+  allocator_->RemoveObserver(&observer2);
+  allocator_->RemoveObserver(&observer3);
 }
 
 }  // namespace webrtc

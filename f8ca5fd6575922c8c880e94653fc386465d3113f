@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "09abe6a5_c702362f",
+        "filename": "api/candidate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T22:09:32Z",
+      "side": 0,
+      "message": "I don\u0027t see any uses in WebRTC, Chromium or internally, so I think this is just dead code.",
+      "parentUuid": "6eaa8f35_01f1385c",
+      "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f7ff7aa_70a5f2c8",
         "filename": "api/candidate.h",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-10-26T22:01:04Z",
       "side": 0,
       "message": "Just curious, since it\u0027s been a while since I weeded out style checker warnings: Does it now complain about inline methods like this one (not a constructor or destructor, not virtual), or are you fixing them proactively?",
+      "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0835278d_c532c57f",
+        "filename": "api/candidate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T22:09:32Z",
+      "side": 0,
+      "message": "No, it only complains about virtual functions. But I went ahead and moved the non-trivial inline functions into the .cc file while I was at it.",
+      "parentUuid": "9f7ff7aa_70a5f2c8",
       "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

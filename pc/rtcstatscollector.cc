@@ -379,13 +379,15 @@ ProduceMediaStreamTrackStatsFromVoiceSenderInfo(
   audio_track_stats->total_audio_energy = voice_sender_info.total_input_energy;
   audio_track_stats->total_samples_duration =
       voice_sender_info.total_input_duration;
-  if (voice_sender_info.echo_return_loss != -100) {
-    audio_track_stats->echo_return_loss = static_cast<double>(
-        voice_sender_info.echo_return_loss);
+  if (voice_sender_info.echo_return_loss &&
+      *voice_sender_info.echo_return_loss != -100) {
+    audio_track_stats->echo_return_loss =
+        static_cast<double>(*voice_sender_info.echo_return_loss);
   }
-  if (voice_sender_info.echo_return_loss_enhancement != -100) {
-    audio_track_stats->echo_return_loss_enhancement = static_cast<double>(
-        voice_sender_info.echo_return_loss_enhancement);
+  if (voice_sender_info.echo_return_loss_enhancement &&
+      *voice_sender_info.echo_return_loss_enhancement != -100) {
+    audio_track_stats->echo_return_loss_enhancement =
+        static_cast<double>(*voice_sender_info.echo_return_loss_enhancement);
   }
   return audio_track_stats;
 }

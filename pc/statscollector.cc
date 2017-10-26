@@ -97,42 +97,48 @@ void ExtractCommonReceiveProperties(const cricket::MediaReceiverInfo& info,
   report->AddString(StatsReport::kStatsValueNameCodecName, info.codec_name);
 }
 
-void SetAudioProcessingStats(StatsReport* report,
-                             bool typing_noise_detected,
-                             int echo_return_loss,
-                             int echo_return_loss_enhancement,
-                             int echo_delay_median_ms,
-                             float aec_quality_min,
-                             int echo_delay_std_ms,
-                             float residual_echo_likelihood,
-                             float residual_echo_likelihood_recent_max) {
+void SetAudioProcessingStats(
+    StatsReport* report,
+    bool typing_noise_detected,
+    rtc::Optional<int> echo_return_loss,
+    rtc::Optional<int> echo_return_loss_enhancement,
+    rtc::Optional<int> echo_delay_median_ms,
+    rtc::Optional<float> aec_quality_min,
+    rtc::Optional<int> echo_delay_std_ms,
+    rtc::Optional<float> residual_echo_likelihood,
+    rtc::Optional<float> residual_echo_likelihood_recent_max) {
   report->AddBoolean(StatsReport::kStatsValueNameTypingNoiseState,
                      typing_noise_detected);
-  if (aec_quality_min >= 0.0f) {
+  if (aec_quality_min && *aec_quality_min >= 0.0f) {
     report->AddFloat(StatsReport::kStatsValueNameEchoCancellationQualityMin,
-                     aec_quality_min);
+                     *aec_quality_min);
   }
-  const IntForAdd ints[] = {
-    { StatsReport::kStatsValueNameEchoDelayMedian, echo_delay_median_ms },
-    { StatsReport::kStatsValueNameEchoDelayStdDev, echo_delay_std_ms },
-  };
-  for (const auto& i : ints) {
-    if (i.value >= 0) {
-      report->AddInt(i.name, i.value);
-    }
+  if (echo_delay_median_ms && *echo_delay_median_ms >= 0) {
+    report->AddInt(StatsReport::kStatsValueNameEchoDelayMedian,
+                   *echo_delay_median_ms);
+  }
+  if (echo_delay_std_ms && *echo_delay_std_ms >= 0) {
+    report->AddInt(StatsReport::kStatsValueNameEchoDelayStdDev,
+                   *echo_delay_std_ms);
   }
   // These can take on valid negative values.
-  report->AddInt(StatsReport::kStatsValueNameEchoReturnLoss, echo_return_loss);
-  report->AddInt(StatsReport::kStatsValueNameEchoReturnLossEnhancement,
-                 echo_return_loss_enhancement);
-  if (residual_echo_likelihood >= 0.0f) {
-    report->AddFloat(StatsReport::kStatsValueNameResidualEchoLikelihood,
-                     residual_echo_likelihood);
+  if (echo_return_loss) {
+    report->AddInt(StatsReport::kStatsValueNameEchoReturnLoss,
+                   *echo_return_loss);
   }
-  if (residual_echo_likelihood_recent_max >= 0.0f) {
+  if (echo_return_loss_enhancement) {
+    report->AddInt(StatsReport::kStatsValueNameEchoReturnLossEnhancement,
+                   *echo_return_loss_enhancement);
+  }
+  if (residual_echo_likelihood && *residual_echo_likelihood >= 0.f) {
+    report->AddFloat(StatsReport::kStatsValueNameResidualEchoLikelihood,
+                     *residual_echo_likelihood);
+  }
+  if (residual_echo_likelihood_recent_max &&
+      *residual_echo_likelihood_recent_max >= 0.f) {
     report->AddFloat(
         StatsReport::kStatsValueNameResidualEchoLikelihoodRecentMax,
-        residual_echo_likelihood_recent_max);
+        *residual_echo_likelihood_recent_max);
   }
 }
 
@@ -876,7 +882,7 @@ void StatsCollector::ExtractVoiceInfo() {
   ExtractStatsFromList(voice_info.senders, transport_id, this,
       StatsReport::kSend);
 
-  UpdateStatsFromExistingLocalAudioTracks();
+  UpdateStatsFromExistingLocalAudioTracks(voice_info.receivers.size() > 0);
 }
 
 void StatsCollector::ExtractVideoInfo(
@@ -972,7 +978,8 @@ StatsReport* StatsCollector::GetReport(const StatsReport::StatsType& type,
   return reports_.Find(StatsReport::NewIdWithDirection(type, id, direction));
 }
 
-void StatsCollector::UpdateStatsFromExistingLocalAudioTracks() {
+void StatsCollector::UpdateStatsFromExistingLocalAudioTracks(
+    bool has_recv_tracks) {
   RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
   // Loop through the existing local audio tracks.
   for (const auto& it : local_audio_tracks_) {
@@ -995,12 +1002,13 @@ void StatsCollector::UpdateStatsFromExistingLocalAudioTracks() {
       continue;
 
     report->set_timestamp(stats_gathering_started_);
-    UpdateReportFromAudioTrack(track, report);
+    UpdateReportFromAudioTrack(track, report, has_recv_tracks);
   }
 }
 
 void StatsCollector::UpdateReportFromAudioTrack(AudioTrackInterface* track,
-                                                StatsReport* report) {
+                                                StatsReport* report,
+                                                bool has_recv_tracks) {
   RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
   RTC_DCHECK(track != NULL);
 
@@ -1017,12 +1025,23 @@ void StatsCollector::UpdateReportFromAudioTrack(AudioTrackInterface* track,
     AudioProcessorInterface::AudioProcessorStats stats;
     audio_processor->GetStats(&stats);
 
-    SetAudioProcessingStats(
-        report, stats.typing_noise_detected, stats.echo_return_loss,
-        stats.echo_return_loss_enhancement, stats.echo_delay_median_ms,
-        stats.aec_quality_min, stats.echo_delay_std_ms,
-        stats.residual_echo_likelihood,
-        stats.residual_echo_likelihood_recent_max);
+    if (has_recv_tracks) {
+      // Some stats are only valid when receiving audio.
+      SetAudioProcessingStats(
+          report, stats.typing_noise_detected,
+          rtc::Optional<int>(stats.echo_return_loss),
+          rtc::Optional<int>(stats.echo_return_loss_enhancement),
+          rtc::Optional<int>(stats.echo_delay_median_ms),
+          rtc::Optional<float>(stats.aec_quality_min),
+          rtc::Optional<int>(stats.echo_delay_std_ms),
+          rtc::Optional<float>(stats.residual_echo_likelihood),
+          rtc::Optional<float>(stats.residual_echo_likelihood_recent_max));
+    } else {
+      SetAudioProcessingStats(
+          report, stats.typing_noise_detected, rtc::Optional<int>(),
+          rtc::Optional<int>(), rtc::Optional<int>(), rtc::Optional<float>(),
+          rtc::Optional<int>(), rtc::Optional<float>(), rtc::Optional<float>());
+    }
 
     report->AddFloat(StatsReport::kStatsValueNameAecDivergentFilterFraction,
                      stats.aec_divergent_filter_fraction);

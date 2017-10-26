@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b439aaeb_01bac18e",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-26T10:30:10Z",
+      "side": 1,
+      "message": "This should be renamed too.",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 25
+      },
+      "revId": "46ac9c1f4efbc915efbe02487a3c956ad0100c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90dc641a_51f506ce",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-26T10:30:10Z",
+      "side": 1,
+      "message": "This conditional seems unnecessary.",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 73
+      },
+      "revId": "46ac9c1f4efbc915efbe02487a3c956ad0100c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3086ab99_80b2b761",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-26T10:30:10Z",
+      "side": 1,
+      "message": "Take out the definitions of LOH_ERR and LOG_ERR_EX, no need for them to be conditional.\n\nIt would probably work fine to also define the LOG_GL* wrapper macros unconditionally, but it\u0027s fine with me if you want to keep them inside WEBRTC_WIN conditional.",
+      "range": {
+        "startLine": 396,
+        "startChar": 8,
+        "endLine": 396,
+        "endChar": 18
+      },
+      "revId": "46ac9c1f4efbc915efbe02487a3c956ad0100c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

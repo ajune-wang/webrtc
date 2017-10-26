@@ -22,6 +22,30 @@
       "revId": "5eb643a14ed56d9abb202ca97a003b379b9c61a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97a83d45_d4bc9379",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2017-10-26T02:30:54Z",
+      "side": 1,
+      "message": "Done. I refactored MockVideo*coderFactory classes into a seperate folder to avoid duplicating code as well.",
+      "parentUuid": "f19d129f_0277c2fb",
+      "range": {
+        "startLine": 33,
+        "startChar": 32,
+        "endLine": 33,
+        "endChar": 66
+      },
+      "revId": "5eb643a14ed56d9abb202ca97a003b379b9c61a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

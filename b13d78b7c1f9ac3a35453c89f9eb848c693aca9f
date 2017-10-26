@@ -93,6 +93,30 @@
       "revId": "b13d78b7c1f9ac3a35453c89f9eb848c693aca9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a94153e7_17eae3c8",
+        "filename": "modules/remote_bitrate_estimator/test/estimators/nada.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-10-26T13:43:55Z",
+      "side": 1,
+      "message": "it returns a pointer where payload can be written, but that is not a new allocation.\nRtpPacket allocate big block (1500 bytes) when first created. SetPayloadSize reserves a space in that block.\n\nBut even if it did,\nAre there use cases outside tests where you want to \u0027allocate\u0027 payload without using it?",
+      "parentUuid": "763d9053_16d7a225",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 15
+      },
+      "revId": "b13d78b7c1f9ac3a35453c89f9eb848c693aca9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

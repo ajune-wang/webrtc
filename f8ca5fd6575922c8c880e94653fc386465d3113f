@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c608f84_12073807",
+        "filename": "p2p/base/packetsocketfactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T21:44:40Z",
+      "side": 1,
+      "message": "This is a small behavior change, right?",
+      "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d3783db_14371792",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-26T15:13:45Z",
+      "side": 1,
+      "message": "Maybe move to PrintRateControlMetrics and print on first update.",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 42
+      },
+      "revId": "aa62a1d58dfd10db3dba46b9e7582bed757a5217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f908d6_5d060ee1",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-26T15:13:45Z",
+      "side": 1,
+      "message": "Maybe move to PrintSummary.",
+      "range": {
+        "startLine": 262,
+        "startChar": 43,
+        "endLine": 262,
+        "endChar": 0
+      },
+      "revId": "aa62a1d58dfd10db3dba46b9e7582bed757a5217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b12e0f4_fd2f52ac",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-10-26T15:13:45Z",
+      "side": 1,
+      "message": "Move to PrintQualityMetrics?",
+      "range": {
+        "startLine": 277,
+        "startChar": 37,
+        "endLine": 277,
+        "endChar": 0
+      },
+      "revId": "aa62a1d58dfd10db3dba46b9e7582bed757a5217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

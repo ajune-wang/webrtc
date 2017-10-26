@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45a6f155_8661b8a2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4457,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T00:32:46Z",
+      "side": 1,
+      "message": "Changed code.",
+      "range": {
+        "startLine": 4455,
+        "startChar": 2,
+        "endLine": 4457,
+        "endChar": 58
+      },
+      "revId": "37b643315491364beca9beb972fc40180a1b759e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ad7f6b3_bc6b2c01",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4473,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T00:32:46Z",
+      "side": 1,
+      "message": "Changed code.",
+      "range": {
+        "startLine": 4471,
+        "startChar": 2,
+        "endLine": 4473,
+        "endChar": 80
+      },
+      "revId": "37b643315491364beca9beb972fc40180a1b759e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

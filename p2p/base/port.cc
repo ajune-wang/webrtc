@@ -1418,6 +1418,7 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
 
   stats_.recv_ping_responses++;
 
+  SignalPingResponseReceived(this);
   MaybeUpdateLocalCandidate(request, response);
 }
 

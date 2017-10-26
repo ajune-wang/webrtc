@@ -16,6 +16,41 @@
       "revId": "b469688837cc2921c7dd950814067506524ba6c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8223e86_3a924ded",
+        "filename": "p2p/base/packetsocketfactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T07:51:37Z",
+      "side": 1,
+      "message": "Educated guess: This move bamboozles the style checker into thinking the constructor and destructor are not inline, even though they are. Please don\u0027t do it.",
+      "parentUuid": "b51fac75_6aa84720",
+      "revId": "b469688837cc2921c7dd950814067506524ba6c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b400d8a2_d0db4b1b",
+        "filename": "p2p/base/packetsocketfactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T07:51:37Z",
+      "side": 1,
+      "message": "Again, please don\u0027t do this. You\u0027re just adding a lot of noise whose only purpose is to defeat the style checker.",
+      "revId": "b469688837cc2921c7dd950814067506524ba6c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

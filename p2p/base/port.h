@@ -608,6 +608,8 @@ class Connection : public CandidatePairInterface,
   // controlling side.
   sigslot::signal1<Connection*> SignalNominated;
 
+  sigslot::signal1<Connection*> SignalPingResponseReceived;
+
   // Invoked when Connection receives STUN error response with 487 code.
   void HandleRoleConflictFromPeer();
 

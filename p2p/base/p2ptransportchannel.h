@@ -28,6 +28,7 @@
 
 #include "api/candidate.h"
 #include "p2p/base/candidatepairinterface.h"
+#include "p2p/base/icelogger.h"
 #include "p2p/base/icetransportinternal.h"
 #include "p2p/base/portallocator.h"
 #include "p2p/base/portinterface.h"
@@ -249,6 +250,7 @@ class P2PTransportChannel : public IceTransportInternal,
   void OnPortReady(PortAllocatorSession *session, PortInterface* port);
   void OnPortsPruned(PortAllocatorSession* session,
                      const std::vector<PortInterface*>& ports);
+  void OnCandidateReady(Port* port, const Candidate& c);
   void OnCandidatesReady(PortAllocatorSession *session,
                          const std::vector<Candidate>& candidates);
   void OnCandidatesRemoved(PortAllocatorSession* session,
@@ -277,6 +279,7 @@ class P2PTransportChannel : public IceTransportInternal,
   void OnConnectionDestroyed(Connection *connection);
 
   void OnNominated(Connection* conn);
+  void OnPingResponseReceived(Connection* conn);
 
   void OnMessage(rtc::Message* pmsg) override;
   void OnCheckAndPing();
@@ -401,6 +404,8 @@ class P2PTransportChannel : public IceTransportInternal,
   bool writable_ = false;
 
   webrtc::MetricsObserverInterface* metrics_observer_ = nullptr;
+
+  std::unique_ptr<webrtc::icelog::IceLogger> ice_logger_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(P2PTransportChannel);
 };

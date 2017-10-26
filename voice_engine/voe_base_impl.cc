@@ -407,15 +407,20 @@ int32_t VoEBaseImpl::StartPlayout() {
       LOG_F(LS_ERROR) << "Failed to initialize playout";
       return -1;
     }
-    if (shared_->audio_device()->StartPlayout() != 0) {
-      LOG_F(LS_ERROR) << "Failed to start playout";
-      return -1;
+    if (playout_enabled_) {
+      if (shared_->audio_device()->StartPlayout() != 0) {
+        LOG_F(LS_ERROR) << "Failed to start playout";
+        return -1;
+      }
     }
   }
   return 0;
 }
 
 int32_t VoEBaseImpl::StopPlayout() {
+  if (!playout_enabled_) {
+    return 0;
+  }
   // Stop audio-device playing if no channel is playing out
   if (shared_->NumOfPlayingChannels() == 0) {
     if (shared_->audio_device()->StopPlayout() != 0) {
@@ -454,6 +459,31 @@ int32_t VoEBaseImpl::StopSend() {
   }
 
   return 0;
+}
+
+int32_t VoEBaseImpl::SetPlayout(bool enabled) {
+  if (playout_enabled_ == enabled) {
+    return 0;
+  }
+  playout_enabled_ = enabled;
+  if (shared_->NumOfPlayingChannels() == 0) {
+    // If there are no channels attempting to play out yet, there's nothing to
+    // be done; we should be in a "not playing out" state either way.
+    return 0;
+  }
+  int32_t ret;
+  if (enabled) {
+    ret = shared_->audio_device()->StartPlayout();
+    if (ret != 0) {
+      LOG(LS_ERROR) << "SetPlayout(true) failed to start playout";
+    }
+  } else {
+    ret = shared_->audio_device()->StopPlayout();
+    if (ret != 0) {
+      LOG(LS_ERROR) << "SetPlayout(false) failed to stop playout";
+    }
+  }
+  return ret;
 }
 
 int32_t VoEBaseImpl::TerminateInternal() {

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c90859aa_105be881",
+        "filename": "api/candidate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T23:09:33Z",
+      "side": 0,
+      "message": "OK. In general we want to announce API changes ahead of time, but it\u0027s probably OK for a tiny change such as this, where (1) we remove a thing we believe no one is using, (2) if someone is using it anyway, the compiler will detect it cleanly for them, and (3) they can easily switch to the methods without a _str suffix.",
+      "parentUuid": "09abe6a5_c702362f",
+      "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f7ff7aa_70a5f2c8",
         "filename": "api/candidate.h",
         "patchSetId": 2
@@ -69,6 +87,24 @@
       "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3a3b85f_dc7c542d",
+        "filename": "api/candidate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-26T23:09:33Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "0835278d_c532c57f",
+      "revId": "f8ca5fd6575922c8c880e94653fc386465d3113f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

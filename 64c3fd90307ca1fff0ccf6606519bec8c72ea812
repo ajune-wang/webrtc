@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10922408_ea833073",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "nit: Move target_bitrate and remaining_bitrate below the first loop since they are not used in the first loop.",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1789c099_76f6107d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "|std::make_pair(scaled_bandwidth, relative_bitrate)|\n\n(saves you from having to state the types)",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bd75dfe_29e3f1ef",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "nit: Maybe also break out the second attribute like the first:\n\ndouble relative_bitrate \u003d scaled_track_bandwidth_pair.second;",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a758b71e_5e0ff23d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "nit: Move the cast to the declaration of target_allocation_above_min?",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fc66613_a74d679f",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "Instead of subclassing BitrateAllocator, could the new algorithm just be written as an alternative method on BitrateAllocator with a flag to call either the new function or the existing NormalRateAllocation?",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3c2ccc0_5a4a9d4f",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "Can replace this with |using BitrateAllocator::BitrateAllocator| since it\u0027s just calling the base constructor and not doing anything more.",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98ec16a5_933d2126",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "Can omit this since it will just do the default destruction logic.",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1f40fd_f446458e",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "nit: override",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d32092a_4f1a5503",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "omit",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22812d25_1bb08296",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "In general, it\u0027s a good idea to have a brief comment above the test describing what it is testing. If the test is simple and is obvious from the name what it is testing then it can be omitted. For these tests, a brief description of the case it\u0027s handling and how the expected numbers are calculated would be good.",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8510f9a_7b9fbed5",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "nit: Just a suggestion, but I personally find variables in the form x1, x2, etc. hard to read and boring :) May I suggest naming the observers after the track id? E.g., low, med, high where applicable.",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e0d308_31f22f8d",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "Example comment:\n\n// Test that the bandwidth allocator will give extra bandwidth to a lower relative-bitrate track if the higher relative-bitrate track has been allocated its maximum bandwidth.",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "693fda8e_b849c3c8",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-26T23:06:34Z",
+      "side": 1,
+      "message": "Also a test for |enforce_min_bitrate\u003dtrue| with multiple observers?",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

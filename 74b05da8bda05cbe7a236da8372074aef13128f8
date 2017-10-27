@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8190f33_d1864e34",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-27T09:14:06Z",
+      "side": 1,
+      "message": "nit: No need for this import if you just call it WebRtcAudioTrack.ErrorCallback anyway.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 61
+      },
+      "revId": "74b05da8bda05cbe7a236da8372074aef13128f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

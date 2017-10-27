@@ -240,14 +240,15 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
                                 in_width);
     RTC_HISTOGRAMS_COUNTS_10000(kIndex, uma_prefix_ + "InputHeightInPixels",
                                 in_height);
-    LOG(LS_INFO) << uma_prefix_ << "InputWidthInPixels " << in_width;
-    LOG(LS_INFO) << uma_prefix_ << "InputHeightInPixels " << in_height;
+    RTC_LOG(LS_INFO) << uma_prefix_ << "InputWidthInPixels " << in_width;
+    RTC_LOG(LS_INFO) << uma_prefix_ << "InputHeightInPixels " << in_height;
   }
   AggregatedStats in_fps = input_fps_counter_.GetStats();
   if (in_fps.num_samples >= kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAMS_COUNTS_100(kIndex, uma_prefix_ + "InputFramesPerSecond",
                               in_fps.average);
-    LOG(LS_INFO) << uma_prefix_ + "InputFramesPerSecond, " << in_fps.ToString();
+    RTC_LOG(LS_INFO) << uma_prefix_ + "InputFramesPerSecond, "
+                     << in_fps.ToString();
   }
 
   int sent_width = sent_width_counter_.Avg(kMinRequiredMetricsSamples);
@@ -257,14 +258,14 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
                                 sent_width);
     RTC_HISTOGRAMS_COUNTS_10000(kIndex, uma_prefix_ + "SentHeightInPixels",
                                 sent_height);
-    LOG(LS_INFO) << uma_prefix_ << "SentWidthInPixels " << sent_width;
-    LOG(LS_INFO) << uma_prefix_ << "SentHeightInPixels " << sent_height;
+    RTC_LOG(LS_INFO) << uma_prefix_ << "SentWidthInPixels " << sent_width;
+    RTC_LOG(LS_INFO) << uma_prefix_ << "SentHeightInPixels " << sent_height;
   }
   AggregatedStats sent_fps = sent_fps_counter_.GetStats();
   if (sent_fps.num_samples >= kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAMS_COUNTS_100(kIndex, uma_prefix_ + "SentFramesPerSecond",
                               sent_fps.average);
-    LOG(LS_INFO) << uma_prefix_ + "SentFramesPerSecond, "
+    RTC_LOG(LS_INFO) << uma_prefix_ + "SentFramesPerSecond, "
                  << sent_fps.ToString();
   }
 
@@ -283,7 +284,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
       RTC_HISTOGRAMS_PERCENTAGE(kIndex,
                                 uma_prefix_ + "SentToInputFpsRatioPercent",
                                 sent_to_in_fps_ratio_percent);
-      LOG(LS_INFO) << uma_prefix_ << "SentToInputFpsRatioPercent "
+      RTC_LOG(LS_INFO) << uma_prefix_ << "SentToInputFpsRatioPercent "
                    << sent_to_in_fps_ratio_percent;
     }
   }
@@ -292,14 +293,14 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
   if (encode_ms != -1) {
     RTC_HISTOGRAMS_COUNTS_1000(kIndex, uma_prefix_ + "EncodeTimeInMs",
                                encode_ms);
-    LOG(LS_INFO) << uma_prefix_ << "EncodeTimeInMs " << encode_ms;
+    RTC_LOG(LS_INFO) << uma_prefix_ << "EncodeTimeInMs " << encode_ms;
   }
   int key_frames_permille =
       key_frame_counter_.Permille(kMinRequiredMetricsSamples);
   if (key_frames_permille != -1) {
     RTC_HISTOGRAMS_COUNTS_1000(kIndex, uma_prefix_ + "KeyFramesSentInPermille",
                                key_frames_permille);
-    LOG(LS_INFO) << uma_prefix_ << "KeyFramesSentInPermille "
+    RTC_LOG(LS_INFO) << uma_prefix_ << "KeyFramesSentInPermille "
                  << key_frames_permille;
   }
   int quality_limited =
@@ -308,7 +309,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
     RTC_HISTOGRAMS_PERCENTAGE(kIndex,
                               uma_prefix_ + "QualityLimitedResolutionInPercent",
                               quality_limited);
-    LOG(LS_INFO) << uma_prefix_ << "QualityLimitedResolutionInPercent "
+    RTC_LOG(LS_INFO) << uma_prefix_ << "QualityLimitedResolutionInPercent "
                  << quality_limited;
   }
   int downscales = quality_downscales_counter_.Avg(kMinRequiredMetricsSamples);
@@ -365,7 +366,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
         RTC_HISTOGRAMS_COUNTS_200(kIndex, uma_prefix_ + "Encoded.Qp.Vp8.S2",
                                   qp_vp8);
       } else {
-        LOG(LS_WARNING) << "QP stats not recorded for VP8 spatial idx "
+        RTC_LOG(LS_WARNING) << "QP stats not recorded for VP8 spatial idx "
                         << spatial_idx;
       }
     }
@@ -385,7 +386,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
         RTC_HISTOGRAMS_COUNTS_500(kIndex, uma_prefix_ + "Encoded.Qp.Vp9.S2",
                                   qp_vp9);
       } else {
-        LOG(LS_WARNING) << "QP stats not recorded for VP9 spatial layer "
+        RTC_LOG(LS_WARNING) << "QP stats not recorded for VP9 spatial layer "
                         << spatial_idx;
       }
     }
@@ -427,7 +428,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
       if (fraction_lost != -1) {
         RTC_HISTOGRAMS_PERCENTAGE(
             kIndex, uma_prefix_ + "SentPacketsLostInPercent", fraction_lost);
-        LOG(LS_INFO) << uma_prefix_ << "SentPacketsLostInPercent "
+        RTC_LOG(LS_INFO) << uma_prefix_ << "SentPacketsLostInPercent "
                      << fraction_lost;
       }
 
@@ -475,7 +476,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
     if (elapsed_sec >= metrics::kMinRunTimeInSeconds) {
       RTC_HISTOGRAMS_COUNTS_100(kIndex, uma_prefix_ + "NumberOfPauseEvents",
                                 target_rate_updates_.pause_resume_events);
-      LOG(LS_INFO) << uma_prefix_ << "NumberOfPauseEvents "
+      RTC_LOG(LS_INFO) << uma_prefix_ << "NumberOfPauseEvents "
                    << target_rate_updates_.pause_resume_events;
 
       int paused_time_percent =
@@ -483,7 +484,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
       if (paused_time_percent != -1) {
         RTC_HISTOGRAMS_PERCENTAGE(kIndex, uma_prefix_ + "PausedTimeInPercent",
                                   paused_time_percent);
-        LOG(LS_INFO) << uma_prefix_ << "PausedTimeInPercent "
+        RTC_LOG(LS_INFO) << uma_prefix_ << "PausedTimeInPercent "
                      << paused_time_percent;
       }
     }
@@ -508,14 +509,14 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
   if (total_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAMS_COUNTS_10000(kIndex, uma_prefix_ + "BitrateSentInKbps",
                                 total_bytes_per_sec.average * 8 / 1000);
-    LOG(LS_INFO) << uma_prefix_ << "BitrateSentInBps, "
+    RTC_LOG(LS_INFO) << uma_prefix_ << "BitrateSentInBps, "
                  << total_bytes_per_sec.ToStringWithMultiplier(8);
   }
   AggregatedStats media_bytes_per_sec = media_byte_counter_.GetStats();
   if (media_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAMS_COUNTS_10000(kIndex, uma_prefix_ + "MediaBitrateSentInKbps",
                                 media_bytes_per_sec.average * 8 / 1000);
-    LOG(LS_INFO) << uma_prefix_ << "MediaBitrateSentInBps, "
+    RTC_LOG(LS_INFO) << uma_prefix_ << "MediaBitrateSentInBps, "
                  << media_bytes_per_sec.ToStringWithMultiplier(8);
   }
   AggregatedStats padding_bytes_per_sec = padding_byte_counter_.GetStats();
@@ -523,7 +524,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
     RTC_HISTOGRAMS_COUNTS_10000(kIndex,
                                 uma_prefix_ + "PaddingBitrateSentInKbps",
                                 padding_bytes_per_sec.average * 8 / 1000);
-    LOG(LS_INFO) << uma_prefix_ << "PaddingBitrateSentInBps, "
+    RTC_LOG(LS_INFO) << uma_prefix_ << "PaddingBitrateSentInBps, "
                  << padding_bytes_per_sec.ToStringWithMultiplier(8);
   }
   AggregatedStats retransmit_bytes_per_sec =
@@ -532,7 +533,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
     RTC_HISTOGRAMS_COUNTS_10000(kIndex,
                                 uma_prefix_ + "RetransmittedBitrateSentInKbps",
                                 retransmit_bytes_per_sec.average * 8 / 1000);
-    LOG(LS_INFO) << uma_prefix_ << "RetransmittedBitrateSentInBps, "
+    RTC_LOG(LS_INFO) << uma_prefix_ << "RetransmittedBitrateSentInBps, "
                  << retransmit_bytes_per_sec.ToStringWithMultiplier(8);
   }
   if (!rtp_config.rtx.ssrcs.empty()) {
@@ -540,7 +541,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
     int rtx_bytes_per_sec_avg = -1;
     if (rtx_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
       rtx_bytes_per_sec_avg = rtx_bytes_per_sec.average;
-      LOG(LS_INFO) << uma_prefix_ << "RtxBitrateSentInBps, "
+      RTC_LOG(LS_INFO) << uma_prefix_ << "RtxBitrateSentInBps, "
                    << rtx_bytes_per_sec.ToStringWithMultiplier(8);
     } else if (total_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
       rtx_bytes_per_sec_avg = 0;  // RTX enabled but no RTX data sent, record 0.
@@ -556,24 +557,24 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
     if (fec_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
       RTC_HISTOGRAMS_COUNTS_10000(kIndex, uma_prefix_ + "FecBitrateSentInKbps",
                                   fec_bytes_per_sec.average * 8 / 1000);
-      LOG(LS_INFO) << uma_prefix_ << "FecBitrateSentInBps, "
+      RTC_LOG(LS_INFO) << uma_prefix_ << "FecBitrateSentInBps, "
                    << fec_bytes_per_sec.ToStringWithMultiplier(8);
     }
   }
-  LOG(LS_INFO) << "Frames encoded " << current_stats.frames_encoded;
-  LOG(LS_INFO) << uma_prefix_ << "DroppedFrames.Capturer "
+  RTC_LOG(LS_INFO) << "Frames encoded " << current_stats.frames_encoded;
+  RTC_LOG(LS_INFO) << uma_prefix_ << "DroppedFrames.Capturer "
                << current_stats.frames_dropped_by_capturer;
   RTC_HISTOGRAMS_COUNTS_1000(kIndex, uma_prefix_ + "DroppedFrames.Capturer",
                              current_stats.frames_dropped_by_capturer);
-  LOG(LS_INFO) << uma_prefix_ << "DroppedFrames.EncoderQueue "
+  RTC_LOG(LS_INFO) << uma_prefix_ << "DroppedFrames.EncoderQueue "
                << current_stats.frames_dropped_by_encoder_queue;
   RTC_HISTOGRAMS_COUNTS_1000(kIndex, uma_prefix_ + "DroppedFrames.EncoderQueue",
                              current_stats.frames_dropped_by_encoder_queue);
-  LOG(LS_INFO) << uma_prefix_ << "DroppedFrames.Encoder "
+  RTC_LOG(LS_INFO) << uma_prefix_ << "DroppedFrames.Encoder "
                << current_stats.frames_dropped_by_encoder;
   RTC_HISTOGRAMS_COUNTS_1000(kIndex, uma_prefix_ + "DroppedFrames.Encoder",
                              current_stats.frames_dropped_by_encoder);
-  LOG(LS_INFO) << uma_prefix_ << "DroppedFrames.Ratelimiter "
+  RTC_LOG(LS_INFO) << uma_prefix_ << "DroppedFrames.Ratelimiter "
                << current_stats.frames_dropped_by_rate_limiter;
   RTC_HISTOGRAMS_COUNTS_1000(kIndex, uma_prefix_ + "DroppedFrames.Ratelimiter",
                              current_stats.frames_dropped_by_rate_limiter);
@@ -797,8 +798,9 @@ void SendStatisticsProxy::OnSendEncodedImage(
   }
 
   if (simulcast_idx >= rtp_config_.ssrcs.size()) {
-    LOG(LS_ERROR) << "Encoded image outside simulcast range (" << simulcast_idx
-                  << " >= " << rtp_config_.ssrcs.size() << ").";
+    RTC_LOG(LS_ERROR) << "Encoded image outside simulcast range ("
+                      << simulcast_idx
+                      << " >= " << rtp_config_.ssrcs.size() << ").";
     return;
   }
   uint32_t ssrc = rtp_config_.ssrcs[simulcast_idx];

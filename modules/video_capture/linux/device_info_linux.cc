@@ -49,7 +49,7 @@ DeviceInfoLinux::~DeviceInfoLinux()
 
 uint32_t DeviceInfoLinux::NumberOfDevices()
 {
-    LOG(LS_INFO) << __FUNCTION__;
+    RTC_LOG(LS_INFO) << __FUNCTION__;
 
     uint32_t count = 0;
     char device[20];
@@ -78,7 +78,7 @@ int32_t DeviceInfoLinux::GetDeviceName(
                                          char* /*productUniqueIdUTF8*/,
                                          uint32_t /*productUniqueIdUTF8Length*/)
 {
-    LOG(LS_INFO) << __FUNCTION__;
+    RTC_LOG(LS_INFO) << __FUNCTION__;
 
     // Travel through /dev/video [0-63]
     uint32_t count = 0;
@@ -108,8 +108,9 @@ int32_t DeviceInfoLinux::GetDeviceName(
     struct v4l2_capability cap;
     if (ioctl(fd, VIDIOC_QUERYCAP, &cap) < 0)
     {
-        LOG(LS_INFO) << "error in querying the device capability for device "
-                     << device << ". errno = " << errno;
+        RTC_LOG(LS_INFO)
+            << "error in querying the device capability for device "
+            << device << ". errno = " << errno;
         close(fd);
         return -1;
     }
@@ -126,7 +127,7 @@ int32_t DeviceInfoLinux::GetDeviceName(
     }
     else
     {
-        LOG(LS_INFO) << "buffer passed is too small";
+        RTC_LOG(LS_INFO) << "buffer passed is too small";
         return -1;
     }
 
@@ -141,7 +142,7 @@ int32_t DeviceInfoLinux::GetDeviceName(
         }
         else
         {
-            LOG(LS_INFO) << "buffer passed is too small";
+            RTC_LOG(LS_INFO) << "buffer passed is too small";
             return -1;
         }
     }
@@ -160,10 +161,10 @@ int32_t DeviceInfoLinux::CreateCapabilityMap(
                             (int32_t) strlen((char*) deviceUniqueIdUTF8);
     if (deviceUniqueIdUTF8Length > kVideoCaptureUniqueNameLength)
     {
-        LOG(LS_INFO) << "Device name too long";
+        RTC_LOG(LS_INFO) << "Device name too long";
         return -1;
     }
-    LOG(LS_INFO) << "CreateCapabilityMap called for device "
+    RTC_LOG(LS_INFO) << "CreateCapabilityMap called for device "
                  << deviceUniqueIdUTF8;
 
     /* detect /dev/video [0-63] entries */
@@ -203,7 +204,7 @@ int32_t DeviceInfoLinux::CreateCapabilityMap(
 
     if (!found)
     {
-        LOG(LS_INFO) << "no matching device found";
+        RTC_LOG(LS_INFO) << "no matching device found";
         return -1;
     }
 
@@ -220,7 +221,7 @@ int32_t DeviceInfoLinux::CreateCapabilityMap(
                                                    _lastUsedDeviceNameLength + 1);
     memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8, _lastUsedDeviceNameLength + 1);
 
-    LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
+    RTC_LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
 
     return size;
 }
@@ -304,16 +305,17 @@ int32_t DeviceInfoLinux::FillCapabilities(int fd)
 
                     _captureCapabilities.push_back(cap);
                     index++;
-                    LOG(LS_VERBOSE) << "Camera capability, width:" << cap.width
-                                    << " height:" << cap.height << " type:"
-                                    << static_cast<int32_t>(cap.videoType)
-                                    << " fps:" << cap.maxFPS;
+                    RTC_LOG(LS_VERBOSE) << "Camera capability, width:"
+                                        << cap.width
+                                        << " height:" << cap.height << " type:"
+                                        << static_cast<int32_t>(cap.videoType)
+                                        << " fps:" << cap.maxFPS;
                 }
             }
         }
     }
 
-    LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
+    RTC_LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
     return _captureCapabilities.size();
 }
 

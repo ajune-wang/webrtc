@@ -124,11 +124,11 @@ IntelligibilityEnhancer::~IntelligibilityEnhancer() {
   // Don't rely on this log, since the destructor isn't called when the
   // app/tab is killed.
   if (num_chunks_ > 0) {
-    LOG(LS_INFO) << "Intelligibility Enhancer was active for "
+    RTC_LOG(LS_INFO) << "Intelligibility Enhancer was active for "
                  << 100.f * static_cast<float>(num_active_chunks_) / num_chunks_
                  << "% of the call.";
   } else {
-    LOG(LS_INFO) << "Intelligibility Enhancer processed no chunk.";
+    RTC_LOG(LS_INFO) << "Intelligibility Enhancer processed no chunk.";
   }
 }
 
@@ -206,7 +206,7 @@ void IntelligibilityEnhancer::SnrBasedEffectActivation() {
       (noise_power + std::numeric_limits<float>::epsilon());
   if (is_active_) {
     if (snr_ > kMaxActiveSNR) {
-      LOG(LS_INFO) << "Intelligibility Enhancer was deactivated at chunk "
+      RTC_LOG(LS_INFO) << "Intelligibility Enhancer was deactivated at chunk "
                    << num_chunks_;
       is_active_ = false;
       // Set the target gains to unity.
@@ -217,7 +217,7 @@ void IntelligibilityEnhancer::SnrBasedEffectActivation() {
     }
   } else {
     if (snr_ < kMinInactiveSNR) {
-      LOG(LS_INFO) << "Intelligibility Enhancer was activated at chunk "
+      RTC_LOG(LS_INFO) << "Intelligibility Enhancer was activated at chunk "
                    << num_chunks_;
       is_active_ = true;
     }

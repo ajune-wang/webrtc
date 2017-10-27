@@ -320,7 +320,7 @@ bool MessageQueue::Get(Message *pmsg, int cmsWait, bool process_io) {
       if (pmsg->ts_sensitive) {
         int64_t delay = TimeDiff(msCurrent, pmsg->ts_sensitive);
         if (delay > 0) {
-          LOG_F(LS_WARNING) << "id: " << pmsg->message_id << "  delay: "
+          RTC_LOG_F(LS_WARNING) << "id: " << pmsg->message_id << "  delay: "
                             << (delay + kMaxMsgLatency) << "ms";
         }
       }
@@ -531,8 +531,9 @@ void MessageQueue::Dispatch(Message *pmsg) {
   int64_t end_time = TimeMillis();
   int64_t diff = TimeDiff(end_time, start_time);
   if (diff >= kSlowDispatchLoggingThreshold) {
-    LOG(LS_INFO) << "Message took " << diff << "ms to dispatch. Posted from: "
-                 << pmsg->posted_from.ToString();
+    RTC_LOG(LS_INFO) << "Message took " << diff
+                     << "ms to dispatch. Posted from: "
+                     << pmsg->posted_from.ToString();
   }
 }
 

@@ -20,13 +20,13 @@ using namespace rtc;
 
 #define MAYBE_SKIP_IPV4                    \
   if (!HasIPv4Enabled()) {                 \
-    LOG(LS_INFO) << "No IPv4... skipping"; \
+    RTC_LOG(LS_INFO) << "No IPv4... skipping"; \
     return;                                \
   }
 
 #define MAYBE_SKIP_IPV6                    \
   if (!HasIPv6Enabled()) {                 \
-    LOG(LS_INFO) << "No IPv6... skipping"; \
+    RTC_LOG(LS_INFO) << "No IPv6... skipping"; \
     return;                                \
   }
 

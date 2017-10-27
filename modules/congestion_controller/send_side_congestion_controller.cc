@@ -129,7 +129,7 @@ SendSideCongestionController::SendSideCongestionController(
   delay_based_bwe_->SetMinBitrate(min_bitrate_bps_);
   if (in_cwnd_experiment_ &&
       !ReadCwndExperimentParameter(&accepted_queue_ms_)) {
-    LOG(LS_WARNING) << "Failed to parse parameters for CwndExperiment "
+    RTC_LOG(LS_WARNING) << "Failed to parse parameters for CwndExperiment "
                        "from field trial string. Experiment disabled.";
     in_cwnd_experiment_ = false;
   }
@@ -168,7 +168,7 @@ SendSideCongestionController::SendSideCongestionController(
   delay_based_bwe_->SetMinBitrate(min_bitrate_bps_);
   if (in_cwnd_experiment_ &&
       !ReadCwndExperimentParameter(&accepted_queue_ms_)) {
-    LOG(LS_WARNING) << "Failed to parse parameters for CwndExperiment "
+    RTC_LOG(LS_WARNING) << "Failed to parse parameters for CwndExperiment "
                        "from field trial string. Experiment disabled.";
     in_cwnd_experiment_ = false;
   }
@@ -275,7 +275,7 @@ SendSideCongestionController::GetTransportFeedbackObserver() {
 }
 
 void SendSideCongestionController::SignalNetworkState(NetworkState state) {
-  LOG(LS_INFO) << "SignalNetworkState "
+  RTC_LOG(LS_INFO) << "SignalNetworkState "
                << (state == kNetworkUp ? "Up" : "Down");
   {
     rtc::CritScope cs(&network_state_lock_);
@@ -394,11 +394,11 @@ void SendSideCongestionController::LimitOutstandingBytes(
       std::max<size_t>((*min_rtt_ms + accepted_queue_ms_) *
                            last_reported_bitrate_bps_ / 1000 / 8,
                        kMinCwndBytes);
-  LOG(LS_INFO) << clock_->TimeInMilliseconds()
+  RTC_LOG(LS_INFO) << clock_->TimeInMilliseconds()
                << " Outstanding bytes: " << num_outstanding_bytes
                << " pacer queue: " << pacer_->QueueInMs()
                << " max outstanding: " << max_outstanding_bytes;
-  LOG(LS_INFO) << "Feedback rtt: " << *min_rtt_ms
+  RTC_LOG(LS_INFO) << "Feedback rtt: " << *min_rtt_ms
                << " Bitrate: " << last_reported_bitrate_bps_;
   pause_pacer_ = num_outstanding_bytes > max_outstanding_bytes;
 }
@@ -468,7 +468,7 @@ bool SendSideCongestionController::HasNetworkParametersToReportChanged(
       (bitrate_bps > 0 && (last_reported_fraction_loss_ != fraction_loss ||
                            last_reported_rtt_ != rtt));
   if (changed && (last_reported_bitrate_bps_ == 0 || bitrate_bps == 0)) {
-    LOG(LS_INFO) << "Bitrate estimate state changed, BWE: " << bitrate_bps
+    RTC_LOG(LS_INFO) << "Bitrate estimate state changed, BWE: " << bitrate_bps
                  << " bps.";
   }
   last_reported_bitrate_bps_ = bitrate_bps;

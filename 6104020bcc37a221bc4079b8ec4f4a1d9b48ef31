@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78c94d21_dfba5a7f",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-27T13:39:21Z",
+      "side": 1,
+      "message": "What method did you use to come up with this list?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 29
+      },
+      "revId": "6104020bcc37a221bc4079b8ec4f4a1d9b48ef31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c276cb4b_8bd59e21",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-27T13:39:21Z",
+      "side": 1,
+      "message": "I\u0027d like to see some caveat for rtc_base. We really don\u0027t want any new dependencies on, e.g., rtc_base/httpserver.h or rtc_base/win32socketserver.h.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "6104020bcc37a221bc4079b8ec4f4a1d9b48ef31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e6620e_1b1b4a13",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-27T13:39:21Z",
+      "side": 1,
+      "message": "I don\u0027t get this reference.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "6104020bcc37a221bc4079b8ec4f4a1d9b48ef31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

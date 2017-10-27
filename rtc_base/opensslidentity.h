@@ -135,8 +135,6 @@ class OpenSSLIdentity : public SSLIdentity {
   static OpenSSLIdentity* GenerateInternal(const SSLIdentityParams& params);
 
   std::unique_ptr<OpenSSLKeyPair> key_pair_;
-  // std::unique_ptr<OpenSSLCertificate> certificate_;
-  // If cert_chain_ is available, first certificate equals certificate_.
   std::unique_ptr<SSLCertChain> cert_chain_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(OpenSSLIdentity);

@@ -581,15 +581,13 @@ const OpenSSLCertificate& OpenSSLIdentity::certificate() const {
 }
 
 OpenSSLIdentity* OpenSSLIdentity::GetReference() const {
-  return new OpenSSLIdentity(
-      key_pair_->GetReference(),
-      static_cast<OpenSSLCertificate*>(cert_chain_->Get(0).GetReference()));
+  return new OpenSSLIdentity(key_pair_->GetReference(),
+                             certificate().GetReference());
 }
 
 bool OpenSSLIdentity::ConfigureIdentity(SSL_CTX* ctx) {
   // 1 is the documented success return code.
-  const OpenSSLCertificate* cert =
-      static_cast<const OpenSSLCertificate*>(&cert_chain_->Get(0));
+  const OpenSSLCertificate* cert = &certificate();
   if (SSL_CTX_use_certificate(ctx, cert->x509()) != 1 ||
       SSL_CTX_use_PrivateKey(ctx, key_pair_->pkey()) != 1) {
     LogSSLErrors("Configuring key and certificate");
@@ -617,8 +615,7 @@ std::string OpenSSLIdentity::PublicKeyToPEMString() const {
 
 bool OpenSSLIdentity::operator==(const OpenSSLIdentity& other) const {
   return *this->key_pair_ == *other.key_pair_ &&
-      *static_cast<const OpenSSLCertificate*>(&this->cert_chain_->Get(0)) ==
-      *static_cast<const OpenSSLCertificate*>(&other.cert_chain_->Get(0));
+         this->certificate() == other.certificate();
 }
 
 bool OpenSSLIdentity::operator!=(const OpenSSLIdentity& other) const {

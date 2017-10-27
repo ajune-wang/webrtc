@@ -78,7 +78,7 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
   }
 
   if (frameInfo == NULL) {
-    LOG(LS_WARNING) << "Too many frames backed up in the decoder, dropping "
+    RTC_LOG(LS_WARNING) << "Too many frames backed up in the decoder, dropping "
                        "this one.";
     return;
   }
@@ -234,7 +234,7 @@ int32_t VCMGenericDecoder::Decode(const VCMEncodedFrame& frame, int64_t nowMs) {
 
     _callback->OnDecoderImplementationName(decoder_->ImplementationName());
     if (ret < WEBRTC_VIDEO_CODEC_OK) {
-        LOG(LS_WARNING) << "Failed to decode frame with timestamp "
+        RTC_LOG(LS_WARNING) << "Failed to decode frame with timestamp "
                         << frame.TimeStamp() << ", error code: " << ret;
         _callback->Pop(frame.TimeStamp());
         return ret;

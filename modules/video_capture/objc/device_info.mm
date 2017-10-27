@@ -30,7 +30,7 @@ static NSArray* camera_presets = @[
 ];
 
 #define IOS_UNSUPPORTED()                                                 \
-  LOG(LS_ERROR) << __FUNCTION__ << " is not supported on the iOS platform."; \
+  RTC_LOG(LS_ERROR) << __FUNCTION__ << " is not supported on the iOS platform."; \
   return -1;
 
 VideoCaptureModule::DeviceInfo* VideoCaptureImpl::CreateDeviceInfo() {

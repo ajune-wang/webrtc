@@ -52,13 +52,13 @@ bool Tmmbn::Parse(const CommonHeader& packet) {
   RTC_DCHECK_EQ(packet.fmt(), kFeedbackMessageType);
 
   if (packet.payload_size_bytes() < kCommonFeedbackLength) {
-    LOG(LS_WARNING) << "Payload length " << packet.payload_size_bytes()
+    RTC_LOG(LS_WARNING) << "Payload length " << packet.payload_size_bytes()
                     << " is too small for TMMBN.";
     return false;
   }
   size_t items_size_bytes = packet.payload_size_bytes() - kCommonFeedbackLength;
   if (items_size_bytes % TmmbItem::kLength != 0) {
-    LOG(LS_WARNING) << "Payload length " << packet.payload_size_bytes()
+    RTC_LOG(LS_WARNING) << "Payload length " << packet.payload_size_bytes()
                     << " is not valid for TMMBN.";
     return false;
   }

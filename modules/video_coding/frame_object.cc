@@ -118,7 +118,7 @@ RtpFrameObject::RtpFrameObject(PacketBuffer* packet_buffer,
         ss << "Treating as key frame since WebRTC-SpsPpsIdrIsH264Keyframe is "
               "disabled.";
       }
-      LOG(LS_WARNING) << ss.str();
+      RTC_LOG(LS_WARNING) << ss.str();
     }
   } else {
     _frameType = first_packet->frameType;

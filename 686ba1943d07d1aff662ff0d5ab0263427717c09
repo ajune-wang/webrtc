@@ -94,6 +94,78 @@
     },
     {
       "key": {
+        "uuid": "68db40bb_d4b9abb5",
+        "filename": "common_audio/resampler/resampler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-10-27T13:44:21Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "1fa6b740_7a42523b",
+      "range": {
+        "startLine": 312,
+        "startChar": 47,
+        "endLine": 312,
+        "endChar": 53
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bae7eb0_fe2f5150",
+        "filename": "common_audio/resampler/resampler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-10-27T13:44:21Z",
+      "side": 1,
+      "message": "Avoided const.",
+      "parentUuid": "e3c87b57_f93ef835",
+      "range": {
+        "startLine": 312,
+        "startChar": 36,
+        "endLine": 312,
+        "endChar": 41
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0312201_b146549d",
+        "filename": "common_audio/resampler/resampler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-10-27T13:44:21Z",
+      "side": 1,
+      "message": "It uses the private member enum ResamplerMode to set the mode.\n\nIt\u0027s possible to make it a bool SupportedMode(int in_freq_hz, int out_freq_hz) that doesn\u0027t determine the mode (and hence keep it local, anonymous namespace etc), but then the work of the huge else-if-switching has to be repeated by Reset() to determine my_mode_.\n\nIs that preferrable?",
+      "parentUuid": "eabae9c2_aaa129aa",
+      "range": {
+        "startLine": 312,
+        "startChar": 4,
+        "endLine": 312,
+        "endChar": 35
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83c7eac8_226a2e67",
         "filename": "common_audio/resampler/resampler.cc",
         "patchSetId": 1
@@ -114,6 +186,30 @@
       "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d22d5539_9b2d119a",
+        "filename": "common_audio/resampler/resampler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-10-27T13:44:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83c7eac8_226a2e67",
+      "range": {
+        "startLine": 327,
+        "startChar": 2,
+        "endLine": 327,
+        "endChar": 5
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "e678af2a_d2c7cdcc",
+        "filename": "common_audio/resampler/resampler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-10-27T13:44:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8d4f210_3e983e14",
+      "range": {
+        "startLine": 328,
+        "startChar": 2,
+        "endLine": 328,
+        "endChar": 5
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db7095f1_b9f2b498",
         "filename": "common_audio/resampler/resampler_unittest.cc",
         "patchSetId": 1
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "391372b8_0dadbce2",
+        "filename": "common_audio/resampler/resampler_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-10-27T13:44:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db7095f1_b9f2b498",
+      "range": {
+        "startLine": 163,
+        "startChar": 2,
+        "endLine": 163,
+        "endChar": 7
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8edc696e_1b272a6e",
         "filename": "common_audio/resampler/resampler_unittest.cc",
         "patchSetId": 1
@@ -183,6 +327,30 @@
       "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e84bece_1506450e",
+        "filename": "common_audio/resampler/resampler_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-10-27T13:44:21Z",
+      "side": 1,
+      "message": "Yup, done.",
+      "parentUuid": "8edc696e_1b272a6e",
+      "range": {
+        "startLine": 164,
+        "startChar": 2,
+        "endLine": 164,
+        "endChar": 7
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -158,7 +158,7 @@ def CheckNativeApiHeaderChanges(input_api, output_api):
   """Checks to remind proper changing of native APIs."""
   files = []
   for f in input_api.AffectedSourceFiles(input_api.FilterSourceFile):
-    if f.LocalPath().endswith('.h'):
+    if any(f.LocalPath().endswith(suffix) for suffix in ['.h', '.gn']):
       for path in API_DIRS:
         dn = os.path.dirname(f.LocalPath())
         if path == 'api':

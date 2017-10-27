@@ -47,11 +47,11 @@ AudioMixerManagerMac::AudioMixerManagerMac()
       _outputDeviceID(kAudioObjectUnknown),
       _noInputChannels(0),
       _noOutputChannels(0) {
-  LOG(LS_INFO) << __FUNCTION__ << " created";
+  RTC_LOG(LS_INFO) << __FUNCTION__ << " created";
 }
 
 AudioMixerManagerMac::~AudioMixerManagerMac() {
-  LOG(LS_INFO) << __FUNCTION__ << " destroyed";
+  RTC_LOG(LS_INFO) << __FUNCTION__ << " destroyed";
   Close();
 }
 
@@ -60,7 +60,7 @@ AudioMixerManagerMac::~AudioMixerManagerMac() {
 // ============================================================================
 
 int32_t AudioMixerManagerMac::Close() {
-  LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
 
   rtc::CritScope lock(&_critSect);
 
@@ -71,7 +71,7 @@ int32_t AudioMixerManagerMac::Close() {
 }
 
 int32_t AudioMixerManagerMac::CloseSpeaker() {
-  LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
 
   rtc::CritScope lock(&_critSect);
 
@@ -82,7 +82,7 @@ int32_t AudioMixerManagerMac::CloseSpeaker() {
 }
 
 int32_t AudioMixerManagerMac::CloseMicrophone() {
-  LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
 
   rtc::CritScope lock(&_critSect);
 
@@ -93,7 +93,8 @@ int32_t AudioMixerManagerMac::CloseMicrophone() {
 }
 
 int32_t AudioMixerManagerMac::OpenSpeaker(AudioDeviceID deviceID) {
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::OpenSpeaker(id=" << deviceID << ")";
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::OpenSpeaker(id=" << deviceID
+                      << ")";
 
   rtc::CritScope lock(&_critSect);
 
@@ -112,13 +113,13 @@ int32_t AudioMixerManagerMac::OpenSpeaker(AudioDeviceID deviceID) {
       _outputDeviceID, &propertyAddress, 0, NULL, &size, &hogPid));
 
   if (hogPid == -1) {
-    LOG(LS_VERBOSE) << "No process has hogged the input device";
+    RTC_LOG(LS_VERBOSE) << "No process has hogged the input device";
   }
   // getpid() is apparently "always successful"
   else if (hogPid == getpid()) {
-    LOG(LS_VERBOSE) << "Our process has hogged the input device";
+    RTC_LOG(LS_VERBOSE) << "Our process has hogged the input device";
   } else {
-    LOG(LS_WARNING) << "Another process (pid = " << static_cast<int>(hogPid)
+    RTC_LOG(LS_WARNING) << "Another process (pid = " << static_cast<int>(hogPid)
                     << ") has hogged the input device";
 
     return -1;
@@ -140,7 +141,7 @@ int32_t AudioMixerManagerMac::OpenSpeaker(AudioDeviceID deviceID) {
 }
 
 int32_t AudioMixerManagerMac::OpenMicrophone(AudioDeviceID deviceID) {
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::OpenMicrophone(id=" << deviceID
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::OpenMicrophone(id=" << deviceID
                   << ")";
 
   rtc::CritScope lock(&_critSect);
@@ -158,13 +159,13 @@ int32_t AudioMixerManagerMac::OpenMicrophone(AudioDeviceID deviceID) {
   WEBRTC_CA_RETURN_ON_ERR(AudioObjectGetPropertyData(
       _inputDeviceID, &propertyAddress, 0, NULL, &size, &hogPid));
   if (hogPid == -1) {
-    LOG(LS_VERBOSE) << "No process has hogged the input device";
+    RTC_LOG(LS_VERBOSE) << "No process has hogged the input device";
   }
   // getpid() is apparently "always successful"
   else if (hogPid == getpid()) {
-    LOG(LS_VERBOSE) << "Our process has hogged the input device";
+    RTC_LOG(LS_VERBOSE) << "Our process has hogged the input device";
   } else {
-    LOG(LS_WARNING) << "Another process (pid = " << static_cast<int>(hogPid)
+    RTC_LOG(LS_WARNING) << "Another process (pid = " << static_cast<int>(hogPid)
                     << ") has hogged the input device";
 
     return -1;
@@ -186,25 +187,26 @@ int32_t AudioMixerManagerMac::OpenMicrophone(AudioDeviceID deviceID) {
 }
 
 bool AudioMixerManagerMac::SpeakerIsInitialized() const {
-  LOG(LS_INFO) << __FUNCTION__;
+  RTC_LOG(LS_INFO) << __FUNCTION__;
 
   return (_outputDeviceID != kAudioObjectUnknown);
 }
 
 bool AudioMixerManagerMac::MicrophoneIsInitialized() const {
-  LOG(LS_INFO) << __FUNCTION__;
+  RTC_LOG(LS_INFO) << __FUNCTION__;
 
   return (_inputDeviceID != kAudioObjectUnknown);
 }
 
 int32_t AudioMixerManagerMac::SetSpeakerVolume(uint32_t volume) {
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetSpeakerVolume(volume=" << volume
-                  << ")";
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetSpeakerVolume(volume="
+                      << volume
+                      << ")";
 
   rtc::CritScope lock(&_critSect);
 
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -247,7 +249,7 @@ int32_t AudioMixerManagerMac::SetSpeakerVolume(uint32_t volume) {
   }
 
   if (!success) {
-    LOG(LS_WARNING) << "Unable to set a volume on any output channel";
+    RTC_LOG(LS_WARNING) << "Unable to set a volume on any output channel";
     return -1;
   }
 
@@ -256,7 +258,7 @@ int32_t AudioMixerManagerMac::SetSpeakerVolume(uint32_t volume) {
 
 int32_t AudioMixerManagerMac::SpeakerVolume(uint32_t& volume) const {
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -297,7 +299,7 @@ int32_t AudioMixerManagerMac::SpeakerVolume(uint32_t& volume) const {
     }
 
     if (channels == 0) {
-      LOG(LS_WARNING) << "Unable to get a volume on any channel";
+      RTC_LOG(LS_WARNING) << "Unable to get a volume on any channel";
       return -1;
     }
 
@@ -306,14 +308,14 @@ int32_t AudioMixerManagerMac::SpeakerVolume(uint32_t& volume) const {
     volume = static_cast<uint32_t>(255 * vol / channels + 0.5);
   }
 
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::SpeakerVolume() => vol=" << vol;
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SpeakerVolume() => vol=" << vol;
 
   return 0;
 }
 
 int32_t AudioMixerManagerMac::MaxSpeakerVolume(uint32_t& maxVolume) const {
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -326,7 +328,7 @@ int32_t AudioMixerManagerMac::MaxSpeakerVolume(uint32_t& maxVolume) const {
 
 int32_t AudioMixerManagerMac::MinSpeakerVolume(uint32_t& minVolume) const {
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -339,7 +341,7 @@ int32_t AudioMixerManagerMac::MinSpeakerVolume(uint32_t& minVolume) const {
 
 int32_t AudioMixerManagerMac::SpeakerVolumeIsAvailable(bool& available) {
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -365,7 +367,7 @@ int32_t AudioMixerManagerMac::SpeakerVolumeIsAvailable(bool& available) {
                                         &isSettable);
     if (err != noErr || !isSettable) {
       available = false;
-      LOG(LS_WARNING) << "Volume cannot be set for output channel " << i
+      RTC_LOG(LS_WARNING) << "Volume cannot be set for output channel " << i
                       << ", err=" << err;
       return -1;
     }
@@ -377,7 +379,7 @@ int32_t AudioMixerManagerMac::SpeakerVolumeIsAvailable(bool& available) {
 
 int32_t AudioMixerManagerMac::SpeakerMuteIsAvailable(bool& available) {
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -403,7 +405,7 @@ int32_t AudioMixerManagerMac::SpeakerMuteIsAvailable(bool& available) {
                                         &isSettable);
     if (err != noErr || !isSettable) {
       available = false;
-      LOG(LS_WARNING) << "Mute cannot be set for output channel " << i
+      RTC_LOG(LS_WARNING) << "Mute cannot be set for output channel " << i
                       << ", err=" << err;
       return -1;
     }
@@ -414,13 +416,14 @@ int32_t AudioMixerManagerMac::SpeakerMuteIsAvailable(bool& available) {
 }
 
 int32_t AudioMixerManagerMac::SetSpeakerMute(bool enable) {
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetSpeakerMute(enable=" << enable
-                  << ")";
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetSpeakerMute(enable="
+                      << enable
+                      << ")";
 
   rtc::CritScope lock(&_critSect);
 
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -459,7 +462,7 @@ int32_t AudioMixerManagerMac::SetSpeakerMute(bool enable) {
   }
 
   if (!success) {
-    LOG(LS_WARNING) << "Unable to set mute on any input channel";
+    RTC_LOG(LS_WARNING) << "Unable to set mute on any input channel";
     return -1;
   }
 
@@ -468,7 +471,7 @@ int32_t AudioMixerManagerMac::SetSpeakerMute(bool enable) {
 
 int32_t AudioMixerManagerMac::SpeakerMute(bool& enabled) const {
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -508,7 +511,7 @@ int32_t AudioMixerManagerMac::SpeakerMute(bool& enabled) const {
     }
 
     if (channels == 0) {
-      LOG(LS_WARNING) << "Unable to get mute for any channel";
+      RTC_LOG(LS_WARNING) << "Unable to get mute for any channel";
       return -1;
     }
 
@@ -517,7 +520,7 @@ int32_t AudioMixerManagerMac::SpeakerMute(bool& enabled) const {
     enabled = static_cast<bool>(muted);
   }
 
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::SpeakerMute() => enabled="
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SpeakerMute() => enabled="
                   << enabled;
 
   return 0;
@@ -525,7 +528,7 @@ int32_t AudioMixerManagerMac::SpeakerMute(bool& enabled) const {
 
 int32_t AudioMixerManagerMac::StereoPlayoutIsAvailable(bool& available) {
   if (_outputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -535,7 +538,7 @@ int32_t AudioMixerManagerMac::StereoPlayoutIsAvailable(bool& available) {
 
 int32_t AudioMixerManagerMac::StereoRecordingIsAvailable(bool& available) {
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -545,7 +548,7 @@ int32_t AudioMixerManagerMac::StereoRecordingIsAvailable(bool& available) {
 
 int32_t AudioMixerManagerMac::MicrophoneMuteIsAvailable(bool& available) {
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -571,7 +574,7 @@ int32_t AudioMixerManagerMac::MicrophoneMuteIsAvailable(bool& available) {
                                         &isSettable);
     if (err != noErr || !isSettable) {
       available = false;
-      LOG(LS_WARNING) << "Mute cannot be set for output channel " << i
+      RTC_LOG(LS_WARNING) << "Mute cannot be set for output channel " << i
                       << ", err=" << err;
       return -1;
     }
@@ -582,13 +585,14 @@ int32_t AudioMixerManagerMac::MicrophoneMuteIsAvailable(bool& available) {
 }
 
 int32_t AudioMixerManagerMac::SetMicrophoneMute(bool enable) {
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetMicrophoneMute(enable=" << enable
-                  << ")";
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetMicrophoneMute(enable="
+                      << enable
+                      << ")";
 
   rtc::CritScope lock(&_critSect);
 
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -627,7 +631,7 @@ int32_t AudioMixerManagerMac::SetMicrophoneMute(bool enable) {
   }
 
   if (!success) {
-    LOG(LS_WARNING) << "Unable to set mute on any input channel";
+    RTC_LOG(LS_WARNING) << "Unable to set mute on any input channel";
     return -1;
   }
 
@@ -636,7 +640,7 @@ int32_t AudioMixerManagerMac::SetMicrophoneMute(bool enable) {
 
 int32_t AudioMixerManagerMac::MicrophoneMute(bool& enabled) const {
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -676,7 +680,7 @@ int32_t AudioMixerManagerMac::MicrophoneMute(bool& enabled) const {
     }
 
     if (channels == 0) {
-      LOG(LS_WARNING) << "Unable to get mute for any channel";
+      RTC_LOG(LS_WARNING) << "Unable to get mute for any channel";
       return -1;
     }
 
@@ -685,7 +689,7 @@ int32_t AudioMixerManagerMac::MicrophoneMute(bool& enabled) const {
     enabled = static_cast<bool>(muted);
   }
 
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::MicrophoneMute() => enabled="
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::MicrophoneMute() => enabled="
                   << enabled;
 
   return 0;
@@ -693,7 +697,7 @@ int32_t AudioMixerManagerMac::MicrophoneMute(bool& enabled) const {
 
 int32_t AudioMixerManagerMac::MicrophoneVolumeIsAvailable(bool& available) {
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -719,7 +723,7 @@ int32_t AudioMixerManagerMac::MicrophoneVolumeIsAvailable(bool& available) {
                                         &isSettable);
     if (err != noErr || !isSettable) {
       available = false;
-      LOG(LS_WARNING) << "Volume cannot be set for input channel " << i
+      RTC_LOG(LS_WARNING) << "Volume cannot be set for input channel " << i
                       << ", err=" << err;
       return -1;
     }
@@ -730,13 +734,13 @@ int32_t AudioMixerManagerMac::MicrophoneVolumeIsAvailable(bool& available) {
 }
 
 int32_t AudioMixerManagerMac::SetMicrophoneVolume(uint32_t volume) {
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetMicrophoneVolume(volume="
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetMicrophoneVolume(volume="
                   << volume << ")";
 
   rtc::CritScope lock(&_critSect);
 
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -779,7 +783,7 @@ int32_t AudioMixerManagerMac::SetMicrophoneVolume(uint32_t volume) {
   }
 
   if (!success) {
-    LOG(LS_WARNING) << "Unable to set a level on any input channel";
+    RTC_LOG(LS_WARNING) << "Unable to set a level on any input channel";
     return -1;
   }
 
@@ -788,7 +792,7 @@ int32_t AudioMixerManagerMac::SetMicrophoneVolume(uint32_t volume) {
 
 int32_t AudioMixerManagerMac::MicrophoneVolume(uint32_t& volume) const {
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -829,7 +833,7 @@ int32_t AudioMixerManagerMac::MicrophoneVolume(uint32_t& volume) const {
     }
 
     if (channels == 0) {
-      LOG(LS_WARNING) << "Unable to get a level on any channel";
+      RTC_LOG(LS_WARNING) << "Unable to get a level on any channel";
       return -1;
     }
 
@@ -838,7 +842,7 @@ int32_t AudioMixerManagerMac::MicrophoneVolume(uint32_t& volume) const {
     volume = static_cast<uint32_t>(255 * volFloat32 / channels + 0.5);
   }
 
-  LOG(LS_VERBOSE) << "AudioMixerManagerMac::MicrophoneVolume() => vol="
+  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::MicrophoneVolume() => vol="
                   << volume;
 
   return 0;
@@ -846,7 +850,7 @@ int32_t AudioMixerManagerMac::MicrophoneVolume(uint32_t& volume) const {
 
 int32_t AudioMixerManagerMac::MaxMicrophoneVolume(uint32_t& maxVolume) const {
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -859,7 +863,7 @@ int32_t AudioMixerManagerMac::MaxMicrophoneVolume(uint32_t& maxVolume) const {
 
 int32_t AudioMixerManagerMac::MinMicrophoneVolume(uint32_t& minVolume) const {
   if (_inputDeviceID == kAudioObjectUnknown) {
-    LOG(LS_WARNING) << "device ID has not been set";
+    RTC_LOG(LS_WARNING) << "device ID has not been set";
     return -1;
   }
 
@@ -885,10 +889,11 @@ void AudioMixerManagerMac::logCAMsg(const rtc::LoggingSeverity sev,
 #ifdef WEBRTC_ARCH_BIG_ENDIAN
   switch (sev) {
     case rtc::LS_ERROR:
-      LOG(LS_ERROR) << msg << ": " << err[0] << err[1] << err[2] << err[3];
+      RTC_LOG(LS_ERROR) << msg << ": " << err[0] << err[1] << err[2] << err[3];
       break;
     case rtc::LS_WARNING:
-      LOG(LS_WARNING) << msg << ": " << err[0] << err[1] << err[2] << err[3];
+      RTC_LOG(LS_WARNING) << msg << ": " << err[0] << err[1] << err[2]
+                          << err[3];
       break;
     default:
       break;
@@ -897,10 +902,11 @@ void AudioMixerManagerMac::logCAMsg(const rtc::LoggingSeverity sev,
   // We need to flip the characters in this case.
    switch (sev) {
     case rtc::LS_ERROR:
-      LOG(LS_ERROR) << msg << ": " << err[3] << err[2] << err[1] << err[0];
+      RTC_LOG(LS_ERROR) << msg << ": " << err[3] << err[2] << err[1] << err[0];
       break;
     case rtc::LS_WARNING:
-      LOG(LS_WARNING) << msg << ": " << err[3] << err[2] << err[1] << err[0];
+      RTC_LOG(LS_WARNING) << msg << ": " << err[3] << err[2] << err[1]
+                          << err[0];
       break;
     default:
       break;

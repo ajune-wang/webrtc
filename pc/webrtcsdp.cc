@@ -356,7 +356,7 @@ static bool ParseFailed(const std::string& message,
     error->line = first_line;
     error->description = description;
   }
-  LOG(LS_ERROR) << "Failed to parse: \"" << first_line
+  RTC_LOG(LS_ERROR) << "Failed to parse: \"" << first_line
                 << "\". Reason: " << description;
   return false;
 }
@@ -1483,8 +1483,9 @@ void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
   // a=msid:<stream id> <track id>
   if (unified_plan_sdp && !media_desc->streams().empty()) {
     if (media_desc->streams().size() > 1u) {
-      LOG(LS_WARNING) << "Trying to serialize unified plan SDP with more than "
-                      << "one track in a media section. Omitting 'a=msid'.";
+      RTC_LOG(LS_WARNING) << "Trying to serialize unified plan SDP with "
+                          << "more than one track in a media section. "
+                          << "Omitting 'a=msid'.";
     } else {
       auto track = media_desc->streams().begin();
       const std::string& stream_id = track->sync_label;
@@ -1695,7 +1696,7 @@ bool AddSctpDataCodec(DataContentDescription* media_desc,
   cricket::DataCodec codec_port(cricket::kGoogleSctpDataCodecPlType,
                                 cricket::kGoogleSctpDataCodecName);
   codec_port.SetParam(cricket::kCodecParamPort, sctp_port);
-  LOG(INFO) << "AddSctpDataCodec: Got SCTP Port Number "
+  RTC_LOG(INFO) << "AddSctpDataCodec: Got SCTP Port Number "
             << sctp_port;
   media_desc->AddCodec(codec_port);
   return true;
@@ -2445,7 +2446,7 @@ bool ParseMediaDescription(const std::string& message,
         }
       }
     } else {
-      LOG(LS_WARNING) << "Unsupported media type: " << line;
+      RTC_LOG(LS_WARNING) << "Unsupported media type: " << line;
       continue;
     }
     if (!content.get()) {
@@ -2461,7 +2462,7 @@ bool ParseMediaDescription(const std::string& message,
         // Usage of bundle-only with a nonzero port is unspecified. So just
         // ignore bundle-only if we see this.
         bundle_only = false;
-        LOG(LS_WARNING)
+        RTC_LOG(LS_WARNING)
             << "a=bundle-only attribute observed with a nonzero "
             << "port; this usage is unspecified so the attribute is being "
             << "ignored.";
@@ -2731,8 +2732,8 @@ bool ParseContent(const std::string& message,
           // transitioned applications to doing the right thing, it would be
           // better to treat this as a hard error instead of just ignoring it.
           if (b == -1) {
-            LOG(LS_WARNING) << "Ignoring \"b=AS:-1\"; will be treated as \"no "
-                               "bandwidth limit\".";
+            RTC_LOG(LS_WARNING) << "Ignoring \"b=AS:-1\"; will be treated "
+                                << "as \"no bandwidth limit\".";
             continue;
           }
           if (b < 0) {
@@ -2769,7 +2770,7 @@ bool ParseContent(const std::string& message,
 
     if (!IsLineType(line, kLineTypeAttributes)) {
       // TODO: Handle other lines if needed.
-      LOG(LS_INFO) << "Ignored line: " << line;
+      RTC_LOG(LS_INFO) << "Ignored line: " << line;
       continue;
     }
 
@@ -2906,7 +2907,7 @@ bool ParseContent(const std::string& message,
       }
     } else {
       // Only parse lines that we are interested of.
-      LOG(LS_INFO) << "Ignored line: " << line;
+      RTC_LOG(LS_INFO) << "Ignored line: " << line;
       continue;
     }
   }
@@ -3175,7 +3176,7 @@ bool ParseRtpmapAttribute(const std::string& line,
 
   if (std::find(payload_types.begin(), payload_types.end(), payload_type) ==
       payload_types.end()) {
-    LOG(LS_WARNING) << "Ignore rtpmap line that did not appear in the "
+    RTC_LOG(LS_WARNING) << "Ignore rtpmap line that did not appear in the "
                     << "<fmt> of the m-line: " << line;
     return true;
   }

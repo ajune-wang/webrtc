@@ -96,7 +96,7 @@ PeerConnectionTestWrapper::CreateDataChannel(
 
 void PeerConnectionTestWrapper::OnAddStream(
     rtc::scoped_refptr<MediaStreamInterface> stream) {
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": OnAddStream";
   // TODO(ronghuawu): support multiple streams.
   if (stream->GetVideoTracks().size() > 0) {
@@ -125,7 +125,7 @@ void PeerConnectionTestWrapper::OnSuccess(SessionDescriptionInterface* desc) {
   std::string sdp;
   EXPECT_TRUE(desc->ToString(&sdp));
 
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": " << desc->type() << " sdp created: " << sdp;
 
   // Give the user a chance to modify sdp for testing.
@@ -138,14 +138,14 @@ void PeerConnectionTestWrapper::OnSuccess(SessionDescriptionInterface* desc) {
 
 void PeerConnectionTestWrapper::CreateOffer(
     const MediaConstraintsInterface* constraints) {
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": CreateOffer.";
   peer_connection_->CreateOffer(this, constraints);
 }
 
 void PeerConnectionTestWrapper::CreateAnswer(
     const MediaConstraintsInterface* constraints) {
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": CreateAnswer.";
   peer_connection_->CreateAnswer(this, constraints);
 }
@@ -161,7 +161,7 @@ void PeerConnectionTestWrapper::ReceiveAnswerSdp(const std::string& sdp) {
 
 void PeerConnectionTestWrapper::SetLocalDescription(const std::string& type,
                                                     const std::string& sdp) {
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": SetLocalDescription " << type << " " << sdp;
 
   rtc::scoped_refptr<MockSetSessionDescriptionObserver>
@@ -173,7 +173,7 @@ void PeerConnectionTestWrapper::SetLocalDescription(const std::string& type,
 
 void PeerConnectionTestWrapper::SetRemoteDescription(const std::string& type,
                                                      const std::string& sdp) {
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": SetRemoteDescription " << type << " " << sdp;
 
   rtc::scoped_refptr<MockSetSessionDescriptionObserver>
@@ -199,7 +199,7 @@ void PeerConnectionTestWrapper::WaitForCallEstablished() {
 
 void PeerConnectionTestWrapper::WaitForConnection() {
   EXPECT_TRUE_WAIT(CheckForConnection(), kMaxWait);
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": Connected.";
 }
 
@@ -212,7 +212,7 @@ bool PeerConnectionTestWrapper::CheckForConnection() {
 
 void PeerConnectionTestWrapper::WaitForAudio() {
   EXPECT_TRUE_WAIT(CheckForAudio(), kMaxWait);
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": Got enough audio frames.";
 }
 
@@ -223,7 +223,7 @@ bool PeerConnectionTestWrapper::CheckForAudio() {
 
 void PeerConnectionTestWrapper::WaitForVideo() {
   EXPECT_TRUE_WAIT(CheckForVideo(), kMaxWait);
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                << ": Got enough video frames.";
 }
 

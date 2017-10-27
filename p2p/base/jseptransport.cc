@@ -68,7 +68,7 @@ bool BadTransportDescription(const std::string& desc, std::string* err_desc) {
   if (err_desc) {
     *err_desc = desc;
   }
-  LOG(LS_ERROR) << desc;
+  RTC_LOG(LS_ERROR) << desc;
   return false;
 }
 
@@ -130,7 +130,8 @@ JsepTransport::JsepTransport(
 
 bool JsepTransport::AddChannel(DtlsTransportInternal* dtls, int component) {
   if (channels_.find(component) != channels_.end()) {
-    LOG(LS_ERROR) << "Adding channel for component " << component << " twice.";
+    RTC_LOG(LS_ERROR) << "Adding channel for component " << component
+                      << " twice.";
     return false;
   }
   channels_[component] = dtls;
@@ -141,7 +142,7 @@ bool JsepTransport::AddChannel(DtlsTransportInternal* dtls, int component) {
   // TODO(deadbeef): Once this is fixed, make the warning an error, and remove
   // the calls to "ApplyXTransportDescription" below.
   if (local_description_set_ || remote_description_set_) {
-    LOG(LS_WARNING) << "Adding new transport channel after "
+    RTC_LOG(LS_WARNING) << "Adding new transport channel after "
                        "transport description already applied.";
   }
   bool ret = true;
@@ -161,7 +162,7 @@ bool JsepTransport::AddChannel(DtlsTransportInternal* dtls, int component) {
 bool JsepTransport::RemoveChannel(int component) {
   auto it = channels_.find(component);
   if (it == channels_.end()) {
-    LOG(LS_ERROR) << "Trying to remove channel for component " << component
+    RTC_LOG(LS_ERROR) << "Trying to remove channel for component " << component
                   << ", which doesn't exist.";
     return false;
   }
@@ -233,7 +234,8 @@ bool JsepTransport::SetLocalTransportDescription(
 
   if (needs_ice_restart_ && ice_restarting) {
     needs_ice_restart_ = false;
-    LOG(LS_VERBOSE) << "needs-ice-restart flag cleared for transport " << mid();
+    RTC_LOG(LS_VERBOSE) << "needs-ice-restart flag cleared for transport "
+                        << mid();
   }
 
   local_description_set_ = true;
@@ -270,7 +272,7 @@ bool JsepTransport::SetRemoteTransportDescription(
 void JsepTransport::SetNeedsIceRestartFlag() {
   if (!needs_ice_restart_) {
     needs_ice_restart_ = true;
-    LOG(LS_VERBOSE) << "needs-ice-restart flag set for transport " << mid();
+    RTC_LOG(LS_VERBOSE) << "needs-ice-restart flag set for transport " << mid();
   }
 }
 

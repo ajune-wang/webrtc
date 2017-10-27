@@ -71,7 +71,7 @@ DeviceInfoDS::DeviceInfoDS()
             // apartment (STA). We are then prevented from using STA.
             // Details: hr = 0x80010106 <=> "Cannot change thread mode after it is set".
             //
-            LOG(LS_INFO) << __FUNCTION__
+            RTC_LOG(LS_INFO) << __FUNCTION__
                          << ": CoInitializeEx(NULL, COINIT_APARTMENTTHREADED)"
                          << " => RPC_E_CHANGED_MODE, error 0x" << std::hex
                          << hr;
@@ -95,7 +95,7 @@ int32_t DeviceInfoDS::Init()
                                   IID_ICreateDevEnum, (void **) &_dsDevEnum);
     if (hr != NOERROR)
     {
-        LOG(LS_INFO) << "Failed to create CLSID_SystemDeviceEnum, error 0x"
+        RTC_LOG(LS_INFO) << "Failed to create CLSID_SystemDeviceEnum, error 0x"
                      << std::hex << hr;
         return -1;
     }
@@ -144,8 +144,9 @@ int32_t DeviceInfoDS::GetDeviceInfo(
                                           &_dsMonikerDevEnum, 0);
     if (hr != NOERROR)
     {
-        LOG(LS_INFO) << "Failed to enumerate CLSID_SystemDeviceEnum, error 0x"
-                     << std::hex << hr << ". No webcam exist?";
+        RTC_LOG(LS_INFO)
+            << "Failed to enumerate CLSID_SystemDeviceEnum, error 0x"
+            << std::hex << hr << ". No webcam exist?";
         return 0;
     }
 
@@ -187,7 +188,7 @@ int32_t DeviceInfoDS::GetDeviceInfo(
                                                              NULL);
                             if (convResult == 0)
                             {
-                                LOG(LS_INFO)
+                                RTC_LOG(LS_INFO)
                                     << "Failed to convert device name to UTF8, "
                                     << "error = " << GetLastError();
                                 return -1;
@@ -201,7 +202,7 @@ int32_t DeviceInfoDS::GetDeviceInfo(
                                 strncpy_s((char *) deviceUniqueIdUTF8,
                                           deviceUniqueIdUTF8Length,
                                           (char *) deviceNameUTF8, convResult);
-                                LOG(LS_INFO) << "Failed to get "
+                                RTC_LOG(LS_INFO) << "Failed to get "
                                              << "deviceUniqueIdUTF8 using "
                                              << "deviceNameUTF8";
                             }
@@ -217,9 +218,10 @@ int32_t DeviceInfoDS::GetDeviceInfo(
                                                           NULL, NULL);
                                 if (convResult == 0)
                                 {
-                                    LOG(LS_INFO) << "Failed to convert device "
-                                                 << "name to UTF8, error = "
-                                                 << GetLastError();
+                                    RTC_LOG(LS_INFO)
+                                        << "Failed to convert device "
+                                        << "name to UTF8, error = "
+                                        << GetLastError();
                                     return -1;
                                 }
                                 if (productUniqueIdUTF8
@@ -244,7 +246,7 @@ int32_t DeviceInfoDS::GetDeviceInfo(
     }
     if (deviceNameLength)
     {
-        LOG(LS_INFO) << __FUNCTION__ << " " << deviceNameUTF8;
+        RTC_LOG(LS_INFO) << __FUNCTION__ << " " << deviceNameUTF8;
     }
     return index;
 }
@@ -259,7 +261,7 @@ IBaseFilter * DeviceInfoDS::GetDeviceFilter(
         (int32_t) strlen((char*) deviceUniqueIdUTF8); // UTF8 is also NULL terminated
     if (deviceUniqueIdUTF8Length > kVideoCaptureUniqueNameLength)
     {
-        LOG(LS_INFO) << "Device name too long";
+        RTC_LOG(LS_INFO) << "Device name too long";
         return NULL;
     }
 
@@ -269,8 +271,9 @@ IBaseFilter * DeviceInfoDS::GetDeviceFilter(
                                                    &_dsMonikerDevEnum, 0);
     if (hr != NOERROR)
     {
-        LOG(LS_INFO) << "Failed to enumerate CLSID_SystemDeviceEnum, error 0x"
-                     << std::hex << hr << ". No webcam exist?";
+        RTC_LOG(LS_INFO)
+            << "Failed to enumerate CLSID_SystemDeviceEnum, error 0x"
+            << std::hex << hr << ". No webcam exist?";
         return 0;
     }
     _dsMonikerDevEnum->Reset();
@@ -317,8 +320,9 @@ IBaseFilter * DeviceInfoDS::GetDeviceFilter(
                                               (void**) &captureFilter);
                         if FAILED(hr)
                         {
-                            LOG(LS_ERROR) << "Failed to bind to the selected "
-                                          << "capture device " << hr;
+                            RTC_LOG(LS_ERROR)
+                                << "Failed to bind to the selected "
+                                << "capture device " << hr;
                         }
 
                         if (productUniqueIdUTF8
@@ -366,10 +370,10 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
         (int32_t) strlen((char*) deviceUniqueIdUTF8);
     if (deviceUniqueIdUTF8Length > kVideoCaptureUniqueNameLength)
     {
-        LOG(LS_INFO) << "Device name too long";
+        RTC_LOG(LS_INFO) << "Device name too long";
         return -1;
     }
-    LOG(LS_INFO) << "CreateCapabilityMap called for device "
+    RTC_LOG(LS_INFO) << "CreateCapabilityMap called for device "
                  << deviceUniqueIdUTF8;
 
 
@@ -383,7 +387,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
     IPin* outputCapturePin = GetOutputPin(captureDevice, GUID_NULL);
     if (!outputCapturePin)
     {
-        LOG(LS_INFO) << "Failed to get capture device output pin";
+        RTC_LOG(LS_INFO) << "Failed to get capture device output pin";
         RELEASE_AND_CLEAR(captureDevice);
         return -1;
     }
@@ -392,7 +396,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
                                                (void **) &extDevice);
     if (SUCCEEDED(hr) && extDevice)
     {
-        LOG(LS_INFO) << "This is an external device";
+        RTC_LOG(LS_INFO) << "This is an external device";
         extDevice->Release();
     }
 
@@ -401,7 +405,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
                                           (void**) &streamConfig);
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to get IID_IAMStreamConfig interface "
+        RTC_LOG(LS_INFO) << "Failed to get IID_IAMStreamConfig interface "
                      <<"from capture device";
         return -1;
     }
@@ -412,7 +416,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
                                       (void**) &videoControlConfig);
     if (FAILED(hrVC))
     {
-        LOG(LS_INFO) << "IID_IAMVideoControl Interface NOT SUPPORTED";
+        RTC_LOG(LS_INFO) << "IID_IAMVideoControl Interface NOT SUPPORTED";
     }
 
     AM_MEDIA_TYPE *pmt = NULL;
@@ -422,7 +426,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
     hr = streamConfig->GetNumberOfCapabilities(&count, &size);
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to GetNumberOfCapabilities";
+        RTC_LOG(LS_INFO) << "Failed to GetNumberOfCapabilities";
         RELEASE_AND_CLEAR(videoControlConfig);
         RELEASE_AND_CLEAR(streamConfig);
         RELEASE_AND_CLEAR(outputCapturePin);
@@ -446,7 +450,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
             if (pmt->majortype == MEDIATYPE_Video
                 && pmt->formattype == FORMAT_VideoInfo2)
             {
-                LOG(LS_INFO) << "Device support FORMAT_VideoInfo2";
+                RTC_LOG(LS_INFO) << "Device support FORMAT_VideoInfo2";
                 supportFORMAT_VideoInfo2 = true;
                 VIDEOINFOHEADER2* h =
                     reinterpret_cast<VIDEOINFOHEADER2*> (pmt->pbFormat);
@@ -458,7 +462,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
             if (pmt->majortype == MEDIATYPE_Video
                 && pmt->formattype == FORMAT_VideoInfo)
             {
-                LOG(LS_INFO) << "Device support FORMAT_VideoInfo2";
+                RTC_LOG(LS_INFO) << "Device support FORMAT_VideoInfo2";
                 supportFORMAT_VideoInfo = true;
             }
         }
@@ -481,7 +485,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
                                          reinterpret_cast<BYTE*> (&caps));
         if (FAILED(hr))
         {
-            LOG(LS_INFO) << "Failed to GetStreamCaps";
+            RTC_LOG(LS_INFO) << "Failed to GetStreamCaps";
             RELEASE_AND_CLEAR(videoControlConfig);
             RELEASE_AND_CLEAR(streamConfig);
             RELEASE_AND_CLEAR(outputCapturePin);
@@ -551,7 +555,8 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
                 }
                 else // use existing method
                 {
-                    LOG(LS_INFO) << "GetMaxAvailableFrameRate NOT SUPPORTED";
+                    RTC_LOG(LS_INFO)
+                        << "GetMaxAvailableFrameRate NOT SUPPORTED";
                     if (avgTimePerFrame > 0)
                         capability.maxFPS = static_cast<int> (10000000
                                                                / avgTimePerFrame);
@@ -606,14 +611,14 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
             }
             else if (pmt->subtype == MEDIASUBTYPE_HDYC) // Seen used by Declink capture cards. Uses BT. 709 color. Not entiry correct to use UYVY. http://en.wikipedia.org/wiki/YCbCr
             {
-                LOG(LS_INFO) << "Device support HDYC.";
+                RTC_LOG(LS_INFO) << "Device support HDYC.";
                 capability.videoType = VideoType::kUYVY;
             }
             else
             {
                 WCHAR strGuid[39];
                 StringFromGUID2(pmt->subtype, strGuid, 39);
-                LOG(LS_WARNING) << "Device support unknown media type "
+                RTC_LOG(LS_WARNING) << "Device support unknown media type "
                                 << strGuid << ", width " << capability.width
                                 << ", height " << capability.height;
                 continue;
@@ -621,7 +626,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
 
             _captureCapabilities.push_back(capability);
             _captureCapabilitiesWindows.push_back(capability);
-            LOG(LS_INFO) << "Camera capability, width:" << capability.width
+            RTC_LOG(LS_INFO) << "Camera capability, width:" << capability.width
                          << " height:" << capability.height << " type:"
                          << static_cast<int>(capability.videoType) << " fps:"
                          << capability.maxFPS;
@@ -640,7 +645,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(
                                                    _lastUsedDeviceNameLength
                                                        + 1);
     memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8, _lastUsedDeviceNameLength+ 1);
-    LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
+    RTC_LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
 
     return static_cast<int32_t>(_captureCapabilities.size());
 }
@@ -660,7 +665,7 @@ void DeviceInfoDS::GetProductId(const char* devicePath,
     if (!startPos)
     {
         strncpy_s((char*) productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
-        LOG(LS_INFO) << "Failed to get the product Id";
+        RTC_LOG(LS_INFO) << "Failed to get the product Id";
         return;
     }
     startPos += 4;
@@ -669,7 +674,7 @@ void DeviceInfoDS::GetProductId(const char* devicePath,
     if (!pos || pos >= (char*) devicePath + strlen((char*) devicePath))
     {
         strncpy_s((char*) productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
-        LOG(LS_INFO) << "Failed to get the product Id";
+        RTC_LOG(LS_INFO) << "Failed to get the product Id";
         return;
     }
     // Find the second occurrence.
@@ -684,7 +689,7 @@ void DeviceInfoDS::GetProductId(const char* devicePath,
     else
     {
         strncpy_s((char*) productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
-        LOG(LS_INFO) << "Failed to get the product Id";
+        RTC_LOG(LS_INFO) << "Failed to get the product Id";
     }
 }
 

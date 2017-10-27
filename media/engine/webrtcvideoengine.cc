@@ -33,6 +33,7 @@
 #include "media/engine/simulcast_encoder_adapter.h"
 #include "media/engine/videodecodersoftwarefallbackwrapper.h"
 #include "media/engine/videoencodersoftwarefallbackwrapper.h"
+#include "media/engine/vp8_encoder_simulcast_proxy.h"
 #include "media/engine/webrtcmediaengine.h"
 #include "media/engine/webrtcvideoencoderfactory.h"
 #include "media/engine/webrtcvoiceengine.h"
@@ -42,7 +43,6 @@
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
-#include "vp8_encoder_simulcast_proxy.h"
 
 using DegradationPreference = webrtc::VideoSendStream::DegradationPreference;
 

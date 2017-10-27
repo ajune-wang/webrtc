@@ -16,6 +16,8 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <tuple>
+#include <utility>
 #include <vector>
 
 #include "api/call/audio_sink.h"
@@ -948,7 +950,7 @@ inline FakeVideoMediaChannel::~FakeVideoMediaChannel() {
 
 class FakeDataEngine : public DataEngineInterface {
  public:
-  FakeDataEngine(){};
+  FakeDataEngine() {}
 
   virtual DataMediaChannel* CreateChannel(const MediaConfig& config) {
     FakeDataMediaChannel* ch = new FakeDataMediaChannel(this, DataOptions());

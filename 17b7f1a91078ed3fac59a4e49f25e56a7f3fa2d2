@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8747d118_816bdfa7",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-27T14:20:40Z",
+      "side": 1,
+      "message": "These stats come from deep inside the bowels of AEC2, which is from before the age of the optional, and it therefore uses -100 to signal an uninitialized or invalid value (see https://cs-staging.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec/echo_cancellation.cc?l\u003d438 ). I agree that it would be nice to improve that code to use optionals in the whole stats pipeline, but since AEC2 will be replaced in the not too distant future, I don\u0027t think it makes sense to put effort into that. \nIn this CL I use the optional to signal a situation where the stat is invalid, but APM (and AEC) don\u0027t know that the stats are invalid, because they don\u0027t know if there are receive streams or not (so I can\u0027t set/unset the optional in there). If you think it\u0027s better, I could set these stats to their old default/uninitialized value (so -100 in this case) instead of using an optional?",
+      "parentUuid": "b6549619_bec7314d",
+      "range": {
+        "startLine": 383,
+        "startChar": 25,
+        "endLine": 383,
+        "endChar": 41
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d73da32_ae2e83f8",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-27T13:35:40Z",
       "side": 1,
       "message": "dito- still needed",
+      "range": {
+        "startLine": 388,
+        "startChar": 58,
+        "endLine": 388,
+        "endChar": 61
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33bc891b_e96a1e5e",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-27T14:20:40Z",
+      "side": 1,
+      "message": "See my other reply.",
+      "parentUuid": "7d73da32_ae2e83f8",
       "range": {
         "startLine": 388,
         "startChar": 58,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "72aa2759_29e5b58f",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-27T14:20:40Z",
+      "side": 1,
+      "message": "See my other reply.",
+      "parentUuid": "3633ebdb_21faab5f",
+      "range": {
+        "startLine": 112,
+        "startChar": 26,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aad2ec2f_da669918",
         "filename": "pc/statscollector.cc",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2017-10-27T13:35:40Z",
       "side": 1,
       "message": "and here",
+      "range": {
+        "startLine": 116,
+        "startChar": 31,
+        "endLine": 116,
+        "endChar": 51
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c0684a9_7ca33acf",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-27T14:20:40Z",
+      "side": 1,
+      "message": "See my other reply.",
+      "parentUuid": "aad2ec2f_da669918",
       "range": {
         "startLine": 116,
         "startChar": 31,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0364cf57_e34337b5",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-27T14:20:40Z",
+      "side": 1,
+      "message": "See my other reply.",
+      "parentUuid": "184b7207_dd365e03",
+      "range": {
+        "startLine": 120,
+        "startChar": 28,
+        "endLine": 120,
+        "endChar": 45
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "201fcb38_c31f92ff",
         "filename": "pc/statscollector.cc",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "65760b19_5404d5c2",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-27T14:20:40Z",
+      "side": 1,
+      "message": "See my other reply.",
+      "parentUuid": "201fcb38_c31f92ff",
+      "range": {
+        "startLine": 138,
+        "startChar": 7,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "779fc409_fafb9b1e",
         "filename": "pc/statscollector.h",
         "patchSetId": 2
@@ -151,6 +295,30 @@
       "writtenOn": "2017-10-27T13:35:40Z",
       "side": 1,
       "message": "this might need a comment. Just looking at it it seems wrong but I can understand that echo metrics does not make sense unless there are other tracks.",
+      "range": {
+        "startLine": 123,
+        "startChar": 52,
+        "endLine": 123,
+        "endChar": 67
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9fb7259_c41a6edd",
+        "filename": "pc/statscollector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-27T14:20:40Z",
+      "side": 1,
+      "message": "Yes, that\u0027s indeed the issue. Without a receive track the stats don\u0027t make sense (and they actually get stuck), and APM/AEC don\u0027t realize this because they don\u0027t know if there are receive tracks. I added a comment to explain.",
+      "parentUuid": "779fc409_fafb9b1e",
       "range": {
         "startLine": 123,
         "startChar": 52,

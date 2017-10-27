@@ -119,10 +119,15 @@ class StatsCollector {
                                  const std::string& id,
                                  StatsReport::Direction direction);
 
-  // Helper method to get stats from the local audio tracks.
-  void UpdateStatsFromExistingLocalAudioTracks();
+  // Helper method to get stats from the local audio tracks. The has_recv_tracks
+  // flag should be used to indicate if there are receive audio streams. If
+  // there are no such streams then several of the stats are invalid.
+  // Unfortunately APM does not know that they are invalid (because it does not
+  // know if there are receive streams), so we must unset them here.
+  void UpdateStatsFromExistingLocalAudioTracks(bool has_recv_tracks);
   void UpdateReportFromAudioTrack(AudioTrackInterface* track,
-                                  StatsReport* report);
+                                  StatsReport* report,
+                                  bool has_recv_tracks);
 
   // Helper method to get the id for the track identified by ssrc.
   // |direction| tells if the track is for sending or receiving.

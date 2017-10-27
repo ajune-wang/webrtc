@@ -37,25 +37,24 @@
 
 namespace webrtc {
 
-#define LOGI() LOG(LS_INFO) << "AudioDeviceIOS::"
+#define LOGI() RTC_LOG(LS_INFO) << "AudioDeviceIOS::"
 
-#define LOG_AND_RETURN_IF_ERROR(error, message) \
-  do {                                          \
-    OSStatus err = error;                       \
-    if (err) {                                  \
-      LOG(LS_ERROR) << message << ": " << err;  \
-      return false;                             \
-    }                                           \
+#define LOG_AND_RETURN_IF_ERROR(error, message)    \
+  do {                                             \
+    OSStatus err = error;                          \
+    if (err) {                                     \
+      RTC_LOG(LS_ERROR) << message << ": " << err; \
+      return false;                                \
+    }                                              \
   } while (0)
 
-#define LOG_IF_ERROR(error, message)           \
-  do {                                         \
-    OSStatus err = error;                      \
-    if (err) {                                 \
-      LOG(LS_ERROR) << message << ": " << err; \
-    }                                          \
+#define LOG_IF_ERROR(error, message)               \
+  do {                                             \
+    OSStatus err = error;                          \
+    if (err) {                                     \
+      RTC_LOG(LS_ERROR) << message << ": " << err; \
+    }                                              \
   } while (0)
-
 
 // Hardcoded delay estimates based on real measurements.
 // TODO(henrika): these value is not used in combination with built-in AEC.
@@ -82,25 +81,25 @@ static bool DeviceIsSimulator() {
 
 // Helper method that logs essential device information strings.
 static void LogDeviceInfo() {
-  LOG(LS_INFO) << "LogDeviceInfo";
+  RTC_LOG(LS_INFO) << "LogDeviceInfo";
   @autoreleasepool {
-    LOG(LS_INFO) << " system name: " << ios::GetSystemName();
-    LOG(LS_INFO) << " system version 1(2): " << ios::GetSystemVersionAsString();
-    LOG(LS_INFO) << " system version 2(2): " << ios::GetSystemVersion();
-    LOG(LS_INFO) << " device type: " << ios::GetDeviceType();
-    LOG(LS_INFO) << " device name: " << ios::GetDeviceName();
-    LOG(LS_INFO) << " process name: " << ios::GetProcessName();
-    LOG(LS_INFO) << " process ID: " << ios::GetProcessID();
-    LOG(LS_INFO) << " OS version: " << ios::GetOSVersionString();
-    LOG(LS_INFO) << " processing cores: " << ios::GetProcessorCount();
+    RTC_LOG(LS_INFO) << " system name: " << ios::GetSystemName();
+    RTC_LOG(LS_INFO) << " system version 1(2): " << ios::GetSystemVersionAsString();
+    RTC_LOG(LS_INFO) << " system version 2(2): " << ios::GetSystemVersion();
+    RTC_LOG(LS_INFO) << " device type: " << ios::GetDeviceType();
+    RTC_LOG(LS_INFO) << " device name: " << ios::GetDeviceName();
+    RTC_LOG(LS_INFO) << " process name: " << ios::GetProcessName();
+    RTC_LOG(LS_INFO) << " process ID: " << ios::GetProcessID();
+    RTC_LOG(LS_INFO) << " OS version: " << ios::GetOSVersionString();
+    RTC_LOG(LS_INFO) << " processing cores: " << ios::GetProcessorCount();
 #if defined(__IPHONE_9_0) && defined(__IPHONE_OS_VERSION_MAX_ALLOWED) \
     && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_9_0
-    LOG(LS_INFO) << " low power mode: " << ios::GetLowPowerModeEnabled();
+    RTC_LOG(LS_INFO) << " low power mode: " << ios::GetLowPowerModeEnabled();
 #endif
 #if TARGET_IPHONE_SIMULATOR
-    LOG(LS_INFO) << " TARGET_IPHONE_SIMULATOR is defined";
+    RTC_LOG(LS_INFO) << " TARGET_IPHONE_SIMULATOR is defined";
 #endif
-    LOG(LS_INFO) << " DeviceIsSimulator: " << DeviceIsSimulator();
+    RTC_LOG(LS_INFO) << " DeviceIsSimulator: " << DeviceIsSimulator();
   }
 }
 #endif  // !defined(NDEBUG)
@@ -192,7 +191,7 @@ int32_t AudioDeviceIOS::InitPlayout() {
   RTC_DCHECK(!playing_);
   if (!audio_is_initialized_) {
     if (!InitPlayOrRecord()) {
-      LOG_F(LS_ERROR) << "InitPlayOrRecord failed for InitPlayout!";
+      RTC_LOG_F(LS_ERROR) << "InitPlayOrRecord failed for InitPlayout!";
       return -1;
     }
   }
@@ -218,7 +217,7 @@ int32_t AudioDeviceIOS::InitRecording() {
   RTC_DCHECK(!recording_);
   if (!audio_is_initialized_) {
     if (!InitPlayOrRecord()) {
-      LOG_F(LS_ERROR) << "InitPlayOrRecord failed for InitRecording!";
+      RTC_LOG_F(LS_ERROR) << "InitPlayOrRecord failed for InitRecording!";
       return -1;
     }
   }
@@ -241,7 +240,7 @@ int32_t AudioDeviceIOS::StartPlayout() {
       RTCLogError(@"StartPlayout failed to start audio unit.");
       return -1;
     }
-    LOG(LS_INFO) << "Voice-Processing I/O audio unit is now started";
+    RTC_LOG(LS_INFO) << "Voice-Processing I/O audio unit is now started";
   }
   rtc::AtomicOps::ReleaseStore(&playing_, 1);
   num_playout_callbacks_ = 0;
@@ -292,7 +291,7 @@ int32_t AudioDeviceIOS::StartRecording() {
       RTCLogError(@"StartRecording failed to start audio unit.");
       return -1;
     }
-    LOG(LS_INFO) << "Voice-Processing I/O audio unit is now started";
+    RTC_LOG(LS_INFO) << "Voice-Processing I/O audio unit is now started";
   }
   rtc::AtomicOps::ReleaseStore(&recording_, 1);
   return 0;
@@ -732,7 +731,7 @@ void AudioDeviceIOS::SetupAudioBuffersForActiveAudioSession() {
   RTCAudioSessionConfiguration* webRTCConfig =
       [RTCAudioSessionConfiguration webRTCConfiguration];
   if (sample_rate != webRTCConfig.sampleRate) {
-    LOG(LS_WARNING) << "Unable to set the preferred sample rate";
+    RTC_LOG(LS_WARNING) << "Unable to set the preferred sample rate";
   }
 
   // At this stage, we also know the exact IO buffer duration and can add
@@ -746,10 +745,8 @@ void AudioDeviceIOS::SetupAudioBuffersForActiveAudioSession() {
   record_parameters_.reset(sample_rate, record_parameters_.channels(),
                            io_buffer_duration);
   RTC_DCHECK(record_parameters_.is_complete());
-  LOG(LS_INFO) << " frames per I/O buffer: "
-               << playout_parameters_.frames_per_buffer();
-  LOG(LS_INFO) << " bytes per I/O buffer: "
-               << playout_parameters_.GetBytesPerBuffer();
+  RTC_LOG(LS_INFO) << " frames per I/O buffer: " << playout_parameters_.frames_per_buffer();
+  RTC_LOG(LS_INFO) << " bytes per I/O buffer: " << playout_parameters_.GetBytesPerBuffer();
   RTC_DCHECK_EQ(playout_parameters_.GetBytesPerBuffer(),
                 record_parameters_.GetBytesPerBuffer());
 

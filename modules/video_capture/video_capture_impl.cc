@@ -138,7 +138,7 @@ int32_t VideoCaptureImpl::IncomingFrame(
     if (frameInfo.videoType != VideoType::kMJPEG &&
         CalcBufferSize(frameInfo.videoType, width, abs(height)) !=
             videoFrameLength) {
-      LOG(LS_ERROR) << "Wrong incoming frame length.";
+      RTC_LOG(LS_ERROR) << "Wrong incoming frame length.";
       return -1;
     }
 
@@ -171,8 +171,8 @@ int32_t VideoCaptureImpl::IncomingFrame(
         width, height, videoFrameLength,
         apply_rotation ? _rotateFrame : kVideoRotation_0, buffer.get());
     if (conversionResult < 0) {
-      LOG(LS_ERROR) << "Failed to convert capture frame from type "
-                    << static_cast<int>(frameInfo.videoType) << "to I420.";
+      RTC_LOG(LS_ERROR) << "Failed to convert capture frame from type "
+                        << static_cast<int>(frameInfo.videoType) << "to I420.";
       return -1;
     }
 

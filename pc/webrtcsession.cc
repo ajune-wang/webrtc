@@ -207,21 +207,21 @@ static bool VerifyCrypto(const SessionDescription* desc,
     const TransportInfo* tinfo = desc->GetTransportInfoByName(cinfo->name);
     if (!media || !tinfo) {
       // Something is not right.
-      LOG(LS_ERROR) << kInvalidSdp;
+      RTC_LOG(LS_ERROR) << kInvalidSdp;
       *error = kInvalidSdp;
       return false;
     }
     if (dtls_enabled) {
       if (!tinfo->description.identity_fingerprint) {
-        LOG(LS_WARNING) <<
-            "Session description must have DTLS fingerprint if DTLS enabled.";
+        RTC_LOG(LS_WARNING) << "Session description must have DTLS fingerprint "
+                               "if DTLS enabled.";
         *error = kSdpWithoutDtlsFingerprint;
         return false;
       }
     } else {
       if (media->cryptos().empty()) {
-        LOG(LS_WARNING) <<
-            "Session description must have SDES when DTLS disabled.";
+        RTC_LOG(LS_WARNING)
+            << "Session description must have SDES when DTLS disabled.";
         *error = kSdpWithoutSdesCrypto;
         return false;
       }
@@ -256,12 +256,12 @@ static bool VerifyIceUfragPwdPresent(const SessionDescription* desc) {
     const TransportInfo* tinfo = desc->GetTransportInfoByName(cinfo->name);
     if (!tinfo) {
       // Something is not right.
-      LOG(LS_ERROR) << kInvalidSdp;
+      RTC_LOG(LS_ERROR) << kInvalidSdp;
       return false;
     }
     if (tinfo->description.ice_ufrag.empty() ||
         tinfo->description.ice_pwd.empty()) {
-      LOG(LS_ERROR) << "Session description must have ice ufrag and pwd.";
+      RTC_LOG(LS_ERROR) << "Session description must have ice ufrag and pwd.";
       return false;
     }
   }
@@ -344,7 +344,7 @@ static bool BadSdp(const std::string& source,
   if (err_desc) {
     *err_desc = desc.str();
   }
-  LOG(LS_ERROR) << desc.str();
+  RTC_LOG(LS_ERROR) << desc.str();
   return false;
 }
 
@@ -466,8 +466,8 @@ bool CheckForRemoteIceRestart(const SessionDescriptionInterface* old_desc,
   if (cricket::IceCredentialsChanged(
           old_transport_desc->ice_ufrag, old_transport_desc->ice_pwd,
           new_transport_desc->ice_ufrag, new_transport_desc->ice_pwd)) {
-    LOG(LS_INFO) << "Remote peer requests ICE restart for " << content_name
-                 << ".";
+    RTC_LOG(LS_INFO) << "Remote peer requests ICE restart for " << content_name
+                     << ".";
     return true;
   }
   return false;
@@ -538,7 +538,7 @@ WebRtcSession::~WebRtcSession() {
         RTC_FROM_HERE, rtc::Bind(&WebRtcSession::DestroySctpTransport_n, this));
   }
 
-  LOG(LS_INFO) << "Session: " << id() << " is destroyed.";
+  RTC_LOG(LS_INFO) << "Session: " << id() << " is destroyed.";
 }
 
 void WebRtcSession::Initialize(
@@ -647,13 +647,14 @@ cricket::BaseChannel* WebRtcSession::GetChannel(
 
 bool WebRtcSession::GetSctpSslRole(rtc::SSLRole* role) {
   if (!local_description() || !remote_description()) {
-    LOG(LS_INFO) << "Local and Remote descriptions must be applied to get the "
-                 << "SSL Role of the SCTP transport.";
+    RTC_LOG(LS_INFO)
+        << "Local and Remote descriptions must be applied to get the "
+        << "SSL Role of the SCTP transport.";
     return false;
   }
   if (!sctp_transport_) {
-    LOG(LS_INFO) << "Non-rejected SCTP m= section is needed to get the "
-                 << "SSL Role of the SCTP transport.";
+    RTC_LOG(LS_INFO) << "Non-rejected SCTP m= section is needed to get the "
+                     << "SSL Role of the SCTP transport.";
     return false;
   }
 
@@ -663,8 +664,9 @@ bool WebRtcSession::GetSctpSslRole(rtc::SSLRole* role) {
 bool WebRtcSession::GetSslRole(const std::string& content_name,
                                rtc::SSLRole* role) {
   if (!local_description() || !remote_description()) {
-    LOG(LS_INFO) << "Local and Remote descriptions must be applied to get the "
-                 << "SSL Role of the session.";
+    RTC_LOG(LS_INFO)
+        << "Local and Remote descriptions must be applied to get the "
+        << "SSL Role of the session.";
     return false;
   }
 
@@ -855,9 +857,9 @@ std::vector<cricket::BaseChannel*> WebRtcSession::Channels() const {
 }
 
 void WebRtcSession::LogState(State old_state, State new_state) {
-  LOG(LS_INFO) << "Session:" << id()
-               << " Old state:" << GetStateString(old_state)
-               << " New state:" << GetStateString(new_state);
+  RTC_LOG(LS_INFO) << "Session:" << id()
+                   << " Old state:" << GetStateString(old_state)
+                   << " New state:" << GetStateString(new_state);
 }
 
 void WebRtcSession::SetState(State state) {
@@ -923,7 +925,7 @@ bool WebRtcSession::UpdateSessionState(
       const cricket::ContentGroup* answer_bundle =
           (source == cricket::CS_LOCAL ? local_bundle : remote_bundle);
       if (!EnableBundle(*answer_bundle)) {
-        LOG(LS_WARNING) << "Failed to enable BUNDLE.";
+        RTC_LOG(LS_WARNING) << "Failed to enable BUNDLE.";
         return BadAnswerSdp(source, kEnableBundleFailed, err_desc);
       }
     }
@@ -1079,7 +1081,7 @@ bool WebRtcSession::GetTransportDescription(
 bool WebRtcSession::EnableBundle(const cricket::ContentGroup& bundle) {
   const std::string* first_content_name = bundle.FirstContentName();
   if (!first_content_name) {
-    LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
+    RTC_LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
     return false;
   }
   const std::string& transport_name = *first_content_name;
@@ -1092,8 +1094,8 @@ bool WebRtcSession::EnableBundle(const cricket::ContentGroup& bundle) {
 
     std::string old_transport_name = ch->transport_name();
     if (old_transport_name == transport_name) {
-      LOG(LS_INFO) << "BUNDLE already enabled for " << ch->content_name()
-                   << " on " << transport_name << ".";
+      RTC_LOG(LS_INFO) << "BUNDLE already enabled for " << ch->content_name()
+                       << " on " << transport_name << ".";
       return true;
     }
 
@@ -1108,8 +1110,8 @@ bool WebRtcSession::EnableBundle(const cricket::ContentGroup& bundle) {
     }
 
     ch->SetTransports(rtp_dtls_transport, rtcp_dtls_transport);
-    LOG(LS_INFO) << "Enabled BUNDLE for " << ch->content_name() << " on "
-                 << transport_name << ".";
+    RTC_LOG(LS_INFO) << "Enabled BUNDLE for " << ch->content_name() << " on "
+                     << transport_name << ".";
     transport_controller_->DestroyDtlsTransport(
         old_transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
     // If the channel needs rtcp, it means that the channel used to have a
@@ -1144,13 +1146,13 @@ bool WebRtcSession::EnableBundle(const cricket::ContentGroup& bundle) {
 
 bool WebRtcSession::ProcessIceMessage(const IceCandidateInterface* candidate) {
   if (!remote_description()) {
-    LOG(LS_ERROR) << "ProcessIceMessage: ICE candidates can't be added "
-                  << "without any remote session description.";
+    RTC_LOG(LS_ERROR) << "ProcessIceMessage: ICE candidates can't be added "
+                      << "without any remote session description.";
     return false;
   }
 
   if (!candidate) {
-    LOG(LS_ERROR) << "ProcessIceMessage: Candidate is NULL.";
+    RTC_LOG(LS_ERROR) << "ProcessIceMessage: Candidate is NULL.";
     return false;
   }
 
@@ -1162,14 +1164,14 @@ bool WebRtcSession::ProcessIceMessage(const IceCandidateInterface* candidate) {
 
   // Add this candidate to the remote session description.
   if (!mutable_remote_description()->AddCandidate(candidate)) {
-    LOG(LS_ERROR) << "ProcessIceMessage: Candidate cannot be used.";
+    RTC_LOG(LS_ERROR) << "ProcessIceMessage: Candidate cannot be used.";
     return false;
   }
 
   if (ready) {
     return UseCandidate(candidate);
   } else {
-    LOG(LS_INFO) << "ProcessIceMessage: Not ready to use candidate.";
+    RTC_LOG(LS_INFO) << "ProcessIceMessage: Not ready to use candidate.";
     return true;
   }
 }
@@ -1177,29 +1179,30 @@ bool WebRtcSession::ProcessIceMessage(const IceCandidateInterface* candidate) {
 bool WebRtcSession::RemoveRemoteIceCandidates(
     const std::vector<cricket::Candidate>& candidates) {
   if (!remote_description()) {
-    LOG(LS_ERROR) << "RemoveRemoteIceCandidates: ICE candidates can't be "
-                  << "removed without any remote session description.";
+    RTC_LOG(LS_ERROR) << "RemoveRemoteIceCandidates: ICE candidates can't be "
+                      << "removed without any remote session description.";
     return false;
   }
 
   if (candidates.empty()) {
-    LOG(LS_ERROR) << "RemoveRemoteIceCandidates: candidates are empty.";
+    RTC_LOG(LS_ERROR) << "RemoveRemoteIceCandidates: candidates are empty.";
     return false;
   }
 
   size_t number_removed =
       mutable_remote_description()->RemoveCandidates(candidates);
   if (number_removed != candidates.size()) {
-    LOG(LS_ERROR) << "RemoveRemoteIceCandidates: Failed to remove candidates. "
-                  << "Requested " << candidates.size() << " but only "
-                  << number_removed << " are removed.";
+    RTC_LOG(LS_ERROR)
+        << "RemoveRemoteIceCandidates: Failed to remove candidates. "
+        << "Requested " << candidates.size() << " but only " << number_removed
+        << " are removed.";
   }
 
   // Remove the candidates from the transport controller.
   std::string error;
   bool res = transport_controller_->RemoveRemoteCandidates(candidates, &error);
   if (!res && !error.empty()) {
-    LOG(LS_ERROR) << "Error when removing remote candidates: " << error;
+    RTC_LOG(LS_ERROR) << "Error when removing remote candidates: " << error;
   }
   return true;
 }
@@ -1271,8 +1274,8 @@ bool WebRtcSession::SendData(const cricket::SendDataParams& params,
                              const rtc::CopyOnWriteBuffer& payload,
                              cricket::SendDataResult* result) {
   if (!rtp_data_channel_ && !sctp_transport_) {
-    LOG(LS_ERROR) << "SendData called when rtp_data_channel_ "
-                  << "and sctp_transport_ are NULL.";
+    RTC_LOG(LS_ERROR) << "SendData called when rtp_data_channel_ "
+                      << "and sctp_transport_ are NULL.";
     return false;
   }
   return rtp_data_channel_
@@ -1308,8 +1311,9 @@ bool WebRtcSession::ConnectDataChannel(DataChannel* webrtc_data_channel) {
 
 void WebRtcSession::DisconnectDataChannel(DataChannel* webrtc_data_channel) {
   if (!rtp_data_channel_ && !sctp_transport_) {
-    LOG(LS_ERROR) << "DisconnectDataChannel called when rtp_data_channel_ and "
-                     "sctp_transport_ are NULL.";
+    RTC_LOG(LS_ERROR)
+        << "DisconnectDataChannel called when rtp_data_channel_ and "
+           "sctp_transport_ are NULL.";
     return;
   }
   if (rtp_data_channel_) {
@@ -1324,7 +1328,8 @@ void WebRtcSession::DisconnectDataChannel(DataChannel* webrtc_data_channel) {
 
 void WebRtcSession::AddSctpDataStream(int sid) {
   if (!sctp_transport_) {
-    LOG(LS_ERROR) << "AddSctpDataStream called when sctp_transport_ is NULL.";
+    RTC_LOG(LS_ERROR)
+        << "AddSctpDataStream called when sctp_transport_ is NULL.";
     return;
   }
   network_thread_->Invoke<void>(
@@ -1334,8 +1339,8 @@ void WebRtcSession::AddSctpDataStream(int sid) {
 
 void WebRtcSession::RemoveSctpDataStream(int sid) {
   if (!sctp_transport_) {
-    LOG(LS_ERROR) << "RemoveSctpDataStream called when sctp_transport_ is "
-                  << "NULL.";
+    RTC_LOG(LS_ERROR) << "RemoveSctpDataStream called when sctp_transport_ is "
+                      << "NULL.";
     return;
   }
   network_thread_->Invoke<void>(
@@ -1437,8 +1442,8 @@ void WebRtcSession::SetIceConnectionState(
     return;
   }
 
-  LOG(LS_INFO) << "Changing IceConnectionState " << ice_connection_state_
-               << " => " << state;
+  RTC_LOG(LS_INFO) << "Changing IceConnectionState " << ice_connection_state_
+                   << " => " << state;
   RTC_DCHECK(ice_connection_state_ !=
              PeerConnectionInterface::kIceConnectionClosed);
   ice_connection_state_ = state;
@@ -1469,13 +1474,13 @@ void WebRtcSession::OnTransportControllerConnectionState(
       SetIceConnectionState(PeerConnectionInterface::kIceConnectionFailed);
       break;
     case cricket::kIceConnectionConnected:
-      LOG(LS_INFO) << "Changing to ICE connected state because "
-                   << "all transports are writable.";
+      RTC_LOG(LS_INFO) << "Changing to ICE connected state because "
+                       << "all transports are writable.";
       SetIceConnectionState(PeerConnectionInterface::kIceConnectionConnected);
       break;
     case cricket::kIceConnectionCompleted:
-      LOG(LS_INFO) << "Changing to ICE completed state because "
-                   << "all transports are complete.";
+      RTC_LOG(LS_INFO) << "Changing to ICE completed state because "
+                       << "all transports are complete.";
       if (ice_connection_state_ !=
           PeerConnectionInterface::kIceConnectionConnected) {
         // If jumping directly from "checking" to "connected",
@@ -1512,8 +1517,9 @@ void WebRtcSession::OnTransportControllerCandidatesGathered(
   RTC_DCHECK(signaling_thread()->IsCurrent());
   int sdp_mline_index;
   if (!GetLocalCandidateMediaIndex(transport_name, &sdp_mline_index)) {
-    LOG(LS_ERROR) << "OnTransportControllerCandidatesGathered: content name "
-                  << transport_name << " not found";
+    RTC_LOG(LS_ERROR)
+        << "OnTransportControllerCandidatesGathered: content name "
+        << transport_name << " not found";
     return;
   }
 
@@ -1537,9 +1543,9 @@ void WebRtcSession::OnTransportControllerCandidatesRemoved(
   // Sanity check.
   for (const cricket::Candidate& candidate : candidates) {
     if (candidate.transport_name().empty()) {
-      LOG(LS_ERROR) << "OnTransportControllerCandidatesRemoved: "
-                    << "empty content name in candidate "
-                    << candidate.ToString();
+      RTC_LOG(LS_ERROR) << "OnTransportControllerCandidatesRemoved: "
+                        << "empty content name in candidate "
+                        << candidate.ToString();
       return;
     }
   }
@@ -1612,8 +1618,9 @@ bool WebRtcSession::UseCandidatesInSessionDescription(
       bool valid = false;
       if (!ReadyToUseRemoteCandidate(candidate, remote_desc, &valid)) {
         if (valid) {
-          LOG(LS_INFO) << "UseCandidatesInSessionDescription: Not ready to use "
-                       << "candidate.";
+          RTC_LOG(LS_INFO)
+              << "UseCandidatesInSessionDescription: Not ready to use "
+              << "candidate.";
         }
         continue;
       }
@@ -1631,7 +1638,7 @@ bool WebRtcSession::UseCandidate(const IceCandidateInterface* candidate) {
   size_t remote_content_size =
       remote_description()->description()->contents().size();
   if (mediacontent_index >= remote_content_size) {
-    LOG(LS_ERROR) << "UseCandidate: Invalid candidate media index.";
+    RTC_LOG(LS_ERROR) << "UseCandidate: Invalid candidate media index.";
     return false;
   }
 
@@ -1660,7 +1667,7 @@ bool WebRtcSession::UseCandidate(const IceCandidateInterface* candidate) {
     // TODO(bemasc): If state is Completed, go back to Connected.
   } else {
     if (!error.empty()) {
-      LOG(LS_WARNING) << error;
+      RTC_LOG(LS_WARNING) << error;
     }
   }
   return true;
@@ -1705,14 +1712,15 @@ const std::string* WebRtcSession::GetBundleTransportName(
   }
   const std::string* first_content_name = bundle->FirstContentName();
   if (!first_content_name) {
-    LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
+    RTC_LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
     return nullptr;
   }
   if (!bundle->HasContentName(content->name)) {
-    LOG(LS_WARNING) << content->name << " is not part of any bundle group";
+    RTC_LOG(LS_WARNING) << content->name << " is not part of any bundle group";
     return nullptr;
   }
-  LOG(LS_INFO) << "Bundling " << content->name << " on " << *first_content_name;
+  RTC_LOG(LS_INFO) << "Bundling " << content->name << " on "
+                   << *first_content_name;
   return first_content_name;
 }
 
@@ -1722,7 +1730,7 @@ bool WebRtcSession::CreateChannels(const SessionDescription* desc) {
   if (bundle_policy_ == PeerConnectionInterface::kBundlePolicyMaxBundle) {
     bundle_group = desc->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
     if (!bundle_group) {
-      LOG(LS_WARNING) << "max-bundle specified without BUNDLE specified";
+      RTC_LOG(LS_WARNING) << "max-bundle specified without BUNDLE specified";
       return false;
     }
   }
@@ -1731,7 +1739,7 @@ bool WebRtcSession::CreateChannels(const SessionDescription* desc) {
   if (voice && !voice->rejected && !voice_channel()) {
     if (!CreateVoiceChannel(voice,
                             GetBundleTransportName(voice, bundle_group))) {
-      LOG(LS_ERROR) << "Failed to create voice channel.";
+      RTC_LOG(LS_ERROR) << "Failed to create voice channel.";
       return false;
     }
   }
@@ -1740,7 +1748,7 @@ bool WebRtcSession::CreateChannels(const SessionDescription* desc) {
   if (video && !video->rejected && !video_channel()) {
     if (!CreateVideoChannel(video,
                             GetBundleTransportName(video, bundle_group))) {
-      LOG(LS_ERROR) << "Failed to create video channel.";
+      RTC_LOG(LS_ERROR) << "Failed to create video channel.";
       return false;
     }
   }
@@ -1749,7 +1757,7 @@ bool WebRtcSession::CreateChannels(const SessionDescription* desc) {
   if (data_channel_type_ != cricket::DCT_NONE && data && !data->rejected &&
       !rtp_data_channel_ && !sctp_transport_) {
     if (!CreateDataChannel(data, GetBundleTransportName(data, bundle_group))) {
-      LOG(LS_ERROR) << "Failed to create data channel.";
+      RTC_LOG(LS_ERROR) << "Failed to create data channel.";
       return false;
     }
   }
@@ -1863,7 +1871,7 @@ bool WebRtcSession::CreateDataChannel(const cricket::ContentInfo* content,
   bool sctp = (data_channel_type_ == cricket::DCT_SCTP);
   if (sctp) {
     if (!sctp_factory_) {
-      LOG(LS_ERROR)
+      RTC_LOG(LS_ERROR)
           << "Trying to create SCTP transport, but didn't compile with "
              "SCTP support (HAVE_SCTP)";
       return false;
@@ -2028,8 +2036,8 @@ void WebRtcSession::OnSctpTransportDataReceived_s(
     InternalDataChannelInit config;
     config.id = params.ssrc;
     if (!ParseDataChannelOpenMessage(payload, &label, &config)) {
-      LOG(LS_WARNING) << "Failed to parse the OPEN message for sid "
-                      << params.ssrc;
+      RTC_LOG(LS_WARNING) << "Failed to parse the OPEN message for sid "
+                          << params.ssrc;
       return;
     }
     config.open_handshake_role = InternalDataChannelInit::kAcker;
@@ -2206,8 +2214,9 @@ bool WebRtcSession::ReadyToUseRemoteCandidate(
   size_t remote_content_size =
       current_remote_desc->description()->contents().size();
   if (mediacontent_index >= remote_content_size) {
-    LOG(LS_ERROR) << "ReadyToUseRemoteCandidate: Invalid candidate media index "
-                  << mediacontent_index;
+    RTC_LOG(LS_ERROR)
+        << "ReadyToUseRemoteCandidate: Invalid candidate media index "
+        << mediacontent_index;
 
     *valid = false;
     return false;

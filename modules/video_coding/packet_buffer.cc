@@ -202,8 +202,8 @@ rtc::Optional<int64_t> PacketBuffer::LastReceivedKeyframePacketMs() const {
 
 bool PacketBuffer::ExpandBufferSize() {
   if (size_ == max_size_) {
-    LOG(LS_WARNING) << "PacketBuffer is already at max size (" << max_size_
-                    << "), failed to increase size. Clearing PacketBuffer.";
+    RTC_LOG(LS_WARNING) << "PacketBuffer is already at max size (" << max_size_
+                        << "), failed to increase size. Clearing PacketBuffer.";
     Clear();
     return false;
   }
@@ -221,7 +221,7 @@ bool PacketBuffer::ExpandBufferSize() {
   size_ = new_size;
   sequence_buffer_ = std::move(new_sequence_buffer);
   data_buffer_ = std::move(new_data_buffer);
-  LOG(LS_INFO) << "PacketBuffer size expanded to " << new_size;
+  RTC_LOG(LS_INFO) << "PacketBuffer size expanded to " << new_size;
   return true;
 }
 
@@ -376,9 +376,9 @@ bool PacketBuffer::GetBitstream(const RtpFrameObject& frame,
     RTC_DCHECK_EQ(data_buffer_[index].seqNum, sequence_buffer_[index].seq_num);
     size_t length = data_buffer_[index].sizeBytes;
     if (destination + length > destination_end) {
-      LOG(LS_WARNING) << "Frame (" << frame.picture_id << ":"
-                      << static_cast<int>(frame.spatial_layer) << ")"
-                      << " bitstream buffer is not large enough.";
+      RTC_LOG(LS_WARNING) << "Frame (" << frame.picture_id << ":"
+                          << static_cast<int>(frame.spatial_layer) << ")"
+                          << " bitstream buffer is not large enough.";
       return false;
     }
 

@@ -276,8 +276,8 @@ void BasicPortAllocatorSession::StartGettingPorts() {
 
   network_thread_->Post(RTC_FROM_HERE, this, MSG_CONFIG_START);
 
-  LOG(LS_INFO) << "Start getting ports with prune_turn_ports "
-               << (prune_turn_ports_ ? "enabled" : "disabled");
+  RTC_LOG(LS_INFO) << "Start getting ports with prune_turn_ports "
+                   << (prune_turn_ports_ ? "enabled" : "disabled");
 }
 
 void BasicPortAllocatorSession::StopGettingPorts() {
@@ -331,7 +331,7 @@ void BasicPortAllocatorSession::RegatherOnFailedNetworks() {
     return;
   }
 
-  LOG(LS_INFO) << "Regather candidates on failed networks";
+  RTC_LOG(LS_INFO) << "Regather candidates on failed networks";
 
   // Mark a sequence as "network failed" if its network is in the list of failed
   // networks, so that it won't be considered as equivalent when the session
@@ -355,7 +355,7 @@ void BasicPortAllocatorSession::RegatherOnAllNetworks() {
     return;
   }
 
-  LOG(LS_INFO) << "Regather candidates on all networks";
+  RTC_LOG(LS_INFO) << "Regather candidates on all networks";
 
   // We expect to generate candidates that are equivalent to what we have now.
   // Force DoAllocate to generate them instead of skipping.
@@ -372,7 +372,7 @@ void BasicPortAllocatorSession::Regather(
   // the candidates on the remote side.
   std::vector<PortData*> ports_to_prune = GetUnprunedPorts(networks);
   if (!ports_to_prune.empty()) {
-    LOG(LS_INFO) << "Prune " << ports_to_prune.size() << " ports";
+    RTC_LOG(LS_INFO) << "Prune " << ports_to_prune.size() << " ports";
     PrunePortsAndRemoveCandidates(ports_to_prune);
   }
 
@@ -636,10 +636,11 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
   bool done_signal_needed = false;
   std::vector<rtc::Network*> networks = GetNetworks();
   if (networks.empty()) {
-    LOG(LS_WARNING) << "Machine has no networks; no ports will be allocated";
+    RTC_LOG(LS_WARNING)
+        << "Machine has no networks; no ports will be allocated";
     done_signal_needed = true;
   } else {
-    LOG(LS_INFO) << "Allocate ports on "<< networks.size() << " networks";
+    RTC_LOG(LS_INFO) << "Allocate ports on " << networks.size() << " networks";
     PortConfiguration* config = configs_.empty() ? nullptr : configs_.back();
     for (uint32_t i = 0; i < networks.size(); ++i) {
       uint32_t sequence_flags = flags();
@@ -709,8 +710,8 @@ void BasicPortAllocatorSession::OnNetworksChanged() {
   }
   std::vector<PortData*> ports_to_prune = GetUnprunedPorts(failed_networks);
   if (!ports_to_prune.empty()) {
-    LOG(LS_INFO) << "Prune " << ports_to_prune.size()
-                 << " ports because their networks were gone";
+    RTC_LOG(LS_INFO) << "Prune " << ports_to_prune.size()
+                     << " ports because their networks were gone";
     PrunePortsAndRemoveCandidates(ports_to_prune);
   }
 
@@ -724,7 +725,7 @@ void BasicPortAllocatorSession::OnNetworksChanged() {
   }
 
   if (!network_manager_started_) {
-    LOG(LS_INFO) << "Network manager has started";
+    RTC_LOG(LS_INFO) << "Network manager has started";
     network_manager_started_ = true;
   }
 }
@@ -746,7 +747,7 @@ void BasicPortAllocatorSession::AddAllocatedPort(Port* port,
   if (!port)
     return;
 
-  LOG(LS_INFO) << "Adding allocated port for " << content_name();
+  RTC_LOG(LS_INFO) << "Adding allocated port for " << content_name();
   port->set_content_name(content_name());
   port->set_component(component());
   port->set_generation(generation());
@@ -787,7 +788,7 @@ void BasicPortAllocatorSession::OnCandidateReady(
   // Discarding any candidate signal if port allocation status is
   // already done with gathering.
   if (!data->inprogress()) {
-    LOG(LS_WARNING)
+    RTC_LOG(LS_WARNING)
         << "Discarding candidate because port is already done gathering.";
     return;
   }
@@ -821,7 +822,7 @@ void BasicPortAllocatorSession::OnCandidateReady(
     candidates.push_back(SanitizeRelatedAddress(c));
     SignalCandidatesReady(this, candidates);
   } else {
-    LOG(LS_INFO) << "Discarding candidate because it doesn't match filter.";
+    RTC_LOG(LS_INFO) << "Discarding candidate because it doesn't match filter.";
   }
 
   // If we have pruned any port, maybe need to signal port allocation done.
@@ -869,8 +870,8 @@ bool BasicPortAllocatorSession::PruneTurnPorts(Port* newly_pairable_turn_port) {
   }
 
   if (!ports_to_prune.empty()) {
-    LOG(LS_INFO) << "Prune " << ports_to_prune.size()
-                 << " low-priority TURN ports";
+    RTC_LOG(LS_INFO) << "Prune " << ports_to_prune.size()
+                     << " low-priority TURN ports";
     PrunePortsAndRemoveCandidates(ports_to_prune);
   }
   return pruned;
@@ -976,10 +977,10 @@ void BasicPortAllocatorSession::OnPortAllocationComplete(
 void BasicPortAllocatorSession::MaybeSignalCandidatesAllocationDone() {
   if (CandidatesAllocationDone()) {
     if (pooled()) {
-      LOG(LS_INFO) << "All candidates gathered for pooled session.";
+      RTC_LOG(LS_INFO) << "All candidates gathered for pooled session.";
     } else {
-      LOG(LS_INFO) << "All candidates gathered for " << content_name() << ":"
-                   << component() << ":" << generation();
+      RTC_LOG(LS_INFO) << "All candidates gathered for " << content_name()
+                       << ":" << component() << ":" << generation();
     }
     SignalCandidatesAllocationDone(this);
   }
@@ -1044,7 +1045,8 @@ void BasicPortAllocatorSession::PrunePortsAndRemoveCandidates(
     SignalPortsPruned(this, pruned_ports);
   }
   if (!removed_candidates.empty()) {
-    LOG(LS_INFO) << "Removed " << removed_candidates.size() << " candidates";
+    RTC_LOG(LS_INFO) << "Removed " << removed_candidates.size()
+                     << " candidates";
     SignalCandidatesRemoved(this, removed_candidates);
   }
 }
@@ -1210,7 +1212,7 @@ void AllocationSequence::OnMessage(rtc::Message* msg) {
 
 void AllocationSequence::CreateUDPPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_UDP)) {
-    LOG(LS_VERBOSE) << "AllocationSequence: UDP ports disabled, skipping.";
+    RTC_LOG(LS_VERBOSE) << "AllocationSequence: UDP ports disabled, skipping.";
     return;
   }
 
@@ -1242,8 +1244,9 @@ void AllocationSequence::CreateUDPPorts() {
       // If STUN is not disabled, setting stun server address to port.
       if (!IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
         if (config_ && !config_->StunServers().empty()) {
-          LOG(LS_INFO) << "AllocationSequence: UDPPort will be handling the "
-                       <<  "STUN candidate generation.";
+          RTC_LOG(LS_INFO)
+              << "AllocationSequence: UDPPort will be handling the "
+              << "STUN candidate generation.";
           port->set_server_addresses(config_->StunServers());
         }
       }
@@ -1255,7 +1258,7 @@ void AllocationSequence::CreateUDPPorts() {
 
 void AllocationSequence::CreateTCPPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_TCP)) {
-    LOG(LS_VERBOSE) << "AllocationSequence: TCP ports disabled, skipping.";
+    RTC_LOG(LS_VERBOSE) << "AllocationSequence: TCP ports disabled, skipping.";
     return;
   }
 
@@ -1273,7 +1276,7 @@ void AllocationSequence::CreateTCPPorts() {
 
 void AllocationSequence::CreateStunPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
-    LOG(LS_VERBOSE) << "AllocationSequence: STUN ports disabled, skipping.";
+    RTC_LOG(LS_VERBOSE) << "AllocationSequence: STUN ports disabled, skipping.";
     return;
   }
 
@@ -1282,7 +1285,7 @@ void AllocationSequence::CreateStunPorts() {
   }
 
   if (!(config_ && !config_->StunServers().empty())) {
-    LOG(LS_WARNING)
+    RTC_LOG(LS_WARNING)
         << "AllocationSequence: No STUN server configured, skipping.";
     return;
   }
@@ -1301,8 +1304,9 @@ void AllocationSequence::CreateStunPorts() {
 
 void AllocationSequence::CreateRelayPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_RELAY)) {
-     LOG(LS_VERBOSE) << "AllocationSequence: Relay ports disabled, skipping.";
-     return;
+    RTC_LOG(LS_VERBOSE)
+        << "AllocationSequence: Relay ports disabled, skipping.";
+    return;
   }
 
   // If BasicPortAllocatorSession::OnAllocate left relay ports enabled then we
@@ -1310,7 +1314,7 @@ void AllocationSequence::CreateRelayPorts() {
   RTC_DCHECK(config_);
   RTC_DCHECK(!config_->relays.empty());
   if (!(config_ && !config_->relays.empty())) {
-    LOG(LS_WARNING)
+    RTC_LOG(LS_WARNING)
         << "AllocationSequence: No relay server configured, skipping.";
     return;
   }
@@ -1372,10 +1376,10 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
     int server_ip_family = relay_port->address.ipaddr().family();
     int local_ip_family = network_->GetBestIP().family();
     if (server_ip_family != AF_UNSPEC && server_ip_family != local_ip_family) {
-      LOG(LS_INFO) << "Server and local address families are not compatible. "
-                   << "Server address: "
-                   << relay_port->address.ipaddr().ToString()
-                   << " Local address: " << network_->GetBestIP().ToString();
+      RTC_LOG(LS_INFO)
+          << "Server and local address families are not compatible. "
+          << "Server address: " << relay_port->address.ipaddr().ToString()
+          << " Local address: " << network_->GetBestIP().ToString();
       continue;
     }
 
@@ -1459,7 +1463,7 @@ void AllocationSequence::OnPortDestroyed(PortInterface* port) {
   if (it != turn_ports_.end()) {
     turn_ports_.erase(it);
   } else {
-    LOG(LS_ERROR) << "Unexpected OnPortDestroyed for nonexistent port.";
+    RTC_LOG(LS_ERROR) << "Unexpected OnPortDestroyed for nonexistent port.";
     RTC_NOTREACHED();
   }
 }

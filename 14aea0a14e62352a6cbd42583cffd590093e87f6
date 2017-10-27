@@ -19,6 +19,52 @@
     },
     {
       "key": {
+        "uuid": "ab1efb02_ef6f4f4e",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T21:46:30Z",
+      "side": 1,
+      "message": "Maybe it\u0027s more clear to rename it \"candidate_property_by_id_\" or something like this. Just using \"candidates_\" is kind of confusing. \nThe same apply to the \"connections_\".\n\nHere is an example of naming maps in WebRTC: https://cs.chromium.org/chromium/src/third_party/webrtc/pc/trackmediainfomap.h?type\u003dcs\u0026q\u003dstd::map+file:%5Esrc/third_party/webrtc/pc/+package:%5Echromium$\u0026l\u003d75",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5baf94b_8a1e8732",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T21:46:30Z",
+      "side": 1,
+      "message": "Since it\u0027s just used once, maybe it\u0027s simpler to just call conn-\u003elocal_candidate();",
+      "range": {
+        "startLine": 57,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a27e6bb_37ad875e",
         "filename": "p2p/base/icelogger.cc",
         "patchSetId": 4
@@ -30,6 +76,75 @@
       "writtenOn": "2017-10-26T23:14:23Z",
       "side": 1,
       "message": "I think we should discuss the merits of the overall approach of putting structured (JSON) information in the text log itself. My thinking was: we can use the RtcEventLog to carry the structured information, and the text log for human-readable information. So I\u0027m not sure if having something in the middle provides a lot of added benefit. What do you think? Maybe we can have a separate meeting about this (and invite other people from the team to attend if interested).",
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbc41827_e802f9a4",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T21:46:30Z",
+      "side": 1,
+      "message": "nit: Add an extract line.",
+      "range": {
+        "startLine": 73,
+        "startChar": 1,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d60659ae_639043df",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T21:46:30Z",
+      "side": 1,
+      "message": "Is this 5 just a random number?",
+      "range": {
+        "startLine": 112,
+        "startChar": 65,
+        "endLine": 112,
+        "endChar": 66
+      },
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "212c1f9a_350ffa9a",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T21:46:30Z",
+      "side": 1,
+      "message": "nit: Prefer ++i over i++ since it\u0027s more effective.",
+      "range": {
+        "startLine": 112,
+        "startChar": 68,
+        "endLine": 112,
+        "endChar": 77
+      },
       "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -82,6 +197,29 @@
       "writtenOn": "2017-10-26T23:14:23Z",
       "side": 1,
       "message": "I think this is a great interface design in general. It has just enough methods to acquire the necessary information, without depending too much on the current ICE implementation.",
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f4680a2_75192851",
+        "filename": "p2p/base/icelogger.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T21:46:30Z",
+      "side": 1,
+      "message": "The TODO comments in this CL are not following the style guide. http://google.github.io/styleguide/cppguide.html#TODO_Comments",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 18
+      },
       "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "40f364dd_dcb473e4",
+        "filename": "p2p/base/icelogger.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2017-10-27T18:21:17Z",
+      "side": 1,
+      "message": "The approach in the current implementation is like this: the property portfolio of candidates and candidate pairs/connections are defined as Comparable objects (in icelogtype.h), where a method Compare has to be defined for candidates and connections and, emits a Reason encapsulating structured data (as a StructuredForm in icelogtype.h) for the description. I have placeholder implementations in the current version and I am working on ways to automatically mirroring it to what is implemented in SortConnectionsAndUpdateState. It somehow repeats the comparison done and I like the idea of having a middle module that can be consumed by both P2PTransportChannel and IceLogger. I think it is also possible to just ask P2PTransportChannel to emit a Reason to be consumed by the IceLogger. \n\nThe pro is we don\u0027t need a standalone method Compare that should automatically mirror the logic in SortConnectionsAndUpdateState or the new object, but on the con side Compare may still be valuable in cases when we want to know the Reason for any ad-hoc comparison for the log. One way to work around this may be even to promote the responsibility of the separate object to encapsulate the generic comparison of between comparable network-level objective including candidates and connections, and leave hooks that any interested party can attach to to sync. This separate object acts as an engine-like comparator that emits structured reasons, and in particular the standalone Compare in IceLogger may be simply attached to hooks of the engine. Let me know your thoughts.",
+      "parentUuid": "c24d15ce_b5b3650b",
+      "revId": "14aea0a14e62352a6cbd42583cffd590093e87f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6aac57aa_5627c1b8",
         "filename": "p2p/base/icelogger.h",
         "patchSetId": 4

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a75a19c_1e510b5f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-27T19:13:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "940ec3ae_aad40047",
+      "range": {
+        "startLine": 1192,
+        "startChar": 61,
+        "endLine": 1195,
+        "endChar": 26
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "963b27c4_0d131568",
         "filename": "pc/peerconnection.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac6f8838_8fe3480c",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-27T19:13:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "963b27c4_0d131568",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 75
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8122934e_8395ece8",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-27T19:13:50Z",
+      "side": 1,
+      "message": "Unfortunately, it\u0027s used by the stats collector.",
+      "parentUuid": "1f7b0f29_35fe1437",
+      "range": {
+        "startLine": 196,
+        "startChar": 1,
+        "endLine": 197,
+        "endChar": 64
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55a963e2_42d77e50",
         "filename": "pc/peerconnection.h",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2017-10-27T18:16:25Z",
       "side": 1,
       "message": "We probably want to remove this before landing. Just a note.",
+      "range": {
+        "startLine": 522,
+        "startChar": 2,
+        "endLine": 522,
+        "endChar": 3
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4be7150_a3509a20",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-27T19:13:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55a963e2_42d77e50",
       "range": {
         "startLine": 522,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a79fbc27_793ac67e",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-27T19:13:50Z",
+      "side": 1,
+      "message": "Looks like this was caught up in my global find/replace. I\u0027ve switched the variable back to |session_stats|.",
+      "parentUuid": "7b755d32_bbaa5c73",
+      "range": {
+        "startLine": 796,
+        "startChar": 2,
+        "endLine": 796,
+        "endChar": 14
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e1a23c7_0b517f61",
         "filename": "pc/statscollector.cc",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27181560_8036be67",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-10-27T19:13:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e1a23c7_0b517f61",
+      "range": {
+        "startLine": 561,
+        "startChar": 2,
+        "endLine": 561,
+        "endChar": 33
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

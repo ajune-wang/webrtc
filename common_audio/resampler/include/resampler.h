@@ -64,6 +64,12 @@ class Resampler {
     kResamplerMode11To8
   };
 
+  // Computes the resampler mode for a given sampling frequency pair.
+  // Returns -1 for unsupported frequency pairs.
+  int ComputeResamplerMode(const int inFreq,
+                           const int outFreq,
+                           ResamplerMode* mode) const;
+
   // Generic pointers since we don't know what states we'll need
   void* state1_;
   void* state2_;

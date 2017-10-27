@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "940ec3ae_aad40047",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T18:16:25Z",
+      "side": 1,
+      "message": "Need to be updated.",
+      "range": {
+        "startLine": 1192,
+        "startChar": 61,
+        "endLine": 1195,
+        "endChar": 26
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963b27c4_0d131568",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T18:16:25Z",
+      "side": 1,
+      "message": "The comments should be updated.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 75
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f7b0f29_35fe1437",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T18:16:25Z",
+      "side": 1,
+      "message": "If this is just used internally, maybe make it private or just use sid_?",
+      "range": {
+        "startLine": 196,
+        "startChar": 1,
+        "endLine": 197,
+        "endChar": 64
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a963e2_42d77e50",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T18:16:25Z",
+      "side": 1,
+      "message": "We probably want to remove this before landing. Just a note.",
+      "range": {
+        "startLine": 522,
+        "startChar": 2,
+        "endLine": 522,
+        "endChar": 3
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b755d32_bbaa5c73",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T18:16:25Z",
+      "side": 1,
+      "message": "Shall we rename this SessionStats? Maybe in a separate CL.",
+      "range": {
+        "startLine": 796,
+        "startChar": 2,
+        "endLine": 796,
+        "endChar": 14
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e1a23c7_0b517f61",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-10-27T18:16:25Z",
+      "side": 1,
+      "message": "Remove this.",
+      "range": {
+        "startLine": 561,
+        "startChar": 2,
+        "endLine": 561,
+        "endChar": 33
+      },
+      "revId": "4a83c59c5de3cecb6202db60bbf7c58e1457e8e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "74b05da8bda05cbe7a236da8372074aef13128f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7e11c0_e8cefd2e",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-10-27T09:26:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d8190f33_d1864e34",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 61
+      },
+      "revId": "74b05da8bda05cbe7a236da8372074aef13128f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

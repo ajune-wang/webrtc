@@ -362,6 +362,16 @@ public class PeerConnection {
 
   public native void setRemoteDescription(SdpObserver observer, SessionDescription sdp);
 
+  // True if remote audio should be played out. Defaults to true.
+  // Note that even if playout is enabled, streams will only be played out if
+  // the appropriate SDP is also applied. The main purpose of this API is to
+  // be able to delay start of real audio playout to ensure smooth transitions
+  // between different audio streams.
+  public native void setAudioPlayout(boolean playout);
+
+  // TOOD(henrika): add comments...
+  public native void setAudioRecording(boolean recording);
+
   public boolean setConfiguration(RTCConfiguration config) {
     return nativeSetConfiguration(config, nativeObserver);
   }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1dda7463_04edee43",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10922408_ea833073",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1789c099_76f6107d",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97945c46_2ec4d9dc",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1789c099_76f6107d",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b8c5812c_b5b2f461",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done, probably good for readability. Didn\u0027t know what the convention is here for readability vs. creating an unnecessary variable.",
+      "parentUuid": "9bd75dfe_29e3f1ef",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a758b71e_5e0ff23d",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "b579a7dc_75f3b7e1",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a758b71e_5e0ff23d",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fc66613_a74d679f",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2017-10-26T23:06:34Z",
       "side": 1,
       "message": "Instead of subclassing BitrateAllocator, could the new algorithm just be written as an alternative method on BitrateAllocator with a flag to call either the new function or the existing NormalRateAllocation?",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae4af113_f3ca184e",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "The other option as well would be to replace the NormalRateAllocation entirely with this priority based NormalRateAllocation, because the priority based implementation should have the same result given the default relative bitrate values of 1.0 for each track. The default tests should still pass, and I could write more robust testing as well. It depends on the level of separation the Stockholm team is looking for (maybe this wouldn\u0027t be the best option because of rolling out the changes with a flag). I\u0027ll leave this unresolved, and wait to hear back from them.",
+      "parentUuid": "5fc66613_a74d679f",
       "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "38bf1293_83be666f",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c2ccc0_5a4a9d4f",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98ec16a5_933d2126",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 2
@@ -118,6 +226,24 @@
       "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f34595d5_d79d56c6",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98ec16a5_933d2126",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "3896fca5_a351cab2",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e1f40fd_f446458e",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d32092a_4f1a5503",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 2
@@ -152,6 +296,24 @@
       "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc76c84e_1d7e92da",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d32092a_4f1a5503",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "fc9af6bb_54c747d4",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Sounds good, I can see how they might not be intuitive to understand for someone new with only the code as a reference. Thanks for the advice and let me know if any of the comments aren\u0027t detailed enough.",
+      "parentUuid": "22812d25_1bb08296",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8510f9a_7b9fbed5",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 2
@@ -186,6 +366,24 @@
       "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d39de977_3693f695",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Agreed. I was copying the rest of the test\u0027s naming convention here but I like that better. Thanks.",
+      "parentUuid": "c8510f9a_7b9fbed5",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "46f71ff7_2a233fd1",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22e0d308_31f22f8d",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "693fda8e_b849c3c8",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 2
@@ -220,6 +436,24 @@
       "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bf5ca89_a180c134",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-10-27T01:45:27Z",
+      "side": 1,
+      "message": "Because NormalRateAllocation is only called when there is sufficient bandwidth to allocate the minimum for each track there shouldn\u0027t be a difference between enforced not enforced. I added a test to show this. \n\nAlong that note I was thinking of testing other functionality of the base class (above track\u0027s max rate allocation, below the sum of the track\u0027s min rate allocation), but I assumed that this wasn\u0027t necessary because this class assumes to use the default base class functionality there.",
+      "parentUuid": "693fda8e_b849c3c8",
+      "revId": "64c3fd90307ca1fff0ccf6606519bec8c72ea812",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

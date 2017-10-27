@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6549619_bec7314d",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-10-27T13:35:40Z",
+      "side": 1,
+      "message": "is this still needed?",
+      "range": {
+        "startLine": 383,
+        "startChar": 25,
+        "endLine": 383,
+        "endChar": 41
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d73da32_ae2e83f8",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-10-27T13:35:40Z",
+      "side": 1,
+      "message": "dito- still needed",
+      "range": {
+        "startLine": 388,
+        "startChar": 58,
+        "endLine": 388,
+        "endChar": 61
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3633ebdb_21faab5f",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-10-27T13:35:40Z",
+      "side": 1,
+      "message": "dito- why both?  Only set aes_quality_min if it make sense.",
+      "range": {
+        "startLine": 112,
+        "startChar": 26,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aad2ec2f_da669918",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-10-27T13:35:40Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 116,
+        "startChar": 31,
+        "endLine": 116,
+        "endChar": 51
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "184b7207_dd365e03",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-10-27T13:35:40Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 120,
+        "startChar": 28,
+        "endLine": 120,
+        "endChar": 45
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "201fcb38_c31f92ff",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-10-27T13:35:40Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 138,
+        "startChar": 7,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "779fc409_fafb9b1e",
+        "filename": "pc/statscollector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-10-27T13:35:40Z",
+      "side": 1,
+      "message": "this might need a comment. Just looking at it it seems wrong but I can understand that echo metrics does not make sense unless there are other tracks.",
+      "range": {
+        "startLine": 123,
+        "startChar": 52,
+        "endLine": 123,
+        "endChar": 67
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

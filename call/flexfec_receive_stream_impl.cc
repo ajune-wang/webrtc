@@ -74,25 +74,25 @@ std::unique_ptr<FlexfecReceiver> MaybeCreateFlexfecReceiver(
     const FlexfecReceiveStream::Config& config,
     RecoveredPacketReceiver* recovered_packet_receiver) {
   if (config.payload_type < 0) {
-    LOG(LS_WARNING) << "Invalid FlexFEC payload type given. "
+    RTC_LOG(LS_WARNING) << "Invalid FlexFEC payload type given. "
                     << "This FlexfecReceiveStream will therefore be useless.";
     return nullptr;
   }
   RTC_DCHECK_GE(config.payload_type, 0);
   RTC_DCHECK_LE(config.payload_type, 127);
   if (config.remote_ssrc == 0) {
-    LOG(LS_WARNING) << "Invalid FlexFEC SSRC given. "
+    RTC_LOG(LS_WARNING) << "Invalid FlexFEC SSRC given. "
                     << "This FlexfecReceiveStream will therefore be useless.";
     return nullptr;
   }
   if (config.protected_media_ssrcs.empty()) {
-    LOG(LS_WARNING) << "No protected media SSRC supplied. "
+    RTC_LOG(LS_WARNING) << "No protected media SSRC supplied. "
                     << "This FlexfecReceiveStream will therefore be useless.";
     return nullptr;
   }
 
   if (config.protected_media_ssrcs.size() > 1) {
-    LOG(LS_WARNING)
+    RTC_LOG(LS_WARNING)
         << "The supplied FlexfecConfig contained multiple protected "
            "media streams, but our implementation currently only "
            "supports protecting a single media stream. "
@@ -136,7 +136,7 @@ FlexfecReceiveStreamImpl::FlexfecReceiveStreamImpl(
                                     config_.rtcp_send_transport,
                                     rtt_stats)),
       process_thread_(process_thread) {
-  LOG(LS_INFO) << "FlexfecReceiveStreamImpl: " << config_.ToString();
+  RTC_LOG(LS_INFO) << "FlexfecReceiveStreamImpl: " << config_.ToString();
 
   // RTCP reporting.
   rtp_rtcp_->SetRTCPStatus(config_.rtcp_mode);
@@ -159,7 +159,7 @@ FlexfecReceiveStreamImpl::FlexfecReceiveStreamImpl(
 }
 
 FlexfecReceiveStreamImpl::~FlexfecReceiveStreamImpl() {
-  LOG(LS_INFO) << "~FlexfecReceiveStreamImpl: " << config_.ToString();
+  RTC_LOG(LS_INFO) << "~FlexfecReceiveStreamImpl: " << config_.ToString();
   process_thread_->DeRegisterModule(rtp_rtcp_.get());
 }
 

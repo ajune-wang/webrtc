@@ -60,7 +60,7 @@ VcmCapturer* VcmCapturer::Create(size_t width,
                                  size_t capture_device_index) {
   std::unique_ptr<VcmCapturer> vcm_capturer(new VcmCapturer());
   if (!vcm_capturer->Init(width, height, target_fps, capture_device_index)) {
-    LOG(LS_WARNING) << "Failed to create VcmCapturer(w = " << width
+    RTC_LOG(LS_WARNING) << "Failed to create VcmCapturer(w = " << width
                     << ", h = " << height << ", fps = " << target_fps << ")";
     return nullptr;
   }

@@ -189,7 +189,7 @@ class NATSocket : public AsyncSocket, public sigslot::has_slots<> {
           *out_addr = real_remote_addr;
         result = result - static_cast<int>(addrlength);
       } else {
-        LOG(LS_ERROR) << "Dropping packet from unknown remote address: "
+        RTC_LOG(LS_ERROR) << "Dropping packet from unknown remote address: "
                       << real_remote_addr.ToString();
         result = 0;  // Tell the caller we didn't read anything
       }

@@ -60,7 +60,7 @@ int32_t VCMGenericEncoder::InitEncode(const VideoCodec* settings,
   vcm_encoded_frame_callback_->OnFrameRateChanged(settings->maxFramerate);
 
   if (encoder_->InitEncode(settings, number_of_cores, max_payload_size) != 0) {
-    LOG(LS_ERROR) << "Failed to initialize the encoder associated with "
+    RTC_LOG(LS_ERROR) << "Failed to initialize the encoder associated with "
                      "payload name: "
                   << settings->plName;
     return -1;
@@ -103,7 +103,7 @@ void VCMGenericEncoder::SetEncoderParameters(const EncoderParameters& params) {
   if (channel_parameters_have_changed) {
     int res = encoder_->SetChannelParameters(params.loss_rate, params.rtt);
     if (res != 0) {
-      LOG(LS_WARNING) << "Error set encoder parameters (loss = "
+      RTC_LOG(LS_WARNING) << "Error set encoder parameters (loss = "
                       << params.loss_rate << ", rtt = " << params.rtt
                       << "): " << res;
     }
@@ -112,7 +112,7 @@ void VCMGenericEncoder::SetEncoderParameters(const EncoderParameters& params) {
     int res = encoder_->SetRateAllocation(params.target_bitrate,
                                           params.input_frame_rate);
     if (res != 0) {
-      LOG(LS_WARNING) << "Error set encoder rate (total bitrate bps = "
+      RTC_LOG(LS_WARNING) << "Error set encoder rate (total bitrate bps = "
                       << params.target_bitrate.get_sum_bps()
                       << ", framerate = " << params.input_frame_rate
                       << "): " << res;
@@ -225,7 +225,7 @@ void VCMEncodedFrameCallback::OnEncodeStarted(int64_t capture_time_ms,
                                          .capture_time_ms) >= 0);
   if (timing_frames_info_[simulcast_svc_idx].encode_start_list.size() ==
       kMaxEncodeStartTimeListSize) {
-    LOG(LS_WARNING) << "Too many frames in the encode_start_list."
+    RTC_LOG(LS_WARNING) << "Too many frames in the encode_start_list."
                        " Did encoder stall?";
     post_encode_callback_->OnDroppedFrame(DropReason::kDroppedByEncoder);
     timing_frames_info_[simulcast_svc_idx].encode_start_list.pop_front();

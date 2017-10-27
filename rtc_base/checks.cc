@@ -114,7 +114,7 @@ void FatalMessage::Init(const char* file, int line) {
   stream_ << std::endl << std::endl
           << "#" << std::endl
           << "# Fatal error in " << file << ", line " << line << std::endl
-          << "# last system error: " << LAST_SYSTEM_ERROR << std::endl
+          << "# last system error: " << RTC_LAST_SYSTEM_ERROR << std::endl
           << "# ";
 }
 

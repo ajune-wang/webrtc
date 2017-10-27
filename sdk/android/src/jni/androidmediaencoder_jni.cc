@@ -71,9 +71,9 @@ namespace jni {
 #else
 #define ALOGV(...)
 #endif
-#define ALOGD LOG_TAG(rtc::LS_INFO, TAG_ENCODER)
-#define ALOGW LOG_TAG(rtc::LS_WARNING, TAG_ENCODER)
-#define ALOGE LOG_TAG(rtc::LS_ERROR, TAG_ENCODER)
+#define ALOGD RTC_LOG_TAG(rtc::LS_INFO, TAG_ENCODER)
+#define ALOGW RTC_LOG_TAG(rtc::LS_WARNING, TAG_ENCODER)
+#define ALOGE RTC_LOG_TAG(rtc::LS_ERROR, TAG_ENCODER)
 
 namespace {
 // Maximum time limit between incoming frames before requesting a key frame.
@@ -638,7 +638,7 @@ int32_t MediaCodecVideoEncoder::InitEncodeInternal(int width,
         encoder_fourcc_ = libyuv::FOURCC_NV12;
         break;
       default:
-        LOG(LS_ERROR) << "Wrong color format.";
+        RTC_LOG(LS_ERROR) << "Wrong color format.";
         ProcessHWError(false /* reset_if_fallback_unavailable */);
         return WEBRTC_VIDEO_CODEC_ERROR;
     }

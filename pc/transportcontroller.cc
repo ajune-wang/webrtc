@@ -302,7 +302,7 @@ void TransportController::DestroyDtlsTransport_n(
   RTC_DCHECK(network_thread_->IsCurrent());
   auto it = GetChannelIterator_n(transport_name, component);
   if (it == channels_.end()) {
-    LOG(LS_WARNING) << "Attempting to delete " << transport_name
+    RTC_LOG(LS_WARNING) << "Attempting to delete " << transport_name
                     << " TransportChannel " << component
                     << ", which doesn't exist.";
     return;
@@ -617,7 +617,7 @@ bool TransportController::SetLocalTransportDescription_n(
     SetIceRole(new_ice_role);
   }
 
-  LOG(LS_INFO) << "Set local transport description on " << transport_name;
+  RTC_LOG(LS_INFO) << "Set local transport description on " << transport_name;
   return transport->SetLocalTransportDescription(tdesc, action, err);
 }
 
@@ -645,7 +645,7 @@ bool TransportController::SetRemoteTransportDescription_n(
     return true;
   }
 
-  LOG(LS_INFO) << "Set remote transport description on " << transport_name;
+  RTC_LOG(LS_INFO) << "Set remote transport description on " << transport_name;
   return transport->SetRemoteTransportDescription(tdesc, action, err);
 }
 
@@ -700,7 +700,7 @@ bool TransportController::RemoveRemoteCandidates_n(const Candidates& candidates,
     if (!cand.transport_name().empty()) {
       candidates_by_transport_name[cand.transport_name()].push_back(cand);
     } else {
-      LOG(LS_ERROR) << "Not removing candidate because it does not have a "
+      RTC_LOG(LS_ERROR) << "Not removing candidate because it does not have a "
                        "transport name set: "
                     << cand.ToString();
     }
@@ -761,7 +761,7 @@ void TransportController::SetMetricsObserver_n(
 void TransportController::OnChannelWritableState_n(
     rtc::PacketTransportInternal* transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  LOG(LS_INFO) << " TransportChannel " << transport->debug_name()
+  RTC_LOG(LS_INFO) << " TransportChannel " << transport->debug_name()
                << " writability changed to " << transport->writable() << ".";
   UpdateAggregateStates_n();
 }
@@ -819,7 +819,7 @@ void TransportController::OnChannelRoleConflict_n(
   IceRole reversed_role = (ice_role_ == ICEROLE_CONTROLLING)
                               ? ICEROLE_CONTROLLED
                               : ICEROLE_CONTROLLING;
-  LOG(LS_INFO) << "Got role conflict; switching to "
+  RTC_LOG(LS_INFO) << "Got role conflict; switching to "
                << (reversed_role == ICEROLE_CONTROLLING ? "controlling"
                                                         : "controlled")
                << " role.";
@@ -829,7 +829,7 @@ void TransportController::OnChannelRoleConflict_n(
 void TransportController::OnChannelStateChanged_n(
     IceTransportInternal* channel) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  LOG(LS_INFO) << channel->transport_name() << " TransportChannel "
+  RTC_LOG(LS_INFO) << channel->transport_name() << " TransportChannel "
                << channel->component()
                << " state changed. Check if state is complete.";
   UpdateAggregateStates_n();

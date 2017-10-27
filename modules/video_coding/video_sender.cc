@@ -69,7 +69,7 @@ int32_t VideoSender::RegisterSendCodec(const VideoCodec* sendCodec,
   current_codec_ = *sendCodec;
 
   if (!ret) {
-    LOG(LS_ERROR) << "Failed to initialize set encoder with payload name '"
+    RTC_LOG(LS_ERROR) << "Failed to initialize set encoder with payload name '"
                   << sendCodec->plName << "'.";
     return VCM_CODEC_ERROR;
   }
@@ -110,7 +110,7 @@ int32_t VideoSender::RegisterSendCodec(const VideoCodec* sendCodec,
     encoder_has_internal_source_ = _encoder->InternalSource();
   }
 
-  LOG(LS_VERBOSE) << " max bitrate " << sendCodec->maxBitrate
+  RTC_LOG(LS_VERBOSE) << " max bitrate " << sendCodec->maxBitrate
                   << " start bitrate " << sendCodec->startBitrate
                   << " max frame rate " << sendCodec->maxFramerate
                   << " max payload size " << maxPayloadSize;
@@ -296,7 +296,7 @@ int32_t VideoSender::AddVideoFrame(const VideoFrame& videoFrame,
     return VCM_UNINITIALIZED;
   SetEncoderParameters(encoder_params, encoder_has_internal_source);
   if (_mediaOpt.DropFrame()) {
-    LOG(LS_VERBOSE) << "Drop Frame "
+    RTC_LOG(LS_VERBOSE) << "Drop Frame "
                     << "target bitrate "
                     << encoder_params.target_bitrate.get_sum_bps()
                     << " loss rate " << encoder_params.loss_rate << " rtt "
@@ -310,7 +310,8 @@ int32_t VideoSender::AddVideoFrame(const VideoFrame& videoFrame,
   // processing so frame size always matches.
   if (!_codecDataBase.MatchesCurrentResolution(videoFrame.width(),
                                                videoFrame.height())) {
-    LOG(LS_ERROR) << "Incoming frame doesn't match set resolution. Dropping.";
+    RTC_LOG(LS_ERROR) << "Incoming frame doesn't match set resolution. "
+                      << "Dropping.";
     return VCM_PARAMETER_ERROR;
   }
   VideoFrame converted_frame = videoFrame;
@@ -327,7 +328,7 @@ int32_t VideoSender::AddVideoFrame(const VideoFrame& videoFrame,
         converted_frame.video_frame_buffer()->ToI420());
 
     if (!converted_buffer) {
-      LOG(LS_ERROR) << "Frame conversion failed, dropping frame.";
+      RTC_LOG(LS_ERROR) << "Frame conversion failed, dropping frame.";
       return VCM_PARAMETER_ERROR;
     }
     converted_frame = VideoFrame(converted_buffer,
@@ -338,7 +339,7 @@ int32_t VideoSender::AddVideoFrame(const VideoFrame& videoFrame,
   int32_t ret =
       _encoder->Encode(converted_frame, codecSpecificInfo, next_frame_types);
   if (ret < 0) {
-    LOG(LS_ERROR) << "Failed to encode frame. Error code: " << ret;
+    RTC_LOG(LS_ERROR) << "Failed to encode frame. Error code: " << ret;
     return ret;
   }
 

@@ -75,7 +75,7 @@ bool ChannelManager::SetVideoRtxEnabled(bool enable) {
     enable_rtx_ = enable;
     return true;
   } else {
-    LOG(LS_WARNING) << "Cannot toggle rtx after initialization!";
+    RTC_LOG(LS_WARNING) << "Cannot toggle rtx after initialization!";
     return false;
   }
 }
@@ -395,7 +395,7 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel_w(
   DataMediaChannel* media_channel
       = data_media_engine_->CreateChannel(media_config);
   if (!media_channel) {
-    LOG(LS_WARNING) << "Failed to create RTP data channel.";
+    RTC_LOG(LS_WARNING) << "Failed to create RTP data channel.";
     return nullptr;
   }
 
@@ -404,7 +404,7 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel_w(
       content_name, rtcp_transport == nullptr, srtp_required));
   if (!data_channel->Init_w(rtp_transport, rtcp_transport, rtp_transport,
                             rtcp_transport)) {
-    LOG(LS_WARNING) << "Failed to init data channel.";
+    RTC_LOG(LS_WARNING) << "Failed to init data channel.";
     return nullptr;
   }
   RtpDataChannel* data_channel_ptr = data_channel.get();

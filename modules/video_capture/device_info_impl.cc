@@ -107,10 +107,11 @@ int32_t DeviceInfoImpl::GetCapability(const char* deviceUniqueIdUTF8,
     // Make sure the number is valid
     if (deviceCapabilityNumber >= (unsigned int) _captureCapabilities.size())
     {
-        LOG(LS_ERROR) << "Invalid deviceCapabilityNumber "
-                      << deviceCapabilityNumber << ">= number of capabilities ("
-                      << _captureCapabilities.size() << ").";
-        return -1;
+      RTC_LOG(LS_ERROR) << "Invalid deviceCapabilityNumber "
+                        << deviceCapabilityNumber
+                        << ">= number of capabilities ("
+                        << _captureCapabilities.size() << ").";
+      return -1;
     }
 
     capability = _captureCapabilities[deviceCapabilityNumber];
@@ -242,9 +243,10 @@ int32_t DeviceInfoImpl::GetBestMatchedCapability(
         }// else height not good
     }//end for
 
-    LOG(LS_VERBOSE) << "Best camera format: " << bestWidth << "x" << bestHeight
-                    << "@" << bestFrameRate
-                    << "fps, color format: " << static_cast<int>(bestVideoType);
+    RTC_LOG(LS_VERBOSE) << "Best camera format: " << bestWidth << "x"
+                        << bestHeight << "@" << bestFrameRate
+                        << "fps, color format: "
+                        << static_cast<int>(bestVideoType);
 
     // Copy the capability
     if (bestformatIndex < 0)

@@ -67,8 +67,8 @@ CaptureInputPin::GetMediaType (IN int iPosition, OUT CMediaType * pmt)
                             sizeof(VIDEOINFOHEADER));
     if(NULL == pvi)
     {
-        LOG(LS_INFO) << "CheckMediaType VIDEOINFOHEADER is NULL. Returning.";
-        return(E_OUTOFMEMORY);
+      RTC_LOG(LS_INFO) << "CheckMediaType VIDEOINFOHEADER is NULL. Returning.";
+      return (E_OUTOFMEMORY);
     }
 
     ZeroMemory(pvi, sizeof(VIDEOINFOHEADER));
@@ -149,10 +149,10 @@ CaptureInputPin::GetMediaType (IN int iPosition, OUT CMediaType * pmt)
         return VFW_S_NO_MORE_ITEMS;
     }
     pmt->SetSampleSize(pvi->bmiHeader.biSizeImage);
-    LOG(LS_INFO) << "GetMediaType position " << iPosition << ", width "
-                 << _requestedCapability.width << ", height "
-                 << _requestedCapability.height << ", biCompression 0x"
-                 << std::hex << pvi->bmiHeader.biCompression;
+    RTC_LOG(LS_INFO) << "GetMediaType position " << iPosition << ", width "
+                     << _requestedCapability.width << ", height "
+                     << _requestedCapability.height << ", biCompression 0x"
+                     << std::hex << pvi->bmiHeader.biCompression;
     return NOERROR;
 }
 
@@ -198,10 +198,10 @@ CaptureInputPin::CheckMediaType ( IN const CMediaType * pMediaType)
            _resultingCapability.height = abs(pvi->bmiHeader.biHeight);
         }
 
-        LOG(LS_INFO) << "CheckMediaType width:" << pvi->bmiHeader.biWidth
-                     << " height:" << pvi->bmiHeader.biHeight
-                     << " Compression:0x" << std::hex
-                     << pvi->bmiHeader.biCompression;
+        RTC_LOG(LS_INFO) << "CheckMediaType width:" << pvi->bmiHeader.biWidth
+                         << " height:" << pvi->bmiHeader.biHeight
+                         << " Compression:0x" << std::hex
+                         << pvi->bmiHeader.biCompression;
 
         if(*SubType == MEDIASUBTYPE_MJPG
             && pvi->bmiHeader.biCompression == MAKEFOURCC('M','J','P','G'))
@@ -251,10 +251,10 @@ CaptureInputPin::CheckMediaType ( IN const CMediaType * pMediaType)
             return E_INVALIDARG;
         }
 
-        LOG(LS_INFO) << "CheckMediaType width:" << pvi->bmiHeader.biWidth
-                     << " height:" << pvi->bmiHeader.biHeight
-                     << " Compression:0x" << std::hex
-                     << pvi->bmiHeader.biCompression;
+        RTC_LOG(LS_INFO) << "CheckMediaType width:" << pvi->bmiHeader.biWidth
+                         << " height:" << pvi->bmiHeader.biHeight
+                         << " Compression:0x" << std::hex
+                         << pvi->bmiHeader.biCompression;
 
         _resultingCapability.width = pvi->bmiHeader.biWidth;
 

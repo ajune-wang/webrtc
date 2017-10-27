@@ -81,7 +81,7 @@ void PacedSender::Pause() {
   {
     rtc::CritScope cs(&critsect_);
     if (!paused_)
-      LOG(LS_INFO) << "PacedSender paused.";
+      RTC_LOG(LS_INFO) << "PacedSender paused.";
     paused_ = true;
     packets_->SetPauseState(true, clock_->TimeInMilliseconds());
   }
@@ -95,7 +95,7 @@ void PacedSender::Resume() {
   {
     rtc::CritScope cs(&critsect_);
     if (paused_)
-      LOG(LS_INFO) << "PacedSender resumed.";
+      RTC_LOG(LS_INFO) << "PacedSender resumed.";
     paused_ = false;
     packets_->SetPauseState(false, clock_->TimeInMilliseconds());
   }
@@ -113,7 +113,7 @@ void PacedSender::SetProbingEnabled(bool enabled) {
 
 void PacedSender::SetEstimatedBitrate(uint32_t bitrate_bps) {
   if (bitrate_bps == 0)
-    LOG(LS_ERROR) << "PacedSender is not designed to handle 0 bitrate.";
+    RTC_LOG(LS_ERROR) << "PacedSender is not designed to handle 0 bitrate.";
   rtc::CritScope cs(&critsect_);
   estimated_bitrate_bps_ = bitrate_bps;
   padding_budget_->set_target_rate_kbps(
@@ -301,7 +301,7 @@ void PacedSender::Process() {
 }
 
 void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
-  LOG(LS_INFO) << "ProcessThreadAttached 0x" << std::hex << process_thread;
+  RTC_LOG(LS_INFO) << "ProcessThreadAttached 0x" << std::hex << process_thread;
   process_thread_ = process_thread;
 }
 

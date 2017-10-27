@@ -287,8 +287,8 @@ rtc::SocketAddress TurnPort::GetLocalAddress() const {
 void TurnPort::PrepareAddress() {
   if (credentials_.username.empty() ||
       credentials_.password.empty()) {
-    LOG(LS_ERROR) << "Allocation can't be started without setting the"
-                  << " TURN server credentials for the user.";
+    RTC_LOG(LS_ERROR) << "Allocation can't be started without setting the"
+                      << " TURN server credentials for the user.";
     OnAllocateError();
     return;
   }
@@ -303,9 +303,9 @@ void TurnPort::PrepareAddress() {
   } else {
     // If protocol family of server address doesn't match with local, return.
     if (!IsCompatibleAddress(server_address_.address)) {
-      LOG(LS_ERROR) << "IP address family does not match: "
-                    << "server: " << server_address_.address.family()
-                    << " local: " << Network()->GetBestIP().family();
+      RTC_LOG(LS_ERROR) << "IP address family does not match: "
+                        << "server: " << server_address_.address.family()
+                        << " local: " << Network()->GetBestIP().family();
       OnAllocateError();
       return;
     }
@@ -317,7 +317,7 @@ void TurnPort::PrepareAddress() {
                          << ProtoToString(server_address_.proto) << " @ "
                          << server_address_.address.ToSensitiveString();
     if (!CreateTurnClientSocket()) {
-      LOG(LS_ERROR) << "Failed to create TURN client socket";
+      RTC_LOG(LS_ERROR) << "Failed to create TURN client socket";
       OnAllocateError();
       return;
     }
@@ -417,23 +417,24 @@ void TurnPort::OnSocketConnect(rtc::AsyncPacketSocket* socket) {
   if (std::find(desired_addresses.begin(), desired_addresses.end(),
                 socket_address.ipaddr()) == desired_addresses.end()) {
     if (socket->GetLocalAddress().IsLoopbackIP()) {
-      LOG(LS_WARNING) << "Socket is bound to the address:"
-                      << socket_address.ipaddr().ToString()
-                      << ", rather then an address associated with network:"
-                      << Network()->ToString()
-                      << ". Still allowing it since it's localhost.";
+      RTC_LOG(LS_WARNING) << "Socket is bound to the address:"
+                          << socket_address.ipaddr().ToString()
+                          << ", rather then an address associated with network:"
+                          << Network()->ToString()
+                          << ". Still allowing it since it's localhost.";
     } else if (IPIsAny(Network()->GetBestIP())) {
-      LOG(LS_WARNING) << "Socket is bound to the address:"
-                      << socket_address.ipaddr().ToString()
-                      << ", rather then an address associated with network:"
-                      << Network()->ToString()
-                      << ". Still allowing it since it's the 'any' address"
-                      << ", possibly caused by multiple_routes being disabled.";
+      RTC_LOG(LS_WARNING)
+          << "Socket is bound to the address:"
+          << socket_address.ipaddr().ToString()
+          << ", rather then an address associated with network:"
+          << Network()->ToString()
+          << ". Still allowing it since it's the 'any' address"
+          << ", possibly caused by multiple_routes being disabled.";
     } else {
-      LOG(LS_WARNING) << "Socket is bound to the address:"
-                      << socket_address.ipaddr().ToString()
-                      << ", rather then an address associated with network:"
-                      << Network()->ToString() << ". Discarding TURN port.";
+      RTC_LOG(LS_WARNING) << "Socket is bound to the address:"
+                          << socket_address.ipaddr().ToString()
+                          << ", rather then an address associated with network:"
+                          << Network()->ToString() << ". Discarding TURN port.";
       OnAllocateError();
       return;
     }
@@ -444,8 +445,8 @@ void TurnPort::OnSocketConnect(rtc::AsyncPacketSocket* socket) {
     server_address_.address = socket_->GetRemoteAddress();
   }
 
-  LOG(LS_INFO) << "TurnPort connected to " << socket->GetRemoteAddress()
-               << " using tcp.";
+  RTC_LOG(LS_INFO) << "TurnPort connected to " << socket->GetRemoteAddress()
+                   << " using tcp.";
   SendRequest(new TurnAllocateRequest(this), 0);
 }
 
@@ -553,7 +554,7 @@ int TurnPort::SendTo(const void* data, size_t size,
   // Try to find an entry for this specific address; we should have one.
   TurnEntry* entry = FindEntry(addr);
   if (!entry) {
-    LOG(LS_ERROR) << "Did not find the TurnEntry for address " << addr;
+    RTC_LOG(LS_ERROR) << "Did not find the TurnEntry for address " << addr;
     return 0;
   }
 
@@ -674,8 +675,8 @@ bool TurnPort::SetAlternateServer(const rtc::SocketAddress& address) {
 
   // If protocol family of server address doesn't match with local, return.
   if (!IsCompatibleAddress(address)) {
-    LOG(LS_WARNING) << "Server IP address family does not match with "
-                    << "local host address family type";
+    RTC_LOG(LS_WARNING) << "Server IP address family does not match with "
+                        << "local host address family type";
     return false;
   }
 
@@ -990,8 +991,8 @@ bool TurnPort::UpdateNonce(StunMessage* response) {
   const StunByteStringAttribute* realm_attr =
       response->GetByteString(STUN_ATTR_REALM);
   if (!realm_attr) {
-    LOG(LS_ERROR) << "Missing STUN_ATTR_REALM attribute in "
-                  << "stale nonce error response.";
+    RTC_LOG(LS_ERROR) << "Missing STUN_ATTR_REALM attribute in "
+                      << "stale nonce error response.";
     return false;
   }
   set_realm(realm_attr->GetString());
@@ -999,8 +1000,8 @@ bool TurnPort::UpdateNonce(StunMessage* response) {
   const StunByteStringAttribute* nonce_attr =
       response->GetByteString(STUN_ATTR_NONCE);
   if (!nonce_attr) {
-    LOG(LS_ERROR) << "Missing STUN_ATTR_NONCE attribute in "
-                  << "stale nonce error response.";
+    RTC_LOG(LS_ERROR) << "Missing STUN_ATTR_NONCE attribute in "
+                      << "stale nonce error response.";
     return false;
   }
   set_nonce(nonce_attr->GetString());
@@ -1618,8 +1619,8 @@ void TurnEntry::OnCreatePermissionError(StunMessage* response, int code) {
   } else {
     bool found = port_->FailAndPruneConnection(ext_addr_);
     if (found) {
-      LOG(LS_ERROR) << "Received TURN CreatePermission error response, "
-                    << "code=" << code << "; pruned connection.";
+      RTC_LOG(LS_ERROR) << "Received TURN CreatePermission error response, "
+                        << "code=" << code << "; pruned connection.";
     }
     // Send signal with error code.
     port_->SignalCreatePermissionResult(port_, ext_addr_, code);

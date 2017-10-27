@@ -139,7 +139,7 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
   // SRTP-SDES is disabled if DTLS is on.
   SetSdesPolicy(dtls_enabled ? cricket::SEC_DISABLED : cricket::SEC_REQUIRED);
   if (!dtls_enabled) {
-    LOG(LS_VERBOSE) << "DTLS-SRTP disabled.";
+    RTC_LOG(LS_VERBOSE) << "DTLS-SRTP disabled.";
     return;
   }
 
@@ -147,7 +147,7 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
     // Use |certificate|.
     certificate_request_state_ = CERTIFICATE_WAITING;
 
-    LOG(LS_VERBOSE) << "DTLS-SRTP enabled; has certificate parameter.";
+    RTC_LOG(LS_VERBOSE) << "DTLS-SRTP enabled; has certificate parameter.";
     // We already have a certificate but we wait to do |SetIdentity|; if we do
     // it in the constructor then the caller has not had a chance to connect to
     // |SignalCertificateReady|.
@@ -166,8 +166,9 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
         this, &WebRtcSessionDescriptionFactory::SetCertificate);
 
     rtc::KeyParams key_params = rtc::KeyParams();
-    LOG(LS_VERBOSE) << "DTLS-SRTP enabled; sending DTLS identity request (key "
-                    << "type: " << key_params.type() << ").";
+    RTC_LOG(LS_VERBOSE)
+        << "DTLS-SRTP enabled; sending DTLS identity request (key "
+        << "type: " << key_params.type() << ").";
 
     // Request certificate. This happens asynchronously, so that the caller gets
     // a chance to connect to |SignalCertificateReady|.
@@ -208,14 +209,14 @@ void WebRtcSessionDescriptionFactory::CreateOffer(
   std::string error = "CreateOffer";
   if (certificate_request_state_ == CERTIFICATE_FAILED) {
     error += kFailedDueToIdentityFailed;
-    LOG(LS_ERROR) << error;
+    RTC_LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailed(observer, error);
     return;
   }
 
   if (!ValidMediaSessionOptions(session_options)) {
     error += " called with invalid session options";
-    LOG(LS_ERROR) << error;
+    RTC_LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailed(observer, error);
     return;
   }
@@ -237,26 +238,26 @@ void WebRtcSessionDescriptionFactory::CreateAnswer(
   std::string error = "CreateAnswer";
   if (certificate_request_state_ == CERTIFICATE_FAILED) {
     error += kFailedDueToIdentityFailed;
-    LOG(LS_ERROR) << error;
+    RTC_LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailed(observer, error);
     return;
   }
   if (!pc_->remote_description()) {
     error += " can't be called before SetRemoteDescription.";
-    LOG(LS_ERROR) << error;
+    RTC_LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailed(observer, error);
     return;
   }
   if (pc_->remote_description()->type() != JsepSessionDescription::kOffer) {
     error += " failed because remote_description is not an offer.";
-    LOG(LS_ERROR) << error;
+    RTC_LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailed(observer, error);
     return;
   }
 
   if (!ValidMediaSessionOptions(session_options)) {
     error += " called with invalid session options.";
-    LOG(LS_ERROR) << error;
+    RTC_LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailed(observer, error);
     return;
   }
@@ -301,7 +302,7 @@ void WebRtcSessionDescriptionFactory::OnMessage(rtc::Message* msg) {
       rtc::ScopedRefMessageData<rtc::RTCCertificate>* param =
           static_cast<rtc::ScopedRefMessageData<rtc::RTCCertificate>*>(
               msg->pdata);
-      LOG(LS_INFO) << "Using certificate supplied to the constructor.";
+      RTC_LOG(LS_INFO) << "Using certificate supplied to the constructor.";
       SetCertificate(param->data());
       delete param;
       break;
@@ -436,7 +437,7 @@ void WebRtcSessionDescriptionFactory::PostCreateSessionDescriptionFailed(
   msg->error = error;
   signaling_thread_->Post(RTC_FROM_HERE, this,
                           MSG_CREATE_SESSIONDESCRIPTION_FAILED, msg);
-  LOG(LS_ERROR) << "Create SDP failed: " << error;
+  RTC_LOG(LS_ERROR) << "Create SDP failed: " << error;
 }
 
 void WebRtcSessionDescriptionFactory::PostCreateSessionDescriptionSucceeded(
@@ -451,7 +452,7 @@ void WebRtcSessionDescriptionFactory::PostCreateSessionDescriptionSucceeded(
 void WebRtcSessionDescriptionFactory::OnCertificateRequestFailed() {
   RTC_DCHECK(signaling_thread_->IsCurrent());
 
-  LOG(LS_ERROR) << "Asynchronous certificate generation request failed.";
+  RTC_LOG(LS_ERROR) << "Asynchronous certificate generation request failed.";
   certificate_request_state_ = CERTIFICATE_FAILED;
 
   FailPendingRequests(kFailedDueToIdentityFailed);
@@ -460,7 +461,7 @@ void WebRtcSessionDescriptionFactory::OnCertificateRequestFailed() {
 void WebRtcSessionDescriptionFactory::SetCertificate(
     const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) {
   RTC_DCHECK(certificate);
-  LOG(LS_VERBOSE) << "Setting new certificate.";
+  RTC_LOG(LS_VERBOSE) << "Setting new certificate.";
 
   certificate_request_state_ = CERTIFICATE_SUCCEEDED;
   SignalCertificateReady(certificate);

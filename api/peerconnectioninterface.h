@@ -788,6 +788,16 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
       std::unique_ptr<rtc::BitrateAllocationStrategy>
           bitrate_allocation_strategy) {}
 
+  // Enable/disable playout of received audio streams. Enabled by default. Note
+  // that even if playout is enabled, streams will only be played out if the
+  // appropriate SDP is also applied.
+  virtual void SetAudioPlayout(bool playout) {}
+
+  // Enable/disable recording of transmitted audio streams. Enabled by default.
+  // Note that even if recording is enabled, streams will only be recorded if
+  // the appropriate SDP is also applied.
+  virtual void SetAudioRecording(bool recording) {}
+
   // Returns the current SignalingState.
   virtual SignalingState signaling_state() = 0;
 

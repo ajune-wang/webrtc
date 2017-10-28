@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d3df8a6d_c005886e",
+        "filename": "sdk/android/api/org/webrtc/SurfaceEglRenderer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5510
+      },
+      "writtenOn": "2017-10-28T01:24:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37744500_153e9d44",
+      "range": {
+        "startLine": 189,
+        "startChar": 19,
+        "endLine": 189,
+        "endChar": 32
+      },
+      "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eff67421_066ea224",
         "filename": "sdk/android/api/org/webrtc/SurfaceViewRenderer.java",
         "patchSetId": 8
@@ -127,6 +151,30 @@
       "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "894967d5_cfa4cf1f",
+        "filename": "sdk/android/api/org/webrtc/SurfaceViewRenderer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5510
+      },
+      "writtenOn": "2017-10-28T01:24:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e584128a_92b42f98",
+      "range": {
+        "startLine": 305,
+        "startChar": 19,
+        "endLine": 305,
+        "endChar": 31
+      },
+      "revId": "8699905e29a7a02d935b001fc81fda568912b96a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

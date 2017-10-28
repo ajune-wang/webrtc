@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ac499c2_67392228",
+        "filename": "p2p/base/packettransportinternal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-28T18:59:00Z",
+      "side": 1,
+      "message": "Looks like you haven\u0027t run `git cl format`.",
+      "revId": "47a50383804fe9ca318264f0cbf9114e8093bda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dda74c4_4c4122ba",
+        "filename": "p2p/base/udptransport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-28T18:59:00Z",
+      "side": 1,
+      "message": "It\u0027s enough to have this comment in the definition.",
+      "revId": "47a50383804fe9ca318264f0cbf9114e8093bda6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

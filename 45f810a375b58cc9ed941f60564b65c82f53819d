@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f168c42_55e701ac",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-28T19:22:01Z",
+      "side": 1,
+      "message": "Passing mid by value is probably inefficient. In case you want to fix that (here and on line 259), you can use simply [\u0026]---because find_if doesn\u0027t save the callback anywhere.",
+      "range": {
+        "startLine": 268,
+        "startChar": 7,
+        "endLine": 268,
+        "endChar": 10
+      },
+      "revId": "45f810a375b58cc9ed941f60564b65c82f53819d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4883b9_fb5a1963",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-28T19:22:01Z",
+      "side": 1,
+      "message": "to create",
+      "range": {
+        "startLine": 109,
+        "startChar": 47,
+        "endLine": 109,
+        "endChar": 55
+      },
+      "revId": "45f810a375b58cc9ed941f60564b65c82f53819d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddf6f5f2_c6bf8d98",
+        "filename": "pc/test/mock_webrtcsession.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-28T19:22:01Z",
+      "side": 1,
+      "message": "Use // comment here too?",
+      "revId": "45f810a375b58cc9ed941f60564b65c82f53819d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

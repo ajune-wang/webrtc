@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c68bf9ff_49fc96f7",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-29T03:09:09Z",
+      "side": 1,
+      "message": "It\u0027s what\u0027s in API_DIRS in PRESUBMIT.py.",
+      "parentUuid": "78c94d21_dfba5a7f",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 29
+      },
+      "revId": "6104020bcc37a221bc4079b8ec4f4a1d9b48ef31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c276cb4b_8bd59e21",
         "filename": "native-api.md",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d0ea0a2d_ab779e9d",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-29T03:09:09Z",
+      "side": 1,
+      "message": "Good idea.",
+      "parentUuid": "c276cb4b_8bd59e21",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "6104020bcc37a221bc4079b8ec4f4a1d9b48ef31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4e6620e_1b1b4a13",
         "filename": "native-api.md",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2017-10-27T13:39:21Z",
       "side": 1,
       "message": "I don\u0027t get this reference.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "6104020bcc37a221bc4079b8ec4f4a1d9b48ef31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48386c0c_4fce70b7",
+        "filename": "native-api.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-29T03:09:09Z",
+      "side": 1,
+      "message": "It\u0027s a quote from 2010: Odyssey Two, by Arthur C. Clarke. The powerful aliens tell humanity that we may do as we please with all the worlds of the solar system---all except Europa (because there are life forms there that may one day evolve sentience).\n\nThe situation with our API directories are very similar: users are free to use everything in there, except the stuff named `impl` (and those things are likely increase in complexity over time and eventually become sentient).",
+      "parentUuid": "f4e6620e_1b1b4a13",
       "range": {
         "startLine": 43,
         "startChar": 0,

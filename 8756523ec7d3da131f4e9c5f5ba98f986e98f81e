@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a976d71_dd485d55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-29T02:18:29Z",
+      "side": 1,
+      "message": "What\u0027s the advantage of using declare -a instead of just\n\n  for m in PLOG LOG_TAG LOG_GLEM LOG_GLE_EX ... ; do\n\n(split across multiple lines with `\\`)?",
+      "revId": "8756523ec7d3da131f4e9c5f5ba98f986e98f81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c568a38_92ec5ab8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-29T02:18:29Z",
+      "side": 1,
+      "message": "This probably has the same effect as those five lines:\n\n  git grep -l $m | xargs sed -i \"s,\\b$m\\b,RTC_$m,g\"",
+      "revId": "8756523ec7d3da131f4e9c5f5ba98f986e98f81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d181b1_6471f382",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-29T02:18:29Z",
+      "side": 1,
+      "message": "Hoist this one out of the loop?",
+      "revId": "8756523ec7d3da131f4e9c5f5ba98f986e98f81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

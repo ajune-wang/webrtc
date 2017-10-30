@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a07b270f_1a3014c8",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnectionFactory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-30T09:10:36Z",
+      "side": 1,
+      "message": "Since audioDeviceModule is a native component and we don\u0027t plan to wrap it and provide an ObjC API, I would like to only add interfaces for it in RTCPeerConnectionFactory+Native.h and not expose it in the pure ObjC API. \n\nYour app is allowed to include sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactory+Native.h. We might move these native ObjC++ headers to a more suitable location later and make it clear you can depend on them, but we won\u0027t break backwards compatibility and we\u0027ll help update your app if needed.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 74
+      },
+      "revId": "9931a86dcdf15675ebcec2148de1ec716a1d7f79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

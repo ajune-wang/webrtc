@@ -43,10 +43,10 @@ deps = {
     Var('chromium_git') + '/chromium/src/build' + '@' + '8afa1551c53021d42a9805be6ceeae90e70eab9d',
   'src/buildtools':
     Var('chromium_git') + '/chromium/buildtools.git' + '@' + 'f6d165d9d842ddd29056c127a5f3a3c5d8e0d2e3',
-  # Gradle 3.5.0. Used for testing Android Studio project generation for WebRTC.
+  # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': Var('chromium_git') + '/external/github.com/gradle/gradle.git' + '@' +
-      'a88ebd6be7840c2e59ae4782eb0f27fbe3405ddf',
+      '89af43c4d0506f69980f00dde78c97b2f81437f8',
     'condition': 'checkout_android',
   },
   'src/ios': {

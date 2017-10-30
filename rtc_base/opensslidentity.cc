@@ -27,7 +27,6 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/openssl.h"
 #include "rtc_base/openssldigest.h"
-#include "rtc_base/ptr_util.h"
 
 namespace rtc {
 

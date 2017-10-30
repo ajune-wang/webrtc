@@ -22,6 +22,30 @@
       "revId": "f463c84a3ad8fb75549cf56b16a7698c6c956adb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97624285_a808a57c",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-10-30T13:18:26Z",
+      "side": 1,
+      "message": "Done.\nwill rename back (or rather split) to min when there will be max,",
+      "parentUuid": "fb3a0d8e_5fd1a3c0",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "f463c84a3ad8fb75549cf56b16a7698c6c956adb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

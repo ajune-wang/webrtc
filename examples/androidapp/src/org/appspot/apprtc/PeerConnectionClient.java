@@ -622,6 +622,9 @@ public class PeerConnectionClient {
 
     peerConnection = factory.createPeerConnection(rtcConfig, pcConstraints, pcObserver);
 
+    // peerConnection.setAudioPlayout(false);
+    // peerConnection.setAudioRecording(false);
+
     if (dataChannelEnabled) {
       DataChannel.Init init = new DataChannel.Init();
       init.ordered = peerConnectionParameters.dataChannelParameters.ordered;
@@ -1344,6 +1347,12 @@ public class PeerConnectionClient {
               // and send local ICE candidates.
               Log.d(TAG, "Remote SDP set succesfully");
               drainCandidates();
+
+              // Log.d(TAG, "Enabling playout...");
+              // peerConnection.setAudioPlayout(true);
+
+              // Log.d(TAG, "Enabling recording...");
+              // peerConnection.setAudioRecording(true);
             }
           } else {
             // For answering peer connection we set remote SDP and then

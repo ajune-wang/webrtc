@@ -139,6 +139,16 @@ class WEBRTC_DLLEXPORT VoEBase {
   // Stops sending packets from a specified |channel|.
   virtual int StopSend(int channel) = 0;
 
+  // Enable or disable playout to the underlying device. Takes precedence over
+  // StartPlayout. Though calls to StartPlayout are remembered; if
+  // SetPlayout(true) is called after StartPlayout, playout will be started.
+  //
+  // By default, playout is enabled.
+  virtual int SetPlayout(bool enabled) = 0;
+
+  // TODO(henrika): add comments...
+  virtual int SetRecording(bool enabled) = 0;
+
   // TODO(xians): Make the interface pure virtual after libjingle
   // implements the interface in its FakeWebRtcVoiceEngine.
   virtual AudioTransport* audio_transport() { return NULL; }

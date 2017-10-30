@@ -12,10 +12,12 @@ package org.appspot.apprtc;
 
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import org.webrtc.CameraEnumerationAndroid.CaptureFormat;
 
 /**
@@ -47,7 +49,7 @@ public class CaptureQualityController implements SeekBar.OnSeekBarChangeListener
       int firstFps = calculateFramerate(targetBandwidth, first);
       int secondFps = calculateFramerate(targetBandwidth, second);
 
-      if (firstFps >= FRAMERATE_THRESHOLD && secondFps >= FRAMERATE_THRESHOLD
+      if ((firstFps >= FRAMERATE_THRESHOLD && secondFps >= FRAMERATE_THRESHOLD)
           || firstFps == secondFps) {
         // Compare resolution.
         return first.width * first.height - second.width * second.height;

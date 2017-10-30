@@ -16,10 +16,15 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.SystemClock;
 import android.util.Log;
+
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
@@ -35,7 +40,7 @@ import java.util.concurrent.TimeUnit;
  * sampleCpuUtilization(), (2) getCpuAvg3() returns the use since 3 prior
  * calls, and (3) getCpuAvgAll() returns the use over all SAMPLE_SAVE_NUMBER
  * calls.
- *
+ * <p>
  * <p>CPUs in Android are often "offline", and while this of course means 0 Hz
  * as current frequency, in this state we cannot even get their nominal
  * frequency.  We therefore tread carefully, and allow any CPU to be missing.
@@ -44,29 +49,29 @@ import java.util.concurrent.TimeUnit;
  * frequency and remember it.  (Since CPU 0 in practice always seem to be
  * online, this unidirectional frequency inheritance should be no problem in
  * practice.)
- *
+ * <p>
  * <p>Caveats:
- *   o No provision made for zany "turbo" mode, common in the x86 world.
- *   o No provision made for ARM big.LITTLE; if CPU n can switch behind our
- *     back, we might get incorrect estimates.
- *   o This is not thread-safe.  To call asynchronously, create different
- *     CpuMonitor objects.
- *
+ * o No provision made for zany "turbo" mode, common in the x86 world.
+ * o No provision made for ARM big.LITTLE; if CPU n can switch behind our
+ * back, we might get incorrect estimates.
+ * o This is not thread-safe.  To call asynchronously, create different
+ * CpuMonitor objects.
+ * <p>
  * <p>If we can gather enough info to generate a sensible result,
  * sampleCpuUtilization returns true.  It is designed to never throw an
  * exception.
- *
+ * <p>
  * <p>sampleCpuUtilization should not be called too often in its present form,
  * since then deltas would be small and the percent values would fluctuate and
  * be unreadable. If it is desirable to call it more often than say once per
  * second, one would need to increase SAMPLE_SAVE_NUMBER and probably use
  * Queue<Integer> to avoid copying overhead.
- *
+ * <p>
  * <p>Known problems:
- *   1. Nexus 7 devices running Kitkat have a kernel which often output an
- *      incorrect 'idle' field in /proc/stat.  The value is close to twice the
- *      correct value, and then returns to back to correct reading.  Both when
- *      jumping up and back down we might create faulty CPU load readings.
+ * 1. Nexus 7 devices running Kitkat have a kernel which often output an
+ * incorrect 'idle' field in /proc/stat.  The value is close to twice the
+ * correct value, and then returns to back to correct reading.  Both when
+ * jumping up and back down we might create faulty CPU load readings.
  */
 
 class CpuMonitor {
@@ -224,9 +229,10 @@ class CpuMonitor {
   }
 
   private void init() {
-    try (FileReader fin = new FileReader("/sys/devices/system/cpu/present")) {
-      BufferedReader reader = new BufferedReader(fin);
-      Scanner scanner = new Scanner(reader).useDelimiter("[-\n]");
+    try (FileInputStream fin = new FileInputStream("/sys/devices/system/cpu/present");
+         InputStreamReader streamReader = new InputStreamReader(fin, Charset.forName("UTF-8"));
+         BufferedReader reader = new BufferedReader(streamReader);
+         Scanner scanner = new Scanner(reader).useDelimiter("[-\n]");) {
       scanner.nextInt(); // Skip leading number 0.
       cpusPresent = 1 + scanner.nextInt();
       scanner.close();
@@ -432,7 +438,9 @@ class CpuMonitor {
    */
   private long readFreqFromFile(String fileName) {
     long number = 0;
-    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+    try (FileInputStream stream = new FileInputStream(fileName);
+         InputStreamReader streamReader = new InputStreamReader(stream, Charset.forName("UTF-8"));
+         BufferedReader reader = new BufferedReader(streamReader)) {
       String line = reader.readLine();
       number = parseLong(line);
     } catch (FileNotFoundException e) {
@@ -463,7 +471,9 @@ class CpuMonitor {
     long userTime = 0;
     long systemTime = 0;
     long idleTime = 0;
-    try (BufferedReader reader = new BufferedReader(new FileReader("/proc/stat"))) {
+    try (FileInputStream stream = new FileInputStream("/proc/stat");
+         InputStreamReader streamReader = new InputStreamReader(stream, Charset.forName("UTF-8"));
+         BufferedReader reader = new BufferedReader(streamReader)) {
       // line should contain something like this:
       // cpu  5093818 271838 3512830 165934119 101374 447076 272086 0 0 0
       //       user    nice  system     idle   iowait  irq   softirq

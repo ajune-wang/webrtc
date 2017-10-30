@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0c92fd5_e5945f1a",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-30T13:16:22Z",
+      "side": 1,
+      "message": "I think it\u0027s better to use fully qualified names and remove this.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7db809b7_2a55b3b8",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_decoder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-30T13:16:22Z",
+      "side": 1,
+      "message": "Comment about the ownership here and lifetime requirement here.",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 62
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf26ad5_e44b4dfb",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_decoder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-30T13:16:22Z",
+      "side": 1,
+      "message": "I think you can remove this default argument.",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 68
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ed83e9c_e0dc3571",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-30T13:16:22Z",
+      "side": 1,
+      "message": "Let\u0027s move all implementations to the cc file.",
+      "range": {
+        "startLine": 47,
+        "startChar": 11,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85b2565b_0e8632ec",
+        "filename": "modules/video_coding/codecs/stereo/test/stereo_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-30T13:16:22Z",
+      "side": 1,
+      "message": "I would prefer to not have a fixture and simplify these tests, even though it will lead to some code duplication among tests. I\u0027m not an owner of these file though, and I can\u0027t find the style guide talking about this.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

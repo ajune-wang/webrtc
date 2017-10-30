@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "ce8f549e_11c7bc16",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:56:10Z",
+      "side": 1,
+      "message": "(Whether to use -100 or Optional() as \"no value\" is a cleanup question, separate from whether any form of \"no value\" should be reported to get rid of any \"if number of receive streams \u003e 0\".)",
+      "parentUuid": "5b57f73f_faf99f49",
+      "range": {
+        "startLine": 383,
+        "startChar": 25,
+        "endLine": 383,
+        "endChar": 41
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d73da32_ae2e83f8",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2

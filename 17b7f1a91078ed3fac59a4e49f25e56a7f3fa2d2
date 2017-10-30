@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5b57f73f_faf99f49",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:52:17Z",
+      "side": 1,
+      "message": "Even if it doesn\u0027t know the number of receiving streams, it must get the stat from somewhere. If it never gets the stat because it never has a receiving stream then wouldn\u0027t the stat remain the default value which could be \"no value\"? Why do we have to know the number of receiving streams somewhere where it isn\u0027t known?",
+      "parentUuid": "8747d118_816bdfa7",
+      "range": {
+        "startLine": 383,
+        "startChar": 25,
+        "endLine": 383,
+        "endChar": 41
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d73da32_ae2e83f8",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2

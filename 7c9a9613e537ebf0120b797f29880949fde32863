@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9471c0c_479489bc",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2235,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:52:17Z",
+      "side": 1,
+      "message": "Can we make them optional all the way? Now the assumption about what makes the stats available are not at the AudioSendStream (and/or lower layers) reporting the AudioSendStream::Stats, but in the WebRtcVoiceMediaChannel glue surfacing these stats to other layers.",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516d7101_eeb12554",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:52:17Z",
+      "side": 1,
+      "message": "This being made optional, can we make -100 a \"no value\" from the reporter instead of a fix here, or is there a reason why -100 must sometimes be reported?",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e872cb00_5f9b322c",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:52:17Z",
+      "side": 1,
+      "message": "Same question here.",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a173abbb_11715894",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:52:17Z",
+      "side": 1,
+      "message": "These can now be rtc::Optional\u003cint\u003e() as a default-tester unless we keep the -100 magic value.",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "750a8f66_5015e4d7",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:52:17Z",
+      "side": 1,
+      "message": "Same question here as in webrtcvoiceengine.cc: Can these be optional all the way?",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53862b08_a7f34f30",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:52:17Z",
+      "side": 1,
+      "message": "For all of these, should we...?\n\n} else {\n  EXPECT_FALSE(GetValue(...));\n}\n\nOr?\n\nEXPECT_EQ(GetValue(blah), sinfo.blah);\nif (sinfo.blah) {\n  EXPECT_EQ(blah, value_in_report);\n}",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "063f758a_00e54d4a",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-10-30T22:52:17Z",
+      "side": 1,
+      "message": "The assumption about what enables these stats has trickled down all the way down into test code. I don\u0027t think the test should repeat parts of the implementation. Is there a way to avoid this?",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

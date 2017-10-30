@@ -420,7 +420,7 @@ class HardwareVideoEncoder implements VideoEncoder {
 
   @Override
   public String getImplementationName() {
-    return "HardwareVideoEncoder: " + codecName;
+    return "HardwareVideoEncoder";
   }
 
   private VideoCodecStatus resetCodec(int newWidth, int newHeight, boolean newUseSurfaceMode) {

@@ -117,11 +117,4 @@ TEST_F(MetricsTest, RtcHistogramSparse_NonConstantNameWorks) {
   EXPECT_EQ(1, metrics::NumSamples("Sparse2"));
 }
 
-#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
-TEST_F(MetricsTest, RtcHistogram_FailsForNonConstantName) {
-  AddSample("ConstantName1", kSample);
-  EXPECT_DEATH(AddSample("NotConstantName1", kSample), "");
-}
-#endif
-
 }  // namespace webrtc

@@ -116,8 +116,6 @@ class PacedSender : public Pacer {
   // Returns the time since the oldest queued packet was enqueued.
   virtual int64_t QueueInMs() const;
 
-  virtual size_t QueueSizePackets() const;
-
   // Returns the time when the first packet was sent, or -1 if no packet is
   // sent.
   virtual int64_t FirstSentPacketTimeMs() const;

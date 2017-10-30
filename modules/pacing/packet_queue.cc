@@ -97,10 +97,6 @@ bool PacketQueue::Empty() const {
   return prio_queue_.empty();
 }
 
-size_t PacketQueue::SizeInPackets() const {
-  return prio_queue_.size();
-}
-
 uint64_t PacketQueue::SizeInBytes() const {
   return bytes_;
 }

@@ -33,7 +33,6 @@ class PacketQueue2 : public PacketQueue {
   void FinalizePop(const Packet& packet) override;
 
   bool Empty() const override;
-  size_t SizeInPackets() const override;
   uint64_t SizeInBytes() const override;
 
   int64_t OldestEnqueueTimeMs() const override;

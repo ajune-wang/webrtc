@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3ce35f94_38ab192e",
+        "filename": "native-api.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-30T10:34:42Z",
+      "side": 1,
+      "message": "Hmm. This sounds like a trivial consequence of the text I suggested. Given that \"`rtc_base` currently contains a mix of files intended to be part of the API and files never intended to be part of the API\" and \"we are in the process of cleaning this up\" and \"for changes to code that is “obviously” not part of the API we may choose to bypass the red tape\", the obvious things for apps to do is to not blindly rely on everything currently in rtc_base being as stable as the rest of the API, especially if there doesn\u0027t seem to be a good reason for it being in the API.\n\nIt\u0027s like \"Wet floor. Walk carefully!\" vs. just \"Wet floor.\"",
+      "parentUuid": "62bbc2bd_c495852b",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "78a2fbbe3bd13143bfa0b1d22193c86b72484cbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a876bf9_fe3651dd",
         "filename": "native-api.md",
         "patchSetId": 6
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I think it would be clearer to replace \"use\" by \"use directly\" or \"refer to\". What we want is to strongly discourage all mention of internal_foo identifiers in application source files, right?",
       "parentUuid": "d76cae37_95c65569",
+      "range": {
+        "startLine": 63,
+        "startChar": 33,
+        "endLine": 63,
+        "endChar": 36
+      },
+      "revId": "78a2fbbe3bd13143bfa0b1d22193c86b72484cbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62127fda_f7b8fcb3",
+        "filename": "native-api.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-10-30T10:34:42Z",
+      "side": 1,
+      "message": "Yes, what we want is for users to not mention/make direct use of the `internal` names. But that\u0027s exactly how everyone is going to interpret \"do not use them\", unless there\u0027s some other sensible interpretation of that admonition that I\u0027m not seeing?\n\nFor comparison, this is what the Abseil docs say on the same topic:\n\n\u003e *Do not depend upon internal details.* This should go without saying: if something is in a namespace or filename/path that includes the word “internal”, you are not allowed to depend upon it. It’s an implementation detail. You cannot friend it, you cannot include it, you cannot mention it or refer to it in any way.\n\nI was hoping we could be less verbose than that, and just trust our users to have some common C++ sense.",
+      "parentUuid": "2fb55754_12f8e320",
       "range": {
         "startLine": 63,
         "startChar": 33,

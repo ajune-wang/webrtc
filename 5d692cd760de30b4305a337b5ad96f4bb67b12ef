@@ -16,6 +16,24 @@
       "revId": "5d692cd760de30b4305a337b5ad96f4bb67b12ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9718344_0f233a9f",
+        "filename": "media/engine/convert_legacy_video_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-10-30T12:08:58Z",
+      "side": 1,
+      "message": "I\u0027m sorry the diff is broken, it would have been easier to review otherwise. This is actually the current behavior and I don\u0027t want to change it. It affects e.g. Chrome.",
+      "parentUuid": "9dfad6bd_cfa75b87",
+      "revId": "5d692cd760de30b4305a337b5ad96f4bb67b12ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

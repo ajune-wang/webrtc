@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a807a10_d9872a0a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-30T14:01:53Z",
+      "side": 1,
+      "message": "Ultra nit: |report_period_ms| matches better with |*_report_delay_ms| above. And the unit suffix |_ms| looks nicer if directly attached to |period|, for which it is the unit.",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "e18aedf6718cca8c4d8cd83ba6fd6954e2083522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

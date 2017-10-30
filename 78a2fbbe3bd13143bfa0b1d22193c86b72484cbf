@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "0a97418a_7af25cba",
+        "filename": "native-api.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-30T10:46:10Z",
+      "side": 1,
+      "message": "\u003e It\u0027s like \"Wet floor. Walk carefully!\" vs. just \"Wet floor.\"\n\nRight, it\u0027s about the focus: only say what we\u0027re doing, or saying explicitly what we expect of others.",
+      "parentUuid": "3ce35f94_38ab192e",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "78a2fbbe3bd13143bfa0b1d22193c86b72484cbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a876bf9_fe3651dd",
         "filename": "native-api.md",
         "patchSetId": 6

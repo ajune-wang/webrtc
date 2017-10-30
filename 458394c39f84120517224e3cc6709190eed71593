@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe5c6ae4_d5787dac",
+        "filename": "common_audio/resampler/resampler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-10-30T06:43:48Z",
+      "side": 1,
+      "message": "Super-nit: use size_t when counting bytes and elements.",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 163,
+        "endChar": 15
+      },
+      "revId": "458394c39f84120517224e3cc6709190eed71593",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

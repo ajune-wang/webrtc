@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "11a0c713_4210bc39",
+        "filename": "common_audio/resampler/resampler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-10-30T06:43:48Z",
+      "side": 1,
+      "message": "No, keep this as a member function. However, can you make it static?",
+      "parentUuid": "d0312201_b146549d",
+      "range": {
+        "startLine": 312,
+        "startChar": 4,
+        "endLine": 312,
+        "endChar": 35
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83c7eac8_226a2e67",
         "filename": "common_audio/resampler/resampler.cc",
         "patchSetId": 1
@@ -342,6 +366,30 @@
       "side": 1,
       "message": "Yup, done.",
       "parentUuid": "8edc696e_1b272a6e",
+      "range": {
+        "startLine": 164,
+        "startChar": 2,
+        "endLine": 164,
+        "endChar": 7
+      },
+      "revId": "686ba1943d07d1aff662ff0d5ab0263427717c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "720474c8_956f347a",
+        "filename": "common_audio/resampler/resampler_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-10-30T06:43:48Z",
+      "side": 1,
+      "message": "Wow. Not that I think it matters, but hey, this is now C++11! Such modern! :)",
+      "parentUuid": "0e84bece_1506450e",
       "range": {
         "startLine": 164,
         "startChar": 2,

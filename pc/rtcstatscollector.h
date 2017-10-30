@@ -24,6 +24,7 @@
 #include "call/call.h"
 #include "media/base/mediachannel.h"
 #include "pc/datachannel.h"
+#include "pc/peerconnection.h"
 #include "pc/trackmediainfomap.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/refcount.h"
@@ -41,10 +42,6 @@ class SSLCertificate;
 }  // namespace rtc
 
 namespace webrtc {
-
-class PeerConnection;
-struct SessionStats;
-struct ChannelNamePairs;
 
 // All public methods of the collector are to be called on the signaling thread.
 // Stats are gathered on the signaling, worker and network threads
@@ -155,7 +152,7 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   // |ProducePartialResultsOnSignalingThread|, reset after work is complete. Not
   // passed as arguments to avoid copies. This is thread safe - when we
   // set/reset we know there are no pending stats requests in progress.
-  std::unique_ptr<ChannelNamePairs> channel_name_pairs_;
+  std::vector<ChannelNamePair> channel_name_pairs_;
   std::unique_ptr<TrackMediaInfoMap> track_media_info_map_;
   std::map<MediaStreamTrackInterface*, std::string> track_to_id_;
   Call::Stats call_stats_;

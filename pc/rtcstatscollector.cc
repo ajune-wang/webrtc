@@ -637,31 +637,13 @@ void RTCStatsCollector::GetStatsReport(
 
     // Prepare |channel_name_pairs_| for use in
     // |ProducePartialResultsOnNetworkThread|.
-    channel_name_pairs_.reset(new ChannelNamePairs());
-    if (pc_->voice_channel()) {
-      channel_name_pairs_->voice = rtc::Optional<ChannelNamePair>(
-          ChannelNamePair(pc_->voice_channel()->content_name(),
-                          pc_->voice_channel()->transport_name()));
-    }
-    if (pc_->video_channel()) {
-      channel_name_pairs_->video = rtc::Optional<ChannelNamePair>(
-          ChannelNamePair(pc_->video_channel()->content_name(),
-                          pc_->video_channel()->transport_name()));
-    }
-    if (pc_->rtp_data_channel()) {
-      channel_name_pairs_->data = rtc::Optional<ChannelNamePair>(
-          ChannelNamePair(pc_->rtp_data_channel()->content_name(),
-                          pc_->rtp_data_channel()->transport_name()));
-    }
-    if (pc_->sctp_content_name()) {
-      channel_name_pairs_->data =
-          rtc::Optional<ChannelNamePair>(ChannelNamePair(
-              *pc_->sctp_content_name(), *pc_->sctp_transport_name()));
-    }
+    channel_name_pairs_ = pc_->GetChannelNamePairs();
+
     // Prepare |track_media_info_map_| for use in
     // |ProducePartialResultsOnNetworkThread| and
     // |ProducePartialResultsOnSignalingThread|.
     track_media_info_map_.reset(PrepareTrackMediaInfoMap_s().release());
+
     // Prepare |track_to_id_| for use in |ProducePartialResultsOnNetworkThread|.
     // This avoids a possible deadlock if |MediaStreamTrackInterface::id| is
     // implemented to invoke on the signaling thread.
@@ -717,7 +699,7 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThread(
       timestamp_us);
 
   std::unique_ptr<SessionStats> session_stats =
-      pc_->GetSessionStats(*channel_name_pairs_);
+      pc_->GetSessionStats(channel_name_pairs_);
   if (session_stats) {
     std::map<std::string, CertificateStatsPair> transport_cert_stats =
         PrepareTransportCertificateStats_n(*session_stats);
@@ -763,7 +745,7 @@ void RTCStatsCollector::AddPartialResults_s(
     cache_timestamp_us_ = partial_report_timestamp_us_;
     cached_report_ = partial_report_;
     partial_report_ = nullptr;
-    channel_name_pairs_.reset();
+    channel_name_pairs_.clear();
     track_media_info_map_.reset();
     track_to_id_.clear();
     // Trace WebRTC Stats when getStats is called on Javascript.

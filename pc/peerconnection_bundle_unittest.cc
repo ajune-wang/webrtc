@@ -9,6 +9,7 @@
  */
 
 #include "api/peerconnectionproxy.h"
+#include "api/stats/rtcstats_objects.h"
 #include "p2p/base/fakeportallocator.h"
 #include "p2p/base/teststunserver.h"
 #include "p2p/client/basicportallocator.h"

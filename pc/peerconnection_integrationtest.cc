@@ -28,6 +28,7 @@
 #include "api/mediastreaminterface.h"
 #include "api/peerconnectioninterface.h"
 #include "api/peerconnectionproxy.h"
+#include "api/stats/rtcstats_objects.h"
 #include "api/test/fakeconstraints.h"
 #include "media/engine/fakewebrtcvideoengine.h"
 #include "p2p/base/p2pconstants.h"

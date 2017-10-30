@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15172f22_8e5cea28",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/TCPChannelClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-30T12:35:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6a0f954_f3d89a05",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 6
+      },
+      "revId": "51ed638ec05cea8980a855cfc28b26233e7c4bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc829257_2b2da21d",
         "filename": "examples/androidjunit/src/org/appspot/apprtc/BluetoothManagerTest.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "51ed638ec05cea8980a855cfc28b26233e7c4bb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a523ef09_a550b4e3",
+        "filename": "examples/androidjunit/src/org/appspot/apprtc/BluetoothManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-10-30T12:35:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc829257_2b2da21d",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 123,
+        "endChar": 26
+      },
+      "revId": "51ed638ec05cea8980a855cfc28b26233e7c4bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

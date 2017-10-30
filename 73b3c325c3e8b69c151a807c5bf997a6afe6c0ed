@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1c1154ce_210a77fe",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5789
+      },
+      "writtenOn": "2017-10-30T09:16:19Z",
+      "side": 1,
+      "message": "If we have micros, there will be more information about the order of events, compared to what we would get using millis. If we switch to millis, we will have to preserve the order of events (because shuffling them would destroy that information). Is that correct?",
+      "parentUuid": "8f190fdb_a73d1f5f",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4831917a_ad991d66",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 1
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "20db076c_c5b7e62c",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5789
+      },
+      "writtenOn": "2017-10-30T09:16:19Z",
+      "side": 1,
+      "message": "Resolved.",
+      "parentUuid": "e58b8b10_51835283",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad7795e_428c1348",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 1
@@ -234,6 +282,30 @@
       "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06d4fb3_46da9802",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5789
+      },
+      "writtenOn": "2017-10-30T09:16:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3fe74908_18bce756",
+      "range": {
+        "startLine": 124,
+        "startChar": 11,
+        "endLine": 124,
+        "endChar": 16
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -21,6 +21,8 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/ptr_util.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 namespace {
@@ -68,11 +70,53 @@ class PacketSender : public rtcp::RtcpPacket::PacketReadyCallback {
 RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
     : config_(config) {
   RTC_CHECK(config_.Validate());
+  if (config_.schedule_periodic_compound_packets)
+    ReschedulePeriodicCompoundPackets(config_.initial_delay_ms);
 }
 
 RtcpTransceiverImpl::~RtcpTransceiverImpl() = default;
 
 void RtcpTransceiverImpl::SendCompoundPacket() {
+  SendPacket();
+  if (config_.schedule_periodic_compound_packets)
+    ReschedulePeriodicCompoundPackets(config_.min_periodic_report_ms);
+}
+
+void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets(int64_t delay_ms) {
+  class SendPeriodicCompoundPacket : public rtc::QueuedTask {
+   public:
+    SendPeriodicCompoundPacket(rtc::TaskQueue* task_queue,
+                               rtc::WeakPtr<RtcpTransceiverImpl> ptr)
+        : task_queue_(task_queue), ptr_(std::move(ptr)) {}
+    bool Run() override {
+      RTC_DCHECK(task_queue_->IsCurrent());
+      if (!ptr_)
+        return true;
+      ptr_->SendPacket();
+      int64_t delay_ms = ptr_->config_.min_periodic_report_ms;
+      task_queue_->PostDelayedTask(rtc::WrapUnique(this), delay_ms);
+      return false;
+    }
+
+   private:
+    rtc::TaskQueue* const task_queue_;
+    const rtc::WeakPtr<RtcpTransceiverImpl> ptr_;
+  };
+
+  RTC_DCHECK(config_.schedule_periodic_compound_packets);
+  RTC_DCHECK(config_.task_queue->IsCurrent());
+
+  // Stop existent send task if there is one, create new weak ptr factory.
+  ptr_factory_.emplace(this);
+  auto task = rtc::MakeUnique<SendPeriodicCompoundPacket>(
+      config_.task_queue, ptr_factory_->GetWeakPtr());
+  if (delay_ms > 0)
+    config_.task_queue->PostDelayedTask(std::move(task), delay_ms);
+  else
+    config_.task_queue->PostTask(std::move(task));
+}
+
+void RtcpTransceiverImpl::SendPacket() {
   PacketSender sender(config_.outgoing_transport, config_.max_packet_size);
 
   rtcp::ReceiverReport rr;

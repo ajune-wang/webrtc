@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4821c68c_607f1a65",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-30T11:36:31Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of this method? If schedule_periodic_compound_packets is true, SchedulePeriodicCompoundPackets is already called by the constructor?",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "e0b3375ec6911218a4e7bf4f3f8df1ad5f5f6362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13e792e1_f91fb855",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-30T11:36:31Z",
+      "side": 1,
+      "message": "Why is it SendPacket\u0027s responsibility to decide the inter-report timing? Do you expect it later to return different intervals depending on what was sent?",
+      "range": {
+        "startLine": 144,
+        "startChar": 17,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "e0b3375ec6911218a4e7bf4f3f8df1ad5f5f6362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

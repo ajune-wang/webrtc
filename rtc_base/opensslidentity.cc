@@ -554,15 +554,24 @@ SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
     return nullptr;
   BIO_set_mem_eof_return(bio, 0);
   std::vector<std::unique_ptr<SSLCertificate>> certs;
-  X509* x509 =
-      PEM_read_bio_X509(bio, nullptr, nullptr, const_cast<char*>("\0"));
-  while (x509 != nullptr) {
+  while (true) {
+    X509* x509 =
+        PEM_read_bio_X509(bio, nullptr, nullptr, const_cast<char*>("\0"));
+    if (x509 == nullptr) {
+      uint32_t err = ERR_peek_error();
+      if (ERR_GET_LIB(err) == ERR_LIB_PEM &&
+          ERR_GET_REASON(err) == PEM_R_NO_START_LINE) {
+        break;
+      }
+      LOG(LS_ERROR) << "Failed to parse certificate from PEM string.";
+      BIO_free(bio);
+      return nullptr;
+    }
     certs.emplace_back(new OpenSSLCertificate(x509));
-    x509 = PEM_read_bio_X509(bio, nullptr, nullptr, const_cast<char*>("\0"));
   }
-  BIO_free(bio);  // Frees the BIO, but not the pointed-to string.
+  BIO_free(bio);
   if (certs.empty()) {
-    LOG(LS_ERROR) << "Failed to parse certificate chain from PEM string.";
+    LOG(LS_ERROR) << "Found no certificates in PEM string.";
     return nullptr;
   }
 

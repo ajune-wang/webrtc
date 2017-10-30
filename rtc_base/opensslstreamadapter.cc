@@ -1124,8 +1124,8 @@ int OpenSSLStreamAdapter::SSLVerifyCallback(X509_STORE_CTX* store, void* arg) {
       new OpenSSLCertificate(sk_X509_value(chain, 0)));
   // Creates certificate chain.
   std::vector<std::unique_ptr<SSLCertificate>> cert_chain;
-  for (size_t i = 0; i < sk_X509_num(chain); ++i) {
-    cert_chain.emplace_back(new OpenSSLCertificate(sk_X509_value(chain, i)));
+  for (X509* cert : chain) {
+    cert_chain.emplace_back(new OpenSSLCertificate(cert));
   }
   stream->peer_cert_chain_.reset(new SSLCertChain(std::move(cert_chain)));
 #else

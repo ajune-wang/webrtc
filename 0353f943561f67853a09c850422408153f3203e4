@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0568ee14_4f6e8421",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-30T12:07:34Z",
+      "side": 1,
+      "message": "Maybe drop this local variable and write out ...config.. in the call below.",
+      "range": {
+        "startLine": 96,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 22
+      },
+      "revId": "0353f943561f67853a09c850422408153f3203e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "421edf9c_cd43861c",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-30T12:07:34Z",
+      "side": 1,
+      "message": "Optional just to be able to destroy and recreate it? Would it work to drop Optional and call WeakPtrFactory::InvalidateWeakPtrs instead of Optional::emplace?",
+      "range": {
+        "startLine": 43,
+        "startChar": 7,
+        "endLine": 43,
+        "endChar": 15
+      },
+      "revId": "0353f943561f67853a09c850422408153f3203e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

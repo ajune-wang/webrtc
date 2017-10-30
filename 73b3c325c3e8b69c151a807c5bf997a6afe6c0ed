@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "de3da3b9_2f276706",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-10-30T09:51:38Z",
+      "side": 1,
+      "message": "We will lose even more of the order with the new format though. See my response to your other comment below.\n\nFwiw, we don\u0027t always have microsecond resolution right now. The Windows clock in particular only has millisecond accuracy, so we are essentially just wasting 10 bits trying to store a microsecond timestamp. This is imo the primary reason for changing to milliseconds.",
+      "parentUuid": "1c1154ce_210a77fe",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "73b3c325c3e8b69c151a807c5bf997a6afe6c0ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4831917a_ad991d66",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 1

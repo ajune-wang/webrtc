@@ -12,8 +12,10 @@
 
 #include "modules/audio_device/include/audio_device.h"
 #include "rtc_base/atomicops.h"
+#include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/thread.h"
 #include "voice_engine/transmit_mixer.h"
 
 namespace webrtc {
@@ -57,6 +59,37 @@ bool AudioState::typing_noise_detected() const {
   voe::TransmitMixer* transmit_mixer =
       const_cast<AudioState*>(this)->voe_base_->transmit_mixer();
   return transmit_mixer->typing_noise_detected();
+}
+
+void AudioState::SetPlayout(bool enabled) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  bool current_playout = (null_audio_poller_ == nullptr);
+  if (enabled == current_playout) {
+    return;
+  }
+  VoEBase* voe = VoEBase::GetInterface(voice_engine());
+  RTC_DCHECK(voe);
+  if (enabled) {
+    null_audio_poller_.reset();
+  }
+  // Will stop/start playout of the underlying device, if necessary, and
+  // remember the setting for when it receives subsequent calls of
+  // StartPlayout.
+  voe->SetPlayout(enabled);
+  if (!enabled) {
+    null_audio_poller_.reset(new NullAudioPoller(&audio_transport_proxy_));
+  }
+}
+
+void AudioState::SetRecording(bool enabled) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  // TODO(henrika): fix early return state
+  VoEBase* voe = VoEBase::GetInterface(voice_engine());
+  RTC_DCHECK(voe);
+  // Will stop/start recording of the underlying device, if necessary, and
+  // remember the setting for when it receives subsequent calls of
+  // StartPlayout.
+  voe->SetRecording(enabled);
 }
 
 // Reference count; implementation copied from rtc::RefCountedObject.

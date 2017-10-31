@@ -11,6 +11,7 @@
 #include "pc/test/fakeaudiocapturemodule.h"
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/refcount.h"
 #include "rtc_base/refcountedobject.h"
 #include "rtc_base/thread.h"
@@ -46,6 +47,7 @@ FakeAudioCaptureModule::FakeAudioCaptureModule()
       started_(false),
       next_frame_time_(0),
       frames_received_(0) {
+  LOG(INFO) << "___FakeAudioCaptureModule";
 }
 
 FakeAudioCaptureModule::~FakeAudioCaptureModule() {
@@ -55,6 +57,7 @@ FakeAudioCaptureModule::~FakeAudioCaptureModule() {
 }
 
 rtc::scoped_refptr<FakeAudioCaptureModule> FakeAudioCaptureModule::Create() {
+  LOG(INFO) << "___Create";
   rtc::scoped_refptr<FakeAudioCaptureModule> capture_module(
       new rtc::RefCountedObject<FakeAudioCaptureModule>());
   if (!capture_module->Initialize()) {
@@ -65,6 +68,7 @@ rtc::scoped_refptr<FakeAudioCaptureModule> FakeAudioCaptureModule::Create() {
 
 int FakeAudioCaptureModule::frames_received() const {
   rtc::CritScope cs(&crit_);
+  LOG(INFO) << "___frames_received: " << frames_received_;
   return frames_received_;
 }
 
@@ -176,6 +180,7 @@ bool FakeAudioCaptureModule::RecordingIsInitialized() const {
 }
 
 int32_t FakeAudioCaptureModule::StartPlayout() {
+  LOG(INFO) << "___StartPlayout";
   if (!play_is_initialized_) {
     return -1;
   }
@@ -205,6 +210,7 @@ bool FakeAudioCaptureModule::Playing() const {
 }
 
 int32_t FakeAudioCaptureModule::StartRecording() {
+  LOG(INFO) << "___StartRecording ";
   if (!rec_is_initialized_) {
     return -1;
   }
@@ -462,6 +468,7 @@ void FakeAudioCaptureModule::OnMessage(rtc::Message* msg) {
 }
 
 bool FakeAudioCaptureModule::Initialize() {
+  LOG(INFO) << "___Initialize";
   // Set the send buffer samples high enough that it would not occur on the
   // remote side unless a packet containing a sample of that magnitude has been
   // sent to it. Note that the audio processing pipeline will likely distort the
@@ -558,6 +565,7 @@ void FakeAudioCaptureModule::ReceiveFrameP() {
     size_t nSamplesOut = 0;
     int64_t elapsed_time_ms = 0;
     int64_t ntp_time_ms = 0;
+    LOG(INFO) <<  "___NeedMorePlayData";
     if (audio_callback_->NeedMorePlayData(kNumberSamples, kNumberBytesPerSample,
                                          kNumberOfChannels, kSamplesPerSecond,
                                          rec_buffer_, nSamplesOut,
@@ -575,6 +583,7 @@ void FakeAudioCaptureModule::ReceiveFrameP() {
   if (CheckRecBuffer(kHighSampleValue)) {
     rtc::CritScope cs(&crit_);
     ++frames_received_;
+    LOG(INFO) <<  "___NeedMorePlayData: " << frames_received_;
   }
 }
 
@@ -587,6 +596,7 @@ void FakeAudioCaptureModule::SendFrameP() {
   bool key_pressed = false;
   uint32_t current_mic_level = 0;
   MicrophoneVolume(&current_mic_level);
+  LOG(INFO) << "RecordedDataIsAvailable";
   if (audio_callback_->RecordedDataIsAvailable(send_buffer_, kNumberSamples,
                                               kNumberBytesPerSample,
                                               kNumberOfChannels,

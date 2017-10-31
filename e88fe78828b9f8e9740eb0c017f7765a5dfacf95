@@ -16,6 +16,24 @@
       "revId": "e88fe78828b9f8e9740eb0c017f7765a5dfacf95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce0c66fb_46ed96d9",
+        "filename": "sdk/objc/Framework/Classes/Common/helpers.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-31T10:03:45Z",
+      "side": 1,
+      "message": "Wat! Thanks for catching this.",
+      "parentUuid": "5e94ae3b_01e388b7",
+      "revId": "e88fe78828b9f8e9740eb0c017f7765a5dfacf95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

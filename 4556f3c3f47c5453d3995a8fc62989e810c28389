@@ -16,6 +16,24 @@
       "revId": "4556f3c3f47c5453d3995a8fc62989e810c28389",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d4acdd_b2d73f72",
+        "filename": "modules/audio_device/ios/audio_device_ios.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2017-10-31T10:03:45Z",
+      "side": 0,
+      "message": "This is the same info, once as a string and again as an int. It seems unnecessary to log both 😅",
+      "parentUuid": "2e7d19e2_0464a166",
+      "revId": "4556f3c3f47c5453d3995a8fc62989e810c28389",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

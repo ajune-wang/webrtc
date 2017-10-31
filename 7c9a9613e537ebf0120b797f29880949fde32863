@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "280f11d3_dac7df88",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2235,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-31T10:18:05Z",
+      "side": 1,
+      "message": "The problem is that the lower layers (such as AudioSendStream and APM) have no way of knowing if there are receive streams. If there are no receive streams, the stats get stuck, but the low level components have no way of knowing that. If there was a way to set this on a lower level I agree that it would be nicer, but I don\u0027t think it\u0027s possible to do that.\nIf you know a more appropriate layer to put this logic I would be happy to move it, but it needs to be at a lever where the number of receive streams is known (so higher than APM/AudioSendStream). One option would be add an argument to the GetStatistics call to pass the number of receive streams to the lower layers, and make the stats Optional in there. Do you think that would be a better solution?",
+      "parentUuid": "b9471c0c_479489bc",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "516d7101_eeb12554",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-10-30T22:52:17Z",
       "side": 1,
       "message": "This being made optional, can we make -100 a \"no value\" from the reporter instead of a fix here, or is there a reason why -100 must sometimes be reported?",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4378749_6ec84dea",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-31T10:18:05Z",
+      "side": 1,
+      "message": "The check for -100 was already here before my CL, and I think removing it is a separate issue, and unrelated to the changes in this CL. \nAlso, since these stats are of questionable usefulness and will likely be removed in the not too distant future (they are AEC2 stats, and AEC3 is coming), I\u0027m not sure if it makes sense to spend time on that.",
+      "parentUuid": "516d7101_eeb12554",
       "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "470b98b9_4602cc66",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-31T10:18:05Z",
+      "side": 1,
+      "message": "See my other answer.",
+      "parentUuid": "e872cb00_5f9b322c",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a173abbb_11715894",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "dac82bec_d36b7b3d",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-31T10:18:05Z",
+      "side": 1,
+      "message": "Good point, done.",
+      "parentUuid": "a173abbb_11715894",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "750a8f66_5015e4d7",
         "filename": "pc/statscollector.cc",
         "patchSetId": 3
@@ -81,6 +153,24 @@
       "writtenOn": "2017-10-30T22:52:17Z",
       "side": 1,
       "message": "Same question here as in webrtcvoiceengine.cc: Can these be optional all the way?",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3000f92_4ea54ef8",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-31T10:18:05Z",
+      "side": 1,
+      "message": "See my other answer.",
+      "parentUuid": "750a8f66_5015e4d7",
       "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "ff099533_9aa6b8d7",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-31T10:18:05Z",
+      "side": 1,
+      "message": "Good idea, I went for option 1.",
+      "parentUuid": "53862b08_a7f34f30",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "063f758a_00e54d4a",
         "filename": "pc/statscollector_unittest.cc",
         "patchSetId": 3
@@ -115,6 +223,24 @@
       "writtenOn": "2017-10-30T22:52:17Z",
       "side": 1,
       "message": "The assumption about what enables these stats has trickled down all the way down into test code. I don\u0027t think the test should repeat parts of the implementation. Is there a way to avoid this?",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2194fdc_40f7f303",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-31T10:18:05Z",
+      "side": 1,
+      "message": "I agree that this is not great, but this function is already simulating a part of the implementation (which used to be equivalent to a simple copy operation but now it got a bit messier). I don\u0027t know a better way to handle this, let me know if you have suggestions.",
+      "parentUuid": "063f758a_00e54d4a",
       "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

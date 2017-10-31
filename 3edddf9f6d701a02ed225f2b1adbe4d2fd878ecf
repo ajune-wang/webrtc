@@ -1,0 +1,357 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1be1b78f_ed8da395",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "IMHO, it would be better to drop this line altogether.",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99556419_0181121c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "I have a suggestion for a different algorithm. Let\u0027s discuss by video-chat, I think that would be easier.",
+      "range": {
+        "startLine": 473,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 1
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "652a912f_767b7c4d",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "I\u0027m afraid that this creates somewhat confusing code - a parameter is passed to the superclass that is only used by one derived class. What if that derived class is one day removed, btw? This is liable to be left behind.",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a441290_6cadeff8",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "1. Could you move this to the section where the (protected) member variables are? Namely, where you have bitrate_observer_configs_?\n2. nit: The codebase has both sequenced_checker_ as well as sequence_checker_. It would be nice to only have one. I therefore suggest you rename this to the name of the more common variant, which happens to be sequence_checker_. (Linguistically, it appears to me more correct, too.)",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54cfe2fd_d7ca3519",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "nit: Because \"relative_bitrate\" has \"bitrate\" in the name, one might be moved to assume this note also applies to it.",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eebc0c7c_de0b6ac5",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "nit #1: s/bps/bitrate. Using \"bps\" here seems like saying kph/mph instead of velocity/speed. In line #211, too?\n\nnit #2: s/based upon/based on\nIn line 199 too. That sounds better to me, given the context. Wdyt?",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dff686bd_77d26645",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "Is RTCRtpEncodingParameters iOS-specific? If so, we probably want to revise the comment?",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f55aeed2_e17276ae",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "1. If I understand correctly, this does not really reflect the full logic; we may also cap this to a max-bitrate, which this a+b*c might exceed, right? If so, this comment is potentially misleading.\n2. IMHO, one should not document in the header file the inner-workings of a private function; only its purpose.",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0e8cf74_5937c092",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "Please prepend :: here, too.",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cc9eaee_a82ba3bc",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "Does this need to be a unique_ptr?",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc9e01d0_c5bc6ce0",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "If I am not mistaken, you can get rid of this line altogether, because limit_observer_ is a NiceMock.",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 35
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e73db2f7_e02d446f",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing that kMinSendBitrateBps, etc., are given constants, but 600000 is hard-coded.",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8ec100f_785f9684",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "nit: s/low/low1, to make it stand-out more that it\u0027s distinct from low2, and not a typo?",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92bb5a69_08275a6e",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "Less zeros would make it easier to verify your calculation in one\u0027s head. (Here and elsewhere.)",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfbe12c8_47176ba9",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "nit: s/med/mid",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1e2b6f9_c181aaf7",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "Maybe: EXPECT_GT(kMinBitrate, observer_X.last_bitrate_bps_)",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 0
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fd36ceb_8fe76bbc",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "Basic?",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3354bfd_16afa1ad",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "I would suggest:\nkLowMax \u003d 20;\nkMidMax \u003d 40;\nkHighMax \u003d 80;\nAnd then:\nkTotalMax \u003d kLowMax + kMidMax + kHighMax;\nOnNetworkChanged(kTotalMax / 2);\nAnd then expect the ratio. I think it would make the spirit of the test more apparent.",
+      "range": {
+        "startLine": 609,
+        "startChar": 0,
+        "endLine": 612,
+        "endChar": 73
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc4af26b_7527d047",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-10-31T15:14:08Z",
+      "side": 1,
+      "message": "I would have expected:\nlow: 166666\nmid: 333333\nhigh: 400000\nCould you please explain why 2-3-4 was reached instead?",
+      "range": {
+        "startLine": 637,
+        "startChar": 0,
+        "endLine": 639,
+        "endChar": 54
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

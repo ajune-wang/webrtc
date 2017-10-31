@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "61a92505_6e49f640",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-10-31T15:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52d76ec7_9b853a19",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2465ef1f_8034cb0f",
         "filename": "common_video/libyuv/webrtc_libyuv.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03494ca0_cb02bde3",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-10-31T15:20:06Z",
+      "side": 1,
+      "message": "Removed TODO as inclusion is still required for different APIs.",
+      "parentUuid": "2465ef1f_8034cb0f",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +155,30 @@
       "side": 1,
       "message": "\u003e And do the same for ConvertRotation, to avoid duplicating that logic.\n\u003e    -\u003e Do you mean to declare ConvertRotationMode() in webrtc_libyuv.h ?\n\nDeclare it in webrtc_libyuv.h, call it in VideoCaptureImpl::IncomingFrame, and delete the \n\n switch (_rotateFrame)\n\nblock.",
       "parentUuid": "95644242_02358300",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad8d46c5_767ee819",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-10-31T15:20:06Z",
+      "side": 1,
+      "message": "ConvertVideoType is moved to header file.\nregarding ConvertRotationMode, inclusion of libyuv.h to webrtc_libyuv.h requires more changes at GN level. Can we take up as separate CL?",
+      "parentUuid": "ea128694_acd99327",
       "range": {
         "startLine": 28,
         "startChar": 0,

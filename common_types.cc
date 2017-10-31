@@ -181,16 +181,23 @@ VideoCodecType PayloadStringToCodecType(const std::string& name) {
 const uint32_t BitrateAllocation::kMaxBitrateBps =
     std::numeric_limits<uint32_t>::max();
 
-BitrateAllocation::BitrateAllocation() : sum_(0), bitrates_{} {}
+BitrateAllocation::BitrateAllocation() : sum_(0) {
+  for (int i = 0; i < kMaxSpatialLayers; ++i) {
+    for (int j = 0; j < kMaxTemporalStreams; ++j) {
+      bitrates_[i][j] = -1;
+    }
+  }
+}
 
 bool BitrateAllocation::SetBitrate(size_t spatial_index,
                                    size_t temporal_index,
                                    uint32_t bitrate_bps) {
+  uint32_t prev_bitrate = GetBitrate(spatial_index, temporal_index);
   RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
   RTC_CHECK_LT(temporal_index, kMaxTemporalStreams);
-  RTC_CHECK_LE(bitrates_[spatial_index][temporal_index], sum_);
+  RTC_CHECK_LE(prev_bitrate, sum_);
   uint64_t new_bitrate_sum_bps = sum_;
-  new_bitrate_sum_bps -= bitrates_[spatial_index][temporal_index];
+  new_bitrate_sum_bps -= prev_bitrate;
   new_bitrate_sum_bps += bitrate_bps;
   if (new_bitrate_sum_bps > kMaxBitrateBps)
     return false;
@@ -200,11 +207,19 @@ bool BitrateAllocation::SetBitrate(size_t spatial_index,
   return true;
 }
 
+bool BitrateAllocation::HasBitrate(size_t spatial_index,
+                                   size_t temporal_index) const {
+  RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
+  RTC_CHECK_LT(temporal_index, kMaxTemporalStreams);
+  return bitrates_[spatial_index][temporal_index] >= 0;
+}
+
 uint32_t BitrateAllocation::GetBitrate(size_t spatial_index,
                                        size_t temporal_index) const {
   RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
   RTC_CHECK_LT(temporal_index, kMaxTemporalStreams);
-  return bitrates_[spatial_index][temporal_index];
+  int bitrate = bitrates_[spatial_index][temporal_index];
+  return (bitrate < 0) ? 0 : bitrate;
 }
 
 // Get the sum of all the temporal layer for a specific spatial layer.
@@ -212,7 +227,7 @@ uint32_t BitrateAllocation::GetSpatialLayerSum(size_t spatial_index) const {
   RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
   uint32_t sum = 0;
   for (int i = 0; i < kMaxTemporalStreams; ++i)
-    sum += bitrates_[spatial_index][i];
+    sum += GetBitrate(spatial_index, i);
   return sum;
 }
 
@@ -248,7 +263,7 @@ std::string BitrateAllocation::ToString() const {
       if (ti > 0)
         oss << ", ";
 
-      uint32_t bitrate = bitrates_[si][ti];
+      uint32_t bitrate = GetBitrate(si, ti);
       oss << bitrate;
       temporal_cumulator += bitrate;
     }

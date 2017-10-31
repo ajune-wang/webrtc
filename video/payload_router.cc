@@ -239,8 +239,10 @@ void PayloadRouter::OnBitrateAllocationUpdated(
           break;
 
         BitrateAllocation layer_bitrate;
-        for (int tl = 0; tl < kMaxTemporalStreams; ++tl)
-          layer_bitrate.SetBitrate(0, tl, bitrate.GetBitrate(si, tl));
+        for (int tl = 0; tl < kMaxTemporalStreams; ++tl) {
+          if (bitrate.HasBitrate(si, tl))
+            layer_bitrate.SetBitrate(0, tl, bitrate.GetBitrate(si, tl));
+        }
         rtp_modules_[si]->SetVideoBitrateAllocation(layer_bitrate);
       }
     }

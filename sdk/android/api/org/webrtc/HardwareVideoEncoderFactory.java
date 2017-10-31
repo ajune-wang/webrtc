@@ -42,9 +42,15 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
   private final EglBase14.Context sharedContext;
   private final boolean enableIntelVp8Encoder;
   private final boolean enableH264HighProfile;
+  private final boolean fallbackToSoftware;
 
   public HardwareVideoEncoderFactory(
       EglBase.Context sharedContext, boolean enableIntelVp8Encoder, boolean enableH264HighProfile) {
+    this(sharedContext, enableIntelVp8Encoder, enableH264HighProfile, true);
+  }
+
+  public HardwareVideoEncoderFactory(EglBase.Context sharedContext, boolean enableIntelVp8Encoder,
+      boolean enableH264HighProfile, boolean fallbackToSoftware) {
     // Texture mode requires EglBase14.
     if (sharedContext instanceof EglBase14.Context) {
       this.sharedContext = (EglBase14.Context) sharedContext;
@@ -54,6 +60,7 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     }
     this.enableIntelVp8Encoder = enableIntelVp8Encoder;
     this.enableH264HighProfile = enableH264HighProfile;
+    this.fallbackToSoftware = fallbackToSoftware;
   }
 
   @Deprecated
@@ -67,7 +74,15 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     MediaCodecInfo info = findCodecForType(type);
 
     if (info == null) {
-      return null; // No support for this type.
+      // No hardware support for this type.
+      // TODO(andersc): This is for backwards compatibility. Remove when clients have migrated to
+      // new DefaultVideoEncoderFactory.
+      if (this.fallbackToSoftware) {
+        SoftwareVideoEncoderFactory softwareVideoEncoderFactory = new SoftwareVideoEncoderFactory();
+        return softwareVideoEncoderFactory.createEncoder(input);
+      } else {
+        return null;
+      }
     }
 
     String codecName = info.getName();
@@ -99,6 +114,17 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
         supportedCodecInfos.add(new VideoCodecInfo(0, name, getCodecProperties(type, false)));
       }
     }
+
+    // TODO(andersc): This is for backwards compatibility. Remove when clients have migrated to
+    // new DefaultVideoEncoderFactory.
+    if (this.fallbackToSoftware) {
+      for (VideoCodecInfo info : SoftwareVideoEncoderFactory.supportedCodecs()) {
+        if (!supportedCodecInfos.contains(info)) {
+          supportedCodecInfos.add(info);
+        }
+      }
+    }
+
     return supportedCodecInfos.toArray(new VideoCodecInfo[supportedCodecInfos.size()]);
   }
 

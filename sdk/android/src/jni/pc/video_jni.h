@@ -15,23 +15,25 @@
 
 #include "rtc_base/scoped_ref_ptr.h"
 
-namespace cricket {
-class WebRtcVideoEncoderFactory;
-class WebRtcVideoDecoderFactory;
-}  // namespace cricket
-
 namespace webrtc {
+
+class VideoEncoderFactory;
+class VideoDecoderFactory;
+
 namespace jni {
 
 class SurfaceTextureHelper;
 
-cricket::WebRtcVideoEncoderFactory* CreateVideoEncoderFactory(
+std::unique_ptr<VideoEncoderFactory> CreateVideoEncoderFactory(
     JNIEnv* jni,
     jobject j_encoder_factory);
 
-cricket::WebRtcVideoDecoderFactory* CreateVideoDecoderFactory(
+std::unique_ptr<VideoDecoderFactory> CreateVideoDecoderFactory(
     JNIEnv* jni,
     jobject j_decoder_factory);
+
+cricket::WebRtcVideoEncoderFactory* CreateLegacyVideoEncoderFactory();
+cricket::WebRtcVideoDecoderFactory* CreateLegacyVideoDecoderFactory();
 
 jobject GetJavaSurfaceTextureHelper(
     const rtc::scoped_refptr<SurfaceTextureHelper>& surface_texture_helper);

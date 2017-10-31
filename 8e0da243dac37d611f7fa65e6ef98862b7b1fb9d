@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52d76ec7_9b853a19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-31T13:04:56Z",
+      "side": 1,
+      "message": "Looks a bit repeated. I\u0027d suggest deleting the first of these two sentences.\n\nAnd I think \"convert other formats to I420\" would be more accurate than \"convert YUV to I420\".",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2465ef1f_8034cb0f",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-31T13:04:56Z",
+      "side": 1,
+      "message": "If TODO item is still accurate, delete the include; otherwise, delete the TODO.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31dbeabc_5db12313",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-31T13:04:56Z",
+      "side": 1,
+      "message": "Add a declaration in webrtc_libyuv.h instead. Functions should only be declared in one place, in the header file corresponding to the implementation of the function.\n\nAnd do the same for ConvertRotation, to avoid duplicating that logic.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

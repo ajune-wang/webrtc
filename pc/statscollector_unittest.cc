@@ -390,37 +390,73 @@ void VerifyVoiceSenderInfoReport(const StatsReport* report,
   EXPECT_TRUE(GetValue(
       report, StatsReport::kStatsValueNameJitterReceived, &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.jitter_ms), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoCancellationQualityMin,
-      &value_in_report));
-  EXPECT_EQ(rtc::ToString<float>(sinfo.aec_quality_min), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoDelayMedian, &value_in_report));
-  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_delay_median_ms),
-            value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoDelayStdDev, &value_in_report));
-  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_delay_std_ms),
-            value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoReturnLoss, &value_in_report));
-  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_return_loss),
-            value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoReturnLossEnhancement,
-      &value_in_report));
-  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_return_loss_enhancement),
-            value_in_report);
-  EXPECT_TRUE(GetValue(report,
-                       StatsReport::kStatsValueNameResidualEchoLikelihood,
-                       &value_in_report));
-  EXPECT_EQ(rtc::ToString<float>(sinfo.residual_echo_likelihood),
-            value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameResidualEchoLikelihoodRecentMax,
-      &value_in_report));
-  EXPECT_EQ(rtc::ToString<float>(sinfo.residual_echo_likelihood_recent_max),
-            value_in_report);
+  if (sinfo.aec_quality_min) {
+    EXPECT_TRUE(GetValue(report,
+                         StatsReport::kStatsValueNameEchoCancellationQualityMin,
+                         &value_in_report));
+    EXPECT_EQ(rtc::ToString<float>(*sinfo.aec_quality_min), value_in_report);
+  } else {
+    EXPECT_FALSE(
+        GetValue(report, StatsReport::kStatsValueNameEchoCancellationQualityMin,
+                 &value_in_report));
+  }
+  if (sinfo.echo_delay_median_ms) {
+    EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameEchoDelayMedian,
+                         &value_in_report));
+    EXPECT_EQ(rtc::ToString<int>(*sinfo.echo_delay_median_ms), value_in_report);
+  } else {
+    EXPECT_FALSE(GetValue(report, StatsReport::kStatsValueNameEchoDelayMedian,
+                          &value_in_report));
+  }
+  if (sinfo.echo_delay_std_ms) {
+    EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameEchoDelayStdDev,
+                         &value_in_report));
+    EXPECT_EQ(rtc::ToString<int>(*sinfo.echo_delay_std_ms), value_in_report);
+  } else {
+    EXPECT_FALSE(GetValue(report, StatsReport::kStatsValueNameEchoDelayStdDev,
+                          &value_in_report));
+  }
+  if (sinfo.echo_return_loss) {
+    EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameEchoReturnLoss,
+                         &value_in_report));
+    EXPECT_EQ(rtc::ToString<int>(*sinfo.echo_return_loss), value_in_report);
+  } else {
+    EXPECT_FALSE(GetValue(report, StatsReport::kStatsValueNameEchoReturnLoss,
+                          &value_in_report));
+  }
+  if (sinfo.echo_return_loss_enhancement) {
+    EXPECT_TRUE(GetValue(report,
+                         StatsReport::kStatsValueNameEchoReturnLossEnhancement,
+                         &value_in_report));
+    EXPECT_EQ(rtc::ToString<int>(*sinfo.echo_return_loss_enhancement),
+              value_in_report);
+  } else {
+    EXPECT_FALSE(GetValue(report,
+                          StatsReport::kStatsValueNameEchoReturnLossEnhancement,
+                          &value_in_report));
+  }
+  if (sinfo.residual_echo_likelihood) {
+    EXPECT_TRUE(GetValue(report,
+                         StatsReport::kStatsValueNameResidualEchoLikelihood,
+                         &value_in_report));
+    EXPECT_EQ(rtc::ToString<float>(*sinfo.residual_echo_likelihood),
+              value_in_report);
+  } else {
+    EXPECT_FALSE(GetValue(report,
+                          StatsReport::kStatsValueNameResidualEchoLikelihood,
+                          &value_in_report));
+  }
+  if (sinfo.residual_echo_likelihood_recent_max) {
+    EXPECT_TRUE(GetValue(
+        report, StatsReport::kStatsValueNameResidualEchoLikelihoodRecentMax,
+        &value_in_report));
+    EXPECT_EQ(rtc::ToString<float>(*sinfo.residual_echo_likelihood_recent_max),
+              value_in_report);
+  } else {
+    EXPECT_FALSE(GetValue(
+        report, StatsReport::kStatsValueNameResidualEchoLikelihoodRecentMax,
+        &value_in_report));
+  }
   EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameAudioInputLevel,
                        &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.audio_level), value_in_report);
@@ -487,44 +523,54 @@ void InitVoiceSenderInfo(cricket::VoiceSenderInfo* voice_sender_info) {
   voice_sender_info->packets_lost = 105;
   voice_sender_info->ext_seqnum = 106;
   voice_sender_info->audio_level = 107;
-  voice_sender_info->echo_return_loss = 108;
-  voice_sender_info->echo_return_loss_enhancement = 109;
-  voice_sender_info->echo_delay_median_ms = 110;
-  voice_sender_info->echo_delay_std_ms = 111;
-  voice_sender_info->aec_quality_min = 112.0f;
+  voice_sender_info->echo_return_loss = rtc::Optional<int>();
+  voice_sender_info->echo_return_loss_enhancement = rtc::Optional<int>();
+  voice_sender_info->echo_delay_median_ms = rtc::Optional<int>();
+  voice_sender_info->echo_delay_std_ms = rtc::Optional<int>();
+  voice_sender_info->aec_quality_min = rtc::Optional<float>();
   voice_sender_info->typing_noise_detected = false;
   voice_sender_info->ana_statistics.bitrate_action_counter =
-      rtc::Optional<uint32_t>(113);
+      rtc::Optional<uint32_t>(108);
   voice_sender_info->ana_statistics.channel_action_counter =
-      rtc::Optional<uint32_t>(114);
+      rtc::Optional<uint32_t>(109);
   voice_sender_info->ana_statistics.dtx_action_counter =
-      rtc::Optional<uint32_t>(115);
+      rtc::Optional<uint32_t>(110);
   voice_sender_info->ana_statistics.fec_action_counter =
-      rtc::Optional<uint32_t>(116);
+      rtc::Optional<uint32_t>(111);
   voice_sender_info->ana_statistics.frame_length_increase_counter =
-      rtc::Optional<uint32_t>(117);
+      rtc::Optional<uint32_t>(112);
   voice_sender_info->ana_statistics.frame_length_decrease_counter =
-      rtc::Optional<uint32_t>(118);
+      rtc::Optional<uint32_t>(113);
   voice_sender_info->ana_statistics.uplink_packet_loss_fraction =
-      rtc::Optional<float>(119.0);
+      rtc::Optional<float>(114.0);
 }
 
 void UpdateVoiceSenderInfoFromAudioTrack(
     AudioTrackInterface* audio_track,
-    cricket::VoiceSenderInfo* voice_sender_info) {
+    cricket::VoiceSenderInfo* voice_sender_info,
+    size_t nr_of_recv_streams) {
   audio_track->GetSignalLevel(&voice_sender_info->audio_level);
   webrtc::AudioProcessorInterface::AudioProcessorStats audio_processor_stats;
   audio_track->GetAudioProcessor()->GetStats(&audio_processor_stats);
   voice_sender_info->typing_noise_detected =
       audio_processor_stats.typing_noise_detected;
-  voice_sender_info->echo_return_loss = audio_processor_stats.echo_return_loss;
-  voice_sender_info->echo_return_loss_enhancement =
-      audio_processor_stats.echo_return_loss_enhancement;
-  voice_sender_info->echo_delay_median_ms =
-      audio_processor_stats.echo_delay_median_ms;
-  voice_sender_info->aec_quality_min = audio_processor_stats.aec_quality_min;
-  voice_sender_info->echo_delay_std_ms =
-      audio_processor_stats.echo_delay_std_ms;
+  if (nr_of_recv_streams > 0) {
+    voice_sender_info->echo_return_loss =
+        rtc::Optional<int>(audio_processor_stats.echo_return_loss);
+    voice_sender_info->echo_return_loss_enhancement =
+        rtc::Optional<int>(audio_processor_stats.echo_return_loss_enhancement);
+    voice_sender_info->echo_delay_median_ms =
+        rtc::Optional<int>(audio_processor_stats.echo_delay_median_ms);
+    voice_sender_info->aec_quality_min =
+        rtc::Optional<float>(audio_processor_stats.aec_quality_min);
+    voice_sender_info->echo_delay_std_ms =
+        rtc::Optional<int>(audio_processor_stats.echo_delay_std_ms);
+    voice_sender_info->residual_echo_likelihood =
+        rtc::Optional<float>(audio_processor_stats.residual_echo_likelihood);
+    voice_sender_info->residual_echo_likelihood_recent_max =
+        rtc::Optional<float>(
+            audio_processor_stats.residual_echo_likelihood_recent_max);
+  }
 }
 
 void InitVoiceReceiverInfo(cricket::VoiceReceiverInfo* voice_receiver_info) {
@@ -723,7 +769,8 @@ class StatsCollectorTest : public testing::Test {
 
     // Verifies the values in the track report.
     if (voice_sender_info) {
-      UpdateVoiceSenderInfoFromAudioTrack(audio_track, voice_sender_info);
+      UpdateVoiceSenderInfoFromAudioTrack(audio_track, voice_sender_info,
+                                          stats_read->receivers.size());
       VerifyVoiceSenderInfoReport(report, *voice_sender_info);
     }
     if (voice_receiver_info) {
@@ -1749,7 +1796,7 @@ TEST_F(StatsCollectorTest, FilterOutNegativeInitialValues) {
 
   // Some of the contents in |voice_sender_info| needs to be updated from the
   // |audio_track_|.
-  UpdateVoiceSenderInfoFromAudioTrack(local_track.get(), &voice_sender_info);
+  UpdateVoiceSenderInfoFromAudioTrack(local_track.get(), &voice_sender_info, 1);
 
   cricket::VoiceReceiverInfo voice_receiver_info;
   voice_receiver_info.add_ssrc(kSsrcOfTrack);
@@ -1977,7 +2024,8 @@ TEST_F(StatsCollectorTest, LocalAndRemoteTracksWithSameSsrc) {
 
   // Some of the contents in |voice_sender_info| needs to be updated from the
   // |audio_track_|.
-  UpdateVoiceSenderInfoFromAudioTrack(audio_track_.get(), &voice_sender_info);
+  UpdateVoiceSenderInfoFromAudioTrack(audio_track_.get(), &voice_sender_info,
+                                      1);
 
   cricket::VoiceReceiverInfo voice_receiver_info;
   InitVoiceReceiverInfo(&voice_receiver_info);

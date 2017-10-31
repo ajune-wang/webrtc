@@ -2217,16 +2217,22 @@ bool WebRtcVoiceMediaChannel::GetStats(VoiceMediaInfo* info) {
     sinfo.audio_level = stats.audio_level;
     sinfo.total_input_energy = stats.total_input_energy;
     sinfo.total_input_duration = stats.total_input_duration;
-    sinfo.aec_quality_min = stats.aec_quality_min;
-    sinfo.echo_delay_median_ms = stats.echo_delay_median_ms;
-    sinfo.echo_delay_std_ms = stats.echo_delay_std_ms;
-    sinfo.echo_return_loss = stats.echo_return_loss;
-    sinfo.echo_return_loss_enhancement = stats.echo_return_loss_enhancement;
-    sinfo.residual_echo_likelihood = stats.residual_echo_likelihood;
-    sinfo.residual_echo_likelihood_recent_max =
-        stats.residual_echo_likelihood_recent_max;
     sinfo.typing_noise_detected = (send_ ? stats.typing_noise_detected : false);
     sinfo.ana_statistics = stats.ana_statistics;
+    // These stats only make sense when there are incoming audio streams.
+    if (recv_streams_.size() > 0) {
+      sinfo.aec_quality_min = rtc::Optional<float>(stats.aec_quality_min);
+      sinfo.echo_delay_median_ms =
+          rtc::Optional<int>(stats.echo_delay_median_ms);
+      sinfo.echo_delay_std_ms = rtc::Optional<int>(stats.echo_delay_std_ms);
+      sinfo.echo_return_loss = rtc::Optional<int>(stats.echo_return_loss);
+      sinfo.echo_return_loss_enhancement =
+          rtc::Optional<int>(stats.echo_return_loss_enhancement);
+      sinfo.residual_echo_likelihood =
+          rtc::Optional<float>(stats.residual_echo_likelihood);
+      sinfo.residual_echo_likelihood_recent_max =
+          rtc::Optional<float>(stats.residual_echo_likelihood_recent_max);
+    }
     info->senders.push_back(sinfo);
   }
 

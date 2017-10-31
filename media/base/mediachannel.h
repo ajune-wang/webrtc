@@ -618,13 +618,6 @@ struct VoiceSenderInfo : public MediaSenderInfo {
         audio_level(0),
         total_input_energy(0.0),
         total_input_duration(0.0),
-        aec_quality_min(0.0),
-        echo_delay_median_ms(0),
-        echo_delay_std_ms(0),
-        echo_return_loss(0),
-        echo_return_loss_enhancement(0),
-        residual_echo_likelihood(0.0f),
-        residual_echo_likelihood_recent_max(0.0f),
         typing_noise_detected(false) {}
 
   int ext_seqnum;
@@ -634,13 +627,13 @@ struct VoiceSenderInfo : public MediaSenderInfo {
   // https://w3c.github.io/webrtc-stats/#dom-rtcmediastreamtrackstats-totalaudioenergy
   double total_input_energy;
   double total_input_duration;
-  float aec_quality_min;
-  int echo_delay_median_ms;
-  int echo_delay_std_ms;
-  int echo_return_loss;
-  int echo_return_loss_enhancement;
-  float residual_echo_likelihood;
-  float residual_echo_likelihood_recent_max;
+  rtc::Optional<float> aec_quality_min;
+  rtc::Optional<int> echo_delay_median_ms;
+  rtc::Optional<int> echo_delay_std_ms;
+  rtc::Optional<int> echo_return_loss;
+  rtc::Optional<int> echo_return_loss_enhancement;
+  rtc::Optional<float> residual_echo_likelihood;
+  rtc::Optional<float> residual_echo_likelihood_recent_max;
   bool typing_noise_detected;
   webrtc::ANAStats ana_statistics;
 };

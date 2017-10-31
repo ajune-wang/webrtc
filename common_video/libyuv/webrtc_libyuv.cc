@@ -208,35 +208,6 @@ int ConvertVideoType(VideoType video_type) {
   return libyuv::FOURCC_ANY;
 }
 
-// TODO(nisse): Delete this wrapper, let callers use libyuv directly.
-int ConvertToI420(VideoType src_video_type,
-                  const uint8_t* src_frame,
-                  int crop_x,
-                  int crop_y,
-                  int src_width,
-                  int src_height,
-                  size_t sample_size,
-                  VideoRotation rotation,
-                  I420Buffer* dst_buffer) {
-  int dst_width = dst_buffer->width();
-  int dst_height = dst_buffer->height();
-  // LibYuv expects pre-rotation values for dst.
-  // Stride values should correspond to the destination values.
-  if (rotation == kVideoRotation_90 || rotation == kVideoRotation_270) {
-    std::swap(dst_width, dst_height);
-  }
-  return libyuv::ConvertToI420(
-      src_frame, sample_size,
-      dst_buffer->MutableDataY(), dst_buffer->StrideY(),
-      dst_buffer->MutableDataU(), dst_buffer->StrideU(),
-      dst_buffer->MutableDataV(), dst_buffer->StrideV(),
-      crop_x, crop_y,
-      src_width, src_height,
-      dst_width, dst_height,
-      ConvertRotationMode(rotation),
-      ConvertVideoType(src_video_type));
-}
-
 int ConvertFromI420(const VideoFrame& src_frame,
                     VideoType dst_video_type,
                     int dst_sample_size,

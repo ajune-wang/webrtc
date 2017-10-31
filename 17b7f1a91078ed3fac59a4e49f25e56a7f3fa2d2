@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "e1490215_12317ced",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-10-31T16:24:11Z",
+      "side": 1,
+      "message": "The problem is that the APM doesn\u0027t know about receive streams, it will just stop getting calls on one of it\u0027s API functions. Because some components, like the AEC and echo detector, can only work properly when there is audio flowing in both directions, these stats will just freeze to whatever value they last had. \nThis is particularly problematic in calls where a participant leaves after a while, and all remaining participants are not sending audio (so no audio will be received anymore, and the stat will be frozen).",
+      "parentUuid": "ce8f549e_11c7bc16",
+      "range": {
+        "startLine": 383,
+        "startChar": 25,
+        "endLine": 383,
+        "endChar": 41
+      },
+      "revId": "17b7f1a91078ed3fac59a4e49f25e56a7f3fa2d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d73da32_ae2e83f8",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2

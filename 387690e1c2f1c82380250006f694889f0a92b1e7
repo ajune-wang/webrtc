@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce077021_a457e418",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2017-10-31T05:50:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0c92fd5_e5945f1a",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7db809b7_2a55b3b8",
         "filename": "modules/video_coding/codecs/stereo/include/stereo_decoder_adapter.h",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d787771_4be839cc",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_decoder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2017-10-31T05:50:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7db809b7_2a55b3b8",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 62
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "61107eb5_c308d0eb",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_decoder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2017-10-31T05:50:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bf26ad5_e44b4dfb",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 68
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ed83e9c_e0dc3571",
         "filename": "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fe7e1406_e7de807b",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2017-10-31T05:50:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ed83e9c_e0dc3571",
+      "range": {
+        "startLine": 47,
+        "startChar": 11,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85b2565b_0e8632ec",
         "filename": "modules/video_coding/codecs/stereo/test/stereo_adapter_unittest.cc",
         "patchSetId": 4
@@ -105,6 +201,30 @@
       "writtenOn": "2017-10-30T13:16:22Z",
       "side": 1,
       "message": "I would prefer to not have a fixture and simplify these tests, even though it will lead to some code duplication among tests. I\u0027m not an owner of these file though, and I can\u0027t find the style guide talking about this.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "387690e1c2f1c82380250006f694889f0a92b1e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60996ea6_c40d07d0",
+        "filename": "modules/video_coding/codecs/stereo/test/stereo_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2017-10-31T05:50:18Z",
+      "side": 1,
+      "message": "I dropped a comment and TODO. Currently other VideoCodecTest implementations(TestVp9Impl, TestH264Impl) also rely on a fixture. We can refactor all in a follow-up CL.",
+      "parentUuid": "85b2565b_0e8632ec",
       "range": {
         "startLine": 70,
         "startChar": 0,

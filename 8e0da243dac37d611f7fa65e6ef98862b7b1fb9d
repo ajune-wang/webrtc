@@ -92,6 +92,53 @@
       "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea128694_acd99327",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-31T13:37:38Z",
+      "side": 1,
+      "message": "\u003e And do the same for ConvertRotation, to avoid duplicating that logic.\n\u003e    -\u003e Do you mean to declare ConvertRotationMode() in webrtc_libyuv.h ?\n\nDeclare it in webrtc_libyuv.h, call it in VideoCaptureImpl::IncomingFrame, and delete the \n\n switch (_rotateFrame)\n\nblock.",
+      "parentUuid": "95644242_02358300",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92fcb894_da0a29de",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-31T13:37:38Z",
+      "side": 1,
+      "message": "BTW, this function and RotationInDegrees below appear unused, and could probably be deleted. But best leave that for some other cl.",
+      "range": {
+        "startLine": 43,
+        "startChar": 26,
+        "endLine": 43,
+        "endChar": 45
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

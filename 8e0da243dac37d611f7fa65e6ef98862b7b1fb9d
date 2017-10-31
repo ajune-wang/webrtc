@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "11449807_45c13049",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-10-31T15:32:34Z",
+      "side": 1,
+      "message": "\u003e ConvertVideoType is moved to header file.\n\nThanks.\n\n\u003e regarding ConvertRotationMode, inclusion of libyuv.h to webrtc_libyuv.h requires more changes at GN level. Can we take up as separate CL?\n\nSounds like that could get a bit messy. Hmm, but on the other hand, your cl deletes the only use of ConvertRotationMode. So if you just delete that function from webrtc_libyuv.cc, you eliminate the code duplication in a different way. Does that work?",
+      "parentUuid": "ad8d46c5_767ee819",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "92fcb894_da0a29de",
         "filename": "modules/video_capture/video_capture_impl.cc",
         "patchSetId": 3

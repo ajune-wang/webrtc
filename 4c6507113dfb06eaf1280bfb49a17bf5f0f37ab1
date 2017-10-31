@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e4cbc3d6_17a9ae50",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-10-31T12:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc013b50_46a8989a",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 20
+      },
+      "revId": "4c6507113dfb06eaf1280bfb49a17bf5f0f37ab1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40cc7599_2d33ac08",
         "filename": "modules/video_coding/codecs/i420/i420.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-31T07:19:07Z",
       "side": 1,
       "message": "Can the webrtc_libyuv.h include be deleted?",
+      "range": {
+        "startLine": 17,
+        "startChar": 48,
+        "endLine": 17,
+        "endChar": 49
+      },
+      "revId": "4c6507113dfb06eaf1280bfb49a17bf5f0f37ab1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9938773_201dde3b",
+        "filename": "modules/video_coding/codecs/i420/i420.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-10-31T12:16:35Z",
+      "side": 1,
+      "message": "Can not be done as ExtractBuffer() and CalcBufferSize() are part of this.",
+      "parentUuid": "40cc7599_2d33ac08",
       "range": {
         "startLine": 17,
         "startChar": 48,
@@ -68,6 +116,30 @@
       "revId": "4c6507113dfb06eaf1280bfb49a17bf5f0f37ab1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ad5dc4c_7e1b268e",
+        "filename": "modules/video_coding/codecs/i420/i420.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-10-31T12:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5e4f8eb_10d31080",
+      "range": {
+        "startLine": 208,
+        "startChar": 20,
+        "endLine": 208,
+        "endChar": 33
+      },
+      "revId": "4c6507113dfb06eaf1280bfb49a17bf5f0f37ab1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

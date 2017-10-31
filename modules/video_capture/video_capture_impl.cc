@@ -14,6 +14,7 @@
 
 #include "api/video/i420_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "libyuv.h"
 #include "modules/include/module_common_types.h"
 #include "modules/video_capture/video_capture_config.h"
 #include "rtc_base/logging.h"
@@ -121,6 +122,44 @@ int32_t VideoCaptureImpl::DeliverCapturedFrame(VideoFrame& captureFrame) {
   return 0;
 }
 
+int ConvertVideoType(VideoType video_type) {
+  switch (video_type) {
+    case VideoType::kUnknown:
+      return libyuv::FOURCC_ANY;
+    case VideoType::kI420:
+      return libyuv::FOURCC_I420;
+    case VideoType::kIYUV:  // same as VideoType::kYV12
+    case VideoType::kYV12:
+      return libyuv::FOURCC_YV12;
+    case VideoType::kRGB24:
+      return libyuv::FOURCC_24BG;
+    case VideoType::kABGR:
+      return libyuv::FOURCC_ABGR;
+    case VideoType::kRGB565:
+      return libyuv::FOURCC_RGBP;
+    case VideoType::kYUY2:
+      return libyuv::FOURCC_YUY2;
+    case VideoType::kUYVY:
+      return libyuv::FOURCC_UYVY;
+    case VideoType::kMJPEG:
+      return libyuv::FOURCC_MJPG;
+    case VideoType::kNV21:
+      return libyuv::FOURCC_NV21;
+    case VideoType::kNV12:
+      return libyuv::FOURCC_NV12;
+    case VideoType::kARGB:
+      return libyuv::FOURCC_ARGB;
+    case VideoType::kBGRA:
+      return libyuv::FOURCC_BGRA;
+    case VideoType::kARGB4444:
+      return libyuv::FOURCC_R444;
+    case VideoType::kARGB1555:
+      return libyuv::FOURCC_RGBO;
+  }
+  RTC_NOTREACHED();
+  return libyuv::FOURCC_ANY;
+}
+
 int32_t VideoCaptureImpl::IncomingFrame(
     uint8_t* videoFrame,
     size_t videoFrameLength,
@@ -166,10 +205,28 @@ int32_t VideoCaptureImpl::IncomingFrame(
     // TODO(nisse): Use a pool?
     rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(
         target_width, abs(target_height), stride_y, stride_uv, stride_uv);
-    const int conversionResult = ConvertToI420(
-        frameInfo.videoType, videoFrame, 0, 0,  // No cropping
-        width, height, videoFrameLength,
-        apply_rotation ? _rotateFrame : kVideoRotation_0, buffer.get());
+
+    libyuv::RotationMode rotation_mode = libyuv::kRotate0;
+    if (apply_rotation) {
+      switch (_rotateFrame) {
+        case kVideoRotation_0:
+          rotation_mode = libyuv::kRotate0;
+        case kVideoRotation_90:
+          rotation_mode = libyuv::kRotate90;
+        case kVideoRotation_180:
+          rotation_mode = libyuv::kRotate180;
+        case kVideoRotation_270:
+          rotation_mode = libyuv::kRotate270;
+      }
+    }
+
+    const int conversionResult = libyuv::ConvertToI420(
+        videoFrame, videoFrameLength, buffer.get()->MutableDataY(),
+        buffer.get()->StrideY(), buffer.get()->MutableDataU(),
+        buffer.get()->StrideU(), buffer.get()->MutableDataV(),
+        buffer.get()->StrideV(), 0, 0,  // No Cropping
+        width, height, target_width, target_height, rotation_mode,
+        ConvertVideoType(frameInfo.videoType));
     if (conversionResult < 0) {
       LOG(LS_ERROR) << "Failed to convert capture frame from type "
                     << static_cast<int>(frameInfo.videoType) << "to I420.";

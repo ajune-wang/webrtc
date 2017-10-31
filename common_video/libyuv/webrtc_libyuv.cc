@@ -208,6 +208,7 @@ int ConvertVideoType(VideoType video_type) {
   return libyuv::FOURCC_ANY;
 }
 
+/*
 // TODO(nisse): Delete this wrapper, let callers use libyuv directly.
 int ConvertToI420(VideoType src_video_type,
                   const uint8_t* src_frame,
@@ -236,7 +237,7 @@ int ConvertToI420(VideoType src_video_type,
       ConvertRotationMode(rotation),
       ConvertVideoType(src_video_type));
 }
-
+*/
 int ConvertFromI420(const VideoFrame& src_frame,
                     VideoType dst_video_type,
                     int dst_sample_size,

@@ -15,6 +15,7 @@
 
 #include "api/video/i420_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "third_party/libyuv/include/libyuv.h"
 
 namespace {
 const size_t kI420HeaderSize = 4;
@@ -204,8 +205,13 @@ int I420Decoder::Decode(const EncodedImage& inputImage,
       I420Buffer::Create(_width, _height);
 
   // Converting from raw buffer I420Buffer.
-  int ret = ConvertToI420(VideoType::kI420, buffer, 0, 0, _width, _height, 0,
-                          kVideoRotation_0, frame_buffer.get());
+  int ret = libyuv::ConvertToI420(
+      buffer, 0, frame_buffer.get()->MutableDataY(),
+      frame_buffer.get()->StrideY(), frame_buffer.get()->MutableDataU(),
+      frame_buffer.get()->StrideU(), frame_buffer.get()->MutableDataV(),
+      frame_buffer.get()->StrideV(), 0, 0,  // No Cropping
+      _width, _height, frame_buffer.get()->width(),
+      frame_buffer.get()->height(), libyuv::kRotate0, libyuv::FOURCC_I420);
   if (ret < 0) {
     return WEBRTC_VIDEO_CODEC_MEMORY;
   }

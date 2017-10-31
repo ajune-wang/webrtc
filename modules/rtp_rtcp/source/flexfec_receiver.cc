@@ -129,6 +129,7 @@ void FlexfecReceiver::ProcessReceivedPacket(
 
   // Return recovered packets through callback.
   for (const auto& recovered_packet : recovered_packets_) {
+    RTC_CHECK(recovered_packet);
     if (recovered_packet->returned) {
       continue;
     }
@@ -136,6 +137,7 @@ void FlexfecReceiver::ProcessReceivedPacket(
     // Set this flag first, since OnRecoveredPacket may end up here
     // again, with the same packet.
     recovered_packet->returned = true;
+    RTC_CHECK(recovered_packet->pkt);
     recovered_packet_receiver_->OnRecoveredPacket(
         recovered_packet->pkt->data, recovered_packet->pkt->length);
     // Periodically log the incoming packets.

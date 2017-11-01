@@ -31,7 +31,6 @@
 // indicates a shared variable should be guarded (by any lock). GUARDED_VAR
 // is primarily used when the client cannot express the name of the lock.
 #define RTC_GUARDED_BY(x) RTC_THREAD_ANNOTATION_ATTRIBUTE__(guarded_by(x))
-#define RTC_GUARDED_VAR RTC_THREAD_ANNOTATION_ATTRIBUTE__(guarded_var)
 
 // Document if the memory location pointed to by a pointer should be guarded
 // by a lock when dereferencing the pointer. Similar to GUARDED_VAR,
@@ -42,7 +41,6 @@
 // guarded by mu2, q should be annotated as follows:
 //     int *q GUARDED_BY(mu1) PT_GUARDED_BY(mu2);
 #define RTC_PT_GUARDED_BY(x) RTC_THREAD_ANNOTATION_ATTRIBUTE__(pt_guarded_by(x))
-#define RTC_PT_GUARDED_VAR RTC_THREAD_ANNOTATION_ATTRIBUTE__(pt_guarded_var)
 
 // Document the acquisition order between locks that can be held
 // simultaneously by a thread. For any two locks that need to be annotated

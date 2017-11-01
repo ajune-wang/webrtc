@@ -8,62 +8,130 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <algorithm>
-
 #include "modules/rtp_rtcp/include/flexfec_receiver.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/basictypes.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 
 namespace {
+
+constexpr size_t kMinInputSize = 22;
+constexpr size_t kMaxPayloadSize = 50;
+
+static uint8_t packet[kRtpHeaderSize + kMaxPayloadSize];
+
 class DummyCallback : public RecoveredPacketReceiver {
-  void OnRecoveredPacket(const uint8_t* packet, size_t length) override {}
+  void OnRecoveredPacket(const uint8_t* packet, size_t length) override {
+    RTC_CHECK(packet);
+  }
 };
 }  // namespace
 
 void FuzzOneInput(const uint8_t* data, size_t size) {
-  constexpr size_t kMinDataNeeded = 12;
-  if (size < kMinDataNeeded) {
+  if (size < kMinInputSize) {
     return;
   }
 
-  uint32_t flexfec_ssrc;
-  memcpy(&flexfec_ssrc, data + 0, 4);
-  uint16_t flexfec_seq_num;
-  memcpy(&flexfec_seq_num, data + 4, 2);
-  uint32_t media_ssrc;
-  memcpy(&media_ssrc, data + 6, 4);
-  uint16_t media_seq_num;
-  memcpy(&media_seq_num, data + 10, 2);
+  size_t i = 0;
 
+  // Base data for RTP headers.
+  packet[0] = 1 << 7;  // RTP version 2. No padding, extensions, CSRCs.
+  uint8_t flexfec_payload_type;
+  memcpy(&flexfec_payload_type, data + i, 1);
+  i += 1;
+  uint16_t flexfec_seq_num;
+  memcpy(&flexfec_seq_num, data + i, 2);
+  i += 2;
+  uint32_t flexfec_timestamp;
+  memcpy(&flexfec_timestamp, data + i, 4);
+  i += 4;
+  uint32_t flexfec_ssrc;
+  memcpy(&flexfec_ssrc, data + i, 4);
+  i += 4;
+  uint8_t media_payload_type;
+  memcpy(&media_payload_type, data + i, 1);
+  i += 1;
+  uint16_t media_seq_num;
+  memcpy(&media_seq_num, data + i, 2);
+  i += 2;
+  const uint16_t original_media_seq_num = media_seq_num;
+  uint32_t media_timestamp;
+  memcpy(&media_timestamp, data + i, 4);
+  i += 4;
+  uint32_t media_ssrc;
+  memcpy(&media_ssrc, data + i, 4);
+  i += 4;
+  RTC_DCHECK_EQ(i, kMinInputSize);
+
+  // Add packets until we run out of data.
   DummyCallback callback;
   FlexfecReceiver receiver(flexfec_ssrc, media_ssrc, &callback);
-
-  std::unique_ptr<uint8_t[]> packet;
-  size_t packet_length;
-  size_t i = kMinDataNeeded;
-  while (i < size) {
-    packet_length = kRtpHeaderSize + data[i++];
-    packet = std::unique_ptr<uint8_t[]>(new uint8_t[packet_length]);
-    if (i + packet_length >= size) {
+  while (true) {
+    // Simulate RTP header explicitly.
+    if (i >= size)
       break;
-    }
-    memcpy(packet.get(), data + i, packet_length);
-    i += packet_length;
-    if (i < size && data[i++] % 2 == 0) {
-      // Simulate FlexFEC packet.
-      ByteWriter<uint16_t>::WriteBigEndian(packet.get() + 2, flexfec_seq_num++);
-      ByteWriter<uint32_t>::WriteBigEndian(packet.get() + 8, flexfec_ssrc);
+    bool is_flexfec = false;
+    if (data[i++] % 3 == 0) {
+      is_flexfec = true;
+      ByteWriter<uint8_t>::WriteBigEndian(packet + 1, flexfec_payload_type);
+      packet[1] &= ~(1 << 7);  // Marker bit unset.
+      ByteWriter<uint16_t>::WriteBigEndian(packet + 2, flexfec_seq_num);
+      ++flexfec_seq_num;
+      ByteWriter<uint32_t>::WriteBigEndian(packet + 4, flexfec_timestamp);
+      flexfec_timestamp += 3000;
+      ByteWriter<uint32_t>::WriteBigEndian(packet + 8, flexfec_ssrc);
     } else {
-      // Simulate media packet.
-      ByteWriter<uint16_t>::WriteBigEndian(packet.get() + 2, media_seq_num++);
-      ByteWriter<uint32_t>::WriteBigEndian(packet.get() + 8, media_ssrc);
+      ByteWriter<uint8_t>::WriteBigEndian(packet + 1, media_payload_type);
+      packet[1] |= (1 << 7);  // Marker bit set.
+      ByteWriter<uint16_t>::WriteBigEndian(packet + 2, media_seq_num);
+      ++media_seq_num;
+      ByteWriter<uint32_t>::WriteBigEndian(packet + 4, media_timestamp);
+      media_timestamp += 3000;
+      ByteWriter<uint32_t>::WriteBigEndian(packet + 8, media_ssrc);
     }
+
+    // Simulate early/late packets by sometimes rewriting the sequence number.
+    if (i + 2 >= size)
+      break;
+    if (data[i++] % 15 == 0) {
+      uint16_t reordered_seq_num;
+      memcpy(&reordered_seq_num, data + i, 2);
+      i += 2;
+      ByteWriter<uint16_t>::WriteBigEndian(packet + 2, reordered_seq_num);
+    }
+
+    // RTP payload.
+    if (i >= size)
+      break;
+    size_t payload_size = data[i++] % kMaxPayloadSize;
+    if (i + payload_size - 1 >= size)
+      break;
+    memcpy(packet + kRtpHeaderSize, data + i, payload_size);
+    i += payload_size;
+
+    // Override parts of FEC header.
+    if (is_flexfec) {
+      // Clear R bit.
+      packet[kRtpHeaderSize] &= ~(1 << 7);
+      // Clear F bit.
+      packet[kRtpHeaderSize] &= ~(1 << 6);
+      // SSRCCount.
+      ByteWriter<uint8_t>::WriteBigEndian(packet + kRtpHeaderSize + 8, 1);
+      // SSRC_i.
+      ByteWriter<uint32_t>::WriteBigEndian(packet + kRtpHeaderSize + 12,
+                                           media_ssrc);
+      // SN base_i.
+      ByteWriter<uint16_t>::WriteBigEndian(packet + kRtpHeaderSize + 16,
+                                           original_media_seq_num);
+    }
+
+    // Receive simulated packet.
     RtpPacketReceived parsed_packet;
-    if (parsed_packet.Parse(packet.get(), packet_length)) {
+    if (parsed_packet.Parse(packet, payload_size)) {
       receiver.OnRtpPacket(parsed_packet);
     }
   }

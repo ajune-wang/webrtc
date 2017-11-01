@@ -130,6 +130,18 @@ rtc_executable("vad") {
   ]
 }
 
+rtc_executable("apm_vad") {
+  sources = [
+    "quality_assessment/apm_vad.cc",
+  ]
+  deps = [
+    "../..",
+    "../../../..:webrtc_common",
+    "../../../../common_audio",
+    "../../../../rtc_base:rtc_base_approved",
+  ]
+}
+
 copy("lib_unit_tests") {
   testonly = true
   sources = [

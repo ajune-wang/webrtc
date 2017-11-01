@@ -33,10 +33,20 @@ class AudioAnnotationsExtractor(object):
   """Extracts annotations from audio files.
   """
 
-  @enum.unique
-  class VadType(enum.Enum):
-    ENERGY_THRESHOLD = 0  # TODO(alessiob): Consider switching to P56 standard.
-    WEBRTC = 1
+  # TODO(aleloi): change to enum.IntEnum when py 3.6 is available.
+  class VadType:
+    ENERGY_THRESHOLD = 1  # TODO(alessiob): Consider switching to P56 standard.
+    WEBRTC_COMMON_AUDIO = 2  # common_audio/vad/include/vad.h
+    WEBRTC_APM = 4  # modules/audio_processing/vad/vad.h
+
+    def __init__(self, value):
+      if (not isinstance(value, int)) or not (1 <= value <= 7):
+        raise exceptions.InitializationException(
+            'Invalid vad type: ' + value)
+      self._value = value
+
+    def contains(self, vad_type):
+      return self._value | vad_type == self._value
 
   _OUTPUT_FILENAME = 'annotations.npz'
 
@@ -52,25 +62,29 @@ class AudioAnnotationsExtractor(object):
   _VAD_THRESHOLD = 1
   _VAD_WEBRTC_PATH = os.path.join(os.path.dirname(
       os.path.abspath(__file__)), os.pardir, os.pardir)
-  _VAD_WEBRTC_BIN_PATH = os.path.join(_VAD_WEBRTC_PATH, 'vad')
+  _VAD_WEBRTC_COMMON_AUDIO_BIN_PATH = os.path.join(_VAD_WEBRTC_PATH, 'vad')
+
+  _VAD_WEBRTC_APM_BIN_PATH = os.path.join(
+      _VAD_WEBRTC_PATH, 'apm_vad')
 
   def __init__(self, vad_type):
     self._signal = None
     self._level = None
     self._level_frame_size = None
     self._vad_output = None
+    self._vad_energy_output = None
+    self._vad_probs = None
+    self._vad_rms = None
     self._vad_frame_size = None
     self._vad_frame_size_ms = None
     self._c_attack = None
     self._c_decay = None
 
-    self._vad_type = vad_type
-    if self._vad_type not in self.VadType:
-      raise exceptions.InitializationException(
-          'Invalid vad type: ' + self._vad_type)
+    self._vad_type = VadType(vad_type)
     logging.info('VAD used for annotations: ' + str(self._vad_type))
 
-    assert os.path.exists(self._VAD_WEBRTC_BIN_PATH), self._VAD_WEBRTC_BIN_PATH
+    assert os.path.exists(self._VAD_WEBRTC_COMMON_AUDIO_BIN_PATH), self._VAD_WEBRTC_COMMON_AUDIO_BIN_PATH
+    assert os.path.exists(self._VAD_WEBRTC_APM_BIN_PATH), self._VAD_WEBRTC_APM_BIN_PATH
 
   @classmethod
   def GetOutputFileName(cls):
@@ -115,15 +129,18 @@ class AudioAnnotationsExtractor(object):
     self._LevelEstimation()
 
     # Ideal VAD output, it requires clean speech with high SNR as input.
-    if self._vad_type == self.VadType.ENERGY_THRESHOLD:
+    if self._vad_type.contains(self.VadType.ENERGY_THRESHOLD):
       # Naive VAD based on level thresholding.
       vad_threshold = np.percentile(self._level, self._VAD_THRESHOLD)
-      self._vad_output = np.uint8(self._level > vad_threshold)
+      self._vad_energy_output = np.uint8(self._level > vad_threshold)
       self._vad_frame_size = self._level_frame_size
       self._vad_frame_size_ms = self._LEVEL_FRAME_SIZE_MS
-    elif self._vad_type == self.VadType.WEBRTC:
+    if self._vad_type.contains(self.VadType.WEBRTC_COMMON_AUDIO):
       # WebRTC VAD.
-      self._RunWebRtcVad(filepath, self._signal.frame_rate)
+      self._RunWebRtcCommonAudioVad(filepath, self._signal.frame_rate)
+    if self._vad_type.contains(self.VadType.WEBRTC_APM):
+      # WebRTC VAD.
+      self._RunWebRtcAPMVad(filepath, self._signal.frame_rate)
 
   def Save(self, output_path):
     np.savez_compressed(
@@ -132,8 +149,12 @@ class AudioAnnotationsExtractor(object):
         level_frame_size=self._level_frame_size,
         level_frame_size_ms=self._LEVEL_FRAME_SIZE_MS,
         vad_output=self._vad_output,
+        vad_energy_output=self._vad_energy_output,
         vad_frame_size=self._vad_frame_size,
-        vad_frame_size_ms=self._vad_frame_size_ms)
+        vad_frame_size_ms=self._vad_frame_size_ms,
+        vad_probs=self._vad_probs,
+        vad_rms=self._vad_rms
+    )
 
   def _LevelEstimation(self):
     # Read samples.
@@ -155,7 +176,7 @@ class AudioAnnotationsExtractor(object):
           self._level[i], self._level[i - 1], self._c_attack if (
               self._level[i] > self._level[i - 1]) else self._c_decay)
 
-  def _RunWebRtcVad(self, wav_file_path, sample_rate):
+  def _RunWebRtcCommonAudioVad(self, wav_file_path, sample_rate):
     self._vad_output = None
     self._vad_frame_size = None
 
@@ -167,7 +188,7 @@ class AudioAnnotationsExtractor(object):
     # Call WebRTC VAD.
     try:
       subprocess.call([
-          self._VAD_WEBRTC_BIN_PATH,
+          self._VAD_WEBRTC_COMMON_AUDIO_BIN_PATH,
           '-i', wav_file_path,
           '-o', output_file_path
       ], cwd=self._VAD_WEBRTC_PATH)
@@ -194,6 +215,34 @@ class AudioAnnotationsExtractor(object):
         for j in range(8 if i < num_bytes - 3 else (8 - extra_bits)):
           self._vad_output[i * 8 + j] = int(byte & 1)
           byte = byte >> 1
+    except Exception as e:
+      logging.error('Error while running the WebRTC VAD (' + e.message + ')')
+    finally:
+      if os.path.exists(tmp_path):
+        shutil.rmtree(tmp_path)
+
+  def _RunWebRtcAPMVad(self, wav_file_path, sample_rate):
+    # Create temporary output path.
+    tmp_path = tempfile.mkdtemp()
+    output_file_path_probs = os.path.join(
+        tmp_path, os.path.split(wav_file_path)[1] + '_vad.tmp')
+    output_file_path_rms = os.path.join(
+        tmp_path, os.path.split(wav_file_path)[1] + '_vad.tmp')
+
+    # Call WebRTC VAD.
+    try:
+      subprocess.call([
+          self._VAD_WEBRTC_COMMON_AUDIO_BIN_PATH,
+          '-i', wav_file_path,
+          '-o_probs', output_file_path_probs,
+          '-o_rms', output_file_rms
+      ], cwd=self._VAD_WEBRTC_PATH)
+
+      # Parse annotations.
+      self._vad_probs = np.fromfile(output_file_path_probs, np.double)
+      self._vad_rms = np.fromfile(output_file_path_rms, np.double)
+      assert len(self._vad_rms) == len(self._vad_probs)
+
     except Exception as e:
       logging.error('Error while running the WebRTC VAD (' + e.message + ')')
     finally:

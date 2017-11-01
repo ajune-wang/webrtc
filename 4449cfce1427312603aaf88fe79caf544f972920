@@ -22,6 +22,30 @@
       "revId": "4449cfce1427312603aaf88fe79caf544f972920",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f75f21_5a309b1c",
+        "filename": "rtc_base/numerics/moving_median_filter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-11-01T13:01:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96c1bec2_37f9ece0",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "4449cfce1427312603aaf88fe79caf544f972920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

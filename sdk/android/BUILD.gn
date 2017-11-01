@@ -119,6 +119,8 @@ rtc_static_library("video_jni") {
     "src/jni/videofilerenderer_jni.cc",
     "src/jni/videoframe_jni.cc",
     "src/jni/videotrack_jni.cc",
+    "src/jni/vp8codec_jni.cc",
+    "src/jni/vp9codec_jni.cc",
     "src/jni/wrapped_native_i420_buffer.cc",
     "src/jni/wrapped_native_i420_buffer.h",
   ]
@@ -157,6 +159,8 @@ rtc_static_library("video_jni") {
     "../../modules/utility:utility",
     "../../modules/video_coding:codec_globals_headers",
     "../../modules/video_coding:video_coding_utility",
+    "../../modules/video_coding:webrtc_vp8",
+    "../../modules/video_coding:webrtc_vp9",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:rtc_task_queue",
@@ -193,9 +197,11 @@ rtc_static_library("media_jni") {
 
   deps = [
     ":base_jni",
+    "../../api/video_codecs:video_codecs_api",
     "../../call:call_interfaces",
     "../../logging:rtc_event_log_api",
     "../../media:rtc_audio_video",
+    "../../modules/audio_device:audio_device",
     "../../modules/audio_processing:audio_processing",
   ]
 
@@ -216,6 +222,14 @@ rtc_static_library("null_media_jni") {
   deps = [
     ":base_jni",
   ]
+
+  if (is_clang) {
+    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+    suppressed_configs += [
+      "//build/config/clang:extra_warnings",
+      "//build/config/clang:find_bad_constructs",
+    ]
+  }
 }
 
 rtc_static_library("peerconnection_jni") {
@@ -278,8 +292,10 @@ rtc_static_library("peerconnection_jni") {
   deps = [
     ":base_jni",
     "../..:webrtc_common",
+    "../../api/video_codecs:video_codecs_api",
     "../../media:rtc_data",
     "../../media:rtc_media_base",
+    "../../modules/audio_device:audio_device",
     "../../modules/utility:utility",
     "../../pc:peerconnection",
     "../../rtc_base:rtc_base",
@@ -443,6 +459,10 @@ android_library("libjingle_peerconnection_java") {
     "api/org/webrtc/VideoSource.java",
     "api/org/webrtc/VideoTrack.java",
     "api/org/webrtc/YuvConverter.java",
+    "api/org/webrtc/SoftwareVideoEncoderFactory.java",
+    "api/org/webrtc/SoftwareVideoDecoderFactory.java",
+    "api/org/webrtc/DefaultVideoEncoderFactory.java",
+    "api/org/webrtc/DefaultVideoDecoderFactory.java",
     "src/java/org/webrtc/AndroidVideoTrackSourceObserver.java",
     "src/java/org/webrtc/BaseBitrateAdjuster.java",
     "src/java/org/webrtc/BitrateAdjuster.java",
@@ -468,6 +488,12 @@ android_library("libjingle_peerconnection_java") {
     "src/java/org/webrtc/VideoDecoderWrapperCallback.java",
     "src/java/org/webrtc/VideoEncoderWrapperCallback.java",
     "src/java/org/webrtc/WrappedNativeI420Buffer.java",
+    "src/java/org/webrtc/WrappedNativeVideoEncoder.java",
+    "src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+    "src/java/org/webrtc/VP8Encoder.java",
+    "src/java/org/webrtc/VP8Decoder.java",
+    "src/java/org/webrtc/VP9Encoder.java",
+    "src/java/org/webrtc/VP9Decoder.java",
   ]
 
   deps = [

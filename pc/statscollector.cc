@@ -837,6 +837,7 @@ void StatsCollector::ExtractBweInfo() {
   bwe_info.bucket_delay = call_stats.pacer_delay_ms;
   // Fill in target encoder bitrate, actual encoder bitrate, rtx bitrate, etc.
   // TODO(holmer): Also fill this in for audio.
+  // TODO(steveanton): How does this work with multiple video channels?
   if (pc_->video_channel()) {
     pc_->video_channel()->FillBitrateInfo(&bwe_info);
   }
@@ -848,31 +849,33 @@ void StatsCollector::ExtractBweInfo() {
 void StatsCollector::ExtractVoiceInfo() {
   RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
 
-  if (!pc_->voice_channel()) {
-    return;
-  }
-  cricket::VoiceMediaInfo voice_info;
-  if (!pc_->voice_channel()->GetStats(&voice_info)) {
-    LOG(LS_ERROR) << "Failed to get voice channel stats.";
-    return;
-  }
+  for (cricket::VoiceChannel* voice_channel : pc_->voice_channels()) {
+    const std::string& mid = voice_channel->content_name();
 
-  // TODO(tommi): The above code should run on the worker thread and post the
-  // results back to the signaling thread, where we can add data to the reports.
-  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+    cricket::VoiceMediaInfo voice_info;
+    if (!voice_channel->GetStats(&voice_info)) {
+      LOG(LS_ERROR) << "Failed to get voice channel stats (" << mid << ").";
+      return;
+    }
 
-  StatsReport::Id transport_id(GetTransportIdFromProxy(
-      proxy_to_transport_, pc_->voice_channel()->content_name()));
-  if (!transport_id.get()) {
-    LOG(LS_ERROR) << "Failed to get transport name for proxy "
-                  << pc_->voice_channel()->content_name();
-    return;
+    // TODO(tommi): The above code should run on the worker thread and post the
+    // results back to the signaling thread, where we can add data to the
+    // reports.
+    rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+
+    StatsReport::Id transport_id(
+        GetTransportIdFromProxy(proxy_to_transport_, mid));
+    if (!transport_id.get()) {
+      LOG(LS_ERROR) << "Failed to get transport name for proxy (" << mid
+                    << ").";
+      return;
+    }
+
+    ExtractStatsFromList(voice_info.receivers, transport_id, this,
+                         StatsReport::kReceive);
+    ExtractStatsFromList(voice_info.senders, transport_id, this,
+                         StatsReport::kSend);
   }
-
-  ExtractStatsFromList(voice_info.receivers, transport_id, this,
-      StatsReport::kReceive);
-  ExtractStatsFromList(voice_info.senders, transport_id, this,
-      StatsReport::kSend);
 
   UpdateStatsFromExistingLocalAudioTracks();
 }
@@ -881,30 +884,33 @@ void StatsCollector::ExtractVideoInfo(
     PeerConnectionInterface::StatsOutputLevel level) {
   RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
 
-  if (!pc_->video_channel())
-    return;
+  for (cricket::VideoChannel* video_channel : pc_->video_channels()) {
+    const std::string& mid = video_channel->content_name();
 
-  cricket::VideoMediaInfo video_info;
-  if (!pc_->video_channel()->GetStats(&video_info)) {
-    LOG(LS_ERROR) << "Failed to get video channel stats.";
-    return;
+    cricket::VideoMediaInfo video_info;
+    if (!video_channel->GetStats(&video_info)) {
+      LOG(LS_ERROR) << "Failed to get video channel stats (" << mid << ").";
+      return;
+    }
+
+    // TODO(tommi): The above code should run on the worker thread and post the
+    // results back to the signaling thread, where we can add data to the
+    // reports.
+    rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+
+    StatsReport::Id transport_id(
+        GetTransportIdFromProxy(proxy_to_transport_, mid));
+    if (!transport_id.get()) {
+      LOG(LS_ERROR) << "Failed to get transport name for proxy (" << mid
+                    << ").";
+      return;
+    }
+
+    ExtractStatsFromList(video_info.receivers, transport_id, this,
+                         StatsReport::kReceive);
+    ExtractStatsFromList(video_info.senders, transport_id, this,
+                         StatsReport::kSend);
   }
-
-  // TODO(tommi): The above code should run on the worker thread and post the
-  // results back to the signaling thread, where we can add data to the reports.
-  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
-
-  StatsReport::Id transport_id(GetTransportIdFromProxy(
-      proxy_to_transport_, pc_->video_channel()->content_name()));
-  if (!transport_id.get()) {
-    LOG(LS_ERROR) << "Failed to get transport name for proxy "
-                  << pc_->video_channel()->content_name();
-    return;
-  }
-  ExtractStatsFromList(video_info.receivers, transport_id, this,
-      StatsReport::kReceive);
-  ExtractStatsFromList(video_info.senders, transport_id, this,
-      StatsReport::kSend);
 }
 
 void StatsCollector::ExtractSenderInfo() {

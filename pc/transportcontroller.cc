@@ -207,12 +207,16 @@ bool TransportController::ReadyForRemoteCandidates(
 
 bool TransportController::GetStats(const std::string& transport_name,
                                    TransportStats* stats) {
-  if (network_thread_->IsCurrent()) {
-    return GetStats_n(transport_name, stats);
+  if (!network_thread_->IsCurrent()) {
+    return network_thread_->Invoke<bool>(
+        RTC_FROM_HERE, [&] { return GetStats(transport_name, stats); });
   }
-  return network_thread_->Invoke<bool>(
-      RTC_FROM_HERE,
-      rtc::Bind(&TransportController::GetStats_n, this, transport_name, stats));
+
+  JsepTransport* transport = GetJsepTransport(transport_name);
+  if (!transport) {
+    return false;
+  }
+  return transport->GetStats(stats);
 }
 
 void TransportController::SetMetricsObserver(
@@ -736,17 +740,6 @@ bool TransportController::ReadyForRemoteCandidates_n(
     return false;
   }
   return transport->ready_for_remote_candidates();
-}
-
-bool TransportController::GetStats_n(const std::string& transport_name,
-                                     TransportStats* stats) {
-  RTC_DCHECK(network_thread_->IsCurrent());
-
-  JsepTransport* transport = GetJsepTransport(transport_name);
-  if (!transport) {
-    return false;
-  }
-  return transport->GetStats(stats);
 }
 
 void TransportController::SetMetricsObserver_n(

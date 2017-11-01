@@ -19,9 +19,9 @@
 
 #include "api/peerconnectioninterface.h"
 #include "api/turncustomizer.h"
+#include "pc/datachannel.h"
 #include "pc/iceserverparsing.h"
 #include "pc/peerconnectionfactory.h"
-#include "pc/rtcstatscollector.h"
 #include "pc/rtpreceiver.h"
 #include "pc/rtpsender.h"
 #include "pc/statscollector.h"
@@ -33,6 +33,9 @@ namespace webrtc {
 class MediaStreamObserver;
 class VideoRtpReceiver;
 class RtcEventLog;
+// Need to forward declare to avoid circular dependency.
+class RTCStatsCollector;
+class RTCStatsCollectorCallback;
 
 // Statistics for all the transports of the session.
 // TODO(pthatcher): Think of a better name for this.  We already have
@@ -43,17 +46,8 @@ struct SessionStats {
 };
 
 struct ChannelNamePair {
-  ChannelNamePair(const std::string& content_name,
-                  const std::string& transport_name)
-      : content_name(content_name), transport_name(transport_name) {}
   std::string content_name;
   std::string transport_name;
-};
-
-struct ChannelNamePairs {
-  rtc::Optional<ChannelNamePair> voice;
-  rtc::Optional<ChannelNamePair> video;
-  rtc::Optional<ChannelNamePair> data;
 };
 
 // PeerConnection is the implementation of the PeerConnection object as defined
@@ -210,14 +204,15 @@ class PeerConnection : public PeerConnectionInterface,
 
   // Returns stats for all channels of all transports.
   // This avoids exposing the internal structures used to track them.
-  // The parameterless version creates |ChannelNamePairs| from |voice_channel|,
-  // |video_channel| and |voice_channel| if available - this requires it to be
-  // called on the signaling thread - and invokes the other |GetStats|. The
-  // other |GetStats| can be invoked on any thread; if not invoked on the
+  // The parameterless version creates |ChannelNamePairs| from all available
+  // channels (voice, video, data) this requires it to be called on the
+  // signaling thread - and invokes the other |GetSessionStats|. The other
+  // |GetSessionStats| can be invoked on any thread; if not invoked on the
   // network thread a thread hop will happen.
   std::unique_ptr<SessionStats> GetSessionStats_s();
+  std::vector<ChannelNamePair> GetChannelNamePairs() const;
   virtual std::unique_ptr<SessionStats> GetSessionStats(
-      const ChannelNamePairs& channel_name_pairs);
+      const std::vector<ChannelNamePair>& channel_name_pairs);
 
   // virtual so it can be mocked in unit tests
   virtual bool GetLocalCertificate(
@@ -232,19 +227,25 @@ class PeerConnection : public PeerConnectionInterface,
 
   // Exposed for stats collecting.
   // TODO(steveanton): Switch callers to use the plural form and remove these.
-  virtual cricket::VoiceChannel* voice_channel() {
-    if (voice_channels_.empty()) {
+  cricket::VoiceChannel* voice_channel() {
+    if (voice_channels().empty()) {
       return nullptr;
     } else {
-      return voice_channels_[0];
+      return voice_channels()[0];
     }
   }
-  virtual cricket::VideoChannel* video_channel() {
-    if (video_channels_.empty()) {
+  cricket::VideoChannel* video_channel() {
+    if (video_channels().empty()) {
       return nullptr;
     } else {
-      return video_channels_[0];
+      return video_channels()[0];
     }
+  }
+  virtual std::vector<cricket::VoiceChannel*> voice_channels() const {
+    return voice_channels_;
+  }
+  virtual std::vector<cricket::VideoChannel*> video_channels() const {
+    return video_channels_;
   }
 
   // Only valid when using deprecated RTP data channels.
@@ -530,13 +531,6 @@ class PeerConnection : public PeerConnectionInterface,
   Error error() const { return error_; }
   const std::string& error_desc() const { return error_desc_; }
 
-  virtual std::vector<cricket::VoiceChannel*> voice_channels() const {
-    return voice_channels_;
-  }
-  virtual std::vector<cricket::VideoChannel*> video_channels() const {
-    return video_channels_;
-  }
-
   cricket::BaseChannel* GetChannel(const std::string& content_name);
 
   // Get current SSL role used by SCTP's underlying transport.
@@ -659,9 +653,6 @@ class PeerConnection : public PeerConnectionInterface,
                           const std::string* bundle_transport);
   bool CreateDataChannel(const cricket::ContentInfo* content,
                          const std::string* bundle_transport);
-
-  std::unique_ptr<SessionStats> GetSessionStats_n(
-      const ChannelNamePairs& channel_name_pairs);
 
   bool CreateSctpTransport_n(const std::string& content_name,
                              const std::string& transport_name);

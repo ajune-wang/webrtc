@@ -31,6 +31,7 @@
 #include "pc/mediastream.h"
 #include "pc/mediastreamobserver.h"
 #include "pc/remoteaudiosource.h"
+#include "pc/rtcstatscollector.h"
 #include "pc/rtpreceiver.h"
 #include "pc/rtpsender.h"
 #include "pc/sctputils.h"
@@ -3785,37 +3786,55 @@ bool PeerConnection::ReadyToSendData() const {
 
 std::unique_ptr<SessionStats> PeerConnection::GetSessionStats_s() {
   RTC_DCHECK(signaling_thread()->IsCurrent());
-  ChannelNamePairs channel_name_pairs;
-  if (voice_channel()) {
-    channel_name_pairs.voice = rtc::Optional<ChannelNamePair>(ChannelNamePair(
-        voice_channel()->content_name(), voice_channel()->transport_name()));
+
+  return GetSessionStats(GetChannelNamePairs());
+}
+
+std::vector<ChannelNamePair> PeerConnection::GetChannelNamePairs() const {
+  RTC_DCHECK(signaling_thread()->IsCurrent());
+
+  std::vector<ChannelNamePair> channel_name_pairs;
+  for (auto* channel : Channels()) {
+    ChannelNamePair pair;
+    pair.content_name = channel->content_name();
+    pair.transport_name = channel->transport_name();
+    channel_name_pairs.emplace_back(std::move(pair));
   }
-  if (video_channel()) {
-    channel_name_pairs.video = rtc::Optional<ChannelNamePair>(ChannelNamePair(
-        video_channel()->content_name(), video_channel()->transport_name()));
-  }
-  if (rtp_data_channel()) {
-    channel_name_pairs.data = rtc::Optional<ChannelNamePair>(
-        ChannelNamePair(rtp_data_channel()->content_name(),
-                        rtp_data_channel()->transport_name()));
-  }
+
   if (sctp_transport_) {
     RTC_DCHECK(sctp_content_name_);
     RTC_DCHECK(sctp_transport_name_);
-    channel_name_pairs.data = rtc::Optional<ChannelNamePair>(
-        ChannelNamePair(*sctp_content_name_, *sctp_transport_name_));
+
+    ChannelNamePair pair;
+    pair.content_name = *sctp_content_name_;
+    pair.transport_name = *sctp_transport_name_;
+    channel_name_pairs.emplace_back(std::move(pair));
   }
-  return GetSessionStats(channel_name_pairs);
+
+  return channel_name_pairs;
 }
 
 std::unique_ptr<SessionStats> PeerConnection::GetSessionStats(
-    const ChannelNamePairs& channel_name_pairs) {
-  if (network_thread()->IsCurrent()) {
-    return GetSessionStats_n(channel_name_pairs);
+    const std::vector<ChannelNamePair>& channel_name_pairs) {
+  if (!network_thread()->IsCurrent()) {
+    return network_thread()->Invoke<std::unique_ptr<SessionStats>>(
+        RTC_FROM_HERE, [&] { return GetSessionStats(channel_name_pairs); });
   }
-  return network_thread()->Invoke<std::unique_ptr<SessionStats>>(
-      RTC_FROM_HERE,
-      rtc::Bind(&PeerConnection::GetSessionStats_n, this, channel_name_pairs));
+
+  auto session_stats = rtc::MakeUnique<SessionStats>();
+  for (const auto& channel_name_pair : channel_name_pairs) {
+    const std::string& content_name = channel_name_pair.content_name;
+    const std::string& transport_name = channel_name_pair.transport_name;
+
+    cricket::TransportStats transport_stats;
+    if (!transport_controller_->GetStats(transport_name, &transport_stats)) {
+      return nullptr;
+    }
+    session_stats->proxy_to_transport[content_name] = transport_name;
+    session_stats->transport_stats[transport_name] = std::move(transport_stats);
+  }
+
+  return session_stats;
 }
 
 bool PeerConnection::GetLocalCertificate(
@@ -4315,28 +4334,6 @@ Call::Stats PeerConnection::GetCallStats() {
   } else {
     return Call::Stats();
   }
-}
-
-std::unique_ptr<SessionStats> PeerConnection::GetSessionStats_n(
-    const ChannelNamePairs& channel_name_pairs) {
-  RTC_DCHECK(network_thread()->IsCurrent());
-  std::unique_ptr<SessionStats> session_stats(new SessionStats());
-  for (const auto channel_name_pair :
-       {&channel_name_pairs.voice, &channel_name_pairs.video,
-        &channel_name_pairs.data}) {
-    if (*channel_name_pair) {
-      cricket::TransportStats transport_stats;
-      if (!transport_controller_->GetStats((*channel_name_pair)->transport_name,
-                                           &transport_stats)) {
-        return nullptr;
-      }
-      session_stats->proxy_to_transport[(*channel_name_pair)->content_name] =
-          (*channel_name_pair)->transport_name;
-      session_stats->transport_stats[(*channel_name_pair)->transport_name] =
-          std::move(transport_stats);
-    }
-  }
-  return session_stats;
 }
 
 bool PeerConnection::CreateSctpTransport_n(const std::string& content_name,

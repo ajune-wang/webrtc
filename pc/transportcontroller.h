@@ -225,7 +225,6 @@ class TransportController : public sigslot::has_slots<>,
                              std::string* err);
   bool RemoveRemoteCandidates_n(const Candidates& candidates, std::string* err);
   bool ReadyForRemoteCandidates_n(const std::string& transport_name) const;
-  bool GetStats_n(const std::string& transport_name, TransportStats* stats);
   void SetMetricsObserver_n(webrtc::MetricsObserverInterface* metrics_observer);
 
   // Handlers for signals from Transport.

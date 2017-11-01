@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d6a92b52_f4453196",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-01T10:46:48Z",
+      "side": 1,
+      "message": "Since it is only used in tests, I think it is better to duplicate a small piece of code than exposing it to the production code. I prefer keeping as-is.",
+      "parentUuid": "f623f53d_7c03ba09",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 1
+      },
+      "revId": "726032254f46334d36d3c19927668530cf12bf03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68cb36e0_4b3899ad",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "726032254f46334d36d3c19927668530cf12bf03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf410269_29d7b405",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-01T10:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68cb36e0_4b3899ad",
+      "revId": "726032254f46334d36d3c19927668530cf12bf03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "8ad00ead_48f967df",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-01T10:46:48Z",
+      "side": 1,
+      "message": "Yes, thanks. Done.",
+      "parentUuid": "7b9697da_391530c1",
+      "revId": "726032254f46334d36d3c19927668530cf12bf03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "059f7e1e_2913516e",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -73,6 +133,24 @@
       "revId": "726032254f46334d36d3c19927668530cf12bf03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef0f46c2_cf7eb856",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-01T10:46:48Z",
+      "side": 1,
+      "message": "Updated the comment as discussed offline.",
+      "parentUuid": "059f7e1e_2913516e",
+      "revId": "726032254f46334d36d3c19927668530cf12bf03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

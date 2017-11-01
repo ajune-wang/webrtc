@@ -225,6 +225,9 @@ class AudioSourceInterface : public MediaSourceInterface {
 // statistics.
 class AudioProcessorInterface : public rtc::RefCountInterface {
  public:
+  // Deprecated, use AudioProcessorStatistics instead.
+  // TODO(ivoc): Remove this when all implementations have switched to the new
+  //             GetStats function.
   struct AudioProcessorStats {
     AudioProcessorStats()
         : typing_noise_detected(false),
@@ -248,9 +251,26 @@ class AudioProcessorInterface : public rtc::RefCountInterface {
     float residual_echo_likelihood_recent_max;
     float aec_divergent_filter_fraction;
   };
+  // This struct maintains the optionality of the stats, and will replace the
+  // regular stats struct when all users have been updated.
+  struct AudioProcessorStatistics {
+    bool typing_noise_detected = false;
+    rtc::Optional<int> echo_return_loss;
+    rtc::Optional<int> echo_return_loss_enhancement;
+    rtc::Optional<int> echo_delay_median_ms;
+    rtc::Optional<int> echo_delay_std_ms;
+    rtc::Optional<float> aec_quality_min;
+    rtc::Optional<float> residual_echo_likelihood;
+    rtc::Optional<float> residual_echo_likelihood_recent_max;
+    rtc::Optional<float> aec_divergent_filter_fraction;
+  };
 
   // Get audio processor statistics.
   virtual void GetStats(AudioProcessorStats* stats) = 0;
+
+  // Get audio processor statistics.
+  // TODO(ivoc): Make pure virtual when all implementions are updated.
+  virtual AudioProcessorStatistics GetStats();
 
  protected:
   virtual ~AudioProcessorInterface() {}

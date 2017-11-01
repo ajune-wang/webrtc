@@ -9,6 +9,11 @@ vars = {
   'webrtc_git': 'https://webrtc.googlesource.com',
   'chromium_revision': '07493032b5cf9f46de1d43087be1d3cdad6f1bb8',
   'boringssl_git': 'https://boringssl.googlesource.com',
+  'absl_git': 'https://github.com/abseil/abseil-cpp.git',
+  # Three lines of non-changing comments so that
+  # the commit queue can handle CLs rolling swarming_client
+  # and whatever else without interference from each other.
+  'absl_revision': '0fece732a21c5ae8fef5fa8b3f0b8487bca68d83',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
   # and whatever else without interference from each other.
@@ -63,6 +68,7 @@ deps = {
   },
   'src/third_party/boringssl/src':
     Var('boringssl_git') + '/boringssl.git' + '@' +  Var('boringssl_revision'),
+  'src/third_party/abseil_cpp': Var('absl_git') + '@' + Var('absl_revision'),
   'src/third_party/catapult':
     Var('chromium_git') + '/catapult.git' + '@' + Var('catapult_revision'),
   'src/third_party/ced/src': {
@@ -626,6 +632,15 @@ hooks = [
                'download',
                '-b', 'chromium-objenesis',
                '-l', 'third_party/objenesis'
+    ],
+  },
+  {
+    'name': 'absl_generate_gn',
+    'pattern': '.',
+    'action': ['python',
+               'src/tools_webrtc/absl_bazel_to_gn.py',
+               '--library_root', 'src/third_party/abseil_cpp/absl',
+               '--include_dirs', '//third_party/abseil_cpp'
     ],
   },
 ]

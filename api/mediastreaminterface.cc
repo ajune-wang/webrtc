@@ -15,4 +15,10 @@ namespace webrtc {
 const char MediaStreamTrackInterface::kVideoKind[] = "video";
 const char MediaStreamTrackInterface::kAudioKind[] = "audio";
 
+// TODO(ivoc): Remove this when the function becomes pure virtual.
+AudioProcessorInterface::AudioProcessorStatistics
+AudioProcessorInterface::GetStats() {
+  return AudioProcessorStatistics();
+}
+
 }  // namespace webrtc

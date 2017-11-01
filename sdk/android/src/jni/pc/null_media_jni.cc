@@ -10,6 +10,8 @@
 
 #include "sdk/android/src/jni/pc/media_jni.h"
 
+#include "media/engine/webrtcmediaengine.h"
+
 namespace webrtc {
 namespace jni {
 
@@ -27,6 +29,17 @@ cricket::MediaEngineInterface* CreateMediaEngine(
     const rtc::scoped_refptr<AudioDecoderFactory>& audio_decoder_factory,
     cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
     cricket::WebRtcVideoDecoderFactory* video_decoder_factory,
+    rtc::scoped_refptr<AudioMixer> audio_mixer,
+    rtc::scoped_refptr<AudioProcessing> audio_processor) {
+  return nullptr;
+}
+
+std::unique_ptr<cricket::MediaEngineInterface> CreateMediaEngine(
+    rtc::scoped_refptr<AudioDeviceModule> adm,
+    rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory,
+    rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
+    std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
+    std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
     rtc::scoped_refptr<AudioProcessing> audio_processor) {
   return nullptr;

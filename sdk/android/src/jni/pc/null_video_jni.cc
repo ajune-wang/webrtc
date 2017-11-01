@@ -10,18 +10,29 @@
 
 #include "sdk/android/src/jni/pc/video_jni.h"
 
+#include "api/video_codecs/video_decoder_factory.h"
+#include "api/video_codecs/video_encoder_factory.h"
+
 namespace webrtc {
 namespace jni {
 
-cricket::WebRtcVideoEncoderFactory* CreateVideoEncoderFactory(
+std::unique_ptr<VideoEncoderFactory> CreateVideoEncoderFactory(
     JNIEnv* jni,
     jobject j_encoder_factory) {
   return nullptr;
 }
 
-cricket::WebRtcVideoDecoderFactory* CreateVideoDecoderFactory(
+std::unique_ptr<VideoDecoderFactory> CreateVideoDecoderFactory(
     JNIEnv* jni,
     jobject j_decoder_factory) {
+  return nullptr;
+}
+
+cricket::WebRtcVideoEncoderFactory* CreateLegacyVideoEncoderFactory() {
+  return nullptr;
+}
+
+cricket::WebRtcVideoDecoderFactory* CreateLegacyVideoDecoderFactory() {
   return nullptr;
 }
 

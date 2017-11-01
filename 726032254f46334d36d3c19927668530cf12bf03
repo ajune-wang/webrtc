@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f623f53d_7c03ba09",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-01T09:12:43Z",
+      "side": 1,
+      "message": "Do you think it might make sense to move these into rtp_header_extension_map.h, thereby allowing us to avoid their duplication?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 1
+      },
+      "revId": "726032254f46334d36d3c19927668530cf12bf03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68cb36e0_4b3899ad",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-01T09:12:43Z",
+      "side": 1,
+      "message": "1. Append S to the function name?\n\n2. Even if we\u0027re only supporting a pair of extensions, I would still prefer returning a vector. This will:\n2.1. Allow us to change the number of extensions we return more easily in the future, even if hard-coded.\n2.2. Allow us to specify the number of extensions as a parameter to the function.\n2.3. Create more generic code on the function caller\u0027s side - iterating over a container rather than doing the same thing twice, once for |first| and once for |second|.",
+      "revId": "726032254f46334d36d3c19927668530cf12bf03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b9697da_391530c1",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-01T09:12:43Z",
+      "side": 1,
+      "message": "I think you meant -1 here.",
+      "revId": "726032254f46334d36d3c19927668530cf12bf03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "059f7e1e_2913516e",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-01T09:12:43Z",
+      "side": 1,
+      "message": "My apologies; I intend to always take care of this kind of TODO (!!!) before landing. In this case, I think it\u0027s okay to keep it as a normal TODO, rather than take care of it immediately. Could you please remove the \"!!!\" for me?",
+      "revId": "726032254f46334d36d3c19927668530cf12bf03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

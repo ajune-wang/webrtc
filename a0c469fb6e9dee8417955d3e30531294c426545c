@@ -81,6 +81,24 @@
       "revId": "a0c469fb6e9dee8417955d3e30531294c426545c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a88d737_cd0a14fb",
+        "filename": "rtc_base/thread_annotations_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-01T10:18:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "24b6b33f_f95e90e7",
+      "revId": "a0c469fb6e9dee8417955d3e30531294c426545c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

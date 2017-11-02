@@ -38,6 +38,13 @@ const char* const RTCDtlsTransportState::kFailed = "failed";
 const char* const RTCMediaStreamTrackKind::kAudio = "audio";
 const char* const RTCMediaStreamTrackKind::kVideo = "video";
 
+const char* const RTCNetworkType::kUnknown = "unknown";
+const char* const RTCNetworkType::kEthernet = "ethernet";
+const char* const RTCNetworkType::kWifi = "wifi";
+const char* const RTCNetworkType::kCellular = "cellular";
+const char* const RTCNetworkType::kVpn = "vpn";
+const char* const RTCNetworkType::kLoopback = "loopback";
+
 // clang-format off
 WEBRTC_RTCSTATS_IMPL(RTCCertificateStats, RTCStats, "certificate",
     &fingerprint,
@@ -259,6 +266,7 @@ WEBRTC_RTCSTATS_IMPL(RTCIceCandidateStats, RTCStats, "ice-candidate",
     &ip,
     &port,
     &protocol,
+    &network_type,
     &candidate_type,
     &priority,
     &url,
@@ -270,19 +278,20 @@ RTCIceCandidateStats::RTCIceCandidateStats(
     : RTCIceCandidateStats(std::string(id), timestamp_us, is_remote) {
 }
 
-RTCIceCandidateStats::RTCIceCandidateStats(
-    std::string&& id, int64_t timestamp_us, bool is_remote)
+RTCIceCandidateStats::RTCIceCandidateStats(std::string&& id,
+                                           int64_t timestamp_us,
+                                           bool is_remote)
     : RTCStats(std::move(id), timestamp_us),
       transport_id("transportId"),
       is_remote("isRemote", is_remote),
       ip("ip"),
       port("port"),
       protocol("protocol"),
+      network_type("network_type"),
       candidate_type("candidateType"),
       priority("priority"),
       url("url"),
-      deleted("deleted", false) {
-}
+      deleted("deleted", false) {}
 
 RTCIceCandidateStats::RTCIceCandidateStats(const RTCIceCandidateStats& other)
     : RTCStats(other.id(), other.timestamp_us()),
@@ -291,11 +300,11 @@ RTCIceCandidateStats::RTCIceCandidateStats(const RTCIceCandidateStats& other)
       ip(other.ip),
       port(other.port),
       protocol(other.protocol),
+      network_type(other.network_type),
       candidate_type(other.candidate_type),
       priority(other.priority),
       url(other.url),
-      deleted(other.deleted) {
-}
+      deleted(other.deleted) {}
 
 RTCIceCandidateStats::~RTCIceCandidateStats() {
 }

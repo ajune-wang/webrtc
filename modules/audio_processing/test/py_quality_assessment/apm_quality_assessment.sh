@@ -12,27 +12,27 @@ if [ -z ${POLQA_PATH} ]; then  # Check if defined.
   # Default location.
   export POLQA_PATH='/var/opt/PolqaOem64'
 fi
-if [ -d "${POLQA_PATH}" ]; then
-  echo "POLQA found in ${POLQA_PATH}"
-else
-  echo "POLQA not found in ${POLQA_PATH}"
-  exit 1
-fi
+# if [ -d "${POLQA_PATH}" ]; then
+#   echo "POLQA found in ${POLQA_PATH}"
+# else
+#   echo "POLQA not found in ${POLQA_PATH}"
+#   exit 1
+# fi
 
-# Path to the Aechen IR database.
+# # Path to the Aechen IR database.
 if [ -z ${AECHEN_IR_DATABASE_PATH} ]; then  # Check if defined.
   # Default location.
   export AECHEN_IR_DATABASE_PATH='/var/opt/AIR_1_4'
 fi
-if [ -d "${AECHEN_IR_DATABASE_PATH}" ]; then
-  echo "AIR database found in ${AECHEN_IR_DATABASE_PATH}"
-else
-  echo "AIR database not found in ${AECHEN_IR_DATABASE_PATH}"
-  exit 1
-fi
+# if [ -d "${AECHEN_IR_DATABASE_PATH}" ]; then
+#   echo "AIR database found in ${AECHEN_IR_DATABASE_PATH}"
+# else
+#   echo "AIR database not found in ${AECHEN_IR_DATABASE_PATH}"
+#   exit 1
+# fi
 
 # Customize probing signals, test data generators and scores if needed.
-CAPTURE_SIGNALS=(probing_signals/*.wav)
+CAPTURE_SIGNALS=(~/conversational_speech/*.wav)
 TEST_DATA_GENERATORS=( \
     "identity" \
     "white_noise" \
@@ -42,7 +42,7 @@ TEST_DATA_GENERATORS=( \
 SCORES=( \
     # "polqa" \
     "audio_level_peak" \
-    "audio_level_mean" \
+    # "audio_level_mean" \
 )
 OUTPUT_PATH=output
 

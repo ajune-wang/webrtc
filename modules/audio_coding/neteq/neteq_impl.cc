@@ -47,6 +47,7 @@
 #include "rtc_base/safe_conversions.h"
 #include "rtc_base/sanitizer.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -862,6 +863,7 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame, bool* muted) {
 
   AudioDecoder::SpeechType speech_type;
   int length = 0;
+  const size_t start_num_packets = packet_list.size();
   int decode_return_value = Decode(&packet_list, &operation,
                                    &length, &speech_type);
 
@@ -871,7 +873,15 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame, bool* muted) {
   vad_->Update(decoded_buffer_.get(), static_cast<size_t>(length), speech_type,
                sid_frame_available, fs_hz_);
 
-  if (sid_frame_available || speech_type == AudioDecoder::kComfortNoise) {
+  // This is the criterion that we did decode some data through the speech
+  // decoder, and the operation resulted in comfort noise.
+  const bool codec_internal_sid_frame =
+      field_trial::IsEnabled("WebRTC-NetEqOpusDtxDelayFix")
+          ? (speech_type == AudioDecoder::kComfortNoise &&
+             start_num_packets > packet_list.size())
+          : (speech_type == AudioDecoder::kComfortNoise);
+
+  if (sid_frame_available || codec_internal_sid_frame) {
     // Start a new stopwatch since we are decoding a new CNG packet.
     generated_noise_stopwatch_ = tick_timer_->GetNewStopwatch();
   }

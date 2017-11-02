@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6022543_607095ed",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 0,
+      "message": "This field doesn\u0027t seem to be used anymore. Can you remove jfieldID and probably deprecate it?",
+      "range": {
+        "startLine": 87,
+        "startChar": 54,
+        "endLine": 87,
+        "endChar": 68
+      },
+      "revId": "07e0d015b7451d51c3bb142f71149bee3c4c4e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

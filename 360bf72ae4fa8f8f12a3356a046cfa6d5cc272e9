@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "b67e9ef3_c8f59287",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoDecoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 1,
+      "message": "It is not necessary to use \"this.\" for example here, can you remove unnecessary this references?",
+      "range": {
+        "startLine": 24,
+        "startChar": 27,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5d60cb4_0fed1e7e",
         "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
         "patchSetId": 3
@@ -133,6 +156,167 @@
         "startChar": 6,
         "endLine": 193,
         "endChar": 35
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "785530b6_d648bfcf",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 1,
+      "message": "Support only injecting decoder or only injecting encoder?",
+      "range": {
+        "startLine": 194,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 69
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65990a85_62a1e5dd",
+        "filename": "sdk/android/src/jni/videodecoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 1,
+      "message": "Maybe we should use FindClass(jni, \"foo\") in case someone wants to use this from C++ thread.",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3463442d_7f0fdcd2",
+        "filename": "sdk/android/src/jni/videodecoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 1,
+      "message": "reinterpret_cast",
+      "range": {
+        "startLine": 48,
+        "startChar": 43,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e84f302_51fc7679",
+        "filename": "sdk/android/src/jni/videodecoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 1,
+      "message": "Can we use make_unique?",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 64
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c577453c_c7ff42b7",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 1,
+      "message": "reinterpret_cast?",
+      "range": {
+        "startLine": 68,
+        "startChar": 43,
+        "endLine": 68,
+        "endChar": 58
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "651e0892_11767674",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 1,
+      "message": "make_unique?",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 40
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae8338e_3cdc3fad",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-02T12:17:07Z",
+      "side": 1,
+      "message": "codec_info.is_hardware_accelerated \u003d encoder \u003d\u003d nullptr || !jni-\u003eIsInstanceOf(encoder, *wrapped_native_encoder_class_);\n\nIs the null check needed?\n\nMaybe we should add a few TODO\u0027s here since this might be incorrect / slow way to find out this.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 3
       },
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

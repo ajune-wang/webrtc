@@ -466,6 +466,11 @@ class RTCStatsReportVerifier {
     verifier.TestMemberIsDefined(candidate.ip);
     verifier.TestMemberIsNonNegative<int32_t>(candidate.port);
     verifier.TestMemberIsDefined(candidate.protocol);
+    if (*candidate.is_remote) {
+      verifier.TestMemberIsUndefined(candidate.network_type);
+    } else {
+      verifier.TestMemberIsDefined(candidate.network_type);
+    }
     verifier.TestMemberIsDefined(candidate.candidate_type);
     verifier.TestMemberIsNonNegative<int32_t>(candidate.priority);
     verifier.TestMemberIsUndefined(candidate.url);

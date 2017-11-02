@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "a679ba09_bc9dbb1e",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T15:20:57Z",
+      "side": 1,
+      "message": "Sorry, I somehow missed that. Fixed",
+      "parentUuid": "6913d2e4_19f97219",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "558181d8_966a2d1e",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 2
@@ -158,6 +176,30 @@
       "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c4ef8d_9f596e7f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1611,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T15:20:57Z",
+      "side": 1,
+      "message": "Oops, I changed it in the wrong function (the one above this one). I fixed it here, and I will keep the other change as well.",
+      "parentUuid": "a631ed9f_b4c883e9",
+      "range": {
+        "startLine": 1611,
+        "startChar": 4,
+        "endLine": 1611,
+        "endChar": 77
+      },
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

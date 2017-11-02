@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "1f2f972d_685b5606",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-11-02T05:35:04Z",
+      "side": 1,
+      "message": "removed  ConvertRotationMode from webrtc_libyuv.cc",
+      "parentUuid": "11449807_45c13049",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "8e0da243dac37d611f7fa65e6ef98862b7b1fb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92fcb894_da0a29de",
         "filename": "modules/video_capture/video_capture_impl.cc",
         "patchSetId": 3

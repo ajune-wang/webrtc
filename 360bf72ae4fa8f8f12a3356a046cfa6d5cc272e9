@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d69c847_51a4e3a8",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoDecoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-02T10:24:29Z",
+      "side": 1,
+      "message": "Comment all literals with an inline comment like this: \nfalse /* fallbackToSoftware */\nSame for the other literals in this CL.",
+      "range": {
+        "startLine": 18,
+        "startChar": 83,
+        "endLine": 18,
+        "endChar": 88
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5d60cb4_0fed1e7e",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-02T10:24:29Z",
+      "side": 1,
+      "message": "We currently add the SW codecs before the HW codecs. I think we should preserve that behavior for now to reduce the risk of this cl.\n\nAlso, you can use Arrays.asList(codecs) to convert from array to list.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 85
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a51a81da_1cfce715",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-02T10:24:29Z",
+      "side": 1,
+      "message": "How is the equals() implemented for VideoCodecInfo? This is tricky to get right because for e.g. VP8 we just want to compare the name, the params doesn\u0027t matter, and we don\u0027t want to try to add multiple VP8 with different params. H264 is different, because different profiles act as different codecs. We still don\u0027t want to add multiple H264 codecs with the same profile but with different params.\n\nWe could add a static private helper method in this class \u0027IsSameCodec()\u0027 that we use instead. It will look similar to this C++ function: https://cs.chromium.org/chromium/src/third_party/webrtc/media/base/codec.cc?rcl\u003d390d01094608b1eedd7d650a6c435d5e3aa109c0\u0026l\u003d354\n\nconst VideoCodec* FindMatchingCodec(\n    const std::vector\u003cVideoCodec\u003e\u0026 supported_codecs,\n    const VideoCodec\u0026 codec) {\n  for (const VideoCodec\u0026 supported_codec : supported_codecs) {\n    if (!CodecNamesEq(codec.name, supported_codec.name))\n      continue;\n    if (CodecNamesEq(codec.name.c_str(), kH264CodecName) \u0026\u0026\n        !IsSameH264Profile(codec.params, supported_codec.params)) {\n      continue;\n    }\n    return \u0026supported_codec;\n  }\n  return nullptr;\n}",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 45
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a9d02dd_ff6aefbf",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-02T10:24:29Z",
+      "side": 1,
+      "message": "Should we make this package protected so that external clients can\u0027t start depend on it?",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 8
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ffd9fea_5d231149",
+        "filename": "sdk/android/src/jni/pc/media_jni.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-02T10:24:29Z",
+      "side": 1,
+      "message": "Can we return a unique_ptr here instead?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7195e6_bee1b44e",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-02T10:24:29Z",
+      "side": 1,
+      "message": "We want to get rid of video_hw_acceleration_enabled eventually, so don\u0027t use it for the new factory type, i.e. ignore it for the new path. I would write it like this:\n\nif (jencoder_factory \u003d\u003d nullptr \u0026\u0026 jdecoder_factory \u003d\u003d nullptr) {\n  if (video_hw_acceleration_enabled) {\n    video_encoder_factory \u003d CreateLegacyVideoEncoderFactory();\n    video_decoder_factory \u003d CreateLegacyVideoDecoderFactory);\n  }\n  ...\n} else {\n  ...new path...\n}",
+      "range": {
+        "startLine": 193,
+        "startChar": 6,
+        "endLine": 193,
+        "endChar": 35
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5365da6d_c820fb5e",
+        "filename": "sdk/android/src/jni/vp8codec_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-02T10:24:29Z",
+      "side": 1,
+      "message": "Drop the _jni suffix from this file name. It\u0027s not necessary anymore since we put all jni files in a jni folder.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "923884b3_1969f4fb",
+        "filename": "sdk/android/src/jni/vp8codec_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-02T10:24:29Z",
+      "side": 1,
+      "message": "Use the helper macro for this.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 34
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

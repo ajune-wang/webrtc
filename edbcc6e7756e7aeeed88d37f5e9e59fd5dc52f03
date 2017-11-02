@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a2ed5ef_66fa1b9d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "As discussed offline, I\u0027ll wait with reviewing this part until you\u0027ve implemented the algorithm we\u0027ve discussed. (Or, alternatively, until you change your mind and ping me about it.)",
+      "revId": "edbcc6e7756e7aeeed88d37f5e9e59fd5dc52f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51f2fefb_ec42607e",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "We can undo this now.",
+      "revId": "edbcc6e7756e7aeeed88d37f5e9e59fd5dc52f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd3d6706_ba3b7729",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "This is a good comment, and we should definitely keep it. I just think it would be good to move it. Whoever calls NormalRateAllocation (and please note that the function is private) likely cares more about the difference between ZeroRate, LowRate, NormalRate and MaxRate, than about the inner-workings of a specific one of those, and that with regards to only one of the logic\u0027s parameters (that is to say, there\u0027s also min, max, enfore-min, etc., but relative_bitrate is given preferential treatment here.",
+      "revId": "edbcc6e7756e7aeeed88d37f5e9e59fd5dc52f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15ff475c_1d8b2d04",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 0,
+      "message": "My apologies; I seem to have asked for this renaming when it seemed to me that |sequenced_checker_| was introduced in this CL, then forgot to remove the request when I\u0027d scrolled further down and saw that things were being moved around, not introduced. I still think the renaming is a good idea, but let\u0027s not distract from the purpose of the CL by piggybacking this change on it. Sorry for misleading you.",
+      "revId": "9828bebee69be2aabab7bcf0cffbfbc67edaf5ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

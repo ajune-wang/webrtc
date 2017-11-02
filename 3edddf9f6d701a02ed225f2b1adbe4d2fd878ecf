@@ -95,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "c19913a5_99a2a5ab",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "With the removal of the subclassing, this LGTM. But could we get rid of the default value? (Otherwise, |enforce_min_bitrate| looks just as eligible for a default value to me, with some shuffling of parameters.)",
+      "parentUuid": "a0c63dd1_a258ba2f",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a441290_6cadeff8",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 3
@@ -235,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "aaa4ffb5_6fba042c",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1c6968ea_8c0be10f",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f55aeed2_e17276ae",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 3
@@ -340,6 +376,24 @@
     },
     {
       "key": {
+        "uuid": "d263c328_586852bd",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "Among the possible reasons to use a pointer, there\u0027s sometimes the desire to not hard-code a particular subclass. But this is not the case here, both because we\u0027re moving away from the subclass solution, as well as because this fixture class was specific to the subclass, and hard-coded it. So I think it would be simpler to keep the object itself, rather than a unique_ptr of the object.",
+      "parentUuid": "4d82f122_a434c79e",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc9e01d0_c5bc6ce0",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -384,6 +438,30 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b870c66f_4dacc4ac",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "Ah, right, you\u0027re expecting it exactly once with certain parameters, and then any number of times with any parameters. I\u0027d missed that.\n\nBut, running this locally, I see that the calls to OnAllocationLimitsChanged() are triggered not by OnNetworkChanged(), but rather by Add and Remove. Was that intended? The remove I understand, but the add is probably not what you were trying to test, or else you would have not called OnNetworkChanged, I assume?",
+      "parentUuid": "173dd376_d8f4ccbf",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 35
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -486,6 +564,24 @@
       "side": 1,
       "message": "I agree. This is how the values are defined throughout the test. Maybe the large values made it seem more like \"real\" values for the tests? I agree and prefer smaller values, so I updated. I did not update throughout the test. Should that be done in a follow up CL?",
       "parentUuid": "92bb5a69_08275a6e",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5656b6c8_9dc69dba",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "I\u0027m not sure if changing the older tests is important enough to merit your attention, but when adding new ones, I guess it makes sense to use what we believe to be more convenient values.",
+      "parentUuid": "19f78b10_115f50d5",
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -691,6 +787,30 @@
       "side": 1,
       "message": "As discussed in our first video chat, these are the relative amounts above the min values.",
       "parentUuid": "cc4af26b_7527d047",
+      "range": {
+        "startLine": 637,
+        "startChar": 0,
+        "endLine": 639,
+        "endChar": 54
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc0ea771_2038d74d",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-02T10:50:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b637c2d9_aee4c85f",
       "range": {
         "startLine": 637,
         "startChar": 0,

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d316c7b_8dba2332",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T22:18:19Z",
+      "side": 1,
+      "message": "Do you have a bug link?",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b698985_fb58dfcf",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T22:18:19Z",
+      "side": 1,
+      "message": "WRT stats in the spec: Why are these int32_t here but double in the spec? The new stats collector seems to do static_cast. Can we make the interface use double, and cast from double to int for the legacy stats instead of constricting the new stats to int if the choice of int is an implementation detail? Unless the spec should change to \"long\". Use whichever type makes most sense from an interface perspective.",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fbaa13f_e3ddcf73",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T22:18:19Z",
+      "side": 1,
+      "message": "Do you have an idea of the likelihood of needing to feed this other parameters in the future? If likely one could feed it a struct, that way we can expand the struct without breaking the API. Just a though, up to you.",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "261c42c4_3051d0d6",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T22:18:19Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we update VoiceSenderInfo to use optional and pass them here by value?\n\nI think this thing should report the stats correctly:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/webrtcvoiceengine.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026l\u003d2200\nI think the voice engine knows the receivers when doing GetStats to the lower layers.\n\nBut this is the AudioSendStream codepath... is that a different version of the stats?\nIs this updating the code path that isn\u0027t used by the stats collectors? I may be a little confused.",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

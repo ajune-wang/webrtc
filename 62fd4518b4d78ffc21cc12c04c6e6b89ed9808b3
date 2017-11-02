@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "558181d8_966a2d1e",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1611,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-02T09:35:20Z",
+      "side": 1,
+      "message": "You can combine these two lines into one:\n\n if (public_submodules_-\u003eecho_cancellation-\u003eGetMetrics(\u0026metrics) \u003d\u003d Error::kNoError) {",
+      "range": {
+        "startLine": 1611,
+        "startChar": 4,
+        "endLine": 1611,
+        "endChar": 77
+      },
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efb4bc37_edfac0bb",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 2

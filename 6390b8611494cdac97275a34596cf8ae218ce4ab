@@ -1,0 +1,348 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "638fbdc5_d32e8d35",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "You left 15-20, 22 and 27-32 commented. I guess you\u0027ve done that for testing and forgot to revert.",
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74085e28_56c52cc3",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "same here, this path must not change (look at BUILD.gn, sample wav files are copied to probing_signals; in this way one can check if APM-QA works",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f9df4df_b663324a",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "remove #",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faa656af_3c9c3c60",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "I would allow 0 as well (meaning no VAD annotations to export)",
+      "range": {
+        "startLine": 42,
+        "startChar": 45,
+        "endLine": 42,
+        "endChar": 46
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79bd9b4e_7b317ecc",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "maybe _common_audio_vad?",
+      "range": {
+        "startLine": 73,
+        "startChar": 9,
+        "endLine": 73,
+        "endChar": 13
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36c3e020_8630a4c4",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "maybe _apm-vad_* to distinguish the two different VADs?",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 13
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4abd21d_48e5dc69",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "Note that before what was printed was the VAD name, now we show the integer mask\nNice \"factorization-ish\" exercise for the reader :)",
+      "range": {
+        "startLine": 83,
+        "startChar": 48,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff697c3c_8ada6924",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "VADs",
+      "range": {
+        "startLine": 83,
+        "startChar": 18,
+        "endLine": 83,
+        "endChar": 21
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0da38591_1566b473",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "_RunWebRtcApmVad",
+      "range": {
+        "startLine": 152,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 27
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd00cd82_34f4f7f5",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations_unittest.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "Here we must test all the VADs or at least all but WEBRTC_APM which needs that a threshold is applied if I\u0027m correct. Add a for loop here and also include the if statement below",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 78
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9016230e_25bf9ace",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/apm_vad.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11d843f2_63a3e93a",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/apm_vad.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "I think these error codes come from the vad.cc file I wrote. Just return 1 in case of failure, we don\u0027t really use error codes (also fix vad.cc).",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 13
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a774e98_08b48ccc",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/vad.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "tack!",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 33
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd55c309_8bb3ba6a",
+        "filename": "modules/audio_processing/vad/voice_activity_detector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "shall we remove this line?",
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cbf5410_f0fda450",
+        "filename": "modules/audio_processing/vad/voice_activity_detector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "shall we remove this line?",
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbe6fc58_f8389cac",
+        "filename": "modules/audio_processing/vad/voice_activity_detector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-11-02T11:19:10Z",
+      "side": 1,
+      "message": "Great that you found that the comment doesn\u0027t apply anymore. I would consolidate removing \"The maximum supported ...\" (as well as what you added in your last PS)",
+      "range": {
+        "startLine": 33,
+        "startChar": 62,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

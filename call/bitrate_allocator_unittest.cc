@@ -17,7 +17,8 @@
 #include "test/gmock.h"
 #include "test/gtest.h"
 
-using testing::NiceMock;
+using ::testing::NiceMock;
+using ::testing::_;
 
 namespace webrtc {
 
@@ -516,6 +517,250 @@ TEST_F(BitrateAllocatorTest, PassProbingInterval) {
   EXPECT_EQ(5000, observer.last_probing_interval_ms_);
 
   allocator_->RemoveObserver(&observer);
+}
+
+class PriorityBitrateAllocatorTest : public ::testing::Test {
+ protected:
+  PriorityBitrateAllocatorTest()
+      : allocator_(new BitrateAllocator(&limit_observer_)) {
+    allocator_->OnNetworkChanged(300000u, 0, 0, kDefaultProbingIntervalMs);
+  }
+
+  NiceMock<MockLimitObserver> limit_observer_;
+  std::unique_ptr<BitrateAllocator> allocator_;
+};
+
+// Tests that one observer is allocated bitrate and the limit observer is
+// appropriately called.
+TEST_F(PriorityBitrateAllocatorTest, OneObserverBasic) {
+  TestBitrateObserver observer;
+  const uint32_t kMinSendBitrateBps = 10;
+  const uint32_t kPadUpToBitrateBps = 5;
+  const uint32_t kMaxSendBitrateBps = 60;
+  EXPECT_CALL(limit_observer_, OnAllocationLimitsChanged(_, _))
+      .Times(testing::AnyNumber());
+  EXPECT_CALL(limit_observer_, OnAllocationLimitsChanged(kMinSendBitrateBps,
+                                                         kPadUpToBitrateBps));
+
+  allocator_->AddObserver(&observer, kMinSendBitrateBps, kMaxSendBitrateBps,
+                          kPadUpToBitrateBps, true, "", 2.0);
+  allocator_->OnNetworkChanged(30, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(30u, observer.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer);
+}
+
+// Tests that two observers with the same relative bitrate are allocated
+// their bitrate evenly.
+TEST_F(PriorityBitrateAllocatorTest, TwoObserversBasic) {
+  TestBitrateObserver observer_low_1;
+  TestBitrateObserver observer_low_2;
+  allocator_->AddObserver(&observer_low_1, 0, 60, 0, false, "low1", 2.0);
+  allocator_->AddObserver(&observer_low_2, 0, 60, 0, false, "low2", 2.0);
+  allocator_->OnNetworkChanged(40, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(20u, observer_low_1.last_bitrate_bps_);
+  EXPECT_EQ(20u, observer_low_2.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer_low_1);
+  allocator_->RemoveObserver(&observer_low_2);
+}
+
+// Tests that the observer with a relative bitrate twice the relative bitrate
+// of the lower priority track is allocated twice the amount above its minimum
+// bitrate.
+TEST_F(PriorityBitrateAllocatorTest, TwoObserversAllocatedRelativeAboveMins) {
+  TestBitrateObserver observer_low;
+  TestBitrateObserver observer_mid;
+  const uint32_t kAvailableBitrate = 50;
+  const uint32_t kMinBitrate = 10;
+  const uint32_t kMaxBitrate = 60;
+  const uint32_t kRemainingBitrate = kAvailableBitrate - (2 * kMinBitrate);
+
+  allocator_->AddObserver(&observer_low, kMinBitrate, kMaxBitrate, 0, false,
+                          "low", 2.0);
+  allocator_->AddObserver(&observer_mid, kMinBitrate, kMaxBitrate, 0, false,
+                          "mid", 4.0);
+  allocator_->OnNetworkChanged(kAvailableBitrate, 0, 0,
+                               kDefaultProbingIntervalMs);
+
+  const uint32_t kLowAllocationAboveMin =
+      static_cast<uint32_t>(kRemainingBitrate * (2.0 / 6.0));
+  const uint32_t kMidAllocationAboveMin =
+      static_cast<uint32_t>(kRemainingBitrate * (4.0 / 6.0));
+  EXPECT_EQ(kMinBitrate + kLowAllocationAboveMin,
+            observer_low.last_bitrate_bps_);
+  EXPECT_EQ(kMinBitrate + kMidAllocationAboveMin,
+            observer_mid.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer_low);
+  allocator_->RemoveObserver(&observer_mid);
+}
+
+// Tests that after a higher relative bitrate priority track has been allocated
+// its max bitrate the lower priority observer will then be allocated the
+// remaining bitrate.
+TEST_F(PriorityBitrateAllocatorTest, TwoObserversOneAllocatedToMax) {
+  TestBitrateObserver observer_low;
+  TestBitrateObserver observer_mid;
+  allocator_->AddObserver(&observer_low, 10, 50, 0, false, "low", 2.0);
+  allocator_->AddObserver(&observer_mid, 10, 50, 0, false, "mid", 4.0);
+  allocator_->OnNetworkChanged(90, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(40u, observer_low.last_bitrate_bps_);
+  EXPECT_EQ(50u, observer_mid.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer_low);
+  allocator_->RemoveObserver(&observer_mid);
+}
+
+// Tests that three observers with three different relative bitrates will all
+// be allocated bitrate according to their relative bitrate priority.
+TEST_F(PriorityBitrateAllocatorTest, ThreeObserversAllocatedRelativeAmounts) {
+  TestBitrateObserver observer_low;
+  TestBitrateObserver observer_mid;
+  TestBitrateObserver observer_high;
+  const uint32_t kLowMax = 20;
+  const uint32_t kMidMax = 40;
+  const uint32_t kHighMax = 80;
+  const uint32_t kTotalMax = kLowMax + kMidMax + kHighMax;
+  allocator_->AddObserver(&observer_low, 0, kLowMax, 0, false, "low", 2.0);
+  allocator_->AddObserver(&observer_mid, 0, kMidMax, 0, false, "mid", 4.0);
+  allocator_->AddObserver(&observer_high, 0, kHighMax, 0, false, "high", 8.0);
+  allocator_->OnNetworkChanged(kTotalMax / 2, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(10u, observer_low.last_bitrate_bps_);
+  EXPECT_EQ(20u, observer_mid.last_bitrate_bps_);
+  EXPECT_EQ(40u, observer_high.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer_low);
+  allocator_->RemoveObserver(&observer_mid);
+  allocator_->RemoveObserver(&observer_high);
+}
+
+// Tests that after the high priority observer has been allocated its maximum
+// bitrate, the other two tracks are still allocated bitrate according to their
+// relative bitrate priority.
+TEST_F(PriorityBitrateAllocatorTest, ThreeObserversHighAllocatedToMax) {
+  TestBitrateObserver observer_low;
+  TestBitrateObserver observer_mid;
+  TestBitrateObserver observer_high;
+  const uint32_t kAvailableBitrate = 90;
+  const uint32_t kMaxBitrate = 40;
+  const uint32_t kMinBitrate = 10;
+  // Remaining bitrate after allocating to all mins and knowing that the high
+  // priority track will have its max bitrate allocated.
+  const uint32_t kRemainingBitrate =
+      kAvailableBitrate - kMaxBitrate - (2 * kMinBitrate);
+  allocator_->AddObserver(&observer_low, kMinBitrate, kMaxBitrate, 0, false,
+                          "low", 2.0);
+  allocator_->AddObserver(&observer_mid, kMinBitrate, kMaxBitrate, 0, false,
+                          "mid", 4.0);
+  allocator_->AddObserver(&observer_high, kMinBitrate, kMaxBitrate, 0, false,
+                          "high", 8.0);
+  allocator_->OnNetworkChanged(kAvailableBitrate, 0, 0,
+                               kDefaultProbingIntervalMs);
+
+  const uint32_t kLowAllocationAboveMin =
+      static_cast<uint32_t>(kRemainingBitrate * (2.0 / 6.0));
+  const uint32_t kMidAllocationAboveMin =
+      static_cast<uint32_t>(kRemainingBitrate * (4.0 / 6.0));
+  EXPECT_EQ(kMinBitrate + kLowAllocationAboveMin,
+            observer_low.last_bitrate_bps_);
+  EXPECT_EQ(kMinBitrate + kMidAllocationAboveMin,
+            observer_mid.last_bitrate_bps_);
+  EXPECT_EQ(40u, observer_high.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer_low);
+  allocator_->RemoveObserver(&observer_mid);
+  allocator_->RemoveObserver(&observer_high);
+}
+
+// Tests that after the low priority observer has been allocated its maximum
+// bitrate, the other two tracks are still allocated bitrate according to their
+// relative bitrate priority.
+TEST_F(PriorityBitrateAllocatorTest, ThreeObserversLowAllocatedToMax) {
+  TestBitrateObserver observer_low;
+  TestBitrateObserver observer_mid;
+  TestBitrateObserver observer_high;
+  const uint32_t kAvailableBitrate = 130;
+  const uint32_t kDefaultMaxBitrate = 80;
+  const uint32_t kLowMaxBitrate = 20;
+  const uint32_t kMinBitrate = 10;
+  // Remaining bitrate after allocating to all mins and knowing that the high
+  // priority track will have its max bitrate allocated.
+  const uint32_t kRemainingBitrate =
+      kAvailableBitrate - kLowMaxBitrate - (2 * kMinBitrate);
+  allocator_->AddObserver(&observer_low, kMinBitrate, kLowMaxBitrate, 0, false,
+                          "low", 2.0);
+  allocator_->AddObserver(&observer_mid, kMinBitrate, kDefaultMaxBitrate, 0,
+                          false, "mid", 4.0);
+  allocator_->AddObserver(&observer_high, kMinBitrate, kDefaultMaxBitrate, 0,
+                          false, "high", 8.0);
+  allocator_->OnNetworkChanged(kAvailableBitrate, 0, 0,
+                               kDefaultProbingIntervalMs);
+
+  const uint32_t kMidAllocationAboveMin =
+      static_cast<uint32_t>(kRemainingBitrate * (4.0 / 12.0));
+  const uint32_t kHighAllocationAboveMin =
+      static_cast<uint32_t>(kRemainingBitrate * (8.0 / 12.0));
+  EXPECT_EQ(kLowMaxBitrate, observer_low.last_bitrate_bps_);
+  EXPECT_EQ(kMinBitrate + kMidAllocationAboveMin,
+            observer_mid.last_bitrate_bps_);
+  EXPECT_EQ(kMinBitrate + kHighAllocationAboveMin,
+            observer_high.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer_low);
+  allocator_->RemoveObserver(&observer_mid);
+  allocator_->RemoveObserver(&observer_high);
+}
+
+// Tests that after two observers are allocated bitrate to their max, the
+// the remaining observer is allocated what's left appropriately. This test
+// handles an edge case where the medium and high observer reach their
+// "relative" max allocation  at the same time. The high has 40 to allocate
+// above its min, and the mid has 20 to allocate above its min, which after
+// scaling down by relative priority is 5 for each.
+TEST_F(PriorityBitrateAllocatorTest, ThreeObserversTwoAllocatedToMax) {
+  TestBitrateObserver observer_low;
+  TestBitrateObserver observer_mid;
+  TestBitrateObserver observer_high;
+  allocator_->AddObserver(&observer_low, 10, 40, 0, false, "low", 2.0);
+  // Scaled allocation above the min allocation is the same for these two,
+  // meaning they will get allocated  their max at the same time.
+  // Scaled (target allocation) = (max - min) / relative bitrate
+  allocator_->AddObserver(&observer_mid, 10, 30, 0, false, "mid", 4.0);
+  allocator_->AddObserver(&observer_high, 10, 50, 0, false, "high", 8.0);
+  allocator_->OnNetworkChanged(110, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(30u, observer_low.last_bitrate_bps_);
+  EXPECT_EQ(30u, observer_mid.last_bitrate_bps_);
+  EXPECT_EQ(50u, observer_high.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer_low);
+  allocator_->RemoveObserver(&observer_mid);
+  allocator_->RemoveObserver(&observer_high);
+}
+
+// Tests that there is no difference in functionality when the min bitrate is
+// enforced.
+TEST_F(PriorityBitrateAllocatorTest, ThreeObserversMinEnforced) {
+  TestBitrateObserver observer_low;
+  TestBitrateObserver observer_mid;
+  TestBitrateObserver observer_high;
+  allocator_->AddObserver(&observer_low, 10, 40, 0, true, "low", 2.0);
+  allocator_->AddObserver(&observer_mid, 10, 30, 0, true, "mid", 4.0);
+  allocator_->AddObserver(&observer_high, 10, 50, 0, true, "high", 8.0);
+  allocator_->OnNetworkChanged(110, 0, 0, kDefaultProbingIntervalMs);
+
+  EXPECT_EQ(30u, observer_low.last_bitrate_bps_);
+  EXPECT_EQ(30u, observer_mid.last_bitrate_bps_);
+  EXPECT_EQ(50u, observer_high.last_bitrate_bps_);
+
+  allocator_->RemoveObserver(&observer_low);
+  allocator_->RemoveObserver(&observer_mid);
+  allocator_->RemoveObserver(&observer_high);
 }
 
 }  // namespace webrtc

@@ -436,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "dc30777d_fdd775c8",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations_unittest.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:49:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd00cd82_34f4f7f5",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 78
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9016230e_25bf9ace",
         "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/apm_vad.cc",
         "patchSetId": 8
@@ -450,6 +474,24 @@
       "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c3fd03_7614863f",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/apm_vad.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:49:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9016230e_25bf9ace",
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -473,6 +515,30 @@
       "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07be011d_386853d5",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/apm_vad.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:49:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11d843f2_63a3e93a",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 13
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -613,6 +679,30 @@
       "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e367e18c_8636f8f5",
+        "filename": "modules/audio_processing/vad/voice_activity_detector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:49:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a85c329e_3d7071a0",
+      "range": {
+        "startLine": 33,
+        "startChar": 62,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

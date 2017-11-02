@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "799ce82f_ef0dd5f3",
+        "filename": "api/mediastreaminterface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T02:37:23Z",
+      "side": 1,
+      "message": "Can you make the default implementation call the old version and always set the value of the optional fields? If you do that you could update the call chain and get the old \"non-optional\" behavior with the new API. Then when you switch over to the new API for subclasses you don\u0027t have to continue to support the old API.",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc05feae_14ad10df",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T02:37:23Z",
+      "side": 1,
+      "message": "For all of these, while we\u0027re at it, can we use the appropriate int types and double for floating points? As per spec,\n[unsigned] long -\u003e [u]int32_t\n[unsigned] long long -\u003e [u]int64_t",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb4bc37_edfac0bb",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T02:37:23Z",
+      "side": 1,
+      "message": "For all of these, while we\u0027re at it, can we use the appropriate int types and double for floating points? As per spec,\n[unsigned] long -\u003e [u]int32_t\n[unsigned] long long -\u003e [u]int64_t",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3620ff8f_72915e23",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T02:37:23Z",
+      "side": 1,
+      "message": "These changed from Stat (instant, average, minimum, maximum) to int, how does that affect things?",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "705997cb_cb563ef2",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-02T02:37:23Z",
+      "side": 1,
+      "message": "Was residual_echo_return_loss and a_nlp removed on purpose, why?",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

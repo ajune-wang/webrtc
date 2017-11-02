@@ -49,48 +49,67 @@ class TestAnnotationsExtraction(unittest.TestCase):
           self._tmp_path))
 
   def testFrameSizes(self):
-    for vad_type in annotations.AudioAnnotationsExtractor.VadType:
-      e = annotations.AudioAnnotationsExtractor(vad_type=vad_type)
-      e.Extract(self._wav_file_path)
-      samples_to_ms = lambda n, sr: 1000 * n // sr
-      self.assertEqual(samples_to_ms(e.GetLevelFrameSize(), self._sample_rate),
-                       e.GetLevelFrameSizeMs())
-      self.assertEqual(samples_to_ms(e.GetVadFrameSize(), self._sample_rate),
-                       e.GetVadFrameSizeMs())
+    vad_type_class = annotations.AudioAnnotationsExtractor.VadType
+    vad_type = (vad_type_class.ENERGY_THRESHOLD |
+                vad_type_class.WEBRTC_COMMON_AUDIO |
+                vad_type_class.WEBRTC_APM)
+    e = annotations.AudioAnnotationsExtractor(vad_type=vad_type)
+    e.Extract(self._wav_file_path)
+    samples_to_ms = lambda n, sr: 1000 * n // sr
+    self.assertEqual(samples_to_ms(e.GetLevelFrameSize(), self._sample_rate),
+                     e.GetLevelFrameSizeMs())
+    self.assertEqual(samples_to_ms(e.GetVadFrameSize(), self._sample_rate),
+                     e.GetVadFrameSizeMs())
 
   def testVoiceActivityDetectors(self):
-    for vad_type in annotations.AudioAnnotationsExtractor.VadType:
-      e = annotations.AudioAnnotationsExtractor(vad_type=vad_type)
-      e.Extract(self._wav_file_path)
-      vad_output = e.GetVadOutput()
-      self.assertGreater(len(vad_output), 0)
-      self.assertGreaterEqual(float(np.sum(vad_output)) / len(vad_output), 0.95)
+    vad_type_class = annotations.AudioAnnotationsExtractor.VadType
+    vad_type = (vad_type_class.ENERGY_THRESHOLD |
+                vad_type_class.WEBRTC_COMMON_AUDIO |
+                vad_type_class.WEBRTC_APM)
+    e = annotations.AudioAnnotationsExtractor(vad_type=vad_type)
+    e.Extract(self._wav_file_path)
+    vad_output = e.GetVadOutput(vad_type_class.ENERGY_THRESHOLD)
+    self.assertGreater(len(vad_output), 0)
+    self.assertGreaterEqual(float(np.sum(vad_output)) / len(vad_output), 0.95)
 
-      if self._DEBUG_PLOT_VAD:
-        frame_times_s = lambda num_frames, frame_size_ms: np.arange(
-            num_frames).astype(np.float32) * frame_size_ms / 1000.0
-        level = e.GetLevel()
-        t_level = frame_times_s(
-            num_frames=len(level),
-            frame_size_ms=e.GetLevelFrameSizeMs())
-        t_vad = frame_times_s(
-            num_frames=len(vad_output),
-            frame_size_ms=e.GetVadFrameSizeMs())
-        import matplotlib.pyplot as plt
-        plt.figure()
-        plt.hold(True)
-        plt.plot(t_level, level)
-        plt.plot(t_vad, vad_output * np.max(level), '.')
-        plt.show()
+    if self._DEBUG_PLOT_VAD:
+      frame_times_s = lambda num_frames, frame_size_ms: np.arange(
+          num_frames).astype(np.float32) * frame_size_ms / 1000.0
+      level = e.GetLevel()
+      t_level = frame_times_s(
+          num_frames=len(level),
+          frame_size_ms=e.GetLevelFrameSizeMs())
+      t_vad = frame_times_s(
+          num_frames=len(vad_output),
+          frame_size_ms=e.GetVadFrameSizeMs())
+      import matplotlib.pyplot as plt
+      plt.figure()
+      plt.hold(True)
+      plt.plot(t_level, level)
+      plt.plot(t_vad, vad_output * np.max(level), '.')
+      plt.show()
 
   def testSaveLoad(self):
-    e = annotations.AudioAnnotationsExtractor(
-        vad_type=annotations.AudioAnnotationsExtractor.VadType.ENERGY_THRESHOLD)
+    vad_type_class = annotations.AudioAnnotationsExtractor.VadType
+    vad_type = (vad_type_class.ENERGY_THRESHOLD |
+                vad_type_class.WEBRTC_COMMON_AUDIO |
+                vad_type_class.WEBRTC_APM)
+    e = annotations.AudioAnnotationsExtractor(vad_type)
     e.Extract(self._wav_file_path)
     e.Save(self._tmp_path)
 
     data = np.load(os.path.join(self._tmp_path, e.GetOutputFileName()))
     np.testing.assert_array_equal(e.GetLevel(), data['level'])
     self.assertEqual(np.float32, data['level'].dtype)
-    np.testing.assert_array_equal(e.GetVadOutput(), data['vad_output'])
-    self.assertEqual(np.uint8, data['vad_output'].dtype)
+    np.testing.assert_array_equal(
+        e.GetVadOutput(vad_type_class.ENERGY_THRESHOLD),
+        data['vad_energy_output'])
+    np.testing.assert_array_equal(
+        e.GetVadOutput(vad_type_class.WEBRTC_COMMON_AUDIO), data['vad_output'])
+    np.testing.assert_array_equal(
+        e.GetVadOutput(vad_type_class.WEBRTC_APM)[0], data['vad_probs'])
+    np.testing.assert_array_equal(
+        e.GetVadOutput(vad_type_class.WEBRTC_APM)[1], data['vad_rms'])
+    self.assertEqual(np.uint8, data['vad_energy_output'].dtype)
+    self.assertEqual(np.float64, data['vad_probs'].dtype)
+    self.assertEqual(np.float64, data['vad_rms'].dtype)

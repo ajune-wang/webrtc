@@ -15,4 +15,22 @@ namespace webrtc {
 const char MediaStreamTrackInterface::kVideoKind[] = "video";
 const char MediaStreamTrackInterface::kAudioKind[] = "audio";
 
+// TODO(ivoc): Remove this when the function becomes pure virtual.
+AudioProcessorInterface::AudioProcessorStatistics
+AudioProcessorInterface::GetStats(bool /*has_recv_streams*/) {
+  AudioProcessorStats stats;
+  GetStats(&stats);
+  AudioProcessorStatistics new_stats;
+  new_stats.aec_divergent_filter_fraction =
+      rtc::Optional<float>(stats.aec_divergent_filter_fraction);
+  new_stats.aec_quality_min = rtc::Optional<float>(stats.aec_quality_min);
+  new_stats.echo_delay_median_ms =
+      rtc::Optional<int32_t>(stats.echo_delay_median_ms);
+  new_stats.echo_delay_std_ms = rtc::Optional<int32_t>(stats.echo_delay_std_ms);
+  new_stats.echo_return_loss = rtc::Optional<int32_t>(stats.echo_return_loss);
+  new_stats.echo_return_loss_enhancement =
+      rtc::Optional<int32_t>(stats.echo_return_loss_enhancement);
+  return new_stats;
+}
+
 }  // namespace webrtc

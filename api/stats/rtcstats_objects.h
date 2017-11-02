@@ -60,6 +60,15 @@ struct RTCMediaStreamTrackKind {
   static const char* const kVideo;
 };
 
+struct RTCNetworkType {
+  static const char* const kUnknown;
+  static const char* const kEthernet;
+  static const char* const kWifi;
+  static const char* const kCellular;
+  static const char* const kVpn;
+  static const char* const kLoopback;
+};
+
 // https://w3c.github.io/webrtc-stats/#certificatestats-dict*
 class RTCCertificateStats final : public RTCStats {
  public:
@@ -184,6 +193,7 @@ class RTCIceCandidateStats : public RTCStats {
   RTCStatsMember<std::string> ip;
   RTCStatsMember<int32_t> port;
   RTCStatsMember<std::string> protocol;
+  RTCStatsMember<std::string> network_type;
   // TODO(hbos): Support enum types? "RTCStatsMember<RTCIceCandidateType>"?
   RTCStatsMember<std::string> candidate_type;
   RTCStatsMember<int32_t> priority;

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "236cb2f4_052ad830",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "638fbdc5_d32e8d35",
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74085e28_56c52cc3",
         "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment.sh",
         "patchSetId": 8
@@ -39,6 +57,30 @@
       "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ebff8ce_47623c53",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "74085e28_56c52cc3",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "8136bf78_a7484a17",
+        "filename": "modules/audio_processing/test/py_quality_assessment/apm_quality_assessment.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3f9df4df_b663324a",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faa656af_3c9c3c60",
         "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
         "patchSetId": 8
@@ -85,6 +151,30 @@
       "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f2bd60e_bf0554c6",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faa656af_3c9c3c60",
+      "range": {
+        "startLine": 42,
+        "startChar": 45,
+        "endLine": 42,
+        "endChar": 46
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "31c1c757_859af0f3",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79bd9b4e_7b317ecc",
+      "range": {
+        "startLine": 73,
+        "startChar": 9,
+        "endLine": 73,
+        "endChar": 13
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36c3e020_8630a4c4",
         "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
         "patchSetId": 8
@@ -131,6 +245,30 @@
       "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3d3db36_457806e9",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36c3e020_8630a4c4",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 13
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +318,54 @@
     },
     {
       "key": {
+        "uuid": "a78d64ed_b62d695c",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Added \u0027__str__\u0027 method.",
+      "parentUuid": "b4abd21d_48e5dc69",
+      "range": {
+        "startLine": 83,
+        "startChar": 48,
+        "endLine": 83,
+        "endChar": 51
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b049d274_69fff031",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff697c3c_8ada6924",
+      "range": {
+        "startLine": 83,
+        "startChar": 18,
+        "endLine": 83,
+        "endChar": 21
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0da38591_1566b473",
         "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
         "patchSetId": 8
@@ -200,6 +386,30 @@
       "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "393dc790_df2d61f2",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/annotations.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0da38591_1566b473",
+      "range": {
+        "startLine": 152,
+        "startChar": 11,
+        "endLine": 152,
+        "endChar": 27
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -306,6 +516,24 @@
     },
     {
       "key": {
+        "uuid": "7e4104ae_d39594ec",
+        "filename": "modules/audio_processing/vad/voice_activity_detector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Yes, thanks!",
+      "parentUuid": "cd55c309_8bb3ba6a",
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cbf5410_f0fda450",
         "filename": "modules/audio_processing/vad/voice_activity_detector.cc",
         "patchSetId": 8
@@ -323,6 +551,24 @@
     },
     {
       "key": {
+        "uuid": "5024627a_94c040fa",
+        "filename": "modules/audio_processing/vad/voice_activity_detector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Yes, thanks!",
+      "parentUuid": "6cbf5410_f0fda450",
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbe6fc58_f8389cac",
         "filename": "modules/audio_processing/vad/voice_activity_detector.h",
         "patchSetId": 8
@@ -334,6 +580,30 @@
       "writtenOn": "2017-11-02T11:19:10Z",
       "side": 1,
       "message": "Great that you found that the comment doesn\u0027t apply anymore. I would consolidate removing \"The maximum supported ...\" (as well as what you added in your last PS)",
+      "range": {
+        "startLine": 33,
+        "startChar": 62,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "6390b8611494cdac97275a34596cf8ae218ce4ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a85c329e_3d7071a0",
+        "filename": "modules/audio_processing/vad/voice_activity_detector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2017-11-02T12:36:50Z",
+      "side": 1,
+      "message": "Oh, that\u0027s a debug comment, I should change it.",
+      "parentUuid": "cbe6fc58_f8389cac",
       "range": {
         "startLine": 33,
         "startChar": 62,

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bfe62022_6d2b185c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1be1b78f_ed8da395",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99556419_0181121c",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 3
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "a0c63dd1_a258ba2f",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "As we discussed offline, 2 reasons to keep this here.\n\n1) It is planned to be a core WebRTC feature for bitrate allocation (comes from same params as max_bitrate_bps). \n2) Moving the priority based allocation function into this class, with a default relative bitrate of 1.0 for each track.",
+      "parentUuid": "652a912f_767b7c4d",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a441290_6cadeff8",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 3
@@ -73,6 +109,24 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25cf745c_4429efa2",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "1. I moved this back to private, by moving the function away from the subclass it is no longer necessary.\n2. Done.",
+      "parentUuid": "8a441290_6cadeff8",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "84c6ad08_0d1400ae",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "Good catch. I don\u0027t know if this comment is necessary given that the variable names have a suffix of \"_bps.\" I changed the comment.",
+      "parentUuid": "54cfe2fd_d7ca3519",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eebc0c7c_de0b6ac5",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 3
@@ -107,6 +179,24 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f58fa328_7783b50c",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "1. I think this makes sense, good suggestion. Done.\n2. I agree, it\u0027s simpler. Done.",
+      "parentUuid": "eebc0c7c_de0b6ac5",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +217,24 @@
     },
     {
       "key": {
+        "uuid": "1c6968ea_8c0be10f",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "No the parameters are specified in the Web API documentation:\nhttps://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters\n\nCurrently the double relativeBitrate field isn\u0027t included (but there exists a priority). This is in the process of being changed-- the plan is to use priority for QoS/packet labeling and scheduling, while using the relativeBitrate for bitrate allocation to tracks.",
+      "parentUuid": "dff686bd_77d26645",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f55aeed2_e17276ae",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 3
@@ -141,6 +249,24 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "648229c2_ad21a525",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "1. You\u0027re correct. I updated the comment.\n2. Sounds good and thanks for the information. I\u0027m still learning what\u0027s appropriate for C++ comments/documentation. I took the explanation out.",
+      "parentUuid": "f55aeed2_e17276ae",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +287,24 @@
     },
     {
       "key": {
+        "uuid": "93b914cb_5f2ffd8d",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0e8cf74_5937c092",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cc9eaee_a82ba3bc",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -172,6 +316,24 @@
       "writtenOn": "2017-10-31T15:14:08Z",
       "side": 1,
       "message": "Does this need to be a unique_ptr?",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d82f122_a434c79e",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "Are you referring to using the unique_ptr itself, or the alternative- storing the object as a member as opposed to the pointer? I left this unresolved and did not make any changes. This is the current implementation in other parts of the test file, although it looks like this test file could use some cleaning up.",
+      "parentUuid": "5cc9eaee_a82ba3bc",
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -201,6 +363,30 @@
     },
     {
       "key": {
+        "uuid": "173dd376_d8f4ccbf",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "If I remove this line the test fails. After reading, it looks like NiceMock only suppresses warnings from uninteresting calls to functions not mocked, but this would be an unexpected call. From the documentation:\n\nhttps://g3doc.corp.google.com/third_party/gmock/g3doc/guide.md#understanding-uninteresting-vs-unexpected-calls\n\"A nice mock suppresses uninteresting call warnings. It is less chatty than the default mock, but otherwise is the same. If a test fails with a default mock, it will also fail using a nice mock instead. And vice versa. Don\u0027t expect making a mock nice to change the test\u0027s result.\"",
+      "parentUuid": "cc9e01d0_c5bc6ce0",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 35
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e73db2f7_e02d446f",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -215,6 +401,24 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef08ef5_49a53d34",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "I added a variable for the kMaxSendBitrateBps as well.",
+      "parentUuid": "e73db2f7_e02d446f",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -235,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "597b2693_6ff39d2c",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8ec100f_785f9684",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92bb5a69_08275a6e",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -252,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "19f78b10_115f50d5",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "I agree. This is how the values are defined throughout the test. Maybe the large values made it seem more like \"real\" values for the tests? I agree and prefer smaller values, so I updated. I did not update throughout the test. Should that be done in a follow up CL?",
+      "parentUuid": "92bb5a69_08275a6e",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfbe12c8_47176ba9",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -266,6 +506,24 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b15d8cf4_43a1adc8",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfbe12c8_47176ba9",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -292,6 +550,30 @@
     },
     {
       "key": {
+        "uuid": "8bc9521e_53e35708",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "Here I\u0027m testing that they are both allocated their correct relative amount above their min bitrate. I renamed the test to reflect this.",
+      "parentUuid": "a1e2b6f9_c181aaf7",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 0
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fd36ceb_8fe76bbc",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -306,6 +588,24 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e7e5a23_92d68ae0",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "I renamed the  test.",
+      "parentUuid": "9fd36ceb_8fe76bbc",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -332,6 +632,30 @@
     },
     {
       "key": {
+        "uuid": "af711198_6b9c8bf0",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "Done. I also added some constants to other tests to hopefully help with understanding the spirit of the test more.",
+      "parentUuid": "c3354bfd_16afa1ad",
+      "range": {
+        "startLine": 609,
+        "startChar": 0,
+        "endLine": 612,
+        "endChar": 73
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc4af26b_7527d047",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -352,6 +676,30 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b637c2d9_aee4c85f",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-02T02:48:21Z",
+      "side": 1,
+      "message": "As discussed in our first video chat, these are the relative amounts above the min values.",
+      "parentUuid": "cc4af26b_7527d047",
+      "range": {
+        "startLine": 637,
+        "startChar": 0,
+        "endLine": 639,
+        "endChar": 54
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

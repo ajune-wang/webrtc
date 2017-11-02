@@ -22,6 +22,30 @@
       "revId": "6462c160230d35c8d0192db677b0014fab2d3deb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c45acfc4_11d2758b",
+        "filename": "modules/audio_coding/neteq/decision_logic_normal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T12:28:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c027ccff_e2dd7033",
+      "range": {
+        "startLine": 192,
+        "startChar": 15,
+        "endLine": 192,
+        "endChar": 16
+      },
+      "revId": "6462c160230d35c8d0192db677b0014fab2d3deb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

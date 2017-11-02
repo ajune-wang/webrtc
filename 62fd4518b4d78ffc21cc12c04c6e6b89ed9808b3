@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0fc8fc74_9c36a118",
+        "filename": "api/mediastreaminterface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T12:56:55Z",
+      "side": 1,
+      "message": "Good idea, done.",
+      "parentUuid": "799ce82f_ef0dd5f3",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc05feae_14ad10df",
         "filename": "api/mediastreaminterface.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "686fb095_804ff99a",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T12:56:55Z",
+      "side": 1,
+      "message": "I changed the int\u0027s to int32_t\u0027s.",
+      "parentUuid": "fc05feae_14ad10df",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "8410a123_872e42d0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1611,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T12:56:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "558181d8_966a2d1e",
+      "range": {
+        "startLine": 1611,
+        "startChar": 4,
+        "endLine": 1611,
+        "endChar": 77
+      },
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efb4bc37_edfac0bb",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 2
@@ -73,6 +133,24 @@
       "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70e5fd8e_d45aad3e",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T12:56:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efb4bc37_edfac0bb",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "f0012a80_deea4138",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T12:56:55Z",
+      "side": 1,
+      "message": "The Stat struct includes an instantaneous value, an average, a maximum and a minimum, but only the instantaneous values are actually reported in the stats, and all the others are not used anywhere.\nI decided to remove all the stats that are not currently used, if we really want to have these things in the stats, we can always add them back later. Does that sound reasonable?",
+      "parentUuid": "3620ff8f_72915e23",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "705997cb_cb563ef2",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 2
@@ -104,6 +200,24 @@
       "writtenOn": "2017-11-02T02:37:23Z",
       "side": 1,
       "message": "Was residual_echo_return_loss and a_nlp removed on purpose, why?",
+      "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50533868_c9372fbe",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-02T12:56:55Z",
+      "side": 1,
+      "message": "Yes, the reason is that these stats are not actually used for anything (as far as I can tell). I decided to remove all the stats that are not currently in use, and if we decide we really need them we can add them back later.",
+      "parentUuid": "705997cb_cb563ef2",
       "revId": "62fd4518b4d78ffc21cc12c04c6e6b89ed9808b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

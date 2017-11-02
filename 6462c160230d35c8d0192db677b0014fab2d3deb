@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c027ccff_e2dd7033",
+        "filename": "modules/audio_coding/neteq/decision_logic_normal.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-02T11:11:22Z",
+      "side": 1,
+      "message": "This change is related to the bug fix in the sense that it didn\u0027t correctly document what the code was doing.",
+      "range": {
+        "startLine": 192,
+        "startChar": 15,
+        "endLine": 192,
+        "endChar": 16
+      },
+      "revId": "6462c160230d35c8d0192db677b0014fab2d3deb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

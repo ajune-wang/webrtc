@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2dbbde6_5bd0eee4",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoDecoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d69c847_51a4e3a8",
+      "range": {
+        "startLine": 18,
+        "startChar": 83,
+        "endLine": 18,
+        "endChar": 88
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b67e9ef3_c8f59287",
         "filename": "sdk/android/api/org/webrtc/DefaultVideoDecoderFactory.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ca0153c_7084b82b",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoDecoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b67e9ef3_c8f59287",
+      "range": {
+        "startLine": 24,
+        "startChar": 27,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "65c233e4_cf96d145",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5d60cb4_0fed1e7e",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 85
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a51a81da_1cfce715",
         "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4fff88f_5acdaa0b",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "I looked at the C++ code, and that `IsSameH264Profile` is fairly complicated in how it compares the profile level id numbers. I did not want to duplicate all that code for matching bitmasks where some bits can be either 0 or 1, various bit fiddling, and a bunch of hardcoded constants. So I exposed it through JNI.",
+      "parentUuid": "a51a81da_1cfce715",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 45
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a6d229d0_a048bedf",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a9d02dd_ff6aefbf",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 8
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ffd9fea_5d231149",
         "filename": "sdk/android/src/jni/pc/media_jni.h",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dc7b3c1_ec57f142",
+        "filename": "sdk/android/src/jni/pc/media_jni.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "I tried that at first, but ran into problems when building the null_media_jni target. I could not compile with a unique_ptr\u003ccricket::MediaEngineInterface\u003e without including the actual MediaEngineInterface in the build target, and I think that\u0027s what the null media target it supposed to avoid (it\u0027s a dependence of \"libjingle_peerconnection_datachannelonly_so\").",
+      "parentUuid": "4ffd9fea_5d231149",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "0799d9ea_38f9a21d",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a7195e6_bee1b44e",
+      "range": {
+        "startLine": 193,
+        "startChar": 6,
+        "endLine": 193,
+        "endChar": 35
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "785530b6_d648bfcf",
         "filename": "sdk/android/src/jni/pc/peerconnectionfactory_jni.cc",
         "patchSetId": 3
@@ -183,6 +351,30 @@
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c93c9c9_2ddcbc71",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "I suppose if we do inject anything, we want to use the new code path. Not sure about what results to expect when only injecting one of them, but I think it\u0027s better to fail in some way than silently ignoring the injected codec and falling back to the old code path.",
+      "parentUuid": "785530b6_d648bfcf",
+      "range": {
+        "startLine": 194,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 69
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "60431563_1744d9b2",
+        "filename": "sdk/android/src/jni/videodecoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65990a85_62a1e5dd",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3463442d_7f0fdcd2",
         "filename": "sdk/android/src/jni/videodecoderfactorywrapper.cc",
         "patchSetId": 3
@@ -229,6 +445,30 @@
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dfa7a28_11dc571e",
+        "filename": "sdk/android/src/jni/videodecoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3463442d_7f0fdcd2",
+      "range": {
+        "startLine": 48,
+        "startChar": 43,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "a7673e4e_6049aa15",
+        "filename": "sdk/android/src/jni/videodecoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Seems like it\u0027s not available yet for webrtc.",
+      "parentUuid": "3e84f302_51fc7679",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 64
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c577453c_c7ff42b7",
         "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
         "patchSetId": 3
@@ -275,6 +539,30 @@
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e6ce102_b284095f",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c577453c_c7ff42b7",
+      "range": {
+        "startLine": 68,
+        "startChar": 43,
+        "endLine": 68,
+        "endChar": 58
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "d90e7a5f_e5155e57",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Not available yet in webrtc",
+      "parentUuid": "651e0892_11767674",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 40
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ae8338e_3cdc3fad",
         "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
         "patchSetId": 3
@@ -321,6 +633,30 @@
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "539f8622_5bc700d6",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Ack on the code simplification.\n\nI guess the null check is not important. If the wrapped factory can\u0027t create the specified encoder, it doesn\u0027t matter much what the is_hardware_accelerated flag is set to.\n\nI asked Magnus previously about this maybe being too slow, but he thinks it\u0027s fine since this method is only called once.\n\nWhen it comes to correctness I think this is the best we can do? We can\u0027t really know anything about whether encoders that the user supplies are implemented in hardware of software, but we assume hardware. I think there is some plan to get rid of this QueryVideoEncoder method altogether.",
+      "parentUuid": "2ae8338e_3cdc3fad",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "fcac2240_936e8cef",
+        "filename": "sdk/android/src/jni/vp8codec_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5365da6d_c820fb5e",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "923884b3_1969f4fb",
         "filename": "sdk/android/src/jni/vp8codec_jni.cc",
         "patchSetId": 3
@@ -367,6 +727,30 @@
       "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e64a97_6ae74974",
+        "filename": "sdk/android/src/jni/vp8codec_jni.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-02T15:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923884b3_1969f4fb",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 34
+      },
+      "revId": "360bf72ae4fa8f8f12a3356a046cfa6d5cc272e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

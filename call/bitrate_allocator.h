@@ -86,7 +86,10 @@ class BitrateAllocator {
                    uint32_t max_bitrate_bps,
                    uint32_t pad_up_bitrate_bps,
                    bool enforce_min_bitrate,
-                   std::string track_id);
+                   std::string track_id,
+                   // TODO(shampson): Take out default value and wire the
+                   // relative_bitrate up to the RTCRtpParameters.
+                   double relative_bitrate = 1.0);
 
   // Removes a previously added observer, but will not trigger a new bitrate
   // allocation.
@@ -111,7 +114,8 @@ class BitrateAllocator {
                    uint32_t max_bitrate_bps,
                    uint32_t pad_up_bitrate_bps,
                    bool enforce_min_bitrate,
-                   std::string track_id)
+                   std::string track_id,
+                   double relative_bitrate)
         : TrackConfig(min_bitrate_bps,
                       max_bitrate_bps,
                       enforce_min_bitrate,
@@ -119,12 +123,14 @@ class BitrateAllocator {
           observer(observer),
           pad_up_bitrate_bps(pad_up_bitrate_bps),
           allocated_bitrate_bps(-1),
-          media_ratio(1.0) {}
+          media_ratio(1.0),
+          relative_bitrate(relative_bitrate) {}
 
     BitrateAllocatorObserver* observer;
     uint32_t pad_up_bitrate_bps;
     int64_t allocated_bitrate_bps;
     double media_ratio;  // Part of the total bitrate used for media [0.0, 1.0].
+    double relative_bitrate;  // The relative bitrate priority for allocation.
   };
 
   // Calculates the minimum requested send bitrate and max padding bitrate and
@@ -140,10 +146,18 @@ class BitrateAllocator {
 
   ObserverAllocation AllocateBitrates(uint32_t bitrate);
 
+  // Allocates zero bitrate to all observers.
   ObserverAllocation ZeroRateAllocation();
+  // Allocates bitrate to observers when there isn't enough to allocate the
+  // minimum to all observers.
   ObserverAllocation LowRateAllocation(uint32_t bitrate);
+  // Allocates bitrate to all observers when the available bandwidth is enough
+  // to allocate the minimum to all observers but not enough to allocate the
+  // max bitrate of each observer.
   ObserverAllocation NormalRateAllocation(uint32_t bitrate,
                                           uint32_t sum_min_bitrates);
+  // Allocates bitrate to observers when there is enough available bandwidth
+  // for all observers to be allocated their max bitrate.
   ObserverAllocation MaxRateAllocation(uint32_t bitrate,
                                        uint32_t sum_max_bitrates);
 
@@ -161,6 +175,12 @@ class BitrateAllocator {
                                ObserverAllocation* allocation);
   bool EnoughBitrateForAllObservers(uint32_t bitrate,
                                     uint32_t sum_min_bitrates);
+
+  // Given a target bitrate to allocate above each track's min bitrate,
+  // allocate bitrate to each observer appropriately. The bitrate allocated
+  // will not be above any track's max bitrate.
+  BitrateAllocator::ObserverAllocation DistributeBitrateFromTargetBitrate(
+      double target_bitrate);
 
   rtc::SequencedTaskChecker sequenced_checker_;
   LimitObserver* const limit_observer_ RTC_GUARDED_BY(&sequenced_checker_);
@@ -180,5 +200,6 @@ class BitrateAllocator {
   std::unique_ptr<rtc::BitrateAllocationStrategy> bitrate_allocation_strategy_
       RTC_GUARDED_BY(&sequenced_checker_);
 };
+
 }  // namespace webrtc
 #endif  // CALL_BITRATE_ALLOCATOR_H_

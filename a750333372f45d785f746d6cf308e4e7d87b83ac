@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ba19ad8_c6485fb6",
+        "filename": "modules/audio_coding/include/audio_coding_module.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-03T14:42:41Z",
+      "side": 0,
+      "message": "This turned out to be a lie. The ACM will use the clock, but it won\u0027t delete it.",
+      "range": {
+        "startLine": 82,
+        "startChar": 24,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "a750333372f45d785f746d6cf308e4e7d87b83ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

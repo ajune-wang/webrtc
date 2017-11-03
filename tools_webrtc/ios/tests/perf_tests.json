@@ -1,0 +1,11 @@
+{
+  "tests": [
+    {
+      "app": "webrtc_perf_tests",
+      "swarming_dimensions": {
+        "pool": "WebRTC",
+        "id": "build15-a7"
+      }
+    }
+  ]
+}

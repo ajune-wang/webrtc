@@ -113,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "b89eaa94_a7420b20",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-03T01:24:03Z",
+      "side": 1,
+      "message": "Yes, but without a default I need to make changes to the classes that are calling this function. I think it makes sense to separate this CL (implementation) and another CL that wires this up to the API layer RTCRtpParameters. I think there\u0027s two options here.\n1) Update the audio_send_stream.cc and video_send_stream.cc to call this function with a default value of 1.0 (with a TODO there to wire it up).\n2) Keep the default value here in this function and leave a TODO.\n\nI went with number 2 for now because it leaves other classes out of this CL.",
+      "parentUuid": "c19913a5_99a2a5ab",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a441290_6cadeff8",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 3
@@ -394,6 +412,24 @@
     },
     {
       "key": {
+        "uuid": "5a31d7f2_c4f4dc81",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-03T01:24:03Z",
+      "side": 1,
+      "message": "SGTM. I updated this. Just to note, the other test fixtures in this test file use a unique_ptr for the allocator.",
+      "parentUuid": "d263c328_586852bd",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc9e01d0_c5bc6ce0",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -462,6 +498,30 @@
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5655c0d9_f0a1a5fa",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-03T01:24:03Z",
+      "side": 1,
+      "message": "Yes this was intended. OnNetworkChanged is essentially called here, and in all the tests to setup available bandwidth for that specific test. It isn\u0027t triggered by OnNetworkChanged() because the allocation limits have not changed between the AddObserver() call and OnNetworkChanged() call.\n\nThe original intention here was to have a test that verified the limit observer was correctly hooked into the subclass (PriorityBasedBitrateAllocator). Now that this isn\u0027t a subclass I don\u0027t think this is necessary, because the limit observer is tested in other parts of this test file. I took out the EXPECT_CALL.",
+      "parentUuid": "b870c66f_4dacc4ac",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 35
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -582,6 +642,24 @@
       "side": 1,
       "message": "I\u0027m not sure if changing the older tests is important enough to merit your attention, but when adding new ones, I guess it makes sense to use what we believe to be more convenient values.",
       "parentUuid": "19f78b10_115f50d5",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11f0d585_aa65ca1a",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-03T01:24:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5656b6c8_9dc69dba",
       "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

@@ -16,6 +16,24 @@
       "revId": "9828bebee69be2aabab7bcf0cffbfbc67edaf5ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f77729b_5ec89301",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-03T01:24:03Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "15ff475c_1d8b2d04",
+      "revId": "9828bebee69be2aabab7bcf0cffbfbc67edaf5ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

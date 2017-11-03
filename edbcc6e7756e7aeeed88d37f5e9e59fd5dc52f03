@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0f89aa45_168f6ba0",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-03T01:24:03Z",
+      "side": 1,
+      "message": "I coded up a prototype of it, but I\u0027m not convinced to use it until we get resolution on a couple things.\n1) It seems to me that the runtime of this discussed algorithm is O(n^2). Worst case for every track every we loop through each remaining track that hasn\u0027t been allocated its max bitrate. This seems like a summation of n, for example with 5 tracks 5+4+3+2+1. The runtime of this would be O((n(n+1))/2)\u003d\u003d\u003e O(n^2). \n2) If this is the case- how important is the runtime? The amount of tracks should be low, although I don\u0027t see anything else \u003e O(n) in the file.\n\nOtherwise I think the algorithm is more readable and easier to understand. \n\nIf you agree that this is a problem then you can go ahead and review what I\u0027ve currently implemented. If you think it\u0027s worth talking about I\u0027m happy to chat when I get in tomorrow. I didn\u0027t finish cleaning up the prototype because of this.",
+      "parentUuid": "0a2ed5ef_66fa1b9d",
+      "revId": "edbcc6e7756e7aeeed88d37f5e9e59fd5dc52f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51f2fefb_ec42607e",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "975038b7_a87f452a",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-03T01:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51f2fefb_ec42607e",
+      "revId": "edbcc6e7756e7aeeed88d37f5e9e59fd5dc52f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd3d6706_ba3b7729",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 5
@@ -50,6 +86,24 @@
       "revId": "edbcc6e7756e7aeeed88d37f5e9e59fd5dc52f03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a823999_cc0981c1",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-03T01:24:03Z",
+      "side": 1,
+      "message": "SGTM. I moved the comment to the function definition (that seemed appropriate according to the C++ style guide). I also added short comments to distinguish these functions. It\u0027s funny to me how strict function headers are for other coding languages at Google (in my experience with JavaScript, python and Java), in comparison with C.",
+      "parentUuid": "dd3d6706_ba3b7729",
+      "revId": "edbcc6e7756e7aeeed88d37f5e9e59fd5dc52f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

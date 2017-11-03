@@ -14,6 +14,7 @@
 #include <limits>
 #include <string>
 
+#include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
@@ -32,11 +33,19 @@
 // The test loops through all available mono codecs, encode at "a" sends over
 // the channel, and decodes at "b".
 
+namespace webrtc {
+
 namespace {
+
 const size_t kVariableSize = std::numeric_limits<size_t>::max();
+
+AudioCodingModule::Config AcmConfig() {
+  AudioCodingModule::Config config;
+  config.decoder_factory = CreateBuiltinAudioDecoderFactory();
+  return config;
 }
 
-namespace webrtc {
+}  // namespace
 
 // Class for simulating packet handling.
 TestPack::TestPack()
@@ -104,8 +113,8 @@ void TestPack::reset_payload_size() {
 }
 
 TestAllCodecs::TestAllCodecs(int test_mode)
-    : acm_a_(AudioCodingModule::Create()),
-      acm_b_(AudioCodingModule::Create()),
+    : acm_a_(AudioCodingModule::Create(AcmConfig())),
+      acm_b_(AudioCodingModule::Create(AcmConfig())),
       channel_a_to_b_(NULL),
       test_count_(0),
       packet_size_samples_(0),

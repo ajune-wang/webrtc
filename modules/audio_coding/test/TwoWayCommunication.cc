@@ -33,9 +33,19 @@ namespace webrtc {
 
 #define MAX_FILE_NAME_LENGTH_BYTE 500
 
+namespace {
+
+AudioCodingModule::Config AcmConfig() {
+  AudioCodingModule::Config config;
+  config.decoder_factory = CreateBuiltinAudioDecoderFactory();
+  return config;
+}
+
+}  // namespace
+
 TwoWayCommunication::TwoWayCommunication(int testMode)
-    : _acmA(AudioCodingModule::Create()),
-      _acmRefA(AudioCodingModule::Create()),
+    : _acmA(AudioCodingModule::Create(AcmConfig())),
+      _acmRefA(AudioCodingModule::Create(AcmConfig())),
       _testMode(testMode) {
   AudioCodingModule::Config config;
   // The clicks will be more obvious in FAX mode. TODO(henrik.lundin) Really?
@@ -60,7 +70,8 @@ TwoWayCommunication::~TwoWayCommunication() {
 
 void TwoWayCommunication::ChooseCodec(uint8_t* codecID_A,
                                       uint8_t* codecID_B) {
-  std::unique_ptr<AudioCodingModule> tmpACM(AudioCodingModule::Create());
+  std::unique_ptr<AudioCodingModule> tmpACM(
+      AudioCodingModule::Create(AcmConfig()));
   uint8_t noCodec = tmpACM->NumberOfCodecs();
   CodecInst codecInst;
   printf("List of Supported Codecs\n");

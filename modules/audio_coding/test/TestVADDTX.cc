@@ -12,6 +12,7 @@
 
 #include <string>
 
+#include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/test/PCMFile.h"
 #include "modules/audio_coding/test/utility.h"
@@ -61,9 +62,19 @@ void ActivityMonitor::GetStatistics(uint32_t* counter) {
   memcpy(counter, counter_, sizeof(counter_));
 }
 
+namespace {
+
+AudioCodingModule::Config AcmConfig() {
+  AudioCodingModule::Config config;
+  config.decoder_factory = CreateBuiltinAudioDecoderFactory();
+  return config;
+}
+
+}  // namespace
+
 TestVadDtx::TestVadDtx()
-    : acm_send_(AudioCodingModule::Create()),
-      acm_receive_(AudioCodingModule::Create()),
+    : acm_send_(AudioCodingModule::Create(AcmConfig())),
+      acm_receive_(AudioCodingModule::Create(AcmConfig())),
       channel_(new Channel),
       monitor_(new ActivityMonitor) {
   EXPECT_EQ(0, acm_send_->RegisterTransportCallback(channel_.get()));

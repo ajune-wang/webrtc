@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e8eb1e50_bf94331c",
+        "filename": "pc/channelmanager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T16:58:09Z",
+      "side": 1,
+      "message": "None at all.",
+      "parentUuid": "e5dce4ce_962b7499",
+      "range": {
+        "startLine": 157,
+        "startChar": 28,
+        "endLine": 157,
+        "endChar": 0
+      },
+      "revId": "10912ff115b2601e62db67c3d9f939cc716cf61e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67981e5c_59e8cbe0",
         "filename": "pc/channelmanager.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "10912ff115b2601e62db67c3d9f939cc716cf61e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa48c2d8_d2255755",
+        "filename": "pc/channelmanager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T16:58:09Z",
+      "side": 1,
+      "message": "Looks like data_engine_ is never null, so I added a DCHECK to the constructor and noted that in the class member.",
+      "parentUuid": "67981e5c_59e8cbe0",
+      "range": {
+        "startLine": 366,
+        "startChar": 36,
+        "endLine": 366,
+        "endChar": 48
+      },
+      "revId": "10912ff115b2601e62db67c3d9f939cc716cf61e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

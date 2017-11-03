@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6976f5a_bdf4963b",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "What are your thoughts of converting these into functions like the following? :\n\nif (!network_thread_-\u003eIsCurrent()) {\n  return network_thread_-\u003eInvoke\u003cwebrtc::RtpTransportInternal*\u003e(RTC_FROM_HERE, [\u0026] { return CreateRtpTransport(transport_name, rtcp_mux_enabled); });\n}\n\nThen inlining what is currently defined in CreateRtpTransport_n.\n\nThat would save from having copies of each method with the _n suffix and spreading the implementation out.",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f60d205_86605e2a",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "Do we have any consensus on when to DCHECK versus CHECK versus return and log a warning? My first impression would be to DCHECK here (since destroying a transport that doesn\u0027t exist is a programming error).",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01e69e6b_b22beffd",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "Brief class comment would be nice. Something along the lines of:\n\n// Wrapper for the RtpTransport that keeps a reference count and\n// tracks which additional protection layers are enabled.\n\nI don\u0027t know a good way to explain how srtp_transport and dtls_srtp_transport are used as part of this class, but maybe you have some ideas on how that could be added to the class comment?",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "763798ab_8a28a311",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "Should this be marked as // Non-null. ?",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff06cd5_01bae2c9",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "Are there any dependencies between |srtp_transport| and |dtls_srtp_transport| (i.e., is it the case that if one is set the other must be?).",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f627ca0_a0c58028",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "Can you just call GetParam() inside this method instead of taking it as a parameter?",
+      "range": {
+        "startLine": 929,
+        "startChar": 6,
+        "endLine": 929,
+        "endChar": 27
+      },
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d15e666_8f0fcfcd",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "I\u0027d suggest a switch here since RTPTransportType is an enum.",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a50175f_313c15fb",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "Just define these as local variables in the tests since nothing actually uses theses as class members.",
+      "range": {
+        "startLine": 941,
+        "startChar": 2,
+        "endLine": 942,
+        "endChar": 54
+      },
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "878169d2_3a2ced8e",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "Maybe a test comment:\n// Tests that creating transports with the same name will cause the\n// second call to re-use the transport created in the first call.",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "132b5559_16d03a57",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-03T17:34:52Z",
+      "side": 1,
+      "message": "references still exist",
+      "range": {
+        "startLine": 979,
+        "startChar": 56,
+        "endLine": 980,
+        "endChar": 19
+      },
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "297464aa_41ce83e8",
+        "filename": "tools_webrtc/ios/tests/perf_tests.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-11-03T22:39:12Z",
+      "side": 1,
+      "message": "I guess you can\u0027t add comments in JSON, otherwise it would have been nice to specify why we lock down to a specific builder here. Oh well.",
+      "range": {
+        "startLine": 5,
+        "startChar": 7,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "dedf39f9aa6342ccaad6e9043bd57eb3d63a87f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

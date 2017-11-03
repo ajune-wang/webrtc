@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5dce4ce_962b7499",
+        "filename": "pc/channelmanager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-03T04:36:01Z",
+      "side": 1,
+      "message": "Is there any reason why not clearing the rtp data channels?",
+      "range": {
+        "startLine": 157,
+        "startChar": 28,
+        "endLine": 157,
+        "endChar": 0
+      },
+      "revId": "10912ff115b2601e62db67c3d9f939cc716cf61e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67981e5c_59e8cbe0",
+        "filename": "pc/channelmanager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-03T04:36:01Z",
+      "side": 1,
+      "message": "Maybe DCHECK the data_engine_ as well?",
+      "range": {
+        "startLine": 366,
+        "startChar": 36,
+        "endLine": 366,
+        "endChar": 48
+      },
+      "revId": "10912ff115b2601e62db67c3d9f939cc716cf61e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

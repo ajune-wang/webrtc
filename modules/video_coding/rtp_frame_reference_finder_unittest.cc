@@ -550,6 +550,33 @@ TEST_F(TestRtpFrameReferenceFinder, Vp8TemporalLayers_0212) {
 }
 
 // Test with 3 temporal layers in a 0212 pattern.
+//  Drop tl2 layer without pict id rewriting
+TEST_F(TestRtpFrameReferenceFinder, Vp8TemporalLayers_0212_drop_tl2) {
+  uint16_t pid = Rand();
+  uint16_t sn = Rand();
+
+  InsertVp8(sn, sn, true, pid, 0, 55);
+  // DROP -> Vp8(false, pid + 1, 2, 55, true);
+  InsertVp8(sn + 1, sn + 1, false, pid + 2, 1, 55, true);
+  // DROP -> Vp8(false, pid + 3, 2, 55);
+  InsertVp8(sn + 2, sn + 2, false, pid + 4, 0, 56);
+  // DROP -> Vp8(false, pid + 5, 2, 56);
+  InsertVp8(sn + 3, sn + 3, false, pid + 6, 1, 56);
+  // DROP -> Vp8(false, pid + 7, 2, 56);
+  InsertVp8(sn + 4, sn + 4, false, pid + 8, 0, 57);
+  // DROP -> Vp8(false, pid + 9, 2, 57, true);
+  InsertVp8(sn + 5, sn + 5, false, pid + 10, 1, 57, true);
+
+  ASSERT_EQ(6UL, frames_from_callback_.size());
+  CheckReferencesVp8(0);
+  CheckReferencesVp8(2, 0);
+  CheckReferencesVp8(4, 0);
+  CheckReferencesVp8(6, 2, 4);
+  CheckReferencesVp8(8, 4);
+  CheckReferencesVp8(10, 8);
+}
+
+// Test with 3 temporal layers in a 0212 pattern.
 TEST_F(TestRtpFrameReferenceFinder, Vp8TemporalLayersMissingFrame_0212) {
   uint16_t pid = Rand();
   uint16_t sn = Rand();
@@ -594,6 +621,27 @@ TEST_F(TestRtpFrameReferenceFinder, Vp8TemporalLayersReordering_0212) {
   CheckReferencesVp8(9, 8);
   CheckReferencesVp8(10, 8);
   CheckReferencesVp8(11, 8, 9, 10);
+}
+
+// Test with 3 temporal layers in a 0212 pattern.
+TEST_F(TestRtpFrameReferenceFinder, Vp8TemporalLayersReordering_0212_drop_tl2) {
+  uint16_t pid = 126;
+  uint16_t sn = Rand();
+
+  InsertVp8(sn + 1, sn + 1, false, pid + 2, 1, 55, true);
+  InsertVp8(sn, sn, true, pid, 0, 55);
+  InsertVp8(sn + 2, sn + 2, false, pid + 4, 0, 56);
+  InsertVp8(sn + 4, sn + 4, false, pid + 8, 0, 57);
+  InsertVp8(sn + 3, sn + 3, false, pid + 6, 1, 56);
+  InsertVp8(sn + 5, sn + 5, false, pid + 10, 1, 57, true);
+
+  ASSERT_EQ(6UL, frames_from_callback_.size());
+  CheckReferencesVp8(0);
+  CheckReferencesVp8(2, 0);
+  CheckReferencesVp8(4, 0);
+  CheckReferencesVp8(6, 2, 4);
+  CheckReferencesVp8(8, 4);
+  CheckReferencesVp8(10, 8);
 }
 
 TEST_F(TestRtpFrameReferenceFinder, Vp8InsertManyFrames_0212) {

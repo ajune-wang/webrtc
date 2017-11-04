@@ -104,13 +104,15 @@ public class Logging {
   // Enable diagnostic logging for messages of |severity| to the platform debug
   // output. On Android, the output will be directed to Logcat.
   // Note: this function starts collecting the output of the LOG() macros.
-  public static synchronized void enableLogToDebugOutput(Severity severity) {
-    if (!loadNativeLibrary()) {
-      fallbackLogger.log(Level.WARNING, "Cannot enable logging because native lib not loaded.");
-      return;
+  public static void enableLogToDebugOutput(Severity severity) {
+    synchronized (this) {
+      if (!loadNativeLibrary()) {
+        fallbackLogger.log(Level.WARNING, "Cannot enable logging because native lib not loaded.");
+        return;
+      }
+      nativeEnableLogToDebugOutput(severity.ordinal());
+      loggingEnabled = true;
     }
-    nativeEnableLogToDebugOutput(severity.ordinal());
-    loggingEnabled = true;
   }
 
   public static void log(Severity severity, String tag, String message) {

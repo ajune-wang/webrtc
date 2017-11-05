@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8e02672_7421ad29",
+        "filename": "pc/channelmanager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-05T05:23:15Z",
+      "side": 1,
+      "message": "And data_channels_?",
+      "range": {
+        "startLine": 154,
+        "startChar": 47,
+        "endLine": 154,
+        "endChar": 0
+      },
+      "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "487932fb_ae46dc8b",
+        "filename": "pc/channelmanager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-05T05:23:15Z",
+      "side": 1,
+      "message": "You might leave a comment explaining why.",
+      "range": {
+        "startLine": 32,
+        "startChar": 28,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "478134ca_a51701ad",
+        "filename": "pc/channelmanager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-05T05:23:15Z",
+      "side": 1,
+      "message": "Can we just remove this and make the calls sites create an RtpDataEngine?",
+      "range": {
+        "startLine": 37,
+        "startChar": 46,
+        "endLine": 37,
+        "endChar": 0
+      },
+      "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ee80334_bb5c7bb9",
+        "filename": "pc/channelmanager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-05T05:23:15Z",
+      "side": 1,
+      "message": "Since it\u0027s passed in, couldn\u0027t a caller pass in a null?",
+      "range": {
+        "startLine": 192,
+        "startChar": 66,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

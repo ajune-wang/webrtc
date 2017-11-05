@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "660c6cbc_4d48c753",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-05T05:12:18Z",
+      "side": 1,
+      "message": "I don\u0027t think these comments are useful since WebRtcSession will no longer be a thing.  The comment will just be confusing in the future.  Same with the other 3 places like this.",
+      "range": {
+        "startLine": 851,
+        "startChar": 38,
+        "endLine": 851,
+        "endChar": 0
+      },
+      "revId": "47a3908be867fec53597e8214ef6de99a503c06d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "101a3b3d_f25fac8d",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-05T05:12:18Z",
+      "side": 1,
+      "message": "Definitely call it session_id_ now.",
+      "range": {
+        "startLine": 206,
+        "startChar": 64,
+        "endLine": 206,
+        "endChar": 0
+      },
+      "revId": "47a3908be867fec53597e8214ef6de99a503c06d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c39513b_ff534ae6",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-05T05:12:18Z",
+      "side": 1,
+      "message": "That\u0027s obvious by the std::unique_ptr.",
+      "range": {
+        "startLine": 227,
+        "startChar": 37,
+        "endLine": 227,
+        "endChar": 0
+      },
+      "revId": "47a3908be867fec53597e8214ef6de99a503c06d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -264,13 +264,27 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
   if (last_picture_id_ == -1)
     last_picture_id_ = frame->picture_id;
 
+  // Insert end seq num for this picture id.
+  last_picture_id_seq_num_.insert(std::make_pair(
+      frame->picture_id,
+      std::make_pair(frame->first_seq_num(), frame->last_seq_num())));
+
   // Find if there has been a gap in fully received frames and save the picture
   // id of those frames in |not_yet_received_frames_|.
   if (AheadOf<uint16_t, kPicIdLength>(frame->picture_id, last_picture_id_)) {
-    do {
-      last_picture_id_ = Add<kPicIdLength>(last_picture_id_, 1);
-      not_yet_received_frames_.insert(last_picture_id_);
-    } while (last_picture_id_ != frame->picture_id);
+    // Get last seq num for the last picture id.
+    auto seq_num_it = last_picture_id_seq_num_.find(last_picture_id_);
+    // If the seq num from the last picture and this one are continuous
+    // then there are no missing frames in between.
+    if (seq_num_it == last_picture_id_seq_num_.end() ||
+        seq_num_it->second.second + 1 != frame->first_seq_num()) {
+      do {
+        last_picture_id_ = Add<kPicIdLength>(last_picture_id_, 1);
+        not_yet_received_frames_.insert(last_picture_id_);
+      } while (last_picture_id_ != frame->picture_id);
+    } else {
+      last_picture_id_ = frame->picture_id;
+    }
   }
 
   // Clean up info for base layers that are too old.
@@ -284,6 +298,12 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
   auto clean_frames_to = not_yet_received_frames_.lower_bound(old_picture_id);
   not_yet_received_frames_.erase(not_yet_received_frames_.begin(),
                                  clean_frames_to);
+
+  // Clean up seq info about frames that are too old.
+  auto clean_frames_seqnum_to =
+      last_picture_id_seq_num_.lower_bound(old_picture_id);
+  last_picture_id_seq_num_.erase(last_picture_id_seq_num_.begin(),
+                                 clean_frames_seqnum_to);
 
   if (frame->frame_type() == kVideoFrameKey) {
     frame->num_references = 0;
@@ -346,7 +366,25 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
     if (not_received_frame_it != not_yet_received_frames_.end() &&
         AheadOf<uint16_t, kPicIdLength>(frame->picture_id,
                                         *not_received_frame_it)) {
-      return kStash;
+      // Get next received frame of the missing one.
+      auto seq_num_it =
+          last_picture_id_seq_num_.upper_bound(*not_received_frame_it);
+
+      // If no one newer frame than missing one (should not happen).
+      if (seq_num_it == last_picture_id_seq_num_.end())
+        return kStash;
+
+      // Get the first packet seq number.
+      uint16_t next_seq_num = seq_num_it->second.first;
+
+      // Get the previous one of the next received, it should be before the
+      // missing one.
+      seq_num_it--;
+
+      // Check if there is a seq num gap between previsues one and next one.
+      if (seq_num_it == last_picture_id_seq_num_.end() ||
+          seq_num_it->second.second + 1 != next_seq_num)
+        return kStash;
     }
 
     if (!(AheadOf<uint16_t, kPicIdLength>(frame->picture_id,
@@ -388,7 +426,22 @@ void RtpFrameReferenceFinder::UpdateLayerInfoVp8(RtpFrameObject* frame) {
     ++tl0_pic_idx;
     layer_info_it = layer_info_.find(tl0_pic_idx);
   }
+
   not_yet_received_frames_.erase(frame->picture_id);
+
+  // Check which was the last seq num of previous picture id received.
+  auto seq_num_it = last_picture_id_seq_num_.find(frame->picture_id);
+  if (seq_num_it != last_picture_id_seq_num_.end())
+    --seq_num_it;
+
+  // If they seq num are continous, set all the pict id in the middle as
+  // received.
+  if (seq_num_it != last_picture_id_seq_num_.end() &&
+      seq_num_it->second.second + 1 == frame->first_seq_num())
+    // Erase from prev pict id to this frame pict id.
+    not_yet_received_frames_.erase(
+        not_yet_received_frames_.upper_bound(seq_num_it->first),
+        not_yet_received_frames_.lower_bound(frame->picture_id));
 
   UnwrapPictureIds(frame);
 }

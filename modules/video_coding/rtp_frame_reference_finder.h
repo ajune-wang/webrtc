@@ -160,6 +160,13 @@ class RtpFrameReferenceFinder {
   // that have not yet been fully received.
   int last_picture_id_ RTC_GUARDED_BY(crit_);
 
+  // Save the start and end seq num for all picture ids to detect frame
+  // continuity even if picture id is not continuos.
+  std::map<uint16_t,
+           std::pair<uint16_t, uint16_t>,
+           DescendingSeqNumComp<uint16_t>>
+      last_picture_id_seq_num_ RTC_GUARDED_BY(crit_);
+
   // Padding packets that have been received but that are not yet continuous
   // with any group of pictures.
   std::set<uint16_t, DescendingSeqNumComp<uint16_t>> stashed_padding_

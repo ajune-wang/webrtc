@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5520aac9_f2060a9a",
+        "filename": "native-api.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-06T13:44:02Z",
+      "side": 1,
+      "message": "1. I say approximately this is the paragraph on line 36 below. Should that text be changed and/or moved?\n\n2. I try to explain this in the section that starts on line 47. Should that text be changed and/or moved?",
+      "parentUuid": "272a97a8_29819249",
+      "revId": "c84d8fca23b31b647d79b3ea5c3af7a2b1575864",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53044571_6b3ee9c2",
         "filename": "native-api.md",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2017-11-06T08:56:24Z",
       "side": 1,
       "message": "Point out that while these are defacto public APIs,\n1. The need to use things from here is because of legacy\n2. The features exposed will be moved into api/\n(Don\u0027t use things here if you can avoid it.)",
+      "revId": "c84d8fca23b31b647d79b3ea5c3af7a2b1575864",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dc43ea7_45f2a1ad",
+        "filename": "native-api.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-06T13:44:02Z",
+      "side": 1,
+      "message": "1. The table already says \"Legacy API directory\", but I guess I could use that word in this paragraph too?\n\n2. I try to say this in the section that starts on line 47.",
+      "parentUuid": "53044571_6b3ee9c2",
       "revId": "c84d8fca23b31b647d79b3ea5c3af7a2b1575864",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

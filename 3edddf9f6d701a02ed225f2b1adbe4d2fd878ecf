@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "a9d913a4_3561a4c2",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "Okay. Could you please also push a CL, based on this one, that fixes this TODO, and add me as a reviewer?",
+      "parentUuid": "b89eaa94_a7420b20",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a441290_6cadeff8",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 3
@@ -430,6 +448,24 @@
     },
     {
       "key": {
+        "uuid": "76e5e25a_105d9322",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ve noticed about the unique_ptr in the other tests. I\u0027ve not checked whether there was a need for it in one of the tests there, or if this was for a historical reason that might have gone away since. I think we can leave that as-is for now; it\u0027s not worth \"fixing\" this, but it would be good to not do the same in fixtures we add unless we need to.\n\nBut, by the way, now that you no longer subclass, do we need a separate fixture?",
+      "parentUuid": "5a31d7f2_c4f4dc81",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc9e01d0_c5bc6ce0",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -513,6 +549,30 @@
       "side": 1,
       "message": "Yes this was intended. OnNetworkChanged is essentially called here, and in all the tests to setup available bandwidth for that specific test. It isn\u0027t triggered by OnNetworkChanged() because the allocation limits have not changed between the AddObserver() call and OnNetworkChanged() call.\n\nThe original intention here was to have a test that verified the limit observer was correctly hooked into the subclass (PriorityBasedBitrateAllocator). Now that this isn\u0027t a subclass I don\u0027t think this is necessary, because the limit observer is tested in other parts of this test file. I took out the EXPECT_CALL.",
       "parentUuid": "b870c66f_4dacc4ac",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 35
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1ae4041_bd099ab3",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "Ack\nFYI: In unit-tests, it\u0027s good to do the minimum necessary for demonstrating correctness. So if you don\u0027t need to call OnNetworkChanged() in a test, it\u0027s best not to. Otherwise, you could end up with tests that pass for the wrong reason. Also, the shorter the test, the easier it is to understand.",
+      "parentUuid": "5655c0d9_f0a1a5fa",
       "range": {
         "startLine": 539,
         "startChar": 0,

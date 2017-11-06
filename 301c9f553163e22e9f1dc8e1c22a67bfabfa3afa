@@ -1,0 +1,351 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae90ec93_55e8de10",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "s/its/it\u0027s\ns/\"each track\"/\"all tracks\" or s/\"each track\"/\"some tracks\" - I\u0027m not 100% sure about this one. But I think these would be more correct. Wdyt?\n\nBut perhaps just remove the \"unless...\" part? I think it\u0027s clear enough implicitly. Speaking for myself, I don\u0027t think I would have assumed the values of relative_bitrate must be distinct.",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5078b3d_1952bb39",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "FYI, I generally favor using a locally defined struct to using std::pair, because that way I can have self-documenting code (by way of the struct\u0027s fields\u0027 names) rather than a comment.",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a6a4c3d_efbcdc02",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "nit: My apologies, but I find this comment difficult to read.",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 56
+      },
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d23fd02d_41c04daf",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "It looks like you\u0027re aliasing |relative_bitrate| to get a shorter name.\n1. Please use |const| mark that more clearly.\n2. Please bear in mind the flip-side to this is that the reader assumes you\u0027re caching the original value of |observer_config.relative_bitrate| before changing it, only to find out later that this was not the case.",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c376632_b3d5ff31",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "For your consideration - do you think readability might be improved if you delegate the bulk of the work to a separate function, which would be allowed to assume min\u003d0, because you would already have pre-reserved the minimum bitrates of all tracks before calling that function?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b2193e6_503d2070",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "s/than/then",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b341f6_a80763b1",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "My apologies that I seem to not get it, but how does this work with multiple streams whose maximum bitrate is satisfied, and splitting their left-over between the remaining unsaturated streams?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e45cf6fe_d2303d99",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "its?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8823729f_7ec75c96",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442a87da_8f629d69",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "Similar enough to BitrateAllocatorTest that we can avoid introducing this class and just use BitrateAllocatorTest?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1306a907_968bc4af",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "Could you please introduce a constant for 30 and use it in both 544 and 546, assuming that\u0027s why we have the same value in both places?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc8fae4_0432ff53",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "I would suggest similarly using constants here, to more quickly highlight the intention to future readers.",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1716695c_055f0f42",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "I think you could easily generalize this test to an arbitrary number. What do you think about the trade-off between clarity vs. coverage in that case?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e979e3_29fb7a5c",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "2.0 and 4.0 are repeated; use constants?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ec771b2_889e0538",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "In this case, I think it would detract from readability to try to use constants, so +1 (i.e. \"like\") on the way it\u0027s currently written.",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "233e414e_eb2aab5d",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "Is TwoObserversAllocatedRelativeAboveMins not testing a subset of this (ThreeObserversAllocatedRelativeAmounts) test?",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a6dcb67_60da8c27",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "kLowMax / 2, kMidMax / 2, kHighMax / 2?",
+      "range": {
+        "startLine": 630,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 50
+      },
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b43a98cb_c3539440",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "The 6.0 is not immediately clear to a fresh reader. I take it it\u0027s 2.0 + 4.0? Maybe we could code that? Or do you think that makes things less readable?",
+      "range": {
+        "startLine": 662,
+        "startChar": 0,
+        "endLine": 663,
+        "endChar": 61
+      },
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3eb728e_c5fb76f1",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-06T12:14:04Z",
+      "side": 1,
+      "message": "That both low and mid get 30u appears counter-intuitive at first. It\u0027s only after one sees that mid\u0027s max is 30, that one understands why this is the case. So maybe \"there is no difference in functionality\" is a bit vague? No difference compared to which of the previous tests? Maybe \"sanity\" is a more explicitly-vague-but-deal-with-it name?",
+      "range": {
+        "startLine": 754,
+        "startChar": 0,
+        "endLine": 756,
+        "endChar": 50
+      },
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

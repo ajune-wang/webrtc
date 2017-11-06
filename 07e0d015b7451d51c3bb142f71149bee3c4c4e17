@@ -70,6 +70,30 @@
       "revId": "07e0d015b7451d51c3bb142f71149bee3c4c4e17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c8f34d_7964d807",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-06T12:33:33Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "08215911_dbf162d2",
+      "range": {
+        "startLine": 87,
+        "startChar": 54,
+        "endLine": 87,
+        "endChar": 68
+      },
+      "revId": "07e0d015b7451d51c3bb142f71149bee3c4c4e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

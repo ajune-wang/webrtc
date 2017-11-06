@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b60ed312_c856f6b4",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-06T12:33:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a67b51e_95864c77",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "f8f6a603430c6100a9f00f63089de65cd8ebbea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5dd8cae_605f6dd5",
         "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoEncoder.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "f8f6a603430c6100a9f00f63089de65cd8ebbea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "427d241a_2daaddc0",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoEncoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-06T12:33:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5dd8cae_605f6dd5",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "f8f6a603430c6100a9f00f63089de65cd8ebbea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

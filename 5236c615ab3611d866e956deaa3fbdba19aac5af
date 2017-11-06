@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7e78948_8e8f4ea7",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-06T15:48:49Z",
+      "side": 1,
+      "message": "Maybe it would be nice to check that the HW encoder factory supports the codec before trying to create it instead of relying on that it will behave nicely and return null instead of crashing. We could use the containsSameCodec() function.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bb82827_5a318fe1",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-06T15:48:49Z",
+      "side": 1,
+      "message": "You could write this simpler:\nList\u003cVideoCodecInfo\u003e supportedCodecInfos \u003d\n    Arrays.asList(softwareVideoEncoderFactory.getSupportedCodecs());",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 96
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56de44fe_4b6972ed",
+        "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-06T15:48:49Z",
+      "side": 1,
+      "message": "We already have very similar logic in sdk/android/src/jni/videoencoderfactorywrapper.cc. Let\u0027s move it somewhere common so we don\u0027t have to duplicate it.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebfd5bea_780a7793",
+        "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-06T15:48:49Z",
+      "side": 1,
+      "message": "Unfortunately you can\u0027t use cricket::VideoCodec::Matches because of how it handles payload types, so you will have to do this instead:\nif (!CodecNamesEq(codec1.name, codec2.name))\n  return false;\nif (CodecNamesEq(codec1.name.c_str(), kH264CodecName) \u0026\u0026\n    !IsSameH264Profile(codec1.params, codec2.params)) {\n  return false;\n}\nreturn true;\n\nI would like to see a unittest of this function to verify it actually works. Let\u0027s send in some H264 codecs with different profiles.",
+      "range": {
+        "startLine": 49,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

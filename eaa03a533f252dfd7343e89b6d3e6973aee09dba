@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "30a9c681_3d2dbeff",
+        "filename": "pc/channelmanager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-06T23:44:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8e02672_7421ad29",
+      "range": {
+        "startLine": 154,
+        "startChar": 47,
+        "endLine": 154,
+        "endChar": 0
+      },
+      "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "487932fb_ae46dc8b",
         "filename": "pc/channelmanager.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-05T05:23:15Z",
       "side": 1,
       "message": "You might leave a comment explaining why.",
+      "range": {
+        "startLine": 32,
+        "startChar": 28,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ab96a63_18cf9d15",
+        "filename": "pc/channelmanager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-06T23:44:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure what a comment would explain here. The destructor is already non-virtual, so it would be unsafe to make a subclass. The final just makes that more explicit.",
+      "parentUuid": "487932fb_ae46dc8b",
       "range": {
         "startLine": 32,
         "startChar": 28,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "044d98e7_23c5dd6e",
+        "filename": "pc/channelmanager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-06T23:44:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "478134ca_a51701ad",
+      "range": {
+        "startLine": 37,
+        "startChar": 46,
+        "endLine": 37,
+        "endChar": 0
+      },
+      "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ee80334_bb5c7bb9",
         "filename": "pc/channelmanager.h",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f8fe892_6a027516",
+        "filename": "pc/channelmanager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-06T23:44:56Z",
+      "side": 1,
+      "message": "There\u0027s a DCHECK in the constructor to verify that it\u0027s not null.",
+      "parentUuid": "5ee80334_bb5c7bb9",
+      "range": {
+        "startLine": 192,
+        "startChar": 66,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "eaa03a533f252dfd7343e89b6d3e6973aee09dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

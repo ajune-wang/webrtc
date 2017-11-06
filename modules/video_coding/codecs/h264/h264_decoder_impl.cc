@@ -322,28 +322,18 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
   packet.size = static_cast<int>(input_image._length);
   av_context_->reordered_opaque = input_image.ntp_time_ms_ * 1000;  // ms -> μs
 
-  int frame_decoded = 0;
-  int result = avcodec_decode_video2(av_context_.get(),
-                                     av_frame_.get(),
-                                     &frame_decoded,
-                                     &packet);
+  int result = avcodec_send_packet(av_context_.get(), &packet);
   if (result < 0) {
-    LOG(LS_ERROR) << "avcodec_decode_video2 error: " << result;
-    ReportError();
-    return WEBRTC_VIDEO_CODEC_ERROR;
-  }
-  // |result| is number of bytes used, which should be all of them.
-  if (result != packet.size) {
-    LOG(LS_ERROR) << "avcodec_decode_video2 consumed " << result << " bytes "
-        "when " << packet.size << " bytes were expected.";
+    LOG(LS_ERROR) << "avcodec_send_packet error: " << result;
     ReportError();
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
-  if (!frame_decoded) {
-    LOG(LS_WARNING) << "avcodec_decode_video2 successful but no frame was "
-        "decoded.";
-    return WEBRTC_VIDEO_CODEC_OK;
+  result = avcodec_receive_frame(av_context_.get(), av_frame_.get());
+  if (result < 0) {
+    LOG(LS_ERROR) << "avcodec_receive_frame error: " << result;
+    ReportError();
+    return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
   // Obtain the |video_frame| containing the decoded image.

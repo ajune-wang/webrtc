@@ -89,6 +89,7 @@ rtc_source_set("rtp_rtcp_format") {
     "../../common_video",
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
+    "//third_party/abseil_cpp/absl/types:optional",
   ]
 }
 

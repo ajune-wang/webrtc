@@ -16,6 +16,24 @@
       "revId": "8481149bef017e5196574371e40aa69b7219f65b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99e19cda_da36ea10",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-06T17:42:03Z",
+      "side": 1,
+      "message": "Good point. I think they were already using something like this (see comment #1 in https://bugs.chromium.org/p/chromium/issues/detail?id\u003d777572). Now for some reason they started to use ErrorProne and this requires that we align with them.\n\nI don\u0027t have example CLs, I will just post a reference to the Chromium bug in the WebRTC bug.",
+      "parentUuid": "d7e766be_338cf50d",
+      "revId": "8481149bef017e5196574371e40aa69b7219f65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

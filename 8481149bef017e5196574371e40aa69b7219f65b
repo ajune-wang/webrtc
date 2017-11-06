@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7e766be_338cf50d",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-06T16:00:02Z",
+      "side": 1,
+      "message": "I assume that work has been done in Chrome to be able to live without this suppression.\nPlease add links in the issue to these example CLs for future use.",
+      "revId": "8481149bef017e5196574371e40aa69b7219f65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

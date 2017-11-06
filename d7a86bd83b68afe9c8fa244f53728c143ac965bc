@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0689158a_ea7a89df",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-06T07:29:44Z",
+      "side": 1,
+      "message": "You probably need a similar //  NOLINT comment as in webrtc_libyuv.cc, since libyuv includes are an exception to the rule of always using filenames starting from the webrtc root.\n\nYou can try running \n  \n  git cl presubmit \n\nlocally to see if it complains.",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "d7a86bd83b68afe9c8fa244f53728c143ac965bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bc4d2e5_cea55821",
+        "filename": "modules/video_coding/codecs/i420/i420.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-06T07:29:44Z",
+      "side": 1,
+      "message": "Sorry for not spotting earlier, but this is not correct when _width or _height is odd. You need either ((_width+1)/2) * ((_height+1)/2), or frame_buffer-\u003eChromaWidth() * frame_buffer-\u003eChromaHeight().",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 38
+      },
+      "revId": "d7a86bd83b68afe9c8fa244f53728c143ac965bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

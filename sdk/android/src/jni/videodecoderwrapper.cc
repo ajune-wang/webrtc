@@ -70,9 +70,6 @@ VideoDecoderWrapper::VideoDecoderWrapper(JNIEnv* jni, jobject decoder)
   get_number_method_ =
       jni->GetMethodID(*video_codec_status_class_, "getNumber", "()I");
 
-  integer_constructor_ = jni->GetMethodID(*integer_class_, "<init>", "(I)V");
-  int_value_method_ = jni->GetMethodID(*integer_class_, "intValue", "()I");
-
   initialized_ = false;
   // QP parsing starts enabled and we disable it if the decoder provides frames.
   qp_parsing_enabled_ = true;
@@ -190,23 +187,14 @@ void VideoDecoderWrapper::OnDecodedFrame(JNIEnv* jni,
   VideoFrame frame = android_video_buffer_factory_.CreateFrame(
       jni, jframe, frame_extra_info.timestamp_rtp);
 
-  rtc::Optional<int32_t> decoding_time_ms;
-  if (jdecode_time_ms != nullptr) {
-    decoding_time_ms = rtc::Optional<int32_t>(
-        jni->CallIntMethod(jdecode_time_ms, int_value_method_));
-  }
+  rtc::Optional<int> decoding_time_ms =
+      JavaIntegerToOptionalInt(jni, jdecode_time_ms);
 
-  rtc::Optional<uint8_t> qp;
-  if (jqp != nullptr) {
-    qp = rtc::Optional<uint8_t>(jni->CallIntMethod(jqp, int_value_method_));
-    // The decoder provides QP values itself, no need to parse the bitstream.
-    qp_parsing_enabled_ = false;
-  } else {
-    qp = frame_extra_info.qp;
-    // The decoder doesn't provide QP values, ensure bitstream parsing is
-    // enabled.
-    qp_parsing_enabled_ = true;
-  }
+  rtc::Optional<int> decoder_qp = JavaIntegerToOptionalInt(jni, jqp);
+  // If the decoder provides QP values itself, no need to parse the bitstream.
+  qp_parsing_enabled_ = static_cast<bool>(decoder_qp);
+  rtc::Optional<uint8_t> qp =
+      decoder_qp ? rtc::Optional<uint8_t>(*decoder_qp) : frame_extra_info.qp;
 
   callback_->Decoded(frame, decoding_time_ms, qp);
 }
@@ -234,7 +222,7 @@ jobject VideoDecoderWrapper::ConvertEncodedImageToJavaEncodedImage(
       jni->GetStaticObjectField(*frame_type_class_, frame_type_field);
   jobject qp = nullptr;
   if (image.qp_ != -1) {
-    qp = jni->NewObject(*integer_class_, integer_constructor_, image.qp_);
+    qp = JavaIntegerFromInt(jni, image.qp_);
   }
   return jni->NewObject(
       *encoded_image_class_, encoded_image_constructor_, buffer,

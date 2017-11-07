@@ -449,8 +449,9 @@ TEST_F(TestVp8Impl, ScalingEnabledIfAutomaticResizeOn) {
 class TestVp8ImplWithForcedFallbackEnabled : public TestVp8Impl {
  public:
   TestVp8ImplWithForcedFallbackEnabled()
-      : TestVp8Impl("WebRTC-VP8-Forced-Fallback-Encoder/Enabled-1,2,3," +
-                    std::to_string(kMinPixelsPerFrame) + "/") {}
+      : TestVp8Impl("WebRTC-VP8-Forced-Fallback-Encoder-v2/Enabled-" +
+                    std::to_string(kMinPixelsPerFrame) + "," +
+                    std::to_string(kMinPixelsPerFrame + 1) + ",30000/") {}
 };
 
 TEST_F(TestVp8ImplWithForcedFallbackEnabled, MinPixelsPerFrameConfigured) {

@@ -22,6 +22,30 @@
       "revId": "5bd8c88a360d3a718ba8448faaf4769f1a1d7cb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa6f2d11_cc03623e",
+        "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-07T14:30:46Z",
+      "side": 1,
+      "message": "I\u0027ll make a helper function for converting Integer to rtc::Optional\u003cint\u003e in a follow-up CL and will fix this at the same time.",
+      "parentUuid": "30a0c963_ff467228",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 24
+      },
+      "revId": "5bd8c88a360d3a718ba8448faaf4769f1a1d7cb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

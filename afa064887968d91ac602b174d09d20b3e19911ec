@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "7e8c9432_3adfe566",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-07T13:36:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dc0640a9_1fa964c2",
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7e26eb4_8c2c325c",
         "filename": "examples/objc/AppRTCMobile/tests/ARDFileCaptureController_xctest.mm",
         "patchSetId": 5
@@ -116,6 +134,30 @@
       "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7199afaf_737507d0",
+        "filename": "examples/objc/AppRTCMobile/tests/ARDFileCaptureController_xctest.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-07T13:36:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8a8adf13_d322ad0a",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "eff03e4e_3a684947",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCFileVideoCapturer.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-07T13:36:37Z",
+      "side": 1,
+      "message": "Probably fine if we don\u0027t foresee any concurrent usage, just making sure it wasn\u0027t accidentally missed",
+      "parentUuid": "f3658b65_1def9916",
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d9ccb30_b54d356b",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCFileVideoCapturer.m",
         "patchSetId": 5
@@ -233,6 +293,30 @@
       "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c7117ca_80c83803",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCFileVideoCapturer.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-07T13:36:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "46df81d2_4b1deb89",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 3
+      },
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

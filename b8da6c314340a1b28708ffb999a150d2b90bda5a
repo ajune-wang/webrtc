@@ -175,6 +175,24 @@
       "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dab210fe_3abba4cb",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-07T16:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "608b1964_49f917e2",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

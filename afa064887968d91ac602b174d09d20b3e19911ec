@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b1772dca_8b1cf00c",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-11-07T12:57:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83759eb1_7a021624",
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cde0309_2654c7ae",
         "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2017-11-07T10:05:54Z",
       "side": 1,
       "message": "What happens on iOS 9?",
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc0640a9_1fa964c2",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-11-07T12:57:44Z",
+      "side": 1,
+      "message": "Nothing :D The file capturer will not be created and attached to the track, resulting with black screen on receive side (just like previously).",
+      "parentUuid": "6cde0309_2654c7ae",
       "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "8a8adf13_d322ad0a",
+        "filename": "examples/objc/AppRTCMobile/tests/ARDFileCaptureController_xctest.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-11-07T12:57:44Z",
+      "side": 1,
+      "message": "Yup! It\u0027s been THAT long since I submitted this change. You may now call me Gandalf the White :D",
+      "parentUuid": "e7e26eb4_8c2c325c",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0ce451f_5a0529c9",
         "filename": "sdk/BUILD.gn",
         "patchSetId": 5
@@ -73,6 +133,24 @@
       "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24b0ad23_be1d654e",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-11-07T12:57:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0ce451f_5a0529c9",
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "f3658b65_1def9916",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCFileVideoCapturer.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-11-07T12:57:44Z",
+      "side": 1,
+      "message": "Yeah, I was thinking if it\u0027s worth locking the _status property but somehow decided against it. WDYT?",
+      "parentUuid": "6cef344f_a1b354bb",
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d9ccb30_b54d356b",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCFileVideoCapturer.m",
         "patchSetId": 5
@@ -104,6 +200,30 @@
       "writtenOn": "2017-11-07T10:05:54Z",
       "side": 1,
       "message": "What is the purpose of this if statement?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 3
+      },
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46df81d2_4b1deb89",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCFileVideoCapturer.m",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-11-07T12:57:44Z",
+      "side": 1,
+      "message": "🤷‍♀️ No idea! Great catch!",
+      "parentUuid": "8d9ccb30_b54d356b",
       "range": {
         "startLine": 76,
         "startChar": 0,
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "477324a1_4bce667d",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCFileVideoCapturer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-11-07T12:57:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1cebca7_83b31c92",
+      "range": {
+        "startLine": 38,
+        "startChar": 45,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60395ee2_26474713",
         "filename": "sdk/objc/Framework/UnitTests/RTCFileVideoCapturer_xctest.mm",
         "patchSetId": 5
@@ -153,6 +297,24 @@
       "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b452da_3e1bb1a8",
+        "filename": "sdk/objc/Framework/UnitTests/RTCFileVideoCapturer_xctest.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5254
+      },
+      "writtenOn": "2017-11-07T12:57:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60395ee2_26474713",
+      "revId": "afa064887968d91ac602b174d09d20b3e19911ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

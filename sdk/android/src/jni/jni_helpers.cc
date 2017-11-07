@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <vector>
 
+#include "sdk/android/generated_base_jni/jni/IntegerWrapper_jni.h"
 #include "sdk/android/src/jni/classreferenceholder.h"
 
 namespace webrtc {
@@ -271,6 +272,22 @@ std::vector<std::string> JavaToStdVectorStrings(JNIEnv* jni, jobject list) {
     }
   }
   return converted_list;
+}
+
+rtc::Optional<int> JavaIntegerToOptionalInt(JNIEnv* jni, jobject integer) {
+  return IsNull(jni, integer)
+             ? rtc::Optional<int>()
+             : rtc::Optional<int>(
+                   Java_IntegerWrapper_getIntValue(jni, integer));
+}
+
+jobject JavaIntegerFromOptionalInt(JNIEnv* jni,
+                                   const rtc::Optional<int>& optional_int) {
+  return optional_int ? JavaIntegerFromInt(jni, *optional_int) : nullptr;
+}
+
+jobject JavaIntegerFromInt(JNIEnv* jni, int i) {
+  return Java_IntegerWrapper_create(jni, i);
 }
 
 // Return the (singleton) Java Enum object corresponding to |index|;

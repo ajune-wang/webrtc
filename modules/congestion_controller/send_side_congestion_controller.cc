@@ -96,11 +96,10 @@ void SortPacketFeedbackVector(
 
 SendSideCongestionController::SendSideCongestionController(
     const Clock* clock,
-    Observer* observer,
     RtcEventLog* event_log,
     PacedSender* pacer)
     : clock_(clock),
-      observer_(observer),
+      observer_(nullptr),
       event_log_(event_log),
       pacer_(pacer),
       bitrate_controller_(
@@ -131,6 +130,16 @@ SendSideCongestionController::SendSideCongestionController(
                        "from field trial string. Experiment disabled.";
     in_cwnd_experiment_ = false;
   }
+}
+
+// Deprecated
+SendSideCongestionController::SendSideCongestionController(
+    const Clock* clock,
+    Observer* observer,
+    RtcEventLog* event_log,
+    PacedSender* pacer)
+    : SendSideCongestionController(clock, event_log, pacer) {
+  observer_ = observer;
 }
 
 SendSideCongestionController::~SendSideCongestionController() {}

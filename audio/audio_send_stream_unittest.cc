@@ -138,7 +138,6 @@ struct ConfigHelper {
         simulated_clock_(123456),
         send_side_cc_(rtc::MakeUnique<SendSideCongestionController>(
             &simulated_clock_,
-            nullptr /* observer */,
             &event_log_,
             &pacer_)),
         fake_transport_(&packet_router_, &pacer_, send_side_cc_.get()),

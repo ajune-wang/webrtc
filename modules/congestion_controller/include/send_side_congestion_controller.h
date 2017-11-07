@@ -22,6 +22,7 @@
 #include "modules/pacing/paced_sender.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/deprecation.h"
 #include "rtc_base/networkroute.h"
 #include "rtc_base/race_checker.h"
 
@@ -57,12 +58,18 @@ class SendSideCongestionController : public CallStatsObserver,
    protected:
     virtual ~Observer() {}
   };
-  // TODO(nisse): Consider deleting the |observer| argument to constructors
-  // once CongestionController is deleted.
+
+  SendSideCongestionController(const Clock* clock,
+                               RtcEventLog* event_log,
+                               PacedSender* pacer);
+  // TODO(nisse): Deprecated. Delete as soon as downstream applications are
+  // updated.
+  RTC_DEPRECATED
   SendSideCongestionController(const Clock* clock,
                                Observer* observer,
                                RtcEventLog* event_log,
                                PacedSender* pacer);
+
   ~SendSideCongestionController() override;
 
   void RegisterPacketFeedbackObserver(PacketFeedbackObserver* observer);

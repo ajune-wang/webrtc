@@ -23,7 +23,6 @@ class MockSendSideCongestionController : public SendSideCongestionController {
                                    RtcEventLog* event_log,
                                    PacedSender* paced_sender)
       : SendSideCongestionController(clock,
-                                     nullptr /* observer */,
                                      event_log,
                                      paced_sender) {}
 

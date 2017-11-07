@@ -53,7 +53,8 @@ class SendSideCongestionControllerTest : public ::testing::Test {
   void SetUp() override {
     pacer_.reset(new NiceMock<MockPacedSender>());
     controller_.reset(new SendSideCongestionController(
-        &clock_, &observer_, &event_log_, pacer_.get()));
+        &clock_, &event_log_, pacer_.get()));
+    controller_->RegisterNetworkObserver(&observer_);
     bandwidth_observer_.reset(
         controller_->GetBitrateController()->CreateRtcpBandwidthObserver());
 
@@ -71,7 +72,8 @@ class SendSideCongestionControllerTest : public ::testing::Test {
   void TargetBitrateTrackingSetup() {
     pacer_.reset(new NiceMock<MockPacedSender>());
     controller_.reset(new SendSideCongestionController(
-        &clock_, &target_bitrate_observer_, &event_log_, pacer_.get()));
+        &clock_, &event_log_, pacer_.get()));
+    controller_->RegisterNetworkObserver(&target_bitrate_observer_);
     controller_->SetBweBitrates(0, kInitialBitrateBps, 5 * kInitialBitrateBps);
   }
 

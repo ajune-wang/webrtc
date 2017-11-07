@@ -1179,7 +1179,8 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
   RtcEventLogNullImpl null_event_log;
   PacketRouter packet_router;
   PacedSender pacer(&clock, &packet_router, &null_event_log);
-  SendSideCongestionController cc(&clock, &observer, &null_event_log, &pacer);
+  SendSideCongestionController cc(&clock, &null_event_log, &pacer);
+  cc.RegisterNetworkObserver(&observer);
   // TODO(holmer): Log the call config and use that here instead.
   static const uint32_t kDefaultStartBitrateBps = 300000;
   cc.SetBweBitrates(0, kDefaultStartBitrateBps, -1);

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f0fa8755_2d9855c7",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-07T15:09:35Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "5d316c7b_8dba2332",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b698985_fb58dfcf",
         "filename": "api/mediastreaminterface.h",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9589d2ec_0c65ea8b",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-07T15:09:35Z",
+      "side": 1,
+      "message": "Thanks, I didn\u0027t know these are double in the spec, but they are definitely calculated as int. I\u0027ll make them double on the interface and do the conversion inside APM.",
+      "parentUuid": "6b698985_fb58dfcf",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bb038c2a_509a39fe",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-07T15:09:35Z",
+      "side": 1,
+      "message": "I cannot currently think of any reason to add more parameters here, but that doesn\u0027t mean that it will not happen. I think we should stick to the YAGNI principle here.",
+      "parentUuid": "1fbaa13f_e3ddcf73",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "261c42c4_3051d0d6",
         "filename": "pc/statscollector.cc",
         "patchSetId": 7
@@ -64,6 +118,24 @@
       "writtenOn": "2017-11-02T22:18:19Z",
       "side": 1,
       "message": "Shouldn\u0027t we update VoiceSenderInfo to use optional and pass them here by value?\n\nI think this thing should report the stats correctly:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/webrtcvoiceengine.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026l\u003d2200\nI think the voice engine knows the receivers when doing GetStats to the lower layers.\n\nBut this is the AudioSendStream codepath... is that a different version of the stats?\nIs this updating the code path that isn\u0027t used by the stats collectors? I may be a little confused.",
+      "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "771acd44_adfde96b",
+        "filename": "pc/statscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-07T15:09:35Z",
+      "side": 1,
+      "message": "I was planning to do that in a follow-up CL, is that okay?",
+      "parentUuid": "261c42c4_3051d0d6",
       "revId": "b8da6c314340a1b28708ffb999a150d2b90bda5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -433,6 +433,15 @@ hooks = [
                'src/resources'],
   },
   {
+    'name': 'Android CIPD Ensure',
+    'pattern': '.',
+    'condition': 'checkout_android',
+    'action': ['src/build/cipd/cipd_wrapper.py',
+               '--chromium-root', 'src',
+               '--ensure-file', 'src/build/cipd/android/android.ensure',
+    ],
+  },
+  {
     # This downloads SDK extras and puts them in the
     # third_party/android_tools/sdk/extras directory.
     'name': 'sdkextras',
@@ -443,193 +452,6 @@ hooks = [
     'action': ['python',
                'src/build/android/play_services/update.py',
                'download'
-    ],
-  },
-  {
-    'name': 'intellij',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-intellij',
-               '-l', 'third_party/intellij'
-    ],
-  },
-  {
-    'name': 'javax_inject',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-javax-inject',
-               '-l', 'third_party/javax_inject'
-    ],
-  },
-  {
-    'name': 'hamcrest',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-hamcrest',
-               '-l', 'third_party/hamcrest'
-    ],
-  },
-  {
-    'name': 'guava',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-guava',
-               '-l', 'third_party/guava'
-    ],
-  },
-  {
-    'name': 'android_support_test_runner',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-android-support-test-runner',
-               '-l', 'third_party/android_support_test_runner'
-    ],
-  },
-  {
-    'name': 'byte_buddy',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-byte-buddy',
-               '-l', 'third_party/byte_buddy'
-    ],
-  },
-  {
-    'name': 'espresso',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-espresso',
-               '-l', 'third_party/espresso'
-    ],
-  },
-  {
-    'name': 'robolectric_libs',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-robolectric',
-               '-l', 'third_party/robolectric'
-    ],
-  },
-  {
-    'name': 'apache_velocity',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-apache-velocity',
-               '-l', 'third_party/apache_velocity'
-    ],
-  },
-  {
-    'name': 'ow2_asm',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-ow2-asm',
-               '-l', 'third_party/ow2_asm'
-    ],
-  },
-  {
-    'name': 'desugar',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-android-tools/bazel/desugar',
-               '-l', 'third_party/bazel/desugar'
-    ],
-  },
-  {
-    'name': 'icu4j',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-icu4j',
-               '-l', 'third_party/icu4j'
-    ],
-  },
-  {
-    'name': 'accessibility_test_framework',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-accessibility-test-framework',
-               '-l', 'third_party/accessibility_test_framework'
-    ],
-  },
-  {
-    'name': 'bouncycastle',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-bouncycastle',
-               '-l', 'third_party/bouncycastle'
-    ],
-  },
-  {
-    'name': 'sqlite4java',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-sqlite4java',
-               '-l', 'third_party/sqlite4java'
-    ],
-  },
-  {
-    'name': 'xstream',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-robolectric',
-               '-l', 'third_party/xstream'
-    ],
-  },
-  {
-    'name': 'objenesis',
-    'pattern': '.',
-    'condition': 'checkout_android',
-    'action': ['python',
-               'src/build/android/update_deps/update_third_party_deps.py',
-               'download',
-               '-b', 'chromium-objenesis',
-               '-l', 'third_party/objenesis'
     ],
   },
 ]

@@ -12,7 +12,7 @@
 
 #include <algorithm>
 
-#include "rtc_base/safe_minmax.h"
+#include "rtc_base/numerics/safe_minmax.h"
 
 namespace webrtc {
 

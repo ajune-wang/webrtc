@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "69841ba7_2f5ed79b",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-07T15:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7e78948_8e8f4ea7",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bb82827_5a318fe1",
         "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29e0dc4e_9157b6b0",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-07T15:00:21Z",
+      "side": 1,
+      "message": "I tried doing this, but got a java.lang.UnsupportedOperationException on line 45. I suppose a plain List does not have an `add` method, but an ArrayList does?",
+      "parentUuid": "6bb82827_5a318fe1",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 96
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d86f77aa_f52e9af9",
+        "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-07T15:00:21Z",
+      "side": 1,
+      "message": "Hmm. It\u0027s possible to put both methods in the same file, but they aren\u0027t the same.\nThis one takes a jobject that represents a VideoCodecInfo and returns a cricket::VideoCodec.\nThe other takes an SdpVideoFormat and returns a jobject that represents a VideoCodecInfo.",
+      "parentUuid": "56de44fe_4b6972ed",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebfd5bea_780a7793",
         "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2017-11-06T15:48:49Z",
       "side": 1,
       "message": "Unfortunately you can\u0027t use cricket::VideoCodec::Matches because of how it handles payload types, so you will have to do this instead:\nif (!CodecNamesEq(codec1.name, codec2.name))\n  return false;\nif (CodecNamesEq(codec1.name.c_str(), kH264CodecName) \u0026\u0026\n    !IsSameH264Profile(codec1.params, codec2.params)) {\n  return false;\n}\nreturn true;\n\nI would like to see a unittest of this function to verify it actually works. Let\u0027s send in some H264 codecs with different profiles.",
+      "range": {
+        "startLine": 49,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "107cc736_d30ea2d2",
+        "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-07T15:00:21Z",
+      "side": 1,
+      "message": "Done. But IsSameH264Profile is an internal function in media/base/codec.cc, so I had to duplicate some code. Also, now we have specific H264 handling code here, which seems a bit non-extendable. In the long run, it would be nice if clients implementing new codecs in Java could somehow hook into the equals logic for VideoCodecInfo, if different codecs must handle it differently.",
+      "parentUuid": "ebfd5bea_780a7793",
       "range": {
         "startLine": 49,
         "startChar": 9,

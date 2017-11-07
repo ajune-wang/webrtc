@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ed1c1e2b_f3a01adf",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-07T15:25:17Z",
+      "side": 1,
+      "message": "Hmm, I see.",
+      "parentUuid": "29e0dc4e_9157b6b0",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 96
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56de44fe_4b6972ed",
         "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
         "patchSetId": 6
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Hmm. It\u0027s possible to put both methods in the same file, but they aren\u0027t the same.\nThis one takes a jobject that represents a VideoCodecInfo and returns a cricket::VideoCodec.\nThe other takes an SdpVideoFormat and returns a jobject that represents a VideoCodecInfo.",
       "parentUuid": "56de44fe_4b6972ed",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4f13cce_dcd7712b",
+        "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-07T15:25:17Z",
+      "side": 1,
+      "message": "videoencoderfactorywrapper.cc contains both version. Look at GetSupportedCodecs:\nstd::vector\u003ccricket::VideoCodec\u003e VideoEncoderFactoryWrapper::GetSupportedCodecs(\n    JNIEnv* jni) const {\n  const jobjectArray j_supported_codecs \u003d static_cast\u003cjobjectArray\u003e(\n      jni-\u003eCallObjectMethod(*encoder_factory_, get_supported_codecs_method_));\n  const jsize supported_codecs_count \u003d jni-\u003eGetArrayLength(j_supported_codecs);\n\n  std::vector\u003ccricket::VideoCodec\u003e supported_codecs;\n  supported_codecs.resize(supported_codecs_count);\n  for (jsize i \u003d 0; i \u003c supported_codecs_count; i++) {\n    jobject j_supported_codec \u003d\n        jni-\u003eGetObjectArrayElement(j_supported_codecs, i);\n    int payload \u003d jni-\u003eGetIntField(j_supported_codec, payload_field_);\n    jobject j_params \u003d jni-\u003eGetObjectField(j_supported_codec, params_field_);\n    jstring j_name \u003d static_cast\u003cjstring\u003e(\n        jni-\u003eGetObjectField(j_supported_codec, name_field_));\n    supported_codecs[i] \u003d\n        cricket::VideoCodec(payload, JavaToStdString(jni, j_name));\n    supported_codecs[i].params \u003d JavaToStdMapStrings(jni, j_params);\n  }\n  return supported_codecs;\n}",
+      "parentUuid": "d86f77aa_f52e9af9",
       "range": {
         "startLine": 19,
         "startChar": 0,

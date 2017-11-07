@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d516422_dc424ad0",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-07T14:22:32Z",
+      "side": 1,
+      "message": "nit: j_caller for consistency?",
+      "range": {
+        "startLine": 58,
+        "startChar": 30,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "20d9623259102bcae384dff94cf73093a8725ca8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

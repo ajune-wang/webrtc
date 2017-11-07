@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dd0d640_e9421275",
+        "filename": "modules/audio_processing/agc/legacy/digital_agc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-11-07T15:26:07Z",
+      "side": 1,
+      "message": "as long _as_",
+      "range": {
+        "startLine": 612,
+        "startChar": 33,
+        "endLine": 612,
+        "endChar": 41
+      },
+      "revId": "c0cba34d2ff1184ae815581c2ef320cec6e0f622",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

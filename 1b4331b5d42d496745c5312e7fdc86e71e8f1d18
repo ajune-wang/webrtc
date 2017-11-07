@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8d580a5_377e7209",
+        "filename": "logging/rtc_event_log/rtc_event_log2text.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-07T12:05:16Z",
+      "side": 1,
+      "message": "nit: I generally prefer \u003c for these cases; gives me the feeling that the code is more robust.",
+      "revId": "1b4331b5d42d496745c5312e7fdc86e71e8f1d18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59055115_131afbcc",
+        "filename": "logging/rtc_event_log/rtc_event_log2text.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-07T12:05:16Z",
+      "side": 1,
+      "message": "nit: I am not sure you need to do this over and over.",
+      "revId": "1b4331b5d42d496745c5312e7fdc86e71e8f1d18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e35553_30e7c570",
+        "filename": "logging/rtc_event_log/rtc_event_log2text.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-07T12:05:16Z",
+      "side": 1,
+      "message": "Move this before the break; otherwise it can never be reached. (It\u0027s a shame the compiler is configured to not warn on that.)",
+      "revId": "1b4331b5d42d496745c5312e7fdc86e71e8f1d18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823c85da_f1931c2e",
+        "filename": "logging/rtc_event_log/rtc_event_log2text.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-07T12:05:16Z",
+      "side": 1,
+      "message": "nit: Is one of these end conditions implicit from the other?",
+      "revId": "1b4331b5d42d496745c5312e7fdc86e71e8f1d18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -48,7 +48,6 @@ ClassReferenceHolder::ClassReferenceHolder(JNIEnv* jni) {
   LoadClass(jni, "android/graphics/SurfaceTexture");
   LoadClass(jni, "java/lang/Boolean");
   LoadClass(jni, "java/lang/Double");
-  LoadClass(jni, "java/lang/Integer");
   LoadClass(jni, "java/lang/Long");
   LoadClass(jni, "java/lang/String");
   LoadClass(jni, "java/math/BigInteger");
@@ -111,11 +110,6 @@ ClassReferenceHolder::ClassReferenceHolder(JNIEnv* jni) {
   LoadClass(jni, "org/webrtc/VideoCodecStatus");
   LoadClass(jni, "org/webrtc/VideoDecoder$Settings");
   LoadClass(jni, "org/webrtc/VideoDecoderWrapperCallback");
-  LoadClass(jni, "org/webrtc/VideoEncoder$BitrateAllocation");
-  LoadClass(jni, "org/webrtc/VideoEncoder$EncodeInfo");
-  LoadClass(jni, "org/webrtc/VideoEncoder$ScalingSettings");
-  LoadClass(jni, "org/webrtc/VideoEncoder$Settings");
-  LoadClass(jni, "org/webrtc/VideoEncoderWrapperCallback");
   LoadClass(jni, "org/webrtc/VideoFrame");
   LoadClass(jni, "org/webrtc/VideoFrame$Buffer");
   LoadClass(jni, "org/webrtc/VideoFrame$I420Buffer");

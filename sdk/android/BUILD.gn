@@ -36,6 +36,7 @@ config("libjingle_peerconnection_jni_warnings_config") {
 generate_jni("generated_base_jni") {
   sources = [
     "src/java/org/webrtc/ClassLoader.java",
+    "src/java/org/webrtc/IntegerWrapper.java",
   ]
   jni_package = ""
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"

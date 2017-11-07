@@ -10,6 +10,7 @@
 
 #include <string.h>
 
+#include <iomanip>  // setfill, setw
 #include <iostream>
 #include <map>
 #include <sstream>
@@ -59,6 +60,10 @@ DEFINE_bool(rtcp, true, "Use --nortcp to exclude RTCP packets.");
 DEFINE_bool(playout, true, "Use --noplayout to exclude audio playout events.");
 DEFINE_bool(ana, true, "Use --noana to exclude ANA events.");
 DEFINE_bool(probe, true, "Use --noprobe to exclude probe events.");
+
+DEFINE_bool(print_full_packets,
+            false,
+            "Print the full RTP headers and RTCP packets in hex.");
 
 // TODO(terelius): Allow a list of SSRCs.
 DEFINE_string(ssrc,
@@ -301,7 +306,9 @@ void PrintRtpFeedback(const webrtc::ParsedRtcEventLog& parsed_stream,
         return;
       std::cout << log_timestamp << "\t"
                 << "RTCP_NEWFB" << StreamInfo(direction, media_type)
-                << "\tssrc=" << transport_feedback.sender_ssrc() << std::endl;
+                << "\tsender_ssrc=" << transport_feedback.sender_ssrc()
+                << "\tmedia_ssrc=" << transport_feedback.media_ssrc()
+                << std::endl;
       break;
     }
     default:
@@ -489,6 +496,17 @@ int main(int argc, char* argv[]) {
                 static_cast<int>(parsed_header.extension.audioLevel);
           }
           std::cout << std::endl;
+          if (FLAG_print_full_packets) {
+            std::cout << "\t\t";
+            for (const uint8_t* p = header; p != header + header_length; p++) {
+              std::cout << std::hex << std::setfill('0') << std::setw(2)
+                        << static_cast<unsigned int>(*p);
+              ptrdiff_t chars_printed = p - header;
+              if (chars_printed % 4 == 3)
+                std::cout << " ";  // Separator between 32-bit words.
+            }
+            std::cout << std::dec << std::endl;
+          }
         }
         event_recognized = true;
         break;
@@ -509,6 +527,7 @@ int main(int argc, char* argv[]) {
             RTC_DCHECK_GT(remaining_blocks_size, 0);
             if (!rtcp_block.Parse(next_block, remaining_blocks_size)) {
               break;
+              RTC_LOG(LS_WARNING) << "Failed to parse RTCP";
             }
 
             uint64_t log_timestamp = parsed_stream.GetTimestamp(i);
@@ -541,6 +560,18 @@ int main(int argc, char* argv[]) {
               default:
                 break;
             }
+            if (FLAG_print_full_packets) {
+              std::cout << "\t\t";
+              for (const uint8_t* p = next_block;
+                   p != packet_end && p != rtcp_block.NextPacket(); p++) {
+                std::cout << std::hex << std::setfill('0') << std::setw(2)
+                          << static_cast<unsigned int>(*p);
+                ptrdiff_t chars_printed = p - next_block;
+                if (chars_printed % 4 == 3)
+                  std::cout << " ";  // Separator between 32-bit words.
+              }
+              std::cout << std::dec << std::endl;
+            }
           }
         }
         event_recognized = true;
@@ -566,8 +597,8 @@ int main(int argc, char* argv[]) {
           parsed_stream.GetLossBasedBweUpdate(i, &bitrate_bps, &fraction_loss,
                                               &total_packets);
           std::cout << parsed_stream.GetTimestamp(i) << "\tBWE(LOSS_BASED)"
-                    << "\tbitrate_bps=" << bitrate_bps
-                    << "\tfraction_loss=" << fraction_loss
+                    << "\tbitrate_bps=" << bitrate_bps << "\tfraction_loss="
+                    << static_cast<unsigned>(fraction_loss)
                     << "\ttotal_packets=" << total_packets << std::endl;
         }
         event_recognized = true;

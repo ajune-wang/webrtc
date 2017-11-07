@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea1385ea_60faa3a5",
+        "filename": "modules/audio_coding/codecs/legacy_encoded_audio_frame_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-07T10:34:43Z",
+      "side": 1,
+      "message": "add a blank line after this include\n(otherwise order of includes looks strange)",
+      "range": {
+        "startLine": 11,
+        "startChar": 67,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "4e3718587638145cf1e839c8a56f2c8a70796936",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c780e48e_cc8beaac",
+        "filename": "modules/audio_coding/neteq/audio_multi_vector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-07T10:34:43Z",
+      "side": 1,
+      "message": "fix order of includes by moving this one into block after c/c++ headers",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "4e3718587638145cf1e839c8a56f2c8a70796936",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e89ee77_aae47831",
+        "filename": "modules/audio_coding/neteq/audio_vector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-07T10:34:43Z",
+      "side": 1,
+      "message": "fix order of includes by moving this one into block after c/c++ headers",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 0
+      },
+      "revId": "4e3718587638145cf1e839c8a56f2c8a70796936",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

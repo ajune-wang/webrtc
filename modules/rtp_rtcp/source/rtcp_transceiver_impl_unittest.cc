@@ -61,7 +61,9 @@ class FakeRtcpTransport : public webrtc::Transport {
 // Posting delayed tasks doesn't promise high precision.
 constexpr int64_t kTaskQueuePrecisionMs = 15;
 
-TEST(RtcpTransceiverImplTest, DelaysSendingFirstCompondPacket) {
+// Disabled due to flakiness, see
+// https://bugs.chromium.org/p/webrtc/issues/detail?id=8494
+TEST(RtcpTransceiverImplTest, DISABLED_DelaysSendingFirstCompondPacket) {
   rtc::TaskQueue queue("rtcp");
   FakeRtcpTransport transport;
   RtcpTransceiverConfig config;
@@ -86,7 +88,9 @@ TEST(RtcpTransceiverImplTest, DelaysSendingFirstCompondPacket) {
   ASSERT_TRUE(done.Wait(/*milliseconds=*/100));
 }
 
-TEST(RtcpTransceiverImplTest, PeriodicallySendsPackets) {
+// Disabled due to flakiness, see
+// https://bugs.chromium.org/p/webrtc/issues/detail?id=8494
+TEST(RtcpTransceiverImplTest, DISABLED_PeriodicallySendsPackets) {
   rtc::TaskQueue queue("rtcp");
   FakeRtcpTransport transport;
   RtcpTransceiverConfig config;
@@ -116,7 +120,10 @@ TEST(RtcpTransceiverImplTest, PeriodicallySendsPackets) {
   ASSERT_TRUE(done.Wait(/*milliseconds=*/100));
 }
 
-TEST(RtcpTransceiverImplTest, SendCompoundPacketDelaysPeriodicSendPackets) {
+// Disabled due to flakiness, see
+// https://bugs.chromium.org/p/webrtc/issues/detail?id=8494
+TEST(RtcpTransceiverImplTest,
+     DISABLED_SendCompoundPacketDelaysPeriodicSendPackets) {
   rtc::TaskQueue queue("rtcp");
   FakeRtcpTransport transport;
   RtcpTransceiverConfig config;

@@ -53,7 +53,8 @@ class DirectTransport : public Transport {
 
   void SetConfig(const FakeNetworkPipe::Config& config);
 
-  RTC_DEPRECATED void StopSending();
+  // This method is deprecated.
+  void StopSending();
 
   // TODO(holmer): Look into moving this to the constructor.
   virtual void SetReceiver(PacketReceiver* receiver);

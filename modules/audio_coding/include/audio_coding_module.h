@@ -22,7 +22,6 @@
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
 #include "modules/audio_coding/neteq/include/neteq.h"
 #include "modules/include/module.h"
-#include "rtc_base/deprecation.h"
 #include "rtc_base/function_view.h"
 #include "system_wrappers/include/clock.h"
 #include "typedefs.h"  // NOLINT(build/include)
@@ -83,7 +82,7 @@ class AudioCodingModule {
   // delete it when destroyed.
   //
   // TODO(solenberg): Remove once downstream projects are updated.
-  RTC_DEPRECATED static AudioCodingModule* Create(int id);
+  static AudioCodingModule* Create(int id);
   static AudioCodingModule* Create();
   static AudioCodingModule* Create(Clock* clock);
   static AudioCodingModule* Create(const Config& config);
@@ -624,6 +623,9 @@ class AudioCodingModule {
   virtual int LeastRequiredDelayMs() const = 0;
 
   // int32_t PlayoutTimestamp()
+  //
+  // This overload is deprecated.
+  //
   // The send timestamp of an RTP packet is associated with the decoded
   // audio of the packet in question. This function returns the timestamp of
   // the latest audio obtained by calling PlayoutData10ms().
@@ -635,7 +637,7 @@ class AudioCodingModule {
   //    0 if the output is a correct timestamp.
   //   -1 if failed to output the correct timestamp.
   //
-  RTC_DEPRECATED virtual int32_t PlayoutTimestamp(uint32_t* timestamp) = 0;
+  virtual int32_t PlayoutTimestamp(uint32_t* timestamp) = 0;
 
   ///////////////////////////////////////////////////////////////////////////
   // int32_t PlayoutTimestamp()

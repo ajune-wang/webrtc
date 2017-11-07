@@ -128,7 +128,6 @@ rtc_source_set("rtc_base_approved_generic") {
     "copyonwritebuffer.h",
     "criticalsection.cc",
     "criticalsection.h",
-    "deprecation.h",
     "event.cc",
     "event.h",
     "event_tracer.cc",

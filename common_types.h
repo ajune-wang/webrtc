@@ -23,7 +23,6 @@
 #include "api/video/video_rotation.h"
 #include "api/video/video_timing.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/deprecation.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 #if defined(_MSC_VER)
@@ -107,11 +106,11 @@ struct RtcpStatistics {
   uint8_t fraction_lost;
   union {
     uint32_t packets_lost;
-    RTC_DEPRECATED uint32_t cumulative_lost;
+    uint32_t cumulative_lost;  // Deprecated.
   };
   union {
     uint32_t extended_highest_sequence_number;
-    RTC_DEPRECATED uint32_t extended_max_sequence_number;
+    uint32_t extended_max_sequence_number;  // Deprecated.
   };
   uint32_t jitter;
 };
@@ -321,7 +320,7 @@ struct NetworkStatistics {
   uint16_t currentPacketLossRate;
   // Late loss rate; fraction between 0 and 1, scaled to Q14.
   union {
-    RTC_DEPRECATED uint16_t currentDiscardRate;
+    uint16_t currentDiscardRate;  // Deprecated.
   };
   // fraction (of original stream) of synthesized audio inserted through
   // expansion (in Q14)

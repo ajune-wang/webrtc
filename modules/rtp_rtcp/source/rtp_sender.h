@@ -29,7 +29,6 @@
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
-#include "rtc_base/deprecation.h"
 #include "rtc_base/random.h"
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/thread_annotations.h"

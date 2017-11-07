@@ -18,7 +18,6 @@
 #include "api/audio_codecs/audio_format.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/include/module_common_types.h"
-#include "rtc_base/deprecation.h"
 #include "system_wrappers/include/clock.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
@@ -196,32 +195,32 @@ struct RTCPReportBlock {
   // Fields as described by RFC 3550 6.4.2.
   union {
     uint32_t sender_ssrc;  // SSRC of sender of this report.
-    RTC_DEPRECATED uint32_t remoteSSRC;
+    uint32_t remoteSSRC;   // Deprecated.
   };
   union {
     uint32_t source_ssrc;  // SSRC of the RTP packet sender.
-    RTC_DEPRECATED uint32_t sourceSSRC;
+    uint32_t sourceSSRC;   // Deprecated.
   };
   union {
-    RTC_DEPRECATED uint8_t fractionLost;
+    uint8_t fractionLost;  // Deprecated.
     uint8_t fraction_lost;
   };
   union {
     uint32_t packets_lost;  // 24 bits valid.
-    RTC_DEPRECATED uint32_t cumulativeLost;
+    uint32_t cumulativeLost;  // Deprecated.
   };
   union {
     uint32_t extended_highest_sequence_number;
-    RTC_DEPRECATED uint32_t extendedHighSeqNum;
+    uint32_t extendedHighSeqNum;  // Deprecated.
   };
   uint32_t jitter;
   union {
     uint32_t last_sender_report_timestamp;
-    RTC_DEPRECATED uint32_t lastSR;
+    uint32_t lastSR;  // Deprecated.
   };
   union {
     uint32_t delay_since_last_sender_report;
-    RTC_DEPRECATED uint32_t delaySinceLastSR;
+    uint32_t delaySinceLastSR;  // Deprecated.
   };
 };
 
@@ -284,11 +283,9 @@ class RtcpIntraFrameObserver {
  public:
   virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) = 0;
 
-  RTC_DEPRECATED virtual void OnReceivedSLI(uint32_t ssrc,
-                             uint8_t picture_id) {}
-
-  RTC_DEPRECATED virtual void OnReceivedRPSI(uint32_t ssrc,
-                              uint64_t picture_id) {}
+  // These two methods are deprecated.
+  virtual void OnReceivedSLI(uint32_t ssrc, uint8_t picture_id) {}
+  virtual void OnReceivedRPSI(uint32_t ssrc, uint64_t picture_id) {}
 
   virtual ~RtcpIntraFrameObserver() {}
 };

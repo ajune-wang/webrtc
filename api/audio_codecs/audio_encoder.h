@@ -19,7 +19,6 @@
 #include "api/array_view.h"
 #include "api/optional.h"
 #include "rtc_base/buffer.h"
-#include "rtc_base/deprecation.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
@@ -187,7 +186,7 @@ class AudioEncoder {
   // Tells the encoder what average bitrate we'd like it to produce. The
   // encoder is free to adjust or disregard the given bitrate (the default
   // implementation does the latter).
-  RTC_DEPRECATED virtual void SetTargetBitrate(int target_bps);
+  virtual void SetTargetBitrate(int target_bps);
 
   // Causes this encoder to let go of any other encoders it contains, and
   // returns a pointer to an array where they are stored (which is required to

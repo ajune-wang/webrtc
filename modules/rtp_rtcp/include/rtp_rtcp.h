@@ -22,7 +22,6 @@
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/constructormagic.h"
-#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -346,12 +345,12 @@ class RtpRtcp : public Module {
   // Stops sending REMB on next and following sender/receiver reports.
   virtual void UnsetRemb() = 0;
 
-  RTC_DEPRECATED void SetREMBStatus(bool enable) {
+  // These two methods are deprecated.
+  void SetREMBStatus(bool enable) {
     if (!enable)
       UnsetRemb();
   }
-  RTC_DEPRECATED void SetREMBData(uint32_t bitrate,
-                                  const std::vector<uint32_t>& ssrcs) {
+  void SetREMBData(uint32_t bitrate, const std::vector<uint32_t>& ssrcs) {
     SetRemb(bitrate, ssrcs);
   }
 
@@ -444,7 +443,6 @@ class RtpRtcp : public Module {
                                 const FecProtectionParams& key_params) = 0;
 
   // Deprecated version of member function above.
-  RTC_DEPRECATED
   int32_t SetFecParameters(const FecProtectionParams* delta_params,
                            const FecProtectionParams* key_params);
 

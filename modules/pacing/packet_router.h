@@ -43,23 +43,26 @@ class PacketRouter : public PacedSender::PacketSender,
   PacketRouter();
   ~PacketRouter() override;
 
+  // These methods are deprecated.
   // TODO(nisse): Delete, as soon as downstream app is updated.
-  RTC_DEPRECATED void AddRtpModule(RtpRtcp* rtp_module) {
-    AddReceiveRtpModule(rtp_module);
-  }
-  RTC_DEPRECATED void RemoveRtpModule(RtpRtcp* rtp_module) {
+  void AddRtpModule(RtpRtcp* rtp_module) { AddReceiveRtpModule(rtp_module); }
+  void RemoveRtpModule(RtpRtcp* rtp_module) {
     RemoveReceiveRtpModule(rtp_module);
   }
 
   void AddSendRtpModule(RtpRtcp* rtp_module, bool remb_candidate);
   void RemoveSendRtpModule(RtpRtcp* rtp_module);
-  RTC_DEPRECATED void AddSendRtpModule(RtpRtcp* rtp_module) {
+
+  // This overload is deprecated.
+  void AddSendRtpModule(RtpRtcp* rtp_module) {
     AddSendRtpModule(rtp_module, true);
   }
 
   void AddReceiveRtpModule(RtpRtcp* rtp_module, bool remb_candidate);
   void RemoveReceiveRtpModule(RtpRtcp* rtp_module);
-  RTC_DEPRECATED void AddReceiveRtpModule(RtpRtcp* rtp_module) {
+
+  // This overload is deprecated.
+  void AddReceiveRtpModule(RtpRtcp* rtp_module) {
     AddReceiveRtpModule(rtp_module, true);
   }
 

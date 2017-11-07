@@ -23,7 +23,6 @@
 #include "modules/audio_processing/beamformer/array_util.h"
 #include "modules/audio_processing/include/config.h"
 #include "rtc_base/arraysize.h"
-#include "rtc_base/deprecation.h"
 #include "rtc_base/platform_file.h"
 #include "rtc_base/refcount.h"
 #include "typedefs.h"  // NOLINT(build/include)
@@ -314,7 +313,6 @@ class AudioProcessing : public rtc::RefCountInterface {
   // Allows passing in an optional configuration at create-time.
   static AudioProcessing* Create(const webrtc::Config& config);
   // Deprecated. Use the Create below, with nullptr PostProcessing.
-  RTC_DEPRECATED
   static AudioProcessing* Create(const webrtc::Config& config,
                                  NonlinearBeamformer* beamformer);
   // Allows passing in optional user-defined processing modules.

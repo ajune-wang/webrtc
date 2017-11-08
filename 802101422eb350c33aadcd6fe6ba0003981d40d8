@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19d4cf42_851bdbc7",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-08T12:42:03Z",
+      "side": 1,
+      "message": "The problem is that the APM doesn\u0027t know if there are receive streams or not (it has no notion of streams, that\u0027s a higher level concept, it just gets calls to process audio every once in a while), and it needs to have that information to decide if its stats make sense or not.",
+      "parentUuid": "1791eef5_3775ecbb",
+      "range": {
+        "startLine": 273,
+        "startChar": 49,
+        "endLine": 273,
+        "endChar": 65
+      },
+      "revId": "802101422eb350c33aadcd6fe6ba0003981d40d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe9b6ff3_230d2f58",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-08T10:41:09Z",
       "side": 1,
       "message": "is this flag really needed? Cant we just query public_submodules_ or if echo_cancellation is valid?",
+      "range": {
+        "startLine": 1609,
+        "startChar": 6,
+        "endLine": 1609,
+        "endChar": 22
+      },
+      "revId": "802101422eb350c33aadcd6fe6ba0003981d40d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70cf63ad_8747fea1",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1609,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-08T12:42:03Z",
+      "side": 1,
+      "message": "The problem that I\u0027m trying to solve in this CL is that it is possible to be in a call, and when one of the participants leaves (but there are still some participants left) it can happen that there are no more audio receive streams (the remaining participants are muted). This is a problem, because several stats from APM don\u0027t get updated in that situation, and APM has no way to know that it is happening. This leads to stats getting stuck, see the bug linked in the CL description for an example.",
+      "parentUuid": "fe9b6ff3_230d2f58",
       "range": {
         "startLine": 1609,
         "startChar": 6,

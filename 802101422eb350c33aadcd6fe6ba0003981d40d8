@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1791eef5_3775ecbb",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-11-08T10:41:09Z",
+      "side": 1,
+      "message": "this flag is really weird. The implementation should now itself.",
+      "range": {
+        "startLine": 273,
+        "startChar": 49,
+        "endLine": 273,
+        "endChar": 65
+      },
+      "revId": "802101422eb350c33aadcd6fe6ba0003981d40d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe9b6ff3_230d2f58",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1609,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-11-08T10:41:09Z",
+      "side": 1,
+      "message": "is this flag really needed? Cant we just query public_submodules_ or if echo_cancellation is valid?",
+      "range": {
+        "startLine": 1609,
+        "startChar": 6,
+        "endLine": 1609,
+        "endChar": 22
+      },
+      "revId": "802101422eb350c33aadcd6fe6ba0003981d40d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

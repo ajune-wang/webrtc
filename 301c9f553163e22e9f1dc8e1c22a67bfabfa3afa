@@ -259,6 +259,24 @@
     },
     {
       "key": {
+        "uuid": "5a5a0fb0_61bf2f0c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "007fac29_08b22be4",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e45cf6fe_d2303d99",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 6
@@ -329,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "2775a13b_3c23172f",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "Ah, I see AddObserver updates an existing observer, rather than create a new (equivalent) one. I\u0027m not sure if that\u0027s good or bad, but that\u0027s unrelated; no need to change that at the moment.",
+      "parentUuid": "fc5a8c0b_b99928dd",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "442a87da_8f629d69",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 6
@@ -358,6 +394,24 @@
       "side": 1,
       "message": "It is similar, but I like the way it organizes these tests as separate. Also it allows control over the network\u0027s initial available bandwidth. BitrateAllocatorTestNoEnforceMin also uses a separate test fixture, and I don\u0027t think it slows down the tests because a test fixture is created/deleted for every unit test anyways. Possibly a rename to BitrateAllocatorPriorityRateTest? Let me know your thoughts here. Leaving it as is for now.",
       "parentUuid": "442a87da_8f629d69",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f116e17e_316cb74b",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "1. Now that we\u0027re not subclassing BitrateAllocatorTest anymore, I\u0027m afraid PriorityBitrateAllocatorTest is a bit of a misleading name.\n2. If we want to provide different values to the first call to OnNetworkChanged, I indeed can\u0027t think of a *nice* way of doing it differently, so maybe we should indeed ignore #1 and keep it as-is.\n3. FYI, there was an alternative - which I don\u0027t like - and that\u0027s the SetUp() function (note: the capital U is intentional). This function is guaranteed to run after the constructor, thereby enjoying the ability to call virtual functions safely. Using that, you could arrange a hierarchy of BitrateAllocatorTest subclasses, differentiated by the value returned by a virtual GetInitialMinBitrate(), but nothing else. Then, you move allocator_.OnNetworkChanged() from the constructor to SetUp(), etc. I\u0027m not terribly enamored with that option, though.",
+      "parentUuid": "9bd8e0ac_0d22f038",
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -568,6 +622,24 @@
       "side": 1,
       "message": "Yes. I liked the idea of having it as an easier first test to use for debugging, but I don\u0027t think this is necessary. I removed TwoObserversAllocatedRelativeAboveMins.",
       "parentUuid": "233e414e_eb2aab5d",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a072024b_1b645628",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d2b9d221_b85adba4",
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

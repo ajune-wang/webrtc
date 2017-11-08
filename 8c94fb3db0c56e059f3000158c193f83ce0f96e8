@@ -1,0 +1,271 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e3267b7_68e4a32d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "DCHECK_GT(relative_bitrate, 0);\nDCHECK(isnormal(relative_bitrate));\nYou\u0027ll need to incluse math.h for the latter, I think (even if it\u0027s already indirectly included).",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2b01589_c3a75120",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "nit: IMHO, total-relative is confusing. Is it total, or is it relative? I think \"relative_bitrates_sum\" more accurately reflects what this is. Wdyt?",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b6d0abf_93e2784f",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "I have mocked up my own implementation. It\u0027s not very different than yours. Could you take a look and see if there\u0027s anything there that you think you\u0027d like to copy over?\nhttps://webrtc-review.googlesource.com/c/src/+/21241",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "153f6afd_3b86e447",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "According to the style-guide, if output parameters are used, they should appear after the input parameters.",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8136149_bedf4700",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t add information.",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3650af27_2589d54c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to cast when promoting.",
+      "range": {
+        "startLine": 538,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 80
+      },
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "991712d2_3df8815d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "emplace_back?",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8867d68c_1753a073",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "We used \"flow\" and \"buckets\" when we talked offline, but these words do not feature anywhere else in the code, so I am afraid people would only be confused by them, unless you make it more apparent what you\u0027re referring to.",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5064178_1efd90f1",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "Let\u0027s remove this comment. It only refers to members whose name ends with \"_bps\" anyway.",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50ef1ca5_ddf37376",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "I wish there were a nice way to avoid exposing this in the header.",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0520a7a8_dfa10a99",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "nit: What does \"relative_max_allocation\" mean?",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd8345b5_efd8db62",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "If your comment mentions why you sort primarily by one rather than the other, I think that would be more useful; the comment as it stands - beg pardon - states the obvious.",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55bece8e_37fa3222",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "That\u0027s an neat idiom, and I\u0027m glad to have learned it. Do you know if it incurs any performance hit when compared to the naive way of writing this, explicitly comparing the arguments?",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5f8106_a12cd270",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "This method is const, right?",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6439a073_de0552de",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:54:16Z",
+      "side": 1,
+      "message": "The result here is not the clearest. Could you reorder things by observer? Also, \"DefauktMax\" is confusing.",
+      "range": {
+        "startLine": 700,
+        "startChar": 0,
+        "endLine": 714,
+        "endChar": 42
+      },
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

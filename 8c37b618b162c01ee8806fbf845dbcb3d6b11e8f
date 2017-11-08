@@ -34,6 +34,24 @@
       "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c857011_eb2c7a76",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 6008
+      },
+      "writtenOn": "2017-11-08T22:04:37Z",
+      "side": 1,
+      "message": "Thanks for the explanation! Most of the ffmpeg decoders and certainly all the ones we use on the web support multithreading to an extent.",
+      "parentUuid": "25e985f5_c7e35593",
+      "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

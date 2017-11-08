@@ -20,7 +20,7 @@ extern "C" {
 #include "modules/audio_processing/aecm/echo_control_mobile.h"
 #include "modules/audio_processing/utility/delay_estimator_wrapper.h"
 extern "C" {
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "rtc_base/system/cpu_features_wrapper.h"
 }
 
 #include "rtc_base/checks.h"

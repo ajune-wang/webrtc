@@ -17,7 +17,7 @@
 #include "common_audio/fir_filter_neon.h"
 #include "common_audio/fir_filter_sse.h"
 #include "rtc_base/checks.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "rtc_base/system/cpu_features_wrapper.h"
 
 namespace webrtc {
 

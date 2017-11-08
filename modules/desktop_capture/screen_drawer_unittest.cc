@@ -16,11 +16,11 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/function_view.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/random.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/ptr_util.h"
+#include "rtc_base/random.h"
+#include "rtc_base/system/sleep.h"
 #include "rtc_base/timeutils.h"
-#include "system_wrappers/include/sleep.h"
 #include "test/gtest.h"
 
 #if defined(WEBRTC_POSIX)

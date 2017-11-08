@@ -13,7 +13,7 @@
 #include "modules/audio_coding/codecs/isac/fix/source/filterbank_tables.h"
 #include "modules/audio_coding/codecs/isac/fix/source/settings.h"
 #include "rtc_base/sanitizer.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "rtc_base/system/cpu_features_wrapper.h"
 #include "test/gtest.h"
 #include "typedefs.h"  // NOLINT(build/include)
 

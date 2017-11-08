@@ -15,7 +15,7 @@
 #include "modules/audio_processing/aec3/subtractor.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/checks.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "rtc_base/system/cpu_features_wrapper.h"
 #include "test/gtest.h"
 #include "typedefs.h"  // NOLINT(build/include)
 

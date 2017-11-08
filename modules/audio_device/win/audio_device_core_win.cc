@@ -39,7 +39,7 @@
 
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_thread.h"
-#include "system_wrappers/include/sleep.h"
+#include "rtc_base/system/sleep.h"
 
 // Macro that calls a COM method returning HRESULT value.
 #define EXIT_ON_ERROR(hres)    do { if (FAILED(hres)) goto Exit; } while(0)

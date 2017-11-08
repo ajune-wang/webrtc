@@ -51,6 +51,7 @@ if (rtc_include_tests) {
         ":screen_drawer",
         "../../rtc_base:rtc_base",
         "../../rtc_base:rtc_base_approved",
+        "../../rtc_base/system:sleep",
         "../../system_wrappers",
         "../../test:test_support",
         "../../test:video_test_support",
@@ -99,6 +100,7 @@ if (rtc_include_tests) {
       ":primitives",
       "../..:webrtc_common",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base/system:cpu_features",
       "../../system_wrappers",
       "../../test:test_support",
       "//testing/gmock",
@@ -138,6 +140,7 @@ if (rtc_include_tests) {
     deps = [
       ":primitives",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base/system:sleep",
       "../../system_wrappers",
     ]
   }
@@ -340,6 +343,7 @@ rtc_static_library("desktop_capture_generic") {
     "../..:webrtc_common",
     "../../api:refcountedbase",
     "../../rtc_base:rtc_base",  # TODO(kjellander): Cleanup in bugs.webrtc.org/3806.
+    "../../rtc_base/system:cpu_features",
     "../../system_wrappers",
     "//third_party/libyuv",
   ]

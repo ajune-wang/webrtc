@@ -13,7 +13,7 @@
 #include <memory>
 
 #include "modules/desktop_capture/screen_drawer.h"
-#include "system_wrappers/include/sleep.h"
+#include "rtc_base/system/sleep.h"
 
 namespace webrtc {
 

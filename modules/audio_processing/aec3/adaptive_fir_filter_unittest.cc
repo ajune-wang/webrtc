@@ -28,7 +28,7 @@
 #include "rtc_base/arraysize.h"
 #include "rtc_base/random.h"
 #include "rtc_base/safe_minmax.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "rtc_base/system/cpu_features_wrapper.h"
 #include "test/gtest.h"
 
 namespace webrtc {

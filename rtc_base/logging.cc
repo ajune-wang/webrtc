@@ -477,8 +477,7 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
       }
       asc_line[sizeof(asc_line)-1] = 0;
       hex_line[sizeof(hex_line)-1] = 0;
-      LOG_V(level) << label << direction
-                   << asc_line << " " << hex_line << " ";
+      LOG_V(level) << label << direction << asc_line << " " << hex_line << " ";
       udata += line_len;
       len -= line_len;
     }
@@ -532,7 +531,7 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
     // characters.
     if (consecutive_unprintable) {
       LOG_V(level) << label << direction << "## " << consecutive_unprintable
-                  << " consecutive unprintable ##";
+                   << " consecutive unprintable ##";
       consecutive_unprintable = 0;
     }
     // Strip off trailing whitespace.

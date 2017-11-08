@@ -284,7 +284,7 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
   }
   if (!decoded_image_callback_) {
     LOG(LS_WARNING) << "InitDecode() has been called, but a callback function "
-        "has not been set with RegisterDecodeCompleteCallback()";
+                       "has not been set with RegisterDecodeCompleteCallback()";
     ReportError();
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }

@@ -38,8 +38,8 @@ bool SrtpFilter::IsActive() const {
 bool SrtpFilter::SetOffer(const std::vector<CryptoParams>& offer_params,
                           ContentSource source) {
   if (!ExpectOffer(source)) {
-     LOG(LS_ERROR) << "Wrong state to update SRTP offer";
-     return false;
+    LOG(LS_ERROR) << "Wrong state to update SRTP offer";
+    return false;
   }
   return StoreParams(offer_params, source);
 }

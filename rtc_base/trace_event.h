@@ -141,7 +141,6 @@
 // Thread safety is provided by methods defined in event_tracer.h. See the file
 // for details.
 
-
 // By default, const char* argument values are assumed to have long-lived scope
 // and will not be copied. Use this macro to force a const char* to be copied.
 #define TRACE_STR_COPY(str) \

@@ -95,8 +95,8 @@ int32_t VideoCaptureModuleV4L2::Init(const char* deviceUniqueIdUTF8)
     }
     if (!found)
     {
-        LOG(LS_INFO) << "no matching device found";
-        return -1;
+      LOG(LS_INFO) << "no matching device found";
+      return -1;
     }
     _deviceId = n; //store the device id
     return 0;
@@ -132,8 +132,8 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
 
     if ((_deviceFd = open(device, O_RDWR | O_NONBLOCK, 0)) < 0)
     {
-        LOG(LS_INFO) << "error in opening " << device << " errono = " << errno;
-        return -1;
+      LOG(LS_INFO) << "error in opening " << device << " errono = " << errno;
+      return -1;
     }
 
     // Supported video formats in preferred order.
@@ -163,13 +163,13 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
     fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     LOG(LS_INFO) << "Video Capture enumerats supported image formats:";
     while (ioctl(_deviceFd, VIDIOC_ENUM_FMT, &fmt) == 0) {
-        LOG(LS_INFO) << "  { pixelformat = "
-                     << cricket::GetFourccName(fmt.pixelformat)
-                     << ", description = '" << fmt.description << "' }";
-        // Match the preferred order.
-        for (int i = 0; i < nFormats; i++) {
-            if (fmt.pixelformat == fmts[i] && i < fmtsIdx)
-                fmtsIdx = i;
+      LOG(LS_INFO) << "  { pixelformat = "
+                   << cricket::GetFourccName(fmt.pixelformat)
+                   << ", description = '" << fmt.description << "' }";
+      // Match the preferred order.
+      for (int i = 0; i < nFormats; i++) {
+        if (fmt.pixelformat == fmts[i] && i < fmtsIdx)
+          fmtsIdx = i;
         }
         // Keep enumerating.
         fmt.index++;
@@ -177,11 +177,11 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
 
     if (fmtsIdx == nFormats)
     {
-        LOG(LS_INFO) << "no supporting video formats found";
-        return -1;
+      LOG(LS_INFO) << "no supporting video formats found";
+      return -1;
     } else {
-        LOG(LS_INFO) << "We prefer format "
-                     << cricket::GetFourccName(fmts[fmtsIdx]);
+      LOG(LS_INFO) << "We prefer format "
+                   << cricket::GetFourccName(fmts[fmtsIdx]);
     }
 
     struct v4l2_format video_fmt;
@@ -205,8 +205,8 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
     //set format and frame size now
     if (ioctl(_deviceFd, VIDIOC_S_FMT, &video_fmt) < 0)
     {
-        LOG(LS_INFO) << "error in VIDIOC_S_FMT, errno = " << errno;
-        return -1;
+      LOG(LS_INFO) << "error in VIDIOC_S_FMT, errno = " << errno;
+      return -1;
     }
 
     // initialize current width and height
@@ -219,8 +219,8 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
     memset(&streamparms, 0, sizeof(streamparms));
     streamparms.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     if (ioctl(_deviceFd, VIDIOC_G_PARM, &streamparms) < 0) {
-        LOG(LS_INFO) << "error in VIDIOC_G_PARM errno = " << errno;
-        driver_framerate_support = false;
+      LOG(LS_INFO) << "error in VIDIOC_G_PARM errno = " << errno;
+      driver_framerate_support = false;
       // continue
     } else {
       // check the capability flag is set to V4L2_CAP_TIMEPERFRAME.
@@ -250,8 +250,8 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
 
     if (!AllocateVideoBuffers())
     {
-        LOG(LS_INFO) << "failed to allocate video capture buffers";
-        return -1;
+      LOG(LS_INFO) << "failed to allocate video capture buffers";
+      return -1;
     }
 
     //start capture thread;
@@ -268,8 +268,8 @@ int32_t VideoCaptureModuleV4L2::StartCapture(
     type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     if (ioctl(_deviceFd, VIDIOC_STREAMON, &type) == -1)
     {
-        LOG(LS_INFO) << "Failed to turn on stream";
-        return -1;
+      LOG(LS_INFO) << "Failed to turn on stream";
+      return -1;
     }
 
     _captureStarted = true;
@@ -310,8 +310,8 @@ bool VideoCaptureModuleV4L2::AllocateVideoBuffers()
 
     if (ioctl(_deviceFd, VIDIOC_REQBUFS, &rbuffer) < 0)
     {
-        LOG(LS_INFO) << "Could not get buffers from device. errno = " << errno;
-        return false;
+      LOG(LS_INFO) << "Could not get buffers from device. errno = " << errno;
+      return false;
     }
 
     if (rbuffer.count > kNoOfV4L2Bufffers)
@@ -368,7 +368,7 @@ bool VideoCaptureModuleV4L2::DeAllocateVideoBuffers()
     type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     if (ioctl(_deviceFd, VIDIOC_STREAMOFF, &type) < 0)
     {
-        LOG(LS_INFO) << "VIDIOC_STREAMOFF error. errno: " << errno;
+      LOG(LS_INFO) << "VIDIOC_STREAMOFF error. errno: " << errno;
     }
 
     return true;
@@ -424,9 +424,9 @@ bool VideoCaptureModuleV4L2::CaptureProcess()
         {
             if (errno != EINTR)
             {
-                LOG(LS_INFO) << "could not sync on a buffer on device "
-                             << strerror(errno);
-                return true;
+              LOG(LS_INFO) << "could not sync on a buffer on device "
+                           << strerror(errno);
+              return true;
             }
         }
         VideoCaptureCapability frameInfo;
@@ -440,7 +440,7 @@ bool VideoCaptureModuleV4L2::CaptureProcess()
         // enqueue the buffer again
         if (ioctl(_deviceFd, VIDIOC_QBUF, &buf) == -1)
         {
-            LOG(LS_INFO) << "Failed to enqueue capture buffer";
+          LOG(LS_INFO) << "Failed to enqueue capture buffer";
         }
     }
     usleep(0);

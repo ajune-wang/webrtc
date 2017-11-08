@@ -67,8 +67,8 @@ CaptureInputPin::GetMediaType (IN int iPosition, OUT CMediaType * pmt)
                             sizeof(VIDEOINFOHEADER));
     if(NULL == pvi)
     {
-        LOG(LS_INFO) << "CheckMediaType VIDEOINFOHEADER is NULL. Returning.";
-        return(E_OUTOFMEMORY);
+      LOG(LS_INFO) << "CheckMediaType VIDEOINFOHEADER is NULL. Returning.";
+      return (E_OUTOFMEMORY);
     }
 
     ZeroMemory(pvi, sizeof(VIDEOINFOHEADER));

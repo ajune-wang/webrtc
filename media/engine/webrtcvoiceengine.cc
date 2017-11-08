@@ -630,8 +630,8 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   if (options.playout_sample_rate) {
     LOG(LS_INFO) << "Playout sample rate is " << *options.playout_sample_rate;
     if (adm()->SetPlayoutSampleRate(*options.playout_sample_rate)) {
-      LOG(LS_WARNING) << "SetPlayoutSampleRate("
-                      << *options.playout_sample_rate << ") failed.";
+      LOG(LS_WARNING) << "SetPlayoutSampleRate(" << *options.playout_sample_rate
+                      << ") failed.";
     }
   }
   return true;
@@ -1502,16 +1502,15 @@ bool WebRtcVoiceMediaChannel::SetRtpReceiveParameters(
 
 bool WebRtcVoiceMediaChannel::SetOptions(const AudioOptions& options) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  LOG(LS_INFO) << "Setting voice channel options: "
-               << options.ToString();
+  LOG(LS_INFO) << "Setting voice channel options: " << options.ToString();
 
   // We retain all of the existing options, and apply the given ones
   // on top.  This means there is no way to "clear" options such that
   // they go back to the engine default.
   options_.SetAll(options);
   if (!engine()->ApplyOptions(options_)) {
-    LOG(LS_WARNING) <<
-        "Failed to apply engine options during channel SetOptions.";
+    LOG(LS_WARNING)
+        << "Failed to apply engine options during channel SetOptions.";
     return false;
   }
 
@@ -1684,8 +1683,8 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
             send_codec_spec->cng_payload_type = rtc::Optional<int>(cn_codec.id);
             break;
           default:
-            LOG(LS_WARNING) << "CN frequency " << cn_codec.clockrate
-                            << " not supported.";
+            LOG(LS_WARNING)
+                << "CN frequency " << cn_codec.clockrate << " not supported.";
             break;
         }
         break;

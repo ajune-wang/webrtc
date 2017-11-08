@@ -527,8 +527,7 @@ int OpenSSLAdapter::ContinueSSL() {
 }
 
 void OpenSSLAdapter::Error(const char* context, int err, bool signal) {
-  LOG(LS_WARNING) << "OpenSSLAdapter::Error("
-                  << context << ", " << err << ")";
+  LOG(LS_WARNING) << "OpenSSLAdapter::Error(" << context << ", " << err << ")";
   state_ = SSL_ERROR;
   SetError(err);
   if (signal)
@@ -604,7 +603,7 @@ int OpenSSLAdapter::DoSslWrite(const void* pv, size_t cb, int* error) {
 //
 
 int OpenSSLAdapter::Send(const void* pv, size_t cb) {
-  //LOG(LS_INFO) << "OpenSSLAdapter::Send(" << cb << ")";
+  // LOG(LS_INFO) << "OpenSSLAdapter::Send(" << cb << ")";
 
   switch (state_) {
   case SSL_NONE:
@@ -686,7 +685,7 @@ int OpenSSLAdapter::SendTo(const void* pv,
 }
 
 int OpenSSLAdapter::Recv(void* pv, size_t cb, int64_t* timestamp) {
-  //LOG(LS_INFO) << "OpenSSLAdapter::Recv(" << cb << ")";
+  // LOG(LS_INFO) << "OpenSSLAdapter::Recv(" << cb << ")";
   switch (state_) {
 
   case SSL_NONE:
@@ -804,7 +803,7 @@ void OpenSSLAdapter::OnConnectEvent(AsyncSocket* socket) {
 }
 
 void OpenSSLAdapter::OnReadEvent(AsyncSocket* socket) {
-  //LOG(LS_INFO) << "OpenSSLAdapter::OnReadEvent";
+  // LOG(LS_INFO) << "OpenSSLAdapter::OnReadEvent";
 
   if (state_ == SSL_NONE) {
     AsyncSocketAdapter::OnReadEvent(socket);
@@ -824,16 +823,16 @@ void OpenSSLAdapter::OnReadEvent(AsyncSocket* socket) {
   // Don't let ourselves go away during the callbacks
   //PRefPtr<OpenSSLAdapter> lock(this); // TODO: fix this
   if (ssl_write_needs_read_)  {
-    //LOG(LS_INFO) << " -- onStreamWriteable";
+    // LOG(LS_INFO) << " -- onStreamWriteable";
     AsyncSocketAdapter::OnWriteEvent(socket);
   }
 
-  //LOG(LS_INFO) << " -- onStreamReadable";
+  // LOG(LS_INFO) << " -- onStreamReadable";
   AsyncSocketAdapter::OnReadEvent(socket);
 }
 
 void OpenSSLAdapter::OnWriteEvent(AsyncSocket* socket) {
-  //LOG(LS_INFO) << "OpenSSLAdapter::OnWriteEvent";
+  // LOG(LS_INFO) << "OpenSSLAdapter::OnWriteEvent";
 
   if (state_ == SSL_NONE) {
     AsyncSocketAdapter::OnWriteEvent(socket);
@@ -854,7 +853,7 @@ void OpenSSLAdapter::OnWriteEvent(AsyncSocket* socket) {
   //PRefPtr<OpenSSLAdapter> lock(this); // TODO: fix this
 
   if (ssl_read_needs_write_)  {
-    //LOG(LS_INFO) << " -- onStreamReadable";
+    // LOG(LS_INFO) << " -- onStreamReadable";
     AsyncSocketAdapter::OnReadEvent(socket);
   }
 
@@ -868,7 +867,7 @@ void OpenSSLAdapter::OnWriteEvent(AsyncSocket* socket) {
     }
   }
 
-  //LOG(LS_INFO) << " -- onStreamWriteable";
+  // LOG(LS_INFO) << " -- onStreamWriteable";
   AsyncSocketAdapter::OnWriteEvent(socket);
 }
 
@@ -945,7 +944,7 @@ bool OpenSSLAdapter::VerifyServerName(SSL* ssl, const char* host,
   // This should only ever be turned on for debugging and development.
   if (!ok && ignore_bad_cert) {
     LOG(LS_WARNING) << "TLS certificate check FAILED.  "
-      << "Allowing connection anyway.";
+                    << "Allowing connection anyway.";
     ok = true;
   }
 
@@ -981,12 +980,12 @@ void OpenSSLAdapter::SSLInfoCallback(const SSL* s, int where, int ret) {
     str = "SSL_accept";
   }
   if (where & SSL_CB_LOOP) {
-    LOG(LS_INFO) <<  str << ":" << SSL_state_string_long(s);
+    LOG(LS_INFO) << str << ":" << SSL_state_string_long(s);
   } else if (where & SSL_CB_ALERT) {
     str = (where & SSL_CB_READ) ? "read" : "write";
-    LOG(LS_INFO) <<  "SSL3 alert " << str
-      << ":" << SSL_alert_type_string_long(ret)
-      << ":" << SSL_alert_desc_string_long(ret);
+    LOG(LS_INFO) << "SSL3 alert " << str << ":"
+                 << SSL_alert_type_string_long(ret) << ":"
+                 << SSL_alert_desc_string_long(ret);
   } else if (where & SSL_CB_EXIT) {
     if (ret == 0) {
       LOG(LS_INFO) << str << ":failed in " << SSL_state_string_long(s);
@@ -1011,8 +1010,8 @@ int OpenSSLAdapter::SSLVerifyCallback(int ok, X509_STORE_CTX* store) {
     LOG(LS_INFO) << "  issuer  = " << data;
     X509_NAME_oneline(X509_get_subject_name(cert), data, sizeof(data));
     LOG(LS_INFO) << "  subject = " << data;
-    LOG(LS_INFO) << "  err     = " << err
-      << ":" << X509_verify_cert_error_string(err);
+    LOG(LS_INFO) << "  err     = " << err << ":"
+                 << X509_verify_cert_error_string(err);
   }
 #endif
 
@@ -1087,8 +1086,8 @@ SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
 #endif  // OPENSSL_IS_BORINGSSL
   if (ctx == nullptr) {
     unsigned long error = ERR_get_error();  // NOLINT: type used by OpenSSL.
-    LOG(LS_WARNING) << "SSL_CTX creation failed: "
-                    << '"' << ERR_reason_error_string(error) << "\" "
+    LOG(LS_WARNING) << "SSL_CTX creation failed: " << '"'
+                    << ERR_reason_error_string(error) << "\" "
                     << "(error=" << error << ')';
     return nullptr;
   }

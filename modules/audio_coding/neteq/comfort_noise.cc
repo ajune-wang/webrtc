@@ -67,8 +67,8 @@ int ComfortNoise::Generate(size_t requested_length,
           new_period)) {
     // Error returned.
     output->Zeros(requested_length);
-    LOG(LS_ERROR) <<
-        "ComfortNoiseDecoder::Genererate failed to generate comfort noise";
+    LOG(LS_ERROR)
+        << "ComfortNoiseDecoder::Genererate failed to generate comfort noise";
     return kInternalError;
   }
   (*output)[0].OverwriteAt(temp.get(), number_of_samples, 0);

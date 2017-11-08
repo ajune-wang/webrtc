@@ -81,8 +81,7 @@ bool RtpHeaderExtensionMap::RegisterByUri(int id, const std::string& uri) {
   for (const ExtensionInfo& extension : kExtensions)
     if (uri == extension.uri)
       return Register(id, extension.type, extension.uri);
-  LOG(LS_WARNING) << "Unknown extension uri:'" << uri
-                  << "', id: " << id << '.';
+  LOG(LS_WARNING) << "Unknown extension uri:'" << uri << "', id: " << id << '.';
   return false;
 }
 
@@ -127,8 +126,7 @@ bool RtpHeaderExtensionMap::Register(int id,
   }
 
   if (GetType(id) == type) {  // Same type/id pair already registered.
-    LOG(LS_VERBOSE) << "Reregistering extension uri:'" << uri
-                    << "', id:" << id;
+    LOG(LS_VERBOSE) << "Reregistering extension uri:'" << uri << "', id:" << id;
     return true;
   }
 

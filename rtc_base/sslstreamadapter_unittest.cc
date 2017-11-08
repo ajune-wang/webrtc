@@ -827,8 +827,8 @@ class SSLStreamAdapterTestDTLS
     } else if (loss_ == 0) {
         EXPECT_EQ_WAIT(static_cast<size_t>(sent_), received_.size(), 1000);
     } else {
-      LOG(LS_INFO) << "Sent " << sent_ << " packets; received " <<
-          received_.size();
+      LOG(LS_INFO) << "Sent " << sent_ << " packets; received "
+                   << received_.size();
     }
   };
 

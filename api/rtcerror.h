@@ -152,7 +152,7 @@ std::ostream& operator<<(std::ostream& stream, RTCErrorType error);
   {                                                      \
     RTC_DCHECK(type != RTCErrorType::NONE);              \
     LOG(severity) << message << " (" << type << ")";     \
-    return webrtc::RTCError(type, message);   \
+    return webrtc::RTCError(type, message);              \
   }
 
 #define LOG_AND_RETURN_ERROR(type, message) \

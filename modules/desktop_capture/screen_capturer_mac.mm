@@ -547,8 +547,7 @@ bool ScreenCapturerMac::CgBlit(const DesktopFrame& frame, const DesktopRegion& r
     // Verify that the image has 32-bit depth.
     int bits_per_pixel = CGImageGetBitsPerPixel(image);
     if (bits_per_pixel / 8 != DesktopFrame::kBytesPerPixel) {
-      LOG(LS_ERROR) << "CGDisplayCreateImage() returned imaged with "
-                    << bits_per_pixel
+      LOG(LS_ERROR) << "CGDisplayCreateImage() returned imaged with " << bits_per_pixel
                     << " bits per pixel. Only 32-bit depth is supported.";
       CFRelease(image);
       if (excluded_image)

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a872b94b_797a9a80",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-08T13:08:49Z",
+      "side": 1,
+      "message": "I can\u0027t find function I need in rtc_base/timeutils.\nI\u0027m using Clock interface to take current time in ntp format: Clock::CurrentNtpTime()\nWhat would you recommend as an alternative?\n(faking is not an issue)",
+      "parentUuid": "bb9921bd_8b41f540",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2fe18ebc_55db0e9b",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a20be537_ac7b9308",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-08T13:08:49Z",
+      "side": 1,
+      "message": "since iteration statement is complicated, changed for loop into while loop.\njoined next_block and size_left into single ArrayView to use as iteration variable, seems more natural.\nwonder if you find result function small enough to be ok with mutating input parameter.\n\nalso looks better when functionality for splitting rtcp_packets and parsing/handling single rtcp_packet are split in different functions.",
+      "parentUuid": "2fe18ebc_55db0e9b",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "03b81368_7060fc3f",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-08T13:08:49Z",
+      "side": 1,
+      "message": "what does continue mean in a switch?\nSplitted ReceivePacket into loop and inidividual block handler for clarity break here is very different to break few lines above.",
+      "parentUuid": "6668bfd3_c4f418cc",
+      "range": {
+        "startLine": 98,
+        "startChar": 10,
+        "endLine": 98,
+        "endChar": 15
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cf4e897_0bdc2696",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 8
@@ -91,6 +163,30 @@
       "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac745163_c32be148",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-08T13:08:49Z",
+      "side": 1,
+      "message": "moved the check inside CreateReportBlocks.\n(it is ok to generate and set empty vector)",
+      "parentUuid": "7cf4e897_0bdc2696",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 58
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "debe0fd0_be060022",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-08T13:08:49Z",
+      "side": 1,
+      "message": "Almost, it is not to ack sender reports.\nit is the main mechanic to estimate rtt by sender.",
+      "parentUuid": "d1881c30_c9a99db9",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4640db5f_a138639b",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
         "patchSetId": 8
@@ -137,6 +257,30 @@
       "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffd89215_5bc778d5",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-08T13:08:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4640db5f_a138639b",
+      "range": {
+        "startLine": 51,
+        "startChar": 33,
+        "endLine": 51,
+        "endChar": 51
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

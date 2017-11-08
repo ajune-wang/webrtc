@@ -22,6 +22,30 @@
       "revId": "645e5241984ee641fd6ef0d34abfe101ba0274a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5be066c_3e3d3d8d",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-08T18:43:17Z",
+      "side": 1,
+      "message": "I\u0027ll try. (I didn\u0027t in general try to remove all the system_wrappers deps, since that\u0027s just too much manual work. It\u0027d be nice to have a tool to detect unused deps...)\n\n... Yes, it worked. New patch set uploaded.",
+      "parentUuid": "6587dde4_fd41eb76",
+      "range": {
+        "startLine": 233,
+        "startChar": 25,
+        "endLine": 233,
+        "endChar": 0
+      },
+      "revId": "645e5241984ee641fd6ef0d34abfe101ba0274a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

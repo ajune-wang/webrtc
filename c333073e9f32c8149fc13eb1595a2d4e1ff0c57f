@@ -1,0 +1,51 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65f49418_042bcc5e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T14:11:57Z",
+      "side": 1,
+      "message": "Not your code, but I find |subview| a non-intuitive name for this operation. Would have preferred |skip| or |skip_prefix| or something like that.\n\nIt would be even nicer if CommonHeader had a method to return the size of the block directly, rather than the address past the end of the block. There\u0027s no such method?",
+      "range": {
+        "startLine": 94,
+        "startChar": 20,
+        "endLine": 94,
+        "endChar": 27
+      },
+      "revId": "c333073e9f32c8149fc13eb1595a2d4e1ff0c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1378183d_a740b42e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T14:11:57Z",
+      "side": 1,
+      "message": "Ok, so RTT estimate is based on timing of RTCP packets, not the timing of RTP packets?",
+      "parentUuid": "debe0fd0_be060022",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "c333073e9f32c8149fc13eb1595a2d4e1ff0c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

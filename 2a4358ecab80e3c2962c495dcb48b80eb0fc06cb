@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8fc07fda_1ef333cd",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T14:11:57Z",
+      "side": 1,
+      "message": "Closest to your need is rtc::TimeUTCMicros. You get ntp time from that by adding some magic constant. I would be fine with a helper function to do that, too.",
+      "parentUuid": "a872b94b_797a9a80",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2fe18ebc_55db0e9b",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 8
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "439283ae_7041ee09",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T14:11:57Z",
+      "side": 1,
+      "message": "Looks much better, thanks!",
+      "parentUuid": "a20be537_ac7b9308",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6668bfd3_c4f418cc",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 8
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "what does continue mean in a switch?\nSplitted ReceivePacket into loop and inidividual block handler for clarity break here is very different to break few lines above.",
       "parentUuid": "6668bfd3_c4f418cc",
+      "range": {
+        "startLine": 98,
+        "startChar": 10,
+        "endLine": 98,
+        "endChar": 15
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0b73f8a_b2491622",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T14:11:57Z",
+      "side": 1,
+      "message": "continue has no special meaning for a switch, it will apply to the closest containing loop.",
+      "parentUuid": "03b81368_7060fc3f",
       "range": {
         "startLine": 98,
         "startChar": 10,

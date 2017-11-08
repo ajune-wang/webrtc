@@ -80,6 +80,40 @@ bool RunEncodeInRealTime(const TestConfig& config) {
 #endif
 }
 
+// An internal encoder factory in the old WebRtcVideoEncoderFactory format.
+// TODO(magjed): Update these tests to use new webrtc::VideoEncoderFactory
+// instead.
+class LegacyInternalEncoderFactory : public cricket::WebRtcVideoEncoderFactory {
+ public:
+  LegacyInternalEncoderFactory() {
+    for (const SdpVideoFormat& format :
+         InternalEncoderFactory().GetSupportedFormats()) {
+      supported_codecs_.push_back(cricket::VideoCodec(format));
+    }
+  }
+
+  // WebRtcVideoEncoderFactory implementation.
+  VideoEncoder* CreateVideoEncoder(const cricket::VideoCodec& codec) override {
+    return InternalEncoderFactory()
+        .CreateVideoEncoder(SdpVideoFormat(codec.name, codec.params))
+        .release();
+  }
+
+  const std::vector<cricket::VideoCodec>& supported_codecs() const override {
+    return supported_codecs_;
+  }
+
+  bool EncoderTypeHasInternalSource(
+      webrtc::VideoCodecType type) const override {
+    return false;
+  }
+
+  void DestroyVideoEncoder(VideoEncoder* encoder) override { delete encoder; }
+
+ private:
+  std::vector<cricket::VideoCodec> supported_codecs_;
+};
+
 }  // namespace
 
 void VideoProcessorIntegrationTest::H264KeyframeChecker::CheckEncodedFrame(
@@ -296,7 +330,7 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
     RTC_NOTREACHED() << "Only support HW encoder on Android and iOS.";
 #endif
   } else {
-    encoder_factory.reset(new cricket::InternalEncoderFactory());
+    encoder_factory.reset(new LegacyInternalEncoderFactory());
   }
 
   std::unique_ptr<cricket::WebRtcVideoDecoderFactory> decoder_factory;
@@ -365,7 +399,9 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
 
   if (config_.sw_fallback_encoder) {
     encoder_ = rtc::MakeUnique<VideoEncoderSoftwareFallbackWrapper>(
-        codec, std::move(encoder_));
+        InternalEncoderFactory().CreateVideoEncoder(
+            SdpVideoFormat(codec.name, codec.params)),
+        std::move(encoder_));
   }
   if (config_.sw_fallback_decoder) {
     decoder_ = rtc::MakeUnique<VideoDecoderSoftwareFallbackWrapper>(

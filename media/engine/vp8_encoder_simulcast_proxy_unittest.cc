@@ -13,6 +13,7 @@
 
 #include <string>
 
+#include "api/test/mock_video_encoder_factory.h"
 #include "media/engine/webrtcvideoencoderfactory.h"
 #include "modules/video_coding/codecs/vp8/temporal_layers.h"
 #include "modules/video_coding/include/video_codec_interface.h"
@@ -56,20 +57,6 @@ class MockEncoder : public VideoEncoder {
   MOCK_CONST_METHOD0(ImplementationName, const char*());
 };
 
-class MockWebRtcVideoEncoderFactory
-    : public cricket::WebRtcVideoEncoderFactory {
- public:
-  MockWebRtcVideoEncoderFactory() {}
-  virtual ~MockWebRtcVideoEncoderFactory() {}
-
-  MOCK_METHOD1(CreateVideoEncoder,
-               webrtc::VideoEncoder*(const cricket::VideoCodec& codec));
-
-  MOCK_CONST_METHOD0(supported_codecs, std::vector<cricket::VideoCodec>&());
-
-  MOCK_METHOD1(DestroyVideoEncoder, void(webrtc::VideoEncoder*));
-};
-
 TEST(VP8EncoderSimulcastProxy, ChoosesCorrectImplementation) {
   const std::string kImplementationName = "Fake";
   const std::string kSimulcastAdaptedImplementationName =
@@ -87,14 +74,14 @@ TEST(VP8EncoderSimulcastProxy, ChoosesCorrectImplementation) {
   codec_settings.numberOfSimulcastStreams = 3;
 
   NiceMock<MockEncoder> mock_encoder;
-  NiceMock<MockWebRtcVideoEncoderFactory> simulcast_factory;
+  NiceMock<MockVideoEncoderFactory> simulcast_factory;
 
   EXPECT_CALL(mock_encoder, InitEncode(_, _, _))
       .WillOnce(Return(WEBRTC_VIDEO_CODEC_OK));
   EXPECT_CALL(mock_encoder, ImplementationName())
       .WillRepeatedly(Return(kImplementationName.c_str()));
 
-  EXPECT_CALL(simulcast_factory, CreateVideoEncoder(_))
+  EXPECT_CALL(simulcast_factory, CreateVideoEncoderProxy(_))
       .Times(1)
       .WillOnce(Return(&mock_encoder));
 
@@ -107,7 +94,7 @@ TEST(VP8EncoderSimulcastProxy, ChoosesCorrectImplementation) {
   NiceMock<MockEncoder> mock_encoder2;
   NiceMock<MockEncoder> mock_encoder3;
   NiceMock<MockEncoder> mock_encoder4;
-  NiceMock<MockWebRtcVideoEncoderFactory> nonsimulcast_factory;
+  NiceMock<MockVideoEncoderFactory> nonsimulcast_factory;
 
   EXPECT_CALL(mock_encoder1, InitEncode(_, _, _))
       .WillOnce(
@@ -130,7 +117,7 @@ TEST(VP8EncoderSimulcastProxy, ChoosesCorrectImplementation) {
   EXPECT_CALL(mock_encoder4, ImplementationName())
       .WillRepeatedly(Return(kImplementationName.c_str()));
 
-  EXPECT_CALL(nonsimulcast_factory, CreateVideoEncoder(_))
+  EXPECT_CALL(nonsimulcast_factory, CreateVideoEncoderProxy(_))
       .Times(4)
       .WillOnce(Return(&mock_encoder1))
       .WillOnce(Return(&mock_encoder2))

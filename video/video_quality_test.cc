@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <deque>
 #include <map>
-#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -23,6 +22,7 @@
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
+#include "media/engine/internalencoderfactory.h"
 #include "media/engine/webrtcvideoengine.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
@@ -1129,33 +1129,22 @@ class VideoAnalyzer : public PacketReceiver,
   const int64_t start_ms_;
 };
 
-class Vp8EncoderFactory : public cricket::WebRtcVideoEncoderFactory {
+// TODO(magjed): Replace with internal factory?
+class Vp8EncoderFactory : public VideoEncoderFactory {
  public:
-  Vp8EncoderFactory() {
-    supported_codecs_.push_back(cricket::VideoCodec("VP8"));
-  }
-  ~Vp8EncoderFactory() override { RTC_CHECK(live_encoders_.empty()); }
-
-  const std::vector<cricket::VideoCodec>& supported_codecs() const override {
-    return supported_codecs_;
+  std::vector<SdpVideoFormat> GetSupportedFormats() const override {
+    std::vector<SdpVideoFormat> formats = {SdpVideoFormat("VP8")};
+    return formats;
   }
 
-  VideoEncoder* CreateVideoEncoder(const cricket::VideoCodec& codec) override {
-    VideoEncoder* encoder = VP8Encoder::Create();
-    live_encoders_.insert(encoder);
-    return encoder;
+  CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override {
+    return CodecInfo();
   }
 
-  void DestroyVideoEncoder(VideoEncoder* encoder) override {
-    auto it = live_encoders_.find(encoder);
-    RTC_CHECK(it != live_encoders_.end());
-    live_encoders_.erase(it);
-    delete encoder;
+  std::unique_ptr<VideoEncoder> CreateVideoEncoder(
+      const SdpVideoFormat& format) override {
+    return std::unique_ptr<VideoEncoder>(VP8Encoder::Create());
   }
-
- private:
-  std::vector<cricket::VideoCodec> supported_codecs_;
-  std::set<VideoEncoder*> live_encoders_;
 };
 
 VideoQualityTest::VideoQualityTest()
@@ -1421,7 +1410,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       // encoders usually can't natively do simulcast with different frame rates
       // for the different layers.
       video_encoder_.reset(
-          new SimulcastEncoderAdapter(new Vp8EncoderFactory()));
+          new SimulcastEncoderAdapter(new InternalEncoderFactory()));
     } else {
       video_encoder_.reset(VP8Encoder::Create());
     }

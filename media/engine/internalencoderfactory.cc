@@ -15,9 +15,10 @@
 #include "modules/video_coding/codecs/h264/include/h264.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
 
-namespace cricket {
+namespace webrtc {
 
 namespace {
 
@@ -33,55 +34,57 @@ bool IsFlexfecAdvertisedFieldTrialEnabled() {
 
 }  // namespace
 
-InternalEncoderFactory::InternalEncoderFactory() {
-  supported_codecs_.push_back(VideoCodec(kVp8CodecName));
+std::vector<SdpVideoFormat> InternalEncoderFactory::GetSupportedFormats()
+    const {
+  std::vector<SdpVideoFormat> supported_codecs;
+  supported_codecs.push_back(SdpVideoFormat(cricket::kVp8CodecName));
   if (webrtc::VP9Encoder::IsSupported())
-    supported_codecs_.push_back(VideoCodec(kVp9CodecName));
+    supported_codecs.push_back(SdpVideoFormat(cricket::kVp9CodecName));
 
   for (const webrtc::SdpVideoFormat& format : webrtc::SupportedH264Codecs())
-    supported_codecs_.push_back(VideoCodec(format));
+    supported_codecs.push_back(format);
 
-  supported_codecs_.push_back(VideoCodec(kRedCodecName));
-  supported_codecs_.push_back(VideoCodec(kUlpfecCodecName));
+  supported_codecs.push_back(SdpVideoFormat(cricket::kRedCodecName));
+  supported_codecs.push_back(SdpVideoFormat(cricket::kUlpfecCodecName));
 
   if (IsFlexfecAdvertisedFieldTrialEnabled()) {
-    VideoCodec flexfec_codec(kFlexfecCodecName);
     // This value is currently arbitrarily set to 10 seconds. (The unit
     // is microseconds.) This parameter MUST be present in the SDP, but
     // we never use the actual value anywhere in our code however.
     // TODO(brandtr): Consider honouring this value in the sender and receiver.
-    flexfec_codec.SetParam(kFlexfecFmtpRepairWindow, "10000000");
-    supported_codecs_.push_back(flexfec_codec);
+    SdpVideoFormat::Parameters params = {
+        {cricket::kFlexfecFmtpRepairWindow, "10000000"}};
+    supported_codecs.push_back(
+        SdpVideoFormat(cricket::kFlexfecCodecName, params));
   }
+
+  return supported_codecs;
 }
 
-InternalEncoderFactory::~InternalEncoderFactory() {}
+VideoEncoderFactory::CodecInfo InternalEncoderFactory::QueryVideoEncoder(
+    const SdpVideoFormat& format) const {
+  CodecInfo info;
+  info.is_hardware_accelerated = false;
+  info.has_internal_source = false;
+  return info;
+}
 
-// WebRtcVideoEncoderFactory implementation.
-webrtc::VideoEncoder* InternalEncoderFactory::CreateVideoEncoder(
-    const VideoCodec& codec) {
-  const webrtc::VideoCodecType codec_type =
-      webrtc::PayloadStringToCodecType(codec.name);
-  switch (codec_type) {
-    case webrtc::kVideoCodecH264:
-      return webrtc::H264Encoder::Create(codec);
-    case webrtc::kVideoCodecVP8:
-      return webrtc::VP8Encoder::Create();
-    case webrtc::kVideoCodecVP9:
-      return webrtc::VP9Encoder::Create();
-    default:
-      return nullptr;
+std::unique_ptr<VideoEncoder> InternalEncoderFactory::CreateVideoEncoder(
+    const SdpVideoFormat& format) {
+  if (cricket::CodecNamesEq(format.name, cricket::kVp8CodecName))
+    return std::unique_ptr<VideoEncoder>(VP8Encoder::Create());
+
+  if (cricket::CodecNamesEq(format.name, cricket::kVp9CodecName))
+    return std::unique_ptr<VideoEncoder>(VP9Encoder::Create());
+
+  if (cricket::CodecNamesEq(format.name, cricket::kH264CodecName)) {
+    return std::unique_ptr<VideoEncoder>(
+        H264Encoder::Create(cricket::VideoCodec(format)));
   }
+
+  LOG(LS_ERROR) << "Trying to created encoder of unsupported format "
+                << format.name;
+  return nullptr;
 }
 
-const std::vector<VideoCodec>&
-InternalEncoderFactory::supported_codecs() const {
-  return supported_codecs_;
-}
-
-void InternalEncoderFactory::DestroyVideoEncoder(
-    webrtc::VideoEncoder* encoder) {
-  delete encoder;
-}
-
-}  // namespace cricket
+}  // namespace webrtc

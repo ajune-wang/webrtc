@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6587dde4_fd41eb76",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-08T15:28:07Z",
+      "side": 1,
+      "message": "probably can be removed",
+      "range": {
+        "startLine": 233,
+        "startChar": 25,
+        "endLine": 233,
+        "endChar": 0
+      },
+      "revId": "645e5241984ee641fd6ef0d34abfe101ba0274a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

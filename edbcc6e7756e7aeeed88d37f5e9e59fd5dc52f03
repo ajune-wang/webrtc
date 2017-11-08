@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "82e9b838_471ca651",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "To summarize our discussion we had offline:\n-The current algorithm achieves the same behavior with a better runtime of O(nlogn), so it is preferred\n-Convinced ourselves that we never need to re-sort after we allocate to a track\u0027s max (so it keeps its runtime)\n-Agreed upon a small change in the algorithm that essentially removes \"target_bitrate\"\n\nSide note: I also convinced myself that the algorithm previously didn\u0027t need re-sorting, but I think that removing the notion of target_bitrate helps simplify the algorithm.",
+      "parentUuid": "21b45059_0a2f06da",
+      "revId": "edbcc6e7756e7aeeed88d37f5e9e59fd5dc52f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51f2fefb_ec42607e",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 5

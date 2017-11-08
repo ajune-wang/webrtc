@@ -149,6 +149,24 @@
     },
     {
       "key": {
+        "uuid": "52855b84_ec19e66e",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Yes I will. I\u0027ve been working on that CL in parallel (branched from this one) but I haven\u0027t gotten too far on it yet. As soon as its implemented I will add you as a reviewer.",
+      "parentUuid": "a9d913a4_3561a4c2",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a441290_6cadeff8",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 3
@@ -466,6 +484,24 @@
     },
     {
       "key": {
+        "uuid": "75dcba45_f31f7cdc",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "I don\u0027t think it is necessary, but thought it was a nice way to organize the testing. The tests that don\u0027t enforce a min also have a separate test fixture (BitrateAllocatorTestNoEnforceMin). I addressed this in the other comment you had.",
+      "parentUuid": "76e5e25a_105d9322",
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc9e01d0_c5bc6ce0",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 3
@@ -573,6 +609,30 @@
       "side": 1,
       "message": "Ack\nFYI: In unit-tests, it\u0027s good to do the minimum necessary for demonstrating correctness. So if you don\u0027t need to call OnNetworkChanged() in a test, it\u0027s best not to. Otherwise, you could end up with tests that pass for the wrong reason. Also, the shorter the test, the easier it is to understand.",
       "parentUuid": "5655c0d9_f0a1a5fa",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 35
+      },
+      "revId": "3edddf9f6d701a02ed225f2b1adbe4d2fd878ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5174c3ef_acb408b0",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "You\u0027re correct, this was a good catch. Thanks.",
+      "parentUuid": "e1ae4041_bd099ab3",
       "range": {
         "startLine": 539,
         "startChar": 0,

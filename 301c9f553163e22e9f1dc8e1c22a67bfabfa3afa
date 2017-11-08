@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0119acc4_6250ff97",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "I removed it. I kept that section because previously the allocated distribution between tracks was evenly distributed. I think anybody will implicitly assume this happens with the same relative bitrate so this seems unnecessary to me.",
+      "parentUuid": "ae90ec93_55e8de10",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5078b3d_1952bb39",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8fe73b8_e8d490d4",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Done. I had to implement the comparator here. I also added the observer, so I can allocate as I iterate, instead of using the \"target_bitrate\" to allocate at the end. I think it makes the code easier to understand, the trade off is having the observers in the struct.",
+      "parentUuid": "e5078b3d_1952bb39",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "6f1b88a0_70824215",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "No need to apologize, these are things I want to hear in a code review :). I renamed the variable.",
+      "parentUuid": "4a6a4c3d_efbcdc02",
+      "range": {
+        "startLine": 377,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 56
+      },
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d23fd02d_41c04daf",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 6
@@ -73,6 +133,24 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25bd1ee8_e82fbed7",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Hmmm with this trade off I don\u0027t think it\u0027s worth the aliasing. I just removed it.",
+      "parentUuid": "d23fd02d_41c04daf",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "bd5beff1_6a53044c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Yeah I think that is a reasonable way to pull the core implementation out. I did this and updated the algorithm, taking out the \"target_bitrate,\" which wasn\u0027t a necessary way to implement the same algorithm. I\u0027m hoping this makes things more readable. I also added other helper functions. Looking forward to getting your feedback.",
+      "parentUuid": "5c376632_b3d5ff31",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b2193e6_503d2070",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 6
@@ -107,6 +203,24 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39595ee6_42a53763",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b2193e6_503d2070",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "007fac29_08b22be4",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "We discussed this offline. Marking this as done. As a short comment for other reviewers:\n\nEach step in the loop is a scaled (max-min) of each track by the relative bitrate. We iterate in the order in which track\u0027s are filled to their max. At each step we check if there\u0027s enough remaining bitrate for ALL tracks that haven\u0027t been maxed out to be allocated bitrate to the relative level of what the current track\u0027s max is. This is done until hitting a breaking point and distributing to the remaining track\u0027s according to relative bitrate.\n\nThere isn\u0027t really a concept of \"left over\", because we are checking the allocation for all remaining tracks at each step (using the track allocation factor).",
+      "parentUuid": "f9b341f6_a80763b1",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e45cf6fe_d2303d99",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 6
@@ -141,6 +273,24 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e98b3d_f2a51e1b",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e45cf6fe_d2303d99",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "fc5a8c0b_b99928dd",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "We want this field to be updated if the RTCRtpSender setParameters() function is called at the Web API level. I don\u0027t think we want it to be const. \n\nhttps://www.w3.org/TR/webrtc/#dom-rtcrtpsender-setparameters",
+      "parentUuid": "8823729f_7ec75c96",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "442a87da_8f629d69",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 6
@@ -175,6 +343,24 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bd8e0ac_0d22f038",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "It is similar, but I like the way it organizes these tests as separate. Also it allows control over the network\u0027s initial available bandwidth. BitrateAllocatorTestNoEnforceMin also uses a separate test fixture, and I don\u0027t think it slows down the tests because a test fixture is created/deleted for every unit test anyways. Possibly a rename to BitrateAllocatorPriorityRateTest? Let me know your thoughts here. Leaving it as is for now.",
+      "parentUuid": "442a87da_8f629d69",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "ddb3b6c3_ff8f7b04",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1306a907_968bc4af",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fdc8fae4_0432ff53",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 6
@@ -209,6 +413,24 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0693a6af_3a6da78c",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdc8fae4_0432ff53",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -229,6 +451,24 @@
     },
     {
       "key": {
+        "uuid": "83eefd6a_766d6623",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "I removed this test because it is a subset.",
+      "parentUuid": "1716695c_055f0f42",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9e979e3_29fb7a5c",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 6
@@ -243,6 +483,24 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "683465c8_d8b6a56f",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9e979e3_29fb7a5c",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -263,6 +521,24 @@
     },
     {
       "key": {
+        "uuid": "c44d16d3_4be48db0",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. Sometimes it\u0027s tough to make the call on what to use to make the tests more readable. I think it depends on who\u0027s reading as well.",
+      "parentUuid": "2ec771b2_889e0538",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "233e414e_eb2aab5d",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 6
@@ -277,6 +553,24 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2b9d221_b85adba4",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "Yes. I liked the idea of having it as an easier first test to use for debugging, but I don\u0027t think this is necessary. I removed TwoObserversAllocatedRelativeAboveMins.",
+      "parentUuid": "233e414e_eb2aab5d",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -303,6 +597,30 @@
     },
     {
       "key": {
+        "uuid": "562e045b_5c9fc810",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "The allocation isn\u0027t based upon their max, but their relative bitrates. I updated this to reflect that.",
+      "parentUuid": "2a6dcb67_60da8c27",
+      "range": {
+        "startLine": 630,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 50
+      },
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b43a98cb_c3539440",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 6
@@ -326,6 +644,30 @@
     },
     {
       "key": {
+        "uuid": "198a6784_d842292d",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "I added constants for this, and also the test below. I think your perspective is better than mine for how readable it is because you have new eyes on the code.",
+      "parentUuid": "b43a98cb_c3539440",
+      "range": {
+        "startLine": 662,
+        "startChar": 0,
+        "endLine": 663,
+        "endChar": 61
+      },
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3eb728e_c5fb76f1",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 6
@@ -346,6 +688,30 @@
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5138309_39ebd3c5",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-08T02:05:05Z",
+      "side": 1,
+      "message": "I think you\u0027re right that tests unnecessary complexity. I moved this below the TwoObserverBasic test, and labeled it as TwoObserversBasicMinEnforced. That way the title better describes that the test is a basic two observer test that uses a min enforced for the observers.",
+      "parentUuid": "e3eb728e_c5fb76f1",
+      "range": {
+        "startLine": 754,
+        "startChar": 0,
+        "endLine": 756,
+        "endChar": 50
+      },
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

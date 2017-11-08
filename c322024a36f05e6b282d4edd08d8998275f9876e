@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9968a56c_095c20e4",
+        "filename": "sdk/android/src/jni/videodecoderwrapper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-08T14:30:13Z",
+      "side": 1,
+      "message": "Please call has_value() instead",
+      "range": {
+        "startLine": 195,
+        "startChar": 42,
+        "endLine": 195,
+        "endChar": 52
+      },
+      "revId": "c322024a36f05e6b282d4edd08d8998275f9876e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

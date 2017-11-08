@@ -568,6 +568,7 @@ SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
       return nullptr;
     }
     certs.emplace_back(new OpenSSLCertificate(x509));
+    X509_free(x509);
   }
   BIO_free(bio);
   if (certs.empty()) {

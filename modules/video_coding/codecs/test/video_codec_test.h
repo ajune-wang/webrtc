@@ -68,7 +68,7 @@ class VideoCodecTest : public ::testing::Test {
     VideoCodecTest* const test_;
   };
 
-  virtual VideoEncoder* CreateEncoder() = 0;
+  virtual std::unique_ptr<VideoEncoder> CreateEncoder() = 0;
   virtual VideoDecoder* CreateDecoder() = 0;
   virtual VideoCodec codec_settings() = 0;
 

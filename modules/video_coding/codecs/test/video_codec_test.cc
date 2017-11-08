@@ -63,7 +63,7 @@ void VideoCodecTest::SetUp() {
   input_frame_.reset(new VideoFrame(video_frame_buffer, kVideoRotation_0, 0));
   fclose(source_file_);
 
-  encoder_.reset(CreateEncoder());
+  encoder_ = CreateEncoder();
   decoder_.reset(CreateDecoder());
   encoder_->RegisterEncodeCompleteCallback(&encode_complete_callback_);
   decoder_->RegisterDecodeCompleteCallback(&decode_complete_callback_);

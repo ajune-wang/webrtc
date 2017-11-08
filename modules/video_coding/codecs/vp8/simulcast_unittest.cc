@@ -15,7 +15,9 @@ namespace testing {
 
 class TestVp8Impl : public TestVp8Simulcast {
  protected:
-  VP8Encoder* CreateEncoder() override { return VP8Encoder::Create(); }
+  std::unique_ptr<VP8Encoder> CreateEncoder() override {
+    return VP8Encoder::Create();
+  }
   VP8Decoder* CreateDecoder() override { return VP8Decoder::Create(); }
 };
 

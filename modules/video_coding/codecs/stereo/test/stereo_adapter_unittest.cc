@@ -15,6 +15,7 @@
 #include "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h"
 #include "modules/video_coding/codecs/test/video_codec_test.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
+#include "rtc_base/ptr_util.h"
 
 using testing::_;
 using testing::Return;
@@ -32,8 +33,8 @@ class TestStereoAdapter : public VideoCodecTest {
     return new StereoDecoderAdapter(decoder_factory_.get());
   }
 
-  VideoEncoder* CreateEncoder() override {
-    return new StereoEncoderAdapter(encoder_factory_.get());
+  std::unique_ptr<VideoEncoder> CreateEncoder() override {
+    return rtc::MakeUnique<StereoEncoderAdapter>(encoder_factory_.get());
   }
 
   VideoCodec codec_settings() override {
@@ -54,11 +55,11 @@ class TestStereoAdapter : public VideoCodecTest {
         .WillOnce(Return(decoder2));
 
     EXPECT_CALL(*encoder_factory_, Die());
-    VideoEncoder* encoder1 = VP9Encoder::Create();
-    VideoEncoder* encoder2 = VP9Encoder::Create();
+    std::unique_ptr<VideoEncoder> encoder1 = VP9Encoder::Create();
+    std::unique_ptr<VideoEncoder> encoder2 = VP9Encoder::Create();
     EXPECT_CALL(*encoder_factory_, CreateVideoEncoderProxy(_))
-        .WillOnce(Return(encoder1))
-        .WillOnce(Return(encoder2));
+        .WillOnce(Return(encoder1.get()))
+        .WillOnce(Return(encoder2.get()));
 
     VideoCodecTest::SetUp();
   }

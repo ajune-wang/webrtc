@@ -162,8 +162,7 @@ void AudioSendStream::ConfigureStream(
                                  new_config.rtp.nack.rtp_history_ms / 20);
   }
 
-  if (first_time ||
-      new_config.send_transport != old_config.send_transport) {
+  if (first_time || new_config.send_transport != old_config.send_transport) {
     if (old_config.send_transport) {
       channel_proxy->RegisterTransport(nullptr);
     }
@@ -260,7 +259,8 @@ void AudioSendStream::Stop() {
 }
 
 bool AudioSendStream::SendTelephoneEvent(int payload_type,
-                                         int payload_frequency, int event,
+                                         int payload_frequency,
+                                         int event,
                                          int duration_ms) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   return channel_proxy_->SetSendTelephoneEventPayloadType(payload_type,
@@ -363,8 +363,7 @@ uint32_t AudioSendStream::OnBitrateUpdated(uint32_t bitrate_bps,
   if (bitrate_bps == 0) {
     bitrate_bps = config_.min_bitrate_bps;
   }
-  RTC_DCHECK_GE(bitrate_bps,
-                static_cast<uint32_t>(config_.min_bitrate_bps));
+  RTC_DCHECK_GE(bitrate_bps, static_cast<uint32_t>(config_.min_bitrate_bps));
   // The bitrate allocator might allocate an higher than max configured bitrate
   // if there is room, to allow for, as example, extra FEC. Ignore that for now.
   const uint32_t max_bitrate_bps = config_.max_bitrate_bps;
@@ -656,7 +655,6 @@ void AudioSendStream::RegisterCngPayloadType(int payload_type,
     }
   }
 }
-
 
 }  // namespace internal
 }  // namespace webrtc

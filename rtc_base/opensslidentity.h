@@ -36,8 +36,7 @@ class OpenSSLKeyPair {
   static OpenSSLKeyPair* Generate(const KeyParams& key_params);
   // Constructs a key pair from the private key PEM string. This must not result
   // in missing public key parameters. Returns null on error.
-  static OpenSSLKeyPair* FromPrivateKeyPEMString(
-      const std::string& pem_string);
+  static OpenSSLKeyPair* FromPrivateKeyPEMString(const std::string& pem_string);
 
   virtual ~OpenSSLKeyPair();
 
@@ -62,9 +61,7 @@ class OpenSSLKeyPair {
 class OpenSSLCertificate : public SSLCertificate {
  public:
   // Caller retains ownership of the X509 object.
-  explicit OpenSSLCertificate(X509* x509) : x509_(x509) {
-    AddReference();
-  }
+  explicit OpenSSLCertificate(X509* x509) : x509_(x509) { AddReference(); }
 
   static OpenSSLCertificate* Generate(OpenSSLKeyPair* key_pair,
                                       const SSLIdentityParams& params);
@@ -140,7 +137,6 @@ class OpenSSLIdentity : public SSLIdentity {
 
   RTC_DISALLOW_COPY_AND_ASSIGN(OpenSSLIdentity);
 };
-
 
 }  // namespace rtc
 

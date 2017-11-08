@@ -33,10 +33,8 @@ class AVFoundationVideoCapturer : public cricket::VideoCapturer {
   cricket::CaptureState Start(const cricket::VideoFormat& format) override;
   void Stop() override;
   bool IsRunning() override;
-  bool IsScreencast() const override {
-    return false;
-  }
-  bool GetPreferredFourccs(std::vector<uint32_t> *fourccs) override {
+  bool IsScreencast() const override { return false; }
+  bool GetPreferredFourccs(std::vector<uint32_t>* fourccs) override {
     fourccs->push_back(cricket::FOURCC_NV12);
     return true;
   }
@@ -63,7 +61,7 @@ class AVFoundationVideoCapturer : public cricket::VideoCapturer {
   void AdaptOutputFormat(int width, int height, int fps);
 
  private:
-  RTCAVFoundationVideoCapturerInternal *_capturer;
+  RTCAVFoundationVideoCapturerInternal* _capturer;
   webrtc::I420BufferPool _buffer_pool;
 };  // AVFoundationVideoCapturer
 

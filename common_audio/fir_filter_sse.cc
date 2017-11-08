@@ -38,8 +38,7 @@ FIRFilterSSE2::FIRFilterSSE2(const float* coefficients,
   for (size_t i = 0; i < coefficients_length; ++i) {
     coefficients_[i + padding] = coefficients[coefficients_length - i - 1];
   }
-  memset(state_.get(),
-         0,
+  memset(state_.get(), 0,
          (max_input_length + state_length_) * sizeof(state_[0]));
 }
 

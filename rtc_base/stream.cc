@@ -11,9 +11,9 @@
 #if defined(WEBRTC_POSIX)
 #include <sys/file.h>
 #endif  // WEBRTC_POSIX
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include <algorithm>
 #include <string>
@@ -38,11 +38,12 @@ namespace rtc {
 ///////////////////////////////////////////////////////////////////////////////
 // StreamInterface
 ///////////////////////////////////////////////////////////////////////////////
-StreamInterface::~StreamInterface() {
-}
+StreamInterface::~StreamInterface() {}
 
-StreamResult StreamInterface::WriteAll(const void* data, size_t data_len,
-                                       size_t* written, int* error) {
+StreamResult StreamInterface::WriteAll(const void* data,
+                                       size_t data_len,
+                                       size_t* written,
+                                       int* error) {
   StreamResult result = SR_SUCCESS;
   size_t total_written = 0, current_written;
   while (total_written < data_len) {
@@ -57,8 +58,10 @@ StreamResult StreamInterface::WriteAll(const void* data, size_t data_len,
   return result;
 }
 
-StreamResult StreamInterface::ReadAll(void* buffer, size_t buffer_len,
-                                      size_t* read, int* error) {
+StreamResult StreamInterface::ReadAll(void* buffer,
+                                      size_t buffer_len,
+                                      size_t* read,
+                                      int* error) {
   StreamResult result = SR_SUCCESS;
   size_t total_read = 0, current_read;
   while (total_read < buffer_len) {
@@ -138,8 +141,7 @@ bool StreamInterface::ReserveSize(size_t size) {
   return true;
 }
 
-StreamInterface::StreamInterface() {
-}
+StreamInterface::StreamInterface() {}
 
 void StreamInterface::OnMessage(Message* msg) {
   if (MSG_POST_EVENT == msg->message_id) {
@@ -242,8 +244,10 @@ void StreamAdapterInterface::OnEvent(StreamInterface* stream,
 ///////////////////////////////////////////////////////////////////////////////
 
 StreamTap::StreamTap(StreamInterface* stream, StreamInterface* tap)
-    : StreamAdapterInterface(stream), tap_(), tap_result_(SR_SUCCESS),
-        tap_error_(0) {
+    : StreamAdapterInterface(stream),
+      tap_(),
+      tap_result_(SR_SUCCESS),
+      tap_error_(0) {
   AttachTap(tap);
 }
 
@@ -264,28 +268,32 @@ StreamResult StreamTap::GetTapResult(int* error) {
   return tap_result_;
 }
 
-StreamResult StreamTap::Read(void* buffer, size_t buffer_len,
-                             size_t* read, int* error) {
+StreamResult StreamTap::Read(void* buffer,
+                             size_t buffer_len,
+                             size_t* read,
+                             int* error) {
   size_t backup_read;
   if (!read) {
     read = &backup_read;
   }
-  StreamResult res = StreamAdapterInterface::Read(buffer, buffer_len,
-                                                  read, error);
+  StreamResult res =
+      StreamAdapterInterface::Read(buffer, buffer_len, read, error);
   if ((res == SR_SUCCESS) && (tap_result_ == SR_SUCCESS)) {
     tap_result_ = tap_->WriteAll(buffer, *read, nullptr, &tap_error_);
   }
   return res;
 }
 
-StreamResult StreamTap::Write(const void* data, size_t data_len,
-                              size_t* written, int* error) {
+StreamResult StreamTap::Write(const void* data,
+                              size_t data_len,
+                              size_t* written,
+                              int* error) {
   size_t backup_written;
   if (!written) {
     written = &backup_written;
   }
-  StreamResult res = StreamAdapterInterface::Write(data, data_len,
-                                                   written, error);
+  StreamResult res =
+      StreamAdapterInterface::Write(data, data_len, written, error);
   if ((res == SR_SUCCESS) && (tap_result_ == SR_SUCCESS)) {
     tap_result_ = tap_->WriteAll(data, *written, nullptr, &tap_error_);
   }
@@ -296,30 +304,33 @@ StreamResult StreamTap::Write(const void* data, size_t data_len,
 // NullStream
 ///////////////////////////////////////////////////////////////////////////////
 
-NullStream::NullStream() {
-}
+NullStream::NullStream() {}
 
-NullStream::~NullStream() {
-}
+NullStream::~NullStream() {}
 
 StreamState NullStream::GetState() const {
   return SS_OPEN;
 }
 
-StreamResult NullStream::Read(void* buffer, size_t buffer_len,
-                              size_t* read, int* error) {
-  if (error) *error = -1;
+StreamResult NullStream::Read(void* buffer,
+                              size_t buffer_len,
+                              size_t* read,
+                              int* error) {
+  if (error)
+    *error = -1;
   return SR_ERROR;
 }
 
-StreamResult NullStream::Write(const void* data, size_t data_len,
-                               size_t* written, int* error) {
-  if (written) *written = data_len;
+StreamResult NullStream::Write(const void* data,
+                               size_t data_len,
+                               size_t* written,
+                               int* error) {
+  if (written)
+    *written = data_len;
   return SR_SUCCESS;
 }
 
-void NullStream::Close() {
-}
+void NullStream::Close() {}
 
 ///////////////////////////////////////////////////////////////////////////////
 // FileStream
@@ -331,7 +342,8 @@ FileStream::~FileStream() {
   FileStream::Close();
 }
 
-bool FileStream::Open(const std::string& filename, const char* mode,
+bool FileStream::Open(const std::string& filename,
+                      const char* mode,
                       int* error) {
   Close();
 #if defined(WEBRTC_WIN)
@@ -353,8 +365,10 @@ bool FileStream::Open(const std::string& filename, const char* mode,
   return (file_ != nullptr);
 }
 
-bool FileStream::OpenShare(const std::string& filename, const char* mode,
-                           int shflag, int* error) {
+bool FileStream::OpenShare(const std::string& filename,
+                           const char* mode,
+                           int shflag,
+                           int* error) {
   Close();
 #if defined(WEBRTC_WIN)
   std::wstring wfilename;
@@ -386,8 +400,10 @@ StreamState FileStream::GetState() const {
   return (file_ == nullptr) ? SS_CLOSED : SS_OPEN;
 }
 
-StreamResult FileStream::Read(void* buffer, size_t buffer_len,
-                              size_t* read, int* error) {
+StreamResult FileStream::Read(void* buffer,
+                              size_t buffer_len,
+                              size_t* read,
+                              int* error) {
   if (!file_)
     return SR_EOS;
   size_t result = fread(buffer, 1, buffer_len, file_);
@@ -403,8 +419,10 @@ StreamResult FileStream::Read(void* buffer, size_t buffer_len,
   return SR_SUCCESS;
 }
 
-StreamResult FileStream::Write(const void* data, size_t data_len,
-                               size_t* written, int* error) {
+StreamResult FileStream::Write(const void* data,
+                               size_t data_len,
+                               size_t* written,
+                               int* error) {
   if (!file_)
     return SR_EOS;
   size_t result = fwrite(data, 1, data_len, file_);
@@ -490,7 +508,7 @@ bool FileStream::TryLock() {
     return false;
   }
 
-  return flock(fileno(file_), LOCK_EX|LOCK_NB) == 0;
+  return flock(fileno(file_), LOCK_EX | LOCK_NB) == 0;
 }
 
 bool FileStream::Unlock() {
@@ -520,8 +538,10 @@ StreamState MemoryStreamBase::GetState() const {
   return SS_OPEN;
 }
 
-StreamResult MemoryStreamBase::Read(void* buffer, size_t bytes,
-                                    size_t* bytes_read, int* error) {
+StreamResult MemoryStreamBase::Read(void* buffer,
+                                    size_t bytes,
+                                    size_t* bytes_read,
+                                    int* error) {
   if (seek_position_ >= data_length_) {
     return SR_EOS;
   }
@@ -538,8 +558,10 @@ StreamResult MemoryStreamBase::Read(void* buffer, size_t bytes,
   return SR_SUCCESS;
 }
 
-StreamResult MemoryStreamBase::Write(const void* buffer, size_t bytes,
-                                     size_t* bytes_written, int* error) {
+StreamResult MemoryStreamBase::Write(const void* buffer,
+                                     size_t bytes,
+                                     size_t* bytes_written,
+                                     int* error) {
   size_t available = buffer_length_ - seek_position_;
   if (0 == available) {
     // Increase buffer size to the larger of:
@@ -620,12 +642,12 @@ MemoryStream::MemoryStream(const void* data, size_t length)
 }
 
 MemoryStream::~MemoryStream() {
-  delete [] buffer_alloc_;
+  delete[] buffer_alloc_;
 }
 
 void MemoryStream::SetData(const void* data, size_t length) {
   data_length_ = buffer_length_ = length;
-  delete [] buffer_alloc_;
+  delete[] buffer_alloc_;
   buffer_alloc_ = new char[buffer_length_ + kAlignment];
   buffer_ = reinterpret_cast<char*>(ALIGNP(buffer_alloc_, kAlignment));
   memcpy(buffer_, data, data_length_);
@@ -637,10 +659,10 @@ StreamResult MemoryStream::DoReserve(size_t size, int* error) {
     return SR_SUCCESS;
 
   if (char* new_buffer_alloc = new char[size + kAlignment]) {
-    char* new_buffer = reinterpret_cast<char*>(
-        ALIGNP(new_buffer_alloc, kAlignment));
+    char* new_buffer =
+        reinterpret_cast<char*>(ALIGNP(new_buffer_alloc, kAlignment));
     memcpy(new_buffer, buffer_, data_length_);
-    delete [] buffer_alloc_;
+    delete[] buffer_alloc_;
     buffer_alloc_ = new_buffer_alloc;
     buffer_ = new_buffer;
     buffer_length_ = size;
@@ -655,15 +677,13 @@ StreamResult MemoryStream::DoReserve(size_t size, int* error) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-ExternalMemoryStream::ExternalMemoryStream() {
-}
+ExternalMemoryStream::ExternalMemoryStream() {}
 
 ExternalMemoryStream::ExternalMemoryStream(void* data, size_t length) {
   SetData(data, length);
 }
 
-ExternalMemoryStream::~ExternalMemoryStream() {
-}
+ExternalMemoryStream::~ExternalMemoryStream() {}
 
 void ExternalMemoryStream::SetData(void* data, size_t length) {
   data_length_ = buffer_length_ = length;
@@ -676,19 +696,26 @@ void ExternalMemoryStream::SetData(void* data, size_t length) {
 ///////////////////////////////////////////////////////////////////////////////
 
 FifoBuffer::FifoBuffer(size_t size)
-    : state_(SS_OPEN), buffer_(new char[size]), buffer_length_(size),
-      data_length_(0), read_position_(0), owner_(Thread::Current()) {
+    : state_(SS_OPEN),
+      buffer_(new char[size]),
+      buffer_length_(size),
+      data_length_(0),
+      read_position_(0),
+      owner_(Thread::Current()) {
   // all events are done on the owner_ thread
 }
 
 FifoBuffer::FifoBuffer(size_t size, Thread* owner)
-    : state_(SS_OPEN), buffer_(new char[size]), buffer_length_(size),
-      data_length_(0), read_position_(0), owner_(owner) {
+    : state_(SS_OPEN),
+      buffer_(new char[size]),
+      buffer_length_(size),
+      data_length_(0),
+      read_position_(0),
+      owner_(owner) {
   // all events are done on the owner_ thread
 }
 
-FifoBuffer::~FifoBuffer() {
-}
+FifoBuffer::~FifoBuffer() {}
 
 bool FifoBuffer::GetBuffered(size_t* size) const {
   CritScope cs(&crit_);
@@ -715,14 +742,18 @@ bool FifoBuffer::SetCapacity(size_t size) {
   return true;
 }
 
-StreamResult FifoBuffer::ReadOffset(void* buffer, size_t bytes,
-                                    size_t offset, size_t* bytes_read) {
+StreamResult FifoBuffer::ReadOffset(void* buffer,
+                                    size_t bytes,
+                                    size_t offset,
+                                    size_t* bytes_read) {
   CritScope cs(&crit_);
   return ReadOffsetLocked(buffer, bytes, offset, bytes_read);
 }
 
-StreamResult FifoBuffer::WriteOffset(const void* buffer, size_t bytes,
-                                     size_t offset, size_t* bytes_written) {
+StreamResult FifoBuffer::WriteOffset(const void* buffer,
+                                     size_t bytes,
+                                     size_t offset,
+                                     size_t* bytes_written) {
   CritScope cs(&crit_);
   return WriteOffsetLocked(buffer, bytes, offset, bytes_written);
 }
@@ -732,8 +763,10 @@ StreamState FifoBuffer::GetState() const {
   return state_;
 }
 
-StreamResult FifoBuffer::Read(void* buffer, size_t bytes,
-                              size_t* bytes_read, int* error) {
+StreamResult FifoBuffer::Read(void* buffer,
+                              size_t bytes,
+                              size_t* bytes_read,
+                              int* error) {
   CritScope cs(&crit_);
   const bool was_writable = data_length_ < buffer_length_;
   size_t copy = 0;
@@ -756,8 +789,10 @@ StreamResult FifoBuffer::Read(void* buffer, size_t bytes,
   return result;
 }
 
-StreamResult FifoBuffer::Write(const void* buffer, size_t bytes,
-                               size_t* bytes_written, int* error) {
+StreamResult FifoBuffer::Write(const void* buffer,
+                               size_t bytes,
+                               size_t* bytes_written,
+                               int* error) {
   CritScope cs(&crit_);
 
   const bool was_readable = (data_length_ > 0);
@@ -786,8 +821,9 @@ void FifoBuffer::Close() {
 
 const void* FifoBuffer::GetReadData(size_t* size) {
   CritScope cs(&crit_);
-  *size = (read_position_ + data_length_ <= buffer_length_) ?
-      data_length_ : buffer_length_ - read_position_;
+  *size = (read_position_ + data_length_ <= buffer_length_)
+              ? data_length_
+              : buffer_length_ - read_position_;
   return &buffer_[read_position_];
 }
 
@@ -814,10 +850,11 @@ void* FifoBuffer::GetWriteBuffer(size_t* size) {
     read_position_ = 0;
   }
 
-  const size_t write_position = (read_position_ + data_length_)
-      % buffer_length_;
-  *size = (write_position > read_position_ || data_length_ == 0) ?
-      buffer_length_ - write_position : read_position_ - write_position;
+  const size_t write_position =
+      (read_position_ + data_length_) % buffer_length_;
+  *size = (write_position > read_position_ || data_length_ == 0)
+              ? buffer_length_ - write_position
+              : read_position_ - write_position;
   return &buffer_[write_position];
 }
 
@@ -872,8 +909,8 @@ StreamResult FifoBuffer::WriteOffsetLocked(const void* buffer,
   }
 
   const size_t available = buffer_length_ - data_length_ - offset;
-  const size_t write_position = (read_position_ + data_length_ + offset)
-      % buffer_length_;
+  const size_t write_position =
+      (read_position_ + data_length_ + offset) % buffer_length_;
   const size_t copy = std::min(bytes, available);
   const size_t tail_copy = std::min(copy, buffer_length_ - write_position);
   const char* const p = static_cast<const char*>(buffer);
@@ -886,14 +923,14 @@ StreamResult FifoBuffer::WriteOffsetLocked(const void* buffer,
   return SR_SUCCESS;
 }
 
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // LoggingAdapter
 ///////////////////////////////////////////////////////////////////////////////
 
-LoggingAdapter::LoggingAdapter(StreamInterface* stream, LoggingSeverity level,
-                               const std::string& label, bool hex_mode)
+LoggingAdapter::LoggingAdapter(StreamInterface* stream,
+                               LoggingSeverity level,
+                               const std::string& label,
+                               bool hex_mode)
     : StreamAdapterInterface(stream), level_(level), hex_mode_(hex_mode) {
   set_label(label);
 }
@@ -904,23 +941,30 @@ void LoggingAdapter::set_label(const std::string& label) {
   label_.append("]");
 }
 
-StreamResult LoggingAdapter::Read(void* buffer, size_t buffer_len,
-                                  size_t* read, int* error) {
-  size_t local_read; if (!read) read = &local_read;
-  StreamResult result = StreamAdapterInterface::Read(buffer, buffer_len, read,
-                                                     error);
+StreamResult LoggingAdapter::Read(void* buffer,
+                                  size_t buffer_len,
+                                  size_t* read,
+                                  int* error) {
+  size_t local_read;
+  if (!read)
+    read = &local_read;
+  StreamResult result =
+      StreamAdapterInterface::Read(buffer, buffer_len, read, error);
   if (result == SR_SUCCESS) {
     LogMultiline(level_, label_.c_str(), true, buffer, *read, hex_mode_, &lms_);
   }
   return result;
 }
 
-StreamResult LoggingAdapter::Write(const void* data, size_t data_len,
-                                   size_t* written, int* error) {
+StreamResult LoggingAdapter::Write(const void* data,
+                                   size_t data_len,
+                                   size_t* written,
+                                   int* error) {
   size_t local_written;
-  if (!written) written = &local_written;
-  StreamResult result = StreamAdapterInterface::Write(data, data_len, written,
-                                                      error);
+  if (!written)
+    written = &local_written;
+  StreamResult result =
+      StreamAdapterInterface::Write(data, data_len, written, error);
   if (result == SR_SUCCESS) {
     LogMultiline(level_, label_.c_str(), false, data, *written, hex_mode_,
                  &lms_);
@@ -951,19 +995,19 @@ void LoggingAdapter::OnEvent(StreamInterface* stream, int events, int err) {
 ///////////////////////////////////////////////////////////////////////////////
 
 StringStream::StringStream(std::string* str)
-    : str_(*str), read_pos_(0), read_only_(false) {
-}
+    : str_(*str), read_pos_(0), read_only_(false) {}
 
 StringStream::StringStream(const std::string& str)
-    : str_(const_cast<std::string&>(str)), read_pos_(0), read_only_(true) {
-}
+    : str_(const_cast<std::string&>(str)), read_pos_(0), read_only_(true) {}
 
 StreamState StringStream::GetState() const {
   return SS_OPEN;
 }
 
-StreamResult StringStream::Read(void* buffer, size_t buffer_len,
-                                      size_t* read, int* error) {
+StreamResult StringStream::Read(void* buffer,
+                                size_t buffer_len,
+                                size_t* read,
+                                int* error) {
   size_t available = std::min(buffer_len, str_.size() - read_pos_);
   if (!available)
     return SR_EOS;
@@ -974,8 +1018,10 @@ StreamResult StringStream::Read(void* buffer, size_t buffer_len,
   return SR_SUCCESS;
 }
 
-StreamResult StringStream::Write(const void* data, size_t data_len,
-                                      size_t* written, int* error) {
+StreamResult StringStream::Write(const void* data,
+                                 size_t data_len,
+                                 size_t* written,
+                                 int* error) {
   if (read_only_) {
     if (error) {
       *error = -1;
@@ -989,8 +1035,7 @@ StreamResult StringStream::Write(const void* data, size_t data_len,
   return SR_SUCCESS;
 }
 
-void StringStream::Close() {
-}
+void StringStream::Close() {}
 
 bool StringStream::SetPosition(size_t position) {
   if (position > str_.size())
@@ -1046,8 +1091,7 @@ StreamReference::~StreamReference() {
 StreamReference::StreamReference(StreamRefCount* stream_ref_count,
                                  StreamInterface* stream)
     : StreamAdapterInterface(stream, false),
-      stream_ref_count_(stream_ref_count) {
-}
+      stream_ref_count_(stream_ref_count) {}
 
 ///////////////////////////////////////////////////////////////////////////////
 

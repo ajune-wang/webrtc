@@ -45,8 +45,8 @@ bool D3dDevice::Initialize(const ComPtr<IDXGIAdapter>& adapter) {
 
   if (feature_level < D3D_FEATURE_LEVEL_11_0) {
     LOG(LS_WARNING) << "D3D11CreateDevice returns an instance without DirectX "
-                       "11 support, level " << feature_level
-                    << ". Following initialization may fail.";
+                       "11 support, level "
+                    << feature_level << ". Following initialization may fail.";
     // D3D_FEATURE_LEVEL_11_0 is not officially documented on MSDN to be a
     // requirement of Dxgi duplicator APIs.
   }
@@ -66,8 +66,9 @@ bool D3dDevice::Initialize(const ComPtr<IDXGIAdapter>& adapter) {
 // static
 std::vector<D3dDevice> D3dDevice::EnumDevices() {
   ComPtr<IDXGIFactory1> factory;
-  _com_error error = CreateDXGIFactory1(__uuidof(IDXGIFactory1),
-      reinterpret_cast<void**>(factory.GetAddressOf()));
+  _com_error error =
+      CreateDXGIFactory1(__uuidof(IDXGIFactory1),
+                         reinterpret_cast<void**>(factory.GetAddressOf()));
   if (error.Error() != S_OK || !factory) {
     LOG(LS_WARNING) << "Cannot create IDXGIFactory1.";
     return std::vector<D3dDevice>();

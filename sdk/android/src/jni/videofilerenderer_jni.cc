@@ -10,9 +10,9 @@
 
 #include <jni.h>
 
-#include "third_party/libyuv/include/libyuv/scale.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "third_party/libyuv/include/libyuv/scale.h"
 
 namespace webrtc {
 namespace jni {

@@ -23,8 +23,7 @@ static const int kTimingLogIntervalMs = 10000;
 RemoteNtpTimeEstimator::RemoteNtpTimeEstimator(Clock* clock)
     : clock_(clock),
       ts_extrapolator_(new TimestampExtrapolator(clock_->TimeInMilliseconds())),
-      last_timing_log_ms_(-1) {
-}
+      last_timing_log_ms_(-1) {}
 
 RemoteNtpTimeEstimator::~RemoteNtpTimeEstimator() {}
 

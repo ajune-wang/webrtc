@@ -31,7 +31,8 @@ class FakeWebRtcVideoCaptureModule : public webrtc::VideoCaptureModule {
   }
   void DeRegisterCaptureDataCallback() override { callback_ = NULL; }
   int32_t StartCapture(const webrtc::VideoCaptureCapability& cap) override {
-    if (running_) return -1;
+    if (running_)
+      return -1;
     cap_ = cap;
     running_ = true;
     return 0;
@@ -45,7 +46,8 @@ class FakeWebRtcVideoCaptureModule : public webrtc::VideoCaptureModule {
   }
   bool CaptureStarted() override { return running_; }
   int32_t CaptureSettings(webrtc::VideoCaptureCapability& settings) override {
-    if (!running_) return -1;
+    if (!running_)
+      return -1;
     settings = cap_;
     return 0;
   }
@@ -60,7 +62,8 @@ class FakeWebRtcVideoCaptureModule : public webrtc::VideoCaptureModule {
     return true;  // Rotation compensation is turned on.
   }
   void SendFrame(int w, int h) {
-    if (!running_) return;
+    if (!running_)
+      return;
 
     rtc::scoped_refptr<webrtc::I420Buffer> buffer =
         webrtc::I420Buffer::Create(w, h);
@@ -73,9 +76,7 @@ class FakeWebRtcVideoCaptureModule : public webrtc::VideoCaptureModule {
     }
   }
 
-  const webrtc::VideoCaptureCapability& cap() const {
-    return cap_;
-  }
+  const webrtc::VideoCaptureCapability& cap() const { return cap_; }
 
  private:
   FakeWebRtcVcmFactory* factory_;

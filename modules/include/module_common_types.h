@@ -185,8 +185,7 @@ class RTPFragmentationHeader {
         memset(fragmentationOffset + oldVectorSize, 0,
                sizeof(size_t) * (size16 - oldVectorSize));
         // copy old values
-        memcpy(fragmentationOffset, oldOffsets,
-               sizeof(size_t) * oldVectorSize);
+        memcpy(fragmentationOffset, oldOffsets, sizeof(size_t) * oldVectorSize);
         delete[] oldOffsets;
       }
       // length
@@ -195,8 +194,7 @@ class RTPFragmentationHeader {
         fragmentationLength = new size_t[size16];
         memset(fragmentationLength + oldVectorSize, 0,
                sizeof(size_t) * (size16 - oldVectorSize));
-        memcpy(fragmentationLength, oldLengths,
-               sizeof(size_t) * oldVectorSize);
+        memcpy(fragmentationLength, oldLengths, sizeof(size_t) * oldVectorSize);
         delete[] oldLengths;
       }
       // time diff
@@ -307,11 +305,7 @@ class AudioFrame {
     kMaxDataSizeBytes = kMaxDataSizeSamples * sizeof(int16_t),
   };
 
-  enum VADActivity {
-    kVadActive = 0,
-    kVadPassive = 1,
-    kVadUnknown = 2
-  };
+  enum VADActivity { kVadActive = 0, kVadPassive = 1, kVadUnknown = 2 };
   enum SpeechType {
     kNormalSpeech = 0,
     kPLC = 1,
@@ -332,18 +326,25 @@ class AudioFrame {
 
   // TODO(solenberg): Remove once downstream users of AudioFrame have updated.
   RTC_DEPRECATED
-      void UpdateFrame(int id, uint32_t timestamp, const int16_t* data,
-                       size_t samples_per_channel, int sample_rate_hz,
-                       SpeechType speech_type, VADActivity vad_activity,
-                       size_t num_channels = 1) {
+  void UpdateFrame(int id,
+                   uint32_t timestamp,
+                   const int16_t* data,
+                   size_t samples_per_channel,
+                   int sample_rate_hz,
+                   SpeechType speech_type,
+                   VADActivity vad_activity,
+                   size_t num_channels = 1) {
     RTC_UNUSED(id);
     UpdateFrame(timestamp, data, samples_per_channel, sample_rate_hz,
                 speech_type, vad_activity, num_channels);
   }
 
-  void UpdateFrame(uint32_t timestamp, const int16_t* data,
-                   size_t samples_per_channel, int sample_rate_hz,
-                   SpeechType speech_type, VADActivity vad_activity,
+  void UpdateFrame(uint32_t timestamp,
+                   const int16_t* data,
+                   size_t samples_per_channel,
+                   int sample_rate_hz,
+                   SpeechType speech_type,
+                   VADActivity vad_activity,
                    size_t num_channels = 1);
 
   void CopyFrom(const AudioFrame& src);
@@ -462,7 +463,8 @@ inline void AudioFrame::UpdateFrame(uint32_t timestamp,
 }
 
 inline void AudioFrame::CopyFrom(const AudioFrame& src) {
-  if (this == &src) return;
+  if (this == &src)
+    return;
 
   timestamp_ = src.timestamp_;
   elapsed_time_ms_ = src.elapsed_time_ms_;
@@ -512,12 +514,16 @@ inline void AudioFrame::Mute() {
   muted_ = true;
 }
 
-inline bool AudioFrame::muted() const { return muted_; }
+inline bool AudioFrame::muted() const {
+  return muted_;
+}
 
 inline AudioFrame& AudioFrame::operator>>=(const int rhs) {
   assert((num_channels_ > 0) && (num_channels_ < 3));
-  if ((num_channels_ > 2) || (num_channels_ < 1)) return *this;
-  if (muted_) return *this;
+  if ((num_channels_ > 2) || (num_channels_ < 1))
+    return *this;
+  if (muted_)
+    return *this;
 
   for (size_t i = 0; i < samples_per_channel_ * num_channels_; i++) {
     data_[i] = static_cast<int16_t>(data_[i] >> rhs);
@@ -528,8 +534,10 @@ inline AudioFrame& AudioFrame::operator>>=(const int rhs) {
 inline AudioFrame& AudioFrame::operator+=(const AudioFrame& rhs) {
   // Sanity check
   assert((num_channels_ > 0) && (num_channels_ < 3));
-  if ((num_channels_ > 2) || (num_channels_ < 1)) return *this;
-  if (num_channels_ != rhs.num_channels_) return *this;
+  if ((num_channels_ > 2) || (num_channels_ < 1))
+    return *this;
+  if (num_channels_ != rhs.num_channels_)
+    return *this;
 
   bool noPrevData = muted_;
   if (samples_per_channel_ != rhs.samples_per_channel_) {
@@ -548,7 +556,8 @@ inline AudioFrame& AudioFrame::operator+=(const AudioFrame& rhs) {
     vad_activity_ = kVadUnknown;
   }
 
-  if (speech_type_ != rhs.speech_type_) speech_type_ = kUndefined;
+  if (speech_type_ != rhs.speech_type_)
+    speech_type_ = kUndefined;
 
   if (!rhs.muted()) {
     muted_ = false;

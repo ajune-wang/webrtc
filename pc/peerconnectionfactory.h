@@ -25,7 +25,7 @@
 namespace rtc {
 class BasicNetworkManager;
 class BasicPacketSocketFactory;
-}
+}  // namespace rtc
 
 namespace webrtc {
 
@@ -57,8 +57,8 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
 
   bool Initialize();
 
-  rtc::scoped_refptr<MediaStreamInterface>
-      CreateLocalMediaStream(const std::string& label) override;
+  rtc::scoped_refptr<MediaStreamInterface> CreateLocalMediaStream(
+      const std::string& label) override;
 
   rtc::scoped_refptr<AudioSourceInterface> CreateAudioSource(
       const cricket::AudioOptions& options) override;
@@ -80,9 +80,9 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
       const std::string& id,
       VideoTrackSourceInterface* video_source) override;
 
-  rtc::scoped_refptr<AudioTrackInterface>
-      CreateAudioTrack(const std::string& id,
-                       AudioSourceInterface* audio_source) override;
+  rtc::scoped_refptr<AudioTrackInterface> CreateAudioTrack(
+      const std::string& id,
+      AudioSourceInterface* audio_source) override;
 
   bool StartAecDump(rtc::PlatformFile file, int64_t max_size_bytes) override;
   void StopAecDump() override;

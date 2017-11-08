@@ -10,8 +10,8 @@
 
 #include <utility>
 
-#include "pc/currentspeakermonitor.h"
 #include "pc/audiomonitor.h"
+#include "pc/currentspeakermonitor.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/thread.h"
 
@@ -28,7 +28,7 @@ static const uint32_t kMinTimeBetweenSwitches = 10;
 static const uint32_t kSleepTimeBetweenSwitches = 100;
 
 class CurrentSpeakerMonitorTest : public testing::Test,
-    public sigslot::has_slots<> {
+                                  public sigslot::has_slots<> {
  public:
   CurrentSpeakerMonitorTest() {
     monitor_ = new CurrentSpeakerMonitor(&source_);
@@ -41,9 +41,7 @@ class CurrentSpeakerMonitorTest : public testing::Test,
     monitor_->Start();
   }
 
-  ~CurrentSpeakerMonitorTest() {
-    delete monitor_;
-  }
+  ~CurrentSpeakerMonitorTest() { delete monitor_; }
 
   void SignalAudioMonitor(const AudioInfo& info) {
     source_.SignalAudioMonitor(&source_, info);

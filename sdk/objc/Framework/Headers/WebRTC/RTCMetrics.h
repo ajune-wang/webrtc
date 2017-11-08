@@ -20,4 +20,4 @@
 RTC_EXTERN void RTCEnableMetrics();
 
 /** Gets and clears native histograms. */
-RTC_EXTERN NSArray<RTCMetricsSampleInfo *> *RTCGetAndResetMetrics();
+RTC_EXTERN NSArray<RTCMetricsSampleInfo*>* RTCGetAndResetMetrics();

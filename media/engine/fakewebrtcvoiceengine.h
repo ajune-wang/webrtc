@@ -25,8 +25,9 @@ class TransmitMixer;
 
 namespace cricket {
 
-#define WEBRTC_CHECK_CHANNEL(channel) \
-  if (channels_.find(channel) == channels_.end()) return -1;
+#define WEBRTC_CHECK_CHANNEL(channel)             \
+  if (channels_.find(channel) == channels_.end()) \
+    return -1;
 
 #define WEBRTC_STUB(method, args) \
   int method args override { return 0; }
@@ -43,9 +44,7 @@ class FakeWebRtcVoiceEngine : public webrtc::VoEBase {
 
   explicit FakeWebRtcVoiceEngine(webrtc::voe::TransmitMixer* transmit_mixer)
       : transmit_mixer_(transmit_mixer) {}
-  ~FakeWebRtcVoiceEngine() override {
-    RTC_CHECK(channels_.empty());
-  }
+  ~FakeWebRtcVoiceEngine() override { RTC_CHECK(channels_.empty()); }
 
   bool IsInited() const { return inited_; }
   int GetLastChannel() const { return last_channel_; }
@@ -58,7 +57,7 @@ class FakeWebRtcVoiceEngine : public webrtc::VoEBase {
 
   // webrtc::VoEBase
   WEBRTC_FUNC(Init,
-              (webrtc::AudioDeviceModule* adm,
+              (webrtc::AudioDeviceModule * adm,
                webrtc::AudioProcessing* audioproc,
                const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
                    decoder_factory)) {
@@ -69,9 +68,7 @@ class FakeWebRtcVoiceEngine : public webrtc::VoEBase {
     inited_ = false;
     return 0;
   }
-  webrtc::AudioDeviceModule* audio_device_module() override {
-    return nullptr;
-  }
+  webrtc::AudioDeviceModule* audio_device_module() override { return nullptr; }
   webrtc::voe::TransmitMixer* transmit_mixer() override {
     return transmit_mixer_;
   }

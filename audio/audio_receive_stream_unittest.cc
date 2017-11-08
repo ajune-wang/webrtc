@@ -60,10 +60,9 @@ const unsigned int kSpeechOutputLevel = 99;
 const double kTotalOutputEnergy = 0.25;
 const double kTotalOutputDuration = 0.5;
 
-const CallStatistics kCallStats = {
-    345,  678,  901, 234, -12, 3456, 7890, 567, 890, 123};
-const CodecInst kCodecInst = {
-    123, "codec_name_recv", 96000, -187, 0, -103};
+const CallStatistics kCallStats = {345,  678,  901, 234, -12,
+                                   3456, 7890, 567, 890, 123};
+const CodecInst kCodecInst = {123, "codec_name_recv", 96000, -187, 0, -103};
 const NetworkStatistics kNetworkStats = {
     123, 456, false, 789012, 3456, 123, 456, 0,  {}, 789, 12,
     345, 678, 901,   0,      -1,   -1,  -1,  -1, -1, 0};
@@ -91,14 +90,14 @@ struct ConfigHelper {
           EXPECT_CALL(*channel_proxy_, SetLocalSSRC(kLocalSsrc)).Times(1);
           EXPECT_CALL(*channel_proxy_, SetNACKStatus(true, 15)).Times(1);
           EXPECT_CALL(*channel_proxy_,
-              SetReceiveAudioLevelIndicationStatus(true, kAudioLevelId))
-                  .Times(1);
+                      SetReceiveAudioLevelIndicationStatus(true, kAudioLevelId))
+              .Times(1);
+          EXPECT_CALL(*channel_proxy_, EnableReceiveTransportSequenceNumber(
+                                           kTransportSequenceNumberId))
+              .Times(1);
           EXPECT_CALL(*channel_proxy_,
-              EnableReceiveTransportSequenceNumber(kTransportSequenceNumberId))
-                  .Times(1);
-          EXPECT_CALL(*channel_proxy_,
-              RegisterReceiverCongestionControlObjects(&packet_router_))
-                  .Times(1);
+                      RegisterReceiverCongestionControlObjects(&packet_router_))
+              .Times(1);
           EXPECT_CALL(*channel_proxy_, ResetReceiverCongestionControlObjects())
               .Times(1);
           EXPECT_CALL(*channel_proxy_, RegisterTransport(nullptr)).Times(2);
@@ -245,8 +244,7 @@ TEST(AudioReceiveStreamTest, ConfigToString) {
 TEST(AudioReceiveStreamTest, ConstructDestruct) {
   ConfigHelper helper;
   internal::AudioReceiveStream recv_stream(
-      helper.rtp_stream_receiver_controller(),
-      helper.packet_router(),
+      helper.rtp_stream_receiver_controller(), helper.packet_router(),
       helper.config(), helper.audio_state(), helper.event_log());
 }
 
@@ -254,8 +252,7 @@ TEST(AudioReceiveStreamTest, ReceiveRtpPacket) {
   ConfigHelper helper;
   helper.config().rtp.transport_cc = true;
   internal::AudioReceiveStream recv_stream(
-      helper.rtp_stream_receiver_controller(),
-      helper.packet_router(),
+      helper.rtp_stream_receiver_controller(), helper.packet_router(),
       helper.config(), helper.audio_state(), helper.event_log());
   const int kTransportSequenceNumberValue = 1234;
   std::vector<uint8_t> rtp_packet = CreateRtpHeaderWithOneByteExtension(
@@ -276,8 +273,7 @@ TEST(AudioReceiveStreamTest, ReceiveRtcpPacket) {
   ConfigHelper helper;
   helper.config().rtp.transport_cc = true;
   internal::AudioReceiveStream recv_stream(
-      helper.rtp_stream_receiver_controller(),
-      helper.packet_router(),
+      helper.rtp_stream_receiver_controller(), helper.packet_router(),
       helper.config(), helper.audio_state(), helper.event_log());
 
   std::vector<uint8_t> rtcp_packet = CreateRtcpSenderReport();
@@ -290,8 +286,7 @@ TEST(AudioReceiveStreamTest, ReceiveRtcpPacket) {
 TEST(AudioReceiveStreamTest, GetStats) {
   ConfigHelper helper;
   internal::AudioReceiveStream recv_stream(
-      helper.rtp_stream_receiver_controller(),
-      helper.packet_router(),
+      helper.rtp_stream_receiver_controller(), helper.packet_router(),
       helper.config(), helper.audio_state(), helper.event_log());
   helper.SetupMockForGetStats();
   AudioReceiveStream::Stats stats = recv_stream.GetStats();
@@ -346,19 +341,17 @@ TEST(AudioReceiveStreamTest, GetStats) {
 TEST(AudioReceiveStreamTest, SetGain) {
   ConfigHelper helper;
   internal::AudioReceiveStream recv_stream(
-      helper.rtp_stream_receiver_controller(),
-      helper.packet_router(),
+      helper.rtp_stream_receiver_controller(), helper.packet_router(),
       helper.config(), helper.audio_state(), helper.event_log());
   EXPECT_CALL(*helper.channel_proxy(),
-      SetChannelOutputVolumeScaling(FloatEq(0.765f)));
+              SetChannelOutputVolumeScaling(FloatEq(0.765f)));
   recv_stream.SetGain(0.765f);
 }
 
 TEST(AudioReceiveStreamTest, StreamShouldNotBeAddedToMixerWhenVoEReturnsError) {
   ConfigHelper helper;
   internal::AudioReceiveStream recv_stream(
-      helper.rtp_stream_receiver_controller(),
-      helper.packet_router(),
+      helper.rtp_stream_receiver_controller(), helper.packet_router(),
       helper.config(), helper.audio_state(), helper.event_log());
 
   EXPECT_CALL(helper.voice_engine(), StartPlayout(_)).WillOnce(Return(-1));
@@ -370,8 +363,7 @@ TEST(AudioReceiveStreamTest, StreamShouldNotBeAddedToMixerWhenVoEReturnsError) {
 TEST(AudioReceiveStreamTest, StreamShouldBeAddedToMixerOnStart) {
   ConfigHelper helper;
   internal::AudioReceiveStream recv_stream(
-      helper.rtp_stream_receiver_controller(),
-      helper.packet_router(),
+      helper.rtp_stream_receiver_controller(), helper.packet_router(),
       helper.config(), helper.audio_state(), helper.event_log());
 
   EXPECT_CALL(helper.voice_engine(), StartPlayout(_)).WillOnce(Return(0));

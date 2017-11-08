@@ -137,8 +137,7 @@ TEST_P(TransportFeedbackPacketLossTrackerTest, EmptyWindow) {
   TransportFeedbackPacketLossTracker tracker(kDefaultMaxWindowSizeMs, 5, 5);
 
   // PLR and RPLR reported as unknown before reception of first feedback.
-  ValidatePacketLossStatistics(tracker,
-                               rtc::Optional<float>(),
+  ValidatePacketLossStatistics(tracker, rtc::Optional<float>(),
                                rtc::Optional<float>());
 }
 
@@ -148,8 +147,7 @@ TEST_P(TransportFeedbackPacketLossTrackerTest, EmptyWindowFeedback) {
 
   // Feedback doesn't correspond to any packets - ignored.
   AddTransportFeedbackAndValidate(&tracker, base_, {true, false, true});
-  ValidatePacketLossStatistics(tracker,
-                               rtc::Optional<float>(),
+  ValidatePacketLossStatistics(tracker, rtc::Optional<float>(),
                                rtc::Optional<float>());
 
   // After the packets are transmitted, acking them would have an effect.
@@ -167,8 +165,7 @@ TEST_P(TransportFeedbackPacketLossTrackerTest, PartiallyFilledWindow) {
   // Expected window contents: [] -> [1001].
   SendPackets(&tracker, base_, 3, kDefaultSendIntervalMs);
   AddTransportFeedbackAndValidate(&tracker, base_, {true, false, false, true});
-  ValidatePacketLossStatistics(tracker,
-                               rtc::Optional<float>(),
+  ValidatePacketLossStatistics(tracker, rtc::Optional<float>(),
                                rtc::Optional<float>());
 }
 
@@ -182,8 +179,7 @@ TEST_P(TransportFeedbackPacketLossTrackerTest, PlrMinimumFilledWindow) {
   SendPackets(&tracker, base_, 5, kDefaultSendIntervalMs);
   AddTransportFeedbackAndValidate(&tracker, base_,
                                   {true, false, false, true, true});
-  ValidatePacketLossStatistics(tracker,
-                               rtc::Optional<float>(2.0f / 5.0f),
+  ValidatePacketLossStatistics(tracker, rtc::Optional<float>(2.0f / 5.0f),
                                rtc::Optional<float>());
 }
 
@@ -197,8 +193,7 @@ TEST_P(TransportFeedbackPacketLossTrackerTest, RplrMinimumFilledWindow) {
   SendPackets(&tracker, base_, 5, kDefaultSendIntervalMs);
   AddTransportFeedbackAndValidate(&tracker, base_,
                                   {true, false, false, true, true});
-  ValidatePacketLossStatistics(tracker,
-                               rtc::Optional<float>(),
+  ValidatePacketLossStatistics(tracker, rtc::Optional<float>(),
                                rtc::Optional<float>(1.0f / 4.0f));
 }
 
@@ -223,8 +218,7 @@ TEST_P(TransportFeedbackPacketLossTrackerTest, ExtendWindow) {
   // Expected window contents: [] -> [10011].
   AddTransportFeedbackAndValidate(&tracker, base_,
                                   {true, false, false, true, true});
-  ValidatePacketLossStatistics(tracker,
-                               rtc::Optional<float>(2.0f / 5.0f),
+  ValidatePacketLossStatistics(tracker, rtc::Optional<float>(2.0f / 5.0f),
                                rtc::Optional<float>());
 
   // Expected window contents: [10011] -> [1001110101].
@@ -434,34 +428,30 @@ TEST_P(TransportFeedbackPacketLossTrackerTest, InsertionCompletesTwoPairs) {
 TEST_P(TransportFeedbackPacketLossTrackerTest, SanityGapsInSequenceNumbers) {
   TransportFeedbackPacketLossTracker tracker(50 * kDefaultSendIntervalMs, 5, 1);
 
-  SendPackets(&tracker,
-              {static_cast<uint16_t>(base_),
-               static_cast<uint16_t>(base_ + 2),
-               static_cast<uint16_t>(base_ + 4),
-               static_cast<uint16_t>(base_ + 6),
-               static_cast<uint16_t>(base_ + 8)},
-              kDefaultSendIntervalMs);
+  SendPackets(
+      &tracker,
+      {static_cast<uint16_t>(base_), static_cast<uint16_t>(base_ + 2),
+       static_cast<uint16_t>(base_ + 4), static_cast<uint16_t>(base_ + 6),
+       static_cast<uint16_t>(base_ + 8)},
+      kDefaultSendIntervalMs);
 
   // Gaps in sequence numbers not considered as gaps in window, because  only
   // those sequence numbers which were associated with the stream count.
   // Expected window contents: [] -> [11011].
   AddTransportFeedbackAndValidate(
       // Note: Left packets belong to this stream, right ones ignored.
-      &tracker, base_, {true, false,
-                        true, false,
-                        false, false,
-                        true, false,
-                        true, true});
+      &tracker, base_,
+      {true, false, true, false, false, false, true, false, true, true});
   ValidatePacketLossStatistics(tracker, 1.0f / 5.0f, 1.0f / 4.0f);
 
   // Create gap by sending [base + 10] but not acking it.
   // Note: Acks for [base + 11] and [base + 13] ignored (other stream).
   // Expected window contents: [11011] -> [11011-GAP-01].
-  SendPackets(&tracker,
-              {static_cast<uint16_t>(base_ + 10),
-               static_cast<uint16_t>(base_ + 12),
-               static_cast<uint16_t>(base_ + 14)},
-              kDefaultSendIntervalMs);
+  SendPackets(
+      &tracker,
+      {static_cast<uint16_t>(base_ + 10), static_cast<uint16_t>(base_ + 12),
+       static_cast<uint16_t>(base_ + 14)},
+      kDefaultSendIntervalMs);
   AddTransportFeedbackAndValidate(&tracker, base_ + 11,
                                   {false, false, false, true, true});
   ValidatePacketLossStatistics(tracker, 2.0f / 7.0f, 2.0f / 5.0f);
@@ -542,8 +532,7 @@ TEST_P(TransportFeedbackPacketLossTrackerTest, RepeatedSeqNumResetsWindow) {
   // A reset occurs.
   SendPackets(&tracker, {static_cast<uint16_t>(base_ + 2)},
               kDefaultSendIntervalMs);
-  ValidatePacketLossStatistics(tracker,
-                               rtc::Optional<float>(),
+  ValidatePacketLossStatistics(tracker, rtc::Optional<float>(),
                                rtc::Optional<float>());
 }
 
@@ -563,8 +552,7 @@ TEST_P(TransportFeedbackPacketLossTrackerTest,
   // A reset occurs.
   SendPackets(&tracker, {static_cast<uint16_t>(base_ + 5 + 0x8000)},
               kDefaultSendIntervalMs);
-  ValidatePacketLossStatistics(tracker,
-                               rtc::Optional<float>(),
+  ValidatePacketLossStatistics(tracker, rtc::Optional<float>(),
                                rtc::Optional<float>());
 }
 

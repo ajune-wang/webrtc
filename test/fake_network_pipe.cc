@@ -151,8 +151,8 @@ void FakeNetworkPipe::SendPacket(const uint8_t* data, size_t data_length) {
     network_start_time = capacity_link_.back()->arrival_time();
 
   int64_t arrival_time = network_start_time + capacity_delay_ms;
-  NetworkPacket* packet = new NetworkPacket(data, data_length, time_now,
-                                            arrival_time);
+  NetworkPacket* packet =
+      new NetworkPacket(data, data_length, time_now, arrival_time);
   capacity_link_.push(packet);
 }
 
@@ -162,7 +162,7 @@ float FakeNetworkPipe::PercentageLoss() {
     return 0;
 
   return static_cast<float>(dropped_packets_) /
-      (sent_packets_ + dropped_packets_);
+         (sent_packets_ + dropped_packets_);
 }
 
 int FakeNetworkPipe::AverageDelay() {

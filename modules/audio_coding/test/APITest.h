@@ -23,10 +23,7 @@
 
 namespace webrtc {
 
-enum APITESTAction {
-  TEST_CHANGE_CODEC_ONLY = 0,
-  DTX_TEST = 1
-};
+enum APITESTAction { TEST_CHANGE_CODEC_ONLY = 0, DTX_TEST = 1 };
 
 class APITest : public ACMTest {
  public:
@@ -34,6 +31,7 @@ class APITest : public ACMTest {
   ~APITest();
 
   void Perform();
+
  private:
   int16_t SetUp();
 
@@ -108,15 +106,15 @@ class APITest : public ACMTest {
   bool _writeToFile;
   //--- Events
   // A
-  EventTimerWrapper* _pullEventA;      // pulling data from ACM
-  EventTimerWrapper* _pushEventA;      // pushing data to ACM
-  EventTimerWrapper* _processEventA;   // process
-  EventWrapper* _apiEventA;       // API calls
+  EventTimerWrapper* _pullEventA;     // pulling data from ACM
+  EventTimerWrapper* _pushEventA;     // pushing data to ACM
+  EventTimerWrapper* _processEventA;  // process
+  EventWrapper* _apiEventA;           // API calls
   // B
-  EventTimerWrapper* _pullEventB;      // pulling data from ACM
-  EventTimerWrapper* _pushEventB;      // pushing data to ACM
-  EventTimerWrapper* _processEventB;   // process
-  EventWrapper* _apiEventB;       // API calls
+  EventTimerWrapper* _pullEventB;     // pulling data from ACM
+  EventTimerWrapper* _pushEventB;     // pushing data to ACM
+  EventTimerWrapper* _processEventB;  // process
+  EventWrapper* _apiEventB;           // API calls
 
   // keep track of the codec in either side.
   uint8_t _codecCntrA;

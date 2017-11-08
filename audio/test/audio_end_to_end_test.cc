@@ -44,12 +44,12 @@ size_t AudioEndToEndTest::GetNumFlexfecStreams() const {
 }
 
 std::unique_ptr<test::FakeAudioDevice::Capturer>
-    AudioEndToEndTest::CreateCapturer() {
+AudioEndToEndTest::CreateCapturer() {
   return test::FakeAudioDevice::CreatePulsedNoiseCapturer(32000, kSampleRate);
 }
 
 std::unique_ptr<test::FakeAudioDevice::Renderer>
-    AudioEndToEndTest::CreateRenderer() {
+AudioEndToEndTest::CreateRenderer() {
   return test::FakeAudioDevice::CreateDiscardRenderer(kSampleRate);
 }
 
@@ -68,15 +68,15 @@ test::PacketTransport* AudioEndToEndTest::CreateSendTransport(
 }
 
 test::PacketTransport* AudioEndToEndTest::CreateReceiveTransport(
-      SingleThreadedTaskQueueForTesting* task_queue) {
+    SingleThreadedTaskQueueForTesting* task_queue) {
   return new test::PacketTransport(
       task_queue, nullptr, this, test::PacketTransport::kReceiver,
       test::CallTest::payload_type_map_, GetNetworkPipeConfig());
 }
 
 void AudioEndToEndTest::ModifyAudioConfigs(
-  AudioSendStream::Config* send_config,
-  std::vector<AudioReceiveStream::Config>* receive_configs) {
+    AudioSendStream::Config* send_config,
+    std::vector<AudioReceiveStream::Config>* receive_configs) {
   // Large bitrate by default.
   const webrtc::SdpAudioFormat kDefaultFormat("opus", 48000, 2,
                                               {{"stereo", "1"}});

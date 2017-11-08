@@ -45,8 +45,10 @@ jlong PointerTojlong(void* ptr) {
   return ret;
 }
 
-jmethodID GetMethodID (
-    JNIEnv* jni, jclass c, const char* name, const char* signature) {
+jmethodID GetMethodID(JNIEnv* jni,
+                      jclass c,
+                      const char* name,
+                      const char* signature) {
   jmethodID m = jni->GetMethodID(c, name, signature);
   CHECK_EXCEPTION(jni) << "Error during GetMethodID: " << name << ", "
                        << signature;
@@ -54,8 +56,10 @@ jmethodID GetMethodID (
   return m;
 }
 
-jmethodID GetStaticMethodID (
-    JNIEnv* jni, jclass c, const char* name, const char* signature) {
+jmethodID GetStaticMethodID(JNIEnv* jni,
+                            jclass c,
+                            const char* name,
+                            const char* signature) {
   jmethodID m = jni->GetStaticMethodID(c, name, signature);
   CHECK_EXCEPTION(jni) << "Error during GetStaticMethodID: " << name << ", "
                        << signature;
@@ -118,6 +122,8 @@ AttachThreadScoped::~AttachThreadScoped() {
   }
 }
 
-JNIEnv* AttachThreadScoped::env() { return env_; }
+JNIEnv* AttachThreadScoped::env() {
+  return env_;
+}
 
 }  // namespace webrtc

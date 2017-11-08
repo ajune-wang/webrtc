@@ -22,7 +22,7 @@ static const int kFullStackTestDurationSecs = 45;
 
 class FullStackTest : public VideoQualityTest {
  public:
-  void RunTest(const VideoQualityTest::Params &params) {
+  void RunTest(const VideoQualityTest::Params& params) {
     RunWithAnalyzer(params);
   }
 
@@ -848,6 +848,5 @@ TEST_F(FullStackTest, MAYBE_LargeRoomVP8_50thumb) {
   large_room.ss = {streams, 2, 1, 0, std::vector<SpatialLayer>(), false};
   RunTest(large_room);
 }
-
 
 }  // namespace webrtc

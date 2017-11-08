@@ -25,9 +25,7 @@ class RealFourierOpenmax : public RealFourier {
   void Forward(const float* src, std::complex<float>* dest) const override;
   void Inverse(const std::complex<float>* src, float* dest) const override;
 
-  int order() const override {
-    return order_;
-  }
+  int order() const override { return order_; }
 
  private:
   // Basically a forward declare of OMXFFTSpec_R_F32. To get rid of the
@@ -41,4 +39,3 @@ class RealFourierOpenmax : public RealFourier {
 }  // namespace webrtc
 
 #endif  // COMMON_AUDIO_REAL_FOURIER_OPENMAX_H_
-

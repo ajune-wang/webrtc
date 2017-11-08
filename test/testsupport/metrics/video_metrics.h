@@ -29,13 +29,12 @@ struct FrameResult {
 // Result from a PSNR/SSIM calculation operation.
 // The frames in this data structure are 0-indexed.
 struct QualityMetricsResult {
-  QualityMetricsResult() :
-    average(0.0),
-    min(std::numeric_limits<double>::max()),
-    max(std::numeric_limits<double>::min()),
-    min_frame_number(-1),
-    max_frame_number(-1)
-  {};
+  QualityMetricsResult()
+      : average(0.0),
+        min(std::numeric_limits<double>::max()),
+        max(std::numeric_limits<double>::min()),
+        min_frame_number(-1),
+        max_frame_number(-1){};
   double average;
   double min;
   double max;
@@ -118,4 +117,4 @@ int I420SSIMFromFiles(const char* ref_filename,
 }  // namespace test
 }  // namespace webrtc
 
-#endif // TESTSUPPORT_METRICS_VIDEO_METRICS_H_
+#endif  // TESTSUPPORT_METRICS_VIDEO_METRICS_H_

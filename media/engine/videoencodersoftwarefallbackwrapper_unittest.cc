@@ -92,9 +92,7 @@ class VideoEncoderSoftwareFallbackWrapperTest : public ::testing::Test {
       return supports_native_handle_;
     }
 
-    const char* ImplementationName() const override {
-      return "fake-encoder";
-    }
+    const char* ImplementationName() const override { return "fake-encoder"; }
 
     VideoEncoder::ScalingSettings GetScalingSettings() const override {
       return VideoEncoder::ScalingSettings(true);

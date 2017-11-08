@@ -157,8 +157,7 @@ class VideoStreamEncoder::EncodeTask : public rtc::QueuedTask {
                    << video_stream_encoder_->captured_frame_count_
                    << ", dropped (due to encoder blocked) "
                    << video_stream_encoder_->dropped_frame_count_
-                   << ", interval_ms "
-                   << kFrameLogIntervalMs;
+                   << ", interval_ms " << kFrameLogIntervalMs;
       video_stream_encoder_->captured_frame_count_ = 0;
       video_stream_encoder_->dropped_frame_count_ = 0;
     }
@@ -707,8 +706,8 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   }
 
   last_captured_timestamp_ = incoming_frame.ntp_time_ms();
-  encoder_queue_.PostTask(std::unique_ptr<rtc::QueuedTask>(new EncodeTask(
-      incoming_frame, this, rtc::TimeMicros(), log_stats)));
+  encoder_queue_.PostTask(std::unique_ptr<rtc::QueuedTask>(
+      new EncodeTask(incoming_frame, this, rtc::TimeMicros(), log_stats)));
 }
 
 void VideoStreamEncoder::OnDiscardedFrame() {

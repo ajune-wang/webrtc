@@ -1687,8 +1687,8 @@ TEST_P(EndToEndTest, SendsAndReceivesMultipleStreams) {
    protected:
     void Wait() override {
       for (const auto& observer : observers_) {
-        EXPECT_TRUE(observer->Wait()) << "Time out waiting for from on ssrc "
-                                      << observer->Ssrc();
+        EXPECT_TRUE(observer->Wait())
+            << "Time out waiting for from on ssrc " << observer->Ssrc();
       }
     }
 
@@ -2623,8 +2623,8 @@ TEST_P(EndToEndTest, VerifyNackStats) {
       test::RtcpPacketParser rtcp_parser;
       rtcp_parser.Parse(packet, length);
       const std::vector<uint16_t>& nacks = rtcp_parser.nack()->packet_ids();
-      if (!nacks.empty() && std::find(
-          nacks.begin(), nacks.end(), dropped_rtp_packet_) != nacks.end()) {
+      if (!nacks.empty() && std::find(nacks.begin(), nacks.end(),
+                                      dropped_rtp_packet_) != nacks.end()) {
         dropped_rtp_packet_requested_ = true;
       }
       return SEND_PACKET;
@@ -2637,7 +2637,8 @@ TEST_P(EndToEndTest, VerifyNackStats) {
       int receive_stream_nack_packets = 0;
       VideoSendStream::Stats stats = send_stream_->GetStats();
       for (std::map<uint32_t, VideoSendStream::StreamStats>::const_iterator it =
-           stats.substreams.begin(); it != stats.substreams.end(); ++it) {
+               stats.substreams.begin();
+           it != stats.substreams.end(); ++it) {
         const VideoSendStream::StreamStats& stream_stats = it->second;
         send_stream_nack_packets +=
             stream_stats.rtcp_packet_type_counts.nack_packets;
@@ -2969,7 +2970,7 @@ TEST_P(EndToEndTest, MAYBE_ContentTypeSwitches) {
 
     bool MinNumberOfFramesReceived() const {
       // Have some room for frames with wrong content type during switch.
-      const int kMinRequiredHistogramSamples = 200+50;
+      const int kMinRequiredHistogramSamples = 200 + 50;
       rtc::CritScope lock(&crit_);
       return num_frames_received_ > kMinRequiredHistogramSamples;
     }
@@ -2994,8 +2995,8 @@ TEST_P(EndToEndTest, MAYBE_ContentTypeSwitches) {
   Call::Config recv_config(test.GetReceiverCallConfig());
   VideoEncoderConfig encoder_config_with_screenshare;
 
-  task_queue_.SendTask([this, &test, &send_config,
-                        &recv_config, &encoder_config_with_screenshare]() {
+  task_queue_.SendTask([this, &test, &send_config, &recv_config,
+                        &encoder_config_with_screenshare]() {
     CreateSenderCall(send_config);
     CreateReceiverCall(recv_config);
 
@@ -3061,13 +3062,11 @@ TEST_P(EndToEndTest, MAYBE_ContentTypeSwitches) {
   EXPECT_EQ(
       1, metrics::NumSamples("WebRTC.Video.Screenshare.EndToEndDelayMaxInMs"));
   EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.InterframeDelayInMs"));
-  EXPECT_EQ(1,
-            metrics::NumSamples(
-                "WebRTC.Video.Screenshare.InterframeDelayInMs"));
+  EXPECT_EQ(
+      1, metrics::NumSamples("WebRTC.Video.Screenshare.InterframeDelayInMs"));
   EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.InterframeDelayMaxInMs"));
-  EXPECT_EQ(1,
-            metrics::NumSamples(
-                "WebRTC.Video.Screenshare.InterframeDelayMaxInMs"));
+  EXPECT_EQ(1, metrics::NumSamples(
+                   "WebRTC.Video.Screenshare.InterframeDelayMaxInMs"));
 }
 
 TEST_P(EndToEndTest, VerifyHistogramStatsWithRtx) {
@@ -3853,14 +3852,14 @@ TEST_P(EndToEndTest, CanSwitchToUseAllSsrcs) {
 }
 
 TEST_P(EndToEndTest, DISABLED_RedundantPayloadsTransmittedOnAllSsrcs) {
-  class ObserveRedundantPayloads: public test::EndToEndTest {
+  class ObserveRedundantPayloads : public test::EndToEndTest {
    public:
     ObserveRedundantPayloads()
         : EndToEndTest(kDefaultTimeoutMs), ssrcs_to_observe_(kNumSsrcs) {
-          for (size_t i = 0; i < kNumSsrcs; ++i) {
-            registered_rtx_ssrc_[kSendRtxSsrcs[i]] = true;
-          }
-        }
+      for (size_t i = 0; i < kNumSsrcs; ++i) {
+        registered_rtx_ssrc_[kSendRtxSsrcs[i]] = true;
+      }
+    }
 
    private:
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
@@ -4046,8 +4045,8 @@ void EndToEndTest::TestRtpStatePreservation(bool use_rtx,
         // We shouldn't get replays of previous sequence numbers.
         for (int64_t observed : *seq_numbers) {
           EXPECT_NE(observed, sequence_number)
-              << "Received sequence number " << sequence_number
-              << " for SSRC " << ssrc << " 2nd time.";
+              << "Received sequence number " << sequence_number << " for SSRC "
+              << ssrc << " 2nd time.";
         }
         // Verify sequence numbers are reasonably close.
         int64_t latest_observed = seq_numbers->back();
@@ -4405,7 +4404,7 @@ TEST_P(EndToEndTest, TestFlexfecRtpStatePreservation) {
     receive_transport.reset();
     DestroyCalls();
   });
-}
+}  // namespace webrtc
 
 TEST_P(EndToEndTest, RespectsNetworkState) {
   // TODO(pbos): Remove accepted downtime packets etc. when signaling network
@@ -4548,8 +4547,8 @@ TEST_P(EndToEndTest, RespectsNetworkState) {
           encoded_frames_.Set();
         }
       }
-      return test::FakeEncoder::Encode(
-          input_image, codec_specific_info, frame_types);
+      return test::FakeEncoder::Encode(input_image, codec_specific_info,
+                                       frame_types);
     }
 
    private:
@@ -4648,8 +4647,7 @@ TEST_P(EndToEndTest, CallReportsRttForSender) {
   int64_t start_time_ms = clock_->TimeInMilliseconds();
   while (true) {
     Call::Stats stats = sender_call_->GetStats();
-    ASSERT_GE(start_time_ms + kDefaultTimeoutMs,
-              clock_->TimeInMilliseconds())
+    ASSERT_GE(start_time_ms + kDefaultTimeoutMs, clock_->TimeInMilliseconds())
         << "No RTT stats before timeout!";
     if (stats.rtt_ms != -1) {
       // To avoid failures caused by rounding or minor ntp clock adjustments,

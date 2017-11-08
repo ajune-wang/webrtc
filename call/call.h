@@ -34,12 +34,7 @@ namespace webrtc {
 class AudioProcessing;
 class RtcEventLog;
 
-enum class MediaType {
-  ANY,
-  AUDIO,
-  VIDEO,
-  DATA
-};
+enum class MediaType { ANY, AUDIO, VIDEO, DATA };
 
 // Like std::min, but considers non-positive values to be unset.
 // TODO(zstein): Remove once all callers use rtc::Optional.

@@ -106,9 +106,7 @@ class PlayoutDelayLimits {
 
   static bool Parse(rtc::ArrayView<const uint8_t> data,
                     PlayoutDelay* playout_delay);
-  static size_t ValueSize(const PlayoutDelay&) {
-    return kValueSizeBytes;
-  }
+  static size_t ValueSize(const PlayoutDelay&) { return kValueSizeBytes; }
   static bool Write(uint8_t* data, const PlayoutDelay& playout_delay);
 };
 
@@ -121,9 +119,7 @@ class VideoContentTypeExtension {
 
   static bool Parse(rtc::ArrayView<const uint8_t> data,
                     VideoContentType* content_type);
-  static size_t ValueSize(VideoContentType) {
-    return kValueSizeBytes;
-  }
+  static size_t ValueSize(VideoContentType) { return kValueSizeBytes; }
   static bool Write(uint8_t* data, VideoContentType content_type);
 };
 

@@ -18,7 +18,7 @@
 namespace {
 // MediaCodec wants resolution to be divisible by 2.
 const int kRequiredResolutionAlignment = 2;
-}
+}  // namespace
 
 namespace webrtc {
 namespace jni {
@@ -207,5 +207,5 @@ void AndroidVideoTrackSource::OnOutputFormatRequest(int width,
   video_adapter()->OnOutputFormatRequest(format);
 }
 
-}  // namespace webrtc
+}  // namespace jni
 }  // namespace webrtc

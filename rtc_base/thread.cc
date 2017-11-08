@@ -60,11 +60,11 @@ ThreadManager::ThreadManager() {
 }
 #endif
 
-Thread *ThreadManager::CurrentThread() {
-  return static_cast<Thread *>(pthread_getspecific(key_));
+Thread* ThreadManager::CurrentThread() {
+  return static_cast<Thread*>(pthread_getspecific(key_));
 }
 
-void ThreadManager::SetCurrentThread(Thread *thread) {
+void ThreadManager::SetCurrentThread(Thread* thread) {
   pthread_setspecific(key_, thread);
 }
 #endif
@@ -75,16 +75,16 @@ ThreadManager::ThreadManager() {
   key_ = TlsAlloc();
 }
 
-Thread *ThreadManager::CurrentThread() {
-  return static_cast<Thread *>(TlsGetValue(key_));
+Thread* ThreadManager::CurrentThread() {
+  return static_cast<Thread*>(TlsGetValue(key_));
 }
 
-void ThreadManager::SetCurrentThread(Thread *thread) {
+void ThreadManager::SetCurrentThread(Thread* thread) {
   TlsSetValue(key_, thread);
 }
 #endif
 
-Thread *ThreadManager::WrapCurrentThread() {
+Thread* ThreadManager::WrapCurrentThread() {
   Thread* result = CurrentThread();
   if (nullptr == result) {
     result = new Thread(SocketServer::CreateDefault());
@@ -106,9 +106,8 @@ bool ThreadManager::IsMainThread() {
 }
 
 Thread::ScopedDisallowBlockingCalls::ScopedDisallowBlockingCalls()
-  : thread_(Thread::Current()),
-    previous_state_(thread_->SetAllowBlockingCalls(false)) {
-}
+    : thread_(Thread::Current()),
+      previous_state_(thread_->SetAllowBlockingCalls(false)) {}
 
 Thread::ScopedDisallowBlockingCalls::~ScopedDisallowBlockingCalls() {
   RTC_DCHECK(thread_->IsCurrent());
@@ -184,7 +183,8 @@ bool Thread::SleepMs(int milliseconds) {
 }
 
 bool Thread::SetName(const std::string& name, const void* obj) {
-  if (running()) return false;
+  if (running())
+    return false;
   name_ = name;
   if (obj) {
     char buf[16];
@@ -196,9 +196,11 @@ bool Thread::SetName(const std::string& name, const void* obj) {
 
 bool Thread::Start(Runnable* runnable) {
   RTC_DCHECK(owned_);
-  if (!owned_) return false;
+  if (!owned_)
+    return false;
   RTC_DCHECK(!running());
-  if (running()) return false;
+  if (running())
+    return false;
 
   Restart();  // reset IsQuitting() if the thread is being restarted
 
@@ -267,7 +269,7 @@ void Thread::Join() {
     thread_ = nullptr;
     thread_id_ = 0;
 #elif defined(WEBRTC_POSIX)
-    void *pv;
+    void* pv;
     pthread_join(thread_, &pv);
 #endif
     running_.Reset();
@@ -349,7 +351,7 @@ void Thread::Send(const Location& posted_from,
   AssertBlockingIsAllowedOnCurrentThread();
 
   AutoThread thread;
-  Thread *current_thread = Thread::Current();
+  Thread* current_thread = Thread::Current();
   RTC_DCHECK(current_thread != nullptr);  // AutoThread ensures this
 
   bool ready = false;
@@ -535,8 +537,7 @@ AutoThread::~AutoThread() {
   }
 }
 
-AutoSocketServerThread::AutoSocketServerThread(SocketServer* ss)
-    : Thread(ss) {
+AutoSocketServerThread::AutoSocketServerThread(SocketServer* ss) : Thread(ss) {
   old_thread_ = ThreadManager::Instance()->CurrentThread();
   rtc::ThreadManager::Instance()->SetCurrentThread(this);
   if (old_thread_) {

@@ -226,8 +226,7 @@ class AcmReceiver {
   //                           -1 if failed, e.g. given payload-type is not
   //                              registered.
   //
-  int DecoderByPayloadType(uint8_t payload_type,
-                           CodecInst* codec) const;
+  int DecoderByPayloadType(uint8_t payload_type, CodecInst* codec) const;
 
   //
   // Enable NACK and set the maximum size of the NACK list. If NACK is already

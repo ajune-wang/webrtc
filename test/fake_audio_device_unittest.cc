@@ -28,7 +28,8 @@ void RunTest(const std::vector<int16_t>& input_samples,
       ::testing::UnitTest::GetInstance()->current_test_info();
 
   const std::string output_filename = test::OutputPath() +
-      "BoundedWavFileWriterTest_" + test_info->name() + ".wav";
+                                      "BoundedWavFileWriterTest_" +
+                                      test_info->name() + ".wav";
 
   static const size_t kSamplesPerFrame = 8;
   static const int kSampleRate = kSamplesPerFrame * 100;
@@ -61,18 +62,15 @@ void RunTest(const std::vector<int16_t>& input_samples,
 
 TEST(BoundedWavFileWriterTest, NoSilence) {
   static const std::vector<int16_t> kInputSamples = {
-      75, 1234, 243, -1231, -22222, 0, 3, 88,
-      1222, -1213, -13222, -7, -3525, 5787, -25247, 8
-  };
+      75,   1234,  243,    -1231, -22222, 0,    3,      88,
+      1222, -1213, -13222, -7,    -3525,  5787, -25247, 8};
   static const std::vector<int16_t> kExpectedSamples = kInputSamples;
   RunTest(kInputSamples, kExpectedSamples, 8);
 }
 
 TEST(BoundedWavFileWriterTest, SomeStartSilence) {
   static const std::vector<int16_t> kInputSamples = {
-      0, 0, 0, 0, 3, 0, 0, 0,
-      0, 3, -13222, -7, -3525, 5787, -25247, 8
-  };
+      0, 0, 0, 0, 3, 0, 0, 0, 0, 3, -13222, -7, -3525, 5787, -25247, 8};
   static const std::vector<int16_t> kExpectedSamples(kInputSamples.begin() + 10,
                                                      kInputSamples.end());
   RunTest(kInputSamples, kExpectedSamples, 8);
@@ -80,9 +78,7 @@ TEST(BoundedWavFileWriterTest, SomeStartSilence) {
 
 TEST(BoundedWavFileWriterTest, NegativeStartSilence) {
   static const std::vector<int16_t> kInputSamples = {
-      0, -4, -6, 0, 3, 0, 0, 0,
-      0, 3, -13222, -7, -3525, 5787, -25247, 8
-  };
+      0, -4, -6, 0, 3, 0, 0, 0, 0, 3, -13222, -7, -3525, 5787, -25247, 8};
   static const std::vector<int16_t> kExpectedSamples(kInputSamples.begin() + 2,
                                                      kInputSamples.end());
   RunTest(kInputSamples, kExpectedSamples, 8);
@@ -90,9 +86,7 @@ TEST(BoundedWavFileWriterTest, NegativeStartSilence) {
 
 TEST(BoundedWavFileWriterTest, SomeEndSilence) {
   static const std::vector<int16_t> kInputSamples = {
-      75, 1234, 243, -1231, -22222, 0, 1, 0,
-      0, 0, 0, 0, 0, 0, 0, 0
-  };
+      75, 1234, 243, -1231, -22222, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   static const std::vector<int16_t> kExpectedSamples(kInputSamples.begin(),
                                                      kInputSamples.end() - 9);
   RunTest(kInputSamples, kExpectedSamples, 8);
@@ -100,18 +94,16 @@ TEST(BoundedWavFileWriterTest, SomeEndSilence) {
 
 TEST(BoundedWavFileWriterTest, DoubleEndSilence) {
   static const std::vector<int16_t> kInputSamples = {
-      75, 1234, 243, -1231, -22222, 0, 0, 0,
-      0, -1213, -13222, -7, -3525, 5787, 0, 0
-  };
+      75, 1234,  243,    -1231, -22222, 0,    0, 0,
+      0,  -1213, -13222, -7,    -3525,  5787, 0, 0};
   static const std::vector<int16_t> kExpectedSamples(kInputSamples.begin(),
                                                      kInputSamples.end() - 2);
   RunTest(kInputSamples, kExpectedSamples, 8);
 }
 
 TEST(BoundedWavFileWriterTest, DoubleSilence) {
-  static const std::vector<int16_t> kInputSamples = {
-      0, -1213, -13222, -7, -3525, 5787, 0, 0
-  };
+  static const std::vector<int16_t> kInputSamples = {0,     -1213, -13222, -7,
+                                                     -3525, 5787,  0,      0};
   static const std::vector<int16_t> kExpectedSamples(kInputSamples.begin() + 1,
                                                      kInputSamples.end() - 2);
   RunTest(kInputSamples, kExpectedSamples, 8);
@@ -119,9 +111,7 @@ TEST(BoundedWavFileWriterTest, DoubleSilence) {
 
 TEST(BoundedWavFileWriterTest, EndSilenceCutoff) {
   static const std::vector<int16_t> kInputSamples = {
-      75, 1234, 243, -1231, -22222, 0, 1, 0,
-      0, 0, 0
-  };
+      75, 1234, 243, -1231, -22222, 0, 1, 0, 0, 0, 0};
   static const std::vector<int16_t> kExpectedSamples(kInputSamples.begin(),
                                                      kInputSamples.end() - 4);
   RunTest(kInputSamples, kExpectedSamples, 8);

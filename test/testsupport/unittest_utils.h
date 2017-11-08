@@ -23,7 +23,7 @@ const int kPacketDataNumberOfPackets = 3;
 // a single 3 in it (size=1).
 // A packet data structure is also available, that contains these three packets
 // in order.
-class PacketRelatedTest: public testing::Test {
+class PacketRelatedTest : public testing::Test {
  protected:
   // Tree packet byte arrays with data used for verification:
   uint8_t packet1_[kPacketSizeInBytes];

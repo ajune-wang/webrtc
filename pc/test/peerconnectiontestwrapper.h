@@ -47,7 +47,7 @@ class PeerConnectionTestWrapper
 
   // Implements PeerConnectionObserver.
   void OnSignalingChange(
-     webrtc::PeerConnectionInterface::SignalingState new_state) override {}
+      webrtc::PeerConnectionInterface::SignalingState new_state) override {}
   void OnAddStream(
       rtc::scoped_refptr<webrtc::MediaStreamInterface> stream) override;
   void OnRemoveStream(
@@ -69,21 +69,22 @@ class PeerConnectionTestWrapper
   void CreateAnswer(const webrtc::MediaConstraintsInterface* constraints);
   void ReceiveOfferSdp(const std::string& sdp);
   void ReceiveAnswerSdp(const std::string& sdp);
-  void AddIceCandidate(const std::string& sdp_mid, int sdp_mline_index,
+  void AddIceCandidate(const std::string& sdp_mid,
+                       int sdp_mline_index,
                        const std::string& candidate);
   void WaitForCallEstablished();
   void WaitForConnection();
   void WaitForAudio();
   void WaitForVideo();
-  void GetAndAddUserMedia(
-    bool audio, const webrtc::FakeConstraints& audio_constraints,
-    bool video, const webrtc::FakeConstraints& video_constraints);
+  void GetAndAddUserMedia(bool audio,
+                          const webrtc::FakeConstraints& audio_constraints,
+                          bool video,
+                          const webrtc::FakeConstraints& video_constraints);
 
   // sigslots
   sigslot::signal1<std::string*> SignalOnIceCandidateCreated;
-  sigslot::signal3<const std::string&,
-                   int,
-                   const std::string&> SignalOnIceCandidateReady;
+  sigslot::signal3<const std::string&, int, const std::string&>
+      SignalOnIceCandidateReady;
   sigslot::signal1<std::string*> SignalOnSdpCreated;
   sigslot::signal1<const std::string&> SignalOnSdpReady;
   sigslot::signal1<webrtc::DataChannelInterface*> SignalOnDataChannel;
@@ -95,8 +96,10 @@ class PeerConnectionTestWrapper
   bool CheckForAudio();
   bool CheckForVideo();
   rtc::scoped_refptr<webrtc::MediaStreamInterface> GetUserMedia(
-      bool audio, const webrtc::FakeConstraints& audio_constraints,
-      bool video, const webrtc::FakeConstraints& video_constraints);
+      bool audio,
+      const webrtc::FakeConstraints& audio_constraints,
+      bool video,
+      const webrtc::FakeConstraints& video_constraints);
 
   std::string name_;
   rtc::Thread* const network_thread_;

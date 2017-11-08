@@ -51,8 +51,8 @@ using namespace rtc;
 // event.
 
 enum StreamSinkEvent {
-  SSE_OPEN  = SE_OPEN,
-  SSE_READ  = SE_READ,
+  SSE_OPEN = SE_OPEN,
+  SSE_READ = SE_READ,
   SSE_WRITE = SE_WRITE,
   SSE_CLOSE = SE_CLOSE,
   SSE_ERROR = 16
@@ -64,15 +64,17 @@ class StreamSink : public sigslot::has_slots<> {
   ~StreamSink() override;
 
   void Monitor(StreamInterface* stream) {
-   stream->SignalEvent.connect(this, &StreamSink::OnEvent);
-   events_.erase(stream);
+    stream->SignalEvent.connect(this, &StreamSink::OnEvent);
+    events_.erase(stream);
   }
   void Unmonitor(StreamInterface* stream) {
-   stream->SignalEvent.disconnect(this);
-   // In case you forgot to unmonitor a previous object with this address
-   events_.erase(stream);
+    stream->SignalEvent.disconnect(this);
+    // In case you forgot to unmonitor a previous object with this address
+    events_.erase(stream);
   }
-  bool Check(StreamInterface* stream, StreamSinkEvent event, bool reset = true) {
+  bool Check(StreamInterface* stream,
+             StreamSinkEvent event,
+             bool reset = true) {
     return DoCheck(stream, event, reset);
   }
   int Events(StreamInterface* stream, bool reset = true) {
@@ -80,19 +82,19 @@ class StreamSink : public sigslot::has_slots<> {
   }
 
   void Monitor(AsyncSocket* socket) {
-   socket->SignalConnectEvent.connect(this, &StreamSink::OnConnectEvent);
-   socket->SignalReadEvent.connect(this, &StreamSink::OnReadEvent);
-   socket->SignalWriteEvent.connect(this, &StreamSink::OnWriteEvent);
-   socket->SignalCloseEvent.connect(this, &StreamSink::OnCloseEvent);
-   // In case you forgot to unmonitor a previous object with this address
-   events_.erase(socket);
+    socket->SignalConnectEvent.connect(this, &StreamSink::OnConnectEvent);
+    socket->SignalReadEvent.connect(this, &StreamSink::OnReadEvent);
+    socket->SignalWriteEvent.connect(this, &StreamSink::OnWriteEvent);
+    socket->SignalCloseEvent.connect(this, &StreamSink::OnCloseEvent);
+    // In case you forgot to unmonitor a previous object with this address
+    events_.erase(socket);
   }
   void Unmonitor(AsyncSocket* socket) {
-   socket->SignalConnectEvent.disconnect(this);
-   socket->SignalReadEvent.disconnect(this);
-   socket->SignalWriteEvent.disconnect(this);
-   socket->SignalCloseEvent.disconnect(this);
-   events_.erase(socket);
+    socket->SignalConnectEvent.disconnect(this);
+    socket->SignalReadEvent.disconnect(this);
+    socket->SignalWriteEvent.disconnect(this);
+    socket->SignalCloseEvent.disconnect(this);
+    events_.erase(socket);
   }
   bool Check(AsyncSocket* socket, StreamSinkEvent event, bool reset = true) {
     return DoCheck(socket, event, reset);
@@ -102,7 +104,7 @@ class StreamSink : public sigslot::has_slots<> {
   }
 
  private:
-  typedef std::map<void*,int> EventMap;
+  typedef std::map<void*, int> EventMap;
 
   void OnEvent(StreamInterface* stream, int events, int error) {
     if (error) {
@@ -110,15 +112,9 @@ class StreamSink : public sigslot::has_slots<> {
     }
     AddEvents(stream, events);
   }
-  void OnConnectEvent(AsyncSocket* socket) {
-    AddEvents(socket, SSE_OPEN);
-  }
-  void OnReadEvent(AsyncSocket* socket) {
-    AddEvents(socket, SSE_READ);
-  }
-  void OnWriteEvent(AsyncSocket* socket) {
-    AddEvents(socket, SSE_WRITE);
-  }
+  void OnConnectEvent(AsyncSocket* socket) { AddEvents(socket, SSE_OPEN); }
+  void OnReadEvent(AsyncSocket* socket) { AddEvents(socket, SSE_READ); }
+  void OnWriteEvent(AsyncSocket* socket) { AddEvents(socket, SSE_WRITE); }
   void OnCloseEvent(AsyncSocket* socket, int error) {
     AddEvents(socket, (0 == error) ? SSE_CLOSE : SSE_ERROR);
   }
@@ -161,20 +157,18 @@ class StreamSink : public sigslot::has_slots<> {
 ///////////////////////////////////////////////////////////////////////////////
 
 class StreamSource : public StreamInterface {
-public:
- StreamSource();
- ~StreamSource() override;
+ public:
+  StreamSource();
+  ~StreamSource() override;
 
- void Clear() {
-   readable_data_.clear();
-   written_data_.clear();
-   state_ = SS_CLOSED;
-   read_block_ = 0;
-   write_block_ = SIZE_UNKNOWN;
+  void Clear() {
+    readable_data_.clear();
+    written_data_.clear();
+    state_ = SS_CLOSED;
+    read_block_ = 0;
+    write_block_ = SIZE_UNKNOWN;
   }
-  void QueueString(const char* data) {
-    QueueData(data, strlen(data));
-  }
+  void QueueString(const char* data) { QueueData(data, strlen(data)); }
   void QueueStringF(const char* format, ...) {
     va_list args;
     va_start(args, format);
@@ -243,23 +237,23 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 class SocketTestClient : public sigslot::has_slots<> {
-public:
- SocketTestClient();
- SocketTestClient(AsyncSocket* socket);
- SocketTestClient(const SocketAddress& address);
- ~SocketTestClient() override;
+ public:
+  SocketTestClient();
+  SocketTestClient(AsyncSocket* socket);
+  SocketTestClient(const SocketAddress& address);
+  ~SocketTestClient() override;
 
- AsyncSocket* socket() { return socket_.get(); }
+  AsyncSocket* socket() { return socket_.get(); }
 
- void QueueString(const char* data) { QueueData(data, strlen(data)); }
- void QueueStringF(const char* format, ...) {
-   va_list args;
-   va_start(args, format);
-   char buffer[1024];
-   size_t len = vsprintfn(buffer, sizeof(buffer), format, args);
-   RTC_CHECK(len < sizeof(buffer) - 1);
-   va_end(args);
-   QueueData(buffer, len);
+  void QueueString(const char* data) { QueueData(data, strlen(data)); }
+  void QueueStringF(const char* format, ...) {
+    va_list args;
+    va_start(args, format);
+    char buffer[1024];
+    size_t len = vsprintfn(buffer, sizeof(buffer), format, args);
+    RTC_CHECK(len < sizeof(buffer) - 1);
+    va_end(args);
+    QueueData(buffer, len);
   }
   void QueueData(const char* data, size_t len) {
     send_buffer_.insert(send_buffer_.end(), data, data + len);
@@ -276,21 +270,19 @@ public:
   bool IsConnected() const {
     return (Socket::CS_CONNECTED == socket_->GetState());
   }
-  bool IsClosed() const {
-    return (Socket::CS_CLOSED == socket_->GetState());
-  }
+  bool IsClosed() const { return (Socket::CS_CLOSED == socket_->GetState()); }
 
-private:
+ private:
   typedef std::vector<char> Buffer;
 
   void Init(AsyncSocket* socket, int family) {
     if (!socket) {
-      socket = Thread::Current()->socketserver()
-          ->CreateAsyncSocket(family, SOCK_STREAM);
+      socket = Thread::Current()->socketserver()->CreateAsyncSocket(
+          family, SOCK_STREAM);
     }
     socket_.reset(socket);
     socket_->SignalConnectEvent.connect(this,
-      &SocketTestClient::OnConnectEvent);
+                                        &SocketTestClient::OnConnectEvent);
     socket_->SignalReadEvent.connect(this, &SocketTestClient::OnReadEvent);
     socket_->SignalWriteEvent.connect(this, &SocketTestClient::OnWriteEvent);
     socket_->SignalCloseEvent.connect(this, &SocketTestClient::OnCloseEvent);
@@ -299,8 +291,8 @@ private:
   void Flush() {
     size_t sent = 0;
     while (sent < send_buffer_.size()) {
-      int result = socket_->Send(&send_buffer_[sent],
-                                 send_buffer_.size() - sent);
+      int result =
+          socket_->Send(&send_buffer_[sent], send_buffer_.size() - sent);
       if (result > 0) {
         sent += result;
       } else {
@@ -329,8 +321,7 @@ private:
       Flush();
     }
   }
-  void OnCloseEvent(AsyncSocket* socket, int error) {
-  }
+  void OnCloseEvent(AsyncSocket* socket, int error) {}
 
   std::unique_ptr<AsyncSocket> socket_;
   Buffer send_buffer_, recv_buffer_;
@@ -351,7 +342,7 @@ class SocketTestServer : public sigslot::has_slots<> {
   SocketTestClient* operator[](size_t index) const { return client(index); }
 
   void clear() {
-    for (size_t i=0; i<clients_.size(); ++i) {
+    for (size_t i = 0; i < clients_.size(); ++i) {
       delete clients_[i];
     }
     clients_.clear();
@@ -382,40 +373,40 @@ inline ::testing::AssertionResult CmpHelperMemEq(
     size_t expected_length,
     const void* actual,
     size_t actual_length) {
-  if ((expected_length == actual_length)
-      && (0 == memcmp(expected, actual, expected_length))) {
+  if ((expected_length == actual_length) &&
+      (0 == memcmp(expected, actual, expected_length))) {
     return ::testing::AssertionSuccess();
   }
 
   ::testing::Message msg;
-  msg << "Value of: " << actual_expression
-      << " [" << actual_length_expression << "]";
-  if (true) {  //!actual_value.Equals(actual_expression)) {
+  msg << "Value of: " << actual_expression << " [" << actual_length_expression
+      << "]";
+  if (true) {  //! actual_value.Equals(actual_expression)) {
     size_t buffer_size = actual_length * 2 + 1;
     char* buffer = STACK_ARRAY(char, buffer_size);
-    hex_encode(buffer, buffer_size,
-               reinterpret_cast<const char*>(actual), actual_length);
+    hex_encode(buffer, buffer_size, reinterpret_cast<const char*>(actual),
+               actual_length);
     msg << "\n  Actual: " << buffer << " [" << actual_length << "]";
   }
 
-  msg << "\nExpected: " << expected_expression
-      << " [" << expected_length_expression << "]";
-  if (true) {  //!expected_value.Equals(expected_expression)) {
+  msg << "\nExpected: " << expected_expression << " ["
+      << expected_length_expression << "]";
+  if (true) {  //! expected_value.Equals(expected_expression)) {
     size_t buffer_size = expected_length * 2 + 1;
     char* buffer = STACK_ARRAY(char, buffer_size);
-    hex_encode(buffer, buffer_size,
-               reinterpret_cast<const char*>(expected), expected_length);
+    hex_encode(buffer, buffer_size, reinterpret_cast<const char*>(expected),
+               expected_length);
     msg << "\nWhich is: " << buffer << " [" << expected_length << "]";
   }
 
   return AssertionFailure(msg);
 }
 
-#define EXPECT_MEMEQ(expected, expected_length, actual, actual_length) \
+#define EXPECT_MEMEQ(expected, expected_length, actual, actual_length)      \
   EXPECT_PRED_FORMAT4(::testing::CmpHelperMemEq, expected, expected_length, \
                       actual, actual_length)
 
-#define ASSERT_MEMEQ(expected, expected_length, actual, actual_length) \
+#define ASSERT_MEMEQ(expected, expected_length, actual, actual_length)      \
   ASSERT_PRED_FORMAT4(::testing::CmpHelperMemEq, expected, expected_length, \
                       actual, actual_length)
 
@@ -429,11 +420,11 @@ inline ::testing::AssertionResult CmpHelperMemEq(
 // Declare a N-bit integer as a little-endian sequence of bytes
 #define LE16(x) BYTE_CAST(((uint16_t)x) >> 0), BYTE_CAST(((uint16_t)x) >> 8)
 
-#define LE32(x) \
+#define LE32(x)                                                 \
   BYTE_CAST(((uint32_t)x) >> 0), BYTE_CAST(((uint32_t)x) >> 8), \
       BYTE_CAST(((uint32_t)x) >> 16), BYTE_CAST(((uint32_t)x) >> 24)
 
-#define LE64(x) \
+#define LE64(x)                                                       \
   BYTE_CAST(((uint64_t)x) >> 0), BYTE_CAST(((uint64_t)x) >> 8),       \
       BYTE_CAST(((uint64_t)x) >> 16), BYTE_CAST(((uint64_t)x) >> 24), \
       BYTE_CAST(((uint64_t)x) >> 32), BYTE_CAST(((uint64_t)x) >> 40), \
@@ -442,11 +433,11 @@ inline ::testing::AssertionResult CmpHelperMemEq(
 // Declare a N-bit integer as a big-endian (Internet) sequence of bytes
 #define BE16(x) BYTE_CAST(((uint16_t)x) >> 8), BYTE_CAST(((uint16_t)x) >> 0)
 
-#define BE32(x) \
+#define BE32(x)                                                   \
   BYTE_CAST(((uint32_t)x) >> 24), BYTE_CAST(((uint32_t)x) >> 16), \
       BYTE_CAST(((uint32_t)x) >> 8), BYTE_CAST(((uint32_t)x) >> 0)
 
-#define BE64(x) \
+#define BE64(x)                                                       \
   BYTE_CAST(((uint64_t)x) >> 56), BYTE_CAST(((uint64_t)x) >> 48),     \
       BYTE_CAST(((uint64_t)x) >> 40), BYTE_CAST(((uint64_t)x) >> 32), \
       BYTE_CAST(((uint64_t)x) >> 24), BYTE_CAST(((uint64_t)x) >> 16), \
@@ -471,19 +462,23 @@ inline ::testing::AssertionResult CmpHelperMemEq(
 
 // Helpers for determining if X/screencasting is available (on linux).
 
-#define MAYBE_SKIP_SCREENCAST_TEST() \
-  if (!testing::IsScreencastingAvailable()) { \
+#define MAYBE_SKIP_SCREENCAST_TEST()                                         \
+  if (!testing::IsScreencastingAvailable()) {                                \
     LOG(LS_WARNING) << "Skipping test, since it doesn't have the requisite " \
-                    << "X environment for screen capture."; \
-    return; \
-  } \
+                    << "X environment for screen capture.";                  \
+    return;                                                                  \
+  }
 
 #if defined(WEBRTC_LINUX) && !defined(WEBRTC_ANDROID)
 struct XDisplay {
   XDisplay() : display_(XOpenDisplay(nullptr)) {}
-  ~XDisplay() { if (display_) XCloseDisplay(display_); }
+  ~XDisplay() {
+    if (display_)
+      XCloseDisplay(display_);
+  }
   bool IsValid() const { return display_ != nullptr; }
   operator Display*() { return display_; }
+
  private:
   Display* display_;
 };

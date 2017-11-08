@@ -33,8 +33,7 @@ VoEBase* VoEBase::GetInterface(VoiceEngine* voiceEngine) {
   return s;
 }
 
-VoEBaseImpl::VoEBaseImpl(voe::SharedData* shared)
-    : shared_(shared) {}
+VoEBaseImpl::VoEBaseImpl(voe::SharedData* shared) : shared_(shared) {}
 
 VoEBaseImpl::~VoEBaseImpl() {
   TerminateInternal();
@@ -115,8 +114,10 @@ int32_t VoEBaseImpl::NeedMorePlayData(const size_t nSamples,
   return 0;
 }
 
-void VoEBaseImpl::PushCaptureData(int voe_channel, const void* audio_data,
-                                  int bits_per_sample, int sample_rate,
+void VoEBaseImpl::PushCaptureData(int voe_channel,
+                                  const void* audio_data,
+                                  int bits_per_sample,
+                                  int sample_rate,
                                   size_t number_of_channels,
                                   size_t number_of_frames) {
   voe::ChannelOwner ch = shared_->channel_manager().GetChannel(voe_channel);
@@ -136,7 +137,8 @@ void VoEBaseImpl::PullRenderData(int bits_per_sample,
                                  int sample_rate,
                                  size_t number_of_channels,
                                  size_t number_of_frames,
-                                 void* audio_data, int64_t* elapsed_time_ms,
+                                 void* audio_data,
+                                 int64_t* elapsed_time_ms,
                                  int64_t* ntp_time_ms) {
   RTC_NOTREACHED();
 }
@@ -159,9 +161,9 @@ int VoEBaseImpl::Init(
     return -1;
 #else
     // Create the internal ADM implementation.
-    shared_->set_audio_device(AudioDeviceModule::Create(
-        VoEId(shared_->instance_id(), -1),
-        AudioDeviceModule::kPlatformDefaultAudio));
+    shared_->set_audio_device(
+        AudioDeviceModule::Create(VoEId(shared_->instance_id(), -1),
+                                  AudioDeviceModule::kPlatformDefaultAudio));
     if (shared_->audio_device() == nullptr) {
       LOG(LS_ERROR) << "Init() failed to create the ADM";
       return -1;
@@ -243,13 +245,13 @@ int VoEBaseImpl::Init(
   }
   if (audio_processing->noise_suppression()->set_level(kDefaultNsMode) != 0) {
     LOG_F(LS_ERROR) << "Failed to set noise suppression level: "
-        << kDefaultNsMode;
+                    << kDefaultNsMode;
     return -1;
   }
   GainControl* agc = audio_processing->gain_control();
   if (agc->set_analog_level_limits(kMinVolumeLevel, kMaxVolumeLevel) != 0) {
     LOG_F(LS_ERROR) << "Failed to set analog level limits with minimum: "
-        << kMinVolumeLevel << " and maximum: " << kMaxVolumeLevel;
+                    << kMinVolumeLevel << " and maximum: " << kMaxVolumeLevel;
     return -1;
   }
   if (agc->set_mode(kDefaultAgcMode) != 0) {

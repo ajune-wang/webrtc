@@ -98,7 +98,7 @@ class SSLCertificate {
 
  private:
   std::unique_ptr<SSLCertificateStats> GetStats(
-    std::unique_ptr<SSLCertificateStats> issuer) const;
+      std::unique_ptr<SSLCertificateStats> issuer) const;
 };
 
 // SSLCertChain is a simple wrapper for a vector of SSLCertificates. It serves

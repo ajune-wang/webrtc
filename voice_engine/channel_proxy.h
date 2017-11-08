@@ -100,7 +100,7 @@ class ChannelProxy : public RtpPacketSinkInterface {
   void OnRtpPacket(const RtpPacketReceived& packet) override;
   virtual bool ReceivedRTCPPacket(const uint8_t* packet, size_t length);
   virtual const rtc::scoped_refptr<AudioDecoderFactory>&
-      GetAudioDecoderFactory() const;
+  GetAudioDecoderFactory() const;
   virtual void SetChannelOutputVolumeScaling(float scaling);
   virtual void SetRtcEventLog(RtcEventLog* event_log);
   virtual AudioMixer::Source::AudioFrameInfo GetAudioFrameWithInfo(
@@ -110,8 +110,7 @@ class ChannelProxy : public RtpPacketSinkInterface {
   virtual void SetTransportOverhead(int transport_overhead_per_packet);
   virtual void AssociateSendChannel(const ChannelProxy& send_channel_proxy);
   virtual void DisassociateSendChannel();
-  virtual void GetRtpRtcp(RtpRtcp** rtp_rtcp,
-                          RtpReceiver** rtp_receiver) const;
+  virtual void GetRtpRtcp(RtpRtcp** rtp_rtcp, RtpReceiver** rtp_receiver) const;
   virtual uint32_t GetPlayoutTimestamp() const;
   virtual void SetMinimumPlayoutDelay(int delay_ms);
   virtual void SetRtcpRttStats(RtcpRttStats* rtcp_rtt_stats);

@@ -24,7 +24,7 @@
 namespace rtc {
 class AsyncResolver;
 class SignalThread;
-}
+}  // namespace rtc
 
 namespace webrtc {
 class TurnCustomizer;
@@ -123,7 +123,8 @@ class TurnPort : public Port {
                             const rtc::SocketAddress& remote_addr,
                             const rtc::PacketTime& packet_time) override;
   virtual void OnReadPacket(rtc::AsyncPacketSocket* socket,
-                            const char* data, size_t size,
+                            const char* data,
+                            size_t size,
                             const rtc::SocketAddress& remote_addr,
                             const rtc::PacketTime& packet_time);
 
@@ -135,7 +136,6 @@ class TurnPort : public Port {
   void OnSocketConnect(rtc::AsyncPacketSocket* socket);
   void OnSocketClose(rtc::AsyncPacketSocket* socket, int error);
 
-
   const std::string& hash() const { return hash_; }
   const std::string& nonce() const { return nonce_; }
 
@@ -143,9 +143,7 @@ class TurnPort : public Port {
 
   void OnAllocateMismatch();
 
-  rtc::AsyncPacketSocket* socket() const {
-    return socket_;
-  }
+  rtc::AsyncPacketSocket* socket() const { return socket_; }
 
   // For testing only.
   rtc::AsyncInvoker* invoker() { return &invoker_; }
@@ -153,9 +151,9 @@ class TurnPort : public Port {
   // Signal with resolved server address.
   // Parameters are port, server address and resolved server address.
   // This signal will be sent only if server address is resolved successfully.
-  sigslot::signal3<TurnPort*,
-                   const rtc::SocketAddress&,
-                   const rtc::SocketAddress&> SignalResolvedServerAddress;
+  sigslot::
+      signal3<TurnPort*, const rtc::SocketAddress&, const rtc::SocketAddress&>
+          SignalResolvedServerAddress;
 
   // All public methods/signals below are for testing only.
   sigslot::signal2<TurnPort*, int> SignalTurnRefreshResult;
@@ -242,18 +240,22 @@ class TurnPort : public Port {
   void OnAllocateError();
   void OnAllocateRequestTimeout();
 
-  void HandleDataIndication(const char* data, size_t size,
+  void HandleDataIndication(const char* data,
+                            size_t size,
                             const rtc::PacketTime& packet_time);
-  void HandleChannelData(int channel_id, const char* data, size_t size,
+  void HandleChannelData(int channel_id,
+                         const char* data,
+                         size_t size,
                          const rtc::PacketTime& packet_time);
-  void DispatchPacket(const char* data, size_t size,
-      const rtc::SocketAddress& remote_addr,
-      ProtocolType proto, const rtc::PacketTime& packet_time);
+  void DispatchPacket(const char* data,
+                      size_t size,
+                      const rtc::SocketAddress& remote_addr,
+                      ProtocolType proto,
+                      const rtc::PacketTime& packet_time);
 
   bool ScheduleRefresh(int lifetime);
   void SendRequest(StunRequest* request, int delay);
-  int Send(const void* data, size_t size,
-           const rtc::PacketOptions& options);
+  int Send(const void* data, size_t size, const rtc::PacketOptions& options);
   void UpdateHash();
   bool UpdateNonce(StunMessage* response);
   void ResetNonce();
@@ -278,7 +280,8 @@ class TurnPort : public Port {
 
   void TurnCustomizerMaybeModifyOutgoingStunMessage(StunMessage* message);
   bool TurnCustomizerAllowChannelData(const void* data,
-                                      size_t size, bool payload);
+                                      size_t size,
+                                      bool payload);
 
   ProtocolAddress server_address_;
   TlsCertPolicy tls_cert_policy_ = TlsCertPolicy::TLS_CERT_POLICY_SECURE;
@@ -293,9 +296,9 @@ class TurnPort : public Port {
   int error_;
 
   StunRequestManager request_manager_;
-  std::string realm_;       // From 401/438 response message.
-  std::string nonce_;       // From 401/438 response message.
-  std::string hash_;        // Digest of username:realm:password
+  std::string realm_;  // From 401/438 response message.
+  std::string nonce_;  // From 401/438 response message.
+  std::string hash_;   // Digest of username:realm:password
 
   int next_channel_number_;
   EntryList entries_;
@@ -311,7 +314,7 @@ class TurnPort : public Port {
   rtc::AsyncInvoker invoker_;
 
   // Optional TurnCustomizer that can modify outgoing messages.
-  webrtc::TurnCustomizer *turn_customizer_ = nullptr;
+  webrtc::TurnCustomizer* turn_customizer_ = nullptr;
 
   friend class TurnEntry;
   friend class TurnAllocateRequest;

@@ -21,11 +21,9 @@ using cricket::SessionDescription;
 
 namespace webrtc {
 
-static const char* kSupportedTypes[] = {
-    JsepSessionDescription::kOffer,
-    JsepSessionDescription::kPrAnswer,
-    JsepSessionDescription::kAnswer
-};
+static const char* kSupportedTypes[] = {JsepSessionDescription::kOffer,
+                                        JsepSessionDescription::kPrAnswer,
+                                        JsepSessionDescription::kAnswer};
 
 static bool IsTypeSupported(const std::string& type) {
   bool type_supported = false;
@@ -129,8 +127,7 @@ SessionDescriptionInterface* CreateSessionDescription(const std::string& type,
 }
 
 JsepSessionDescription::JsepSessionDescription(const std::string& type)
-    : type_(type) {
-}
+    : type_(type) {}
 
 JsepSessionDescription::~JsepSessionDescription() {}
 

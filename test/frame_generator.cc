@@ -81,20 +81,19 @@ class SquareGenerator : public FrameGenerator {
     void Draw(const rtc::scoped_refptr<I420Buffer>& buffer) {
       x_ = (x_ + random_generator_.Rand(0, 4)) % (buffer->width() - length_);
       y_ = (y_ + random_generator_.Rand(0, 4)) % (buffer->height() - length_);
-        for (int y = y_; y < y_ + length_; ++y) {
-          uint8_t* pos_y =
-              (buffer->MutableDataY() + x_ + y * buffer->StrideY());
-          memset(pos_y, yuv_y_, length_);
-        }
+      for (int y = y_; y < y_ + length_; ++y) {
+        uint8_t* pos_y = (buffer->MutableDataY() + x_ + y * buffer->StrideY());
+        memset(pos_y, yuv_y_, length_);
+      }
 
-        for (int y = y_; y < y_ + length_; y = y + 2) {
-          uint8_t* pos_u =
-              (buffer->MutableDataU() + x_ / 2 + y / 2 * buffer->StrideU());
-          memset(pos_u, yuv_u_, length_ / 2);
-          uint8_t* pos_v =
-              (buffer->MutableDataV() + x_ / 2 + y / 2 * buffer->StrideV());
-          memset(pos_v, yuv_v_, length_ / 2);
-        }
+      for (int y = y_; y < y_ + length_; y = y + 2) {
+        uint8_t* pos_u =
+            (buffer->MutableDataU() + x_ / 2 + y / 2 * buffer->StrideU());
+        memset(pos_u, yuv_u_, length_ / 2);
+        uint8_t* pos_v =
+            (buffer->MutableDataV() + x_ / 2 + y / 2 * buffer->StrideV());
+        memset(pos_v, yuv_v_, length_ / 2);
+      }
     }
 
    private:
@@ -154,16 +153,14 @@ class YuvFileGenerator : public FrameGenerator {
   void ReadNextFrame() {
     last_read_buffer_ =
         test::ReadI420Buffer(static_cast<int>(width_),
-                             static_cast<int>(height_),
-                             files_[file_index_]);
+                             static_cast<int>(height_), files_[file_index_]);
     if (!last_read_buffer_) {
       // No more frames to read in this file, rewind and move to next file.
       rewind(files_[file_index_]);
       file_index_ = (file_index_ + 1) % files_.size();
       last_read_buffer_ =
           test::ReadI420Buffer(static_cast<int>(width_),
-                               static_cast<int>(height_),
-                               files_[file_index_]);
+                               static_cast<int>(height_), files_[file_index_]);
       RTC_CHECK(last_read_buffer_);
     }
   }
@@ -203,8 +200,7 @@ class SlideGenerator : public FrameGenerator {
     if (++current_display_count_ >= frame_display_count_)
       current_display_count_ = 0;
 
-    frame_.reset(
-        new VideoFrame(buffer_, 0, 0, webrtc::kVideoRotation_0));
+    frame_.reset(new VideoFrame(buffer_, 0, 0, webrtc::kVideoRotation_0));
     return frame_.get();
   }
 
@@ -213,7 +209,7 @@ class SlideGenerator : public FrameGenerator {
   void GenerateNewFrame() {
     // The squares should have a varying order of magnitude in order
     // to simulate variation in the slides' complexity.
-    const int kSquareNum =  1 << (4 + (random_generator_.Rand(0, 3) * 4));
+    const int kSquareNum = 1 << (4 + (random_generator_.Rand(0, 3) * 4));
 
     buffer_ = I420Buffer::Create(width_, height_);
     memset(buffer_->MutableDataY(), 127, height_ * buffer_->StrideY());
@@ -408,9 +404,11 @@ FrameGenerator::CreateSquareGenerator(int width, int height, int num_squares) {
 }
 
 std::unique_ptr<FrameGenerator> FrameGenerator::CreateSlideGenerator(
-    int width, int height, int frame_repeat_count) {
-  return std::unique_ptr<FrameGenerator>(new SlideGenerator(
-      width, height, frame_repeat_count));
+    int width,
+    int height,
+    int frame_repeat_count) {
+  return std::unique_ptr<FrameGenerator>(
+      new SlideGenerator(width, height, frame_repeat_count));
 }
 
 std::unique_ptr<FrameGenerator> FrameGenerator::CreateFromYuvFile(

@@ -16,24 +16,20 @@
 namespace webrtc {
 namespace test {
 
-class PacketReaderTest: public PacketRelatedTest {
+class PacketReaderTest : public PacketRelatedTest {
  protected:
   PacketReaderTest() {}
   virtual ~PacketReaderTest() {}
-  void SetUp() {
-    reader_ = new PacketReader();
-  }
-  void TearDown() {
-    delete reader_;
-  }
+  void SetUp() { reader_ = new PacketReader(); }
+  void TearDown() { delete reader_; }
   void VerifyPacketData(size_t expected_length,
                         int actual_length,
                         uint8_t* original_data_pointer,
                         uint8_t* new_data_pointer) {
     EXPECT_EQ(static_cast<int>(expected_length), actual_length);
     EXPECT_EQ(*original_data_pointer, *new_data_pointer);
-    EXPECT_EQ(0, memcmp(original_data_pointer, new_data_pointer,
-                        actual_length));
+    EXPECT_EQ(0,
+              memcmp(original_data_pointer, new_data_pointer, actual_length));
   }
   PacketReader* reader_;
 };
@@ -91,16 +87,15 @@ TEST_F(PacketReaderTest, NormalLargeData) {
                              kPacketSizeInBytes);
 
   int length_to_read = reader_->NextPacket(&packet_data_pointer_);
-  VerifyPacketData(kPacketSizeInBytes, length_to_read,
-                   packet1_, packet_data_pointer_);
+  VerifyPacketData(kPacketSizeInBytes, length_to_read, packet1_,
+                   packet_data_pointer_);
 
   length_to_read = reader_->NextPacket(&packet_data_pointer_);
-  VerifyPacketData(kPacketSizeInBytes, length_to_read,
-                   packet2_, packet_data_pointer_);
+  VerifyPacketData(kPacketSizeInBytes, length_to_read, packet2_,
+                   packet_data_pointer_);
 
   length_to_read = reader_->NextPacket(&packet_data_pointer_);
-  VerifyPacketData(1u, length_to_read,
-                   packet3_, packet_data_pointer_);
+  VerifyPacketData(1u, length_to_read, packet3_, packet_data_pointer_);
 
   // Reading another one shall result in 0 bytes:
   length_to_read = reader_->NextPacket(&packet_data_pointer_);

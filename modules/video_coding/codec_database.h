@@ -14,10 +14,10 @@
 #include <map>
 #include <memory>
 
-#include "modules/video_coding/include/video_codec_interface.h"
-#include "modules/video_coding/include/video_coding.h"
 #include "modules/video_coding/generic_decoder.h"
 #include "modules/video_coding/generic_encoder.h"
+#include "modules/video_coding/include/video_codec_interface.h"
+#include "modules/video_coding/include/video_coding.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {

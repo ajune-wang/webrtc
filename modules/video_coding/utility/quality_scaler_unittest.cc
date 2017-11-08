@@ -26,15 +26,15 @@ static const int kHighQp = 40;
 static const size_t kDefaultTimeoutMs = 150;
 }  // namespace
 
-#define DO_SYNC(q, block) do {    \
-  rtc::Event event(false, false); \
-  q->PostTask([this, &event] {    \
-    block;                        \
-    event.Set();                  \
-  });                             \
-  RTC_CHECK(event.Wait(1000));    \
+#define DO_SYNC(q, block)           \
+  do {                              \
+    rtc::Event event(false, false); \
+    q->PostTask([this, &event] {    \
+      block;                        \
+      event.Set();                  \
+    });                             \
+    RTC_CHECK(event.Wait(1000));    \
   } while (0)
-
 
 class MockAdaptationObserver : public AdaptationObserverInterface {
  public:
@@ -78,11 +78,12 @@ class QualityScalerTest : public ::testing::Test {
     DO_SYNC(q_, {
       qs_ = std::unique_ptr<QualityScaler>(new QualityScalerUnderTest(
           observer_.get(),
-          VideoEncoder::QpThresholds(kLowQpThreshold, kHighQp)));});
+          VideoEncoder::QpThresholds(kLowQpThreshold, kHighQp)));
+    });
   }
 
   ~QualityScalerTest() {
-    DO_SYNC(q_, {qs_.reset(nullptr);});
+    DO_SYNC(q_, { qs_.reset(nullptr); });
   }
 
   void TriggerScale(ScaleDirection scale_direction) {
@@ -181,19 +182,19 @@ TEST_F(QualityScalerTest, ScalesDownAndBackUp) {
 
 TEST_F(QualityScalerTest, DoesNotScaleUntilEnoughFramesObserved) {
   DO_SYNC(q_, {
-      // Send 30 frames. This should not be enough to make a decision.
-      for (int i = 0; i < kFramerate; ++i) {
-        qs_->ReportQP(kLowQp);
-      }
-    });
+    // Send 30 frames. This should not be enough to make a decision.
+    for (int i = 0; i < kFramerate; ++i) {
+      qs_->ReportQP(kLowQp);
+    }
+  });
   EXPECT_FALSE(observer_->event.Wait(kDefaultTimeoutMs));
   DO_SYNC(q_, {
-      // Send 30 more. This should result in an adapt request as
-      // enough frames have now been observed.
-      for (int i = 0; i < kFramerate; ++i) {
-        qs_->ReportQP(kLowQp);
-      }
-    });
+    // Send 30 more. This should result in an adapt request as
+    // enough frames have now been observed.
+    for (int i = 0; i < kFramerate; ++i) {
+      qs_->ReportQP(kLowQp);
+    }
+  });
   EXPECT_TRUE(observer_->event.Wait(kDefaultTimeoutMs));
   EXPECT_EQ(0, observer_->adapt_down_events_);
   EXPECT_EQ(1, observer_->adapt_up_events_);

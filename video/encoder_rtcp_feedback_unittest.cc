@@ -24,13 +24,13 @@ namespace webrtc {
 class MockVideoStreamEncoder : public VideoStreamEncoder {
  public:
   explicit MockVideoStreamEncoder(SendStatisticsProxy* send_stats_proxy)
-      : VideoStreamEncoder(1,
-                           send_stats_proxy,
-                           VideoSendStream::Config::EncoderSettings("fake", 0,
-                                                                    nullptr),
-                           nullptr,
-                           nullptr,
-                           std::unique_ptr<OveruseFrameDetector>()) {}
+      : VideoStreamEncoder(
+            1,
+            send_stats_proxy,
+            VideoSendStream::Config::EncoderSettings("fake", 0, nullptr),
+            nullptr,
+            nullptr,
+            std::unique_ptr<OveruseFrameDetector>()) {}
   ~MockVideoStreamEncoder() { Stop(); }
 
   MOCK_METHOD1(OnReceivedIntraFrameRequest, void(size_t));

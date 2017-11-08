@@ -422,19 +422,12 @@ class AudioCodingModuleTestWithComfortNoiseOldApi
     const struct {
       int ix;
       FrameType type;
-    } expectation[] = {{2, kAudioFrameCN},
-                       {5, kEmptyFrame},
-                       {8, kEmptyFrame},
-                       {11, kAudioFrameCN},
-                       {14, kEmptyFrame},
-                       {17, kEmptyFrame},
-                       {20, kAudioFrameCN},
-                       {23, kEmptyFrame},
-                       {26, kEmptyFrame},
-                       {29, kEmptyFrame},
-                       {32, kAudioFrameCN},
-                       {35, kEmptyFrame},
-                       {38, kEmptyFrame}};
+    } expectation[] = {
+        {2, kAudioFrameCN},  {5, kEmptyFrame},    {8, kEmptyFrame},
+        {11, kAudioFrameCN}, {14, kEmptyFrame},   {17, kEmptyFrame},
+        {20, kAudioFrameCN}, {23, kEmptyFrame},   {26, kEmptyFrame},
+        {29, kEmptyFrame},   {32, kAudioFrameCN}, {35, kEmptyFrame},
+        {38, kEmptyFrame}};
     for (int i = 0; i < kLoops; ++i) {
       int num_calls_before = packet_cb_.num_calls();
       EXPECT_EQ(i / blocks_per_packet, num_calls_before);
@@ -684,10 +677,8 @@ class AcmIsacMtTestOldApi : public AudioCodingModuleMtTestOldApi {
       last_packet_number_ = num_calls;
     }
     ASSERT_GT(last_payload_vec_.size(), 0u);
-    ASSERT_EQ(
-        0,
-        acm_->IncomingPacket(
-            &last_payload_vec_[0], last_payload_vec_.size(), rtp_header_));
+    ASSERT_EQ(0, acm_->IncomingPacket(&last_payload_vec_[0],
+                                      last_payload_vec_.size(), rtp_header_));
   }
 
   void InsertAudio() override {
@@ -817,9 +808,8 @@ class AcmReRegisterIsacMtTestOldApi : public AudioCodingModuleTestOldApi {
       // Encode new frame.
       uint32_t input_timestamp = rtp_header_.header.timestamp;
       while (info.encoded_bytes == 0) {
-        info =
-            isac_encoder_->Encode(input_timestamp, audio_loop_.GetNextBlock(),
-                                  &encoded);
+        info = isac_encoder_->Encode(input_timestamp,
+                                     audio_loop_.GetNextBlock(), &encoded);
         input_timestamp += 160;  // 10 ms at 16 kHz.
       }
       EXPECT_EQ(rtp_header_.header.timestamp + kPacketSizeSamples,
@@ -1090,11 +1080,12 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
 
   rtc::scoped_refptr<rtc::RefCountedObject<ADFactory>> factory(
       new rtc::RefCountedObject<ADFactory>);
-  Run(48000, PlatformChecksum("ab611510e8fd6d5210a23cc04d3f0e8e",
-                              "d8609bc9b495d81f29779344c68bcc47",
-                              "ec5ebb90cda0ea5bb89e79d698af65de",
-                              "bd44bf97e7899186532f91235cef444d",
-                              "0baae2972cca142027d4af44f95f0bd5"),
+  Run(48000,
+      PlatformChecksum("ab611510e8fd6d5210a23cc04d3f0e8e",
+                       "d8609bc9b495d81f29779344c68bcc47",
+                       "ec5ebb90cda0ea5bb89e79d698af65de",
+                       "bd44bf97e7899186532f91235cef444d",
+                       "0baae2972cca142027d4af44f95f0bd5"),
       factory, [](AudioCodingModule* acm) {
         acm->RegisterReceiveCodec(0, {"MockPCMu", 8000, 1});
       });
@@ -1149,11 +1140,8 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
                          int frame_size_rtp_timestamps) {
     payload_type_ = payload_type;
     frame_size_rtp_timestamps_ = frame_size_rtp_timestamps;
-    return send_test_->RegisterCodec(payload_name,
-                                     sampling_freq_hz,
-                                     channels,
-                                     payload_type,
-                                     frame_size_samples);
+    return send_test_->RegisterCodec(payload_name, sampling_freq_hz, channels,
+                                     payload_type, frame_size_samples);
   }
 
   bool RegisterExternalSendCodec(AudioEncoder* external_speech_encoder,
@@ -1250,11 +1238,8 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
                  int codec_frame_size_samples,
                  int codec_frame_size_rtp_timestamps) {
     ASSERT_TRUE(SetUpSender());
-    ASSERT_TRUE(RegisterSendCodec(codec_name,
-                                  codec_sample_rate_hz,
-                                  channels,
-                                  payload_type,
-                                  codec_frame_size_samples,
+    ASSERT_TRUE(RegisterSendCodec(codec_name, codec_sample_rate_hz, channels,
+                                  payload_type, codec_frame_size_samples,
                                   codec_frame_size_rtp_timestamps));
   }
 
@@ -1335,82 +1320,62 @@ TEST_F(AcmSenderBitExactnessOldApi, MAYBE_IsacSwb30ms) {
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_8000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 8000, 1, 107, 80, 80));
-  Run("de4a98e1406f8b798d99cd0704e862e2",
-      "c1edd36339ce0326cc4550041ad719a0",
-      100,
-      test::AcmReceiveTestOldApi::kMonoOutput);
+  Run("de4a98e1406f8b798d99cd0704e862e2", "c1edd36339ce0326cc4550041ad719a0",
+      100, test::AcmReceiveTestOldApi::kMonoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_16000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 16000, 1, 108, 160, 160));
-  Run("ae646d7b68384a1269cc080dd4501916",
-      "ad786526383178b08d80d6eee06e9bad",
-      100,
-      test::AcmReceiveTestOldApi::kMonoOutput);
+  Run("ae646d7b68384a1269cc080dd4501916", "ad786526383178b08d80d6eee06e9bad",
+      100, test::AcmReceiveTestOldApi::kMonoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_32000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 32000, 1, 109, 320, 320));
-  Run("7fe325e8fbaf755e3c5df0b11a4774fb",
-      "5ef82ea885e922263606c6fdbc49f651",
-      100,
-      test::AcmReceiveTestOldApi::kMonoOutput);
+  Run("7fe325e8fbaf755e3c5df0b11a4774fb", "5ef82ea885e922263606c6fdbc49f651",
+      100, test::AcmReceiveTestOldApi::kMonoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_stereo_8000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 8000, 2, 111, 80, 80));
-  Run("fb263b74e7ac3de915474d77e4744ceb",
-      "62ce5adb0d4965d0a52ec98ae7f98974",
-      100,
-      test::AcmReceiveTestOldApi::kStereoOutput);
+  Run("fb263b74e7ac3de915474d77e4744ceb", "62ce5adb0d4965d0a52ec98ae7f98974",
+      100, test::AcmReceiveTestOldApi::kStereoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_stereo_16000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 16000, 2, 112, 160, 160));
-  Run("d09e9239553649d7ac93e19d304281fd",
-      "41ca8edac4b8c71cd54fd9f25ec14870",
-      100,
-      test::AcmReceiveTestOldApi::kStereoOutput);
+  Run("d09e9239553649d7ac93e19d304281fd", "41ca8edac4b8c71cd54fd9f25ec14870",
+      100, test::AcmReceiveTestOldApi::kStereoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_stereo_32000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 32000, 2, 113, 320, 320));
-  Run("5f025d4f390982cc26b3d92fe02e3044",
-      "50e58502fb04421bf5b857dda4c96879",
-      100,
-      test::AcmReceiveTestOldApi::kStereoOutput);
+  Run("5f025d4f390982cc26b3d92fe02e3044", "50e58502fb04421bf5b857dda4c96879",
+      100, test::AcmReceiveTestOldApi::kStereoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcmu_20ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("PCMU", 8000, 1, 0, 160, 160));
-  Run("81a9d4c0bb72e9becc43aef124c981e9",
-      "8f9b8750bd80fe26b6cbf6659b89f0f9",
-      50,
-      test::AcmReceiveTestOldApi::kMonoOutput);
+  Run("81a9d4c0bb72e9becc43aef124c981e9", "8f9b8750bd80fe26b6cbf6659b89f0f9",
+      50, test::AcmReceiveTestOldApi::kMonoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcma_20ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("PCMA", 8000, 1, 8, 160, 160));
-  Run("39611f798969053925a49dc06d08de29",
-      "6ad745e55aa48981bfc790d0eeef2dd1",
-      50,
-      test::AcmReceiveTestOldApi::kMonoOutput);
+  Run("39611f798969053925a49dc06d08de29", "6ad745e55aa48981bfc790d0eeef2dd1",
+      50, test::AcmReceiveTestOldApi::kMonoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcmu_stereo_20ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("PCMU", 8000, 2, 110, 160, 160));
-  Run("437bec032fdc5cbaa0d5175430af7b18",
-      "60b6f25e8d1e74cb679cfe756dd9bca5",
-      50,
-      test::AcmReceiveTestOldApi::kStereoOutput);
+  Run("437bec032fdc5cbaa0d5175430af7b18", "60b6f25e8d1e74cb679cfe756dd9bca5",
+      50, test::AcmReceiveTestOldApi::kStereoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcma_stereo_20ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("PCMA", 8000, 2, 118, 160, 160));
-  Run("a5c6d83c5b7cedbeff734238220a4b0c",
-      "92b282c83efd20e7eeef52ba40842cf7",
-      50,
-      test::AcmReceiveTestOldApi::kStereoOutput);
+  Run("a5c6d83c5b7cedbeff734238220a4b0c", "92b282c83efd20e7eeef52ba40842cf7",
+      50, test::AcmReceiveTestOldApi::kStereoOutput);
 }
 
 #if defined(WEBRTC_ANDROID)
@@ -1744,11 +1709,11 @@ class AcmChangeBitRateOldApi : public AcmSetBitRateOldApi {
       if (packet_counter == nr_packets / 2)
         send_test_->acm()->SetBitRate(target_bitrate_bps);
       if (packet_counter < nr_packets / 2)
-        nr_bytes_before += rtc::checked_cast<int>(
-            next_packet->payload_length_bytes());
+        nr_bytes_before +=
+            rtc::checked_cast<int>(next_packet->payload_length_bytes());
       else
-        nr_bytes_after += rtc::checked_cast<int>(
-            next_packet->payload_length_bytes());
+        nr_bytes_after +=
+            rtc::checked_cast<int>(next_packet->payload_length_bytes());
       packet_counter++;
     }
     EXPECT_EQ(expected_before_switch_bits, nr_bytes_before * 8);
@@ -1780,11 +1745,11 @@ TEST_F(AcmChangeBitRateOldApi, Opus_48khz_20ms_50kbps_2) {
 TEST_F(AcmChangeBitRateOldApi, Opus_48khz_20ms_100kbps_2) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("opus", 48000, 1, 107, 960, 960));
 #if defined(WEBRTC_ANDROID)
-  #if defined(WEBRTC_ARCH_ARM64)
-    Run(100000, 29512, 50440);
-  #else
-    Run(100000, 29512, 50496);
-  #endif  // WEBRTC_ARCH_ARM64
+#if defined(WEBRTC_ARCH_ARM64)
+  Run(100000, 29512, 50440);
+#else
+  Run(100000, 29512, 50496);
+#endif  // WEBRTC_ARCH_ARM64
 #else
   Run(100000, 32200, 50448);
 #endif  // WEBRTC_ANDROID
@@ -1829,12 +1794,10 @@ TEST_F(AcmSenderBitExactnessOldApi, External_Pcmu_20ms) {
       .WillRepeatedly(Invoke(&encoder, &AudioEncoderPcmU::GetTargetBitrate));
   EXPECT_CALL(mock_encoder, EncodeImpl(_, _, _))
       .Times(AtLeast(1))
-      .WillRepeatedly(Invoke(&encoder,
-                             static_cast<
-                             AudioEncoder::EncodedInfo(AudioEncoder::*)(
-                                 uint32_t,
-                                 rtc::ArrayView<const int16_t>,
-                                 rtc::Buffer*)>(&AudioEncoderPcmU::Encode)));
+      .WillRepeatedly(Invoke(
+          &encoder, static_cast<AudioEncoder::EncodedInfo (AudioEncoder::*)(
+                        uint32_t, rtc::ArrayView<const int16_t>, rtc::Buffer*)>(
+                        &AudioEncoderPcmU::Encode)));
   EXPECT_CALL(mock_encoder, SetFec(_))
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke(&encoder, &AudioEncoderPcmU::SetFec));
@@ -1884,11 +1847,7 @@ class AcmSwitchingOutputFrequencyOldApi : public ::testing::Test,
     // this class.
     test::AudioSinkFork output(this, &output_file);
     test::AcmReceiveTestToggleOutputFreqOldApi receive_test(
-        this,
-        &output,
-        output_freq_1,
-        output_freq_2,
-        toggle_period_ms,
+        this, &output, output_freq_1, output_freq_2, toggle_period_ms,
         test::AcmReceiveTestOldApi::kMonoOutput);
     ASSERT_NO_FATAL_FAILURE(receive_test.RegisterDefaultCodecs());
     output_freq_2_ = output_freq_2;

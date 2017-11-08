@@ -244,8 +244,7 @@ int32_t UlpfecReceiverImpl::ProcessReceivedFec() {
     // header, OnRecoveredPacket will recurse back here.
     recovered_packet->returned = true;
     crit_sect_.Leave();
-    recovered_packet_callback_->OnRecoveredPacket(packet->data,
-                                                  packet->length);
+    recovered_packet_callback_->OnRecoveredPacket(packet->data, packet->length);
     crit_sect_.Enter();
   }
   crit_sect_.Leave();

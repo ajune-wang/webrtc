@@ -8,7 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-
 #include <algorithm>  // std::max
 
 #include "common_types.h"  // NOLINT(build/include)
@@ -330,8 +329,7 @@ int32_t VideoSender::AddVideoFrame(const VideoFrame& videoFrame,
       LOG(LS_ERROR) << "Frame conversion failed, dropping frame.";
       return VCM_PARAMETER_ERROR;
     }
-    converted_frame = VideoFrame(converted_buffer,
-                                 converted_frame.timestamp(),
+    converted_frame = VideoFrame(converted_buffer, converted_frame.timestamp(),
                                  converted_frame.render_time_ms(),
                                  converted_frame.rotation());
   }

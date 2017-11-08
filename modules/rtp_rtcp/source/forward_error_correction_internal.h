@@ -67,8 +67,10 @@ class PacketMaskTable {
 // \param[out] packet_mask             A pointer to hold the packet mask array,
 //                                     of size: num_fec_packets *
 //                                     "number of mask bytes".
-void GeneratePacketMasks(int num_media_packets, int num_fec_packets,
-                         int num_imp_packets, bool use_unequal_protection,
+void GeneratePacketMasks(int num_media_packets,
+                         int num_fec_packets,
+                         int num_imp_packets,
+                         bool use_unequal_protection,
                          const PacketMaskTable& mask_table,
                          uint8_t* packet_mask);
 

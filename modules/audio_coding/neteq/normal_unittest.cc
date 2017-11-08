@@ -39,7 +39,7 @@ int ExpandProcess120ms(AudioMultiVector* output) {
   return 0;
 }
 
-} // namespace
+}  // namespace
 
 TEST(Normal, CreateAndDestroy) {
   MockDecoderDatabase db;
@@ -75,9 +75,8 @@ TEST(Normal, AvoidDivideByZero) {
   AudioMultiVector output(channels);
 
   // Zero input length.
-  EXPECT_EQ(
-      0,
-      normal.Process(input, 0, kModeExpand, mute_factor_array.get(), &output));
+  EXPECT_EQ(0, normal.Process(input, 0, kModeExpand, mute_factor_array.get(),
+                              &output));
   EXPECT_EQ(0u, output.Size());
 
   // Try to make energy_length >> scaling = 0;
@@ -90,11 +89,8 @@ TEST(Normal, AvoidDivideByZero) {
   // and using this as a denominator would lead to problems.
   int input_size_samples = 63;
   EXPECT_EQ(input_size_samples,
-            normal.Process(input,
-                           input_size_samples,
-                           kModeExpand,
-                           mute_factor_array.get(),
-                           &output));
+            normal.Process(input, input_size_samples, kModeExpand,
+                           mute_factor_array.get(), &output));
 
   EXPECT_CALL(db, Die());      // Called when |db| goes out of scope.
   EXPECT_CALL(expand, Die());  // Called when |expand| goes out of scope.
@@ -122,10 +118,8 @@ TEST(Normal, InputLengthAndChannelsDoNotMatch) {
 
   // Let the number of samples be one sample less than 80 samples per channel.
   size_t input_len = 80 * channels - 1;
-  EXPECT_EQ(
-      0,
-      normal.Process(
-          input, input_len, kModeExpand, mute_factor_array.get(), &output));
+  EXPECT_EQ(0, normal.Process(input, input_len, kModeExpand,
+                              mute_factor_array.get(), &output));
   EXPECT_EQ(0u, output.Size());
 
   EXPECT_CALL(db, Die());      // Called when |db| goes out of scope.
@@ -159,11 +153,8 @@ TEST(Normal, LastModeExpand120msPacket) {
   EXPECT_CALL(expand, Process(_)).WillOnce(Invoke(ExpandProcess120ms));
   EXPECT_CALL(expand, Reset());
   EXPECT_EQ(static_cast<int>(kPacketsizeBytes),
-            normal.Process(input,
-                           kPacketsizeBytes,
-                           kModeExpand,
-                           mute_factor_array.get(),
-                           &output));
+            normal.Process(input, kPacketsizeBytes, kModeExpand,
+                           mute_factor_array.get(), &output));
 
   EXPECT_EQ(kPacketsizeBytes, output.Size());
 

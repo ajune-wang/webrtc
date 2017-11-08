@@ -227,12 +227,12 @@ void EchoRemoverImpl::ProcessCapture(
   data_dumper_->DumpRaw("aec3_active_render", aec_state_.ActiveRender());
   data_dumper_->DumpRaw("aec3_usable_linear_estimate",
                         aec_state_.UsableLinearEstimate());
-  data_dumper_->DumpRaw(
-      "aec3_filter_delay",
-      aec_state_.FilterDelay() ? *aec_state_.FilterDelay() : -1);
-  data_dumper_->DumpRaw(
-      "aec3_external_delay",
-      aec_state_.ExternalDelay() ? *aec_state_.ExternalDelay() : -1);
+  data_dumper_->DumpRaw("aec3_filter_delay", aec_state_.FilterDelay()
+                                                 ? *aec_state_.FilterDelay()
+                                                 : -1);
+  data_dumper_->DumpRaw("aec3_external_delay", aec_state_.ExternalDelay()
+                                                   ? *aec_state_.ExternalDelay()
+                                                   : -1);
   data_dumper_->DumpRaw("aec3_capture_saturation",
                         aec_state_.SaturatedCapture() ? 1 : 0);
 }

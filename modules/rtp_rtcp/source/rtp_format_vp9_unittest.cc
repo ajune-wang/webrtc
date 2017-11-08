@@ -127,9 +127,7 @@ class RtpPacketizerVp9Test : public ::testing::Test {
   static constexpr size_t kMaxPacketSize = 1200;
 
   RtpPacketizerVp9Test() : packet_(kNoExtensions, kMaxPacketSize) {}
-  virtual void SetUp() {
-    expected_.InitRTPVideoHeaderVP9();
-  }
+  virtual void SetUp() { expected_.InitRTPVideoHeaderVP9(); }
 
   RtpPacketToSend packet_;
   std::unique_ptr<uint8_t[]> payload_;
@@ -225,7 +223,7 @@ TEST_F(RtpPacketizerVp9Test, TestOneBytePictureId) {
   const size_t kFrameSize = 30;
   const size_t kPacketSize = 12;
 
-  expected_.picture_id = kMaxOneBytePictureId;   // 2 byte payload descriptor
+  expected_.picture_id = kMaxOneBytePictureId;  // 2 byte payload descriptor
   expected_.max_picture_id = kMaxOneBytePictureId;
   Init(kFrameSize, kPacketSize);
 
@@ -581,12 +579,9 @@ TEST_F(RtpPacketizerVp9Test, TestRespectsLastPacketReductionLen) {
 
 class RtpDepacketizerVp9Test : public ::testing::Test {
  protected:
-  RtpDepacketizerVp9Test()
-      : depacketizer_(new RtpDepacketizerVp9()) {}
+  RtpDepacketizerVp9Test() : depacketizer_(new RtpDepacketizerVp9()) {}
 
-  virtual void SetUp() {
-    expected_.InitRTPVideoHeaderVP9();
-  }
+  virtual void SetUp() { expected_.InitRTPVideoHeaderVP9(); }
 
   RTPVideoHeaderVP9 expected_;
   std::unique_ptr<RtpDepacketizer> depacketizer_;
@@ -704,8 +699,8 @@ TEST_F(RtpDepacketizerVp9Test, ParseRefIdx) {
 TEST_F(RtpDepacketizerVp9Test, ParseRefIdxFailsWithNoPictureId) {
   const uint8_t kPdiff = 3;
   uint8_t packet[13] = {0};
-  packet[0] = 0x58;            // I:0 P:1 L:0 F:1 B:1 E:0 V:0 R:0
-  packet[1] = (kPdiff << 1);   // P,F:  P_DIFF:3 N:0
+  packet[0] = 0x58;           // I:0 P:1 L:0 F:1 B:1 E:0 V:0 R:0
+  packet[1] = (kPdiff << 1);  // P,F:  P_DIFF:3 N:0
 
   RtpDepacketizer::ParsedPayload parsed;
   EXPECT_FALSE(depacketizer_->Parse(&parsed, packet, sizeof(packet)));
@@ -777,7 +772,7 @@ TEST_F(RtpDepacketizerVp9Test, ParseResolution) {
   const uint16_t kWidth[2] = {640, 1280};
   const uint16_t kHeight[2] = {360, 720};
   uint8_t packet[20] = {0};
-  packet[0] = 0x0A;  // I:0 P:0 L:0 F:0 B:1 E:0 V:1 R:0
+  packet[0] = 0x0A;                     // I:0 P:0 L:0 F:0 B:1 E:0 V:1 R:0
   packet[1] = (1 << 5) | (1 << 4) | 0;  // N_S:1 Y:1 G:0
   packet[2] = kWidth[0] >> 8;
   packet[3] = kWidth[0] & 0xFF;

@@ -16,11 +16,11 @@
 #include "rtc_base/win32.h"  // NOLINT
 
 #include <openssl/bio.h>
+#include <openssl/bn.h>
+#include <openssl/crypto.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
-#include <openssl/bn.h>
 #include <openssl/rsa.h>
-#include <openssl/crypto.h>
 
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
@@ -143,7 +143,7 @@ static X509* MakeCertificate(EVP_PKEY* pkey, const SSLIdentityParams& params) {
   LOG(LS_INFO) << "Returning certificate";
   return x509;
 
- error:
+error:
   BN_free(serial_number);
   X509_NAME_free(name);
   X509_free(x509);
@@ -217,8 +217,8 @@ std::string OpenSSLKeyPair::PrivateKeyToPEMString() const {
     RTC_NOTREACHED();
     return "";
   }
-  if (!PEM_write_bio_PrivateKey(
-      temp_memory_bio, pkey_, nullptr, nullptr, 0, nullptr, nullptr)) {
+  if (!PEM_write_bio_PrivateKey(temp_memory_bio, pkey_, nullptr, nullptr, 0,
+                                nullptr, nullptr)) {
     LOG_F(LS_ERROR) << "Failed to write private key";
     BIO_free(temp_memory_bio);
     RTC_NOTREACHED();
@@ -279,7 +279,8 @@ static void PrintCert(X509* x509) {
 #endif
 
 OpenSSLCertificate* OpenSSLCertificate::Generate(
-    OpenSSLKeyPair* key_pair, const SSLIdentityParams& params) {
+    OpenSSLKeyPair* key_pair,
+    const SSLIdentityParams& params) {
   SSLIdentityParams actual_params(params);
   if (actual_params.common_name.empty()) {
     // Use a random string, arbitrarily 8chars long.
@@ -516,9 +517,8 @@ OpenSSLIdentity* OpenSSLIdentity::GenerateForTest(
   return GenerateInternal(params);
 }
 
-SSLIdentity* OpenSSLIdentity::FromPEMStrings(
-    const std::string& private_key,
-    const std::string& certificate) {
+SSLIdentity* OpenSSLIdentity::FromPEMStrings(const std::string& private_key,
+                                             const std::string& certificate) {
   std::unique_ptr<OpenSSLCertificate> cert(
       OpenSSLCertificate::FromPEMString(certificate));
   if (!cert) {
@@ -533,8 +533,7 @@ SSLIdentity* OpenSSLIdentity::FromPEMStrings(
     return nullptr;
   }
 
-  return new OpenSSLIdentity(key_pair,
-                             cert.release());
+  return new OpenSSLIdentity(key_pair, cert.release());
 }
 
 const OpenSSLCertificate& OpenSSLIdentity::certificate() const {
@@ -549,7 +548,7 @@ OpenSSLIdentity* OpenSSLIdentity::GetReference() const {
 bool OpenSSLIdentity::ConfigureIdentity(SSL_CTX* ctx) {
   // 1 is the documented success return code.
   if (SSL_CTX_use_certificate(ctx, certificate_->x509()) != 1 ||
-     SSL_CTX_use_PrivateKey(ctx, key_pair_->pkey()) != 1) {
+      SSL_CTX_use_PrivateKey(ctx, key_pair_->pkey()) != 1) {
     LogSSLErrors("Configuring key and certificate");
     return false;
   }

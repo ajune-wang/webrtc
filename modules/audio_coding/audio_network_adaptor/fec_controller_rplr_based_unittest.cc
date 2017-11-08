@@ -221,11 +221,11 @@ TEST(FecControllerRplrBasedTest, EnableFecForMediumBandwidth) {
   auto controller = CreateFecControllerRplrBased(false);
   constexpr float kRecoverablePacketLoss =
       (kEnablingRecoverablePacketLossAtLowBw +
-       kEnablingRecoverablePacketLossAtHighBw) / 2.0;
-  UpdateNetworkMetrics(
-      controller.get(),
-      (kEnablingBandwidthHigh + kEnablingBandwidthLow) / 2,
-      kRecoverablePacketLoss);
+       kEnablingRecoverablePacketLossAtHighBw) /
+      2.0;
+  UpdateNetworkMetrics(controller.get(),
+                       (kEnablingBandwidthHigh + kEnablingBandwidthLow) / 2,
+                       kRecoverablePacketLoss);
   CheckDecision(controller.get(), true, kRecoverablePacketLoss);
 }
 
@@ -286,11 +286,12 @@ TEST(FecControllerRplrBasedTest, DisableFecOnMediumBandwidth) {
   auto controller = CreateFecControllerRplrBased(true);
   constexpr float kRecoverablePacketLoss =
       ((kDisablingRecoverablePacketLossAtLowBw +
-        kDisablingRecoverablePacketLossAtHighBw) / 2.0f) - kEpsilon;
-  UpdateNetworkMetrics(
-      controller.get(),
-      (kDisablingBandwidthHigh + kDisablingBandwidthLow) / 2,
-      kRecoverablePacketLoss);
+        kDisablingRecoverablePacketLossAtHighBw) /
+       2.0f) -
+      kEpsilon;
+  UpdateNetworkMetrics(controller.get(),
+                       (kDisablingBandwidthHigh + kDisablingBandwidthLow) / 2,
+                       kRecoverablePacketLoss);
   CheckDecision(controller.get(), false, kRecoverablePacketLoss);
 }
 

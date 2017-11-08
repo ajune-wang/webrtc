@@ -47,7 +47,8 @@ class DirectTransport : public Transport {
                   std::unique_ptr<Demuxer> demuxer);
 
   DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
-                  std::unique_ptr<FakeNetworkPipe> pipe, Call* send_call);
+                  std::unique_ptr<FakeNetworkPipe> pipe,
+                  Call* send_call);
 
   ~DirectTransport() override;
 

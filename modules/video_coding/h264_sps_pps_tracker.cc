@@ -66,8 +66,8 @@ H264SpsPpsTracker::PacketAction H264SpsPpsTracker::CopyAndFixBitstream(
 
           pps = pps_data_.find(nalu.pps_id);
           if (pps == pps_data_.end()) {
-            LOG(LS_WARNING) << "No PPS with id << " << nalu.pps_id
-                            << " received";
+            LOG(LS_WARNING)
+                << "No PPS with id << " << nalu.pps_id << " received";
             return kRequestKeyframe;
           }
 

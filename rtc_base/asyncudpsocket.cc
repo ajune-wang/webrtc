@@ -16,9 +16,8 @@ namespace rtc {
 
 static const int BUF_SIZE = 64 * 1024;
 
-AsyncUDPSocket* AsyncUDPSocket::Create(
-    AsyncSocket* socket,
-    const SocketAddress& bind_address) {
+AsyncUDPSocket* AsyncUDPSocket::Create(AsyncSocket* socket,
+                                       const SocketAddress& bind_address) {
   std::unique_ptr<AsyncSocket> owned_socket(socket);
   if (socket->Bind(bind_address) < 0) {
     LOG(LS_ERROR) << "Bind() failed with error " << socket->GetError();
@@ -36,8 +35,7 @@ AsyncUDPSocket* AsyncUDPSocket::Create(SocketFactory* factory,
   return Create(socket, bind_address);
 }
 
-AsyncUDPSocket::AsyncUDPSocket(AsyncSocket* socket)
-    : socket_(socket) {
+AsyncUDPSocket::AsyncUDPSocket(AsyncSocket* socket) : socket_(socket) {
   size_ = BUF_SIZE;
   buf_ = new char[size_];
 
@@ -47,7 +45,7 @@ AsyncUDPSocket::AsyncUDPSocket(AsyncSocket* socket)
 }
 
 AsyncUDPSocket::~AsyncUDPSocket() {
-  delete [] buf_;
+  delete[] buf_;
 }
 
 SocketAddress AsyncUDPSocket::GetLocalAddress() const {
@@ -58,7 +56,8 @@ SocketAddress AsyncUDPSocket::GetRemoteAddress() const {
   return socket_->GetRemoteAddress();
 }
 
-int AsyncUDPSocket::Send(const void *pv, size_t cb,
+int AsyncUDPSocket::Send(const void* pv,
+                         size_t cb,
                          const rtc::PacketOptions& options) {
   rtc::SentPacket sent_packet(options.packet_id, rtc::TimeMillis());
   int ret = socket_->Send(pv, cb);
@@ -66,7 +65,8 @@ int AsyncUDPSocket::Send(const void *pv, size_t cb,
   return ret;
 }
 
-int AsyncUDPSocket::SendTo(const void *pv, size_t cb,
+int AsyncUDPSocket::SendTo(const void* pv,
+                           size_t cb,
                            const SocketAddress& addr,
                            const rtc::PacketOptions& options) {
   rtc::SentPacket sent_packet(options.packet_id, rtc::TimeMillis());

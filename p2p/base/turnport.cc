@@ -95,7 +95,8 @@ class TurnRefreshRequest : public StunRequest {
 class TurnCreatePermissionRequest : public StunRequest,
                                     public sigslot::has_slots<> {
  public:
-  TurnCreatePermissionRequest(TurnPort* port, TurnEntry* entry,
+  TurnCreatePermissionRequest(TurnPort* port,
+                              TurnEntry* entry,
                               const rtc::SocketAddress& ext_addr);
   void Prepare(StunMessage* request) override;
   void OnSent() override;
@@ -111,10 +112,11 @@ class TurnCreatePermissionRequest : public StunRequest,
   rtc::SocketAddress ext_addr_;
 };
 
-class TurnChannelBindRequest : public StunRequest,
-                               public sigslot::has_slots<> {
+class TurnChannelBindRequest : public StunRequest, public sigslot::has_slots<> {
  public:
-  TurnChannelBindRequest(TurnPort* port, TurnEntry* entry, int channel_id,
+  TurnChannelBindRequest(TurnPort* port,
+                         TurnEntry* entry,
+                         int channel_id,
                          const rtc::SocketAddress& ext_addr);
   void Prepare(StunMessage* request) override;
   void OnSent() override;
@@ -136,8 +138,7 @@ class TurnChannelBindRequest : public StunRequest,
 class TurnEntry : public sigslot::has_slots<> {
  public:
   enum BindState { STATE_UNBOUND, STATE_BINDING, STATE_BOUND };
-  TurnEntry(TurnPort* port, int channel_id,
-            const rtc::SocketAddress& ext_addr);
+  TurnEntry(TurnPort* port, int channel_id, const rtc::SocketAddress& ext_addr);
 
   TurnPort* port() { return port_; }
 
@@ -163,7 +164,9 @@ class TurnEntry : public sigslot::has_slots<> {
   void SendChannelBindRequest(int delay);
   // Sends a packet to the given destination address.
   // This will wrap the packet in STUN if necessary.
-  int Send(const void* data, size_t size, bool payload,
+  int Send(const void* data,
+           size_t size,
+           bool payload,
            const rtc::PacketOptions& options);
 
   void OnCreatePermissionSuccess();
@@ -198,12 +201,7 @@ TurnPort::TurnPort(rtc::Thread* thread,
                    int server_priority,
                    const std::string& origin,
                    webrtc::TurnCustomizer* customizer)
-    : Port(thread,
-           RELAY_PORT_TYPE,
-           factory,
-           network,
-           username,
-           password),
+    : Port(thread, RELAY_PORT_TYPE, factory, network, username, password),
       server_address_(server_address),
       credentials_(credentials),
       socket_(socket),
@@ -305,8 +303,7 @@ std::vector<std::string> TurnPort::GetTlsEllipticCurves() const {
 }
 
 void TurnPort::PrepareAddress() {
-  if (credentials_.username.empty() ||
-      credentials_.password.empty()) {
+  if (credentials_.username.empty() || credentials_.password.empty()) {
     LOG(LS_ERROR) << "Allocation can't be started without setting the"
                   << " TURN server credentials for the user.";
     OnAllocateError();
@@ -477,9 +474,9 @@ void TurnPort::OnSocketClose(rtc::AsyncPacketSocket* socket, int error) {
 
 void TurnPort::OnAllocateMismatch() {
   if (allocate_mismatch_retries_ >= MAX_ALLOCATE_MISMATCH_RETRIES) {
-    LOG_J(LS_WARNING, this) << "Giving up on the port after "
-                            << allocate_mismatch_retries_
-                            << " retries for STUN_ERROR_ALLOCATION_MISMATCH";
+    LOG_J(LS_WARNING, this)
+        << "Giving up on the port after " << allocate_mismatch_retries_
+        << " retries for STUN_ERROR_ALLOCATION_MISMATCH";
     OnAllocateError();
     return;
   }
@@ -566,7 +563,8 @@ int TurnPort::GetError() {
   return error_;
 }
 
-int TurnPort::SendTo(const void* data, size_t size,
+int TurnPort::SendTo(const void* data,
+                     size_t size,
                      const rtc::SocketAddress& addr,
                      const rtc::PacketOptions& options,
                      bool payload) {
@@ -594,7 +592,8 @@ int TurnPort::SendTo(const void* data, size_t size,
 }
 
 bool TurnPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
-                                    const char* data, size_t size,
+                                    const char* data,
+                                    size_t size,
                                     const rtc::SocketAddress& remote_addr,
                                     const rtc::PacketTime& packet_time) {
   if (socket != socket_) {
@@ -607,10 +606,10 @@ bool TurnPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
   // alternative server redirection. TODO(guoweis): add a unit test for this
   // race condition.
   if (remote_addr != server_address_.address) {
-    LOG_J(LS_WARNING, this) << "Discarding TURN message from unknown address:"
-                            << remote_addr.ToString()
-                            << ", server_address_:"
-                            << server_address_.address.ToString();
+    LOG_J(LS_WARNING, this)
+        << "Discarding TURN message from unknown address:"
+        << remote_addr.ToString()
+        << ", server_address_:" << server_address_.address.ToString();
     return false;
   }
 
@@ -633,7 +632,6 @@ bool TurnPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
   if (IsTurnChannelData(msg_type)) {
     HandleChannelData(msg_type, data, size, packet_time);
     return true;
-
   }
 
   if (msg_type == TURN_DATA_INDICATION) {
@@ -643,8 +641,8 @@ bool TurnPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
 
   if (SharedSocket() && (msg_type == STUN_BINDING_RESPONSE ||
                          msg_type == STUN_BINDING_ERROR_RESPONSE)) {
-    LOG_J(LS_VERBOSE, this) <<
-        "Ignoring STUN binding response message on shared socket.";
+    LOG_J(LS_VERBOSE, this)
+        << "Ignoring STUN binding response message on shared socket.";
     return false;
   }
 
@@ -690,8 +688,7 @@ bool TurnPort::SetAlternateServer(const rtc::SocketAddress& address) {
   // Check if we have seen this address before and reject if we did.
   AttemptedServerSet::iterator iter = attempted_server_addresses_.find(address);
   if (iter != attempted_server_addresses_.end()) {
-    LOG_J(LS_WARNING, this) << "Redirection to ["
-                            << address.ToSensitiveString()
+    LOG_J(LS_WARNING, this) << "Redirection to [" << address.ToSensitiveString()
                             << "] ignored, allocation failed.";
     return false;
   }
@@ -713,8 +710,7 @@ bool TurnPort::SetAlternateServer(const rtc::SocketAddress& address) {
 
   LOG_J(LS_INFO, this) << "Redirecting from TURN server ["
                        << server_address_.address.ToSensitiveString()
-                       << "] to TURN server ["
-                       << address.ToSensitiveString()
+                       << "] to TURN server [" << address.ToSensitiveString()
                        << "]";
   server_address_ = ProtocolAddress(address, server_address_.proto);
 
@@ -754,21 +750,21 @@ void TurnPort::OnResolveResult(rtc::AsyncResolverInterface* resolver) {
   if (resolver_->GetError() != 0 ||
       !resolver_->GetResolvedAddress(Network()->GetBestIP().family(),
                                      &resolved_address)) {
-    LOG_J(LS_WARNING, this) << "TURN host lookup received error "
-                            << resolver_->GetError();
+    LOG_J(LS_WARNING, this)
+        << "TURN host lookup received error " << resolver_->GetError();
     error_ = resolver_->GetError();
     OnAllocateError();
     return;
   }
   // Signal needs both resolved and unresolved address. After signal is sent
   // we can copy resolved address back into |server_address_|.
-  SignalResolvedServerAddress(this, server_address_.address,
-                              resolved_address);
+  SignalResolvedServerAddress(this, server_address_.address, resolved_address);
   server_address_.address = resolved_address;
   PrepareAddress();
 }
 
-void TurnPort::OnSendStunPacket(const void* data, size_t size,
+void TurnPort::OnSendStunPacket(const void* data,
+                                size_t size,
                                 StunRequest* request) {
   RTC_DCHECK(connected());
   rtc::PacketOptions options(DefaultDscpValue());
@@ -878,7 +874,8 @@ void TurnPort::OnAllocateRequestTimeout() {
   OnAllocateError();
 }
 
-void TurnPort::HandleDataIndication(const char* data, size_t size,
+void TurnPort::HandleDataIndication(const char* data,
+                                    size_t size,
                                     const rtc::PacketTime& packet_time) {
   // Read in the message, and process according to RFC5766, Section 10.4.
   rtc::ByteBufferReader buf(data, size);
@@ -897,8 +894,7 @@ void TurnPort::HandleDataIndication(const char* data, size_t size,
     return;
   }
 
-  const StunByteStringAttribute* data_attr =
-      msg.GetByteString(STUN_ATTR_DATA);
+  const StunByteStringAttribute* data_attr = msg.GetByteString(STUN_ATTR_DATA);
   if (!data_attr) {
     LOG_J(LS_WARNING, this) << "Missing STUN_ATTR_DATA attribute in "
                             << "data indication.";
@@ -914,11 +910,12 @@ void TurnPort::HandleDataIndication(const char* data, size_t size,
         << "peer address, addr=" << ext_addr.ToSensitiveString();
   }
 
-  DispatchPacket(data_attr->bytes(), data_attr->length(), ext_addr,
-                 PROTO_UDP, packet_time);
+  DispatchPacket(data_attr->bytes(), data_attr->length(), ext_addr, PROTO_UDP,
+                 packet_time);
 }
 
-void TurnPort::HandleChannelData(int channel_id, const char* data,
+void TurnPort::HandleChannelData(int channel_id,
+                                 const char* data,
                                  size_t size,
                                  const rtc::PacketTime& packet_time) {
   // Read the message, and process according to RFC5766, Section 11.6.
@@ -955,9 +952,11 @@ void TurnPort::HandleChannelData(int channel_id, const char* data,
                  PROTO_UDP, packet_time);
 }
 
-void TurnPort::DispatchPacket(const char* data, size_t size,
-    const rtc::SocketAddress& remote_addr,
-    ProtocolType proto, const rtc::PacketTime& packet_time) {
+void TurnPort::DispatchPacket(const char* data,
+                              size_t size,
+                              const rtc::SocketAddress& remote_addr,
+                              ProtocolType proto,
+                              const rtc::PacketTime& packet_time) {
   if (Connection* conn = GetConnection(remote_addr)) {
     conn->OnReadPacket(data, size, packet_time);
   } else {
@@ -996,7 +995,8 @@ void TurnPort::AddRequestAuthInfo(StunMessage* msg) {
   RTC_DCHECK(success);
 }
 
-int TurnPort::Send(const void* data, size_t len,
+int TurnPort::Send(const void* data,
+                   size_t len,
                    const rtc::PacketOptions& options) {
   return socket_->SendTo(data, len, server_address_.address, options);
 }
@@ -1042,15 +1042,17 @@ static bool MatchesIP(TurnEntry* e, rtc::IPAddress ipaddr) {
 }
 bool TurnPort::HasPermission(const rtc::IPAddress& ipaddr) const {
   return (std::find_if(entries_.begin(), entries_.end(),
-      std::bind2nd(std::ptr_fun(MatchesIP), ipaddr)) != entries_.end());
+                       std::bind2nd(std::ptr_fun(MatchesIP), ipaddr)) !=
+          entries_.end());
 }
 
 static bool MatchesAddress(TurnEntry* e, rtc::SocketAddress addr) {
   return e->address() == addr;
 }
 TurnEntry* TurnPort::FindEntry(const rtc::SocketAddress& addr) const {
-  EntryList::const_iterator it = std::find_if(entries_.begin(), entries_.end(),
-      std::bind2nd(std::ptr_fun(MatchesAddress), addr));
+  EntryList::const_iterator it =
+      std::find_if(entries_.begin(), entries_.end(),
+                   std::bind2nd(std::ptr_fun(MatchesAddress), addr));
   return (it != entries_.end()) ? *it : NULL;
 }
 
@@ -1058,8 +1060,9 @@ static bool MatchesChannelId(TurnEntry* e, int id) {
   return e->channel_id() == id;
 }
 TurnEntry* TurnPort::FindEntry(int channel_id) const {
-  EntryList::const_iterator it = std::find_if(entries_.begin(), entries_.end(),
-      std::bind2nd(std::ptr_fun(MatchesChannelId), channel_id));
+  EntryList::const_iterator it =
+      std::find_if(entries_.begin(), entries_.end(),
+                   std::bind2nd(std::ptr_fun(MatchesChannelId), channel_id));
   return (it != entries_.end()) ? *it : NULL;
 }
 
@@ -1179,8 +1182,9 @@ void TurnPort::TurnCustomizerMaybeModifyOutgoingStunMessage(
   turn_customizer_->MaybeModifyOutgoingStunMessage(this, message);
 }
 
-bool TurnPort::TurnCustomizerAllowChannelData(
-    const void* data, size_t size, bool payload) {
+bool TurnPort::TurnCustomizerAllowChannelData(const void* data,
+                                              size_t size,
+                                              bool payload) {
   if (turn_customizer_ == nullptr) {
     return true;
   }
@@ -1189,9 +1193,7 @@ bool TurnPort::TurnCustomizerAllowChannelData(
 }
 
 TurnAllocateRequest::TurnAllocateRequest(TurnPort* port)
-    : StunRequest(new TurnMessage()),
-      port_(port) {
-}
+    : StunRequest(new TurnMessage()), port_(port) {}
 
 void TurnAllocateRequest::Prepare(StunMessage* request) {
   // Create the request as indicated in RFC 5766, Section 6.1.
@@ -1259,7 +1261,7 @@ void TurnAllocateRequest::OnErrorResponse(StunMessage* response) {
                         << ", code=" << error_code << ", rtt=" << Elapsed();
 
   switch (error_code) {
-    case STUN_ERROR_UNAUTHORIZED:       // Unauthrorized.
+    case STUN_ERROR_UNAUTHORIZED:  // Unauthrorized.
       OnAuthChallenge(response, error_code);
       break;
     case STUN_ERROR_TRY_ALTERNATE:
@@ -1281,8 +1283,8 @@ void TurnAllocateRequest::OnErrorResponse(StunMessage* response) {
 }
 
 void TurnAllocateRequest::OnTimeout() {
-  LOG_J(LS_WARNING, port_) << "TURN allocate request "
-                           << rtc::hex_encode(id()) << " timeout";
+  LOG_J(LS_WARNING, port_) << "TURN allocate request " << rtc::hex_encode(id())
+                           << " timeout";
   port_->OnAllocateRequestTimeout();
 }
 
@@ -1319,7 +1321,6 @@ void TurnAllocateRequest::OnAuthChallenge(StunMessage* response, int code) {
 }
 
 void TurnAllocateRequest::OnTryAlternate(StunMessage* response, int code) {
-
   // According to RFC 5389 section 11, there are use cases where
   // authentication of response is not possible, we're not validating
   // message integrity.
@@ -1363,10 +1364,7 @@ void TurnAllocateRequest::OnTryAlternate(StunMessage* response, int code) {
 }
 
 TurnRefreshRequest::TurnRefreshRequest(TurnPort* port)
-    : StunRequest(new TurnMessage()),
-      port_(port),
-      lifetime_(-1) {
-}
+    : StunRequest(new TurnMessage()), port_(port), lifetime_(-1) {}
 
 void TurnRefreshRequest::Prepare(StunMessage* request) {
   // Create the request as indicated in RFC 5766, Section 7.1.
@@ -1431,7 +1429,8 @@ void TurnRefreshRequest::OnTimeout() {
 }
 
 TurnCreatePermissionRequest::TurnCreatePermissionRequest(
-    TurnPort* port, TurnEntry* entry,
+    TurnPort* port,
+    TurnEntry* entry,
     const rtc::SocketAddress& ext_addr)
     : StunRequest(new TurnMessage()),
       port_(port),
@@ -1491,15 +1490,17 @@ void TurnCreatePermissionRequest::OnEntryDestroyed(TurnEntry* entry) {
 }
 
 TurnChannelBindRequest::TurnChannelBindRequest(
-    TurnPort* port, TurnEntry* entry,
-    int channel_id, const rtc::SocketAddress& ext_addr)
+    TurnPort* port,
+    TurnEntry* entry,
+    int channel_id,
+    const rtc::SocketAddress& ext_addr)
     : StunRequest(new TurnMessage()),
       port_(port),
       entry_(entry),
       channel_id_(channel_id),
       ext_addr_(ext_addr) {
-  entry_->SignalDestroyed.connect(
-      this, &TurnChannelBindRequest::OnEntryDestroyed);
+  entry_->SignalDestroyed.connect(this,
+                                  &TurnChannelBindRequest::OnEntryDestroyed);
 }
 
 void TurnChannelBindRequest::Prepare(StunMessage* request) {
@@ -1560,7 +1561,8 @@ void TurnChannelBindRequest::OnEntryDestroyed(TurnEntry* entry) {
   entry_ = NULL;
 }
 
-TurnEntry::TurnEntry(TurnPort* port, int channel_id,
+TurnEntry::TurnEntry(TurnPort* port,
+                     int channel_id,
                      const rtc::SocketAddress& ext_addr)
     : port_(port),
       channel_id_(channel_id),
@@ -1576,11 +1578,13 @@ void TurnEntry::SendCreatePermissionRequest(int delay) {
 }
 
 void TurnEntry::SendChannelBindRequest(int delay) {
-  port_->SendRequest(new TurnChannelBindRequest(
-      port_, this, channel_id_, ext_addr_), delay);
+  port_->SendRequest(
+      new TurnChannelBindRequest(port_, this, channel_id_, ext_addr_), delay);
 }
 
-int TurnEntry::Send(const void* data, size_t size, bool payload,
+int TurnEntry::Send(const void* data,
+                    size_t size,
+                    bool payload,
                     const rtc::PacketOptions& options) {
   rtc::ByteBufferWriter buf;
   if (state_ != STATE_BOUND ||
@@ -1589,8 +1593,7 @@ int TurnEntry::Send(const void* data, size_t size, bool payload,
     // The turn_customizer_ can also make us use Send Indication.
     TurnMessage msg;
     msg.SetType(TURN_SEND_INDICATION);
-    msg.SetTransactionID(
-        rtc::CreateRandomString(kStunTransactionIdLength));
+    msg.SetTransactionID(rtc::CreateRandomString(kStunTransactionIdLength));
     msg.AddAttribute(rtc::MakeUnique<StunXorAddressAttribute>(
         STUN_ATTR_XOR_PEER_ADDRESS, ext_addr_));
     msg.AddAttribute(
@@ -1617,8 +1620,7 @@ int TurnEntry::Send(const void* data, size_t size, bool payload,
 
 void TurnEntry::OnCreatePermissionSuccess() {
   LOG_J(LS_INFO, port_) << "Create permission for "
-                        << ext_addr_.ToSensitiveString()
-                        << " succeeded";
+                        << ext_addr_.ToSensitiveString() << " succeeded";
   port_->SignalCreatePermissionResult(port_, ext_addr_,
                                       TURN_SUCCESS_RESULT_CODE);
 
@@ -1629,8 +1631,8 @@ void TurnEntry::OnCreatePermissionSuccess() {
     // times out.
     int delay = TURN_PERMISSION_TIMEOUT - 60000;
     SendCreatePermissionRequest(delay);
-    LOG_J(LS_INFO, port_) << "Scheduled create-permission-request in "
-                          << delay << "ms.";
+    LOG_J(LS_INFO, port_) << "Scheduled create-permission-request in " << delay
+                          << "ms.";
   }
 }
 

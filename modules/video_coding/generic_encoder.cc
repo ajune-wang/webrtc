@@ -1,12 +1,12 @@
 /*
-*  Copyright (c) 2012 The WebRTC project authors. All Rights Reserved.
-*
-*  Use of this source code is governed by a BSD-style license
-*  that can be found in the LICENSE file in the root of the source
-*  tree. An additional intellectual property rights grant can be found
-*  in the file PATENTS.  All contributing project authors may
-*  be found in the AUTHORS file in the root of the source tree.
-*/
+ *  Copyright (c) 2012 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
 
 #include "modules/video_coding/generic_encoder.h"
 
@@ -152,9 +152,9 @@ int32_t VCMGenericEncoder::RequestFrame(
   // VideoSendStreamTest.VideoSendStreamStopSetEncoderRateToZero, set
   // internal_source to true and use FakeEncoder. And the latter will
   // happily encode this 1x1 frame and pass it on down the pipeline.
-  return encoder_->Encode(VideoFrame(I420Buffer::Create(1, 1),
-                                     kVideoRotation_0, 0),
-                          NULL, &frame_types);
+  return encoder_->Encode(
+      VideoFrame(I420Buffer::Create(1, 1), kVideoRotation_0, 0), NULL,
+      &frame_types);
   return 0;
 }
 

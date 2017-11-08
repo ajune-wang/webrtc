@@ -17,8 +17,7 @@
 namespace webrtc {
 namespace test {
 
-PacketReader::PacketReader()
-    : initialized_(false) {}
+PacketReader::PacketReader() : initialized_(false) {}
 
 PacketReader::~PacketReader() {}
 

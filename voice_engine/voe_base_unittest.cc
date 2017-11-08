@@ -21,8 +21,7 @@ namespace webrtc {
 class VoEBaseTest : public ::testing::Test {
  protected:
   VoEBaseTest()
-      : voe_(VoiceEngine::Create()),
-        base_(VoEBase::GetInterface(voe_)) {
+      : voe_(VoiceEngine::Create()), base_(VoEBase::GetInterface(voe_)) {
     EXPECT_NE(nullptr, base_);
     apm_ = new rtc::RefCountedObject<test::MockAudioProcessing>();
   }

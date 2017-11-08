@@ -137,9 +137,7 @@ DEFINE_int(aecm_routing_mode,
 DEFINE_int(aecm_comfort_noise,
            kParameterNotSpecifiedValue,
            "Activate (1) or deactivate(0) the AECM comfort noise");
-DEFINE_int(agc_mode,
-           kParameterNotSpecifiedValue,
-           "Specify the AGC mode (0-2)");
+DEFINE_int(agc_mode, kParameterNotSpecifiedValue, "Specify the AGC mode (0-2)");
 DEFINE_int(agc_target_level,
            kParameterNotSpecifiedValue,
            "Specify the AGC target level (0-31)");
@@ -153,9 +151,7 @@ DEFINE_float(agc2_fixed_gain_db, 0.f, "AGC2 fixed gain (dB) to apply");
 DEFINE_int(vad_likelihood,
            kParameterNotSpecifiedValue,
            "Specify the VAD likelihood (0-3)");
-DEFINE_int(ns_level,
-           kParameterNotSpecifiedValue,
-           "Specify the NS level (0-3)");
+DEFINE_int(ns_level, kParameterNotSpecifiedValue, "Specify the NS level (0-3)");
 DEFINE_int(stream_delay,
            kParameterNotSpecifiedValue,
            "Specify the stream delay in ms to use");
@@ -461,8 +457,8 @@ void PerformBasicParameterSanityChecks(const SimulationSettings& settings) {
 }  // namespace
 
 int main(int argc, char* argv[]) {
-  if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true) ||
-      FLAG_help || argc != 1) {
+  if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true) || FLAG_help ||
+      argc != 1) {
     printf("%s", kUsageDescription);
     if (FLAG_help) {
       rtc::FlagList::Print(nullptr, false);

@@ -21,8 +21,7 @@
 namespace cricket {
 
 TransportDescriptionFactory::TransportDescriptionFactory()
-    : secure_(SEC_DISABLED) {
-}
+    : secure_(SEC_DISABLED) {}
 
 TransportDescriptionFactory::~TransportDescriptionFactory() = default;
 
@@ -63,8 +62,8 @@ TransportDescription* TransportDescriptionFactory::CreateAnswer(
     const TransportDescription* current_description) const {
   // TODO(juberti): Figure out why we get NULL offers, and fix this upstream.
   if (!offer) {
-    LOG(LS_WARNING) << "Failed to create TransportDescription answer " <<
-        "because offer is NULL";
+    LOG(LS_WARNING) << "Failed to create TransportDescription answer "
+                    << "because offer is NULL";
     return NULL;
   }
 
@@ -89,8 +88,9 @@ TransportDescription* TransportDescriptionFactory::CreateAnswer(
     if (secure_ == SEC_ENABLED || secure_ == SEC_REQUIRED) {
       // Fail if we can't create the fingerprint.
       // Setting DTLS role to active.
-      ConnectionRole role = (options.prefer_passive_role) ?
-          CONNECTIONROLE_PASSIVE : CONNECTIONROLE_ACTIVE;
+      ConnectionRole role = (options.prefer_passive_role)
+                                ? CONNECTIONROLE_PASSIVE
+                                : CONNECTIONROLE_ACTIVE;
 
       if (!SetSecurityInfo(desc.get(), role)) {
         return NULL;
@@ -106,8 +106,8 @@ TransportDescription* TransportDescriptionFactory::CreateAnswer(
   return desc.release();
 }
 
-bool TransportDescriptionFactory::SetSecurityInfo(
-    TransportDescription* desc, ConnectionRole role) const {
+bool TransportDescriptionFactory::SetSecurityInfo(TransportDescription* desc,
+                                                  ConnectionRole role) const {
   if (!certificate_) {
     LOG(LS_ERROR) << "Cannot create identity digest with no certificate";
     return false;

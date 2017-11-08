@@ -26,7 +26,7 @@
 namespace webrtc {
 class MetricsObserverInterface;
 class TurnCustomizer;
-}
+}  // namespace webrtc
 
 namespace cricket {
 
@@ -259,8 +259,8 @@ class PortAllocatorSession : public sigslot::has_slots<> {
   // ready(pairable).
   sigslot::signal2<PortAllocatorSession*, const std::vector<PortInterface*>&>
       SignalPortsPruned;
-  sigslot::signal2<PortAllocatorSession*,
-                   const std::vector<Candidate>&> SignalCandidatesReady;
+  sigslot::signal2<PortAllocatorSession*, const std::vector<Candidate>&>
+      SignalCandidatesReady;
   // Candidates should be signaled to be removed when the port that generated
   // the candidates is removed.
   sigslot::signal2<PortAllocatorSession*, const std::vector<Candidate>&>
@@ -444,9 +444,7 @@ class PortAllocator : public sigslot::has_slots<> {
   }
 
   uint32_t candidate_filter() { return candidate_filter_; }
-  void set_candidate_filter(uint32_t filter) {
-    candidate_filter_ = filter;
-  }
+  void set_candidate_filter(uint32_t filter) { candidate_filter_ = filter; }
 
   bool prune_turn_ports() const { return prune_turn_ports_; }
 
@@ -458,9 +456,7 @@ class PortAllocator : public sigslot::has_slots<> {
     metrics_observer_ = observer;
   }
 
-  webrtc::TurnCustomizer* turn_customizer() {
-    return turn_customizer_;
-  }
+  webrtc::TurnCustomizer* turn_customizer() { return turn_customizer_; }
 
  protected:
   virtual PortAllocatorSession* CreateSessionInternal(

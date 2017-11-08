@@ -139,8 +139,7 @@ Connection* TCPPort::CreateConnection(const Candidate& address,
   }
 
   TCPConnection* conn = NULL;
-  if (rtc::AsyncPacketSocket* socket =
-      GetIncoming(address.address(), true)) {
+  if (rtc::AsyncPacketSocket* socket = GetIncoming(address.address(), true)) {
     // Incoming connection; we already created a socket and connected signals,
     // so we need to hand off the "read packet" responsibility to
     // TCPConnection.
@@ -189,11 +188,12 @@ void TCPPort::PrepareAddress() {
   }
 }
 
-int TCPPort::SendTo(const void* data, size_t size,
+int TCPPort::SendTo(const void* data,
+                    size_t size,
                     const rtc::SocketAddress& addr,
                     const rtc::PacketOptions& options,
                     bool payload) {
-  rtc::AsyncPacketSocket * socket = NULL;
+  rtc::AsyncPacketSocket* socket = NULL;
   TCPConnection* conn = static_cast<TCPConnection*>(GetConnection(addr));
 
   // For Connection, this is the code path used by Ping() to establish
@@ -283,8 +283,8 @@ void TCPPort::TryCreateServerSocket() {
   socket_->SignalAddressReady.connect(this, &TCPPort::OnAddressReady);
 }
 
-rtc::AsyncPacketSocket* TCPPort::GetIncoming(
-    const rtc::SocketAddress& addr, bool remove) {
+rtc::AsyncPacketSocket* TCPPort::GetIncoming(const rtc::SocketAddress& addr,
+                                             bool remove) {
   rtc::AsyncPacketSocket* socket = NULL;
   for (std::list<Incoming>::iterator it = incoming_.begin();
        it != incoming_.end(); ++it) {
@@ -299,7 +299,8 @@ rtc::AsyncPacketSocket* TCPPort::GetIncoming(
 }
 
 void TCPPort::OnReadPacket(rtc::AsyncPacketSocket* socket,
-                           const char* data, size_t size,
+                           const char* data,
+                           size_t size,
                            const rtc::SocketAddress& remote_addr,
                            const rtc::PacketTime& packet_time) {
   Port::OnReadPacket(data, size, remote_addr, PROTO_TCP);
@@ -348,10 +349,10 @@ TCPConnection::TCPConnection(TCPPort* port,
   }
 }
 
-TCPConnection::~TCPConnection() {
-}
+TCPConnection::~TCPConnection() {}
 
-int TCPConnection::Send(const void* data, size_t size,
+int TCPConnection::Send(const void* data,
+                        size_t size,
                         const rtc::PacketOptions& options) {
   if (!socket_) {
     error_ = ENOTCONN;
@@ -512,10 +513,11 @@ void TCPConnection::MaybeReconnect() {
   error_ = EPIPE;
 }
 
-void TCPConnection::OnReadPacket(
-  rtc::AsyncPacketSocket* socket, const char* data, size_t size,
-  const rtc::SocketAddress& remote_addr,
-  const rtc::PacketTime& packet_time) {
+void TCPConnection::OnReadPacket(rtc::AsyncPacketSocket* socket,
+                                 const char* data,
+                                 size_t size,
+                                 const rtc::SocketAddress& remote_addr,
+                                 const rtc::PacketTime& packet_time) {
   RTC_DCHECK(socket == socket_.get());
   Connection::OnReadPacket(data, size, packet_time);
 }

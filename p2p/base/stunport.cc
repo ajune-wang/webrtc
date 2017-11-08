@@ -102,13 +102,12 @@ class StunBindingRequest : public StunRequest {
   int64_t start_time_;
 };
 
-UDPPort::AddressResolver::AddressResolver(
-    rtc::PacketSocketFactory* factory)
+UDPPort::AddressResolver::AddressResolver(rtc::PacketSocketFactory* factory)
     : socket_factory_(factory) {}
 
 UDPPort::AddressResolver::~AddressResolver() {
-  for (ResolverMap::iterator it = resolvers_.begin();
-       it != resolvers_.end(); ++it) {
+  for (ResolverMap::iterator it = resolvers_.begin(); it != resolvers_.end();
+       ++it) {
     // TODO(guoweis): Change to asynchronous DNS resolution to prevent the hang
     // when passing true to the Destroy() which is a safer way to avoid the code
     // unloaded before the thread exits. Please see webrtc bug 5139.
@@ -116,16 +115,14 @@ UDPPort::AddressResolver::~AddressResolver() {
   }
 }
 
-void UDPPort::AddressResolver::Resolve(
-    const rtc::SocketAddress& address) {
+void UDPPort::AddressResolver::Resolve(const rtc::SocketAddress& address) {
   if (resolvers_.find(address) != resolvers_.end())
     return;
 
   rtc::AsyncResolverInterface* resolver =
       socket_factory_->CreateAsyncResolver();
-  resolvers_.insert(
-      std::pair<rtc::SocketAddress, rtc::AsyncResolverInterface*>(
-          address, resolver));
+  resolvers_.insert(std::pair<rtc::SocketAddress, rtc::AsyncResolverInterface*>(
+      address, resolver));
 
   resolver->SignalDone.connect(this,
                                &UDPPort::AddressResolver::OnResolveResult);
@@ -146,8 +143,8 @@ bool UDPPort::AddressResolver::GetResolvedAddress(
 
 void UDPPort::AddressResolver::OnResolveResult(
     rtc::AsyncResolverInterface* resolver) {
-  for (ResolverMap::iterator it = resolvers_.begin();
-       it != resolvers_.end(); ++it) {
+  for (ResolverMap::iterator it = resolvers_.begin(); it != resolvers_.end();
+       ++it) {
     if (it->second == resolver) {
       SignalDone(it->first, resolver->GetError());
       return;
@@ -163,12 +160,7 @@ UDPPort::UDPPort(rtc::Thread* thread,
                  const std::string& password,
                  const std::string& origin,
                  bool emit_local_for_anyaddress)
-    : Port(thread,
-           LOCAL_PORT_TYPE,
-           factory,
-           network,
-           username,
-           password),
+    : Port(thread, LOCAL_PORT_TYPE, factory, network, username, password),
       requests_(thread),
       socket_(socket),
       error_(0),
@@ -266,7 +258,8 @@ Connection* UDPPort::CreateConnection(const Candidate& address,
   return conn;
 }
 
-int UDPPort::SendTo(const void* data, size_t size,
+int UDPPort::SendTo(const void* data,
+                    size_t size,
                     const rtc::SocketAddress& addr,
                     const rtc::PacketOptions& options,
                     bool payload) {
@@ -386,15 +379,14 @@ void UDPPort::ResolveStunAddress(const rtc::SocketAddress& stun_addr) {
   resolver_->Resolve(stun_addr);
 }
 
-void UDPPort::OnResolveResult(const rtc::SocketAddress& input,
-                              int error) {
+void UDPPort::OnResolveResult(const rtc::SocketAddress& input, int error) {
   RTC_DCHECK(resolver_.get() != NULL);
 
   rtc::SocketAddress resolved;
   if (error != 0 || !resolver_->GetResolvedAddress(
                         input, Network()->GetBestIP().family(), &resolved)) {
-    LOG_J(LS_WARNING, this) << "StunPort: stun host lookup received error "
-                            << error;
+    LOG_J(LS_WARNING, this)
+        << "StunPort: stun host lookup received error " << error;
     OnStunBindingOrResolveRequestFailed(input);
     return;
   }
@@ -446,7 +438,7 @@ void UDPPort::OnStunBindingRequestSucceeded(
     const rtc::SocketAddress& stun_server_addr,
     const rtc::SocketAddress& stun_reflected_addr) {
   if (bind_request_succeeded_servers_.find(stun_server_addr) !=
-          bind_request_succeeded_servers_.end()) {
+      bind_request_succeeded_servers_.end()) {
     return;
   }
   bind_request_succeeded_servers_.insert(stun_server_addr);
@@ -457,12 +449,11 @@ void UDPPort::OnStunBindingRequestSucceeded(
   // For STUN, related address is the local socket address.
   if ((!SharedSocket() || stun_reflected_addr != socket_->GetLocalAddress()) &&
       !HasCandidateWithAddress(stun_reflected_addr)) {
-
     rtc::SocketAddress related_address = socket_->GetLocalAddress();
     // If we can't stamp the related address correctly, empty it to avoid leak.
     if (!MaybeSetDefaultLocalAddress(&related_address)) {
-      related_address = rtc::EmptySocketAddressWithFamily(
-          related_address.family());
+      related_address =
+          rtc::EmptySocketAddressWithFamily(related_address.family());
     }
 
     std::ostringstream url;
@@ -478,7 +469,7 @@ void UDPPort::OnStunBindingRequestSucceeded(
 void UDPPort::OnStunBindingOrResolveRequestFailed(
     const rtc::SocketAddress& stun_server_addr) {
   if (bind_request_failed_servers_.find(stun_server_addr) !=
-          bind_request_failed_servers_.end()) {
+      bind_request_failed_servers_.end()) {
     return;
   }
   bind_request_failed_servers_.insert(stun_server_addr);
@@ -490,7 +481,8 @@ void UDPPort::MaybeSetPortCompleteOrError() {
     return;
 
   // Do not set port ready if we are still waiting for bind responses.
-  const size_t servers_done_bind_request = bind_request_failed_servers_.size() +
+  const size_t servers_done_bind_request =
+      bind_request_failed_servers_.size() +
       bind_request_succeeded_servers_.size();
   if (server_addresses_.size() != servers_done_bind_request) {
     return;
@@ -501,8 +493,7 @@ void UDPPort::MaybeSetPortCompleteOrError() {
 
   // The port is "completed" if there is no stun server provided, or the bind
   // request succeeded for any stun server, or the socket is shared.
-  if (server_addresses_.empty() ||
-      bind_request_succeeded_servers_.size() > 0 ||
+  if (server_addresses_.empty() || bind_request_succeeded_servers_.size() > 0 ||
       SharedSocket()) {
     SignalPortComplete(this);
   } else {

@@ -21,8 +21,7 @@ namespace rtc {
 
 static const int DEFAULT_SIZE = 4096;
 
-ByteBufferWriter::ByteBufferWriter()
-    : ByteBuffer(ORDER_NETWORK) {
+ByteBufferWriter::ByteBufferWriter() : ByteBuffer(ORDER_NETWORK) {
   Construct(nullptr, DEFAULT_SIZE);
 }
 
@@ -36,7 +35,8 @@ ByteBufferWriter::ByteBufferWriter(const char* bytes, size_t len)
   Construct(bytes, len);
 }
 
-ByteBufferWriter::ByteBufferWriter(const char* bytes, size_t len,
+ByteBufferWriter::ByteBufferWriter(const char* bytes,
+                                   size_t len,
                                    ByteOrder byte_order)
     : ByteBuffer(byte_order) {
   Construct(bytes, len);
@@ -124,7 +124,7 @@ void ByteBufferWriter::Resize(size_t size) {
     size_ = std::max(size, 3 * size_ / 2);
     char* new_bytes = new char[size_];
     memcpy(new_bytes, bytes_, len);
-    delete [] bytes_;
+    delete[] bytes_;
     bytes_ = new_bytes;
   }
   end_ = len;
@@ -135,13 +135,13 @@ void ByteBufferWriter::Clear() {
   end_ = 0;
 }
 
-
 ByteBufferReader::ByteBufferReader(const char* bytes, size_t len)
     : ByteBuffer(ORDER_NETWORK) {
   Construct(bytes, len);
 }
 
-ByteBufferReader::ByteBufferReader(const char* bytes, size_t len,
+ByteBufferReader::ByteBufferReader(const char* bytes,
+                                   size_t len,
                                    ByteOrder byte_order)
     : ByteBuffer(byte_order) {
   Construct(bytes, len);
@@ -170,13 +170,15 @@ void ByteBufferReader::Construct(const char* bytes, size_t len) {
 }
 
 bool ByteBufferReader::ReadUInt8(uint8_t* val) {
-  if (!val) return false;
+  if (!val)
+    return false;
 
   return ReadBytes(reinterpret_cast<char*>(val), 1);
 }
 
 bool ByteBufferReader::ReadUInt16(uint16_t* val) {
-  if (!val) return false;
+  if (!val)
+    return false;
 
   uint16_t v;
   if (!ReadBytes(reinterpret_cast<char*>(&v), 2)) {
@@ -188,7 +190,8 @@ bool ByteBufferReader::ReadUInt16(uint16_t* val) {
 }
 
 bool ByteBufferReader::ReadUInt24(uint32_t* val) {
-  if (!val) return false;
+  if (!val)
+    return false;
 
   uint32_t v = 0;
   char* read_into = reinterpret_cast<char*>(&v);
@@ -205,7 +208,8 @@ bool ByteBufferReader::ReadUInt24(uint32_t* val) {
 }
 
 bool ByteBufferReader::ReadUInt32(uint32_t* val) {
-  if (!val) return false;
+  if (!val)
+    return false;
 
   uint32_t v;
   if (!ReadBytes(reinterpret_cast<char*>(&v), 4)) {
@@ -217,7 +221,8 @@ bool ByteBufferReader::ReadUInt32(uint32_t* val) {
 }
 
 bool ByteBufferReader::ReadUInt64(uint64_t* val) {
-  if (!val) return false;
+  if (!val)
+    return false;
 
   uint64_t v;
   if (!ReadBytes(reinterpret_cast<char*>(&v), 8)) {
@@ -252,7 +257,8 @@ bool ByteBufferReader::ReadUVarint(uint64_t* val) {
 }
 
 bool ByteBufferReader::ReadString(std::string* val, size_t len) {
-  if (!val) return false;
+  if (!val)
+    return false;
 
   if (len > Length()) {
     return false;

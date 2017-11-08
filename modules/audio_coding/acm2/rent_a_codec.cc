@@ -15,8 +15,8 @@
 
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 #include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
-#include "rtc_base/logging.h"
 #include "modules/audio_coding/codecs/g722/audio_encoder_g722.h"
+#include "rtc_base/logging.h"
 #ifdef WEBRTC_CODEC_ILBC
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
 #endif

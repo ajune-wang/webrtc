@@ -28,12 +28,12 @@ namespace test {
 static const size_t kFirstLineLength = 40;
 static uint16_t kPacketHeaderSize = 8;
 
-#define TRY(expr)                                      \
-  do {                                                 \
-    if (!(expr)) {                                     \
-      LOG(LS_INFO) << "Failed to read";                \
-      return false;                                    \
-    }                                                  \
+#define TRY(expr)                       \
+  do {                                  \
+    if (!(expr)) {                      \
+      LOG(LS_INFO) << "Failed to read"; \
+      return false;                     \
+    }                                   \
   } while (0)
 
 bool ReadUint32(uint32_t* out, FILE* file) {
@@ -137,7 +137,7 @@ class RtpDumpReader : public RtpFileReaderImpl {
     }
     if (strncmp(firstline, "#!rtpplay", 9) == 0) {
       if (strncmp(firstline, "#!rtpplay1.0", 12) != 0) {
-        LOG(LS_INFO) <<  "Wrong rtpplay version, must be 1.0";
+        LOG(LS_INFO) << "Wrong rtpplay version, must be 1.0";
         return false;
       }
     } else if (strncmp(firstline, "#!RTPencode", 11) == 0) {
@@ -225,15 +225,15 @@ enum {
 const uint32_t kPcapBOMSwapOrder = 0xd4c3b2a1UL;
 const uint32_t kPcapBOMNoSwapOrder = 0xa1b2c3d4UL;
 
-#define TRY_PCAP(expr)                                 \
-  do {                                                 \
-    int r = (expr);                                    \
-    if (r == kResultFail) {                            \
-      LOG(LS_INFO) << "FAIL at " << __FILE__  << ":" << __LINE__; \
-      return kResultFail;                              \
-    } else if (r == kResultSkip) {                     \
-      return kResultSkip;                              \
-    }                                                  \
+#define TRY_PCAP(expr)                                           \
+  do {                                                           \
+    int r = (expr);                                              \
+    if (r == kResultFail) {                                      \
+      LOG(LS_INFO) << "FAIL at " << __FILE__ << ":" << __LINE__; \
+      return kResultFail;                                        \
+    } else if (r == kResultSkip) {                               \
+      return kResultSkip;                                        \
+    }                                                            \
   } while (0)
 
 // Read RTP packets from file in tcpdump/libpcap format, as documented at:
@@ -241,17 +241,17 @@ const uint32_t kPcapBOMNoSwapOrder = 0xa1b2c3d4UL;
 class PcapReader : public RtpFileReaderImpl {
  public:
   PcapReader()
-    : file_(NULL),
-      swap_pcap_byte_order_(false),
+      : file_(NULL),
+        swap_pcap_byte_order_(false),
 #ifdef WEBRTC_ARCH_BIG_ENDIAN
-      swap_network_byte_order_(false),
+        swap_network_byte_order_(false),
 #else
-      swap_network_byte_order_(true),
+        swap_network_byte_order_(true),
 #endif
-      read_buffer_(),
-      packets_by_ssrc_(),
-      packets_(),
-      next_packet_it_() {
+        read_buffer_(),
+        packets_by_ssrc_(),
+        packets_(),
+        next_packet_it_() {
   }
 
   virtual ~PcapReader() {
@@ -304,7 +304,7 @@ class PcapReader : public RtpFileReaderImpl {
     printf("Total RTP/RTCP packets: %" PRIuS "\n", packets_.size());
 
     for (SsrcMapIterator mit = packets_by_ssrc_.begin();
-        mit != packets_by_ssrc_.end(); ++mit) {
+         mit != packets_by_ssrc_.end(); ++mit) {
       uint32_t ssrc = mit->first;
       const std::vector<uint32_t>& packet_indices = mit->second;
       uint8_t pt = packets_[packet_indices[0]].rtp_header.payloadType;
@@ -364,14 +364,14 @@ class PcapReader : public RtpFileReaderImpl {
  private:
   // A marker of an RTP packet within the file.
   struct RtpPacketMarker {
-    uint32_t packet_number;   // One-based index (like in WireShark)
+    uint32_t packet_number;  // One-based index (like in WireShark)
     uint32_t time_offset_ms;
     uint32_t source_ip;
     uint32_t dest_ip;
     uint16_t source_port;
     uint16_t dest_port;
     RTPHeader rtp_header;
-    int32_t pos_in_file;      // Byte offset of payload from start of file.
+    int32_t pos_in_file;  // Byte offset of payload from start of file.
     uint32_t payload_length;
   };
 
@@ -505,8 +505,8 @@ class PcapReader : public RtpFileReaderImpl {
 
   uint32_t CalcTimeDelta(uint32_t ts_sec, uint32_t ts_usec, uint32_t start_ms) {
     // Round to nearest ms.
-    uint64_t t2_ms = ((static_cast<uint64_t>(ts_sec) * 1000000) + ts_usec +
-        500) / 1000;
+    uint64_t t2_ms =
+        ((static_cast<uint64_t>(ts_sec) * 1000000) + ts_usec + 500) / 1000;
     uint64_t t1_ms = static_cast<uint64_t>(start_ms);
     if (t2_ms < t1_ms) {
       return 0;
@@ -577,7 +577,7 @@ class PcapReader : public RtpFileReaderImpl {
     if ((!expect_network_order && swap_pcap_byte_order_) ||
         (expect_network_order && swap_network_byte_order_)) {
       tmp = ((tmp >> 24) & 0x000000ff) | (tmp << 24) |
-          ((tmp >> 8) & 0x0000ff00) | ((tmp << 8) & 0x00ff0000);
+            ((tmp >> 8) & 0x0000ff00) | ((tmp << 8) & 0x00ff0000);
     }
     *out = tmp;
     return kResultSuccess;
@@ -611,7 +611,7 @@ class PcapReader : public RtpFileReaderImpl {
     if ((!expect_network_order && swap_pcap_byte_order_) ||
         (expect_network_order && swap_network_byte_order_)) {
       tmp = ((tmp >> 24) & 0x000000ff) | (tmp << 24) |
-          ((tmp >> 8) & 0x0000ff00) | ((tmp << 8) & 0x00ff0000);
+            ((tmp >> 8) & 0x0000ff00) | ((tmp << 8) & 0x00ff0000);
     }
     *out = tmp;
     return kResultSuccess;

@@ -551,4 +551,3 @@ TEST_P(BweSimulation, GccComparisonChoke) {
 }  // namespace bwe
 }  // namespace testing
 }  // namespace webrtc
-

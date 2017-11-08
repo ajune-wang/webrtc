@@ -8,7 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-
 #include "sdk/android/src/jni/surfacetexturehelper_jni.h"
 
 #include "rtc_base/bind.h"
@@ -68,8 +67,8 @@ void SurfaceTextureHelper::ReturnTextureFrame() const {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
   jni->CallVoidMethod(*j_surface_texture_helper_, j_return_texture_method_);
 
-  CHECK_EXCEPTION(
-      jni) << "error during SurfaceTextureHelper.returnTextureFrame";
+  CHECK_EXCEPTION(jni)
+      << "error during SurfaceTextureHelper.returnTextureFrame";
 }
 
 rtc::scoped_refptr<VideoFrameBuffer> SurfaceTextureHelper::CreateTextureFrame(

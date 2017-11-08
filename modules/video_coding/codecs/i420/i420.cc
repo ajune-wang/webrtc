@@ -139,10 +139,7 @@ int I420Encoder::RegisterEncodeCompleteCallback(
 }
 
 I420Decoder::I420Decoder()
-    : _width(0),
-      _height(0),
-      _inited(false),
-      _decodeCompleteCallback(NULL) {}
+    : _width(0), _height(0), _inited(false), _decodeCompleteCallback(NULL) {}
 
 I420Decoder::~I420Decoder() {
   Release();

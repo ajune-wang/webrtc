@@ -50,12 +50,10 @@ static cricket::SessionDescription* CreateCricketSessionDescription() {
       new cricket::VideoContentDescription());
 
   audio->AddCodec(cricket::AudioCodec(103, "ISAC", 16000, 0, 0));
-  desc->AddContent(cricket::CN_AUDIO, cricket::NS_JINGLE_RTP,
-                   audio.release());
+  desc->AddContent(cricket::CN_AUDIO, cricket::NS_JINGLE_RTP, audio.release());
 
   video->AddCodec(cricket::VideoCodec(120, "VP8"));
-  desc->AddContent(cricket::CN_VIDEO, cricket::NS_JINGLE_RTP,
-                   video.release());
+  desc->AddContent(cricket::CN_VIDEO, cricket::NS_JINGLE_RTP, video.release());
 
   EXPECT_TRUE(desc->AddTransportInfo(cricket::TransportInfo(
       cricket::CN_AUDIO,
@@ -78,13 +76,11 @@ class JsepSessionDescriptionTest : public testing::Test {
     cricket::Candidate candidate(cricket::ICE_CANDIDATE_COMPONENT_RTP, "udp",
                                  address, 1, "", "", "local", 0, "1");
     candidate_ = candidate;
-    const std::string session_id =
-        rtc::ToString(rtc::CreateRandomId64());
-    const std::string session_version =
-        rtc::ToString(rtc::CreateRandomId());
+    const std::string session_id = rtc::ToString(rtc::CreateRandomId64());
+    const std::string session_version = rtc::ToString(rtc::CreateRandomId());
     jsep_desc_.reset(new JsepSessionDescription("dummy"));
     ASSERT_TRUE(jsep_desc_->Initialize(CreateCricketSessionDescription(),
-        session_id, session_version));
+                                       session_id, session_version));
   }
 
   std::string Serialize(const SessionDescriptionInterface* desc) {

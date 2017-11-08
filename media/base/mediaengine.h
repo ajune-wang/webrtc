@@ -38,7 +38,7 @@ class AudioDeviceModule;
 class AudioMixer;
 class AudioProcessing;
 class Call;
-}
+}  // namespace webrtc
 
 namespace cricket {
 
@@ -90,7 +90,6 @@ class MediaEngineInterface {
   virtual void StopAecDump() = 0;
 };
 
-
 #if !defined(DISABLE_MEDIA_ENGINE_FACTORY)
 class MediaEngineFactory {
  public:
@@ -104,6 +103,7 @@ class MediaEngineFactory {
   // reset to the default behavior.
   static MediaEngineCreateFunction SetCreateFunction(
       MediaEngineCreateFunction function);
+
  private:
   static MediaEngineCreateFunction create_function_;
 };

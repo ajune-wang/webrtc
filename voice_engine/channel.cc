@@ -20,8 +20,8 @@
 #include "api/array_view.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "call/rtp_transport_controller_send_interface.h"
-#include "logging/rtc_event_log/rtc_event_log.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_playout.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor_config.h"
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_device/include/audio_device.h"
@@ -341,8 +341,8 @@ int32_t Channel::SendData(FrameType frameType,
           // received from the capture device as
           // undefined for voice for now.
           -1, payloadData, payloadSize, fragmentation, nullptr, nullptr)) {
-    LOG(LS_ERROR) <<
-        "Channel::SendData() failed to send data to RTP/RTCP module";
+    LOG(LS_ERROR)
+        << "Channel::SendData() failed to send data to RTP/RTCP module";
     return -1;
   }
 
@@ -422,8 +422,8 @@ int32_t Channel::OnReceivedPayloadData(const uint8_t* payloadData,
   // Push the incoming payload (parsed and ready for decoding) into the ACM
   if (audio_coding_->IncomingPacket(payloadData, payloadSize, *rtpHeader) !=
       0) {
-    LOG(LS_ERROR) <<
-        "Channel::OnReceivedPayloadData() unable to push data to the ACM";
+    LOG(LS_ERROR)
+        << "Channel::OnReceivedPayloadData() unable to push data to the ACM";
     return -1;
   }
 
@@ -743,8 +743,8 @@ void Channel::SetSink(std::unique_ptr<AudioSinkInterface> sink) {
   audio_sink_ = std::move(sink);
 }
 
-const rtc::scoped_refptr<AudioDecoderFactory>&
-Channel::GetAudioDecoderFactory() const {
+const rtc::scoped_refptr<AudioDecoderFactory>& Channel::GetAudioDecoderFactory()
+    const {
   return decoder_factory_;
 }
 
@@ -1050,9 +1050,8 @@ int32_t Channel::ReceivedRTCPPacket(const uint8_t* data, size_t length) {
   uint32_t ntp_secs = 0;
   uint32_t ntp_frac = 0;
   uint32_t rtp_timestamp = 0;
-  if (0 !=
-      _rtpRtcpModule->RemoteNTP(&ntp_secs, &ntp_frac, NULL, NULL,
-                                &rtp_timestamp)) {
+  if (0 != _rtpRtcpModule->RemoteNTP(&ntp_secs, &ntp_frac, NULL, NULL,
+                                     &rtp_timestamp)) {
     // Waiting for RTCP.
     return 0;
   }
@@ -1104,7 +1103,7 @@ int Channel::SendTelephoneEventOutband(int event, int duration_ms) {
     return -1;
   }
   if (_rtpRtcpModule->SendTelephoneEventOutband(
-      event, duration_ms, kTelephoneEventAttenuationdB) != 0) {
+          event, duration_ms, kTelephoneEventAttenuationdB) != 0) {
     LOG(LS_ERROR) << "SendTelephoneEventOutband() failed to send event";
     return -1;
   }
@@ -1152,9 +1151,8 @@ int Channel::SetSendAudioLevelIndicationStatus(bool enable, unsigned char id) {
 int Channel::SetReceiveAudioLevelIndicationStatus(bool enable,
                                                   unsigned char id) {
   rtp_header_parser_->DeregisterRtpHeaderExtension(kRtpExtensionAudioLevel);
-  if (enable &&
-      !rtp_header_parser_->RegisterRtpHeaderExtension(kRtpExtensionAudioLevel,
-                                                      id)) {
+  if (enable && !rtp_header_parser_->RegisterRtpHeaderExtension(
+                    kRtpExtensionAudioLevel, id)) {
     return -1;
   }
   return 0;

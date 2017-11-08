@@ -40,6 +40,7 @@ class FakeClock : public ClockInterface {
   void AdvanceTimeMicros(int64_t micros) {
     AdvanceTime(rtc::TimeDelta::FromMicroseconds(micros));
   }
+
  private:
   CriticalSection lock_;
   int64_t time_ RTC_GUARDED_BY(lock_) = 0;

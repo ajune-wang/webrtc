@@ -35,23 +35,26 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
         rotation_(webrtc::kVideoRotation_0) {
     // Default supported formats. Use ResetSupportedFormats to over write.
     std::vector<cricket::VideoFormat> formats;
-    formats.push_back(cricket::VideoFormat(1280, 720,
-        cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
-    formats.push_back(cricket::VideoFormat(640, 480,
-        cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
-    formats.push_back(cricket::VideoFormat(320, 240,
-        cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
-    formats.push_back(cricket::VideoFormat(160, 120,
-        cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
-    formats.push_back(cricket::VideoFormat(1280, 720,
-        cricket::VideoFormat::FpsToInterval(60), cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(1280, 720, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(640, 480, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(320, 240, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(160, 120, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(1280, 720, cricket::VideoFormat::FpsToInterval(60),
+                             cricket::FOURCC_I420));
     ResetSupportedFormats(formats);
   }
   FakeVideoCapturer() : FakeVideoCapturer(false) {}
 
-  ~FakeVideoCapturer() {
-    SignalDestroyed(this);
-  }
+  ~FakeVideoCapturer() { SignalDestroyed(this); }
 
   void ResetSupportedFormats(const std::vector<cricket::VideoFormat>& formats) {
     SetSupportedFormats(formats);
@@ -60,10 +63,9 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
     if (!GetCaptureFormat()) {
       return false;
     }
-    return CaptureCustomFrame(GetCaptureFormat()->width,
-                              GetCaptureFormat()->height,
-                              GetCaptureFormat()->interval,
-                              GetCaptureFormat()->fourcc);
+    return CaptureCustomFrame(
+        GetCaptureFormat()->width, GetCaptureFormat()->height,
+        GetCaptureFormat()->interval, GetCaptureFormat()->fourcc);
   }
   bool CaptureCustomFrame(int width, int height, uint32_t fourcc) {
     // Default to 30fps.
@@ -102,10 +104,10 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
           webrtc::I420Buffer::Create(adapted_width, adapted_height));
       buffer->InitializeData();
 
-      OnFrame(webrtc::VideoFrame(
-                  buffer, rotation_,
-                  next_timestamp_ / rtc::kNumNanosecsPerMicrosec),
-              width, height);
+      OnFrame(
+          webrtc::VideoFrame(buffer, rotation_,
+                             next_timestamp_ / rtc::kNumNanosecsPerMicrosec),
+          width, height);
     }
     next_timestamp_ += timestamp_interval;
 
@@ -133,9 +135,7 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
     return true;
   }
 
-  void SetRotation(webrtc::VideoRotation rotation) {
-    rotation_ = rotation;
-  }
+  void SetRotation(webrtc::VideoRotation rotation) { rotation_ = rotation; }
 
   webrtc::VideoRotation GetRotation() { return rotation_; }
 

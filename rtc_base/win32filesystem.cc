@@ -33,7 +33,7 @@
 
 namespace rtc {
 
-bool Win32Filesystem::DeleteFile(const Pathname &filename) {
+bool Win32Filesystem::DeleteFile(const Pathname& filename) {
   LOG(LS_INFO) << "Deleting file " << filename.pathname();
   if (!IsFile(filename)) {
     RTC_DCHECK(IsFile(filename));
@@ -42,8 +42,8 @@ bool Win32Filesystem::DeleteFile(const Pathname &filename) {
   return ::DeleteFile(ToUtf16(filename.pathname()).c_str()) != 0;
 }
 
-std::string Win32Filesystem::TempFilename(const Pathname &dir,
-                                          const std::string &prefix) {
+std::string Win32Filesystem::TempFilename(const Pathname& dir,
+                                          const std::string& prefix) {
   wchar_t filename[MAX_PATH];
   if (::GetTempFileName(ToUtf16(dir.pathname()).c_str(),
                         ToUtf16(prefix).c_str(), 0, filename) != 0)
@@ -52,28 +52,28 @@ std::string Win32Filesystem::TempFilename(const Pathname &dir,
   return "";
 }
 
-bool Win32Filesystem::MoveFile(const Pathname &old_path,
-                               const Pathname &new_path) {
+bool Win32Filesystem::MoveFile(const Pathname& old_path,
+                               const Pathname& new_path) {
   if (!IsFile(old_path)) {
     RTC_DCHECK(IsFile(old_path));
     return false;
   }
-  LOG(LS_INFO) << "Moving " << old_path.pathname()
-               << " to " << new_path.pathname();
+  LOG(LS_INFO) << "Moving " << old_path.pathname() << " to "
+               << new_path.pathname();
   return ::MoveFile(ToUtf16(old_path.pathname()).c_str(),
                     ToUtf16(new_path.pathname()).c_str()) != 0;
 }
 
-bool Win32Filesystem::IsFolder(const Pathname &path) {
+bool Win32Filesystem::IsFolder(const Pathname& path) {
   WIN32_FILE_ATTRIBUTE_DATA data = {0};
   if (0 == ::GetFileAttributesEx(ToUtf16(path.pathname()).c_str(),
                                  GetFileExInfoStandard, &data))
     return false;
   return (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ==
-      FILE_ATTRIBUTE_DIRECTORY;
+         FILE_ATTRIBUTE_DIRECTORY;
 }
 
-bool Win32Filesystem::IsFile(const Pathname &path) {
+bool Win32Filesystem::IsFile(const Pathname& path) {
   WIN32_FILE_ATTRIBUTE_DATA data = {0};
   if (0 == ::GetFileAttributesEx(ToUtf16(path.pathname()).c_str(),
                                  GetFileExInfoStandard, &data))
@@ -81,11 +81,11 @@ bool Win32Filesystem::IsFile(const Pathname &path) {
   return (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
 }
 
-bool Win32Filesystem::GetFileSize(const Pathname &pathname, size_t *size) {
+bool Win32Filesystem::GetFileSize(const Pathname& pathname, size_t* size) {
   WIN32_FILE_ATTRIBUTE_DATA data = {0};
   if (::GetFileAttributesEx(ToUtf16(pathname.pathname()).c_str(),
                             GetFileExInfoStandard, &data) == 0)
-  return false;
+    return false;
   *size = data.nFileSizeLow;
   return true;
 }

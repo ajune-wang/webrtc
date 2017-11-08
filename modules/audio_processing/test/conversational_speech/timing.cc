@@ -19,10 +19,9 @@ namespace webrtc {
 namespace test {
 namespace conversational_speech {
 
-bool Turn::operator==(const Turn &b) const {
+bool Turn::operator==(const Turn& b) const {
   return b.speaker_name == speaker_name &&
-         b.audiotrack_file_name == audiotrack_file_name &&
-         b.offset == offset;
+         b.audiotrack_file_name == audiotrack_file_name && b.offset == offset;
 }
 
 std::vector<Turn> LoadTiming(const std::string& timing_filepath) {
@@ -55,8 +54,8 @@ void SaveTiming(const std::string& timing_filepath,
   std::ofstream outfile(timing_filepath);
   RTC_CHECK(outfile.is_open());
   for (const Turn& turn : timing) {
-    outfile << turn.speaker_name << " " << turn.audiotrack_file_name
-        << " " << turn.offset << std::endl;
+    outfile << turn.speaker_name << " " << turn.audiotrack_file_name << " "
+            << turn.offset << std::endl;
   }
   outfile.close();
 }

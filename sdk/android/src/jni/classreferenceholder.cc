@@ -127,7 +127,7 @@ ClassReferenceHolder::~ClassReferenceHolder() {
 
 void ClassReferenceHolder::FreeReferences(JNIEnv* jni) {
   for (std::map<std::string, jclass>::const_iterator it = classes_.begin();
-      it != classes_.end(); ++it) {
+       it != classes_.end(); ++it) {
     jni->DeleteGlobalRef(it->second);
   }
   classes_.clear();

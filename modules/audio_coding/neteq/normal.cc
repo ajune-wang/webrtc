@@ -67,9 +67,10 @@ int Normal::Process(const int16_t* input,
     std::unique_ptr<int16_t[]> signal(new int16_t[length_per_channel]);
     for (size_t channel_ix = 0; channel_ix < output->Channels(); ++channel_ix) {
       // Adjust muting factor (main muting factor times expand muting factor).
-      external_mute_factor_array[channel_ix] = static_cast<int16_t>(
-          (external_mute_factor_array[channel_ix] *
-          expand_->MuteFactor(channel_ix)) >> 14);
+      external_mute_factor_array[channel_ix] =
+          static_cast<int16_t>((external_mute_factor_array[channel_ix] *
+                                expand_->MuteFactor(channel_ix)) >>
+                               14);
 
       (*output)[channel_ix].CopyTo(length_per_channel, 0, signal.get());
 
@@ -79,8 +80,7 @@ int Normal::Process(const int16_t* input,
       // Adjust muting factor if needed (to BGN level).
       size_t energy_length =
           std::min(static_cast<size_t>(fs_mult * 64), length_per_channel);
-      int scaling = 6 + fs_shift
-          - WebRtcSpl_NormW32(decoded_max * decoded_max);
+      int scaling = 6 + fs_shift - WebRtcSpl_NormW32(decoded_max * decoded_max);
       scaling = std::max(scaling, 0);  // |scaling| should always be >= 0.
       int32_t energy = WebRtcSpl_DotProductWithScale(signal.get(), signal.get(),
                                                      energy_length, scaling);
@@ -93,8 +93,7 @@ int Normal::Process(const int16_t* input,
       }
 
       int mute_factor;
-      if ((energy != 0) &&
-          (energy > background_noise_.Energy(channel_ix))) {
+      if ((energy != 0) && (energy > background_noise_.Energy(channel_ix))) {
         // Normalize new frame energy to 15 bits.
         scaling = WebRtcSpl_NormW32(energy) - 16;
         // We want background_noise_.energy() / energy in Q14.
@@ -118,8 +117,8 @@ int Normal::Process(const int16_t* input,
         // Scale with mute factor.
         RTC_DCHECK_LT(channel_ix, output->Channels());
         RTC_DCHECK_LT(i, output->Size());
-        int32_t scaled_signal = (*output)[channel_ix][i] *
-            external_mute_factor_array[channel_ix];
+        int32_t scaled_signal =
+            (*output)[channel_ix][i] * external_mute_factor_array[channel_ix];
         // Shift 14 with proper rounding.
         (*output)[channel_ix][i] =
             static_cast<int16_t>((scaled_signal + 8192) >> 14);
@@ -194,12 +193,12 @@ int Normal::Process(const int16_t* input,
     size_t length_per_channel = length / output->Channels();
     for (size_t i = 0; i < length_per_channel; i++) {
       for (size_t channel_ix = 0; channel_ix < output->Channels();
-          ++channel_ix) {
+           ++channel_ix) {
         // Scale with mute factor.
         RTC_DCHECK_LT(channel_ix, output->Channels());
         RTC_DCHECK_LT(i, output->Size());
-        int32_t scaled_signal = (*output)[channel_ix][i] *
-            external_mute_factor_array[channel_ix];
+        int32_t scaled_signal =
+            (*output)[channel_ix][i] * external_mute_factor_array[channel_ix];
         // Shift 14 with proper rounding.
         (*output)[channel_ix][i] =
             static_cast<int16_t>((scaled_signal + 8192) >> 14);

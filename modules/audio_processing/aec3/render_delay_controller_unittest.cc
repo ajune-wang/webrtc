@@ -211,9 +211,9 @@ TEST(RenderDelayController, AlignmentWithJitter) {
       ASSERT_TRUE(headroom_samples);
       EXPECT_NEAR(delay_samples - delay_blocks * kBlockSize, *headroom_samples,
                   4);
-      }
     }
   }
+}
 
 // Verifies the initial value for the AlignmentHeadroomSamples.
 TEST(RenderDelayController, InitialHeadroom) {

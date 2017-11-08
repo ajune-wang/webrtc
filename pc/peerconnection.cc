@@ -108,8 +108,7 @@ enum {
 struct SetSessionDescriptionMsg : public rtc::MessageData {
   explicit SetSessionDescriptionMsg(
       webrtc::SetSessionDescriptionObserver* observer)
-      : observer(observer) {
-  }
+      : observer(observer) {}
 
   rtc::scoped_refptr<webrtc::SetSessionDescriptionObserver> observer;
   std::string error;
@@ -127,8 +126,7 @@ struct CreateSessionDescriptionMsg : public rtc::MessageData {
 struct GetStatsMsg : public rtc::MessageData {
   GetStatsMsg(webrtc::StatsObserver* observer,
               webrtc::MediaStreamTrackInterface* track)
-      : observer(observer), track(track) {
-  }
+      : observer(observer), track(track) {}
   rtc::scoped_refptr<webrtc::StatsObserver> observer;
   rtc::scoped_refptr<webrtc::MediaStreamTrackInterface> track;
 };
@@ -1031,13 +1029,11 @@ RTCError PeerConnection::ValidateConfiguration(
   return RTCError::OK();
 }
 
-rtc::scoped_refptr<StreamCollectionInterface>
-PeerConnection::local_streams() {
+rtc::scoped_refptr<StreamCollectionInterface> PeerConnection::local_streams() {
   return local_streams_;
 }
 
-rtc::scoped_refptr<StreamCollectionInterface>
-PeerConnection::remote_streams() {
+rtc::scoped_refptr<StreamCollectionInterface> PeerConnection::remote_streams() {
   return remote_streams_;
 }
 
@@ -1278,8 +1274,7 @@ PeerConnection::ice_gathering_state() {
   return ice_gathering_state_;
 }
 
-rtc::scoped_refptr<DataChannelInterface>
-PeerConnection::CreateDataChannel(
+rtc::scoped_refptr<DataChannelInterface> PeerConnection::CreateDataChannel(
     const std::string& label,
     const DataChannelInit* config) {
   TRACE_EVENT0("webrtc", "PeerConnection::CreateDataChannel");
@@ -1499,9 +1494,8 @@ void PeerConnection::SetLocalDescription(
     // TODO(deadbeef): We already had to hop to the network thread for
     // MaybeStartGathering...
     network_thread()->Invoke<void>(
-        RTC_FROM_HERE,
-        rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
-                  port_allocator_.get()));
+        RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
+                                 port_allocator_.get()));
   }
 }
 
@@ -1630,9 +1624,8 @@ void PeerConnection::SetRemoteDescription(
     // TODO(deadbeef): We already had to hop to the network thread for
     // MaybeStartGathering...
     network_thread()->Invoke<void>(
-        RTC_FROM_HERE,
-        rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
-                  port_allocator_.get()));
+        RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
+                                 port_allocator_.get()));
   }
 }
 
@@ -1980,9 +1973,8 @@ void PeerConnection::Close() {
   RTC_DCHECK(!sctp_transport_);
 
   network_thread()->Invoke<void>(
-      RTC_FROM_HERE,
-      rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
-                port_allocator_.get()));
+      RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
+                               port_allocator_.get()));
 
   worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
     call_.reset();
@@ -3090,10 +3082,9 @@ bool PeerConnection::InitializePortAllocator_n(
 
   // Call this last since it may create pooled allocator sessions using the
   // properties set above.
-  port_allocator_->SetConfiguration(stun_servers, turn_servers,
-                                    configuration.ice_candidate_pool_size,
-                                    configuration.prune_turn_ports,
-                                    configuration.turn_customizer);
+  port_allocator_->SetConfiguration(
+      stun_servers, turn_servers, configuration.ice_candidate_pool_size,
+      configuration.prune_turn_ports, configuration.turn_customizer);
   return true;
 }
 
@@ -3108,9 +3099,9 @@ bool PeerConnection::ReconfigurePortAllocator_n(
       ConvertIceTransportTypeToCandidateFilter(type));
   // Call this last since it may create pooled allocator sessions using the
   // candidate filter set above.
-  return port_allocator_->SetConfiguration(
-      stun_servers, turn_servers, candidate_pool_size, prune_turn_ports,
-      turn_customizer);
+  return port_allocator_->SetConfiguration(stun_servers, turn_servers,
+                                           candidate_pool_size,
+                                           prune_turn_ports, turn_customizer);
 }
 
 cricket::ChannelManager* PeerConnection::channel_manager() const {

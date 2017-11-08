@@ -50,7 +50,7 @@ struct PacketTime {
   PacketTime(int64_t timestamp, int64_t not_before)
       : timestamp(timestamp), not_before(not_before) {}
 
-  int64_t timestamp;   // Receive time after socket delivers the data.
+  int64_t timestamp;  // Receive time after socket delivers the data.
 
   // Earliest possible time the data could have arrived, indicating the
   // potential error in the |timestamp| value, in case the system, is busy. For
@@ -86,8 +86,10 @@ class AsyncPacketSocket : public sigslot::has_slots<> {
   virtual SocketAddress GetRemoteAddress() const = 0;
 
   // Send a packet.
-  virtual int Send(const void *pv, size_t cb, const PacketOptions& options) = 0;
-  virtual int SendTo(const void *pv, size_t cb, const SocketAddress& addr,
+  virtual int Send(const void* pv, size_t cb, const PacketOptions& options) = 0;
+  virtual int SendTo(const void* pv,
+                     size_t cb,
+                     const SocketAddress& addr,
                      const PacketOptions& options) = 0;
 
   // Close the socket.
@@ -107,9 +109,12 @@ class AsyncPacketSocket : public sigslot::has_slots<> {
 
   // Emitted each time a packet is read. Used only for UDP and
   // connected TCP sockets.
-  sigslot::signal5<AsyncPacketSocket*, const char*, size_t,
+  sigslot::signal5<AsyncPacketSocket*,
+                   const char*,
+                   size_t,
                    const SocketAddress&,
-                   const PacketTime&> SignalReadPacket;
+                   const PacketTime&>
+      SignalReadPacket;
 
   // Emitted each time a packet is sent.
   sigslot::signal2<AsyncPacketSocket*, const SentPacket&> SignalSentPacket;

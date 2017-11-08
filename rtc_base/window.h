@@ -30,7 +30,7 @@ namespace rtc {
 
 class WindowId {
  public:
-  // Define WindowT for each platform.
+// Define WindowT for each platform.
 #if defined(WEBRTC_LINUX) && !defined(WEBRTC_ANDROID)
   typedef Window WindowT;
 #elif defined(WEBRTC_WIN)
@@ -61,9 +61,7 @@ class WindowId {
   WindowId(const WindowT& id) : id_(id) {}  // NOLINT
   const WindowT& id() const { return id_; }
   bool IsValid() const { return id_ != 0; }
-  bool Equals(const WindowId& other) const {
-    return id_ == other.id();
-  }
+  bool Equals(const WindowId& other) const { return id_ == other.id(); }
 
  private:
   WindowT id_;

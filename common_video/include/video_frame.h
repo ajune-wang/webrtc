@@ -17,7 +17,7 @@
 // should be moved to somewhere under api/.
 
 #include "common_types.h"  // NOLINT(build/include)
-#include "typedefs.h"  // NOLINT(build/include)
+#include "typedefs.h"      // NOLINT(build/include)
 
 namespace webrtc {
 

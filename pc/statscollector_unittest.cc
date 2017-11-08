@@ -50,7 +50,7 @@ using webrtc::StatsReports;
 namespace {
 const bool kDefaultRtcpMuxRequired = true;
 const bool kDefaultSrtpRequired = true;
-}
+}  // namespace
 
 namespace cricket {
 
@@ -202,8 +202,9 @@ StatsReport::Id IdFromCertIdString(const std::string& cert_id) {
 
 // Finds the |n|-th report of type |type| in |reports|.
 // |n| starts from 1 for finding the first report.
-const StatsReport* FindNthReportByType(
-    const StatsReports& reports, const StatsReport::StatsType& type, int n) {
+const StatsReport* FindNthReportByType(const StatsReports& reports,
+                                       const StatsReport::StatsType& type,
+                                       int n) {
   for (size_t i = 0; i < reports.size(); ++i) {
     if (reports[i]->type() == type) {
       n--;
@@ -230,19 +231,16 @@ std::string ExtractSsrcStatsValue(StatsReports reports,
 
 std::string ExtractBweStatsValue(StatsReports reports,
                                  StatsReport::StatsValueName name) {
-  return ExtractStatsValue(
-      StatsReport::kStatsReportTypeBwe, reports, name);
+  return ExtractStatsValue(StatsReport::kStatsReportTypeBwe, reports, name);
 }
 
 std::string DerToPem(const std::string& der) {
   return rtc::SSLIdentity::DerToPem(
-        rtc::kPemTypeCertificate,
-        reinterpret_cast<const unsigned char*>(der.c_str()),
-        der.length());
+      rtc::kPemTypeCertificate,
+      reinterpret_cast<const unsigned char*>(der.c_str()), der.length());
 }
 
-std::vector<std::string> DersToPems(
-    const std::vector<std::string>& ders) {
+std::vector<std::string> DersToPems(const std::vector<std::string>& ders) {
   std::vector<std::string> pems(ders.size());
   std::transform(ders.begin(), ders.end(), pems.begin(), DerToPem);
   return pems;
@@ -259,16 +257,14 @@ void CheckCertChainReports(const StatsReports& reports,
     ASSERT_TRUE(report != NULL);
 
     std::string der_base64;
-    EXPECT_TRUE(GetValue(
-        report, StatsReport::kStatsValueNameDer, &der_base64));
+    EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameDer, &der_base64));
     std::string der = rtc::Base64::Decode(der_base64, rtc::Base64::DO_STRICT);
     EXPECT_EQ(ders[i], der);
 
     std::string fingerprint_algorithm;
-    EXPECT_TRUE(GetValue(
-        report,
-        StatsReport::kStatsValueNameFingerprintAlgorithm,
-        &fingerprint_algorithm));
+    EXPECT_TRUE(GetValue(report,
+                         StatsReport::kStatsValueNameFingerprintAlgorithm,
+                         &fingerprint_algorithm));
     // The digest algorithm for a FakeSSLCertificate is always SHA-1.
     std::string sha_1_str = rtc::DIGEST_SHA_1;
     EXPECT_EQ(sha_1_str, fingerprint_algorithm);
@@ -280,8 +276,7 @@ void CheckCertChainReports(const StatsReports& reports,
 
     ++i;
     std::string issuer_id;
-    if (!GetValue(report, StatsReport::kStatsValueNameIssuerId,
-                  &issuer_id)) {
+    if (!GetValue(report, StatsReport::kStatsValueNameIssuerId, &issuer_id)) {
       break;
     }
 
@@ -291,35 +286,34 @@ void CheckCertChainReports(const StatsReports& reports,
   EXPECT_EQ(ders.size(), i);
 }
 
-void VerifyVoiceReceiverInfoReport(
-    const StatsReport* report,
-    const cricket::VoiceReceiverInfo& info) {
+void VerifyVoiceReceiverInfoReport(const StatsReport* report,
+                                   const cricket::VoiceReceiverInfo& info) {
   std::string value_in_report;
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameAudioOutputLevel, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameAudioOutputLevel,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.audio_level), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameBytesReceived, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameBytesReceived,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int64_t>(info.bytes_rcvd), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameJitterReceived, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameJitterReceived,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.jitter_ms), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameJitterBufferMs, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameJitterBufferMs,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.jitter_buffer_ms), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNamePreferredJitterBufferMs,
-      &value_in_report));
+  EXPECT_TRUE(GetValue(report,
+                       StatsReport::kStatsValueNamePreferredJitterBufferMs,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.jitter_buffer_preferred_ms),
-      value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameCurrentDelayMs, &value_in_report));
+            value_in_report);
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameCurrentDelayMs,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.delay_estimate_ms), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameExpandRate, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameExpandRate,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<float>(info.expand_rate), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameSpeechExpandRate, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameSpeechExpandRate,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<float>(info.speech_expand_rate), value_in_report);
   EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameAccelerateRate,
                        &value_in_report));
@@ -335,28 +329,27 @@ void VerifyVoiceReceiverInfoReport(
                        &value_in_report));
   EXPECT_EQ(rtc::ToString<float>(info.secondary_discarded_rate),
             value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNamePacketsReceived, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNamePacketsReceived,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.packets_rcvd), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameDecodingCTSG, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameDecodingCTSG,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.decoding_calls_to_silence_generator),
-      value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameDecodingCTN, &value_in_report));
-  EXPECT_EQ(rtc::ToString<int>(info.decoding_calls_to_neteq),
-      value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameDecodingNormal, &value_in_report));
+            value_in_report);
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameDecodingCTN,
+                       &value_in_report));
+  EXPECT_EQ(rtc::ToString<int>(info.decoding_calls_to_neteq), value_in_report);
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameDecodingNormal,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.decoding_normal), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameDecodingPLC, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameDecodingPLC,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.decoding_plc), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameDecodingCNG, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameDecodingCNG,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.decoding_cng), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameDecodingPLCCNG, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameDecodingPLCCNG,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(info.decoding_plc_cng), value_in_report);
   EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameDecodingMutedOutput,
                        &value_in_report));
@@ -365,50 +358,46 @@ void VerifyVoiceReceiverInfoReport(
                        &value_in_report));
 }
 
-
 void VerifyVoiceSenderInfoReport(const StatsReport* report,
                                  const cricket::VoiceSenderInfo& sinfo) {
   std::string value_in_report;
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameCodecName, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameCodecName,
+                       &value_in_report));
   EXPECT_EQ(sinfo.codec_name, value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameBytesSent, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameBytesSent,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int64_t>(sinfo.bytes_sent), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNamePacketsSent, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNamePacketsSent,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.packets_sent), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNamePacketsLost, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNamePacketsLost,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.packets_lost), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameRtt, &value_in_report));
+  EXPECT_TRUE(
+      GetValue(report, StatsReport::kStatsValueNameRtt, &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.rtt_ms), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameRtt, &value_in_report));
+  EXPECT_TRUE(
+      GetValue(report, StatsReport::kStatsValueNameRtt, &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.rtt_ms), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameJitterReceived, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameJitterReceived,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.jitter_ms), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoCancellationQualityMin,
-      &value_in_report));
+  EXPECT_TRUE(GetValue(report,
+                       StatsReport::kStatsValueNameEchoCancellationQualityMin,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<float>(sinfo.aec_quality_min), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoDelayMedian, &value_in_report));
-  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_delay_median_ms),
-            value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoDelayStdDev, &value_in_report));
-  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_delay_std_ms),
-            value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoReturnLoss, &value_in_report));
-  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_return_loss),
-            value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameEchoReturnLossEnhancement,
-      &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameEchoDelayMedian,
+                       &value_in_report));
+  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_delay_median_ms), value_in_report);
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameEchoDelayStdDev,
+                       &value_in_report));
+  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_delay_std_ms), value_in_report);
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameEchoReturnLoss,
+                       &value_in_report));
+  EXPECT_EQ(rtc::ToString<int>(sinfo.echo_return_loss), value_in_report);
+  EXPECT_TRUE(GetValue(report,
+                       StatsReport::kStatsValueNameEchoReturnLossEnhancement,
+                       &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.echo_return_loss_enhancement),
             value_in_report);
   EXPECT_TRUE(GetValue(report,
@@ -424,8 +413,8 @@ void VerifyVoiceSenderInfoReport(const StatsReport* report,
   EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameAudioInputLevel,
                        &value_in_report));
   EXPECT_EQ(rtc::ToString<int>(sinfo.audio_level), value_in_report);
-  EXPECT_TRUE(GetValue(
-      report, StatsReport::kStatsValueNameTypingNoiseState, &value_in_report));
+  EXPECT_TRUE(GetValue(report, StatsReport::kStatsValueNameTypingNoiseState,
+                       &value_in_report));
   std::string typing_detected = sinfo.typing_noise_detected ? "true" : "false";
   EXPECT_EQ(typing_detected, value_in_report);
   EXPECT_TRUE(GetValue(report,
@@ -553,9 +542,7 @@ class StatsCollectorForTest : public webrtc::StatsCollector {
   explicit StatsCollectorForTest(PeerConnection* pc)
       : StatsCollector(pc), time_now_(19477) {}
 
-  double GetTimeNow() override {
-    return time_now_;
-  }
+  double GetTimeNow() override { return time_now_; }
 
  private:
   double time_now_;
@@ -577,10 +564,12 @@ class StatsCollectorTest : public testing::Test {
     EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
     EXPECT_CALL(pc_, sctp_data_channels())
         .WillRepeatedly(ReturnRef(data_channels_));
-    EXPECT_CALL(pc_, GetSenders()).WillRepeatedly(Return(
-        std::vector<rtc::scoped_refptr<RtpSenderInterface>>()));
-    EXPECT_CALL(pc_, GetReceivers()).WillRepeatedly(Return(
-        std::vector<rtc::scoped_refptr<RtpReceiverInterface>>()));
+    EXPECT_CALL(pc_, GetSenders())
+        .WillRepeatedly(
+            Return(std::vector<rtc::scoped_refptr<RtpSenderInterface>>()));
+    EXPECT_CALL(pc_, GetReceivers())
+        .WillRepeatedly(
+            Return(std::vector<rtc::scoped_refptr<RtpReceiverInterface>>()));
   }
 
   ~StatsCollectorTest() {}
@@ -620,15 +609,14 @@ class StatsCollectorTest : public testing::Test {
     stream_->AddTrack(track_);
     EXPECT_CALL(pc_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
         .WillRepeatedly(DoAll(SetArgPointee<1>(kRemoteTrackId), Return(true)));
-    }
+  }
 
   // Adds a outgoing audio track with a given SSRC into the stats.
   void AddOutgoingAudioTrackStats() {
     if (stream_ == NULL)
       stream_ = webrtc::MediaStream::Create("streamlabel");
 
-    audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(
-        kLocalTrackId);
+    audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(kLocalTrackId);
     stream_->AddTrack(audio_track_);
     EXPECT_CALL(pc_, GetLocalTrackIdBySsrc(kSsrcOfTrack, _))
         .WillOnce(DoAll(SetArgPointee<1>(kLocalTrackId), Return(true)));
@@ -639,8 +627,7 @@ class StatsCollectorTest : public testing::Test {
     if (stream_ == NULL)
       stream_ = webrtc::MediaStream::Create("streamlabel");
 
-    audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(
-        kRemoteTrackId);
+    audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(kRemoteTrackId);
     stream_->AddTrack(audio_track_);
     EXPECT_CALL(pc_, GetRemoteTrackIdBySsrc(kSsrcOfTrack, _))
         .WillOnce(DoAll(SetArgPointee<1>(kRemoteTrackId), Return(true)));
@@ -701,19 +688,19 @@ class StatsCollectorTest : public testing::Test {
     stats->GetStats(NULL, reports);
 
     // Verify the existence of the track report.
-    const StatsReport* report = FindNthReportByType(
-        *reports, StatsReport::kStatsReportTypeSsrc, 1);
+    const StatsReport* report =
+        FindNthReportByType(*reports, StatsReport::kStatsReportTypeSsrc, 1);
     EXPECT_FALSE(report == NULL);
     EXPECT_EQ(stats->GetTimeNow(), report->timestamp());
-    std::string track_id = ExtractSsrcStatsValue(
-        *reports, StatsReport::kStatsValueNameTrackId);
+    std::string track_id =
+        ExtractSsrcStatsValue(*reports, StatsReport::kStatsValueNameTrackId);
     EXPECT_EQ(audio_track->id(), track_id);
-    std::string ssrc_id = ExtractSsrcStatsValue(
-        *reports, StatsReport::kStatsValueNameSsrc);
+    std::string ssrc_id =
+        ExtractSsrcStatsValue(*reports, StatsReport::kStatsValueNameSsrc);
     EXPECT_EQ(rtc::ToString<uint32_t>(kSsrcOfTrack), ssrc_id);
 
-    std::string media_type = ExtractSsrcStatsValue(*reports,
-        StatsReport::kStatsValueNameMediaType);
+    std::string media_type =
+        ExtractSsrcStatsValue(*reports, StatsReport::kStatsValueNameMediaType);
     EXPECT_EQ("audio", media_type);
 
     // Verifies the values in the track report.
@@ -735,13 +722,13 @@ class StatsCollectorTest : public testing::Test {
     track_id = ExtractSsrcStatsValue(track_reports,
                                      StatsReport::kStatsValueNameTrackId);
     EXPECT_EQ(audio_track->id(), track_id);
-    ssrc_id = ExtractSsrcStatsValue(track_reports,
-                                    StatsReport::kStatsValueNameSsrc);
+    ssrc_id =
+        ExtractSsrcStatsValue(track_reports, StatsReport::kStatsValueNameSsrc);
     EXPECT_EQ(rtc::ToString<uint32_t>(kSsrcOfTrack), ssrc_id);
     if (voice_sender_info)
       VerifyVoiceSenderInfoReport(track_report, *voice_sender_info);
     if (voice_receiver_info)
-    VerifyVoiceReceiverInfoReport(track_report, *voice_receiver_info);
+      VerifyVoiceReceiverInfoReport(track_report, *voice_receiver_info);
   }
 
   void TestCertificateReports(
@@ -781,23 +768,21 @@ class StatsCollectorTest : public testing::Test {
         .WillOnce(Return(remote_cert.release()));
     EXPECT_CALL(pc_, GetSessionStats(_))
         .WillOnce(Invoke([&session_stats](const ChannelNamePairs&) {
-          return std::unique_ptr<SessionStats>(
-              new SessionStats(session_stats));
+          return std::unique_ptr<SessionStats>(new SessionStats(session_stats));
         }));
 
     stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
 
     stats.GetStats(NULL, &reports);
 
-    const StatsReport* channel_report = FindNthReportByType(
-        reports, StatsReport::kStatsReportTypeComponent, 1);
+    const StatsReport* channel_report =
+        FindNthReportByType(reports, StatsReport::kStatsReportTypeComponent, 1);
     EXPECT_TRUE(channel_report != NULL);
 
     // Check local certificate chain.
-    std::string local_certificate_id = ExtractStatsValue(
-        StatsReport::kStatsReportTypeComponent,
-        reports,
-        StatsReport::kStatsValueNameLocalCertificateId);
+    std::string local_certificate_id =
+        ExtractStatsValue(StatsReport::kStatsReportTypeComponent, reports,
+                          StatsReport::kStatsValueNameLocalCertificateId);
     if (local_ders.size() > 0) {
       EXPECT_NE(kNotFound, local_certificate_id);
       StatsReport::Id id(IdFromCertIdString(local_certificate_id));
@@ -807,10 +792,9 @@ class StatsCollectorTest : public testing::Test {
     }
 
     // Check remote certificate chain.
-    std::string remote_certificate_id = ExtractStatsValue(
-        StatsReport::kStatsReportTypeComponent,
-        reports,
-        StatsReport::kStatsValueNameRemoteCertificateId);
+    std::string remote_certificate_id =
+        ExtractStatsValue(StatsReport::kStatsReportTypeComponent, reports,
+                          StatsReport::kStatsValueNameRemoteCertificateId);
     if (remote_ders.size() > 0) {
       EXPECT_NE(kNotFound, remote_certificate_id);
       StatsReport::Id id(IdFromCertIdString(remote_certificate_id));
@@ -889,24 +873,24 @@ TEST_F(StatsCollectorTest, ExtractDataInfo) {
   const StatsReport* report =
       FindNthReportByType(reports, StatsReport::kStatsReportTypeDataChannel, 1);
 
-  StatsReport::Id reportId = StatsReport::NewTypedIntId(
-      StatsReport::kStatsReportTypeDataChannel, id);
+  StatsReport::Id reportId =
+      StatsReport::NewTypedIntId(StatsReport::kStatsReportTypeDataChannel, id);
 
   EXPECT_TRUE(reportId->Equals(report->id()));
 
   EXPECT_EQ(stats.GetTimeNow(), report->timestamp());
-  EXPECT_EQ(label, ExtractStatsValue(StatsReport::kStatsReportTypeDataChannel,
-                                     reports,
-                                     StatsReport::kStatsValueNameLabel));
+  EXPECT_EQ(label,
+            ExtractStatsValue(StatsReport::kStatsReportTypeDataChannel, reports,
+                              StatsReport::kStatsValueNameLabel));
   EXPECT_EQ(rtc::ToString<int64_t>(id),
             ExtractStatsValue(StatsReport::kStatsReportTypeDataChannel, reports,
                               StatsReport::kStatsValueNameDataChannelId));
-  EXPECT_EQ(state, ExtractStatsValue(StatsReport::kStatsReportTypeDataChannel,
-                                     reports,
-                                     StatsReport::kStatsValueNameState));
-  EXPECT_EQ("", ExtractStatsValue(StatsReport::kStatsReportTypeDataChannel,
-                                  reports,
-                                  StatsReport::kStatsValueNameProtocol));
+  EXPECT_EQ(state,
+            ExtractStatsValue(StatsReport::kStatsReportTypeDataChannel, reports,
+                              StatsReport::kStatsValueNameState));
+  EXPECT_EQ("",
+            ExtractStatsValue(StatsReport::kStatsReportTypeDataChannel, reports,
+                              StatsReport::kStatsValueNameProtocol));
 }
 
 // This test verifies that 64-bit counters are passed successfully.
@@ -922,8 +906,7 @@ TEST_F(StatsCollectorTest, BytesCounterHandles64Bits) {
   InitSessionStats(kVideoChannelName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   auto* media_channel = new MockVideoMediaChannel();
@@ -948,12 +931,11 @@ TEST_F(StatsCollectorTest, BytesCounterHandles64Bits) {
   EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
   EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
-      .WillOnce(DoAll(SetArgPointee<0>(stats_read),
-                      Return(true)));
+      .WillOnce(DoAll(SetArgPointee<0>(stats_read), Return(true)));
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
-  std::string result = ExtractSsrcStatsValue(reports,
-      StatsReport::kStatsValueNameBytesSent);
+  std::string result =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameBytesSent);
   EXPECT_EQ(kBytesSentString, result);
 }
 
@@ -1037,8 +1019,7 @@ TEST_F(StatsCollectorTest, VideoBandwidthEstimationInfoIsReported) {
   InitSessionStats(kVideoChannelName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   auto* media_channel = new MockVideoMediaChannel();
@@ -1077,8 +1058,8 @@ TEST_F(StatsCollectorTest, VideoBandwidthEstimationInfoIsReported) {
 
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
-  std::string result = ExtractSsrcStatsValue(reports,
-      StatsReport::kStatsValueNameBytesSent);
+  std::string result =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameBytesSent);
   EXPECT_EQ(kBytesSentString, result);
   result = ExtractBweStatsValue(
       reports, StatsReport::kStatsValueNameAvailableSendBandwidth);
@@ -1099,8 +1080,8 @@ TEST_F(StatsCollectorTest, SessionObjectExists) {
   StatsReports reports;  // returned values.
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
-  const StatsReport* session_report = FindNthReportByType(
-      reports, StatsReport::kStatsReportTypeSession, 1);
+  const StatsReport* session_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeSession, 1);
   EXPECT_FALSE(session_report == NULL);
 }
 
@@ -1113,11 +1094,11 @@ TEST_F(StatsCollectorTest, OnlyOneSessionObjectExists) {
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
-  const StatsReport* session_report = FindNthReportByType(
-      reports, StatsReport::kStatsReportTypeSession, 1);
+  const StatsReport* session_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeSession, 1);
   EXPECT_FALSE(session_report == NULL);
-  session_report = FindNthReportByType(
-      reports, StatsReport::kStatsReportTypeSession, 2);
+  session_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeSession, 2);
   EXPECT_EQ(NULL, session_report);
 }
 
@@ -1141,8 +1122,7 @@ TEST_F(StatsCollectorTest, TrackObjectExistsWithoutUpdateStats) {
   EXPECT_EQ(0, reports[0]->timestamp());
 
   std::string trackValue =
-      ExtractStatsValue(StatsReport::kStatsReportTypeTrack,
-                        reports,
+      ExtractStatsValue(StatsReport::kStatsReportTypeTrack, reports,
                         StatsReport::kStatsValueNameTrackId);
   EXPECT_EQ(kLocalTrackId, trackValue);
 }
@@ -1160,8 +1140,7 @@ TEST_F(StatsCollectorTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
   InitSessionStats(kVideoChannelName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   auto* media_channel = new MockVideoMediaChannel();
@@ -1184,8 +1163,7 @@ TEST_F(StatsCollectorTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
   EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
   EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
-    .WillOnce(DoAll(SetArgPointee<0>(stats_read),
-                    Return(true)));
+      .WillOnce(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;
@@ -1193,8 +1171,8 @@ TEST_F(StatsCollectorTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
   // |reports| should contain at least one session report, one track report,
   // and one ssrc report.
   EXPECT_LE((size_t)3, reports.size());
-  const StatsReport* track_report = FindNthReportByType(
-      reports, StatsReport::kStatsReportTypeTrack, 1);
+  const StatsReport* track_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeTrack, 1);
   EXPECT_TRUE(track_report);
 
   // Get report for the specific |track|.
@@ -1203,21 +1181,21 @@ TEST_F(StatsCollectorTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
   // |reports| should contain at least one session report, one track report,
   // and one ssrc report.
   EXPECT_LE((size_t)3, reports.size());
-  track_report = FindNthReportByType(
-      reports, StatsReport::kStatsReportTypeTrack, 1);
+  track_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeTrack, 1);
   EXPECT_TRUE(track_report);
   EXPECT_EQ(stats.GetTimeNow(), track_report->timestamp());
 
-  std::string ssrc_id = ExtractSsrcStatsValue(
-      reports, StatsReport::kStatsValueNameSsrc);
+  std::string ssrc_id =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameSsrc);
   EXPECT_EQ(rtc::ToString<uint32_t>(kSsrcOfTrack), ssrc_id);
 
-  std::string track_id = ExtractSsrcStatsValue(
-      reports, StatsReport::kStatsValueNameTrackId);
+  std::string track_id =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameTrackId);
   EXPECT_EQ(kLocalTrackId, track_id);
 
-  std::string media_type = ExtractSsrcStatsValue(reports,
-      StatsReport::kStatsValueNameMediaType);
+  std::string media_type =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameMediaType);
   EXPECT_EQ("video", media_type);
 }
 
@@ -1252,23 +1230,20 @@ TEST_F(StatsCollectorTest, TransportObjectLinkedFromSsrcObject) {
   EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
   EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
-    .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read),
-                          Return(true)));
+      .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
   InitSessionStats(kVcName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;
   stats.GetStats(NULL, &reports);
-  std::string transport_id = ExtractStatsValue(
-      StatsReport::kStatsReportTypeSsrc,
-      reports,
-      StatsReport::kStatsValueNameTransportId);
+  std::string transport_id =
+      ExtractStatsValue(StatsReport::kStatsReportTypeSsrc, reports,
+                        StatsReport::kStatsValueNameTransportId);
   ASSERT_NE(kNotFound, transport_id);
   // Transport id component ID will always be 1.
   // This has assumptions about how the ID is constructed.  As is, this is
@@ -1303,8 +1278,8 @@ TEST_F(StatsCollectorTest, RemoteSsrcInfoIsAbsent) {
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;
   stats.GetStats(NULL, &reports);
-  const StatsReport* remote_report = FindNthReportByType(reports,
-      StatsReport::kStatsReportTypeRemoteSsrc, 1);
+  const StatsReport* remote_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeRemoteSsrc, 1);
   EXPECT_TRUE(remote_report == NULL);
 }
 
@@ -1330,8 +1305,7 @@ TEST_F(StatsCollectorTest, RemoteSsrcInfoIsPresent) {
   InitSessionStats(kVcName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   // Constructs an ssrc stats update.
@@ -1348,15 +1322,14 @@ TEST_F(StatsCollectorTest, RemoteSsrcInfoIsPresent) {
   EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
   EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
-    .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read),
-                          Return(true)));
+      .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;
   stats.GetStats(NULL, &reports);
 
-  const StatsReport* remote_report = FindNthReportByType(reports,
-      StatsReport::kStatsReportTypeRemoteSsrc, 1);
+  const StatsReport* remote_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeRemoteSsrc, 1);
   EXPECT_FALSE(remote_report == NULL);
   EXPECT_EQ(12345.678, remote_report->timestamp());
 }
@@ -1374,8 +1347,7 @@ TEST_F(StatsCollectorTest, ReportsFromRemoteTrack) {
   InitSessionStats(kVideoChannelName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   auto* media_channel = new MockVideoMediaChannel();
@@ -1398,8 +1370,7 @@ TEST_F(StatsCollectorTest, ReportsFromRemoteTrack) {
   EXPECT_CALL(pc_, video_channel()).WillRepeatedly(Return(&video_channel));
   EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
-      .WillOnce(DoAll(SetArgPointee<0>(stats_read),
-                      Return(true)));
+      .WillOnce(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;
@@ -1407,17 +1378,17 @@ TEST_F(StatsCollectorTest, ReportsFromRemoteTrack) {
   // |reports| should contain at least one session report, one track report,
   // and one ssrc report.
   EXPECT_LE(static_cast<size_t>(3), reports.size());
-  const StatsReport* track_report = FindNthReportByType(
-      reports, StatsReport::kStatsReportTypeTrack, 1);
+  const StatsReport* track_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeTrack, 1);
   EXPECT_TRUE(track_report);
   EXPECT_EQ(stats.GetTimeNow(), track_report->timestamp());
 
-  std::string ssrc_id = ExtractSsrcStatsValue(
-      reports, StatsReport::kStatsValueNameSsrc);
+  std::string ssrc_id =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameSsrc);
   EXPECT_EQ(rtc::ToString<uint32_t>(kSsrcOfTrack), ssrc_id);
 
-  std::string track_id = ExtractSsrcStatsValue(
-      reports, StatsReport::kStatsValueNameTrackId);
+  std::string track_id =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameTrackId);
   EXPECT_EQ(kRemoteTrackId, track_id);
 }
 
@@ -1426,7 +1397,7 @@ TEST_F(StatsCollectorTest, ReportsFromRemoteTrack) {
 TEST_F(StatsCollectorTest, IceCandidateReport) {
   StatsCollectorForTest stats(&pc_);
 
-  StatsReports reports;                     // returned values.
+  StatsReports reports;  // returned values.
 
   const int local_port = 2000;
   const char local_ip[] = "192.168.0.1";
@@ -1581,25 +1552,22 @@ TEST_F(StatsCollectorTest, NoTransport) {
   // Configure MockWebRtcSession
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([&session_stats](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats));
       }));
 
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
 
   // Check that the local certificate is absent.
-  std::string local_certificate_id = ExtractStatsValue(
-      StatsReport::kStatsReportTypeComponent,
-      reports,
-      StatsReport::kStatsValueNameLocalCertificateId);
+  std::string local_certificate_id =
+      ExtractStatsValue(StatsReport::kStatsReportTypeComponent, reports,
+                        StatsReport::kStatsValueNameLocalCertificateId);
   ASSERT_EQ(kNotFound, local_certificate_id);
 
   // Check that the remote certificate is absent.
-  std::string remote_certificate_id = ExtractStatsValue(
-      StatsReport::kStatsReportTypeComponent,
-      reports,
-      StatsReport::kStatsValueNameRemoteCertificateId);
+  std::string remote_certificate_id =
+      ExtractStatsValue(StatsReport::kStatsReportTypeComponent, reports,
+                        StatsReport::kStatsValueNameRemoteCertificateId);
   ASSERT_EQ(kNotFound, remote_certificate_id);
 
   // Check that the negotiated ciphers are absent.
@@ -1639,24 +1607,21 @@ TEST_F(StatsCollectorTest, NoCertificates) {
   // Configure MockWebRtcSession
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([&session_stats](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats));
       }));
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
 
   // Check that the local certificate is absent.
-  std::string local_certificate_id = ExtractStatsValue(
-      StatsReport::kStatsReportTypeComponent,
-      reports,
-      StatsReport::kStatsValueNameLocalCertificateId);
+  std::string local_certificate_id =
+      ExtractStatsValue(StatsReport::kStatsReportTypeComponent, reports,
+                        StatsReport::kStatsValueNameLocalCertificateId);
   ASSERT_EQ(kNotFound, local_certificate_id);
 
   // Check that the remote certificate is absent.
-  std::string remote_certificate_id = ExtractStatsValue(
-      StatsReport::kStatsReportTypeComponent,
-      reports,
-      StatsReport::kStatsValueNameRemoteCertificateId);
+  std::string remote_certificate_id =
+      ExtractStatsValue(StatsReport::kStatsReportTypeComponent, reports,
+                        StatsReport::kStatsValueNameRemoteCertificateId);
   ASSERT_EQ(kNotFound, remote_certificate_id);
 }
 
@@ -1720,8 +1685,7 @@ TEST_F(StatsCollectorTest, FilterOutNegativeInitialValues) {
   InitSessionStats(kVcName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   cricket::VoiceSenderInfo voice_sender_info;
@@ -1818,8 +1782,8 @@ TEST_F(StatsCollectorTest, GetStatsFromLocalAudioTrack) {
 
   // Verify that there is no remote report for the local audio track because
   // we did not set it up.
-  const StatsReport* remote_report = FindNthReportByType(reports,
-      StatsReport::kStatsReportTypeRemoteSsrc, 1);
+  const StatsReport* remote_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeRemoteSsrc, 1);
   EXPECT_TRUE(remote_report == NULL);
 }
 
@@ -1848,9 +1812,9 @@ TEST_F(StatsCollectorTest, GetStatsFromRemoteStream) {
 
   cricket::VoiceMediaInfo stats_read;
   StatsReports reports;  // returned values.
-  SetupAndVerifyAudioTrackStats(
-      audio_track_.get(), stream_.get(), &stats, &voice_channel, kVcName,
-      media_channel, NULL, &voice_receiver_info, &stats_read, &reports);
+  SetupAndVerifyAudioTrackStats(audio_track_.get(), stream_.get(), &stats,
+                                &voice_channel, kVcName, media_channel, NULL,
+                                &voice_receiver_info, &stats_read, &reports);
 }
 
 // This test verifies that a local stats object won't update its statistics
@@ -1877,8 +1841,7 @@ TEST_F(StatsCollectorTest, GetStatsAfterRemoveAudioStream) {
   InitSessionStats(kVcName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   stats.RemoveLocalAudioTrack(audio_track_.get(), kSsrcOfTrack);
@@ -1892,23 +1855,22 @@ TEST_F(StatsCollectorTest, GetStatsAfterRemoveAudioStream) {
   EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(Return(&voice_channel));
   EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
-      .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read),
-                            Return(true)));
+      .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
   StatsReports reports;  // returned values.
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   stats.GetStats(NULL, &reports);
 
   // The report will exist since we don't remove them in RemoveStream().
-  const StatsReport* report = FindNthReportByType(
-      reports, StatsReport::kStatsReportTypeSsrc, 1);
+  const StatsReport* report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeSsrc, 1);
   EXPECT_FALSE(report == NULL);
   EXPECT_EQ(stats.GetTimeNow(), report->timestamp());
-  std::string track_id = ExtractSsrcStatsValue(
-      reports, StatsReport::kStatsValueNameTrackId);
+  std::string track_id =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameTrackId);
   EXPECT_EQ(kLocalTrackId, track_id);
-  std::string ssrc_id = ExtractSsrcStatsValue(
-      reports, StatsReport::kStatsValueNameSsrc);
+  std::string ssrc_id =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameSsrc);
   EXPECT_EQ(rtc::ToString<uint32_t>(kSsrcOfTrack), ssrc_id);
 
   // Verifies the values in the track report, no value will be changed by the
@@ -1953,8 +1915,7 @@ TEST_F(StatsCollectorTest, LocalAndRemoteTracksWithSameSsrc) {
   InitSessionStats(kVcName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   cricket::VoiceSenderInfo voice_sender_info;
@@ -1975,32 +1936,31 @@ TEST_F(StatsCollectorTest, LocalAndRemoteTracksWithSameSsrc) {
   EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(Return(&voice_channel));
   EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
   EXPECT_CALL(*media_channel, GetStats(_))
-      .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read),
-                            Return(true)));
+      .WillRepeatedly(DoAll(SetArgPointee<0>(stats_read), Return(true)));
 
   StatsReports reports;  // returned values.
   stats.UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
 
   // Get stats for the local track.
   stats.GetStats(audio_track_.get(), &reports);
-  const StatsReport* track_report = FindNthReportByType(
-      reports, StatsReport::kStatsReportTypeSsrc, 1);
+  const StatsReport* track_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeSsrc, 1);
   EXPECT_TRUE(track_report);
   EXPECT_EQ(stats.GetTimeNow(), track_report->timestamp());
-  std::string track_id = ExtractSsrcStatsValue(
-      reports, StatsReport::kStatsValueNameTrackId);
+  std::string track_id =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameTrackId);
   EXPECT_EQ(kLocalTrackId, track_id);
   VerifyVoiceSenderInfoReport(track_report, voice_sender_info);
 
   // Get stats for the remote track.
   reports.clear();
   stats.GetStats(remote_track.get(), &reports);
-  track_report = FindNthReportByType(reports,
-                                     StatsReport::kStatsReportTypeSsrc, 1);
+  track_report =
+      FindNthReportByType(reports, StatsReport::kStatsReportTypeSsrc, 1);
   EXPECT_TRUE(track_report);
   EXPECT_EQ(stats.GetTimeNow(), track_report->timestamp());
-  track_id = ExtractSsrcStatsValue(reports,
-                                   StatsReport::kStatsValueNameTrackId);
+  track_id =
+      ExtractSsrcStatsValue(reports, StatsReport::kStatsValueNameTrackId);
   EXPECT_EQ(kRemoteTrackId, track_id);
   VerifyVoiceReceiverInfoReport(track_report, voice_receiver_info);
 }
@@ -2075,8 +2035,7 @@ TEST_F(StatsCollectorTest, VerifyVideoSendSsrcStats) {
   InitSessionStats(kVideoChannelName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   auto* media_channel = new MockVideoMediaChannel();
@@ -2122,8 +2081,7 @@ TEST_F(StatsCollectorTest, VerifyVideoReceiveSsrcStats) {
   InitSessionStats(kVideoChannelName);
   EXPECT_CALL(pc_, GetSessionStats(_))
       .WillRepeatedly(Invoke([this](const ChannelNamePairs&) {
-        return std::unique_ptr<SessionStats>(
-            new SessionStats(session_stats_));
+        return std::unique_ptr<SessionStats>(new SessionStats(session_stats_));
       }));
 
   auto* media_channel = new MockVideoMediaChannel();

@@ -20,9 +20,7 @@ namespace rtc {
 class Md5Digest : public MessageDigest {
  public:
   enum { kSize = 16 };
-  Md5Digest() {
-    MD5Init(&ctx_);
-  }
+  Md5Digest() { MD5Init(&ctx_); }
   size_t Size() const override;
   void Update(const void* buf, size_t len) override;
   size_t Finish(void* buf, size_t len) override;

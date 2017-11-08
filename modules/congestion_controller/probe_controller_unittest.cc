@@ -231,8 +231,7 @@ TEST_F(ProbeControllerTest, PeriodicProbingAfterReset) {
   probe_controller_.reset(new ProbeController(&local_pacer, &clock_));
   int64_t alr_start_time = clock_.TimeInMilliseconds();
   EXPECT_CALL(local_pacer, GetApplicationLimitedRegionStartTime())
-      .WillRepeatedly(
-          Return(rtc::Optional<int64_t>(alr_start_time)));
+      .WillRepeatedly(Return(rtc::Optional<int64_t>(alr_start_time)));
 
   EXPECT_CALL(local_pacer, CreateProbeCluster(_)).Times(2);
   probe_controller_->EnablePeriodicAlrProbing(true);
@@ -250,7 +249,7 @@ TEST_F(ProbeControllerTest, PeriodicProbingAfterReset) {
   // Make sure we use |kStartBitrateBps| as the estimated bitrate
   // until SetEstimatedBitrate is called with an updated estimate.
   clock_.AdvanceTimeMilliseconds(10000);
-  EXPECT_CALL(local_pacer, CreateProbeCluster(kStartBitrateBps*2));
+  EXPECT_CALL(local_pacer, CreateProbeCluster(kStartBitrateBps * 2));
   probe_controller_->Process();
 }
 

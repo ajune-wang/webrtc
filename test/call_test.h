@@ -144,10 +144,7 @@ class CallTest : public ::testing::Test {
   // These methods are used to set up legacy voice engines and channels which is
   // necessary while voice engine is being refactored to the new stream API.
   struct VoiceEngineState {
-    VoiceEngineState()
-        : voice_engine(nullptr),
-          base(nullptr),
-          channel_id(-1) {}
+    VoiceEngineState() : voice_engine(nullptr), base(nullptr), channel_id(-1) {}
 
     VoiceEngine* voice_engine;
     VoEBase* base;

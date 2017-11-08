@@ -83,8 +83,8 @@ static const int CONNECTION_RESPONSE_TIMEOUT = 60 * 1000;  // 60 seconds
 static const uint32_t CONNECTION_WRITE_CONNECT_FAILURES = 5;
 
 enum RelayType {
-  RELAY_GTURN,   // Legacy google relay service.
-  RELAY_TURN     // Standard (TURN) relay service.
+  RELAY_GTURN,  // Legacy google relay service.
+  RELAY_TURN    // Standard (TURN) relay service.
 };
 
 enum IcePriorityValue {
@@ -129,7 +129,8 @@ typedef std::set<rtc::SocketAddress> ServerAddresses;
 // Represents a local communication mechanism that can be used to create
 // connections to similar mechanisms of the other client.  Subclasses of this
 // one add support for specific mechanisms like local UDP ports.
-class Port : public PortInterface, public rtc::MessageHandler,
+class Port : public PortInterface,
+             public rtc::MessageHandler,
              public sigslot::has_slots<> {
  public:
   // INIT: The state when a port is just created.
@@ -268,8 +269,7 @@ class Port : public PortInterface, public rtc::MessageHandler,
                                 int error_code,
                                 const std::string& reason) override;
 
-  void set_proxy(const std::string& user_agent,
-                 const rtc::ProxyInfo& proxy) {
+  void set_proxy(const std::string& user_agent, const rtc::ProxyInfo& proxy) {
     user_agent_ = user_agent;
     proxy_ = proxy;
   }
@@ -359,7 +359,8 @@ class Port : public PortInterface, public rtc::MessageHandler,
   // Called when a packet is received from an unknown address that is not
   // currently a connection.  If this is an authenticated STUN binding request,
   // then we will signal the client.
-  void OnReadPacket(const char* data, size_t size,
+  void OnReadPacket(const char* data,
+                    size_t size,
                     const rtc::SocketAddress& addr,
                     ProtocolType proto);
 
@@ -465,10 +466,10 @@ class Connection : public CandidatePairInterface,
   uint64_t priority() const;
 
   enum WriteState {
-    STATE_WRITABLE          = 0,  // we have received ping responses recently
-    STATE_WRITE_UNRELIABLE  = 1,  // we have had a few ping failures
-    STATE_WRITE_INIT        = 2,  // we have yet to receive a ping response
-    STATE_WRITE_TIMEOUT     = 3,  // we have had a large number of ping failures
+    STATE_WRITABLE = 0,          // we have received ping responses recently
+    STATE_WRITE_UNRELIABLE = 1,  // we have had a few ping failures
+    STATE_WRITE_INIT = 2,        // we have yet to receive a ping response
+    STATE_WRITE_TIMEOUT = 3,     // we have had a large number of ping failures
   };
 
   WriteState write_state() const { return write_state_; }
@@ -479,9 +480,7 @@ class Connection : public CandidatePairInterface,
   // be false for TCP connections.
   bool connected() const { return connected_; }
   bool weak() const { return !(writable() && receiving() && connected()); }
-  bool active() const {
-    return write_state_ != STATE_WRITE_TIMEOUT;
-  }
+  bool active() const { return write_state_ != STATE_WRITE_TIMEOUT; }
 
   // A connection is dead if it can be safely deleted.
   bool dead(int64_t now) const;
@@ -502,7 +501,8 @@ class Connection : public CandidatePairInterface,
   // The connection can send and receive packets asynchronously.  This matches
   // the interface of AsyncPacketSocket, which may use UDP or TCP under the
   // covers.
-  virtual int Send(const void* data, size_t size,
+  virtual int Send(const void* data,
+                   size_t size,
                    const rtc::PacketOptions& options) = 0;
 
   // Error if Send() returns < 0
@@ -514,7 +514,8 @@ class Connection : public CandidatePairInterface,
   sigslot::signal1<Connection*> SignalReadyToSend;
 
   // Called when a packet is received on this connection.
-  void OnReadPacket(const char* data, size_t size,
+  void OnReadPacket(const char* data,
+                    size_t size,
                     const rtc::PacketTime& packet_time);
 
   // Called when the socket is currently able to send.
@@ -548,9 +549,7 @@ class Connection : public CandidatePairInterface,
   // Public for unit tests.
   uint32_t acked_nomination() const { return acked_nomination_; }
 
-  void set_remote_ice_mode(IceMode mode) {
-    remote_ice_mode_ = mode;
-  }
+  void set_remote_ice_mode(IceMode mode) { remote_ice_mode_ = mode; }
 
   void set_receiving_timeout(int receiving_timeout_ms) {
     receiving_timeout_ = receiving_timeout_ms;
@@ -597,7 +596,7 @@ class Connection : public CandidatePairInterface,
   void PrintPingsSinceLastResponse(std::string* pings, size_t max);
 
   bool reported() const { return reported_; }
-  void set_reported(bool reported) { reported_ = reported;}
+  void set_reported(bool reported) { reported_ = reported; }
 
   // This signal will be fired if this connection is nominated by the
   // controlling side.

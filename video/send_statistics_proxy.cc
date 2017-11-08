@@ -111,7 +111,6 @@ rtc::Optional<int> GetFallbackIntervalFromFieldTrial() {
 }
 }  // namespace
 
-
 const int SendStatisticsProxy::kStatsTimeoutMs = 5000;
 
 SendStatisticsProxy::SendStatisticsProxy(

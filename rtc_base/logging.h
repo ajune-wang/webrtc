@@ -78,10 +78,16 @@ namespace rtc {
 //   LOG(LS_ERROR) << "LibraryFunc returned: "
 //                 << ErrorName(err, LIBRARY_ERRORS);
 
-struct ConstantLabel { int value; const char * label; };
-#define KLABEL(x) { x, #x }
-#define TLABEL(x, y) { x, y }
-#define LASTLABEL { 0, 0 }
+struct ConstantLabel {
+  int value;
+  const char* label;
+};
+#define KLABEL(x) \
+  { x, #x }
+#define TLABEL(x, y) \
+  { x, y }
+#define LASTLABEL \
+  { 0, 0 }
 
 const char* FindLabel(int value, const ConstantLabel entries[]);
 std::string ErrorName(int err, const ConstantLabel* err_table);
@@ -251,15 +257,17 @@ class LogMessage {
 class LogMultilineState {
  public:
   size_t unprintable_count_[2];
-  LogMultilineState() {
-    unprintable_count_[0] = unprintable_count_[1] = 0;
-  }
+  LogMultilineState() { unprintable_count_[0] = unprintable_count_[1] = 0; }
 };
 
 // When possible, pass optional state variable to track various data across
 // multiple calls to LogMultiline.  Otherwise, pass null.
-void LogMultiline(LoggingSeverity level, const char* label, bool input,
-                  const void* data, size_t len, bool hex_mode,
+void LogMultiline(LoggingSeverity level,
+                  const char* label,
+                  bool input,
+                  const void* data,
+                  size_t len,
+                  bool hex_mode,
                   LogMultilineState* state);
 
 // The following non-obvious technique for implementation of a
@@ -271,94 +279,75 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
 
 class LogMessageVoidify {
  public:
-  LogMessageVoidify() { }
+  LogMessageVoidify() {}
   // This has to be an operator with a precedence lower than << but
   // higher than ?:
-  void operator&(std::ostream&) { }
+  void operator&(std::ostream&) {}
 };
 
 #define RTC_LOG_SEVERITY_PRECONDITION(sev) \
-  !(rtc::LogMessage::Loggable(sev)) \
-    ? (void) 0 \
-    : rtc::LogMessageVoidify() &
+  !(rtc::LogMessage::Loggable(sev)) ? (void)0 : rtc::LogMessageVoidify()&
 
-#define RTC_LOG(sev) \
+#define RTC_LOG(sev)                      \
   RTC_LOG_SEVERITY_PRECONDITION(rtc::sev) \
-    rtc::LogMessage(__FILE__, __LINE__, rtc::sev).stream()
+  rtc::LogMessage(__FILE__, __LINE__, rtc::sev).stream()
 
 // The _V version is for when a variable is passed in.  It doesn't do the
 // namespace concatination.
-#define RTC_LOG_V(sev) \
+#define RTC_LOG_V(sev)               \
   RTC_LOG_SEVERITY_PRECONDITION(sev) \
-    rtc::LogMessage(__FILE__, __LINE__, sev).stream()
+  rtc::LogMessage(__FILE__, __LINE__, sev).stream()
 
 // The _F version prefixes the message with the current function name.
 #if (defined(__GNUC__) && !defined(NDEBUG)) || defined(WANT_PRETTY_LOG_F)
 #define RTC_LOG_F(sev) RTC_LOG(sev) << __PRETTY_FUNCTION__ << ": "
-#define RTC_LOG_T_F(sev) RTC_LOG(sev) << this << ": " \
-  << __PRETTY_FUNCTION__ << ": "
+#define RTC_LOG_T_F(sev) \
+  RTC_LOG(sev) << this << ": " << __PRETTY_FUNCTION__ << ": "
 #else
 #define RTC_LOG_F(sev) RTC_LOG(sev) << __FUNCTION__ << ": "
 #define RTC_LOG_T_F(sev) RTC_LOG(sev) << this << ": " << __FUNCTION__ << ": "
 #endif
 
-#define RTC_LOG_CHECK_LEVEL(sev) \
-  rtc::LogCheckLevel(rtc::sev)
-#define RTC_LOG_CHECK_LEVEL_V(sev) \
-  rtc::LogCheckLevel(sev)
+#define RTC_LOG_CHECK_LEVEL(sev) rtc::LogCheckLevel(rtc::sev)
+#define RTC_LOG_CHECK_LEVEL_V(sev) rtc::LogCheckLevel(sev)
 
 inline bool LogCheckLevel(LoggingSeverity sev) {
   return (LogMessage::GetMinLogSeverity() <= sev);
 }
 
-#define RTC_LOG_E(sev, ctx, err, ...) \
-  RTC_LOG_SEVERITY_PRECONDITION(rtc::sev) \
-    rtc::LogMessage(__FILE__, __LINE__, rtc::sev, \
-                    rtc::ERRCTX_ ## ctx, err , ##__VA_ARGS__)   \
-        .stream()
+#define RTC_LOG_E(sev, ctx, err, ...)                                   \
+  RTC_LOG_SEVERITY_PRECONDITION(rtc::sev)                               \
+  rtc::LogMessage(__FILE__, __LINE__, rtc::sev, rtc::ERRCTX_##ctx, err, \
+                  ##__VA_ARGS__)                                        \
+      .stream()
 
 #define RTC_LOG_T(sev) RTC_LOG(sev) << this << ": "
 
-#define RTC_LOG_ERRNO_EX(sev, err) \
-  RTC_LOG_E(sev, ERRNO, err)
-#define RTC_LOG_ERRNO(sev) \
-  RTC_LOG_ERRNO_EX(sev, errno)
+#define RTC_LOG_ERRNO_EX(sev, err) RTC_LOG_E(sev, ERRNO, err)
+#define RTC_LOG_ERRNO(sev) RTC_LOG_ERRNO_EX(sev, errno)
 
 #if defined(WEBRTC_WIN)
-#define RTC_LOG_GLE_EX(sev, err) \
-  RTC_LOG_E(sev, HRESULT, err)
-#define RTC_LOG_GLE(sev) \
-  RTC_LOG_GLE_EX(sev, GetLastError())
-#define RTC_LOG_GLEM(sev, mod) \
-  RTC_LOG_E(sev, HRESULT, GetLastError(), mod)
-#define RTC_LOG_ERR_EX(sev, err) \
-  RTC_LOG_GLE_EX(sev, err)
-#define RTC_LOG_ERR(sev) \
-  RTC_LOG_GLE(sev)
-#define RTC_LAST_SYSTEM_ERROR \
-  (::GetLastError())
+#define RTC_LOG_GLE_EX(sev, err) RTC_LOG_E(sev, HRESULT, err)
+#define RTC_LOG_GLE(sev) RTC_LOG_GLE_EX(sev, GetLastError())
+#define RTC_LOG_GLEM(sev, mod) RTC_LOG_E(sev, HRESULT, GetLastError(), mod)
+#define RTC_LOG_ERR_EX(sev, err) RTC_LOG_GLE_EX(sev, err)
+#define RTC_LOG_ERR(sev) RTC_LOG_GLE(sev)
+#define RTC_LAST_SYSTEM_ERROR (::GetLastError())
 #elif defined(__native_client__) && __native_client__
-#define RTC_LOG_ERR_EX(sev, err) \
-  RTC_LOG(sev)
-#define RTC_LOG_ERR(sev) \
-  RTC_LOG(sev)
-#define RTC_LAST_SYSTEM_ERROR \
-  (0)
+#define RTC_LOG_ERR_EX(sev, err) RTC_LOG(sev)
+#define RTC_LOG_ERR(sev) RTC_LOG(sev)
+#define RTC_LAST_SYSTEM_ERROR (0)
 #elif defined(WEBRTC_POSIX)
-#define RTC_LOG_ERR_EX(sev, err) \
-  RTC_LOG_ERRNO_EX(sev, err)
-#define RTC_LOG_ERR(sev) \
-  RTC_LOG_ERRNO(sev)
-#define RTC_LAST_SYSTEM_ERROR \
-  (errno)
+#define RTC_LOG_ERR_EX(sev, err) RTC_LOG_ERRNO_EX(sev, err)
+#define RTC_LOG_ERR(sev) RTC_LOG_ERRNO(sev)
+#define RTC_LAST_SYSTEM_ERROR (errno)
 #endif  // WEBRTC_WIN
 
 #define RTC_LOG_TAG(sev, tag)        \
   RTC_LOG_SEVERITY_PRECONDITION(sev) \
   rtc::LogMessage(nullptr, 0, sev, tag).stream()
 
-#define RTC_PLOG(sev, err) \
-  RTC_LOG_ERR_EX(sev, err)
+#define RTC_PLOG(sev, err) RTC_LOG_ERR_EX(sev, err)
 
 // TODO(?): Add an "assert" wrapper that logs in the same manner.
 

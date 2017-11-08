@@ -14,10 +14,10 @@
 #include <set>
 #include <utility>
 
-#include <X11/extensions/Xdamage.h>
-#include <X11/extensions/Xfixes.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/extensions/Xdamage.h>
+#include <X11/extensions/Xfixes.h>
 
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
@@ -127,8 +127,8 @@ ScreenCapturerLinux::ScreenCapturerLinux() {
 ScreenCapturerLinux::~ScreenCapturerLinux() {
   options_.x_display()->RemoveEventHandler(ConfigureNotify, this);
   if (use_damage_) {
-    options_.x_display()->RemoveEventHandler(
-        damage_event_base_ + XDamageNotify, this);
+    options_.x_display()->RemoveEventHandler(damage_event_base_ + XDamageNotify,
+                                             this);
   }
   DeinitXlib();
 }
@@ -195,8 +195,8 @@ void ScreenCapturerLinux::InitXDamage() {
   // properly.
 
   // Request notifications every time the screen becomes damaged.
-  damage_handle_ = XDamageCreate(display(), root_window_,
-                                 XDamageReportNonEmpty);
+  damage_handle_ =
+      XDamageCreate(display(), root_window_, XDamageReportNonEmpty);
   if (!damage_handle_) {
     LOG(LS_ERROR) << "Unable to initialize XDamage.";
     return;
@@ -210,8 +210,8 @@ void ScreenCapturerLinux::InitXDamage() {
     return;
   }
 
-  options_.x_display()->AddEventHandler(
-      damage_event_base_ + XDamageNotify, this);
+  options_.x_display()->AddEventHandler(damage_event_base_ + XDamageNotify,
+                                        this);
 
   use_damage_ = true;
   LOG(LS_INFO) << "Using XDamage extension.";
@@ -237,9 +237,9 @@ void ScreenCapturerLinux::CaptureFrame() {
   // reinitializes |x_server_pixel_buffer_|. Check if the pixel buffer is still
   // in a good shape.
   if (!x_server_pixel_buffer_.is_initialized()) {
-     // We failed to initialize pixel buffer.
-     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
-     return;
+    // We failed to initialize pixel buffer.
+    callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
+    return;
   }
 
   // If the current frame is from an older generation then allocate a new one.
@@ -331,8 +331,8 @@ std::unique_ptr<DesktopFrame> ScreenCapturerLinux::CaptureScreen() {
     updated_region->IntersectWith(
         DesktopRect::MakeSize(x_server_pixel_buffer_.window_size()));
 
-    for (DesktopRegion::Iterator it(*updated_region);
-         !it.IsAtEnd(); it.Advance()) {
+    for (DesktopRegion::Iterator it(*updated_region); !it.IsAtEnd();
+         it.Advance()) {
       if (!x_server_pixel_buffer_.CaptureRect(it.rect(), frame.get()))
         return nullptr;
     }
@@ -355,7 +355,7 @@ void ScreenCapturerLinux::ScreenConfigurationChanged() {
   helper_.ClearInvalidRegion();
   if (!x_server_pixel_buffer_.Init(display(), DefaultRootWindow(display()))) {
     LOG(LS_ERROR) << "Failed to initialize pixel buffer after screen "
-        "configuration change.";
+                     "configuration change.";
   }
 }
 
@@ -373,8 +373,8 @@ void ScreenCapturerLinux::SynchronizeFrame() {
   DesktopFrame* current = queue_.current_frame();
   DesktopFrame* last = queue_.previous_frame();
   RTC_DCHECK(current != last);
-  for (DesktopRegion::Iterator it(last_invalid_region_);
-       !it.IsAtEnd(); it.Advance()) {
+  for (DesktopRegion::Iterator it(last_invalid_region_); !it.IsAtEnd();
+       it.Advance()) {
     current->CopyPixelsFrom(*last, it.rect().top_left(), it.rect());
   }
 }

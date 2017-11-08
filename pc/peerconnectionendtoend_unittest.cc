@@ -48,12 +48,10 @@ const int kMaxWait = 10000;
 
 }  // namespace
 
-class PeerConnectionEndToEndTest
-    : public sigslot::has_slots<>,
-      public testing::Test {
+class PeerConnectionEndToEndTest : public sigslot::has_slots<>,
+                                   public testing::Test {
  public:
-  typedef std::vector<rtc::scoped_refptr<DataChannelInterface> >
-      DataChannelList;
+  typedef std::vector<rtc::scoped_refptr<DataChannelInterface>> DataChannelList;
 
   PeerConnectionEndToEndTest() {
     network_thread_ = rtc::Thread::CreateWithSocketServer();
@@ -95,17 +93,17 @@ class PeerConnectionEndToEndTest
     GetAndAddUserMedia(true, audio_constraints, true, video_constraints);
   }
 
-  void GetAndAddUserMedia(bool audio, FakeConstraints audio_constraints,
-                          bool video, FakeConstraints video_constraints) {
-    caller_->GetAndAddUserMedia(audio, audio_constraints,
-                                video, video_constraints);
-    callee_->GetAndAddUserMedia(audio, audio_constraints,
-                                video, video_constraints);
+  void GetAndAddUserMedia(bool audio,
+                          FakeConstraints audio_constraints,
+                          bool video,
+                          FakeConstraints video_constraints) {
+    caller_->GetAndAddUserMedia(audio, audio_constraints, video,
+                                video_constraints);
+    callee_->GetAndAddUserMedia(audio, audio_constraints, video,
+                                video_constraints);
   }
 
-  void Negotiate() {
-    caller_->CreateOffer(NULL);
-  }
+  void Negotiate() { caller_->CreateOffer(NULL); }
 
   void WaitForCallEstablished() {
     caller_->WaitForCallEstablished();
@@ -126,8 +124,8 @@ class PeerConnectionEndToEndTest
   }
 
   // Tests that |dc1| and |dc2| can send to and receive from each other.
-  void TestDataChannelSendAndReceive(
-      DataChannelInterface* dc1, DataChannelInterface* dc2) {
+  void TestDataChannelSendAndReceive(DataChannelInterface* dc1,
+                                     DataChannelInterface* dc2) {
     std::unique_ptr<webrtc::MockDataChannelObserver> dc1_observer(
         new webrtc::MockDataChannelObserver(dc1));
 
@@ -153,8 +151,7 @@ class PeerConnectionEndToEndTest
 
     EXPECT_TRUE_WAIT(remote_dc_list.size() > remote_dc_index, kMaxWait);
     EXPECT_EQ_WAIT(DataChannelInterface::kOpen,
-                   remote_dc_list[remote_dc_index]->state(),
-                   kMaxWait);
+                   remote_dc_list[remote_dc_index]->state(), kMaxWait);
     EXPECT_EQ(local_dc->id(), remote_dc_list[remote_dc_index]->id());
   }
 
@@ -164,8 +161,7 @@ class PeerConnectionEndToEndTest
     local_dc->Close();
     EXPECT_EQ_WAIT(DataChannelInterface::kClosed, local_dc->state(), kMaxWait);
     EXPECT_EQ_WAIT(DataChannelInterface::kClosed,
-                   remote_dc_list[remote_dc_index]->state(),
-                   kMaxWait);
+                   remote_dc_list[remote_dc_index]->state(), kMaxWait);
   }
 
  protected:

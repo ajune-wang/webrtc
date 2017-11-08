@@ -22,8 +22,8 @@ namespace webrtc {
 WPDNode::WPDNode(size_t length,
                  const float* coefficients,
                  size_t coefficients_length)
-    : // The data buffer has parent data length to be able to contain and filter
-      // it.
+    :  // The data buffer has parent data length to be able to contain and
+       // filter it.
       data_(new float[2 * length + 1]),
       length_(length),
       filter_(FIRFilter::Create(coefficients,
@@ -47,8 +47,8 @@ int WPDNode::Update(const float* parent_data, size_t parent_data_length) {
 
   // Decimate data.
   const bool kOddSequence = true;
-  size_t output_samples = DyadicDecimate(
-      data_.get(), parent_data_length, kOddSequence, data_.get(), length_);
+  size_t output_samples = DyadicDecimate(data_.get(), parent_data_length,
+                                         kOddSequence, data_.get(), length_);
   if (output_samples != length_) {
     return -1;
   }

@@ -176,30 +176,60 @@ void Matrix::Rotate(VideoRotation rotation) {
     case kVideoRotation_0:
       break;
     case kVideoRotation_90: {
-      const float ROTATE_90[16] =
-          { elem_[4], elem_[5], elem_[6], elem_[7],
-            -elem_[0], -elem_[1], -elem_[2], -elem_[3],
-            elem_[8], elem_[9], elem_[10], elem_[11],
-            elem_[0] + elem_[12], elem_[1] + elem_[13],
-            elem_[2] + elem_[14], elem_[3] + elem_[15]};
+      const float ROTATE_90[16] = {elem_[4],
+                                   elem_[5],
+                                   elem_[6],
+                                   elem_[7],
+                                   -elem_[0],
+                                   -elem_[1],
+                                   -elem_[2],
+                                   -elem_[3],
+                                   elem_[8],
+                                   elem_[9],
+                                   elem_[10],
+                                   elem_[11],
+                                   elem_[0] + elem_[12],
+                                   elem_[1] + elem_[13],
+                                   elem_[2] + elem_[14],
+                                   elem_[3] + elem_[15]};
       memcpy(elem_, ROTATE_90, sizeof(elem_));
     } break;
     case kVideoRotation_180: {
-      const float ROTATE_180[16] =
-          { -elem_[0], -elem_[1], -elem_[2], -elem_[3],
-            -elem_[4], -elem_[5], -elem_[6], -elem_[7],
-            elem_[8], elem_[9], elem_[10], elem_[11],
-            elem_[0] + elem_[4] + elem_[12], elem_[1] + elem_[5] + elem_[13],
-            elem_[2] + elem_[6] + elem_[14], elem_[3] + elem_[11]+ elem_[15]};
-        memcpy(elem_, ROTATE_180, sizeof(elem_));
+      const float ROTATE_180[16] = {-elem_[0],
+                                    -elem_[1],
+                                    -elem_[2],
+                                    -elem_[3],
+                                    -elem_[4],
+                                    -elem_[5],
+                                    -elem_[6],
+                                    -elem_[7],
+                                    elem_[8],
+                                    elem_[9],
+                                    elem_[10],
+                                    elem_[11],
+                                    elem_[0] + elem_[4] + elem_[12],
+                                    elem_[1] + elem_[5] + elem_[13],
+                                    elem_[2] + elem_[6] + elem_[14],
+                                    elem_[3] + elem_[11] + elem_[15]};
+      memcpy(elem_, ROTATE_180, sizeof(elem_));
     } break;
     case kVideoRotation_270: {
-      const float ROTATE_270[16] =
-          { -elem_[4], -elem_[5], -elem_[6], -elem_[7],
-            elem_[0], elem_[1], elem_[2], elem_[3],
-            elem_[8], elem_[9], elem_[10], elem_[11],
-            elem_[4] + elem_[12], elem_[5] + elem_[13],
-            elem_[6] + elem_[14], elem_[7] + elem_[15]};
+      const float ROTATE_270[16] = {-elem_[4],
+                                    -elem_[5],
+                                    -elem_[6],
+                                    -elem_[7],
+                                    elem_[0],
+                                    elem_[1],
+                                    elem_[2],
+                                    elem_[3],
+                                    elem_[8],
+                                    elem_[9],
+                                    elem_[10],
+                                    elem_[11],
+                                    elem_[4] + elem_[12],
+                                    elem_[5] + elem_[13],
+                                    elem_[6] + elem_[14],
+                                    elem_[7] + elem_[15]};
       memcpy(elem_, ROTATE_270, sizeof(elem_));
     } break;
   }
@@ -225,11 +255,8 @@ void Matrix::Crop(float xFraction,
                   float yFraction,
                   float xOffset,
                   float yOffset) {
-  const float crop_matrix[16] =
-      {xFraction, 0, 0, 0,
-       0, yFraction, 0, 0,
-       0, 0, 1, 0,
-       xOffset, yOffset, 0, 1};
+  const float crop_matrix[16] = {xFraction, 0, 0, 0, 0,       yFraction, 0, 0,
+                                 0,         0, 1, 0, xOffset, yOffset,   0, 1};
   const Matrix old = *this;
   Multiply(crop_matrix, old.elem_, this->elem_);
 }
@@ -297,7 +324,7 @@ rtc::scoped_refptr<I420BufferInterface> AndroidTextureBuffer::ToI420() {
   // See YuvConverter.java for the required layout.
   uint8_t* y_data = yuv_data.get();
   uint8_t* u_data = y_data + height() * stride;
-  uint8_t* v_data = u_data + stride/2;
+  uint8_t* v_data = u_data + stride / 2;
 
   rtc::scoped_refptr<I420BufferInterface> copy = webrtc::WrapI420Buffer(
       width(), height(), y_data, stride, u_data, stride, v_data, stride,
@@ -308,19 +335,16 @@ rtc::scoped_refptr<I420BufferInterface> AndroidTextureBuffer::ToI420() {
 
   // TODO(sakal): This call to a deperecated method will be removed when
   // AndroidTextureBuffer is removed.
-  jmethodID transform_mid = GetMethodID(
-      jni,
-      GetObjectClass(jni, surface_texture_helper_),
-      "textureToYUV",
-      "(Ljava/nio/ByteBuffer;IIII[F)V");
+  jmethodID transform_mid =
+      GetMethodID(jni, GetObjectClass(jni, surface_texture_helper_),
+                  "textureToYUV", "(Ljava/nio/ByteBuffer;IIII[F)V");
 
   jobject byte_buffer = jni->NewDirectByteBuffer(y_data, size);
 
   jfloatArray sampling_matrix = native_handle_.sampling_matrix.ToJava(jni);
-  jni->CallVoidMethod(surface_texture_helper_,
-                      transform_mid,
-                      byte_buffer, width(), height(), stride,
-                      native_handle_.oes_texture_id, sampling_matrix);
+  jni->CallVoidMethod(surface_texture_helper_, transform_mid, byte_buffer,
+                      width(), height(), stride, native_handle_.oes_texture_id,
+                      sampling_matrix);
   CHECK_EXCEPTION(jni) << "textureToYUV throwed an exception";
 
   return copy;

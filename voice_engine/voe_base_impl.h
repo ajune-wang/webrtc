@@ -21,8 +21,7 @@ namespace webrtc {
 
 class ProcessThread;
 
-class VoEBaseImpl : public VoEBase,
-                    public AudioTransport {
+class VoEBaseImpl : public VoEBase, public AudioTransport {
  public:
   int Init(
       AudioDeviceModule* external_adm,
@@ -94,9 +93,12 @@ class VoEBaseImpl : public VoEBase,
   int32_t StopSend();
   int32_t TerminateInternal();
 
-  void GetPlayoutData(int sample_rate, size_t number_of_channels,
-                      size_t number_of_frames, bool feed_data_to_apm,
-                      void* audio_data, int64_t* elapsed_time_ms,
+  void GetPlayoutData(int sample_rate,
+                      size_t number_of_channels,
+                      size_t number_of_frames,
+                      bool feed_data_to_apm,
+                      void* audio_data,
+                      int64_t* elapsed_time_ms,
                       int64_t* ntp_time_ms);
 
   // Initialize channel by setting Engine Information then initializing

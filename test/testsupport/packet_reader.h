@@ -29,7 +29,8 @@ class PacketReader {
   //   0 length will result in no packets are read.
   // * packet_size_in_bytes is the number of bytes to read in each NextPacket
   //   method call. Must be > 0
-  virtual void InitializeReading(uint8_t* data, size_t data_length_in_bytes,
+  virtual void InitializeReading(uint8_t* data,
+                                 size_t data_length_in_bytes,
                                  size_t packet_size_in_bytes);
 
   // Moves the supplied pointer to the beginning of the next packet.

@@ -11,8 +11,6 @@
 #include <memory>
 #include <vector>
 
-#include "vpx/vp8cx.h"
-#include "vpx/vpx_encoder.h"
 #include "modules/video_coding/codecs/vp8/screenshare_layers.h"
 #include "modules/video_coding/codecs/vp8/vp8_impl.h"
 #include "modules/video_coding/include/video_codec_interface.h"
@@ -21,6 +19,8 @@
 #include "system_wrappers/include/metrics.h"
 #include "system_wrappers/include/metrics_default.h"
 #include "test/gtest.h"
+#include "vpx/vp8cx.h"
+#include "vpx/vpx_encoder.h"
 
 using ::testing::_;
 using ::testing::ElementsAre;

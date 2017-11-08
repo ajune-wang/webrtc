@@ -22,18 +22,16 @@
 namespace cricket {
 
 // The base MediaMonitor class, independent of voice and video.
-class MediaMonitor : public rtc::MessageHandler,
-    public sigslot::has_slots<> {
+class MediaMonitor : public rtc::MessageHandler, public sigslot::has_slots<> {
  public:
-  MediaMonitor(rtc::Thread* worker_thread,
-               rtc::Thread* monitor_thread);
+  MediaMonitor(rtc::Thread* worker_thread, rtc::Thread* monitor_thread);
   ~MediaMonitor();
 
   void Start(uint32_t milliseconds);
   void Stop();
 
  protected:
-  void OnMessage(rtc::Message *message);
+  void OnMessage(rtc::Message* message);
   void PollMediaChannel();
   virtual void GetStats() = 0;
   virtual void Update() = 0;
@@ -46,10 +44,11 @@ class MediaMonitor : public rtc::MessageHandler,
 };
 
 // Templatized MediaMonitor that can deal with different kinds of media.
-template<class MC, class MI>
+template <class MC, class MI>
 class MediaMonitorT : public MediaMonitor {
  public:
-  MediaMonitorT(MC* media_channel, rtc::Thread* worker_thread,
+  MediaMonitorT(MC* media_channel,
+                rtc::Thread* worker_thread,
                 rtc::Thread* monitor_thread)
       : MediaMonitor(worker_thread, monitor_thread),
         media_channel_(media_channel) {}

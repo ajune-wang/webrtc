@@ -19,7 +19,7 @@
 #define FIRSTLINELEN 40
 //#define WEBRTC_DUMMY_RTP
 
-static bool pktCmp(NETEQTEST_RTPpacket *a, NETEQTEST_RTPpacket *b) {
+static bool pktCmp(NETEQTEST_RTPpacket* a, NETEQTEST_RTPpacket* b) {
   return (a->time() < b->time());
 }
 
@@ -58,10 +58,10 @@ int main(int argc, char* argv[]) {
   uint32_t ts;
   uint32_t send_time;
 
-  while (fscanf(stat_file,
-                "%hu %u %u %*i %*i\n", &seq_no, &ts, &send_time) == 3) {
-    std::pair<uint16_t, uint32_t>
-        temp_pair = std::pair<uint16_t, uint32_t>(seq_no, ts);
+  while (fscanf(stat_file, "%hu %u %u %*i %*i\n", &seq_no, &ts, &send_time) ==
+         3) {
+    std::pair<uint16_t, uint32_t> temp_pair =
+        std::pair<uint16_t, uint32_t>(seq_no, ts);
 
     packet_stats[temp_pair] = send_time;
   }
@@ -77,25 +77,24 @@ int main(int argc, char* argv[]) {
   fputs(first_line, out_file);
   // start_sec + start_usec + source + port + padding
   const unsigned int kRtpDumpHeaderSize = 4 + 4 + 4 + 2 + 2;
-  if (fread(first_line, 1, kRtpDumpHeaderSize, in_file)
-      != kRtpDumpHeaderSize) {
+  if (fread(first_line, 1, kRtpDumpHeaderSize, in_file) != kRtpDumpHeaderSize) {
     printf("Failed to read RTP dump header from input file %s\n", argv[1]);
     return -1;
   }
-  if (fwrite(first_line, 1, kRtpDumpHeaderSize, out_file)
-      != kRtpDumpHeaderSize) {
+  if (fwrite(first_line, 1, kRtpDumpHeaderSize, out_file) !=
+      kRtpDumpHeaderSize) {
     printf("Failed to write RTP dump header to output file %s\n", argv[3]);
     return -1;
   }
 
-  std::vector<NETEQTEST_RTPpacket *> packet_vec;
+  std::vector<NETEQTEST_RTPpacket*> packet_vec;
 
   while (1) {
-    // Insert in vector.
+// Insert in vector.
 #ifdef WEBRTC_DUMMY_RTP
-    NETEQTEST_RTPpacket *new_packet = new NETEQTEST_DummyRTPpacket();
+    NETEQTEST_RTPpacket* new_packet = new NETEQTEST_DummyRTPpacket();
 #else
-    NETEQTEST_RTPpacket *new_packet = new NETEQTEST_RTPpacket();
+    NETEQTEST_RTPpacket* new_packet = new NETEQTEST_RTPpacket();
 #endif
     if (new_packet->readFromFile(in_file) < 0) {
       // End of file.
@@ -103,19 +102,18 @@ int main(int argc, char* argv[]) {
     }
 
     // Look for new send time in statistics vector.
-    std::pair<uint16_t, uint32_t> temp_pair =
-        std::pair<uint16_t, uint32_t>(new_packet->sequenceNumber(),
-                                      new_packet->timeStamp());
+    std::pair<uint16_t, uint32_t> temp_pair = std::pair<uint16_t, uint32_t>(
+        new_packet->sequenceNumber(), new_packet->timeStamp());
 
     uint32_t new_send_time = packet_stats[temp_pair];
     new_packet->setTime(new_send_time);  // Set new send time.
-    packet_vec.push_back(new_packet);  // Insert in vector.
+    packet_vec.push_back(new_packet);    // Insert in vector.
   }
 
   // Sort the vector according to send times.
   std::sort(packet_vec.begin(), packet_vec.end(), pktCmp);
 
-  std::vector<NETEQTEST_RTPpacket *>::iterator it;
+  std::vector<NETEQTEST_RTPpacket*>::iterator it;
   for (it = packet_vec.begin(); it != packet_vec.end(); it++) {
     // Write to out file.
     if ((*it)->writeToFile(out_file) < 0) {

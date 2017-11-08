@@ -46,7 +46,7 @@ namespace {
 //                 crbug.com/752886
 constexpr int kPacketBufferStartSize = 512;
 constexpr int kPacketBufferMaxSixe = 2048;
-}
+}  // namespace
 
 std::unique_ptr<RtpRtcp> CreateRtpRtcpModule(
     ReceiveStatistics* receive_statistics,
@@ -459,7 +459,9 @@ void RtpVideoStreamReceiver::ReceivePacket(const uint8_t* packet,
 }
 
 void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
-    const uint8_t* packet, size_t packet_length, const RTPHeader& header) {
+    const uint8_t* packet,
+    size_t packet_length,
+    const RTPHeader& header) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&worker_task_checker_);
   if (rtp_payload_registry_.IsRed(header)) {
     int8_t ulpfec_pt = rtp_payload_registry_.ulpfec_payload_type();
@@ -618,8 +620,7 @@ bool RtpVideoStreamReceiver::IsPacketRetransmitted(const RTPHeader& header,
   // Check if this is a retransmission.
   int64_t min_rtt = 0;
   rtp_rtcp_->RTT(config_.rtp.remote_ssrc, nullptr, nullptr, &min_rtt, nullptr);
-  return !in_order &&
-      statistician->IsRetransmitOfOldPacket(header, min_rtt);
+  return !in_order && statistician->IsRetransmitOfOldPacket(header, min_rtt);
 }
 
 void RtpVideoStreamReceiver::UpdateHistograms() {

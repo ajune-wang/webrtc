@@ -74,8 +74,8 @@ webrtc::VideoEncoder* InternalEncoderFactory::CreateVideoEncoder(
   }
 }
 
-const std::vector<VideoCodec>&
-InternalEncoderFactory::supported_codecs() const {
+const std::vector<VideoCodec>& InternalEncoderFactory::supported_codecs()
+    const {
   return supported_codecs_;
 }
 

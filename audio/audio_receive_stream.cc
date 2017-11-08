@@ -110,9 +110,8 @@ AudioReceiveStream::AudioReceiveStream(
   channel_proxy_->RegisterReceiverCongestionControlObjects(packet_router);
 
   // Register with transport.
-  rtp_stream_receiver_ =
-      receiver_controller->CreateReceiver(config_.rtp.remote_ssrc,
-                                          channel_proxy_.get());
+  rtp_stream_receiver_ = receiver_controller->CreateReceiver(
+      config_.rtp.remote_ssrc, channel_proxy_.get());
 }
 
 AudioReceiveStream::~AudioReceiveStream() {
@@ -274,9 +273,7 @@ rtc::Optional<Syncable::Info> AudioReceiveStream::GetInfo() const {
     return rtc::Optional<Syncable::Info>();
   }
   if (rtp_rtcp->RemoteNTP(&info.capture_time_ntp_secs,
-                          &info.capture_time_ntp_frac,
-                          nullptr,
-                          nullptr,
+                          &info.capture_time_ntp_frac, nullptr, nullptr,
                           &info.capture_time_source_clock) != 0) {
     return rtc::Optional<Syncable::Info>();
   }

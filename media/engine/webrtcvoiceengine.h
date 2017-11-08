@@ -50,6 +50,7 @@ class WebRtcVoiceMediaChannel;
 // It uses the WebRtc VoiceEngine library for audio handling.
 class WebRtcVoiceEngine final {
   friend class WebRtcVoiceMediaChannel;
+
  public:
   WebRtcVoiceEngine(
       webrtc::AudioDeviceModule* adm,

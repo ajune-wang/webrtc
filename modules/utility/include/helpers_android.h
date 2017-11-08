@@ -33,11 +33,15 @@ jlong PointerTojlong(void* ptr);
 // JNIEnv-helper methods that wraps the API which uses the JNI interface
 // pointer (JNIEnv*). It allows us to RTC_CHECK success and that no Java
 // exception is thrown while calling the method.
-jmethodID GetMethodID(
-    JNIEnv* jni, jclass c, const char* name, const char* signature);
+jmethodID GetMethodID(JNIEnv* jni,
+                      jclass c,
+                      const char* name,
+                      const char* signature);
 
-jmethodID GetStaticMethodID(
-    JNIEnv* jni, jclass c, const char* name, const char* signature);
+jmethodID GetStaticMethodID(JNIEnv* jni,
+                            jclass c,
+                            const char* name,
+                            const char* signature);
 
 jclass FindClass(JNIEnv* jni, const char* name);
 
@@ -66,17 +70,14 @@ class AttachThreadScoped {
 };
 
 // Scoped holder for global Java refs.
-template<class T>  // T is jclass, jobject, jintArray, etc.
+template <class T>  // T is jclass, jobject, jintArray, etc.
 class ScopedGlobalRef {
  public:
   ScopedGlobalRef(JNIEnv* jni, T obj)
       : jni_(jni), obj_(static_cast<T>(NewGlobalRef(jni, obj))) {}
-  ~ScopedGlobalRef() {
-    DeleteGlobalRef(jni_, obj_);
-  }
-  T operator*() const {
-    return obj_;
-  }
+  ~ScopedGlobalRef() { DeleteGlobalRef(jni_, obj_); }
+  T operator*() const { return obj_; }
+
  private:
   JNIEnv* jni_;
   T obj_;

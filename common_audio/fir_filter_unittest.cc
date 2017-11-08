@@ -20,20 +20,18 @@ namespace webrtc {
 namespace {
 
 static const float kCoefficients[] = {0.2f, 0.3f, 0.5f, 0.7f, 0.11f};
-static const size_t kCoefficientsLength = sizeof(kCoefficients) /
-                                       sizeof(kCoefficients[0]);
+static const size_t kCoefficientsLength =
+    sizeof(kCoefficients) / sizeof(kCoefficients[0]);
 
-static const float kInput[] = {1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f,
-                                      8.f, 9.f, 10.f};
-static const size_t kInputLength = sizeof(kInput) /
-                                      sizeof(kInput[0]);
+static const float kInput[] = {1.f, 2.f, 3.f, 4.f, 5.f,
+                               6.f, 7.f, 8.f, 9.f, 10.f};
+static const size_t kInputLength = sizeof(kInput) / sizeof(kInput[0]);
 
 void VerifyOutput(const float* expected_output,
                   const float* output,
                   size_t length) {
-  EXPECT_EQ(0, memcmp(expected_output,
-                      output,
-                      length * sizeof(expected_output[0])));
+  EXPECT_EQ(
+      0, memcmp(expected_output, output, length * sizeof(expected_output[0])));
 }
 
 }  // namespace
@@ -96,8 +94,8 @@ TEST(FIRFilterTest, FilterInLengthLesserOrEqualToCoefficientsLength) {
 
   EXPECT_FLOAT_EQ(0.2f, output[0]);
   EXPECT_FLOAT_EQ(0.7f, output[1]);
-  filter.reset(FIRFilter::Create(
-      kCoefficients, kCoefficientsLength, kCoefficientsLength));
+  filter.reset(FIRFilter::Create(kCoefficients, kCoefficientsLength,
+                                 kCoefficientsLength));
   filter->Filter(kInput, kCoefficientsLength, output);
 
   EXPECT_FLOAT_EQ(0.2f, output[0]);
@@ -148,19 +146,17 @@ TEST(FIRFilterTest, VerifySampleBasedVsBlockBasedFiltering) {
     filter->Filter(&kInput[i], 1, &output_sample_based[i]);
   }
 
-  EXPECT_EQ(0, memcmp(output_sample_based,
-                      output_block_based,
-                      kInputLength));
+  EXPECT_EQ(0, memcmp(output_sample_based, output_block_based, kInputLength));
 }
 
 TEST(FIRFilterTest, SimplestHighPassFilter) {
   const float kCoefficients[] = {1.f, -1.f};
-  const size_t kCoefficientsLength = sizeof(kCoefficients) /
-                                  sizeof(kCoefficients[0]);
+  const size_t kCoefficientsLength =
+      sizeof(kCoefficients) / sizeof(kCoefficients[0]);
 
   float kConstantInput[] = {1.f, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f};
-  const size_t kConstantInputLength = sizeof(kConstantInput) /
-      sizeof(kConstantInput[0]);
+  const size_t kConstantInputLength =
+      sizeof(kConstantInput) / sizeof(kConstantInput[0]);
 
   float output[kConstantInputLength];
   std::unique_ptr<FIRFilter> filter(FIRFilter::Create(
@@ -174,12 +170,12 @@ TEST(FIRFilterTest, SimplestHighPassFilter) {
 
 TEST(FIRFilterTest, SimplestLowPassFilter) {
   const float kCoefficients[] = {1.f, 1.f};
-  const size_t kCoefficientsLength = sizeof(kCoefficients) /
-                                  sizeof(kCoefficients[0]);
+  const size_t kCoefficientsLength =
+      sizeof(kCoefficients) / sizeof(kCoefficients[0]);
 
   float kHighFrequencyInput[] = {-1.f, 1.f, -1.f, 1.f, -1.f, 1.f, -1.f, 1.f};
-  const size_t kHighFrequencyInputLength = sizeof(kHighFrequencyInput) /
-                                        sizeof(kHighFrequencyInput[0]);
+  const size_t kHighFrequencyInputLength =
+      sizeof(kHighFrequencyInput) / sizeof(kHighFrequencyInput[0]);
 
   float output[kHighFrequencyInputLength];
   std::unique_ptr<FIRFilter> filter(FIRFilter::Create(
@@ -199,11 +195,11 @@ TEST(FIRFilterTest, SameOutputWhenSwapedCoefficientsAndInput) {
   // Use kCoefficientsLength for in_length to get same-length outputs.
   filter->Filter(kInput, kCoefficientsLength, output);
 
-  filter.reset(FIRFilter::Create(
-      kInput, kCoefficientsLength, kCoefficientsLength));
+  filter.reset(
+      FIRFilter::Create(kInput, kCoefficientsLength, kCoefficientsLength));
   filter->Filter(kCoefficients, kCoefficientsLength, output_swaped);
 
-  for (size_t i = 0 ; i < kCoefficientsLength; ++i) {
+  for (size_t i = 0; i < kCoefficientsLength; ++i) {
     EXPECT_FLOAT_EQ(output[i], output_swaped[i]);
   }
 }

@@ -101,16 +101,14 @@ TEST_F(ChannelManagerTest, CreateDestroyChannels) {
       transport_controller_->CreateDtlsTransport(
           cricket::CN_AUDIO, cricket::ICE_CANDIDATE_COMPONENT_RTP);
   cricket::VoiceChannel* voice_channel = cm_->CreateVoiceChannel(
-      &fake_call_, cricket::MediaConfig(),
-      rtp_transport, nullptr /*rtcp_transport*/,
-      rtc::Thread::Current(), cricket::CN_AUDIO, kDefaultSrtpRequired,
-      AudioOptions());
+      &fake_call_, cricket::MediaConfig(), rtp_transport,
+      nullptr /*rtcp_transport*/, rtc::Thread::Current(), cricket::CN_AUDIO,
+      kDefaultSrtpRequired, AudioOptions());
   EXPECT_TRUE(voice_channel != nullptr);
   cricket::VideoChannel* video_channel = cm_->CreateVideoChannel(
-      &fake_call_, cricket::MediaConfig(),
-      rtp_transport, nullptr /*rtcp_transport*/,
-      rtc::Thread::Current(), cricket::CN_VIDEO, kDefaultSrtpRequired,
-      VideoOptions());
+      &fake_call_, cricket::MediaConfig(), rtp_transport,
+      nullptr /*rtcp_transport*/, rtc::Thread::Current(), cricket::CN_VIDEO,
+      kDefaultSrtpRequired, VideoOptions());
   EXPECT_TRUE(video_channel != nullptr);
   cricket::RtpDataChannel* rtp_data_channel = cm_->CreateRtpDataChannel(
       cricket::MediaConfig(), rtp_transport, nullptr /*rtcp_transport*/,
@@ -135,16 +133,14 @@ TEST_F(ChannelManagerTest, CreateDestroyChannelsOnThread) {
       transport_controller_->CreateDtlsTransport(
           cricket::CN_AUDIO, cricket::ICE_CANDIDATE_COMPONENT_RTP);
   cricket::VoiceChannel* voice_channel = cm_->CreateVoiceChannel(
-      &fake_call_, cricket::MediaConfig(),
-      rtp_transport, nullptr /*rtcp_transport*/,
-      rtc::Thread::Current(), cricket::CN_AUDIO, kDefaultSrtpRequired,
-      AudioOptions());
+      &fake_call_, cricket::MediaConfig(), rtp_transport,
+      nullptr /*rtcp_transport*/, rtc::Thread::Current(), cricket::CN_AUDIO,
+      kDefaultSrtpRequired, AudioOptions());
   EXPECT_TRUE(voice_channel != nullptr);
   cricket::VideoChannel* video_channel = cm_->CreateVideoChannel(
-      &fake_call_, cricket::MediaConfig(),
-      rtp_transport, nullptr /*rtcp_transport*/,
-      rtc::Thread::Current(), cricket::CN_VIDEO, kDefaultSrtpRequired,
-      VideoOptions());
+      &fake_call_, cricket::MediaConfig(), rtp_transport,
+      nullptr /*rtcp_transport*/, rtc::Thread::Current(), cricket::CN_VIDEO,
+      kDefaultSrtpRequired, VideoOptions());
   EXPECT_TRUE(video_channel != nullptr);
   cricket::RtpDataChannel* rtp_data_channel = cm_->CreateRtpDataChannel(
       cricket::MediaConfig(), rtp_transport, nullptr /*rtcp_transport*/,

@@ -19,15 +19,19 @@
 #if defined(WEBRTC_IOS)
 #include "test/ios/test_support.h"
 
-DEFINE_string(NSTreatUnknownArgumentsAsOpen, "",
-    "Intentionally ignored flag intended for iOS simulator.");
-DEFINE_string(ApplePersistenceIgnoreState, "",
-    "Intentionally ignored flag intended for iOS simulator.");
+DEFINE_string(NSTreatUnknownArgumentsAsOpen,
+              "",
+              "Intentionally ignored flag intended for iOS simulator.");
+DEFINE_string(ApplePersistenceIgnoreState,
+              "",
+              "Intentionally ignored flag intended for iOS simulator.");
 #endif
 
 DEFINE_bool(logs, false, "print logs to stderr");
 
-DEFINE_string(force_fieldtrials, "",
+DEFINE_string(
+    force_fieldtrials,
+    "",
     "Field trials control experimental feature code which can be forced. "
     "E.g. running with --force_fieldtrials=WebRTC-FooFeature/Enable/"
     " will assign the group Enable to field trial WebRTC-FooFeature.");

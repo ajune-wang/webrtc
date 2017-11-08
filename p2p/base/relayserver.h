@@ -29,8 +29,7 @@ class RelayServerConnection;
 
 // Relays traffic between connections to the server that are "bound" together.
 // All connections created with the same username/password are bound together.
-class RelayServer : public rtc::MessageHandler,
-                    public sigslot::has_slots<> {
+class RelayServer : public rtc::MessageHandler, public sigslot::has_slots<> {
  public:
   // Creates a server, which will use this thread to post messages to itself.
   explicit RelayServer(rtc::Thread* thread);
@@ -69,11 +68,10 @@ class RelayServer : public rtc::MessageHandler,
 
  private:
   typedef std::vector<rtc::AsyncPacketSocket*> SocketList;
-  typedef std::map<rtc::AsyncSocket*,
-                   cricket::ProtocolType> ServerSocketMap;
+  typedef std::map<rtc::AsyncSocket*, cricket::ProtocolType> ServerSocketMap;
   typedef std::map<std::string, RelayServerBinding*> BindingMap;
-  typedef std::map<rtc::SocketAddressPair,
-                   RelayServerConnection*> ConnectionMap;
+  typedef std::map<rtc::SocketAddressPair, RelayServerConnection*>
+      ConnectionMap;
 
   rtc::Thread* thread_;
   bool log_bindings_;
@@ -86,25 +84,31 @@ class RelayServer : public rtc::MessageHandler,
 
   // Called when a packet is received by the server on one of its sockets.
   void OnInternalPacket(rtc::AsyncPacketSocket* socket,
-                        const char* bytes, size_t size,
+                        const char* bytes,
+                        size_t size,
                         const rtc::SocketAddress& remote_addr,
                         const rtc::PacketTime& packet_time);
   void OnExternalPacket(rtc::AsyncPacketSocket* socket,
-                        const char* bytes, size_t size,
+                        const char* bytes,
+                        size_t size,
                         const rtc::SocketAddress& remote_addr,
                         const rtc::PacketTime& packet_time);
 
   void OnReadEvent(rtc::AsyncSocket* socket);
 
   // Processes the relevant STUN request types from the client.
-  bool HandleStun(const char* bytes, size_t size,
+  bool HandleStun(const char* bytes,
+                  size_t size,
                   const rtc::SocketAddress& remote_addr,
                   rtc::AsyncPacketSocket* socket,
-                  std::string* username, StunMessage* msg);
-  void HandleStunAllocate(const char* bytes, size_t size,
+                  std::string* username,
+                  StunMessage* msg);
+  void HandleStunAllocate(const char* bytes,
+                          size_t size,
                           const rtc::SocketAddressPair& ap,
                           rtc::AsyncPacketSocket* socket);
-  void HandleStun(RelayServerConnection* int_conn, const char* bytes,
+  void HandleStun(RelayServerConnection* int_conn,
+                  const char* bytes,
                   size_t size);
   void HandleStunAllocate(RelayServerConnection* int_conn,
                           const StunMessage& msg);
@@ -147,8 +151,7 @@ class RelayServerConnection {
   // Sends a packet to the connected client.  If an address is provided, then
   // we make sure the internal client receives it, wrapping if necessary.
   void Send(const char* data, size_t size);
-  void Send(const char* data, size_t size,
-            const rtc::SocketAddress& ext_addr);
+  void Send(const char* data, size_t size, const rtc::SocketAddress& ext_addr);
 
   // Sends a STUN message to the connected client with no wrapping.
   void SendStun(const StunMessage& msg);

@@ -26,4 +26,4 @@ std::set<cricket::VideoFormat> GetSupportedVideoFormatsForDevice(
 bool SetFormatForCaptureDevice(AVCaptureDevice* device,
                                AVCaptureSession* session,
                                const cricket::VideoFormat& format);
-}
+}  // namespace webrtc

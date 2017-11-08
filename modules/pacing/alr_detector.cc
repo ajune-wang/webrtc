@@ -67,8 +67,8 @@ void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t delta_time_ms) {
 
 void AlrDetector::SetEstimatedBitrate(int bitrate_bps) {
   RTC_DCHECK(bitrate_bps);
-  const auto target_rate_kbps = int64_t{bitrate_bps} *
-                                bandwidth_usage_percent_ / (1000 * 100);
+  const auto target_rate_kbps =
+      int64_t{bitrate_bps} * bandwidth_usage_percent_ / (1000 * 100);
   alr_budget_.set_target_rate_kbps(rtc::dchecked_cast<int>(target_rate_kbps));
 }
 

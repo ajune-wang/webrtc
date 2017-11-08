@@ -24,8 +24,8 @@ using webrtc::MediaSourceInterface;
 
 TEST(LocalAudioSourceTest, SetValidOptions) {
   webrtc::FakeConstraints constraints;
-  constraints.AddMandatory(
-      MediaConstraintsInterface::kGoogEchoCancellation, false);
+  constraints.AddMandatory(MediaConstraintsInterface::kGoogEchoCancellation,
+                           false);
   constraints.AddOptional(
       MediaConstraintsInterface::kExtendedFilterEchoCancellation, true);
   constraints.AddOptional(MediaConstraintsInterface::kDAEchoCancellation, true);
@@ -56,10 +56,10 @@ TEST(LocalAudioSourceTest, OptionNotSet) {
 
 TEST(LocalAudioSourceTest, MandatoryOverridesOptional) {
   webrtc::FakeConstraints constraints;
-  constraints.AddMandatory(
-      MediaConstraintsInterface::kGoogEchoCancellation, false);
-  constraints.AddOptional(
-      MediaConstraintsInterface::kGoogEchoCancellation, true);
+  constraints.AddMandatory(MediaConstraintsInterface::kGoogEchoCancellation,
+                           false);
+  constraints.AddOptional(MediaConstraintsInterface::kGoogEchoCancellation,
+                          true);
 
   rtc::scoped_refptr<LocalAudioSource> source =
       LocalAudioSource::Create(&constraints);

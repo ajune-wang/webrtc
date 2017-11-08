@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
                         nativeVideoDecoderFactory:
                             (std::unique_ptr<webrtc::VideoDecoderFactory>)videoDecoderFactory
                                 audioDeviceModule:
-                            (nullable webrtc::AudioDeviceModule *)audioDeviceModule;
+                                    (nullable webrtc::AudioDeviceModule *)audioDeviceModule;
 
 /* Initialize object with legacy injectable native audio/video encoder/decoder factories
    TODO(andersc): Remove this when backwards compatiblity is no longer needed.
@@ -61,8 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
         (rtc::scoped_refptr<webrtc::AudioEncoderFactory>)audioEncoderFactory
             nativeAudioDecoderFactory:
                 (rtc::scoped_refptr<webrtc::AudioDecoderFactory>)audioDecoderFactory
-      legacyNativeVideoEncoderFactory:(cricket::WebRtcVideoEncoderFactory*)videoEncoderFactory
-      legacyNativeVideoDecoderFactory:(cricket::WebRtcVideoDecoderFactory*)videoDecoderFactory
+      legacyNativeVideoEncoderFactory:(cricket::WebRtcVideoEncoderFactory *)videoEncoderFactory
+      legacyNativeVideoDecoderFactory:(cricket::WebRtcVideoDecoderFactory *)videoDecoderFactory
                     audioDeviceModule:(nullable webrtc::AudioDeviceModule *)audioDeviceModule;
 
 @end

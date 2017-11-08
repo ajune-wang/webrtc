@@ -35,7 +35,7 @@ class NullSmoothingFilter final : public SmoothingFilter {
  private:
   rtc::Optional<float> last_sample_;
 };
-}
+}  // namespace
 
 FecControllerPlrBased::Config::Config(
     bool initial_fec_enabled,

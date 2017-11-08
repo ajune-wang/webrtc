@@ -42,12 +42,12 @@
 namespace rtc {
 class RateLimiter;
 class Timing;
-}
+}  // namespace rtc
 
 namespace webrtc {
 class AudioSinkInterface;
 class VideoFrame;
-}
+}  // namespace webrtc
 
 namespace cricket {
 
@@ -72,16 +72,16 @@ static std::string ToStringIfSet(const char* key, const rtc::Optional<T>& val) {
 
 template <class T>
 static std::string VectorToString(const std::vector<T>& vals) {
-    std::ostringstream ost;
-    ost << "[";
-    for (size_t i = 0; i < vals.size(); ++i) {
-      if (i > 0) {
-        ost << ", ";
-      }
-      ost << vals[i].ToString();
+  std::ostringstream ost;
+  ost << "[";
+  for (size_t i = 0; i < vals.size(); ++i) {
+    if (i > 0) {
+      ost << ", ";
     }
-    ost << "]";
-    return ost.str();
+    ost << vals[i].ToString();
+  }
+  ost << "]";
+  return ost.str();
 }
 
 // Construction-time settings, passed on when creating
@@ -238,7 +238,7 @@ struct AudioOptions {
     ost << ToStringIfSet("residual_echo_detector", residual_echo_detector);
     ost << ToStringIfSet("tx_agc_target_dbov", tx_agc_target_dbov);
     ost << ToStringIfSet("tx_agc_digital_compression_gain",
-        tx_agc_digital_compression_gain);
+                         tx_agc_digital_compression_gain);
     ost << ToStringIfSet("tx_agc_limiter", tx_agc_limiter);
     ost << ToStringIfSet("recording_sample_rate", recording_sample_rate);
     ost << ToStringIfSet("playout_sample_rate", playout_sample_rate);
@@ -384,7 +384,8 @@ class MediaChannel : public sigslot::has_slots<> {
                             const rtc::PacketOptions& options) = 0;
     virtual bool SendRtcp(rtc::CopyOnWriteBuffer* packet,
                           const rtc::PacketOptions& options) = 0;
-    virtual int SetOption(SocketType type, rtc::Socket::Option opt,
+    virtual int SetOption(SocketType type,
+                          rtc::Socket::Option opt,
                           int option) = 0;
     virtual ~NetworkInterface() {}
   };
@@ -395,7 +396,7 @@ class MediaChannel : public sigslot::has_slots<> {
   virtual ~MediaChannel() {}
 
   // Sets the abstract interface class for sending RTP/RTCP data.
-  virtual void SetInterface(NetworkInterface *iface) {
+  virtual void SetInterface(NetworkInterface* iface) {
     rtc::CritScope cs(&network_interface_crit_);
     network_interface_ = iface;
     SetDscp(enable_dscp_ ? PreferredDscp() : rtc::DSCP_DEFAULT);
@@ -434,9 +435,7 @@ class MediaChannel : public sigslot::has_slots<> {
   virtual bool RemoveRecvStream(uint32_t ssrc) = 0;
 
   // Returns the absoulte sendtime extension id value from media channel.
-  virtual int GetRtpSendTimeExtnId() const {
-    return -1;
-  }
+  virtual int GetRtpSendTimeExtnId() const { return -1; }
 
   // Base method to send packet using NetworkInterface.
   bool SendPacket(rtc::CopyOnWriteBuffer* packet,
@@ -463,13 +462,9 @@ class MediaChannel : public sigslot::has_slots<> {
   // This method sets DSCP |value| on both RTP and RTCP channels.
   int SetDscp(rtc::DiffServCodePoint value) {
     int ret;
-    ret = SetOption(NetworkInterface::ST_RTP,
-                    rtc::Socket::OPT_DSCP,
-                    value);
+    ret = SetOption(NetworkInterface::ST_RTP, rtc::Socket::OPT_DSCP, value);
     if (ret == 0) {
-      ret = SetOption(NetworkInterface::ST_RTCP,
-                      rtc::Socket::OPT_DSCP,
-                      value);
+      ret = SetOption(NetworkInterface::ST_RTCP, rtc::Socket::OPT_DSCP, value);
     }
     return ret;
   }
@@ -501,19 +496,13 @@ class MediaChannel : public sigslot::has_slots<> {
 // Information about an SSRC.
 // This data may be locally recorded, or received in an RTCP SR or RR.
 struct SsrcSenderInfo {
-  SsrcSenderInfo()
-      : ssrc(0),
-    timestamp(0) {
-  }
+  SsrcSenderInfo() : ssrc(0), timestamp(0) {}
   uint32_t ssrc;
   double timestamp;  // NTP timestamp, represented as seconds since epoch.
 };
 
 struct SsrcReceiverInfo {
-  SsrcReceiverInfo()
-      : ssrc(0),
-        timestamp(0) {
-  }
+  SsrcReceiverInfo() : ssrc(0), timestamp(0) {}
   uint32_t ssrc;
   double timestamp;
 };
@@ -524,11 +513,8 @@ struct MediaSenderInfo {
         packets_sent(0),
         packets_lost(0),
         fraction_lost(0.0),
-        rtt_ms(0) {
-  }
-  void add_ssrc(const SsrcSenderInfo& stat) {
-    local_stats.push_back(stat);
-  }
+        rtt_ms(0) {}
+  void add_ssrc(const SsrcSenderInfo& stat) { local_stats.push_back(stat); }
   // Temporary utility function for call sites that only provide SSRC.
   // As more info is added into SsrcSenderInfo, this function should go away.
   void add_ssrc(uint32_t ssrc) {
@@ -568,14 +554,8 @@ struct MediaSenderInfo {
 
 struct MediaReceiverInfo {
   MediaReceiverInfo()
-      : bytes_rcvd(0),
-        packets_rcvd(0),
-        packets_lost(0),
-        fraction_lost(0.0) {
-  }
-  void add_ssrc(const SsrcReceiverInfo& stat) {
-    local_stats.push_back(stat);
-  }
+      : bytes_rcvd(0), packets_rcvd(0), packets_lost(0), fraction_lost(0.0) {}
+  void add_ssrc(const SsrcReceiverInfo& stat) { local_stats.push_back(stat); }
   // Temporary utility function for call sites that only provide SSRC.
   // As more info is added into SsrcSenderInfo, this function should go away.
   void add_ssrc(uint32_t ssrc) {
@@ -838,17 +818,13 @@ struct VideoReceiverInfo : public MediaReceiverInfo {
 };
 
 struct DataSenderInfo : public MediaSenderInfo {
-  DataSenderInfo()
-      : ssrc(0) {
-  }
+  DataSenderInfo() : ssrc(0) {}
 
   uint32_t ssrc;
 };
 
 struct DataReceiverInfo : public MediaReceiverInfo {
-  DataReceiverInfo()
-      : ssrc(0) {
-  }
+  DataReceiverInfo() : ssrc(0) {}
 
   uint32_t ssrc;
 };
@@ -861,8 +837,7 @@ struct BandwidthEstimationInfo {
         actual_enc_bitrate(0),
         retransmit_bitrate(0),
         transmit_bitrate(0),
-        bucket_delay(0) {
-  }
+        bucket_delay(0) {}
 
   int available_send_bandwidth;
   int available_recv_bandwidth;
@@ -969,8 +944,7 @@ struct AudioSendParameters : RtpSendParameters<AudioCodec> {
   AudioOptions options;
 };
 
-struct AudioRecvParameters : RtpParameters<AudioCodec> {
-};
+struct AudioRecvParameters : RtpParameters<AudioCodec> {};
 
 class VoiceMediaChannel : public MediaChannel {
  public:
@@ -1061,24 +1035,23 @@ struct VideoSendParameters : RtpSendParameters<VideoCodec> {
 
 // TODO(deadbeef): Rename to VideoReceiverParameters, since they're intended to
 // encapsulate all the parameters needed for a video RtpReceiver.
-struct VideoRecvParameters : RtpParameters<VideoCodec> {
-};
+struct VideoRecvParameters : RtpParameters<VideoCodec> {};
 
 class VideoMediaChannel : public MediaChannel {
  public:
   enum Error {
-    ERROR_NONE = 0,                       // No error.
-    ERROR_OTHER,                          // Other errors.
-    ERROR_REC_DEVICE_OPEN_FAILED = 100,   // Could not open camera.
-    ERROR_REC_DEVICE_NO_DEVICE,           // No camera.
-    ERROR_REC_DEVICE_IN_USE,              // Device is in already use.
-    ERROR_REC_DEVICE_REMOVED,             // Device is removed.
-    ERROR_REC_SRTP_ERROR,                 // Generic sender SRTP failure.
-    ERROR_REC_SRTP_AUTH_FAILED,           // Failed to authenticate packets.
-    ERROR_REC_CPU_MAX_CANT_DOWNGRADE,     // Can't downgrade capture anymore.
-    ERROR_PLAY_SRTP_ERROR = 200,          // Generic receiver SRTP failure.
-    ERROR_PLAY_SRTP_AUTH_FAILED,          // Failed to authenticate packets.
-    ERROR_PLAY_SRTP_REPLAY,               // Packet replay detected.
+    ERROR_NONE = 0,                      // No error.
+    ERROR_OTHER,                         // Other errors.
+    ERROR_REC_DEVICE_OPEN_FAILED = 100,  // Could not open camera.
+    ERROR_REC_DEVICE_NO_DEVICE,          // No camera.
+    ERROR_REC_DEVICE_IN_USE,             // Device is in already use.
+    ERROR_REC_DEVICE_REMOVED,            // Device is removed.
+    ERROR_REC_SRTP_ERROR,                // Generic sender SRTP failure.
+    ERROR_REC_SRTP_AUTH_FAILED,          // Failed to authenticate packets.
+    ERROR_REC_CPU_MAX_CANT_DOWNGRADE,    // Can't downgrade capture anymore.
+    ERROR_PLAY_SRTP_ERROR = 200,         // Generic receiver SRTP failure.
+    ERROR_PLAY_SRTP_AUTH_FAILED,         // Failed to authenticate packets.
+    ERROR_PLAY_SRTP_REPLAY,              // Packet replay detected.
   };
 
   VideoMediaChannel() {}
@@ -1208,19 +1181,18 @@ struct DataSendParameters : RtpSendParameters<DataCodec> {
   }
 };
 
-struct DataRecvParameters : RtpParameters<DataCodec> {
-};
+struct DataRecvParameters : RtpParameters<DataCodec> {};
 
 class DataMediaChannel : public MediaChannel {
  public:
   enum Error {
-    ERROR_NONE = 0,                       // No error.
-    ERROR_OTHER,                          // Other errors.
-    ERROR_SEND_SRTP_ERROR = 200,          // Generic SRTP failure.
-    ERROR_SEND_SRTP_AUTH_FAILED,          // Failed to authenticate packets.
-    ERROR_RECV_SRTP_ERROR,                // Generic SRTP failure.
-    ERROR_RECV_SRTP_AUTH_FAILED,          // Failed to authenticate packets.
-    ERROR_RECV_SRTP_REPLAY,               // Packet replay detected.
+    ERROR_NONE = 0,               // No error.
+    ERROR_OTHER,                  // Other errors.
+    ERROR_SEND_SRTP_ERROR = 200,  // Generic SRTP failure.
+    ERROR_SEND_SRTP_AUTH_FAILED,  // Failed to authenticate packets.
+    ERROR_RECV_SRTP_ERROR,        // Generic SRTP failure.
+    ERROR_RECV_SRTP_AUTH_FAILED,  // Failed to authenticate packets.
+    ERROR_RECV_SRTP_REPLAY,       // Packet replay detected.
   };
 
   DataMediaChannel() {}
@@ -1239,14 +1211,12 @@ class DataMediaChannel : public MediaChannel {
   virtual void OnNetworkRouteChanged(const std::string& transport_name,
                                      const rtc::NetworkRoute& network_route) {}
 
-  virtual bool SendData(
-      const SendDataParams& params,
-      const rtc::CopyOnWriteBuffer& payload,
-      SendDataResult* result = NULL) = 0;
+  virtual bool SendData(const SendDataParams& params,
+                        const rtc::CopyOnWriteBuffer& payload,
+                        SendDataResult* result = NULL) = 0;
   // Signals when data is received (params, data, len)
-  sigslot::signal3<const ReceiveDataParams&,
-                   const char*,
-                   size_t> SignalDataReceived;
+  sigslot::signal3<const ReceiveDataParams&, const char*, size_t>
+      SignalDataReceived;
   // Signal when the media channel is ready to send the stream. Arguments are:
   //     writable(bool)
   sigslot::signal1<bool> SignalReadyToSend;

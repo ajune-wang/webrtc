@@ -264,8 +264,8 @@ void VideoProcessor::FrameEncoded(webrtc::VideoCodecType codec,
   frame_stat->max_nalu_length = GetMaxNaluLength(encoded_image, config_);
 
   // Make a raw copy of |encoded_image| to feed to the decoder.
-  size_t copied_buffer_size = encoded_image._length +
-                              EncodedImage::GetBufferPaddingBytes(codec);
+  size_t copied_buffer_size =
+      encoded_image._length + EncodedImage::GetBufferPaddingBytes(codec);
   std::unique_ptr<uint8_t[]> copied_buffer(new uint8_t[copied_buffer_size]);
   memcpy(copied_buffer.get(), encoded_image._buffer, encoded_image._length);
   EncodedImage copied_image = encoded_image;

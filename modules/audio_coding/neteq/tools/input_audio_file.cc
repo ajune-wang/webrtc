@@ -19,7 +19,9 @@ InputAudioFile::InputAudioFile(const std::string file_name) {
   fp_ = fopen(file_name.c_str(), "rb");
 }
 
-InputAudioFile::~InputAudioFile() { fclose(fp_); }
+InputAudioFile::~InputAudioFile() {
+  fclose(fp_);
+}
 
 bool InputAudioFile::Read(size_t samples, int16_t* destination) {
   if (!fp_) {
@@ -60,7 +62,8 @@ bool InputAudioFile::Seek(int samples) {
   return true;
 }
 
-void InputAudioFile::DuplicateInterleaved(const int16_t* source, size_t samples,
+void InputAudioFile::DuplicateInterleaved(const int16_t* source,
+                                          size_t samples,
                                           size_t channels,
                                           int16_t* destination) {
   // Start from the end of |source| and |destination|, and work towards the

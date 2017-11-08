@@ -33,7 +33,7 @@ bool H264CMSampleBufferToAnnexBBuffer(
     CMSampleBufferRef avcc_sample_buffer,
     bool is_keyframe,
     rtc::Buffer* annexb_buffer,
-    std::unique_ptr<RTPFragmentationHeader> *out_header) {
+    std::unique_ptr<RTPFragmentationHeader>* out_header) {
   RTC_DCHECK(avcc_sample_buffer);
   RTC_DCHECK(out_header);
   out_header->reset(nullptr);
@@ -297,8 +297,7 @@ CMVideoFormatDescriptionRef CreateVideoFormatDescription(
     return nullptr;
   }
   status = CMVideoFormatDescriptionCreateFromH264ParameterSets(
-      kCFAllocatorDefault, 2, param_set_ptrs, param_set_sizes, 4,
-      &description);
+      kCFAllocatorDefault, 2, param_set_ptrs, param_set_sizes, 4, &description);
   if (status != noErr) {
     LOG(LS_ERROR) << "Failed to create video format description.";
     return nullptr;

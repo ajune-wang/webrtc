@@ -25,9 +25,7 @@ class RealFourierOoura : public RealFourier {
   void Forward(const float* src, std::complex<float>* dest) const override;
   void Inverse(const std::complex<float>* src, float* dest) const override;
 
-  int order() const override {
-    return order_;
-  }
+  int order() const override { return order_; }
 
  private:
   const int order_;
@@ -42,4 +40,3 @@ class RealFourierOoura : public RealFourier {
 }  // namespace webrtc
 
 #endif  // COMMON_AUDIO_REAL_FOURIER_OOURA_H_
-

@@ -29,10 +29,10 @@
 #include "call/audio_send_stream.h"
 #include "call/call.h"
 #include "call/flexfec_receive_stream.h"
-#include "modules/rtp_rtcp/source/rtp_packet_received.h"
-#include "rtc_base/buffer.h"
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
+#include "rtc_base/buffer.h"
 
 namespace cricket {
 class FakeAudioSendStream final : public webrtc::AudioSendStream {
@@ -44,8 +44,8 @@ class FakeAudioSendStream final : public webrtc::AudioSendStream {
     int duration_ms = 0;
   };
 
-  explicit FakeAudioSendStream(
-      int id, const webrtc::AudioSendStream::Config& config);
+  explicit FakeAudioSendStream(int id,
+                               const webrtc::AudioSendStream::Config& config);
 
   int id() const { return id_; }
   const webrtc::AudioSendStream::Config& GetConfig() const override;
@@ -61,7 +61,9 @@ class FakeAudioSendStream final : public webrtc::AudioSendStream {
   void Start() override { sending_ = true; }
   void Stop() override { sending_ = false; }
 
-  bool SendTelephoneEvent(int payload_type, int payload_frequency, int event,
+  bool SendTelephoneEvent(int payload_type,
+                          int payload_frequency,
+                          int event,
                           int duration_ms) override;
   void SetMuted(bool muted) override;
   webrtc::AudioSendStream::Stats GetStats() const override;
@@ -77,7 +79,8 @@ class FakeAudioSendStream final : public webrtc::AudioSendStream {
 class FakeAudioReceiveStream final : public webrtc::AudioReceiveStream {
  public:
   explicit FakeAudioReceiveStream(
-      int id, const webrtc::AudioReceiveStream::Config& config);
+      int id,
+      const webrtc::AudioReceiveStream::Config& config);
 
   int id() const { return id_; }
   const webrtc::AudioReceiveStream::Config& GetConfig() const;

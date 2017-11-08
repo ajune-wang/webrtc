@@ -32,11 +32,9 @@ RTPReceiverStrategy* RTPReceiverStrategy::CreateVideoStrategy(
 }
 
 RTPReceiverVideo::RTPReceiverVideo(RtpData* data_callback)
-    : RTPReceiverStrategy(data_callback) {
-}
+    : RTPReceiverStrategy(data_callback) {}
 
-RTPReceiverVideo::~RTPReceiverVideo() {
-}
+RTPReceiverVideo::~RTPReceiverVideo() {}
 
 bool RTPReceiverVideo::ShouldReportCsrcChanges(uint8_t payload_type) const {
   // Always do this for video packets.

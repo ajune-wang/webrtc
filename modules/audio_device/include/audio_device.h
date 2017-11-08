@@ -12,8 +12,8 @@
 #define MODULES_AUDIO_DEVICE_INCLUDE_AUDIO_DEVICE_H_
 
 #include "modules/audio_device/include/audio_device_defines.h"
-#include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/refcount.h"
+#include "rtc_base/scoped_ref_ptr.h"
 
 namespace webrtc {
 
@@ -21,10 +21,7 @@ class AudioDeviceModule : public rtc::RefCountInterface {
  public:
   // Deprecated.
   // TODO(henrika): to be removed.
-  enum ErrorCode {
-    kAdmErrNone = 0,
-    kAdmErrArgument = 1
-  };
+  enum ErrorCode { kAdmErrNone = 0, kAdmErrArgument = 1 };
 
   enum AudioLayer {
     kPlatformDefaultAudio = 0,
@@ -42,11 +39,7 @@ class AudioDeviceModule : public rtc::RefCountInterface {
     kDefaultDevice = -2
   };
 
-  enum ChannelType {
-    kChannelLeft = 0,
-    kChannelRight = 1,
-    kChannelBoth = 2
-  };
+  enum ChannelType { kChannelLeft = 0, kChannelRight = 1, kChannelBoth = 2 };
 
  public:
   // Create an ADM.

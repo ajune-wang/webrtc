@@ -31,7 +31,7 @@ class ConnectionStatsGetter {
 
 class ConnectionMonitor : public rtc::MessageHandler,
                           public sigslot::has_slots<> {
-public:
+ public:
   ConnectionMonitor(ConnectionStatsGetter* stats_getter,
                     rtc::Thread* network_thread,
                     rtc::Thread* monitoring_thread);
@@ -40,8 +40,8 @@ public:
   void Start(int cms);
   void Stop();
 
-  sigslot::signal2<ConnectionMonitor*,
-                   const std::vector<ConnectionInfo>&> SignalUpdate;
+  sigslot::signal2<ConnectionMonitor*, const std::vector<ConnectionInfo>&>
+      SignalUpdate;
 
  protected:
   void OnMessage(rtc::Message* message) override;

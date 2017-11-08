@@ -37,10 +37,12 @@ extern const float WebRtcIsac_kUpperApFactorsFloat[2];
 /* The lower channel all-pass filter factors */
 extern const float WebRtcIsac_kLowerApFactorsFloat[2];
 
-/* The matrix for transforming the backward composite state to upper channel state */
+/* The matrix for transforming the backward composite state to upper channel
+ * state */
 extern const float WebRtcIsac_kTransform1Float[8];
 
-/* The matrix for transforming the backward composite state to lower channel state */
+/* The matrix for transforming the backward composite state to lower channel
+ * state */
 extern const float WebRtcIsac_kTransform2Float[8];
 
 #endif /* MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_FILTERBANK_TABLES_H_ */

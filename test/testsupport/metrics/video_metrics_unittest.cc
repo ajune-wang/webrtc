@@ -21,18 +21,18 @@ static const int kHeight = 288;
 static const int kMissingReferenceFileReturnCode = -1;
 static const int kMissingTestFileReturnCode = -2;
 static const int kEmptyFileReturnCode = -3;
-static const double kPsnrPerfectResult =  48.0;
+static const double kPsnrPerfectResult = 48.0;
 static const double kSsimPerfectResult = 1.0;
 
-class VideoMetricsTest: public testing::Test {
+class VideoMetricsTest : public testing::Test {
  protected:
   VideoMetricsTest() {
     video_file_ = webrtc::test::ResourcePath("foreman_cif_short", "yuv");
   }
   virtual ~VideoMetricsTest() {}
   void SetUp() {
-    non_existing_file_ = webrtc::test::OutputPath() +
-        "video_metrics_unittest_non_existing";
+    non_existing_file_ =
+        webrtc::test::OutputPath() + "video_metrics_unittest_non_existing";
     remove(non_existing_file_.c_str());  // To be sure it doesn't exist.
 
     // Create an empty file:
@@ -41,9 +41,7 @@ class VideoMetricsTest: public testing::Test {
     FILE* dummy = fopen(empty_file_.c_str(), "wb");
     fclose(dummy);
   }
-  void TearDown() {
-    remove(empty_file_.c_str());
-  }
+  void TearDown() { remove(empty_file_.c_str()); }
   webrtc::test::QualityMetricsResult psnr_result_;
   webrtc::test::QualityMetricsResult ssim_result_;
   std::string non_existing_file_;
@@ -65,9 +63,9 @@ TEST_F(VideoMetricsTest, ReturnsPerfectResultForIdenticalFilesSSIM) {
 }
 
 TEST_F(VideoMetricsTest, ReturnsPerfectResultForIdenticalFilesBothMetrics) {
-  EXPECT_EQ(0, I420MetricsFromFiles(video_file_.c_str(), video_file_.c_str(),
-                                    kWidth, kHeight, &psnr_result_,
-                                    &ssim_result_));
+  EXPECT_EQ(
+      0, I420MetricsFromFiles(video_file_.c_str(), video_file_.c_str(), kWidth,
+                              kHeight, &psnr_result_, &ssim_result_));
   EXPECT_EQ(kPsnrPerfectResult, psnr_result_.average);
   EXPECT_EQ(kSsimPerfectResult, ssim_result_.average);
 }
@@ -75,23 +73,21 @@ TEST_F(VideoMetricsTest, ReturnsPerfectResultForIdenticalFilesBothMetrics) {
 // Tests that the right return code is given when the reference file is missing.
 TEST_F(VideoMetricsTest, MissingReferenceFilePSNR) {
   EXPECT_EQ(kMissingReferenceFileReturnCode,
-            I420PSNRFromFiles(non_existing_file_.c_str(),
-                              video_file_.c_str(), kWidth, kHeight,
-                              &ssim_result_));
+            I420PSNRFromFiles(non_existing_file_.c_str(), video_file_.c_str(),
+                              kWidth, kHeight, &ssim_result_));
 }
 
 TEST_F(VideoMetricsTest, MissingReferenceFileSSIM) {
   EXPECT_EQ(kMissingReferenceFileReturnCode,
-            I420SSIMFromFiles(non_existing_file_.c_str(),
-                              video_file_.c_str(), kWidth, kHeight,
-                              &ssim_result_));
+            I420SSIMFromFiles(non_existing_file_.c_str(), video_file_.c_str(),
+                              kWidth, kHeight, &ssim_result_));
 }
 
 TEST_F(VideoMetricsTest, MissingReferenceFileBothMetrics) {
-  EXPECT_EQ(kMissingReferenceFileReturnCode,
-            I420MetricsFromFiles(non_existing_file_.c_str(),
-                                 video_file_.c_str(), kWidth, kHeight,
-                                 &psnr_result_, &ssim_result_));
+  EXPECT_EQ(
+      kMissingReferenceFileReturnCode,
+      I420MetricsFromFiles(non_existing_file_.c_str(), video_file_.c_str(),
+                           kWidth, kHeight, &psnr_result_, &ssim_result_));
 }
 
 // Tests that the right return code is given when the test file is missing.
@@ -108,40 +104,40 @@ TEST_F(VideoMetricsTest, MissingTestFileSSIM) {
 }
 
 TEST_F(VideoMetricsTest, MissingTestFileBothMetrics) {
-  EXPECT_EQ(kMissingTestFileReturnCode,
-            I420MetricsFromFiles(video_file_.c_str(),
-                                 non_existing_file_.c_str(), kWidth, kHeight,
-                                 &psnr_result_, &ssim_result_));
+  EXPECT_EQ(
+      kMissingTestFileReturnCode,
+      I420MetricsFromFiles(video_file_.c_str(), non_existing_file_.c_str(),
+                           kWidth, kHeight, &psnr_result_, &ssim_result_));
 }
 
 // Tests that the method can be executed with empty files.
 TEST_F(VideoMetricsTest, EmptyFilesPSNR) {
   EXPECT_EQ(kEmptyFileReturnCode,
-            I420PSNRFromFiles(empty_file_.c_str(), video_file_.c_str(),
-                              kWidth, kHeight, &ssim_result_));
+            I420PSNRFromFiles(empty_file_.c_str(), video_file_.c_str(), kWidth,
+                              kHeight, &ssim_result_));
   EXPECT_EQ(kEmptyFileReturnCode,
-            I420PSNRFromFiles(video_file_.c_str(), empty_file_.c_str(),
-                              kWidth, kHeight, &ssim_result_));
+            I420PSNRFromFiles(video_file_.c_str(), empty_file_.c_str(), kWidth,
+                              kHeight, &ssim_result_));
 }
 
 TEST_F(VideoMetricsTest, EmptyFilesSSIM) {
   EXPECT_EQ(kEmptyFileReturnCode,
-            I420SSIMFromFiles(empty_file_.c_str(), video_file_.c_str(),
-                              kWidth, kHeight, &ssim_result_));
+            I420SSIMFromFiles(empty_file_.c_str(), video_file_.c_str(), kWidth,
+                              kHeight, &ssim_result_));
   EXPECT_EQ(kEmptyFileReturnCode,
-            I420SSIMFromFiles(video_file_.c_str(), empty_file_.c_str(),
-                              kWidth, kHeight, &ssim_result_));
+            I420SSIMFromFiles(video_file_.c_str(), empty_file_.c_str(), kWidth,
+                              kHeight, &ssim_result_));
 }
 
 TEST_F(VideoMetricsTest, EmptyFilesBothMetrics) {
-  EXPECT_EQ(kEmptyFileReturnCode,
-            I420MetricsFromFiles(empty_file_.c_str(), video_file_.c_str(),
-                                 kWidth, kHeight,
-                                 &psnr_result_, &ssim_result_));
-  EXPECT_EQ(kEmptyFileReturnCode,
-              I420MetricsFromFiles(video_file_.c_str(), empty_file_.c_str(),
-                                   kWidth, kHeight,
-                                   &psnr_result_, &ssim_result_));
+  EXPECT_EQ(
+      kEmptyFileReturnCode,
+      I420MetricsFromFiles(empty_file_.c_str(), video_file_.c_str(), kWidth,
+                           kHeight, &psnr_result_, &ssim_result_));
+  EXPECT_EQ(
+      kEmptyFileReturnCode,
+      I420MetricsFromFiles(video_file_.c_str(), empty_file_.c_str(), kWidth,
+                           kHeight, &psnr_result_, &ssim_result_));
 }
 
 }  // namespace webrtc

@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "call/rtp_transport_controller_send_interface.h"
+#include "call/video_send_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
 #include "modules/bitrate_controller/include/bitrate_controller.h"
@@ -36,7 +37,6 @@
 #include "system_wrappers/include/field_trial.h"
 #include "video/call_stats.h"
 #include "video/payload_router.h"
-#include "call/video_send_stream.h"
 
 namespace webrtc {
 
@@ -529,12 +529,10 @@ VideoSendStream::VideoSendStream(
                    encoder_config.content_type),
       config_(std::move(config)),
       content_type_(encoder_config.content_type) {
-  video_stream_encoder_.reset(
-      new VideoStreamEncoder(num_cpu_cores, &stats_proxy_,
-                             config_.encoder_settings,
-                             config_.pre_encode_callback,
-                             config_.post_encode_callback,
-                             std::unique_ptr<OveruseFrameDetector>()));
+  video_stream_encoder_.reset(new VideoStreamEncoder(
+      num_cpu_cores, &stats_proxy_, config_.encoder_settings,
+      config_.pre_encode_callback, config_.post_encode_callback,
+      std::unique_ptr<OveruseFrameDetector>()));
   worker_queue_->PostTask(std::unique_ptr<rtc::QueuedTask>(new ConstructionTask(
       &send_stream_, &thread_sync_event_, &stats_proxy_,
       video_stream_encoder_.get(), module_process_thread, call_stats, transport,
@@ -1069,9 +1067,7 @@ void VideoSendStreamImpl::ConfigureProtection() {
 
   for (RtpRtcp* rtp_rtcp : rtp_rtcp_modules_) {
     // Set NACK.
-    rtp_rtcp->SetStorePacketsStatus(
-        true,
-        kMinSendSidePacketHistorySize);
+    rtp_rtcp->SetStorePacketsStatus(true, kMinSendSidePacketHistorySize);
     // Set RED/ULPFEC information.
     rtp_rtcp->SetUlpfecConfig(red_payload_type, ulpfec_payload_type);
   }

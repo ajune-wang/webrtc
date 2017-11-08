@@ -711,8 +711,8 @@ TEST(AudioEncoderOpusTest, SetMaxPlaybackRateNb) {
   EXPECT_EQ(8000, config.max_playback_rate_hz);
   EXPECT_EQ(12000, config.bitrate_bps);
 
-  config = CreateConfigWithParameters({{"maxplaybackrate", "8000"},
-                                       {"stereo", "1"}});
+  config = CreateConfigWithParameters(
+      {{"maxplaybackrate", "8000"}, {"stereo", "1"}});
   EXPECT_EQ(8000, config.max_playback_rate_hz);
   EXPECT_EQ(24000, config.bitrate_bps);
 }
@@ -723,8 +723,8 @@ TEST(AudioEncoderOpusTest, SetMaxPlaybackRateMb) {
   EXPECT_EQ(8001, config.max_playback_rate_hz);
   EXPECT_EQ(20000, config.bitrate_bps);
 
-  config = CreateConfigWithParameters({{"maxplaybackrate", "8001"},
-                                       {"stereo", "1"}});
+  config = CreateConfigWithParameters(
+      {{"maxplaybackrate", "8001"}, {"stereo", "1"}});
   EXPECT_EQ(8001, config.max_playback_rate_hz);
   EXPECT_EQ(40000, config.bitrate_bps);
 }
@@ -735,8 +735,8 @@ TEST(AudioEncoderOpusTest, SetMaxPlaybackRateWb) {
   EXPECT_EQ(12001, config.max_playback_rate_hz);
   EXPECT_EQ(20000, config.bitrate_bps);
 
-  config = CreateConfigWithParameters({{"maxplaybackrate", "12001"},
-                                       {"stereo", "1"}});
+  config = CreateConfigWithParameters(
+      {{"maxplaybackrate", "12001"}, {"stereo", "1"}});
   EXPECT_EQ(12001, config.max_playback_rate_hz);
   EXPECT_EQ(40000, config.bitrate_bps);
 }
@@ -747,8 +747,8 @@ TEST(AudioEncoderOpusTest, SetMaxPlaybackRateSwb) {
   EXPECT_EQ(16001, config.max_playback_rate_hz);
   EXPECT_EQ(32000, config.bitrate_bps);
 
-  config = CreateConfigWithParameters({{"maxplaybackrate", "16001"},
-                                       {"stereo", "1"}});
+  config = CreateConfigWithParameters(
+      {{"maxplaybackrate", "16001"}, {"stereo", "1"}});
   EXPECT_EQ(16001, config.max_playback_rate_hz);
   EXPECT_EQ(64000, config.bitrate_bps);
 }
@@ -759,8 +759,8 @@ TEST(AudioEncoderOpusTest, SetMaxPlaybackRateFb) {
   EXPECT_EQ(24001, config.max_playback_rate_hz);
   EXPECT_EQ(32000, config.bitrate_bps);
 
-  config = CreateConfigWithParameters({{"maxplaybackrate", "24001"},
-                                       {"stereo", "1"}});
+  config = CreateConfigWithParameters(
+      {{"maxplaybackrate", "24001"}, {"stereo", "1"}});
   EXPECT_EQ(24001, config.max_playback_rate_hz);
   EXPECT_EQ(64000, config.bitrate_bps);
 }

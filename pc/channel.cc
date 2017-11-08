@@ -539,7 +539,8 @@ bool BaseChannel::SendRtcp(rtc::CopyOnWriteBuffer* packet,
   return SendPacket(true, packet, options);
 }
 
-int BaseChannel::SetOption(SocketType type, rtc::Socket::Option opt,
+int BaseChannel::SetOption(SocketType type,
+                           rtc::Socket::Option opt,
                            int value) {
   return network_thread_->Invoke<int>(
       RTC_FROM_HERE, Bind(&BaseChannel::SetOption_n, this, type, opt, value));
@@ -831,7 +832,7 @@ bool BaseChannel::SetupDtlsSrtp_n(bool rtcp) {
   int key_len;
   int salt_len;
   if (!rtc::GetSrtpKeyAndSaltLengths(selected_crypto_suite, &key_len,
-      &salt_len)) {
+                                     &salt_len)) {
     LOG(LS_ERROR) << "Unknown DTLS-SRTP crypto suite" << selected_crypto_suite;
     return false;
   }
@@ -859,7 +860,7 @@ bool BaseChannel::SetupDtlsSrtp_n(bool rtcp) {
   offset += salt_len;
   memcpy(&server_write_key[key_len], &dtls_buffer[offset], salt_len);
 
-  std::vector<unsigned char> *send_key, *recv_key;
+  std::vector<unsigned char>*send_key, *recv_key;
   rtc::SSLRole role;
   if (!transport->GetSslRole(&role)) {
     LOG(LS_WARNING) << "GetSslRole failed";
@@ -954,16 +955,16 @@ bool BaseChannel::SetRtpTransportParameters(
   for (const webrtc::RtpExtension& extension : extensions) {
     if (extension.encrypt) {
       LOG(LS_INFO) << "Using " << (src == CS_LOCAL ? "local" : "remote")
-          << " encrypted extension: " << extension.ToString();
+                   << " encrypted extension: " << extension.ToString();
       encrypted_extension_ids.push_back(extension.id);
     }
   }
 
   // Cache srtp_required_ for belt and suspenders check on SendPacket
   return network_thread_->Invoke<bool>(
-      RTC_FROM_HERE, Bind(&BaseChannel::SetRtpTransportParameters_n, this,
-                          content, action, src, encrypted_extension_ids,
-                          error_desc));
+      RTC_FROM_HERE,
+      Bind(&BaseChannel::SetRtpTransportParameters_n, this, content, action,
+           src, encrypted_extension_ids, error_desc));
 }
 
 bool BaseChannel::SetRtpTransportParameters_n(
@@ -975,7 +976,7 @@ bool BaseChannel::SetRtpTransportParameters_n(
   RTC_DCHECK(network_thread_->IsCurrent());
 
   if (!SetSrtp_n(content->cryptos(), action, src, encrypted_extension_ids,
-      error_desc)) {
+                 error_desc)) {
     return false;
   }
 
@@ -1186,8 +1187,8 @@ bool BaseChannel::RemoveRecvStream_w(uint32_t ssrc) {
 bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
                                        ContentAction action,
                                        std::string* error_desc) {
-  if (!(action == CA_OFFER || action == CA_ANSWER ||
-        action == CA_PRANSWER || action == CA_UPDATE))
+  if (!(action == CA_OFFER || action == CA_ANSWER || action == CA_PRANSWER ||
+        action == CA_UPDATE))
     return false;
 
   // If this is an update, streams only contain streams that have changed.
@@ -1209,8 +1210,8 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
       } else if (existing_stream && !it->has_ssrcs()) {
         if (!media_channel()->RemoveSendStream(existing_stream->first_ssrc())) {
           std::ostringstream desc;
-          desc << "Failed to remove send stream with ssrc "
-               << it->first_ssrc() << ".";
+          desc << "Failed to remove send stream with ssrc " << it->first_ssrc()
+               << ".";
           SafeSetError(desc.str(), error_desc);
           return false;
         }
@@ -1230,8 +1231,8 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
     if (!GetStreamBySsrc(streams, it->first_ssrc())) {
       if (!media_channel()->RemoveSendStream(it->first_ssrc())) {
         std::ostringstream desc;
-        desc << "Failed to remove send stream with ssrc "
-             << it->first_ssrc() << ".";
+        desc << "Failed to remove send stream with ssrc " << it->first_ssrc()
+             << ".";
         SafeSetError(desc.str(), error_desc);
         ret = false;
       }
@@ -1259,8 +1260,8 @@ bool BaseChannel::UpdateRemoteStreams_w(
     const std::vector<StreamParams>& streams,
     ContentAction action,
     std::string* error_desc) {
-  if (!(action == CA_OFFER || action == CA_ANSWER ||
-        action == CA_PRANSWER || action == CA_UPDATE))
+  if (!(action == CA_OFFER || action == CA_ANSWER || action == CA_PRANSWER ||
+        action == CA_UPDATE))
     return false;
 
   // If this is an update, streams only contain streams that have changed.
@@ -1305,8 +1306,8 @@ bool BaseChannel::UpdateRemoteStreams_w(
     if (!GetStreamBySsrc(streams, it->first_ssrc())) {
       if (!RemoveRecvStream_w(it->first_ssrc())) {
         std::ostringstream desc;
-        desc << "Failed to remove remote stream with ssrc "
-             << it->first_ssrc() << ".";
+        desc << "Failed to remove remote stream with ssrc " << it->first_ssrc()
+             << ".";
         SafeSetError(desc.str(), error_desc);
         ret = false;
       }
@@ -1314,7 +1315,7 @@ bool BaseChannel::UpdateRemoteStreams_w(
   }
   // Check for new streams.
   for (StreamParamsVec::const_iterator it = streams.begin();
-      it != streams.end(); ++it) {
+       it != streams.end(); ++it) {
     if (!GetStreamBySsrc(remote_streams_, it->first_ssrc())) {
       if (AddRecvStream_w(*it)) {
         LOG(LS_INFO) << "Add remote ssrc: " << it->ssrcs[0];
@@ -1332,15 +1333,14 @@ bool BaseChannel::UpdateRemoteStreams_w(
 
 RtpHeaderExtensions BaseChannel::GetFilteredRtpHeaderExtensions(
     const RtpHeaderExtensions& extensions) {
-  if (!rtp_dtls_transport_ ||
-      !rtp_dtls_transport_->crypto_options()
-          .enable_encrypted_rtp_header_extensions) {
+  if (!rtp_dtls_transport_ || !rtp_dtls_transport_->crypto_options()
+                                   .enable_encrypted_rtp_header_extensions) {
     RtpHeaderExtensions filtered;
     auto pred = [](const webrtc::RtpExtension& extension) {
-        return !extension.encrypt;
+      return !extension.encrypt;
     };
     std::copy_if(extensions.begin(), extensions.end(),
-        std::back_inserter(filtered), pred);
+                 std::back_inserter(filtered), pred);
     return filtered;
   }
 
@@ -1376,7 +1376,7 @@ void BaseChannel::CacheRtpAbsSendTimeHeaderExtension_n(
   }
 }
 
-void BaseChannel::OnMessage(rtc::Message *pmsg) {
+void BaseChannel::OnMessage(rtc::Message* pmsg) {
   TRACE_EVENT0("webrtc", "BaseChannel::OnMessage");
   switch (pmsg->message_id) {
     case MSG_SEND_RTP_PACKET:
@@ -1482,9 +1482,7 @@ bool VoiceChannel::CanInsertDtmf() {
       RTC_FROM_HERE, Bind(&VoiceMediaChannel::CanInsertDtmf, media_channel()));
 }
 
-bool VoiceChannel::InsertDtmf(uint32_t ssrc,
-                              int event_code,
-                              int duration) {
+bool VoiceChannel::InsertDtmf(uint32_t ssrc, int event_code, int duration) {
   return InvokeOnWorker<bool>(
       RTC_FROM_HERE,
       Bind(&VoiceChannel::InsertDtmf_w, this, ssrc, event_code, duration));
@@ -1571,9 +1569,9 @@ std::vector<webrtc::RtpSource> VoiceChannel::GetSources_w(uint32_t ssrc) const {
 
 void VoiceChannel::StartMediaMonitor(int cms) {
   media_monitor_.reset(new VoiceMediaMonitor(media_channel(), worker_thread(),
-      rtc::Thread::Current()));
-  media_monitor_->SignalUpdate.connect(
-      this, &VoiceChannel::OnMediaMonitorUpdate);
+                                             rtc::Thread::Current()));
+  media_monitor_->SignalUpdate.connect(this,
+                                       &VoiceChannel::OnMediaMonitorUpdate);
   media_monitor_->Start(cms);
 }
 
@@ -1587,8 +1585,8 @@ void VoiceChannel::StopMediaMonitor() {
 
 void VoiceChannel::StartAudioMonitor(int cms) {
   audio_monitor_.reset(new AudioMonitor(this, rtc::Thread::Current()));
-  audio_monitor_
-    ->SignalUpdate.connect(this, &VoiceChannel::OnAudioMonitorUpdate);
+  audio_monitor_->SignalUpdate.connect(this,
+                                       &VoiceChannel::OnAudioMonitorUpdate);
   audio_monitor_->Start(cms);
 }
 
@@ -1707,7 +1705,7 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
       GetFilteredRtpHeaderExtensions(audio->rtp_header_extensions());
 
   if (!SetRtpTransportParameters(content, action, CS_LOCAL,
-      rtp_header_extensions, error_desc)) {
+                                 rtp_header_extensions, error_desc)) {
     return false;
   }
 
@@ -1756,13 +1754,13 @@ bool VoiceChannel::SetRemoteContent_w(const MediaContentDescription* content,
       GetFilteredRtpHeaderExtensions(audio->rtp_header_extensions());
 
   if (!SetRtpTransportParameters(content, action, CS_REMOTE,
-      rtp_header_extensions, error_desc)) {
+                                 rtp_header_extensions, error_desc)) {
     return false;
   }
 
   AudioSendParameters send_params = last_send_params_;
   RtpSendParametersFromMediaDescription(audio, rtp_header_extensions,
-      &send_params);
+                                        &send_params);
   if (audio->agc_minus_10db()) {
     send_params.options.adjust_agc_delta = rtc::Optional<int>(kAgcMinus10db);
   }
@@ -1801,16 +1799,14 @@ void VoiceChannel::HandleEarlyMediaTimeout() {
   }
 }
 
-bool VoiceChannel::InsertDtmf_w(uint32_t ssrc,
-                                int event,
-                                int duration) {
+bool VoiceChannel::InsertDtmf_w(uint32_t ssrc, int event, int duration) {
   if (!enabled()) {
     return false;
   }
   return media_channel()->InsertDtmf(ssrc, event, duration);
 }
 
-void VoiceChannel::OnMessage(rtc::Message *pmsg) {
+void VoiceChannel::OnMessage(rtc::Message* pmsg) {
   switch (pmsg->message_id) {
     case MSG_EARLYMEDIATIMEOUT:
       HandleEarlyMediaTimeout();
@@ -1828,12 +1824,13 @@ void VoiceChannel::OnMessage(rtc::Message *pmsg) {
 }
 
 void VoiceChannel::OnConnectionMonitorUpdate(
-    ConnectionMonitor* monitor, const std::vector<ConnectionInfo>& infos) {
+    ConnectionMonitor* monitor,
+    const std::vector<ConnectionInfo>& infos) {
   SignalConnectionMonitor(this, infos);
 }
 
-void VoiceChannel::OnMediaMonitorUpdate(
-    VoiceMediaChannel* media_channel, const VoiceMediaInfo& info) {
+void VoiceChannel::OnMediaMonitorUpdate(VoiceMediaChannel* media_channel,
+                                        const VoiceMediaInfo& info) {
   RTC_DCHECK(media_channel == this->media_channel());
   SignalMediaMonitor(this, info);
 }
@@ -1957,9 +1954,9 @@ bool VideoChannel::GetStats(VideoMediaInfo* stats) {
 
 void VideoChannel::StartMediaMonitor(int cms) {
   media_monitor_.reset(new VideoMediaMonitor(media_channel(), worker_thread(),
-      rtc::Thread::Current()));
-  media_monitor_->SignalUpdate.connect(
-      this, &VideoChannel::OnMediaMonitorUpdate);
+                                             rtc::Thread::Current()));
+  media_monitor_->SignalUpdate.connect(this,
+                                       &VideoChannel::OnMediaMonitorUpdate);
   media_monitor_->Start(cms);
 }
 
@@ -1989,7 +1986,7 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
       GetFilteredRtpHeaderExtensions(video->rtp_header_extensions());
 
   if (!SetRtpTransportParameters(content, action, CS_LOCAL,
-      rtp_header_extensions, error_desc)) {
+                                 rtp_header_extensions, error_desc)) {
     return false;
   }
 
@@ -2038,13 +2035,13 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
       GetFilteredRtpHeaderExtensions(video->rtp_header_extensions());
 
   if (!SetRtpTransportParameters(content, action, CS_REMOTE,
-      rtp_header_extensions, error_desc)) {
+                                 rtp_header_extensions, error_desc)) {
     return false;
   }
 
   VideoSendParameters send_params = last_send_params_;
   RtpSendParametersFromMediaDescription(video, rtp_header_extensions,
-      &send_params);
+                                        &send_params);
   if (video->conference_mode()) {
     send_params.conference_mode = true;
   }
@@ -2076,7 +2073,7 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
   return true;
 }
 
-void VideoChannel::OnMessage(rtc::Message *pmsg) {
+void VideoChannel::OnMessage(rtc::Message* pmsg) {
   switch (pmsg->message_id) {
     case MSG_CHANNEL_ERROR: {
       const VideoChannelErrorMessageData* data =
@@ -2091,14 +2088,15 @@ void VideoChannel::OnMessage(rtc::Message *pmsg) {
 }
 
 void VideoChannel::OnConnectionMonitorUpdate(
-    ConnectionMonitor* monitor, const std::vector<ConnectionInfo> &infos) {
+    ConnectionMonitor* monitor,
+    const std::vector<ConnectionInfo>& infos) {
   SignalConnectionMonitor(this, infos);
 }
 
 // TODO(pthatcher): Look into removing duplicate code between
 // audio, video, and data, perhaps by using templates.
-void VideoChannel::OnMediaMonitorUpdate(
-    VideoMediaChannel* media_channel, const VideoMediaInfo &info) {
+void VideoChannel::OnMediaMonitorUpdate(VideoMediaChannel* media_channel,
+                                        const VideoMediaInfo& info) {
   RTC_DCHECK(media_channel == this->media_channel());
   SignalMediaMonitor(this, info);
 }
@@ -2186,7 +2184,7 @@ bool RtpDataChannel::SetLocalContent_w(const MediaContentDescription* content,
       GetFilteredRtpHeaderExtensions(data->rtp_header_extensions());
 
   if (!SetRtpTransportParameters(content, action, CS_LOCAL,
-      rtp_header_extensions, error_desc)) {
+                                 rtp_header_extensions, error_desc)) {
     return false;
   }
 
@@ -2245,13 +2243,13 @@ bool RtpDataChannel::SetRemoteContent_w(const MediaContentDescription* content,
 
   LOG(LS_INFO) << "Setting remote data description";
   if (!SetRtpTransportParameters(content, action, CS_REMOTE,
-      rtp_header_extensions, error_desc)) {
+                                 rtp_header_extensions, error_desc)) {
     return false;
   }
 
   DataSendParameters send_params = last_send_params_;
   RtpSendParametersFromMediaDescription<DataCodec>(data, rtp_header_extensions,
-      &send_params);
+                                                   &send_params);
   if (!media_channel()->SetSendParameters(send_params)) {
     SafeSetError("Failed to set remote data description send parameters.",
                  error_desc);
@@ -2264,8 +2262,7 @@ bool RtpDataChannel::SetRemoteContent_w(const MediaContentDescription* content,
   // description too (without a local description, we won't be able to
   // recv them anyway).
   if (!UpdateRemoteStreams_w(data->streams(), action, error_desc)) {
-    SafeSetError("Failed to set remote data description streams.",
-                 error_desc);
+    SafeSetError("Failed to set remote data description streams.", error_desc);
     return false;
   }
 
@@ -2332,7 +2329,7 @@ void RtpDataChannel::OnConnectionMonitorUpdate(
 
 void RtpDataChannel::StartMediaMonitor(int cms) {
   media_monitor_.reset(new DataMediaMonitor(media_channel(), worker_thread(),
-      rtc::Thread::Current()));
+                                            rtc::Thread::Current()));
   media_monitor_->SignalUpdate.connect(this,
                                        &RtpDataChannel::OnMediaMonitorUpdate);
   media_monitor_->Start(cms);
@@ -2355,15 +2352,14 @@ void RtpDataChannel::OnMediaMonitorUpdate(DataMediaChannel* media_channel,
 void RtpDataChannel::OnDataReceived(const ReceiveDataParams& params,
                                     const char* data,
                                     size_t len) {
-  DataReceivedMessageData* msg = new DataReceivedMessageData(
-      params, data, len);
+  DataReceivedMessageData* msg = new DataReceivedMessageData(params, data, len);
   signaling_thread()->Post(RTC_FROM_HERE, this, MSG_DATARECEIVED, msg);
 }
 
 void RtpDataChannel::OnDataChannelError(uint32_t ssrc,
                                         DataMediaChannel::Error err) {
-  DataChannelErrorMessageData* data = new DataChannelErrorMessageData(
-      ssrc, err);
+  DataChannelErrorMessageData* data =
+      new DataChannelErrorMessageData(ssrc, err);
   signaling_thread()->Post(RTC_FROM_HERE, this, MSG_CHANNEL_ERROR, data);
 }
 

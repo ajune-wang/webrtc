@@ -31,8 +31,7 @@ class TestTurnRedirector : public TurnRedirectInterface {
  public:
   explicit TestTurnRedirector(const std::vector<rtc::SocketAddress>& addresses)
       : alternate_server_addresses_(addresses),
-        iter_(alternate_server_addresses_.begin()) {
-  }
+        iter_(alternate_server_addresses_.begin()) {}
 
   virtual bool ShouldRedirect(const rtc::SocketAddress&,
                               rtc::SocketAddress* out) {
@@ -113,7 +112,7 @@ class TestTurnServer : public TurnAuthInterface {
   TurnServerAllocation* FindAllocation(const rtc::SocketAddress& src) {
     const TurnServer::AllocationMap& map = server_.allocations();
     for (TurnServer::AllocationMap::const_iterator it = map.begin();
-        it != map.end(); ++it) {
+         it != map.end(); ++it) {
       if (src == it->first.src()) {
         return it->second.get();
       }
@@ -124,7 +123,8 @@ class TestTurnServer : public TurnAuthInterface {
  private:
   // For this test server, succeed if the password is the same as the username.
   // Obviously, do not use this in a production environment.
-  virtual bool GetKey(const std::string& username, const std::string& realm,
+  virtual bool GetKey(const std::string& username,
+                      const std::string& realm,
                       std::string* key) {
     return ComputeStunCredentialHash(username, realm, username, key);
   }

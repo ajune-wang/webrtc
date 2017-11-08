@@ -203,8 +203,7 @@ bool AudioProcessingImpl::ApmSubmoduleStates::Update(
   changed |= (beamformer_enabled != beamformer_enabled_);
   changed |=
       (adaptive_gain_controller_enabled != adaptive_gain_controller_enabled_);
-  changed |=
-      (gain_controller2_enabled != gain_controller2_enabled_);
+  changed |= (gain_controller2_enabled != gain_controller2_enabled_);
   changed |= (level_controller_enabled != level_controller_enabled_);
   changed |= (echo_controller_enabled != echo_controller_enabled_);
   changed |= (level_estimator_enabled != level_estimator_enabled_);
@@ -735,7 +734,7 @@ void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
 
 #if WEBRTC_INTELLIGIBILITY_ENHANCER
   if (capture_nonlocked_.intelligibility_enabled !=
-     config.Get<Intelligibility>().enabled) {
+      config.Get<Intelligibility>().enabled) {
     capture_nonlocked_.intelligibility_enabled =
         config.Get<Intelligibility>().enabled;
     InitializeIntelligibility();
@@ -744,7 +743,7 @@ void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
 
 #ifdef WEBRTC_ANDROID_PLATFORM_BUILD
   if (capture_nonlocked_.beamformer_enabled !=
-          config.Get<Beamforming>().enabled) {
+      config.Get<Beamforming>().enabled) {
     capture_nonlocked_.beamformer_enabled = config.Get<Beamforming>().enabled;
     if (config.Get<Beamforming>().array_geometry.size() > 1) {
       capture_.array_geometry = config.Get<Beamforming>().array_geometry;
@@ -796,7 +795,6 @@ void AudioProcessingImpl::set_output_will_be_muted(bool muted) {
         capture_.output_will_be_muted);
   }
 }
-
 
 int AudioProcessingImpl::ProcessStream(const float* const* src,
                                        size_t samples_per_channel,
@@ -1222,13 +1220,13 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 #if WEBRTC_INTELLIGIBILITY_ENHANCER
   if (capture_nonlocked_.intelligibility_enabled) {
     RTC_DCHECK(public_submodules_->noise_suppression->is_enabled());
-    int gain_db = public_submodules_->gain_control->is_enabled() ?
-                  public_submodules_->gain_control->compression_gain_db() :
-                  0;
+    int gain_db = public_submodules_->gain_control->is_enabled()
+                      ? public_submodules_->gain_control->compression_gain_db()
+                      : 0;
     float gain = std::pow(10.f, gain_db / 20.f);
-    gain *= capture_nonlocked_.level_controller_enabled ?
-            private_submodules_->level_controller->GetLastGain() :
-            1.f;
+    gain *= capture_nonlocked_.level_controller_enabled
+                ? private_submodules_->level_controller->GetLastGain()
+                : 1.f;
     public_submodules_->intelligibility_enhancer->SetCaptureNoiseEstimate(
         public_submodules_->noise_suppression->NoiseEstimate(), gain);
   }
@@ -1652,7 +1650,6 @@ bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
       public_submodules_->level_estimator->is_enabled(),
       capture_.transient_suppressor_enabled);
 }
-
 
 void AudioProcessingImpl::InitializeTransient() {
   if (capture_.transient_suppressor_enabled) {

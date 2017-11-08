@@ -42,9 +42,7 @@ OMXFFTSpec_R_F32* CreateOpenmaxState(int order) {
 }  // namespace
 
 RealFourierOpenmax::RealFourierOpenmax(int fft_order)
-    : order_(fft_order),
-      omx_spec_(CreateOpenmaxState(order_)) {
-}
+    : order_(fft_order), omx_spec_(CreateOpenmaxState(order_)) {}
 
 RealFourierOpenmax::~RealFourierOpenmax() {
   free(omx_spec_);
@@ -59,11 +57,9 @@ void RealFourierOpenmax::Forward(const float* src, complex<float>* dest) const {
 }
 
 void RealFourierOpenmax::Inverse(const complex<float>* src, float* dest) const {
-  OMXResult r =
-      omxSP_FFTInv_CCSToR_F32(reinterpret_cast<const OMX_F32*>(src), dest,
-                              omx_spec_);
+  OMXResult r = omxSP_FFTInv_CCSToR_F32(reinterpret_cast<const OMX_F32*>(src),
+                                        dest, omx_spec_);
   RTC_CHECK_EQ(r, OMX_Sts_NoErr);
 }
 
 }  // namespace webrtc
-

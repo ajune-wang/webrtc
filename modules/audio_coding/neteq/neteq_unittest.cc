@@ -58,17 +58,17 @@ const std::string& PlatformChecksum(const std::string& checksum_general,
                                     const std::string& checksum_win_32,
                                     const std::string& checksum_win_64) {
 #if defined(WEBRTC_ANDROID)
-  #ifdef WEBRTC_ARCH_64_BITS
-    return checksum_android_64;
-  #else
-    return checksum_android_32;
-  #endif  // WEBRTC_ARCH_64_BITS
+#ifdef WEBRTC_ARCH_64_BITS
+  return checksum_android_64;
+#else
+  return checksum_android_32;
+#endif  // WEBRTC_ARCH_64_BITS
 #elif defined(WEBRTC_WIN)
-  #ifdef WEBRTC_ARCH_64_BITS
-    return checksum_win_64;
-  #else
-    return checksum_win_32;
-  #endif  // WEBRTC_ARCH_64_BITS
+#ifdef WEBRTC_ARCH_64_BITS
+  return checksum_win_64;
+#else
+  return checksum_win_32;
+#endif  // WEBRTC_ARCH_64_BITS
 #else
   return checksum_general;
 #endif  // WEBRTC_WIN
@@ -104,7 +104,8 @@ void Convert(const webrtc::RtcpStatistics& stats_raw,
   stats->set_jitter(stats_raw.jitter);
 }
 
-void AddMessage(FILE* file, rtc::MessageDigest* digest,
+void AddMessage(FILE* file,
+                rtc::MessageDigest* digest,
                 const std::string& message) {
   int32_t size = message.length();
   if (file)
@@ -161,7 +162,8 @@ class ResultSink {
   explicit ResultSink(const std::string& output_file);
   ~ResultSink();
 
-  template<typename T> void AddResult(const T* test_results, size_t length);
+  template <typename T>
+  void AddResult(const T* test_results, size_t length);
 
   void AddResult(const NetEqNetworkStatistics& stats);
   void AddResult(const RtcpStatistics& stats);
@@ -173,9 +175,8 @@ class ResultSink {
   std::unique_ptr<rtc::MessageDigest> digest_;
 };
 
-ResultSink::ResultSink(const std::string &output_file)
-    : output_fp_(nullptr),
-      digest_(new rtc::Sha1Digest()) {
+ResultSink::ResultSink(const std::string& output_file)
+    : output_fp_(nullptr), digest_(new rtc::Sha1Digest()) {
   if (!output_file.empty()) {
     output_fp_ = fopen(output_file.c_str(), "wb");
     EXPECT_TRUE(output_fp_ != NULL);
@@ -187,7 +188,7 @@ ResultSink::~ResultSink() {
     fclose(output_fp_);
 }
 
-template<typename T>
+template <typename T>
 void ResultSink::AddResult(const T* test_results, size_t length) {
   if (output_fp_) {
     ASSERT_EQ(length, fwrite(test_results, sizeof(T), length, output_fp_));
@@ -244,7 +245,7 @@ class NetEqDecodingTest : public ::testing::Test {
   virtual void SetUp();
   virtual void TearDown();
   void SelectDecoders(NetEqDecoder* used_codec);
-  void OpenInputFile(const std::string &rtp_file);
+  void OpenInputFile(const std::string& rtp_file);
   void Process();
 
   void DecodeAndCompare(const std::string& rtp_file,
@@ -262,9 +263,11 @@ class NetEqDecodingTest : public ::testing::Test {
                           uint8_t* payload,
                           size_t* payload_len);
 
-  void WrapTest(uint16_t start_seq_no, uint32_t start_timestamp,
+  void WrapTest(uint16_t start_seq_no,
+                uint32_t start_timestamp,
                 const std::set<uint16_t>& drop_seq_numbers,
-                bool expect_seq_no_wrap, bool expect_timestamp_wrap);
+                bool expect_seq_no_wrap,
+                bool expect_timestamp_wrap);
 
   void LongCngWithClockDrift(double drift_factor,
                              double network_freeze_ms,
@@ -313,7 +316,7 @@ void NetEqDecodingTest::TearDown() {
   delete neteq_;
 }
 
-void NetEqDecodingTest::OpenInputFile(const std::string &rtp_file) {
+void NetEqDecodingTest::OpenInputFile(const std::string& rtp_file) {
   rtp_source_.reset(test::RtpFileSource::Create(rtp_file));
 }
 
@@ -381,8 +384,8 @@ void NetEqDecodingTest::DecodeAndCompare(
     ss << "Lap number " << i++ << " in DecodeAndCompare while loop";
     SCOPED_TRACE(ss.str());  // Print out the parameter values on failure.
     ASSERT_NO_FATAL_FAILURE(Process());
-    ASSERT_NO_FATAL_FAILURE(output.AddResult(
-        out_frame_.data(), out_frame_.samples_per_channel_));
+    ASSERT_NO_FATAL_FAILURE(
+        output.AddResult(out_frame_.data(), out_frame_.samples_per_channel_));
 
     // Query the network statistics API once per second
     if (sim_clock_ % 1000 == 0) {
@@ -444,7 +447,7 @@ void NetEqDecodingTest::PopulateCng(int frame_index,
   rtp_info->ssrc = 0x1234;     // Just an arbitrary SSRC.
   rtp_info->payloadType = 98;  // WB CNG.
   rtp_info->markerBit = 0;
-  payload[0] = 64;  // Noise level -64 dBov, quite arbitrarily chosen.
+  payload[0] = 64;   // Noise level -64 dBov, quite arbitrarily chosen.
   *payload_len = 1;  // Only noise level, no spectral parameters.
 }
 
@@ -459,36 +462,29 @@ TEST_F(NetEqDecodingTest, MAYBE_TestBitExactness) {
   const std::string input_rtp_file =
       webrtc::test::ResourcePath("audio_coding/neteq_universal_new", "rtp");
 
-  const std::string output_checksum = PlatformChecksum(
-      "09fa7646e2ad032a0b156177b95f09012430f81f",
-      "1c64eb8b55ce8878676c6a1e6ddd78f48de0668b",
-      "not used",
-      "09fa7646e2ad032a0b156177b95f09012430f81f",
-      "759fef89a5de52bd17e733dc255c671ce86be909");
+  const std::string output_checksum =
+      PlatformChecksum("09fa7646e2ad032a0b156177b95f09012430f81f",
+                       "1c64eb8b55ce8878676c6a1e6ddd78f48de0668b", "not used",
+                       "09fa7646e2ad032a0b156177b95f09012430f81f",
+                       "759fef89a5de52bd17e733dc255c671ce86be909");
 
   const std::string network_stats_checksum =
       PlatformChecksum("5b4262ca328e5f066af5d34f3380521583dd20de",
-                       "80235b6d727281203acb63b98f9a9e85d95f7ec0",
-                       "not used",
+                       "80235b6d727281203acb63b98f9a9e85d95f7ec0", "not used",
                        "5b4262ca328e5f066af5d34f3380521583dd20de",
                        "5b4262ca328e5f066af5d34f3380521583dd20de");
 
-  const std::string rtcp_stats_checksum = PlatformChecksum(
-      "b8880bf9fed2487efbddcb8d94b9937a29ae521d",
-      "f3f7b3d3e71d7e635240b5373b57df6a7e4ce9d4",
-      "not used",
-      "b8880bf9fed2487efbddcb8d94b9937a29ae521d",
-      "b8880bf9fed2487efbddcb8d94b9937a29ae521d");
+  const std::string rtcp_stats_checksum =
+      PlatformChecksum("b8880bf9fed2487efbddcb8d94b9937a29ae521d",
+                       "f3f7b3d3e71d7e635240b5373b57df6a7e4ce9d4", "not used",
+                       "b8880bf9fed2487efbddcb8d94b9937a29ae521d",
+                       "b8880bf9fed2487efbddcb8d94b9937a29ae521d");
 
-  DecodeAndCompare(input_rtp_file,
-                   output_checksum,
-                   network_stats_checksum,
-                   rtcp_stats_checksum,
-                   FLAG_gen_ref);
+  DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
+                   rtcp_stats_checksum, FLAG_gen_ref);
 }
 
-#if !defined(WEBRTC_IOS) &&                                         \
-    defined(WEBRTC_NETEQ_UNITTEST_BITEXACT) &&                      \
+#if !defined(WEBRTC_IOS) && defined(WEBRTC_NETEQ_UNITTEST_BITEXACT) && \
     defined(WEBRTC_CODEC_OPUS)
 #define MAYBE_TestOpusBitExactness TestOpusBitExactness
 #else
@@ -498,12 +494,12 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusBitExactness) {
   const std::string input_rtp_file =
       webrtc::test::ResourcePath("audio_coding/neteq_opus", "rtp");
 
-  const std::string output_checksum = PlatformChecksum(
-      "7ea28d7edf9395f4ac8e8d8dd3a9e5c620b1bf48",
-      "5b1e691ab1c4465c742d6d944bc71e3b1c0e4c0e",
-      "b096114dd8c233eaf2b0ce9802ac95af13933772",
-      "7ea28d7edf9395f4ac8e8d8dd3a9e5c620b1bf48",
-      "7ea28d7edf9395f4ac8e8d8dd3a9e5c620b1bf48");
+  const std::string output_checksum =
+      PlatformChecksum("7ea28d7edf9395f4ac8e8d8dd3a9e5c620b1bf48",
+                       "5b1e691ab1c4465c742d6d944bc71e3b1c0e4c0e",
+                       "b096114dd8c233eaf2b0ce9802ac95af13933772",
+                       "7ea28d7edf9395f4ac8e8d8dd3a9e5c620b1bf48",
+                       "7ea28d7edf9395f4ac8e8d8dd3a9e5c620b1bf48");
 
   const std::string network_stats_checksum =
       PlatformChecksum("9e72233c78baf685e500dd6c94212b30a4c5f27d",
@@ -512,18 +508,15 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusBitExactness) {
                        "9e72233c78baf685e500dd6c94212b30a4c5f27d",
                        "9e72233c78baf685e500dd6c94212b30a4c5f27d");
 
-  const std::string rtcp_stats_checksum = PlatformChecksum(
-      "e37c797e3de6a64dda88c9ade7a013d022a2e1e0",
-      "e37c797e3de6a64dda88c9ade7a013d022a2e1e0",
-      "e37c797e3de6a64dda88c9ade7a013d022a2e1e0",
-      "e37c797e3de6a64dda88c9ade7a013d022a2e1e0",
-      "e37c797e3de6a64dda88c9ade7a013d022a2e1e0");
+  const std::string rtcp_stats_checksum =
+      PlatformChecksum("e37c797e3de6a64dda88c9ade7a013d022a2e1e0",
+                       "e37c797e3de6a64dda88c9ade7a013d022a2e1e0",
+                       "e37c797e3de6a64dda88c9ade7a013d022a2e1e0",
+                       "e37c797e3de6a64dda88c9ade7a013d022a2e1e0",
+                       "e37c797e3de6a64dda88c9ade7a013d022a2e1e0");
 
-  DecodeAndCompare(input_rtp_file,
-                   output_checksum,
-                   network_stats_checksum,
-                   rtcp_stats_checksum,
-                   FLAG_gen_ref);
+  DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
+                   rtcp_stats_checksum, FLAG_gen_ref);
 }
 
 // Use fax mode to avoid time-scaling. This is to simplify the testing of
@@ -774,10 +767,8 @@ TEST_F(NetEqDecodingTest, LongCngWithNegativeClockDrift) {
   const bool kGetAudioDuringFreezeRecovery = false;
   const int kDelayToleranceMs = 20;
   const int kMaxTimeToSpeechMs = 100;
-  LongCngWithClockDrift(kDriftFactor,
-                        kNetworkFreezeTimeMs,
-                        kGetAudioDuringFreezeRecovery,
-                        kDelayToleranceMs,
+  LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
+                        kGetAudioDuringFreezeRecovery, kDelayToleranceMs,
                         kMaxTimeToSpeechMs);
 }
 
@@ -788,10 +779,8 @@ TEST_F(NetEqDecodingTest, LongCngWithPositiveClockDrift) {
   const bool kGetAudioDuringFreezeRecovery = false;
   const int kDelayToleranceMs = 20;
   const int kMaxTimeToSpeechMs = 100;
-  LongCngWithClockDrift(kDriftFactor,
-                        kNetworkFreezeTimeMs,
-                        kGetAudioDuringFreezeRecovery,
-                        kDelayToleranceMs,
+  LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
+                        kGetAudioDuringFreezeRecovery, kDelayToleranceMs,
                         kMaxTimeToSpeechMs);
 }
 
@@ -802,10 +791,8 @@ TEST_F(NetEqDecodingTest, LongCngWithNegativeClockDriftNetworkFreeze) {
   const bool kGetAudioDuringFreezeRecovery = false;
   const int kDelayToleranceMs = 50;
   const int kMaxTimeToSpeechMs = 200;
-  LongCngWithClockDrift(kDriftFactor,
-                        kNetworkFreezeTimeMs,
-                        kGetAudioDuringFreezeRecovery,
-                        kDelayToleranceMs,
+  LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
+                        kGetAudioDuringFreezeRecovery, kDelayToleranceMs,
                         kMaxTimeToSpeechMs);
 }
 
@@ -816,10 +803,8 @@ TEST_F(NetEqDecodingTest, LongCngWithPositiveClockDriftNetworkFreeze) {
   const bool kGetAudioDuringFreezeRecovery = false;
   const int kDelayToleranceMs = 20;
   const int kMaxTimeToSpeechMs = 100;
-  LongCngWithClockDrift(kDriftFactor,
-                        kNetworkFreezeTimeMs,
-                        kGetAudioDuringFreezeRecovery,
-                        kDelayToleranceMs,
+  LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
+                        kGetAudioDuringFreezeRecovery, kDelayToleranceMs,
                         kMaxTimeToSpeechMs);
 }
 
@@ -830,10 +815,8 @@ TEST_F(NetEqDecodingTest, LongCngWithPositiveClockDriftNetworkFreezeExtraPull) {
   const bool kGetAudioDuringFreezeRecovery = true;
   const int kDelayToleranceMs = 20;
   const int kMaxTimeToSpeechMs = 100;
-  LongCngWithClockDrift(kDriftFactor,
-                        kNetworkFreezeTimeMs,
-                        kGetAudioDuringFreezeRecovery,
-                        kDelayToleranceMs,
+  LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
+                        kGetAudioDuringFreezeRecovery, kDelayToleranceMs,
                         kMaxTimeToSpeechMs);
 }
 
@@ -843,10 +826,8 @@ TEST_F(NetEqDecodingTest, LongCngWithoutClockDrift) {
   const bool kGetAudioDuringFreezeRecovery = false;
   const int kDelayToleranceMs = 10;
   const int kMaxTimeToSpeechMs = 50;
-  LongCngWithClockDrift(kDriftFactor,
-                        kNetworkFreezeTimeMs,
-                        kGetAudioDuringFreezeRecovery,
-                        kDelayToleranceMs,
+  LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
+                        kGetAudioDuringFreezeRecovery, kDelayToleranceMs,
                         kMaxTimeToSpeechMs);
 }
 
@@ -974,11 +955,11 @@ class NetEqBgnTest : public NetEqDecodingTest {
       ASSERT_EQ(AudioFrame::kNormalSpeech, output.speech_type_);
 
       // Next packet.
-      rtp_info.timestamp += rtc::checked_cast<uint32_t>(
-          expected_samples_per_channel);
+      rtp_info.timestamp +=
+          rtc::checked_cast<uint32_t>(expected_samples_per_channel);
       rtp_info.sequenceNumber++;
-      receive_timestamp += rtc::checked_cast<uint32_t>(
-          expected_samples_per_channel);
+      receive_timestamp +=
+          rtc::checked_cast<uint32_t>(expected_samples_per_channel);
     }
 
     output.Reset();
@@ -1117,8 +1098,8 @@ void NetEqDecodingTest::WrapTest(uint16_t start_seq_no,
       if (packets_inserted > 4) {
         // Expect preferred and actual buffer size to be no more than 2 frames.
         EXPECT_LE(network_stats.preferred_buffer_size_ms, kFrameSizeMs * 2);
-        EXPECT_LE(network_stats.current_buffer_size_ms, kFrameSizeMs * 2 +
-                  algorithmic_delay_ms_);
+        EXPECT_LE(network_stats.current_buffer_size_ms,
+                  kFrameSizeMs * 2 + algorithmic_delay_ms_);
       }
       last_seq_no = seq_no;
       last_timestamp = timestamp;
@@ -1184,8 +1165,8 @@ void NetEqDecodingTest::DuplicateCng() {
   const int kSamples = kFrameSizeMs * kSampleRateKhz;
   const size_t kPayloadBytes = kSamples * 2;
 
-  const int algorithmic_delay_samples = std::max(
-      algorithmic_delay_ms_ * kSampleRateKhz, 5 * kSampleRateKhz / 8);
+  const int algorithmic_delay_samples =
+      std::max(algorithmic_delay_ms_ * kSampleRateKhz, 5 * kSampleRateKhz / 8);
   // Insert three speech packets. Three are needed to get the frame length
   // correct.
   uint8_t payload[kPayloadBytes] = {0};
@@ -1257,7 +1238,9 @@ void NetEqDecodingTest::DuplicateCng() {
             *playout_timestamp);
 }
 
-TEST_F(NetEqDecodingTest, DiscardDuplicateCng) { DuplicateCng(); }
+TEST_F(NetEqDecodingTest, DiscardDuplicateCng) {
+  DuplicateCng();
+}
 
 TEST_F(NetEqDecodingTest, CngFirst) {
   uint16_t seq_no = 0;
@@ -1511,25 +1494,25 @@ namespace {
     return ::testing::AssertionFailure() << "timestamp_ diff (" << a.timestamp_
                                          << " != " << b.timestamp_ << ")";
   if (a.sample_rate_hz_ != b.sample_rate_hz_)
-    return ::testing::AssertionFailure() << "sample_rate_hz_ diff ("
-                                         << a.sample_rate_hz_
-                                         << " != " << b.sample_rate_hz_ << ")";
+    return ::testing::AssertionFailure()
+           << "sample_rate_hz_ diff (" << a.sample_rate_hz_
+           << " != " << b.sample_rate_hz_ << ")";
   if (a.samples_per_channel_ != b.samples_per_channel_)
     return ::testing::AssertionFailure()
            << "samples_per_channel_ diff (" << a.samples_per_channel_
            << " != " << b.samples_per_channel_ << ")";
   if (a.num_channels_ != b.num_channels_)
-    return ::testing::AssertionFailure() << "num_channels_ diff ("
-                                         << a.num_channels_
-                                         << " != " << b.num_channels_ << ")";
+    return ::testing::AssertionFailure()
+           << "num_channels_ diff (" << a.num_channels_
+           << " != " << b.num_channels_ << ")";
   if (a.speech_type_ != b.speech_type_)
-    return ::testing::AssertionFailure() << "speech_type_ diff ("
-                                         << a.speech_type_
-                                         << " != " << b.speech_type_ << ")";
+    return ::testing::AssertionFailure()
+           << "speech_type_ diff (" << a.speech_type_
+           << " != " << b.speech_type_ << ")";
   if (a.vad_activity_ != b.vad_activity_)
-    return ::testing::AssertionFailure() << "vad_activity_ diff ("
-                                         << a.vad_activity_
-                                         << " != " << b.vad_activity_ << ")";
+    return ::testing::AssertionFailure()
+           << "vad_activity_ diff (" << a.vad_activity_
+           << " != " << b.vad_activity_ << ")";
   return ::testing::AssertionSuccess();
 }
 
@@ -1538,9 +1521,9 @@ namespace {
   ::testing::AssertionResult res = AudioFramesEqualExceptData(a, b);
   if (!res)
     return res;
-  if (memcmp(
-      a.data(), b.data(),
-      a.samples_per_channel_ * a.num_channels_ * sizeof(*a.data())) != 0) {
+  if (memcmp(a.data(), b.data(),
+             a.samples_per_channel_ * a.num_channels_ * sizeof(*a.data())) !=
+      0) {
     return ::testing::AssertionFailure() << "data_ diff";
   }
   return ::testing::AssertionSuccess();

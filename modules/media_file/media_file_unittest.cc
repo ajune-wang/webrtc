@@ -39,11 +39,8 @@ TEST_F(MediaFileTest, MAYBE_StartPlayingAudioFileWithoutError) {
   // loop through all audio files in future
   const std::string audio_file =
       webrtc::test::ResourcePath("voice_engine/audio_tiny48", "wav");
-  ASSERT_EQ(0, media_file_->StartPlayingAudioFile(
-      audio_file.c_str(),
-      0,
-      false,
-      webrtc::kFileFormatWavFile));
+  ASSERT_EQ(0, media_file_->StartPlayingAudioFile(audio_file.c_str(), 0, false,
+                                                  webrtc::kFileFormatWavFile));
 
   ASSERT_EQ(true, media_file_->IsPlaying());
 
@@ -61,32 +58,28 @@ TEST_F(MediaFileTest, MAYBE_WriteWavFile) {
   // Write file.
   static const size_t kHeaderSize = 44;
   static const size_t kPayloadSize = 320;
-  webrtc::CodecInst codec = {
-    0, "L16", 16000, static_cast<int>(kPayloadSize), 1
-  };
+  webrtc::CodecInst codec = {0, "L16", 16000, static_cast<int>(kPayloadSize),
+                             1};
   std::string outfile = webrtc::test::OutputPath() + "wavtest.wav";
-  ASSERT_EQ(0,
-            media_file_->StartRecordingAudioFile(
-                outfile.c_str(), webrtc::kFileFormatWavFile, codec));
+  ASSERT_EQ(0, media_file_->StartRecordingAudioFile(
+                   outfile.c_str(), webrtc::kFileFormatWavFile, codec));
   static const int8_t kFakeData[kPayloadSize] = {0};
   ASSERT_EQ(0, media_file_->IncomingAudioData(kFakeData, kPayloadSize));
   ASSERT_EQ(0, media_file_->StopRecording());
 
   // Check the file we just wrote.
   static const uint8_t kExpectedHeader[] = {
-    'R', 'I', 'F', 'F',
-    0x64, 0x1, 0, 0,  // size of whole file - 8: 320 + 44 - 8
-    'W', 'A', 'V', 'E',
-    'f', 'm', 't', ' ',
-    0x10, 0, 0, 0,  // size of fmt block - 8: 24 - 8
-    0x1, 0,  // format: PCM (1)
-    0x1, 0,  // channels: 1
-    0x80, 0x3e, 0, 0,  // sample rate: 16000
-    0, 0x7d, 0, 0,  // byte rate: 2 * 16000
-    0x2, 0,  // block align: NumChannels * BytesPerSample
-    0x10, 0,  // bits per sample: 2 * 8
-    'd', 'a', 't', 'a',
-    0x40, 0x1, 0, 0,  // size of payload: 320
+      'R',  'I',  'F', 'F', 0x64, 0x1, 0,   0,  // size of whole file - 8: 320 +
+                                                // 44 - 8
+      'W',  'A',  'V', 'E', 'f',  'm', 't', ' ', 0x10,
+      0,    0,    0,       // size of fmt block - 8: 24 - 8
+      0x1,  0,             // format: PCM (1)
+      0x1,  0,             // channels: 1
+      0x80, 0x3e, 0,   0,  // sample rate: 16000
+      0,    0x7d, 0,   0,  // byte rate: 2 * 16000
+      0x2,  0,             // block align: NumChannels * BytesPerSample
+      0x10, 0,             // bits per sample: 2 * 8
+      'd',  'a',  't', 'a', 0x40, 0x1, 0,   0,  // size of payload: 320
   };
   static_assert(sizeof(kExpectedHeader) == kHeaderSize, "header size");
 

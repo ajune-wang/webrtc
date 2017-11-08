@@ -26,16 +26,21 @@ class FakePeriodicVideoCapturer : public cricket::FakeVideoCapturer,
  public:
   FakePeriodicVideoCapturer() {
     std::vector<cricket::VideoFormat> formats;
-    formats.push_back(cricket::VideoFormat(1280, 720,
-            cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
-    formats.push_back(cricket::VideoFormat(640, 480,
-        cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
-    formats.push_back(cricket::VideoFormat(640, 360,
-            cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
-    formats.push_back(cricket::VideoFormat(320, 240,
-        cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
-    formats.push_back(cricket::VideoFormat(160, 120,
-        cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(1280, 720, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(640, 480, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(640, 360, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(320, 240, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
+    formats.push_back(
+        cricket::VideoFormat(160, 120, cricket::VideoFormat::FpsToInterval(30),
+                             cricket::FOURCC_I420));
     ResetSupportedFormats(formats);
   }
 
@@ -46,19 +51,18 @@ class FakePeriodicVideoCapturer : public cricket::FakeVideoCapturer,
     }
     return state;
   }
-  virtual void Stop() {
-    rtc::Thread::Current()->Clear(this);
-  }
+  virtual void Stop() { rtc::Thread::Current()->Clear(this); }
   // Inherited from MesageHandler.
   virtual void OnMessage(rtc::Message* msg) {
     if (msg->message_id == MSG_CREATEFRAME) {
       if (IsRunning()) {
         CaptureFrame();
         rtc::Thread::Current()->PostDelayed(
-            RTC_FROM_HERE, static_cast<int>(GetCaptureFormat()->interval /
-                                            rtc::kNumNanosecsPerMillisec),
+            RTC_FROM_HERE,
+            static_cast<int>(GetCaptureFormat()->interval /
+                             rtc::kNumNanosecsPerMillisec),
             this, MSG_CREATEFRAME);
-        }
+      }
     }
   }
 

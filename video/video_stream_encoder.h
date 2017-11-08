@@ -20,6 +20,7 @@
 #include "api/video/video_rotation.h"
 #include "api/video_codecs/video_encoder.h"
 #include "call/call.h"
+#include "call/video_send_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
 #include "media/base/videosinkinterface.h"
@@ -32,7 +33,6 @@
 #include "rtc_base/task_queue.h"
 #include "typedefs.h"  // NOLINT(build/include)
 #include "video/overuse_frame_detector.h"
-#include "call/video_send_stream.h"
 
 namespace webrtc {
 
@@ -131,12 +131,8 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
 
   class VideoFrameInfo {
    public:
-    VideoFrameInfo(int width,
-                   int height,
-                   bool is_texture)
-        : width(width),
-          height(height),
-          is_texture(is_texture) {}
+    VideoFrameInfo(int width, int height, bool is_texture)
+        : width(width), height(height), is_texture(is_texture) {}
     int width;
     int height;
     bool is_texture;

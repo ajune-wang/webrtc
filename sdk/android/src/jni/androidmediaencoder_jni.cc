@@ -18,9 +18,6 @@
 #include <string>
 #include <utility>
 
-#include "third_party/libyuv/include/libyuv/convert.h"
-#include "third_party/libyuv/include/libyuv/convert_from.h"
-#include "third_party/libyuv/include/libyuv/video_common.h"
 #include "api/video_codecs/video_encoder.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/h264/h264_bitstream_parser.h"
@@ -45,6 +42,9 @@
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/native_handle_impl.h"
 #include "system_wrappers/include/field_trial.h"
+#include "third_party/libyuv/include/libyuv/convert.h"
+#include "third_party/libyuv/include/libyuv/convert_from.h"
+#include "third_party/libyuv/include/libyuv/video_common.h"
 
 using rtc::Bind;
 using rtc::Thread;
@@ -67,7 +67,7 @@ namespace jni {
 #define TAG_ENCODER "MediaCodecVideoEncoder"
 #ifdef TRACK_BUFFER_TIMING
 #define ALOGV(...)
-  __android_log_print(ANDROID_LOG_VERBOSE, TAG_ENCODER, __VA_ARGS__)
+__android_log_print(ANDROID_LOG_VERBOSE, TAG_ENCODER, __VA_ARGS__)
 #else
 #define ALOGV(...)
 #endif
@@ -75,12 +75,12 @@ namespace jni {
 #define ALOGW LOG_TAG(rtc::LS_WARNING, TAG_ENCODER)
 #define ALOGE LOG_TAG(rtc::LS_ERROR, TAG_ENCODER)
 
-namespace {
-// Maximum time limit between incoming frames before requesting a key frame.
-const size_t kFrameDiffThresholdMs = 350;
-const int kMinKeyFrameInterval = 6;
-const char kH264HighProfileFieldTrial[] = "WebRTC-H264HighProfile";
-const char kCustomQPThresholdsFieldTrial[] = "WebRTC-CustomQPThresholds";
+    namespace {
+  // Maximum time limit between incoming frames before requesting a key frame.
+  const size_t kFrameDiffThresholdMs = 350;
+  const int kMinKeyFrameInterval = 6;
+  const char kH264HighProfileFieldTrial[] = "WebRTC-H264HighProfile";
+  const char kCustomQPThresholdsFieldTrial[] = "WebRTC-CustomQPThresholds";
 }  // namespace
 
 // MediaCodecVideoEncoder is a VideoEncoder implementation that uses
@@ -183,7 +183,8 @@ class MediaCodecVideoEncoder : public VideoEncoder {
   jobject GetOutputBufferInfoBuffer(JNIEnv* jni, jobject j_output_buffer_info);
   bool GetOutputBufferInfoIsKeyFrame(JNIEnv* jni, jobject j_output_buffer_info);
   jlong GetOutputBufferInfoPresentationTimestampUs(
-      JNIEnv* jni, jobject j_output_buffer_info);
+      JNIEnv* jni,
+      jobject j_output_buffer_info);
 
   // Deliver any outputs pending in the MediaCodec to our |callback_| and return
   // true on success.
@@ -239,20 +240,20 @@ class MediaCodecVideoEncoder : public VideoEncoder {
   bool inited_;
   bool use_surface_;
   enum libyuv::FourCC encoder_fourcc_;  // Encoder color space format.
-  int last_set_bitrate_kbps_;  // Last-requested bitrate in kbps.
-  int last_set_fps_;  // Last-requested frame rate.
-  int64_t current_timestamp_us_;  // Current frame timestamps in us.
-  int frames_received_;  // Number of frames received by encoder.
-  int frames_encoded_;  // Number of frames encoded by encoder.
-  int frames_dropped_media_encoder_;  // Number of frames dropped by encoder.
+  int last_set_bitrate_kbps_;           // Last-requested bitrate in kbps.
+  int last_set_fps_;                    // Last-requested frame rate.
+  int64_t current_timestamp_us_;        // Current frame timestamps in us.
+  int frames_received_;                 // Number of frames received by encoder.
+  int frames_encoded_;                  // Number of frames encoded by encoder.
+  int frames_dropped_media_encoder_;    // Number of frames dropped by encoder.
   // Number of dropped frames caused by full queue.
   int consecutive_full_queue_frame_drops_;
   int64_t stat_start_time_ms_;  // Start time for statistics.
   int current_frames_;  // Number of frames in the current statistics interval.
-  int current_bytes_;  // Encoded bytes in the current statistics interval.
+  int current_bytes_;   // Encoded bytes in the current statistics interval.
   int current_acc_qp_;  // Accumulated QP in the current statistics interval.
   int current_encoding_time_ms_;  // Overall encoding time in the current second
-  int64_t last_input_timestamp_ms_;  // Timestamp of last received yuv frame.
+  int64_t last_input_timestamp_ms_;   // Timestamp of last received yuv frame.
   int64_t last_output_timestamp_ms_;  // Timestamp of last encoded frame.
   // Holds the task while the polling loop is paused.
   std::unique_ptr<rtc::QueuedTask> encode_task_;
@@ -358,29 +359,24 @@ MediaCodecVideoEncoder::MediaCodecVideoEncoder(JNIEnv* jni,
       GetMethodID(jni, *j_media_codec_video_encoder_class_, "initEncode",
                   "(Lorg/webrtc/MediaCodecVideoEncoder$VideoCodecType;"
                   "IIIIILorg/webrtc/EglBase14$Context;)Z");
-  j_get_input_buffers_method_ = GetMethodID(
-      jni,
-      *j_media_codec_video_encoder_class_,
-      "getInputBuffers",
-      "()[Ljava/nio/ByteBuffer;");
+  j_get_input_buffers_method_ =
+      GetMethodID(jni, *j_media_codec_video_encoder_class_, "getInputBuffers",
+                  "()[Ljava/nio/ByteBuffer;");
   j_dequeue_input_buffer_method_ = GetMethodID(
       jni, *j_media_codec_video_encoder_class_, "dequeueInputBuffer", "()I");
   j_encode_buffer_method_ = GetMethodID(
       jni, *j_media_codec_video_encoder_class_, "encodeBuffer", "(ZIIJ)Z");
   j_encode_texture_method_ = GetMethodID(
-        jni, *j_media_codec_video_encoder_class_, "encodeTexture",
-        "(ZI[FJ)Z");
+      jni, *j_media_codec_video_encoder_class_, "encodeTexture", "(ZI[FJ)Z");
   j_encode_frame_method_ =
       GetMethodID(jni, *j_media_codec_video_encoder_class_, "encodeFrame",
                   "(JZLorg/webrtc/VideoFrame;I)Z");
   j_release_method_ =
       GetMethodID(jni, *j_media_codec_video_encoder_class_, "release", "()V");
-  j_set_rates_method_ = GetMethodID(
-      jni, *j_media_codec_video_encoder_class_, "setRates", "(II)Z");
+  j_set_rates_method_ = GetMethodID(jni, *j_media_codec_video_encoder_class_,
+                                    "setRates", "(II)Z");
   j_dequeue_output_buffer_method_ = GetMethodID(
-      jni,
-      *j_media_codec_video_encoder_class_,
-      "dequeueOutputBuffer",
+      jni, *j_media_codec_video_encoder_class_, "dequeueOutputBuffer",
       "()Lorg/webrtc/MediaCodecVideoEncoder$OutputBufferInfo;");
   j_release_output_buffer_method_ = GetMethodID(
       jni, *j_media_codec_video_encoder_class_, "releaseOutputBuffer", "(I)Z");
@@ -389,8 +385,8 @@ MediaCodecVideoEncoder::MediaCodecVideoEncoder(JNIEnv* jni,
       GetFieldID(jni, *j_media_codec_video_encoder_class_, "colorFormat", "I");
   j_info_index_field_ =
       GetFieldID(jni, j_output_buffer_info_class, "index", "I");
-  j_info_buffer_field_ = GetFieldID(
-      jni, j_output_buffer_info_class, "buffer", "Ljava/nio/ByteBuffer;");
+  j_info_buffer_field_ = GetFieldID(jni, j_output_buffer_info_class, "buffer",
+                                    "Ljava/nio/ByteBuffer;");
   j_info_is_key_frame_field_ =
       GetFieldID(jni, j_output_buffer_info_class, "isKeyFrame", "Z");
   j_info_presentation_timestamp_us_field_ = GetFieldID(
@@ -613,9 +609,9 @@ int32_t MediaCodecVideoEncoder::InitEncodeInternal(int width,
   }
 
   if (!use_surface) {
-    jobjectArray input_buffers = reinterpret_cast<jobjectArray>(
-        jni->CallObjectMethod(*j_media_codec_video_encoder_,
-            j_get_input_buffers_method_));
+    jobjectArray input_buffers =
+        reinterpret_cast<jobjectArray>(jni->CallObjectMethod(
+            *j_media_codec_video_encoder_, j_get_input_buffers_method_));
     if (CheckException(jni)) {
       ALOGE << "Exception in get input buffers.";
       ProcessHWError(false /* reset_if_fallback_unavailable */);
@@ -628,7 +624,7 @@ int32_t MediaCodecVideoEncoder::InitEncodeInternal(int width,
     }
 
     switch (GetIntField(jni, *j_media_codec_video_encoder_,
-        j_color_format_field_)) {
+                        j_color_format_field_)) {
       case COLOR_FormatYUV420Planar:
         encoder_fourcc_ = libyuv::FOURCC_YU12;
         break;
@@ -848,16 +844,15 @@ bool MediaCodecVideoEncoder::MaybeReconfigureEncoder(JNIEnv* jni,
       frame.width() != width_ || frame.height() != height_;
 
   if (reconfigure_due_to_format) {
-      ALOGD << "Reconfigure encoder due to format change. "
-            << (use_surface_ ?
-                "Reconfiguring to encode from byte buffer." :
-                "Reconfiguring to encode from texture.");
-      LogStatistics(true);
+    ALOGD << "Reconfigure encoder due to format change. "
+          << (use_surface_ ? "Reconfiguring to encode from byte buffer."
+                           : "Reconfiguring to encode from texture.");
+    LogStatistics(true);
   }
   if (reconfigure_due_to_size) {
     ALOGW << "Reconfigure encoder due to frame resolution change from "
-        << width_ << " x " << height_ << " to " << frame.width() << " x "
-        << frame.height();
+          << width_ << " x " << height_ << " to " << frame.width() << " x "
+          << frame.height();
     LogStatistics(true);
     width_ = frame.width();
     height_ = frame.height();
@@ -1075,8 +1070,8 @@ bool MediaCodecVideoEncoder::GetOutputBufferInfoIsKeyFrame(
 jlong MediaCodecVideoEncoder::GetOutputBufferInfoPresentationTimestampUs(
     JNIEnv* jni,
     jobject j_output_buffer_info) {
-  return GetLongField(
-      jni, j_output_buffer_info, j_info_presentation_timestamp_us_field_);
+  return GetLongField(jni, j_output_buffer_info,
+                      j_info_presentation_timestamp_us_field_);
 }
 
 bool MediaCodecVideoEncoder::DeliverPendingOutputs(JNIEnv* jni) {
@@ -1220,9 +1215,9 @@ bool MediaCodecVideoEncoder::DeliverPendingOutputs(JNIEnv* jni) {
             H264::FindNaluIndices(payload, payload_size);
         if (nalu_idxs.empty()) {
           ALOGE << "Start code is not found!";
-          ALOGE << "Data:" <<  image->_buffer[0] << " " << image->_buffer[1]
-              << " " << image->_buffer[2] << " " << image->_buffer[3]
-              << " " << image->_buffer[4] << " " << image->_buffer[5];
+          ALOGE << "Data:" << image->_buffer[0] << " " << image->_buffer[1]
+                << " " << image->_buffer[2] << " " << image->_buffer[3] << " "
+                << image->_buffer[4] << " " << image->_buffer[5];
           ProcessHWError(true /* reset_if_fallback_unavailable */);
           return false;
         }
@@ -1277,21 +1272,21 @@ bool MediaCodecVideoEncoder::DeliverPendingOutputs(JNIEnv* jni) {
 
 void MediaCodecVideoEncoder::LogStatistics(bool force_log) {
   int statistic_time_ms = rtc::TimeMillis() - stat_start_time_ms_;
-  if ((statistic_time_ms >= kMediaCodecStatisticsIntervalMs || force_log)
-      && statistic_time_ms > 0) {
+  if ((statistic_time_ms >= kMediaCodecStatisticsIntervalMs || force_log) &&
+      statistic_time_ms > 0) {
     // Prevent division by zero.
     int current_frames_divider = current_frames_ != 0 ? current_frames_ : 1;
 
     int current_bitrate = current_bytes_ * 8 / statistic_time_ms;
     int current_fps =
         (current_frames_ * 1000 + statistic_time_ms / 2) / statistic_time_ms;
-    ALOGD << "Encoded frames: " << frames_encoded_ <<
-        ". Bitrate: " << current_bitrate <<
-        ", target: " << last_set_bitrate_kbps_ << " kbps" <<
-        ", fps: " << current_fps <<
-        ", encTime: " << (current_encoding_time_ms_ / current_frames_divider) <<
-        ". QP: " << (current_acc_qp_ / current_frames_divider) <<
-        " for last " << statistic_time_ms << " ms.";
+    ALOGD << "Encoded frames: " << frames_encoded_
+          << ". Bitrate: " << current_bitrate
+          << ", target: " << last_set_bitrate_kbps_ << " kbps"
+          << ", fps: " << current_fps << ", encTime: "
+          << (current_encoding_time_ms_ / current_frames_divider)
+          << ". QP: " << (current_acc_qp_ / current_frames_divider)
+          << " for last " << statistic_time_ms << " ms.";
     stat_start_time_ms_ = rtc::TimeMillis();
     current_frames_ = 0;
     current_bytes_ = 0;
@@ -1416,8 +1411,8 @@ MediaCodecVideoEncoderFactory::~MediaCodecVideoEncoderFactory() {
   }
 }
 
-void MediaCodecVideoEncoderFactory::SetEGLContext(
-    JNIEnv* jni, jobject egl_context) {
+void MediaCodecVideoEncoderFactory::SetEGLContext(JNIEnv* jni,
+                                                  jobject egl_context) {
   ALOGD << "MediaCodecVideoEncoderFactory::SetEGLContext";
   if (egl_context_) {
     jni->DeleteGlobalRef(egl_context_);

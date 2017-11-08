@@ -25,8 +25,8 @@
 #include "media/base/mediaconstants.h"
 #include "media/base/mediaengine.h"  // For DataChannelType
 #include "media/base/streamparams.h"
-#include "p2p/base/sessiondescription.h"
 #include "p2p/base/jseptransport.h"
+#include "p2p/base/sessiondescription.h"
 #include "p2p/base/transportdescriptionfactory.h"
 
 namespace cricket {
@@ -47,11 +47,7 @@ enum MediaContentDirection {
 
 std::string MediaContentDirectionToString(MediaContentDirection direction);
 
-enum CryptoType {
-  CT_NONE,
-  CT_SDES,
-  CT_DTLS
-};
+enum CryptoType { CT_NONE, CT_SDES, CT_DTLS };
 
 // RTC4585 RTP/AVPF
 extern const char kMediaProtocolAvpf[];
@@ -98,9 +94,9 @@ struct RtpTransceiverDirection {
   }
 };
 
-RtpTransceiverDirection
-NegotiateRtpTransceiverDirection(RtpTransceiverDirection offer,
-                                 RtpTransceiverDirection wants);
+RtpTransceiverDirection NegotiateRtpTransceiverDirection(
+    RtpTransceiverDirection offer,
+    RtpTransceiverDirection wants);
 
 // Options for an RtpSender contained with an media description/"m=" section.
 struct SenderOptions {
@@ -202,17 +198,13 @@ class MediaContentDescription : public ContentDescription {
   void set_bandwidth(int bandwidth) { bandwidth_ = bandwidth; }
 
   const std::vector<CryptoParams>& cryptos() const { return cryptos_; }
-  void AddCrypto(const CryptoParams& params) {
-    cryptos_.push_back(params);
-  }
+  void AddCrypto(const CryptoParams& params) { cryptos_.push_back(params); }
   void set_cryptos(const std::vector<CryptoParams>& cryptos) {
     cryptos_ = cryptos;
   }
 
   CryptoType crypto_required() const { return crypto_required_; }
-  void set_crypto_required(CryptoType type) {
-    crypto_required_ = type;
-  }
+  void set_crypto_required(CryptoType type) { crypto_required_ = type; }
 
   const RtpHeaderExtensions& rtp_header_extensions() const {
     return rtp_header_extensions_;
@@ -241,23 +233,15 @@ class MediaContentDescription : public ContentDescription {
   // signal them. For now we assume an empty list means no signaling, but
   // provide the ClearRtpHeaderExtensions method to allow "no support" to be
   // clearly indicated (i.e. when derived from other information).
-  bool rtp_header_extensions_set() const {
-    return rtp_header_extensions_set_;
-  }
+  bool rtp_header_extensions_set() const { return rtp_header_extensions_set_; }
   // True iff the client supports multiple streams.
   void set_multistream(bool multistream) { multistream_ = multistream; }
   bool multistream() const { return multistream_; }
-  const StreamParamsVec& streams() const {
-    return streams_;
-  }
+  const StreamParamsVec& streams() const { return streams_; }
   // TODO(pthatcher): Remove this by giving mediamessage.cc access
   // to MediaContentDescription
-  StreamParamsVec& mutable_streams() {
-    return streams_;
-  }
-  void AddStream(const StreamParams& stream) {
-    streams_.push_back(stream);
-  }
+  StreamParamsVec& mutable_streams() { return streams_; }
+  void AddStream(const StreamParams& stream) { streams_.push_back(stream); }
   // Legacy streams have an ssrc, but nothing else.
   void AddLegacyStream(uint32_t ssrc) {
     streams_.push_back(StreamParams::CreateLegacy(ssrc));
@@ -292,7 +276,7 @@ class MediaContentDescription : public ContentDescription {
   bool conference_mode() const { return conference_mode_; }
 
   void set_partial(bool partial) { partial_ = partial; }
-  bool partial() const { return partial_;  }
+  bool partial() const { return partial_; }
 
   void set_buffered_mode_latency(int latency) {
     buffered_mode_latency_ = latency;
@@ -347,9 +331,7 @@ class MediaContentDescriptionImpl : public MediaContentDescription {
     }
     return found;
   }
-  void AddCodec(const C& codec) {
-    codecs_.push_back(codec);
-  }
+  void AddCodec(const C& codec) { codecs_.push_back(codec); }
   void AddOrReplaceCodec(const C& codec) {
     for (typename std::vector<C>::iterator iter = codecs_.begin();
          iter != codecs_.end(); ++iter) {
@@ -373,21 +355,18 @@ class MediaContentDescriptionImpl : public MediaContentDescription {
 
 class AudioContentDescription : public MediaContentDescriptionImpl<AudioCodec> {
  public:
-  AudioContentDescription() :
-      agc_minus_10db_(false) {}
+  AudioContentDescription() : agc_minus_10db_(false) {}
 
   virtual ContentDescription* Copy() const {
     return new AudioContentDescription(*this);
   }
   virtual MediaType type() const { return MEDIA_TYPE_AUDIO; }
 
-  const std::string &lang() const { return lang_; }
-  void set_lang(const std::string &lang) { lang_ = lang; }
+  const std::string& lang() const { return lang_; }
+  void set_lang(const std::string& lang) { lang_ = lang; }
 
   bool agc_minus_10db() const { return agc_minus_10db_; }
-  void set_agc_minus_10db(bool enable) {
-    agc_minus_10db_ = enable;
-  }
+  void set_agc_minus_10db(bool enable) { agc_minus_10db_ = enable; }
 
  private:
   bool agc_minus_10db_;
@@ -490,11 +469,10 @@ class MediaSessionDescriptionFactory {
   void GetRtpHdrExtsToOffer(const SessionDescription* current_description,
                             RtpHeaderExtensions* audio_extensions,
                             RtpHeaderExtensions* video_extensions) const;
-  bool AddTransportOffer(
-      const std::string& content_name,
-      const TransportOptions& transport_options,
-      const SessionDescription* current_desc,
-      SessionDescription* offer) const;
+  bool AddTransportOffer(const std::string& content_name,
+                         const TransportOptions& transport_options,
+                         const SessionDescription* current_desc,
+                         SessionDescription* offer) const;
 
   TransportDescription* CreateTransportAnswer(
       const std::string& content_name,
@@ -503,10 +481,9 @@ class MediaSessionDescriptionFactory {
       const SessionDescription* current_desc,
       bool require_transport_attributes) const;
 
-  bool AddTransportAnswer(
-      const std::string& content_name,
-      const TransportDescription& transport_desc,
-      SessionDescription* answer_desc) const;
+  bool AddTransportAnswer(const std::string& content_name,
+                          const TransportDescription& transport_desc,
+                          SessionDescription* answer_desc) const;
 
   // Helpers for adding media contents to the SessionDescription. Returns true
   // it succeeds or the media content is not needed, or false if there is any

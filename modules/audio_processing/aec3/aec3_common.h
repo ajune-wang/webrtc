@@ -57,8 +57,7 @@ constexpr size_t kMatchedFilterAlignmentShiftSizeSubBlocks =
 constexpr size_t kDownsampledRenderBufferSize =
     kSubBlockSize *
     (kMatchedFilterAlignmentShiftSizeSubBlocks * kNumMatchedFilters +
-     kMatchedFilterWindowSizeSubBlocks +
-     1);
+     kMatchedFilterWindowSizeSubBlocks + 1);
 
 constexpr size_t kRenderDelayBufferSize =
     (3 * kDownsampledRenderBufferSize) / (4 * kSubBlockSize);

@@ -12,8 +12,8 @@
 #ifndef MODULES_VIDEO_CODING_CODECS_VP8_TEMPORAL_LAYERS_H_
 #define MODULES_VIDEO_CODING_CODECS_VP8_TEMPORAL_LAYERS_H_
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 #include "typedefs.h"  // NOLINT(build/include)
 struct vpx_codec_enc_cfg;

@@ -57,7 +57,7 @@ class ThreadManager {
   // shame to break it.  It is also conceivable on Win32 that we won't even
   // be able to get synchronization privileges, in which case the result
   // will have a null handle.
-  Thread *WrapCurrentThread();
+  Thread* WrapCurrentThread();
   void UnwrapCurrentThread();
 
   bool IsMainThread();
@@ -82,9 +82,9 @@ class ThreadManager {
 
 struct _SendMessage {
   _SendMessage() {}
-  Thread *thread;
+  Thread* thread;
   Message msg;
-  bool *ready;
+  bool* ready;
 };
 
 class Runnable {
@@ -131,6 +131,7 @@ class RTC_LOCKABLE Thread : public MessageQueue {
    public:
     ScopedDisallowBlockingCalls();
     ~ScopedDisallowBlockingCalls();
+
    private:
     Thread* const thread_;
     const bool previous_state_;
@@ -203,16 +204,10 @@ class RTC_LOCKABLE Thread : public MessageQueue {
   bool IsOwned();
 
 #if defined(WEBRTC_WIN)
-  HANDLE GetHandle() const {
-    return thread_;
-  }
-  DWORD GetId() const {
-    return thread_id_;
-  }
+  HANDLE GetHandle() const { return thread_; }
+  DWORD GetId() const { return thread_id_; }
 #elif defined(WEBRTC_POSIX)
-  pthread_t GetPThread() {
-    return thread_;
-  }
+  pthread_t GetPThread() { return thread_; }
 #endif
 
   // Expose private method running() for tests.
@@ -258,7 +253,7 @@ class RTC_LOCKABLE Thread : public MessageQueue {
 #if defined(WEBRTC_WIN)
   static DWORD WINAPI PreRun(LPVOID context);
 #else
-  static void *PreRun(void *pv);
+  static void* PreRun(void* pv);
 #endif
 
   // ThreadManager calls this instead WrapCurrent() because

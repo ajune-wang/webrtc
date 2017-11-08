@@ -347,8 +347,8 @@ TEST_F(RtpDemuxerTest, OnRtpPacketCalledOnCorrectSinkByRsid) {
   }
 
   for (size_t i = 0; i < arraysize(rsids); i++) {
-    auto packet = CreatePacketWithSsrcRsid(rtc::checked_cast<uint32_t>(i),
-                                           rsids[i]);
+    auto packet =
+        CreatePacketWithSsrcRsid(rtc::checked_cast<uint32_t>(i), rsids[i]);
     EXPECT_CALL(sinks[i], OnRtpPacket(SamePacketAs(*packet))).Times(1);
     EXPECT_TRUE(demuxer_.OnRtpPacket(*packet));
   }
@@ -362,8 +362,8 @@ TEST_F(RtpDemuxerTest, OnRtpPacketCalledOnCorrectSinkByMid) {
   }
 
   for (size_t i = 0; i < arraysize(mids); i++) {
-    auto packet = CreatePacketWithSsrcMid(rtc::checked_cast<uint32_t>(i),
-                                          mids[i]);
+    auto packet =
+        CreatePacketWithSsrcMid(rtc::checked_cast<uint32_t>(i), mids[i]);
     EXPECT_CALL(sinks[i], OnRtpPacket(SamePacketAs(*packet))).Times(1);
     EXPECT_TRUE(demuxer_.OnRtpPacket(*packet));
   }

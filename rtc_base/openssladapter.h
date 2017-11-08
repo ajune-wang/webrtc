@@ -76,7 +76,11 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
 
  private:
   enum SSLState {
-    SSL_NONE, SSL_WAIT, SSL_CONNECTING, SSL_CONNECTED, SSL_ERROR
+    SSL_NONE,
+    SSL_WAIT,
+    SSL_CONNECTING,
+    SSL_CONNECTED,
+    SSL_ERROR
   };
 
   enum { MSG_TIMEOUT };
@@ -92,7 +96,8 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
 
   void OnMessage(Message* msg) override;
 
-  static bool VerifyServerName(SSL* ssl, const char* host,
+  static bool VerifyServerName(SSL* ssl,
+                               const char* host,
                                bool ignore_bad_cert);
   bool SSLPostConnectionCheck(SSL* ssl, const char* host);
 #if !defined(NDEBUG)

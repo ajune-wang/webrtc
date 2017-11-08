@@ -472,7 +472,7 @@ EventLogAnalyzer::EventLogAnalyzer(const ParsedRtcEventLog& log)
           // A LOG_END event was missing. Use last_timestamp.
           RTC_DCHECK_GE(last_timestamp, *last_log_start);
           log_segments_.push_back(
-            std::make_pair(*last_log_start, last_timestamp));
+              std::make_pair(*last_log_start, last_timestamp));
         }
         last_log_start = rtc::Optional<uint64_t>(parsed_log_.GetTimestamp(i));
         break;
@@ -779,8 +779,7 @@ void EventLogAnalyzer::CreateAudioLevelGraph(Plot* plot) {
   }
 
   plot->SetXAxis(0, call_duration_s_, "Time (s)", kLeftMargin, kRightMargin);
-  plot->SetYAxis(-127, 0, "Audio level (dBov)", kBottomMargin,
-                 kTopMargin);
+  plot->SetYAxis(-127, 0, "Audio level (dBov)", kBottomMargin, kTopMargin);
   plot->SetTitle("Audio level");
 }
 

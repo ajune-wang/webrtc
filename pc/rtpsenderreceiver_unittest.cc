@@ -70,13 +70,13 @@ class RtpSenderReceiverTest : public testing::Test,
         fake_transport_controller_.CreateDtlsTransport(
             cricket::CN_AUDIO, cricket::ICE_CANDIDATE_COMPONENT_RTP);
     voice_channel_ = channel_manager_.CreateVoiceChannel(
-        &fake_call_, cricket::MediaConfig(),
-        rtp_transport, nullptr, rtc::Thread::Current(),
-        cricket::CN_AUDIO, srtp_required, cricket::AudioOptions());
+        &fake_call_, cricket::MediaConfig(), rtp_transport, nullptr,
+        rtc::Thread::Current(), cricket::CN_AUDIO, srtp_required,
+        cricket::AudioOptions());
     video_channel_ = channel_manager_.CreateVideoChannel(
-        &fake_call_, cricket::MediaConfig(),
-        rtp_transport, nullptr, rtc::Thread::Current(),
-        cricket::CN_VIDEO, srtp_required, cricket::VideoOptions());
+        &fake_call_, cricket::MediaConfig(), rtp_transport, nullptr,
+        rtc::Thread::Current(), cricket::CN_VIDEO, srtp_required,
+        cricket::VideoOptions());
     voice_channel_->Enable(true);
     video_channel_->Enable(true);
     voice_media_channel_ = media_engine_->GetVoiceChannel(0);

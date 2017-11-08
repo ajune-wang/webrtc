@@ -35,9 +35,7 @@ bool MatchHeader(const char* str, size_t len, HttpHeader header) {
   return (len == header_len) && (_strnicmp(str, header_str, header_len) == 0);
 }
 
-enum {
-  MSG_READ
-};
+enum { MSG_READ };
 
 //////////////////////////////////////////////////////////////////////
 // HttpParser
@@ -47,19 +45,18 @@ HttpParser::HttpParser() {
   reset();
 }
 
-HttpParser::~HttpParser() {
-}
+HttpParser::~HttpParser() {}
 
-void
-HttpParser::reset() {
+void HttpParser::reset() {
   state_ = ST_LEADER;
   chunked_ = false;
   data_size_ = SIZE_UNKNOWN;
 }
 
-HttpParser::ProcessResult
-HttpParser::Process(const char* buffer, size_t len, size_t* processed,
-                    HttpError* error) {
+HttpParser::ProcessResult HttpParser::Process(const char* buffer,
+                                              size_t len,
+                                              size_t* processed,
+                                              HttpError* error) {
   *processed = 0;
   *error = HE_NONE;
 
@@ -80,7 +77,7 @@ HttpParser::Process(const char* buffer, size_t len, size_t* processed,
       const char* line = buffer + *processed;
       size_t len = (pos - *processed);
       *processed = pos + 1;
-      while ((len > 0) && isspace(static_cast<unsigned char>(line[len-1]))) {
+      while ((len > 0) && isspace(static_cast<unsigned char>(line[len - 1]))) {
         len -= 1;
       }
       ProcessResult result = ProcessLine(line, len, error);
@@ -98,16 +95,16 @@ HttpParser::Process(const char* buffer, size_t len, size_t* processed,
     } else {
       size_t available = len - *processed;
       if (available <= 0) {
-        break; // no more data
+        break;  // no more data
       }
       if ((data_size_ != SIZE_UNKNOWN) && (available > data_size_)) {
         available = data_size_;
       }
       size_t read = 0;
-      ProcessResult result = ProcessData(buffer + *processed, available, read,
-                                         error);
-      LOG(LS_VERBOSE) << "Processed data, result: " << result << " read: "
-                      << read << " err: " << error;
+      ProcessResult result =
+          ProcessData(buffer + *processed, available, read, error);
+      LOG(LS_VERBOSE) << "Processed data, result: " << result
+                      << " read: " << read << " err: " << error;
 
       if (PR_CONTINUE != result) {
         return result;
@@ -122,104 +119,103 @@ HttpParser::Process(const char* buffer, size_t len, size_t* processed,
   return PR_CONTINUE;
 }
 
-HttpParser::ProcessResult
-HttpParser::ProcessLine(const char* line, size_t len, HttpError* error) {
-  LOG_F(LS_VERBOSE) << " state: " << state_ << " line: "
-                    << std::string(line, len) << " len: " << len << " err: "
-                    << error;
+HttpParser::ProcessResult HttpParser::ProcessLine(const char* line,
+                                                  size_t len,
+                                                  HttpError* error) {
+  LOG_F(LS_VERBOSE) << " state: " << state_
+                    << " line: " << std::string(line, len) << " len: " << len
+                    << " err: " << error;
 
   switch (state_) {
-  case ST_LEADER:
-    state_ = ST_HEADERS;
-    return ProcessLeader(line, len, error);
+    case ST_LEADER:
+      state_ = ST_HEADERS;
+      return ProcessLeader(line, len, error);
 
-  case ST_HEADERS:
-    if (len > 0) {
-      const char* value = strchrn(line, len, ':');
-      if (!value) {
-        *error = HE_PROTOCOL;
-        return PR_COMPLETE;
-      }
-      size_t nlen = (value - line);
-      const char* eol = line + len;
-      do {
-        value += 1;
-      } while ((value < eol) && isspace(static_cast<unsigned char>(*value)));
-      size_t vlen = eol - value;
-      if (MatchHeader(line, nlen, HH_CONTENT_LENGTH)) {
-        // sscanf isn't safe with strings that aren't null-terminated, and there
-        // is no guarantee that |value| is.
-        // Create a local copy that is null-terminated.
-        std::string value_str(value, vlen);
-        unsigned int temp_size;
-        if (sscanf(value_str.c_str(), "%u", &temp_size) != 1) {
+    case ST_HEADERS:
+      if (len > 0) {
+        const char* value = strchrn(line, len, ':');
+        if (!value) {
           *error = HE_PROTOCOL;
           return PR_COMPLETE;
         }
-        data_size_ = static_cast<size_t>(temp_size);
-      } else if (MatchHeader(line, nlen, HH_TRANSFER_ENCODING)) {
-        if ((vlen == 7) && (_strnicmp(value, "chunked", 7) == 0)) {
-          chunked_ = true;
-        } else if ((vlen == 8) && (_strnicmp(value, "identity", 8) == 0)) {
-          chunked_ = false;
-        } else {
+        size_t nlen = (value - line);
+        const char* eol = line + len;
+        do {
+          value += 1;
+        } while ((value < eol) && isspace(static_cast<unsigned char>(*value)));
+        size_t vlen = eol - value;
+        if (MatchHeader(line, nlen, HH_CONTENT_LENGTH)) {
+          // sscanf isn't safe with strings that aren't null-terminated, and
+          // there is no guarantee that |value| is. Create a local copy that is
+          // null-terminated.
+          std::string value_str(value, vlen);
+          unsigned int temp_size;
+          if (sscanf(value_str.c_str(), "%u", &temp_size) != 1) {
+            *error = HE_PROTOCOL;
+            return PR_COMPLETE;
+          }
+          data_size_ = static_cast<size_t>(temp_size);
+        } else if (MatchHeader(line, nlen, HH_TRANSFER_ENCODING)) {
+          if ((vlen == 7) && (_strnicmp(value, "chunked", 7) == 0)) {
+            chunked_ = true;
+          } else if ((vlen == 8) && (_strnicmp(value, "identity", 8) == 0)) {
+            chunked_ = false;
+          } else {
+            *error = HE_PROTOCOL;
+            return PR_COMPLETE;
+          }
+        }
+        return ProcessHeader(line, nlen, value, vlen, error);
+      } else {
+        state_ = chunked_ ? ST_CHUNKSIZE : ST_DATA;
+        return ProcessHeaderComplete(chunked_, data_size_, error);
+      }
+      break;
+
+    case ST_CHUNKSIZE:
+      if (len > 0) {
+        char* ptr = nullptr;
+        data_size_ = strtoul(line, &ptr, 16);
+        if (ptr != line + len) {
           *error = HE_PROTOCOL;
           return PR_COMPLETE;
         }
-      }
-      return ProcessHeader(line, nlen, value, vlen, error);
-    } else {
-      state_ = chunked_ ? ST_CHUNKSIZE : ST_DATA;
-      return ProcessHeaderComplete(chunked_, data_size_, error);
-    }
-    break;
-
-  case ST_CHUNKSIZE:
-    if (len > 0) {
-      char* ptr = nullptr;
-      data_size_ = strtoul(line, &ptr, 16);
-      if (ptr != line + len) {
+        state_ = (data_size_ == 0) ? ST_TRAILERS : ST_DATA;
+      } else {
         *error = HE_PROTOCOL;
         return PR_COMPLETE;
       }
-      state_ = (data_size_ == 0) ? ST_TRAILERS : ST_DATA;
-    } else {
-      *error = HE_PROTOCOL;
-      return PR_COMPLETE;
-    }
-    break;
+      break;
 
-  case ST_CHUNKTERM:
-    if (len > 0) {
-      *error = HE_PROTOCOL;
-      return PR_COMPLETE;
-    } else {
-      state_ = chunked_ ? ST_CHUNKSIZE : ST_DATA;
-    }
-    break;
+    case ST_CHUNKTERM:
+      if (len > 0) {
+        *error = HE_PROTOCOL;
+        return PR_COMPLETE;
+      } else {
+        state_ = chunked_ ? ST_CHUNKSIZE : ST_DATA;
+      }
+      break;
 
-  case ST_TRAILERS:
-    if (len == 0) {
-      return PR_COMPLETE;
-    }
-    // *error = onHttpRecvTrailer();
-    break;
+    case ST_TRAILERS:
+      if (len == 0) {
+        return PR_COMPLETE;
+      }
+      // *error = onHttpRecvTrailer();
+      break;
 
-  default:
-    RTC_NOTREACHED();
-    break;
+    default:
+      RTC_NOTREACHED();
+      break;
   }
 
   return PR_CONTINUE;
 }
 
-bool
-HttpParser::is_valid_end_of_input() const {
+bool HttpParser::is_valid_end_of_input() const {
   return (state_ == ST_DATA) && (data_size_ == SIZE_UNKNOWN);
 }
 
-void
-HttpParser::complete(HttpError error) {
+void HttpParser::complete(HttpError error) {
   if (state_ < ST_COMPLETE) {
     state_ = ST_COMPLETE;
     OnComplete(error);
@@ -231,9 +227,9 @@ HttpParser::complete(HttpError error) {
 //////////////////////////////////////////////////////////////////////
 
 class BlockingMemoryStream : public ExternalMemoryStream {
-public:
+ public:
   BlockingMemoryStream(char* buffer, size_t size)
-  : ExternalMemoryStream(buffer, size) { }
+      : ExternalMemoryStream(buffer, size) {}
 
   StreamResult DoReserve(size_t size, int* error) override {
     return (buffer_length_ >= size) ? SR_SUCCESS : SR_BLOCK;
@@ -241,8 +237,8 @@ public:
 };
 
 class HttpBase::DocumentStream : public StreamInterface {
-public:
-  DocumentStream(HttpBase* base) : base_(base), error_(HE_DEFAULT) { }
+ public:
+  DocumentStream(HttpBase* base) : base_(base), error_(HE_DEFAULT) {}
 
   StreamState GetState() const override {
     if (nullptr == base_)
@@ -257,7 +253,8 @@ public:
                     size_t* read,
                     int* error) override {
     if (!base_) {
-      if (error) *error = error_;
+      if (error)
+        *error = error_;
       return (HE_NONE == error_) ? SR_EOS : SR_ERROR;
     }
 
@@ -295,7 +292,8 @@ public:
     StreamResult result = SR_BLOCK;
     if (complete) {
       HttpBase* base = Disconnect(http_error);
-      if (error) *error = error_;
+      if (error)
+        *error = error_;
       result = (HE_NONE == error_) ? SR_EOS : SR_ERROR;
       base->complete(http_error);
     }
@@ -305,7 +303,8 @@ public:
     size_t position;
     stream->GetPosition(&position);
     if (position > 0) {
-      if (read) *read = position;
+      if (read)
+        *read = position;
       result = SR_SUCCESS;
     }
     return result;
@@ -315,7 +314,8 @@ public:
                      size_t data_len,
                      size_t* written,
                      int* error) override {
-    if (error) *error = -1;
+    if (error)
+      *error = -1;
     return SR_ERROR;
   }
 
@@ -351,7 +351,7 @@ public:
     return base;
   }
 
-private:
+ private:
   HttpBase* base_;
   HttpError error_;
 };
@@ -371,13 +371,11 @@ HttpBase::~HttpBase() {
   RTC_DCHECK(HM_NONE == mode_);
 }
 
-bool
-HttpBase::isConnected() const {
+bool HttpBase::isConnected() const {
   return (http_stream_ != nullptr) && (http_stream_->GetState() == SS_OPEN);
 }
 
-bool
-HttpBase::attach(StreamInterface* stream) {
+bool HttpBase::attach(StreamInterface* stream) {
   if ((mode_ != HM_NONE) || (http_stream_ != nullptr) || (stream == nullptr)) {
     RTC_NOTREACHED();
     return false;
@@ -388,8 +386,7 @@ HttpBase::attach(StreamInterface* stream) {
   return true;
 }
 
-StreamInterface*
-HttpBase::detach() {
+StreamInterface* HttpBase::detach() {
   RTC_DCHECK(HM_NONE == mode_);
   if (mode_ != HM_NONE) {
     return nullptr;
@@ -402,8 +399,7 @@ HttpBase::detach() {
   return stream;
 }
 
-void
-HttpBase::send(HttpData* data) {
+void HttpBase::send(HttpData* data) {
   RTC_DCHECK(HM_NONE == mode_);
   if (mode_ != HM_NONE) {
     return;
@@ -422,8 +418,8 @@ HttpBase::send(HttpData* data) {
   }
 
   std::string encoding;
-  if (data_->hasHeader(HH_TRANSFER_ENCODING, &encoding)
-      && (encoding == "chunked")) {
+  if (data_->hasHeader(HH_TRANSFER_ENCODING, &encoding) &&
+      (encoding == "chunked")) {
     chunk_data_ = true;
   }
 
@@ -439,8 +435,7 @@ HttpBase::send(HttpData* data) {
   flush_data();
 }
 
-void
-HttpBase::recv(HttpData* data) {
+void HttpBase::recv(HttpData* data) {
   RTC_DCHECK(HM_NONE == mode_);
   if (mode_ != HM_NONE) {
     return;
@@ -462,8 +457,7 @@ HttpBase::recv(HttpData* data) {
   }
 }
 
-void
-HttpBase::abort(HttpError err) {
+void HttpBase::abort(HttpError err) {
   if (mode_ != HM_NONE) {
     if (http_stream_ != nullptr) {
       http_stream_->Close();
@@ -519,28 +513,27 @@ bool HttpBase::DoReceiveLoop(HttpError* error) {
       // Attempt to buffer more data.
       size_t read;
       int read_error;
-      StreamResult read_result = http_stream_->Read(buffer_ + len_,
-                                                    sizeof(buffer_) - len_,
-                                                    &read, &read_error);
+      StreamResult read_result = http_stream_->Read(
+          buffer_ + len_, sizeof(buffer_) - len_, &read, &read_error);
       switch (read_result) {
-      case SR_SUCCESS:
-        RTC_DCHECK(len_ + read <= sizeof(buffer_));
-        len_ += read;
-        break;
-      case SR_BLOCK:
-        if (process_requires_more_data) {
-          // We're can't make progress until more data is available.
-          return false;
-        }
-        // Attempt to process the data already in our buffer.
-        break;
-      case SR_EOS:
-        // Clean close, with no error.
-        read_error = 0;
-        FALLTHROUGH();  // Fall through to HandleStreamClose.
-      case SR_ERROR:
-        *error = HandleStreamClose(read_error);
-        return true;
+        case SR_SUCCESS:
+          RTC_DCHECK(len_ + read <= sizeof(buffer_));
+          len_ += read;
+          break;
+        case SR_BLOCK:
+          if (process_requires_more_data) {
+            // We're can't make progress until more data is available.
+            return false;
+          }
+          // Attempt to process the data already in our buffer.
+          break;
+        case SR_EOS:
+          // Clean close, with no error.
+          read_error = 0;
+          FALLTHROUGH();  // Fall through to HandleStreamClose.
+        case SR_ERROR:
+          *error = HandleStreamClose(read_error);
+          return true;
       }
     } else if (process_requires_more_data) {
       // We have too much unprocessed data in our buffer.  This should only
@@ -557,22 +550,21 @@ bool HttpBase::DoReceiveLoop(HttpError* error) {
     // necessary to call Process with an empty buffer, since the state machine
     // may have interrupted state transitions to complete.
     size_t processed;
-    ProcessResult process_result = Process(buffer_, len_, &processed,
-                                            error);
+    ProcessResult process_result = Process(buffer_, len_, &processed, error);
     RTC_DCHECK(processed <= len_);
     len_ -= processed;
     memmove(buffer_, buffer_ + processed, len_);
     switch (process_result) {
-    case PR_CONTINUE:
-      // We need more data to make progress.
-      process_requires_more_data = true;
-      break;
-    case PR_BLOCK:
-      // We're stalled on writing the processed data.
-      return false;
-    case PR_COMPLETE:
-      // *error already contains the correct code.
-      return true;
+      case PR_CONTINUE:
+        // We need more data to make progress.
+        process_requires_more_data = true;
+        break;
+      case PR_BLOCK:
+        // We're stalled on writing the processed data.
+        return false;
+      case PR_COMPLETE:
+        // *error already contains the correct code.
+        return true;
     }
   } while (++loop_count <= kMaxReadCount);
 
@@ -580,16 +572,14 @@ bool HttpBase::DoReceiveLoop(HttpError* error) {
   return false;
 }
 
-void
-HttpBase::read_and_process_data() {
+void HttpBase::read_and_process_data() {
   HttpError error;
   if (DoReceiveLoop(&error)) {
     complete(error);
   }
 }
 
-void
-HttpBase::flush_data() {
+void HttpBase::flush_data() {
   RTC_DCHECK(HM_SEND == mode_);
 
   // When send_required is true, no more buffering can occur without a network
@@ -631,17 +621,16 @@ HttpBase::flush_data() {
       } else {
         size_t read;
         int error;
-        StreamResult result = data_->document->Read(buffer_ + offset,
-                                                    sizeof(buffer_) - reserve,
-                                                    &read, &error);
+        StreamResult result = data_->document->Read(
+            buffer_ + offset, sizeof(buffer_) - reserve, &read, &error);
         if (result == SR_SUCCESS) {
           RTC_DCHECK(reserve + read <= sizeof(buffer_));
           if (chunk_data_) {
             // Prepend the chunk length in hex.
             // Note: sprintfn appends a null terminator, which is why we can't
             // combine it with the line terminator.
-            sprintfn(buffer_ + len_, kChunkDigits + 1, "%.*x",
-                     kChunkDigits, read);
+            sprintfn(buffer_ + len_, kChunkDigits + 1, "%.*x", kChunkDigits,
+                     read);
             // Add line terminator to the chunk length.
             memcpy(buffer_ + len_ + kChunkDigits, "\r\n", 2);
             // Add line terminator to the end of the chunk.
@@ -708,14 +697,13 @@ HttpBase::flush_data() {
   RTC_NOTREACHED();
 }
 
-bool
-HttpBase::queue_headers() {
+bool HttpBase::queue_headers() {
   RTC_DCHECK(HM_SEND == mode_);
   while (header_ != data_->end()) {
-    size_t len = sprintfn(buffer_ + len_, sizeof(buffer_) - len_,
-                          "%.*s: %.*s\r\n",
-                          header_->first.size(), header_->first.data(),
-                          header_->second.size(), header_->second.data());
+    size_t len =
+        sprintfn(buffer_ + len_, sizeof(buffer_) - len_, "%.*s: %.*s\r\n",
+                 header_->first.size(), header_->first.data(),
+                 header_->second.size(), header_->second.data());
     if (len_ + len < sizeof(buffer_) - 3) {
       len_ += len;
       ++header_;
@@ -732,8 +720,7 @@ HttpBase::queue_headers() {
   return false;
 }
 
-void
-HttpBase::do_complete(HttpError err) {
+void HttpBase::do_complete(HttpError err) {
   RTC_DCHECK(mode_ != HM_NONE);
   HttpMode mode = mode_;
   mode_ = HM_NONE;
@@ -757,8 +744,9 @@ HttpBase::do_complete(HttpError err) {
 // Stream Signals
 //
 
-void
-HttpBase::OnHttpStreamEvent(StreamInterface* stream, int events, int error) {
+void HttpBase::OnHttpStreamEvent(StreamInterface* stream,
+                                 int events,
+                                 int error) {
   RTC_DCHECK(stream == http_stream_);
   if ((events & SE_OPEN) && (mode_ == HM_CONNECT)) {
     do_complete();
@@ -792,8 +780,7 @@ HttpBase::OnHttpStreamEvent(StreamInterface* stream, int events, int error) {
   }
 }
 
-void
-HttpBase::OnDocumentEvent(StreamInterface* stream, int events, int error) {
+void HttpBase::OnDocumentEvent(StreamInterface* stream, int events, int error) {
   RTC_DCHECK(stream == data_->document.get());
   if ((events & SE_WRITE) && (mode_ == HM_RECV)) {
     read_and_process_data();
@@ -816,23 +803,26 @@ HttpBase::OnDocumentEvent(StreamInterface* stream, int events, int error) {
 // HttpParser Implementation
 //
 
-HttpParser::ProcessResult
-HttpBase::ProcessLeader(const char* line, size_t len, HttpError* error) {
+HttpParser::ProcessResult HttpBase::ProcessLeader(const char* line,
+                                                  size_t len,
+                                                  HttpError* error) {
   *error = data_->parseLeader(line, len);
   return (HE_NONE == *error) ? PR_CONTINUE : PR_COMPLETE;
 }
 
-HttpParser::ProcessResult
-HttpBase::ProcessHeader(const char* name, size_t nlen, const char* value,
-                        size_t vlen, HttpError* error) {
+HttpParser::ProcessResult HttpBase::ProcessHeader(const char* name,
+                                                  size_t nlen,
+                                                  const char* value,
+                                                  size_t vlen,
+                                                  HttpError* error) {
   std::string sname(name, nlen), svalue(value, vlen);
   data_->addHeader(sname, svalue);
   return PR_CONTINUE;
 }
 
-HttpParser::ProcessResult
-HttpBase::ProcessHeaderComplete(bool chunked, size_t& data_size,
-                                HttpError* error) {
+HttpParser::ProcessResult HttpBase::ProcessHeaderComplete(bool chunked,
+                                                          size_t& data_size,
+                                                          HttpError* error) {
   StreamInterface* old_docstream = doc_stream_;
   if (notify_) {
     *error = notify_->onHttpHeaderComplete(chunked, data_size);
@@ -852,35 +842,35 @@ HttpBase::ProcessHeaderComplete(bool chunked, size_t& data_size,
   return PR_CONTINUE;
 }
 
-HttpParser::ProcessResult
-HttpBase::ProcessData(const char* data, size_t len, size_t& read,
-                      HttpError* error) {
+HttpParser::ProcessResult HttpBase::ProcessData(const char* data,
+                                                size_t len,
+                                                size_t& read,
+                                                HttpError* error) {
   if (ignore_data_ || !data_->document) {
     read = len;
     return PR_CONTINUE;
   }
   int write_error = 0;
   switch (data_->document->Write(data, len, &read, &write_error)) {
-  case SR_SUCCESS:
-    return PR_CONTINUE;
-  case SR_BLOCK:
-    return PR_BLOCK;
-  case SR_EOS:
-    LOG_F(LS_ERROR) << "Unexpected EOS";
-    *error = HE_STREAM;
-    return PR_COMPLETE;
-  case SR_ERROR:
-  default:
-    LOG_F(LS_ERROR) << "Write error: " << write_error;
-    *error = HE_STREAM;
-    return PR_COMPLETE;
+    case SR_SUCCESS:
+      return PR_CONTINUE;
+    case SR_BLOCK:
+      return PR_BLOCK;
+    case SR_EOS:
+      LOG_F(LS_ERROR) << "Unexpected EOS";
+      *error = HE_STREAM;
+      return PR_COMPLETE;
+    case SR_ERROR:
+    default:
+      LOG_F(LS_ERROR) << "Write error: " << write_error;
+      *error = HE_STREAM;
+      return PR_COMPLETE;
   }
 }
 
-void
-HttpBase::OnComplete(HttpError err) {
+void HttpBase::OnComplete(HttpError err) {
   LOG_F(LS_VERBOSE);
   do_complete(err);
 }
 
-} // namespace rtc
+}  // namespace rtc

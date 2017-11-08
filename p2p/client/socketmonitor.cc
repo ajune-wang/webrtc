@@ -46,7 +46,7 @@ void ConnectionMonitor::Stop() {
   network_thread_->Post(RTC_FROM_HERE, this, MSG_MONITOR_STOP);
 }
 
-void ConnectionMonitor::OnMessage(rtc::Message *message) {
+void ConnectionMonitor::OnMessage(rtc::Message* message) {
   rtc::CritScope cs(&crit_);
   switch (message->message_id) {
     case MSG_MONITOR_START:

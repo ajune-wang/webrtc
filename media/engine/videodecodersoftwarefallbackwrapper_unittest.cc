@@ -51,9 +51,7 @@ class VideoDecoderSoftwareFallbackWrapperTest : public ::testing::Test {
       return WEBRTC_VIDEO_CODEC_OK;
     }
 
-    const char* ImplementationName() const override {
-      return "fake-decoder";
-    }
+    const char* ImplementationName() const override { return "fake-decoder"; }
 
     int init_decode_count_ = 0;
     int decode_count_ = 0;
@@ -84,8 +82,7 @@ TEST_F(VideoDecoderSoftwareFallbackWrapperTest, InitializesDecoder) {
 TEST_F(VideoDecoderSoftwareFallbackWrapperTest,
        UsesFallbackDecoderAfterAnyInitDecodeFailure) {
   VideoCodec codec = {};
-  fake_decoder_->init_decode_return_code_ =
-      WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+  fake_decoder_->init_decode_return_code_ = WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   fallback_wrapper_.InitDecode(&codec, 2);
   EXPECT_EQ(1, fake_decoder_->init_decode_count_);
 
@@ -166,8 +163,8 @@ TEST_F(VideoDecoderSoftwareFallbackWrapperTest,
        ForwardsRegisterDecodeCompleteCallback) {
   class FakeDecodedImageCallback : public DecodedImageCallback {
     int32_t Decoded(VideoFrame& decodedImage) override { return 0; }
-    int32_t Decoded(
-        webrtc::VideoFrame& decodedImage, int64_t decode_time_ms) override {
+    int32_t Decoded(webrtc::VideoFrame& decodedImage,
+                    int64_t decode_time_ms) override {
       RTC_NOTREACHED();
       return -1;
     }

@@ -75,11 +75,13 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
   // frame is zero and every second frame is evenly distributed random noise
   // with max amplitude |max_amplitude|.
   static std::unique_ptr<Capturer> CreatePulsedNoiseCapturer(
-      int16_t max_amplitude, int sampling_frequency_in_hz);
+      int16_t max_amplitude,
+      int sampling_frequency_in_hz);
 
   // Returns a Capturer instance that gets its data from a file.
   static std::unique_ptr<Capturer> CreateWavFileReader(
-      std::string filename, int sampling_frequency_in_hz);
+      std::string filename,
+      int sampling_frequency_in_hz);
 
   // Returns a Capturer instance that gets its data from a file.
   // Automatically detects sample rate.
@@ -87,13 +89,15 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
 
   // Returns a Renderer instance that writes its data to a file.
   static std::unique_ptr<Renderer> CreateWavFileWriter(
-      std::string filename, int sampling_frequency_in_hz);
+      std::string filename,
+      int sampling_frequency_in_hz);
 
   // Returns a Renderer instance that writes its data to a WAV file, cutting
   // off silence at the beginning (not necessarily perfect silence, see
   // kAmplitudeThreshold) and at the end (only actual 0 samples in this case).
   static std::unique_ptr<Renderer> CreateBoundedWavFileWriter(
-      std::string filename, int sampling_frequency_in_hz);
+      std::string filename,
+      int sampling_frequency_in_hz);
 
   // Returns a Renderer instance that does nothing with the audio data.
   static std::unique_ptr<Renderer> CreateDiscardRenderer(

@@ -283,8 +283,10 @@ void WebRtcOpus_DecoderInit(OpusDecInst* inst);
  * Return value              : >0 - Samples per channel in decoded vector
  *                             -1 - Error
  */
-int WebRtcOpus_Decode(OpusDecInst* inst, const uint8_t* encoded,
-                      size_t encoded_bytes, int16_t* decoded,
+int WebRtcOpus_Decode(OpusDecInst* inst,
+                      const uint8_t* encoded,
+                      size_t encoded_bytes,
+                      int16_t* decoded,
                       int16_t* audio_type);
 
 /****************************************************************************
@@ -301,7 +303,8 @@ int WebRtcOpus_Decode(OpusDecInst* inst, const uint8_t* encoded,
  * Return value                   : >0 - number of samples in decoded PLC vector
  *                                  -1 - Error
  */
-int WebRtcOpus_DecodePlc(OpusDecInst* inst, int16_t* decoded,
+int WebRtcOpus_DecodePlc(OpusDecInst* inst,
+                         int16_t* decoded,
                          int number_of_lost_frames);
 
 /****************************************************************************
@@ -322,8 +325,10 @@ int WebRtcOpus_DecodePlc(OpusDecInst* inst, int16_t* decoded,
  *                              0 - No FEC data in the packet
  *                             -1 - Error
  */
-int WebRtcOpus_DecodeFec(OpusDecInst* inst, const uint8_t* encoded,
-                         size_t encoded_bytes, int16_t* decoded,
+int WebRtcOpus_DecodeFec(OpusDecInst* inst,
+                         const uint8_t* encoded,
+                         size_t encoded_bytes,
+                         int16_t* decoded,
                          int16_t* audio_type);
 
 /****************************************************************************

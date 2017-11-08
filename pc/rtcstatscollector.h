@@ -98,12 +98,12 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
       const std::map<std::string, CertificateStatsPair>& transport_cert_stats,
       RTCStatsReport* report) const;
   // Produces |RTCCodecStats|.
-  void ProduceCodecStats_n(
-      int64_t timestamp_us, const TrackMediaInfoMap& track_media_info_map,
-      RTCStatsReport* report) const;
+  void ProduceCodecStats_n(int64_t timestamp_us,
+                           const TrackMediaInfoMap& track_media_info_map,
+                           RTCStatsReport* report) const;
   // Produces |RTCDataChannelStats|.
-  void ProduceDataChannelStats_s(
-      int64_t timestamp_us, RTCStatsReport* report) const;
+  void ProduceDataChannelStats_s(int64_t timestamp_us,
+                                 RTCStatsReport* report) const;
   // Produces |RTCIceCandidatePairStats| and |RTCIceCandidateStats|.
   void ProduceIceCandidateAndPairStats_n(
       int64_t timestamp_us,
@@ -112,19 +112,20 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
       const Call::Stats& call_stats,
       RTCStatsReport* report) const;
   // Produces |RTCMediaStreamStats| and |RTCMediaStreamTrackStats|.
-  void ProduceMediaStreamAndTrackStats_s(
-      int64_t timestamp_us, RTCStatsReport* report) const;
+  void ProduceMediaStreamAndTrackStats_s(int64_t timestamp_us,
+                                         RTCStatsReport* report) const;
   // Produces |RTCPeerConnectionStats|.
-  void ProducePeerConnectionStats_s(
-      int64_t timestamp_us, RTCStatsReport* report) const;
+  void ProducePeerConnectionStats_s(int64_t timestamp_us,
+                                    RTCStatsReport* report) const;
   // Produces |RTCInboundRTPStreamStats| and |RTCOutboundRTPStreamStats|.
-  void ProduceRTPStreamStats_n(
-      int64_t timestamp_us, const SessionStats& session_stats,
-      const TrackMediaInfoMap& track_media_info_map,
-      RTCStatsReport* report) const;
+  void ProduceRTPStreamStats_n(int64_t timestamp_us,
+                               const SessionStats& session_stats,
+                               const TrackMediaInfoMap& track_media_info_map,
+                               RTCStatsReport* report) const;
   // Produces |RTCTransportStats|.
   void ProduceTransportStats_n(
-      int64_t timestamp_us, const SessionStats& session_stats,
+      int64_t timestamp_us,
+      const SessionStats& session_stats,
       const std::map<std::string, CertificateStatsPair>& transport_cert_stats,
       RTCStatsReport* report) const;
 
@@ -171,8 +172,7 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   // Data recorded and maintained by the stats collector during its lifetime.
   // Some stats are produced from this record instead of other components.
   struct InternalRecord {
-    InternalRecord() : data_channels_opened(0),
-                       data_channels_closed(0) {}
+    InternalRecord() : data_channels_opened(0), data_channels_closed(0) {}
 
     // The opened count goes up when a channel is fully opened and the closed
     // count goes up if a previously opened channel has fully closed. The opened

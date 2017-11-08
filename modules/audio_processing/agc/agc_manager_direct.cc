@@ -70,12 +70,12 @@ int LevelFromGainError(int gain_error, int level) {
   int new_level = level;
   if (gain_error > 0) {
     while (kGainMap[new_level] - kGainMap[level] < gain_error &&
-          new_level < kMaxMicLevel) {
+           new_level < kMaxMicLevel) {
       ++new_level;
     }
   } else {
     while (kGainMap[new_level] - kGainMap[level] > gain_error &&
-          new_level > kMinMicLevel) {
+           new_level > kMinMicLevel) {
       --new_level;
     }
   }
@@ -89,26 +89,21 @@ int LevelFromGainError(int gain_error, int level) {
 class DebugFile {
 #ifdef WEBRTC_AGC_DEBUG_DUMP
  public:
-  explicit DebugFile(const char* filename)
-      : file_(fopen(filename, "wb")) {
+  explicit DebugFile(const char* filename) : file_(fopen(filename, "wb")) {
     RTC_DCHECK(file_);
   }
-  ~DebugFile() {
-    fclose(file_);
-  }
+  ~DebugFile() { fclose(file_); }
   void Write(const int16_t* data, size_t length_samples) {
     fwrite(data, 1, length_samples * sizeof(int16_t), file_);
   }
+
  private:
   FILE* file_;
 #else
  public:
-  explicit DebugFile(const char* filename) {
-  }
-  ~DebugFile() {
-  }
-  void Write(const int16_t* data, size_t length_samples) {
-  }
+  explicit DebugFile(const char* filename) {}
+  ~DebugFile() {}
+  void Write(const int16_t* data, size_t length_samples) {}
 #endif  // WEBRTC_AGC_DEBUG_DUMP
 };
 
@@ -215,8 +210,7 @@ void AgcManagerDirect::AnalyzePreProcess(int16_t* audio,
   // gain is increased, through SetMaxLevel().
   float clipped_ratio = agc_->AnalyzePreproc(audio, length);
   if (clipped_ratio > kClippedRatioThreshold) {
-    LOG(LS_INFO) << "[agc] Clipping detected. clipped_ratio="
-                 << clipped_ratio;
+    LOG(LS_INFO) << "[agc] Clipping detected. clipped_ratio=" << clipped_ratio;
     // Always decrease the maximum level, even if the current level is below
     // threshold.
     SetMaxLevel(std::max(clipped_level_min_, max_level_ - kClippedLevelStep));
@@ -312,7 +306,7 @@ void AgcManagerDirect::SetMaxLevel(int level) {
                                            kSurplusCompressionGain +
                                        0.5f);
   LOG(LS_INFO) << "[agc] max_level_=" << max_level_
-               << ", max_compression_gain_="  << max_compression_gain_;
+               << ", max_compression_gain_=" << max_compression_gain_;
 }
 
 void AgcManagerDirect::SetCaptureMuted(bool muted) {
@@ -388,15 +382,15 @@ void AgcManagerDirect::UpdateGain() {
   // target and the newly received target. This serves to soften perceptible
   // intra-talkspurt adjustments, at the cost of some adaptation speed.
   if ((raw_compression == max_compression_gain_ &&
-      target_compression_ == max_compression_gain_ - 1) ||
+       target_compression_ == max_compression_gain_ - 1) ||
       (raw_compression == kMinCompressionGain &&
-      target_compression_ == kMinCompressionGain + 1)) {
+       target_compression_ == kMinCompressionGain + 1)) {
     // Special case to allow the target to reach the endpoints of the
     // compression range. The deemphasis would otherwise halt it at 1 dB shy.
     target_compression_ = raw_compression;
   } else {
-    target_compression_ = (raw_compression - target_compression_) / 2
-        + target_compression_;
+    target_compression_ =
+        (raw_compression - target_compression_) / 2 + target_compression_;
   }
 
   // Residual error will be handled by adjusting the volume slider. Use the

@@ -144,8 +144,7 @@ int32_t VideoReceiver::SetVideoProtection(VCMVideoProtection videoProtection,
     case kProtectionNackFEC: {
       rtc::CritScope cs(&receive_crit_);
       RTC_DCHECK(enable);
-      _receiver.SetNackMode(kNack,
-                            media_optimization::kLowRttNackMs,
+      _receiver.SetNackMode(kNack, media_optimization::kLowRttNackMs,
                             media_optimization::kMaxRttDelayThreshold);
       _receiver.SetDecodeErrorMode(kNoErrors);
       break;

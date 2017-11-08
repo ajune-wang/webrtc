@@ -27,23 +27,16 @@
 namespace rtc {
 
 BasicPacketSocketFactory::BasicPacketSocketFactory()
-    : thread_(Thread::Current()),
-      socket_factory_(NULL) {
-}
+    : thread_(Thread::Current()), socket_factory_(NULL) {}
 
 BasicPacketSocketFactory::BasicPacketSocketFactory(Thread* thread)
-    : thread_(thread),
-      socket_factory_(NULL) {
-}
+    : thread_(thread), socket_factory_(NULL) {}
 
 BasicPacketSocketFactory::BasicPacketSocketFactory(
     SocketFactory* socket_factory)
-    : thread_(NULL),
-      socket_factory_(socket_factory) {
-}
+    : thread_(NULL), socket_factory_(socket_factory) {}
 
-BasicPacketSocketFactory::~BasicPacketSocketFactory() {
-}
+BasicPacketSocketFactory::~BasicPacketSocketFactory() {}
 
 AsyncPacketSocket* BasicPacketSocketFactory::CreateUdpSocket(
     const SocketAddress& address,
@@ -56,8 +49,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateUdpSocket(
     return NULL;
   }
   if (BindSocket(socket, address, min_port, max_port) < 0) {
-    LOG(LS_ERROR) << "UDP bind failed with error "
-                    << socket->GetError();
+    LOG(LS_ERROR) << "UDP bind failed with error " << socket->GetError();
     delete socket;
     return NULL;
   }
@@ -82,8 +74,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
   }
 
   if (BindSocket(socket, local_address, min_port, max_port) < 0) {
-    LOG(LS_ERROR) << "TCP bind failed with error "
-                  << socket->GetError();
+    LOG(LS_ERROR) << "TCP bind failed with error " << socket->GetError();
     delete socket;
     return NULL;
   }
@@ -186,8 +177,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
   }
 
   if (socket->Connect(remote_address) < 0) {
-    LOG(LS_ERROR) << "TCP connect failed with error "
-                  << socket->GetError();
+    LOG(LS_ERROR) << "TCP connect failed with error " << socket->GetError();
     delete socket;
     return NULL;
   }

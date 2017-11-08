@@ -20,9 +20,7 @@ namespace rtc {
 class Sha1Digest : public MessageDigest {
  public:
   enum { kSize = SHA1_DIGEST_SIZE };
-  Sha1Digest() {
-    SHA1Init(&ctx_);
-  }
+  Sha1Digest() { SHA1Init(&ctx_); }
   size_t Size() const override;
   void Update(const void* buf, size_t len) override;
   size_t Finish(void* buf, size_t len) override;

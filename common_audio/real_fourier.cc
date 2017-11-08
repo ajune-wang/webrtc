@@ -54,4 +54,3 @@ RealFourier::fft_cplx_scoper RealFourier::AllocCplxBuffer(int count) {
 }
 
 }  // namespace webrtc
-

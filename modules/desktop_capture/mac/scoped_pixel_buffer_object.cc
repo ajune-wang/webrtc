@@ -15,16 +15,14 @@
 namespace webrtc {
 
 ScopedPixelBufferObject::ScopedPixelBufferObject()
-    : cgl_context_(NULL),
-      pixel_buffer_object_(0) {
-}
+    : cgl_context_(NULL), pixel_buffer_object_(0) {}
 
 ScopedPixelBufferObject::~ScopedPixelBufferObject() {
   Release();
 }
 
 bool ScopedPixelBufferObject::Init(CGLContextObj cgl_context,
-                                      int size_in_bytes) {
+                                   int size_in_bytes) {
   cgl_context_ = cgl_context;
   CGLContextObj CGL_MACRO_CONTEXT = cgl_context_;
   glGenBuffersARB(1, &pixel_buffer_object_);

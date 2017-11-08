@@ -24,8 +24,8 @@ class VideoStreamEncoder;
 class EncoderRtcpFeedback : public RtcpIntraFrameObserver {
  public:
   EncoderRtcpFeedback(Clock* clock,
-                       const std::vector<uint32_t>& ssrcs,
-                       VideoStreamEncoder* encoder);
+                      const std::vector<uint32_t>& ssrcs,
+                      VideoStreamEncoder* encoder);
   void OnReceivedIntraFrameRequest(uint32_t ssrc) override;
 
  private:

@@ -77,15 +77,15 @@ bool IsPayloadTypeValid(int8_t payload_type) {
   // Sanity check.
   switch (payload_type) {
     // Reserved payload types to avoid RTCP conflicts when marker bit is set.
-    case 64:        //  192 Full INTRA-frame request.
-    case 72:        //  200 Sender report.
-    case 73:        //  201 Receiver report.
-    case 74:        //  202 Source description.
-    case 75:        //  203 Goodbye.
-    case 76:        //  204 Application-defined.
-    case 77:        //  205 Transport layer FB message.
-    case 78:        //  206 Payload-specific FB message.
-    case 79:        //  207 Extended report.
+    case 64:  //  192 Full INTRA-frame request.
+    case 72:  //  200 Sender report.
+    case 73:  //  201 Receiver report.
+    case 74:  //  202 Source description.
+    case 75:  //  203 Goodbye.
+    case 76:  //  204 Application-defined.
+    case 77:  //  205 Transport layer FB message.
+    case 78:  //  206 Payload-specific FB message.
+    case 79:  //  207 Extended report.
       LOG(LS_ERROR) << "Can't register invalid receiver payload type: "
                     << payload_type;
       return false;
@@ -295,8 +295,7 @@ bool RTPPayloadRegistry::IsRed(const RTPHeader& header) const {
   return it != payload_type_map_.end() && _stricmp(it->second.name, "red") == 0;
 }
 
-int RTPPayloadRegistry::GetPayloadTypeFrequency(
-    uint8_t payload_type) const {
+int RTPPayloadRegistry::GetPayloadTypeFrequency(uint8_t payload_type) const {
   const auto payload = PayloadTypeToPayload(payload_type);
   if (!payload) {
     return -1;

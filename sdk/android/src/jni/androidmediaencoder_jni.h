@@ -13,8 +13,8 @@
 
 #include <vector>
 
-#include "sdk/android/src/jni/jni_helpers.h"
 #include "media/engine/webrtcvideoencoderfactory.h"
+#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

@@ -122,8 +122,7 @@ bool IvfFileWriter::InitFromFirstFrame(const EncodedImage& encoded_image,
   if (!WriteHeader())
     return false;
 
-  const char* codec_name =
-      CodecTypeToPayloadString(codec_type_);
+  const char* codec_name = CodecTypeToPayloadString(codec_type_);
   LOG(LS_WARNING) << "Created IVF file for codec data of type " << codec_name
                   << " at resolution " << width_ << " x " << height_
                   << ", using " << (using_capture_timestamps_ ? "1" : "90")

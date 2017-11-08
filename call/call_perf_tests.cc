@@ -48,12 +48,8 @@ namespace webrtc {
 
 class CallPerfTest : public test::CallTest {
  protected:
-  enum class FecMode {
-    kOn, kOff
-  };
-  enum class CreateOrder {
-    kAudioFirst, kVideoFirst
-  };
+  enum class FecMode { kOn, kOff };
+  enum class CreateOrder { kAudioFirst, kVideoFirst };
   void TestAudioVideoSync(FecMode fec,
                           CreateOrder create_first,
                           float video_ntp_speed,
@@ -101,11 +97,8 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
     if (std::abs(stats.sync_offset_ms) < kInSyncThresholdMs) {
       if (first_time_in_sync_ == -1) {
         first_time_in_sync_ = now_ms;
-        webrtc::test::PrintResult("sync_convergence_time",
-                                  "",
-                                  "synchronization",
-                                  time_since_creation,
-                                  "ms",
+        webrtc::test::PrintResult("sync_convergence_time", "",
+                                  "synchronization", time_since_creation, "ms",
                                   false);
       }
       if (time_since_creation > kMinRunTimeMs)
@@ -558,8 +551,7 @@ TEST_F(CallPerfTest, ReceivesCpuOveruseAndUnderuse) {
     void ModifyVideoConfigs(
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
-        VideoEncoderConfig* encoder_config) override {
-    }
+        VideoEncoderConfig* encoder_config) override {}
 
     void PerformTest() override {
       EXPECT_TRUE(Wait()) << "Timed out before receiving an overuse callback.";
@@ -657,7 +649,9 @@ void CallPerfTest::TestMinTransmitBitrate(bool pad_to_min_bitrate) {
   RunBaseTest(&test);
 }
 
-TEST_F(CallPerfTest, PadsToMinTransmitBitrate) { TestMinTransmitBitrate(true); }
+TEST_F(CallPerfTest, PadsToMinTransmitBitrate) {
+  TestMinTransmitBitrate(true);
+}
 
 TEST_F(CallPerfTest, NoPadWithoutMinTransmitBitrate) {
   TestMinTransmitBitrate(false);

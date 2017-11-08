@@ -352,7 +352,7 @@ void TaskQueue::Impl::ThreadMain(void* context) {
 }
 
 void TaskQueue::Impl::ThreadState::RunThreadMain() {
-  HANDLE handles[2] = { *timer_.event_for_wait(), in_queue_ };
+  HANDLE handles[2] = {*timer_.event_for_wait(), in_queue_};
   while (true) {
     // Make sure we do an alertable wait as that's required to allow APCs to run
     // (e.g. required for InitializeQueueThread and stopping the thread in
@@ -366,8 +366,9 @@ void TaskQueue::Impl::ThreadState::RunThreadMain() {
         break;
     }
 
-    if (result == WAIT_OBJECT_0 || (!timer_tasks_.empty() &&
-        ::WaitForSingleObject(*timer_.event_for_wait(), 0) == WAIT_OBJECT_0)) {
+    if (result == WAIT_OBJECT_0 ||
+        (!timer_tasks_.empty() &&
+         ::WaitForSingleObject(*timer_.event_for_wait(), 0) == WAIT_OBJECT_0)) {
       // The multimedia timer was signaled.
       timer_.Cancel();
       RunDueTasks();

@@ -222,8 +222,8 @@ TEST(CallTest, CreateDestroy_AssociateAudioSendReceiveStreams_SendFirst) {
           recv_channel_proxy = channel_proxy;
           // We need to set this expectation here since the channel proxy is
           // created as a side effect of CreateAudioReceiveStream().
-          EXPECT_CALL(*recv_channel_proxy,
-                      AssociateSendChannel(testing::_)).Times(1);
+          EXPECT_CALL(*recv_channel_proxy, AssociateSendChannel(testing::_))
+              .Times(1);
         }
         return channel_proxy;
       }));
@@ -441,8 +441,7 @@ TEST(CallTest, RecreatingAudioStreamWithSameSsrcReusesRtpState) {
   // worth making VoEWrapper more easily available.
   struct ScopedVoiceEngine {
     ScopedVoiceEngine()
-        : voe(VoiceEngine::Create()),
-          base(VoEBase::GetInterface(voe)) {}
+        : voe(VoiceEngine::Create()), base(VoEBase::GetInterface(voe)) {}
     ~ScopedVoiceEngine() {
       base->Release();
       EXPECT_TRUE(VoiceEngine::Delete(voe));

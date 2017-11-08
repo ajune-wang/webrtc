@@ -60,13 +60,7 @@ struct PreemptiveExpandFactory;
 
 class NetEqImpl : public webrtc::NetEq {
  public:
-  enum class OutputType {
-    kNormalSpeech,
-    kPLC,
-    kCNG,
-    kPLCCNG,
-    kVadPassive
-  };
+  enum class OutputType { kNormalSpeech, kPLC, kCNG, kPLCCNG, kVadPassive };
 
   enum ErrorCodes {
     kNoError = 0,

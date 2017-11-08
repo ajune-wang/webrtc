@@ -183,13 +183,10 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
       // TODO(fbarchard): Reduce to LS_VERBOSE when adapter info is not needed
       // in default calls.
       LOG(LS_INFO) << "VAdapt Drop Frame: scaled " << frames_scaled_
-                   << " / out " << frames_out_
-                   << " / in " << frames_in_
+                   << " / out " << frames_out_ << " / in " << frames_in_
                    << " Changes: " << adaption_changes_
-                   << " Input: " << in_width
-                   << "x" << in_height
-                   << " timestamp: " << in_timestamp_ns
-                   << " Output: i"
+                   << " Input: " << in_width << "x" << in_height
+                   << " timestamp: " << in_timestamp_ns << " Output: i"
                    << (requested_format_ ? requested_format_->interval : 0);
     }
 
@@ -198,8 +195,8 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
   }
 
   // Calculate how the input should be cropped.
-  if (!requested_format_ ||
-      requested_format_->width == 0 || requested_format_->height == 0) {
+  if (!requested_format_ || requested_format_->width == 0 ||
+      requested_format_->height == 0) {
     *cropped_width = in_width;
     *cropped_height = in_height;
   } else {
@@ -240,15 +237,15 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
   if (scale.numerator != scale.denominator)
     ++frames_scaled_;
 
-  if (previous_width_ && (previous_width_ != *out_width ||
-                          previous_height_ != *out_height)) {
+  if (previous_width_ &&
+      (previous_width_ != *out_width || previous_height_ != *out_height)) {
     ++adaption_changes_;
     LOG(LS_INFO) << "Frame size changed: scaled " << frames_scaled_ << " / out "
                  << frames_out_ << " / in " << frames_in_
                  << " Changes: " << adaption_changes_ << " Input: " << in_width
-                 << "x" << in_height
-                 << " Scale: " << scale.numerator << "/" << scale.denominator
-                 << " Output: " << *out_width << "x" << *out_height << " i"
+                 << "x" << in_height << " Scale: " << scale.numerator << "/"
+                 << scale.denominator << " Output: " << *out_width << "x"
+                 << *out_height << " i"
                  << (requested_format_ ? requested_format_->interval : 0);
   }
 

@@ -40,7 +40,7 @@ std::string OutputPath();
 
 // Generates an empty file with a unique name in the specified directory and
 // returns the file name and path.
-std::string TempFilename(const std::string &dir, const std::string &prefix);
+std::string TempFilename(const std::string& dir, const std::string& prefix);
 
 // Returns a path to a resource file for the currently executing platform.
 // Adapts to what filenames are currently present in the
@@ -61,8 +61,7 @@ std::string TempFilename(const std::string &dir, const std::string &prefix);
 //           If a directory path is prepended to the filename, a subdirectory
 //           hierarchy reflecting that path is assumed to be present.
 //    extension - File extension, without the dot, i.e. "bmp" or "yuv".
-std::string ResourcePath(const std::string& name,
-                         const std::string& extension);
+std::string ResourcePath(const std::string& name, const std::string& extension);
 
 // Gets the current working directory for the executing program.
 // Returns "./" if for some reason it is not possible to find the working

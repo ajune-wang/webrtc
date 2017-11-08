@@ -110,7 +110,8 @@ void WavReader::Close() {
   file_handle_ = nullptr;
 }
 
-WavWriter::WavWriter(const std::string& filename, int sample_rate,
+WavWriter::WavWriter(const std::string& filename,
+                     int sample_rate,
                      size_t num_channels)
     : sample_rate_(sample_rate),
       num_channels_(num_channels),

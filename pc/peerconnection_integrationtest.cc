@@ -2050,8 +2050,10 @@ TEST_F(PeerConnectionIntegrationTest, GetCaptureStartNtpTimeWithOldStatsApi) {
 
   // Get the audio output level stats. Note that the level is not available
   // until an RTCP packet has been received.
-  EXPECT_TRUE_WAIT(callee()->OldGetStatsForTrack(remote_audio_track)->
-                   CaptureStartNtpTime() > 0, 2 * kMaxWaitForFramesMs);
+  EXPECT_TRUE_WAIT(
+      callee()->OldGetStatsForTrack(remote_audio_track)->CaptureStartNtpTime() >
+          0,
+      2 * kMaxWaitForFramesMs);
 }
 
 // Test that we can get stats (using the new stats implemnetation) for
@@ -3366,8 +3368,7 @@ TEST_F(PeerConnectionIntegrationTest, EndToEndConnectionTimeWithTurnTurnPair) {
 // Verify that a TurnCustomizer passed in through RTCConfiguration
 // is actually used by the underlying TURN candidate pair.
 // Note that turnport_unittest.cc contains more detailed, lower-level tests.
-TEST_F(PeerConnectionIntegrationTest,           \
-       TurnCustomizerUsedForTurnConnections) {
+TEST_F(PeerConnectionIntegrationTest, TurnCustomizerUsedForTurnConnections) {
   static const rtc::SocketAddress turn_server_1_internal_address{"88.88.88.0",
                                                                  3478};
   static const rtc::SocketAddress turn_server_1_external_address{"88.88.88.1",

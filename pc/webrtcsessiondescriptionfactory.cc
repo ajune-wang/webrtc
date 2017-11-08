@@ -68,8 +68,7 @@ enum {
 struct CreateSessionDescriptionMsg : public rtc::MessageData {
   explicit CreateSessionDescriptionMsg(
       webrtc::CreateSessionDescriptionObserver* observer)
-      : observer(observer) {
-  }
+      : observer(observer) {}
 
   rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserver> observer;
   std::string error;
@@ -342,8 +341,8 @@ void WebRtcSessionDescriptionFactory::InternalCreateOffer(
   // is created regardless if it's identical to the previous one or not.
   // The |session_version_| is a uint64_t, the wrap around should not happen.
   RTC_DCHECK(session_version_ + 1 > session_version_);
-  JsepSessionDescription* offer(new JsepSessionDescription(
-      JsepSessionDescription::kOffer));
+  JsepSessionDescription* offer(
+      new JsepSessionDescription(JsepSessionDescription::kOffer));
   if (!offer->Initialize(desc, session_id_,
                          rtc::ToString(session_version_++))) {
     delete offer;
@@ -397,8 +396,8 @@ void WebRtcSessionDescriptionFactory::InternalCreateAnswer(
   // Get a new version number by increasing the |session_version_answer_|.
   // The |session_version_| is a uint64_t, the wrap around should not happen.
   RTC_DCHECK(session_version_ + 1 > session_version_);
-  JsepSessionDescription* answer(new JsepSessionDescription(
-      JsepSessionDescription::kAnswer));
+  JsepSessionDescription* answer(
+      new JsepSessionDescription(JsepSessionDescription::kAnswer));
   if (!answer->Initialize(desc, session_id_,
                           rtc::ToString(session_version_++))) {
     delete answer;
@@ -426,15 +425,19 @@ void WebRtcSessionDescriptionFactory::FailPendingRequests(
   while (!create_session_description_requests_.empty()) {
     const CreateSessionDescriptionRequest& request =
         create_session_description_requests_.front();
-    PostCreateSessionDescriptionFailed(request.observer,
-        ((request.type == CreateSessionDescriptionRequest::kOffer) ?
-            "CreateOffer" : "CreateAnswer") + reason);
+    PostCreateSessionDescriptionFailed(
+        request.observer,
+        ((request.type == CreateSessionDescriptionRequest::kOffer)
+             ? "CreateOffer"
+             : "CreateAnswer") +
+            reason);
     create_session_description_requests_.pop();
   }
 }
 
 void WebRtcSessionDescriptionFactory::PostCreateSessionDescriptionFailed(
-    CreateSessionDescriptionObserver* observer, const std::string& error) {
+    CreateSessionDescriptionObserver* observer,
+    const std::string& error) {
   CreateSessionDescriptionMsg* msg = new CreateSessionDescriptionMsg(observer);
   msg->error = error;
   signaling_thread_->Post(RTC_FROM_HERE, this,

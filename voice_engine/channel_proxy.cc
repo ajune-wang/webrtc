@@ -23,8 +23,8 @@ namespace webrtc {
 namespace voe {
 ChannelProxy::ChannelProxy() : channel_owner_(nullptr) {}
 
-ChannelProxy::ChannelProxy(const ChannelOwner& channel_owner) :
-    channel_owner_(channel_owner) {
+ChannelProxy::ChannelProxy(const ChannelOwner& channel_owner)
+    : channel_owner_(channel_owner) {
   RTC_CHECK(channel_owner_.channel());
   module_process_thread_checker_.DetachFromThread();
 }
@@ -229,7 +229,7 @@ bool ChannelProxy::ReceivedRTCPPacket(const uint8_t* packet, size_t length) {
 }
 
 const rtc::scoped_refptr<AudioDecoderFactory>&
-    ChannelProxy::GetAudioDecoderFactory() const {
+ChannelProxy::GetAudioDecoderFactory() const {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   return channel()->GetAudioDecoderFactory();
 }

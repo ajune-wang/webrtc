@@ -23,7 +23,7 @@
 namespace rtc {
 class SocketFactory;
 class Thread;
-}
+}  // namespace rtc
 
 namespace cricket {
 

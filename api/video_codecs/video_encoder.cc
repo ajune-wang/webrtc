@@ -79,15 +79,13 @@ VideoEncoder::ScalingSettings::ScalingSettings(bool on) : enabled(on) {}
 
 VideoEncoder::ScalingSettings::~ScalingSettings() {}
 
-
 int32_t VideoEncoder::SetRates(uint32_t bitrate, uint32_t framerate) {
   RTC_NOTREACHED() << "SetRate(uint32_t, uint32_t) is deprecated.";
   return -1;
 }
 
-int32_t VideoEncoder::SetRateAllocation(
-    const BitrateAllocation& allocation,
-    uint32_t framerate) {
+int32_t VideoEncoder::SetRateAllocation(const BitrateAllocation& allocation,
+                                        uint32_t framerate) {
   return SetRates(allocation.get_sum_kbps(), framerate);
 }
 

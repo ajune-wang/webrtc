@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/gunit.h"
 #include "rtc_base/nullsocketserver.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/thread.h"
@@ -18,19 +18,17 @@
 namespace rtc {
 
 template <typename Base>
-class LogSinkImpl
-    : public LogSink,
-      public Base {
+class LogSinkImpl : public LogSink, public Base {
  public:
   LogSinkImpl() {}
 
-  template<typename P>
+  template <typename P>
   explicit LogSinkImpl(P* p) : Base(p) {}
 
  private:
   void OnLogMessage(const std::string& message) override {
-    static_cast<Base*>(this)->WriteAll(
-        message.data(), message.size(), nullptr, nullptr);
+    static_cast<Base*>(this)->WriteAll(message.data(), message.size(), nullptr,
+                                       nullptr);
   }
 };
 
@@ -90,9 +88,7 @@ class LogThread : public Thread {
  public:
   LogThread() : Thread(std::unique_ptr<SocketServer>(new NullSocketServer())) {}
 
-  ~LogThread() override {
-    Stop();
-  }
+  ~LogThread() override { Stop(); }
 
  private:
   void Run() override {
@@ -122,7 +118,6 @@ TEST(LogTest, MultipleThreads) {
   EXPECT_EQ(sev, LogMessage::GetLogToStream(nullptr));
 }
 
-
 TEST(LogTest, WallClockStartTime) {
   uint32_t time = LogMessage::WallClockStartTime();
   // Expect the time to be in a sensible range, e.g. > 2012-01-01.
@@ -130,7 +125,7 @@ TEST(LogTest, WallClockStartTime) {
 }
 
 // Test the time required to write 1000 80-character logs to an unbuffered file.
-#if defined (WEBRTC_ANDROID)
+#if defined(WEBRTC_ANDROID)
 // Fails on Android: https://bugs.chromium.org/p/webrtc/issues/detail?id=4364.
 #define MAYBE_Perf DISABLED_Perf
 #else

@@ -46,7 +46,8 @@ class Merge {
   // de-interleaving |input|. The values in |external_mute_factor_array| (Q14)
   // will be used to scale the audio, and is updated in the process. The array
   // must have |num_channels_| elements.
-  virtual size_t Process(int16_t* input, size_t input_length,
+  virtual size_t Process(int16_t* input,
+                         size_t input_length,
                          int16_t* external_mute_factor_array,
                          AudioMultiVector* output);
 
@@ -71,19 +72,23 @@ class Merge {
 
   // Analyzes |input| and |expanded_signal| and returns muting factor (Q14) to
   // be used on the new data.
-  int16_t SignalScaling(const int16_t* input, size_t input_length,
+  int16_t SignalScaling(const int16_t* input,
+                        size_t input_length,
                         const int16_t* expanded_signal) const;
 
   // Downsamples |input| (|input_length| samples) and |expanded_signal| to
   // 4 kHz sample rate. The downsampled signals are written to
   // |input_downsampled_| and |expanded_downsampled_|, respectively.
-  void Downsample(const int16_t* input, size_t input_length,
-                  const int16_t* expanded_signal, size_t expanded_length);
+  void Downsample(const int16_t* input,
+                  size_t input_length,
+                  const int16_t* expanded_signal,
+                  size_t expanded_length);
 
   // Calculates cross-correlation between |input_downsampled_| and
   // |expanded_downsampled_|, and finds the correlation maximum. The maximizing
   // lag is returned.
-  size_t CorrelateAndPeakSearch(size_t start_position, size_t input_length,
+  size_t CorrelateAndPeakSearch(size_t start_position,
+                                size_t input_length,
                                 size_t expand_period) const;
 
   const int fs_mult_;  // fs_hz_ / 8000.

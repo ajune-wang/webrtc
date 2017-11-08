@@ -18,7 +18,7 @@ class CommonHeader {
  public:
   CommonHeader() {}
   CommonHeader(const CommonHeader&) = default;
-  CommonHeader& operator =(const CommonHeader&) = default;
+  CommonHeader& operator=(const CommonHeader&) = default;
 
   bool Parse(const uint8_t* buffer, size_t size_bytes);
 

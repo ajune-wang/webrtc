@@ -11,8 +11,8 @@
 #ifndef PC_AUDIOMONITOR_H_
 #define PC_AUDIOMONITOR_H_
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 #include "p2p/base/port.h"
 #include "rtc_base/sigslot.h"
@@ -29,22 +29,21 @@ struct AudioInfo {
   StreamList active_streams;  // ssrcs contributing to output_level
 };
 
-class AudioMonitor : public rtc::MessageHandler,
-    public sigslot::has_slots<> {
+class AudioMonitor : public rtc::MessageHandler, public sigslot::has_slots<> {
  public:
-  AudioMonitor(VoiceChannel* voice_channel, rtc::Thread *monitor_thread);
+  AudioMonitor(VoiceChannel* voice_channel, rtc::Thread* monitor_thread);
   ~AudioMonitor();
 
   void Start(int cms);
   void Stop();
 
   VoiceChannel* voice_channel();
-  rtc::Thread *monitor_thread();
+  rtc::Thread* monitor_thread();
 
   sigslot::signal2<AudioMonitor*, const AudioInfo&> SignalUpdate;
 
  protected:
-  void OnMessage(rtc::Message *message);
+  void OnMessage(rtc::Message* message);
   void PollVoiceChannel();
 
   AudioInfo audio_info_;

@@ -36,7 +36,8 @@ DEFINE_string(
     " will assign the group Enable to field trial WebRTC-FooFeature.");
 #if defined(WEBRTC_WIN)
 DEFINE_int(crt_break_alloc, -1, "memory allocation to break on");
-DEFINE_bool(default_error_handlers, false,
+DEFINE_bool(default_error_handlers,
+            false,
             "leave the default exception/dbg handler functions in place");
 
 void TestInvalidParameterHandler(const wchar_t* expression,
@@ -45,8 +46,10 @@ void TestInvalidParameterHandler(const wchar_t* expression,
                                  unsigned int line,
                                  uintptr_t pReserved) {
   LOG(LS_ERROR) << "InvalidParameter Handler called.  Exiting.";
-  LOG(LS_ERROR) << expression << std::endl << function << std::endl << file
-                << std::endl << line;
+  LOG(LS_ERROR) << expression << std::endl
+                << function << std::endl
+                << file << std::endl
+                << line;
   exit(1);
 }
 void TestPureCallHandler() {
@@ -54,8 +57,8 @@ void TestPureCallHandler() {
   exit(1);
 }
 int TestCrtReportHandler(int report_type, char* msg, int* retval) {
-    LOG(LS_ERROR) << "CrtReport Handler called...";
-    LOG(LS_ERROR) << msg;
+  LOG(LS_ERROR) << "CrtReport Handler called...";
+  LOG(LS_ERROR) << msg;
   if (report_type == _CRT_ASSERT) {
     exit(1);
   } else {
@@ -85,7 +88,7 @@ int main(int argc, char** argv) {
   }
 
 #if !defined(NDEBUG)  // Turn on memory leak checking on Windows.
-  _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF |_CRTDBG_LEAK_CHECK_DF);
+  _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
   if (FLAG_crt_break_alloc >= 0) {
     _crtBreakAlloc = FLAG_crt_break_alloc;
   }

@@ -202,8 +202,8 @@ VoiceChannel* ChannelManager::CreateVoiceChannel_w(
     return nullptr;
   }
 
-  VoiceMediaChannel* media_channel = media_engine_->CreateChannel(
-      call, media_config, options);
+  VoiceMediaChannel* media_channel =
+      media_engine_->CreateChannel(call, media_config, options);
   if (!media_channel) {
     return nullptr;
   }
@@ -293,8 +293,8 @@ VideoChannel* ChannelManager::CreateVideoChannel_w(
   RTC_DCHECK(call);
   RTC_DCHECK(media_engine_);
 
-  VideoMediaChannel* media_channel = media_engine_->CreateVideoChannel(
-      call, media_config, options);
+  VideoMediaChannel* media_channel =
+      media_engine_->CreateVideoChannel(call, media_config, options);
   if (!media_channel) {
     return nullptr;
   }

@@ -8,7 +8,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-
 #include "modules/audio_coding/neteq/tools/neteq_external_decoder_test.h"
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
@@ -31,9 +30,8 @@ NetEqExternalDecoderTest::NetEqExternalDecoderTest(NetEqDecoder codec,
 }
 
 void NetEqExternalDecoderTest::Init() {
-  ASSERT_EQ(NetEq::kOK,
-            neteq_->RegisterExternalDecoder(decoder_, codec_, name_,
-                                            kPayloadType));
+  ASSERT_EQ(NetEq::kOK, neteq_->RegisterExternalDecoder(decoder_, codec_, name_,
+                                                        kPayloadType));
 }
 
 void NetEqExternalDecoderTest::InsertPacket(

@@ -21,7 +21,8 @@ namespace internal {
 
 // Utility template for obtaining and holding a reference to a VoiceEngine
 // interface and making sure it is released when this object goes out of scope.
-template<class T> class ScopedVoEInterface {
+template <class T>
+class ScopedVoEInterface {
  public:
   explicit ScopedVoEInterface(webrtc::VoiceEngine* e)
       : ptr_(T::GetInterface(e)) {
@@ -36,6 +37,7 @@ template<class T> class ScopedVoEInterface {
     RTC_DCHECK(ptr_);
     return ptr_;
   }
+
  private:
   T* ptr_;
 };

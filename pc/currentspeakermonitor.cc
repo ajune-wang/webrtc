@@ -23,7 +23,7 @@ const int kMaxAudioLevel = 9;
 // To avoid overswitching, we disable switching for a period of time after a
 // switch is done.
 const int kDefaultMinTimeBetweenSwitches = 1000;
-}
+}  // namespace
 
 CurrentSpeakerMonitor::CurrentSpeakerMonitor(
     AudioSourceContext* audio_source_context)
@@ -68,7 +68,8 @@ void CurrentSpeakerMonitor::set_min_time_between_switches(
 }
 
 void CurrentSpeakerMonitor::OnAudioMonitor(
-    AudioSourceContext* audio_source_context, const AudioInfo& info) {
+    AudioSourceContext* audio_source_context,
+    const AudioInfo& info) {
   std::map<uint32_t, int> active_ssrc_to_level_map;
   cricket::AudioInfo::StreamList::const_iterator stream_list_it;
   for (stream_list_it = info.active_streams.begin();
@@ -102,8 +103,8 @@ void CurrentSpeakerMonitor::OnAudioMonitor(
         active_ssrc_to_level_map.find(state_it->first);
     // Note that the stream map only contains streams with non-zero audio
     // levels.
-    int level = (level_it != active_ssrc_to_level_map.end()) ?
-        level_it->second : 0;
+    int level =
+        (level_it != active_ssrc_to_level_map.end()) ? level_it->second : 0;
     switch (state_it->second) {
       case SS_NOT_SPEAKING:
         if (level > 0) {
@@ -181,13 +182,15 @@ void CurrentSpeakerMonitor::OnMediaStreamsUpdate(
     const MediaStreams& removed) {
   if (audio_source_context == audio_source_context_) {
     // Update the speaking state map based on added and removed streams.
-    for (std::vector<cricket::StreamParams>::const_iterator
-           it = removed.audio().begin(); it != removed.audio().end(); ++it) {
+    for (std::vector<cricket::StreamParams>::const_iterator it =
+             removed.audio().begin();
+         it != removed.audio().end(); ++it) {
       ssrc_to_speaking_state_map_.erase(it->first_ssrc());
     }
 
-    for (std::vector<cricket::StreamParams>::const_iterator
-           it = added.audio().begin(); it != added.audio().end(); ++it) {
+    for (std::vector<cricket::StreamParams>::const_iterator it =
+             added.audio().begin();
+         it != added.audio().end(); ++it) {
       ssrc_to_speaking_state_map_[it->first_ssrc()] = SS_NOT_SPEAKING;
     }
   }

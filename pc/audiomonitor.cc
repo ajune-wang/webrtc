@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <assert.h>
 #include "pc/audiomonitor.h"
+#include <assert.h>
 #include "pc/voicechannel.h"
 
 namespace cricket {
@@ -19,8 +19,8 @@ const uint32_t MSG_MONITOR_START = 2;
 const uint32_t MSG_MONITOR_STOP = 3;
 const uint32_t MSG_MONITOR_SIGNAL = 4;
 
-AudioMonitor::AudioMonitor(VoiceChannel *voice_channel,
-                           rtc::Thread *monitor_thread) {
+AudioMonitor::AudioMonitor(VoiceChannel* voice_channel,
+                           rtc::Thread* monitor_thread) {
   voice_channel_ = voice_channel;
   monitoring_thread_ = monitor_thread;
   monitoring_ = false;
@@ -42,40 +42,38 @@ void AudioMonitor::Stop() {
   voice_channel_->worker_thread()->Post(RTC_FROM_HERE, this, MSG_MONITOR_STOP);
 }
 
-void AudioMonitor::OnMessage(rtc::Message *message) {
+void AudioMonitor::OnMessage(rtc::Message* message) {
   rtc::CritScope cs(&crit_);
 
   switch (message->message_id) {
-  case MSG_MONITOR_START:
-    assert(rtc::Thread::Current() == voice_channel_->worker_thread());
-    if (!monitoring_) {
-      monitoring_ = true;
+    case MSG_MONITOR_START:
+      assert(rtc::Thread::Current() == voice_channel_->worker_thread());
+      if (!monitoring_) {
+        monitoring_ = true;
+        PollVoiceChannel();
+      }
+      break;
+
+    case MSG_MONITOR_STOP:
+      assert(rtc::Thread::Current() == voice_channel_->worker_thread());
+      if (monitoring_) {
+        monitoring_ = false;
+        voice_channel_->worker_thread()->Clear(this);
+      }
+      break;
+
+    case MSG_MONITOR_POLL:
+      assert(rtc::Thread::Current() == voice_channel_->worker_thread());
       PollVoiceChannel();
-    }
-    break;
+      break;
 
-  case MSG_MONITOR_STOP:
-    assert(rtc::Thread::Current() == voice_channel_->worker_thread());
-    if (monitoring_) {
-      monitoring_ = false;
-      voice_channel_->worker_thread()->Clear(this);
-    }
-    break;
-
-  case MSG_MONITOR_POLL:
-    assert(rtc::Thread::Current() == voice_channel_->worker_thread());
-    PollVoiceChannel();
-    break;
-
-  case MSG_MONITOR_SIGNAL:
-    {
+    case MSG_MONITOR_SIGNAL: {
       assert(rtc::Thread::Current() == monitoring_thread_);
       AudioInfo info = audio_info_;
       crit_.Leave();
       SignalUpdate(this, info);
       crit_.Enter();
-    }
-    break;
+    } break;
   }
 }
 
@@ -94,11 +92,11 @@ void AudioMonitor::PollVoiceChannel() {
                                                MSG_MONITOR_POLL);
 }
 
-VoiceChannel *AudioMonitor::voice_channel() {
+VoiceChannel* AudioMonitor::voice_channel() {
   return voice_channel_;
 }
 
-rtc::Thread *AudioMonitor::monitor_thread() {
+rtc::Thread* AudioMonitor::monitor_thread() {
   return monitoring_thread_;
 }
 

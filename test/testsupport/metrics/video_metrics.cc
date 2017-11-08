@@ -19,8 +19,8 @@
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
-#include "test/frame_utils.h"
 #include "libyuv/convert.h"
+#include "test/frame_utils.h"
 
 namespace webrtc {
 namespace test {
@@ -72,11 +72,11 @@ void CalculateStats(QualityMetricsResult* result) {
 
   // Calculate min/max statistics.
   iter = std::min_element(result->frames.begin(), result->frames.end(),
-                     LessForFrameResultValue);
+                          LessForFrameResultValue);
   result->min = iter->value;
   result->min_frame_number = iter->frame_number;
   iter = std::max_element(result->frames.begin(), result->frames.end(),
-                     LessForFrameResultValue);
+                          LessForFrameResultValue);
   result->max = iter->value;
   result->max_frame_number = iter->frame_number;
 }
@@ -144,9 +144,10 @@ int CalculateMetrics(VideoMetricsType video_metrics_type,
   }
   int return_code = 0;
   if (frame_number == 0) {
-    fprintf(stderr, "Tried to measure video metrics from empty files "
-            "(reference file: %s  test file: %s)\n", ref_filename,
-            test_filename);
+    fprintf(stderr,
+            "Tried to measure video metrics from empty files "
+            "(reference file: %s  test file: %s)\n",
+            ref_filename, test_filename);
     return_code = -3;
   } else {
     CalculateStats(psnr_result);

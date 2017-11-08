@@ -138,8 +138,10 @@ class AudioCodingModule {
   //   -1 if no codec matches the given parameters.
   //    0 if succeeded.
   //
-  static int Codec(const char* payload_name, CodecInst* codec,
-                   int sampling_freq_hz, size_t channels);
+  static int Codec(const char* payload_name,
+                   CodecInst* codec,
+                   int sampling_freq_hz,
+                   size_t channels);
 
   ///////////////////////////////////////////////////////////////////////////
   // int32_t Codec()
@@ -157,7 +159,8 @@ class AudioCodingModule {
   //   if the codec is found, the index of the codec in the list,
   //   -1 if the codec is not found.
   //
-  static int Codec(const char* payload_name, int sampling_freq_hz,
+  static int Codec(const char* payload_name,
+                   int sampling_freq_hz,
                    size_t channels);
 
   ///////////////////////////////////////////////////////////////////////////
@@ -411,8 +414,8 @@ class AudioCodingModule {
   //    0 if succeeded.
   //
   virtual int32_t SetVAD(const bool enable_dtx = true,
-                               const bool enable_vad = false,
-                               const ACMVADMode vad_mode = VADNormal) = 0;
+                         const bool enable_vad = false,
+                         const ACMVADMode vad_mode = VADNormal) = 0;
 
   ///////////////////////////////////////////////////////////////////////////
   // int32_t VAD()
@@ -429,8 +432,9 @@ class AudioCodingModule {
   //   -1 if fails to retrieve the setting of DTX/VAD,
   //    0 if succeeded.
   //
-  virtual int32_t VAD(bool* dtx_enabled, bool* vad_enabled,
-                            ACMVADMode* vad_mode) const = 0;
+  virtual int32_t VAD(bool* dtx_enabled,
+                      bool* vad_enabled,
+                      ACMVADMode* vad_mode) const = 0;
 
   ///////////////////////////////////////////////////////////////////////////
   // int32_t RegisterVADCallback()
@@ -540,8 +544,7 @@ class AudioCodingModule {
   //   -1 if fails to unregister.
   //    0 if the given codec is successfully unregistered.
   //
-  virtual int UnregisterReceiveCodec(
-      uint8_t payload_type) = 0;
+  virtual int UnregisterReceiveCodec(uint8_t payload_type) = 0;
 
   ///////////////////////////////////////////////////////////////////////////
   // int32_t ReceiveCodec()

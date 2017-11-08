@@ -32,7 +32,8 @@ class AudioSourceContext {
   sigslot::signal1<AudioSourceContext*> SignalMediaStreamsReset;
   sigslot::signal3<AudioSourceContext*,
                    const cricket::MediaStreams&,
-                   const cricket::MediaStreams&> SignalMediaStreamsUpdate;
+                   const cricket::MediaStreams&>
+      SignalMediaStreamsUpdate;
 };
 
 // CurrentSpeakerMonitor can be used to monitor the audio-levels from

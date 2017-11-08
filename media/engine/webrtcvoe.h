@@ -39,19 +39,23 @@ class scoped_voe_engine {
     }
   }
   webrtc::VoiceEngine* get() const { return ptr; }
+
  private:
   webrtc::VoiceEngine* ptr;
 };
 
 // unique_ptr-like class to handle obtaining and releasing WebRTC interface
 // pointers.
-template<class T>
+template <class T>
 class scoped_voe_ptr {
  public:
   explicit scoped_voe_ptr(const scoped_voe_engine& e)
       : ptr(T::GetInterface(e.get())) {}
   explicit scoped_voe_ptr(T* p) : ptr(p) {}
-  ~scoped_voe_ptr() { if (ptr) ptr->Release(); }
+  ~scoped_voe_ptr() {
+    if (ptr)
+      ptr->Release();
+  }
   T* operator->() const { return ptr; }
   T* get() const { return ptr; }
 
@@ -71,9 +75,7 @@ class scoped_voe_ptr {
 // Fake implementations can also be injected for testing.
 class VoEWrapper {
  public:
-  VoEWrapper()
-      : engine_(webrtc::VoiceEngine::Create()), base_(engine_) {
-  }
+  VoEWrapper() : engine_(webrtc::VoiceEngine::Create()), base_(engine_) {}
   explicit VoEWrapper(webrtc::VoEBase* base) : engine_(NULL), base_(base) {}
   ~VoEWrapper() {}
   webrtc::VoiceEngine* engine() const { return engine_.get(); }

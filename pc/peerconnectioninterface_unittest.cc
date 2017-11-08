@@ -394,7 +394,7 @@ void SetSsrcToZero(std::string* sdp) {
   const char kSdpSsrcAtributeZero[] = "a=ssrc:0";
   size_t ssrc_pos = 0;
   while ((ssrc_pos = sdp->find(kSdpSsrcAtribute, ssrc_pos)) !=
-      std::string::npos) {
+         std::string::npos) {
     size_t end_ssrc = sdp->find(" ", ssrc_pos);
     sdp->replace(ssrc_pos, end_ssrc - ssrc_pos, kSdpSsrcAtributeZero);
     ssrc_pos = end_ssrc;
@@ -665,8 +665,8 @@ class PeerConnectionInterfaceTest : public testing::Test {
     bool dtls;
     if (FindConstraint(constraints,
                        webrtc::MediaConstraintsInterface::kEnableDtlsSrtp,
-                       &dtls,
-                       nullptr) && dtls) {
+                       &dtls, nullptr) &&
+        dtls) {
       fake_certificate_generator_ = new FakeRTCCertificateGenerator();
       cert_generator.reset(fake_certificate_generator_);
     }
@@ -781,9 +781,8 @@ class PeerConnectionInterfaceTest : public testing::Test {
   bool DoCreateOfferAnswer(std::unique_ptr<SessionDescriptionInterface>* desc,
                            bool offer,
                            MediaConstraintsInterface* constraints) {
-    rtc::scoped_refptr<MockCreateSessionDescriptionObserver>
-        observer(new rtc::RefCountedObject<
-            MockCreateSessionDescriptionObserver>());
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
     if (offer) {
       pc_->CreateOffer(observer, constraints);
     } else {
@@ -807,9 +806,8 @@ class PeerConnectionInterfaceTest : public testing::Test {
   bool DoSetSessionDescription(
       std::unique_ptr<SessionDescriptionInterface> desc,
       bool local) {
-    rtc::scoped_refptr<MockSetSessionDescriptionObserver>
-        observer(new rtc::RefCountedObject<
-            MockSetSessionDescriptionObserver>());
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
     if (local) {
       pc_->SetLocalDescription(observer, desc.release());
     } else {
@@ -837,8 +835,8 @@ class PeerConnectionInterfaceTest : public testing::Test {
   bool DoGetStats(MediaStreamTrackInterface* track) {
     rtc::scoped_refptr<MockStatsObserver> observer(
         new rtc::RefCountedObject<MockStatsObserver>());
-    if (!pc_->GetStats(
-        observer, track, PeerConnectionInterface::kStatsOutputLevelStandard))
+    if (!pc_->GetStats(observer, track,
+                       PeerConnectionInterface::kStatsOutputLevelStandard))
       return false;
     EXPECT_TRUE_WAIT(observer->called(), kTimeout);
     return observer->called();
@@ -1636,10 +1634,10 @@ TEST_F(PeerConnectionInterfaceTest, SsrcInOfferAnswer) {
   ASSERT_TRUE(DoCreateOffer(&offer, nullptr));
   int audio_ssrc = 0;
   int video_ssrc = 0;
-  EXPECT_TRUE(GetFirstSsrc(GetFirstAudioContent(offer->description()),
-                           &audio_ssrc));
-  EXPECT_TRUE(GetFirstSsrc(GetFirstVideoContent(offer->description()),
-                           &video_ssrc));
+  EXPECT_TRUE(
+      GetFirstSsrc(GetFirstAudioContent(offer->description()), &audio_ssrc));
+  EXPECT_TRUE(
+      GetFirstSsrc(GetFirstVideoContent(offer->description()), &video_ssrc));
   EXPECT_NE(audio_ssrc, video_ssrc);
 
   // Test CreateAnswer
@@ -1648,10 +1646,10 @@ TEST_F(PeerConnectionInterfaceTest, SsrcInOfferAnswer) {
   ASSERT_TRUE(DoCreateAnswer(&answer, nullptr));
   audio_ssrc = 0;
   video_ssrc = 0;
-  EXPECT_TRUE(GetFirstSsrc(GetFirstAudioContent(answer->description()),
-                           &audio_ssrc));
-  EXPECT_TRUE(GetFirstSsrc(GetFirstVideoContent(answer->description()),
-                           &video_ssrc));
+  EXPECT_TRUE(
+      GetFirstSsrc(GetFirstAudioContent(answer->description()), &audio_ssrc));
+  EXPECT_TRUE(
+      GetFirstSsrc(GetFirstVideoContent(answer->description()), &video_ssrc));
   EXPECT_NE(audio_ssrc, video_ssrc);
 }
 
@@ -1884,8 +1882,7 @@ TEST_F(PeerConnectionInterfaceTest, TestReceiveOnlyDataChannel) {
   std::string sdp;
   EXPECT_TRUE(pc_->local_description()->ToString(&sdp));
   rtc::replace_substrs(offer_label.c_str(), offer_label.length(),
-                             receive_label.c_str(), receive_label.length(),
-                             &sdp);
+                       receive_label.c_str(), receive_label.length(), &sdp);
   CreateAnswerAsRemoteDescription(sdp);
 
   // Verify that a new incoming data channel has been created and that
@@ -2804,8 +2801,7 @@ TEST_F(PeerConnectionInterfaceTest, SdpWithMsidDontCreatesDefaultStream) {
 // This tests that when setting a new description, the old default tracks are
 // not destroyed and recreated.
 // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=5250
-TEST_F(PeerConnectionInterfaceTest,
-       DefaultTracksNotDestroyedAndRecreated) {
+TEST_F(PeerConnectionInterfaceTest, DefaultTracksNotDestroyedAndRecreated) {
   FakeConstraints constraints;
   constraints.AddMandatory(webrtc::MediaConstraintsInterface::kEnableDtlsSrtp,
                            true);
@@ -2966,8 +2962,7 @@ TEST_F(PeerConnectionInterfaceTest,
 
 // This tests that the expected behavior occurs if a new session description is
 // set with the same tracks, but on a different MediaStream.
-TEST_F(PeerConnectionInterfaceTest,
-       SignalSameTracksInSeparateMediaStream) {
+TEST_F(PeerConnectionInterfaceTest, SignalSameTracksInSeparateMediaStream) {
   FakeConstraints constraints;
   constraints.AddMandatory(webrtc::MediaConstraintsInterface::kEnableDtlsSrtp,
                            true);

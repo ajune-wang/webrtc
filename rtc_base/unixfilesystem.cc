@@ -57,7 +57,7 @@ UnixFilesystem::UnixFilesystem() {}
 
 UnixFilesystem::~UnixFilesystem() {}
 
-bool UnixFilesystem::DeleteFile(const Pathname &filename) {
+bool UnixFilesystem::DeleteFile(const Pathname& filename) {
   LOG(LS_INFO) << "Deleting file:" << filename.pathname();
 
   if (!IsFile(filename)) {
@@ -67,10 +67,10 @@ bool UnixFilesystem::DeleteFile(const Pathname &filename) {
   return ::unlink(filename.pathname().c_str()) == 0;
 }
 
-std::string UnixFilesystem::TempFilename(const Pathname &dir,
-                                         const std::string &prefix) {
+std::string UnixFilesystem::TempFilename(const Pathname& dir,
+                                         const std::string& prefix) {
   int len = dir.pathname().size() + prefix.size() + 2 + 6;
-  char *tempname = new char[len];
+  char* tempname = new char[len];
 
   snprintf(tempname, len, "%s/%sXXXXXX", dir.pathname().c_str(),
            prefix.c_str());
@@ -83,21 +83,21 @@ std::string UnixFilesystem::TempFilename(const Pathname &dir,
   return ret;
 }
 
-bool UnixFilesystem::MoveFile(const Pathname &old_path,
-                              const Pathname &new_path) {
+bool UnixFilesystem::MoveFile(const Pathname& old_path,
+                              const Pathname& new_path) {
   if (!IsFile(old_path)) {
     RTC_DCHECK(IsFile(old_path));
     return false;
   }
-  LOG(LS_VERBOSE) << "Moving " << old_path.pathname()
-                  << " to " << new_path.pathname();
+  LOG(LS_VERBOSE) << "Moving " << old_path.pathname() << " to "
+                  << new_path.pathname();
   if (rename(old_path.pathname().c_str(), new_path.pathname().c_str()) != 0) {
     return false;
   }
   return true;
 }
 
-bool UnixFilesystem::IsFolder(const Pathname &path) {
+bool UnixFilesystem::IsFolder(const Pathname& path) {
   struct stat st;
   if (stat(path.pathname().c_str(), &st) < 0)
     return false;
@@ -111,7 +111,7 @@ bool UnixFilesystem::IsFile(const Pathname& pathname) {
   return res == 0 && !S_ISDIR(st.st_mode);
 }
 
-bool UnixFilesystem::GetFileSize(const Pathname& pathname, size_t *size) {
+bool UnixFilesystem::GetFileSize(const Pathname& pathname, size_t* size) {
   struct stat st;
   if (::stat(pathname.pathname().c_str(), &st) != 0)
     return false;

@@ -30,8 +30,7 @@ const uint32_t kDummyVideoSsrc = 0xFFFFFFFF;
 
 // Minimum interval is 10k fps.
 #define FPS_TO_INTERVAL(fps) \
-    (fps ? rtc::kNumNanosecsPerSec / fps : \
-    rtc::kNumNanosecsPerSec / 10000)
+  (fps ? rtc::kNumNanosecsPerSec / fps : rtc::kNumNanosecsPerSec / 10000)
 
 //////////////////////////////////////////////////////////////////////////////
 // Definition of FourCC codes
@@ -73,7 +72,7 @@ enum FourCC {
   FOURCC_BGRA = FOURCC('B', 'G', 'R', 'A'),
   FOURCC_ABGR = FOURCC('A', 'B', 'G', 'R'),
   FOURCC_24BG = FOURCC('2', '4', 'B', 'G'),
-  FOURCC_RAW  = FOURCC('r', 'a', 'w', ' '),
+  FOURCC_RAW = FOURCC('r', 'a', 'w', ' '),
   FOURCC_RGBA = FOURCC('R', 'G', 'B', 'A'),
   FOURCC_RGBP = FOURCC('R', 'G', 'B', 'P'),  // bgr565.
   FOURCC_RGBO = FOURCC('R', 'G', 'B', 'O'),  // abgr1555.
@@ -142,8 +141,8 @@ inline std::string GetFourccName(uint32_t fourcc) {
 
 // VideoFormat with Plain Old Data for global variables.
 struct VideoFormatPod {
-  int width;  // Number of pixels.
-  int height;  // Number of pixels.
+  int width;         // Number of pixels.
+  int height;        // Number of pixels.
   int64_t interval;  // Nanoseconds.
   uint32_t fourcc;  // Color space. FOURCC_ANY means that any color space is OK.
 };
@@ -152,9 +151,7 @@ struct VideoFormat : VideoFormatPod {
   static const int64_t kMinimumInterval =
       rtc::kNumNanosecsPerSec / 10000;  // 10k fps.
 
-  VideoFormat() {
-    Construct(0, 0, 0, 0);
-  }
+  VideoFormat() { Construct(0, 0, 0, 0); }
 
   VideoFormat(int w, int h, int64_t interval_ns, uint32_t cc) {
     Construct(w, h, interval_ns, cc);
@@ -187,12 +184,12 @@ struct VideoFormat : VideoFormatPod {
       return 0.f;
     }
     return static_cast<float>(rtc::kNumNanosecsPerSec) /
-        static_cast<float>(interval);
+           static_cast<float>(interval);
   }
 
   bool operator==(const VideoFormat& format) const {
     return width == format.width && height == format.height &&
-        interval == format.interval && fourcc == format.fourcc;
+           interval == format.interval && fourcc == format.fourcc;
   }
 
   bool operator!=(const VideoFormat& format) const {
@@ -201,10 +198,10 @@ struct VideoFormat : VideoFormatPod {
 
   bool operator<(const VideoFormat& format) const {
     return (fourcc < format.fourcc) ||
-        (fourcc == format.fourcc && width < format.width) ||
-        (fourcc == format.fourcc && width == format.width &&
+           (fourcc == format.fourcc && width < format.width) ||
+           (fourcc == format.fourcc && width == format.width &&
             height < format.height) ||
-        (fourcc == format.fourcc && width == format.width &&
+           (fourcc == format.fourcc && width == format.width &&
             height == format.height && interval > format.interval);
   }
 
@@ -217,7 +214,7 @@ struct VideoFormat : VideoFormatPod {
   // and frame rate.
   bool IsPixelRateLess(const VideoFormat& format) const {
     return width * height * framerate() <
-        format.width * format.height * format.framerate();
+           format.width * format.height * format.framerate();
   }
 
   // Get a string presentation in the form of "fourcc width x height x fps"

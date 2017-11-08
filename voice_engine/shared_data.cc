@@ -31,13 +31,12 @@ SharedData::SharedData()
   }
 }
 
-SharedData::~SharedData()
-{
-    TransmitMixer::Destroy(_transmitMixerPtr);
-    if (_audioDevicePtr) {
-        _audioDevicePtr->Release();
-    }
-    _moduleProcessThreadPtr->Stop();
+SharedData::~SharedData() {
+  TransmitMixer::Destroy(_transmitMixerPtr);
+  if (_audioDevicePtr) {
+    _audioDevicePtr->Release();
+  }
+  _moduleProcessThreadPtr->Stop();
 }
 
 rtc::TaskQueue* SharedData::encoder_queue() {

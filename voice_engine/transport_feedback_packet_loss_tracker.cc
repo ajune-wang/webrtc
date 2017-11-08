@@ -116,8 +116,8 @@ void TransportFeedbackPacketLossTracker::OnPacketFeedbackVector(
   }
 }
 
-rtc::Optional<float>
-TransportFeedbackPacketLossTracker::GetPacketLossRate() const {
+rtc::Optional<float> TransportFeedbackPacketLossTracker::GetPacketLossRate()
+    const {
   return plr_state_.GetMetric();
 }
 
@@ -222,8 +222,7 @@ void TransportFeedbackPacketLossTracker::UpdateRplr(
       UpdateCounter(&rplr_state_.num_acked_pairs_, apply);
       if (prev->second.status == PacketStatus::Lost &&
           it->second.status == PacketStatus::Received) {
-        UpdateCounter(
-            &rplr_state_.num_recoverable_losses_, apply);
+        UpdateCounter(&rplr_state_.num_recoverable_losses_, apply);
       }
     }
   }
@@ -344,24 +343,23 @@ void TransportFeedbackPacketLossTracker::Validate() const {  // Testing only!
   RTC_CHECK_EQ(rplr_state_.num_recoverable_losses_, recoverable_losses);
 }
 
-rtc::Optional<float>
-TransportFeedbackPacketLossTracker::PlrState::GetMetric() const {
+rtc::Optional<float> TransportFeedbackPacketLossTracker::PlrState::GetMetric()
+    const {
   const size_t total = num_lost_packets_ + num_received_packets_;
   if (total < min_num_acked_packets_) {
     return rtc::Optional<float>();
   } else {
-    return rtc::Optional<float>(
-        static_cast<float>(num_lost_packets_) / total);
+    return rtc::Optional<float>(static_cast<float>(num_lost_packets_) / total);
   }
 }
 
-rtc::Optional<float>
-TransportFeedbackPacketLossTracker::RplrState::GetMetric() const {
+rtc::Optional<float> TransportFeedbackPacketLossTracker::RplrState::GetMetric()
+    const {
   if (num_acked_pairs_ < min_num_acked_pairs_) {
     return rtc::Optional<float>();
   } else {
-    return rtc::Optional<float>(
-        static_cast<float>(num_recoverable_losses_) / num_acked_pairs_);
+    return rtc::Optional<float>(static_cast<float>(num_recoverable_losses_) /
+                                num_acked_pairs_);
   }
 }
 

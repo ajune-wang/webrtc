@@ -23,13 +23,11 @@ namespace test {
 class MockVoEChannelProxy : public voe::ChannelProxy {
  public:
   // GTest doesn't like move-only types, like std::unique_ptr
-  bool SetEncoder(int payload_type,
-                  std::unique_ptr<AudioEncoder> encoder) {
+  bool SetEncoder(int payload_type, std::unique_ptr<AudioEncoder> encoder) {
     return SetEncoderForMock(payload_type, &encoder);
   }
   MOCK_METHOD2(SetEncoderForMock,
-               bool(int payload_type,
-                    std::unique_ptr<AudioEncoder>* encoder));
+               bool(int payload_type, std::unique_ptr<AudioEncoder>* encoder));
   MOCK_METHOD1(
       ModifyEncoder,
       void(rtc::FunctionView<void(std::unique_ptr<AudioEncoder>*)> modifier));
@@ -58,8 +56,8 @@ class MockVoEChannelProxy : public voe::ChannelProxy {
   MOCK_CONST_METHOD0(GetTotalOutputEnergy, double());
   MOCK_CONST_METHOD0(GetTotalOutputDuration, double());
   MOCK_CONST_METHOD0(GetDelayEstimate, uint32_t());
-  MOCK_METHOD2(SetSendTelephoneEventPayloadType, bool(int payload_type,
-                                                      int payload_frequency));
+  MOCK_METHOD2(SetSendTelephoneEventPayloadType,
+               bool(int payload_type, int payload_frequency));
   MOCK_METHOD2(SendTelephoneEventOutband, bool(int event, int duration_ms));
   MOCK_METHOD2(SetBitrate, void(int bitrate_bps, int64_t probing_interval_ms));
   // TODO(solenberg): Talk the compiler into accepting this mock method:
@@ -74,15 +72,15 @@ class MockVoEChannelProxy : public voe::ChannelProxy {
   MOCK_METHOD1(SetRtcEventLog, void(RtcEventLog* event_log));
   MOCK_METHOD1(SetRtcpRttStats, void(RtcpRttStats* rtcp_rtt_stats));
   MOCK_METHOD2(GetAudioFrameWithInfo,
-      AudioMixer::Source::AudioFrameInfo(int sample_rate_hz,
-                                         AudioFrame* audio_frame));
+               AudioMixer::Source::AudioFrameInfo(int sample_rate_hz,
+                                                  AudioFrame* audio_frame));
   MOCK_CONST_METHOD0(PreferredSampleRate, int());
   MOCK_METHOD1(SetTransportOverhead, void(int transport_overhead_per_packet));
   MOCK_METHOD1(AssociateSendChannel,
                void(const ChannelProxy& send_channel_proxy));
   MOCK_METHOD0(DisassociateSendChannel, void());
-  MOCK_CONST_METHOD2(GetRtpRtcp, void(RtpRtcp** rtp_rtcp,
-                                      RtpReceiver** rtp_receiver));
+  MOCK_CONST_METHOD2(GetRtpRtcp,
+                     void(RtpRtcp** rtp_rtcp, RtpReceiver** rtp_receiver));
   MOCK_CONST_METHOD0(GetPlayoutTimestamp, uint32_t());
   MOCK_METHOD1(SetMinimumPlayoutDelay, void(int delay_ms));
   MOCK_CONST_METHOD1(GetRecCodec, bool(CodecInst* codec_inst));

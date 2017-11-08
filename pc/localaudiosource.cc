@@ -41,8 +41,7 @@ void LocalAudioSource::Initialize(
   CopyConstraintsIntoAudioOptions(constraints, &options_);
 }
 
-void LocalAudioSource::Initialize(
-    const cricket::AudioOptions* audio_options) {
+void LocalAudioSource::Initialize(const cricket::AudioOptions* audio_options) {
   if (!audio_options)
     return;
 

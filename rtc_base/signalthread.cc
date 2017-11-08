@@ -93,7 +93,7 @@ bool SignalThread::ContinueWork() {
   return worker_.ProcessMessages(0);
 }
 
-void SignalThread::OnMessage(Message *msg) {
+void SignalThread::OnMessage(Message* msg) {
   EnterExit ee(this);
   if (ST_MSG_WORKER_DONE == msg->message_id) {
     RTC_DCHECK(main_->IsCurrent());

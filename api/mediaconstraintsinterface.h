@@ -39,8 +39,7 @@ class MediaConstraintsInterface {
   struct Constraint {
     Constraint() {}
     Constraint(const std::string& key, const std::string value)
-        : key(key), value(value) {
-    }
+        : key(key), value(value) {}
     std::string key;
     std::string value;
   };
@@ -57,12 +56,12 @@ class MediaConstraintsInterface {
   // Specified by draft-alvestrand-constraints-resolution-00b
   static const char kMinAspectRatio[];  // minAspectRatio
   static const char kMaxAspectRatio[];  // maxAspectRatio
-  static const char kMaxWidth[];  // maxWidth
-  static const char kMinWidth[];  // minWidth
-  static const char kMaxHeight[];  // maxHeight
-  static const char kMinHeight[];  // minHeight
-  static const char kMaxFrameRate[];  // maxFrameRate
-  static const char kMinFrameRate[];  // minFrameRate
+  static const char kMaxWidth[];        // maxWidth
+  static const char kMinWidth[];        // minWidth
+  static const char kMaxHeight[];       // maxHeight
+  static const char kMinHeight[];       // minHeight
+  static const char kMaxFrameRate[];    // maxFrameRate
+  static const char kMinFrameRate[];    // minFrameRate
 
   // Constraint keys used by a local audio source.
   static const char kEchoCancellation[];  // echoCancellation
@@ -71,18 +70,18 @@ class MediaConstraintsInterface {
   static const char kGoogEchoCancellation[];  // googEchoCancellation
 
   static const char kExtendedFilterEchoCancellation[];  // googEchoCancellation2
-  static const char kDAEchoCancellation[];  // googDAEchoCancellation
-  static const char kAutoGainControl[];  // googAutoGainControl
-  static const char kExperimentalAutoGainControl[];  // googAutoGainControl2
-  static const char kNoiseSuppression[];  // googNoiseSuppression
+  static const char kDAEchoCancellation[];            // googDAEchoCancellation
+  static const char kAutoGainControl[];               // googAutoGainControl
+  static const char kExperimentalAutoGainControl[];   // googAutoGainControl2
+  static const char kNoiseSuppression[];              // googNoiseSuppression
   static const char kExperimentalNoiseSuppression[];  // googNoiseSuppression2
-  static const char kIntelligibilityEnhancer[];  // intelligibilityEnhancer
-  static const char kLevelControl[];             // levelControl
+  static const char kIntelligibilityEnhancer[];       // intelligibilityEnhancer
+  static const char kLevelControl[];                  // levelControl
   static const char
       kLevelControlInitialPeakLevelDBFS[];  // levelControlInitialPeakLevelDBFS
-  static const char kHighpassFilter[];  // googHighpassFilter
+  static const char kHighpassFilter[];      // googHighpassFilter
   static const char kTypingNoiseDetection[];  // googTypingNoiseDetection
-  static const char kAudioMirroring[];  // googAudioMirroring
+  static const char kAudioMirroring[];        // googAudioMirroring
   static const char
       kAudioNetworkAdaptorConfig[];  // goodAudioNetworkAdaptorConfig
 
@@ -91,15 +90,15 @@ class MediaConstraintsInterface {
 
   // Constraint keys for CreateOffer / CreateAnswer
   // Specified by the W3C PeerConnection spec
-  static const char kOfferToReceiveVideo[];  // OfferToReceiveVideo
-  static const char kOfferToReceiveAudio[];  // OfferToReceiveAudio
+  static const char kOfferToReceiveVideo[];     // OfferToReceiveVideo
+  static const char kOfferToReceiveAudio[];     // OfferToReceiveAudio
   static const char kVoiceActivityDetection[];  // VoiceActivityDetection
-  static const char kIceRestart[];  // IceRestart
+  static const char kIceRestart[];              // IceRestart
   // These keys are google specific.
   static const char kUseRtpMux[];  // googUseRtpMUX
 
   // Constraints values.
-  static const char kValueTrue[];  // true
+  static const char kValueTrue[];   // true
   static const char kValueFalse[];  // false
 
   // PeerConnection constraint keys.
@@ -114,12 +113,12 @@ class MediaConstraintsInterface {
   static const char kEnableIPv6[];  // googIPv6
   // Temporary constraint to enable suspend below min bitrate feature.
   static const char kEnableVideoSuspendBelowMinBitrate[];
-      // googSuspendBelowMinBitrate
+  // googSuspendBelowMinBitrate
   // Constraint to enable combined audio+video bandwidth estimation.
   static const char kCombinedAudioVideoBwe[];  // googCombinedAudioVideoBwe
-  static const char kScreencastMinBitrate[];  // googScreencastMinBitrate
-  static const char kCpuOveruseDetection[];  // googCpuOveruseDetection
-  static const char kPayloadPadding[];  // googPayloadPadding
+  static const char kScreencastMinBitrate[];   // googScreencastMinBitrate
+  static const char kCpuOveruseDetection[];    // googCpuOveruseDetection
+  static const char kPayloadPadding[];         // googPayloadPadding
 
   // The prefix of internal-only constraints whose JS set values should be
   // stripped by Chrome before passed down to Libjingle.
@@ -131,7 +130,8 @@ class MediaConstraintsInterface {
 };
 
 bool FindConstraint(const MediaConstraintsInterface* constraints,
-                    const std::string& key, bool* value,
+                    const std::string& key,
+                    bool* value,
                     size_t* mandatory_constraints);
 
 bool FindConstraint(const MediaConstraintsInterface* constraints,

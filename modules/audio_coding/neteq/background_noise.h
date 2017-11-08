@@ -38,8 +38,7 @@ class BackgroundNoise {
 
   // Updates the parameter estimates based on the signal currently in the
   // |sync_buffer|, and on the latest decision in |vad| if it is running.
-  void Update(const AudioMultiVector& sync_buffer,
-              const PostDecodeVad& vad);
+  void Update(const AudioMultiVector& sync_buffer, const PostDecodeVad& vad);
 
   // Returns |energy_| for |channel|.
   int32_t Energy(size_t channel) const;
@@ -83,9 +82,7 @@ class BackgroundNoise {
 
   struct ChannelParameters {
     // Constructor.
-    ChannelParameters() {
-      Reset();
-    }
+    ChannelParameters() { Reset(); }
 
     void Reset() {
       energy = 2500;
@@ -95,8 +92,7 @@ class BackgroundNoise {
       memset(filter_state, 0, sizeof(filter_state));
       memset(filter, 0, sizeof(filter));
       filter[0] = 4096;
-      mute_factor = 0,
-      scale = 20000;
+      mute_factor = 0, scale = 20000;
       scale_shift = 24;
     }
 

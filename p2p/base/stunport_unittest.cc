@@ -92,10 +92,9 @@ class StunPortTestBase : public testing::Test, public sigslot::has_slots<> {
     ASSERT_TRUE(socket_ != NULL);
     socket_->SignalReadPacket.connect(this, &StunPortTestBase::OnReadPacket);
     stun_port_.reset(cricket::UDPPort::Create(
-        rtc::Thread::Current(), &socket_factory_,
-        &network_, socket_.get(),
-        rtc::CreateRandomString(16), rtc::CreateRandomString(22),
-        std::string(), false));
+        rtc::Thread::Current(), &socket_factory_, &network_, socket_.get(),
+        rtc::CreateRandomString(16), rtc::CreateRandomString(22), std::string(),
+        false));
     ASSERT_TRUE(stun_port_ != NULL);
     ServerAddresses stun_servers;
     stun_servers.insert(server_addr);
@@ -105,28 +104,27 @@ class StunPortTestBase : public testing::Test, public sigslot::has_slots<> {
     stun_port_->SignalPortError.connect(this, &StunPortTestBase::OnPortError);
   }
 
-  void PrepareAddress() {
-    stun_port_->PrepareAddress();
-  }
+  void PrepareAddress() { stun_port_->PrepareAddress(); }
 
-  void OnReadPacket(rtc::AsyncPacketSocket* socket, const char* data,
-                    size_t size, const rtc::SocketAddress& remote_addr,
+  void OnReadPacket(rtc::AsyncPacketSocket* socket,
+                    const char* data,
+                    size_t size,
+                    const rtc::SocketAddress& remote_addr,
                     const rtc::PacketTime& packet_time) {
-    stun_port_->HandleIncomingPacket(
-        socket, data, size, remote_addr, rtc::PacketTime());
+    stun_port_->HandleIncomingPacket(socket, data, size, remote_addr,
+                                     rtc::PacketTime());
   }
 
   void SendData(const char* data, size_t len) {
-    stun_port_->HandleIncomingPacket(
-        socket_.get(), data, len, rtc::SocketAddress("22.22.22.22", 0),
-        rtc::PacketTime());
+    stun_port_->HandleIncomingPacket(socket_.get(), data, len,
+                                     rtc::SocketAddress("22.22.22.22", 0),
+                                     rtc::PacketTime());
   }
 
  protected:
   static void SetUpTestCase() {
     // Ensure the RNG is inited.
     rtc::InitRandom(NULL, 0);
-
   }
 
   void OnPortComplete(cricket::Port* port) {
@@ -138,20 +136,14 @@ class StunPortTestBase : public testing::Test, public sigslot::has_slots<> {
     done_ = true;
     error_ = true;
   }
-  void SetKeepaliveDelay(int delay) {
-    stun_keepalive_delay_ = delay;
-  }
+  void SetKeepaliveDelay(int delay) { stun_keepalive_delay_ = delay; }
 
   void SetKeepaliveLifetime(int lifetime) {
     stun_keepalive_lifetime_ = lifetime;
   }
 
-  cricket::TestStunServer* stun_server_1() {
-    return stun_server_1_.get();
-  }
-  cricket::TestStunServer* stun_server_2() {
-    return stun_server_2_.get();
-  }
+  cricket::TestStunServer* stun_server_1() { return stun_server_1_.get(); }
+  cricket::TestStunServer* stun_server_2() { return stun_server_2_.get(); }
 
  private:
   std::unique_ptr<rtc::VirtualSocketServer> ss_;

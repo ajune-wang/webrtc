@@ -36,11 +36,9 @@ SSLCertificateStats::SSLCertificateStats(
     : fingerprint(std::move(fingerprint)),
       fingerprint_algorithm(std::move(fingerprint_algorithm)),
       base64_certificate(std::move(base64_certificate)),
-      issuer(std::move(issuer)) {
-}
+      issuer(std::move(issuer)) {}
 
-SSLCertificateStats::~SSLCertificateStats() {
-}
+SSLCertificateStats::~SSLCertificateStats() {}
 
 std::unique_ptr<SSLCertificateStats> SSLCertificate::GetStats() const {
   // We have a certificate and optionally a chain of certificates. This forms a
@@ -90,10 +88,8 @@ std::unique_ptr<SSLCertificateStats> SSLCertificate::GetStats(
   Base64::EncodeFromArray(der_buffer.data(), der_buffer.size(), &der_base64);
 
   return std::unique_ptr<SSLCertificateStats>(new SSLCertificateStats(
-      std::move(fingerprint),
-      std::move(digest_algorithm),
-      std::move(der_base64),
-      std::move(issuer)));
+      std::move(fingerprint), std::move(digest_algorithm),
+      std::move(der_base64), std::move(issuer)));
 }
 
 KeyParams::KeyParams(KeyType key_type) {
@@ -168,9 +164,8 @@ bool SSLIdentity::PemToDer(const std::string& pem_type,
 
   std::string inner = pem_string.substr(body + 1, trailer - (body + 1));
 
-  *der = Base64::Decode(inner, Base64::DO_PARSE_WHITE |
-                        Base64::DO_PAD_ANY |
-                        Base64::DO_TERM_BUFFER);
+  *der = Base64::Decode(inner, Base64::DO_PARSE_WHITE | Base64::DO_PAD_ANY |
+                                   Base64::DO_TERM_BUFFER);
   return true;
 }
 

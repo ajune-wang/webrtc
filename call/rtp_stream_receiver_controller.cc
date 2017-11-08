@@ -38,9 +38,8 @@ RtpStreamReceiverController::RtpStreamReceiverController() = default;
 RtpStreamReceiverController::~RtpStreamReceiverController() = default;
 
 std::unique_ptr<RtpStreamReceiverInterface>
-RtpStreamReceiverController::CreateReceiver(
-    uint32_t ssrc,
-    RtpPacketSinkInterface* sink) {
+RtpStreamReceiverController::CreateReceiver(uint32_t ssrc,
+                                            RtpPacketSinkInterface* sink) {
   return rtc::MakeUnique<Receiver>(this, ssrc, sink);
 }
 

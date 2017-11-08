@@ -3,7 +3,7 @@
  * By Steve Reid <sreid@sea-to-sky.net>
  * 100% Public Domain
  *
-*/
+ */
 
 // Ported to C++, Google style, under namespace rtc.
 

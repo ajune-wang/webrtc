@@ -46,12 +46,12 @@
 namespace webrtc {
 namespace jni {
 
-jint InitGlobalJniVariables(JavaVM *jvm);
+jint InitGlobalJniVariables(JavaVM* jvm);
 
 // Return a |JNIEnv*| usable on this thread or NULL if this thread is detached.
 JNIEnv* GetEnv();
 
-JavaVM *GetJVM();
+JavaVM* GetJVM();
 
 // Return a |JNIEnv*| usable on this thread.  Attaches to |g_jvm| if necessary.
 JNIEnv* AttachCurrentThreadIfNeeded();
@@ -63,13 +63,19 @@ jlong jlongFromPointer(void* ptr);
 
 // JNIEnv-helper methods that RTC_CHECK success: no Java exception thrown and
 // found object/class/method/field is non-null.
-jmethodID GetMethodID(
-    JNIEnv* jni, jclass c, const std::string& name, const char* signature);
+jmethodID GetMethodID(JNIEnv* jni,
+                      jclass c,
+                      const std::string& name,
+                      const char* signature);
 
-jmethodID GetStaticMethodID(
-    JNIEnv* jni, jclass c, const char* name, const char* signature);
+jmethodID GetStaticMethodID(JNIEnv* jni,
+                            jclass c,
+                            const char* name,
+                            const char* signature);
 
-jfieldID GetFieldID(JNIEnv* jni, jclass c, const char* name,
+jfieldID GetFieldID(JNIEnv* jni,
+                    jclass c,
+                    const char* name,
                     const char* signature);
 
 jfieldID GetStaticFieldID(JNIEnv* jni,
@@ -108,8 +114,10 @@ std::string JavaToStdString(JNIEnv* jni, const jstring& j_string);
 std::vector<std::string> JavaToStdVectorStrings(JNIEnv* jni, jobject list);
 
 // Return the (singleton) Java Enum object corresponding to |index|;
-jobject JavaEnumFromIndex(JNIEnv* jni, jclass state_class,
-                          const std::string& state_class_name, int index);
+jobject JavaEnumFromIndex(JNIEnv* jni,
+                          jclass state_class,
+                          const std::string& state_class_name,
+                          int index);
 
 // Return the (singleton) Java Enum object corresponding to |index|;
 // |state_class_fragment| is something like "MediaSource$State".
@@ -143,17 +151,14 @@ class ScopedLocalRefFrame {
 };
 
 // Scoped holder for global Java refs.
-template<class T>  // T is jclass, jobject, jintArray, etc.
+template <class T>  // T is jclass, jobject, jintArray, etc.
 class ScopedGlobalRef {
  public:
   ScopedGlobalRef(JNIEnv* jni, T obj)
       : obj_(static_cast<T>(jni->NewGlobalRef(obj))) {}
-  ~ScopedGlobalRef() {
-    DeleteGlobalRef(AttachCurrentThreadIfNeeded(), obj_);
-  }
-  T operator*() const {
-    return obj_;
-  }
+  ~ScopedGlobalRef() { DeleteGlobalRef(AttachCurrentThreadIfNeeded(), obj_); }
+  T operator*() const { return obj_; }
+
  private:
   T obj_;
 };

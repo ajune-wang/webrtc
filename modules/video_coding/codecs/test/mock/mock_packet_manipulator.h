@@ -13,10 +13,10 @@
 
 #include <string>
 
+#include "common_video/include/video_frame.h"
 #include "modules/video_coding/codecs/test/packet_manipulator.h"
 #include "test/gmock.h"
 #include "typedefs.h"  // NOLINT(build/include)
-#include "common_video/include/video_frame.h"
 
 namespace webrtc {
 namespace test {

@@ -22,15 +22,15 @@
 #define NOMINMAX
 #endif
 
-#include <winsock2.h>
 #include <windows.h>
+#include <winsock2.h>
 
 #ifndef SECURITY_MANDATORY_LABEL_AUTHORITY
 // Add defines that we use if we are compiling against older sdks
-#define SECURITY_MANDATORY_MEDIUM_RID               (0x00002000L)
+#define SECURITY_MANDATORY_MEDIUM_RID (0x00002000L)
 #define TokenIntegrityLevel static_cast<TOKEN_INFORMATION_CLASS>(0x19)
 typedef struct _TOKEN_MANDATORY_LABEL {
-    SID_AND_ATTRIBUTES Label;
+  SID_AND_ATTRIBUTES Label;
 } TOKEN_MANDATORY_LABEL, *PTOKEN_MANDATORY_LABEL;
 #endif  // SECURITY_MANDATORY_LABEL_AUTHORITY
 
@@ -43,8 +43,8 @@ typedef struct _TOKEN_MANDATORY_LABEL {
 
 namespace rtc {
 
-const char* win32_inet_ntop(int af, const void *src, char* dst, socklen_t size);
-int win32_inet_pton(int af, const char* src, void *dst);
+const char* win32_inet_ntop(int af, const void* src, char* dst, socklen_t size);
+int win32_inet_pton(int af, const char* src, void* dst);
 
 inline std::wstring ToUtf16(const char* utf8, size_t len) {
   int len16 = ::MultiByteToWideChar(CP_UTF8, 0, utf8, static_cast<int>(len),
@@ -79,7 +79,7 @@ inline std::string ToUtf8(const std::wstring& wstr) {
 void FileTimeToUnixTime(const FILETIME& ft, time_t* ut);
 
 // Convert time_t to FILETIME
-void UnixTimeToFileTime(const time_t& ut, FILETIME * ft);
+void UnixTimeToFileTime(const time_t& ut, FILETIME* ft);
 
 // Convert a Utf8 path representation to a non-length-limited Unicode pathname.
 bool Utf8ToWindowsFilename(const std::string& utf8, std::wstring* filename);
@@ -119,7 +119,7 @@ bool GetCurrentProcessIntegrityLevel(int* level);
 inline bool IsCurrentProcessLowIntegrity() {
   int level;
   return (GetCurrentProcessIntegrityLevel(&level) &&
-      level < SECURITY_MANDATORY_MEDIUM_RID);
+          level < SECURITY_MANDATORY_MEDIUM_RID);
 }
 
 }  // namespace rtc

@@ -41,12 +41,16 @@ class PacketGenerator {
   int frame_size_;
 };
 
-PacketGenerator::PacketGenerator(uint16_t seq_no, uint32_t ts, uint8_t pt,
+PacketGenerator::PacketGenerator(uint16_t seq_no,
+                                 uint32_t ts,
+                                 uint8_t pt,
                                  int frame_size) {
   Reset(seq_no, ts, pt, frame_size);
 }
 
-void PacketGenerator::Reset(uint16_t seq_no, uint32_t ts, uint8_t pt,
+void PacketGenerator::Reset(uint16_t seq_no,
+                            uint32_t ts,
+                            uint8_t pt,
                             int frame_size) {
   seq_no_ = seq_no;
   ts_ = ts;
@@ -253,24 +257,15 @@ TEST(PacketBuffer, ExtractOrderRedundancy) {
   const int kPayloadLength = 10;
 
   PacketsToInsert packet_facts[kPackets] = {
-    {0xFFFD, 0xFFFFFFD7, 0, true, 0},
-    {0xFFFE, 0xFFFFFFE1, 0, true, 1},
-    {0xFFFE, 0xFFFFFFD7, 1, false, -1},
-    {0xFFFF, 0xFFFFFFEB, 0, true, 2},
-    {0xFFFF, 0xFFFFFFE1, 1, false, -1},
-    {0x0000, 0xFFFFFFF5, 0, true, 3},
-    {0x0000, 0xFFFFFFEB, 1, false, -1},
-    {0x0001, 0xFFFFFFFF, 0, true, 4},
-    {0x0001, 0xFFFFFFF5, 1, false, -1},
-    {0x0002, 0x0000000A, 0, true, 5},
-    {0x0002, 0xFFFFFFFF, 1, false, -1},
-    {0x0003, 0x0000000A, 1, false, -1},
-    {0x0004, 0x0000001E, 0, true, 7},
-    {0x0004, 0x00000014, 1, false, 6},
-    {0x0005, 0x0000001E, 0, true, -1},
-    {0x0005, 0x00000014, 1, false, -1},
-    {0x0006, 0x00000028, 0, true, 8},
-    {0x0006, 0x0000001E, 1, false, -1},
+      {0xFFFD, 0xFFFFFFD7, 0, true, 0},   {0xFFFE, 0xFFFFFFE1, 0, true, 1},
+      {0xFFFE, 0xFFFFFFD7, 1, false, -1}, {0xFFFF, 0xFFFFFFEB, 0, true, 2},
+      {0xFFFF, 0xFFFFFFE1, 1, false, -1}, {0x0000, 0xFFFFFFF5, 0, true, 3},
+      {0x0000, 0xFFFFFFEB, 1, false, -1}, {0x0001, 0xFFFFFFFF, 0, true, 4},
+      {0x0001, 0xFFFFFFF5, 1, false, -1}, {0x0002, 0x0000000A, 0, true, 5},
+      {0x0002, 0xFFFFFFFF, 1, false, -1}, {0x0003, 0x0000000A, 1, false, -1},
+      {0x0004, 0x0000001E, 0, true, 7},   {0x0004, 0x00000014, 1, false, 6},
+      {0x0005, 0x0000001E, 0, true, -1},  {0x0005, 0x00000014, 1, false, -1},
+      {0x0006, 0x00000028, 0, true, 8},   {0x0006, 0x0000001E, 1, false, -1},
   };
 
   const size_t kExpectPacketsInBuffer = 9;
@@ -287,10 +282,8 @@ TEST(PacketBuffer, ExtractOrderRedundancy) {
   InSequence s;
   MockFunction<void(int check_point_id)> check;
   for (int i = 0; i < kPackets; ++i) {
-    gen.Reset(packet_facts[i].sequence_number,
-              packet_facts[i].timestamp,
-              packet_facts[i].payload_type,
-              kFrameSize);
+    gen.Reset(packet_facts[i].sequence_number, packet_facts[i].timestamp,
+              packet_facts[i].payload_type, kFrameSize);
     Packet packet = gen.NextPacket(kPayloadLength);
     packet.priority.codec_level = packet_facts[i].primary ? 0 : 1;
     if (packet_facts[i].extract_order < 0) {
@@ -682,11 +675,11 @@ void TestIsObsoleteTimestamp(uint32_t limit_timestamp) {
   EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(
       limit_timestamp, limit_timestamp, kZeroHorizon));
   // 1 sample behind is old.
-  EXPECT_TRUE(PacketBuffer::IsObsoleteTimestamp(
-      limit_timestamp - 1, limit_timestamp, kZeroHorizon));
+  EXPECT_TRUE(PacketBuffer::IsObsoleteTimestamp(limit_timestamp - 1,
+                                                limit_timestamp, kZeroHorizon));
   // 2^31 - 1 samples behind is old.
-  EXPECT_TRUE(PacketBuffer::IsObsoleteTimestamp(
-      limit_timestamp - k2Pow31Minus1, limit_timestamp, kZeroHorizon));
+  EXPECT_TRUE(PacketBuffer::IsObsoleteTimestamp(limit_timestamp - k2Pow31Minus1,
+                                                limit_timestamp, kZeroHorizon));
   // 1 sample ahead is not old.
   EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(
       limit_timestamp + 1, limit_timestamp, kZeroHorizon));
@@ -702,26 +695,26 @@ void TestIsObsoleteTimestamp(uint32_t limit_timestamp) {
   // Fixed horizon at 10 samples.
   static const uint32_t kHorizon = 10;
   // Timestamp on the limit is not old.
-  EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(
-      limit_timestamp, limit_timestamp, kHorizon));
+  EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(limit_timestamp,
+                                                 limit_timestamp, kHorizon));
   // 1 sample behind is old.
-  EXPECT_TRUE(PacketBuffer::IsObsoleteTimestamp(
-      limit_timestamp - 1, limit_timestamp, kHorizon));
+  EXPECT_TRUE(PacketBuffer::IsObsoleteTimestamp(limit_timestamp - 1,
+                                                limit_timestamp, kHorizon));
   // 9 samples behind is old.
-  EXPECT_TRUE(PacketBuffer::IsObsoleteTimestamp(
-      limit_timestamp - 9, limit_timestamp, kHorizon));
+  EXPECT_TRUE(PacketBuffer::IsObsoleteTimestamp(limit_timestamp - 9,
+                                                limit_timestamp, kHorizon));
   // 10 samples behind is not old.
-  EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(
-      limit_timestamp - 10, limit_timestamp, kHorizon));
+  EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(limit_timestamp - 10,
+                                                 limit_timestamp, kHorizon));
   // 2^31 - 1 samples behind is not old.
   EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(
       limit_timestamp - k2Pow31Minus1, limit_timestamp, kHorizon));
   // 1 sample ahead is not old.
-  EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(
-      limit_timestamp + 1, limit_timestamp, kHorizon));
+  EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(limit_timestamp + 1,
+                                                 limit_timestamp, kHorizon));
   // 2^31 samples ahead is not old.
-  EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(
-      limit_timestamp + (1 << 31), limit_timestamp, kHorizon));
+  EXPECT_FALSE(PacketBuffer::IsObsoleteTimestamp(limit_timestamp + (1 << 31),
+                                                 limit_timestamp, kHorizon));
 }
 }  // namespace
 

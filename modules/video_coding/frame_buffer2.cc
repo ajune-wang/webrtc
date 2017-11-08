@@ -344,8 +344,7 @@ int FrameBuffer::InsertFrame(std::unique_ptr<FrameObject> frame) {
   // Test if inserting this frame would cause the order of the frames to become
   // ambiguous (covering more than half the interval of 2^16). This can happen
   // when the picture id make large jumps mid stream.
-  if (!frames_.empty() &&
-      key < frames_.begin()->first &&
+  if (!frames_.empty() && key < frames_.begin()->first &&
       frames_.rbegin()->first < key) {
     LOG(LS_WARNING) << "A jump in picture id was detected, clearing buffer.";
     ClearFramesAndHistory();

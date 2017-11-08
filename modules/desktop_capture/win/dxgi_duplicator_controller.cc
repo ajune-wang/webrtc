@@ -66,8 +66,7 @@ bool DxgiDuplicatorController::IsCurrentSessionSupported() {
   return session_id != 0;
 }
 
-DxgiDuplicatorController::DxgiDuplicatorController()
-    : refcount_(0) {}
+DxgiDuplicatorController::DxgiDuplicatorController() : refcount_(0) {}
 
 void DxgiDuplicatorController::AddRef() {
   int refcount = (++refcount_);
@@ -103,13 +102,14 @@ bool DxgiDuplicatorController::RetrieveD3dInfo(D3dInfo* info) {
   return result;
 }
 
-DxgiDuplicatorController::Result
-DxgiDuplicatorController::Duplicate(DxgiFrame* frame) {
+DxgiDuplicatorController::Result DxgiDuplicatorController::Duplicate(
+    DxgiFrame* frame) {
   return DoDuplicate(frame, -1);
 }
 
-DxgiDuplicatorController::Result
-DxgiDuplicatorController::DuplicateMonitor(DxgiFrame* frame, int monitor_id) {
+DxgiDuplicatorController::Result DxgiDuplicatorController::DuplicateMonitor(
+    DxgiFrame* frame,
+    int monitor_id) {
   RTC_DCHECK_GE(monitor_id, 0);
   return DoDuplicate(frame, monitor_id);
 }
@@ -140,8 +140,9 @@ bool DxgiDuplicatorController::GetDeviceNames(
   return false;
 }
 
-DxgiDuplicatorController::Result
-DxgiDuplicatorController::DoDuplicate(DxgiFrame* frame, int monitor_id) {
+DxgiDuplicatorController::Result DxgiDuplicatorController::DoDuplicate(
+    DxgiFrame* frame,
+    int monitor_id) {
   RTC_DCHECK(frame);
   rtc::CritScope lock(&lock_);
 
@@ -441,8 +442,8 @@ bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
     // |fallback_frame|.
     shared_frame = target;
   } else {
-    fallback_frame = SharedDesktopFrame::Wrap(std::unique_ptr<DesktopFrame>(
-        new BasicDesktopFrame(desktop_size())));
+    fallback_frame = SharedDesktopFrame::Wrap(
+        std::unique_ptr<DesktopFrame>(new BasicDesktopFrame(desktop_size())));
     shared_frame = fallback_frame.get();
   }
 
@@ -452,16 +453,17 @@ bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
     if (GetNumFramesCaptured() > 0) {
       // Sleep |ms_per_frame| before capturing next frame to ensure the screen
       // has been updated by the video adapter.
-      webrtc::SleepMs(
-          ms_per_frame - (rtc::TimeMillis() - last_frame_start_ms));
+      webrtc::SleepMs(ms_per_frame - (rtc::TimeMillis() - last_frame_start_ms));
     }
     last_frame_start_ms = rtc::TimeMillis();
     if (!DoDuplicateAll(context, shared_frame)) {
       return false;
     }
     if (rtc::TimeMillis() - start_ms > timeout_ms) {
-      LOG(LS_ERROR) << "Failed to capture " << frames_to_skip << " frames "
-                       "within " << timeout_ms << " milliseconds.";
+      LOG(LS_ERROR) << "Failed to capture " << frames_to_skip
+                    << " frames "
+                       "within "
+                    << timeout_ms << " milliseconds.";
       return false;
     }
   }

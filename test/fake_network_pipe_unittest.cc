@@ -94,8 +94,8 @@ TEST_F(FakeNetworkPipeTest, CapacityTest) {
   SendPackets(pipe.get(), kNumPackets, kPacketSize);
 
   // Time to get one packet through the link.
-  const int kPacketTimeMs = PacketTimeMs(config.link_capacity_kbps,
-                                         kPacketSize);
+  const int kPacketTimeMs =
+      PacketTimeMs(config.link_capacity_kbps, kPacketSize);
 
   // Time haven't increased yet, so we souldn't get any packets.
   EXPECT_CALL(*demuxer, DeliverPacket(_, _)).Times(0);
@@ -132,8 +132,8 @@ TEST_F(FakeNetworkPipeTest, ExtraDelayTest) {
   SendPackets(pipe.get(), kNumPackets, kPacketSize);
 
   // Time to get one packet through the link.
-  const int kPacketTimeMs = PacketTimeMs(config.link_capacity_kbps,
-                                         kPacketSize);
+  const int kPacketTimeMs =
+      PacketTimeMs(config.link_capacity_kbps, kPacketSize);
 
   // Increase more than kPacketTimeMs, but not more than the extra delay.
   fake_clock_.AdvanceTimeMilliseconds(kPacketTimeMs);
@@ -162,8 +162,8 @@ TEST_F(FakeNetworkPipeTest, QueueLengthTest) {
       &fake_clock_, config, std::unique_ptr<Demuxer>(demuxer)));
 
   const int kPacketSize = 1000;
-  const int kPacketTimeMs = PacketTimeMs(config.link_capacity_kbps,
-                                         kPacketSize);
+  const int kPacketTimeMs =
+      PacketTimeMs(config.link_capacity_kbps, kPacketSize);
 
   // Send three packets and verify only 2 are delivered.
   SendPackets(pipe.get(), 3, kPacketSize);
@@ -186,8 +186,8 @@ TEST_F(FakeNetworkPipeTest, StatisticsTest) {
       &fake_clock_, config, std::unique_ptr<Demuxer>(demuxer)));
 
   const int kPacketSize = 1000;
-  const int kPacketTimeMs = PacketTimeMs(config.link_capacity_kbps,
-                                         kPacketSize);
+  const int kPacketTimeMs =
+      PacketTimeMs(config.link_capacity_kbps, kPacketSize);
 
   // Send three packets and verify only 2 are delivered.
   SendPackets(pipe.get(), 3, kPacketSize);
@@ -202,7 +202,7 @@ TEST_F(FakeNetworkPipeTest, StatisticsTest) {
   EXPECT_EQ(pipe->AverageDelay(), 170);
   EXPECT_EQ(pipe->sent_packets(), 2u);
   EXPECT_EQ(pipe->dropped_packets(), 1u);
-  EXPECT_EQ(pipe->PercentageLoss(), 1/3.f);
+  EXPECT_EQ(pipe->PercentageLoss(), 1 / 3.f);
 }
 
 // Change the link capacity half-way through the test and verify that the

@@ -12,8 +12,8 @@
 
 namespace cricket {
 
-ContentInfo* FindContentInfoByName(
-    ContentInfos& contents, const std::string& name) {
+ContentInfo* FindContentInfoByName(ContentInfos& contents,
+                                   const std::string& name) {
   for (ContentInfos::iterator content = contents.begin();
        content != contents.end(); ++content) {
     if (content->name == name) {
@@ -23,8 +23,8 @@ ContentInfo* FindContentInfoByName(
   return NULL;
 }
 
-const ContentInfo* FindContentInfoByName(
-    const ContentInfos& contents, const std::string& name) {
+const ContentInfo* FindContentInfoByName(const ContentInfos& contents,
+                                         const std::string& name) {
   for (ContentInfos::const_iterator content = contents.begin();
        content != contents.end(); ++content) {
     if (content->name == name) {
@@ -34,8 +34,8 @@ const ContentInfo* FindContentInfoByName(
   return NULL;
 }
 
-const ContentInfo* FindContentInfoByType(
-    const ContentInfos& contents, const std::string& type) {
+const ContentInfo* FindContentInfoByType(const ContentInfos& contents,
+                                         const std::string& type) {
   for (ContentInfos::const_iterator content = contents.begin();
        content != contents.end(); ++content) {
     if (content->type == type) {
@@ -70,8 +70,8 @@ void ContentGroup::AddContentName(const std::string& content_name) {
 }
 
 bool ContentGroup::RemoveContentName(const std::string& content_name) {
-  ContentNames::iterator iter = std::find(
-      content_names_.begin(), content_names_.end(), content_name);
+  ContentNames::iterator iter =
+      std::find(content_names_.begin(), content_names_.end(), content_name);
   if (iter == content_names_.end()) {
     return false;
   }
@@ -108,7 +108,7 @@ SessionDescription* SessionDescription::Copy() const {
   SessionDescription* copy = new SessionDescription(*this);
   // Copy all ContentDescriptions.
   for (ContentInfos::iterator content = copy->contents_.begin();
-      content != copy->contents().end(); ++content) {
+       content != copy->contents().end(); ++content) {
     content->description = content->description->Copy();
   }
   return copy;
@@ -119,8 +119,7 @@ const ContentInfo* SessionDescription::GetContentByName(
   return FindContentInfoByName(contents_, name);
 }
 
-ContentInfo* SessionDescription::GetContentByName(
-    const std::string& name)  {
+ContentInfo* SessionDescription::GetContentByName(const std::string& name) {
   return FindContentInfoByName(contents_, name);
 }
 

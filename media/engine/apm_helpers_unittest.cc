@@ -21,7 +21,7 @@
 namespace webrtc {
 namespace {
 
-constexpr AgcConfig kDefaultAgcConfig = { 3, 9, true };
+constexpr AgcConfig kDefaultAgcConfig = {3, 9, true};
 
 struct TestHelper {
   TestHelper() {
@@ -38,9 +38,7 @@ struct TestHelper {
 
   const AudioProcessing* apm() const { return apm_.get(); }
 
-  test::MockAudioDeviceModule* adm() {
-    return &mock_audio_device_;
-  }
+  test::MockAudioDeviceModule* adm() { return &mock_audio_device_; }
 
   voe::TransmitMixer* transmit_mixer() {
     return voe_wrapper_.base()->transmit_mixer();
@@ -74,8 +72,7 @@ struct TestHelper {
 
 TEST(ApmHelpersTest, AgcConfig_DefaultConfiguration) {
   TestHelper helper;
-  AgcConfig agc_config =
-      apm_helpers::GetAgcConfig(helper.apm());
+  AgcConfig agc_config = apm_helpers::GetAgcConfig(helper.apm());
 
   EXPECT_EQ(kDefaultAgcConfig.targetLeveldBOv, agc_config.targetLeveldBOv);
   EXPECT_EQ(kDefaultAgcConfig.digitalCompressionGaindB,
@@ -84,19 +81,16 @@ TEST(ApmHelpersTest, AgcConfig_DefaultConfiguration) {
 }
 
 TEST(ApmHelpersTest, AgcConfig_GetAndSet) {
-  const AgcConfig agc_config = { 11, 17, false };
+  const AgcConfig agc_config = {11, 17, false};
 
   TestHelper helper;
   apm_helpers::SetAgcConfig(helper.apm(), agc_config);
-  AgcConfig actual_config =
-      apm_helpers::GetAgcConfig(helper.apm());
+  AgcConfig actual_config = apm_helpers::GetAgcConfig(helper.apm());
 
   EXPECT_EQ(agc_config.digitalCompressionGaindB,
             actual_config.digitalCompressionGaindB);
-  EXPECT_EQ(agc_config.limiterEnable,
-            actual_config.limiterEnable);
-  EXPECT_EQ(agc_config.targetLeveldBOv,
-            actual_config.targetLeveldBOv);
+  EXPECT_EQ(agc_config.limiterEnable, actual_config.limiterEnable);
+  EXPECT_EQ(agc_config.targetLeveldBOv, actual_config.targetLeveldBOv);
 }
 
 TEST(ApmHelpersTest, AgcStatus_DefaultMode) {

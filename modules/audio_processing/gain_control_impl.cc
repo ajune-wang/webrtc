@@ -259,7 +259,7 @@ int GainControlImpl::stream_analog_level() {
   data_dumper_->DumpRaw("gain_control_stream_analog_level", 1,
                         &analog_capture_level_);
   // TODO(ajm): enable this assertion?
-  //RTC_DCHECK_EQ(kAdaptiveAnalog, mode_);
+  // RTC_DCHECK_EQ(kAdaptiveAnalog, mode_);
 
   return analog_capture_level_;
 }
@@ -303,8 +303,7 @@ GainControl::Mode GainControlImpl::mode() const {
   return mode_;
 }
 
-int GainControlImpl::set_analog_level_limits(int minimum,
-                                             int maximum) {
+int GainControlImpl::set_analog_level_limits(int minimum, int maximum) {
   if (minimum < 0) {
     return AudioProcessing::kBadParameterError;
   }
@@ -419,11 +418,10 @@ int GainControlImpl::Configure() {
   WebRtcAgcConfig config;
   // TODO(ajm): Flip the sign here (since AGC expects a positive value) if we
   //            change the interface.
-  //RTC_DCHECK_LE(target_level_dbfs_, 0);
-  //config.targetLevelDbfs = static_cast<int16_t>(-target_level_dbfs_);
+  // RTC_DCHECK_LE(target_level_dbfs_, 0);
+  // config.targetLevelDbfs = static_cast<int16_t>(-target_level_dbfs_);
   config.targetLevelDbfs = static_cast<int16_t>(target_level_dbfs_);
-  config.compressionGaindB =
-      static_cast<int16_t>(compression_gain_db_);
+  config.compressionGaindB = static_cast<int16_t>(compression_gain_db_);
   config.limiterEnable = limiter_enabled_;
 
   int error = AudioProcessing::kNoError;

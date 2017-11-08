@@ -29,8 +29,7 @@ class RateLimiter {
         period_length_(period),
         used_in_period_(0),
         period_start_(0.0),
-        period_end_(period) {
-  }
+        period_end_(period) {}
   virtual ~RateLimiter() {}
 
   // Returns true if if the desired quantity is available in the
@@ -41,13 +40,9 @@ class RateLimiter {
   // period, a new period is started.
   void Use(size_t used, double time);
 
-  size_t used_in_period() const {
-    return used_in_period_;
-  }
+  size_t used_in_period() const { return used_in_period_; }
 
-  size_t max_per_period() const {
-    return max_per_period_;
-  }
+  size_t max_per_period() const { return max_per_period_; }
 
  private:
   size_t max_per_period_;

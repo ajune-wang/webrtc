@@ -47,7 +47,9 @@ static bool ValidateFilename(const std::string& value, bool write) {
   return true;
 }
 
-DEFINE_string(in_filename, DefaultInFilename().c_str(),
+DEFINE_string(
+    in_filename,
+    DefaultInFilename().c_str(),
     "Filename for input audio (specify sample rate with --input_sample_rate, "
     "and channels with --channels).");
 
@@ -55,18 +57,22 @@ DEFINE_int(input_sample_rate, 16000, "Sample rate of input file in Hz.");
 
 DEFINE_int(channels, 1, "Number of channels in input audio.");
 
-DEFINE_string(out_filename, DefaultOutFilename().c_str(),
-    "Name of output audio file.");
+DEFINE_string(out_filename,
+              DefaultOutFilename().c_str(),
+              "Name of output audio file.");
 
 DEFINE_int(runtime_ms, 10000, "Simulated runtime (milliseconds).");
 
 DEFINE_int(packet_loss_rate, 10, "Percentile of packet loss.");
 
-DEFINE_int(random_loss_mode, 1,
+DEFINE_int(
+    random_loss_mode,
+    1,
     "Random loss mode: 0--no loss, 1--uniform loss, 2--Gilbert Elliot loss.");
 
-DEFINE_int(burst_length, 30,
-    "Burst length in milliseconds, only valid for Gilbert Elliot loss.");
+DEFINE_int(burst_length,
+           30,
+           "Burst length in milliseconds, only valid for Gilbert Elliot loss.");
 
 DEFINE_float(drift_factor, 0.0, "Time drift factor.");
 
@@ -75,21 +81,22 @@ DEFINE_float(drift_factor, 0.0, "Time drift factor.");
 // to achieve the target packet loss rate |loss_rate|, when a packet is not
 // lost only if all |units| drawings within the duration of the packet result in
 // no-loss.
-static double ProbTrans00Solver(int units, double loss_rate,
+static double ProbTrans00Solver(int units,
+                                double loss_rate,
                                 double prob_trans_10) {
   if (units == 1)
     return prob_trans_10 / (1.0f - loss_rate) - prob_trans_10;
-// 0 == prob_trans_00 ^ (units - 1) + (1 - loss_rate) / prob_trans_10 *
-//     prob_trans_00 - (1 - loss_rate) * (1 + 1 / prob_trans_10).
-// There is a unique solution between 0.0 and 1.0, due to the monotonicity and
-// an opposite sign at 0.0 and 1.0.
-// For simplicity, we reformulate the equation as
-//     f(x) = x ^ (units - 1) + a x + b.
-// Its derivative is
-//     f'(x) = (units - 1) x ^ (units - 2) + a.
-// The derivative is strictly greater than 0 when x is between 0 and 1.
-// We use Newton's method to solve the equation, iteration is
-//     x(k+1) = x(k) - f(x) / f'(x);
+  // 0 == prob_trans_00 ^ (units - 1) + (1 - loss_rate) / prob_trans_10 *
+  //     prob_trans_00 - (1 - loss_rate) * (1 + 1 / prob_trans_10).
+  // There is a unique solution between 0.0 and 1.0, due to the monotonicity and
+  // an opposite sign at 0.0 and 1.0.
+  // For simplicity, we reformulate the equation as
+  //     f(x) = x ^ (units - 1) + a x + b.
+  // Its derivative is
+  //     f'(x) = (units - 1) x ^ (units - 2) + a.
+  // The derivative is strictly greater than 0 when x is between 0 and 1.
+  // We use Newton's method to solve the equation, iteration is
+  //     x(k+1) = x(k) - f(x) / f'(x);
   const double kPrecision = 0.001f;
   const int kIterations = 100;
   const double a = (1.0f - loss_rate) / prob_trans_10;
@@ -107,7 +114,7 @@ static double ProbTrans00Solver(int units, double loss_rate,
       x = 0.0f;
     }
     f = pow(x, units - 1) + a * x + b;
-    iter ++;
+    iter++;
   }
   return x;
 }
@@ -196,9 +203,7 @@ bool NoLoss::Lost() {
   return false;
 }
 
-UniformLoss::UniformLoss(double loss_rate)
-    : loss_rate_(loss_rate) {
-}
+UniformLoss::UniformLoss(double loss_rate) : loss_rate_(loss_rate) {}
 
 bool UniformLoss::Lost() {
   int drop_this = rand();
@@ -209,8 +214,7 @@ GilbertElliotLoss::GilbertElliotLoss(double prob_trans_11, double prob_trans_01)
     : prob_trans_11_(prob_trans_11),
       prob_trans_01_(prob_trans_01),
       lost_last_(false),
-      uniform_loss_model_(new UniformLoss(0)) {
-}
+      uniform_loss_model_(new UniformLoss(0)) {}
 
 GilbertElliotLoss::~GilbertElliotLoss() {}
 
@@ -242,8 +246,8 @@ void NetEqQualityTest::SetUp() {
       // a full packet duration is drawn with a loss, |unit_loss_rate| fulfills
       // (1 - unit_loss_rate) ^ (block_duration_ms_ / kPacketLossTimeUnitMs) ==
       // 1 - packet_loss_rate.
-      double unit_loss_rate = (1.0f - pow(1.0f - 0.01f * packet_loss_rate_,
-          1.0f / units));
+      double unit_loss_rate =
+          (1.0f - pow(1.0f - 0.01f * packet_loss_rate_, 1.0f / units));
       loss_model_.reset(new UniformLoss(unit_loss_rate));
       break;
     }
@@ -269,8 +273,8 @@ void NetEqQualityTest::SetUp() {
       double loss_rate = 0.01f * packet_loss_rate_;
       double prob_trans_10 = 1.0f * kPacketLossTimeUnitMs / FLAG_burst_length;
       double prob_trans_00 = ProbTrans00Solver(units, loss_rate, prob_trans_10);
-      loss_model_.reset(new GilbertElliotLoss(1.0f - prob_trans_10,
-                                              1.0f - prob_trans_00));
+      loss_model_.reset(
+          new GilbertElliotLoss(1.0f - prob_trans_10, 1.0f - prob_trans_00));
       break;
     }
     default: {
@@ -293,7 +297,7 @@ bool NetEqQualityTest::PacketLost() {
   // The loop is to make sure that codecs with different block lengths share the
   // same packet loss profile.
   bool lost = false;
-  for (int idx = 0; idx < cycles; idx ++) {
+  for (int idx = 0; idx < cycles; idx++) {
     if (loss_model_->Lost()) {
       // The packet will be lost if any of the drawings indicates a loss, but
       // the loop has to go on to make sure that codecs with different block
@@ -305,14 +309,10 @@ bool NetEqQualityTest::PacketLost() {
 }
 
 int NetEqQualityTest::Transmit() {
-  int packet_input_time_ms =
-      rtp_generator_->GetRtpHeader(kPayloadType, in_size_samples_,
-                                   &rtp_header_);
-  Log() << "Packet of size "
-        << payload_size_bytes_
-        << " bytes, for frame at "
-        << packet_input_time_ms
-        << " ms ";
+  int packet_input_time_ms = rtp_generator_->GetRtpHeader(
+      kPayloadType, in_size_samples_, &rtp_header_);
+  Log() << "Packet of size " << payload_size_bytes_ << " bytes, for frame at "
+        << packet_input_time_ms << " ms ";
   if (payload_size_bytes_ > 0) {
     if (!PacketLost()) {
       int ret = neteq_->InsertPacket(
@@ -356,9 +356,8 @@ void NetEqQualityTest::Simulate() {
     while (decodable_time_ms_ - 10 * block_duration_ms_ < decoded_time_ms_) {
       ASSERT_TRUE(in_file_->Read(in_size_samples_ * channels_, &in_data_[0]));
       payload_.Clear();
-      payload_size_bytes_ = EncodeBlock(&in_data_[0],
-                                        in_size_samples_, &payload_,
-                                        max_payload_bytes_);
+      payload_size_bytes_ = EncodeBlock(&in_data_[0], in_size_samples_,
+                                        &payload_, max_payload_bytes_);
       total_payload_size_bytes_ += payload_size_bytes_;
       decodable_time_ms_ = Transmit() + block_duration_ms_;
     }
@@ -368,8 +367,7 @@ void NetEqQualityTest::Simulate() {
     }
   }
   Log() << "Average bit rate was "
-        << 8.0f * total_payload_size_bytes_ / FLAG_runtime_ms
-        << " kbps"
+        << 8.0f * total_payload_size_bytes_ / FLAG_runtime_ms << " kbps"
         << std::endl;
 }
 

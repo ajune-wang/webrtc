@@ -16,7 +16,7 @@ namespace webrtc {
 namespace {
 constexpr int kWindowMs = 500;
 constexpr int kDeltaTimeMs = 2000;
-}
+}  // namespace
 
 IntervalBudget::IntervalBudget(int initial_target_rate_kbps)
     : IntervalBudget(initial_target_rate_kbps, false) {}

@@ -36,7 +36,8 @@
 // Generic string/memory utilities
 ///////////////////////////////////////////////////////////////////////////////
 
-#define STACK_ARRAY(TYPE, LEN) static_cast<TYPE*>(::alloca((LEN)*sizeof(TYPE)))
+#define STACK_ARRAY(TYPE, LEN) \
+  static_cast<TYPE*>(::alloca((LEN) * sizeof(TYPE)))
 
 namespace rtc {
 
@@ -95,7 +96,7 @@ inline const wchar_t* strstr(const wchar_t* haystack, const wchar_t* needle) {
 inline int vsnprintf(wchar_t* buf, size_t n, const wchar_t* fmt, va_list args) {
   return _vsnwprintf(buf, n, fmt, args);
 }
-#endif // !vsnprintf
+#endif  // !vsnprintf
 inline unsigned long strtoul(const wchar_t* snum, wchar_t** end, int base) {
   return wcstoul(snum, end, base);
 }
@@ -114,7 +115,7 @@ inline int _strnicmp(const char* s1, const char* s2, size_t n) {
   return strncasecmp(s1, s2, n);
 }
 
-#endif // WEBRTC_POSIX
+#endif  // WEBRTC_POSIX
 
 ///////////////////////////////////////////////////////////////////////////////
 // Traits simplifies porting string functions to be CTYPE-agnostic
@@ -124,12 +125,12 @@ namespace rtc {
 
 const size_t SIZE_UNKNOWN = static_cast<size_t>(-1);
 
-template<class CTYPE>
+template <class CTYPE>
 struct Traits {
   // STL string type
-  //typedef XXX string;
+  // typedef XXX string;
   // Null-terminated string
-  //inline static const CTYPE* empty_str();
+  // inline static const CTYPE* empty_str();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -141,10 +142,10 @@ inline const CTYPE* nonnull(const CTYPE* str, const CTYPE* def_str = nullptr) {
   return str ? str : (def_str ? def_str : Traits<CTYPE>::empty_str());
 }
 
-template<class CTYPE>
+template <class CTYPE>
 const CTYPE* strchr(const CTYPE* str, const CTYPE* chs) {
-  for (size_t i=0; str[i]; ++i) {
-    for (size_t j=0; chs[j]; ++j) {
+  for (size_t i = 0; str[i]; ++i) {
+    for (size_t j = 0; chs[j]; ++j) {
       if (str[i] == chs[j]) {
         return str + i;
       }
@@ -153,9 +154,9 @@ const CTYPE* strchr(const CTYPE* str, const CTYPE* chs) {
   return 0;
 }
 
-template<class CTYPE>
+template <class CTYPE>
 const CTYPE* strchrn(const CTYPE* str, size_t slen, CTYPE ch) {
-  for (size_t i=0; i<slen && str[i]; ++i) {
+  for (size_t i = 0; i < slen && str[i]; ++i) {
     if (str[i] == ch) {
       return str + i;
     }
@@ -163,7 +164,7 @@ const CTYPE* strchrn(const CTYPE* str, size_t slen, CTYPE ch) {
   return 0;
 }
 
-template<class CTYPE>
+template <class CTYPE>
 size_t strlenn(const CTYPE* buffer, size_t buflen) {
   size_t bufpos = 0;
   while (buffer[bufpos] && (bufpos < buflen)) {
@@ -175,9 +176,11 @@ size_t strlenn(const CTYPE* buffer, size_t buflen) {
 // Safe versions of strncpy, strncat, snprintf and vsnprintf that always
 // null-terminate.
 
-template<class CTYPE>
-size_t strcpyn(CTYPE* buffer, size_t buflen,
-               const CTYPE* source, size_t srclen = SIZE_UNKNOWN) {
+template <class CTYPE>
+size_t strcpyn(CTYPE* buffer,
+               size_t buflen,
+               const CTYPE* source,
+               size_t srclen = SIZE_UNKNOWN) {
   if (buflen <= 0)
     return 0;
 
@@ -191,9 +194,11 @@ size_t strcpyn(CTYPE* buffer, size_t buflen,
   return srclen;
 }
 
-template<class CTYPE>
-size_t strcatn(CTYPE* buffer, size_t buflen,
-               const CTYPE* source, size_t srclen = SIZE_UNKNOWN) {
+template <class CTYPE>
+size_t strcatn(CTYPE* buffer,
+               size_t buflen,
+               const CTYPE* source,
+               size_t srclen = SIZE_UNKNOWN) {
   if (buflen <= 0)
     return 0;
 
@@ -203,8 +208,10 @@ size_t strcatn(CTYPE* buffer, size_t buflen,
 
 // Some compilers (clang specifically) require vsprintfn be defined before
 // sprintfn.
-template<class CTYPE>
-size_t vsprintfn(CTYPE* buffer, size_t buflen, const CTYPE* format,
+template <class CTYPE>
+size_t vsprintfn(CTYPE* buffer,
+                 size_t buflen,
+                 const CTYPE* format,
                  va_list args) {
   int len = vsnprintf(buffer, buflen, format, args);
   if ((len < 0) || (static_cast<size_t>(len) >= buflen)) {
@@ -214,9 +221,9 @@ size_t vsprintfn(CTYPE* buffer, size_t buflen, const CTYPE* format,
   return len;
 }
 
-template<class CTYPE>
+template <class CTYPE>
 size_t sprintfn(CTYPE* buffer, size_t buflen, const CTYPE* format, ...);
-template<class CTYPE>
+template <class CTYPE>
 size_t sprintfn(CTYPE* buffer, size_t buflen, const CTYPE* format, ...) {
   va_list args;
   va_start(args, format);
@@ -242,16 +249,22 @@ inline int ascncmp(const char* s1, const char* s2, size_t n) {
 inline int ascnicmp(const char* s1, const char* s2, size_t n) {
   return _strnicmp(s1, s2, n);
 }
-inline size_t asccpyn(char* buffer, size_t buflen,
-                      const char* source, size_t srclen = SIZE_UNKNOWN) {
+inline size_t asccpyn(char* buffer,
+                      size_t buflen,
+                      const char* source,
+                      size_t srclen = SIZE_UNKNOWN) {
   return strcpyn(buffer, buflen, source, srclen);
 }
 
 #if defined(WEBRTC_WIN)
 
-typedef wchar_t(*CharacterTransformation)(wchar_t);
-inline wchar_t identity(wchar_t c) { return c; }
-int ascii_string_compare(const wchar_t* s1, const char* s2, size_t n,
+typedef wchar_t (*CharacterTransformation)(wchar_t);
+inline wchar_t identity(wchar_t c) {
+  return c;
+}
+int ascii_string_compare(const wchar_t* s1,
+                         const char* s2,
+                         size_t n,
                          CharacterTransformation transformation);
 
 inline int asccmp(const wchar_t* s1, const char* s2) {
@@ -266,8 +279,10 @@ inline int ascncmp(const wchar_t* s1, const char* s2, size_t n) {
 inline int ascnicmp(const wchar_t* s1, const char* s2, size_t n) {
   return ascii_string_compare(s1, s2, n, tolowercase);
 }
-size_t asccpyn(wchar_t* buffer, size_t buflen,
-               const char* source, size_t srclen = SIZE_UNKNOWN);
+size_t asccpyn(wchar_t* buffer,
+               size_t buflen,
+               const char* source,
+               size_t srclen = SIZE_UNKNOWN);
 
 #endif  // WEBRTC_WIN
 
@@ -275,7 +290,7 @@ size_t asccpyn(wchar_t* buffer, size_t buflen,
 // Traits<char> specializations
 ///////////////////////////////////////////////////////////////////////////////
 
-template<>
+template <>
 struct Traits<char> {
   typedef std::string string;
   inline static const char* empty_str() { return ""; }
@@ -287,7 +302,7 @@ struct Traits<char> {
 
 #if defined(WEBRTC_WIN)
 
-template<>
+template <>
 struct Traits<wchar_t> {
   typedef std::wstring string;
   inline static const wchar_t* empty_str() { return L""; }
@@ -296,21 +311,21 @@ struct Traits<wchar_t> {
 #endif  // WEBRTC_WIN
 
 // Replaces all occurrences of "search" with "replace".
-void replace_substrs(const char *search,
+void replace_substrs(const char* search,
                      size_t search_len,
-                     const char *replace,
+                     const char* replace,
                      size_t replace_len,
-                     std::string *s);
+                     std::string* s);
 
 // True iff s1 starts with s2.
-bool starts_with(const char *s1, const char *s2);
+bool starts_with(const char* s1, const char* s2);
 
 // True iff s1 ends with s2.
-bool ends_with(const char *s1, const char *s2);
+bool ends_with(const char* s1, const char* s2);
 
 // Remove leading and trailing whitespaces.
 std::string string_trim(const std::string& s);
 
 }  // namespace rtc
 
-#endif // RTC_BASE_STRINGUTILS_H_
+#endif  // RTC_BASE_STRINGUTILS_H_

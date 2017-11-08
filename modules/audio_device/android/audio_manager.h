@@ -13,8 +13,8 @@
 
 #include <memory>
 
-#include <jni.h>
 #include <SLES/OpenSLES.h>
+#include <jni.h>
 
 #include "modules/audio_device/android/audio_common.h"
 #include "modules/audio_device/android/opensles_common.h"

@@ -14,8 +14,8 @@
 #include <map>
 #include <queue>
 #include <set>
-#include <vector>
 #include <utility>
+#include <vector>
 
 #include "modules/include/module_common_types.h"
 #include "modules/pacing/alr_detector.h"
@@ -46,11 +46,13 @@ const float PacedSender::kDefaultPaceMultiplier = 2.5f;
 
 PacedSender::PacedSender(const Clock* clock,
                          PacketSender* packet_sender,
-                         RtcEventLog* event_log) :
-    PacedSender(clock, packet_sender, event_log,
-                webrtc::field_trial::IsEnabled("WebRTC-RoundRobinPacing")
-                    ? rtc::MakeUnique<PacketQueue2>(clock)
-                    : rtc::MakeUnique<PacketQueue>(clock)) {}
+                         RtcEventLog* event_log)
+    : PacedSender(clock,
+                  packet_sender,
+                  event_log,
+                  webrtc::field_trial::IsEnabled("WebRTC-RoundRobinPacing")
+                      ? rtc::MakeUnique<PacketQueue2>(clock)
+                      : rtc::MakeUnique<PacketQueue>(clock)) {}
 
 PacedSender::PacedSender(const Clock* clock,
                          PacketSender* packet_sender,
@@ -152,7 +154,7 @@ void PacedSender::InsertPacket(RtpPacketSender::Priority priority,
                                bool retransmission) {
   rtc::CritScope cs(&critsect_);
   RTC_DCHECK(estimated_bitrate_bps_ > 0)
-        << "SetEstimatedBitrate must be called before InsertPacket.";
+      << "SetEstimatedBitrate must be called before InsertPacket.";
 
   int64_t now_ms = clock_->TimeInMilliseconds();
   prober_->OnIncomingPacket(bytes);

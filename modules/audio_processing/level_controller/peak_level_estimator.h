@@ -24,6 +24,7 @@ class PeakLevelEstimator {
   void Initialize(float initial_peak_level_dbfs);
   float Analyze(SignalClassifier::SignalType signal_type,
                 float frame_peak_level);
+
  private:
   float peak_level_;
   int hold_counter_;

@@ -38,4 +38,4 @@ class ScopedPixelBufferObject {
 
 }  // namespace webrtc
 
-#endif // MODULES_DESKTOP_CAPTURE_SCOPED_PIXEL_BUFFER_OBJECT_H_
+#endif  // MODULES_DESKTOP_CAPTURE_SCOPED_PIXEL_BUFFER_OBJECT_H_

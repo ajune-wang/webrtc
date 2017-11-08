@@ -22,8 +22,8 @@
 #include "system_wrappers/include/clock.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
-#define RTCP_CNAME_SIZE 256    // RFC 3550 page 44, including null termination
-#define IP_PACKET_SIZE 1500    // we assume ethernet
+#define RTCP_CNAME_SIZE 256  // RFC 3550 page 44, including null termination
+#define IP_PACKET_SIZE 1500  // we assume ethernet
 #define MAX_NUMBER_OF_PARALLEL_TELEPHONE_EVENTS 10
 
 namespace webrtc {
@@ -88,15 +88,9 @@ class PayloadUnion {
 
 enum RTPAliveType { kRtpDead = 0, kRtpNoRtp = 1, kRtpAlive = 2 };
 
-enum ProtectionType {
-  kUnprotectedPacket,
-  kProtectedPacket
-};
+enum ProtectionType { kUnprotectedPacket, kProtectedPacket };
 
-enum StorageType {
-  kDontRetransmit,
-  kAllowRetransmission
-};
+enum StorageType { kDontRetransmit, kAllowRetransmission };
 
 enum RTPExtensionType {
   kRtpExtensionNone,
@@ -157,10 +151,10 @@ enum RetransmissionMode : uint8_t {
 };
 
 enum RtxMode {
-  kRtxOff                 = 0x0,
-  kRtxRetransmitted       = 0x1,  // Only send retransmissions over RTX.
-  kRtxRedundantPayloads   = 0x2   // Preventively send redundant payloads
-                                  // instead of padding.
+  kRtxOff = 0x0,
+  kRtxRetransmitted = 0x1,     // Only send retransmissions over RTX.
+  kRtxRedundantPayloads = 0x2  // Preventively send redundant payloads
+                               // instead of padding.
 };
 
 const size_t kRtxHeaderSize = 2;
@@ -269,8 +263,8 @@ class RtpFeedback {
 
   // Receiving payload change or SSRC change. (return success!)
   /*
-  *   channels    - number of channels in codec (1 = mono, 2 = stereo)
-  */
+   *   channels    - number of channels in codec (1 = mono, 2 = stereo)
+   */
   virtual int32_t OnInitializeDecoder(int payload_type,
                                       const SdpAudioFormat& audio_format,
                                       uint32_t rate) = 0;
@@ -284,11 +278,11 @@ class RtcpIntraFrameObserver {
  public:
   virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) = 0;
 
-  RTC_DEPRECATED virtual void OnReceivedSLI(uint32_t ssrc,
-                             uint8_t picture_id) {}
+  RTC_DEPRECATED virtual void OnReceivedSLI(uint32_t ssrc, uint8_t picture_id) {
+  }
 
   RTC_DEPRECATED virtual void OnReceivedRPSI(uint32_t ssrc,
-                              uint64_t picture_id) {}
+                                             uint64_t picture_id) {}
 
   virtual ~RtcpIntraFrameObserver() {}
 };

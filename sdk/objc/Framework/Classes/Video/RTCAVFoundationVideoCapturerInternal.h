@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) dispatch_queue_t frameQueue;
 @property(nonatomic, readonly) BOOL canUseBackCamera;
 @property(nonatomic, assign) BOOL useBackCamera;  // Defaults to NO.
-@property(atomic, assign) BOOL isRunning;  // Whether the capture session is running.
-@property(atomic, assign) BOOL hasStarted;  // Whether we have an unmatched start.
+@property(atomic, assign) BOOL isRunning;         // Whether the capture session is running.
+@property(atomic, assign) BOOL hasStarted;        // Whether we have an unmatched start.
 
 // We keep a pointer back to AVFoundationVideoCapturer to make callbacks on it
 // when we receive frames. This is safe because this object should be owned by

@@ -12,8 +12,8 @@
 #define COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_
 
 #include <algorithm>
-#include <limits>
 #include <cstring>
+#include <limits>
 
 #include "rtc_base/checks.h"
 #include "typedefs.h"  // NOLINT(build/include)

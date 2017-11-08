@@ -12,8 +12,8 @@
 #define RTC_BASE_PLATFORM_THREAD_TYPES_H_
 
 #if defined(WEBRTC_WIN)
-#include <winsock2.h>
 #include <windows.h>
+#include <winsock2.h>
 #elif defined(WEBRTC_POSIX)
 #include <pthread.h>
 #include <unistd.h>

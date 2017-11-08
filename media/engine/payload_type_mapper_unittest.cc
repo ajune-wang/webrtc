@@ -39,42 +39,44 @@ class PayloadTypeMapperTest : public testing::Test {
 };
 
 TEST_F(PayloadTypeMapperTest, StaticPayloadTypes) {
-  EXPECT_EQ(0,  FindMapping({"pcmu",   8000, 1}));
-  EXPECT_EQ(3,  FindMapping({"gsm",    8000, 1}));
-  EXPECT_EQ(4,  FindMapping({"g723",   8000, 1}));
-  EXPECT_EQ(5,  FindMapping({"dvi4",   8000, 1}));
-  EXPECT_EQ(6,  FindMapping({"dvi4",  16000, 1}));
-  EXPECT_EQ(7,  FindMapping({"lpc",    8000, 1}));
-  EXPECT_EQ(8,  FindMapping({"pcma",   8000, 1}));
-  EXPECT_EQ(9,  FindMapping({"g722",   8000, 1}));
-  EXPECT_EQ(10, FindMapping({"l16",   44100, 2}));
-  EXPECT_EQ(11, FindMapping({"l16",   44100, 1}));
-  EXPECT_EQ(12, FindMapping({"qcelp",  8000, 1}));
-  EXPECT_EQ(13, FindMapping({"cn",     8000, 1}));
-  EXPECT_EQ(14, FindMapping({"mpa",   90000, 0}));
-  EXPECT_EQ(14, FindMapping({"mpa",   90000, 1}));
-  EXPECT_EQ(15, FindMapping({"g728",   8000, 1}));
-  EXPECT_EQ(16, FindMapping({"dvi4",  11025, 1}));
-  EXPECT_EQ(17, FindMapping({"dvi4",  22050, 1}));
-  EXPECT_EQ(18, FindMapping({"g729",   8000, 1}));
+  EXPECT_EQ(0, FindMapping({"pcmu", 8000, 1}));
+  EXPECT_EQ(3, FindMapping({"gsm", 8000, 1}));
+  EXPECT_EQ(4, FindMapping({"g723", 8000, 1}));
+  EXPECT_EQ(5, FindMapping({"dvi4", 8000, 1}));
+  EXPECT_EQ(6, FindMapping({"dvi4", 16000, 1}));
+  EXPECT_EQ(7, FindMapping({"lpc", 8000, 1}));
+  EXPECT_EQ(8, FindMapping({"pcma", 8000, 1}));
+  EXPECT_EQ(9, FindMapping({"g722", 8000, 1}));
+  EXPECT_EQ(10, FindMapping({"l16", 44100, 2}));
+  EXPECT_EQ(11, FindMapping({"l16", 44100, 1}));
+  EXPECT_EQ(12, FindMapping({"qcelp", 8000, 1}));
+  EXPECT_EQ(13, FindMapping({"cn", 8000, 1}));
+  EXPECT_EQ(14, FindMapping({"mpa", 90000, 0}));
+  EXPECT_EQ(14, FindMapping({"mpa", 90000, 1}));
+  EXPECT_EQ(15, FindMapping({"g728", 8000, 1}));
+  EXPECT_EQ(16, FindMapping({"dvi4", 11025, 1}));
+  EXPECT_EQ(17, FindMapping({"dvi4", 22050, 1}));
+  EXPECT_EQ(18, FindMapping({"g729", 8000, 1}));
 }
 
 TEST_F(PayloadTypeMapperTest, WebRTCPayloadTypes) {
   // Tests that the payload mapper knows about the audio and data formats we've
   // been using in WebRTC, with their hard coded values.
-  auto data_mapping = [this] (const char *name) {
+  auto data_mapping = [this](const char* name) {
     return FindMapping({name, 0, 0});
   };
   EXPECT_EQ(kGoogleRtpDataCodecPlType, data_mapping(kGoogleRtpDataCodecName));
   EXPECT_EQ(kGoogleSctpDataCodecPlType, data_mapping(kGoogleSctpDataCodecName));
 
-  EXPECT_EQ(102, FindMapping({kIlbcCodecName,  8000, 1}));
+  EXPECT_EQ(102, FindMapping({kIlbcCodecName, 8000, 1}));
   EXPECT_EQ(103, FindMapping({kIsacCodecName, 16000, 1}));
   EXPECT_EQ(104, FindMapping({kIsacCodecName, 32000, 1}));
-  EXPECT_EQ(105, FindMapping({kCnCodecName,   16000, 1}));
-  EXPECT_EQ(106, FindMapping({kCnCodecName,   32000, 1}));
-  EXPECT_EQ(111, FindMapping({kOpusCodecName, 48000, 2,
-        {{"minptime", "10"}, {"useinbandfec", "1"}}}));
+  EXPECT_EQ(105, FindMapping({kCnCodecName, 16000, 1}));
+  EXPECT_EQ(106, FindMapping({kCnCodecName, 32000, 1}));
+  EXPECT_EQ(111, FindMapping({kOpusCodecName,
+                              48000,
+                              2,
+                              {{"minptime", "10"}, {"useinbandfec", "1"}}}));
   // TODO(solenberg): Remove 16k, 32k, 48k DTMF checks once these payload types
   // are dynamically assigned.
   EXPECT_EQ(110, FindMapping({kDtmfCodecName, 48000, 1}));
@@ -100,7 +102,7 @@ TEST_F(PayloadTypeMapperTest, ValidDynamicPayloadTypes) {
   std::set<int> used_payload_types;
   for (int i = 0; i != 256; ++i) {
     std::string format_name = "unknown_format_" + std::to_string(i);
-    webrtc::SdpAudioFormat format(format_name.c_str(), i*100, (i % 2) + 1);
+    webrtc::SdpAudioFormat format(format_name.c_str(), i * 100, (i % 2) + 1);
     auto opt_payload_type = mapper_.GetMappingFor(format);
     bool mapper_is_full = false;
 
@@ -141,7 +143,7 @@ TEST_F(PayloadTypeMapperTest, ToAudioCodec) {
   EXPECT_TRUE(opt_audio_codec);
 
   if (opt_payload_type && opt_audio_codec) {
-    int payload_type        = *opt_payload_type;
+    int payload_type = *opt_payload_type;
     const AudioCodec& codec = *opt_audio_codec;
 
     EXPECT_EQ(codec.id, payload_type);

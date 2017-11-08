@@ -70,10 +70,10 @@ class MediaContentDescription;
 // vtable, and the media channel's thread using BaseChannel as the
 // NetworkInterface.
 
-class BaseChannel
-    : public rtc::MessageHandler, public sigslot::has_slots<>,
-      public MediaChannel::NetworkInterface,
-      public ConnectionStatsGetter {
+class BaseChannel : public rtc::MessageHandler,
+                    public sigslot::has_slots<>,
+                    public MediaChannel::NetworkInterface,
+                    public ConnectionStatsGetter {
  public:
   // If |srtp_required| is true, the channel will not send or receive any
   // RTP/RTCP packets without using SRTP (either using SDES or DTLS-SRTP).
@@ -179,8 +179,7 @@ class BaseChannel
   void OnTransportReadyToSend(bool ready);
 
   // Only public for unit tests.  Otherwise, consider protected.
-  int SetOption(SocketType type, rtc::Socket::Option o, int val)
-      override;
+  int SetOption(SocketType type, rtc::Socket::Option o, int val) override;
   int SetOption_n(SocketType type, rtc::Socket::Option o, int val);
 
   virtual cricket::MediaType media_type() = 0;
@@ -257,7 +256,8 @@ class BaseChannel
                   const rtc::PacketOptions& options);
 
   bool WantsPacket(bool rtcp, const rtc::CopyOnWriteBuffer* packet);
-  void HandlePacket(bool rtcp, rtc::CopyOnWriteBuffer* packet,
+  void HandlePacket(bool rtcp,
+                    rtc::CopyOnWriteBuffer* packet,
                     const rtc::PacketTime& packet_time);
   // TODO(zstein): packet can be const once the RtpTransport handles protection.
   virtual void OnPacketReceived(bool rtcp,
@@ -306,10 +306,14 @@ class BaseChannel
                                   ContentAction action,
                                   std::string* error_desc) = 0;
   bool SetRtpTransportParameters(const MediaContentDescription* content,
-      ContentAction action, ContentSource src,
-      const RtpHeaderExtensions& extensions, std::string* error_desc);
-  bool SetRtpTransportParameters_n(const MediaContentDescription* content,
-      ContentAction action, ContentSource src,
+                                 ContentAction action,
+                                 ContentSource src,
+                                 const RtpHeaderExtensions& extensions,
+                                 std::string* error_desc);
+  bool SetRtpTransportParameters_n(
+      const MediaContentDescription* content,
+      ContentAction action,
+      ContentSource src,
       const std::vector<int>& encrypted_extension_ids,
       std::string* error_desc);
 
@@ -341,7 +345,8 @@ class BaseChannel
   void OnMessage(rtc::Message* pmsg) override;
 
   // Handled in derived classes
-  virtual void OnConnectionMonitorUpdate(ConnectionMonitor* monitor,
+  virtual void OnConnectionMonitorUpdate(
+      ConnectionMonitor* monitor,
       const std::vector<ConnectionInfo>& infos) = 0;
 
   // Helper function template for invoking methods on the worker thread.
@@ -630,9 +635,7 @@ class RtpDataChannel : public BaseChannel {
   void StopMediaMonitor();
 
   // Should be called on the signaling thread only.
-  bool ready_to_send_data() const {
-    return ready_to_send_data_;
-  }
+  bool ready_to_send_data() const { return ready_to_send_data_; }
 
   sigslot::signal2<RtpDataChannel*, const DataMediaInfo&> SignalMediaMonitor;
   sigslot::signal2<RtpDataChannel*, const std::vector<ConnectionInfo>&>
@@ -657,11 +660,7 @@ class RtpDataChannel : public BaseChannel {
     SendDataMessageData(const SendDataParams& params,
                         const rtc::CopyOnWriteBuffer* payload,
                         SendDataResult* result)
-        : params(params),
-          payload(payload),
-          result(result),
-          succeeded(false) {
-    }
+        : params(params), payload(payload), result(result), succeeded(false) {}
 
     const SendDataParams& params;
     const rtc::CopyOnWriteBuffer* payload;
@@ -673,11 +672,10 @@ class RtpDataChannel : public BaseChannel {
     // We copy the data because the data will become invalid after we
     // handle DataMediaChannel::SignalDataReceived but before we fire
     // SignalDataReceived.
-    DataReceivedMessageData(
-        const ReceiveDataParams& params, const char* data, size_t len)
-        : params(params),
-          payload(data, len) {
-    }
+    DataReceivedMessageData(const ReceiveDataParams& params,
+                            const char* data,
+                            size_t len)
+        : params(params), payload(data, len) {}
     const ReceiveDataParams params;
     const rtc::CopyOnWriteBuffer payload;
   };
@@ -702,8 +700,9 @@ class RtpDataChannel : public BaseChannel {
       const std::vector<ConnectionInfo>& infos) override;
   void OnMediaMonitorUpdate(DataMediaChannel* media_channel,
                             const DataMediaInfo& info);
-  void OnDataReceived(
-      const ReceiveDataParams& params, const char* data, size_t len);
+  void OnDataReceived(const ReceiveDataParams& params,
+                      const char* data,
+                      size_t len);
   void OnDataChannelError(uint32_t ssrc, DataMediaChannel::Error error);
   void OnDataChannelReadyToSend(bool writable);
 

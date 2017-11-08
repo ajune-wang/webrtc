@@ -135,8 +135,7 @@ int32_t RtpReceiverImpl::RegisterReceivePayload(const VideoCodec& video_codec) {
   return rtp_payload_registry_->RegisterReceivePayload(video_codec);
 }
 
-int32_t RtpReceiverImpl::DeRegisterReceivePayload(
-    const int8_t payload_type) {
+int32_t RtpReceiverImpl::DeRegisterReceivePayload(const int8_t payload_type) {
   rtc::CritScope lock(&critical_section_rtp_receiver_);
   return rtp_payload_registry_->DeRegisterReceivePayload(payload_type);
 }
@@ -153,13 +152,12 @@ int32_t RtpReceiverImpl::CSRCs(uint32_t array_of_csrcs[kRtpCsrcSize]) const {
   assert(num_csrcs_ <= kRtpCsrcSize);
 
   if (num_csrcs_ > 0) {
-    memcpy(array_of_csrcs, current_remote_csrc_, sizeof(uint32_t)*num_csrcs_);
+    memcpy(array_of_csrcs, current_remote_csrc_, sizeof(uint32_t) * num_csrcs_);
   }
   return num_csrcs_;
 }
 
-int32_t RtpReceiverImpl::Energy(
-    uint8_t array_of_energy[kRtpCsrcSize]) const {
+int32_t RtpReceiverImpl::Energy(uint8_t array_of_energy[kRtpCsrcSize]) const {
   return rtp_media_receiver_->Energy(array_of_energy);
 }
 
@@ -370,9 +368,8 @@ int32_t RtpReceiverImpl::CheckPayloadChanged(const RTPHeader& rtp_header,
       }
       bool should_discard_changes = false;
 
-      rtp_media_receiver_->CheckPayloadChanged(
-        payload_type, specific_payload,
-        &should_discard_changes);
+      rtp_media_receiver_->CheckPayloadChanged(payload_type, specific_payload,
+                                               &should_discard_changes);
 
       if (should_discard_changes) {
         *is_red = false;
@@ -429,10 +426,10 @@ void RtpReceiverImpl::CheckCSRC(const WebRtcRTPHeader& rtp_header) {
     rtc::CritScope lock(&critical_section_rtp_receiver_);
 
     if (!rtp_media_receiver_->ShouldReportCsrcChanges(
-        rtp_header.header.payloadType)) {
+            rtp_header.header.payloadType)) {
       return;
     }
-    old_num_csrcs  = num_csrcs_;
+    old_num_csrcs = num_csrcs_;
     if (old_num_csrcs > 0) {
       // Make a copy of old.
       memcpy(old_remote_csrc, current_remote_csrc_,
@@ -441,8 +438,7 @@ void RtpReceiverImpl::CheckCSRC(const WebRtcRTPHeader& rtp_header) {
     const uint8_t num_csrcs = rtp_header.header.numCSRCs;
     if ((num_csrcs > 0) && (num_csrcs <= kRtpCsrcSize)) {
       // Copy new.
-      memcpy(current_remote_csrc_,
-             rtp_header.header.arrOfCSRCs,
+      memcpy(current_remote_csrc_, rtp_header.header.arrOfCSRCs,
              num_csrcs * sizeof(uint32_t));
     }
     if (num_csrcs > 0 || old_num_csrcs > 0) {

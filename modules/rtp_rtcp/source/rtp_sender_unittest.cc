@@ -865,8 +865,9 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
   EXPECT_EQ(kPayloadSizes[0],
             rtp_sender_->TimeToSendPadding(500, PacedPacketInfo()));
 
-  EXPECT_CALL(transport, SendRtp(_, kPayloadSizes[kNumPayloadSizes - 1] +
-                                        rtp_header_len + kRtxHeaderSize,
+  EXPECT_CALL(transport, SendRtp(_,
+                                 kPayloadSizes[kNumPayloadSizes - 1] +
+                                     rtp_header_len + kRtxHeaderSize,
                                  _))
       .WillOnce(testing::Return(true));
   EXPECT_CALL(transport, SendRtp(_, kMaxPaddingSize + rtp_header_len, _))
@@ -1951,9 +1952,8 @@ TEST_P(RtpSenderTest, SendAudioPadding) {
   const size_t kMinPaddingSize = 50;
   EXPECT_CALL(transport, SendRtp(_, kMinPaddingSize + kRtpHeaderSize, _))
       .WillOnce(testing::Return(true));
-  EXPECT_EQ(
-      kMinPaddingSize,
-      rtp_sender_->TimeToSendPadding(kMinPaddingSize - 5, PacedPacketInfo()));
+  EXPECT_EQ(kMinPaddingSize, rtp_sender_->TimeToSendPadding(kMinPaddingSize - 5,
+                                                            PacedPacketInfo()));
 }
 
 TEST_P(RtpSenderTest, SendsKeepAlive) {

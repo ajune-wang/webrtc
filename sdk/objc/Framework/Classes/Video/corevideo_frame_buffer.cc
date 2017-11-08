@@ -10,9 +10,9 @@
 
 #include "sdk/objc/Framework/Classes/Video/corevideo_frame_buffer.h"
 
-#include "libyuv/convert.h"
 #include "api/video/i420_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "libyuv/convert.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
@@ -90,12 +90,9 @@ rtc::scoped_refptr<I420BufferInterface> CoreVideoFrameBuffer::ToI420() {
   rtc::scoped_refptr<I420Buffer> buffer =
       new rtc::RefCountedObject<I420Buffer>(width_, height_);
   nv12_to_i420_scaler.NV12ToI420Scale(
-      src_y, src_y_stride,
-      src_uv, src_uv_stride,
-      crop_width_, crop_height_,
-      buffer->MutableDataY(), buffer->StrideY(),
-      buffer->MutableDataU(), buffer->StrideU(),
-      buffer->MutableDataV(), buffer->StrideV(),
+      src_y, src_y_stride, src_uv, src_uv_stride, crop_width_, crop_height_,
+      buffer->MutableDataY(), buffer->StrideY(), buffer->MutableDataU(),
+      buffer->StrideU(), buffer->MutableDataV(), buffer->StrideV(),
       buffer->width(), buffer->height());
 
   CVPixelBufferUnlockBaseAddress(pixel_buffer_, kCVPixelBufferLock_ReadOnly);
@@ -161,13 +158,9 @@ bool CoreVideoFrameBuffer::CropAndScaleTo(
     tmp_buffer->shrink_to_fit();
   }
 
-  NV12Scale(tmp_buffer->data(),
-            src_y, src_y_stride,
-            src_uv, src_uv_stride,
-            crop_width_, crop_height_,
-            dst_y, dst_y_stride,
-            dst_uv, dst_uv_stride,
-            dst_width, dst_height);
+  NV12Scale(tmp_buffer->data(), src_y, src_y_stride, src_uv, src_uv_stride,
+            crop_width_, crop_height_, dst_y, dst_y_stride, dst_uv,
+            dst_uv_stride, dst_width, dst_height);
 
   CVPixelBufferUnlockBaseAddress(pixel_buffer_, kCVPixelBufferLock_ReadOnly);
   CVPixelBufferUnlockBaseAddress(output_pixel_buffer, 0);

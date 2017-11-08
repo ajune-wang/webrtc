@@ -51,9 +51,8 @@ class FireAndForgetAsyncClosure : public AsyncClosure {
   explicit FireAndForgetAsyncClosure(AsyncInvoker* invoker,
                                      const FunctorT& functor)
       : AsyncClosure(invoker), functor_(functor) {}
-  virtual void Execute() {
-    functor_();
-  }
+  virtual void Execute() { functor_(); }
+
  private:
   FunctorT functor_;
 };

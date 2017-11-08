@@ -69,8 +69,8 @@ class SimulcastRateAllocatorTest : public ::testing::TestWithParam<bool> {
     uint32_t sum = 0;
     for (size_t i = 0; i < S; ++i) {
       uint32_t layer_bitrate = actual.GetSpatialLayerSum(i);
-      EXPECT_EQ(expected[i] * 1000U, layer_bitrate) << "Mismatch at index "
-                                                    << i;
+      EXPECT_EQ(expected[i] * 1000U, layer_bitrate)
+          << "Mismatch at index " << i;
       sum += layer_bitrate;
     }
     EXPECT_EQ(sum, actual.get_sum_bps());

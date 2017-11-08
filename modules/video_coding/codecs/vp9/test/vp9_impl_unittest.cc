@@ -9,8 +9,8 @@
  */
 
 #include "common_video/libyuv/include/webrtc_libyuv.h"
-#include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "modules/video_coding/codecs/test/video_codec_test.h"
+#include "modules/video_coding/codecs/vp9/include/vp9.h"
 
 namespace webrtc {
 

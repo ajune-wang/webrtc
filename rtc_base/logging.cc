@@ -31,8 +31,8 @@ static const int kMaxLogLineSize = 1024 - 60;
 
 static const char kLibjingle[] = "libjingle";
 
-#include <time.h>
 #include <limits.h>
+#include <time.h>
 
 #include <algorithm>
 #include <iomanip>
@@ -141,7 +141,7 @@ LogMessage::LogMessage(const char* file,
   }
 
   if (file != nullptr)
-    print_stream_ << "(" << FilenameFromPath(file)  << ":" << line << "): ";
+    print_stream_ << "(" << FilenameFromPath(file) << ":" << line << "): ";
 
   if (err_ctx != ERRCTX_NONE) {
     std::ostringstream tmp;
@@ -161,7 +161,7 @@ LogMessage::LogMessage(const char* file,
                 flags, hmod, err, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
                 msgbuf, sizeof(msgbuf) / sizeof(msgbuf[0]), nullptr)) {
           while ((len > 0) &&
-              isspace(static_cast<unsigned char>(msgbuf[len-1]))) {
+                 isspace(static_cast<unsigned char>(msgbuf[len - 1]))) {
             msgbuf[--len] = 0;
           }
           tmp << " " << msgbuf;
@@ -288,7 +288,7 @@ void LogMessage::ConfigureLogging(const char* params) {
     } else if (token == "thread") {
       LogThreads();
 
-    // Logging levels
+      // Logging levels
     } else if (token == "sensitive") {
       current_level = LS_SENSITIVE;
     } else if (token == "verbose") {
@@ -302,7 +302,7 @@ void LogMessage::ConfigureLogging(const char* params) {
     } else if (token == "none") {
       current_level = LS_NONE;
 
-    // Logging targets
+      // Logging targets
     } else if (token == "debug") {
       debug_level = current_level;
     }
@@ -315,11 +315,12 @@ void LogMessage::ConfigureLogging(const char* params) {
     // our own console window.
     // Note: These methods fail if a console already exists, which is fine.
     bool success = false;
-    typedef BOOL (WINAPI* PFN_AttachConsole)(DWORD);
+    typedef BOOL(WINAPI * PFN_AttachConsole)(DWORD);
     if (HINSTANCE kernel32 = ::LoadLibrary(L"kernel32.dll")) {
       // AttachConsole is defined on WinXP+.
-      if (PFN_AttachConsole attach_console = reinterpret_cast<PFN_AttachConsole>
-            (::GetProcAddress(kernel32, "AttachConsole"))) {
+      if (PFN_AttachConsole attach_console =
+              reinterpret_cast<PFN_AttachConsole>(
+                  ::GetProcAddress(kernel32, "AttachConsole"))) {
         success = (FALSE != attach_console(ATTACH_PARENT_PROCESS));
       }
       ::FreeLibrary(kernel32);
@@ -350,9 +351,8 @@ void LogMessage::OutputToDebug(const std::string& str,
   // On the Mac, all stderr output goes to the Console log and causes clutter.
   // So in opt builds, don't log to stderr unless the user specifically sets
   // a preference to do so.
-  CFStringRef key = CFStringCreateWithCString(kCFAllocatorDefault,
-                                              "logToStdErr",
-                                              kCFStringEncodingUTF8);
+  CFStringRef key = CFStringCreateWithCString(
+      kCFAllocatorDefault, "logToStdErr", kCFStringEncodingUTF8);
   CFStringRef domain = CFBundleGetIdentifier(CFBundleGetMainBundle());
   if (key != nullptr && domain != nullptr) {
     Boolean exists_and_is_valid;
@@ -421,9 +421,8 @@ void LogMessage::OutputToDebug(const std::string& str,
       const int len = std::min(size, kMaxLogLineSize);
       // Use the size of the string in the format (str may have \0 in the
       // middle).
-      __android_log_print(prio, tag.c_str(), "[%d/%d] %.*s",
-                          line + 1, max_lines,
-                          len, str.c_str() + idx);
+      __android_log_print(prio, tag.c_str(), "[%d/%d] %.*s", line + 1,
+                          max_lines, len, str.c_str() + idx);
       idx += len;
       size -= len;
       ++line;
@@ -440,13 +439,17 @@ void LogMessage::OutputToDebug(const std::string& str,
 // Logging Helpers
 //////////////////////////////////////////////////////////////////////
 
-void LogMultiline(LoggingSeverity level, const char* label, bool input,
-                  const void* data, size_t len, bool hex_mode,
+void LogMultiline(LoggingSeverity level,
+                  const char* label,
+                  bool input,
+                  const void* data,
+                  size_t len,
+                  bool hex_mode,
                   LogMultilineState* state) {
   if (!LOG_CHECK_LEVEL_V(level))
     return;
 
-  const char * direction = (input ? " << " : " >> ");
+  const char* direction = (input ? " << " : " >> ");
 
   // null data means to flush our count of unprintable characters.
   if (!data) {
@@ -472,13 +475,12 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
       for (size_t i = 0; i < line_len; ++i) {
         unsigned char ch = udata[i];
         asc_line[i] = isprint(ch) ? ch : '.';
-        hex_line[i*2 + i/4] = hex_encode(ch >> 4);
-        hex_line[i*2 + i/4 + 1] = hex_encode(ch & 0xf);
+        hex_line[i * 2 + i / 4] = hex_encode(ch >> 4);
+        hex_line[i * 2 + i / 4 + 1] = hex_encode(ch & 0xf);
       }
-      asc_line[sizeof(asc_line)-1] = 0;
-      hex_line[sizeof(hex_line)-1] = 0;
-      LOG_V(level) << label << direction
-                   << asc_line << " " << hex_line << " ";
+      asc_line[sizeof(asc_line) - 1] = 0;
+      hex_line[sizeof(hex_line) - 1] = 0;
+      LOG_V(level) << label << direction << asc_line << " " << hex_line << " ";
       udata += line_len;
       len -= line_len;
     }
@@ -490,9 +492,8 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
   const unsigned char* end = udata + len;
   while (udata < end) {
     const unsigned char* line = udata;
-    const unsigned char* end_of_line = strchrn<unsigned char>(udata,
-                                                              end - udata,
-                                                              '\n');
+    const unsigned char* end_of_line =
+        strchrn<unsigned char>(udata, end - udata, '\n');
     if (!end_of_line) {
       udata = end_of_line = end;
     } else {
@@ -532,11 +533,11 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
     // characters.
     if (consecutive_unprintable) {
       LOG_V(level) << label << direction << "## " << consecutive_unprintable
-                  << " consecutive unprintable ##";
+                   << " consecutive unprintable ##";
       consecutive_unprintable = 0;
     }
     // Strip off trailing whitespace.
-    while ((end_of_line > line) && isspace(*(end_of_line-1))) {
+    while ((end_of_line > line) && isspace(*(end_of_line - 1))) {
       --end_of_line;
     }
     // Filter out any private data

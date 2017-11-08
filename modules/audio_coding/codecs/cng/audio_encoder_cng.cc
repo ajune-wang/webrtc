@@ -11,8 +11,8 @@
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 
 #include <algorithm>
-#include <memory>
 #include <limits>
+#include <memory>
 #include <utility>
 
 namespace webrtc {
@@ -52,11 +52,10 @@ AudioEncoderCng::AudioEncoderCng(Config&& config)
       sid_frame_interval_ms_(config.sid_frame_interval_ms),
       last_frame_active_(true),
       vad_(config.vad ? std::unique_ptr<Vad>(config.vad)
-           : CreateVad(config.vad_mode)),
+                      : CreateVad(config.vad_mode)),
       cng_encoder_(new ComfortNoiseEncoder(SampleRateHz(),
                                            sid_frame_interval_ms_,
-                                           num_cng_coefficients_)) {
-}
+                                           num_cng_coefficients_)) {}
 
 AudioEncoderCng::~AudioEncoderCng() = default;
 
@@ -158,9 +157,8 @@ void AudioEncoderCng::Reset() {
   rtp_timestamps_.clear();
   last_frame_active_ = true;
   vad_->Reset();
-  cng_encoder_.reset(
-      new ComfortNoiseEncoder(SampleRateHz(), sid_frame_interval_ms_,
-                              num_cng_coefficients_));
+  cng_encoder_.reset(new ComfortNoiseEncoder(
+      SampleRateHz(), sid_frame_interval_ms_, num_cng_coefficients_));
 }
 
 bool AudioEncoderCng::SetFec(bool enable) {
@@ -217,11 +215,10 @@ AudioEncoder::EncodedInfo AudioEncoderCng::EncodePassive(
     // that value, in which case we don't want to overwrite any value from
     // an earlier iteration.
     size_t encoded_bytes_tmp =
-        cng_encoder_->Encode(
-            rtc::ArrayView<const int16_t>(
-                &speech_buffer_[i * samples_per_10ms_frame],
-                samples_per_10ms_frame),
-            force_sid, encoded);
+        cng_encoder_->Encode(rtc::ArrayView<const int16_t>(
+                                 &speech_buffer_[i * samples_per_10ms_frame],
+                                 samples_per_10ms_frame),
+                             force_sid, encoded);
 
     if (encoded_bytes_tmp > 0) {
       RTC_CHECK(!output_produced);
@@ -238,9 +235,8 @@ AudioEncoder::EncodedInfo AudioEncoderCng::EncodePassive(
   return info;
 }
 
-AudioEncoder::EncodedInfo AudioEncoderCng::EncodeActive(
-    size_t frames_to_encode,
-    rtc::Buffer* encoded) {
+AudioEncoder::EncodedInfo AudioEncoderCng::EncodeActive(size_t frames_to_encode,
+                                                        rtc::Buffer* encoded) {
   const size_t samples_per_10ms_frame = SamplesPer10msFrame();
   AudioEncoder::EncodedInfo info;
   for (size_t i = 0; i < frames_to_encode; ++i) {

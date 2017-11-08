@@ -14,9 +14,9 @@
 
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/desktop_frame_win.h"
-#include "modules/desktop_capture/window_finder_win.h"
 #include "modules/desktop_capture/win/screen_capture_utils.h"
 #include "modules/desktop_capture/win/window_capture_utils.h"
+#include "modules/desktop_capture/window_finder_win.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/logging.h"
@@ -102,8 +102,8 @@ bool GetWindowDrawableRect(HWND window,
   }
 
   if (is_maximized) {
-    return GetCroppedWindowRect(
-        window, drawable_rect, /* original_rect */ nullptr);
+    return GetCroppedWindowRect(window, drawable_rect,
+                                /* original_rect */ nullptr);
   }
   *drawable_rect = *original_rect;
   return true;
@@ -187,8 +187,8 @@ bool WindowCapturerWin::FocusOnSelectedSource() {
 
 bool WindowCapturerWin::IsOccluded(const DesktopVector& pos) {
   DesktopVector sys_pos = pos.add(GetFullscreenRect().top_left());
-  return reinterpret_cast<HWND>(window_finder_.GetWindowUnderPoint(sys_pos))
-      != window_;
+  return reinterpret_cast<HWND>(window_finder_.GetWindowUnderPoint(sys_pos)) !=
+         window_;
 }
 
 void WindowCapturerWin::Start(Callback* callback) {
@@ -222,8 +222,7 @@ void WindowCapturerWin::CaptureFrame() {
   // Return a 1x1 black frame if the window is minimized or invisible, to match
   // behavior on mace. Window can be temporarily invisible during the
   // transition of full screen mode on/off.
-  if (original_rect.is_empty() ||
-      IsIconic(window_) ||
+  if (original_rect.is_empty() || IsIconic(window_) ||
       !IsWindowVisible(window_)) {
     std::unique_ptr<DesktopFrame> frame(
         new BasicDesktopFrame(DesktopSize(1, 1)));
@@ -301,10 +300,8 @@ void WindowCapturerWin::CaptureFrame() {
   // Aero is enabled or PrintWindow() failed, use BitBlt.
   if (!result) {
     result = BitBlt(mem_dc, 0, 0, frame->size().width(), frame->size().height(),
-                    window_dc,
-                    cropped_rect.left() - original_rect.left(),
-                    cropped_rect.top() - original_rect.top(),
-                    SRCCOPY);
+                    window_dc, cropped_rect.left() - original_rect.left(),
+                    cropped_rect.top() - original_rect.top(), SRCCOPY);
   }
 
   SelectObject(mem_dc, previous_object);

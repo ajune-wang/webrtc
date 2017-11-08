@@ -56,13 +56,10 @@ struct CreateSessionDescriptionRequest {
     kAnswer,
   };
 
-  CreateSessionDescriptionRequest(
-      Type type,
-      CreateSessionDescriptionObserver* observer,
-      const cricket::MediaSessionOptions& options)
-      : type(type),
-        observer(observer),
-        options(options) {}
+  CreateSessionDescriptionRequest(Type type,
+                                  CreateSessionDescriptionObserver* observer,
+                                  const cricket::MediaSessionOptions& options)
+      : type(type), observer(observer), options(options) {}
 
   Type type;
   rtc::scoped_refptr<CreateSessionDescriptionObserver> observer;

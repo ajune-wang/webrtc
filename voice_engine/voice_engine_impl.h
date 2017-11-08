@@ -26,10 +26,7 @@ class VoiceEngineImpl : public voe::SharedData,  // Must be the first base class
                         public VoiceEngine,
                         public VoEBaseImpl {
  public:
-  VoiceEngineImpl()
-      : SharedData(),
-        VoEBaseImpl(this),
-        _ref_count(0) {}
+  VoiceEngineImpl() : SharedData(), VoEBaseImpl(this), _ref_count(0) {}
   ~VoiceEngineImpl() override { assert(_ref_count.Value() == 0); }
 
   int AddRef();
@@ -41,8 +38,8 @@ class VoiceEngineImpl : public voe::SharedData,  // Must be the first base class
   // to be used while refactoring the VoE API!
   virtual std::unique_ptr<voe::ChannelProxy> GetChannelProxy(int channel_id);
 
- // This is *protected* so that FakeVoiceEngine can inherit from the class and
- // manipulate the reference count. See: fake_voice_engine.h.
+  // This is *protected* so that FakeVoiceEngine can inherit from the class and
+  // manipulate the reference count. See: fake_voice_engine.h.
  protected:
   Atomic32 _ref_count;
 };

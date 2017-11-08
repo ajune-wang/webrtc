@@ -24,8 +24,9 @@ enum {
 MediaMonitor::MediaMonitor(rtc::Thread* worker_thread,
                            rtc::Thread* monitor_thread)
     : worker_thread_(worker_thread),
-      monitor_thread_(monitor_thread), monitoring_(false), rate_(0) {
-}
+      monitor_thread_(monitor_thread),
+      monitoring_(false),
+      rate_(0) {}
 
 MediaMonitor::~MediaMonitor() {
   monitoring_ = false;
@@ -49,31 +50,31 @@ void MediaMonitor::OnMessage(rtc::Message* message) {
   rtc::CritScope cs(&crit_);
 
   switch (message->message_id) {
-  case MSG_MONITOR_START:
-    RTC_DCHECK(rtc::Thread::Current() == worker_thread_);
-    if (!monitoring_) {
-      monitoring_ = true;
+    case MSG_MONITOR_START:
+      RTC_DCHECK(rtc::Thread::Current() == worker_thread_);
+      if (!monitoring_) {
+        monitoring_ = true;
+        PollMediaChannel();
+      }
+      break;
+
+    case MSG_MONITOR_STOP:
+      RTC_DCHECK(rtc::Thread::Current() == worker_thread_);
+      if (monitoring_) {
+        monitoring_ = false;
+        worker_thread_->Clear(this);
+      }
+      break;
+
+    case MSG_MONITOR_POLL:
+      RTC_DCHECK(rtc::Thread::Current() == worker_thread_);
       PollMediaChannel();
-    }
-    break;
+      break;
 
-  case MSG_MONITOR_STOP:
-    RTC_DCHECK(rtc::Thread::Current() == worker_thread_);
-    if (monitoring_) {
-      monitoring_ = false;
-      worker_thread_->Clear(this);
-    }
-    break;
-
-  case MSG_MONITOR_POLL:
-    RTC_DCHECK(rtc::Thread::Current() == worker_thread_);
-    PollMediaChannel();
-    break;
-
-  case MSG_MONITOR_SIGNAL:
-    RTC_DCHECK(rtc::Thread::Current() == monitor_thread_);
-    Update();
-    break;
+    case MSG_MONITOR_SIGNAL:
+      RTC_DCHECK(rtc::Thread::Current() == monitor_thread_);
+      Update();
+      break;
   }
 }
 

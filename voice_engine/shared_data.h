@@ -31,40 +31,39 @@ namespace voe {
 
 class TransmitMixer;
 
-class SharedData
-{
-public:
-    // Public accessors.
-    uint32_t instance_id() const { return _instanceId; }
-    ChannelManager& channel_manager() { return _channelManager; }
-    AudioDeviceModule* audio_device() { return _audioDevicePtr.get(); }
-    void set_audio_device(
-        const rtc::scoped_refptr<AudioDeviceModule>& audio_device);
-    void set_audio_processing(AudioProcessing* audio_processing);
-    TransmitMixer* transmit_mixer() { return _transmitMixerPtr; }
-    rtc::CriticalSection* crit_sec() { return &_apiCritPtr; }
-    ProcessThread* process_thread() { return _moduleProcessThreadPtr.get(); }
-    rtc::TaskQueue* encoder_queue();
+class SharedData {
+ public:
+  // Public accessors.
+  uint32_t instance_id() const { return _instanceId; }
+  ChannelManager& channel_manager() { return _channelManager; }
+  AudioDeviceModule* audio_device() { return _audioDevicePtr.get(); }
+  void set_audio_device(
+      const rtc::scoped_refptr<AudioDeviceModule>& audio_device);
+  void set_audio_processing(AudioProcessing* audio_processing);
+  TransmitMixer* transmit_mixer() { return _transmitMixerPtr; }
+  rtc::CriticalSection* crit_sec() { return &_apiCritPtr; }
+  ProcessThread* process_thread() { return _moduleProcessThreadPtr.get(); }
+  rtc::TaskQueue* encoder_queue();
 
-    int NumOfSendingChannels();
-    int NumOfPlayingChannels();
+  int NumOfSendingChannels();
+  int NumOfPlayingChannels();
 
-protected:
- rtc::ThreadChecker construction_thread_;
- const uint32_t _instanceId;
- rtc::CriticalSection _apiCritPtr;
- ChannelManager _channelManager;
- rtc::scoped_refptr<AudioDeviceModule> _audioDevicePtr;
- TransmitMixer* _transmitMixerPtr;
- std::unique_ptr<ProcessThread> _moduleProcessThreadPtr;
- // |encoder_queue| is defined last to ensure all pending tasks are cancelled
- // and deleted before any other members.
- rtc::TaskQueue encoder_queue_ RTC_ACCESS_ON(construction_thread_);
+ protected:
+  rtc::ThreadChecker construction_thread_;
+  const uint32_t _instanceId;
+  rtc::CriticalSection _apiCritPtr;
+  ChannelManager _channelManager;
+  rtc::scoped_refptr<AudioDeviceModule> _audioDevicePtr;
+  TransmitMixer* _transmitMixerPtr;
+  std::unique_ptr<ProcessThread> _moduleProcessThreadPtr;
+  // |encoder_queue| is defined last to ensure all pending tasks are cancelled
+  // and deleted before any other members.
+  rtc::TaskQueue encoder_queue_ RTC_ACCESS_ON(construction_thread_);
 
- SharedData();
- virtual ~SharedData();
+  SharedData();
+  virtual ~SharedData();
 };
 
 }  // namespace voe
 }  // namespace webrtc
-#endif // VOICE_ENGINE_SHARED_DATA_H_
+#endif  // VOICE_ENGINE_SHARED_DATA_H_

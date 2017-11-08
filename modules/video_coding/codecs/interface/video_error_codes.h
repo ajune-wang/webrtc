@@ -14,9 +14,9 @@
 #pragma message("WARNING: video_coding/codecs/interface is DEPRECATED; "
     "use video_coding/include")
 
-// NOTE: in sync with video_coding_module_defines.h
+    // NOTE: in sync with video_coding_module_defines.h
 
-// Define return values
+    // Define return values
 
 #define WEBRTC_VIDEO_CODEC_REQUEST_SLI 2
 #define WEBRTC_VIDEO_CODEC_NO_OUTPUT 1

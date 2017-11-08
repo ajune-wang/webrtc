@@ -130,7 +130,6 @@ void AecState::Update(const std::vector<std::array<float, kFftLengthBy2Plus1>>&
   // Update the echo audibility evaluator.
   echo_audibility_.Update(x, s, converged_filter);
 
-
   if (config_.ep_strength.echo_can_saturate) {
     // Detect and flag echo saturation.
     RTC_DCHECK_LT(0, x.size());
@@ -345,10 +344,8 @@ void AecState::EchoAudibility::Update(rtc::ArrayView<const float> x,
                                       bool converged_filter) {
   auto result_x = std::minmax_element(x.begin(), x.end());
   auto result_s = std::minmax_element(s.begin(), s.end());
-  const float x_abs =
-      std::max(fabsf(*result_x.first), fabsf(*result_x.second));
-  const float s_abs =
-      std::max(fabsf(*result_s.first), fabsf(*result_s.second));
+  const float x_abs = std::max(fabsf(*result_x.first), fabsf(*result_x.second));
+  const float s_abs = std::max(fabsf(*result_s.first), fabsf(*result_s.second));
 
   if (converged_filter) {
     if (x_abs < 20.f) {

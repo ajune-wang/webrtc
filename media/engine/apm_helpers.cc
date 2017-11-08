@@ -27,8 +27,7 @@ AgcConfig GetAgcConfig(AudioProcessing* apm) {
   return result;
 }
 
-void SetAgcConfig(AudioProcessing* apm,
-                  const AgcConfig& config) {
+void SetAgcConfig(AudioProcessing* apm, const AgcConfig& config) {
   RTC_DCHECK(apm);
   GainControl* gc = apm->gain_control();
   if (gc->set_target_level_dbfs(config.targetLeveldBOv) != 0) {
@@ -43,9 +42,7 @@ void SetAgcConfig(AudioProcessing* apm,
   }
 }
 
-void SetAgcStatus(AudioProcessing* apm,
-                  AudioDeviceModule* adm,
-                  bool enable) {
+void SetAgcStatus(AudioProcessing* apm, AudioDeviceModule* adm, bool enable) {
   RTC_DCHECK(apm);
   RTC_DCHECK(adm);
 #if defined(WEBRTC_IOS) || defined(WEBRTC_ANDROID)
@@ -70,9 +67,7 @@ void SetAgcStatus(AudioProcessing* apm,
   LOG(LS_INFO) << "AGC set to " << enable << " with mode " << agc_mode;
 }
 
-void SetEcStatus(AudioProcessing* apm,
-                 bool enable,
-                 EcModes mode) {
+void SetEcStatus(AudioProcessing* apm, bool enable, EcModes mode) {
   RTC_DCHECK(apm);
   RTC_DCHECK(mode == kEcConference || mode == kEcAecm) << "mode: " << mode;
   EchoCancellation* ec = apm->echo_cancellation();
@@ -87,8 +82,7 @@ void SetEcStatus(AudioProcessing* apm,
       LOG(LS_ERROR) << "Failed to enable/disable AEC: " << enable;
       return;
     }
-    if (ec->set_suppression_level(EchoCancellation::kHighSuppression)
-        != 0) {
+    if (ec->set_suppression_level(EchoCancellation::kHighSuppression) != 0) {
       LOG(LS_ERROR) << "Failed to set high AEC aggressiveness.";
       return;
     }

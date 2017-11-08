@@ -201,5 +201,4 @@ int64_t BitrateProber::GetNextProbeTime(const ProbeCluster& cluster) {
   return cluster.time_started_ms + delta_ms;
 }
 
-
 }  // namespace webrtc

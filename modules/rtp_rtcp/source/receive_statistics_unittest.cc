@@ -24,9 +24,8 @@ const uint32_t kSsrc2 = 2;
 
 class ReceiveStatisticsTest : public ::testing::Test {
  public:
-  ReceiveStatisticsTest() :
-      clock_(0),
-      receive_statistics_(ReceiveStatistics::Create(&clock_)) {
+  ReceiveStatisticsTest()
+      : clock_(0), receive_statistics_(ReceiveStatistics::Create(&clock_)) {
     memset(&header1_, 0, sizeof(header1_));
     header1_.ssrc = kSsrc1;
     header1_.sequenceNumber = 100;
@@ -63,8 +62,7 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
   EXPECT_EQ(200u, bytes_received);
   EXPECT_EQ(2u, packets_received);
 
-  statistician =
-      receive_statistics_->GetStatistician(kSsrc2);
+  statistician = receive_statistics_->GetStatistician(kSsrc2);
   ASSERT_TRUE(statistician != NULL);
   EXPECT_GT(statistician->BitrateReceived(), 0u);
   statistician->GetDataCounters(&bytes_received, &packets_received);
@@ -184,8 +182,8 @@ TEST_F(ReceiveStatisticsTest, RtcpCallbacks) {
 
   // Call GetStatistics, simulating a timed rtcp sender thread.
   RtcpStatistics statistics;
-  receive_statistics_->GetStatistician(kSsrc1)
-      ->GetStatistics(&statistics, true);
+  receive_statistics_->GetStatistician(kSsrc1)->GetStatistics(&statistics,
+                                                              true);
 
   EXPECT_EQ(1u, callback.num_calls_);
   EXPECT_EQ(callback.ssrc_, kSsrc1);
@@ -220,8 +218,8 @@ TEST_F(ReceiveStatisticsTest, RtcpCallbacks) {
   receive_statistics_->IncomingPacket(header1_, kPacketSize1, false);
   ++header1_.sequenceNumber;
 
-  receive_statistics_->GetStatistician(kSsrc1)
-      ->GetStatistics(&statistics, true);
+  receive_statistics_->GetStatistician(kSsrc1)->GetStatistics(&statistics,
+                                                              true);
 
   // Should not have been called after deregister.
   EXPECT_EQ(1u, callback.num_calls_);
@@ -272,8 +270,8 @@ TEST_F(ReceiveStatisticsTest, RtpCallbacks) {
 
   // One packet of size kPacketSize1.
   header1_.headerLength = kHeaderLength;
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength, false);
+  receive_statistics_->IncomingPacket(header1_, kPacketSize1 + kHeaderLength,
+                                      false);
   StreamDataCounters expected;
   expected.transmitted.payload_bytes = kPacketSize1;
   expected.transmitted.header_bytes = kHeaderLength;
@@ -316,8 +314,8 @@ TEST_F(ReceiveStatisticsTest, RtpCallbacks) {
   ++header1_.sequenceNumber;
   clock_.AdvanceTimeMilliseconds(5);
   // One FEC packet.
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength, false);
+  receive_statistics_->IncomingPacket(header1_, kPacketSize1 + kHeaderLength,
+                                      false);
   receive_statistics_->FecPacketReceived(header1_,
                                          kPacketSize1 + kHeaderLength);
   expected.transmitted.payload_bytes = kPacketSize1 * 4;
@@ -333,8 +331,8 @@ TEST_F(ReceiveStatisticsTest, RtpCallbacks) {
   // New stats, but callback should not be called.
   ++header1_.sequenceNumber;
   clock_.AdvanceTimeMilliseconds(5);
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength, true);
+  receive_statistics_->IncomingPacket(header1_, kPacketSize1 + kHeaderLength,
+                                      true);
   callback.Matches(5, kSsrc1, expected);
 }
 
@@ -350,8 +348,8 @@ TEST_F(ReceiveStatisticsTest, RtpCallbacksFecFirst) {
                                          kPacketSize1 + kHeaderLength);
   EXPECT_EQ(0u, callback.num_calls_);
 
-  receive_statistics_->IncomingPacket(
-      header1_, kPacketSize1 + kHeaderLength, false);
+  receive_statistics_->IncomingPacket(header1_, kPacketSize1 + kHeaderLength,
+                                      false);
   StreamDataCounters expected;
   expected.transmitted.payload_bytes = kPacketSize1;
   expected.transmitted.header_bytes = kHeaderLength;

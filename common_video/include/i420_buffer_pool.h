@@ -11,8 +11,8 @@
 #ifndef COMMON_VIDEO_INCLUDE_I420_BUFFER_POOL_H_
 #define COMMON_VIDEO_INCLUDE_I420_BUFFER_POOL_H_
 
-#include <list>
 #include <limits>
+#include <list>
 
 #include "api/video/i420_buffer.h"
 #include "rtc_base/race_checker.h"
@@ -29,8 +29,7 @@ namespace webrtc {
 // are created. This is to prevent memory leaks where frames are not returned.
 class I420BufferPool {
  public:
-  I420BufferPool()
-      : I420BufferPool(false) {}
+  I420BufferPool() : I420BufferPool(false) {}
   explicit I420BufferPool(bool zero_initialize)
       : I420BufferPool(zero_initialize, std::numeric_limits<size_t>::max()) {}
   I420BufferPool(bool zero_initialze, size_t max_number_of_buffers);

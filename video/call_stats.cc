@@ -27,8 +27,7 @@ const float kWeightFactor = 0.3f;
 void RemoveOldReports(int64_t now, std::list<CallStats::RttTime>* reports) {
   // A rtt report is considered valid for this long.
   const int64_t kRttTimeoutMs = 1500;
-  while (!reports->empty() &&
-         (now - reports->front().time) > kRttTimeoutMs) {
+  while (!reports->empty() && (now - reports->front().time) > kRttTimeoutMs) {
     reports->pop_front();
   }
 }
@@ -75,14 +74,10 @@ class RtcpObserver : public RtcpRttStats {
   explicit RtcpObserver(CallStats* owner) : owner_(owner) {}
   virtual ~RtcpObserver() {}
 
-  virtual void OnRttUpdate(int64_t rtt) {
-    owner_->OnRttUpdate(rtt);
-  }
+  virtual void OnRttUpdate(int64_t rtt) { owner_->OnRttUpdate(rtt); }
 
   // Returns the average RTT.
-  virtual int64_t LastProcessedRtt() const {
-    return owner_->avg_rtt_ms();
-  }
+  virtual int64_t LastProcessedRtt() const { return owner_->avg_rtt_ms(); }
 
  private:
   CallStats* owner_;

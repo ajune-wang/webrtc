@@ -29,7 +29,7 @@ static pthread_once_t g_jni_ptr_once = PTHREAD_ONCE_INIT;
 // were attached by the JVM because of a Java->native call.
 static pthread_key_t g_jni_ptr;
 
-JavaVM *GetJVM() {
+JavaVM* GetJVM() {
   RTC_CHECK(g_jvm) << "JNI_OnLoad failed to run?";
   return g_jvm;
 }
@@ -67,7 +67,7 @@ static void CreateJNIPtrKey() {
       << "pthread_key_create";
 }
 
-jint InitGlobalJniVariables(JavaVM *jvm) {
+jint InitGlobalJniVariables(JavaVM* jvm) {
   RTC_CHECK(!g_jvm) << "InitGlobalJniVariables!";
   g_jvm = jvm;
   RTC_CHECK(g_jvm) << "InitGlobalJniVariables handed NULL?";
@@ -112,7 +112,7 @@ JNIEnv* AttachCurrentThreadIfNeeded() {
   args.version = JNI_VERSION_1_6;
   args.name = &name[0];
   args.group = nullptr;
-  // Deal with difference in signatures between Oracle's jni.h and Android's.
+// Deal with difference in signatures between Oracle's jni.h and Android's.
 #ifdef _JAVASOFT_JNI_H_  // Oracle's jni.h violates the JNI spec!
   void* env = nullptr;
 #else
@@ -142,8 +142,10 @@ jlong jlongFromPointer(void* ptr) {
 
 // JNIEnv-helper methods that RTC_CHECK success: no Java exception thrown and
 // found object/class/method/field is non-null.
-jmethodID GetMethodID(
-    JNIEnv* jni, jclass c, const std::string& name, const char* signature) {
+jmethodID GetMethodID(JNIEnv* jni,
+                      jclass c,
+                      const std::string& name,
+                      const char* signature) {
   jmethodID m = jni->GetMethodID(c, name.c_str(), signature);
   CHECK_EXCEPTION(jni) << "error during GetMethodID: " << name << ", "
                        << signature;
@@ -151,8 +153,10 @@ jmethodID GetMethodID(
   return m;
 }
 
-jmethodID GetStaticMethodID(
-    JNIEnv* jni, jclass c, const char* name, const char* signature) {
+jmethodID GetStaticMethodID(JNIEnv* jni,
+                            jclass c,
+                            const char* name,
+                            const char* signature) {
   jmethodID m = jni->GetStaticMethodID(c, name, signature);
   CHECK_EXCEPTION(jni) << "error during GetStaticMethodID: " << name << ", "
                        << signature;
@@ -160,8 +164,10 @@ jmethodID GetStaticMethodID(
   return m;
 }
 
-jfieldID GetFieldID(
-    JNIEnv* jni, jclass c, const char* name, const char* signature) {
+jfieldID GetFieldID(JNIEnv* jni,
+                    jclass c,
+                    const char* name,
+                    const char* signature) {
   jfieldID f = jni->GetFieldID(c, name, signature);
   CHECK_EXCEPTION(jni) << "error during GetFieldID";
   RTC_CHECK(f) << name << ", " << signature;
@@ -274,10 +280,12 @@ std::vector<std::string> JavaToStdVectorStrings(JNIEnv* jni, jobject list) {
 }
 
 // Return the (singleton) Java Enum object corresponding to |index|;
-jobject JavaEnumFromIndex(JNIEnv* jni, jclass state_class,
-                          const std::string& state_class_name, int index) {
+jobject JavaEnumFromIndex(JNIEnv* jni,
+                          jclass state_class,
+                          const std::string& state_class_name,
+                          int index) {
   jmethodID state_values_id = GetStaticMethodID(
-      jni, state_class, "values", ("()[L" + state_class_name  + ";").c_str());
+      jni, state_class, "values", ("()[L" + state_class_name + ";").c_str());
   jobjectArray state_values = static_cast<jobjectArray>(
       jni->CallStaticObjectMethod(state_class, state_values_id));
   CHECK_EXCEPTION(jni) << "error during CallStaticObjectMethod";

@@ -76,7 +76,7 @@ bool ValidatePayloadType(int value) {
 
 bool ValidateSsrcValue(const std::string& str) {
   uint32_t dummy_ssrc;
-  if (ParseSsrc(str, &dummy_ssrc)) // Value is ok.
+  if (ParseSsrc(str, &dummy_ssrc))  // Value is ok.
     return true;
   printf("Invalid SSRC: %s\n", str.c_str());
   return false;
@@ -111,10 +111,15 @@ DEFINE_int(cn_nb, 13, "RTP payload type for comfort noise (8 kHz)");
 DEFINE_int(cn_wb, 98, "RTP payload type for comfort noise (16 kHz)");
 DEFINE_int(cn_swb32, 99, "RTP payload type for comfort noise (32 kHz)");
 DEFINE_int(cn_swb48, 100, "RTP payload type for comfort noise (48 kHz)");
-DEFINE_bool(codec_map, false, "Prints the mapping between RTP payload type and "
-    "codec");
-DEFINE_string(replacement_audio_file, "",
-              "A PCM file that will be used to populate ""dummy"" RTP packets");
+DEFINE_bool(codec_map,
+            false,
+            "Prints the mapping between RTP payload type and "
+            "codec");
+DEFINE_string(replacement_audio_file,
+              "",
+              "A PCM file that will be used to populate "
+              "dummy"
+              " RTP packets");
 DEFINE_string(ssrc,
               "",
               "Only use packets with this SSRC (decimal or hex, the latter "
@@ -232,8 +237,8 @@ class FilterSsrcInput : public NetEqInput {
   FilterSsrcInput(std::unique_ptr<NetEqInput> source, uint32_t ssrc)
       : source_(std::move(source)), ssrc_(ssrc) {
     FindNextWithCorrectSsrc();
-    RTC_CHECK(source_->NextHeader()) << "Found no packet with SSRC = 0x"
-                                     << std::hex << ssrc_;
+    RTC_CHECK(source_->NextHeader())
+        << "Found no packet with SSRC = 0x" << std::hex << ssrc_;
   }
 
   // All methods but PopPacket() simply relay to the |source_| object.
@@ -289,8 +294,8 @@ class SsrcSwitchDetector : public NetEqPostInsertPacket {
                          NetEq* neteq) override {
     if (last_ssrc_ && packet.header.ssrc != *last_ssrc_) {
       std::cout << "Changing streams from 0x" << std::hex << *last_ssrc_
-                << " to 0x" << std::hex << packet.header.ssrc
-                << std::dec << " (payload type "
+                << " to 0x" << std::hex << packet.header.ssrc << std::dec
+                << " (payload type "
                 << static_cast<int>(packet.header.payloadType) << ")"
                 << std::endl;
     }
@@ -417,10 +422,13 @@ class StatsGetter : public NetEqGetAudioCallback {
 
 int RunTest(int argc, char* argv[]) {
   std::string program_name = argv[0];
-  std::string usage = "Tool for decoding an RTP dump file using NetEq.\n"
-      "Run " + program_name + " --help for usage.\n"
-      "Example usage:\n" + program_name +
-      " input.rtp output.{pcm, wav}\n";
+  std::string usage =
+      "Tool for decoding an RTP dump file using NetEq.\n"
+      "Run " +
+      program_name +
+      " --help for usage.\n"
+      "Example usage:\n" +
+      program_name + " input.rtp output.{pcm, wav}\n";
   if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true)) {
     return 1;
   }
@@ -562,10 +570,8 @@ int RunTest(int argc, char* argv[]) {
       {FLAG_g722, std::make_pair(NetEqDecoder::kDecoderG722, "g722")},
       {FLAG_avt, std::make_pair(NetEqDecoder::kDecoderAVT, "avt")},
       {FLAG_avt_16, std::make_pair(NetEqDecoder::kDecoderAVT16kHz, "avt-16")},
-      {FLAG_avt_32,
-       std::make_pair(NetEqDecoder::kDecoderAVT32kHz, "avt-32")},
-      {FLAG_avt_48,
-       std::make_pair(NetEqDecoder::kDecoderAVT48kHz, "avt-48")},
+      {FLAG_avt_32, std::make_pair(NetEqDecoder::kDecoderAVT32kHz, "avt-32")},
+      {FLAG_avt_48, std::make_pair(NetEqDecoder::kDecoderAVT48kHz, "avt-48")},
       {FLAG_red, std::make_pair(NetEqDecoder::kDecoderRED, "red")},
       {FLAG_cn_nb, std::make_pair(NetEqDecoder::kDecoderCNGnb, "cng-nb")},
       {FLAG_cn_wb, std::make_pair(NetEqDecoder::kDecoderCNGwb, "cng-wb")},
@@ -596,9 +602,8 @@ int RunTest(int argc, char* argv[]) {
 
     std::set<uint8_t> cn_types = std_set_int32_to_uint8(
         {FLAG_cn_nb, FLAG_cn_wb, FLAG_cn_swb32, FLAG_cn_swb48});
-    std::set<uint8_t> forbidden_types =
-        std_set_int32_to_uint8({FLAG_g722, FLAG_red, FLAG_avt,
-                                FLAG_avt_16, FLAG_avt_32, FLAG_avt_48});
+    std::set<uint8_t> forbidden_types = std_set_int32_to_uint8(
+        {FLAG_g722, FLAG_red, FLAG_avt, FLAG_avt_16, FLAG_avt_32, FLAG_avt_48});
     input.reset(new NetEqReplacementInput(std::move(input), replacement_pt,
                                           cn_types, forbidden_types));
 

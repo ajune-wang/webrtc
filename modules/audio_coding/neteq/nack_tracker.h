@@ -11,8 +11,8 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_NACK_TRACKER_H_
 #define MODULES_AUDIO_CODING_NETEQ_NACK_TRACKER_H_
 
-#include <vector>
 #include <map>
+#include <vector>
 
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
 #include "rtc_base/gtest_prod_util.h"

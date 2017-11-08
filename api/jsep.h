@@ -126,7 +126,9 @@ class SessionDescriptionInterface {
   //
   // Returns the number of candidates removed.
   virtual size_t RemoveCandidates(
-      const std::vector<cricket::Candidate>& candidates) { return 0; }
+      const std::vector<cricket::Candidate>& candidates) {
+    return 0;
+  }
 
   // Returns the number of m= sections in the session description.
   virtual size_t number_of_mediasections() const = 0;

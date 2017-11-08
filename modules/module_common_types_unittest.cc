@@ -88,9 +88,8 @@ TEST(AudioFrameTest, CopyFrom) {
   AudioFrame frame2;
 
   int16_t samples[kNumChannels * kSamplesPerChannel] = {17};
-  frame2.UpdateFrame(kTimestamp, samples, kSamplesPerChannel,
-                     kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
-                     kNumChannels);
+  frame2.UpdateFrame(kTimestamp, samples, kSamplesPerChannel, kSampleRateHz,
+                     AudioFrame::kPLC, AudioFrame::kVadActive, kNumChannels);
   frame1.CopyFrom(frame2);
 
   EXPECT_EQ(frame2.timestamp_, frame1.timestamp_);
@@ -209,7 +208,6 @@ TEST(LatestTimestamp, Wrap) {
   EXPECT_EQ(0x0000FFFFu, LatestTimestamp(0xFFFFFFFF, 0x0000FFFF));
   EXPECT_EQ(0x0000FFFFu, LatestTimestamp(0xFFFF0000, 0x0000FFFF));
 }
-
 
 TEST(SequenceNumberUnwrapper, Limits) {
   SequenceNumberUnwrapper unwrapper;

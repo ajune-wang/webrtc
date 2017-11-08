@@ -32,7 +32,7 @@ PlatformThreadId CurrentThreadId() {
 #elif defined(WEBRTC_ANDROID)
   ret = gettid();
 #elif defined(WEBRTC_LINUX)
-  ret =  syscall(__NR_gettid);
+  ret = syscall(__NR_gettid);
 #else
   // Default implementation for nacl and solaris.
   ret = reinterpret_cast<pid_t>(pthread_self());
@@ -295,48 +295,48 @@ bool PlatformThread::SetPriority(ThreadPriority priority) {
   // Setting thread priorities is not supported in NaCl.
   return true;
 #elif defined(WEBRTC_CHROMIUM_BUILD) && defined(WEBRTC_LINUX)
-  // TODO(tommi): Switch to the same mechanism as Chromium uses for changing
-  // thread priorities.
-  return true;
+    // TODO(tommi): Switch to the same mechanism as Chromium uses for changing
+    // thread priorities.
+    return true;
 #else
 #ifdef WEBRTC_THREAD_RR
-  const int policy = SCHED_RR;
+    const int policy = SCHED_RR;
 #else
-  const int policy = SCHED_FIFO;
+    const int policy = SCHED_FIFO;
 #endif
-  const int min_prio = sched_get_priority_min(policy);
-  const int max_prio = sched_get_priority_max(policy);
-  if (min_prio == -1 || max_prio == -1) {
-    return false;
-  }
+    const int min_prio = sched_get_priority_min(policy);
+    const int max_prio = sched_get_priority_max(policy);
+    if (min_prio == -1 || max_prio == -1) {
+      return false;
+    }
 
-  if (max_prio - min_prio <= 2)
-    return false;
+    if (max_prio - min_prio <= 2)
+      return false;
 
-  // Convert webrtc priority to system priorities:
-  sched_param param;
-  const int top_prio = max_prio - 1;
-  const int low_prio = min_prio + 1;
-  switch (priority) {
-    case kLowPriority:
-      param.sched_priority = low_prio;
-      break;
-    case kNormalPriority:
-      // The -1 ensures that the kHighPriority is always greater or equal to
-      // kNormalPriority.
-      param.sched_priority = (low_prio + top_prio - 1) / 2;
-      break;
-    case kHighPriority:
-      param.sched_priority = std::max(top_prio - 2, low_prio);
-      break;
-    case kHighestPriority:
-      param.sched_priority = std::max(top_prio - 1, low_prio);
-      break;
-    case kRealtimePriority:
-      param.sched_priority = top_prio;
-      break;
-  }
-  return pthread_setschedparam(thread_, policy, &param) == 0;
+    // Convert webrtc priority to system priorities:
+    sched_param param;
+    const int top_prio = max_prio - 1;
+    const int low_prio = min_prio + 1;
+    switch (priority) {
+      case kLowPriority:
+        param.sched_priority = low_prio;
+        break;
+      case kNormalPriority:
+        // The -1 ensures that the kHighPriority is always greater or equal to
+        // kNormalPriority.
+        param.sched_priority = (low_prio + top_prio - 1) / 2;
+        break;
+      case kHighPriority:
+        param.sched_priority = std::max(top_prio - 2, low_prio);
+        break;
+      case kHighestPriority:
+        param.sched_priority = std::max(top_prio - 1, low_prio);
+        break;
+      case kRealtimePriority:
+        param.sched_priority = top_prio;
+        break;
+    }
+    return pthread_setschedparam(thread_, policy, &param) == 0;
 #endif  // defined(WEBRTC_WIN)
 }
 

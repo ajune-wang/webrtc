@@ -58,8 +58,9 @@ int SrtpCryptoSuiteFromName(const std::string& crypto_suite);
 
 // Get key length and salt length for given crypto suite. Returns true for
 // valid suites, otherwise false.
-bool GetSrtpKeyAndSaltLengths(int crypto_suite, int *key_length,
-    int *salt_length);
+bool GetSrtpKeyAndSaltLengths(int crypto_suite,
+                              int* key_length,
+                              int* salt_length);
 
 // Returns true if the given crypto suite id uses a GCM cipher.
 bool IsGcmCryptoSuite(int crypto_suite);
@@ -102,7 +103,6 @@ std::vector<int> GetSupportedDtlsSrtpCryptoSuites(
 // The SSL library requires initialization and cleanup. Static method
 // for doing this are in SSLAdapter. They should possibly be moved out
 // to a neutral class.
-
 
 enum SSLRole { SSL_CLIENT, SSL_SERVER };
 enum SSLMode { SSL_MODE_TLS, SSL_MODE_DTLS };

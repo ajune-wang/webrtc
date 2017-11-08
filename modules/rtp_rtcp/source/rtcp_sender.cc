@@ -206,8 +206,8 @@ void RTCPSender::SetRTCPStatus(RtcpMode new_method) {
   if (method_ == RtcpMode::kOff && new_method != RtcpMode::kOff) {
     // When switching on, reschedule the next packet
     next_time_to_send_rtcp_ =
-      clock_->TimeInMilliseconds() +
-      (audio_ ? RTCP_INTERVAL_AUDIO_MS / 2 : RTCP_INTERVAL_VIDEO_MS / 2);
+        clock_->TimeInMilliseconds() +
+        (audio_ ? RTCP_INTERVAL_AUDIO_MS / 2 : RTCP_INTERVAL_VIDEO_MS / 2);
   }
   method_ = new_method;
 }

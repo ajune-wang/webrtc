@@ -42,8 +42,8 @@ namespace jni {
 class SurfaceTextureHelper : public rtc::RefCountInterface {
  public:
   // Might return null if creating the Java SurfaceTextureHelper fails.
-  static rtc::scoped_refptr<SurfaceTextureHelper> create(
-      JNIEnv* jni, const char* thread_name, jobject j_egl_context);
+  static rtc::scoped_refptr<SurfaceTextureHelper>
+  create(JNIEnv* jni, const char* thread_name, jobject j_egl_context);
 
   jobject GetJavaSurfaceTextureHelper() const;
 

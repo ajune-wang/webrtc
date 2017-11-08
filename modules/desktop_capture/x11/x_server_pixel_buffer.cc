@@ -52,10 +52,8 @@ uint32_t MaskToShift(uint32_t mask) {
 
 // Returns true if |image| is in RGB format.
 bool IsXImageRGBFormat(XImage* image) {
-  return image->bits_per_pixel == 32 &&
-      image->red_mask == 0xff0000 &&
-      image->green_mask == 0xff00 &&
-      image->blue_mask == 0xff;
+  return image->bits_per_pixel == 32 && image->red_mask == 0xff0000 &&
+         image->green_mask == 0xff00 && image->blue_mask == 0xff;
 }
 
 // We expose two forms of blitting to handle variations in the pixel format.
@@ -227,7 +225,7 @@ void XServerPixelBuffer::InitShm(const XWindowAttributes& attributes) {
       }
     } else {
       LOG(LS_WARNING) << "Failed to get shared memory segment. "
-                      "Performance may be degraded.";
+                         "Performance may be degraded.";
     }
   }
 
@@ -243,9 +241,9 @@ void XServerPixelBuffer::InitShm(const XWindowAttributes& attributes) {
   shmctl(shm_segment_info_->shmid, IPC_RMID, 0);
   shm_segment_info_->shmid = -1;
 
-  LOG(LS_VERBOSE) << "Using X shared memory extension v"
-                  << major << "." << minor
-                  << " with" << (have_pixmaps ? "" : "out") << " pixmaps.";
+  LOG(LS_VERBOSE) << "Using X shared memory extension v" << major << "."
+                  << minor << " with" << (have_pixmaps ? "" : "out")
+                  << " pixmaps.";
 }
 
 bool XServerPixelBuffer::InitPixmaps(int depth) {
@@ -254,11 +252,9 @@ bool XServerPixelBuffer::InitPixmaps(int depth) {
 
   {
     XErrorTrap error_trap(display_);
-    shm_pixmap_ = XShmCreatePixmap(display_, window_,
-                                   shm_segment_info_->shmaddr,
-                                   shm_segment_info_,
-                                   window_rect_.width(),
-                                   window_rect_.height(), depth);
+    shm_pixmap_ = XShmCreatePixmap(
+        display_, window_, shm_segment_info_->shmaddr, shm_segment_info_,
+        window_rect_.width(), window_rect_.height(), depth);
     XSync(display_, False);
     if (error_trap.GetLastErrorAndDisable() != 0) {
       // |shm_pixmap_| is not not valid because the request was not processed
@@ -274,8 +270,7 @@ bool XServerPixelBuffer::InitPixmaps(int depth) {
     shm_gc_values.subwindow_mode = IncludeInferiors;
     shm_gc_values.graphics_exposures = False;
     shm_gc_ = XCreateGC(display_, window_,
-                        GCSubwindowMode | GCGraphicsExposures,
-                        &shm_gc_values);
+                        GCSubwindowMode | GCGraphicsExposures, &shm_gc_values);
     XSync(display_, False);
     if (error_trap.GetLastErrorAndDisable() != 0) {
       XFreePixmap(display_, shm_pixmap_);
@@ -320,9 +315,9 @@ bool XServerPixelBuffer::CaptureRect(const DesktopRect& rect,
 
   if (shm_segment_info_ && (shm_pixmap_ || xshm_get_image_succeeded_)) {
     if (shm_pixmap_) {
-      XCopyArea(display_, window_, shm_pixmap_, shm_gc_,
-                rect.left(), rect.top(), rect.width(), rect.height(),
-                rect.left(), rect.top());
+      XCopyArea(display_, window_, shm_pixmap_, shm_gc_, rect.left(),
+                rect.top(), rect.width(), rect.height(), rect.left(),
+                rect.top());
       XSync(display_, False);
     }
 

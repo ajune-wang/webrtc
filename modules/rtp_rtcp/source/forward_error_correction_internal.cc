@@ -220,8 +220,8 @@ void RemainingPacketProtection(int num_media_packets,
     // sub_mask22
 
     const uint8_t* packet_mask_sub_22 =
-        mask_table.fec_packet_mask_table()[num_media_packets -
-                                           1][num_fec_remaining - 1];
+        mask_table.fec_packet_mask_table()[num_media_packets - 1]
+                                          [num_fec_remaining - 1];
 
     FitSubMask(num_mask_bytes, num_mask_bytes, num_fec_remaining,
                packet_mask_sub_22,
@@ -248,8 +248,8 @@ void ImportantPacketProtection(int num_fec_for_imp_packets,
 
   // Get sub_mask1 from table
   const uint8_t* packet_mask_sub_1 =
-      mask_table.fec_packet_mask_table()[num_imp_packets -
-                                         1][num_fec_for_imp_packets - 1];
+      mask_table.fec_packet_mask_table()[num_imp_packets - 1]
+                                        [num_fec_for_imp_packets - 1];
 
   FitSubMask(num_mask_bytes, num_imp_mask_bytes, num_fec_for_imp_packets,
              packet_mask_sub_1, packet_mask);
@@ -380,8 +380,8 @@ void GeneratePacketMasks(int num_media_packets,
     // Mask = (k,n-k), with protection factor = (n-k)/k,
     // where k = num_media_packets, n=total#packets, (n-k)=num_fec_packets.
     memcpy(packet_mask,
-           mask_table.fec_packet_mask_table()[num_media_packets -
-                                              1][num_fec_packets - 1],
+           mask_table.fec_packet_mask_table()[num_media_packets - 1]
+                                             [num_fec_packets - 1],
            num_fec_packets * num_mask_bytes);
   } else {  // UEP case
     UnequalProtectionMask(num_media_packets, num_fec_packets, num_imp_packets,

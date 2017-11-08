@@ -25,8 +25,7 @@ namespace rtc {
 
 FileRotatingStream::FileRotatingStream(const std::string& dir_path,
                                        const std::string& file_prefix)
-    : FileRotatingStream(dir_path, file_prefix, 0, 0, kRead) {
-}
+    : FileRotatingStream(dir_path, file_prefix, 0, 0, kRead) {}
 
 FileRotatingStream::FileRotatingStream(const std::string& dir_path,
                                        const std::string& file_prefix,
@@ -77,8 +76,7 @@ FileRotatingStream::FileRotatingStream(const std::string& dir_path,
   }
 }
 
-FileRotatingStream::~FileRotatingStream() {
-}
+FileRotatingStream::~FileRotatingStream() {}
 
 StreamState FileRotatingStream::GetState() const {
   if (mode_ == kRead && current_file_index_ < file_names_.size()) {
@@ -348,8 +346,7 @@ CallSessionFileRotatingStream::CallSessionFileRotatingStream(
     const std::string& dir_path)
     : FileRotatingStream(dir_path, kLogPrefix),
       max_total_log_size_(0),
-      num_rotations_(0) {
-}
+      num_rotations_(0) {}
 
 CallSessionFileRotatingStream::CallSessionFileRotatingStream(
     const std::string& dir_path,

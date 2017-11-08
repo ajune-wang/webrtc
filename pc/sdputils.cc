@@ -30,7 +30,7 @@ std::unique_ptr<SessionDescriptionInterface> CloneSessionDescriptionAsType(
   RTC_DCHECK(sdesc);
   auto clone = rtc::MakeUnique<JsepSessionDescription>(type);
   clone->Initialize(sdesc->description()->Copy(), sdesc->session_id(),
-                              sdesc->session_version());
+                    sdesc->session_version());
   // As of writing, our version of GCC does not allow returning a unique_ptr of
   // a subclass as a unique_ptr of a base class. To get around this, we need to
   // std::move the return value.

@@ -24,8 +24,7 @@ DirectTransport::DirectTransport(
     : DirectTransport(task_queue,
                       FakeNetworkPipe::Config(),
                       send_call,
-                      payload_type_map) {
-}
+                      payload_type_map) {}
 
 DirectTransport::DirectTransport(
     SingleThreadedTaskQueueForTesting* task_queue,
@@ -36,8 +35,7 @@ DirectTransport::DirectTransport(
           task_queue,
           config,
           send_call,
-          std::unique_ptr<Demuxer>(new DemuxerImpl(payload_type_map))) {
-}
+          std::unique_ptr<Demuxer>(new DemuxerImpl(payload_type_map))) {}
 
 DirectTransport::DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
                                  const FakeNetworkPipe::Config& config,
@@ -46,8 +44,9 @@ DirectTransport::DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
     : send_call_(send_call),
       clock_(Clock::GetRealTimeClock()),
       task_queue_(task_queue),
-      fake_network_(rtc::MakeUnique<FakeNetworkPipe>(clock_, config,
-                                                      std::move(demuxer))) {
+      fake_network_(rtc::MakeUnique<FakeNetworkPipe>(clock_,
+                                                     config,
+                                                     std::move(demuxer))) {
   Start();
 }
 
@@ -118,9 +117,8 @@ void DirectTransport::SendPackets() {
   fake_network_->Process();
 
   int64_t delay_ms = fake_network_->TimeUntilNextProcess();
-  next_scheduled_task_ = task_queue_->PostDelayedTask([this]() {
-    SendPackets();
-  }, delay_ms);
+  next_scheduled_task_ =
+      task_queue_->PostDelayedTask([this]() { SendPackets(); }, delay_ms);
 }
 }  // namespace test
 }  // namespace webrtc

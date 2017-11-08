@@ -54,7 +54,7 @@ WavBasedSimulator::GetCustomEventChain(const std::string& filename) {
 }
 
 WavBasedSimulator::WavBasedSimulator(const SimulationSettings& settings)
-      : AudioProcessingSimulator(settings) {}
+    : AudioProcessingSimulator(settings) {}
 
 WavBasedSimulator::~WavBasedSimulator() = default;
 

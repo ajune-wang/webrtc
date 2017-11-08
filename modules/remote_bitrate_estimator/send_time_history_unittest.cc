@@ -51,8 +51,7 @@ TEST_F(SendTimeHistoryTest, SaveAndRestoreNetworkId) {
   uint16_t sequence_number = 0;
   int64_t now_ms = clock_.TimeInMilliseconds();
   for (int i = 1; i < 5; ++i) {
-    PacketFeedback packet(now_ms, sequence_number, 1000, i, i - 1,
-                          kPacingInfo);
+    PacketFeedback packet(now_ms, sequence_number, 1000, i, i - 1, kPacingInfo);
     history_.AddAndRemoveOld(packet);
     history_.OnSentPacket(sequence_number, now_ms);
     PacketFeedback restored(now_ms, sequence_number);

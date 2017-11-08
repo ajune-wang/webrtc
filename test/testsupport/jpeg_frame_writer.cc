@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 
-
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/checks.h"
@@ -29,7 +28,7 @@ extern "C" {
 namespace webrtc {
 namespace test {
 
-JpegFrameWriter::JpegFrameWriter(const std::string &output_filename)
+JpegFrameWriter::JpegFrameWriter(const std::string& output_filename)
     : frame_written_(false),
       output_filename_(output_filename),
       output_file_(nullptr) {}
@@ -50,8 +49,8 @@ bool JpegFrameWriter::WriteFrame(const VideoFrame& input_frame, int quality) {
   }
   output_file_ = fopen(output_filename_.c_str(), "wb");
   if (!output_file_) {
-    LOG(LS_ERROR) << "Couldn't open file to write jpeg frame to:" <<
-        output_filename_;
+    LOG(LS_ERROR) << "Couldn't open file to write jpeg frame to:"
+                  << output_filename_;
     return false;
   }
 

@@ -82,8 +82,8 @@ bool RtcpPacketParser::Parse(const void* data, size_t length) {
             transport_feedback_.Parse(header, &sender_ssrc_);
             break;
           default:
-            LOG(LS_WARNING) << "Unknown rtcp transport feedback type "
-                            << header.fmt();
+            LOG(LS_WARNING)
+                << "Unknown rtcp transport feedback type " << header.fmt();
             break;
         }
         break;

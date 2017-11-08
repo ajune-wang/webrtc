@@ -87,7 +87,7 @@ class SSLAdapterTestDummyClient : public sigslot::has_slots<> {
 
     if (rv == 0) {
       LOG(LS_INFO) << "Starting " << GetSSLProtocolName(ssl_mode_)
-          << " handshake with " << hostname;
+                   << " handshake with " << hostname;
 
       if (ssl_adapter_->StartSSL(hostname.c_str(), false) != 0) {
         return -1;
@@ -156,7 +156,8 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
     }
 
     LOG(LS_INFO) << ((ssl_mode_ == rtc::SSL_MODE_DTLS) ? "UDP" : "TCP")
-        << " server listening on " << server_socket_->GetLocalAddress();
+                 << " server listening on "
+                 << server_socket_->GetLocalAddress();
   }
 
   rtc::SocketAddress GetAddress() const {

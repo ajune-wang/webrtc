@@ -341,8 +341,8 @@ int32_t Channel::SendData(FrameType frameType,
           // received from the capture device as
           // undefined for voice for now.
           -1, payloadData, payloadSize, fragmentation, nullptr, nullptr)) {
-    LOG(LS_ERROR) <<
-        "Channel::SendData() failed to send data to RTP/RTCP module";
+    LOG(LS_ERROR)
+        << "Channel::SendData() failed to send data to RTP/RTCP module";
     return -1;
   }
 
@@ -422,8 +422,8 @@ int32_t Channel::OnReceivedPayloadData(const uint8_t* payloadData,
   // Push the incoming payload (parsed and ready for decoding) into the ACM
   if (audio_coding_->IncomingPacket(payloadData, payloadSize, *rtpHeader) !=
       0) {
-    LOG(LS_ERROR) <<
-        "Channel::OnReceivedPayloadData() unable to push data to the ACM";
+    LOG(LS_ERROR)
+        << "Channel::OnReceivedPayloadData() unable to push data to the ACM";
     return -1;
   }
 

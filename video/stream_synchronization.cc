@@ -71,8 +71,8 @@ bool StreamSynchronization::ComputeDelays(int relative_delay_ms,
 
   int current_video_delay_ms = *total_video_delay_target_ms;
   LOG(LS_VERBOSE) << "Audio delay: " << current_audio_delay_ms
-                  << " current diff: " << relative_delay_ms
-                  << " for stream " << audio_stream_id_;
+                  << " current diff: " << relative_delay_ms << " for stream "
+                  << audio_stream_id_;
   // Calculate the difference between the lowest possible video delay and
   // the current audio delay.
   int current_diff_ms = current_video_delay_ms - current_audio_delay_ms +

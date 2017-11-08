@@ -224,8 +224,8 @@ void RelayPort::AddExternalAddress(const ProtocolAddress& addr) {
   for (std::vector<ProtocolAddress>::iterator it = external_addr_.begin();
        it != external_addr_.end(); ++it) {
     if ((it->address == addr.address) && (it->proto == addr.proto)) {
-      LOG(INFO) << "Redundant relay address: " << proto_name
-                << " @ " << addr.address.ToSensitiveString();
+      LOG(INFO) << "Redundant relay address: " << proto_name << " @ "
+                << addr.address.ToSensitiveString();
       return;
     }
   }
@@ -443,8 +443,8 @@ void RelayConnection::OnSendPacket(const void* data, size_t size,
   rtc::PacketOptions options;  // Default dscp set to NO_CHANGE.
   int sent = socket_->SendTo(data, size, GetAddress(), options);
   if (sent <= 0) {
-    LOG(LS_VERBOSE) << "OnSendPacket: failed sending to " << GetAddress() <<
-        strerror(socket_->GetError());
+    LOG(LS_VERBOSE) << "OnSendPacket: failed sending to " << GetAddress()
+                    << strerror(socket_->GetError());
     RTC_DCHECK(sent < 0);
   }
 }
@@ -490,8 +490,8 @@ void RelayEntry::Connect() {
   }
 
   // Try to set up our new socket.
-  LOG(LS_INFO) << "Connecting to relay via " << ProtoToString(ra->proto) <<
-      " @ " << ra->address.ToSensitiveString();
+  LOG(LS_INFO) << "Connecting to relay via " << ProtoToString(ra->proto)
+               << " @ " << ra->address.ToSensitiveString();
 
   rtc::AsyncPacketSocket* socket = NULL;
 
@@ -556,8 +556,8 @@ void RelayEntry::OnConnect(const rtc::SocketAddress& mapped_addr,
                            RelayConnection* connection) {
   // We are connected, notify our parent.
   ProtocolType proto = PROTO_UDP;
-  LOG(INFO) << "Relay allocate succeeded: " << ProtoToString(proto)
-            << " @ " << mapped_addr.ToSensitiveString();
+  LOG(INFO) << "Relay allocate succeeded: " << ProtoToString(proto) << " @ "
+            << mapped_addr.ToSensitiveString();
   connected_ = true;
 
   port_->AddExternalAddress(ProtocolAddress(mapped_addr, proto));
@@ -651,8 +651,8 @@ void RelayEntry::OnMessage(rtc::Message *pmsg) {
   RTC_DCHECK(pmsg->message_id == kMessageConnectTimeout);
   if (current_connection_) {
     const ProtocolAddress* ra = current_connection_->protocol_address();
-    LOG(LS_WARNING) << "Relay " << ra->proto << " connection to " <<
-        ra->address << " timed out";
+    LOG(LS_WARNING) << "Relay " << ra->proto << " connection to " << ra->address
+                    << " timed out";
 
     // Currently we connect to each server address in sequence. If we
     // have more addresses to try, treat this is an error and move on to
@@ -669,8 +669,8 @@ void RelayEntry::OnMessage(rtc::Message *pmsg) {
 }
 
 void RelayEntry::OnSocketConnect(rtc::AsyncPacketSocket* socket) {
-  LOG(INFO) << "relay tcp connected to " <<
-      socket->GetRemoteAddress().ToSensitiveString();
+  LOG(INFO) << "relay tcp connected to "
+            << socket->GetRemoteAddress().ToSensitiveString();
   if (current_connection_ != NULL) {
     current_connection_->SendAllocateRequest(this, 0);
   }
@@ -833,8 +833,8 @@ void AllocateRequest::OnErrorResponse(StunMessage* response) {
     LOG(LS_ERROR) << "Missing allocate response error code.";
   } else {
     LOG(INFO) << "Allocate error response:"
-              << " code=" << attr->code()
-              << " reason='" << attr->reason() << "'";
+              << " code=" << attr->code() << " reason='" << attr->reason()
+              << "'";
   }
 
   if (rtc::TimeMillis() - start_time_ <= kRetryTimeout)

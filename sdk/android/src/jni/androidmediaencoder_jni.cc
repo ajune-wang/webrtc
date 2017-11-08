@@ -67,7 +67,7 @@ namespace jni {
 #define TAG_ENCODER "MediaCodecVideoEncoder"
 #ifdef TRACK_BUFFER_TIMING
 #define ALOGV(...)
-  __android_log_print(ANDROID_LOG_VERBOSE, TAG_ENCODER, __VA_ARGS__)
+__android_log_print(ANDROID_LOG_VERBOSE, TAG_ENCODER, __VA_ARGS__)
 #else
 #define ALOGV(...)
 #endif
@@ -76,11 +76,11 @@ namespace jni {
 #define ALOGE LOG_TAG(rtc::LS_ERROR, TAG_ENCODER)
 
 namespace {
-// Maximum time limit between incoming frames before requesting a key frame.
-const size_t kFrameDiffThresholdMs = 350;
-const int kMinKeyFrameInterval = 6;
-const char kH264HighProfileFieldTrial[] = "WebRTC-H264HighProfile";
-const char kCustomQPThresholdsFieldTrial[] = "WebRTC-CustomQPThresholds";
+  // Maximum time limit between incoming frames before requesting a key frame.
+  const size_t kFrameDiffThresholdMs = 350;
+  const int kMinKeyFrameInterval = 6;
+  const char kH264HighProfileFieldTrial[] = "WebRTC-H264HighProfile";
+  const char kCustomQPThresholdsFieldTrial[] = "WebRTC-CustomQPThresholds";
 }  // namespace
 
 // MediaCodecVideoEncoder is a VideoEncoder implementation that uses

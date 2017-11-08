@@ -764,8 +764,8 @@ void Port::UpdateNetworkCost() {
   if (network_cost_ == new_cost) {
     return;
   }
-  LOG(LS_INFO) << "Network cost changed from " << network_cost_
-               << " to " << new_cost
+  LOG(LS_INFO) << "Network cost changed from " << network_cost_ << " to "
+               << new_cost
                << ". Number of candidates created: " << candidates_.size()
                << ". Number of connections created: " << connections_.size();
   network_cost_ = new_cost;

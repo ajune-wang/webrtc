@@ -320,13 +320,12 @@ static struct {
 // Only added because string.compare() in gcc-3.3.3 seems to misbehave with
 // embedded nulls.
 // TODO: switch back to string.compare() if/when gcc is fixed
-#define EXPECT_EQ_ARRAY(len, x, y, msg)                      \
-  for (size_t j = 0; j < len; ++j) {                           \
-    if (x[j] != y[j]) {                                     \
-        LOG(LS_ERROR) << "" # x << " != " # y                  \
-                   << " byte " << j << " msg: " << msg;     \
-      }                                                     \
-    }
+#define EXPECT_EQ_ARRAY(len, x, y, msg)                                        \
+  for (size_t j = 0; j < len; ++j) {                                           \
+    if (x[j] != y[j]) {                                                        \
+      LOG(LS_ERROR) << "" #x << " != " #y << " byte " << j << " msg: " << msg; \
+    }                                                                          \
+  }
 
 size_t Base64Escape(const unsigned char *src, size_t szsrc, char *dest,
                     size_t szdest) {

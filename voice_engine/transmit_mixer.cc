@@ -32,9 +32,9 @@ TransmitMixer::Create(TransmitMixer*& mixer)
     mixer = new TransmitMixer();
     if (mixer == NULL)
     {
-        LOG(LS_ERROR) << "TransmitMixer::Create() unable to allocate memory "
-                         "for mixer";
-        return -1;
+      LOG(LS_ERROR) << "TransmitMixer::Create() unable to allocate memory "
+                       "for mixer";
+      return -1;
     }
     return 0;
 }

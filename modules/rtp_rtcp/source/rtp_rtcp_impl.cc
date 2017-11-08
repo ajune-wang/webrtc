@@ -202,8 +202,8 @@ void ModuleRtpRtcpImpl::Process() {
     if (rtcp_receiver_.RtcpRrTimeout(rtcp_interval)) {
       LOG_F(LS_WARNING) << "Timeout: No RTCP RR received.";
     } else if (rtcp_receiver_.RtcpRrSequenceNumberTimeout(rtcp_interval)) {
-      LOG_F(LS_WARNING) <<
-          "Timeout: No increase in RTCP RR extended highest sequence number.";
+      LOG_F(LS_WARNING) << "Timeout: No increase in RTCP RR extended highest "
+                           "sequence number.";
     }
 
     if (remote_bitrate_ && rtcp_sender_.TMMBR()) {

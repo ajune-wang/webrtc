@@ -125,9 +125,8 @@ LPCSTR WSAErrorToString(int error, LPCSTR *description_result) {
 void ReportWSAError(LPCSTR context, int error, const SocketAddress& address) {
   LPCSTR description_string;
   LPCSTR error_string = WSAErrorToString(error, &description_string);
-  LOG(LS_INFO) << context << " = " << error
-    << " (" << error_string << ":" << description_string << ") ["
-    << address.ToString() << "]";
+  LOG(LS_INFO) << context << " = " << error << " (" << error_string << ":"
+               << description_string << ") [" << address.ToString() << "]";
 }
 #else
 void ReportWSAError(LPCSTR context, int error, const SocketAddress& address) {}
@@ -669,8 +668,8 @@ void Win32Socket::OnDnsNotify(HANDLE task, int error) {
     ip = NetworkToHost32(net_ip);
   }
 
-  LOG_F(LS_INFO) << "(" << IPAddress(ip).ToSensitiveString()
-                 << ", " << error << ")";
+  LOG_F(LS_INFO) << "(" << IPAddress(ip).ToSensitiveString() << ", " << error
+                 << ")";
 
   if (error == 0) {
     SocketAddress address(ip, dns_->port);

@@ -606,8 +606,9 @@ bool SctpTransport::Connect() {
   // return.
   RTC_DCHECK(!sock_);
   if (sock_) {
-    LOG(LS_ERROR) << debug_name_ << "->Connect(): Ignored as socket "
-                                    "is already established.";
+    LOG(LS_ERROR) << debug_name_
+                  << "->Connect(): Ignored as socket "
+                     "is already established.";
     return true;
   }
 
@@ -803,8 +804,9 @@ bool SctpTransport::SendQueuedStreamResets() {
       usrsctp_setsockopt(sock_, IPPROTO_SCTP, SCTP_RESET_STREAMS, resetp,
                          rtc::checked_cast<socklen_t>(reset_stream_buf.size()));
   if (ret < 0) {
-    LOG_ERRNO(LS_ERROR) << debug_name_ << "->SendQueuedStreamResets(): "
-                                          "Failed to send a stream reset for "
+    LOG_ERRNO(LS_ERROR) << debug_name_
+                        << "->SendQueuedStreamResets(): "
+                           "Failed to send a stream reset for "
                         << num_streams << " streams";
     return false;
   }
@@ -919,8 +921,9 @@ void SctpTransport::OnInboundPacketFromSctpToChannel(
   // Sending a packet with data == NULL (no data) is SCTPs "close the
   // connection" message. This sets sock_ = NULL;
   if (!buffer.size() || !buffer.data()) {
-    LOG(LS_INFO) << debug_name_ << "->OnInboundPacketFromSctpToChannel(...): "
-                                   "No data, closing.";
+    LOG(LS_INFO) << debug_name_
+                 << "->OnInboundPacketFromSctpToChannel(...): "
+                    "No data, closing.";
     return;
   }
   if (flags & MSG_NOTIFICATION) {

@@ -299,8 +299,8 @@ void WebRtcVideoCapturer::Stop() {
   // TODO(juberti): Determine if the VCM exposes any drop stats we can use.
   double drop_ratio = 0.0;
   LOG(LS_INFO) << "Camera '" << GetId() << "' stopped after capturing "
-               << captured_frames_ << " frames and dropping "
-               << drop_ratio << "%";
+               << captured_frames_ << " frames and dropping " << drop_ratio
+               << "%";
 
   SetCaptureFormat(NULL);
   start_thread_ = nullptr;
@@ -331,9 +331,9 @@ void WebRtcVideoCapturer::OnFrame(
   ++captured_frames_;
   // Log the size and pixel aspect ratio of the first captured frame.
   if (1 == captured_frames_) {
-    LOG(LS_INFO) << "Captured frame size "
-                 << sample.width() << "x" << sample.height()
-                 << ". Expected format " << GetCaptureFormat()->ToString();
+    LOG(LS_INFO) << "Captured frame size " << sample.width() << "x"
+                 << sample.height() << ". Expected format "
+                 << GetCaptureFormat()->ToString();
   }
 
   VideoCapturer::OnFrame(sample, sample.width(), sample.height());

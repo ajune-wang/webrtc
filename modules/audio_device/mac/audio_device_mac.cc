@@ -1348,9 +1348,8 @@ int32_t AudioDeviceMac::StopRecording() {
       _critSect.Leave();  // Cannot be under lock, risk of deadlock
       if (kEventTimeout == _stopEventRec.Wait(2000)) {
         rtc::CritScope critScoped(&_critSect);
-        LOG(LS_WARNING)
-            << "Timed out stopping the capture IOProc."
-            << "We may have failed to detect a device removal.";
+        LOG(LS_WARNING) << "Timed out stopping the capture IOProc."
+                        << "We may have failed to detect a device removal.";
         WEBRTC_CA_LOG_WARN(AudioDeviceStop(_inputDeviceID, _inDeviceIOProcID));
         WEBRTC_CA_LOG_WARN(
           AudioDeviceDestroyIOProcID(_inputDeviceID, _inDeviceIOProcID));
@@ -1377,9 +1376,8 @@ int32_t AudioDeviceMac::StopRecording() {
       _critSect.Leave();  // Cannot be under lock, risk of deadlock
       if (kEventTimeout == _stopEvent.Wait(2000)) {
         rtc::CritScope critScoped(&_critSect);
-        LOG(LS_WARNING)
-            << "Timed out stopping the shared IOProc."
-            << "We may have failed to detect a device removal.";
+        LOG(LS_WARNING) << "Timed out stopping the shared IOProc."
+                        << "We may have failed to detect a device removal.";
         // We assume rendering on a shared device has stopped as well if
         // the IOProc times out.
         WEBRTC_CA_LOG_WARN(AudioDeviceStop(_outputDeviceID, _deviceIOProcID));
@@ -1486,9 +1484,8 @@ int32_t AudioDeviceMac::StopPlayout() {
     _critSect.Leave();  // Cannot be under lock, risk of deadlock
     if (kEventTimeout == _stopEvent.Wait(2000)) {
       rtc::CritScope critScoped(&_critSect);
-      LOG(LS_WARNING)
-          << "Timed out stopping the render IOProc."
-          << "We may have failed to detect a device removal.";
+      LOG(LS_WARNING) << "Timed out stopping the render IOProc."
+                      << "We may have failed to detect a device removal.";
 
       // We assume capturing on a shared device has stopped as well if the
       // IOProc times out.
@@ -1909,9 +1906,9 @@ OSStatus AudioDeviceMac::SetDesiredPlayoutFormat() {
       static_cast<uint32_t>((1.0e6 * latency) / _outStreamFormat.mSampleRate);
 
   LOG(LS_VERBOSE) << "initial playout status: _renderDelayOffsetSamples="
-                  << _renderDelayOffsetSamples << ", _renderDelayUs="
-                  << _renderDelayUs << ", _renderLatencyUs="
-                  << _renderLatencyUs;
+                  << _renderDelayOffsetSamples
+                  << ", _renderDelayUs=" << _renderDelayUs
+                  << ", _renderLatencyUs=" << _renderLatencyUs;
   return 0;
 }
 

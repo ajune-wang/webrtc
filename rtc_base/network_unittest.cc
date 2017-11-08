@@ -250,7 +250,8 @@ TEST_F(NetworkTest, DISABLED_TestCreateNetworks) {
                            reinterpret_cast<sockaddr*>(&storage),
                            static_cast<int>(ipsize));
 #if defined(WEBRTC_WIN)
-      if (success) LOG_GLE(LS_ERROR) << "Socket bind failed.";
+      if (success)
+        LOG_GLE(LS_ERROR) << "Socket bind failed.";
 #endif
       EXPECT_EQ(0, success);
 #if defined(WEBRTC_WIN)

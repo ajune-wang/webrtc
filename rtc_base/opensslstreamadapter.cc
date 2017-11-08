@@ -722,8 +722,8 @@ void OpenSSLStreamAdapter::OnEvent(StreamInterface* stream, int events,
   }
   if ((events & (SE_READ|SE_WRITE))) {
     LOG(LS_VERBOSE) << "OpenSSLStreamAdapter::OnEvent"
-                 << ((events & SE_READ) ? " SE_READ" : "")
-                 << ((events & SE_WRITE) ? " SE_WRITE" : "");
+                    << ((events & SE_READ) ? " SE_READ" : "")
+                    << ((events & SE_WRITE) ? " SE_WRITE" : "");
     if (state_ == SSL_NONE) {
       events_to_signal |= events & (SE_READ|SE_WRITE);
     } else if (state_ == SSL_CONNECTING) {
@@ -844,13 +844,13 @@ int OpenSSLStreamAdapter::ContinueSSL() {
       break;
 
     case SSL_ERROR_WANT_READ: {
-        LOG(LS_VERBOSE) << " -- error want read";
-        struct timeval timeout;
-        if (DTLSv1_get_timeout(ssl_, &timeout)) {
-          int delay = timeout.tv_sec * 1000 + timeout.tv_usec/1000;
+      LOG(LS_VERBOSE) << " -- error want read";
+      struct timeval timeout;
+      if (DTLSv1_get_timeout(ssl_, &timeout)) {
+        int delay = timeout.tv_sec * 1000 + timeout.tv_usec / 1000;
 
-          Thread::Current()->PostDelayed(RTC_FROM_HERE, delay, this,
-                                         MSG_TIMEOUT, 0);
+        Thread::Current()->PostDelayed(RTC_FROM_HERE, delay, this, MSG_TIMEOUT,
+                                       0);
         }
       }
       break;

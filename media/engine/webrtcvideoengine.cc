@@ -2125,7 +2125,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetLocalSsrc(
   // they are sending from the same MediaChannel.
   if (local_ssrc == config_.rtp.remote_ssrc) {
     LOG(LS_INFO) << "Ignoring call to SetLocalSsrc because parameters are "
-                    "unchanged; local_ssrc=" << local_ssrc;
+                    "unchanged; local_ssrc="
+                 << local_ssrc;
     return;
   }
 

@@ -301,7 +301,8 @@ ScreenshareLayerConfig ScreenshareLayerConfig::GetDefault() {
                                 kScreenshareDefaultTl1BitrateKbps);
   if (!group.empty() && !FromFieldTrialGroup(group, &config)) {
     LOG(LS_WARNING) << "Unable to parse WebRTC-ScreenshareLayerRates"
-                       " field trial group: '" << group << "'.";
+                       " field trial group: '"
+                    << group << "'.";
   }
   return config;
 }

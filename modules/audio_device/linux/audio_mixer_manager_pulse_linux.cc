@@ -56,7 +56,7 @@ AudioMixerManagerLinuxPulse::AudioMixerManagerLinuxPulse() :
     _paChannels(0),
     _paObjectsSet(false)
 {
-    LOG(LS_INFO) << __FUNCTION__ << " created";
+  LOG(LS_INFO) << __FUNCTION__ << " created";
 }
 
 AudioMixerManagerLinuxPulse::~AudioMixerManagerLinuxPulse()
@@ -80,8 +80,8 @@ int32_t AudioMixerManagerLinuxPulse::SetPulseAudioObjects(
 
     if (!mainloop || !context)
     {
-        LOG(LS_ERROR) << "could not set PulseAudio objects for mixer";
-        return -1;
+      LOG(LS_ERROR) << "could not set PulseAudio objects for mixer";
+      return -1;
     }
 
     _paMainloop = mainloop;
@@ -162,8 +162,8 @@ int32_t AudioMixerManagerLinuxPulse::OpenSpeaker(
     // if PA objects have not been set
     if (!_paObjectsSet)
     {
-        LOG(LS_ERROR) << "PulseAudio objects has not been set";
-        return -1;
+      LOG(LS_ERROR) << "PulseAudio objects has not been set";
+      return -1;
     }
 
     // Set the index for the PulseAudio
@@ -187,8 +187,8 @@ int32_t AudioMixerManagerLinuxPulse::OpenMicrophone(
     // if PA objects have not been set
     if (!_paObjectsSet)
     {
-        LOG(LS_ERROR) << "PulseAudio objects have not been set";
-        return -1;
+      LOG(LS_ERROR) << "PulseAudio objects have not been set";
+      return -1;
     }
 
     // Set the index for the PulseAudio
@@ -225,8 +225,8 @@ int32_t AudioMixerManagerLinuxPulse::SetSpeakerVolume(
 
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     bool setFailed(false);
@@ -242,8 +242,8 @@ int32_t AudioMixerManagerLinuxPulse::SetSpeakerVolume(
             LATE(pa_stream_get_sample_spec)(_paPlayStream);
         if (!spec)
         {
-            LOG(LS_ERROR) << "could not get sample specification";
-            return -1;
+          LOG(LS_ERROR) << "could not get sample specification";
+          return -1;
         }
 
         // Set the same volume for all channels
@@ -272,10 +272,10 @@ int32_t AudioMixerManagerLinuxPulse::SetSpeakerVolume(
 
     if (setFailed)
     {
-        LOG(LS_WARNING) << "could not set speaker volume, error="
-                        << LATE(pa_context_errno)(_paContext);
+      LOG(LS_WARNING) << "could not set speaker volume, error="
+                      << LATE(pa_context_errno)(_paContext);
 
-        return -1;
+      return -1;
     }
 
     return 0;
@@ -286,8 +286,8 @@ AudioMixerManagerLinuxPulse::SpeakerVolume(uint32_t& volume) const
 {
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     if (_paPlayStream && (LATE(pa_stream_get_state)(_paPlayStream)
@@ -317,8 +317,8 @@ AudioMixerManagerLinuxPulse::MaxSpeakerVolume(uint32_t& maxVolume) const
 
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     // PA_VOLUME_NORM corresponds to 100% (0db)
@@ -334,8 +334,8 @@ AudioMixerManagerLinuxPulse::MinSpeakerVolume(uint32_t& minVolume) const
 
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     minVolume = static_cast<uint32_t> (PA_VOLUME_MUTED);
@@ -349,8 +349,8 @@ AudioMixerManagerLinuxPulse::SpeakerVolumeIsAvailable(bool& available)
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     // Always available in Pulse Audio
@@ -365,8 +365,8 @@ AudioMixerManagerLinuxPulse::SpeakerMuteIsAvailable(bool& available)
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     // Always available in Pulse Audio
@@ -383,8 +383,8 @@ int32_t AudioMixerManagerLinuxPulse::SetSpeakerMute(bool enable)
 
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     bool setFailed(false);
@@ -418,9 +418,9 @@ int32_t AudioMixerManagerLinuxPulse::SetSpeakerMute(bool enable)
 
     if (setFailed)
     {
-        LOG(LS_WARNING) << "could not mute speaker, error="
-                        << LATE(pa_context_errno)(_paContext);
-        return -1;
+      LOG(LS_WARNING) << "could not mute speaker, error="
+                      << LATE(pa_context_errno)(_paContext);
+      return -1;
     }
 
     return 0;
@@ -431,8 +431,8 @@ int32_t AudioMixerManagerLinuxPulse::SpeakerMute(bool& enabled) const
 
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     if (_paPlayStream && (LATE(pa_stream_get_state)(_paPlayStream)
@@ -459,8 +459,8 @@ AudioMixerManagerLinuxPulse::StereoPlayoutIsAvailable(bool& available)
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     if (_paOutputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "output device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "output device index has not been set";
+      return -1;
     }
 
     uint32_t deviceIndex = (uint32_t) _paOutputDeviceIndex;
@@ -492,8 +492,8 @@ AudioMixerManagerLinuxPulse::StereoRecordingIsAvailable(bool& available)
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     if (_paInputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "input device index has not been set";
+      return -1;
     }
 
     uint32_t deviceIndex = (uint32_t) _paInputDeviceIndex;
@@ -535,8 +535,8 @@ int32_t AudioMixerManagerLinuxPulse::MicrophoneMuteIsAvailable(
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     if (_paInputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "input device index has not been set";
+      return -1;
     }
 
     // Always available in Pulse Audio
@@ -553,8 +553,8 @@ int32_t AudioMixerManagerLinuxPulse::SetMicrophoneMute(bool enable)
 
     if (_paInputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "input device index has not been set";
+      return -1;
     }
 
     bool setFailed(false);
@@ -589,9 +589,9 @@ int32_t AudioMixerManagerLinuxPulse::SetMicrophoneMute(bool enable)
 
     if (setFailed)
     {
-        LOG(LS_WARNING) << "could not mute microphone, error="
-                        << LATE(pa_context_errno)(_paContext);
-        return -1;
+      LOG(LS_WARNING) << "could not mute microphone, error="
+                      << LATE(pa_context_errno)(_paContext);
+      return -1;
     }
 
     return 0;
@@ -602,8 +602,8 @@ int32_t AudioMixerManagerLinuxPulse::MicrophoneMute(bool& enabled) const
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     if (_paInputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "input device index has not been set";
+      return -1;
     }
 
     uint32_t deviceIndex = (uint32_t) _paInputDeviceIndex;
@@ -638,8 +638,8 @@ int32_t AudioMixerManagerLinuxPulse::MicrophoneVolumeIsAvailable(
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     if (_paInputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "input device index has not been set";
+      return -1;
     }
 
     // Always available in Pulse Audio
@@ -651,14 +651,12 @@ int32_t AudioMixerManagerLinuxPulse::MicrophoneVolumeIsAvailable(
 int32_t
 AudioMixerManagerLinuxPulse::SetMicrophoneVolume(uint32_t volume)
 {
-    LOG(LS_VERBOSE)
-        << "AudioMixerManagerLinuxPulse::SetMicrophoneVolume(volume=" << volume
-        << ")";
+  LOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SetMicrophoneVolume(volume="
+                  << volume << ")";
 
-    if (_paInputDeviceIndex == -1)
-    {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+  if (_paInputDeviceIndex == -1) {
+    LOG(LS_WARNING) << "input device index has not been set";
+    return -1;
     }
 
     // Unlike output streams, input streams have no concept of a stream
@@ -716,9 +714,9 @@ AudioMixerManagerLinuxPulse::SetMicrophoneVolume(uint32_t volume)
 
     if (setFailed)
     {
-        LOG(LS_WARNING) << "could not set microphone volume, error="
-                        << LATE(pa_context_errno)(_paContext);
-        return -1;
+      LOG(LS_WARNING) << "could not set microphone volume, error="
+                      << LATE(pa_context_errno)(_paContext);
+      return -1;
     }
 
     return 0;
@@ -730,8 +728,8 @@ AudioMixerManagerLinuxPulse::MicrophoneVolume(uint32_t& volume) const
 
     if (_paInputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "input device index has not been set";
+      return -1;
     }
 
     uint32_t deviceIndex = (uint32_t) _paInputDeviceIndex;
@@ -755,9 +753,8 @@ AudioMixerManagerLinuxPulse::MicrophoneVolume(uint32_t& volume) const
         volume = static_cast<uint32_t> (_paVolume);
     }
 
-    LOG(LS_VERBOSE)
-        << "AudioMixerManagerLinuxPulse::MicrophoneVolume() => vol="
-        << volume;
+    LOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::MicrophoneVolume() => vol="
+                    << volume;
 
     return 0;
 }
@@ -768,8 +765,8 @@ AudioMixerManagerLinuxPulse::MaxMicrophoneVolume(uint32_t& maxVolume) const
 
     if (_paInputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "input device index has not been set";
+      return -1;
     }
 
     // PA_VOLUME_NORM corresponds to 100% (0db)
@@ -786,8 +783,8 @@ AudioMixerManagerLinuxPulse::MinMicrophoneVolume(uint32_t& minVolume) const
 
     if (_paInputDeviceIndex == -1)
     {
-        LOG(LS_WARNING) << "input device index has not been set";
-        return -1;
+      LOG(LS_WARNING) << "input device index has not been set";
+      return -1;
     }
 
     minVolume = static_cast<uint32_t> (PA_VOLUME_MUTED);
@@ -838,7 +835,7 @@ AudioMixerManagerLinuxPulse::PaSetVolumeCallback(pa_context * c,
 {
     if (!success)
     {
-        LOG(LS_ERROR) << "failed to set volume";
+      LOG(LS_ERROR) << "failed to set volume";
     }
 }
 

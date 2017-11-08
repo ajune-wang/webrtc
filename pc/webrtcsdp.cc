@@ -1698,8 +1698,7 @@ bool AddSctpDataCodec(DataContentDescription* media_desc,
   cricket::DataCodec codec_port(cricket::kGoogleSctpDataCodecPlType,
                                 cricket::kGoogleSctpDataCodecName);
   codec_port.SetParam(cricket::kCodecParamPort, sctp_port);
-  LOG(INFO) << "AddSctpDataCodec: Got SCTP Port Number "
-            << sctp_port;
+  LOG(INFO) << "AddSctpDataCodec: Got SCTP Port Number " << sctp_port;
   media_desc->AddCodec(codec_port);
   return true;
 }

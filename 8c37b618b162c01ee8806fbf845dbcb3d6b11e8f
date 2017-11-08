@@ -16,6 +16,24 @@
       "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25e985f5_c7e35593",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2017-11-08T21:59:08Z",
+      "side": 1,
+      "message": "We don’t expect decoder to return those in WebRTC because:\n1. We always pass whole frame in one call;\n2. There is no support for reordering in WebRTC;\n3. We don’t use multithreading (does ffmpeg h264 dec support it?) and don’t expect frames queuing.\nAny of those codes would indicate some issue.",
+      "parentUuid": "89532896_2df9ae1d",
+      "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

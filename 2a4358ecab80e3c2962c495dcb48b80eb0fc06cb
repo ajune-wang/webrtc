@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb9921bd_8b41f540",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T11:04:11Z",
+      "side": 1,
+      "message": "I\u0027d like to move away from system_wrappers\u0027 Clock. Since this is new code, could you use the global clock from rtc_base/timeutils.h instead?\n\nOr do you need a fake clock for wallclock/ntp time, rather than just faking the system monotonic clock?",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe18ebc_55db0e9b",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T11:04:11Z",
+      "side": 1,
+      "message": "At this point in the code, rtcp_block is a bit unexpected, and it\u0027s unobvious how it can know the data. It might be clearer to move this assignment to the end of the loop.\n\nI don\u0027t know if CommonHeader needs to retain any state between blocks, but if not, you could then make it local to the block inside the loop.\n\nSince packet_end is used only for computing remaining_block_size, it might be more readable to write the loop condition in terms of the size,\n\n  for (size_t size_left \u003d packet.size(), const uint8_t *block \u003d packet.data(); size_left \u003e 0;) {\n     ...\n     // Update size_left and block, maybe there\u0027s a nicer way?\n     const uint8_t *next_block \u003d rtcp_block.NextPacket();\n     size_left -\u003d (next_block - block);\n     block \u003d next_block;\n  }",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6668bfd3_c4f418cc",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T11:04:11Z",
+      "side": 1,
+      "message": "Does it make sense to continue to the next block on parse error here, or is it better to discard all of the packet?\n\nI think I would have expected a return or a continue, rather than a break.",
+      "range": {
+        "startLine": 98,
+        "startChar": 10,
+        "endLine": 98,
+        "endChar": 15
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cf4e897_0bdc2696",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T11:04:11Z",
+      "side": 1,
+      "message": "Since the check of receive_statistics is here, it would be more natural to also have the use here, e.g.,\n\n  revceiver_report.SetReportBlocks(CreateReportBlocks(config_.receive_statistics-\u003eRtcpReportBlocks(...)));\n\nOr change the CreateReportBlocks interface in some other way so that the check that recieve_statistics is non-null is closer to the use if it.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 58
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1881c30_c9a99db9",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T11:04:11Z",
+      "side": 1,
+      "message": "Does this mean that receiver reports also act as acks for sender reports?",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4640db5f_a138639b",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T11:04:11Z",
+      "side": 1,
+      "message": "Indicate in name or comment if it\u0027s for sender reports, receiver reports, or both?",
+      "range": {
+        "startLine": 51,
+        "startChar": 33,
+        "endLine": 51,
+        "endChar": 51
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

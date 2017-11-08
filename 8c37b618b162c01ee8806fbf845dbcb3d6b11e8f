@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89532896_2df9ae1d",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 6008
+      },
+      "writtenOn": "2017-11-08T18:56:33Z",
+      "side": 1,
+      "message": "How come you decided not to handle AVERROR(EAGAIN) here? Ditto for receive_frame() below? Also AVERROR_EOF is \u003c 0, so I think it needs to be handled?\n\nhttps://cs.chromium.org/chromium/src/media/ffmpeg/ffmpeg_decoding_loop.cc?l\u003d24",
+      "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

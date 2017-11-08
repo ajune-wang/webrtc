@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cbfb813_6403fc9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-08T10:01:00Z",
+      "side": 1,
+      "message": "Yes, I just wanted to split it on multiple lines.",
+      "parentUuid": "1a976d71_dd485d55",
+      "revId": "8756523ec7d3da131f4e9c5f5ba98f986e98f81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c568a38_92ec5ab8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7b826284_a65bccdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-08T10:01:00Z",
+      "side": 1,
+      "message": "Yes it has the same effect. Thanks for helping with this!",
+      "parentUuid": "5c568a38_92ec5ab8",
+      "revId": "8756523ec7d3da131f4e9c5f5ba98f986e98f81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07d181b1_6471f382",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "8756523ec7d3da131f4e9c5f5ba98f986e98f81e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eeed2a8_035661cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-08T10:01:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07d181b1_6471f382",
+      "revId": "8756523ec7d3da131f4e9c5f5ba98f986e98f81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

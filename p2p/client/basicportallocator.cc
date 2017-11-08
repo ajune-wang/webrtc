@@ -662,7 +662,7 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
     LOG(LS_WARNING) << "Machine has no networks; no ports will be allocated";
     done_signal_needed = true;
   } else {
-    LOG(LS_INFO) << "Allocate ports on "<< networks.size() << " networks";
+    LOG(LS_INFO) << "Allocate ports on " << networks.size() << " networks";
     PortConfiguration* config = configs_.empty() ? nullptr : configs_.back();
     for (uint32_t i = 0; i < networks.size(); ++i) {
       uint32_t sequence_flags = flags();
@@ -1266,7 +1266,7 @@ void AllocationSequence::CreateUDPPorts() {
       if (!IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
         if (config_ && !config_->StunServers().empty()) {
           LOG(LS_INFO) << "AllocationSequence: UDPPort will be handling the "
-                       <<  "STUN candidate generation.";
+                       << "STUN candidate generation.";
           port->set_server_addresses(config_->StunServers());
         }
       }
@@ -1324,8 +1324,8 @@ void AllocationSequence::CreateStunPorts() {
 
 void AllocationSequence::CreateRelayPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_RELAY)) {
-     LOG(LS_VERBOSE) << "AllocationSequence: Relay ports disabled, skipping.";
-     return;
+    LOG(LS_VERBOSE) << "AllocationSequence: Relay ports disabled, skipping.";
+    return;
   }
 
   // If BasicPortAllocatorSession::OnAllocate left relay ports enabled then we

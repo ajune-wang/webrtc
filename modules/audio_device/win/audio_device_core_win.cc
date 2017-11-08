@@ -182,52 +182,50 @@ private:
 
 bool AudioDeviceWindowsCore::CoreAudioIsSupported()
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    bool MMDeviceIsAvailable(false);
-    bool coreAudioIsSupported(false);
+  bool MMDeviceIsAvailable(false);
+  bool coreAudioIsSupported(false);
 
-    HRESULT hr(S_OK);
-    TCHAR buf[MAXERRORLENGTH];
-    TCHAR errorText[MAXERRORLENGTH];
+  HRESULT hr(S_OK);
+  TCHAR buf[MAXERRORLENGTH];
+  TCHAR errorText[MAXERRORLENGTH];
 
-    // 1) Check if Windows version is Vista SP1 or later.
-    //
-    // CoreAudio is only available on Vista SP1 and later.
-    //
-    OSVERSIONINFOEX osvi;
-    DWORDLONG dwlConditionMask = 0;
-    int op = VER_LESS_EQUAL;
+  // 1) Check if Windows version is Vista SP1 or later.
+  //
+  // CoreAudio is only available on Vista SP1 and later.
+  //
+  OSVERSIONINFOEX osvi;
+  DWORDLONG dwlConditionMask = 0;
+  int op = VER_LESS_EQUAL;
 
-    // Initialize the OSVERSIONINFOEX structure.
-    ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
-    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-    osvi.dwMajorVersion = 6;
-    osvi.dwMinorVersion = 0;
-    osvi.wServicePackMajor = 0;
-    osvi.wServicePackMinor = 0;
-    osvi.wProductType = VER_NT_WORKSTATION;
+  // Initialize the OSVERSIONINFOEX structure.
+  ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
+  osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+  osvi.dwMajorVersion = 6;
+  osvi.dwMinorVersion = 0;
+  osvi.wServicePackMajor = 0;
+  osvi.wServicePackMinor = 0;
+  osvi.wProductType = VER_NT_WORKSTATION;
 
-    // Initialize the condition mask.
-    VER_SET_CONDITION(dwlConditionMask, VER_MAJORVERSION, op);
-    VER_SET_CONDITION(dwlConditionMask, VER_MINORVERSION, op);
-    VER_SET_CONDITION(dwlConditionMask, VER_SERVICEPACKMAJOR, op);
-    VER_SET_CONDITION(dwlConditionMask, VER_SERVICEPACKMINOR, op);
-    VER_SET_CONDITION(dwlConditionMask, VER_PRODUCT_TYPE, VER_EQUAL);
+  // Initialize the condition mask.
+  VER_SET_CONDITION(dwlConditionMask, VER_MAJORVERSION, op);
+  VER_SET_CONDITION(dwlConditionMask, VER_MINORVERSION, op);
+  VER_SET_CONDITION(dwlConditionMask, VER_SERVICEPACKMAJOR, op);
+  VER_SET_CONDITION(dwlConditionMask, VER_SERVICEPACKMINOR, op);
+  VER_SET_CONDITION(dwlConditionMask, VER_PRODUCT_TYPE, VER_EQUAL);
 
-    DWORD dwTypeMask = VER_MAJORVERSION | VER_MINORVERSION |
-                       VER_SERVICEPACKMAJOR | VER_SERVICEPACKMINOR |
-                       VER_PRODUCT_TYPE;
+  DWORD dwTypeMask = VER_MAJORVERSION | VER_MINORVERSION |
+                     VER_SERVICEPACKMAJOR | VER_SERVICEPACKMINOR |
+                     VER_PRODUCT_TYPE;
 
-    // Perform the test.
-    BOOL isVistaRTMorXP = VerifyVersionInfo(&osvi, dwTypeMask,
-                                            dwlConditionMask);
-    if (isVistaRTMorXP != 0)
-    {
-        LOG(LS_VERBOSE)
-            << "*** Windows Core Audio is only supported on Vista SP1 or later"
-            << " => will revert to the Wave API ***";
-        return false;
+  // Perform the test.
+  BOOL isVistaRTMorXP = VerifyVersionInfo(&osvi, dwTypeMask, dwlConditionMask);
+  if (isVistaRTMorXP != 0) {
+    LOG(LS_VERBOSE)
+        << "*** Windows Core Audio is only supported on Vista SP1 or later"
+        << " => will revert to the Wave API ***";
+    return false;
     }
 
     // 2) Initializes the COM library for use by the calling thread.
@@ -277,34 +275,28 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported()
 
     if (FAILED(hr))
     {
-        LOG(LS_ERROR) << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
-                      << " Failed to create the required COM object (hr="
+      LOG(LS_ERROR) << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
+                    << " Failed to create the required COM object (hr=" << hr
+                    << ")";
+      LOG(LS_VERBOSE) << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
+                      << " CoCreateInstance(MMDeviceEnumerator) failed (hr="
                       << hr << ")";
-        LOG(LS_VERBOSE) << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
-                        << " CoCreateInstance(MMDeviceEnumerator) failed (hr="
-                        << hr << ")";
 
-        const DWORD dwFlags = FORMAT_MESSAGE_FROM_SYSTEM |
-                              FORMAT_MESSAGE_IGNORE_INSERTS;
-        const DWORD dwLangID = MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US);
+      const DWORD dwFlags =
+          FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS;
+      const DWORD dwLangID = MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US);
 
-        // Gets the system's human readable message string for this HRESULT.
-        // All error message in English by default.
-        DWORD messageLength = ::FormatMessageW(dwFlags,
-                                               0,
-                                               hr,
-                                               dwLangID,
-                                               errorText,
-                                               MAXERRORLENGTH,
-                                               NULL);
+      // Gets the system's human readable message string for this HRESULT.
+      // All error message in English by default.
+      DWORD messageLength = ::FormatMessageW(dwFlags, 0, hr, dwLangID,
+                                             errorText, MAXERRORLENGTH, NULL);
 
-        assert(messageLength <= MAXERRORLENGTH);
+      assert(messageLength <= MAXERRORLENGTH);
 
-        // Trims tailing white space (FormatMessage() leaves a trailing cr-lf.).
-        for (; messageLength && ::isspace(errorText[messageLength - 1]);
-             --messageLength)
-        {
-            errorText[messageLength - 1] = '\0';
+      // Trims tailing white space (FormatMessage() leaves a trailing cr-lf.).
+      for (; messageLength && ::isspace(errorText[messageLength - 1]);
+           --messageLength) {
+        errorText[messageLength - 1] = '\0';
         }
 
         StringCchPrintf(buf, MAXERRORLENGTH, TEXT("Error details: "));
@@ -314,7 +306,8 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported()
     else
     {
         MMDeviceIsAvailable = true;
-        LOG(LS_VERBOSE) << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
+        LOG(LS_VERBOSE)
+            << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
             << " CoCreateInstance(MMDeviceEnumerator) succeeded (hr=" << hr
             << ")";
         SAFE_RELEASE(pIMMD);
@@ -355,10 +348,9 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported()
             }
             if (ok)
             {
-                LOG(LS_WARNING)
-                    << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
-                    << " Failed to use Core Audio Recording for device id="
-                    << i;
+              LOG(LS_WARNING)
+                  << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
+                  << " Failed to use Core Audio Recording for device id=" << i;
             }
         }
 
@@ -375,9 +367,9 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported()
             }
             if (ok)
             {
-                LOG(LS_WARNING)
-                    << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
-                    << " Failed to use Core Audio Playout for device id=" << i;
+              LOG(LS_WARNING)
+                  << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
+                  << " Failed to use Core Audio Playout for device id=" << i;
             }
         }
 
@@ -393,12 +385,12 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported()
 
     if (coreAudioIsSupported)
     {
-        LOG(LS_VERBOSE) << "*** Windows Core Audio is supported ***";
+      LOG(LS_VERBOSE) << "*** Windows Core Audio is supported ***";
     }
     else
     {
-        LOG(LS_VERBOSE) << "*** Windows Core Audio is NOT supported"
-                        << " => will revert to the Wave API ***";
+      LOG(LS_VERBOSE) << "*** Windows Core Audio is NOT supported"
+                      << " => will revert to the Wave API ***";
     }
 
     return (coreAudioIsSupported);
@@ -568,20 +560,19 @@ AudioDeviceWindowsCore::AudioDeviceWindowsCore()
 
 AudioDeviceWindowsCore::~AudioDeviceWindowsCore()
 {
-    LOG(LS_INFO) << __FUNCTION__ << " destroyed";
+  LOG(LS_INFO) << __FUNCTION__ << " destroyed";
 
-    Terminate();
+  Terminate();
 
-    // The IMMDeviceEnumerator is created during construction. Must release
-    // it here and not in Terminate() since we don't recreate it in Init().
-    SAFE_RELEASE(_ptrEnumerator);
+  // The IMMDeviceEnumerator is created during construction. Must release
+  // it here and not in Terminate() since we don't recreate it in Init().
+  SAFE_RELEASE(_ptrEnumerator);
 
-    _ptrAudioBuffer = NULL;
+  _ptrAudioBuffer = NULL;
 
-    if (NULL != _hRenderSamplesReadyEvent)
-    {
-        CloseHandle(_hRenderSamplesReadyEvent);
-        _hRenderSamplesReadyEvent = NULL;
+  if (NULL != _hRenderSamplesReadyEvent) {
+    CloseHandle(_hRenderSamplesReadyEvent);
+    _hRenderSamplesReadyEvent = NULL;
     }
 
     if (NULL != _hCaptureSamplesReadyEvent)
@@ -625,15 +616,14 @@ AudioDeviceWindowsCore::~AudioDeviceWindowsCore()
         BOOL freeOK = FreeLibrary(_avrtLibrary);
         if (!freeOK)
         {
-            LOG(LS_WARNING)
-                << "AudioDeviceWindowsCore::~AudioDeviceWindowsCore()"
-                << " failed to free the loaded Avrt DLL module correctly";
+          LOG(LS_WARNING)
+              << "AudioDeviceWindowsCore::~AudioDeviceWindowsCore()"
+              << " failed to free the loaded Avrt DLL module correctly";
         }
         else
         {
-            LOG(LS_WARNING)
-                << "AudioDeviceWindowsCore::~AudioDeviceWindowsCore()"
-                << " the Avrt DLL module is now unloaded";
+          LOG(LS_WARNING) << "AudioDeviceWindowsCore::~AudioDeviceWindowsCore()"
+                          << " the Avrt DLL module is now unloaded";
         }
     }
 }
@@ -758,9 +748,9 @@ int32_t AudioDeviceWindowsCore::InitSpeaker()
         int16_t nDevices = PlayoutDevices();
         if (_outputDeviceIndex > (nDevices - 1))
         {
-            LOG(LS_ERROR) << "current device selection is invalid => unable to"
-                          << " initialize";
-            return -1;
+          LOG(LS_ERROR) << "current device selection is invalid => unable to"
+                        << " initialize";
+          return -1;
         }
     }
 
@@ -782,9 +772,9 @@ int32_t AudioDeviceWindowsCore::InitSpeaker()
 
     if (ret != 0 || (_ptrDeviceOut == NULL))
     {
-        LOG(LS_ERROR) << "failed to initialize the rendering enpoint device";
-        SAFE_RELEASE(_ptrDeviceOut);
-        return -1;
+      LOG(LS_ERROR) << "failed to initialize the rendering enpoint device";
+      SAFE_RELEASE(_ptrDeviceOut);
+      return -1;
     }
 
     IAudioSessionManager* pManager = NULL;
@@ -794,19 +784,19 @@ int32_t AudioDeviceWindowsCore::InitSpeaker()
                                   (void**)&pManager);
     if (ret != 0 || pManager == NULL)
     {
-        LOG(LS_ERROR) << "failed to initialize the render manager";
-        SAFE_RELEASE(pManager);
-        return -1;
+      LOG(LS_ERROR) << "failed to initialize the render manager";
+      SAFE_RELEASE(pManager);
+      return -1;
     }
 
     SAFE_RELEASE(_ptrRenderSimpleVolume);
     ret = pManager->GetSimpleAudioVolume(NULL, FALSE, &_ptrRenderSimpleVolume);
     if (ret != 0 || _ptrRenderSimpleVolume == NULL)
     {
-        LOG(LS_ERROR) << "failed to initialize the render simple volume";
-        SAFE_RELEASE(pManager);
-        SAFE_RELEASE(_ptrRenderSimpleVolume);
-        return -1;
+      LOG(LS_ERROR) << "failed to initialize the render simple volume";
+      SAFE_RELEASE(pManager);
+      SAFE_RELEASE(_ptrRenderSimpleVolume);
+      return -1;
     }
     SAFE_RELEASE(pManager);
 
@@ -839,9 +829,9 @@ int32_t AudioDeviceWindowsCore::InitMicrophone()
         int16_t nDevices = RecordingDevices();
         if (_inputDeviceIndex > (nDevices - 1))
         {
-            LOG(LS_ERROR) << "current device selection is invalid => unable to"
-                          << " initialize";
-            return -1;
+          LOG(LS_ERROR) << "current device selection is invalid => unable to"
+                        << " initialize";
+          return -1;
         }
     }
 
@@ -863,9 +853,9 @@ int32_t AudioDeviceWindowsCore::InitMicrophone()
 
     if (ret != 0 || (_ptrDeviceIn == NULL))
     {
-        LOG(LS_ERROR) << "failed to initialize the capturing enpoint device";
-        SAFE_RELEASE(_ptrDeviceIn);
-        return -1;
+      LOG(LS_ERROR) << "failed to initialize the capturing enpoint device";
+      SAFE_RELEASE(_ptrDeviceIn);
+      return -1;
     }
 
     SAFE_RELEASE(_ptrCaptureVolume);
@@ -875,9 +865,9 @@ int32_t AudioDeviceWindowsCore::InitMicrophone()
                                  reinterpret_cast<void **>(&_ptrCaptureVolume));
     if (ret != 0 || _ptrCaptureVolume == NULL)
     {
-        LOG(LS_ERROR) << "failed to initialize the capture volume";
-        SAFE_RELEASE(_ptrCaptureVolume);
-        return -1;
+      LOG(LS_ERROR) << "failed to initialize the capture volume";
+      SAFE_RELEASE(_ptrCaptureVolume);
+      return -1;
     }
 
     _microphoneIsInitialized = true;
@@ -1463,21 +1453,19 @@ Exit:
 
 int32_t AudioDeviceWindowsCore::SetMicrophoneVolume(uint32_t volume)
 {
-    LOG(LS_VERBOSE) << "AudioDeviceWindowsCore::SetMicrophoneVolume(volume="
-                    << volume << ")";
+  LOG(LS_VERBOSE) << "AudioDeviceWindowsCore::SetMicrophoneVolume(volume="
+                  << volume << ")";
 
-    {
-        rtc::CritScope lock(&_critSect);
+  {
+    rtc::CritScope lock(&_critSect);
 
-        if (!_microphoneIsInitialized)
-        {
-            return -1;
-        }
+    if (!_microphoneIsInitialized) {
+      return -1;
+    }
 
-        if (_ptrDeviceIn == NULL)
-        {
-            return -1;
-        }
+    if (_ptrDeviceIn == NULL) {
+      return -1;
+    }
     }
 
     if (volume < static_cast<uint32_t>(MIN_CORE_MICROPHONE_VOLUME) ||
@@ -1550,11 +1538,10 @@ Exit:
 
 int32_t AudioDeviceWindowsCore::MaxMicrophoneVolume(uint32_t& maxVolume) const
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    if (!_microphoneIsInitialized)
-    {
-        return -1;
+  if (!_microphoneIsInitialized) {
+    return -1;
     }
 
     maxVolume = static_cast<uint32_t> (MAX_CORE_MICROPHONE_VOLUME);
@@ -1613,9 +1600,9 @@ int32_t AudioDeviceWindowsCore::SetPlayoutDevice(uint16_t index)
 
     if (index < 0 || index > (nDevices-1))
     {
-        LOG(LS_ERROR) << "device index is out of range [0," << (nDevices-1)
-                      << "]";
-        return -1;
+      LOG(LS_ERROR) << "device index is out of range [0," << (nDevices - 1)
+                    << "]";
+      return -1;
     }
 
     rtc::CritScope lock(&_critSect);
@@ -1642,7 +1629,7 @@ int32_t AudioDeviceWindowsCore::SetPlayoutDevice(uint16_t index)
     // Get the endpoint device's friendly-name
     if (_GetDeviceName(_ptrDeviceOut, szDeviceName, bufferLen) == 0)
     {
-        LOG(LS_VERBOSE) << "friendly name: \"" << szDeviceName << "\"";
+      LOG(LS_VERBOSE) << "friendly name: \"" << szDeviceName << "\"";
     }
 
     _usingOutputDeviceIndex = true;
@@ -1701,7 +1688,7 @@ int32_t AudioDeviceWindowsCore::SetPlayoutDevice(AudioDeviceModule::WindowsDevic
     // Get the endpoint device's friendly-name
     if (_GetDeviceName(_ptrDeviceOut, szDeviceName, bufferLen) == 0)
     {
-        LOG(LS_VERBOSE) << "friendly name: \"" << szDeviceName << "\"";
+      LOG(LS_VERBOSE) << "friendly name: \"" << szDeviceName << "\"";
     }
 
     _usingOutputDeviceIndex = false;
@@ -1764,9 +1751,9 @@ int32_t AudioDeviceWindowsCore::PlayoutDeviceName(
         // Convert the endpoint device's friendly-name to UTF-8
         if (WideCharToMultiByte(CP_UTF8, 0, szDeviceName, -1, name, kAdmMaxDeviceNameSize, NULL, NULL) == 0)
         {
-            LOG(LS_ERROR)
-                << "WideCharToMultiByte(CP_UTF8) failed with error code "
-                << GetLastError();
+          LOG(LS_ERROR)
+              << "WideCharToMultiByte(CP_UTF8) failed with error code "
+              << GetLastError();
         }
     }
 
@@ -1785,9 +1772,9 @@ int32_t AudioDeviceWindowsCore::PlayoutDeviceName(
         // Convert the endpoint device's ID string to UTF-8
         if (WideCharToMultiByte(CP_UTF8, 0, szDeviceName, -1, guid, kAdmMaxGuidSize, NULL, NULL) == 0)
         {
-            LOG(LS_ERROR)
-                << "WideCharToMultiByte(CP_UTF8) failed with error code "
-                << GetLastError();
+          LOG(LS_ERROR)
+              << "WideCharToMultiByte(CP_UTF8) failed with error code "
+              << GetLastError();
         }
     }
 
@@ -1848,9 +1835,9 @@ int32_t AudioDeviceWindowsCore::RecordingDeviceName(
         // Convert the endpoint device's friendly-name to UTF-8
         if (WideCharToMultiByte(CP_UTF8, 0, szDeviceName, -1, name, kAdmMaxDeviceNameSize, NULL, NULL) == 0)
         {
-            LOG(LS_ERROR)
-                << "WideCharToMultiByte(CP_UTF8) failed with error code "
-                << GetLastError();
+          LOG(LS_ERROR)
+              << "WideCharToMultiByte(CP_UTF8) failed with error code "
+              << GetLastError();
         }
     }
 
@@ -1869,9 +1856,9 @@ int32_t AudioDeviceWindowsCore::RecordingDeviceName(
         // Convert the endpoint device's ID string to UTF-8
         if (WideCharToMultiByte(CP_UTF8, 0, szDeviceName, -1, guid, kAdmMaxGuidSize, NULL, NULL) == 0)
         {
-            LOG(LS_ERROR)
-                << "WideCharToMultiByte(CP_UTF8) failed with error code "
-                << GetLastError();
+          LOG(LS_ERROR)
+              << "WideCharToMultiByte(CP_UTF8) failed with error code "
+              << GetLastError();
         }
     }
 
@@ -1912,9 +1899,9 @@ int32_t AudioDeviceWindowsCore::SetRecordingDevice(uint16_t index)
 
     if (index < 0 || index > (nDevices-1))
     {
-        LOG(LS_ERROR) << "device index is out of range [0," << (nDevices-1)
-                      << "]";
-        return -1;
+      LOG(LS_ERROR) << "device index is out of range [0," << (nDevices - 1)
+                    << "]";
+      return -1;
     }
 
     rtc::CritScope lock(&_critSect);
@@ -1941,7 +1928,7 @@ int32_t AudioDeviceWindowsCore::SetRecordingDevice(uint16_t index)
     // Get the endpoint device's friendly-name
     if (_GetDeviceName(_ptrDeviceIn, szDeviceName, bufferLen) == 0)
     {
-        LOG(LS_VERBOSE) << "friendly name: \"" << szDeviceName << "\"";
+      LOG(LS_VERBOSE) << "friendly name: \"" << szDeviceName << "\"";
     }
 
     _usingInputDeviceIndex = true;
@@ -2000,7 +1987,7 @@ int32_t AudioDeviceWindowsCore::SetRecordingDevice(AudioDeviceModule::WindowsDev
     // Get the endpoint device's friendly-name
     if (_GetDeviceName(_ptrDeviceIn, szDeviceName, bufferLen) == 0)
     {
-        LOG(LS_VERBOSE) << "friendly name: \"" << szDeviceName << "\"";
+      LOG(LS_VERBOSE) << "friendly name: \"" << szDeviceName << "\"";
     }
 
     _usingInputDeviceIndex = false;
@@ -2082,7 +2069,7 @@ int32_t AudioDeviceWindowsCore::InitPlayout()
     // Initialize the speaker (devices might have been added or removed)
     if (InitSpeaker() == -1)
     {
-        LOG(LS_WARNING) << "InitSpeaker() failed";
+      LOG(LS_WARNING) << "InitSpeaker() failed";
     }
 
     // Ensure that the updated rendering endpoint device is valid
@@ -2120,22 +2107,22 @@ int32_t AudioDeviceWindowsCore::InitPlayout()
     hr = _ptrClientOut->GetMixFormat(&pWfxOut);
     if (SUCCEEDED(hr))
     {
-        LOG(LS_VERBOSE) << "Audio Engine's current rendering mix format:";
-        // format type
-        LOG(LS_VERBOSE) << "wFormatTag     : 0x" << std::hex
-                        << pWfxOut->wFormatTag << std::dec << " ("
-                        << pWfxOut->wFormatTag << ")";
-        // number of channels (i.e. mono, stereo...)
-        LOG(LS_VERBOSE) << "nChannels      : " << pWfxOut->nChannels;
-        // sample rate
-        LOG(LS_VERBOSE) << "nSamplesPerSec : " << pWfxOut->nSamplesPerSec;
-        // for buffer estimation
-        LOG(LS_VERBOSE) << "nAvgBytesPerSec: " << pWfxOut->nAvgBytesPerSec;
-        // block size of data
-        LOG(LS_VERBOSE) << "nBlockAlign    : " << pWfxOut->nBlockAlign;
-        // number of bits per sample of mono data
-        LOG(LS_VERBOSE) << "wBitsPerSample : " << pWfxOut->wBitsPerSample;
-        LOG(LS_VERBOSE) << "cbSize         : " << pWfxOut->cbSize;
+      LOG(LS_VERBOSE) << "Audio Engine's current rendering mix format:";
+      // format type
+      LOG(LS_VERBOSE) << "wFormatTag     : 0x" << std::hex
+                      << pWfxOut->wFormatTag << std::dec << " ("
+                      << pWfxOut->wFormatTag << ")";
+      // number of channels (i.e. mono, stereo...)
+      LOG(LS_VERBOSE) << "nChannels      : " << pWfxOut->nChannels;
+      // sample rate
+      LOG(LS_VERBOSE) << "nSamplesPerSec : " << pWfxOut->nSamplesPerSec;
+      // for buffer estimation
+      LOG(LS_VERBOSE) << "nAvgBytesPerSec: " << pWfxOut->nAvgBytesPerSec;
+      // block size of data
+      LOG(LS_VERBOSE) << "nBlockAlign    : " << pWfxOut->nBlockAlign;
+      // number of bits per sample of mono data
+      LOG(LS_VERBOSE) << "wBitsPerSample : " << pWfxOut->wBitsPerSample;
+      LOG(LS_VERBOSE) << "cbSize         : " << pWfxOut->cbSize;
     }
 
     // Set wave format
@@ -2170,19 +2157,20 @@ int32_t AudioDeviceWindowsCore::InitPlayout()
             {
                 if (pWfxClosestMatch)
                 {
-                    LOG(INFO) << "nChannels=" << Wfx.nChannels <<
-                        ", nSamplesPerSec=" << Wfx.nSamplesPerSec <<
-                        " is not supported. Closest match: " <<
-                        "nChannels=" << pWfxClosestMatch->nChannels <<
-                        ", nSamplesPerSec=" << pWfxClosestMatch->nSamplesPerSec;
-                    CoTaskMemFree(pWfxClosestMatch);
-                    pWfxClosestMatch = NULL;
+                  LOG(INFO) << "nChannels=" << Wfx.nChannels
+                            << ", nSamplesPerSec=" << Wfx.nSamplesPerSec
+                            << " is not supported. Closest match: "
+                            << "nChannels=" << pWfxClosestMatch->nChannels
+                            << ", nSamplesPerSec="
+                            << pWfxClosestMatch->nSamplesPerSec;
+                  CoTaskMemFree(pWfxClosestMatch);
+                  pWfxClosestMatch = NULL;
                 }
                 else
                 {
-                    LOG(INFO) << "nChannels=" << Wfx.nChannels <<
-                        ", nSamplesPerSec=" << Wfx.nSamplesPerSec <<
-                        " is not supported. No closest match.";
+                  LOG(INFO) << "nChannels=" << Wfx.nChannels
+                            << ", nSamplesPerSec=" << Wfx.nSamplesPerSec
+                            << " is not supported. No closest match.";
                 }
             }
         }
@@ -2260,7 +2248,7 @@ int32_t AudioDeviceWindowsCore::InitPlayout()
 
     if (FAILED(hr))
     {
-        LOG(LS_ERROR) << "IAudioClient::Initialize() failed:";
+      LOG(LS_ERROR) << "IAudioClient::Initialize() failed:";
     }
     EXIT_ON_ERROR(hr);
 
@@ -2286,9 +2274,9 @@ int32_t AudioDeviceWindowsCore::InitPlayout()
                           &bufferFrameCount);
     if (SUCCEEDED(hr))
     {
-        LOG(LS_VERBOSE) << "IAudioClient::GetBufferSize() => "
-                        << bufferFrameCount << " (<=> "
-                        << bufferFrameCount*_playAudioFrameSize << " bytes)";
+      LOG(LS_VERBOSE) << "IAudioClient::GetBufferSize() => " << bufferFrameCount
+                      << " (<=> " << bufferFrameCount * _playAudioFrameSize
+                      << " bytes)";
     }
 
     // Set the event handle that the system signals when an audio buffer is ready
@@ -2438,7 +2426,7 @@ int32_t AudioDeviceWindowsCore::InitRecording()
     // Initialize the microphone (devices might have been added or removed)
     if (InitMicrophone() == -1)
     {
-        LOG(LS_WARNING) << "InitMicrophone() failed";
+      LOG(LS_WARNING) << "InitMicrophone() failed";
     }
 
     // Ensure that the updated capturing endpoint device is valid
@@ -2472,22 +2460,21 @@ int32_t AudioDeviceWindowsCore::InitRecording()
     hr = _ptrClientIn->GetMixFormat(&pWfxIn);
     if (SUCCEEDED(hr))
     {
-        LOG(LS_VERBOSE) << "Audio Engine's current capturing mix format:";
-        // format type
-        LOG(LS_VERBOSE) << "wFormatTag     : 0x" << std::hex
-                        << pWfxIn->wFormatTag << std::dec << " ("
-                        << pWfxIn->wFormatTag << ")";
-        // number of channels (i.e. mono, stereo...)
-        LOG(LS_VERBOSE) << "nChannels      : " << pWfxIn->nChannels;
-        // sample rate
-        LOG(LS_VERBOSE) << "nSamplesPerSec : " << pWfxIn->nSamplesPerSec;
-        // for buffer estimation
-        LOG(LS_VERBOSE) << "nAvgBytesPerSec: " << pWfxIn->nAvgBytesPerSec;
-        // block size of data
-        LOG(LS_VERBOSE) << "nBlockAlign    : " << pWfxIn->nBlockAlign;
-        // number of bits per sample of mono data
-        LOG(LS_VERBOSE) << "wBitsPerSample : " << pWfxIn->wBitsPerSample;
-        LOG(LS_VERBOSE) << "cbSize         : " << pWfxIn->cbSize;
+      LOG(LS_VERBOSE) << "Audio Engine's current capturing mix format:";
+      // format type
+      LOG(LS_VERBOSE) << "wFormatTag     : 0x" << std::hex << pWfxIn->wFormatTag
+                      << std::dec << " (" << pWfxIn->wFormatTag << ")";
+      // number of channels (i.e. mono, stereo...)
+      LOG(LS_VERBOSE) << "nChannels      : " << pWfxIn->nChannels;
+      // sample rate
+      LOG(LS_VERBOSE) << "nSamplesPerSec : " << pWfxIn->nSamplesPerSec;
+      // for buffer estimation
+      LOG(LS_VERBOSE) << "nAvgBytesPerSec: " << pWfxIn->nAvgBytesPerSec;
+      // block size of data
+      LOG(LS_VERBOSE) << "nBlockAlign    : " << pWfxIn->nBlockAlign;
+      // number of bits per sample of mono data
+      LOG(LS_VERBOSE) << "wBitsPerSample : " << pWfxIn->wBitsPerSample;
+      LOG(LS_VERBOSE) << "cbSize         : " << pWfxIn->cbSize;
     }
 
     // Set wave format
@@ -2527,19 +2514,20 @@ int32_t AudioDeviceWindowsCore::InitRecording()
             {
                 if (pWfxClosestMatch)
                 {
-                    LOG(INFO) << "nChannels=" << Wfx.Format.nChannels <<
-                        ", nSamplesPerSec=" << Wfx.Format.nSamplesPerSec <<
-                        " is not supported. Closest match: " <<
-                        "nChannels=" << pWfxClosestMatch->nChannels <<
-                        ", nSamplesPerSec=" << pWfxClosestMatch->nSamplesPerSec;
-                    CoTaskMemFree(pWfxClosestMatch);
-                    pWfxClosestMatch = NULL;
+                  LOG(INFO) << "nChannels=" << Wfx.Format.nChannels
+                            << ", nSamplesPerSec=" << Wfx.Format.nSamplesPerSec
+                            << " is not supported. Closest match: "
+                            << "nChannels=" << pWfxClosestMatch->nChannels
+                            << ", nSamplesPerSec="
+                            << pWfxClosestMatch->nSamplesPerSec;
+                  CoTaskMemFree(pWfxClosestMatch);
+                  pWfxClosestMatch = NULL;
                 }
                 else
                 {
-                    LOG(INFO) << "nChannels=" << Wfx.Format.nChannels <<
-                        ", nSamplesPerSec=" << Wfx.Format.nSamplesPerSec <<
-                        " is not supported. No closest match.";
+                  LOG(INFO) << "nChannels=" << Wfx.Format.nChannels
+                            << ", nSamplesPerSec=" << Wfx.Format.nSamplesPerSec
+                            << " is not supported. No closest match.";
                 }
             }
         }
@@ -2556,8 +2544,8 @@ int32_t AudioDeviceWindowsCore::InitRecording()
 
         LOG(LS_VERBOSE) << "VoE selected this capturing format:";
         LOG(LS_VERBOSE) << "wFormatTag        : 0x" << std::hex
-                        << Wfx.Format.wFormatTag << std::dec
-                        << " (" << Wfx.Format.wFormatTag << ")";
+                        << Wfx.Format.wFormatTag << std::dec << " ("
+                        << Wfx.Format.wFormatTag << ")";
         LOG(LS_VERBOSE) << "nChannels         : " << Wfx.Format.nChannels;
         LOG(LS_VERBOSE) << "nSamplesPerSec    : " << Wfx.Format.nSamplesPerSec;
         LOG(LS_VERBOSE) << "nAvgBytesPerSec   : " << Wfx.Format.nAvgBytesPerSec;
@@ -2583,7 +2571,7 @@ int32_t AudioDeviceWindowsCore::InitRecording()
 
     if (hr != S_OK)
     {
-        LOG(LS_ERROR) << "IAudioClient::Initialize() failed:";
+      LOG(LS_ERROR) << "IAudioClient::Initialize() failed:";
     }
     EXIT_ON_ERROR(hr);
 
@@ -2609,9 +2597,9 @@ int32_t AudioDeviceWindowsCore::InitRecording()
                           &bufferFrameCount);
     if (SUCCEEDED(hr))
     {
-        LOG(LS_VERBOSE) << "IAudioClient::GetBufferSize() => "
-                        << bufferFrameCount << " (<=> "
-                        << bufferFrameCount*_recAudioFrameSize << " bytes)";
+      LOG(LS_VERBOSE) << "IAudioClient::GetBufferSize() => " << bufferFrameCount
+                      << " (<=> " << bufferFrameCount * _recAudioFrameSize
+                      << " bytes)";
     }
 
     // Set the event handle that the system signals when an audio buffer is ready
@@ -2697,8 +2685,8 @@ int32_t AudioDeviceWindowsCore::StartRecording()
                                    NULL);
         if (_hRecThread == NULL)
         {
-            LOG(LS_ERROR) << "failed to create the recording thread";
-            return -1;
+          LOG(LS_ERROR) << "failed to create the recording thread";
+          return -1;
         }
 
         // Set thread priority to highest possible
@@ -2713,8 +2701,8 @@ int32_t AudioDeviceWindowsCore::StartRecording()
                                                 NULL);
         if (_hGetCaptureVolumeThread == NULL)
         {
-            LOG(LS_ERROR) << "failed to create the volume getter thread";
-            return -1;
+          LOG(LS_ERROR) << "failed to create the volume getter thread";
+          return -1;
         }
 
         assert(_hSetCaptureVolumeThread == NULL);
@@ -2726,16 +2714,16 @@ int32_t AudioDeviceWindowsCore::StartRecording()
                                                 NULL);
         if (_hSetCaptureVolumeThread == NULL)
         {
-            LOG(LS_ERROR) << "failed to create the volume setter thread";
-            return -1;
+          LOG(LS_ERROR) << "failed to create the volume setter thread";
+          return -1;
         }
     }  // critScoped
 
     DWORD ret = WaitForSingleObject(_hCaptureStartedEvent, 1000);
     if (ret != WAIT_OBJECT_0)
     {
-        LOG(LS_VERBOSE) << "capturing did not start up properly";
-        return -1;
+      LOG(LS_VERBOSE) << "capturing did not start up properly";
+      return -1;
     }
     LOG(LS_VERBOSE) << "capture audio stream has now started...";
 
@@ -2761,14 +2749,14 @@ int32_t AudioDeviceWindowsCore::StopRecording()
 
     if (_hRecThread == NULL)
     {
-        LOG(LS_VERBOSE)
-            << "no capturing stream is active => close down WASAPI only";
-        SAFE_RELEASE(_ptrClientIn);
-        SAFE_RELEASE(_ptrCaptureClient);
-        _recIsInitialized = false;
-        _recording = false;
-        _UnLock();
-        return 0;
+      LOG(LS_VERBOSE)
+          << "no capturing stream is active => close down WASAPI only";
+      SAFE_RELEASE(_ptrClientIn);
+      SAFE_RELEASE(_ptrCaptureClient);
+      _recIsInitialized = false;
+      _recording = false;
+      _UnLock();
+      return 0;
     }
 
     // Stop the driving thread...
@@ -2780,13 +2768,12 @@ int32_t AudioDeviceWindowsCore::StopRecording()
     DWORD ret = WaitForSingleObject(_hRecThread, 2000);
     if (ret != WAIT_OBJECT_0)
     {
-        LOG(LS_ERROR)
-            << "failed to close down webrtc_core_audio_capture_thread";
-        err = -1;
+      LOG(LS_ERROR) << "failed to close down webrtc_core_audio_capture_thread";
+      err = -1;
     }
     else
     {
-        LOG(LS_VERBOSE) << "webrtc_core_audio_capture_thread is now closed";
+      LOG(LS_VERBOSE) << "webrtc_core_audio_capture_thread is now closed";
     }
 
     ret = WaitForSingleObject(_hGetCaptureVolumeThread, 2000);
@@ -2798,7 +2785,7 @@ int32_t AudioDeviceWindowsCore::StopRecording()
     }
     else
     {
-        LOG(LS_VERBOSE) << "volume getter thread is now closed";
+      LOG(LS_VERBOSE) << "volume getter thread is now closed";
     }
 
     ret = WaitForSingleObject(_hSetCaptureVolumeThread, 2000);
@@ -2810,7 +2797,7 @@ int32_t AudioDeviceWindowsCore::StopRecording()
     }
     else
     {
-        LOG(LS_VERBOSE) << "volume setter thread is now closed";
+      LOG(LS_VERBOSE) << "volume setter thread is now closed";
     }
     _Lock();
 
@@ -2918,8 +2905,8 @@ int32_t AudioDeviceWindowsCore::StartPlayout()
                          NULL);
         if (_hPlayThread == NULL)
         {
-            LOG(LS_ERROR) << "failed to create the playout thread";
-            return -1;
+          LOG(LS_ERROR) << "failed to create the playout thread";
+          return -1;
         }
 
         // Set thread priority to highest possible.
@@ -2929,8 +2916,8 @@ int32_t AudioDeviceWindowsCore::StartPlayout()
     DWORD ret = WaitForSingleObject(_hRenderStartedEvent, 1000);
     if (ret != WAIT_OBJECT_0)
     {
-        LOG(LS_VERBOSE) << "rendering did not start up properly";
-        return -1;
+      LOG(LS_VERBOSE) << "rendering did not start up properly";
+      return -1;
     }
 
     _playing = true;
@@ -2956,13 +2943,13 @@ int32_t AudioDeviceWindowsCore::StopPlayout()
 
         if (_hPlayThread == NULL)
         {
-            LOG(LS_VERBOSE)
-                << "no rendering stream is active => close down WASAPI only";
-            SAFE_RELEASE(_ptrClientOut);
-            SAFE_RELEASE(_ptrRenderClient);
-            _playIsInitialized = false;
-            _playing = false;
-            return 0;
+          LOG(LS_VERBOSE)
+              << "no rendering stream is active => close down WASAPI only";
+          SAFE_RELEASE(_ptrClientOut);
+          SAFE_RELEASE(_ptrRenderClient);
+          _playIsInitialized = false;
+          _playing = false;
+          return 0;
         }
 
         // stop the driving thread...
@@ -3113,9 +3100,9 @@ DWORD AudioDeviceWindowsCore::DoGetCaptureVolumeThread()
             case WAIT_TIMEOUT:  // timeout notification
                 break;
             default:            // unexpected error
-                LOG(LS_WARNING)
-                    << "unknown wait termination on get volume thread";
-                return 1;
+              LOG(LS_WARNING)
+                  << "unknown wait termination on get volume thread";
+              return 1;
         }
     }
 }
@@ -3134,9 +3121,9 @@ DWORD AudioDeviceWindowsCore::DoSetCaptureVolumeThread()
             case WAIT_OBJECT_0 + 1:  // _hSetCaptureVolumeEvent
                 break;
             default:                 // unexpected error
-                LOG(LS_WARNING)
-                    << "unknown wait termination on set volume thread";
-                    return 1;
+              LOG(LS_WARNING)
+                  << "unknown wait termination on set volume thread";
+              return 1;
         }
 
         _Lock();
@@ -3145,8 +3132,8 @@ DWORD AudioDeviceWindowsCore::DoSetCaptureVolumeThread()
 
         if (SetMicrophoneVolume(newMicLevel) == -1)
         {
-            LOG(LS_WARNING)
-                << "the required modification of the microphone volume failed";
+          LOG(LS_WARNING)
+              << "the required modification of the microphone volume failed";
         }
     }
 }
@@ -3182,7 +3169,7 @@ DWORD AudioDeviceWindowsCore::DoRenderThread()
         {
             if (FALSE == _PAvSetMmThreadPriority(hMmTask, AVRT_PRIORITY_CRITICAL))
             {
-                LOG(LS_WARNING) << "failed to boost play-thread using MMCSS";
+              LOG(LS_WARNING) << "failed to boost play-thread using MMCSS";
             }
             LOG(LS_VERBOSE)
                 << "render thread is now registered with MMCSS (taskIndex="
@@ -3190,9 +3177,9 @@ DWORD AudioDeviceWindowsCore::DoRenderThread()
         }
         else
         {
-            LOG(LS_WARNING) << "failed to enable MMCSS on render thread (err="
-                            << GetLastError() << ")";
-            _TraceCOMError(GetLastError());
+          LOG(LS_WARNING) << "failed to enable MMCSS on render thread (err="
+                          << GetLastError() << ")";
+          _TraceCOMError(GetLastError());
         }
     }
 
@@ -3213,7 +3200,7 @@ DWORD AudioDeviceWindowsCore::DoRenderThread()
     REFERENCE_TIME latency;
     _ptrClientOut->GetStreamLatency(&latency);
     LOG(LS_VERBOSE) << "[REND] max stream latency   : " << (DWORD)latency
-                    << " (" << (double)(latency/10000.0) << " ms)";
+                    << " (" << (double)(latency / 10000.0) << " ms)";
 
     // Get the length of the periodic interval separating successive processing passes by
     // the audio engine on the data in the endpoint buffer.
@@ -3228,7 +3215,7 @@ DWORD AudioDeviceWindowsCore::DoRenderThread()
     REFERENCE_TIME devPeriodMin = 0;
     _ptrClientOut->GetDevicePeriod(&devPeriod, &devPeriodMin);
     LOG(LS_VERBOSE) << "[REND] device period        : " << (DWORD)devPeriod
-                    << " (" << (double)(devPeriod/10000.0) << " ms)";
+                    << " (" << (double)(devPeriod / 10000.0) << " ms)";
 
     // Derive initial rendering delay.
     // Example: 10*(960/480) + 15 = 20 + 15 = 35ms
@@ -3283,11 +3270,11 @@ DWORD AudioDeviceWindowsCore::DoRenderThread()
         case WAIT_OBJECT_0 + 1:     // _hRenderSamplesReadyEvent
             break;
         case WAIT_TIMEOUT:          // timeout notification
-            LOG(LS_WARNING) << "render event timed out after 0.5 seconds";
-            goto Exit;
+          LOG(LS_WARNING) << "render event timed out after 0.5 seconds";
+          goto Exit;
         default:                    // unexpected error
-            LOG(LS_WARNING) << "unknown wait termination on render side";
-            goto Exit;
+          LOG(LS_WARNING) << "unknown wait termination on render side";
+          goto Exit;
         }
 
         while (keepPlaying)
@@ -3355,10 +3342,9 @@ DWORD AudioDeviceWindowsCore::DoRenderThread()
                     }
                     if (nSamples !=
                         static_cast<int32_t>(_playBlockSizeInSamples)) {
-                      LOG(LS_WARNING)
-                          << "nSamples(" << nSamples
-                          << ") != _playBlockSizeInSamples("
-                          << _playBlockSizeInSamples << ")";
+                      LOG(LS_WARNING) << "nSamples(" << nSamples
+                                      << ") != _playBlockSizeInSamples("
+                                      << _playBlockSizeInSamples << ")";
                     }
 
                     // Get the actual (stored) data
@@ -3435,7 +3421,7 @@ Exit:
     }
     else
     {
-        LOG(LS_VERBOSE) << "_Rendering thread is now terminated properly";
+      LOG(LS_VERBOSE) << "_Rendering thread is now terminated properly";
     }
 
     _UnLock();
@@ -3459,7 +3445,7 @@ DWORD AudioDeviceWindowsCore::InitCaptureThreadPriority()
         {
             if (!_PAvSetMmThreadPriority(_hMmTask, AVRT_PRIORITY_CRITICAL))
             {
-                LOG(LS_WARNING) << "failed to boost rec-thread using MMCSS";
+              LOG(LS_WARNING) << "failed to boost rec-thread using MMCSS";
             }
             LOG(LS_VERBOSE)
                 << "capture thread is now registered with MMCSS (taskIndex="
@@ -3467,9 +3453,9 @@ DWORD AudioDeviceWindowsCore::InitCaptureThreadPriority()
         }
         else
         {
-            LOG(LS_WARNING) << "failed to enable MMCSS on capture thread (err="
-                            << GetLastError() << ")";
-            _TraceCOMError(GetLastError());
+          LOG(LS_WARNING) << "failed to enable MMCSS on capture thread (err="
+                          << GetLastError() << ")";
+          _TraceCOMError(GetLastError());
         }
     }
 
@@ -3525,10 +3511,10 @@ DWORD AudioDeviceWindowsCore::DoCaptureThreadPollDMO()
         case WAIT_TIMEOUT:          // timeout notification
             break;
         default:                    // unexpected error
-            LOG(LS_WARNING) << "Unknown wait termination on capture side";
-            hr = -1; // To signal an error callback.
-            keepRecording = false;
-            break;
+          LOG(LS_WARNING) << "Unknown wait termination on capture side";
+          hr = -1;  // To signal an error callback.
+          keepRecording = false;
+          break;
         }
 
         while (keepRecording)
@@ -3614,12 +3600,12 @@ DWORD AudioDeviceWindowsCore::DoCaptureThreadPollDMO()
 
     if (FAILED(hr))
     {
-        LOG(LS_ERROR)
-            << "Recording error: capturing thread has ended prematurely";
+      LOG(LS_ERROR)
+          << "Recording error: capturing thread has ended prematurely";
     }
     else
     {
-        LOG(LS_VERBOSE) << "Capturing thread is now terminated properly";
+      LOG(LS_VERBOSE) << "Capturing thread is now terminated properly";
     }
 
     return hr;
@@ -3733,11 +3719,11 @@ DWORD AudioDeviceWindowsCore::DoCaptureThread()
         case WAIT_OBJECT_0 + 1:        // _hCaptureSamplesReadyEvent
             break;
         case WAIT_TIMEOUT:            // timeout notification
-            LOG(LS_WARNING) << "capture event timed out after 0.5 seconds";
-            goto Exit;
+          LOG(LS_WARNING) << "capture event timed out after 0.5 seconds";
+          goto Exit;
         default:                    // unexpected error
-            LOG(LS_WARNING) << "unknown wait termination on capture side";
-            goto Exit;
+          LOG(LS_WARNING) << "unknown wait termination on capture side";
+          goto Exit;
         }
 
         while (keepRecording)
@@ -3854,8 +3840,8 @@ DWORD AudioDeviceWindowsCore::DoCaptureThread()
                     {
                         // The VQE will only deliver non-zero microphone levels when a change is needed.
                         // Set this new mic level (received from the observer as return value in the callback).
-                        LOG(LS_VERBOSE) << "AGC change of volume: new="
-                                        << newMicLevel;
+                        LOG(LS_VERBOSE)
+                            << "AGC change of volume: new=" << newMicLevel;
                         // We store this outside of the audio buffer to avoid
                         // having it overwritten by the getter thread.
                         _newMicLevel = newMicLevel;
@@ -3871,8 +3857,8 @@ DWORD AudioDeviceWindowsCore::DoCaptureThread()
                 // can start a new processing loop after shutting down the current client by calling
                 // IAudioClient::Stop, IAudioClient::Reset, and releasing the audio client.
                 LOG(LS_ERROR) << "IAudioCaptureClient::GetBuffer returned"
-                              << " AUDCLNT_E_BUFFER_ERROR, hr = 0x"
-                              << std::hex << hr << std::dec;
+                              << " AUDCLNT_E_BUFFER_ERROR, hr = 0x" << std::hex
+                              << hr << std::dec;
                 goto Exit;
             }
 
@@ -3920,7 +3906,7 @@ Exit:
     }
     else
     {
-        LOG(LS_VERBOSE) << "_Capturing thread is now terminated properly";
+      LOG(LS_VERBOSE) << "_Capturing thread is now terminated properly";
     }
 
     SAFE_RELEASE(_ptrClientIn);
@@ -3941,16 +3927,16 @@ int32_t AudioDeviceWindowsCore::EnableBuiltInAEC(bool enable)
 
     if (_recIsInitialized)
     {
-        LOG(LS_ERROR)
-            << "Attempt to set Windows AEC with recording already initialized";
-        return -1;
+      LOG(LS_ERROR)
+          << "Attempt to set Windows AEC with recording already initialized";
+      return -1;
     }
 
     if (_dmo == NULL)
     {
-        LOG(LS_ERROR)
-            << "Built-in AEC DMO was not initialized properly at create time";
-        return -1;
+      LOG(LS_ERROR)
+          << "Built-in AEC DMO was not initialized properly at create time";
+      return -1;
     }
 
     _builtInAecEnabled = enable;
@@ -4123,24 +4109,21 @@ int AudioDeviceWindowsCore::SetVtI4Property(IPropertyStore* ptrPS,
 
 int32_t AudioDeviceWindowsCore::_RefreshDeviceList(EDataFlow dir)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    HRESULT hr = S_OK;
-    IMMDeviceCollection *pCollection = NULL;
+  HRESULT hr = S_OK;
+  IMMDeviceCollection* pCollection = NULL;
 
-    assert(dir == eRender || dir == eCapture);
-    assert(_ptrEnumerator != NULL);
+  assert(dir == eRender || dir == eCapture);
+  assert(_ptrEnumerator != NULL);
 
-    // Create a fresh list of devices using the specified direction
-    hr = _ptrEnumerator->EnumAudioEndpoints(
-                           dir,
-                           DEVICE_STATE_ACTIVE,
-                           &pCollection);
-    if (FAILED(hr))
-    {
-        _TraceCOMError(hr);
-        SAFE_RELEASE(pCollection);
-        return -1;
+  // Create a fresh list of devices using the specified direction
+  hr = _ptrEnumerator->EnumAudioEndpoints(dir, DEVICE_STATE_ACTIVE,
+                                          &pCollection);
+  if (FAILED(hr)) {
+    _TraceCOMError(hr);
+    SAFE_RELEASE(pCollection);
+    return -1;
     }
 
     if (dir == eRender)
@@ -4166,16 +4149,15 @@ int32_t AudioDeviceWindowsCore::_RefreshDeviceList(EDataFlow dir)
 
 int16_t AudioDeviceWindowsCore::_DeviceListCount(EDataFlow dir)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    HRESULT hr = S_OK;
-    UINT count = 0;
+  HRESULT hr = S_OK;
+  UINT count = 0;
 
-    assert(eRender == dir || eCapture == dir);
+  assert(eRender == dir || eCapture == dir);
 
-    if (eRender == dir && NULL != _ptrRenderCollection)
-    {
-        hr = _ptrRenderCollection->GetCount(&count);
+  if (eRender == dir && NULL != _ptrRenderCollection) {
+    hr = _ptrRenderCollection->GetCount(&count);
     }
     else if (NULL != _ptrCaptureCollection)
     {
@@ -4204,16 +4186,15 @@ int16_t AudioDeviceWindowsCore::_DeviceListCount(EDataFlow dir)
 
 int32_t AudioDeviceWindowsCore::_GetListDeviceName(EDataFlow dir, int index, LPWSTR szBuffer, int bufferLen)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    HRESULT hr = S_OK;
-    IMMDevice *pDevice = NULL;
+  HRESULT hr = S_OK;
+  IMMDevice* pDevice = NULL;
 
-    assert(dir == eRender || dir == eCapture);
+  assert(dir == eRender || dir == eCapture);
 
-    if (eRender == dir && NULL != _ptrRenderCollection)
-    {
-        hr = _ptrRenderCollection->Item(index, &pDevice);
+  if (eRender == dir && NULL != _ptrRenderCollection) {
+    hr = _ptrRenderCollection->Item(index, &pDevice);
     }
     else if (NULL != _ptrCaptureCollection)
     {
@@ -4243,25 +4224,21 @@ int32_t AudioDeviceWindowsCore::_GetListDeviceName(EDataFlow dir, int index, LPW
 
 int32_t AudioDeviceWindowsCore::_GetDefaultDeviceName(EDataFlow dir, ERole role, LPWSTR szBuffer, int bufferLen)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    HRESULT hr = S_OK;
-    IMMDevice *pDevice = NULL;
+  HRESULT hr = S_OK;
+  IMMDevice* pDevice = NULL;
 
-    assert(dir == eRender || dir == eCapture);
-    assert(role == eConsole || role == eCommunications);
-    assert(_ptrEnumerator != NULL);
+  assert(dir == eRender || dir == eCapture);
+  assert(role == eConsole || role == eCommunications);
+  assert(_ptrEnumerator != NULL);
 
-    hr = _ptrEnumerator->GetDefaultAudioEndpoint(
-                           dir,
-                           role,
-                           &pDevice);
+  hr = _ptrEnumerator->GetDefaultAudioEndpoint(dir, role, &pDevice);
 
-    if (FAILED(hr))
-    {
-        _TraceCOMError(hr);
-        SAFE_RELEASE(pDevice);
-        return -1;
+  if (FAILED(hr)) {
+    _TraceCOMError(hr);
+    SAFE_RELEASE(pDevice);
+    return -1;
     }
 
     int32_t res = _GetDeviceName(pDevice, szBuffer, bufferLen);
@@ -4282,16 +4259,15 @@ int32_t AudioDeviceWindowsCore::_GetDefaultDeviceName(EDataFlow dir, ERole role,
 
 int32_t AudioDeviceWindowsCore::_GetListDeviceID(EDataFlow dir, int index, LPWSTR szBuffer, int bufferLen)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    HRESULT hr = S_OK;
-    IMMDevice *pDevice = NULL;
+  HRESULT hr = S_OK;
+  IMMDevice* pDevice = NULL;
 
-    assert(dir == eRender || dir == eCapture);
+  assert(dir == eRender || dir == eCapture);
 
-    if (eRender == dir && NULL != _ptrRenderCollection)
-    {
-        hr = _ptrRenderCollection->Item(index, &pDevice);
+  if (eRender == dir && NULL != _ptrRenderCollection) {
+    hr = _ptrRenderCollection->Item(index, &pDevice);
     }
     else if (NULL != _ptrCaptureCollection)
     {
@@ -4321,25 +4297,21 @@ int32_t AudioDeviceWindowsCore::_GetListDeviceID(EDataFlow dir, int index, LPWST
 
 int32_t AudioDeviceWindowsCore::_GetDefaultDeviceID(EDataFlow dir, ERole role, LPWSTR szBuffer, int bufferLen)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    HRESULT hr = S_OK;
-    IMMDevice *pDevice = NULL;
+  HRESULT hr = S_OK;
+  IMMDevice* pDevice = NULL;
 
-    assert(dir == eRender || dir == eCapture);
-    assert(role == eConsole || role == eCommunications);
-    assert(_ptrEnumerator != NULL);
+  assert(dir == eRender || dir == eCapture);
+  assert(role == eConsole || role == eCommunications);
+  assert(_ptrEnumerator != NULL);
 
-    hr = _ptrEnumerator->GetDefaultAudioEndpoint(
-                           dir,
-                           role,
-                           &pDevice);
+  hr = _ptrEnumerator->GetDefaultAudioEndpoint(dir, role, &pDevice);
 
-    if (FAILED(hr))
-    {
-        _TraceCOMError(hr);
-        SAFE_RELEASE(pDevice);
-        return -1;
+  if (FAILED(hr)) {
+    _TraceCOMError(hr);
+    SAFE_RELEASE(pDevice);
+    return -1;
     }
 
     int32_t res = _GetDeviceID(pDevice, szBuffer, bufferLen);
@@ -4351,22 +4323,19 @@ int32_t AudioDeviceWindowsCore::_GetDefaultDeviceIndex(EDataFlow dir,
                                                        ERole role,
                                                        int* index)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    HRESULT hr = S_OK;
-    WCHAR szDefaultDeviceID[MAX_PATH] = {0};
-    WCHAR szDeviceID[MAX_PATH] = {0};
+  HRESULT hr = S_OK;
+  WCHAR szDefaultDeviceID[MAX_PATH] = {0};
+  WCHAR szDeviceID[MAX_PATH] = {0};
 
-    const size_t kDeviceIDLength = sizeof(szDeviceID)/sizeof(szDeviceID[0]);
-    assert(kDeviceIDLength ==
-        sizeof(szDefaultDeviceID) / sizeof(szDefaultDeviceID[0]));
+  const size_t kDeviceIDLength = sizeof(szDeviceID) / sizeof(szDeviceID[0]);
+  assert(kDeviceIDLength ==
+         sizeof(szDefaultDeviceID) / sizeof(szDefaultDeviceID[0]));
 
-    if (_GetDefaultDeviceID(dir,
-                            role,
-                            szDefaultDeviceID,
-                            kDeviceIDLength) == -1)
-    {
-        return -1;
+  if (_GetDefaultDeviceID(dir, role, szDefaultDeviceID, kDeviceIDLength) ==
+      -1) {
+    return -1;
     }
 
     IMMDeviceCollection* collection = _ptrCaptureCollection;
@@ -4377,8 +4346,8 @@ int32_t AudioDeviceWindowsCore::_GetDefaultDeviceIndex(EDataFlow dir,
 
     if (!collection)
     {
-        LOG(LS_ERROR) << "Device collection not valid";
-        return -1;
+      LOG(LS_ERROR) << "Device collection not valid";
+      return -1;
     }
 
     UINT count = 0;
@@ -4422,8 +4391,8 @@ int32_t AudioDeviceWindowsCore::_GetDefaultDeviceIndex(EDataFlow dir,
 
     if (*index == -1)
     {
-        LOG(LS_ERROR) << "Unable to find collection index for default device";
-        return -1;
+      LOG(LS_ERROR) << "Unable to find collection index for default device";
+      return -1;
     }
 
     return 0;
@@ -4437,25 +4406,23 @@ int32_t AudioDeviceWindowsCore::_GetDeviceName(IMMDevice* pDevice,
                                                LPWSTR pszBuffer,
                                                int bufferLen)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    static const WCHAR szDefault[] = L"<Device not available>";
+  static const WCHAR szDefault[] = L"<Device not available>";
 
-    HRESULT hr = E_FAIL;
-    IPropertyStore *pProps = NULL;
-    PROPVARIANT varName;
+  HRESULT hr = E_FAIL;
+  IPropertyStore* pProps = NULL;
+  PROPVARIANT varName;
 
-    assert(pszBuffer != NULL);
-    assert(bufferLen > 0);
+  assert(pszBuffer != NULL);
+  assert(bufferLen > 0);
 
-    if (pDevice != NULL)
-    {
-        hr = pDevice->OpenPropertyStore(STGM_READ, &pProps);
-        if (FAILED(hr))
-        {
-            LOG(LS_ERROR) << "IMMDevice::OpenPropertyStore failed, hr = 0x"
-                          << std::hex << hr << std::dec;
-        }
+  if (pDevice != NULL) {
+    hr = pDevice->OpenPropertyStore(STGM_READ, &pProps);
+    if (FAILED(hr)) {
+      LOG(LS_ERROR) << "IMMDevice::OpenPropertyStore failed, hr = 0x"
+                    << std::hex << hr << std::dec;
+    }
     }
 
     // Initialize container for property value.
@@ -4467,24 +4434,24 @@ int32_t AudioDeviceWindowsCore::_GetDeviceName(IMMDevice* pDevice,
         hr = pProps->GetValue(PKEY_Device_FriendlyName, &varName);
         if (FAILED(hr))
         {
-            LOG(LS_ERROR) << "IPropertyStore::GetValue failed, hr = 0x"
-                          << std::hex << hr << std::dec;
+          LOG(LS_ERROR) << "IPropertyStore::GetValue failed, hr = 0x"
+                        << std::hex << hr << std::dec;
         }
     }
 
     if ((SUCCEEDED(hr)) && (VT_EMPTY == varName.vt))
     {
         hr = E_FAIL;
-            LOG(LS_ERROR) << "IPropertyStore::GetValue returned no value,"
-                          << " hr = 0x" << std::hex << hr << std::dec;
+        LOG(LS_ERROR) << "IPropertyStore::GetValue returned no value,"
+                      << " hr = 0x" << std::hex << hr << std::dec;
     }
 
     if ((SUCCEEDED(hr)) && (VT_LPWSTR != varName.vt))
     {
         // The returned value is not a wide null terminated string.
         hr = E_UNEXPECTED;
-            LOG(LS_ERROR) << "IPropertyStore::GetValue returned unexpected"
-                          << " type, hr = 0x" << std::hex << hr << std::dec;
+        LOG(LS_ERROR) << "IPropertyStore::GetValue returned unexpected"
+                      << " type, hr = 0x" << std::hex << hr << std::dec;
     }
 
     if (SUCCEEDED(hr) && (varName.pwszVal != NULL))
@@ -4510,19 +4477,18 @@ int32_t AudioDeviceWindowsCore::_GetDeviceName(IMMDevice* pDevice,
 
 int32_t AudioDeviceWindowsCore::_GetDeviceID(IMMDevice* pDevice, LPWSTR pszBuffer, int bufferLen)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    static const WCHAR szDefault[] = L"<Device not available>";
+  static const WCHAR szDefault[] = L"<Device not available>";
 
-    HRESULT hr = E_FAIL;
-    LPWSTR pwszID = NULL;
+  HRESULT hr = E_FAIL;
+  LPWSTR pwszID = NULL;
 
-    assert(pszBuffer != NULL);
-    assert(bufferLen > 0);
+  assert(pszBuffer != NULL);
+  assert(bufferLen > 0);
 
-    if (pDevice != NULL)
-    {
-        hr = pDevice->GetId(&pwszID);
+  if (pDevice != NULL) {
+    hr = pDevice->GetId(&pwszID);
     }
 
     if (hr == S_OK)
@@ -4546,20 +4512,16 @@ int32_t AudioDeviceWindowsCore::_GetDeviceID(IMMDevice* pDevice, LPWSTR pszBuffe
 
 int32_t AudioDeviceWindowsCore::_GetDefaultDevice(EDataFlow dir, ERole role, IMMDevice** ppDevice)
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    HRESULT hr(S_OK);
+  HRESULT hr(S_OK);
 
-    assert(_ptrEnumerator != NULL);
+  assert(_ptrEnumerator != NULL);
 
-    hr = _ptrEnumerator->GetDefaultAudioEndpoint(
-                                   dir,
-                                   role,
-                                   ppDevice);
-    if (FAILED(hr))
-    {
-        _TraceCOMError(hr);
-        return -1;
+  hr = _ptrEnumerator->GetDefaultAudioEndpoint(dir, role, ppDevice);
+  if (FAILED(hr)) {
+    _TraceCOMError(hr);
+    return -1;
     }
 
     return 0;
@@ -4607,167 +4569,156 @@ int32_t AudioDeviceWindowsCore::_GetListDevice(EDataFlow dir, int index, IMMDevi
 
 int32_t AudioDeviceWindowsCore::_EnumerateEndpointDevicesAll(EDataFlow dataFlow) const
 {
-    LOG(LS_VERBOSE) << __FUNCTION__;
+  LOG(LS_VERBOSE) << __FUNCTION__;
 
-    assert(_ptrEnumerator != NULL);
+  assert(_ptrEnumerator != NULL);
 
-    HRESULT hr = S_OK;
-    IMMDeviceCollection *pCollection = NULL;
-    IMMDevice *pEndpoint = NULL;
-    IPropertyStore *pProps = NULL;
-    IAudioEndpointVolume* pEndpointVolume = NULL;
-    LPWSTR pwszID = NULL;
+  HRESULT hr = S_OK;
+  IMMDeviceCollection* pCollection = NULL;
+  IMMDevice* pEndpoint = NULL;
+  IPropertyStore* pProps = NULL;
+  IAudioEndpointVolume* pEndpointVolume = NULL;
+  LPWSTR pwszID = NULL;
 
-    // Generate a collection of audio endpoint devices in the system.
-    // Get states for *all* endpoint devices.
-    // Output: IMMDeviceCollection interface.
-    hr = _ptrEnumerator->EnumAudioEndpoints(
-                                 dataFlow,            // data-flow direction (input parameter)
-                                 DEVICE_STATE_ACTIVE | DEVICE_STATE_DISABLED | DEVICE_STATE_UNPLUGGED,
-                                 &pCollection);        // release interface when done
+  // Generate a collection of audio endpoint devices in the system.
+  // Get states for *all* endpoint devices.
+  // Output: IMMDeviceCollection interface.
+  hr = _ptrEnumerator->EnumAudioEndpoints(
+      dataFlow,  // data-flow direction (input parameter)
+      DEVICE_STATE_ACTIVE | DEVICE_STATE_DISABLED | DEVICE_STATE_UNPLUGGED,
+      &pCollection);  // release interface when done
 
-    EXIT_ON_ERROR(hr);
+  EXIT_ON_ERROR(hr);
 
-    // use the IMMDeviceCollection interface...
+  // use the IMMDeviceCollection interface...
 
-    UINT count = 0;
+  UINT count = 0;
 
-    // Retrieve a count of the devices in the device collection.
-    hr = pCollection->GetCount(&count);
-    EXIT_ON_ERROR(hr);
-    if (dataFlow == eRender)
-        LOG(LS_VERBOSE) << "#rendering endpoint devices (counting all): "
-                        << count;
-    else if (dataFlow == eCapture)
-        LOG(LS_VERBOSE) << "#capturing endpoint devices (counting all): "
-                        << count;
+  // Retrieve a count of the devices in the device collection.
+  hr = pCollection->GetCount(&count);
+  EXIT_ON_ERROR(hr);
+  if (dataFlow == eRender)
+    LOG(LS_VERBOSE) << "#rendering endpoint devices (counting all): " << count;
+  else if (dataFlow == eCapture)
+    LOG(LS_VERBOSE) << "#capturing endpoint devices (counting all): " << count;
 
-    if (count == 0)
-    {
-        return 0;
+  if (count == 0) {
+    return 0;
     }
 
     // Each loop prints the name of an endpoint device.
     for (ULONG i = 0; i < count; i++)
     {
-        LOG(LS_VERBOSE) << "Endpoint " << i << ":";
+      LOG(LS_VERBOSE) << "Endpoint " << i << ":";
 
-        // Get pointer to endpoint number i.
-        // Output: IMMDevice interface.
-        hr = pCollection->Item(
-                            i,
-                            &pEndpoint);
+      // Get pointer to endpoint number i.
+      // Output: IMMDevice interface.
+      hr = pCollection->Item(i, &pEndpoint);
+      CONTINUE_ON_ERROR(hr);
+
+      // use the IMMDevice interface of the specified endpoint device...
+
+      // Get the endpoint ID string (uniquely identifies the device among all
+      // audio endpoint devices)
+      hr = pEndpoint->GetId(&pwszID);
+      CONTINUE_ON_ERROR(hr);
+      LOG(LS_VERBOSE) << "ID string    : " << pwszID;
+
+      // Retrieve an interface to the device's property store.
+      // Output: IPropertyStore interface.
+      hr = pEndpoint->OpenPropertyStore(STGM_READ, &pProps);
+      CONTINUE_ON_ERROR(hr);
+
+      // use the IPropertyStore interface...
+
+      PROPVARIANT varName;
+      // Initialize container for property value.
+      PropVariantInit(&varName);
+
+      // Get the endpoint's friendly-name property.
+      // Example: "Speakers (Realtek High Definition Audio)"
+      hr = pProps->GetValue(PKEY_Device_FriendlyName, &varName);
+      CONTINUE_ON_ERROR(hr);
+      LOG(LS_VERBOSE) << "friendly name: \"" << varName.pwszVal << "\"";
+
+      // Get the endpoint's current device state
+      DWORD dwState;
+      hr = pEndpoint->GetState(&dwState);
+      CONTINUE_ON_ERROR(hr);
+      if (dwState & DEVICE_STATE_ACTIVE)
+        LOG(LS_VERBOSE) << "state (0x" << std::hex << dwState << std::dec
+                        << ")  : *ACTIVE*";
+      if (dwState & DEVICE_STATE_DISABLED)
+        LOG(LS_VERBOSE) << "state (0x" << std::hex << dwState << std::dec
+                        << ")  : DISABLED";
+      if (dwState & DEVICE_STATE_NOTPRESENT)
+        LOG(LS_VERBOSE) << "state (0x" << std::hex << dwState << std::dec
+                        << ")  : NOTPRESENT";
+      if (dwState & DEVICE_STATE_UNPLUGGED)
+        LOG(LS_VERBOSE) << "state (0x" << std::hex << dwState << std::dec
+                        << ")  : UNPLUGGED";
+
+      // Check the hardware volume capabilities.
+      DWORD dwHwSupportMask = 0;
+      hr = pEndpoint->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL,
+                               (void**)&pEndpointVolume);
+      CONTINUE_ON_ERROR(hr);
+      hr = pEndpointVolume->QueryHardwareSupport(&dwHwSupportMask);
+      CONTINUE_ON_ERROR(hr);
+      if (dwHwSupportMask & ENDPOINT_HARDWARE_SUPPORT_VOLUME)
+        // The audio endpoint device supports a hardware volume control
+        LOG(LS_VERBOSE) << "hwmask (0x" << std::hex << dwHwSupportMask
+                        << std::dec << ") : HARDWARE_SUPPORT_VOLUME";
+      if (dwHwSupportMask & ENDPOINT_HARDWARE_SUPPORT_MUTE)
+        // The audio endpoint device supports a hardware mute control
+        LOG(LS_VERBOSE) << "hwmask (0x" << std::hex << dwHwSupportMask
+                        << std::dec << ") : HARDWARE_SUPPORT_MUTE";
+      if (dwHwSupportMask & ENDPOINT_HARDWARE_SUPPORT_METER)
+        // The audio endpoint device supports a hardware peak meter
+        LOG(LS_VERBOSE) << "hwmask (0x" << std::hex << dwHwSupportMask
+                        << std::dec << ") : HARDWARE_SUPPORT_METER";
+
+      // Check the channel count (#channels in the audio stream that enters or
+      // leaves the audio endpoint device)
+      UINT nChannelCount(0);
+      hr = pEndpointVolume->GetChannelCount(&nChannelCount);
+      CONTINUE_ON_ERROR(hr);
+      LOG(LS_VERBOSE) << "#channels    : " << nChannelCount;
+
+      if (dwHwSupportMask & ENDPOINT_HARDWARE_SUPPORT_VOLUME) {
+        // Get the volume range.
+        float fLevelMinDB(0.0);
+        float fLevelMaxDB(0.0);
+        float fVolumeIncrementDB(0.0);
+        hr = pEndpointVolume->GetVolumeRange(&fLevelMinDB, &fLevelMaxDB,
+                                             &fVolumeIncrementDB);
         CONTINUE_ON_ERROR(hr);
+        LOG(LS_VERBOSE) << "volume range : " << fLevelMinDB << " (min), "
+                        << fLevelMaxDB << " (max), " << fVolumeIncrementDB
+                        << " (inc) [dB]";
 
-        // use the IMMDevice interface of the specified endpoint device...
+        // The volume range from vmin = fLevelMinDB to vmax = fLevelMaxDB is
+        // divided into n uniform intervals of size vinc = fVolumeIncrementDB,
+        // where n = (vmax ?vmin) / vinc. The values vmin, vmax, and vinc are
+        // measured in decibels. The client can set the volume level to one of n
+        // + 1 discrete values in the range from vmin to vmax.
+        int n = (int)((fLevelMaxDB - fLevelMinDB) / fVolumeIncrementDB);
+        LOG(LS_VERBOSE) << "#intervals   : " << n;
 
-        // Get the endpoint ID string (uniquely identifies the device among all audio endpoint devices)
-        hr = pEndpoint->GetId(&pwszID);
+        // Get information about the current step in the volume range.
+        // This method represents the volume level of the audio stream that
+        // enters or leaves the audio endpoint device as an index or "step" in a
+        // range of discrete volume levels. Output value nStepCount is the
+        // number of steps in the range. Output value nStep is the step index of
+        // the current volume level. If the number of steps is n = nStepCount,
+        // then step index nStep can assume values from 0 (minimum volume) to n
+        // ?1 (maximum volume).
+        UINT nStep(0);
+        UINT nStepCount(0);
+        hr = pEndpointVolume->GetVolumeStepInfo(&nStep, &nStepCount);
         CONTINUE_ON_ERROR(hr);
-        LOG(LS_VERBOSE) << "ID string    : " << pwszID;
-
-        // Retrieve an interface to the device's property store.
-        // Output: IPropertyStore interface.
-        hr = pEndpoint->OpenPropertyStore(
-                          STGM_READ,
-                          &pProps);
-        CONTINUE_ON_ERROR(hr);
-
-        // use the IPropertyStore interface...
-
-        PROPVARIANT varName;
-        // Initialize container for property value.
-        PropVariantInit(&varName);
-
-        // Get the endpoint's friendly-name property.
-        // Example: "Speakers (Realtek High Definition Audio)"
-        hr = pProps->GetValue(
-                       PKEY_Device_FriendlyName,
-                       &varName);
-        CONTINUE_ON_ERROR(hr);
-        LOG(LS_VERBOSE) << "friendly name: \"" << varName.pwszVal << "\"";
-
-        // Get the endpoint's current device state
-        DWORD dwState;
-        hr = pEndpoint->GetState(&dwState);
-        CONTINUE_ON_ERROR(hr);
-        if (dwState & DEVICE_STATE_ACTIVE)
-            LOG(LS_VERBOSE) << "state (0x" << std::hex << dwState << std::dec
-                            << ")  : *ACTIVE*";
-        if (dwState & DEVICE_STATE_DISABLED)
-            LOG(LS_VERBOSE) << "state (0x" << std::hex << dwState << std::dec
-                            << ")  : DISABLED";
-        if (dwState & DEVICE_STATE_NOTPRESENT)
-            LOG(LS_VERBOSE) << "state (0x" << std::hex << dwState << std::dec
-                            << ")  : NOTPRESENT";
-        if (dwState & DEVICE_STATE_UNPLUGGED)
-            LOG(LS_VERBOSE) << "state (0x" << std::hex << dwState << std::dec
-                            << ")  : UNPLUGGED";
-
-        // Check the hardware volume capabilities.
-        DWORD dwHwSupportMask = 0;
-        hr = pEndpoint->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL,
-                               NULL, (void**)&pEndpointVolume);
-        CONTINUE_ON_ERROR(hr);
-        hr = pEndpointVolume->QueryHardwareSupport(&dwHwSupportMask);
-        CONTINUE_ON_ERROR(hr);
-        if (dwHwSupportMask & ENDPOINT_HARDWARE_SUPPORT_VOLUME)
-            // The audio endpoint device supports a hardware volume control
-            LOG(LS_VERBOSE) << "hwmask (0x" << std::hex << dwHwSupportMask
-                            << std::dec << ") : HARDWARE_SUPPORT_VOLUME";
-        if (dwHwSupportMask & ENDPOINT_HARDWARE_SUPPORT_MUTE)
-            // The audio endpoint device supports a hardware mute control
-            LOG(LS_VERBOSE) << "hwmask (0x" << std::hex << dwHwSupportMask
-                            << std::dec << ") : HARDWARE_SUPPORT_MUTE";
-        if (dwHwSupportMask & ENDPOINT_HARDWARE_SUPPORT_METER)
-            // The audio endpoint device supports a hardware peak meter
-            LOG(LS_VERBOSE) << "hwmask (0x" << std::hex << dwHwSupportMask
-                            << std::dec << ") : HARDWARE_SUPPORT_METER";
-
-        // Check the channel count (#channels in the audio stream that enters or leaves the audio endpoint device)
-        UINT nChannelCount(0);
-        hr = pEndpointVolume->GetChannelCount(
-                                &nChannelCount);
-        CONTINUE_ON_ERROR(hr);
-        LOG(LS_VERBOSE) << "#channels    : " << nChannelCount;
-
-        if (dwHwSupportMask & ENDPOINT_HARDWARE_SUPPORT_VOLUME)
-        {
-            // Get the volume range.
-            float fLevelMinDB(0.0);
-            float fLevelMaxDB(0.0);
-            float fVolumeIncrementDB(0.0);
-            hr = pEndpointVolume->GetVolumeRange(
-                                    &fLevelMinDB,
-                                    &fLevelMaxDB,
-                                    &fVolumeIncrementDB);
-            CONTINUE_ON_ERROR(hr);
-            LOG(LS_VERBOSE) << "volume range : " << fLevelMinDB << " (min), "
-                            << fLevelMaxDB << " (max), " << fVolumeIncrementDB
-                            << " (inc) [dB]";
-
-            // The volume range from vmin = fLevelMinDB to vmax = fLevelMaxDB is divided
-            // into n uniform intervals of size vinc = fVolumeIncrementDB, where
-            // n = (vmax ?vmin) / vinc.
-            // The values vmin, vmax, and vinc are measured in decibels. The client can set
-            // the volume level to one of n + 1 discrete values in the range from vmin to vmax.
-            int n = (int)((fLevelMaxDB-fLevelMinDB)/fVolumeIncrementDB);
-            LOG(LS_VERBOSE) << "#intervals   : " << n;
-
-            // Get information about the current step in the volume range.
-            // This method represents the volume level of the audio stream that enters or leaves
-            // the audio endpoint device as an index or "step" in a range of discrete volume levels.
-            // Output value nStepCount is the number of steps in the range. Output value nStep
-            // is the step index of the current volume level. If the number of steps is n = nStepCount,
-            // then step index nStep can assume values from 0 (minimum volume) to n ?1 (maximum volume).
-            UINT nStep(0);
-            UINT nStepCount(0);
-            hr = pEndpointVolume->GetVolumeStepInfo(
-                                    &nStep,
-                                    &nStepCount);
-            CONTINUE_ON_ERROR(hr);
-            LOG(LS_VERBOSE) << "volume steps : " << nStep << " (nStep), "
-                            << nStepCount << " (nStepCount)";
+        LOG(LS_VERBOSE) << "volume steps : " << nStep << " (nStep), "
+                        << nStepCount << " (nStepCount)";
         }
 Next:
         if (FAILED(hr)) {

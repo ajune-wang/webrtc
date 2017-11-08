@@ -341,8 +341,8 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
       switch (type) {
         case kRtpExtensionTransmissionTimeOffset: {
           if (len != 2) {
-            LOG(LS_WARNING) << "Incorrect transmission time offset len: "
-                            << len;
+            LOG(LS_WARNING)
+                << "Incorrect transmission time offset len: " << len;
             return;
           }
           //  0                   1                   2                   3
@@ -406,8 +406,8 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         }
         case kRtpExtensionTransportSequenceNumber: {
           if (len != 1) {
-            LOG(LS_WARNING) << "Incorrect transport sequence number len: "
-                            << len;
+            LOG(LS_WARNING)
+                << "Incorrect transport sequence number len: " << len;
             return;
           }
           //   0                   1                   2

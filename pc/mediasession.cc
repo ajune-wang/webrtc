@@ -374,7 +374,7 @@ class UsedIds {
     if (IsIdUsed(original_id)) {
       new_id = FindUnusedId();
       LOG(LS_WARNING) << "Duplicate id found. Reassigning from " << original_id
-          << " to " << new_id;
+                      << " to " << new_id;
       idstruct->id = new_id;
     }
     SetIdUsed(new_id);
@@ -1795,8 +1795,8 @@ bool MediaSessionDescriptionFactory::AddTransportOffer(
   bool ret = (new_tdesc.get() != NULL &&
       offer_desc->AddTransportInfo(TransportInfo(content_name, *new_tdesc)));
   if (!ret) {
-    LOG(LS_ERROR)
-        << "Failed to AddTransportOffer, content name=" << content_name;
+    LOG(LS_ERROR) << "Failed to AddTransportOffer, content name="
+                  << content_name;
   }
   return ret;
 }
@@ -1824,8 +1824,8 @@ bool MediaSessionDescriptionFactory::AddTransportAnswer(
     SessionDescription* answer_desc) const {
   if (!answer_desc->AddTransportInfo(TransportInfo(content_name,
                                                    transport_desc))) {
-    LOG(LS_ERROR)
-        << "Failed to AddTransportAnswer, content name=" << content_name;
+    LOG(LS_ERROR) << "Failed to AddTransportAnswer, content name="
+                  << content_name;
     return false;
   }
   return true;

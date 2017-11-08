@@ -471,12 +471,12 @@ inline ::testing::AssertionResult CmpHelperMemEq(
 
 // Helpers for determining if X/screencasting is available (on linux).
 
-#define MAYBE_SKIP_SCREENCAST_TEST() \
-  if (!testing::IsScreencastingAvailable()) { \
+#define MAYBE_SKIP_SCREENCAST_TEST()                                         \
+  if (!testing::IsScreencastingAvailable()) {                                \
     LOG(LS_WARNING) << "Skipping test, since it doesn't have the requisite " \
-                    << "X environment for screen capture."; \
-    return; \
-  } \
+                    << "X environment for screen capture.";                  \
+    return;                                                                  \
+  }
 
 #if defined(WEBRTC_LINUX) && !defined(WEBRTC_ANDROID)
 struct XDisplay {

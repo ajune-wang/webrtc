@@ -954,7 +954,7 @@ bool BaseChannel::SetRtpTransportParameters(
   for (const webrtc::RtpExtension& extension : extensions) {
     if (extension.encrypt) {
       LOG(LS_INFO) << "Using " << (src == CS_LOCAL ? "local" : "remote")
-          << " encrypted extension: " << extension.ToString();
+                   << " encrypted extension: " << extension.ToString();
       encrypted_extension_ids.push_back(extension.id);
     }
   }

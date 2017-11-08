@@ -89,8 +89,8 @@ bool UnixFilesystem::MoveFile(const Pathname &old_path,
     RTC_DCHECK(IsFile(old_path));
     return false;
   }
-  LOG(LS_VERBOSE) << "Moving " << old_path.pathname()
-                  << " to " << new_path.pathname();
+  LOG(LS_VERBOSE) << "Moving " << old_path.pathname() << " to "
+                  << new_path.pathname();
   if (rename(old_path.pathname().c_str(), new_path.pathname().c_str()) != 0) {
     return false;
   }

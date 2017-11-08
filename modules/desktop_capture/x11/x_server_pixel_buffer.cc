@@ -227,7 +227,7 @@ void XServerPixelBuffer::InitShm(const XWindowAttributes& attributes) {
       }
     } else {
       LOG(LS_WARNING) << "Failed to get shared memory segment. "
-                      "Performance may be degraded.";
+                         "Performance may be degraded.";
     }
   }
 
@@ -243,9 +243,9 @@ void XServerPixelBuffer::InitShm(const XWindowAttributes& attributes) {
   shmctl(shm_segment_info_->shmid, IPC_RMID, 0);
   shm_segment_info_->shmid = -1;
 
-  LOG(LS_VERBOSE) << "Using X shared memory extension v"
-                  << major << "." << minor
-                  << " with" << (have_pixmaps ? "" : "out") << " pixmaps.";
+  LOG(LS_VERBOSE) << "Using X shared memory extension v" << major << "."
+                  << minor << " with" << (have_pixmaps ? "" : "out")
+                  << " pixmaps.";
 }
 
 bool XServerPixelBuffer::InitPixmaps(int depth) {

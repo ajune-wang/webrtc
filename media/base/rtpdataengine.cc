@@ -122,8 +122,8 @@ bool RtpDataMediaChannel::SetRecvCodecs(const std::vector<DataCodec>& codecs) {
 bool RtpDataMediaChannel::SetSendCodecs(const std::vector<DataCodec>& codecs) {
   const DataCodec* known_codec = FindKnownCodec(codecs);
   if (!known_codec) {
-    LOG(LS_WARNING) <<
-        "Failed to SetSendCodecs because there is no known codec.";
+    LOG(LS_WARNING)
+        << "Failed to SetSendCodecs because there is no known codec.";
     return false;
   }
 
@@ -221,9 +221,8 @@ void RtpDataMediaChannel::OnPacketReceived(
   size_t data_len = packet->size() - header_length - sizeof(kReservedSpace);
 
   if (!receiving_) {
-    LOG(LS_WARNING) << "Not receiving packet "
-                    << header.ssrc << ":" << header.seq_num
-                    << " before SetReceive(true) called.";
+    LOG(LS_WARNING) << "Not receiving packet " << header.ssrc << ":"
+                    << header.seq_num << " before SetReceive(true) called.";
     return;
   }
 

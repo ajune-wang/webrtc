@@ -231,8 +231,7 @@ int32_t AcmReceiver::AddCodec(int acm_codec_id,
   }
   if (ret_val != NetEq::kOK) {
     LOG(LERROR) << "AcmReceiver::AddCodec " << acm_codec_id
-                << static_cast<int>(payload_type)
-                << " channels: " << channels;
+                << static_cast<int>(payload_type) << " channels: " << channels;
     return -1;
   }
   return 0;

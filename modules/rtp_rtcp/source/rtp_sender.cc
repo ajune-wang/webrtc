@@ -521,7 +521,7 @@ size_t RTPSender::SendPadData(size_t bytes,
           break;
         }
         if (!ssrc_) {
-          LOG(LS_ERROR)  << "SSRC unset.";
+          LOG(LS_ERROR) << "SSRC unset.";
           return 0;
         }
 
@@ -552,7 +552,7 @@ size_t RTPSender::SendPadData(size_t bytes,
           capture_time_ms += (now_ms - last_timestamp_time_ms_);
         }
         if (!ssrc_rtx_) {
-          LOG(LS_ERROR)  << "RTX SSRC unset.";
+          LOG(LS_ERROR) << "RTX SSRC unset.";
           return 0;
         }
         RTC_DCHECK(ssrc_rtx_);

@@ -56,7 +56,6 @@ namespace webrtc {
     }                                          \
   } while (0)
 
-
 // Hardcoded delay estimates based on real measurements.
 // TODO(henrika): these value is not used in combination with built-in AEC.
 // Can most likely be removed.
@@ -746,10 +745,8 @@ void AudioDeviceIOS::SetupAudioBuffersForActiveAudioSession() {
   record_parameters_.reset(sample_rate, record_parameters_.channels(),
                            io_buffer_duration);
   RTC_DCHECK(record_parameters_.is_complete());
-  LOG(LS_INFO) << " frames per I/O buffer: "
-               << playout_parameters_.frames_per_buffer();
-  LOG(LS_INFO) << " bytes per I/O buffer: "
-               << playout_parameters_.GetBytesPerBuffer();
+  LOG(LS_INFO) << " frames per I/O buffer: " << playout_parameters_.frames_per_buffer();
+  LOG(LS_INFO) << " bytes per I/O buffer: " << playout_parameters_.GetBytesPerBuffer();
   RTC_DCHECK_EQ(playout_parameters_.GetBytesPerBuffer(),
                 record_parameters_.GetBytesPerBuffer());
 

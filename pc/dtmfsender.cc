@@ -119,15 +119,15 @@ bool DtmfSender::InsertDtmf(const std::string& tones, int duration,
       duration < kDtmfMinDurationMs ||
       inter_tone_gap < kDtmfMinGapMs) {
     LOG(LS_ERROR) << "InsertDtmf is called with invalid duration or tones gap. "
-        << "The duration cannot be more than " << kDtmfMaxDurationMs
-        << "ms or less than " << kDtmfMinDurationMs << "ms. "
-        << "The gap between tones must be at least " << kDtmfMinGapMs << "ms.";
+                  << "The duration cannot be more than " << kDtmfMaxDurationMs
+                  << "ms or less than " << kDtmfMinDurationMs << "ms. "
+                  << "The gap between tones must be at least " << kDtmfMinGapMs
+                  << "ms.";
     return false;
   }
 
   if (!CanInsertDtmf()) {
-    LOG(LS_ERROR)
-        << "InsertDtmf is called on DtmfSender that can't send DTMF.";
+    LOG(LS_ERROR) << "InsertDtmf is called on DtmfSender that can't send DTMF.";
     return false;
   }
 

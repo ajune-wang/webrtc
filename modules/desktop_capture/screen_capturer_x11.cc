@@ -355,7 +355,7 @@ void ScreenCapturerLinux::ScreenConfigurationChanged() {
   helper_.ClearInvalidRegion();
   if (!x_server_pixel_buffer_.Init(display(), DefaultRootWindow(display()))) {
     LOG(LS_ERROR) << "Failed to initialize pixel buffer after screen "
-        "configuration change.";
+                     "configuration change.";
   }
 }
 

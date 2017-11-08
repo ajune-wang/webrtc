@@ -520,8 +520,8 @@ class PosixSignalDeliveryTest : public testing::Test {
       return false;
     }
     if (signals_received_[0] != signum) {
-      LOG(LS_ERROR) << "ExpectSignal(): Received signal " <<
-          signals_received_[0] << ", expected " << signum;
+      LOG(LS_ERROR) << "ExpectSignal(): Received signal "
+                    << signals_received_[0] << ", expected " << signum;
       return false;
     }
     signals_received_.erase(signals_received_.begin());
@@ -532,7 +532,7 @@ class PosixSignalDeliveryTest : public testing::Test {
     bool ret = signals_received_.empty();
     if (!ret) {
       LOG(LS_ERROR) << "ExpectNone(): Received signal " << signals_received_[0]
-          << ", expected none";
+                    << ", expected none";
     }
     return ret;
   }

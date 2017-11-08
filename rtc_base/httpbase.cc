@@ -106,8 +106,8 @@ HttpParser::Process(const char* buffer, size_t len, size_t* processed,
       size_t read = 0;
       ProcessResult result = ProcessData(buffer + *processed, available, read,
                                          error);
-      LOG(LS_VERBOSE) << "Processed data, result: " << result << " read: "
-                      << read << " err: " << error;
+      LOG(LS_VERBOSE) << "Processed data, result: " << result
+                      << " read: " << read << " err: " << error;
 
       if (PR_CONTINUE != result) {
         return result;
@@ -124,9 +124,9 @@ HttpParser::Process(const char* buffer, size_t len, size_t* processed,
 
 HttpParser::ProcessResult
 HttpParser::ProcessLine(const char* line, size_t len, HttpError* error) {
-  LOG_F(LS_VERBOSE) << " state: " << state_ << " line: "
-                    << std::string(line, len) << " len: " << len << " err: "
-                    << error;
+  LOG_F(LS_VERBOSE) << " state: " << state_
+                    << " line: " << std::string(line, len) << " len: " << len
+                    << " err: " << error;
 
   switch (state_) {
   case ST_LEADER:

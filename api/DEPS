@@ -34,8 +34,4 @@ specific_include_rules = {
   ".*\.cc": [
     "+modules/audio_coding",
   ],
-
-  ".*i420_buffer\.h": [
-    "+system_wrappers/include/aligned_malloc.h",
-  ],
 }

@@ -14,6 +14,7 @@
 #include <string>
 
 #include "rtc_base/task_queue.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 class ReceiveStatisticsProvider;
@@ -41,6 +42,8 @@ struct RtcpTransceiverConfig {
 
   // Maximum packet size outgoing transport accepts.
   size_t max_packet_size = 1200;
+
+  Clock* clock = nullptr;
 
   // Transport to send rtcp packets to. Should be set.
   Transport* outgoing_transport = nullptr;

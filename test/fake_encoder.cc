@@ -18,7 +18,7 @@
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
-#include "system_wrappers/include/sleep.h"
+#include "rtc_base/system/sleep.h"
 #include "test/gtest.h"
 
 namespace webrtc {

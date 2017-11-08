@@ -12,7 +12,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_thread.h"
-#include "system_wrappers/include/sleep.h"
+#include "rtc_base/system/sleep.h"
 
 namespace webrtc {
 

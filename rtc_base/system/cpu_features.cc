@@ -10,7 +10,7 @@
 
 // Parts of this file derived from Chromium's base/cpu.cc.
 
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "rtc_base/system/cpu_features_wrapper.h"
 
 #if defined(WEBRTC_ARCH_X86_FAMILY) && defined(_MSC_VER)
 #include <intrin.h>

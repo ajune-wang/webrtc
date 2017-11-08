@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c87f6376_e6e7aceb",
+        "filename": "system_wrappers/source/event.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-08T12:22:30Z",
+      "side": 1,
+      "message": "It\u0027s indenting 4 spaces past the start of the rhs of the \u003d sign.",
+      "parentUuid": "50244d33_2fb5f013",
+      "revId": "f0bc1cef7f5756adb3e11e05c52ca5c30154f7df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8cb369b_459480ca",
         "filename": "system_wrappers/source/event_timer_posix.h",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "a974233f_9a758b0f",
+        "filename": "system_wrappers/source/event_timer_posix.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-08T12:22:30Z",
+      "side": 1,
+      "message": "I don\u0027t disagree, but not in this CL I think.",
+      "parentUuid": "c8cb369b_459480ca",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "f0bc1cef7f5756adb3e11e05c52ca5c30154f7df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f50eaec_911c28ae",
         "filename": "system_wrappers/source/event_timer_win.cc",
         "patchSetId": 3
@@ -53,6 +95,24 @@
       "writtenOn": "2017-11-08T12:13:27Z",
       "side": 1,
       "message": "nullptr?",
+      "revId": "f0bc1cef7f5756adb3e11e05c52ca5c30154f7df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddccc2f_32486a53",
+        "filename": "system_wrappers/source/event_timer_win.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-08T12:22:30Z",
+      "side": 1,
+      "message": "In principle yes, but if I started fixing that sort of thing in addition to just running `git cl format`, it would take a week to get this all sorted out. There\u0027s NULL -\u003e nullptr, bad (and badly formatted) comments, raw pointers, C-style casts, raw new and delete, and so on and so forth.",
+      "parentUuid": "1f50eaec_911c28ae",
       "revId": "f0bc1cef7f5756adb3e11e05c52ca5c30154f7df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

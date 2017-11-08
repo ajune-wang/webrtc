@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26a6f23f_95d46d89",
+        "filename": "common_video/libyuv/libyuv_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-08T08:53:37Z",
+      "side": 1,
+      "message": "This is the failing test. I don\u0027t see any obvious error (width_ \u003e\u003e 1 below doesn\u0027t look quite right, but shouldn\u0027t in reads of invalid data).\n\nBut on the other hand, maybe this test can be deleted? It used to test the ConvertToI420 which is deleted in this cl. And there\u0027s little point in having unit tests for libyuv functions in this place.\n\nI would suggest that you double check other call sites where you replaced ConvertToI420, so that they get width vs stride correctly, and delete this and the other tests of ConvertToI420. Magnus, do you agree?",
+      "range": {
+        "startLine": 304,
+        "startChar": 40,
+        "endLine": 304,
+        "endChar": 51
+      },
+      "revId": "39789d8c4e6c128f5cd04a1b3001c78ea444db0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

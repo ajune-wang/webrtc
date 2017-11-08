@@ -85,11 +85,13 @@ class PlanarYuvBuffer : public VideoFrameBuffer {
   virtual const uint8_t* DataY() const = 0;
   virtual const uint8_t* DataU() const = 0;
   virtual const uint8_t* DataV() const = 0;
+  virtual const uint8_t* DataA() const;
 
   // Returns the number of bytes between successive rows for a given plane.
   virtual int StrideY() const = 0;
   virtual int StrideU() const = 0;
   virtual int StrideV() const = 0;
+  virtual int StrideA() const;
 
  protected:
   ~PlanarYuvBuffer() override {}

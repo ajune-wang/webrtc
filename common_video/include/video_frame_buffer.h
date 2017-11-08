@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
  *
@@ -65,6 +66,19 @@ rtc::scoped_refptr<I420BufferInterface> WrapI420Buffer(
     int u_stride,
     const uint8_t* v_plane,
     int v_stride,
+    const rtc::Callback0<void>& no_longer_used);
+
+rtc::scoped_refptr<I420BufferInterface> WrapI420ABuffer(
+    int width,
+    int height,
+    const uint8_t* y_plane,
+    int y_stride,
+    const uint8_t* u_plane,
+    int u_stride,
+    const uint8_t* v_plane,
+    int v_stride,
+    const uint8_t* a_plane,
+    int a_stride,
     const rtc::Callback0<void>& no_longer_used);
 
 rtc::scoped_refptr<I444BufferInterface> WrapI444Buffer(

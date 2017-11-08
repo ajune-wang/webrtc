@@ -37,6 +37,14 @@ const I444BufferInterface* VideoFrameBuffer::GetI444() const {
   return static_cast<const I444BufferInterface*>(this);
 }
 
+const uint8_t* PlanarYuvBuffer::DataA() const {
+  return nullptr;
+}
+
+int PlanarYuvBuffer::StrideA() const {
+  return 0;
+}
+
 VideoFrameBuffer::Type I420BufferInterface::type() const {
   return Type::kI420;
 }

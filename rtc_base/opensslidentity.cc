@@ -481,6 +481,7 @@ OpenSSLIdentity::OpenSSLIdentity(OpenSSLKeyPair* key_pair,
     : key_pair_(key_pair), cert_chain_(new SSLCertChain(certificate)) {
   RTC_DCHECK(key_pair != nullptr);
   RTC_DCHECK(certificate != nullptr);
+  delete certificate;
 }
 
 OpenSSLIdentity::OpenSSLIdentity(OpenSSLKeyPair* key_pair,

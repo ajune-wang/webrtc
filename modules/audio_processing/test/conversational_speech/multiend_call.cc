@@ -118,8 +118,8 @@ bool MultiEndCall::CheckTiming() {
         turn.offset, it->second->SampleRate());
     std::size_t begin_timestamp = last_turn.end + offset_samples;
     std::size_t end_timestamp = begin_timestamp + it->second->NumSamples();
-    LOG(LS_INFO) << "turn #" << turn_index << " " << begin_timestamp
-        << "-" << end_timestamp << " ms";
+    LOG(LS_INFO) << "turn #" << turn_index << " " << begin_timestamp << "-"
+                 << end_timestamp << " ms";
 
     // The order is invalid if the offset is negative and its absolute value is
     // larger then the duration of the previous turn.
@@ -158,8 +158,7 @@ bool MultiEndCall::CheckTiming() {
 
   // Detect self cross-talk.
   for (const std::string& speaker_name : speaker_names_) {
-    LOG(LS_INFO) << "checking self cross-talk for <"
-        << speaker_name << ">";
+    LOG(LS_INFO) << "checking self cross-talk for <" << speaker_name << ">";
 
     // Copy all turns for this speaker to new vector.
     std::vector<SpeakingTurn> speaking_turns_for_name;

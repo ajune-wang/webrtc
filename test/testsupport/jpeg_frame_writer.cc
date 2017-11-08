@@ -50,8 +50,8 @@ bool JpegFrameWriter::WriteFrame(const VideoFrame& input_frame, int quality) {
   }
   output_file_ = fopen(output_filename_.c_str(), "wb");
   if (!output_file_) {
-    LOG(LS_ERROR) << "Couldn't open file to write jpeg frame to:" <<
-        output_filename_;
+    LOG(LS_ERROR) << "Couldn't open file to write jpeg frame to:"
+                  << output_filename_;
     return false;
   }
 

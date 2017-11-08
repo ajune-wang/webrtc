@@ -97,7 +97,7 @@ class LogThread : public Thread {
  private:
   void Run() override {
     // LS_SENSITIVE to avoid cluttering up any real logging going on
-    LOG(LS_SENSITIVE) << "LOG";
+    LOG(LS_SENSITIVE) << "LOG ";
   }
 };
 

@@ -320,8 +320,8 @@ bool MessageQueue::Get(Message *pmsg, int cmsWait, bool process_io) {
       if (pmsg->ts_sensitive) {
         int64_t delay = TimeDiff(msCurrent, pmsg->ts_sensitive);
         if (delay > 0) {
-          LOG_F(LS_WARNING) << "id: " << pmsg->message_id << "  delay: "
-                            << (delay + kMaxMsgLatency) << "ms";
+          LOG_F(LS_WARNING) << "id: " << pmsg->message_id
+                            << "  delay: " << (delay + kMaxMsgLatency) << "ms";
         }
       }
       // If this was a dispose message, delete it and skip it.

@@ -107,10 +107,10 @@ int32_t DeviceInfoImpl::GetCapability(const char* deviceUniqueIdUTF8,
     // Make sure the number is valid
     if (deviceCapabilityNumber >= (unsigned int) _captureCapabilities.size())
     {
-        LOG(LS_ERROR) << "Invalid deviceCapabilityNumber "
-                      << deviceCapabilityNumber << ">= number of capabilities ("
-                      << _captureCapabilities.size() << ").";
-        return -1;
+      LOG(LS_ERROR) << "Invalid deviceCapabilityNumber "
+                    << deviceCapabilityNumber << ">= number of capabilities ("
+                    << _captureCapabilities.size() << ").";
+      return -1;
     }
 
     capability = _captureCapabilities[deviceCapabilityNumber];

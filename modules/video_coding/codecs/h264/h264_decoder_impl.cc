@@ -286,7 +286,7 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
   }
   if (!decoded_image_callback_) {
     LOG(LS_WARNING) << "InitDecode() has been called, but a callback function "
-        "has not been set with RegisterDecodeCompleteCallback()";
+                       "has not been set with RegisterDecodeCompleteCallback()";
     ReportError();
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
@@ -334,15 +334,17 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
   }
   // |result| is number of bytes used, which should be all of them.
   if (result != packet.size) {
-    LOG(LS_ERROR) << "avcodec_decode_video2 consumed " << result << " bytes "
-        "when " << packet.size << " bytes were expected.";
+    LOG(LS_ERROR) << "avcodec_decode_video2 consumed " << result
+                  << " bytes "
+                     "when "
+                  << packet.size << " bytes were expected.";
     ReportError();
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
   if (!frame_decoded) {
     LOG(LS_WARNING) << "avcodec_decode_video2 successful but no frame was "
-        "decoded.";
+                       "decoded.";
     return WEBRTC_VIDEO_CODEC_OK;
   }
 

@@ -45,8 +45,10 @@ void TestInvalidParameterHandler(const wchar_t* expression,
                                  unsigned int line,
                                  uintptr_t pReserved) {
   LOG(LS_ERROR) << "InvalidParameter Handler called.  Exiting.";
-  LOG(LS_ERROR) << expression << std::endl << function << std::endl << file
-                << std::endl << line;
+  LOG(LS_ERROR) << expression << std::endl
+                << function << std::endl
+                << file << std::endl
+                << line;
   exit(1);
 }
 void TestPureCallHandler() {
@@ -54,8 +56,8 @@ void TestPureCallHandler() {
   exit(1);
 }
 int TestCrtReportHandler(int report_type, char* msg, int* retval) {
-    LOG(LS_ERROR) << "CrtReport Handler called...";
-    LOG(LS_ERROR) << msg;
+  LOG(LS_ERROR) << "CrtReport Handler called...";
+  LOG(LS_ERROR) << msg;
   if (report_type == _CRT_ASSERT) {
     exit(1);
   } else {

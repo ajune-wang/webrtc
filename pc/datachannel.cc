@@ -164,8 +164,8 @@ bool DataChannel::Init(const InternalDataChannelInit& config) {
       return false;
     }
     if (config.maxRetransmits != -1 && config.maxRetransmitTime != -1) {
-      LOG(LS_ERROR) <<
-          "maxRetransmits and maxRetransmitTime should not be both set.";
+      LOG(LS_ERROR)
+          << "maxRetransmits and maxRetransmitTime should not be both set.";
       return false;
     }
     config_ = config;

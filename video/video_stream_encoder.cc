@@ -157,8 +157,7 @@ class VideoStreamEncoder::EncodeTask : public rtc::QueuedTask {
                    << video_stream_encoder_->captured_frame_count_
                    << ", dropped (due to encoder blocked) "
                    << video_stream_encoder_->dropped_frame_count_
-                   << ", interval_ms "
-                   << kFrameLogIntervalMs;
+                   << ", interval_ms " << kFrameLogIntervalMs;
       video_stream_encoder_->captured_frame_count_ = 0;
       video_stream_encoder_->dropped_frame_count_ = 0;
     }

@@ -32,10 +32,10 @@ using webrtc::testing::SSE_READ;
 using webrtc::testing::SSE_WRITE;
 using webrtc::testing::StreamSink;
 
-#define MAYBE_SKIP_IPV6                             \
-  if (!HasIPv6Enabled()) {                          \
-    LOG(LS_INFO) << "No IPv6... skipping";          \
-    return;                                         \
+#define MAYBE_SKIP_IPV6                    \
+  if (!HasIPv6Enabled()) {                 \
+    LOG(LS_INFO) << "No IPv6... skipping"; \
+    return;                                \
   }
 
 // Data size to be used in TcpInternal tests.

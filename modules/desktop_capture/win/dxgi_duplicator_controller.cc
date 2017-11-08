@@ -460,8 +460,10 @@ bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
       return false;
     }
     if (rtc::TimeMillis() - start_ms > timeout_ms) {
-      LOG(LS_ERROR) << "Failed to capture " << frames_to_skip << " frames "
-                       "within " << timeout_ms << " milliseconds.";
+      LOG(LS_ERROR) << "Failed to capture " << frames_to_skip
+                    << " frames "
+                       "within "
+                    << timeout_ms << " milliseconds.";
       return false;
     }
   }

@@ -43,9 +43,7 @@ class DummySetSessionDescriptionObserver
     return
         new rtc::RefCountedObject<DummySetSessionDescriptionObserver>();
   }
-  virtual void OnSuccess() {
-    LOG(INFO) << __FUNCTION__;
-  }
+  virtual void OnSuccess() { LOG(INFO) << __FUNCTION__; }
   virtual void OnFailure(const std::string& error) {
     LOG(INFO) << __FUNCTION__ << " " << error;
   }
@@ -286,7 +284,7 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
         webrtc::CreateSessionDescription(type, sdp, &error));
     if (!session_description) {
       LOG(WARNING) << "Can't parse received session description message. "
-          << "SdpParseError was: " << error.description;
+                   << "SdpParseError was: " << error.description;
       return;
     }
     LOG(INFO) << " Received session description :" << message;
@@ -314,7 +312,7 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
         webrtc::CreateIceCandidate(sdp_mid, sdp_mlineindex, sdp, &error));
     if (!candidate.get()) {
       LOG(WARNING) << "Can't parse received candidate message. "
-          << "SdpParseError was: " << error.description;
+                   << "SdpParseError was: " << error.description;
       return;
     }
     if (!peer_connection_->AddIceCandidate(candidate.get())) {
@@ -541,7 +539,7 @@ void Conductor::OnSuccess(webrtc::SessionDescriptionInterface* desc) {
 }
 
 void Conductor::OnFailure(const std::string& error) {
-    LOG(LERROR) << error;
+  LOG(LERROR) << error;
 }
 
 void Conductor::SendMessage(const std::string& json_object) {

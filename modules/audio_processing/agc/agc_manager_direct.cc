@@ -215,8 +215,7 @@ void AgcManagerDirect::AnalyzePreProcess(int16_t* audio,
   // gain is increased, through SetMaxLevel().
   float clipped_ratio = agc_->AnalyzePreproc(audio, length);
   if (clipped_ratio > kClippedRatioThreshold) {
-    LOG(LS_INFO) << "[agc] Clipping detected. clipped_ratio="
-                 << clipped_ratio;
+    LOG(LS_INFO) << "[agc] Clipping detected. clipped_ratio=" << clipped_ratio;
     // Always decrease the maximum level, even if the current level is below
     // threshold.
     SetMaxLevel(std::max(clipped_level_min_, max_level_ - kClippedLevelStep));
@@ -312,7 +311,7 @@ void AgcManagerDirect::SetMaxLevel(int level) {
                                            kSurplusCompressionGain +
                                        0.5f);
   LOG(LS_INFO) << "[agc] max_level_=" << max_level_
-               << ", max_compression_gain_="  << max_compression_gain_;
+               << ", max_compression_gain_=" << max_compression_gain_;
 }
 
 void AgcManagerDirect::SetCaptureMuted(bool muted) {

@@ -44,12 +44,12 @@ std::unique_ptr<std::map<std::string, SpeakerOutputFilePaths>>
     const rtc::Pathname near_end_path(
         output_path, "s_" + speaker_name + "-near_end.wav");
     LOG(LS_VERBOSE) << "The near-end audio track will be created in "
-        << near_end_path.pathname() << ".";
+                    << near_end_path.pathname() << ".";
 
     const rtc::Pathname far_end_path(
         output_path, "s_" + speaker_name + "-far_end.wav");
     LOG(LS_VERBOSE) << "The far-end audio track will be created in "
-        << far_end_path.pathname() << ".";
+                    << far_end_path.pathname() << ".";
 
     // Add to map.
     speaker_output_file_paths_map->emplace(

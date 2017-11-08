@@ -234,10 +234,10 @@ int32_t VCMGenericDecoder::Decode(const VCMEncodedFrame& frame, int64_t nowMs) {
 
     _callback->OnDecoderImplementationName(decoder_->ImplementationName());
     if (ret < WEBRTC_VIDEO_CODEC_OK) {
-        LOG(LS_WARNING) << "Failed to decode frame with timestamp "
-                        << frame.TimeStamp() << ", error code: " << ret;
-        _callback->Pop(frame.TimeStamp());
-        return ret;
+      LOG(LS_WARNING) << "Failed to decode frame with timestamp "
+                      << frame.TimeStamp() << ", error code: " << ret;
+      _callback->Pop(frame.TimeStamp());
+      return ret;
     } else if (ret == WEBRTC_VIDEO_CODEC_NO_OUTPUT ||
                ret == WEBRTC_VIDEO_CODEC_REQUEST_SLI) {
         // No output

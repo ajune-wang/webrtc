@@ -210,8 +210,7 @@ int32_t FileAudioDevice::StartPlayout() {
   _ptrThreadPlay->Start();
   _ptrThreadPlay->SetPriority(rtc::kRealtimePriority);
 
-  LOG(LS_INFO) << "Started playout capture to output file: "
-               << _outputFilename;
+  LOG(LS_INFO) << "Started playout capture to output file: " << _outputFilename;
   return 0;
 }
 
@@ -234,8 +233,7 @@ int32_t FileAudioDevice::StopPlayout() {
   _playoutBuffer = NULL;
   _outputFile.CloseFile();
 
-  LOG(LS_INFO) << "Stopped playout capture to output file: "
-               << _outputFilename;
+  LOG(LS_INFO) << "Stopped playout capture to output file: " << _outputFilename;
   return 0;
 }
 
@@ -269,8 +267,7 @@ int32_t FileAudioDevice::StartRecording() {
   _ptrThreadRec->Start();
   _ptrThreadRec->SetPriority(rtc::kRealtimePriority);
 
-  LOG(LS_INFO) << "Started recording from input file: "
-               << _inputFilename;
+  LOG(LS_INFO) << "Started recording from input file: " << _inputFilename;
 
   return 0;
 }
@@ -295,8 +292,7 @@ int32_t FileAudioDevice::StopRecording() {
   }
   _inputFile.CloseFile();
 
-  LOG(LS_INFO) << "Stopped recording from input file: "
-               << _inputFilename;
+  LOG(LS_INFO) << "Stopped recording from input file: " << _inputFilename;
   return 0;
 }
 

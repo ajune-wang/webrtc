@@ -49,21 +49,19 @@ DeviceInfoLinux::~DeviceInfoLinux()
 
 uint32_t DeviceInfoLinux::NumberOfDevices()
 {
-    LOG(LS_INFO) << __FUNCTION__;
+  LOG(LS_INFO) << __FUNCTION__;
 
-    uint32_t count = 0;
-    char device[20];
-    int fd = -1;
+  uint32_t count = 0;
+  char device[20];
+  int fd = -1;
 
-    /* detect /dev/video [0-63]VideoCaptureModule entries */
-    for (int n = 0; n < 64; n++)
-    {
-        sprintf(device, "/dev/video%d", n);
-        if ((fd = open(device, O_RDONLY)) != -1)
-        {
-            close(fd);
-            count++;
-        }
+  /* detect /dev/video [0-63]VideoCaptureModule entries */
+  for (int n = 0; n < 64; n++) {
+    sprintf(device, "/dev/video%d", n);
+    if ((fd = open(device, O_RDONLY)) != -1) {
+      close(fd);
+      count++;
+    }
     }
 
     return count;
@@ -78,27 +76,25 @@ int32_t DeviceInfoLinux::GetDeviceName(
                                          char* /*productUniqueIdUTF8*/,
                                          uint32_t /*productUniqueIdUTF8Length*/)
 {
-    LOG(LS_INFO) << __FUNCTION__;
+  LOG(LS_INFO) << __FUNCTION__;
 
-    // Travel through /dev/video [0-63]
-    uint32_t count = 0;
-    char device[20];
-    int fd = -1;
-    bool found = false;
-    for (int n = 0; n < 64; n++)
-    {
-        sprintf(device, "/dev/video%d", n);
-        if ((fd = open(device, O_RDONLY)) != -1)
-        {
-            if (count == deviceNumber) {
-                // Found the device
-                found = true;
-                break;
-            } else {
-                close(fd);
-                count++;
-            }
-        }
+  // Travel through /dev/video [0-63]
+  uint32_t count = 0;
+  char device[20];
+  int fd = -1;
+  bool found = false;
+  for (int n = 0; n < 64; n++) {
+    sprintf(device, "/dev/video%d", n);
+    if ((fd = open(device, O_RDONLY)) != -1) {
+      if (count == deviceNumber) {
+        // Found the device
+        found = true;
+        break;
+      } else {
+        close(fd);
+        count++;
+      }
+    }
     }
 
     if (!found)
@@ -108,10 +104,10 @@ int32_t DeviceInfoLinux::GetDeviceName(
     struct v4l2_capability cap;
     if (ioctl(fd, VIDIOC_QUERYCAP, &cap) < 0)
     {
-        LOG(LS_INFO) << "error in querying the device capability for device "
-                     << device << ". errno = " << errno;
-        close(fd);
-        return -1;
+      LOG(LS_INFO) << "error in querying the device capability for device "
+                   << device << ". errno = " << errno;
+      close(fd);
+      return -1;
     }
 
     close(fd);
@@ -126,8 +122,8 @@ int32_t DeviceInfoLinux::GetDeviceName(
     }
     else
     {
-        LOG(LS_INFO) << "buffer passed is too small";
-        return -1;
+      LOG(LS_INFO) << "buffer passed is too small";
+      return -1;
     }
 
     if (cap.bus_info[0] != 0) // may not available in all drivers
@@ -141,8 +137,8 @@ int32_t DeviceInfoLinux::GetDeviceName(
         }
         else
         {
-            LOG(LS_INFO) << "buffer passed is too small";
-            return -1;
+          LOG(LS_INFO) << "buffer passed is too small";
+          return -1;
         }
     }
 
@@ -160,8 +156,8 @@ int32_t DeviceInfoLinux::CreateCapabilityMap(
                             (int32_t) strlen((char*) deviceUniqueIdUTF8);
     if (deviceUniqueIdUTF8Length > kVideoCaptureUniqueNameLength)
     {
-        LOG(LS_INFO) << "Device name too long";
-        return -1;
+      LOG(LS_INFO) << "Device name too long";
+      return -1;
     }
     LOG(LS_INFO) << "CreateCapabilityMap called for device "
                  << deviceUniqueIdUTF8;
@@ -203,8 +199,8 @@ int32_t DeviceInfoLinux::CreateCapabilityMap(
 
     if (!found)
     {
-        LOG(LS_INFO) << "no matching device found";
-        return -1;
+      LOG(LS_INFO) << "no matching device found";
+      return -1;
     }
 
     // now fd will point to the matching device
@@ -304,10 +300,11 @@ int32_t DeviceInfoLinux::FillCapabilities(int fd)
 
                     _captureCapabilities.push_back(cap);
                     index++;
-                    LOG(LS_VERBOSE) << "Camera capability, width:" << cap.width
-                                    << " height:" << cap.height << " type:"
-                                    << static_cast<int32_t>(cap.videoType)
-                                    << " fps:" << cap.maxFPS;
+                    LOG(LS_VERBOSE)
+                        << "Camera capability, width:" << cap.width
+                        << " height:" << cap.height
+                        << " type:" << static_cast<int32_t>(cap.videoType)
+                        << " fps:" << cap.maxFPS;
                 }
             }
         }

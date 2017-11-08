@@ -243,13 +243,13 @@ int VoEBaseImpl::Init(
   }
   if (audio_processing->noise_suppression()->set_level(kDefaultNsMode) != 0) {
     LOG_F(LS_ERROR) << "Failed to set noise suppression level: "
-        << kDefaultNsMode;
+                    << kDefaultNsMode;
     return -1;
   }
   GainControl* agc = audio_processing->gain_control();
   if (agc->set_analog_level_limits(kMinVolumeLevel, kMaxVolumeLevel) != 0) {
     LOG_F(LS_ERROR) << "Failed to set analog level limits with minimum: "
-        << kMinVolumeLevel << " and maximum: " << kMaxVolumeLevel;
+                    << kMinVolumeLevel << " and maximum: " << kMaxVolumeLevel;
     return -1;
   }
   if (agc->set_mode(kDefaultAgcMode) != 0) {

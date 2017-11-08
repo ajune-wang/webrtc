@@ -97,8 +97,7 @@ PeerConnectionTestWrapper::CreateDataChannel(
 
 void PeerConnectionTestWrapper::OnAddStream(
     rtc::scoped_refptr<MediaStreamInterface> stream) {
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
-               << ": OnAddStream";
+  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": OnAddStream";
   // TODO(ronghuawu): support multiple streams.
   if (stream->GetVideoTracks().size() > 0) {
     renderer_.reset(new FakeVideoTrackRenderer(stream->GetVideoTracks()[0]));
@@ -126,8 +125,8 @@ void PeerConnectionTestWrapper::OnSuccess(SessionDescriptionInterface* desc) {
   std::string sdp;
   EXPECT_TRUE(desc->ToString(&sdp));
 
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
-               << ": " << desc->type() << " sdp created: " << sdp;
+  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": " << desc->type()
+               << " sdp created: " << sdp;
 
   // Give the user a chance to modify sdp for testing.
   SignalOnSdpCreated(&sdp);
@@ -139,15 +138,13 @@ void PeerConnectionTestWrapper::OnSuccess(SessionDescriptionInterface* desc) {
 
 void PeerConnectionTestWrapper::CreateOffer(
     const MediaConstraintsInterface* constraints) {
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
-               << ": CreateOffer.";
+  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": CreateOffer.";
   peer_connection_->CreateOffer(this, constraints);
 }
 
 void PeerConnectionTestWrapper::CreateAnswer(
     const MediaConstraintsInterface* constraints) {
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
-               << ": CreateAnswer.";
+  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": CreateAnswer.";
   peer_connection_->CreateAnswer(this, constraints);
 }
 
@@ -200,8 +197,7 @@ void PeerConnectionTestWrapper::WaitForCallEstablished() {
 
 void PeerConnectionTestWrapper::WaitForConnection() {
   EXPECT_TRUE_WAIT(CheckForConnection(), kMaxWait);
-  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
-               << ": Connected.";
+  LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": Connected.";
 }
 
 bool PeerConnectionTestWrapper::CheckForConnection() {

@@ -126,8 +126,7 @@ bool OptionsFile::IsLegalValue(const std::string &value) {
 
 bool OptionsFile::GetStringValue(const std::string& option,
                                  std::string *out_val) const {
-  LOG(LS_VERBOSE) << "OptionsFile::GetStringValue "
-                  << option;
+  LOG(LS_VERBOSE) << "OptionsFile::GetStringValue " << option;
   if (!IsLegalName(option)) {
     return false;
   }
@@ -141,8 +140,7 @@ bool OptionsFile::GetStringValue(const std::string& option,
 
 bool OptionsFile::GetIntValue(const std::string& option,
                               int *out_val) const {
-  LOG(LS_VERBOSE) << "OptionsFile::GetIntValue "
-                  << option;
+  LOG(LS_VERBOSE) << "OptionsFile::GetIntValue " << option;
   if (!IsLegalName(option)) {
     return false;
   }
@@ -155,8 +153,7 @@ bool OptionsFile::GetIntValue(const std::string& option,
 
 bool OptionsFile::SetStringValue(const std::string& option,
                                  const std::string& value) {
-  LOG(LS_VERBOSE) << "OptionsFile::SetStringValue "
-                  << option << ":" << value;
+  LOG(LS_VERBOSE) << "OptionsFile::SetStringValue " << option << ":" << value;
   if (!IsLegalName(option) || !IsLegalValue(value)) {
     return false;
   }
@@ -166,8 +163,7 @@ bool OptionsFile::SetStringValue(const std::string& option,
 
 bool OptionsFile::SetIntValue(const std::string& option,
                               int value) {
-  LOG(LS_VERBOSE) << "OptionsFile::SetIntValue "
-                  << option << ":" << value;
+  LOG(LS_VERBOSE) << "OptionsFile::SetIntValue " << option << ":" << value;
   if (!IsLegalName(option)) {
     return false;
   }

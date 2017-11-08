@@ -128,8 +128,7 @@ MouseCursor* CreateMouseCursorFromHCursor(HDC dc, HCURSOR cursor) {
   // Get |scoped_mask| dimensions.
   BITMAP bitmap_info;
   if (!GetObject(scoped_mask, sizeof(bitmap_info), &bitmap_info)) {
-    LOG_F(LS_ERROR) << "Unable to get bitmap info. Error = "
-                    << GetLastError();
+    LOG_F(LS_ERROR) << "Unable to get bitmap info. Error = " << GetLastError();
     return NULL;
   }
 
@@ -156,8 +155,7 @@ MouseCursor* CreateMouseCursorFromHCursor(HDC dc, HCURSOR cursor) {
                  mask_data.get(),
                  reinterpret_cast<BITMAPINFO*>(&bmi),
                  DIB_RGB_COLORS)) {
-    LOG_F(LS_ERROR) << "Unable to get bitmap bits. Error = "
-                    << GetLastError();
+    LOG_F(LS_ERROR) << "Unable to get bitmap bits. Error = " << GetLastError();
     return NULL;
   }
 

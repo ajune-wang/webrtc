@@ -347,8 +347,8 @@ class PseudoTcpTestPingPong : public PseudoTcpTestBase {
     // number of iterations have completed.
     EXPECT_TRUE_WAIT(have_disconnected_, kTransferTimeoutMs);
     elapsed = rtc::TimeSince(start);
-    LOG(LS_INFO) << "Performed " << iterations << " pings in "
-                 << elapsed << " ms";
+    LOG(LS_INFO) << "Performed " << iterations << " pings in " << elapsed
+                 << " ms";
   }
 
  private:

@@ -109,8 +109,8 @@ NetEqImpl::NetEqImpl(const NetEq::Config& config,
   LOG(LS_INFO) << "NetEq config: " << config.ToString();
   int fs = config.sample_rate_hz;
   if (fs != 8000 && fs != 16000 && fs != 32000 && fs != 48000) {
-    LOG(LS_ERROR) << "Sample rate " << fs << " Hz not supported. " <<
-        "Changing to 8000 Hz.";
+    LOG(LS_ERROR) << "Sample rate " << fs << " Hz not supported. "
+                  << "Changing to 8000 Hz.";
     fs = 8000;
   }
   delay_manager_->SetMaximumDelay(config.max_delay_ms);

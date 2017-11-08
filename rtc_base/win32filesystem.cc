@@ -58,8 +58,8 @@ bool Win32Filesystem::MoveFile(const Pathname &old_path,
     RTC_DCHECK(IsFile(old_path));
     return false;
   }
-  LOG(LS_INFO) << "Moving " << old_path.pathname()
-               << " to " << new_path.pathname();
+  LOG(LS_INFO) << "Moving " << old_path.pathname() << " to "
+               << new_path.pathname();
   return ::MoveFile(ToUtf16(old_path.pathname()).c_str(),
                     ToUtf16(new_path.pathname()).c_str()) != 0;
 }

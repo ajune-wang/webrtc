@@ -76,8 +76,8 @@ int32_t VideoCaptureDS::Init(const char* deviceUniqueIdUTF8)
     _captureFilter = _dsInfo.GetDeviceFilter(deviceUniqueIdUTF8);
     if (!_captureFilter)
     {
-        LOG(LS_INFO) << "Failed to create capture filter.";
-        return -1;
+      LOG(LS_INFO) << "Failed to create capture filter.";
+      return -1;
     }
 
     // Get the interface for DirectShow's GraphBuilder
@@ -86,22 +86,22 @@ int32_t VideoCaptureDS::Init(const char* deviceUniqueIdUTF8)
                                   (void **) &_graphBuilder);
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to create graph builder.";
-        return -1;
+      LOG(LS_INFO) << "Failed to create graph builder.";
+      return -1;
     }
 
     hr = _graphBuilder->QueryInterface(IID_IMediaControl,
                                        (void **) &_mediaControl);
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to create media control builder.";
-        return -1;
+      LOG(LS_INFO) << "Failed to create media control builder.";
+      return -1;
     }
     hr = _graphBuilder->AddFilter(_captureFilter, CAPTURE_FILTER_NAME);
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to add the capture device to the graph.";
-        return -1;
+      LOG(LS_INFO) << "Failed to add the capture device to the graph.";
+      return -1;
     }
 
     _outputCapturePin = GetOutputPin(_captureFilter, PIN_CATEGORY_CAPTURE);
@@ -111,16 +111,16 @@ int32_t VideoCaptureDS::Init(const char* deviceUniqueIdUTF8)
                                         *this);
     if (hr != S_OK)
     {
-        LOG(LS_INFO) << "Failed to create send filter";
-        return -1;
+      LOG(LS_INFO) << "Failed to create send filter";
+      return -1;
     }
     _sinkFilter->AddRef();
 
     hr = _graphBuilder->AddFilter(_sinkFilter, SINK_FILTER_NAME);
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to add the send filter to the graph.";
-        return -1;
+      LOG(LS_INFO) << "Failed to add the send filter to the graph.";
+      return -1;
     }
     _inputSendPin = GetInputPin(_sinkFilter);
 
@@ -133,10 +133,10 @@ int32_t VideoCaptureDS::Init(const char* deviceUniqueIdUTF8)
     hr = _mediaControl->Pause();
     if (FAILED(hr))
     {
-        LOG(LS_INFO)
-            << "Failed to Pause the Capture device. Is it already occupied? "
-            << hr;
-        return -1;
+      LOG(LS_INFO)
+          << "Failed to Pause the Capture device. Is it already occupied? "
+          << hr;
+      return -1;
     }
     LOG(LS_INFO) << "Capture device '" << deviceUniqueIdUTF8
                  << "' initialized.";
@@ -160,8 +160,8 @@ int32_t VideoCaptureDS::StartCapture(
     HRESULT hr = _mediaControl->Run();
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to start the Capture device.";
-        return -1;
+      LOG(LS_INFO) << "Failed to start the Capture device.";
+      return -1;
     }
     return 0;
 }
@@ -173,8 +173,8 @@ int32_t VideoCaptureDS::StopCapture()
     HRESULT hr = _mediaControl->Pause();
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to stop the capture graph. " << hr;
-        return -1;
+      LOG(LS_INFO) << "Failed to stop the capture graph. " << hr;
+      return -1;
     }
     return 0;
 }
@@ -184,7 +184,7 @@ bool VideoCaptureDS::CaptureStarted()
     HRESULT hr = _mediaControl->GetState(1000, &state);
     if (hr != S_OK && hr != VFW_S_CANT_CUE)
     {
-        LOG(LS_INFO) << "Failed to get the CaptureStarted status";
+      LOG(LS_INFO) << "Failed to get the CaptureStarted status";
     }
     LOG(LS_INFO) << "CaptureStarted " << state;
     return state == State_Running;
@@ -239,8 +239,8 @@ int32_t VideoCaptureDS::SetCameraOutput(
                                                    (void**) &streamConfig);
     if (hr)
     {
-        LOG(LS_INFO) << "Can't get the Capture format settings.";
-        return -1;
+      LOG(LS_INFO) << "Can't get the Capture format settings.";
+      return -1;
     }
 
     //Get the windows capability from the capture device
@@ -289,8 +289,8 @@ int32_t VideoCaptureDS::SetCameraOutput(
 
     if (FAILED(hr))
     {
-        LOG(LS_INFO) << "Failed to set capture device output format";
-        return -1;
+      LOG(LS_INFO) << "Failed to set capture device output format";
+      return -1;
     }
 
     if (isDVCamera)
@@ -304,8 +304,8 @@ int32_t VideoCaptureDS::SetCameraOutput(
     }
     if (hr != S_OK)
     {
-        LOG(LS_INFO) << "Failed to connect the Capture graph " << hr;
-        return -1;
+      LOG(LS_INFO) << "Failed to connect the Capture graph " << hr;
+      return -1;
     }
     return 0;
 }
@@ -324,10 +324,9 @@ int32_t VideoCaptureDS::DisconnectGraph()
     }
     if (hr != S_OK)
     {
-        LOG(LS_ERROR)
-            << "Failed to Stop the Capture device for reconfiguration "
-            << hr;
-        return -1;
+      LOG(LS_ERROR) << "Failed to Stop the Capture device for reconfiguration "
+                    << hr;
+      return -1;
     }
     return 0;
 }
@@ -341,34 +340,34 @@ HRESULT VideoCaptureDS::ConnectDVCamera()
                               IID_IBaseFilter, (void **) &_dvFilter);
         if (hr != S_OK)
         {
-            LOG(LS_INFO) << "Failed to create the dv decoder: " << hr;
-            return hr;
+          LOG(LS_INFO) << "Failed to create the dv decoder: " << hr;
+          return hr;
         }
         hr = _graphBuilder->AddFilter(_dvFilter, L"VideoDecoderDV");
         if (hr != S_OK)
         {
-            LOG(LS_INFO) << "Failed to add the dv decoder to the graph: " << hr;
-            return hr;
+          LOG(LS_INFO) << "Failed to add the dv decoder to the graph: " << hr;
+          return hr;
         }
         _inputDvPin = GetInputPin(_dvFilter);
         if (_inputDvPin == NULL)
         {
-            LOG(LS_INFO) << "Failed to get input pin from DV decoder";
-            return -1;
+          LOG(LS_INFO) << "Failed to get input pin from DV decoder";
+          return -1;
         }
         _outputDvPin = GetOutputPin(_dvFilter, GUID_NULL);
         if (_outputDvPin == NULL)
         {
-            LOG(LS_INFO) << "Failed to get output pin from DV decoder";
-            return -1;
+          LOG(LS_INFO) << "Failed to get output pin from DV decoder";
+          return -1;
         }
     }
     hr = _graphBuilder->ConnectDirect(_outputCapturePin, _inputDvPin, NULL);
     if (hr != S_OK)
     {
-        LOG(LS_INFO) << "Failed to connect capture device to the dv devoder: "
-                     << hr;
-        return hr;
+      LOG(LS_INFO) << "Failed to connect capture device to the dv devoder: "
+                   << hr;
+      return hr;
     }
 
     hr = _graphBuilder->ConnectDirect(_outputDvPin, _inputSendPin, NULL);
@@ -376,13 +375,12 @@ HRESULT VideoCaptureDS::ConnectDVCamera()
     {
         if (hr == HRESULT_FROM_WIN32(ERROR_TOO_MANY_OPEN_FILES))
         {
-            LOG(LS_INFO) << "Failed to connect the capture device, busy";
+          LOG(LS_INFO) << "Failed to connect the capture device, busy";
         }
         else
         {
-            LOG(LS_INFO)
-                << "Failed to connect capture device to the send graph: "
-                << hr;
+          LOG(LS_INFO) << "Failed to connect capture device to the send graph: "
+                       << hr;
         }
         return hr;
     }

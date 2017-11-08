@@ -294,8 +294,7 @@ void PseudoTcp::NotifyClock(uint32_t now) {
       // retransmit segments
 #if _DEBUGMSG >= _DBG_NORMAL
       LOG(LS_INFO) << "timeout retransmit (rto: " << m_rx_rto
-                   << ") (rto_base: " << m_rto_base
-                   << ") (now: " << now
+                   << ") (rto_base: " << m_rto_base << ") (now: " << now
                    << ") (dup_acks: " << static_cast<unsigned>(m_dup_acks)
                    << ")";
 #endif // _DEBUGMSG
@@ -306,7 +305,8 @@ void PseudoTcp::NotifyClock(uint32_t now) {
 
       uint32_t nInFlight = m_snd_nxt - m_snd_una;
       m_ssthresh = std::max(nInFlight / 2, 2 * m_mss);
-      //LOG(LS_INFO) << "m_ssthresh: " << m_ssthresh << "  nInFlight: " << nInFlight << "  m_mss: " << m_mss;
+      // LOG(LS_INFO) << "m_ssthresh: " << m_ssthresh << "  nInFlight: " <<
+      // nInFlight << "  m_mss: " << m_mss;
       m_cwnd = m_mss;
 
       // Back off retransmit timer.  Note: the limit is lower when connecting.
@@ -541,13 +541,10 @@ IPseudoTcpNotify::WriteResult PseudoTcp::packet(uint32_t seq,
 
 #if _DEBUGMSG >= _DBG_VERBOSE
   LOG(LS_INFO) << "<-- <CONV=" << m_conv
-               << "><FLG=" << static_cast<unsigned>(flags)
-               << "><SEQ=" << seq << ":" << seq + len
-               << "><ACK=" << m_rcv_nxt
-               << "><WND=" << m_rcv_wnd
-               << "><TS="  << (now % 10000)
-               << "><TSR=" << (m_ts_recent % 10000)
-               << "><LEN=" << len << ">";
+               << "><FLG=" << static_cast<unsigned>(flags) << "><SEQ=" << seq
+               << ":" << seq + len << "><ACK=" << m_rcv_nxt
+               << "><WND=" << m_rcv_wnd << "><TS=" << (now % 10000)
+               << "><TSR=" << (m_ts_recent % 10000) << "><LEN=" << len << ">";
 #endif // _DEBUGMSG
 
   IPseudoTcpNotify::WriteResult wres = m_notify->TcpWritePacket(
@@ -589,11 +586,9 @@ bool PseudoTcp::parse(const uint8_t* buffer, uint32_t size) {
   LOG(LS_INFO) << "--> <CONV=" << seg.conv
                << "><FLG=" << static_cast<unsigned>(seg.flags)
                << "><SEQ=" << seg.seq << ":" << seg.seq + seg.len
-               << "><ACK=" << seg.ack
-               << "><WND=" << seg.wnd
-               << "><TS="  << (seg.tsval % 10000)
-               << "><TSR=" << (seg.tsecr % 10000)
-               << "><LEN=" << seg.len << ">";
+               << "><ACK=" << seg.ack << "><WND=" << seg.wnd
+               << "><TS=" << (seg.tsval % 10000)
+               << "><TSR=" << (seg.tsecr % 10000) << "><LEN=" << seg.len << ">";
 #endif // _DEBUGMSG
 
   return process(seg);
@@ -725,8 +720,7 @@ bool PseudoTcp::process(Segment& seg) {
         m_rx_rto = rtc::SafeClamp(m_rx_srtt + rtc::SafeMax(1, 4 * m_rx_rttvar),
                                   MIN_RTO, MAX_RTO);
 #if _DEBUGMSG >= _DBG_VERBOSE
-        LOG(LS_INFO) << "rtt: " << rtt
-                     << "  srtt: " << m_rx_srtt
+        LOG(LS_INFO) << "rtt: " << rtt << "  srtt: " << m_rx_srtt
                      << "  rto: " << m_rx_rto;
 #endif // _DEBUGMSG
       } else {
@@ -805,7 +799,8 @@ bool PseudoTcp::process(Segment& seg) {
         m_recover = m_snd_nxt;
         uint32_t nInFlight = m_snd_nxt - m_snd_una;
         m_ssthresh = std::max(nInFlight / 2, 2 * m_mss);
-        //LOG(LS_INFO) << "m_ssthresh: " << m_ssthresh << "  nInFlight: " << nInFlight << "  m_mss: " << m_mss;
+        // LOG(LS_INFO) << "m_ssthresh: " << m_ssthresh << "  nInFlight: " <<
+        // nInFlight << "  m_mss: " << m_mss;
         m_cwnd = m_ssthresh + 3 * m_mss;
       } else if (m_dup_acks > 3) {
         m_cwnd += m_mss;
@@ -925,7 +920,8 @@ bool PseudoTcp::process(Segment& seg) {
             sflags = sfImmediateAck; // (Fast Recovery)
             uint32_t nAdjust = (it->seq + it->len) - m_rcv_nxt;
 #if _DEBUGMSG >= _DBG_NORMAL
-            LOG(LS_INFO) << "Recovered " << nAdjust << " bytes (" << m_rcv_nxt << " -> " << m_rcv_nxt + nAdjust << ")";
+            LOG(LS_INFO) << "Recovered " << nAdjust << " bytes (" << m_rcv_nxt
+                         << " -> " << m_rcv_nxt + nAdjust << ")";
 #endif // _DEBUGMSG
             m_rbuf.ConsumeWriteBuffer(nAdjust);
             m_rcv_nxt += nAdjust;
@@ -935,7 +931,8 @@ bool PseudoTcp::process(Segment& seg) {
         }
       } else {
 #if _DEBUGMSG >= _DBG_NORMAL
-        LOG(LS_INFO) << "Saving " << seg.len << " bytes (" << seg.seq << " -> " << seg.seq + seg.len << ")";
+        LOG(LS_INFO) << "Saving " << seg.len << " bytes (" << seg.seq << " -> "
+                     << seg.seq + seg.len << ")";
 #endif // _DEBUGMSG
         RSegment rseg;
         rseg.seq = seg.seq;
@@ -1072,8 +1069,7 @@ void PseudoTcp::attemptSend(SendFlags sflags) {
       m_sbuf.GetWriteRemaining(&available_space);
 
       bFirst = false;
-      LOG(LS_INFO) << "[cwnd: " << m_cwnd
-                   << "  nWindow: " << nWindow
+      LOG(LS_INFO) << "[cwnd: " << m_cwnd << "  nWindow: " << nWindow
                    << "  nInFlight: " << nInFlight
                    << "  nAvailable: " << nAvailable
                    << "  nQueued: " << snd_buffered

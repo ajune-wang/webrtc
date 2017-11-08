@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6d6d438_ede03fb3",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-08T15:53:56Z",
+      "side": 1,
+      "message": "You could also compute this inside of DistributeBitrateRelatively(). Passing in such arguments is potentially confusing.",
+      "revId": "b67e1e454f83281d4bf4357b4da09aa7e1f3f0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

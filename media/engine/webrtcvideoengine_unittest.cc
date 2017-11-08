@@ -2177,6 +2177,20 @@ TEST_F(Vp9SettingsTestWith2SL3TLFlag, VerifySettings) {
   VerifySettings(kNumSpatialLayers, kNumTemporalLayers);
 }
 
+TEST_F(WebRtcVideoChannelTest, VerifyMinBitrate) {
+  std::vector<webrtc::VideoStream> streams = AddSendStream()->GetVideoStreams();
+  ASSERT_EQ(1u, streams.size());
+  EXPECT_EQ(cricket::kMinVideoBitrateKbps * 1000, streams[0].min_bitrate_bps);
+}
+
+TEST_F(WebRtcVideoChannelTest, VerifyMinBitrateWithForcedFallbackFieldTrial) {
+  webrtc::test::ScopedFieldTrials override_field_trials_(
+      "WebRTC-VP8-Forced-Fallback-Encoder-v2/Enabled-1,2,34567/");
+  std::vector<webrtc::VideoStream> streams = AddSendStream()->GetVideoStreams();
+  ASSERT_EQ(1u, streams.size());
+  EXPECT_EQ(34567, streams[0].min_bitrate_bps);
+}
+
 TEST_F(WebRtcVideoChannelTest,
        BalancedDegradationPreferenceNotSupportedWithoutFieldtrial) {
   webrtc::test::ScopedFieldTrials override_field_trials_(

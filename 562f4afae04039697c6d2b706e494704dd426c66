@@ -22,6 +22,30 @@
       "revId": "562f4afae04039697c6d2b706e494704dd426c66",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a702ef9e_1d9655d9",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2017-11-08T12:18:06Z",
+      "side": 1,
+      "message": "agreed.",
+      "parentUuid": "98939209_933887f7",
+      "range": {
+        "startLine": 321,
+        "startChar": 73,
+        "endLine": 321,
+        "endChar": 0
+      },
+      "revId": "562f4afae04039697c6d2b706e494704dd426c66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

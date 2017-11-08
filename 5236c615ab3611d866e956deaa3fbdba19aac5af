@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "38c45ed5_b82a45b4",
+        "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-08T12:16:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4f13cce_dcd7712b",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "5236c615ab3611d866e956deaa3fbdba19aac5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebfd5bea_780a7793",
         "filename": "sdk/android/src/jni/defaultvideoencoderfactory.cc",
         "patchSetId": 6

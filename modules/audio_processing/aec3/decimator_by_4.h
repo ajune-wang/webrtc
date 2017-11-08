@@ -21,14 +21,17 @@
 namespace webrtc {
 
 // Provides functionality for decimating a signal by 4.
+// TODO(peah): Change the name of the class to match that an arbitrary
+// resampling is supported.
 class DecimatorBy4 {
  public:
-  DecimatorBy4();
+  explicit DecimatorBy4(size_t down_sampling_factor);
 
   // Downsamples the signal.
   void Decimate(rtc::ArrayView<const float> in, rtc::ArrayView<float> out);
 
  private:
+  const size_t down_sampling_factor_;
   CascadedBiQuadFilter low_pass_filter_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DecimatorBy4);

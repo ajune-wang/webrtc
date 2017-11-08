@@ -19,11 +19,6 @@
 
 namespace webrtc {
 
-namespace {
-
-constexpr int kDownSamplingFactor = 4;
-}  // namespace
-
 EchoPathDelayEstimator::EchoPathDelayEstimator(
     ApmDataDumper* data_dumper,
     const EchoCanceller3Config& config)

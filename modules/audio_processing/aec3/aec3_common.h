@@ -48,9 +48,12 @@ constexpr size_t kSubFrameLength = 80;
 
 constexpr size_t kBlockSize = kFftLengthBy2;
 constexpr size_t kExtendedBlockSize = 2 * kFftLengthBy2;
-constexpr size_t kSubBlockSize = 16;
+constexpr size_t kDownSamplingFactor = 4;
+constexpr size_t kSubBlockSize = kBlockSize / kDownSamplingFactor;
+static_assert(kSubBlockSize * kDownSamplingFactor >= kBlockSize,
+              "Requirement to ensure a proper amount of downsampling");
 
-constexpr size_t kNumMatchedFilters = 4;
+constexpr size_t kNumMatchedFilters = 5;
 constexpr size_t kMatchedFilterWindowSizeSubBlocks = 32;
 constexpr size_t kMatchedFilterAlignmentShiftSizeSubBlocks =
     kMatchedFilterWindowSizeSubBlocks * 3 / 4;

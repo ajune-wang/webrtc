@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25b233bd_59f15edc",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-11-08T13:14:39Z",
+      "side": 1,
+      "message": "please add documentation for |has_recv_streams|. Also please rename this to has_remote_tracks here and elsewhere. \nWhat matters is if this local processor try to remove echo from remote audio tracks?",
+      "range": {
+        "startLine": 273,
+        "startChar": 49,
+        "endLine": 273,
+        "endChar": 65
+      },
+      "revId": "cdb5b39c40ff880958e43fc842f53a151063e21d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

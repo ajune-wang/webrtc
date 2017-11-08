@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47d370d3_0e75639c",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/CpuMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-08T16:38:52Z",
+      "side": 1,
+      "message": "Why can\u0027t we use it \u003e\u003d N?",
+      "range": {
+        "startLine": 161,
+        "startChar": 11,
+        "endLine": 161,
+        "endChar": 56
+      },
+      "revId": "7a26a08350e26f94d11140e124a76fa04eecdef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af7e9ccf_94987cff",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase14.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-08T16:38:52Z",
+      "side": 1,
+      "message": "Why does it say target lollipop when we handle all versions?",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "7a26a08350e26f94d11140e124a76fa04eecdef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

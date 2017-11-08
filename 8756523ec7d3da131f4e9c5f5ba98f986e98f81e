@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "1c538dd3_748e75e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-08T10:19:38Z",
+      "side": 1,
+      "message": "Right. :)\nRemoving this in the next CL.",
+      "parentUuid": "83f69f9b_248458e6",
+      "revId": "8756523ec7d3da131f4e9c5f5ba98f986e98f81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c568a38_92ec5ab8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2

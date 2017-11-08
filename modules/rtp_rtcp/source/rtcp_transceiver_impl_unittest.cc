@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "modules/rtp_rtcp/include/receive_statistics.h"
+#include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/event.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/task_queue.h"
@@ -27,10 +28,15 @@ using ::testing::_;
 using ::testing::Invoke;
 using ::testing::Return;
 using ::testing::SizeIs;
+using ::webrtc::CompactNtp;
+using ::webrtc::CompactNtpRttToMs;
 using ::webrtc::MockTransport;
+using ::webrtc::NtpTime;
 using ::webrtc::RtcpTransceiverConfig;
 using ::webrtc::RtcpTransceiverImpl;
+using ::webrtc::SimulatedClock;
 using ::webrtc::rtcp::ReportBlock;
+using ::webrtc::rtcp::SenderReport;
 using ::webrtc::test::RtcpPacketParser;
 
 class MockReceiveStatisticsProvider : public webrtc::ReceiveStatisticsProvider {
@@ -231,6 +237,48 @@ TEST(RtcpTransceiverImplTest, ReceiverReportUsesReceiveStatistics) {
               SizeIs(report_blocks.size()));
   EXPECT_EQ(rtcp_parser.receiver_report()->report_blocks()[0].source_ssrc(),
             kMediaSsrc);
+}
+
+TEST(RtcpTransceiverImplTest, CalculatesDelaySinceLastSenderReport) {
+  const uint32_t kRemoteSsrc = 4321;
+  SimulatedClock clock(/*initial_time_us=*/1111);
+  MockTransport outgoing_transport;
+  std::vector<ReportBlock> report_blocks(1);
+  report_blocks[0].SetMediaSsrc(kRemoteSsrc);
+  MockReceiveStatisticsProvider receive_statistics;
+  EXPECT_CALL(receive_statistics, RtcpReportBlocks(_))
+      .WillOnce(Return(report_blocks));
+
+  RtcpTransceiverConfig config;
+  config.schedule_periodic_compound_packets = false;
+  config.outgoing_transport = &outgoing_transport;
+  config.receive_statistics = &receive_statistics;
+  config.clock = &clock;
+  RtcpTransceiverImpl rtcp_transceiver(config);
+
+  // Feed in SenderReport.
+  const NtpTime remote_ntp(0x9876543211);
+  SenderReport sr;
+  sr.SetSenderSsrc(kRemoteSsrc);
+  sr.SetNtp(remote_ntp);
+  auto raw_packet = sr.Build();
+  rtcp_transceiver.ReceivePacket(raw_packet);
+
+  int delay_ms = 100;
+  clock.AdvanceTimeMilliseconds(delay_ms);
+
+  // Trigger ReceiverReport back.
+  RtcpPacketParser rtcp_parser;
+  EXPECT_CALL(outgoing_transport, SendRtcp(_, _))
+      .WillOnce(Invoke(&rtcp_parser, &RtcpPacketParser::Parse));
+  rtcp_transceiver.SendCompoundPacket();
+
+  EXPECT_GT(rtcp_parser.receiver_report()->num_packets(), 0);
+  ASSERT_GT(rtcp_parser.receiver_report()->report_blocks().size(), 0u);
+  const auto& report_block = rtcp_parser.receiver_report()->report_blocks()[0];
+  EXPECT_EQ(report_block.source_ssrc(), kRemoteSsrc);
+  EXPECT_EQ(report_block.last_sr(), CompactNtp(remote_ntp));
+  EXPECT_EQ(CompactNtpRttToMs(report_block.delay_since_last_sr()), delay_ms);
 }
 
 }  // namespace

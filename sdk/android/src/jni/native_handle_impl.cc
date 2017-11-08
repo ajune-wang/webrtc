@@ -17,12 +17,12 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/keep_ref_until_done.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/memory/aligned_malloc.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/timeutils.h"
 #include "sdk/android/src/jni/classreferenceholder.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/wrapped_native_i420_buffer.h"
-#include "system_wrappers/include/aligned_malloc.h"
 
 namespace webrtc {
 namespace jni {
@@ -289,7 +289,7 @@ rtc::scoped_refptr<I420BufferInterface> AndroidTextureBuffer::ToI420() {
   // TODO(nisse): Use an I420BufferPool. We then need to extend that
   // class, and I420Buffer, to support our memory layout.
   // TODO(nisse): Depending on
-  // system_wrappers/include/aligned_malloc.h violate current DEPS
+  // rtc_base/memory/aligned_malloc.h violate current DEPS
   // rules. We get away for now only because it is indirectly included
   // by i420_buffer.h
   std::unique_ptr<uint8_t, AlignedFreeDeleter> yuv_data(

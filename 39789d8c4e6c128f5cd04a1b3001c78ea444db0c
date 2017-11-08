@@ -22,6 +22,30 @@
       "revId": "39789d8c4e6c128f5cd04a1b3001c78ea444db0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcefeeed_f03549e6",
+        "filename": "common_video/libyuv/libyuv_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-11-08T09:49:03Z",
+      "side": 1,
+      "message": "with valgrind, I found problem.\nI must use stride_y instead of just width.\nI modified i420.cc\n@Magnus,\nPlease confirm if I can remove RotateTest?",
+      "parentUuid": "26a6f23f_95d46d89",
+      "range": {
+        "startLine": 304,
+        "startChar": 40,
+        "endLine": 304,
+        "endChar": 51
+      },
+      "revId": "39789d8c4e6c128f5cd04a1b3001c78ea444db0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

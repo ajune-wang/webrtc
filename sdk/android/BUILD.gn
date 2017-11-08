@@ -403,6 +403,7 @@ rtc_android_library("libjingle_peerconnection_java") {
     "api/org/webrtc/AudioProcessingFactory.java",
     "api/org/webrtc/AudioSource.java",
     "api/org/webrtc/AudioTrack.java",
+    "api/org/webrtc/BitrateAllocationStrategyFactory.java",
     "api/org/webrtc/CallSessionFileRotatingLogSink.java",
     "api/org/webrtc/Camera1Capturer.java",
     "api/org/webrtc/Camera1Enumerator.java",

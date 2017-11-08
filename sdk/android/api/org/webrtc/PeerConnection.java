@@ -480,6 +480,16 @@ public class PeerConnection {
   // PeerConnection. Pass null to leave a value unchanged.
   public native boolean setBitrate(Integer min, Integer current, Integer max);
 
+  /**
+   * Sets current strategy. If not set default WebRTC allocator will be used. May be changed during
+   * an active session.
+   */
+  public void setBitrateAllocationStrategy(BitrateAllocationStrategyFactory factory) {
+    setBitrateAllocationStrategy(factory.createNative());
+  }
+
+  private native void setBitrateAllocationStrategy(long bitrateAllocationStrategy);
+
   // Starts recording an RTC event log. Ownership of the file is transfered to
   // the native code. If an RTC event log is already being recorded, it will be
   // stopped and a new one will start using the provided file. Logging will

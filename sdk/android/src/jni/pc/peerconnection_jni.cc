@@ -382,6 +382,18 @@ JNI_FUNCTION_DECLARATION(jboolean,
   return ExtractNativePC(jni, j_pc)->SetBitrate(params).ok();
 }
 
+JNI_FUNCTION_DECLARATION(void,
+                         PeerConnection_setBitrateAllocationStrategy,
+                         JNIEnv* jni,
+                         jobject j_pc,
+                         jlong j_bitrate_allocation_strategy) {
+  std::unique_ptr<rtc::BitrateAllocationStrategy> bitrate_allocation_strategy(
+      reinterpret_cast<rtc::BitrateAllocationStrategy*>(
+          j_bitrate_allocation_strategy));
+  ExtractNativePC(jni, j_pc)->SetBitrateAllocationStrategy(
+      std::move(bitrate_allocation_strategy));
+}
+
 JNI_FUNCTION_DECLARATION(bool,
                          PeerConnection_nativeStartRtcEventLog,
                          JNIEnv* jni,

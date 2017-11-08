@@ -22,6 +22,30 @@
       "revId": "a72dcc01488d2b707b5e7faaee194f6a3808d748",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a03654_804718e7",
+        "filename": "modules/bitrate_controller/bitrate_controller_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-08T13:42:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54ef3f28_795f9154",
+      "range": {
+        "startLine": 153,
+        "startChar": 72,
+        "endLine": 153,
+        "endChar": 73
+      },
+      "revId": "a72dcc01488d2b707b5e7faaee194f6a3808d748",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

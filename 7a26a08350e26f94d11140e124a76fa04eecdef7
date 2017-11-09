@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3c178b_1356d923",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/CpuMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-09T09:39:34Z",
+      "side": 1,
+      "message": "Access to /proc is not allowed starting in Android N for security reasons:\n11-09 10:35:36.771 22862 22932 E CpuMonitor: Cannot open /proc/stat for reading\n11-09 10:35:36.771 22862 22932 E CpuMonitor: java.io.FileNotFoundException: /proc/stat (Permission denied)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.io.FileInputStream.open0(Native Method)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.io.FileInputStream.open(FileInputStream.java:200)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.io.FileInputStream.\u003cinit\u003e(FileInputStream.java:150)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.io.FileInputStream.\u003cinit\u003e(FileInputStream.java:103)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat org.appspot.apprtc.CpuMonitor.readProcStat(CpuMonitor.java:479)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat org.appspot.apprtc.CpuMonitor.sampleCpuUtilization(CpuMonitor.java:372)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat org.appspot.apprtc.CpuMonitor.cpuUtilizationTask(CpuMonitor.java:227)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat org.appspot.apprtc.CpuMonitor.access$000(CpuMonitor.java:74)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat org.appspot.apprtc.CpuMonitor$1.run(CpuMonitor.java:221)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:457)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.util.concurrent.FutureTask.runAndReset(FutureTask.java:307)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:302)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)\n11-09 10:35:36.771 22862 22932 E CpuMonitor: \tat java.lang.Thread.run(Thread.java:764)",
+      "parentUuid": "47d370d3_0e75639c",
+      "range": {
+        "startLine": 161,
+        "startChar": 11,
+        "endLine": 161,
+        "endChar": 56
+      },
+      "revId": "7a26a08350e26f94d11140e124a76fa04eecdef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af7e9ccf_94987cff",
         "filename": "sdk/android/src/java/org/webrtc/EglBase14.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "7a26a08350e26f94d11140e124a76fa04eecdef7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f694032_7a5d4640",
+        "filename": "sdk/android/src/java/org/webrtc/EglBase14.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-09T09:39:34Z",
+      "side": 1,
+      "message": "TargetApi: \"Indicates that Lint should treat this type as targeting a given API level, no matter what the project target is.\"\n\nThis allows us to egl14Context.getNativeHandle() even though it is only supported on API level 19 and later. I could have made a separate method getNativeHandleOnLollipopOrAbove and annotate that but I don\u0027t think it adds clarity on such a simple method.",
+      "parentUuid": "af7e9ccf_94987cff",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "7a26a08350e26f94d11140e124a76fa04eecdef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

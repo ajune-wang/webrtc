@@ -1505,6 +1505,8 @@ void EventLogAnalyzer::CreatePacerDelayGraph(Plot* plot) {
   for (const auto& kv : rtp_packets_) {
     const std::vector<LoggedRtpPacket>& packets = kv.second;
     StreamId stream_id = kv.first;
+    if (stream_id.GetDirection() == kIncomingPacket)
+      continue;
 
     if (packets.size() < 2) {
       LOG(LS_WARNING) << "Can't estimate a the RTP clock frequency or the "

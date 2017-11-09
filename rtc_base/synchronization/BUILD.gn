@@ -12,14 +12,26 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
-rtc_source_set("timestamp_extrapolator") {
-  sources = [
-    "timestamp_extrapolator.cc",
-    "timestamp_extrapolator.h",
+rtc_source_set("rw_lock_wrapper") {
+  public = [
+    "rw_lock_wrapper.h",
   ]
+  sources = [
+    "rw_lock_wrapper.cc",
+  ]
+  if (is_win) {
+    sources = [
+      "rw_lock_win.cc",
+      "rw_lock_win.h",
+    ]
+  } else {
+    sources += [
+      "rw_lock_posix.cc",
+      "rw_lock_posix.h",
+    ]
+  }
   deps = [
+    "..:rtc_base_approved",
     "../..:webrtc_common",
-    "../../system_wrappers",
-    "../synchronization:rw_lock_wrapper",
   ]
 }

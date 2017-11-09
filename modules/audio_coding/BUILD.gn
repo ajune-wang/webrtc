@@ -1273,6 +1273,7 @@ if (rtc_include_tests) {
       "../../api:optional",
       "../../api/audio_codecs:builtin_audio_decoder_factory",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base/synchronization:rw_lock_wrapper",
       "../../system_wrappers:system_wrappers",
       "../../test:test_support",
     ]

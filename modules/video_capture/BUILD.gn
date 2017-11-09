@@ -30,6 +30,7 @@ rtc_static_library("video_capture_module") {
     "../..:webrtc_common",
     "../../common_video",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base/synchronization:rw_lock_wrapper",
     "../../system_wrappers",
   ]
 

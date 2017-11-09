@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ff43b3d_7e3ab95d",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T07:48:01Z",
+      "side": 1,
+      "message": "Is it obvious that this complments the initializer in the header file?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "ab9b6638a36cc24878bb3bf02cd87a36c010ed73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd0f2f9_13872acd",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T07:48:01Z",
+      "side": 1,
+      "message": "For consistency, would be nice to drop the _bytes suffix here.\n\nBut not in this cl (there seems to be roughly 60 uses).",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "ab9b6638a36cc24878bb3bf02cd87a36c010ed73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

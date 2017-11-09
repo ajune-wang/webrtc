@@ -70,6 +70,24 @@
       "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c840002a_e0b6c1e3",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2017-11-09T14:13:03Z",
+      "side": 1,
+      "message": "I believe wrapper will return error and this will trigger recovery request. I can\u0027t find unit test for such case. I tried to quickly create one but found that this requires some changes in encoder wrapper. I created followup ticket - https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8512",
+      "parentUuid": "db74c2e1_19bb8ea8",
+      "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

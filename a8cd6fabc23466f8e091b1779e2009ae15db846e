@@ -22,6 +22,30 @@
       "revId": "a8cd6fabc23466f8e091b1779e2009ae15db846e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9a9b64e_83477812",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T14:47:04Z",
+      "side": 1,
+      "message": "Done.\nSenderReportTimes sgtm (definetly want to stress it only about SenderReports and doesn\u0027t make sense for ReceiverReport or ExtendedReports)\nvariable made slightly shorter. Even if times is all that is currently stored, do not feel need to stress it in the variable name too.",
+      "parentUuid": "f561749e_55c6a6bd",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "a8cd6fabc23466f8e091b1779e2009ae15db846e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,96 @@
+/*
+ *  Copyright 2017 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+// This file contains interfaces for RtpTransceivers.
+// https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver
+
+#ifndef API_RTPTRANSCEIVERINTERFACE_H_
+#define API_RTPTRANSCEIVERINTERFACE_H_
+
+#include <string>
+
+#include "api/optional.h"
+#include "api/rtpreceiverinterface.h"
+#include "api/rtpsenderinterface.h"
+#include "rtc_base/refcount.h"
+
+namespace webrtc {
+
+enum class RtpTransceiverDirection {
+  kSendRecv,
+  kSendOnly,
+  kRecvOnly,
+  kInactive
+};
+
+// The RtpTransceiverInterface maps to the RTCRtpTransceiver defined by the
+// WebRTC specification. A transceiver represents a combination of an RtpSender
+// and an RtpReceiver than share a common mid. As defined in JSEP, an
+// RtpTransceiver is said to be associated with a media description if its mid
+// property is non-null; otherwise, it is said to be disassociated.
+//
+// Note that RtpTransceivers are only supported when using PeerConnection with
+// Unified Plan SDP.
+class RtpTransceiverInterface : public rtc::RefCountInterface {
+ public:
+  // The mid attribute is the mid negotiated and present in the local and
+  // remote descriptions as defined in JSEP. Before negotiation is complete, the
+  // mid value may be null. After rollbacks, the value may change from a
+  // non-null value to null.
+  virtual rtc::Optional<std::string> mid() const = 0;
+
+  // The sender attribute exposes the RtpSender corresponding to the RTP media
+  // that may be sent with the transceiver's mid. The sender is always present,
+  // regardless of the direction of media.
+  virtual rtc::scoped_refptr<RtpSenderInterface> sender() const = 0;
+
+  // The receiver attribute exposes the RtpReceiver corresponding to the RTP
+  // media that may be received with the transceiver's mid. The receiver is
+  // always present, regardless of the direction of media.
+  virtual rtc::scoped_refptr<RtpReceiverInterface> receiver() const = 0;
+
+  // The stopped attribute indicates that the sender of this transceiver will no
+  // longer send, and that the receiver will no longer receive. It is true if
+  // either stop has been called or if setting the local or remote description
+  // has caused the RtpTransceiver to be stopped.
+  virtual bool stopped() const = 0;
+
+  // The direction attribute indicates the preferred direction of this
+  // transceiver, which will be used in calls to CreateOffer and CreateAnswer.
+  virtual RtpTransceiverDirection direction() const = 0;
+
+  // Sets the preferred direction of this transceiver. An update of
+  // directionality does not take effect immediately. Instead, future calls to
+  // CreateOffer and CreateAnswer mark the corresponding media descriptions as
+  // sendrecv, sendonly, recvonly, or inactive as defined in JSEP.
+  virtual void set_direction(RtpTransceiverDirection new_direction) = 0;
+
+  // The current_direction attribute indicates the current direction negotiated
+  // for this transceiver. If this transceiver has never been represented in an
+  // offer/answer exchange, or if the transceiver is stopped, the value is null.
+  virtual rtc::Optional<RtpTransceiverDirection> current_direction() const = 0;
+
+  // The Stop method irreversibly stops the RtpTransceiver. The sender of this
+  // transceiver will no longer send, the receiver will no longer receive.
+  virtual void Stop() = 0;
+
+  // The SetCodecPreferences method overrides the default codec preferences used
+  // by WebRTC for this transceiver.
+  // TODO(steveanton): Not implemented.
+  virtual void SetCodecPreferences(
+      rtc::ArrayView<RtpCodecCapability> codecs) = 0;
+
+ protected:
+  virtual ~RtpTransceiverInterface() = default;
+};
+
+}  // namespace webrtc
+
+#endif  // API_RTPTRANSCEIVERINTERFACE_H_

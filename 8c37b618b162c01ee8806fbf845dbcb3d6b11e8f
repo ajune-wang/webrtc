@@ -52,6 +52,24 @@
       "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db74c2e1_19bb8ea8",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T11:27:00Z",
+      "side": 1,
+      "message": "Could I, as an attacker, send you an incomplete frame that I pretend is a full frame and get your decoder to expect more input? If I could, would that cause any problems, or just lead to a subsequent error message handled like any other?",
+      "parentUuid": "1c857011_eb2c7a76",
+      "revId": "8c37b618b162c01ee8806fbf845dbcb3d6b11e8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

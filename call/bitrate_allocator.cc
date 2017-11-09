@@ -11,6 +11,7 @@
 
 #include "call/bitrate_allocator.h"
 
+#include <math.h>
 #include <algorithm>
 #include <memory>
 #include <utility>
@@ -48,7 +49,6 @@ double MediaRatio(uint32_t allocated_bitrate, uint32_t protection_bitrate) {
 
 BitrateAllocator::BitrateAllocator(LimitObserver* limit_observer)
     : limit_observer_(limit_observer),
-      bitrate_observer_configs_(),
       last_bitrate_bps_(0),
       last_non_zero_bitrate_bps_(kDefaultBitrateBps),
       last_fraction_loss_(0),
@@ -127,8 +127,11 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
                                    uint32_t max_bitrate_bps,
                                    uint32_t pad_up_bitrate_bps,
                                    bool enforce_min_bitrate,
-                                   std::string track_id) {
+                                   std::string track_id,
+                                   double relative_bitrate) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
+  RTC_DCHECK_GT(relative_bitrate, 0);
+  RTC_DCHECK(isnormal(relative_bitrate));
   auto it = FindObserverConfig(observer);
 
   // Update settings if the observer already exists, create a new one otherwise.
@@ -137,10 +140,11 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
     it->max_bitrate_bps = max_bitrate_bps;
     it->pad_up_bitrate_bps = pad_up_bitrate_bps;
     it->enforce_min_bitrate = enforce_min_bitrate;
+    it->relative_bitrate = relative_bitrate;
   } else {
-    bitrate_observer_configs_.push_back(
-        ObserverConfig(observer, min_bitrate_bps, max_bitrate_bps,
-                       pad_up_bitrate_bps, enforce_min_bitrate, track_id));
+    bitrate_observer_configs_.push_back(ObserverConfig(
+        observer, min_bitrate_bps, max_bitrate_bps, pad_up_bitrate_bps,
+        enforce_min_bitrate, track_id, relative_bitrate));
   }
 
   ObserverAllocation allocation;
@@ -286,7 +290,8 @@ BitrateAllocator::ObserverAllocation BitrateAllocator::AllocateBitrates(
   if (!EnoughBitrateForAllObservers(bitrate, sum_min_bitrates))
     return LowRateAllocation(bitrate);
 
-  // All observers will get their min bitrate plus an even share of the rest.
+  // All observers will get their min bitrate plus a share of the rest. This
+  // share is allocated to each track based on its relative_bitrate.
   if (bitrate <= sum_max_bitrates)
     return NormalRateAllocation(bitrate, sum_min_bitrates);
 
@@ -356,17 +361,30 @@ BitrateAllocator::ObserverAllocation BitrateAllocator::LowRateAllocation(
   return allocation;
 }
 
+// Allocates the bitrate based on the relative bitrate of each track. This
+// relative bitrate defines the priority for bitrate to be allocated to that
+// track in relation to other tracks. For example with two tracks, if track
+// 1 had a relative_bitrate = 1.0, and track 2 has a relative_bitrate of 2.0,
+// the expected behavior is that track 2 will be allocated twice the bitrate
+// as track 1 above the each track's min_bitrate_bps values, until one of the
+// tracks hits its max_bitrate_bps.
 BitrateAllocator::ObserverAllocation BitrateAllocator::NormalRateAllocation(
     uint32_t bitrate,
     uint32_t sum_min_bitrates) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   ObserverAllocation allocation;
-  for (const auto& observer_config : bitrate_observer_configs_)
+  ObserverAllocation observers_capacities;
+  for (const auto& observer_config : bitrate_observer_configs_) {
     allocation[observer_config.observer] = observer_config.min_bitrate_bps;
+    observers_capacities[observer_config.observer] =
+        observer_config.max_bitrate_bps - observer_config.min_bitrate_bps;
+  }
 
   bitrate -= sum_min_bitrates;
+  // From the remaining bitrate available, allocate to each observer based
+  // its relative bitrate above the min bitrate already allocated.
   if (bitrate > 0)
-    DistributeBitrateEvenly(bitrate, true, 1, &allocation);
+    DistributeBitrateRelatively(bitrate, observers_capacities, &allocation);
 
   return allocation;
 }
@@ -467,4 +485,89 @@ bool BitrateAllocator::EnoughBitrateForAllObservers(uint32_t bitrate,
   }
   return true;
 }
+
+void BitrateAllocator::DistributeBitrateRelatively(
+    uint32_t remaining_bitrate,
+    const ObserverAllocation& observers_capacities,
+    ObserverAllocation* allocation) {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
+  RTC_DCHECK_EQ(allocation->size(), bitrate_observer_configs_.size());
+  RTC_DCHECK_EQ(observers_capacities.size(), bitrate_observer_configs_.size());
+
+  struct PriorityRateObserverConfig {
+    PriorityRateObserverConfig(BitrateAllocatorObserver* observer,
+                               uint32_t capacity,
+                               double relative_bitrate)
+        : observer(observer),
+          capacity(capacity),
+          relative_bitrate(relative_bitrate) {}
+
+    BitrateAllocatorObserver* observer;
+    // The amount of bitrate bps that can be allocated to this observer.
+    uint32_t capacity;
+    double relative_bitrate;
+
+    // We want to sort by which observers will be allocated their full capacity
+    // first. If we divide each observer's capacity by its relative
+    // bitrate, the smaller "normalized" capacity will be filled first. This is
+    // because the amount allocated is based upon relative bitrate. An
+    // observer with twice the relative bitrate of another would need twice the
+    // capacity to be allocated its capacity at the same time. Any less and it
+    // would be allocated its capacity first.
+    bool operator<(const PriorityRateObserverConfig& other) const {
+      return capacity / relative_bitrate <
+             other.capacity / other.relative_bitrate;
+    }
+  };
+
+  double relative_bitrate_sum = 0;
+  std::vector<PriorityRateObserverConfig> priority_rate_observers;
+  for (const auto& observer_config : bitrate_observer_configs_) {
+    uint32_t capacity = observers_capacities.at(observer_config.observer);
+    priority_rate_observers.emplace_back(observer_config.observer, capacity,
+                                         observer_config.relative_bitrate);
+    relative_bitrate_sum += observer_config.relative_bitrate;
+  }
+
+  // Allocate the full capacity to each observer until there isn't sufficient
+  // remaining bitrate to do so.
+  std::sort(priority_rate_observers.begin(), priority_rate_observers.end());
+  size_t i;
+  for (i = 0; i < priority_rate_observers.size(); i++) {
+    auto& priority_rate_observer = priority_rate_observers[i];
+    bool enough_bitrate = EnoughBitrateToAllocateToCapacity(
+        remaining_bitrate, relative_bitrate_sum,
+        priority_rate_observer.relative_bitrate,
+        priority_rate_observer.capacity);
+    if (!enough_bitrate)
+      break;
+    allocation->at(priority_rate_observer.observer) +=
+        priority_rate_observer.capacity;
+    remaining_bitrate -= priority_rate_observer.capacity;
+    relative_bitrate_sum -= priority_rate_observer.relative_bitrate;
+  }
+
+  // Each observer not allocated its max gets allocated bitrate appropriately
+  // based upon relative bitrate.
+  for (; i < priority_rate_observers.size(); i++) {
+    auto& priority_rate_observer = priority_rate_observers[i];
+    double fraction_allocated =
+        priority_rate_observer.relative_bitrate / relative_bitrate_sum;
+    allocation->at(priority_rate_observer.observer) +=
+        fraction_allocated * remaining_bitrate;
+  }
+}
+
+// Checks if the portion from the remaining bitrate is sufficient to allocate
+// the full capacity.
+bool BitrateAllocator::EnoughBitrateToAllocateToCapacity(
+    uint32_t remaining_bitrate,
+    double relative_bitrate_sum,
+    double relative_bitrate,
+    uint32_t capacity) const {
+  double fraction_allocated = relative_bitrate / relative_bitrate_sum;
+  double allocation_bps = fraction_allocated * remaining_bitrate;
+  return allocation_bps >= capacity;
+}
+
 }  // namespace webrtc

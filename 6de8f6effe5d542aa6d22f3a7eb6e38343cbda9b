@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1cb3a75_a15aa557",
+        "filename": "media/base/rtpdataengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-09T10:37:18Z",
+      "side": 1,
+      "message": "Comments are ignored by clang-format but I guess it is not a problem.",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 50
+      },
+      "revId": "6de8f6effe5d542aa6d22f3a7eb6e38343cbda9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

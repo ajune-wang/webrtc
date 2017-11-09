@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72c393e3_6ea96387",
+        "filename": "audio/audio_state.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-11-09T14:49:45Z",
+      "side": 1,
+      "message": "For what is bind used here?",
+      "revId": "90bace095806a635411edd40fb8490a144e59e63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516c4904_e1525916",
+        "filename": "audio/audio_state.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-11-09T14:49:45Z",
+      "side": 1,
+      "message": "I don\u0027t see where the interface is released.",
+      "revId": "90bace095806a635411edd40fb8490a144e59e63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d76e232_e0173209",
+        "filename": "audio/audio_state.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-11-09T14:49:45Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "90bace095806a635411edd40fb8490a144e59e63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f1ea2a48_c804e3e9",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T13:00:42Z",
+      "side": 1,
+      "message": "Posponed need of taking absolute NtpTime value, Clock removed.",
+      "parentUuid": "8fc07fda_1ef333cd",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "2a4358ecab80e3c2962c495dcb48b80eb0fc06cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fe18ebc_55db0e9b",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 8

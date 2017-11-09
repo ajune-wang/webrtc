@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "00cca268_3bddc700",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T13:00:42Z",
+      "side": 1,
+      "message": "ArrayView doesn\u0027t have skip function.\nabsl::Span does have remove_prefix. Agree it will be nicer here.\n\nadded method CommonHeader::packet_size();",
+      "parentUuid": "65f49418_042bcc5e",
+      "range": {
+        "startLine": 94,
+        "startChar": 20,
+        "endLine": 94,
+        "endChar": 27
+      },
+      "revId": "c333073e9f32c8149fc13eb1595a2d4e1ff0c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1378183d_a740b42e",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 9
@@ -37,6 +61,30 @@
       "side": 1,
       "message": "Ok, so RTT estimate is based on timing of RTCP packets, not the timing of RTP packets?",
       "parentUuid": "debe0fd0_be060022",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "c333073e9f32c8149fc13eb1595a2d4e1ff0c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2be537fd_4bda06f0",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T13:00:42Z",
+      "side": 1,
+      "message": "Yes. SenderReport as request with ReportBlock in SR or RR as response is primary way to calculate RTT\nRRTR block in Exteneded reports as request with DLRR block in exteneded reports as response is secondary way to calculate RTT (for receiver-only endpoint that doesn\u0027t send sender reports).\nBoth use rtcp message only.",
+      "parentUuid": "1378183d_a740b42e",
       "range": {
         "startLine": 181,
         "startChar": 0,

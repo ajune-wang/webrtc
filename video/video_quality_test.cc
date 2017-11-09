@@ -2070,8 +2070,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
           video_receive_configs_[selected_stream_id].sync_group = kSyncGroup;
       }
 
-      if (params_.screenshare.enabled)
-        SetupScreenshareOrSVC();
+      SetupScreenshareOrSVC();
 
       CreateFlexfecStreams();
       CreateVideoStreams();

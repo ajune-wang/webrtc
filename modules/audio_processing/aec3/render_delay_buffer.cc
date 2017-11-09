@@ -15,7 +15,7 @@
 
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/block_processor.h"
-#include "modules/audio_processing/aec3/decimator_by_4.h"
+#include "modules/audio_processing/aec3/decimator.h"
 #include "modules/audio_processing/aec3/fft_data.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
@@ -90,12 +90,13 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
 
  private:
   const Aec3Optimization optimization_;
+  const size_t sub_block_size_;
   std::array<std::vector<std::vector<float>>, kRenderDelayBufferSize> buffer_;
   size_t delay_ = 0;
   size_t last_insert_index_ = 0;
   RenderBuffer fft_buffer_;
   DownsampledRenderBuffer downsampled_render_buffer_;
-  DecimatorBy4 render_decimator_;
+  Decimator render_decimator_;
   ApiCallJitterBuffer api_call_jitter_buffer_;
   const std::vector<std::vector<float>> zero_block_;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RenderDelayBufferImpl);
@@ -103,11 +104,13 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
 
 RenderDelayBufferImpl::RenderDelayBufferImpl(size_t num_bands)
     : optimization_(DetectOptimization()),
+      sub_block_size_(kSubBlockSize),
       fft_buffer_(
           optimization_,
           num_bands,
           std::max(kUnknownDelayRenderWindowSize, kAdaptiveFilterLength),
           std::vector<size_t>(1, kAdaptiveFilterLength)),
+      render_decimator_(kDownSamplingFactor),
       api_call_jitter_buffer_(num_bands),
       zero_block_(num_bands, std::vector<float>(kBlockSize, 0.f)) {
   buffer_.fill(std::vector<std::vector<float>>(
@@ -158,20 +161,22 @@ bool RenderDelayBufferImpl::UpdateBuffers() {
   }
 
   downsampled_render_buffer_.position =
-      (downsampled_render_buffer_.position - kSubBlockSize +
+      (downsampled_render_buffer_.position - sub_block_size_ +
        downsampled_render_buffer_.buffer.size()) %
       downsampled_render_buffer_.buffer.size();
 
-  std::array<float, kSubBlockSize> render_downsampled;
-  if (underrun) {
-    render_decimator_.Decimate(zero_block_[0], render_downsampled);
-  } else {
-    render_decimator_.Decimate(buffer_[last_insert_index_][0],
-                               render_downsampled);
+  rtc::ArrayView<const float> input(
+      underrun ? zero_block_[0].data() : buffer_[last_insert_index_][0].data(),
+      kBlockSize);
+  rtc::ArrayView<float> output(downsampled_render_buffer_.buffer.data() +
+                                   downsampled_render_buffer_.position,
+                               sub_block_size_);
+  render_decimator_.Decimate(input, output);
+  for (size_t k = 0; k < output.size() / 2; ++k) {
+    float tmp = output[k];
+    output[k] = output[output.size() - 1 - k];
+    output[output.size() - 1 - k] = tmp;
   }
-  std::copy(render_downsampled.rbegin(), render_downsampled.rend(),
-            downsampled_render_buffer_.buffer.begin() +
-                downsampled_render_buffer_.position);
 
   if (underrun) {
     fft_buffer_.Insert(zero_block_);
@@ -196,7 +201,7 @@ void RenderDelayBufferImpl::SetDelay(size_t delay) {
     // size.
     downsampled_render_buffer_.position =
         (downsampled_render_buffer_.position +
-         kSubBlockSize * (delay - (buffer_.size() - 1))) %
+         sub_block_size_ * (delay - (buffer_.size() - 1))) %
         downsampled_render_buffer_.buffer.size();
 
     last_insert_index_ =

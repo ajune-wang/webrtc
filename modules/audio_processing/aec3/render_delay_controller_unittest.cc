@@ -18,7 +18,7 @@
 
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/block_processor.h"
-#include "modules/audio_processing/aec3/decimator_by_4.h"
+#include "modules/audio_processing/aec3/decimator.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"

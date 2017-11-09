@@ -19,15 +19,11 @@
 
 namespace webrtc {
 
-namespace {
-
-constexpr int kDownSamplingFactor = 4;
-}  // namespace
-
 EchoPathDelayEstimator::EchoPathDelayEstimator(
     ApmDataDumper* data_dumper,
     const EchoCanceller3Config& config)
     : data_dumper_(data_dumper),
+      capture_decimator_(kDownSamplingFactor),
       matched_filter_(data_dumper_,
                       DetectOptimization(),
                       kMatchedFilterWindowSizeSubBlocks,
@@ -50,7 +46,9 @@ rtc::Optional<size_t> EchoPathDelayEstimator::EstimateDelay(
     rtc::ArrayView<const float> capture) {
   RTC_DCHECK_EQ(kBlockSize, capture.size());
 
-  std::array<float, kSubBlockSize> downsampled_capture;
+  std::array<float, kBlockSize> downsampled_capture_data;
+  rtc::ArrayView<float> downsampled_capture(downsampled_capture_data.data(),
+                                            kSubBlockSize);
   capture_decimator_.Decimate(capture, downsampled_capture);
   matched_filter_.Update(render_buffer, downsampled_capture);
 

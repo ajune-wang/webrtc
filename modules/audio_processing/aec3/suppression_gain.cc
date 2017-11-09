@@ -93,7 +93,9 @@ float UpperBandsGain(
   // or if the power in upper frequencies is low, do not bound the gain in the
   // upper bands.
   float anti_howling_gain;
-  constexpr float kThreshold = kSubBlockSize * 10.f * 10.f;
+  // TODO(peah): Correct to use kBlockSize.
+  constexpr float kWrongBlockSize = 16;
+  constexpr float kThreshold = kWrongBlockSize * 10.f * 10.f;
   if (high_band_energy < std::max(low_band_energy, kThreshold)) {
     anti_howling_gain = 1.f;
   } else {

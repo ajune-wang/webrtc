@@ -39,7 +39,7 @@ void MatchedFilterCore_NEON(size_t x_start_index,
   RTC_DCHECK_EQ(0, h_size % 4);
 
   // Process for all samples in the sub-block.
-  for (size_t i = 0; i < kSubBlockSize; ++i) {
+  for (size_t i = 0; i < y->size; ++i) {
     // Apply the matched filter as filter * x, and compute x * x.
 
     RTC_DCHECK_GT(x_size, x_start_index);
@@ -147,7 +147,7 @@ void MatchedFilterCore_SSE2(size_t x_start_index,
   RTC_DCHECK_EQ(0, h_size % 4);
 
   // Process for all samples in the sub-block.
-  for (size_t i = 0; i < kSubBlockSize; ++i) {
+  for (size_t i = 0; i < y.size(); ++i) {
     // Apply the matched filter as filter * x, and compute x * x.
 
     RTC_DCHECK_GT(x_size, x_start_index);
@@ -252,7 +252,7 @@ void MatchedFilterCore(size_t x_start_index,
                        bool* filters_updated,
                        float* error_sum) {
   // Process for all samples in the sub-block.
-  for (size_t i = 0; i < kSubBlockSize; ++i) {
+  for (size_t i = 0; i < y.size(); ++i) {
     // Apply the matched filter as filter * x, and compute x * x.
     float x2_sum = 0.f;
     float s = 0;
@@ -295,9 +295,11 @@ MatchedFilter::MatchedFilter(ApmDataDumper* data_dumper,
                              float excitation_limit)
     : data_dumper_(data_dumper),
       optimization_(optimization),
-      filter_intra_lag_shift_(alignment_shift_sub_blocks * kSubBlockSize),
-      filters_(num_matched_filters,
-               std::vector<float>(window_size_sub_blocks * kSubBlockSize, 0.f)),
+      sub_block_size_(kSubBlockSize),
+      filter_intra_lag_shift_(alignment_shift_sub_blocks * sub_block_size_),
+      filters_(
+          num_matched_filters,
+          std::vector<float>(window_size_sub_blocks * sub_block_size_, 0.f)),
       lag_estimates_(num_matched_filters),
       excitation_limit_(excitation_limit) {
   RTC_DCHECK(data_dumper);
@@ -317,8 +319,9 @@ void MatchedFilter::Reset() {
 }
 
 void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
-                           const std::array<float, kSubBlockSize>& capture) {
-  const std::array<float, kSubBlockSize>& y = capture;
+                           rtc::ArrayView<const float> capture) {
+  RTC_DCHECK_EQ(sub_block_size_, capture.size());
+  auto& y = capture;
 
   const float x2_sum_threshold =
       filters_[0].size() * excitation_limit_ * excitation_limit_;
@@ -330,7 +333,7 @@ void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
     bool filters_updated = false;
 
     size_t x_start_index =
-        (render_buffer.position + alignment_shift + kSubBlockSize - 1) %
+        (render_buffer.position + alignment_shift + sub_block_size_ - 1) %
         render_buffer.buffer.size();
 
     switch (optimization_) {
@@ -389,6 +392,9 @@ void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
         break;
       case 3:
         data_dumper_->DumpRaw("aec3_correlator_3_h", filters_[3]);
+        break;
+      case 4:
+        data_dumper_->DumpRaw("aec3_correlator_4_h", filters_[4]);
         break;
       default:
         RTC_DCHECK(false);

@@ -19,7 +19,7 @@
 #include <string>
 
 #include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/aec3/decimator_by_4.h"
+#include "modules/audio_processing/aec3/decimator.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"
@@ -37,6 +37,8 @@ std::string ProduceDebugText(size_t delay) {
   return ss.str();
 }
 
+constexpr size_t kDownSamplingFactors[] = {2, 4, 8};
+
 constexpr size_t kWindowSizeSubBlocks = 32;
 constexpr size_t kAlignmentShiftSubBlocks = kWindowSizeSubBlocks * 3 / 4;
 constexpr size_t kNumMatchedFilters = 4;
@@ -48,34 +50,38 @@ constexpr size_t kNumMatchedFilters = 4;
 // counterparts.
 TEST(MatchedFilter, TestNeonOptimizations) {
   Random random_generator(42U);
-  std::vector<float> x(2000);
-  RandomizeSampleVector(&random_generator, x);
-  std::vector<float> y(kSubBlockSize);
-  std::vector<float> h_NEON(512);
-  std::vector<float> h(512);
-  int x_index = 0;
-  for (int k = 0; k < 1000; ++k) {
-    RandomizeSampleVector(&random_generator, y);
+  for (auto factor : kDownSamplingFactors) {
+    const size_t sub_block_size = kBlockSize / factor;
 
-    bool filters_updated = false;
-    float error_sum = 0.f;
-    bool filters_updated_NEON = false;
-    float error_sum_NEON = 0.f;
+    std::vector<float> x(2000);
+    RandomizeSampleVector(&random_generator, x);
+    std::vector<float> y(sub_block_size);
+    std::vector<float> h_NEON(512);
+    std::vector<float> h(512);
+    int x_index = 0;
+    for (int k = 0; k < 1000; ++k) {
+      RandomizeSampleVector(&random_generator, y);
 
-    MatchedFilterCore_NEON(x_index, h.size() * 150.f * 150.f, x, y, h_NEON,
-                           &filters_updated_NEON, &error_sum_NEON);
+      bool filters_updated = false;
+      float error_sum = 0.f;
+      bool filters_updated_NEON = false;
+      float error_sum_NEON = 0.f;
 
-    MatchedFilterCore(x_index, h.size() * 150.f * 150.f, x, y, h,
-                      &filters_updated, &error_sum);
+      MatchedFilterCore_NEON(x_index, h.size() * 150.f * 150.f, x, y, h_NEON,
+                             &filters_updated_NEON, &error_sum_NEON);
 
-    EXPECT_EQ(filters_updated, filters_updated_NEON);
-    EXPECT_NEAR(error_sum, error_sum_NEON, error_sum / 100000.f);
+      MatchedFilterCore(x_index, h.size() * 150.f * 150.f, x, y, h,
+                        &filters_updated, &error_sum);
 
-    for (size_t j = 0; j < h.size(); ++j) {
-      EXPECT_NEAR(h[j], h_NEON[j], 0.00001f);
+      EXPECT_EQ(filters_updated, filters_updated_NEON);
+      EXPECT_NEAR(error_sum, error_sum_NEON, error_sum / 100000.f);
+
+      for (size_t j = 0; j < h.size(); ++j) {
+        EXPECT_NEAR(h[j], h_NEON[j], 0.00001f);
+      }
+
+      x_index = (x_index + sub_block_size) % x.size();
     }
-
-    x_index = (x_index + kSubBlockSize) % x.size();
   }
 }
 #endif
@@ -87,34 +93,37 @@ TEST(MatchedFilter, TestSse2Optimizations) {
   bool use_sse2 = (WebRtc_GetCPUInfo(kSSE2) != 0);
   if (use_sse2) {
     Random random_generator(42U);
-    std::vector<float> x(2000);
-    RandomizeSampleVector(&random_generator, x);
-    std::vector<float> y(kSubBlockSize);
-    std::vector<float> h_SSE2(512);
-    std::vector<float> h(512);
-    int x_index = 0;
-    for (int k = 0; k < 1000; ++k) {
-      RandomizeSampleVector(&random_generator, y);
+    for (auto factor : kDownSamplingFactors) {
+      const size_t sub_block_size = kBlockSize / factor;
+      std::vector<float> x(2000);
+      RandomizeSampleVector(&random_generator, x);
+      std::vector<float> y(sub_block_size);
+      std::vector<float> h_SSE2(512);
+      std::vector<float> h(512);
+      int x_index = 0;
+      for (int k = 0; k < 1000; ++k) {
+        RandomizeSampleVector(&random_generator, y);
 
-      bool filters_updated = false;
-      float error_sum = 0.f;
-      bool filters_updated_SSE2 = false;
-      float error_sum_SSE2 = 0.f;
+        bool filters_updated = false;
+        float error_sum = 0.f;
+        bool filters_updated_SSE2 = false;
+        float error_sum_SSE2 = 0.f;
 
-      MatchedFilterCore_SSE2(x_index, h.size() * 150.f * 150.f, x, y, h_SSE2,
-                             &filters_updated_SSE2, &error_sum_SSE2);
+        MatchedFilterCore_SSE2(x_index, h.size() * 150.f * 150.f, x, y, h_SSE2,
+                               &filters_updated_SSE2, &error_sum_SSE2);
 
-      MatchedFilterCore(x_index, h.size() * 150.f * 150.f, x, y, h,
-                        &filters_updated, &error_sum);
+        MatchedFilterCore(x_index, h.size() * 150.f * 150.f, x, y, h,
+                          &filters_updated, &error_sum);
 
-      EXPECT_EQ(filters_updated, filters_updated_SSE2);
-      EXPECT_NEAR(error_sum, error_sum_SSE2, error_sum / 100000.f);
+        EXPECT_EQ(filters_updated, filters_updated_SSE2);
+        EXPECT_NEAR(error_sum, error_sum_SSE2, error_sum / 100000.f);
 
-      for (size_t j = 0; j < h.size(); ++j) {
-        EXPECT_NEAR(h[j], h_SSE2[j], 0.00001f);
+        for (size_t j = 0; j < h.size(); ++j) {
+          EXPECT_NEAR(h[j], h_SSE2[j], 0.00001f);
+        }
+
+        x_index = (x_index + sub_block_size) % x.size();
       }
-
-      x_index = (x_index + kSubBlockSize) % x.size();
     }
   }
 }
@@ -126,28 +135,148 @@ TEST(MatchedFilter, TestSse2Optimizations) {
 // delayed signals.
 TEST(MatchedFilter, LagEstimation) {
   Random random_generator(42U);
-  std::vector<std::vector<float>> render(3,
-                                         std::vector<float>(kBlockSize, 0.f));
-  std::array<float, kBlockSize> capture;
-  capture.fill(0.f);
-  ApmDataDumper data_dumper(0);
-  for (size_t delay_samples : {5, 64, 150, 200, 800, 1000}) {
-    SCOPED_TRACE(ProduceDebugText(delay_samples));
-    DecimatorBy4 capture_decimator;
-    DelayBuffer<float> signal_delay_buffer(4 * delay_samples);
+  for (auto factor : kDownSamplingFactors) {
+    const size_t sub_block_size = kBlockSize / factor;
+
+    std::vector<std::vector<float>> render(3,
+                                           std::vector<float>(kBlockSize, 0.f));
+    std::array<float, kBlockSize> capture;
+    capture.fill(0.f);
+    ApmDataDumper data_dumper(0);
+    for (size_t delay_samples : {5, 64, 150, 200, 800, 1000}) {
+      SCOPED_TRACE(ProduceDebugText(delay_samples));
+      Decimator capture_decimator(kDownSamplingFactor);
+      DelayBuffer<float> signal_delay_buffer(4 * delay_samples);
+      MatchedFilter filter(&data_dumper, DetectOptimization(),
+                           kWindowSizeSubBlocks, kNumMatchedFilters,
+                           kAlignmentShiftSubBlocks, 150);
+      std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
+          RenderDelayBuffer::Create(3));
+
+      // Analyze the correlation between render and capture.
+      for (size_t k = 0; k < (150 + delay_samples / sub_block_size); ++k) {
+        RandomizeSampleVector(&random_generator, render[0]);
+        signal_delay_buffer.Delay(render[0], capture);
+        render_delay_buffer->Insert(render);
+        render_delay_buffer->UpdateBuffers();
+        std::array<float, kBlockSize> downsampled_capture_data;
+        rtc::ArrayView<float> downsampled_capture(
+            downsampled_capture_data.data(), sub_block_size);
+        capture_decimator.Decimate(capture, downsampled_capture);
+        filter.Update(render_delay_buffer->GetDownsampledRenderBuffer(),
+                      downsampled_capture);
+      }
+
+      // Obtain the lag estimates.
+      auto lag_estimates = filter.GetLagEstimates();
+
+      // Find which lag estimate should be the most accurate.
+      rtc::Optional<size_t> expected_most_accurate_lag_estimate;
+      size_t alignment_shift_sub_blocks = 0;
+      for (size_t k = 0; k < kNumMatchedFilters; ++k) {
+        if ((alignment_shift_sub_blocks + kWindowSizeSubBlocks / 2) *
+                sub_block_size >
+            delay_samples) {
+          expected_most_accurate_lag_estimate = rtc::Optional<size_t>(k);
+          break;
+        }
+        alignment_shift_sub_blocks += kAlignmentShiftSubBlocks;
+      }
+      ASSERT_TRUE(expected_most_accurate_lag_estimate);
+
+      // Verify that the expected most accurate lag estimate is the most
+      // accurate estimate.
+      for (size_t k = 0; k < kNumMatchedFilters; ++k) {
+        if (k != *expected_most_accurate_lag_estimate) {
+          EXPECT_GT(
+              lag_estimates[*expected_most_accurate_lag_estimate].accuracy,
+              lag_estimates[k].accuracy);
+        }
+      }
+
+      // Verify that all lag estimates are updated as expected for signals
+      // containing strong noise.
+      for (auto& le : lag_estimates) {
+        EXPECT_TRUE(le.updated);
+      }
+
+      // Verify that the expected most accurate lag estimate is reliable.
+      EXPECT_TRUE(lag_estimates[*expected_most_accurate_lag_estimate].reliable);
+
+      // Verify that the expected most accurate lag estimate is correct.
+      EXPECT_EQ(delay_samples,
+                lag_estimates[*expected_most_accurate_lag_estimate].lag);
+    }
+}
+}
+
+// Verifies that the matched filter does not produce reliable and accurate
+// estimates for uncorrelated render and capture signals.
+TEST(MatchedFilter, LagNotReliableForUncorrelatedRenderAndCapture) {
+  Random random_generator(42U);
+  for (auto factor : kDownSamplingFactors) {
+    const size_t sub_block_size = kBlockSize / factor;
+
+    std::vector<std::vector<float>> render(3,
+                                           std::vector<float>(kBlockSize, 0.f));
+    std::array<float, kBlockSize> capture_data;
+    rtc::ArrayView<float> capture(capture_data.data(), sub_block_size);
+    std::fill(capture.begin(), capture.end(), 0.f);
+    ApmDataDumper data_dumper(0);
+    std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
+        RenderDelayBuffer::Create(3));
+    MatchedFilter filter(&data_dumper, DetectOptimization(),
+                         kWindowSizeSubBlocks, kNumMatchedFilters,
+                         kAlignmentShiftSubBlocks, 150);
+
+    // Analyze the correlation between render and capture.
+    for (size_t k = 0; k < 100; ++k) {
+      RandomizeSampleVector(&random_generator, render[0]);
+      RandomizeSampleVector(&random_generator, capture);
+      render_delay_buffer->Insert(render);
+      filter.Update(render_delay_buffer->GetDownsampledRenderBuffer(), capture);
+    }
+
+    // Obtain the lag estimates.
+    auto lag_estimates = filter.GetLagEstimates();
+    EXPECT_EQ(kNumMatchedFilters, lag_estimates.size());
+
+    // Verify that no lag estimates are reliable.
+    for (auto& le : lag_estimates) {
+      EXPECT_FALSE(le.reliable);
+    }
+}
+}
+
+// Verifies that the matched filter does not produce updated lag estimates for
+// render signals of low level.
+TEST(MatchedFilter, LagNotUpdatedForLowLevelRender) {
+  Random random_generator(42U);
+  for (auto factor : kDownSamplingFactors) {
+    const size_t sub_block_size = kBlockSize / factor;
+
+    std::vector<std::vector<float>> render(3,
+                                           std::vector<float>(kBlockSize, 0.f));
+    std::array<float, kBlockSize> capture;
+    capture.fill(0.f);
+    ApmDataDumper data_dumper(0);
     MatchedFilter filter(&data_dumper, DetectOptimization(),
                          kWindowSizeSubBlocks, kNumMatchedFilters,
                          kAlignmentShiftSubBlocks, 150);
     std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
         RenderDelayBuffer::Create(3));
+    Decimator capture_decimator(kDownSamplingFactor);
 
     // Analyze the correlation between render and capture.
-    for (size_t k = 0; k < (150 + delay_samples / kSubBlockSize); ++k) {
+    for (size_t k = 0; k < 100; ++k) {
       RandomizeSampleVector(&random_generator, render[0]);
-      signal_delay_buffer.Delay(render[0], capture);
-      render_delay_buffer->Insert(render);
-      render_delay_buffer->UpdateBuffers();
-      std::array<float, kSubBlockSize> downsampled_capture;
+      for (auto& render_k : render[0]) {
+        render_k *= 149.f / 32767.f;
+      }
+      std::copy(render[0].begin(), render[0].end(), capture.begin());
+      std::array<float, kBlockSize> downsampled_capture_data;
+      rtc::ArrayView<float> downsampled_capture(downsampled_capture_data.data(),
+                                                sub_block_size);
       capture_decimator.Decimate(capture, downsampled_capture);
       filter.Update(render_delay_buffer->GetDownsampledRenderBuffer(),
                     downsampled_capture);
@@ -155,115 +284,15 @@ TEST(MatchedFilter, LagEstimation) {
 
     // Obtain the lag estimates.
     auto lag_estimates = filter.GetLagEstimates();
+    EXPECT_EQ(kNumMatchedFilters, lag_estimates.size());
 
-    // Find which lag estimate should be the most accurate.
-    rtc::Optional<size_t> expected_most_accurate_lag_estimate;
-    size_t alignment_shift_sub_blocks = 0;
-    for (size_t k = 0; k < kNumMatchedFilters; ++k) {
-      if ((alignment_shift_sub_blocks + kWindowSizeSubBlocks / 2) *
-              kSubBlockSize >
-          delay_samples) {
-        expected_most_accurate_lag_estimate = rtc::Optional<size_t>(k);
-        break;
-      }
-      alignment_shift_sub_blocks += kAlignmentShiftSubBlocks;
-    }
-    ASSERT_TRUE(expected_most_accurate_lag_estimate);
-
-    // Verify that the expected most accurate lag estimate is the most accurate
-    // estimate.
-    for (size_t k = 0; k < kNumMatchedFilters; ++k) {
-      if (k != *expected_most_accurate_lag_estimate) {
-        EXPECT_GT(lag_estimates[*expected_most_accurate_lag_estimate].accuracy,
-                  lag_estimates[k].accuracy);
-      }
-    }
-
-    // Verify that all lag estimates are updated as expected for signals
-    // containing strong noise.
+    // Verify that no lag estimates are updated and that no lag estimates are
+    // reliable.
     for (auto& le : lag_estimates) {
-      EXPECT_TRUE(le.updated);
+      EXPECT_FALSE(le.updated);
+      EXPECT_FALSE(le.reliable);
     }
-
-    // Verify that the expected most accurate lag estimate is reliable.
-    EXPECT_TRUE(lag_estimates[*expected_most_accurate_lag_estimate].reliable);
-
-    // Verify that the expected most accurate lag estimate is correct.
-    EXPECT_EQ(delay_samples,
-              lag_estimates[*expected_most_accurate_lag_estimate].lag);
-  }
 }
-
-// Verifies that the matched filter does not produce reliable and accurate
-// estimates for uncorrelated render and capture signals.
-TEST(MatchedFilter, LagNotReliableForUncorrelatedRenderAndCapture) {
-  Random random_generator(42U);
-  std::vector<std::vector<float>> render(3,
-                                         std::vector<float>(kBlockSize, 0.f));
-  std::array<float, kSubBlockSize> capture;
-  capture.fill(0.f);
-  ApmDataDumper data_dumper(0);
-  std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-      RenderDelayBuffer::Create(3));
-  MatchedFilter filter(&data_dumper, DetectOptimization(), kWindowSizeSubBlocks,
-                       kNumMatchedFilters, kAlignmentShiftSubBlocks, 150);
-
-  // Analyze the correlation between render and capture.
-  for (size_t k = 0; k < 100; ++k) {
-    RandomizeSampleVector(&random_generator, render[0]);
-    RandomizeSampleVector(&random_generator, capture);
-    render_delay_buffer->Insert(render);
-    filter.Update(render_delay_buffer->GetDownsampledRenderBuffer(), capture);
-  }
-
-  // Obtain the lag estimates.
-  auto lag_estimates = filter.GetLagEstimates();
-  EXPECT_EQ(kNumMatchedFilters, lag_estimates.size());
-
-  // Verify that no lag estimates are reliable.
-  for (auto& le : lag_estimates) {
-    EXPECT_FALSE(le.reliable);
-  }
-}
-
-// Verifies that the matched filter does not produce updated lag estimates for
-// render signals of low level.
-TEST(MatchedFilter, LagNotUpdatedForLowLevelRender) {
-  Random random_generator(42U);
-  std::vector<std::vector<float>> render(3,
-                                         std::vector<float>(kBlockSize, 0.f));
-  std::array<float, kBlockSize> capture;
-  capture.fill(0.f);
-  ApmDataDumper data_dumper(0);
-  MatchedFilter filter(&data_dumper, DetectOptimization(), kWindowSizeSubBlocks,
-                       kNumMatchedFilters, kAlignmentShiftSubBlocks, 150);
-  std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-      RenderDelayBuffer::Create(3));
-  DecimatorBy4 capture_decimator;
-
-  // Analyze the correlation between render and capture.
-  for (size_t k = 0; k < 100; ++k) {
-    RandomizeSampleVector(&random_generator, render[0]);
-    for (auto& render_k : render[0]) {
-      render_k *= 149.f / 32767.f;
-    }
-    std::copy(render[0].begin(), render[0].end(), capture.begin());
-    std::array<float, kSubBlockSize> downsampled_capture;
-    capture_decimator.Decimate(capture, downsampled_capture);
-    filter.Update(render_delay_buffer->GetDownsampledRenderBuffer(),
-                  downsampled_capture);
-  }
-
-  // Obtain the lag estimates.
-  auto lag_estimates = filter.GetLagEstimates();
-  EXPECT_EQ(kNumMatchedFilters, lag_estimates.size());
-
-  // Verify that no lag estimates are updated and that no lag estimates are
-  // reliable.
-  for (auto& le : lag_estimates) {
-    EXPECT_FALSE(le.updated);
-    EXPECT_FALSE(le.reliable);
-  }
 }
 
 // Verifies that the correct number of lag estimates are produced for a certain

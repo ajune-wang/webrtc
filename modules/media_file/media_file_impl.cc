@@ -13,7 +13,7 @@
 #include "modules/media_file/media_file_impl.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/logging.h"
-#include "system_wrappers/include/file_wrapper.h"
+#include "rtc_base/system/file_wrapper.h"
 
 namespace webrtc {
 MediaFile* MediaFile::CreateMediaFile(const int32_t id) {

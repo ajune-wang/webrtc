@@ -240,6 +240,7 @@ rtc_static_library("audio_processing") {
     "../../audio/utility:audio_frame_operations",
     "../../rtc_base:gtest_prod",
     "../../rtc_base:protobuf_utils",
+    "../../rtc_base/system:file_wrapper",
     "../audio_coding:isac",
   ]
   public_deps = [
@@ -561,6 +562,7 @@ if (rtc_include_tests) {
       "../../rtc_base:protobuf_utils",
       "../../rtc_base:rtc_base",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base/system:file_wrapper",
       "../../system_wrappers:system_wrappers",
       "../../test:test_support",
       "../audio_coding:neteq_input_audio_tools",
@@ -820,6 +822,7 @@ if (rtc_include_tests) {
       "../..:webrtc_common",
       "../../common_audio:common_audio",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base/system:file_wrapper",
       "../../system_wrappers:metrics_default",
       "../../system_wrappers:system_wrappers",
       "../../test:test_support",
@@ -837,6 +840,7 @@ if (rtc_include_tests) {
     deps = [
       ":audio_processing",
       "../..:webrtc_common",
+      "../../rtc_base/system:file_wrapper",
       "../../system_wrappers:metrics_default",
       "../../system_wrappers:system_wrappers",
     ]

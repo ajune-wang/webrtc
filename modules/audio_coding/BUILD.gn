@@ -904,6 +904,7 @@ rtc_static_library("audio_network_adaptor") {
     "../../logging:rtc_event_log_api",
     "../../rtc_base:protobuf_utils",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base/system:file_wrapper",
     "../../system_wrappers",
   ]
 

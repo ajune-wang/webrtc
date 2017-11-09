@@ -37,6 +37,7 @@ rtc_static_library("media_file") {
     "../..:webrtc_common",
     "../../common_audio",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base/system:file_wrapper",
     "../../system_wrappers",
   ]
 }

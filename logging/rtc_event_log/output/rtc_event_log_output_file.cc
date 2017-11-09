@@ -14,7 +14,7 @@
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "system_wrappers/include/file_wrapper.h"
+#include "rtc_base/system/file_wrapper.h"
 
 namespace webrtc {
 

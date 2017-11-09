@@ -22,6 +22,30 @@
       "revId": "00e120ea620ebb77652958ffb005b460b8a7ecdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "200b0e71_d57c3c7b",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-09T12:52:57Z",
+      "side": 1,
+      "message": "If at all possible, please define functions in foo.cc if they\u0027re declared in foo.h, and put foo.h and foo.cc in the same build target. Anything else just makes things hard to read and reason about.\n\nAre there fundamental reasons why you can\u0027t do that here?",
+      "parentUuid": "befb5620_de369383",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 57
+      },
+      "revId": "00e120ea620ebb77652958ffb005b460b8a7ecdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

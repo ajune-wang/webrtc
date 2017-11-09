@@ -46,6 +46,30 @@
       "revId": "00e120ea620ebb77652958ffb005b460b8a7ecdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8ebc1fa_55bf02ba",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5025
+      },
+      "writtenOn": "2017-11-09T13:34:29Z",
+      "side": 1,
+      "message": "No, but I will have to update at least 41 call sites downstream so they include the right include file and depend on the right target.\n\nOk, I will have to split this CL in two and introduce the new headers and targets, and then clean up the hack in libjingle_peerconnection_api later...",
+      "parentUuid": "200b0e71_d57c3c7b",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 57
+      },
+      "revId": "00e120ea620ebb77652958ffb005b460b8a7ecdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

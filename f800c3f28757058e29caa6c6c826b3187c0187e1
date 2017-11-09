@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e26d5173_9e032df9",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T08:28:19Z",
+      "side": 1,
+      "message": "Also depends on x not being close to 2^63, to rule out overflow of the addition.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 70
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "babcfe15_a6d34b8d",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T08:28:19Z",
+      "side": 1,
+      "message": "Use existing constant kNumMicrosecsPerSec (no, I\u0027m also not fond of the \"Num\" prefix).",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7337d910_33907a25",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T08:28:19Z",
+      "side": 1,
+      "message": "Do we really need round-to-nearest here? Reducing maximum rounding error from 2^-16 s (appr. 15 us) to 2^-17 s (appr. 8 us) looks like overkill to me, at least if it\u0027s used for RTT measurements.",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be63c76d_d07f7e04",
+        "filename": "modules/rtp_rtcp/source/time_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T08:28:19Z",
+      "side": 1,
+      "message": "And this is intended for intervals, not, e.g., return value of rtc::TimeMicros()?",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eebeb1a_127e482c",
+        "filename": "modules/rtp_rtcp/source/time_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T08:28:19Z",
+      "side": 1,
+      "message": "I have tried to use microseconds as the main unit. Any reason to not return us units here?",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

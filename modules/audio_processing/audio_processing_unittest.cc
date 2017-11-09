@@ -2258,6 +2258,45 @@ TEST_F(ApmTest, Process) {
     analog_level_average /= frame_count;
     ns_speech_prob_average /= frame_count;
 
+    // Test statistics interface.
+    AudioProcessing::AudioProcessingStats stats = apm_->GetStatistics(true);
+#if defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE)
+    // We expect all statistics to be set and have a sensible value.
+    EXPECT_TRUE(stats.echo_return_loss && *stats.echo_return_loss != -100.0);
+    EXPECT_TRUE(stats.echo_return_loss_enhancement &&
+                *stats.echo_return_loss_enhancement != -100.0);
+    EXPECT_TRUE(stats.divergent_filter_fraction &&
+                *stats.divergent_filter_fraction != -1.0);
+    EXPECT_TRUE(stats.delay_median_ms && *stats.delay_median_ms >= 0);
+    EXPECT_TRUE(stats.delay_standard_deviation_ms &&
+                *stats.delay_standard_deviation_ms >= 0);
+#else
+    // In fixed-point mode, the software AEC is not active, so we expect no AEC
+    // stats.
+    EXPECT_FALSE(stats.echo_return_loss);
+    EXPECT_FALSE(stats.echo_return_loss_enhancement);
+    EXPECT_FALSE(stats.divergent_filter_fraction);
+    EXPECT_FALSE(stats.delay_median_ms);
+    EXPECT_FALSE(stats.delay_standard_deviation_ms);
+#endif
+    // The echo detector is active in both float and fixed modes.
+    EXPECT_TRUE(stats.residual_echo_likelihood &&
+                *stats.residual_echo_likelihood >= 0.0 &&
+                *stats.residual_echo_likelihood <= 1.0);
+    EXPECT_TRUE(stats.residual_echo_likelihood_recent_max &&
+                *stats.residual_echo_likelihood_recent_max >= 0.0 &&
+                *stats.residual_echo_likelihood_recent_max <= 1.0);
+
+    // If there are no receive streams, we expect the stats not to be set.
+    stats = apm_->GetStatistics(false);
+    EXPECT_FALSE(stats.echo_return_loss);
+    EXPECT_FALSE(stats.echo_return_loss_enhancement);
+    EXPECT_FALSE(stats.divergent_filter_fraction);
+    EXPECT_FALSE(stats.delay_median_ms);
+    EXPECT_FALSE(stats.delay_standard_deviation_ms);
+    EXPECT_FALSE(stats.residual_echo_likelihood);
+    EXPECT_FALSE(stats.residual_echo_likelihood_recent_max);
+
     if (!write_ref_data) {
       const int kIntNear = 1;
       // When running the test on a N7 we get a {2, 6} difference of

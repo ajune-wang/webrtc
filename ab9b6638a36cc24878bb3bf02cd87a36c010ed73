@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cf8e7cb4_5dac2d26",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T09:36:29Z",
+      "side": 1,
+      "message": "Looking only at this place, it looks strange to define a constant without any value. Is it obvious that one should go to the header file for a corresponding decl + initializer, or is there some conventional way to provide a clue?",
+      "parentUuid": "af3aa280_a76091dd",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "ab9b6638a36cc24878bb3bf02cd87a36c010ed73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbd0f2f9_13872acd",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.h",
         "patchSetId": 2

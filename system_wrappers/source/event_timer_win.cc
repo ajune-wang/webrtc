@@ -24,7 +24,8 @@ EventTimerWin::EventTimerWin()
                            FALSE,   // manual reset
                            FALSE,   // initial state
                            NULL)),  // name of event
-      timerID_(NULL) {}
+    timerID_(NULL) {
+}
 
 EventTimerWin::~EventTimerWin() {
   StopTimer();

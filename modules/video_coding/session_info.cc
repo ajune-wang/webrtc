@@ -437,7 +437,7 @@ int VCMSessionInfo::InsertPacket(const VCMPacket& packet,
   }
 
   if (packets_.size() == kMaxPacketsInSession) {
-    RTC_LOG(LS_ERROR) << "Max number of packets per frame has been reached.";
+    LOG(LS_ERROR) << "Max number of packets per frame has been reached.";
     return -1;
   }
 
@@ -478,9 +478,8 @@ int VCMSessionInfo::InsertPacket(const VCMPacket& packet,
       first_packet_seq_num_ = static_cast<int>(packet.seqNum);
     } else if (first_packet_seq_num_ != -1 &&
                IsNewerSequenceNumber(first_packet_seq_num_, packet.seqNum)) {
-      RTC_LOG(LS_WARNING)
-          << "Received packet with a sequence number which is out "
-             "of frame boundaries";
+      LOG(LS_WARNING) << "Received packet with a sequence number which is out "
+                         "of frame boundaries";
       return -3;
     } else if (frame_type_ == kEmptyFrame && packet.frameType != kEmptyFrame) {
       // Update the frame type with the type of the first media packet.
@@ -493,9 +492,8 @@ int VCMSessionInfo::InsertPacket(const VCMPacket& packet,
       last_packet_seq_num_ = static_cast<int>(packet.seqNum);
     } else if (last_packet_seq_num_ != -1 &&
                IsNewerSequenceNumber(packet.seqNum, last_packet_seq_num_)) {
-      RTC_LOG(LS_WARNING)
-          << "Received packet with a sequence number which is out "
-             "of frame boundaries";
+      LOG(LS_WARNING) << "Received packet with a sequence number which is out "
+                         "of frame boundaries";
       return -3;
     }
   }

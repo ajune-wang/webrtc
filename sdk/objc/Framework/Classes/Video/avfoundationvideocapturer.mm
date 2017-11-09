@@ -64,11 +64,11 @@ AVFoundationVideoCapturer::~AVFoundationVideoCapturer() {
 cricket::CaptureState AVFoundationVideoCapturer::Start(
     const cricket::VideoFormat& format) {
   if (!_capturer) {
-    RTC_LOG(LS_ERROR) << "Failed to create AVFoundation capturer.";
+    LOG(LS_ERROR) << "Failed to create AVFoundation capturer.";
     return cricket::CaptureState::CS_FAILED;
   }
   if (_capturer.isRunning) {
-    RTC_LOG(LS_ERROR) << "The capturer is already running.";
+    LOG(LS_ERROR) << "The capturer is already running.";
     return cricket::CaptureState::CS_FAILED;
   }
 

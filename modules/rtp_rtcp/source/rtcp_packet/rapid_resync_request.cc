@@ -34,10 +34,9 @@ bool RapidResyncRequest::Parse(const CommonHeader& packet) {
   RTC_DCHECK_EQ(packet.fmt(), kFeedbackMessageType);
 
   if (packet.payload_size_bytes() != kCommonFeedbackLength) {
-    RTC_LOG(LS_WARNING) << "Packet payload size should be "
-                        << kCommonFeedbackLength << " instead of "
-                        << packet.payload_size_bytes()
-                        << " to be a valid Rapid Resynchronisation Request";
+    LOG(LS_WARNING) << "Packet payload size should be " << kCommonFeedbackLength
+                    << " instead of " << packet.payload_size_bytes()
+                    << " to be a valid Rapid Resynchronisation Request";
     return false;
   }
 

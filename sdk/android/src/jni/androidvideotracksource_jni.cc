@@ -96,7 +96,7 @@ JNI_FUNCTION_DECLARATION(void,
                          jclass,
                          jlong j_source,
                          jboolean j_success) {
-  RTC_LOG(LS_INFO) << "AndroidVideoTrackSourceObserve_nativeCapturerStarted";
+  LOG(LS_INFO) << "AndroidVideoTrackSourceObserve_nativeCapturerStarted";
   AndroidVideoTrackSource* source =
       AndroidVideoTrackSourceFromJavaProxy(j_source);
   source->SetState(j_success ? AndroidVideoTrackSource::SourceState::kLive
@@ -108,7 +108,7 @@ JNI_FUNCTION_DECLARATION(void,
                          JNIEnv* jni,
                          jclass,
                          jlong j_source) {
-  RTC_LOG(LS_INFO) << "AndroidVideoTrackSourceObserve_nativeCapturerStopped";
+  LOG(LS_INFO) << "AndroidVideoTrackSourceObserve_nativeCapturerStopped";
   AndroidVideoTrackSource* source =
       AndroidVideoTrackSourceFromJavaProxy(j_source);
   source->SetState(AndroidVideoTrackSource::SourceState::kEnded);
@@ -122,7 +122,7 @@ JNI_FUNCTION_DECLARATION(void,
                          jint j_width,
                          jint j_height,
                          jint j_fps) {
-  RTC_LOG(LS_INFO) << "VideoSource_nativeAdaptOutputFormat";
+  LOG(LS_INFO) << "VideoSource_nativeAdaptOutputFormat";
   AndroidVideoTrackSource* source =
       AndroidVideoTrackSourceFromJavaProxy(j_source);
   source->OnOutputFormatRequest(j_width, j_height, j_fps);

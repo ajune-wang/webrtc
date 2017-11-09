@@ -35,10 +35,9 @@ bool DxgiTextureMapping::CopyFromTexture(
   _com_error error = duplication_->MapDesktopSurface(rect());
   if (error.Error() != S_OK) {
     *rect() = {0};
-    RTC_LOG(LS_ERROR)
-        << "Failed to map the IDXGIOutputDuplication to a bitmap, "
-           "error "
-        << error.ErrorMessage() << ", code " << error.Error();
+    LOG(LS_ERROR) << "Failed to map the IDXGIOutputDuplication to a bitmap, "
+                     "error "
+                  << error.ErrorMessage() << ", code " << error.Error();
     return false;
   }
 
@@ -48,8 +47,8 @@ bool DxgiTextureMapping::CopyFromTexture(
 bool DxgiTextureMapping::DoRelease() {
   _com_error error = duplication_->UnMapDesktopSurface();
   if (error.Error() != S_OK) {
-    RTC_LOG(LS_ERROR) << "Failed to unmap the IDXGIOutputDuplication, error "
-                      << error.ErrorMessage() << ", code " << error.Error();
+    LOG(LS_ERROR) << "Failed to unmap the IDXGIOutputDuplication, error "
+                  << error.ErrorMessage() << ", code " << error.Error();
     return false;
   }
   return true;

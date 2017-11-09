@@ -105,7 +105,7 @@ void RTPSenderVideo::SendVideoPacket(std::unique_ptr<RtpPacketToSend> packet,
   uint32_t rtp_timestamp = packet->Timestamp();
   if (!rtp_sender_->SendToNetwork(std::move(packet), storage,
                                   RtpPacketSender::kLowPriority)) {
-    RTC_LOG(LS_WARNING) << "Failed to send video packet " << seq_num;
+    LOG(LS_WARNING) << "Failed to send video packet " << seq_num;
     return;
   }
   rtc::CritScope cs(&stats_crit_);
@@ -161,7 +161,7 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
                          "Video::PacketRed", "timestamp", rtp_timestamp,
                          "seqnum", media_seq_num);
   } else {
-    RTC_LOG(LS_WARNING) << "Failed to send RED packet " << media_seq_num;
+    LOG(LS_WARNING) << "Failed to send RED packet " << media_seq_num;
   }
   for (const auto& fec_packet : fec_packets) {
     // TODO(danilchap): Make ulpfec_generator_ generate RtpPacketToSend to avoid
@@ -179,8 +179,7 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
                            "Video::PacketUlpfec", "timestamp", rtp_timestamp,
                            "seqnum", fec_sequence_number);
     } else {
-      RTC_LOG(LS_WARNING) << "Failed to send ULPFEC packet "
-                          << fec_sequence_number;
+      LOG(LS_WARNING) << "Failed to send ULPFEC packet " << fec_sequence_number;
     }
   }
 }
@@ -211,7 +210,7 @@ void RTPSenderVideo::SendVideoPacketWithFlexfec(
                              "Video::PacketFlexfec", "timestamp", timestamp,
                              "seqnum", seq_num);
       } else {
-        RTC_LOG(LS_WARNING) << "Failed to send FlexFEC packet " << seq_num;
+        LOG(LS_WARNING) << "Failed to send FlexFEC packet " << seq_num;
       }
     }
   }
@@ -420,11 +419,11 @@ bool RTPSenderVideo::SendVideo(RtpVideoCodecTypes video_type,
 
     if (first_frame) {
       if (i == 0) {
-        RTC_LOG(LS_INFO)
+        LOG(LS_INFO)
             << "Sent first RTP packet of the first video frame (pre-pacer)";
       }
       if (last) {
-        RTC_LOG(LS_INFO)
+        LOG(LS_INFO)
             << "Sent last RTP packet of the first video frame (pre-pacer)";
       }
     }

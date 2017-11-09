@@ -44,20 +44,18 @@ void TestInvalidParameterHandler(const wchar_t* expression,
                                  const wchar_t* file,
                                  unsigned int line,
                                  uintptr_t pReserved) {
-  RTC_LOG(LS_ERROR) << "InvalidParameter Handler called.  Exiting.";
-  RTC_LOG(LS_ERROR) << expression << std::endl
-                    << function << std::endl
-                    << file << std::endl
-                    << line;
+  LOG(LS_ERROR) << "InvalidParameter Handler called.  Exiting.";
+  LOG(LS_ERROR) << expression << std::endl << function << std::endl << file
+                << std::endl << line;
   exit(1);
 }
 void TestPureCallHandler() {
-  RTC_LOG(LS_ERROR) << "Purecall Handler called.  Exiting.";
+  LOG(LS_ERROR) << "Purecall Handler called.  Exiting.";
   exit(1);
 }
 int TestCrtReportHandler(int report_type, char* msg, int* retval) {
-  RTC_LOG(LS_ERROR) << "CrtReport Handler called...";
-  RTC_LOG(LS_ERROR) << msg;
+    LOG(LS_ERROR) << "CrtReport Handler called...";
+    LOG(LS_ERROR) << msg;
   if (report_type == _CRT_ASSERT) {
     exit(1);
   } else {

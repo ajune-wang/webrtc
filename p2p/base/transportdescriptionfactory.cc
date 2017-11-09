@@ -63,8 +63,8 @@ TransportDescription* TransportDescriptionFactory::CreateAnswer(
     const TransportDescription* current_description) const {
   // TODO(juberti): Figure out why we get NULL offers, and fix this upstream.
   if (!offer) {
-    RTC_LOG(LS_WARNING) << "Failed to create TransportDescription answer "
-                        << "because offer is NULL";
+    LOG(LS_WARNING) << "Failed to create TransportDescription answer " <<
+        "because offer is NULL";
     return NULL;
   }
 
@@ -98,8 +98,8 @@ TransportDescription* TransportDescriptionFactory::CreateAnswer(
     }
   } else if (require_transport_attributes && secure_ == SEC_REQUIRED) {
     // We require DTLS, but the other side didn't offer it. Fail.
-    RTC_LOG(LS_WARNING) << "Failed to create TransportDescription answer "
-                           "because of incompatible security settings";
+    LOG(LS_WARNING) << "Failed to create TransportDescription answer "
+                       "because of incompatible security settings";
     return NULL;
   }
 
@@ -109,7 +109,7 @@ TransportDescription* TransportDescriptionFactory::CreateAnswer(
 bool TransportDescriptionFactory::SetSecurityInfo(
     TransportDescription* desc, ConnectionRole role) const {
   if (!certificate_) {
-    RTC_LOG(LS_ERROR) << "Cannot create identity digest with no certificate";
+    LOG(LS_ERROR) << "Cannot create identity digest with no certificate";
     return false;
   }
 

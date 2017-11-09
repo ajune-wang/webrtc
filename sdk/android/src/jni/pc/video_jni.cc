@@ -119,7 +119,7 @@ JNI_FUNCTION_DECLARATION(
           owned_factory->encoder_factory());
   if (use_media_codec_encoder_factory && encoder_factory &&
       jni->IsInstanceOf(local_egl_context, j_eglbase14_context_class)) {
-    RTC_LOG(LS_INFO) << "Set EGL context for HW encoding.";
+    LOG(LS_INFO) << "Set EGL context for HW encoding.";
     encoder_factory->SetEGLContext(jni, local_egl_context);
   }
 
@@ -127,7 +127,7 @@ JNI_FUNCTION_DECLARATION(
       static_cast<MediaCodecVideoDecoderFactory*>(
           owned_factory->decoder_factory());
   if (use_media_codec_decoder_factory && decoder_factory) {
-    RTC_LOG(LS_INFO) << "Set EGL context for HW decoding.";
+    LOG(LS_INFO) << "Set EGL context for HW decoding.";
     decoder_factory->SetEGLContext(jni, remote_egl_context);
   }
 }

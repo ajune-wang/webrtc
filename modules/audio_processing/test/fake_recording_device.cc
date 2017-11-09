@@ -127,7 +127,7 @@ int FakeRecordingDevice::MicLevel() const {
 void FakeRecordingDevice::SetMicLevel(const int level) {
   RTC_CHECK(worker_);
   if (level != worker_->mic_level())
-    RTC_LOG(LS_INFO) << "Simulate mic level update: " << level;
+    LOG(LS_INFO) << "Simulate mic level update: " << level;
   worker_->set_mic_level(level);
 }
 

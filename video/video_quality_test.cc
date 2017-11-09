@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <deque>
 #include <map>
-#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -845,7 +844,7 @@ class VideoAnalyzer : public PacketReceiver,
       test::GetTestArtifactsDir(&output_dir);
       std::string output_path =
           rtc::Pathname(output_dir, test_label_ + ".jpg").pathname();
-      RTC_LOG(LS_INFO) << "Saving worst frame to " << output_path;
+      LOG(LS_INFO) << "Saving worst frame to " << output_path;
       test::JpegFrameWriter frame_writer(output_path);
       RTC_CHECK(frame_writer.WriteFrame(worst_frame_->frame,
                                         100 /*best quality*/));
@@ -1393,7 +1392,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       // encoders usually can't natively do simulcast with different frame rates
       // for the different layers.
       video_encoder_.reset(
-          new SimulcastEncoderAdapter(new cricket::InternalEncoderFactory()));
+          new SimulcastEncoderAdapter(new InternalEncoderFactory()));
     } else {
       video_encoder_ = VP8Encoder::Create();
     }

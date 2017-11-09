@@ -43,7 +43,7 @@ std::unique_ptr<VideoDecoder> InternalDecoderFactory::CreateVideoDecoder(
   if (cricket::CodecNamesEq(format.name, cricket::kH264CodecName))
     return H264Decoder::Create();
 
-  RTC_LOG(LS_ERROR) << "Trying to create decoder for unsupported format";
+  LOG(LS_ERROR) << "Trying to create decoder for unsupported format";
   return nullptr;
 }
 

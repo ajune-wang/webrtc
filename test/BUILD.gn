@@ -640,6 +640,9 @@ rtc_source_set("test_renderer_generic") {
   ]
   libs = []
   sources = [
+    "linux/glx_renderer.cc",
+    "linux/glx_renderer.h",
+    "linux/video_renderer_linux.cc",
     "video_renderer.cc",
     "video_renderer.h",
     "win/d3d_renderer.cc",
@@ -653,22 +656,17 @@ rtc_source_set("test_renderer_generic") {
     "../rtc_base:rtc_base_approved",
     "//testing/gtest",
   ]
-  if (!(is_linux && use_x11) && !is_mac && !is_win) {
+  if (!is_linux && !is_mac && !is_win) {
     sources += [ "null_platform_renderer.cc" ]
   }
-  if ((is_linux && use_x11) || is_mac) {
+  if (is_linux || is_mac) {
     sources += [
       "gl/gl_renderer.cc",
       "gl/gl_renderer.h",
     ]
   }
 
-  if (is_linux && use_x11) {
-    sources += [
-      "linux/glx_renderer.cc",
-      "linux/glx_renderer.h",
-      "linux/video_renderer_linux.cc",
-    ]
+  if (is_linux) {
     libs += [
       "Xext",
       "X11",

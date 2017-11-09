@@ -84,7 +84,7 @@ bool VideoCapturer::GetBestCaptureFormat(const VideoFormat& format,
   if (supported_formats->empty()) {
     return false;
   }
-  RTC_LOG(LS_INFO) << " Capture Requested " << format.ToString();
+  LOG(LS_INFO) << " Capture Requested " << format.ToString();
   int64_t best_distance = kMaxDistance;
   std::vector<VideoFormat>::const_iterator best = supported_formats->end();
   std::vector<VideoFormat>::const_iterator i;
@@ -92,15 +92,14 @@ bool VideoCapturer::GetBestCaptureFormat(const VideoFormat& format,
     int64_t distance = GetFormatDistance(format, *i);
     // TODO(fbarchard): Reduce to LS_VERBOSE if/when camera capture is
     // relatively bug free.
-    RTC_LOG(LS_INFO) << " Supported " << i->ToString() << " distance "
-                     << distance;
+    LOG(LS_INFO) << " Supported " << i->ToString() << " distance " << distance;
     if (distance < best_distance) {
       best_distance = distance;
       best = i;
     }
   }
   if (supported_formats->end() == best) {
-    RTC_LOG(LS_ERROR) << " No acceptable camera format found";
+    LOG(LS_ERROR) << " No acceptable camera format found";
     return false;
   }
 
@@ -109,8 +108,8 @@ bool VideoCapturer::GetBestCaptureFormat(const VideoFormat& format,
     best_format->height = best->height;
     best_format->fourcc = best->fourcc;
     best_format->interval = best->interval;
-    RTC_LOG(LS_INFO) << " Best " << best_format->ToString() << " Interval "
-                     << best_format->interval << " distance " << best_distance;
+    LOG(LS_INFO) << " Best " << best_format->ToString() << " Interval "
+                 << best_format->interval << " distance " << best_distance;
   }
   return true;
 }
@@ -118,7 +117,7 @@ bool VideoCapturer::GetBestCaptureFormat(const VideoFormat& format,
 void VideoCapturer::ConstrainSupportedFormats(const VideoFormat& max_format) {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   max_format_.reset(new VideoFormat(max_format));
-  RTC_LOG(LS_VERBOSE) << " ConstrainSupportedFormats " << max_format.ToString();
+  LOG(LS_VERBOSE) << " ConstrainSupportedFormats " << max_format.ToString();
   UpdateFilteredSupportedFormats();
 }
 
@@ -219,7 +218,7 @@ void VideoCapturer::OnFrame(const webrtc::VideoFrame& frame,
       // in this case, for frames in flight at the time
       // applied_rotation is set to true. In that case, we just drop
       // the frame.
-      RTC_LOG(LS_WARNING) << "Non-I420 frame requiring rotation. Discarding.";
+      LOG(LS_WARNING) << "Non-I420 frame requiring rotation. Discarding.";
       return;
     }
     broadcaster_.OnFrame(webrtc::VideoFrame(

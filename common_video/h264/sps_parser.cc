@@ -108,8 +108,7 @@ rtc::Optional<SpsParser::SpsState> SpsParser::ParseSpsUpToVui(
       // see/use them in practice, so we'll just reject the full sps if we see
       // any provided.
       if (seq_scaling_list_present_flags > 0) {
-        RTC_LOG(LS_WARNING)
-            << "SPS contains scaling lists, which are unsupported.";
+        LOG(LS_WARNING) << "SPS contains scaling lists, which are unsupported.";
         return OptionalSps();
       }
     }

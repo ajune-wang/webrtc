@@ -219,8 +219,16 @@ public class WebRtcAudioRecord {
     int bufferSizeInBytes = Math.max(BUFFER_SIZE_FACTOR * minBufferSize, byteBuffer.capacity());
     Logging.d(TAG, "bufferSizeInBytes: " + bufferSizeInBytes);
     try {
-      audioRecord = new AudioRecord(AudioSource.VOICE_COMMUNICATION, sampleRate,
-          channelConfig, AudioFormat.ENCODING_PCM_16BIT, bufferSizeInBytes);
+      if (WebRtcAudioUtils.runningOnMarshmallowOrHigher()) {
+        // Use AudioRecord.Builder to create the AudioRecord instance if we are on API level 23 or
+        // higher.
+        audioRecord = createAudioRecordOnMarshmallowOrHigher(
+            sampleRate, channelConfig, bufferSizeInBytes);
+      } else {
+        // Use default constructor for API levels below 23.
+        audioRecord = new AudioRecord(AudioSource.VOICE_COMMUNICATION, sampleRate,
+            channelConfig, AudioFormat.ENCODING_PCM_16BIT, bufferSizeInBytes);
+      }
     } catch (IllegalArgumentException e) {
       reportWebRtcAudioRecordInitError("AudioRecord ctor error: " + e.getMessage());
       releaseAudioResources();
@@ -235,6 +243,7 @@ public class WebRtcAudioRecord {
       effects.enable(audioRecord.getAudioSessionId());
     }
     logMainParameters();
+    logMainParametersExtended();
     return framesPerBuffer;
   }
 
@@ -295,6 +304,31 @@ public class WebRtcAudioRecord {
             + "session ID: " + audioRecord.getAudioSessionId() + ", "
             + "channels: " + audioRecord.getChannelCount() + ", "
             + "sample rate: " + audioRecord.getSampleRate());
+  }
+
+  @TargetApi(23)
+  private void logMainParametersExtended() {
+    if (WebRtcAudioUtils.runningOnMarshmallowOrHigher()) {
+      Logging.d(TAG, "AudioRecord: "
+              // The frame count of the native AudioRecord buffer.
+              + "buffer size in frames: " + audioRecord.getBufferSizeInFrames());
+    }
+  }
+
+  // Creates an AudioRecord instance using AudioRecord.Builder which was added in API level 23.
+  @TargetApi(23)
+  private AudioRecord createAudioRecordOnMarshmallowOrHigher(
+    int sampleRateInHz, int channelConfig, int bufferSizeInBytes) {
+    Logging.d(TAG, "createAudioRecordOnMarshmallowOrHigher");
+    return new AudioRecord.Builder()
+        .setAudioSource(AudioSource.VOICE_COMMUNICATION)
+        .setAudioFormat(new AudioFormat.Builder()
+            .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+            .setSampleRate(sampleRateInHz)
+            .setChannelMask(channelConfig)
+            .build())
+        .setBufferSizeInBytes(bufferSizeInBytes)
+        .build();
   }
 
   // Helper method which throws an exception  when an assertion has failed.

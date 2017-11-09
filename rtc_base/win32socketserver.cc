@@ -125,8 +125,9 @@ LPCSTR WSAErrorToString(int error, LPCSTR *description_result) {
 void ReportWSAError(LPCSTR context, int error, const SocketAddress& address) {
   LPCSTR description_string;
   LPCSTR error_string = WSAErrorToString(error, &description_string);
-  RTC_LOG(LS_INFO) << context << " = " << error << " (" << error_string << ":"
-                   << description_string << ") [" << address.ToString() << "]";
+  LOG(LS_INFO) << context << " = " << error
+    << " (" << error_string << ":" << description_string << ") ["
+    << address.ToString() << "]";
 }
 #else
 void ReportWSAError(LPCSTR context, int error, const SocketAddress& address) {}
@@ -215,8 +216,8 @@ bool Win32Socket::EventSink::OnDnsNotify(WPARAM wParam, LPARAM lParam,
 
 void Win32Socket::EventSink::OnNcDestroy() {
   if (parent_) {
-    RTC_LOG(LS_ERROR) << "EventSink hwnd is being destroyed, but the event sink"
-                         " hasn't yet been disposed.";
+    LOG(LS_ERROR) << "EventSink hwnd is being destroyed, but the event sink"
+                     " hasn't yet been disposed.";
   } else {
     delete this;
   }
@@ -286,8 +287,8 @@ SocketAddress Win32Socket::GetLocalAddress() const {
   if (result >= 0) {
     SocketAddressFromSockAddrStorage(addr, &address);
   } else {
-    RTC_LOG(LS_WARNING) << "GetLocalAddress: unable to get local addr, socket="
-                        << socket_;
+    LOG(LS_WARNING) << "GetLocalAddress: unable to get local addr, socket="
+                    << socket_;
   }
   return address;
 }
@@ -301,8 +302,8 @@ SocketAddress Win32Socket::GetRemoteAddress() const {
   if (result >= 0) {
     SocketAddressFromSockAddrStorage(addr, &address);
   } else {
-    RTC_LOG(LS_WARNING)
-        << "GetRemoteAddress: unable to get remote addr, socket=" << socket_;
+    LOG(LS_WARNING) << "GetRemoteAddress: unable to get remote addr, socket="
+                    << socket_;
   }
   return address;
 }
@@ -331,7 +332,7 @@ int Win32Socket::Connect(const SocketAddress& addr) {
     return DoConnect(addr);
   }
 
-  RTC_LOG_F(LS_INFO) << "async dns lookup (" << addr.hostname() << ")";
+  LOG_F(LS_INFO) << "async dns lookup (" << addr.hostname() << ")";
   DnsLookup * dns = new DnsLookup;
   if (!sink_) {
     // Explicitly create the sink ourselves here; we can't rely on SetAsync
@@ -344,7 +345,7 @@ int Win32Socket::Connect(const SocketAddress& addr) {
                                       sizeof(dns->buffer));
 
   if (!dns->handle) {
-    RTC_LOG_F(LS_ERROR) << "WSAAsyncGetHostByName error: " << WSAGetLastError();
+    LOG_F(LS_ERROR) << "WSAAsyncGetHostByName error: " << WSAGetLastError();
     delete dns;
     UpdateLastError();
     Close();
@@ -589,7 +590,7 @@ int Win32Socket::TranslateOption(Option opt, int* slevel, int* sopt) {
       *sopt = TCP_NODELAY;
       break;
     case OPT_DSCP:
-      RTC_LOG(LS_WARNING) << "Socket::OPT_DSCP not supported.";
+      LOG(LS_WARNING) << "Socket::OPT_DSCP not supported.";
       return -1;
     default:
       RTC_NOTREACHED();
@@ -610,8 +611,8 @@ void Win32Socket::OnSocketNotify(SOCKET socket, int event, int error) {
         ReportWSAError("WSAAsync:connect notify", error, addr_);
 #if !defined(NDEBUG)
         int64_t duration = TimeSince(connect_time_);
-        RTC_LOG(LS_INFO) << "WSAAsync:connect error (" << duration
-                         << " ms), faking close";
+        LOG(LS_INFO) << "WSAAsync:connect error (" << duration
+                     << " ms), faking close";
 #endif
         state_ = CS_CLOSED;
         // If you get an error connecting, close doesn't really do anything
@@ -623,7 +624,7 @@ void Win32Socket::OnSocketNotify(SOCKET socket, int event, int error) {
       } else {
 #if !defined(NDEBUG)
         int64_t duration = TimeSince(connect_time_);
-        RTC_LOG(LS_INFO) << "WSAAsync:connect (" << duration << " ms)";
+        LOG(LS_INFO) << "WSAAsync:connect (" << duration << " ms)";
 #endif
         state_ = CS_CONNECTED;
         SignalConnectEvent(this);
@@ -668,8 +669,8 @@ void Win32Socket::OnDnsNotify(HANDLE task, int error) {
     ip = NetworkToHost32(net_ip);
   }
 
-  RTC_LOG_F(LS_INFO) << "(" << IPAddress(ip).ToSensitiveString() << ", "
-                     << error << ")";
+  LOG_F(LS_INFO) << "(" << IPAddress(ip).ToSensitiveString()
+                 << ", " << error << ")";
 
   if (error == 0) {
     SocketAddress address(ip, dns_->port);
@@ -702,7 +703,7 @@ Win32SocketServer::Win32SocketServer()
   if (s_wm_wakeup_id == 0)
     s_wm_wakeup_id = RegisterWindowMessage(L"WM_WAKEUP");
   if (!wnd_.Create(nullptr, kWindowName, 0, 0, 0, 0, 0, 0)) {
-    RTC_LOG_GLE(LS_ERROR) << "Failed to create message window.";
+    LOG_GLE(LS_ERROR) << "Failed to create message window.";
   }
 }
 
@@ -753,7 +754,7 @@ bool Win32SocketServer::Wait(int cms, bool process_io) {
       // Otherwise, dispatch as usual via Translate/DispatchMessage.
       b = GetMessage(&msg, nullptr, 0, 0);
       if (b == -1) {
-        RTC_LOG_GLE(LS_ERROR) << "GetMessage failed.";
+        LOG_GLE(LS_ERROR) << "GetMessage failed.";
         return false;
       } else if(b) {
         if (!hdlg_ || !IsDialogMessage(hdlg_, &msg)) {

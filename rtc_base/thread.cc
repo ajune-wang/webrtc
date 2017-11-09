@@ -176,7 +176,7 @@ bool Thread::SleepMs(int milliseconds) {
   ts.tv_nsec = (milliseconds % 1000) * 1000000;
   int ret = nanosleep(&ts, nullptr);
   if (ret != 0) {
-    RTC_LOG_ERR(LS_WARNING) << "nanosleep() returning early";
+    LOG_ERR(LS_WARNING) << "nanosleep() returning early";
     return false;
   }
   return true;
@@ -222,7 +222,7 @@ bool Thread::Start(Runnable* runnable) {
 
   int error_code = pthread_create(&thread_, &attr, PreRun, init);
   if (0 != error_code) {
-    RTC_LOG(LS_ERROR) << "Unable to create pthread, error " << error_code;
+    LOG(LS_ERROR) << "Unable to create pthread, error " << error_code;
     return false;
   }
   running_.Set();
@@ -240,8 +240,7 @@ void Thread::UnwrapCurrent() {
 #if defined(WEBRTC_WIN)
   if (thread_ != nullptr) {
     if (!CloseHandle(thread_)) {
-      RTC_LOG_GLE(LS_ERROR)
-          << "When unwrapping thread, failed to close handle.";
+      LOG_GLE(LS_ERROR) << "When unwrapping thread, failed to close handle.";
     }
     thread_ = nullptr;
   }
@@ -257,8 +256,8 @@ void Thread::Join() {
   if (running()) {
     RTC_DCHECK(!IsCurrent());
     if (Current() && !Current()->blocking_calls_allowed_) {
-      RTC_LOG(LS_WARNING) << "Waiting for the thread to join, "
-                          << "but blocking calls have been disallowed";
+      LOG(LS_WARNING) << "Waiting for the thread to join, "
+                      << "but blocking calls have been disallowed";
     }
 
 #if defined(WEBRTC_WIN)
@@ -507,7 +506,7 @@ bool Thread::WrapCurrentWithThreadManager(ThreadManager* thread_manager,
     // This gives us the best chance of succeeding.
     thread_ = OpenThread(SYNCHRONIZE, FALSE, GetCurrentThreadId());
     if (!thread_) {
-      RTC_LOG_GLE(LS_ERROR) << "Unable to get handle to thread.";
+      LOG_GLE(LS_ERROR) << "Unable to get handle to thread.";
       return false;
     }
     thread_id_ = GetCurrentThreadId();

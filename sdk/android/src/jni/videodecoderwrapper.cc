@@ -177,7 +177,7 @@ void VideoDecoderWrapper::OnDecodedFrame(JNIEnv* jni,
   FrameExtraInfo frame_extra_info;
   do {
     if (frame_extra_infos_.empty()) {
-      RTC_LOG(LS_WARNING) << "Java decoder produced an unexpected frame.";
+      LOG(LS_WARNING) << "Java decoder produced an unexpected frame.";
       return;
     }
 
@@ -252,7 +252,7 @@ int32_t VideoDecoderWrapper::HandleReturnCode(JNIEnv* jni, jobject code) {
       InitDecodeInternal(jni);
     }
 
-    RTC_LOG(LS_WARNING) << "Falling back to software decoder.";
+    LOG(LS_WARNING) << "Falling back to software decoder.";
     return WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
   } else {
     return value;

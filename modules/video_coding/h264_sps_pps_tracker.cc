@@ -60,20 +60,20 @@ H264SpsPpsTracker::PacketAction H264SpsPpsTracker::CopyAndFixBitstream(
         // to prepend the SPS/PPS to the bitstream with start codes.
         if (video_header.is_first_packet_in_frame) {
           if (nalu.pps_id == -1) {
-            RTC_LOG(LS_WARNING) << "No PPS id in IDR nalu.";
+            LOG(LS_WARNING) << "No PPS id in IDR nalu.";
             return kRequestKeyframe;
           }
 
           pps = pps_data_.find(nalu.pps_id);
           if (pps == pps_data_.end()) {
-            RTC_LOG(LS_WARNING)
-                << "No PPS with id << " << nalu.pps_id << " received";
+            LOG(LS_WARNING) << "No PPS with id << " << nalu.pps_id
+                            << " received";
             return kRequestKeyframe;
           }
 
           sps = sps_data_.find(pps->second.sps_id);
           if (sps == sps_data_.end()) {
-            RTC_LOG(LS_WARNING)
+            LOG(LS_WARNING)
                 << "No SPS with id << " << pps->second.sps_id << " received";
             return kRequestKeyframe;
           }
@@ -159,8 +159,8 @@ H264SpsPpsTracker::PacketAction H264SpsPpsTracker::CopyAndFixBitstream(
       codec_header->nalus[codec_header->nalus_length++] = sps_info;
       codec_header->nalus[codec_header->nalus_length++] = pps_info;
     } else {
-      RTC_LOG(LS_WARNING) << "Not enough space in H.264 codec header to insert "
-                             "SPS/PPS provided out-of-band.";
+      LOG(LS_WARNING) << "Not enough space in H.264 codec header to insert "
+                         "SPS/PPS provided out-of-band.";
     }
   }
 
@@ -202,21 +202,21 @@ void H264SpsPpsTracker::InsertSpsPpsNalus(const std::vector<uint8_t>& sps,
                                           const std::vector<uint8_t>& pps) {
   constexpr size_t kNaluHeaderOffset = 1;
   if (sps.size() < kNaluHeaderOffset) {
-    RTC_LOG(LS_WARNING) << "SPS size  " << sps.size() << " is smaller than "
-                        << kNaluHeaderOffset;
+    LOG(LS_WARNING) << "SPS size  " << sps.size() << " is smaller than "
+                    << kNaluHeaderOffset;
     return;
   }
   if ((sps[0] & 0x1f) != H264::NaluType::kSps) {
-    RTC_LOG(LS_WARNING) << "SPS Nalu header missing";
+    LOG(LS_WARNING) << "SPS Nalu header missing";
     return;
   }
   if (pps.size() < kNaluHeaderOffset) {
-    RTC_LOG(LS_WARNING) << "PPS size  " << pps.size() << " is smaller than "
-                        << kNaluHeaderOffset;
+    LOG(LS_WARNING) << "PPS size  " << pps.size() << " is smaller than "
+                    << kNaluHeaderOffset;
     return;
   }
   if ((pps[0] & 0x1f) != H264::NaluType::kPps) {
-    RTC_LOG(LS_WARNING) << "SPS Nalu header missing";
+    LOG(LS_WARNING) << "SPS Nalu header missing";
     return;
   }
   rtc::Optional<SpsParser::SpsState> parsed_sps = SpsParser::ParseSps(
@@ -225,11 +225,11 @@ void H264SpsPpsTracker::InsertSpsPpsNalus(const std::vector<uint8_t>& sps,
       pps.data() + kNaluHeaderOffset, pps.size() - kNaluHeaderOffset);
 
   if (!parsed_sps) {
-    RTC_LOG(LS_WARNING) << "Failed to parse SPS.";
+    LOG(LS_WARNING) << "Failed to parse SPS.";
   }
 
   if (!parsed_pps) {
-    RTC_LOG(LS_WARNING) << "Failed to parse PPS.";
+    LOG(LS_WARNING) << "Failed to parse PPS.";
   }
 
   if (!parsed_pps || !parsed_sps) {
@@ -253,9 +253,9 @@ void H264SpsPpsTracker::InsertSpsPpsNalus(const std::vector<uint8_t>& sps,
   pps_info.data.reset(pps_data);
   pps_data_[parsed_pps->id] = std::move(pps_info);
 
-  RTC_LOG(LS_INFO) << "Inserted SPS id " << parsed_sps->id << " and PPS id "
-                   << parsed_pps->id << " (referencing SPS "
-                   << parsed_pps->sps_id << ")";
+  LOG(LS_INFO) << "Inserted SPS id " << parsed_sps->id << " and PPS id "
+               << parsed_pps->id << " (referencing SPS " << parsed_pps->sps_id
+               << ")";
 }
 
 }  // namespace video_coding

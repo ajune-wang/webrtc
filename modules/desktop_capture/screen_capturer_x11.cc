@@ -138,14 +138,14 @@ bool ScreenCapturerLinux::Init(const DesktopCaptureOptions& options) {
 
   root_window_ = RootWindow(display(), DefaultScreen(display()));
   if (root_window_ == BadValue) {
-    RTC_LOG(LS_ERROR) << "Unable to get the root window";
+    LOG(LS_ERROR) << "Unable to get the root window";
     DeinitXlib();
     return false;
   }
 
   gc_ = XCreateGC(display(), root_window_, 0, NULL);
   if (gc_ == NULL) {
-    RTC_LOG(LS_ERROR) << "Unable to get graphics context";
+    LOG(LS_ERROR) << "Unable to get graphics context";
     DeinitXlib();
     return false;
   }
@@ -158,14 +158,14 @@ bool ScreenCapturerLinux::Init(const DesktopCaptureOptions& options) {
                            &xfixes_error_base_)) {
     has_xfixes_ = true;
   } else {
-    RTC_LOG(LS_INFO) << "X server does not support XFixes.";
+    LOG(LS_INFO) << "X server does not support XFixes.";
   }
 
   // Register for changes to the dimensions of the root window.
   XSelectInput(display(), root_window_, StructureNotifyMask);
 
   if (!x_server_pixel_buffer_.Init(display(), DefaultRootWindow(display()))) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize pixel buffer.";
+    LOG(LS_ERROR) << "Failed to initialize pixel buffer.";
     return false;
   }
 
@@ -185,7 +185,7 @@ void ScreenCapturerLinux::InitXDamage() {
   // Check for XDamage extension.
   if (!XDamageQueryExtension(display(), &damage_event_base_,
                              &damage_error_base_)) {
-    RTC_LOG(LS_INFO) << "X server does not support XDamage.";
+    LOG(LS_INFO) << "X server does not support XDamage.";
     return;
   }
 
@@ -198,7 +198,7 @@ void ScreenCapturerLinux::InitXDamage() {
   damage_handle_ = XDamageCreate(display(), root_window_,
                                  XDamageReportNonEmpty);
   if (!damage_handle_) {
-    RTC_LOG(LS_ERROR) << "Unable to initialize XDamage.";
+    LOG(LS_ERROR) << "Unable to initialize XDamage.";
     return;
   }
 
@@ -206,7 +206,7 @@ void ScreenCapturerLinux::InitXDamage() {
   damage_region_ = XFixesCreateRegion(display(), 0, 0);
   if (!damage_region_) {
     XDamageDestroy(display(), damage_handle_);
-    RTC_LOG(LS_ERROR) << "Unable to create XFixes region.";
+    LOG(LS_ERROR) << "Unable to create XFixes region.";
     return;
   }
 
@@ -214,7 +214,7 @@ void ScreenCapturerLinux::InitXDamage() {
       damage_event_base_ + XDamageNotify, this);
 
   use_damage_ = true;
-  RTC_LOG(LS_INFO) << "Using XDamage extension.";
+  LOG(LS_INFO) << "Using XDamage extension.";
 }
 
 void ScreenCapturerLinux::Start(Callback* callback) {
@@ -354,8 +354,8 @@ void ScreenCapturerLinux::ScreenConfigurationChanged() {
 
   helper_.ClearInvalidRegion();
   if (!x_server_pixel_buffer_.Init(display(), DefaultRootWindow(display()))) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize pixel buffer after screen "
-                         "configuration change.";
+    LOG(LS_ERROR) << "Failed to initialize pixel buffer after screen "
+        "configuration change.";
   }
 }
 

@@ -104,8 +104,7 @@ void MouseCursorMonitorWin::Capture() {
   CURSORINFO cursor_info;
   cursor_info.cbSize = sizeof(CURSORINFO);
   if (!GetCursorInfo(&cursor_info)) {
-    RTC_LOG_F(LS_ERROR) << "Unable to get cursor info. Error = "
-                        << GetLastError();
+    LOG_F(LS_ERROR) << "Unable to get cursor info. Error = " << GetLastError();
     return;
   }
 

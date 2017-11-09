@@ -483,7 +483,7 @@ std::vector<rtcp::ReportBlock> ReceiveStatisticsImpl::RtcpReportBlocks(
     block.SetMediaSsrc(statistician.first);
     block.SetFractionLost(stats.fraction_lost);
     if (!block.SetCumulativeLost(stats.packets_lost)) {
-      RTC_LOG(LS_WARNING) << "Cumulative lost is oversized.";
+      LOG(LS_WARNING) << "Cumulative lost is oversized.";
       result.pop_back();
       continue;
     }

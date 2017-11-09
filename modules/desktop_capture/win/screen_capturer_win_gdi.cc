@@ -211,7 +211,7 @@ bool ScreenCapturerWinGdi::CaptureImage() {
       screen_rect.height(), desktop_dc_, screen_rect.left(), screen_rect.top(),
       SRCCOPY | CAPTUREBLT) != FALSE);
   if (!result) {
-    RTC_LOG_GLE(LS_WARNING) << "BitBlt failed";
+    LOG_GLE(LS_WARNING) << "BitBlt failed";
   }
 
   // Select back the previously selected object to that the device contect

@@ -91,7 +91,7 @@ class UdpTransportTest : public testing::Test, public sigslot::has_slots<> {
                       const rtc::PacketTime& packet_time,
                       int flags) {
       num_received_packets_++;
-      RTC_LOG(LS_VERBOSE) << "OnReadPacket (unittest)";
+      LOG(LS_VERBOSE) << "OnReadPacket (unittest)";
       ch_packets_.push_front(std::string(data, len));
     }
 

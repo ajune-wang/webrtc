@@ -65,7 +65,7 @@ void ScreenCapturerWinMagnifier::Start(Callback* callback) {
   callback_ = callback;
 
   if (!InitializeMagnifier()) {
-    RTC_LOG_F(LS_WARNING) << "Magnifier initialization failed.";
+    LOG_F(LS_WARNING) << "Magnifier initialization failed.";
   }
 }
 
@@ -77,7 +77,7 @@ void ScreenCapturerWinMagnifier::SetSharedMemoryFactory(
 void ScreenCapturerWinMagnifier::CaptureFrame() {
   RTC_DCHECK(callback_);
   if (!magnifier_initialized_) {
-    RTC_LOG_F(LS_WARNING) << "Magnifier initialization failed.";
+    LOG_F(LS_WARNING) << "Magnifier initialization failed.";
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -104,7 +104,7 @@ void ScreenCapturerWinMagnifier::CaptureFrame() {
   // CaptureImage may fail in some situations, e.g. windows8 metro mode. So
   // defer to the fallback capturer if magnifier capturer did not work.
   if (!CaptureImage(rect)) {
-    RTC_LOG_F(LS_WARNING) << "Magnifier capturer failed to capture a frame.";
+    LOG_F(LS_WARNING) << "Magnifier capturer failed to capture a frame.";
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -149,10 +149,9 @@ bool ScreenCapturerWinMagnifier::CaptureImage(const DesktopRect& rect) {
   BOOL result = SetWindowPos(magnifier_window_, NULL, rect.left(), rect.top(),
                              rect.width(), rect.height(), 0);
   if (!result) {
-    RTC_LOG_F(LS_WARNING) << "Failed to call SetWindowPos: " << GetLastError()
-                          << ". Rect = {" << rect.left() << ", " << rect.top()
-                          << ", " << rect.right() << ", " << rect.bottom()
-                          << "}";
+    LOG_F(LS_WARNING) << "Failed to call SetWindowPos: " << GetLastError()
+                      << ". Rect = {" << rect.left() << ", " << rect.top()
+                      << ", " << rect.right() << ", " << rect.bottom() << "}";
     return false;
   }
 
@@ -166,10 +165,9 @@ bool ScreenCapturerWinMagnifier::CaptureImage(const DesktopRect& rect) {
   result = set_window_source_func_(magnifier_window_, native_rect);
 
   if (!result) {
-    RTC_LOG_F(LS_WARNING) << "Failed to call MagSetWindowSource: "
-                          << GetLastError() << ". Rect = {" << rect.left()
-                          << ", " << rect.top() << ", " << rect.right() << ", "
-                          << rect.bottom() << "}";
+    LOG_F(LS_WARNING) << "Failed to call MagSetWindowSource: " << GetLastError()
+                      << ". Rect = {" << rect.left() << ", " << rect.top()
+                      << ", " << rect.right() << ", " << rect.bottom() << "}";
     return false;
   }
 
@@ -203,8 +201,8 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
   if (GetSystemMetrics(SM_CMONITORS) != 1) {
     // Do not try to use the magnifier in multi-screen setup (where the API
     // crashes sometimes).
-    RTC_LOG_F(LS_WARNING) << "Magnifier capturer cannot work on multi-screen "
-                             "system.";
+    LOG_F(LS_WARNING) << "Magnifier capturer cannot work on multi-screen "
+                         "system.";
     return false;
   }
 
@@ -230,15 +228,15 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
   if (!mag_initialize_func_ || !mag_uninitialize_func_ ||
       !set_window_source_func_ || !set_window_filter_list_func_ ||
       !set_image_scaling_callback_func_) {
-    RTC_LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
-                          << "library functions missing.";
+    LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
+                      << "library functions missing.";
     return false;
   }
 
   BOOL result = mag_initialize_func_();
   if (!result) {
-    RTC_LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
-                          << "error from MagInitialize " << GetLastError();
+    LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
+                      << "error from MagInitialize " << GetLastError();
     return false;
   }
 
@@ -249,8 +247,8 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
                               &hInstance);
   if (!result) {
     mag_uninitialize_func_();
-    RTC_LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
-                          << "error from GetModulehandleExA " << GetLastError();
+    LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
+                      << "error from GetModulehandleExA " << GetLastError();
     return false;
   }
 
@@ -272,9 +270,8 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
                      0, 0, 0, nullptr, nullptr, hInstance, nullptr);
   if (!host_window_) {
     mag_uninitialize_func_();
-    RTC_LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
-                          << "error from creating host window "
-                          << GetLastError();
+    LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
+                      << "error from creating host window " << GetLastError();
     return false;
   }
 
@@ -284,9 +281,9 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
                                    host_window_, nullptr, hInstance, nullptr);
   if (!magnifier_window_) {
     mag_uninitialize_func_();
-    RTC_LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
-                          << "error from creating magnifier window "
-                          << GetLastError();
+    LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
+                      << "error from creating magnifier window "
+                      << GetLastError();
     return false;
   }
 
@@ -299,9 +296,9 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
       &ScreenCapturerWinMagnifier::OnMagImageScalingCallback);
   if (!result) {
     mag_uninitialize_func_();
-    RTC_LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
-                          << "error from MagSetImageScalingCallback "
-                          << GetLastError();
+    LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
+                      << "error from MagSetImageScalingCallback "
+                      << GetLastError();
     return false;
   }
 
@@ -310,9 +307,9 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
         magnifier_window_, MW_FILTERMODE_EXCLUDE, 1, &excluded_window_);
     if (!result) {
       mag_uninitialize_func_();
-      RTC_LOG_F(LS_WARNING)
-          << "Failed to initialize ScreenCapturerWinMagnifier: "
-          << "error from MagSetWindowFilterList " << GetLastError();
+      LOG_F(LS_WARNING) << "Failed to initialize ScreenCapturerWinMagnifier: "
+                        << "error from MagSetWindowFilterList "
+                        << GetLastError();
       return false;
     }
   }
@@ -333,14 +330,13 @@ void ScreenCapturerWinMagnifier::OnCaptured(void* data,
       header.height != static_cast<UINT>(current_frame->size().height()) ||
       header.stride != static_cast<UINT>(current_frame->stride()) ||
       captured_bytes_per_pixel != DesktopFrame::kBytesPerPixel) {
-    RTC_LOG_F(LS_WARNING)
-        << "Output format does not match the captured format: "
-        << "width = " << header.width << ", "
-        << "height = " << header.height << ", "
-        << "stride = " << header.stride << ", "
-        << "bpp = " << captured_bytes_per_pixel << ", "
-        << "pixel format RGBA ? "
-        << (header.format == GUID_WICPixelFormat32bppRGBA) << ".";
+    LOG_F(LS_WARNING) << "Output format does not match the captured format: "
+                      << "width = " << header.width << ", "
+                      << "height = " << header.height << ", "
+                      << "stride = " << header.stride << ", "
+                      << "bpp = " << captured_bytes_per_pixel << ", "
+                      << "pixel format RGBA ? "
+                      << (header.format == GUID_WICPixelFormat32bppRGBA) << ".";
     return;
   }
 

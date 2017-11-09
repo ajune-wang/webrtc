@@ -81,7 +81,7 @@ WindowCapturerLinux::WindowCapturerLinux(const DesktopCaptureOptions& options)
       (major_version > 0 || minor_version >= 2)) {
     has_composite_extension_ = true;
   } else {
-    RTC_LOG(LS_INFO) << "Xcomposite extension not available or too old.";
+    LOG(LS_INFO) << "Xcomposite extension not available or too old.";
   }
 
   x_display_->AddEventHandler(ConfigureNotify, this);
@@ -136,7 +136,7 @@ bool WindowCapturerLinux::FocusOnSelectedSource() {
   int status = XQueryTree(
       display(), selected_window_, &root, &parent, &children, &num_children);
   if (status == 0) {
-    RTC_LOG(LS_ERROR) << "Failed to query for the root window.";
+    LOG(LS_ERROR) << "Failed to query for the root window.";
     return false;
   }
 
@@ -182,7 +182,7 @@ void WindowCapturerLinux::Start(Callback* callback) {
 
 void WindowCapturerLinux::CaptureFrame() {
   if (!x_server_pixel_buffer_.IsWindowValid()) {
-    RTC_LOG(LS_INFO) << "The window is no longer valid.";
+    LOG(LS_INFO) << "The window is no longer valid.";
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -193,7 +193,7 @@ void WindowCapturerLinux::CaptureFrame() {
     // Without the Xcomposite extension we capture when the whole window is
     // visible on screen and not covered by any other window. This is not
     // something we want so instead, just bail out.
-    RTC_LOG(LS_INFO) << "No Xcomposite extension detected.";
+    LOG(LS_INFO) << "No Xcomposite extension detected.";
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -235,8 +235,7 @@ bool WindowCapturerLinux::HandleXEvent(const XEvent& event) {
       if (!DesktopRectFromXAttributes(xce).equals(
             x_server_pixel_buffer_.window_rect())) {
         if (!x_server_pixel_buffer_.Init(display(), selected_window_)) {
-          RTC_LOG(LS_ERROR)
-              << "Failed to initialize pixel buffer after resizing.";
+          LOG(LS_ERROR) << "Failed to initialize pixel buffer after resizing.";
         }
       }
     }
@@ -260,8 +259,8 @@ bool WindowCapturerLinux::GetWindowTitle(::Window window, std::string* title) {
                                            &cnt);
       if (status >= Success && cnt && *list) {
         if (cnt > 1) {
-          RTC_LOG(LS_INFO) << "Window has " << cnt
-                           << " text properties, only using the first one.";
+          LOG(LS_INFO) << "Window has " << cnt
+                       << " text properties, only using the first one.";
         }
         *title = *list;
         result = true;

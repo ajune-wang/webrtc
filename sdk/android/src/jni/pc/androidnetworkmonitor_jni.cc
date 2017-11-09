@@ -239,9 +239,8 @@ rtc::NetworkBindingResult AndroidNetworkMonitor::BindSocketToNetwork(
   CHECK_EXCEPTION(jni())
       << "Error during NetworkMonitor.networkBindingSupported";
   if (!network_binding_supported) {
-    RTC_LOG(LS_WARNING)
-        << "BindSocketToNetwork is not supported on this platform "
-        << "(Android SDK: " << android_sdk_int_ << ")";
+    LOG(LS_WARNING) << "BindSocketToNetwork is not supported on this platform "
+                    << "(Android SDK: " << android_sdk_int_ << ")";
     return rtc::NetworkBindingResult::NOT_IMPLEMENTED;
   }
 
@@ -270,8 +269,7 @@ rtc::NetworkBindingResult AndroidNetworkMonitor::BindSocketToNetwork(
       const std::string android_native_lib_path = "libandroid.so";
       void* lib = dlopen(android_native_lib_path.c_str(), RTLD_NOW);
       if (lib == nullptr) {
-        RTC_LOG(LS_ERROR) << "Library " << android_native_lib_path
-                          << " not found!";
+        LOG(LS_ERROR) << "Library " << android_native_lib_path << " not found!";
         return rtc::NetworkBindingResult::NOT_IMPLEMENTED;
       }
       marshmallowSetNetworkForSocket =
@@ -279,7 +277,7 @@ rtc::NetworkBindingResult AndroidNetworkMonitor::BindSocketToNetwork(
               dlsym(lib, "android_setsocknetwork"));
     }
     if (!marshmallowSetNetworkForSocket) {
-      RTC_LOG(LS_ERROR) << "Symbol marshmallowSetNetworkForSocket is not found";
+      LOG(LS_ERROR) << "Symbol marshmallowSetNetworkForSocket is not found";
       return rtc::NetworkBindingResult::NOT_IMPLEMENTED;
     }
     rv = marshmallowSetNetworkForSocket(network_handle, socket_fd);
@@ -300,7 +298,7 @@ rtc::NetworkBindingResult AndroidNetworkMonitor::BindSocketToNetwork(
       // avoid doing any disk IO.
       void* lib = dlopen(net_library_path.c_str(), RTLD_NOW | RTLD_NOLOAD);
       if (lib == nullptr) {
-        RTC_LOG(LS_ERROR) << "Library " << net_library_path << " not found!";
+        LOG(LS_ERROR) << "Library " << net_library_path << " not found!";
         return rtc::NetworkBindingResult::NOT_IMPLEMENTED;
       }
       lollipopSetNetworkForSocket =
@@ -308,7 +306,7 @@ rtc::NetworkBindingResult AndroidNetworkMonitor::BindSocketToNetwork(
               dlsym(lib, "setNetworkForSocket"));
     }
     if (!lollipopSetNetworkForSocket) {
-      RTC_LOG(LS_ERROR) << "Symbol lollipopSetNetworkForSocket is not found ";
+      LOG(LS_ERROR) << "Symbol lollipopSetNetworkForSocket is not found ";
       return rtc::NetworkBindingResult::NOT_IMPLEMENTED;
     }
     rv = lollipopSetNetworkForSocket(network_handle, socket_fd);
@@ -337,7 +335,7 @@ void AndroidNetworkMonitor::OnNetworkConnected(
 
 void AndroidNetworkMonitor::OnNetworkConnected_w(
     const NetworkInformation& network_info) {
-  RTC_LOG(LS_INFO) << "Network connected: " << network_info.ToString();
+  LOG(LS_INFO) << "Network connected: " << network_info.ToString();
   adapter_type_by_name_[network_info.interface_name] =
       AdapterTypeFromNetworkType(network_info.type);
   network_info_by_handle_[network_info.handle] = network_info;
@@ -347,7 +345,7 @@ void AndroidNetworkMonitor::OnNetworkConnected_w(
 }
 
 void AndroidNetworkMonitor::OnNetworkDisconnected(NetworkHandle handle) {
-  RTC_LOG(LS_INFO) << "Network disconnected for handle " << handle;
+  LOG(LS_INFO) << "Network disconnected for handle " << handle;
   worker_thread()->Invoke<void>(
       RTC_FROM_HERE,
       rtc::Bind(&AndroidNetworkMonitor::OnNetworkDisconnected_w, this, handle));
@@ -368,8 +366,8 @@ void AndroidNetworkMonitor::SetNetworkInfos(
   RTC_CHECK(thread_checker_.CalledOnValidThread());
   network_handle_by_address_.clear();
   network_info_by_handle_.clear();
-  RTC_LOG(LS_INFO) << "Android network monitor found " << network_infos.size()
-                   << " networks";
+  LOG(LS_INFO) << "Android network monitor found " << network_infos.size()
+               << " networks";
   for (NetworkInformation network : network_infos) {
     OnNetworkConnected_w(network);
   }
@@ -382,7 +380,7 @@ rtc::AdapterType AndroidNetworkMonitor::GetAdapterType(
                               ? rtc::ADAPTER_TYPE_UNKNOWN
                               : iter->second;
   if (type == rtc::ADAPTER_TYPE_UNKNOWN) {
-    RTC_LOG(LS_WARNING) << "Get an unknown type for the interface " << if_name;
+    LOG(LS_WARNING) << "Get an unknown type for the interface " << if_name;
   }
   return type;
 }

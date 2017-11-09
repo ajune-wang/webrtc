@@ -26,7 +26,7 @@ bool RtcpPacketParser::Parse(const void* data, size_t length) {
        next_packet = header.NextPacket()) {
     RTC_DCHECK_GT(buffer_end - next_packet, 0);
     if (!header.Parse(next_packet, buffer_end - next_packet)) {
-      RTC_LOG(LS_WARNING)
+      LOG(LS_WARNING)
           << "Invalid rtcp header or unaligned rtcp packet at position "
           << (next_packet - buffer);
       return false;
@@ -56,9 +56,8 @@ bool RtcpPacketParser::Parse(const void* data, size_t length) {
             remb_.Parse(header, &sender_ssrc_);
             break;
           default:
-            RTC_LOG(LS_WARNING)
-                << "Unknown rtcp payload specific feedback type "
-                << header.fmt();
+            LOG(LS_WARNING) << "Unknown rtcp payload specific feedback type "
+                            << header.fmt();
             break;
         }
         break;
@@ -83,8 +82,8 @@ bool RtcpPacketParser::Parse(const void* data, size_t length) {
             transport_feedback_.Parse(header, &sender_ssrc_);
             break;
           default:
-            RTC_LOG(LS_WARNING)
-                << "Unknown rtcp transport feedback type " << header.fmt();
+            LOG(LS_WARNING) << "Unknown rtcp transport feedback type "
+                            << header.fmt();
             break;
         }
         break;
@@ -95,7 +94,7 @@ bool RtcpPacketParser::Parse(const void* data, size_t length) {
         sender_report_.Parse(header, &sender_ssrc_);
         break;
       default:
-        RTC_LOG(LS_WARNING) << "Unknown rtcp packet type " << header.type();
+        LOG(LS_WARNING) << "Unknown rtcp packet type " << header.type();
         break;
     }
   }

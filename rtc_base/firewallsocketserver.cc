@@ -35,9 +35,9 @@ class FirewallSocket : public AsyncSocketAdapter {
   int Connect(const SocketAddress& addr) override {
     if (type_ == SOCK_STREAM) {
       if (!server_->Check(FP_TCP, GetLocalAddress(), addr)) {
-        RTC_LOG(LS_VERBOSE) << "FirewallSocket outbound TCP connection from "
-                            << GetLocalAddress().ToSensitiveString() << " to "
-                            << addr.ToSensitiveString() << " denied";
+        LOG(LS_VERBOSE) << "FirewallSocket outbound TCP connection from "
+                        << GetLocalAddress().ToSensitiveString() << " to "
+                        << addr.ToSensitiveString() << " denied";
         // TODO: Handle this asynchronously.
         SetError(EHOSTUNREACH);
         return SOCKET_ERROR;
@@ -52,10 +52,9 @@ class FirewallSocket : public AsyncSocketAdapter {
     RTC_DCHECK(type_ == SOCK_DGRAM || type_ == SOCK_STREAM);
     FirewallProtocol protocol = (type_ == SOCK_DGRAM) ? FP_UDP : FP_TCP;
     if (!server_->Check(protocol, GetLocalAddress(), addr)) {
-      RTC_LOG(LS_VERBOSE) << "FirewallSocket outbound packet with type "
-                          << type_ << " from "
-                          << GetLocalAddress().ToSensitiveString() << " to "
-                          << addr.ToSensitiveString() << " dropped";
+      LOG(LS_VERBOSE) << "FirewallSocket outbound packet with type " << type_
+                      << " from " << GetLocalAddress().ToSensitiveString()
+                      << " to " << addr.ToSensitiveString() << " dropped";
       return static_cast<int>(cb);
     }
     return AsyncSocketAdapter::SendTo(pv, cb, addr);
@@ -75,10 +74,9 @@ class FirewallSocket : public AsyncSocketAdapter {
           return res;
         if (server_->Check(FP_UDP, *paddr, GetLocalAddress()))
           return res;
-        RTC_LOG(LS_VERBOSE)
-            << "FirewallSocket inbound UDP packet from "
-            << paddr->ToSensitiveString() << " to "
-            << GetLocalAddress().ToSensitiveString() << " dropped";
+        LOG(LS_VERBOSE) << "FirewallSocket inbound UDP packet from "
+                        << paddr->ToSensitiveString() << " to "
+                        << GetLocalAddress().ToSensitiveString() << " dropped";
       }
     }
     return AsyncSocketAdapter::RecvFrom(pv, cb, paddr, timestamp);
@@ -86,7 +84,7 @@ class FirewallSocket : public AsyncSocketAdapter {
 
   int Listen(int backlog) override {
     if (!server_->tcp_listen_enabled()) {
-      RTC_LOG(LS_VERBOSE) << "FirewallSocket listen attempt denied";
+      LOG(LS_VERBOSE) << "FirewallSocket listen attempt denied";
       return -1;
     }
 
@@ -102,9 +100,9 @@ class FirewallSocket : public AsyncSocketAdapter {
       }
       sock->Close();
       delete sock;
-      RTC_LOG(LS_VERBOSE) << "FirewallSocket inbound TCP connection from "
-                          << addr.ToSensitiveString() << " to "
-                          << GetLocalAddress().ToSensitiveString() << " denied";
+      LOG(LS_VERBOSE) << "FirewallSocket inbound TCP connection from "
+                      << addr.ToSensitiveString() << " to "
+                      << GetLocalAddress().ToSensitiveString() << " denied";
     }
     return 0;
   }
@@ -228,7 +226,7 @@ AsyncSocket* FirewallSocketServer::WrapSocket(AsyncSocket* sock, int type) {
   if (!sock ||
       (type == SOCK_STREAM && !tcp_sockets_enabled_) ||
       (type == SOCK_DGRAM && !udp_sockets_enabled_)) {
-    RTC_LOG(LS_VERBOSE) << "FirewallSocketServer socket creation denied";
+    LOG(LS_VERBOSE) << "FirewallSocketServer socket creation denied";
     delete sock;
     return nullptr;
   }

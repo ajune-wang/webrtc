@@ -25,11 +25,8 @@ namespace {
 const char kVp8ForceFallbackEncoderFieldTrial[] =
     "WebRTC-VP8-Forced-Fallback-Encoder";
 
-bool EnableForcedFallback(const cricket::VideoCodec& codec) {
-  if (!webrtc::field_trial::IsEnabled(kVp8ForceFallbackEncoderFieldTrial))
-    return false;
-
-  return (PayloadStringToCodecType(codec.name) == kVideoCodecVP8);
+bool EnableForcedFallback() {
+  return field_trial::IsEnabled(kVp8ForceFallbackEncoderFieldTrial);
 }
 
 bool IsForcedFallbackPossible(const VideoCodec& codec_settings) {
@@ -55,13 +52,12 @@ void GetForcedFallbackParamsFromFieldTrialGroup(uint32_t* param_low_kbps,
   int min_pixels;
   if (sscanf(group.c_str(), "Enabled-%d,%d,%d,%d", &low_kbps, &high_kbps,
              &min_low_ms, &min_pixels) != 4) {
-    RTC_LOG(LS_WARNING)
-        << "Invalid number of forced fallback parameters provided.";
+    LOG(LS_WARNING) << "Invalid number of forced fallback parameters provided.";
     return;
   }
   if (min_low_ms <= 0 || min_pixels <= 0 || low_kbps <= 0 ||
       high_kbps <= low_kbps) {
-    RTC_LOG(LS_WARNING) << "Invalid forced fallback parameter value provided.";
+    LOG(LS_WARNING) << "Invalid forced fallback parameter value provided.";
     return;
   }
   *param_low_kbps = low_kbps;
@@ -71,8 +67,8 @@ void GetForcedFallbackParamsFromFieldTrialGroup(uint32_t* param_low_kbps,
 }  // namespace
 
 VideoEncoderSoftwareFallbackWrapper::VideoEncoderSoftwareFallbackWrapper(
-    const cricket::VideoCodec& codec,
-    std::unique_ptr<webrtc::VideoEncoder> encoder)
+    std::unique_ptr<webrtc::VideoEncoder> sw_encoder,
+    std::unique_ptr<webrtc::VideoEncoder> hw_encoder)
     : number_of_cores_(0),
       max_payload_size_(0),
       rates_set_(false),
@@ -80,10 +76,11 @@ VideoEncoderSoftwareFallbackWrapper::VideoEncoderSoftwareFallbackWrapper(
       channel_parameters_set_(false),
       packet_loss_(0),
       rtt_(0),
-      codec_(codec),
-      encoder_(std::move(encoder)),
+      use_fallback_encoder_(false),
+      encoder_(std::move(hw_encoder)),
+      fallback_encoder_(std::move(sw_encoder)),
       callback_(nullptr),
-      forced_fallback_possible_(EnableForcedFallback(codec)) {
+      forced_fallback_possible_(EnableForcedFallback()) {
   if (forced_fallback_possible_) {
     GetForcedFallbackParamsFromFieldTrialGroup(&forced_fallback_.low_kbps,
                                                &forced_fallback_.high_kbps,
@@ -92,21 +89,14 @@ VideoEncoderSoftwareFallbackWrapper::VideoEncoderSoftwareFallbackWrapper(
 }
 
 bool VideoEncoderSoftwareFallbackWrapper::InitFallbackEncoder() {
-  RTC_LOG(LS_WARNING) << "Encoder falling back to software encoding.";
-  MaybeModifyCodecForFallback();
-  cricket::InternalEncoderFactory internal_factory;
-  if (!FindMatchingCodec(internal_factory.supported_codecs(), codec_)) {
-    RTC_LOG(LS_WARNING)
-        << "Encoder requesting fallback to codec not supported in software.";
-    return false;
-  }
-  fallback_encoder_.reset(internal_factory.CreateVideoEncoder(codec_));
-  if (fallback_encoder_->InitEncode(&codec_settings_, number_of_cores_,
-                                    max_payload_size_) !=
-      WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize software-encoder fallback.";
+  LOG(LS_WARNING) << "Encoder falling back to software encoding.";
+
+  const int ret = fallback_encoder_->InitEncode(
+      &codec_settings_, number_of_cores_, max_payload_size_);
+  use_fallback_encoder_ = (ret == WEBRTC_VIDEO_CODEC_OK);
+  if (!use_fallback_encoder_) {
+    LOG(LS_ERROR) << "Failed to initialize software-encoder fallback.";
     fallback_encoder_->Release();
-    fallback_encoder_.reset();
     return false;
   }
   // Replay callback, rates, and channel parameters.
@@ -117,9 +107,6 @@ bool VideoEncoderSoftwareFallbackWrapper::InitFallbackEncoder() {
   if (channel_parameters_set_)
     fallback_encoder_->SetChannelParameters(packet_loss_, rtt_);
 
-  fallback_implementation_name_ =
-      std::string(fallback_encoder_->ImplementationName()) +
-      " (fallback from: " + encoder_->ImplementationName() + ")";
   // Since we're switching to the fallback encoder, Release the real encoder. It
   // may be re-initialized via InitEncode later, and it will continue to get
   // Set calls for rates and channel parameters in the meantime.
@@ -149,13 +136,13 @@ int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
 
   int32_t ret =
       encoder_->InitEncode(codec_settings, number_of_cores, max_payload_size);
-  if (ret == WEBRTC_VIDEO_CODEC_OK || codec_.name.empty()) {
-    if (fallback_encoder_) {
-      RTC_LOG(LS_WARNING)
+  if (ret == WEBRTC_VIDEO_CODEC_OK) {
+    if (use_fallback_encoder_) {
+      LOG(LS_WARNING)
           << "InitEncode OK, no longer using the software fallback encoder.";
       fallback_encoder_->Release();
+      use_fallback_encoder_ = false;
     }
-    fallback_encoder_.reset();
     if (callback_)
       encoder_->RegisterEncodeCompleteCallback(callback_);
     return ret;
@@ -172,18 +159,14 @@ int32_t VideoEncoderSoftwareFallbackWrapper::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   callback_ = callback;
   int32_t ret = encoder_->RegisterEncodeCompleteCallback(callback);
-  if (fallback_encoder_)
+  if (use_fallback_encoder_)
     return fallback_encoder_->RegisterEncodeCompleteCallback(callback);
   return ret;
 }
 
 int32_t VideoEncoderSoftwareFallbackWrapper::Release() {
-  // If the fallback_encoder_ is non-null, it means it was created via
-  // InitFallbackEncoder which has Release()d encoder_, so we should only ever
-  // need to Release() whichever one is active.
-  if (fallback_encoder_)
-    return fallback_encoder_->Release();
-  return encoder_->Release();
+  return use_fallback_encoder_ ? fallback_encoder_->Release()
+                               : encoder_->Release();
 }
 
 int32_t VideoEncoderSoftwareFallbackWrapper::Encode(
@@ -194,13 +177,12 @@ int32_t VideoEncoderSoftwareFallbackWrapper::Encode(
     // Frame may have been converted from kNative to kI420 during fallback.
     if (encoder_->SupportsNativeHandle() &&
         frame.video_frame_buffer()->type() != VideoFrameBuffer::Type::kNative) {
-      RTC_LOG(LS_WARNING)
-          << "Encoder supports native frames, dropping one frame "
-          << "to avoid possible reconfig due to format change.";
+      LOG(LS_WARNING) << "Encoder supports native frames, dropping one frame "
+                      << "to avoid possible reconfig due to format change.";
       return WEBRTC_VIDEO_CODEC_ERROR;
     }
   }
-  if (fallback_encoder_)
+  if (use_fallback_encoder_)
     return fallback_encoder_->Encode(frame, codec_specific_info, frame_types);
   int32_t ret = encoder_->Encode(frame, codec_specific_info, frame_types);
   // If requested, try a software fallback.
@@ -213,8 +195,8 @@ int32_t VideoEncoderSoftwareFallbackWrapper::Encode(
       forced_fallback_.Reset();  // Not a forced fallback.
     if (frame.video_frame_buffer()->type() == VideoFrameBuffer::Type::kNative &&
         !fallback_encoder_->SupportsNativeHandle()) {
-      RTC_LOG(LS_WARNING) << "Fallback encoder doesn't support native frames, "
-                          << "dropping one frame.";
+      LOG(LS_WARNING) << "Fallback encoder doesn't support native frames, "
+                      << "dropping one frame.";
       return WEBRTC_VIDEO_CODEC_ERROR;
     }
 
@@ -231,7 +213,7 @@ int32_t VideoEncoderSoftwareFallbackWrapper::SetChannelParameters(
   packet_loss_ = packet_loss;
   rtt_ = rtt;
   int32_t ret = encoder_->SetChannelParameters(packet_loss, rtt);
-  if (fallback_encoder_)
+  if (use_fallback_encoder_)
     return fallback_encoder_->SetChannelParameters(packet_loss, rtt);
   return ret;
 }
@@ -243,37 +225,35 @@ int32_t VideoEncoderSoftwareFallbackWrapper::SetRateAllocation(
   bitrate_allocation_ = bitrate_allocation;
   framerate_ = framerate;
   int32_t ret = encoder_->SetRateAllocation(bitrate_allocation_, framerate);
-  if (fallback_encoder_)
+  if (use_fallback_encoder_)
     return fallback_encoder_->SetRateAllocation(bitrate_allocation_, framerate);
   return ret;
 }
 
 bool VideoEncoderSoftwareFallbackWrapper::SupportsNativeHandle() const {
-  if (fallback_encoder_)
-    return fallback_encoder_->SupportsNativeHandle();
-  return encoder_->SupportsNativeHandle();
+  return use_fallback_encoder_ ? fallback_encoder_->SupportsNativeHandle()
+                               : encoder_->SupportsNativeHandle();
 }
 
 VideoEncoder::ScalingSettings
 VideoEncoderSoftwareFallbackWrapper::GetScalingSettings() const {
-  if (forced_fallback_possible_ && fallback_encoder_)
+  if (forced_fallback_possible_ && use_fallback_encoder_)
     return fallback_encoder_->GetScalingSettings();
   return encoder_->GetScalingSettings();
 }
 
-const char *VideoEncoderSoftwareFallbackWrapper::ImplementationName() const {
-  if (fallback_encoder_)
-    return fallback_encoder_->ImplementationName();
-  return encoder_->ImplementationName();
+const char* VideoEncoderSoftwareFallbackWrapper::ImplementationName() const {
+  return use_fallback_encoder_ ? fallback_encoder_->ImplementationName()
+                               : encoder_->ImplementationName();
 }
 
 bool VideoEncoderSoftwareFallbackWrapper::IsForcedFallbackActive() const {
-  return (forced_fallback_possible_ && fallback_encoder_ &&
+  return (forced_fallback_possible_ && use_fallback_encoder_ &&
           forced_fallback_.start_ms);
 }
 
 bool VideoEncoderSoftwareFallbackWrapper::RequestForcedFallback() {
-  if (!forced_fallback_possible_ || fallback_encoder_ || !rates_set_)
+  if (!forced_fallback_possible_ || use_fallback_encoder_ || !rates_set_)
     return false;
 
   // No fallback encoder.
@@ -293,10 +273,9 @@ bool VideoEncoderSoftwareFallbackWrapper::TryReleaseForcedFallbackEncoder() {
   // Release the forced fallback encoder.
   if (encoder_->InitEncode(&codec_settings_, number_of_cores_,
                            max_payload_size_) == WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_INFO)
-        << "Stop forced SW encoder fallback, max bitrate exceeded.";
+    LOG(LS_INFO) << "Stop forced SW encoder fallback, max bitrate exceeded.";
     fallback_encoder_->Release();
-    fallback_encoder_.reset();
+    use_fallback_encoder_ = false;
     forced_fallback_.Reset();
     return true;
   }
@@ -309,14 +288,14 @@ bool VideoEncoderSoftwareFallbackWrapper::TryReInitForcedFallbackEncoder() {
 
   // Encoder reconfigured.
   if (!forced_fallback_.IsValid(codec_settings_)) {
-    RTC_LOG(LS_INFO) << "Stop forced SW encoder fallback, max pixels exceeded.";
+    LOG(LS_INFO) << "Stop forced SW encoder fallback, max pixels exceeded.";
     return false;
   }
   // Settings valid, reinitialize the forced fallback encoder.
   if (fallback_encoder_->InitEncode(&codec_settings_, number_of_cores_,
                                     max_payload_size_) !=
       WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_ERROR) << "Failed to init forced SW encoder fallback.";
+    LOG(LS_ERROR) << "Failed to init forced SW encoder fallback.";
     return false;
   }
   return true;
@@ -329,9 +308,9 @@ void VideoEncoderSoftwareFallbackWrapper::ValidateSettingsForForcedFallback() {
   if (!IsForcedFallbackPossible(codec_settings_)) {
     if (IsForcedFallbackActive()) {
       fallback_encoder_->Release();
-      fallback_encoder_.reset();
+      use_fallback_encoder_ = false;
     }
-    RTC_LOG(LS_INFO) << "Disable forced_fallback_possible_ due to settings.";
+    LOG(LS_INFO) << "Disable forced_fallback_possible_ due to settings.";
     forced_fallback_possible_ = false;
   }
 }
@@ -350,7 +329,7 @@ bool VideoEncoderSoftwareFallbackWrapper::ForcedFallbackParams::ShouldStart(
     start_ms.emplace(now_ms);
 
   if ((now_ms - *start_ms) >= min_low_ms) {
-    RTC_LOG(LS_INFO) << "Request forced SW encoder fallback.";
+    LOG(LS_INFO) << "Request forced SW encoder fallback.";
     // In case the request fails, update time to avoid too frequent requests.
     start_ms.emplace(now_ms);
     return true;
@@ -363,15 +342,6 @@ bool VideoEncoderSoftwareFallbackWrapper::ForcedFallbackParams::ShouldStop(
     const VideoCodec& codec) const {
   return bitrate_kbps >= high_kbps &&
          (codec.width * codec.height >= kMinPixelsStop);
-}
-
-void VideoEncoderSoftwareFallbackWrapper::MaybeModifyCodecForFallback() {
-  // We have a specific case for H264 ConstrainedBaseline because that is the
-  // only supported profile in Sw fallback.
-  if (!cricket::CodecNamesEq(codec_.name.c_str(), cricket::kH264CodecName))
-    return;
-  codec_.SetParam(cricket::kH264FmtpProfileLevelId,
-                  cricket::kH264ProfileLevelConstrainedBaseline);
 }
 
 }  // namespace webrtc

@@ -101,7 +101,8 @@ const char *kRTCFileLoggerRotatingLogPrefix = "rotating_log";
       break;
   }
   if (!_logSink->Init()) {
-    RTC_LOG(LS_ERROR) << "Failed to open log files at path: " << _dirPath.UTF8String;
+    LOG(LS_ERROR) << "Failed to open log files at path: "
+                  << _dirPath.UTF8String;
     _logSink.reset();
     return;
   }

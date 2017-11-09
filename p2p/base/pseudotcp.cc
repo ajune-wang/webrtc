@@ -189,7 +189,7 @@ void ReportStats() {
                                (i == 0) ? "" : ",", STAT_NAMES[i], g_stats[i]);
     g_stats[i] = 0;
   }
-  RTC_LOG(LS_INFO) << "Stats[" << buffer << "]";
+  LOG(LS_INFO) << "Stats[" << buffer << "]";
 }
 
 #endif
@@ -266,7 +266,7 @@ int PseudoTcp::Connect() {
   }
 
   m_state = TCP_SYN_SENT;
-  RTC_LOG(LS_INFO) << "State: TCP_SYN_SENT";
+  LOG(LS_INFO) << "State: TCP_SYN_SENT";
 
   queueConnectMessage();
   attemptSend();
@@ -293,10 +293,11 @@ void PseudoTcp::NotifyClock(uint32_t now) {
       // Note: (m_slist.front().xmit == 0)) {
       // retransmit segments
 #if _DEBUGMSG >= _DBG_NORMAL
-      RTC_LOG(LS_INFO) << "timeout retransmit (rto: " << m_rx_rto
-                       << ") (rto_base: " << m_rto_base << ") (now: " << now
-                       << ") (dup_acks: " << static_cast<unsigned>(m_dup_acks)
-                       << ")";
+      LOG(LS_INFO) << "timeout retransmit (rto: " << m_rx_rto
+                   << ") (rto_base: " << m_rto_base
+                   << ") (now: " << now
+                   << ") (dup_acks: " << static_cast<unsigned>(m_dup_acks)
+                   << ")";
 #endif // _DEBUGMSG
       if (!transmit(m_slist.begin(), now)) {
         closedown(ECONNABORTED);
@@ -305,8 +306,7 @@ void PseudoTcp::NotifyClock(uint32_t now) {
 
       uint32_t nInFlight = m_snd_nxt - m_snd_una;
       m_ssthresh = std::max(nInFlight / 2, 2 * m_mss);
-      // RTC_LOG(LS_INFO) << "m_ssthresh: " << m_ssthresh << "  nInFlight: " <<
-      // nInFlight << "  m_mss: " << m_mss;
+      //LOG(LS_INFO) << "m_ssthresh: " << m_ssthresh << "  nInFlight: " << nInFlight << "  m_mss: " << m_mss;
       m_cwnd = m_mss;
 
       // Back off retransmit timer.  Note: the limit is lower when connecting.
@@ -355,7 +355,7 @@ void PseudoTcp::NotifyClock(uint32_t now) {
 
 bool PseudoTcp::NotifyPacket(const char* buffer, size_t len) {
   if (len > MAX_PACKET) {
-    RTC_LOG_F(WARNING) << "packet too large";
+    LOG_F(WARNING) << "packet too large";
     return false;
   }
   return parse(reinterpret_cast<const uint8_t*>(buffer), uint32_t(len));
@@ -471,7 +471,7 @@ int PseudoTcp::Send(const char* buffer, size_t len) {
 }
 
 void PseudoTcp::Close(bool force) {
-  RTC_LOG_F(LS_VERBOSE) << "(" << (force ? "true" : "false") << ")";
+  LOG_F(LS_VERBOSE) << "(" << (force ? "true" : "false") << ")";
   m_shutdown = force ? SD_FORCEFUL : SD_GRACEFUL;
 }
 
@@ -540,13 +540,14 @@ IPseudoTcpNotify::WriteResult PseudoTcp::packet(uint32_t seq,
   }
 
 #if _DEBUGMSG >= _DBG_VERBOSE
-  RTC_LOG(LS_INFO) << "<-- <CONV=" << m_conv
-                   << "><FLG=" << static_cast<unsigned>(flags)
-                   << "><SEQ=" << seq << ":" << seq + len
-                   << "><ACK=" << m_rcv_nxt << "><WND=" << m_rcv_wnd
-                   << "><TS=" << (now % 10000)
-                   << "><TSR=" << (m_ts_recent % 10000) << "><LEN=" << len
-                   << ">";
+  LOG(LS_INFO) << "<-- <CONV=" << m_conv
+               << "><FLG=" << static_cast<unsigned>(flags)
+               << "><SEQ=" << seq << ":" << seq + len
+               << "><ACK=" << m_rcv_nxt
+               << "><WND=" << m_rcv_wnd
+               << "><TS="  << (now % 10000)
+               << "><TSR=" << (m_ts_recent % 10000)
+               << "><LEN=" << len << ">";
 #endif // _DEBUGMSG
 
   IPseudoTcpNotify::WriteResult wres = m_notify->TcpWritePacket(
@@ -585,13 +586,14 @@ bool PseudoTcp::parse(const uint8_t* buffer, uint32_t size) {
   seg.len = size - HEADER_SIZE;
 
 #if _DEBUGMSG >= _DBG_VERBOSE
-  RTC_LOG(LS_INFO) << "--> <CONV=" << seg.conv
-                   << "><FLG=" << static_cast<unsigned>(seg.flags)
-                   << "><SEQ=" << seg.seq << ":" << seg.seq + seg.len
-                   << "><ACK=" << seg.ack << "><WND=" << seg.wnd
-                   << "><TS=" << (seg.tsval % 10000)
-                   << "><TSR=" << (seg.tsecr % 10000) << "><LEN=" << seg.len
-                   << ">";
+  LOG(LS_INFO) << "--> <CONV=" << seg.conv
+               << "><FLG=" << static_cast<unsigned>(seg.flags)
+               << "><SEQ=" << seg.seq << ":" << seg.seq + seg.len
+               << "><ACK=" << seg.ack
+               << "><WND=" << seg.wnd
+               << "><TS="  << (seg.tsval % 10000)
+               << "><TSR=" << (seg.tsecr % 10000)
+               << "><LEN=" << seg.len << ">";
 #endif // _DEBUGMSG
 
   return process(seg);
@@ -646,7 +648,7 @@ bool PseudoTcp::process(Segment& seg) {
     //if ((seg.flags & FLAG_RST) == 0) {
     //  packet(tcb, seg.ack, 0, FLAG_RST, 0, 0);
     //}
-    RTC_LOG_F(LS_ERROR) << "wrong conversation";
+    LOG_F(LS_ERROR) << "wrong conversation";
     return false;
   }
 
@@ -656,7 +658,7 @@ bool PseudoTcp::process(Segment& seg) {
 
   if (m_state == TCP_CLOSED) {
     // !?! send reset?
-    RTC_LOG_F(LS_ERROR) << "closed";
+    LOG_F(LS_ERROR) << "closed";
     return false;
   }
 
@@ -670,7 +672,7 @@ bool PseudoTcp::process(Segment& seg) {
   bool bConnect = false;
   if (seg.flags & FLAG_CTL) {
     if (seg.len == 0) {
-      RTC_LOG_F(LS_ERROR) << "Missing control code";
+      LOG_F(LS_ERROR) << "Missing control code";
       return false;
     } else if (seg.data[0] == CTL_CONNECT) {
       bConnect = true;
@@ -680,12 +682,12 @@ bool PseudoTcp::process(Segment& seg) {
 
       if (m_state == TCP_LISTEN) {
         m_state = TCP_SYN_RECEIVED;
-        RTC_LOG(LS_INFO) << "State: TCP_SYN_RECEIVED";
+        LOG(LS_INFO) << "State: TCP_SYN_RECEIVED";
         //m_notify->associate(addr);
         queueConnectMessage();
       } else if (m_state == TCP_SYN_SENT) {
         m_state = TCP_ESTABLISHED;
-        RTC_LOG(LS_INFO) << "State: TCP_ESTABLISHED";
+        LOG(LS_INFO) << "State: TCP_ESTABLISHED";
         adjustMTU();
         if (m_notify) {
           m_notify->OnTcpOpen(this);
@@ -693,7 +695,7 @@ bool PseudoTcp::process(Segment& seg) {
         //notify(evOpen);
       }
     } else {
-      RTC_LOG_F(LS_WARNING) << "Unknown control code: " << seg.data[0];
+      LOG_F(LS_WARNING) << "Unknown control code: " << seg.data[0];
       return false;
     }
   }
@@ -723,8 +725,9 @@ bool PseudoTcp::process(Segment& seg) {
         m_rx_rto = rtc::SafeClamp(m_rx_srtt + rtc::SafeMax(1, 4 * m_rx_rttvar),
                                   MIN_RTO, MAX_RTO);
 #if _DEBUGMSG >= _DBG_VERBOSE
-        RTC_LOG(LS_INFO) << "rtt: " << rtt << "  srtt: " << m_rx_srtt
-                         << "  rto: " << m_rx_rto;
+        LOG(LS_INFO) << "rtt: " << rtt
+                     << "  srtt: " << m_rx_srtt
+                     << "  rto: " << m_rx_rto;
 #endif // _DEBUGMSG
       } else {
         RTC_NOTREACHED();
@@ -759,12 +762,12 @@ bool PseudoTcp::process(Segment& seg) {
         uint32_t nInFlight = m_snd_nxt - m_snd_una;
         m_cwnd = std::min(m_ssthresh, nInFlight + m_mss);  // (Fast Retransmit)
 #if _DEBUGMSG >= _DBG_NORMAL
-        RTC_LOG(LS_INFO) << "exit recovery";
+        LOG(LS_INFO) << "exit recovery";
 #endif // _DEBUGMSG
         m_dup_acks = 0;
       } else {
 #if _DEBUGMSG >= _DBG_NORMAL
-        RTC_LOG(LS_INFO) << "recovery retransmit";
+        LOG(LS_INFO) << "recovery retransmit";
 #endif // _DEBUGMSG
         if (!transmit(m_slist.begin(), now)) {
           closedown(ECONNABORTED);
@@ -792,8 +795,8 @@ bool PseudoTcp::process(Segment& seg) {
       m_dup_acks += 1;
       if (m_dup_acks == 3) { // (Fast Retransmit)
 #if _DEBUGMSG >= _DBG_NORMAL
-        RTC_LOG(LS_INFO) << "enter recovery";
-        RTC_LOG(LS_INFO) << "recovery retransmit";
+        LOG(LS_INFO) << "enter recovery";
+        LOG(LS_INFO) << "recovery retransmit";
 #endif // _DEBUGMSG
         if (!transmit(m_slist.begin(), now)) {
           closedown(ECONNABORTED);
@@ -802,8 +805,7 @@ bool PseudoTcp::process(Segment& seg) {
         m_recover = m_snd_nxt;
         uint32_t nInFlight = m_snd_nxt - m_snd_una;
         m_ssthresh = std::max(nInFlight / 2, 2 * m_mss);
-        // RTC_LOG(LS_INFO) << "m_ssthresh: " << m_ssthresh << "  nInFlight: "
-        // << nInFlight << "  m_mss: " << m_mss;
+        //LOG(LS_INFO) << "m_ssthresh: " << m_ssthresh << "  nInFlight: " << nInFlight << "  m_mss: " << m_mss;
         m_cwnd = m_ssthresh + 3 * m_mss;
       } else if (m_dup_acks > 3) {
         m_cwnd += m_mss;
@@ -816,7 +818,7 @@ bool PseudoTcp::process(Segment& seg) {
   // !?! A bit hacky
   if ((m_state == TCP_SYN_RECEIVED) && !bConnect) {
     m_state = TCP_ESTABLISHED;
-    RTC_LOG(LS_INFO) << "State: TCP_ESTABLISHED";
+    LOG(LS_INFO) << "State: TCP_ESTABLISHED";
     adjustMTU();
     if (m_notify) {
       m_notify->OnTcpOpen(this);
@@ -858,9 +860,9 @@ bool PseudoTcp::process(Segment& seg) {
 #if _DEBUGMSG >= _DBG_NORMAL
   if (sflags == sfImmediateAck) {
     if (seg.seq > m_rcv_nxt) {
-      RTC_LOG_F(LS_INFO) << "too new";
+      LOG_F(LS_INFO) << "too new";
     } else if (seg.seq + seg.len <= m_rcv_nxt) {
-      RTC_LOG_F(LS_INFO) << "too old";
+      LOG_F(LS_INFO) << "too old";
     }
   }
 #endif // _DEBUGMSG
@@ -923,9 +925,7 @@ bool PseudoTcp::process(Segment& seg) {
             sflags = sfImmediateAck; // (Fast Recovery)
             uint32_t nAdjust = (it->seq + it->len) - m_rcv_nxt;
 #if _DEBUGMSG >= _DBG_NORMAL
-            RTC_LOG(LS_INFO)
-                << "Recovered " << nAdjust << " bytes (" << m_rcv_nxt << " -> "
-                << m_rcv_nxt + nAdjust << ")";
+            LOG(LS_INFO) << "Recovered " << nAdjust << " bytes (" << m_rcv_nxt << " -> " << m_rcv_nxt + nAdjust << ")";
 #endif // _DEBUGMSG
             m_rbuf.ConsumeWriteBuffer(nAdjust);
             m_rcv_nxt += nAdjust;
@@ -935,8 +935,7 @@ bool PseudoTcp::process(Segment& seg) {
         }
       } else {
 #if _DEBUGMSG >= _DBG_NORMAL
-        RTC_LOG(LS_INFO) << "Saving " << seg.len << " bytes (" << seg.seq
-                         << " -> " << seg.seq + seg.len << ")";
+        LOG(LS_INFO) << "Saving " << seg.len << " bytes (" << seg.seq << " -> " << seg.seq + seg.len << ")";
 #endif // _DEBUGMSG
         RSegment rseg;
         rseg.seq = seg.seq;
@@ -966,7 +965,7 @@ bool PseudoTcp::process(Segment& seg) {
 
 bool PseudoTcp::transmit(const SList::iterator& seg, uint32_t now) {
   if (seg->xmit >= ((m_state == TCP_ESTABLISHED) ? 15 : 30)) {
-    RTC_LOG_F(LS_VERBOSE) << "too many retransmits";
+    LOG_F(LS_VERBOSE) << "too many retransmits";
     return false;
   }
 
@@ -984,7 +983,7 @@ bool PseudoTcp::transmit(const SList::iterator& seg, uint32_t now) {
       break;
 
     if (wres == IPseudoTcpNotify::WR_FAIL) {
-      RTC_LOG_F(LS_VERBOSE) << "packet failed";
+      LOG_F(LS_VERBOSE) << "packet failed";
       return false;
     }
 
@@ -992,7 +991,7 @@ bool PseudoTcp::transmit(const SList::iterator& seg, uint32_t now) {
 
     while (true) {
       if (PACKET_MAXIMUMS[m_msslevel + 1] == 0) {
-        RTC_LOG_F(LS_VERBOSE) << "MTU too small";
+        LOG_F(LS_VERBOSE) << "MTU too small";
         return false;
       }
       // !?! We need to break up all outstanding and pending packets and then retransmit!?!
@@ -1005,12 +1004,12 @@ bool PseudoTcp::transmit(const SList::iterator& seg, uint32_t now) {
       }
     }
 #if _DEBUGMSG >= _DBG_NORMAL
-    RTC_LOG(LS_INFO) << "Adjusting mss to " << m_mss << " bytes";
+    LOG(LS_INFO) << "Adjusting mss to " << m_mss << " bytes";
 #endif // _DEBUGMSG
   }
 
   if (nTransmit < seg->len) {
-    RTC_LOG_F(LS_VERBOSE) << "mss reduced to " << m_mss;
+    LOG_F(LS_VERBOSE) << "mss reduced to " << m_mss;
 
     SSegment subseg(seg->seq + nTransmit, seg->len - nTransmit, seg->bCtrl);
     //subseg.tstamp = seg->tstamp;
@@ -1073,12 +1072,13 @@ void PseudoTcp::attemptSend(SendFlags sflags) {
       m_sbuf.GetWriteRemaining(&available_space);
 
       bFirst = false;
-      RTC_LOG(LS_INFO) << "[cwnd: " << m_cwnd << "  nWindow: " << nWindow
-                       << "  nInFlight: " << nInFlight
-                       << "  nAvailable: " << nAvailable
-                       << "  nQueued: " << snd_buffered
-                       << "  nEmpty: " << available_space
-                       << "  ssthresh: " << m_ssthresh << "]";
+      LOG(LS_INFO) << "[cwnd: " << m_cwnd
+                   << "  nWindow: " << nWindow
+                   << "  nInFlight: " << nInFlight
+                   << "  nAvailable: " << nAvailable
+                   << "  nQueued: " << snd_buffered
+                   << "  nEmpty: " << available_space
+                   << "  ssthresh: " << m_ssthresh << "]";
     }
 #endif // _DEBUGMSG
 
@@ -1119,7 +1119,7 @@ void PseudoTcp::attemptSend(SendFlags sflags) {
     }
 
     if (!transmit(seg, now)) {
-      RTC_LOG_F(LS_VERBOSE) << "transmit failed";
+      LOG_F(LS_VERBOSE) << "transmit failed";
       // TODO: consider closing socket
       return;
     }
@@ -1129,7 +1129,7 @@ void PseudoTcp::attemptSend(SendFlags sflags) {
 }
 
 void PseudoTcp::closedown(uint32_t err) {
-  RTC_LOG(LS_INFO) << "State: TCP_CLOSED";
+  LOG(LS_INFO) << "State: TCP_CLOSED";
   m_state = TCP_CLOSED;
   if (m_notify) {
     m_notify->OnTcpClosed(this, err);
@@ -1148,7 +1148,7 @@ PseudoTcp::adjustMTU() {
   m_mss = m_mtu_advise - PACKET_OVERHEAD;
   // !?! Should we reset m_largest here?
 #if _DEBUGMSG >= _DBG_NORMAL
-  RTC_LOG(LS_INFO) << "Adjusting mss to " << m_mss << " bytes";
+  LOG(LS_INFO) << "Adjusting mss to " << m_mss << " bytes";
 #endif // _DEBUGMSG
   // Enforce minimums on ssthresh and cwnd
   m_ssthresh = std::max(m_ssthresh, 2 * m_mss);
@@ -1209,14 +1209,14 @@ void PseudoTcp::parseOptions(const char* data, uint32_t len) {
       applyOption(kind, buf.Data(), opt_len);
       buf.Consume(opt_len);
     } else {
-      RTC_LOG(LS_ERROR) << "Invalid option length received.";
+      LOG(LS_ERROR) << "Invalid option length received.";
       return;
     }
     options_specified.insert(kind);
   }
 
   if (options_specified.find(TCP_OPT_WND_SCALE) == options_specified.end()) {
-    RTC_LOG(LS_WARNING) << "Peer doesn't support window scaling";
+    LOG(LS_WARNING) << "Peer doesn't support window scaling";
 
     if (m_rwnd_scale > 0) {
       // Peer doesn't support TCP options and window scaling.
@@ -1229,13 +1229,13 @@ void PseudoTcp::parseOptions(const char* data, uint32_t len) {
 
 void PseudoTcp::applyOption(char kind, const char* data, uint32_t len) {
   if (kind == TCP_OPT_MSS) {
-    RTC_LOG(LS_WARNING) << "Peer specified MSS option which is not supported.";
+    LOG(LS_WARNING) << "Peer specified MSS option which is not supported.";
     // TODO: Implement.
   } else if (kind == TCP_OPT_WND_SCALE) {
     // Window scale factor.
     // http://www.ietf.org/rfc/rfc1323.txt
     if (len != 1) {
-      RTC_LOG_F(WARNING) << "Invalid window scale option received.";
+      LOG_F(WARNING) << "Invalid window scale option received.";
       return;
     }
     applyWindowScaleOption(data[0]);

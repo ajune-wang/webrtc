@@ -112,7 +112,7 @@ void CombineMultipleFrames(
     RTC_DCHECK(limiter);
     const int error = limiter->ProcessStream(audio_frame_for_mixing);
     if (error != limiter->kNoError) {
-      RTC_LOG_F(LS_ERROR) << "Error from AudioProcessing: " << error;
+      LOG_F(LS_ERROR) << "Error from AudioProcessing: " << error;
       RTC_NOTREACHED();
     }
 

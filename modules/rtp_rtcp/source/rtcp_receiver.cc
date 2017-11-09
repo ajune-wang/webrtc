@@ -136,7 +136,7 @@ RTCPReceiver::~RTCPReceiver() {}
 
 void RTCPReceiver::IncomingPacket(const uint8_t* packet, size_t packet_size) {
   if (packet_size == 0) {
-    RTC_LOG(LS_WARNING) << "Incoming empty RTCP packet";
+    LOG(LS_WARNING) << "Incoming empty RTCP packet";
     return;
   }
 
@@ -291,7 +291,7 @@ bool RTCPReceiver::ParseCompoundPacket(const uint8_t* packet_begin,
     if (!rtcp_block.Parse(next_block, remaining_blocks_size)) {
       if (next_block == packet_begin) {
         // Failed to parse 1st header, nothing was extracted from this packet.
-        RTC_LOG(LS_WARNING) << "Incoming invalid RTCP packet";
+        LOG(LS_WARNING) << "Incoming invalid RTCP packet";
         return false;
       }
       ++num_skipped_packets_;
@@ -370,11 +370,10 @@ bool RTCPReceiver::ParseCompoundPacket(const uint8_t* packet_begin,
   if (now_ms - last_skipped_packets_warning_ms_ >= kMaxWarningLogIntervalMs &&
       num_skipped_packets_ > 0) {
     last_skipped_packets_warning_ms_ = now_ms;
-    RTC_LOG(LS_WARNING)
-        << num_skipped_packets_
-        << " RTCP blocks were skipped due to being malformed or of "
-           "unrecognized/unsupported type, during the past "
-        << (kMaxWarningLogIntervalMs / 1000) << " second period.";
+    LOG(LS_WARNING) << num_skipped_packets_
+                    << " RTCP blocks were skipped due to being malformed or of "
+                       "unrecognized/unsupported type, during the past "
+                    << (kMaxWarningLogIntervalMs / 1000) << " second period.";
   }
 
   return true;
@@ -735,7 +734,7 @@ void RTCPReceiver::HandleXrTargetBitrate(
   for (const auto& item : target_bitrate.GetTargetBitrates()) {
     if (item.spatial_layer >= kMaxSpatialLayers ||
         item.temporal_layer >= kMaxTemporalStreams) {
-      RTC_LOG(LS_WARNING)
+      LOG(LS_WARNING)
           << "Invalid layer in XR target bitrate pack: spatial index "
           << item.spatial_layer << ", temporal index " << item.temporal_layer
           << ", dropping.";
@@ -933,8 +932,8 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
   }
   if (!receiver_only_ && (packet_information.packet_type_flags & kRtcpNack)) {
     if (!packet_information.nack_sequence_numbers.empty()) {
-      RTC_LOG(LS_VERBOSE) << "Incoming NACK length: "
-                          << packet_information.nack_sequence_numbers.size();
+      LOG(LS_VERBOSE) << "Incoming NACK length: "
+                      << packet_information.nack_sequence_numbers.size();
       rtp_rtcp_->OnReceivedNack(packet_information.nack_sequence_numbers);
     }
   }
@@ -948,11 +947,11 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
     if ((packet_information.packet_type_flags & kRtcpPli) ||
         (packet_information.packet_type_flags & kRtcpFir)) {
       if (packet_information.packet_type_flags & kRtcpPli) {
-        RTC_LOG(LS_VERBOSE)
-            << "Incoming PLI from SSRC " << packet_information.remote_ssrc;
+        LOG(LS_VERBOSE) << "Incoming PLI from SSRC "
+                        << packet_information.remote_ssrc;
       } else {
-        RTC_LOG(LS_VERBOSE)
-            << "Incoming FIR from SSRC " << packet_information.remote_ssrc;
+        LOG(LS_VERBOSE) << "Incoming FIR from SSRC "
+                        << packet_information.remote_ssrc;
       }
       rtcp_intra_frame_observer_->OnReceivedIntraFrameRequest(local_ssrc);
     }
@@ -960,9 +959,8 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
   if (rtcp_bandwidth_observer_) {
     RTC_DCHECK(!receiver_only_);
     if (packet_information.packet_type_flags & kRtcpRemb) {
-      RTC_LOG(LS_VERBOSE)
-          << "Incoming REMB: "
-          << packet_information.receiver_estimated_max_bitrate_bps;
+      LOG(LS_VERBOSE) << "Incoming REMB: "
+                      << packet_information.receiver_estimated_max_bitrate_bps;
       rtcp_bandwidth_observer_->OnReceivedEstimatedBitrate(
           packet_information.receiver_estimated_max_bitrate_bps);
     }

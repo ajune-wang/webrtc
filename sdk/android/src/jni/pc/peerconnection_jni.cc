@@ -100,7 +100,7 @@ JNI_FUNCTION_DECLARATION(jobject,
   // 32-bit parameter.
   jlong nativeChannelPtr = jlongFromPointer(channel.get());
   if (!nativeChannelPtr) {
-    RTC_LOG(LS_ERROR) << "Failed to create DataChannel";
+    LOG(LS_ERROR) << "Failed to create DataChannel";
     return nullptr;
   }
   jclass j_data_channel_class = FindClass(jni, "org/webrtc/DataChannel");

@@ -59,13 +59,12 @@ bool MultiEndCall::CreateAudioTrackReaders() {
     if (sample_rate_hz_ == 0) {
       sample_rate_hz_ = wavreader->SampleRate();
     } else if (sample_rate_hz_ != wavreader->SampleRate()) {
-      RTC_LOG(LS_ERROR)
-          << "All the audio tracks should have the same sample rate.";
+      LOG(LS_ERROR) << "All the audio tracks should have the same sample rate.";
       return false;
     }
 
     if (wavreader->NumChannels() != 1) {
-      RTC_LOG(LS_ERROR) << "Only mono audio tracks supported.";
+      LOG(LS_ERROR) << "Only mono audio tracks supported.";
       return false;
     }
 
@@ -119,14 +118,14 @@ bool MultiEndCall::CheckTiming() {
         turn.offset, it->second->SampleRate());
     std::size_t begin_timestamp = last_turn.end + offset_samples;
     std::size_t end_timestamp = begin_timestamp + it->second->NumSamples();
-    RTC_LOG(LS_INFO) << "turn #" << turn_index << " " << begin_timestamp << "-"
-                     << end_timestamp << " ms";
+    LOG(LS_INFO) << "turn #" << turn_index << " " << begin_timestamp
+        << "-" << end_timestamp << " ms";
 
     // The order is invalid if the offset is negative and its absolute value is
     // larger then the duration of the previous turn.
     if (offset_samples < 0 && -offset_samples > static_cast<int>(
         last_turn.end - last_turn.begin)) {
-      RTC_LOG(LS_ERROR) << "invalid order";
+      LOG(LS_ERROR) << "invalid order";
       return false;
     }
 
@@ -134,7 +133,7 @@ bool MultiEndCall::CheckTiming() {
     // current interval falls in the last two turns.
     if (turn_index > 1 && in_interval(begin_timestamp, last_turn)
         && in_interval(begin_timestamp, second_last_turn)) {
-      RTC_LOG(LS_ERROR) << "cross-talk with 3+ speakers";
+      LOG(LS_ERROR) << "cross-talk with 3+ speakers";
       return false;
     }
 
@@ -159,7 +158,8 @@ bool MultiEndCall::CheckTiming() {
 
   // Detect self cross-talk.
   for (const std::string& speaker_name : speaker_names_) {
-    RTC_LOG(LS_INFO) << "checking self cross-talk for <" << speaker_name << ">";
+    LOG(LS_INFO) << "checking self cross-talk for <"
+        << speaker_name << ">";
 
     // Copy all turns for this speaker to new vector.
     std::vector<SpeakingTurn> speaking_turns_for_name;
@@ -177,7 +177,7 @@ bool MultiEndCall::CheckTiming() {
             return a.end > b.begin; });
 
     if (overlap != speaking_turns_for_name.end()) {
-      RTC_LOG(LS_ERROR) << "Self cross-talk detected";
+      LOG(LS_ERROR) << "Self cross-talk detected";
       return false;
     }
   }

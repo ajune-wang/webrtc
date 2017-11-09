@@ -24,28 +24,28 @@ namespace {
 // Check if the given codec is a valid to be registered as send codec.
 int IsValidSendCodec(const CodecInst& send_codec) {
   if ((send_codec.channels != 1) && (send_codec.channels != 2)) {
-    RTC_LOG(LS_ERROR) << "Wrong number of channels (" << send_codec.channels
-                      << "), only mono and stereo are supported)";
+    LOG(LS_ERROR) << "Wrong number of channels (" << send_codec.channels
+                  << "), only mono and stereo are supported)";
     return -1;
   }
 
   auto maybe_codec_id = RentACodec::CodecIdByInst(send_codec);
   if (!maybe_codec_id) {
-    RTC_LOG(LS_ERROR) << "Invalid codec setting for the send codec.";
+    LOG(LS_ERROR) << "Invalid codec setting for the send codec.";
     return -1;
   }
 
   // Telephone-event cannot be a send codec.
   if (!STR_CASE_CMP(send_codec.plname, "telephone-event")) {
-    RTC_LOG(LS_ERROR) << "telephone-event cannot be a send codec";
+    LOG(LS_ERROR) << "telephone-event cannot be a send codec";
     return -1;
   }
 
   if (!RentACodec::IsSupportedNumChannels(*maybe_codec_id, send_codec.channels)
            .value_or(false)) {
-    RTC_LOG(LS_ERROR) << send_codec.channels
-                      << " number of channels not supported for "
-                      << send_codec.plname << ".";
+    LOG(LS_ERROR) << send_codec.channels
+                  << " number of channels not supported for "
+                  << send_codec.plname << ".";
     return -1;
   }
   return RentACodec::CodecIndexFromId(*maybe_codec_id).value_or(-1);
@@ -81,9 +81,8 @@ bool CodecManager::RegisterEncoder(const CodecInst& send_codec) {
     case RentACodec::RegistrationResult::kOk:
       return true;
     case RentACodec::RegistrationResult::kBadFreq:
-      RTC_LOG(LS_ERROR)
-          << "RegisterSendCodec() failed, invalid frequency for RED"
-             " registration";
+      LOG(LS_ERROR) << "RegisterSendCodec() failed, invalid frequency for RED"
+                       " registration";
       return false;
     case RentACodec::RegistrationResult::kSkip:
       break;
@@ -93,9 +92,8 @@ bool CodecManager::RegisterEncoder(const CodecInst& send_codec) {
     case RentACodec::RegistrationResult::kOk:
       return true;
     case RentACodec::RegistrationResult::kBadFreq:
-      RTC_LOG(LS_ERROR)
-          << "RegisterSendCodec() failed, invalid frequency for CNG"
-             " registration";
+      LOG(LS_ERROR) << "RegisterSendCodec() failed, invalid frequency for CNG"
+                       " registration";
       return false;
     case RentACodec::RegistrationResult::kSkip:
       break;
@@ -129,14 +127,14 @@ CodecInst CodecManager::ForgeCodecInst(
 
 bool CodecManager::SetCopyRed(bool enable) {
   if (enable && codec_stack_params_.use_codec_fec) {
-    RTC_LOG(LS_WARNING) << "Codec internal FEC and RED cannot be co-enabled.";
+    LOG(LS_WARNING) << "Codec internal FEC and RED cannot be co-enabled.";
     return false;
   }
   if (enable && send_codec_inst_ &&
       codec_stack_params_.red_payload_types.count(send_codec_inst_->plfreq) <
           1) {
-    RTC_LOG(LS_WARNING) << "Cannot enable RED at " << send_codec_inst_->plfreq
-                        << " Hz.";
+    LOG(LS_WARNING) << "Cannot enable RED at " << send_codec_inst_->plfreq
+                    << " Hz.";
     return false;
   }
   codec_stack_params_.use_red = enable;
@@ -155,7 +153,7 @@ bool CodecManager::SetVAD(bool enable, ACMVADMode mode) {
           ? (codec_stack_params_.speech_encoder->NumChannels() != 1)
           : false;
   if (enable && stereo_send) {
-    RTC_LOG(LS_ERROR) << "VAD/DTX not supported for stereo sending";
+    LOG(LS_ERROR) << "VAD/DTX not supported for stereo sending";
     return false;
   }
 
@@ -173,7 +171,7 @@ bool CodecManager::SetVAD(bool enable, ACMVADMode mode) {
 
 bool CodecManager::SetCodecFEC(bool enable_codec_fec) {
   if (enable_codec_fec && codec_stack_params_.use_red) {
-    RTC_LOG(LS_WARNING) << "Codec internal FEC and RED cannot be co-enabled.";
+    LOG(LS_WARNING) << "Codec internal FEC and RED cannot be co-enabled.";
     return false;
   }
 

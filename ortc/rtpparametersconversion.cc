@@ -237,8 +237,8 @@ rtc::Optional<RtcpFeedback> ToRtcpFeedback(
       return rtc::Optional<RtcpFeedback>(
           {RtcpFeedbackType::CCM, RtcpFeedbackMessageType::FIR});
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported parameter for CCM RTCP feedback: "
-                          << cricket_feedback.param();
+      LOG(LS_WARNING) << "Unsupported parameter for CCM RTCP feedback: "
+                      << cricket_feedback.param();
       return rtc::Optional<RtcpFeedback>();
     }
   } else if (cricket_feedback.id() == cricket::kRtcpFbParamNack) {
@@ -249,21 +249,21 @@ rtc::Optional<RtcpFeedback> ToRtcpFeedback(
       return rtc::Optional<RtcpFeedback>(
           {RtcpFeedbackType::NACK, RtcpFeedbackMessageType::PLI});
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported parameter for NACK RTCP feedback: "
-                          << cricket_feedback.param();
+      LOG(LS_WARNING) << "Unsupported parameter for NACK RTCP feedback: "
+                      << cricket_feedback.param();
       return rtc::Optional<RtcpFeedback>();
     }
   } else if (cricket_feedback.id() == cricket::kRtcpFbParamRemb) {
     if (!cricket_feedback.param().empty()) {
-      RTC_LOG(LS_WARNING) << "Unsupported parameter for REMB RTCP feedback: "
-                          << cricket_feedback.param();
+      LOG(LS_WARNING) << "Unsupported parameter for REMB RTCP feedback: "
+                      << cricket_feedback.param();
       return rtc::Optional<RtcpFeedback>();
     } else {
       return rtc::Optional<RtcpFeedback>(RtcpFeedback(RtcpFeedbackType::REMB));
     }
   } else if (cricket_feedback.id() == cricket::kRtcpFbParamTransportCc) {
     if (!cricket_feedback.param().empty()) {
-      RTC_LOG(LS_WARNING)
+      LOG(LS_WARNING)
           << "Unsupported parameter for transport-cc RTCP feedback: "
           << cricket_feedback.param();
       return rtc::Optional<RtcpFeedback>();
@@ -272,8 +272,8 @@ rtc::Optional<RtcpFeedback> ToRtcpFeedback(
           RtcpFeedback(RtcpFeedbackType::TRANSPORT_CC));
     }
   }
-  RTC_LOG(LS_WARNING) << "Unsupported RTCP feedback type: "
-                      << cricket_feedback.id();
+  LOG(LS_WARNING) << "Unsupported RTCP feedback type: "
+                  << cricket_feedback.id();
   return rtc::Optional<RtcpFeedback>();
 }
 

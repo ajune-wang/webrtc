@@ -197,7 +197,7 @@ AudioFrameList AudioMixerImpl::GetAudioFromSources() {
             OutputFrequency(), &source_and_status->audio_frame);
 
     if (audio_frame_info == Source::AudioFrameInfo::kError) {
-      RTC_LOG_F(LS_WARNING) << "failed to GetAudioFrameWithInfo() from source";
+      LOG_F(LS_WARNING) << "failed to GetAudioFrameWithInfo() from source";
       continue;
     }
     audio_source_mixing_data_list.emplace_back(
@@ -243,7 +243,7 @@ bool AudioMixerImpl::GetAudioSourceMixabilityStatusForTest(
     return (*iter)->is_mixed;
   }
 
-  RTC_LOG(LS_ERROR) << "Audio source unknown";
+  LOG(LS_ERROR) << "Audio source unknown";
   return false;
 }
 }  // namespace webrtc

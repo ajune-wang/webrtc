@@ -243,7 +243,7 @@ DesktopRect CroppingWindowCapturerWin::GetWindowRectInVirtualScreen() {
   DesktopRect window_rect;
   HWND hwnd = reinterpret_cast<HWND>(selected_window());
   if (!GetCroppedWindowRect(hwnd, &window_rect, /* original_rect */ nullptr)) {
-    RTC_LOG(LS_WARNING) << "Failed to get window info: " << GetLastError();
+    LOG(LS_WARNING) << "Failed to get window info: " << GetLastError();
     return window_rect;
   }
   window_rect.IntersectWith(window_region_rect_);

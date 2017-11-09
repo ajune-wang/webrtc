@@ -62,6 +62,7 @@ class EventTimerWrapper : public EventWrapper {
   virtual bool StartTimer(bool periodic, unsigned long time) = 0;
 
   virtual bool StopTimer() = 0;
+
 };
 
 }  // namespace webrtc

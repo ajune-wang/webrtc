@@ -122,8 +122,8 @@ int32_t RtpReceiverImpl::RegisterReceivePayload(
   if (created_new_payload) {
     if (rtp_media_receiver_->OnNewPayloadTypeCreated(payload_type,
                                                      audio_format) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to register payload: " << audio_format.name
-                        << "/" << payload_type;
+      LOG(LS_ERROR) << "Failed to register payload: " << audio_format.name
+                    << "/" << payload_type;
       return -1;
     }
   }
@@ -179,7 +179,7 @@ bool RtpReceiverImpl::IncomingRtpPacket(const RTPHeader& rtp_header,
       // OK, keep-alive packet.
       return true;
     }
-    RTC_LOG(LS_WARNING) << "Receiving invalid payload type.";
+    LOG(LS_WARNING) << "Receiving invalid payload type.";
     return false;
   }
 
@@ -320,8 +320,8 @@ void RtpReceiverImpl::CheckSSRCChanged(const RTPHeader& rtp_header) {
                   rtp_header.payloadType, reinitialize_audio_payload->format,
                   reinitialize_audio_payload->rate)) {
       // New stream, same codec.
-      RTC_LOG(LS_ERROR) << "Failed to create decoder for payload type: "
-                        << static_cast<int>(rtp_header.payloadType);
+      LOG(LS_ERROR) << "Failed to create decoder for payload type: "
+                    << static_cast<int>(rtp_header.payloadType);
     }
   }
 }

@@ -90,12 +90,11 @@ class ProxySink : public webrtc::AudioSinkInterface {
 
 bool ValidateStreamParams(const StreamParams& sp) {
   if (sp.ssrcs.empty()) {
-    RTC_LOG(LS_ERROR) << "No SSRCs in stream parameters: " << sp.ToString();
+    LOG(LS_ERROR) << "No SSRCs in stream parameters: " << sp.ToString();
     return false;
   }
   if (sp.ssrcs.size() > 1) {
-    RTC_LOG(LS_ERROR) << "Multiple SSRCs in stream parameters: "
-                      << sp.ToString();
+    LOG(LS_ERROR) << "Multiple SSRCs in stream parameters: " << sp.ToString();
     return false;
   }
   return true;
@@ -192,10 +191,10 @@ rtc::Optional<int> ComputeSendBitrate(int max_send_bitrate_bps,
     // If codec is not multi-rate and |bps| is less than the fixed bitrate then
     // fail. If codec is not multi-rate and |bps| exceeds or equal the fixed
     // bitrate then ignore.
-    RTC_LOG(LS_ERROR) << "Failed to set codec " << spec.format.name
-                      << " to bitrate " << bps << " bps"
-                      << ", requires at least " << spec.info.min_bitrate_bps
-                      << " bps.";
+    LOG(LS_ERROR) << "Failed to set codec " << spec.format.name
+                  << " to bitrate " << bps << " bps"
+                  << ", requires at least " << spec.info.min_bitrate_bps
+                  << " bps.";
     return rtc::Optional<int>();
   }
 
@@ -238,7 +237,7 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
   // This may be called from any thread, so detach thread checkers.
   worker_thread_checker_.DetachFromThread();
   signal_thread_checker_.DetachFromThread();
-  RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::WebRtcVoiceEngine";
+  LOG(LS_INFO) << "WebRtcVoiceEngine::WebRtcVoiceEngine";
   RTC_DCHECK(decoder_factory);
   RTC_DCHECK(encoder_factory);
   RTC_DCHECK(audio_processing);
@@ -247,7 +246,7 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
 
 WebRtcVoiceEngine::~WebRtcVoiceEngine() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::~WebRtcVoiceEngine";
+  LOG(LS_INFO) << "WebRtcVoiceEngine::~WebRtcVoiceEngine";
   if (initialized_) {
     StopAecDump();
     voe_wrapper_->base()->Terminate();
@@ -256,7 +255,7 @@ WebRtcVoiceEngine::~WebRtcVoiceEngine() {
 
 void WebRtcVoiceEngine::Init() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::Init";
+  LOG(LS_INFO) << "WebRtcVoiceEngine::Init";
 
   // TaskQueue expects to be created/destroyed on the same thread.
   low_priority_worker_queue_.reset(
@@ -269,16 +268,16 @@ void WebRtcVoiceEngine::Init() {
   }
 
   // Load our audio codec lists.
-  RTC_LOG(LS_INFO) << "Supported send codecs in order of preference:";
+  LOG(LS_INFO) << "Supported send codecs in order of preference:";
   send_codecs_ = CollectCodecs(encoder_factory_->GetSupportedEncoders());
   for (const AudioCodec& codec : send_codecs_) {
-    RTC_LOG(LS_INFO) << ToString(codec);
+    LOG(LS_INFO) << ToString(codec);
   }
 
-  RTC_LOG(LS_INFO) << "Supported recv codecs in order of preference:";
+  LOG(LS_INFO) << "Supported recv codecs in order of preference:";
   recv_codecs_ = CollectCodecs(decoder_factory_->GetSupportedDecoders());
   for (const AudioCodec& codec : recv_codecs_) {
-    RTC_LOG(LS_INFO) << ToString(codec);
+    LOG(LS_INFO) << ToString(codec);
   }
 
   channel_config_.enable_voice_pacing = true;
@@ -354,24 +353,23 @@ VoiceMediaChannel* WebRtcVoiceEngine::CreateChannel(
 
 bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::ApplyOptions: "
-                   << options_in.ToString();
+  LOG(LS_INFO) << "WebRtcVoiceEngine::ApplyOptions: " << options_in.ToString();
   AudioOptions options = options_in;  // The options are modified below.
 
   // Set and adjust echo canceller options.
   // kEcConference is AEC with high suppression.
   webrtc::EcModes ec_mode = webrtc::kEcConference;
   if (options.aecm_generate_comfort_noise) {
-    RTC_LOG(LS_VERBOSE) << "Comfort noise explicitly set to "
-                        << *options.aecm_generate_comfort_noise
-                        << " (default is false).";
+    LOG(LS_VERBOSE) << "Comfort noise explicitly set to "
+                    << *options.aecm_generate_comfort_noise
+                    << " (default is false).";
   }
 
 #if defined(WEBRTC_IOS)
   // On iOS, VPIO provides built-in EC.
   options.echo_cancellation = rtc::Optional<bool>(false);
   options.extended_filter_aec = rtc::Optional<bool>(false);
-  RTC_LOG(LS_INFO) << "Always disable AEC on iOS. Use built-in instead.";
+  LOG(LS_INFO) << "Always disable AEC on iOS. Use built-in instead.";
 #elif defined(WEBRTC_ANDROID)
   ec_mode = webrtc::kEcAecm;
   options.extended_filter_aec = rtc::Optional<bool>(false);
@@ -397,7 +395,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   options.noise_suppression = rtc::Optional<bool>(false);
   options.typing_detection = rtc::Optional<bool>(false);
   options.experimental_ns = rtc::Optional<bool>(false);
-  RTC_LOG(LS_INFO) << "Always disable NS on iOS. Use built-in instead.";
+  LOG(LS_INFO) << "Always disable NS on iOS. Use built-in instead.";
 #elif defined(WEBRTC_ANDROID)
   options.typing_detection = rtc::Optional<bool>(false);
   options.experimental_ns = rtc::Optional<bool>(false);
@@ -408,7 +406,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   // On iOS, VPIO provides built-in AGC.
   options.auto_gain_control = rtc::Optional<bool>(false);
   options.experimental_agc = rtc::Optional<bool>(false);
-  RTC_LOG(LS_INFO) << "Always disable AGC on iOS. Use built-in instead.";
+  LOG(LS_INFO) << "Always disable AGC on iOS. Use built-in instead.";
 #elif defined(WEBRTC_ANDROID)
   options.experimental_agc = rtc::Optional<bool>(false);
 #endif
@@ -422,12 +420,11 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   if (webrtc::field_trial::IsEnabled(
           "WebRTC-Audio-MinimizeResamplingOnMobile")) {
     options.auto_gain_control = rtc::Optional<bool>(false);
-    RTC_LOG(LS_INFO) << "Disable AGC according to field trial.";
+    LOG(LS_INFO) << "Disable AGC according to field trial.";
     if (!(options.noise_suppression.value_or(false) ||
           options.echo_cancellation.value_or(false))) {
       // If possible, turn off the high-pass filter.
-      RTC_LOG(LS_INFO)
-          << "Disable high-pass filter in response to field trial.";
+      LOG(LS_INFO) << "Disable high-pass filter in response to field trial.";
       options.highpass_filter = rtc::Optional<bool>(false);
     }
   }
@@ -455,8 +452,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
         // Disable internal software EC if built-in EC is enabled,
         // i.e., replace the software EC with the built-in EC.
         options.echo_cancellation = rtc::Optional<bool>(false);
-        RTC_LOG(LS_INFO)
-            << "Disabling EC since built-in EC will be used instead";
+        LOG(LS_INFO) << "Disabling EC since built-in EC will be used instead";
       }
     }
     webrtc::apm_helpers::SetEcStatus(
@@ -478,8 +474,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
         // Disable internal software AGC if built-in AGC is enabled,
         // i.e., replace the software AGC with the built-in AGC.
         options.auto_gain_control = rtc::Optional<bool>(false);
-        RTC_LOG(LS_INFO)
-            << "Disabling AGC since built-in AGC will be used instead";
+        LOG(LS_INFO) << "Disabling AGC since built-in AGC will be used instead";
       }
     }
     webrtc::apm_helpers::SetAgcStatus(apm(), adm(), *options.auto_gain_control);
@@ -506,9 +501,9 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
     webrtc::AgcConfig config = default_agc_config_;
     if (options.adjust_agc_delta) {
       config.targetLeveldBOv -= *options.adjust_agc_delta;
-      RTC_LOG(LS_INFO) << "Adjusting AGC level from default -"
-                       << default_agc_config_.targetLeveldBOv << "dB to -"
-                       << config.targetLeveldBOv << "dB";
+      LOG(LS_INFO) << "Adjusting AGC level from default -"
+                   << default_agc_config_.targetLeveldBOv << "dB to -"
+                   << config.targetLeveldBOv << "dB";
     }
     webrtc::apm_helpers::SetAgcConfig(apm(), config);
   }
@@ -517,7 +512,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
     intelligibility_enhancer_ = options.intelligibility_enhancer;
   }
   if (intelligibility_enhancer_ && *intelligibility_enhancer_) {
-    RTC_LOG(LS_INFO) << "Enabling NS when Intelligibility Enhancer is active.";
+    LOG(LS_INFO) << "Enabling NS when Intelligibility Enhancer is active.";
     options.noise_suppression = intelligibility_enhancer_;
   }
 
@@ -530,34 +525,33 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
         // Disable internal software NS if built-in NS is enabled,
         // i.e., replace the software NS with the built-in NS.
         options.noise_suppression = rtc::Optional<bool>(false);
-        RTC_LOG(LS_INFO)
-            << "Disabling NS since built-in NS will be used instead";
+        LOG(LS_INFO) << "Disabling NS since built-in NS will be used instead";
       }
     }
     webrtc::apm_helpers::SetNsStatus(apm(), *options.noise_suppression);
   }
 
   if (options.stereo_swapping) {
-    RTC_LOG(LS_INFO) << "Stereo swapping enabled? " << *options.stereo_swapping;
+    LOG(LS_INFO) << "Stereo swapping enabled? " << *options.stereo_swapping;
     transmit_mixer()->EnableStereoChannelSwapping(*options.stereo_swapping);
   }
 
   if (options.audio_jitter_buffer_max_packets) {
-    RTC_LOG(LS_INFO) << "NetEq capacity is "
-                     << *options.audio_jitter_buffer_max_packets;
+    LOG(LS_INFO) << "NetEq capacity is "
+                 << *options.audio_jitter_buffer_max_packets;
     channel_config_.acm_config.neteq_config.max_packets_in_buffer =
         std::max(20, *options.audio_jitter_buffer_max_packets);
   }
   if (options.audio_jitter_buffer_fast_accelerate) {
-    RTC_LOG(LS_INFO) << "NetEq fast mode? "
-                     << *options.audio_jitter_buffer_fast_accelerate;
+    LOG(LS_INFO) << "NetEq fast mode? "
+                 << *options.audio_jitter_buffer_fast_accelerate;
     channel_config_.acm_config.neteq_config.enable_fast_accelerate =
         *options.audio_jitter_buffer_fast_accelerate;
   }
 
   if (options.typing_detection) {
-    RTC_LOG(LS_INFO) << "Typing detection is enabled? "
-                     << *options.typing_detection;
+    LOG(LS_INFO) << "Typing detection is enabled? "
+                 << *options.typing_detection;
     webrtc::apm_helpers::SetTypingDetectionStatus(
         apm(), *options.typing_detection);
   }
@@ -567,8 +561,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   if (options.delay_agnostic_aec)
     delay_agnostic_aec_ = options.delay_agnostic_aec;
   if (delay_agnostic_aec_) {
-    RTC_LOG(LS_INFO) << "Delay agnostic aec is enabled? "
-                     << *delay_agnostic_aec_;
+    LOG(LS_INFO) << "Delay agnostic aec is enabled? " << *delay_agnostic_aec_;
     config.Set<webrtc::DelayAgnostic>(
         new webrtc::DelayAgnostic(*delay_agnostic_aec_));
   }
@@ -577,8 +570,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
     extended_filter_aec_ = options.extended_filter_aec;
   }
   if (extended_filter_aec_) {
-    RTC_LOG(LS_INFO) << "Extended filter aec is enabled? "
-                     << *extended_filter_aec_;
+    LOG(LS_INFO) << "Extended filter aec is enabled? " << *extended_filter_aec_;
     config.Set<webrtc::ExtendedFilter>(
         new webrtc::ExtendedFilter(*extended_filter_aec_));
   }
@@ -587,14 +579,14 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
     experimental_ns_ = options.experimental_ns;
   }
   if (experimental_ns_) {
-    RTC_LOG(LS_INFO) << "Experimental ns is enabled? " << *experimental_ns_;
+    LOG(LS_INFO) << "Experimental ns is enabled? " << *experimental_ns_;
     config.Set<webrtc::ExperimentalNs>(
         new webrtc::ExperimentalNs(*experimental_ns_));
   }
 
   if (intelligibility_enhancer_) {
-    RTC_LOG(LS_INFO) << "Intelligibility Enhancer is enabled? "
-                     << *intelligibility_enhancer_;
+    LOG(LS_INFO) << "Intelligibility Enhancer is enabled? "
+                 << *intelligibility_enhancer_;
     config.Set<webrtc::Intelligibility>(
         new webrtc::Intelligibility(*intelligibility_enhancer_));
   }
@@ -605,8 +597,8 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
 
   webrtc::AudioProcessing::Config apm_config = apm()->GetConfig();
 
-  RTC_LOG(LS_INFO) << "Level control: "
-                   << (!!level_control_ ? *level_control_ : -1);
+  LOG(LS_INFO) << "Level control: "
+               << (!!level_control_ ? *level_control_ : -1);
   if (level_control_) {
     apm_config.level_controller.enabled = *level_control_;
     if (options.level_control_initial_peak_level_dbfs) {
@@ -627,20 +619,19 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   apm()->ApplyConfig(apm_config);
 
   if (options.recording_sample_rate) {
-    RTC_LOG(LS_INFO) << "Recording sample rate is "
-                     << *options.recording_sample_rate;
+    LOG(LS_INFO) << "Recording sample rate is "
+                 << *options.recording_sample_rate;
     if (adm()->SetRecordingSampleRate(*options.recording_sample_rate)) {
-      RTC_LOG(LS_WARNING) << "SetRecordingSampleRate("
-                          << *options.recording_sample_rate << ") failed.";
+      LOG(LS_WARNING) << "SetRecordingSampleRate("
+                      << *options.recording_sample_rate << ") failed.";
     }
   }
 
   if (options.playout_sample_rate) {
-    RTC_LOG(LS_INFO) << "Playout sample rate is "
-                     << *options.playout_sample_rate;
+    LOG(LS_INFO) << "Playout sample rate is " << *options.playout_sample_rate;
     if (adm()->SetPlayoutSampleRate(*options.playout_sample_rate)) {
-      RTC_LOG(LS_WARNING) << "SetPlayoutSampleRate("
-                          << *options.playout_sample_rate << ") failed.";
+      LOG(LS_WARNING) << "SetPlayoutSampleRate("
+                      << *options.playout_sample_rate << ") failed.";
     }
   }
   return true;
@@ -763,8 +754,7 @@ AudioCodecs WebRtcVoiceEngine::CollectCodecs(
         out->push_back(*opt_codec);
       }
     } else {
-      RTC_LOG(LS_ERROR) << "Unable to assign payload type to format: "
-                        << format;
+      LOG(LS_ERROR) << "Unable to assign payload type to format: " << format;
     }
 
     return opt_codec;
@@ -1006,12 +996,12 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
 
   bool ValidateRtpParameters(const webrtc::RtpParameters& rtp_parameters) {
     if (rtp_parameters.encodings.size() != 1) {
-      RTC_LOG(LS_ERROR)
+      LOG(LS_ERROR)
           << "Attempted to set RtpParameters without exactly one encoding";
       return false;
     }
     if (rtp_parameters.encodings[0].ssrc != rtp_parameters_.encodings[0].ssrc) {
-      RTC_LOG(LS_ERROR) << "Attempted to set RtpParameters with modified SSRC";
+      LOG(LS_ERROR) << "Attempted to set RtpParameters with modified SSRC";
       return false;
     }
     return true;
@@ -1269,10 +1259,10 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     RTC_DCHECK(stream_);
     if (playout) {
-      RTC_LOG(LS_INFO) << "Starting playout for channel #" << channel();
+      LOG(LS_INFO) << "Starting playout for channel #" << channel();
       stream_->Start();
     } else {
-      RTC_LOG(LS_INFO) << "Stopping playout for channel #" << channel();
+      LOG(LS_INFO) << "Stopping playout for channel #" << channel();
       stream_->Stop();
     }
     playout_ = playout;
@@ -1311,7 +1301,7 @@ WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel(WebRtcVoiceEngine* engine,
                                                  const AudioOptions& options,
                                                  webrtc::Call* call)
     : VoiceMediaChannel(config), engine_(engine), call_(call) {
-  RTC_LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel";
+  LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel";
   RTC_DCHECK(call);
   engine->RegisterChannel(this);
   SetOptions(options);
@@ -1319,7 +1309,7 @@ WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel(WebRtcVoiceEngine* engine,
 
 WebRtcVoiceMediaChannel::~WebRtcVoiceMediaChannel() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::~WebRtcVoiceMediaChannel";
+  LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::~WebRtcVoiceMediaChannel";
   // TODO(solenberg): Should be able to delete the streams directly, without
   //                  going through RemoveNnStream(), once stream objects handle
   //                  all (de)configuration.
@@ -1340,8 +1330,8 @@ bool WebRtcVoiceMediaChannel::SetSendParameters(
     const AudioSendParameters& params) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::SetSendParameters");
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "WebRtcVoiceMediaChannel::SetSendParameters: "
-                   << params.ToString();
+  LOG(LS_INFO) << "WebRtcVoiceMediaChannel::SetSendParameters: "
+               << params.ToString();
   // TODO(pthatcher): Refactor this to be more clean now that we have
   // all the information at once.
 
@@ -1372,8 +1362,8 @@ bool WebRtcVoiceMediaChannel::SetRecvParameters(
     const AudioRecvParameters& params) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::SetRecvParameters");
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "WebRtcVoiceMediaChannel::SetRecvParameters: "
-                   << params.ToString();
+  LOG(LS_INFO) << "WebRtcVoiceMediaChannel::SetRecvParameters: "
+               << params.ToString();
   // TODO(pthatcher): Refactor this to be more clean now that we have
   // all the information at once.
 
@@ -1401,8 +1391,8 @@ webrtc::RtpParameters WebRtcVoiceMediaChannel::GetRtpSendParameters(
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   auto it = send_streams_.find(ssrc);
   if (it == send_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "Attempting to get RTP send parameters for stream "
-                        << "with ssrc " << ssrc << " which doesn't exist.";
+    LOG(LS_WARNING) << "Attempting to get RTP send parameters for stream "
+                    << "with ssrc " << ssrc << " which doesn't exist.";
     return webrtc::RtpParameters();
   }
 
@@ -1421,8 +1411,8 @@ bool WebRtcVoiceMediaChannel::SetRtpSendParameters(
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   auto it = send_streams_.find(ssrc);
   if (it == send_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "Attempting to set RTP send parameters for stream "
-                        << "with ssrc " << ssrc << " which doesn't exist.";
+    LOG(LS_WARNING) << "Attempting to set RTP send parameters for stream "
+                    << "with ssrc " << ssrc << " which doesn't exist.";
     return false;
   }
 
@@ -1430,8 +1420,8 @@ bool WebRtcVoiceMediaChannel::SetRtpSendParameters(
   // different order (which should change the send codec).
   webrtc::RtpParameters current_parameters = GetRtpSendParameters(ssrc);
   if (current_parameters.codecs != parameters.codecs) {
-    RTC_LOG(LS_ERROR) << "Using SetParameters to change the set of codecs "
-                      << "is not currently supported.";
+    LOG(LS_ERROR) << "Using SetParameters to change the set of codecs "
+                  << "is not currently supported.";
     return false;
   }
 
@@ -1456,19 +1446,17 @@ webrtc::RtpParameters WebRtcVoiceMediaChannel::GetRtpReceiveParameters(
   // SSRC of 0 represents the default receive stream.
   if (ssrc == 0) {
     if (!default_sink_) {
-      RTC_LOG(LS_WARNING)
-          << "Attempting to get RTP parameters for the default, "
-             "unsignaled audio receive stream, but not yet "
-             "configured to receive such a stream.";
+      LOG(LS_WARNING) << "Attempting to get RTP parameters for the default, "
+                         "unsignaled audio receive stream, but not yet "
+                         "configured to receive such a stream.";
       return rtp_params;
     }
     rtp_params.encodings.emplace_back();
   } else {
     auto it = recv_streams_.find(ssrc);
     if (it == recv_streams_.end()) {
-      RTC_LOG(LS_WARNING)
-          << "Attempting to get RTP receive parameters for stream "
-          << "with ssrc " << ssrc << " which doesn't exist.";
+      LOG(LS_WARNING) << "Attempting to get RTP receive parameters for stream "
+                      << "with ssrc " << ssrc << " which doesn't exist.";
       return webrtc::RtpParameters();
     }
     rtp_params.encodings.emplace_back();
@@ -1489,26 +1477,24 @@ bool WebRtcVoiceMediaChannel::SetRtpReceiveParameters(
   // SSRC of 0 represents the default receive stream.
   if (ssrc == 0) {
     if (!default_sink_) {
-      RTC_LOG(LS_WARNING)
-          << "Attempting to set RTP parameters for the default, "
-             "unsignaled audio receive stream, but not yet "
-             "configured to receive such a stream.";
+      LOG(LS_WARNING) << "Attempting to set RTP parameters for the default, "
+                         "unsignaled audio receive stream, but not yet "
+                         "configured to receive such a stream.";
       return false;
     }
   } else {
     auto it = recv_streams_.find(ssrc);
     if (it == recv_streams_.end()) {
-      RTC_LOG(LS_WARNING)
-          << "Attempting to set RTP receive parameters for stream "
-          << "with ssrc " << ssrc << " which doesn't exist.";
+      LOG(LS_WARNING) << "Attempting to set RTP receive parameters for stream "
+                      << "with ssrc " << ssrc << " which doesn't exist.";
       return false;
     }
   }
 
   webrtc::RtpParameters current_parameters = GetRtpReceiveParameters(ssrc);
   if (current_parameters != parameters) {
-    RTC_LOG(LS_ERROR) << "Changing the RTP receive parameters is currently "
-                      << "unsupported.";
+    LOG(LS_ERROR) << "Changing the RTP receive parameters is currently "
+                  << "unsupported.";
     return false;
   }
   return true;
@@ -1516,15 +1502,16 @@ bool WebRtcVoiceMediaChannel::SetRtpReceiveParameters(
 
 bool WebRtcVoiceMediaChannel::SetOptions(const AudioOptions& options) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "Setting voice channel options: " << options.ToString();
+  LOG(LS_INFO) << "Setting voice channel options: "
+               << options.ToString();
 
   // We retain all of the existing options, and apply the given ones
   // on top.  This means there is no way to "clear" options such that
   // they go back to the engine default.
   options_.SetAll(options);
   if (!engine()->ApplyOptions(options_)) {
-    RTC_LOG(LS_WARNING)
-        << "Failed to apply engine options during channel SetOptions.";
+    LOG(LS_WARNING) <<
+        "Failed to apply engine options during channel SetOptions.";
     return false;
   }
 
@@ -1534,8 +1521,8 @@ bool WebRtcVoiceMediaChannel::SetOptions(const AudioOptions& options) {
     it.second->SetAudioNetworkAdaptorConfig(audio_network_adaptor_config);
   }
 
-  RTC_LOG(LS_INFO) << "Set voice channel options. Current options: "
-                   << options_.ToString();
+  LOG(LS_INFO) << "Set voice channel options. Current options: "
+               << options_.ToString();
   return true;
 }
 
@@ -1544,10 +1531,10 @@ bool WebRtcVoiceMediaChannel::SetRecvCodecs(
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
 
   // Set the payload types to be used for incoming media.
-  RTC_LOG(LS_INFO) << "Setting receive voice codecs.";
+  LOG(LS_INFO) << "Setting receive voice codecs.";
 
   if (!VerifyUniquePayloadTypes(codecs)) {
-    RTC_LOG(LS_ERROR) << "Codec payload types overlap.";
+    LOG(LS_ERROR) << "Codec payload types overlap.";
     return false;
   }
 
@@ -1560,14 +1547,14 @@ bool WebRtcVoiceMediaChannel::SetRecvCodecs(
     AudioCodec old_codec;
     if (FindCodec(recv_codecs_, codec, &old_codec) &&
         old_codec.id != codec.id) {
-      RTC_LOG(LS_WARNING) << codec.name << " mapped to a second payload type ("
-                          << codec.id << ", was already mapped to "
-                          << old_codec.id << ")";
+      LOG(LS_WARNING) << codec.name << " mapped to a second payload type ("
+                      << codec.id << ", was already mapped to " << old_codec.id
+                      << ")";
     }
     auto format = AudioCodecToSdpAudioFormat(codec);
     if (!IsCodec(codec, "cn") && !IsCodec(codec, "telephone-event") &&
         !engine()->decoder_factory_->IsSupportedDecoder(format)) {
-      RTC_LOG(LS_ERROR) << "Unsupported codec: " << format;
+      LOG(LS_ERROR) << "Unsupported codec: " << format;
       return false;
     }
     // We allow adding new codecs but don't allow changing the payload type of
@@ -1583,10 +1570,9 @@ bool WebRtcVoiceMediaChannel::SetRecvCodecs(
     // conflict could happen between audio and video codecs.
     auto existing = decoder_map_.find(codec.id);
     if (existing != decoder_map_.end() && !existing->second.Matches(format)) {
-      RTC_LOG(LS_ERROR) << "Attempting to use payload type " << codec.id
-                        << " for " << codec.name
-                        << ", but it is already used for "
-                        << existing->second.name;
+      LOG(LS_ERROR) << "Attempting to use payload type " << codec.id << " for "
+                    << codec.name << ", but it is already used for "
+                    << existing->second.name;
       return false;
     }
     decoder_map.insert({codec.id, std::move(format)});
@@ -1630,8 +1616,7 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
     //                  don't overlap, remove redundant/unsupported codecs etc -
     //                  the same way it is done for RtpHeaderExtensions.
     if (codec.id < kMinPayloadType || codec.id > kMaxPayloadType) {
-      RTC_LOG(LS_WARNING) << "Codec payload type out of range: "
-                          << ToString(codec);
+      LOG(LS_WARNING) << "Codec payload type out of range: " << ToString(codec);
       return false;
     }
   }
@@ -1663,7 +1648,7 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
 
       voice_codec_info = engine()->encoder_factory_->QueryAudioEncoder(format);
       if (!voice_codec_info) {
-        RTC_LOG(LS_WARNING) << "Unknown codec " << ToString(voice_codec);
+        LOG(LS_WARNING) << "Unknown codec " << ToString(voice_codec);
         continue;
       }
 
@@ -1699,8 +1684,8 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
             send_codec_spec->cng_payload_type = rtc::Optional<int>(cn_codec.id);
             break;
           default:
-            RTC_LOG(LS_WARNING)
-                << "CN frequency " << cn_codec.clockrate << " not supported.";
+            LOG(LS_WARNING) << "CN frequency " << cn_codec.clockrate
+                            << " not supported.";
             break;
         }
         break;
@@ -1734,8 +1719,8 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
   // preferred send codec, and in that case reconfigure all receive streams.
   if (recv_transport_cc_enabled_ != send_codec_spec_->transport_cc_enabled ||
       recv_nack_enabled_ != send_codec_spec_->nack_enabled) {
-    RTC_LOG(LS_INFO) << "Recreate all the receive streams because the send "
-                        "codec has changed.";
+    LOG(LS_INFO) << "Recreate all the receive streams because the send "
+                    "codec has changed.";
     recv_transport_cc_enabled_ = send_codec_spec_->transport_cc_enabled;
     recv_nack_enabled_ = send_codec_spec_->nack_enabled;
     for (auto& kv : recv_streams_) {
@@ -1781,7 +1766,7 @@ void WebRtcVoiceMediaChannel::SetSend(bool send) {
     if (!engine()->adm()->RecordingIsInitialized() &&
         !engine()->adm()->Recording()) {
       if (engine()->adm()->InitRecording() != 0) {
-        RTC_LOG(LS_WARNING) << "Failed to initialize recording";
+        LOG(LS_WARNING) << "Failed to initialize recording";
       }
     }
   }
@@ -1816,7 +1801,7 @@ bool WebRtcVoiceMediaChannel::SetAudioSend(uint32_t ssrc,
 int WebRtcVoiceMediaChannel::CreateVoEChannel() {
   int id = engine()->CreateVoEChannel();
   if (id == -1) {
-    RTC_LOG(LS_WARNING) << "CreateVoEChannel() failed.";
+    LOG(LS_WARNING) << "CreateVoEChannel() failed.";
     return -1;
   }
 
@@ -1825,7 +1810,7 @@ int WebRtcVoiceMediaChannel::CreateVoEChannel() {
 
 bool WebRtcVoiceMediaChannel::DeleteVoEChannel(int channel) {
   if (engine()->voe()->base()->DeleteChannel(channel) == -1) {
-    RTC_LOG(LS_WARNING) << "DeleteChannel(" << channel << ") failed.";
+    LOG(LS_WARNING) << "DeleteChannel(" << channel << ") failed.";
     return false;
   }
   return true;
@@ -1834,13 +1819,13 @@ bool WebRtcVoiceMediaChannel::DeleteVoEChannel(int channel) {
 bool WebRtcVoiceMediaChannel::AddSendStream(const StreamParams& sp) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::AddSendStream");
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "AddSendStream: " << sp.ToString();
+  LOG(LS_INFO) << "AddSendStream: " << sp.ToString();
 
   uint32_t ssrc = sp.first_ssrc();
   RTC_DCHECK(0 != ssrc);
 
   if (GetSendChannelId(ssrc) != -1) {
-    RTC_LOG(LS_ERROR) << "Stream already exists with ssrc " << ssrc;
+    LOG(LS_ERROR) << "Stream already exists with ssrc " << ssrc;
     return false;
   }
 
@@ -1882,12 +1867,12 @@ bool WebRtcVoiceMediaChannel::AddSendStream(const StreamParams& sp) {
 bool WebRtcVoiceMediaChannel::RemoveSendStream(uint32_t ssrc) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::RemoveSendStream");
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "RemoveSendStream: " << ssrc;
+  LOG(LS_INFO) << "RemoveSendStream: " << ssrc;
 
   auto it = send_streams_.find(ssrc);
   if (it == send_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "Try to remove stream with ssrc " << ssrc
-                        << " which doesn't exist.";
+    LOG(LS_WARNING) << "Try to remove stream with ssrc " << ssrc
+                    << " which doesn't exist.";
     return false;
   }
 
@@ -1899,8 +1884,8 @@ bool WebRtcVoiceMediaChannel::RemoveSendStream(uint32_t ssrc) {
 
   // Clean up and delete the send stream+channel.
   int channel = it->second->channel();
-  RTC_LOG(LS_INFO) << "Removing audio send stream " << ssrc
-                   << " with VoiceEngine channel #" << channel << ".";
+  LOG(LS_INFO) << "Removing audio send stream " << ssrc
+               << " with VoiceEngine channel #" << channel << ".";
   delete it->second;
   send_streams_.erase(it);
   if (!DeleteVoEChannel(channel)) {
@@ -1915,7 +1900,7 @@ bool WebRtcVoiceMediaChannel::RemoveSendStream(uint32_t ssrc) {
 bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::AddRecvStream");
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "AddRecvStream: " << sp.ToString();
+  LOG(LS_INFO) << "AddRecvStream: " << sp.ToString();
 
   if (!ValidateStreamParams(sp)) {
     return false;
@@ -1923,7 +1908,7 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
 
   const uint32_t ssrc = sp.first_ssrc();
   if (ssrc == 0) {
-    RTC_LOG(LS_WARNING) << "AddRecvStream with ssrc==0 is not supported.";
+    LOG(LS_WARNING) << "AddRecvStream with ssrc==0 is not supported.";
     return false;
   }
 
@@ -1935,7 +1920,7 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
   }
 
   if (GetReceiveChannelId(ssrc) != -1) {
-    RTC_LOG(LS_ERROR) << "Stream already exists with ssrc " << ssrc;
+    LOG(LS_ERROR) << "Stream already exists with ssrc " << ssrc;
     return false;
   }
 
@@ -1959,12 +1944,12 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
 bool WebRtcVoiceMediaChannel::RemoveRecvStream(uint32_t ssrc) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::RemoveRecvStream");
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "RemoveRecvStream: " << ssrc;
+  LOG(LS_INFO) << "RemoveRecvStream: " << ssrc;
 
   const auto it = recv_streams_.find(ssrc);
   if (it == recv_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "Try to remove stream with ssrc " << ssrc
-                        << " which doesn't exist.";
+    LOG(LS_WARNING) << "Try to remove stream with ssrc " << ssrc
+                    << " which doesn't exist.";
     return false;
   }
 
@@ -1973,8 +1958,8 @@ bool WebRtcVoiceMediaChannel::RemoveRecvStream(uint32_t ssrc) {
   const int channel = it->second->channel();
 
   // Clean up and delete the receive stream+channel.
-  RTC_LOG(LS_INFO) << "Removing audio receive stream " << ssrc
-                   << " with VoiceEngine channel #" << channel << ".";
+  LOG(LS_INFO) << "Removing audio receive stream " << ssrc
+               << " with VoiceEngine channel #" << channel << ".";
   it->second->SetRawAudioSink(nullptr);
   delete it->second;
   recv_streams_.erase(it);
@@ -1987,7 +1972,7 @@ bool WebRtcVoiceMediaChannel::SetLocalSource(uint32_t ssrc,
   if (it == send_streams_.end()) {
     if (source) {
       // Return an error if trying to set a valid source with an invalid ssrc.
-      RTC_LOG(LS_ERROR) << "SetLocalSource failed with ssrc " << ssrc;
+      LOG(LS_ERROR) << "SetLocalSource failed with ssrc " << ssrc;
       return false;
     }
 
@@ -2039,12 +2024,12 @@ bool WebRtcVoiceMediaChannel::SetOutputVolume(uint32_t ssrc, double volume) {
   for (uint32_t ssrc : ssrcs) {
     const auto it = recv_streams_.find(ssrc);
     if (it == recv_streams_.end()) {
-      RTC_LOG(LS_WARNING) << "SetOutputVolume: no recv stream " << ssrc;
+      LOG(LS_WARNING) << "SetOutputVolume: no recv stream " << ssrc;
       return false;
     }
     it->second->SetOutputVolume(volume);
-    RTC_LOG(LS_INFO) << "SetOutputVolume() to " << volume
-                     << " for recv stream with ssrc " << ssrc;
+    LOG(LS_INFO) << "SetOutputVolume() to " << volume
+                 << " for recv stream with ssrc " << ssrc;
   }
   return true;
 }
@@ -2056,7 +2041,7 @@ bool WebRtcVoiceMediaChannel::CanInsertDtmf() {
 bool WebRtcVoiceMediaChannel::InsertDtmf(uint32_t ssrc, int event,
                                          int duration) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "WebRtcVoiceMediaChannel::InsertDtmf";
+  LOG(LS_INFO) << "WebRtcVoiceMediaChannel::InsertDtmf";
   if (!dtmf_payload_type_) {
     return false;
   }
@@ -2064,12 +2049,12 @@ bool WebRtcVoiceMediaChannel::InsertDtmf(uint32_t ssrc, int event,
   // Figure out which WebRtcAudioSendStream to send the event on.
   auto it = ssrc != 0 ? send_streams_.find(ssrc) : send_streams_.begin();
   if (it == send_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "The specified ssrc " << ssrc << " is not in use.";
+    LOG(LS_WARNING) << "The specified ssrc " << ssrc << " is not in use.";
     return false;
   }
   if (event < kMinTelephoneEventCode ||
       event > kMaxTelephoneEventCode) {
-    RTC_LOG(LS_WARNING) << "DTMF event code " << event << " out of range.";
+    LOG(LS_WARNING) << "DTMF event code " << event << " out of range.";
     return false;
   }
   RTC_DCHECK_NE(-1, dtmf_payload_freq_);
@@ -2104,9 +2089,9 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
   // Add new stream.
   StreamParams sp;
   sp.ssrcs.push_back(ssrc);
-  RTC_LOG(LS_INFO) << "Creating unsignaled receive stream for SSRC=" << ssrc;
+  LOG(LS_INFO) << "Creating unsignaled receive stream for SSRC=" << ssrc;
   if (!AddRecvStream(sp)) {
-    RTC_LOG(LS_WARNING) << "Could not create unsignaled receive stream.";
+    LOG(LS_WARNING) << "Could not create unsignaled receive stream.";
     return;
   }
   unsignaled_recv_ssrcs_.push_back(ssrc);
@@ -2117,8 +2102,8 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
   // Remove oldest unsignaled stream, if we have too many.
   if (unsignaled_recv_ssrcs_.size() > kMaxUnsignaledRecvStreams) {
     uint32_t remove_ssrc = unsignaled_recv_ssrcs_.front();
-    RTC_LOG(LS_INFO) << "Removing unsignaled receive stream with SSRC="
-                     << remove_ssrc;
+    LOG(LS_INFO) << "Removing unsignaled receive stream with SSRC="
+                 << remove_ssrc;
     RemoveRecvStream(remove_ssrc);
   }
   RTC_DCHECK_GE(kMaxUnsignaledRecvStreams, unsignaled_recv_ssrcs_.size());
@@ -2166,7 +2151,7 @@ bool WebRtcVoiceMediaChannel::MuteStream(uint32_t ssrc, bool muted) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   const auto it = send_streams_.find(ssrc);
   if (it == send_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "The specified ssrc " << ssrc << " is not in use.";
+    LOG(LS_WARNING) << "The specified ssrc " << ssrc << " is not in use.";
     return false;
   }
   it->second->SetMuted(muted);
@@ -2186,7 +2171,7 @@ bool WebRtcVoiceMediaChannel::MuteStream(uint32_t ssrc, bool muted) {
 }
 
 bool WebRtcVoiceMediaChannel::SetMaxSendBitrate(int bps) {
-  RTC_LOG(LS_INFO) << "WebRtcVoiceMediaChannel::SetMaxSendBitrate.";
+  LOG(LS_INFO) << "WebRtcVoiceMediaChannel::SetMaxSendBitrate.";
   max_send_bitrate_bps_ = bps;
   bool success = true;
   for (const auto& kv : send_streams_) {
@@ -2199,7 +2184,7 @@ bool WebRtcVoiceMediaChannel::SetMaxSendBitrate(int bps) {
 
 void WebRtcVoiceMediaChannel::OnReadyToSend(bool ready) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_VERBOSE) << "OnReadyToSend: " << (ready ? "Ready." : "Not ready.");
+  LOG(LS_VERBOSE) << "OnReadyToSend: " << (ready ? "Ready." : "Not ready.");
   call_->SignalChannelNetworkState(
       webrtc::MediaType::AUDIO,
       ready ? webrtc::kNetworkUp : webrtc::kNetworkDown);
@@ -2326,8 +2311,8 @@ void WebRtcVoiceMediaChannel::SetRawAudioSink(
     uint32_t ssrc,
     std::unique_ptr<webrtc::AudioSinkInterface> sink) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::SetRawAudioSink: ssrc:"
-                      << ssrc << " " << (sink ? "(ptr)" : "NULL");
+  LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::SetRawAudioSink: ssrc:" << ssrc
+                  << " " << (sink ? "(ptr)" : "NULL");
   if (ssrc == 0) {
     if (!unsignaled_recv_ssrcs_.empty()) {
       std::unique_ptr<webrtc::AudioSinkInterface> proxy_sink(
@@ -2339,7 +2324,7 @@ void WebRtcVoiceMediaChannel::SetRawAudioSink(
   }
   const auto it = recv_streams_.find(ssrc);
   if (it == recv_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "SetRawAudioSink: no recv stream " << ssrc;
+    LOG(LS_WARNING) << "SetRawAudioSink: no recv stream " << ssrc;
     return;
   }
   it->second->SetRawAudioSink(std::move(sink));

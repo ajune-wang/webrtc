@@ -324,7 +324,7 @@ void NetworkManagerBase::MergeNetworkList(const NetworkList& new_networks,
       if (pref > 0) {
         --pref;
       } else {
-        RTC_LOG(LS_ERROR) << "Too many network interfaces to handle!";
+        LOG(LS_ERROR) << "Too many network interfaces to handle!";
         break;
       }
     }
@@ -385,7 +385,7 @@ BasicNetworkManager::~BasicNetworkManager() {
 }
 
 void BasicNetworkManager::OnNetworksChanged() {
-  RTC_LOG(LS_INFO) << "Network change was observed";
+  LOG(LS_INFO) << "Network change was observed";
   UpdateNetworksOnce();
 }
 
@@ -394,7 +394,7 @@ void BasicNetworkManager::OnNetworksChanged() {
 bool BasicNetworkManager::CreateNetworks(bool include_ignored,
                                          NetworkList* networks) const {
   RTC_NOTREACHED();
-  RTC_LOG(LS_WARNING) << "BasicNetworkManager doesn't work on NaCl yet";
+  LOG(LS_WARNING) << "BasicNetworkManager doesn't work on NaCl yet";
   return false;
 }
 
@@ -482,8 +482,7 @@ bool BasicNetworkManager::CreateNetworks(bool include_ignored,
   struct ifaddrs* interfaces;
   int error = getifaddrs(&interfaces);
   if (error != 0) {
-    RTC_LOG_ERR(LERROR) << "getifaddrs failed to gather interface data: "
-                        << error;
+    LOG_ERR(LERROR) << "getifaddrs failed to gather interface data: " << error;
     return false;
   }
 
@@ -647,9 +646,8 @@ bool BasicNetworkManager::CreateNetworks(bool include_ignored,
 bool IsDefaultRoute(const std::string& network_name) {
   FileStream fs;
   if (!fs.Open("/proc/net/route", "r", nullptr)) {
-    RTC_LOG(LS_WARNING)
-        << "Couldn't read /proc/net/route, skipping default "
-        << "route check (assuming everything is a default route).";
+    LOG(LS_WARNING) << "Couldn't read /proc/net/route, skipping default "
+                    << "route check (assuming everything is a default route).";
     return true;
   } else {
     std::string line;
@@ -823,7 +821,7 @@ IPAddress BasicNetworkManager::QueryDefaultLocalAddress(int family) const {
   std::unique_ptr<AsyncSocket> socket(
       thread_->socketserver()->CreateAsyncSocket(family, SOCK_DGRAM));
   if (!socket) {
-    RTC_LOG_ERR(LERROR) << "Socket creation failed";
+    LOG_ERR(LERROR) << "Socket creation failed";
     return IPAddress();
   }
 
@@ -834,7 +832,7 @@ IPAddress BasicNetworkManager::QueryDefaultLocalAddress(int family) const {
         && socket->GetError() != EHOSTUNREACH) {
       // Ignore the expected case of "host/net unreachable" - which happens if
       // the network is V4- or V6-only.
-      RTC_LOG(LS_INFO) << "Connect failed with " << socket->GetError();
+      LOG(LS_INFO) << "Connect failed with " << socket->GetError();
     }
     return IPAddress();
   }
@@ -872,11 +870,11 @@ void BasicNetworkManager::UpdateNetworksContinually() {
 void BasicNetworkManager::DumpNetworks() {
   NetworkList list;
   GetNetworks(&list);
-  RTC_LOG(LS_INFO) << "NetworkManager detected " << list.size() << " networks:";
+  LOG(LS_INFO) << "NetworkManager detected " << list.size() << " networks:";
   for (const Network* network : list) {
-    RTC_LOG(LS_INFO) << network->ToString() << ": " << network->description()
-                     << ", active ? " << network->active()
-                     << ((network->ignored()) ? ", Ignored" : "");
+    LOG(LS_INFO) << network->ToString() << ": " << network->description()
+                 << ", active ? " << network->active()
+                 << ((network->ignored()) ? ", Ignored" : "");
   }
 }
 

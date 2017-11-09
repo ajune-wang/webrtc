@@ -43,9 +43,11 @@ class DummySetSessionDescriptionObserver
     return
         new rtc::RefCountedObject<DummySetSessionDescriptionObserver>();
   }
-  virtual void OnSuccess() { RTC_LOG(INFO) << __FUNCTION__; }
+  virtual void OnSuccess() {
+    LOG(INFO) << __FUNCTION__;
+  }
   virtual void OnFailure(const std::string& error) {
-    RTC_LOG(INFO) << __FUNCTION__ << " " << error;
+    LOG(INFO) << __FUNCTION__ << " " << error;
   }
 
  protected:
@@ -160,22 +162,22 @@ void Conductor::EnsureStreamingUI() {
 // Called when a remote stream is added
 void Conductor::OnAddStream(
     rtc::scoped_refptr<webrtc::MediaStreamInterface> stream) {
-  RTC_LOG(INFO) << __FUNCTION__ << " " << stream->label();
+  LOG(INFO) << __FUNCTION__ << " " << stream->label();
   main_wnd_->QueueUIThreadCallback(NEW_STREAM_ADDED, stream.release());
 }
 
 void Conductor::OnRemoveStream(
     rtc::scoped_refptr<webrtc::MediaStreamInterface> stream) {
-  RTC_LOG(INFO) << __FUNCTION__ << " " << stream->label();
+  LOG(INFO) << __FUNCTION__ << " " << stream->label();
   main_wnd_->QueueUIThreadCallback(STREAM_REMOVED, stream.release());
 }
 
 void Conductor::OnIceCandidate(const webrtc::IceCandidateInterface* candidate) {
-  RTC_LOG(INFO) << __FUNCTION__ << " " << candidate->sdp_mline_index();
+  LOG(INFO) << __FUNCTION__ << " " << candidate->sdp_mline_index();
   // For loopback test. To save some connecting delay.
   if (loopback_) {
     if (!peer_connection_->AddIceCandidate(candidate)) {
-      RTC_LOG(WARNING) << "Failed to apply the received candidate";
+      LOG(WARNING) << "Failed to apply the received candidate";
     }
     return;
   }
@@ -187,7 +189,7 @@ void Conductor::OnIceCandidate(const webrtc::IceCandidateInterface* candidate) {
   jmessage[kCandidateSdpMlineIndexName] = candidate->sdp_mline_index();
   std::string sdp;
   if (!candidate->ToString(&sdp)) {
-    RTC_LOG(LS_ERROR) << "Failed to serialize candidate";
+    LOG(LS_ERROR) << "Failed to serialize candidate";
     return;
   }
   jmessage[kCandidateSdpName] = sdp;
@@ -199,12 +201,12 @@ void Conductor::OnIceCandidate(const webrtc::IceCandidateInterface* candidate) {
 //
 
 void Conductor::OnSignedIn() {
-  RTC_LOG(INFO) << __FUNCTION__;
+  LOG(INFO) << __FUNCTION__;
   main_wnd_->SwitchToPeerList(client_->peers());
 }
 
 void Conductor::OnDisconnected() {
-  RTC_LOG(INFO) << __FUNCTION__;
+  LOG(INFO) << __FUNCTION__;
 
   DeletePeerConnection();
 
@@ -213,16 +215,16 @@ void Conductor::OnDisconnected() {
 }
 
 void Conductor::OnPeerConnected(int id, const std::string& name) {
-  RTC_LOG(INFO) << __FUNCTION__;
+  LOG(INFO) << __FUNCTION__;
   // Refresh the list if we're showing it.
   if (main_wnd_->current_ui() == MainWindow::LIST_PEERS)
     main_wnd_->SwitchToPeerList(client_->peers());
 }
 
 void Conductor::OnPeerDisconnected(int id) {
-  RTC_LOG(INFO) << __FUNCTION__;
+  LOG(INFO) << __FUNCTION__;
   if (id == peer_id_) {
-    RTC_LOG(INFO) << "Our peer disconnected";
+    LOG(INFO) << "Our peer disconnected";
     main_wnd_->QueueUIThreadCallback(PEER_CONNECTION_CLOSED, NULL);
   } else {
     // Refresh the list if we're showing it.
@@ -240,22 +242,21 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
     peer_id_ = peer_id;
 
     if (!InitializePeerConnection()) {
-      RTC_LOG(LS_ERROR) << "Failed to initialize our PeerConnection instance";
+      LOG(LS_ERROR) << "Failed to initialize our PeerConnection instance";
       client_->SignOut();
       return;
     }
   } else if (peer_id != peer_id_) {
     RTC_DCHECK(peer_id_ != -1);
-    RTC_LOG(WARNING)
-        << "Received a message from unknown peer while already in a "
-           "conversation with a different peer.";
+    LOG(WARNING) << "Received a message from unknown peer while already in a "
+                    "conversation with a different peer.";
     return;
   }
 
   Json::Reader reader;
   Json::Value jmessage;
   if (!reader.parse(message, jmessage)) {
-    RTC_LOG(WARNING) << "Received unknown message. " << message;
+    LOG(WARNING) << "Received unknown message. " << message;
     return;
   }
   std::string type;
@@ -267,7 +268,7 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
       // This is a loopback call.
       // Recreate the peerconnection with DTLS disabled.
       if (!ReinitializePeerConnectionForLoopback()) {
-        RTC_LOG(LS_ERROR) << "Failed to initialize our PeerConnection instance";
+        LOG(LS_ERROR) << "Failed to initialize our PeerConnection instance";
         DeletePeerConnection();
         client_->SignOut();
       }
@@ -277,18 +278,18 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
     std::string sdp;
     if (!rtc::GetStringFromJsonObject(jmessage, kSessionDescriptionSdpName,
                                       &sdp)) {
-      RTC_LOG(WARNING) << "Can't parse received session description message.";
+      LOG(WARNING) << "Can't parse received session description message.";
       return;
     }
     webrtc::SdpParseError error;
     webrtc::SessionDescriptionInterface* session_description(
         webrtc::CreateSessionDescription(type, sdp, &error));
     if (!session_description) {
-      RTC_LOG(WARNING) << "Can't parse received session description message. "
-                       << "SdpParseError was: " << error.description;
+      LOG(WARNING) << "Can't parse received session description message. "
+          << "SdpParseError was: " << error.description;
       return;
     }
-    RTC_LOG(INFO) << " Received session description :" << message;
+    LOG(INFO) << " Received session description :" << message;
     peer_connection_->SetRemoteDescription(
         DummySetSessionDescriptionObserver::Create(), session_description);
     if (session_description->type() ==
@@ -305,22 +306,22 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
         !rtc::GetIntFromJsonObject(jmessage, kCandidateSdpMlineIndexName,
                                    &sdp_mlineindex) ||
         !rtc::GetStringFromJsonObject(jmessage, kCandidateSdpName, &sdp)) {
-      RTC_LOG(WARNING) << "Can't parse received message.";
+      LOG(WARNING) << "Can't parse received message.";
       return;
     }
     webrtc::SdpParseError error;
     std::unique_ptr<webrtc::IceCandidateInterface> candidate(
         webrtc::CreateIceCandidate(sdp_mid, sdp_mlineindex, sdp, &error));
     if (!candidate.get()) {
-      RTC_LOG(WARNING) << "Can't parse received candidate message. "
-                       << "SdpParseError was: " << error.description;
+      LOG(WARNING) << "Can't parse received candidate message. "
+          << "SdpParseError was: " << error.description;
       return;
     }
     if (!peer_connection_->AddIceCandidate(candidate.get())) {
-      RTC_LOG(WARNING) << "Failed to apply the received candidate";
+      LOG(WARNING) << "Failed to apply the received candidate";
       return;
     }
-    RTC_LOG(INFO) << " Received candidate :" << message;
+    LOG(INFO) << " Received candidate :" << message;
     return;
   }
 }
@@ -420,7 +421,7 @@ void Conductor::AddStreams() {
   stream->AddTrack(audio_track);
   stream->AddTrack(video_track);
   if (!peer_connection_->AddStream(stream)) {
-    RTC_LOG(LS_ERROR) << "Adding stream to PeerConnection failed";
+    LOG(LS_ERROR) << "Adding stream to PeerConnection failed";
   }
   typedef std::pair<std::string,
                     rtc::scoped_refptr<webrtc::MediaStreamInterface> >
@@ -430,7 +431,7 @@ void Conductor::AddStreams() {
 }
 
 void Conductor::DisconnectFromCurrentPeer() {
-  RTC_LOG(INFO) << __FUNCTION__;
+  LOG(INFO) << __FUNCTION__;
   if (peer_connection_.get()) {
     client_->SendHangUp(peer_id_);
     DeletePeerConnection();
@@ -443,7 +444,7 @@ void Conductor::DisconnectFromCurrentPeer() {
 void Conductor::UIThreadCallback(int msg_id, void* data) {
   switch (msg_id) {
     case PEER_CONNECTION_CLOSED:
-      RTC_LOG(INFO) << "PEER_CONNECTION_CLOSED";
+      LOG(INFO) << "PEER_CONNECTION_CLOSED";
       DeletePeerConnection();
 
       RTC_DCHECK(active_streams_.empty());
@@ -460,7 +461,7 @@ void Conductor::UIThreadCallback(int msg_id, void* data) {
       break;
 
     case SEND_MESSAGE_TO_PEER: {
-      RTC_LOG(INFO) << "SEND_MESSAGE_TO_PEER";
+      LOG(INFO) << "SEND_MESSAGE_TO_PEER";
       std::string* msg = reinterpret_cast<std::string*>(data);
       if (msg) {
         // For convenience, we always run the message through the queue.
@@ -474,7 +475,7 @@ void Conductor::UIThreadCallback(int msg_id, void* data) {
         pending_messages_.pop_front();
 
         if (!client_->SendToPeer(peer_id_, *msg) && peer_id_ != -1) {
-          RTC_LOG(LS_ERROR) << "SendToPeer failed";
+          LOG(LS_ERROR) << "SendToPeer failed";
           DisconnectFromServer();
         }
         delete msg;
@@ -540,7 +541,7 @@ void Conductor::OnSuccess(webrtc::SessionDescriptionInterface* desc) {
 }
 
 void Conductor::OnFailure(const std::string& error) {
-  RTC_LOG(LERROR) << error;
+    LOG(LERROR) << error;
 }
 
 void Conductor::SendMessage(const std::string& json_object) {

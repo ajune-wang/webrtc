@@ -55,10 +55,10 @@ int32_t VideoDecoderSoftwareFallbackWrapper::InitDecode(
 }
 
 bool VideoDecoderSoftwareFallbackWrapper::InitFallbackDecoder() {
-  RTC_LOG(LS_WARNING) << "Decoder falling back to software decoding.";
+  LOG(LS_WARNING) << "Decoder falling back to software decoding.";
   if (fallback_decoder_->InitDecode(&codec_settings_, number_of_cores_) !=
       WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize software-decoder fallback.";
+    LOG(LS_ERROR) << "Failed to initialize software-decoder fallback.";
     use_hw_decoder_ = true;
     return false;
   }
@@ -92,7 +92,7 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Decode(
     if (ret == WEBRTC_VIDEO_CODEC_OK) {
       if (!use_hw_decoder_) {
         // Decode OK -> stop using fallback decoder.
-        RTC_LOG(LS_WARNING)
+        LOG(LS_WARNING)
             << "Decode OK, no longer using the software fallback decoder.";
         use_hw_decoder_ = true;
         return WEBRTC_VIDEO_CODEC_OK;
@@ -121,7 +121,7 @@ int32_t VideoDecoderSoftwareFallbackWrapper::RegisterDecodeCompleteCallback(
 
 int32_t VideoDecoderSoftwareFallbackWrapper::Release() {
   if (!use_hw_decoder_) {
-    RTC_LOG(LS_INFO) << "Releasing software fallback decoder.";
+    LOG(LS_INFO) << "Releasing software fallback decoder.";
     fallback_decoder_->Release();
   }
   hw_decoder_initialized_ = false;

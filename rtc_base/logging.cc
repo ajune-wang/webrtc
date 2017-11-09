@@ -443,7 +443,7 @@ void LogMessage::OutputToDebug(const std::string& str,
 void LogMultiline(LoggingSeverity level, const char* label, bool input,
                   const void* data, size_t len, bool hex_mode,
                   LogMultilineState* state) {
-  if (!RTC_LOG_CHECK_LEVEL_V(level))
+  if (!LOG_CHECK_LEVEL_V(level))
     return;
 
   const char * direction = (input ? " << " : " >> ");
@@ -451,9 +451,9 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
   // null data means to flush our count of unprintable characters.
   if (!data) {
     if (state && state->unprintable_count_[input]) {
-      RTC_LOG_V(level) << label << direction << "## "
-                       << state->unprintable_count_[input]
-                       << " consecutive unprintable ##";
+      LOG_V(level) << label << direction << "## "
+                   << state->unprintable_count_[input]
+                   << " consecutive unprintable ##";
       state->unprintable_count_[input] = 0;
     }
     return;
@@ -477,8 +477,8 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
       }
       asc_line[sizeof(asc_line)-1] = 0;
       hex_line[sizeof(hex_line)-1] = 0;
-      RTC_LOG_V(level) << label << direction << asc_line << " " << hex_line
-                       << " ";
+      LOG_V(level) << label << direction
+                   << asc_line << " " << hex_line << " ";
       udata += line_len;
       len -= line_len;
     }
@@ -531,8 +531,8 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
     // Print out the current line, but prefix with a count of prior unprintable
     // characters.
     if (consecutive_unprintable) {
-      RTC_LOG_V(level) << label << direction << "## " << consecutive_unprintable
-                       << " consecutive unprintable ##";
+      LOG_V(level) << label << direction << "## " << consecutive_unprintable
+                  << " consecutive unprintable ##";
       consecutive_unprintable = 0;
     }
     // Strip off trailing whitespace.
@@ -546,9 +546,9 @@ void LogMultiline(LoggingSeverity level, const char* label, bool input,
       pos_private = substr.find("Passwd");
     }
     if (pos_private == std::string::npos) {
-      RTC_LOG_V(level) << label << direction << substr;
+      LOG_V(level) << label << direction << substr;
     } else {
-      RTC_LOG_V(level) << label << direction << "## omitted for privacy ##";
+      LOG_V(level) << label << direction << "## omitted for privacy ##";
     }
   }
 

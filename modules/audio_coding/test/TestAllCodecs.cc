@@ -127,7 +127,7 @@ void TestAllCodecs::Perform() {
   infile_a_.Open(file_name, 32000, "rb");
 
   if (test_mode_ == 0) {
-    RTC_LOG(LS_INFO) << "---------- TestAllCodecs ----------";
+    LOG(LS_INFO) << "---------- TestAllCodecs ----------";
   }
 
   acm_a_->InitializeReceiver();

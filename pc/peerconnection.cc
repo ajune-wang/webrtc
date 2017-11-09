@@ -140,8 +140,8 @@ bool CanAddLocalMediaStream(webrtc::StreamCollectionInterface* current_streams,
     return false;
   }
   if (current_streams->find(new_stream->label()) != nullptr) {
-    RTC_LOG(LS_ERROR) << "MediaStream with label " << new_stream->label()
-                      << " is already added.";
+    LOG(LS_ERROR) << "MediaStream with label " << new_stream->label()
+                  << " is already added.";
     return false;
   }
   return true;
@@ -417,21 +417,20 @@ bool VerifyCrypto(const SessionDescription* desc,
     const TransportInfo* tinfo = desc->GetTransportInfoByName(cinfo->name);
     if (!media || !tinfo) {
       // Something is not right.
-      RTC_LOG(LS_ERROR) << kInvalidSdp;
+      LOG(LS_ERROR) << kInvalidSdp;
       *error = kInvalidSdp;
       return false;
     }
     if (dtls_enabled) {
       if (!tinfo->description.identity_fingerprint) {
-        RTC_LOG(LS_WARNING)
-            << "Session description must have DTLS fingerprint if "
-               "DTLS enabled.";
+        LOG(LS_WARNING) << "Session description must have DTLS fingerprint if "
+                           "DTLS enabled.";
         *error = kSdpWithoutDtlsFingerprint;
         return false;
       }
     } else {
       if (media->cryptos().empty()) {
-        RTC_LOG(LS_WARNING)
+        LOG(LS_WARNING)
             << "Session description must have SDES when DTLS disabled.";
         *error = kSdpWithoutSdesCrypto;
         return false;
@@ -467,12 +466,12 @@ bool VerifyIceUfragPwdPresent(const SessionDescription* desc) {
     const TransportInfo* tinfo = desc->GetTransportInfoByName(cinfo->name);
     if (!tinfo) {
       // Something is not right.
-      RTC_LOG(LS_ERROR) << kInvalidSdp;
+      LOG(LS_ERROR) << kInvalidSdp;
       return false;
     }
     if (tinfo->description.ice_ufrag.empty() ||
         tinfo->description.ice_pwd.empty()) {
-      RTC_LOG(LS_ERROR) << "Session description must have ice ufrag and pwd.";
+      LOG(LS_ERROR) << "Session description must have ice ufrag and pwd.";
       return false;
     }
   }
@@ -555,7 +554,7 @@ bool BadSdp(const std::string& source,
   if (err_desc) {
     *err_desc = desc.str();
   }
-  RTC_LOG(LS_ERROR) << desc.str();
+  LOG(LS_ERROR) << desc.str();
   return false;
 }
 
@@ -660,8 +659,8 @@ bool CheckForRemoteIceRestart(const SessionDescriptionInterface* old_desc,
   if (cricket::IceCredentialsChanged(
           old_transport_desc->ice_ufrag, old_transport_desc->ice_pwd,
           new_transport_desc->ice_ufrag, new_transport_desc->ice_pwd)) {
-    RTC_LOG(LS_INFO) << "Remote peer requests ICE restart for " << content_name
-                     << ".";
+    LOG(LS_INFO) << "Remote peer requests ICE restart for " << content_name
+                 << ".";
     return true;
   }
   return false;
@@ -750,7 +749,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator!=(
 std::string GenerateRtcpCname() {
   std::string cname;
   if (!rtc::CreateRandomString(kRtcpCnameLength, &cname)) {
-    RTC_LOG(LS_ERROR) << "Failed to generate CNAME.";
+    LOG(LS_ERROR) << "Failed to generate CNAME.";
     RTC_NOTREACHED();
   }
   return cname;
@@ -866,7 +865,7 @@ PeerConnection::~PeerConnection() {
                                    [this] { DestroySctpTransport_n(); });
   }
 
-  RTC_LOG(LS_INFO) << "Session: " << session_id() << " is destroyed.";
+  LOG(LS_INFO) << "Session: " << session_id() << " is destroyed.";
 
   webrtc_session_desc_factory_.reset();
   sctp_invoker_.reset();
@@ -892,21 +891,20 @@ bool PeerConnection::Initialize(
 
   RTCError config_error = ValidateConfiguration(configuration);
   if (!config_error.ok()) {
-    RTC_LOG(LS_ERROR) << "Invalid configuration: " << config_error.message();
+    LOG(LS_ERROR) << "Invalid configuration: " << config_error.message();
     return false;
   }
 
   if (!allocator) {
-    RTC_LOG(LS_ERROR)
-        << "PeerConnection initialized without a PortAllocator? "
-        << "This shouldn't happen if using PeerConnectionFactory.";
+    LOG(LS_ERROR) << "PeerConnection initialized without a PortAllocator? "
+                  << "This shouldn't happen if using PeerConnectionFactory.";
     return false;
   }
 
   if (!observer) {
     // TODO(deadbeef): Why do we do this?
-    RTC_LOG(LS_ERROR) << "PeerConnection initialized without a "
-                      << "PeerConnectionObserver";
+    LOG(LS_ERROR) << "PeerConnection initialized without a "
+                  << "PeerConnectionObserver";
     return false;
   }
   observer_ = observer;
@@ -1110,14 +1108,13 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::AddTrack(
     return nullptr;
   }
   if (streams.size() >= 2) {
-    RTC_LOG(LS_ERROR)
+    LOG(LS_ERROR)
         << "Adding a track with two streams is not currently supported.";
     return nullptr;
   }
   // TODO(deadbeef): Support adding a track to two different senders.
   if (FindSenderForTrack(track) != senders_.end()) {
-    RTC_LOG(LS_ERROR) << "Sender for track " << track->id()
-                      << " already exists.";
+    LOG(LS_ERROR) << "Sender for track " << track->id() << " already exists.";
     return nullptr;
   }
 
@@ -1150,8 +1147,7 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::AddTrack(
       new_sender->internal()->SetSsrc(track_info->ssrc);
     }
   } else {
-    RTC_LOG(LS_ERROR) << "CreateSender called with invalid kind: "
-                      << track->kind();
+    LOG(LS_ERROR) << "CreateSender called with invalid kind: " << track->kind();
     return rtc::scoped_refptr<RtpSenderInterface>();
   }
 
@@ -1168,8 +1164,7 @@ bool PeerConnection::RemoveTrack(RtpSenderInterface* sender) {
 
   auto it = std::find(senders_.begin(), senders_.end(), sender);
   if (it == senders_.end()) {
-    RTC_LOG(LS_ERROR) << "Couldn't find sender " << sender->id()
-                      << " to remove.";
+    LOG(LS_ERROR) << "Couldn't find sender " << sender->id() << " to remove.";
     return false;
   }
   (*it)->internal()->Stop();
@@ -1186,12 +1181,12 @@ rtc::scoped_refptr<DtmfSenderInterface> PeerConnection::CreateDtmfSender(
     return nullptr;
   }
   if (!track) {
-    RTC_LOG(LS_ERROR) << "CreateDtmfSender - track is NULL.";
+    LOG(LS_ERROR) << "CreateDtmfSender - track is NULL.";
     return nullptr;
   }
   auto it = FindSenderForTrack(track);
   if (it == senders_.end()) {
-    RTC_LOG(LS_ERROR) << "CreateDtmfSender called with a non-added track.";
+    LOG(LS_ERROR) << "CreateDtmfSender called with a non-added track.";
     return nullptr;
   }
 
@@ -1213,7 +1208,7 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
     new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(), new VideoRtpSender(video_channel()));
   } else {
-    RTC_LOG(LS_ERROR) << "CreateSender called with invalid kind: " << kind;
+    LOG(LS_ERROR) << "CreateSender called with invalid kind: " << kind;
     return new_sender;
   }
   if (!stream_id.empty()) {
@@ -1247,7 +1242,7 @@ bool PeerConnection::GetStats(StatsObserver* observer,
   TRACE_EVENT0("webrtc", "PeerConnection::GetStats");
   RTC_DCHECK(signaling_thread()->IsCurrent());
   if (!observer) {
-    RTC_LOG(LS_ERROR) << "GetStats - observer is NULL.";
+    LOG(LS_ERROR) << "GetStats - observer is NULL.";
     return false;
   }
 
@@ -1255,8 +1250,8 @@ bool PeerConnection::GetStats(StatsObserver* observer,
   // The StatsCollector is used to tell if a track is valid because it may
   // remember tracks that the PeerConnection previously removed.
   if (track && !stats_->IsValidTrack(track->id())) {
-    RTC_LOG(LS_WARNING) << "GetStats is called with an invalid track: "
-                        << track->id();
+    LOG(LS_WARNING) << "GetStats is called with an invalid track: "
+                    << track->id();
     return false;
   }
   signaling_thread()->Post(RTC_FROM_HERE, this, MSG_GETSTATS,
@@ -1332,20 +1327,20 @@ void PeerConnection::CreateOffer(CreateSessionDescriptionObserver* observer,
   TRACE_EVENT0("webrtc", "PeerConnection::CreateOffer");
 
   if (!observer) {
-    RTC_LOG(LS_ERROR) << "CreateOffer - observer is NULL.";
+    LOG(LS_ERROR) << "CreateOffer - observer is NULL.";
     return;
   }
 
   if (IsClosed()) {
     std::string error = "CreateOffer called when PeerConnection is closed.";
-    RTC_LOG(LS_ERROR) << error;
+    LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailure(observer, error);
     return;
   }
 
   if (!ValidateOfferAnswerOptions(options)) {
     std::string error = "CreateOffer called with invalid options.";
-    RTC_LOG(LS_ERROR) << error;
+    LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailure(observer, error);
     return;
   }
@@ -1361,7 +1356,7 @@ void PeerConnection::CreateAnswer(
   TRACE_EVENT0("webrtc", "PeerConnection::CreateAnswer");
 
   if (!observer) {
-    RTC_LOG(LS_ERROR) << "CreateAnswer - observer is NULL.";
+    LOG(LS_ERROR) << "CreateAnswer - observer is NULL.";
     return;
   }
 
@@ -1369,7 +1364,7 @@ void PeerConnection::CreateAnswer(
   if (!ConvertConstraintsToOfferAnswerOptions(constraints,
                                               &offer_answer_options)) {
     std::string error = "CreateAnswer called with invalid constraints.";
-    RTC_LOG(LS_ERROR) << error;
+    LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailure(observer, error);
     return;
   }
@@ -1381,13 +1376,13 @@ void PeerConnection::CreateAnswer(CreateSessionDescriptionObserver* observer,
                                   const RTCOfferAnswerOptions& options) {
   TRACE_EVENT0("webrtc", "PeerConnection::CreateAnswer");
   if (!observer) {
-    RTC_LOG(LS_ERROR) << "CreateAnswer - observer is NULL.";
+    LOG(LS_ERROR) << "CreateAnswer - observer is NULL.";
     return;
   }
 
   if (IsClosed()) {
     std::string error = "CreateAnswer called when PeerConnection is closed.";
-    RTC_LOG(LS_ERROR) << error;
+    LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailure(observer, error);
     return;
   }
@@ -1395,7 +1390,7 @@ void PeerConnection::CreateAnswer(CreateSessionDescriptionObserver* observer,
   if (remote_description() &&
       remote_description()->type() != SessionDescriptionInterface::kOffer) {
     std::string error = "CreateAnswer called without remote offer.";
-    RTC_LOG(LS_ERROR) << error;
+    LOG(LS_ERROR) << error;
     PostCreateSessionDescriptionFailure(observer, error);
     return;
   }
@@ -1411,7 +1406,7 @@ void PeerConnection::SetLocalDescription(
     SessionDescriptionInterface* desc) {
   TRACE_EVENT0("webrtc", "PeerConnection::SetLocalDescription");
   if (!observer) {
-    RTC_LOG(LS_ERROR) << "SetLocalDescription - observer is NULL.";
+    LOG(LS_ERROR) << "SetLocalDescription - observer is NULL.";
     return;
   }
   if (!desc) {
@@ -1425,7 +1420,7 @@ void PeerConnection::SetLocalDescription(
   if (IsClosed()) {
     std::string error = "Failed to set local " + desc->type() +
                         " sdp: Called in wrong state: STATE_CLOSED";
-    RTC_LOG(LS_ERROR) << error;
+    LOG(LS_ERROR) << error;
     PostSetSessionDescriptionFailure(observer, error);
     return;
   }
@@ -1515,7 +1510,7 @@ void PeerConnection::SetRemoteDescription(
     SessionDescriptionInterface* desc) {
   TRACE_EVENT0("webrtc", "PeerConnection::SetRemoteDescription");
   if (!observer) {
-    RTC_LOG(LS_ERROR) << "SetRemoteDescription - observer is NULL.";
+    LOG(LS_ERROR) << "SetRemoteDescription - observer is NULL.";
     return;
   }
   if (!desc) {
@@ -1529,7 +1524,7 @@ void PeerConnection::SetRemoteDescription(
   if (IsClosed()) {
     std::string error = "Failed to set remote " + desc->type() +
                         " sdp: Called in wrong state: STATE_CLOSED";
-    RTC_LOG(LS_ERROR) << error;
+    LOG(LS_ERROR) << error;
     PostSetSessionDescriptionFailure(observer, error);
     return;
   }
@@ -1651,8 +1646,8 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
 
   if (local_description() && configuration.ice_candidate_pool_size !=
                                  configuration_.ice_candidate_pool_size) {
-    RTC_LOG(LS_ERROR) << "Can't change candidate pool size after calling "
-                         "SetLocalDescription.";
+    LOG(LS_ERROR) << "Can't change candidate pool size after calling "
+                     "SetLocalDescription.";
     return SafeSetError(RTCErrorType::INVALID_MODIFICATION, error);
   }
 
@@ -1669,7 +1664,7 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
   modified_config.ice_check_min_interval = configuration.ice_check_min_interval;
   modified_config.turn_customizer = configuration.turn_customizer;
   if (configuration != modified_config) {
-    RTC_LOG(LS_ERROR) << "Modifying the configuration in an unsupported way.";
+    LOG(LS_ERROR) << "Modifying the configuration in an unsupported way.";
     return SafeSetError(RTCErrorType::INVALID_MODIFICATION, error);
   }
 
@@ -1703,7 +1698,7 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
                     modified_config.ice_candidate_pool_size,
                     modified_config.prune_turn_ports,
                     modified_config.turn_customizer))) {
-    RTC_LOG(LS_ERROR) << "Failed to apply configuration to PortAllocator.";
+    LOG(LS_ERROR) << "Failed to apply configuration to PortAllocator.";
     return SafeSetError(RTCErrorType::INTERNAL_ERROR, error);
   }
 
@@ -1733,13 +1728,13 @@ bool PeerConnection::AddIceCandidate(
   }
 
   if (!remote_description()) {
-    RTC_LOG(LS_ERROR) << "ProcessIceMessage: ICE candidates can't be added "
-                      << "without any remote session description.";
+    LOG(LS_ERROR) << "ProcessIceMessage: ICE candidates can't be added "
+                  << "without any remote session description.";
     return false;
   }
 
   if (!ice_candidate) {
-    RTC_LOG(LS_ERROR) << "ProcessIceMessage: Candidate is NULL.";
+    LOG(LS_ERROR) << "ProcessIceMessage: Candidate is NULL.";
     return false;
   }
 
@@ -1751,14 +1746,14 @@ bool PeerConnection::AddIceCandidate(
 
   // Add this candidate to the remote session description.
   if (!mutable_remote_description()->AddCandidate(ice_candidate)) {
-    RTC_LOG(LS_ERROR) << "ProcessIceMessage: Candidate cannot be used.";
+    LOG(LS_ERROR) << "ProcessIceMessage: Candidate cannot be used.";
     return false;
   }
 
   if (ready) {
     return UseCandidate(ice_candidate);
   } else {
-    RTC_LOG(LS_INFO) << "ProcessIceMessage: Not ready to use candidate.";
+    LOG(LS_INFO) << "ProcessIceMessage: Not ready to use candidate.";
     return true;
   }
 }
@@ -1767,30 +1762,29 @@ bool PeerConnection::RemoveIceCandidates(
     const std::vector<cricket::Candidate>& candidates) {
   TRACE_EVENT0("webrtc", "PeerConnection::RemoveIceCandidates");
   if (!remote_description()) {
-    RTC_LOG(LS_ERROR) << "RemoveRemoteIceCandidates: ICE candidates can't be "
-                      << "removed without any remote session description.";
+    LOG(LS_ERROR) << "RemoveRemoteIceCandidates: ICE candidates can't be "
+                  << "removed without any remote session description.";
     return false;
   }
 
   if (candidates.empty()) {
-    RTC_LOG(LS_ERROR) << "RemoveRemoteIceCandidates: candidates are empty.";
+    LOG(LS_ERROR) << "RemoveRemoteIceCandidates: candidates are empty.";
     return false;
   }
 
   size_t number_removed =
       mutable_remote_description()->RemoveCandidates(candidates);
   if (number_removed != candidates.size()) {
-    RTC_LOG(LS_ERROR)
-        << "RemoveRemoteIceCandidates: Failed to remove candidates. "
-        << "Requested " << candidates.size() << " but only " << number_removed
-        << " are removed.";
+    LOG(LS_ERROR) << "RemoveRemoteIceCandidates: Failed to remove candidates. "
+                  << "Requested " << candidates.size() << " but only "
+                  << number_removed << " are removed.";
   }
 
   // Remove the candidates from the transport controller.
   std::string error;
   bool res = transport_controller_->RemoveRemoteCandidates(candidates, &error);
   if (!res && !error.empty()) {
-    RTC_LOG(LS_ERROR) << "Error when removing remote candidates: " << error;
+    LOG(LS_ERROR) << "Error when removing remote candidates: " << error;
   }
   return true;
 }
@@ -2074,8 +2068,8 @@ rtc::scoped_refptr<RtpReceiverInterface> PeerConnection::RemoveAndStopReceiver(
     const std::string& track_id) {
   auto it = FindReceiverForTrack(track_id);
   if (it == receivers_.end()) {
-    RTC_LOG(LS_WARNING) << "RtpReceiver for track with id " << track_id
-                        << " doesn't exist.";
+    LOG(LS_WARNING) << "RtpReceiver for track with id " << track_id
+                    << " doesn't exist.";
     return nullptr;
   }
   (*it)->internal()->Stop();
@@ -2122,8 +2116,8 @@ void PeerConnection::RemoveAudioTrack(AudioTrackInterface* track,
   RTC_DCHECK(!IsClosed());
   auto sender = FindSenderForTrack(track);
   if (sender == senders_.end()) {
-    RTC_LOG(LS_WARNING) << "RtpSender for track with id " << track->id()
-                        << " doesn't exist.";
+    LOG(LS_WARNING) << "RtpSender for track with id " << track->id()
+                    << " doesn't exist.";
     return;
   }
   (*sender)->internal()->Stop();
@@ -2159,8 +2153,8 @@ void PeerConnection::RemoveVideoTrack(VideoTrackInterface* track,
   RTC_DCHECK(!IsClosed());
   auto sender = FindSenderForTrack(track);
   if (sender == senders_.end()) {
-    RTC_LOG(LS_WARNING) << "RtpSender for track with id " << track->id()
-                        << " doesn't exist.";
+    LOG(LS_WARNING) << "RtpSender for track with id " << track->id()
+                    << " doesn't exist.";
     return;
   }
   (*sender)->internal()->Stop();
@@ -2179,8 +2173,8 @@ void PeerConnection::SetIceConnectionState(IceConnectionState new_state) {
     return;
   }
 
-  RTC_LOG(LS_INFO) << "Changing IceConnectionState " << ice_connection_state_
-                   << " => " << new_state;
+  LOG(LS_INFO) << "Changing IceConnectionState " << ice_connection_state_
+               << " => " << new_state;
   RTC_DCHECK(ice_connection_state_ !=
              PeerConnectionInterface::kIceConnectionClosed);
 
@@ -2222,10 +2216,9 @@ void PeerConnection::ChangeSignalingState(
   if (signaling_state_ == signaling_state) {
     return;
   }
-  RTC_LOG(LS_INFO) << "Session: " << session_id() << " Old state: "
-                   << GetSignalingStateString(signaling_state_)
-                   << " New state: "
-                   << GetSignalingStateString(signaling_state);
+  LOG(LS_INFO) << "Session: " << session_id()
+               << " Old state: " << GetSignalingStateString(signaling_state_)
+               << " New state: " << GetSignalingStateString(signaling_state);
   signaling_state_ = signaling_state;
   if (signaling_state == kClosed) {
     ice_connection_state_ = kIceConnectionClosed;
@@ -2718,14 +2711,14 @@ void PeerConnection::OnLocalTrackSeen(const std::string& stream_label,
                                       cricket::MediaType media_type) {
   RtpSenderInternal* sender = FindSenderById(track_id);
   if (!sender) {
-    RTC_LOG(LS_WARNING) << "An unknown RtpSender with id " << track_id
-                        << " has been configured in the local description.";
+    LOG(LS_WARNING) << "An unknown RtpSender with id " << track_id
+                    << " has been configured in the local description.";
     return;
   }
 
   if (sender->media_type() != media_type) {
-    RTC_LOG(LS_WARNING) << "An RtpSender has been configured in the local"
-                        << " description with an unexpected media type.";
+    LOG(LS_WARNING) << "An RtpSender has been configured in the local"
+                    << " description with an unexpected media type.";
     return;
   }
 
@@ -2748,8 +2741,8 @@ void PeerConnection::OnLocalTrackRemoved(const std::string& stream_label,
   // associated with the PeerConnection. This only occurs if the SDP doesn't
   // match with the calls to CreateSender, AddStream and RemoveStream.
   if (sender->media_type() != media_type) {
-    RTC_LOG(LS_WARNING) << "An RtpSender has been configured in the local"
-                        << " description with an unexpected media type.";
+    LOG(LS_WARNING) << "An RtpSender has been configured in the local"
+                    << " description with an unexpected media type.";
     return;
   }
 
@@ -2770,7 +2763,7 @@ void PeerConnection::UpdateLocalRtpDataChannels(
     const std::string& channel_label = params.sync_label;
     auto data_channel_it = rtp_data_channels_.find(channel_label);
     if (data_channel_it == rtp_data_channels_.end()) {
-      RTC_LOG(LS_ERROR) << "channel label not found";
+      LOG(LS_ERROR) << "channel label not found";
       continue;
     }
     // Set the SSRC the data channel should use for sending.
@@ -2837,8 +2830,8 @@ void PeerConnection::CreateRemoteRtpDataChannel(const std::string& label,
   rtc::scoped_refptr<DataChannel> channel(
       InternalCreateDataChannel(label, nullptr));
   if (!channel.get()) {
-    RTC_LOG(LS_WARNING) << "Remote peer requested a DataChannel but"
-                        << "CreateDataChannel failed.";
+    LOG(LS_WARNING) << "Remote peer requested a DataChannel but"
+                    << "CreateDataChannel failed.";
     return;
   }
   channel->SetReceiveSsrc(remote_ssrc);
@@ -2854,7 +2847,7 @@ rtc::scoped_refptr<DataChannel> PeerConnection::InternalCreateDataChannel(
     return nullptr;
   }
   if (data_channel_type() == cricket::DCT_NONE) {
-    RTC_LOG(LS_ERROR)
+    LOG(LS_ERROR)
         << "InternalCreateDataChannel: Data is not supported in this call.";
     return nullptr;
   }
@@ -2865,13 +2858,12 @@ rtc::scoped_refptr<DataChannel> PeerConnection::InternalCreateDataChannel(
       rtc::SSLRole role;
       if ((GetSctpSslRole(&role)) &&
           !sid_allocator_.AllocateSid(role, &new_config.id)) {
-        RTC_LOG(LS_ERROR)
-            << "No id can be allocated for the SCTP data channel.";
+        LOG(LS_ERROR) << "No id can be allocated for the SCTP data channel.";
         return nullptr;
       }
     } else if (!sid_allocator_.ReserveSid(new_config.id)) {
-      RTC_LOG(LS_ERROR) << "Failed to create a SCTP data channel "
-                        << "because the id is already in use or out of range.";
+      LOG(LS_ERROR) << "Failed to create a SCTP data channel "
+                    << "because the id is already in use or out of range.";
       return nullptr;
     }
   }
@@ -2885,8 +2877,8 @@ rtc::scoped_refptr<DataChannel> PeerConnection::InternalCreateDataChannel(
 
   if (channel->data_channel_type() == cricket::DCT_RTP) {
     if (rtp_data_channels_.find(channel->label()) != rtp_data_channels_.end()) {
-      RTC_LOG(LS_ERROR) << "DataChannel with label " << channel->label()
-                        << " already exists.";
+      LOG(LS_ERROR) << "DataChannel with label " << channel->label()
+                    << " already exists.";
       return nullptr;
     }
     rtp_data_channels_[channel->label()] = channel;
@@ -2910,7 +2902,7 @@ void PeerConnection::AllocateSctpSids(rtc::SSLRole role) {
     if (channel->id() < 0) {
       int sid;
       if (!sid_allocator_.AllocateSid(role, &sid)) {
-        RTC_LOG(LS_ERROR) << "Failed to allocate SCTP sid.";
+        LOG(LS_ERROR) << "Failed to allocate SCTP sid.";
         continue;
       }
       channel->SetSctpSid(sid);
@@ -2959,7 +2951,7 @@ void PeerConnection::OnDataChannelOpenMessage(
   rtc::scoped_refptr<DataChannel> channel(
       InternalCreateDataChannel(label, &config));
   if (!channel.get()) {
-    RTC_LOG(LS_ERROR) << "Failed to create DataChannel from the OPEN message.";
+    LOG(LS_ERROR) << "Failed to create DataChannel from the OPEN message.";
     return;
   }
 
@@ -3075,18 +3067,18 @@ bool PeerConnection::InitializePortAllocator_n(
 
   if (configuration.disable_ipv6_on_wifi) {
     portallocator_flags &= ~(cricket::PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
-    RTC_LOG(LS_INFO) << "IPv6 candidates on Wi-Fi are disabled.";
+    LOG(LS_INFO) << "IPv6 candidates on Wi-Fi are disabled.";
   }
 
   if (configuration.tcp_candidate_policy == kTcpCandidatePolicyDisabled) {
     portallocator_flags |= cricket::PORTALLOCATOR_DISABLE_TCP;
-    RTC_LOG(LS_INFO) << "TCP candidates are disabled.";
+    LOG(LS_INFO) << "TCP candidates are disabled.";
   }
 
   if (configuration.candidate_network_policy ==
       kCandidateNetworkPolicyLowCost) {
     portallocator_flags |= cricket::PORTALLOCATOR_DISABLE_COSTLY_NETWORKS;
-    RTC_LOG(LS_INFO) << "Do not gather candidates on high-cost networks";
+    LOG(LS_INFO) << "Do not gather candidates on high-cost networks";
   }
 
   port_allocator_->set_flags(portallocator_flags);
@@ -3160,14 +3152,13 @@ cricket::BaseChannel* PeerConnection::GetChannel(
 
 bool PeerConnection::GetSctpSslRole(rtc::SSLRole* role) {
   if (!local_description() || !remote_description()) {
-    RTC_LOG(LS_INFO)
-        << "Local and Remote descriptions must be applied to get the "
-        << "SSL Role of the SCTP transport.";
+    LOG(LS_INFO) << "Local and Remote descriptions must be applied to get the "
+                 << "SSL Role of the SCTP transport.";
     return false;
   }
   if (!sctp_transport_) {
-    RTC_LOG(LS_INFO) << "Non-rejected SCTP m= section is needed to get the "
-                     << "SSL Role of the SCTP transport.";
+    LOG(LS_INFO) << "Non-rejected SCTP m= section is needed to get the "
+                 << "SSL Role of the SCTP transport.";
     return false;
   }
 
@@ -3177,9 +3168,8 @@ bool PeerConnection::GetSctpSslRole(rtc::SSLRole* role) {
 bool PeerConnection::GetSslRole(const std::string& content_name,
                                 rtc::SSLRole* role) {
   if (!local_description() || !remote_description()) {
-    RTC_LOG(LS_INFO)
-        << "Local and Remote descriptions must be applied to get the "
-        << "SSL Role of the session.";
+    LOG(LS_INFO) << "Local and Remote descriptions must be applied to get the "
+                 << "SSL Role of the session.";
     return false;
   }
 
@@ -3416,7 +3406,7 @@ bool PeerConnection::UpdateSessionState(Action action,
       const cricket::ContentGroup* answer_bundle =
           (source == cricket::CS_LOCAL ? local_bundle : remote_bundle);
       if (!EnableBundle(*answer_bundle)) {
-        RTC_LOG(LS_WARNING) << "Failed to enable BUNDLE.";
+        LOG(LS_WARNING) << "Failed to enable BUNDLE.";
         return BadAnswerSdp(source, kEnableBundleFailed, err_desc);
       }
     }
@@ -3571,7 +3561,7 @@ bool PeerConnection::GetTransportDescription(
 bool PeerConnection::EnableBundle(const cricket::ContentGroup& bundle) {
   const std::string* first_content_name = bundle.FirstContentName();
   if (!first_content_name) {
-    RTC_LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
+    LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
     return false;
   }
   const std::string& transport_name = *first_content_name;
@@ -3584,8 +3574,8 @@ bool PeerConnection::EnableBundle(const cricket::ContentGroup& bundle) {
 
     std::string old_transport_name = ch->transport_name();
     if (old_transport_name == transport_name) {
-      RTC_LOG(LS_INFO) << "BUNDLE already enabled for " << ch->content_name()
-                       << " on " << transport_name << ".";
+      LOG(LS_INFO) << "BUNDLE already enabled for " << ch->content_name()
+                   << " on " << transport_name << ".";
       return true;
     }
 
@@ -3600,8 +3590,8 @@ bool PeerConnection::EnableBundle(const cricket::ContentGroup& bundle) {
     }
 
     ch->SetTransports(rtp_dtls_transport, rtcp_dtls_transport);
-    RTC_LOG(LS_INFO) << "Enabled BUNDLE for " << ch->content_name() << " on "
-                     << transport_name << ".";
+    LOG(LS_INFO) << "Enabled BUNDLE for " << ch->content_name() << " on "
+                 << transport_name << ".";
     transport_controller_->DestroyDtlsTransport(
         old_transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
     // If the channel needs rtcp, it means that the channel used to have a
@@ -3687,8 +3677,8 @@ bool PeerConnection::SendData(const cricket::SendDataParams& params,
                               const rtc::CopyOnWriteBuffer& payload,
                               cricket::SendDataResult* result) {
   if (!rtp_data_channel_ && !sctp_transport_) {
-    RTC_LOG(LS_ERROR) << "SendData called when rtp_data_channel_ "
-                      << "and sctp_transport_ are NULL.";
+    LOG(LS_ERROR) << "SendData called when rtp_data_channel_ "
+                  << "and sctp_transport_ are NULL.";
     return false;
   }
   return rtp_data_channel_
@@ -3724,9 +3714,8 @@ bool PeerConnection::ConnectDataChannel(DataChannel* webrtc_data_channel) {
 
 void PeerConnection::DisconnectDataChannel(DataChannel* webrtc_data_channel) {
   if (!rtp_data_channel_ && !sctp_transport_) {
-    RTC_LOG(LS_ERROR)
-        << "DisconnectDataChannel called when rtp_data_channel_ and "
-           "sctp_transport_ are NULL.";
+    LOG(LS_ERROR) << "DisconnectDataChannel called when rtp_data_channel_ and "
+                     "sctp_transport_ are NULL.";
     return;
   }
   if (rtp_data_channel_) {
@@ -3741,8 +3730,7 @@ void PeerConnection::DisconnectDataChannel(DataChannel* webrtc_data_channel) {
 
 void PeerConnection::AddSctpDataStream(int sid) {
   if (!sctp_transport_) {
-    RTC_LOG(LS_ERROR)
-        << "AddSctpDataStream called when sctp_transport_ is NULL.";
+    LOG(LS_ERROR) << "AddSctpDataStream called when sctp_transport_ is NULL.";
     return;
   }
   network_thread()->Invoke<void>(
@@ -3752,8 +3740,8 @@ void PeerConnection::AddSctpDataStream(int sid) {
 
 void PeerConnection::RemoveSctpDataStream(int sid) {
   if (!sctp_transport_) {
-    RTC_LOG(LS_ERROR) << "RemoveSctpDataStream called when sctp_transport_ is "
-                      << "NULL.";
+    LOG(LS_ERROR) << "RemoveSctpDataStream called when sctp_transport_ is "
+                  << "NULL.";
     return;
   }
   network_thread()->Invoke<void>(
@@ -3858,13 +3846,13 @@ void PeerConnection::OnTransportControllerConnectionState(
       SetIceConnectionState(PeerConnectionInterface::kIceConnectionFailed);
       break;
     case cricket::kIceConnectionConnected:
-      RTC_LOG(LS_INFO) << "Changing to ICE connected state because "
-                       << "all transports are writable.";
+      LOG(LS_INFO) << "Changing to ICE connected state because "
+                   << "all transports are writable.";
       SetIceConnectionState(PeerConnectionInterface::kIceConnectionConnected);
       break;
     case cricket::kIceConnectionCompleted:
-      RTC_LOG(LS_INFO) << "Changing to ICE completed state because "
-                       << "all transports are complete.";
+      LOG(LS_INFO) << "Changing to ICE completed state because "
+                   << "all transports are complete.";
       if (ice_connection_state_ !=
           PeerConnectionInterface::kIceConnectionConnected) {
         // If jumping directly from "checking" to "connected",
@@ -3887,9 +3875,8 @@ void PeerConnection::OnTransportControllerCandidatesGathered(
   RTC_DCHECK(signaling_thread()->IsCurrent());
   int sdp_mline_index;
   if (!GetLocalCandidateMediaIndex(transport_name, &sdp_mline_index)) {
-    RTC_LOG(LS_ERROR)
-        << "OnTransportControllerCandidatesGathered: content name "
-        << transport_name << " not found";
+    LOG(LS_ERROR) << "OnTransportControllerCandidatesGathered: content name "
+                  << transport_name << " not found";
     return;
   }
 
@@ -3911,9 +3898,9 @@ void PeerConnection::OnTransportControllerCandidatesRemoved(
   // Sanity check.
   for (const cricket::Candidate& candidate : candidates) {
     if (candidate.transport_name().empty()) {
-      RTC_LOG(LS_ERROR) << "OnTransportControllerCandidatesRemoved: "
-                        << "empty content name in candidate "
-                        << candidate.ToString();
+      LOG(LS_ERROR) << "OnTransportControllerCandidatesRemoved: "
+                    << "empty content name in candidate "
+                    << candidate.ToString();
       return;
     }
   }
@@ -3985,9 +3972,8 @@ bool PeerConnection::UseCandidatesInSessionDescription(
       bool valid = false;
       if (!ReadyToUseRemoteCandidate(candidate, remote_desc, &valid)) {
         if (valid) {
-          RTC_LOG(LS_INFO)
-              << "UseCandidatesInSessionDescription: Not ready to use "
-              << "candidate.";
+          LOG(LS_INFO) << "UseCandidatesInSessionDescription: Not ready to use "
+                       << "candidate.";
         }
         continue;
       }
@@ -4005,7 +3991,7 @@ bool PeerConnection::UseCandidate(const IceCandidateInterface* candidate) {
   size_t remote_content_size =
       remote_description()->description()->contents().size();
   if (mediacontent_index >= remote_content_size) {
-    RTC_LOG(LS_ERROR) << "UseCandidate: Invalid candidate media index.";
+    LOG(LS_ERROR) << "UseCandidate: Invalid candidate media index.";
     return false;
   }
 
@@ -4034,7 +4020,7 @@ bool PeerConnection::UseCandidate(const IceCandidateInterface* candidate) {
     // TODO(bemasc): If state is Completed, go back to Connected.
   } else {
     if (!error.empty()) {
-      RTC_LOG(LS_WARNING) << error;
+      LOG(LS_WARNING) << error;
     }
   }
   return true;
@@ -4078,15 +4064,14 @@ const std::string* PeerConnection::GetBundleTransportName(
   }
   const std::string* first_content_name = bundle->FirstContentName();
   if (!first_content_name) {
-    RTC_LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
+    LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
     return nullptr;
   }
   if (!bundle->HasContentName(content->name)) {
-    RTC_LOG(LS_WARNING) << content->name << " is not part of any bundle group";
+    LOG(LS_WARNING) << content->name << " is not part of any bundle group";
     return nullptr;
   }
-  RTC_LOG(LS_INFO) << "Bundling " << content->name << " on "
-                   << *first_content_name;
+  LOG(LS_INFO) << "Bundling " << content->name << " on " << *first_content_name;
   return first_content_name;
 }
 
@@ -4097,7 +4082,7 @@ bool PeerConnection::CreateChannels(const SessionDescription* desc) {
       PeerConnectionInterface::kBundlePolicyMaxBundle) {
     bundle_group = desc->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
     if (!bundle_group) {
-      RTC_LOG(LS_WARNING) << "max-bundle specified without BUNDLE specified";
+      LOG(LS_WARNING) << "max-bundle specified without BUNDLE specified";
       return false;
     }
   }
@@ -4106,7 +4091,7 @@ bool PeerConnection::CreateChannels(const SessionDescription* desc) {
   if (voice && !voice->rejected && !voice_channel()) {
     if (!CreateVoiceChannel(voice,
                             GetBundleTransportName(voice, bundle_group))) {
-      RTC_LOG(LS_ERROR) << "Failed to create voice channel.";
+      LOG(LS_ERROR) << "Failed to create voice channel.";
       return false;
     }
   }
@@ -4115,7 +4100,7 @@ bool PeerConnection::CreateChannels(const SessionDescription* desc) {
   if (video && !video->rejected && !video_channel()) {
     if (!CreateVideoChannel(video,
                             GetBundleTransportName(video, bundle_group))) {
-      RTC_LOG(LS_ERROR) << "Failed to create video channel.";
+      LOG(LS_ERROR) << "Failed to create video channel.";
       return false;
     }
   }
@@ -4124,7 +4109,7 @@ bool PeerConnection::CreateChannels(const SessionDescription* desc) {
   if (data_channel_type_ != cricket::DCT_NONE && data && !data->rejected &&
       !rtp_data_channel_ && !sctp_transport_) {
     if (!CreateDataChannel(data, GetBundleTransportName(data, bundle_group))) {
-      RTC_LOG(LS_ERROR) << "Failed to create data channel.";
+      LOG(LS_ERROR) << "Failed to create data channel.";
       return false;
     }
   }
@@ -4234,7 +4219,7 @@ bool PeerConnection::CreateDataChannel(const cricket::ContentInfo* content,
   bool sctp = (data_channel_type_ == cricket::DCT_SCTP);
   if (sctp) {
     if (!sctp_factory_) {
-      RTC_LOG(LS_ERROR)
+      LOG(LS_ERROR)
           << "Trying to create SCTP transport, but didn't compile with "
              "SCTP support (HAVE_SCTP)";
       return false;
@@ -4411,8 +4396,8 @@ void PeerConnection::OnSctpTransportDataReceived_s(
     InternalDataChannelInit config;
     config.id = params.ssrc;
     if (!ParseDataChannelOpenMessage(payload, &label, &config)) {
-      RTC_LOG(LS_WARNING) << "Failed to parse the OPEN message for sid "
-                          << params.ssrc;
+      LOG(LS_WARNING) << "Failed to parse the OPEN message for sid "
+                      << params.ssrc;
       return;
     }
     config.open_handshake_role = InternalDataChannelInit::kAcker;
@@ -4584,9 +4569,8 @@ bool PeerConnection::ReadyToUseRemoteCandidate(
   size_t remote_content_size =
       current_remote_desc->description()->contents().size();
   if (mediacontent_index >= remote_content_size) {
-    RTC_LOG(LS_ERROR)
-        << "ReadyToUseRemoteCandidate: Invalid candidate media index "
-        << mediacontent_index;
+    LOG(LS_ERROR) << "ReadyToUseRemoteCandidate: Invalid candidate media index "
+                  << mediacontent_index;
 
     *valid = false;
     return false;

@@ -51,7 +51,7 @@ class ScreenCapturerTest : public testing::Test {
 
   bool CreateDirectxCapturer() {
     if (!ScreenCapturerWinDirectx::IsSupported()) {
-      RTC_LOG(LS_WARNING) << "Directx capturer is not supported";
+      LOG(LS_WARNING) << "Directx capturer is not supported";
       return false;
     }
 

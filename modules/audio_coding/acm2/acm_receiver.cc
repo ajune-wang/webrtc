@@ -46,14 +46,14 @@ AcmReceiver::~AcmReceiver() = default;
 int AcmReceiver::SetMinimumDelay(int delay_ms) {
   if (neteq_->SetMinimumDelay(delay_ms))
     return 0;
-  RTC_LOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
+  LOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
   return -1;
 }
 
 int AcmReceiver::SetMaximumDelay(int delay_ms) {
   if (neteq_->SetMaximumDelay(delay_ms))
     return 0;
-  RTC_LOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
+  LOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
   return -1;
 }
 
@@ -86,9 +86,9 @@ int AcmReceiver::InsertPacket(const WebRtcRTPHeader& rtp_header,
     const rtc::Optional<CodecInst> ci =
         RtpHeaderToDecoder(*header, incoming_payload[0]);
     if (!ci) {
-      RTC_LOG_F(LS_ERROR) << "Payload-type "
-                          << static_cast<int>(header->payloadType)
-                          << " is not registered.";
+      LOG_F(LS_ERROR) << "Payload-type "
+                      << static_cast<int>(header->payloadType)
+                      << " is not registered.";
       return -1;
     }
     receive_timestamp = NowInTimestamp(ci->plfreq);
@@ -109,9 +109,9 @@ int AcmReceiver::InsertPacket(const WebRtcRTPHeader& rtp_header,
 
   if (neteq_->InsertPacket(rtp_header.header, incoming_payload,
                            receive_timestamp) < 0) {
-    RTC_LOG(LERROR) << "AcmReceiver::InsertPacket "
-                    << static_cast<int>(header->payloadType)
-                    << " Failed to insert packet";
+    LOG(LERROR) << "AcmReceiver::InsertPacket "
+                << static_cast<int>(header->payloadType)
+                << " Failed to insert packet";
     return -1;
   }
   return 0;
@@ -125,7 +125,7 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
   rtc::CritScope lock(&crit_sect_);
 
   if (neteq_->GetAudio(audio_frame, muted) != NetEq::kOK) {
-    RTC_LOG(LERROR) << "AcmReceiver::GetAudio - NetEq Failed.";
+    LOG(LERROR) << "AcmReceiver::GetAudio - NetEq Failed.";
     return -1;
   }
 
@@ -143,8 +143,8 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
         audio_frame->num_channels_, AudioFrame::kMaxDataSizeSamples,
         temp_output);
     if (samples_per_channel_int < 0) {
-      RTC_LOG(LERROR) << "AcmReceiver::GetAudio - "
-                         "Resampling last_audio_buffer_ failed.";
+      LOG(LERROR) << "AcmReceiver::GetAudio - "
+                     "Resampling last_audio_buffer_ failed.";
       return -1;
     }
   }
@@ -158,8 +158,7 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
         audio_frame->num_channels_, AudioFrame::kMaxDataSizeSamples,
         audio_frame->mutable_data());
     if (samples_per_channel_int < 0) {
-      RTC_LOG(LERROR)
-          << "AcmReceiver::GetAudio - Resampling audio_buffer_ failed.";
+      LOG(LERROR) << "AcmReceiver::GetAudio - Resampling audio_buffer_ failed.";
       return -1;
     }
     audio_frame->samples_per_channel_ =
@@ -219,8 +218,7 @@ int32_t AcmReceiver::AddCodec(int acm_codec_id,
   }
 
   if (neteq_->RemovePayloadType(payload_type) != NetEq::kOK) {
-    RTC_LOG(LERROR) << "Cannot remove payload "
-                    << static_cast<int>(payload_type);
+    LOG(LERROR) << "Cannot remove payload " << static_cast<int>(payload_type);
     return -1;
   }
 
@@ -232,9 +230,9 @@ int32_t AcmReceiver::AddCodec(int acm_codec_id,
         audio_decoder, neteq_decoder, name, payload_type);
   }
   if (ret_val != NetEq::kOK) {
-    RTC_LOG(LERROR) << "AcmReceiver::AddCodec " << acm_codec_id
-                    << static_cast<int>(payload_type)
-                    << " channels: " << channels;
+    LOG(LERROR) << "AcmReceiver::AddCodec " << acm_codec_id
+                << static_cast<int>(payload_type)
+                << " channels: " << channels;
     return -1;
   }
   return 0;
@@ -249,18 +247,17 @@ bool AcmReceiver::AddCodec(int rtp_payload_type,
   }
 
   if (neteq_->RemovePayloadType(rtp_payload_type) != NetEq::kOK) {
-    RTC_LOG(LERROR)
-        << "AcmReceiver::AddCodec: Could not remove existing decoder"
-           " for payload type "
-        << rtp_payload_type;
+    LOG(LERROR) << "AcmReceiver::AddCodec: Could not remove existing decoder"
+                   " for payload type "
+                << rtp_payload_type;
     return false;
   }
 
   const bool success =
       neteq_->RegisterPayloadType(rtp_payload_type, audio_format);
   if (!success) {
-    RTC_LOG(LERROR) << "AcmReceiver::AddCodec failed for payload type "
-                    << rtp_payload_type << ", decoder format " << audio_format;
+    LOG(LERROR) << "AcmReceiver::AddCodec failed for payload type "
+                << rtp_payload_type << ", decoder format " << audio_format;
   }
   return success;
 }
@@ -280,8 +277,8 @@ void AcmReceiver::RemoveAllCodecs() {
 int AcmReceiver::RemoveCodec(uint8_t payload_type) {
   rtc::CritScope lock(&crit_sect_);
   if (neteq_->RemovePayloadType(payload_type) != NetEq::kOK) {
-    RTC_LOG(LERROR) << "AcmReceiver::RemoveCodec "
-                    << static_cast<int>(payload_type);
+    LOG(LERROR) << "AcmReceiver::RemoveCodec "
+                << static_cast<int>(payload_type);
     return -1;
   }
   if (last_audio_decoder_ && payload_type == last_audio_decoder_->pltype) {
@@ -351,8 +348,8 @@ int AcmReceiver::DecoderByPayloadType(uint8_t payload_type,
     *codec = *ci;
     return 0;
   } else {
-    RTC_LOG(LERROR) << "AcmReceiver::DecoderByPayloadType "
-                    << static_cast<int>(payload_type);
+    LOG(LERROR) << "AcmReceiver::DecoderByPayloadType "
+                << static_cast<int>(payload_type);
     return -1;
   }
 }

@@ -81,13 +81,13 @@ class SSLAdapterTestDummyClient : public sigslot::has_slots<> {
   }
 
   int Connect(const std::string& hostname, const rtc::SocketAddress& address) {
-    RTC_LOG(LS_INFO) << "Initiating connection with " << address;
+    LOG(LS_INFO) << "Initiating connection with " << address;
 
     int rv = ssl_adapter_->Connect(address);
 
     if (rv == 0) {
-      RTC_LOG(LS_INFO) << "Starting " << GetSSLProtocolName(ssl_mode_)
-                       << " handshake with " << hostname;
+      LOG(LS_INFO) << "Starting " << GetSSLProtocolName(ssl_mode_)
+          << " handshake with " << hostname;
 
       if (ssl_adapter_->StartSSL(hostname.c_str(), false) != 0) {
         return -1;
@@ -102,7 +102,7 @@ class SSLAdapterTestDummyClient : public sigslot::has_slots<> {
   }
 
   int Send(const std::string& message) {
-    RTC_LOG(LS_INFO) << "Client sending '" << message << "'";
+    LOG(LS_INFO) << "Client sending '" << message << "'";
 
     return ssl_adapter_->Send(message.data(), message.length());
   }
@@ -115,7 +115,7 @@ class SSLAdapterTestDummyClient : public sigslot::has_slots<> {
     if (read != -1) {
       buffer[read] = '\0';
 
-      RTC_LOG(LS_INFO) << "Client received '" << buffer << "'";
+      LOG(LS_INFO) << "Client received '" << buffer << "'";
 
       data_ += buffer;
     }
@@ -155,9 +155,8 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
       server_socket_->Listen(1);
     }
 
-    RTC_LOG(LS_INFO) << ((ssl_mode_ == rtc::SSL_MODE_DTLS) ? "UDP" : "TCP")
-                     << " server listening on "
-                     << server_socket_->GetLocalAddress();
+    LOG(LS_INFO) << ((ssl_mode_ == rtc::SSL_MODE_DTLS) ? "UDP" : "TCP")
+        << " server listening on " << server_socket_->GetLocalAddress();
   }
 
   rtc::SocketAddress GetAddress() const {
@@ -181,7 +180,7 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
       return -1;
     }
 
-    RTC_LOG(LS_INFO) << "Server sending '" << message << "'";
+    LOG(LS_INFO) << "Server sending '" << message << "'";
 
     size_t written;
     int error;
@@ -229,7 +228,7 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
           stream->Read(buffer, sizeof(buffer) - 1, &read, &error);
       if (r == rtc::SR_SUCCESS) {
         buffer[read] = '\0';
-        RTC_LOG(LS_INFO) << "Server received '" << buffer << "'";
+        LOG(LS_INFO) << "Server received '" << buffer << "'";
         data_ += buffer;
       }
     }
@@ -322,15 +321,14 @@ class SSLAdapterTestBase : public testing::Test,
       EXPECT_EQ_WAIT(rtc::AsyncSocket::CS_CONNECTED, client_->GetState(),
           handshake_wait_);
 
-      RTC_LOG(LS_INFO) << GetSSLProtocolName(ssl_mode_)
-                       << " handshake complete.";
+      LOG(LS_INFO) << GetSSLProtocolName(ssl_mode_) << " handshake complete.";
 
     } else {
       // On handshake failure the client should end up in the CS_CLOSED state.
       EXPECT_EQ_WAIT(rtc::AsyncSocket::CS_CLOSED, client_->GetState(),
           handshake_wait_);
 
-      RTC_LOG(LS_INFO) << GetSSLProtocolName(ssl_mode_) << " handshake failed.";
+      LOG(LS_INFO) << GetSSLProtocolName(ssl_mode_) << " handshake failed.";
     }
   }
 
@@ -349,7 +347,7 @@ class SSLAdapterTestBase : public testing::Test,
     // The client should have received the server's message.
     EXPECT_EQ_WAIT(message, client_->GetReceivedData(), kTimeout);
 
-    RTC_LOG(LS_INFO) << "Transfer complete.";
+    LOG(LS_INFO) << "Transfer complete.";
   }
 
  protected:

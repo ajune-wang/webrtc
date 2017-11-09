@@ -38,46 +38,46 @@ void SetRecordingDevice(AudioDeviceModule* adm) {
   // Save recording status and stop recording.
   const bool was_recording = adm->Recording();
   if (was_recording && adm->StopRecording() != 0) {
-    RTC_LOG(LS_ERROR) << "Unable to stop recording.";
+    LOG(LS_ERROR) << "Unable to stop recording.";
     return;
   }
 
   // Set device and stereo mode.
   if (adm->SetRecordingChannel(AudioDeviceModule::kChannelBoth) != 0) {
-    RTC_LOG(LS_ERROR) << "Unable to set recording channel to kChannelBoth.";
+    LOG(LS_ERROR) << "Unable to set recording channel to kChannelBoth.";
   }
   if (adm->SetRecordingDevice(AUDIO_DEVICE_ID) != 0) {
-    RTC_LOG(LS_ERROR) << "Unable to set recording device.";
+    LOG(LS_ERROR) << "Unable to set recording device.";
     return;
   }
 
   // Init microphone, so user can do volume settings etc.
   if (adm->InitMicrophone() != 0) {
-    RTC_LOG(LS_ERROR) << "Unable to access microphone.";
+    LOG(LS_ERROR) << "Unable to access microphone.";
   }
 
   // Set number of channels
   bool available = false;
   if (adm->StereoRecordingIsAvailable(&available) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to query stereo recording.";
+    LOG(LS_ERROR) << "Failed to query stereo recording.";
   }
   if (adm->SetStereoRecording(available) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to set stereo recording mode.";
+    LOG(LS_ERROR) << "Failed to set stereo recording mode.";
   }
 
   // Restore recording if it was enabled already when calling this function.
   if (was_recording) {
     if (adm->InitRecording() != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to initialize recording.";
+      LOG(LS_ERROR) << "Failed to initialize recording.";
       return;
     }
     if (adm->StartRecording() != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to start recording.";
+      LOG(LS_ERROR) << "Failed to start recording.";
       return;
     }
   }
 
-  RTC_LOG(LS_INFO) << "Set recording device.";
+  LOG(LS_INFO) << "Set recording device.";
 }
 
 void SetPlayoutDevice(AudioDeviceModule* adm) {
@@ -86,42 +86,42 @@ void SetPlayoutDevice(AudioDeviceModule* adm) {
   // Save playing status and stop playout.
   const bool was_playing = adm->Playing();
   if (was_playing && adm->StopPlayout() != 0) {
-    RTC_LOG(LS_ERROR) << "Unable to stop playout.";
+    LOG(LS_ERROR) << "Unable to stop playout.";
   }
 
   // Set device.
   if (adm->SetPlayoutDevice(AUDIO_DEVICE_ID) != 0) {
-    RTC_LOG(LS_ERROR) << "Unable to set playout device.";
+    LOG(LS_ERROR) << "Unable to set playout device.";
     return;
   }
 
   // Init speaker, so user can do volume settings etc.
   if (adm->InitSpeaker() != 0) {
-    RTC_LOG(LS_ERROR) << "Unable to access speaker.";
+    LOG(LS_ERROR) << "Unable to access speaker.";
   }
 
   // Set number of channels
   bool available = false;
   if (adm->StereoPlayoutIsAvailable(&available) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to query stereo playout.";
+    LOG(LS_ERROR) << "Failed to query stereo playout.";
   }
   if (adm->SetStereoPlayout(available) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to set stereo playout mode.";
+    LOG(LS_ERROR) << "Failed to set stereo playout mode.";
   }
 
   // Restore recording if it was enabled already when calling this function.
   if (was_playing) {
     if (adm->InitPlayout() != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to initialize playout.";
+      LOG(LS_ERROR) << "Failed to initialize playout.";
       return;
     }
     if (adm->StartPlayout() != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to start playout.";
+      LOG(LS_ERROR) << "Failed to start playout.";
       return;
     }
   }
 
-  RTC_LOG(LS_INFO) << "Set playout device.";
+  LOG(LS_INFO) << "Set playout device.";
 }
 
 }  // namespace adm_helpers

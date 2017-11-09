@@ -99,7 +99,7 @@ bool RtpTransport::SendPacket(bool rtcp,
                                   flags);
   if (ret != static_cast<int>(packet->size())) {
     if (transport->GetError() == ENOTCONN) {
-      RTC_LOG(LS_WARNING) << "Got ENOTCONN from transport.";
+      LOG(LS_WARNING) << "Got ENOTCONN from transport.";
       SetReadyToSend(rtcp, false);
     }
     return false;
@@ -215,9 +215,8 @@ bool RtpTransport::WantsPacket(bool rtcp,
                                const rtc::CopyOnWriteBuffer* packet) {
   // Protect ourselves against crazy data.
   if (!packet || !cricket::IsValidRtpRtcpPacketSize(rtcp, packet->size())) {
-    RTC_LOG(LS_ERROR) << "Dropping incoming "
-                      << cricket::RtpRtcpStringLiteral(rtcp)
-                      << " packet: wrong size=" << packet->size();
+    LOG(LS_ERROR) << "Dropping incoming " << cricket::RtpRtcpStringLiteral(rtcp)
+                  << " packet: wrong size=" << packet->size();
     return false;
   }
   if (rtcp) {

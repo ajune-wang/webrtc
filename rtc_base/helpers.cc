@@ -110,7 +110,7 @@ bool InitRandom(int seed) {
 
 bool InitRandom(const char* seed, size_t len) {
   if (!Rng().Init(seed, len)) {
-    RTC_LOG(LS_ERROR) << "Failed to init random generator!";
+    LOG(LS_ERROR) << "Failed to init random generator!";
     return false;
   }
   return true;
@@ -128,12 +128,12 @@ static bool CreateRandomString(size_t len,
   str->clear();
   // Avoid biased modulo division below.
   if (256 % table_size) {
-    RTC_LOG(LS_ERROR) << "Table size must divide 256 evenly!";
+    LOG(LS_ERROR) << "Table size must divide 256 evenly!";
     return false;
   }
   std::unique_ptr<uint8_t[]> bytes(new uint8_t[len]);
   if (!Rng().Generate(bytes.get(), len)) {
-    RTC_LOG(LS_ERROR) << "Failed to generate random string!";
+    LOG(LS_ERROR) << "Failed to generate random string!";
     return false;
   }
   str->reserve(len);

@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "e0d6c4d9_223f2f2f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2767,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T19:02:12Z",
+      "side": 1,
+      "message": "I believe for now SSRCs are still the identifier for underlying media engine streams. There is an extension to identify streams by MID with Unified Plan, but it\u0027s not currently wired up (I implemented the demuxing logic a couple months ago). Not sure about MSIDs, I\u0027ll have to read up on our code/the spec to figure out what will change there.",
+      "parentUuid": "e8eb782d_ddc0ad50",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f299e4c1_295c2b0e",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -64,6 +82,24 @@
       "writtenOn": "2017-11-09T18:51:01Z",
       "side": 1,
       "message": "When multiple transceivers per media type is supported with Unified Plan, will they all share the same channel or is code relying on GetAudio/VideoTransceiver()-\u003einternal()-\u003echannel() implicitly assuming that we only have one transceiver per media type?\n\nIf assuming single transceiver: add a TODO and if there\u0027s an appropriate DCHECK.\n\nIf channel is shared amongst transceivers, should it be owned/referenced by the PC so you don\u0027t have to look at transceivers? (In the future, 0 transceivers will be possible)\n\nIf channel is not shared amongst transceiver: This will probably affect a lot of code relying on single channels.",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8360b043_18660de5",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2982,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T19:02:12Z",
+      "side": 1,
+      "message": "The plan is to have a channel per transceiver (though it won\u0027t live as long as the transceiver since it only lives as long as the SDP/PeerConnection -- the current behavior). These two methods (GetAudioTransceiver/GetVideoTransceiver) assume a Plan B layout. When Unified Plan is added as an option I\u0027ll add a DCHECK here to ensure this method is only used with Unified Plan.\n\nMy reasoning for having these methods that only work with one semantics or the other is that I believe the code that uses GetAudioTransceiver and GetVideoTransceiver will need to be changed substantially to add Unified Plan anyway, and codifying the Plan B assumption (one audio/one video) makes it easier to read the code and see the difference. The actual flag check (or whatever method is determined) for choosing Plan B vs Unified Plan will happen at a higher level. If there are places that don\u0027t care which semantics are used, I\u0027ll change it just access the transceivers directly.\n\nAnd yes, there is a fair amount of code relying on single channels, but it\u0027s mostly limited to this class and the stats collection. Changing that will be part of this work, but I\u0027m saving that for later since it\u0027ll likely change to access transceivers more directly.",
+      "parentUuid": "f299e4c1_295c2b0e",
       "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,294 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fea59e74_28642dfd",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "Should we want to say something about threading? I assume the transceivers are all on the webrtc signaling thread.\n\nAre there any requirements about the destructor? If not, and blink is the last thing holding a reference, it might get destroyed on the chromium main thread unless contracted to release its last reference on the webrtc signaling thread.",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99816ba4_2829e934",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "I\u0027m curious, is Unified Plan SDP something you enable with RTCConfiguration or how does that work?\n\nI find this comment confusing considering the implementation, RtpTransceiver, is designed for both Plan B and Unified Plan SDP. Can you clarify?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fe97867_b905f847",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "nit: Link to https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver here instead of/in addition to the beginning of the file.",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fdaf2b9_5e17708e",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "Can you add a comment for each member that is found in the webrtc-pc spec with a direct link?\nE.g. https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-mid\n\nAlso, prefer links over spec names like \"JSEP\", e.g. https://www.ietf.org/id/draft-ietf-rtcweb-jsep-24.txt",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255c387a_d54eeecd",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "Can you DCHECK that if Unified Plan SDP is used we don\u0027t end up with multiple senders?\nE.g. RTC_DCHECK(plan_type_ !\u003d kUnifiedPlan || senders_.empty());",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10c4d5a3_3bf6944d",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "Can you DCHECK this is not called if Unified Plan SDP is used, unless there is a good reason to be able to do that? According to spec the sender/receiver never change, transceivers are never thrown away, and we have no control which objects are still referenced from JavaScript here.",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2affeeb6_e4884c98",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "I\u0027m reminded of https://crbug.com/webrtc/7945 but pc.removeTrack(sender) should not remove the sender from the transceiver, so not sure how applicable.",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2181e6e8_0ff99d84",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "Same wrt receivers: Can you DCHECK that we can\u0027t have multiple receivers in Unified Plan?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f9d15fc_ae9c4057",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "Same wrt receivers: Can you DCHECK that we can\u0027t remove receivers under Unified Plan?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22468462_c31f95db",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "There\u0027s no set_mid().\n\nAlso, should we sanity check or reset direction/currentDirection if mid is reset?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9191393d_3a6b7f6f",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "You mean RtpTransceiverInterface?",
+      "range": {
+        "startLine": 11,
+        "startChar": 45,
+        "endLine": 11,
+        "endChar": 63
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500c9cb9_25c71665",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "nit: Can you rephrase this, it uses reference counted, ownership might be shared with other scoped_refptrs and the senders/receivers could outlive the transceiver?",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2b523bf_1aa6e467",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "How is this affected by chromium layers possibly keeping the transceiver alive through reference counting?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b52ff5c2_c072d75d",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "Can you add rtptransceiver_unittest.cc?\nAdding a sender shows up as sender(), stopping stops the sender and receiver, etc.",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21c678a_5eb4597e",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "RemoveSender/RemoveReceiver: Is it useful to be able to return false or should we DCHECK that the sender/receiver does belong to the transceiver and make this a void func? You decide.",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8c9e3fc_a79917c3",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T17:30:30Z",
+      "side": 1,
+      "message": "Can you add an enum class SdpPlanType { kPlanB, kUnifiedPlan } and have the transceiver know which mode is used?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

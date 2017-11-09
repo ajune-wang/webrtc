@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "32ba21c9_cce48d56",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Good checks to make. Thanks.",
+      "parentUuid": "8e3267b7_68e4a32d",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2b01589_c3a75120",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82697e14_5b7b5e8f",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "I agree and updated this.",
+      "parentUuid": "a2b01589_c3a75120",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "18f21f1a_f16386d0",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "To keep comments in this CL, here\u0027s my general thoughts after some consideration of both approaches.\n\nMy view: All of the track\u0027s \"bucket capacities\" (min-max) are divided by their relative bitrate, and then the \"flow\" to each bucket is even, while the actual flow to each track is multiplied by its relative_bitrate. This makes all tracks in a sense normalized with each other.\nPros/Cons\n+More intuitive (for me) to picture why the ordering works as you allocate to one max at a time\n-EnoughBitrateToAllocateToRelativeMax can be confusing with the use of the relative_max_allocation (track\u0027s capacity / relative_bitrate)\n-dividing the capacities by the relative bitrate, then then multiplying back by the relative bitrate for allocation can also be confusing\n\nYour view: Each track has its capacity (max-min), and the allocation to each track is its relative_bitrate/total_relative_bitrate.\nPros/Cons\n+The concept of using a fraction to see if we  can allocate a max (relative_priority/total_relative_priorities) is easier to understand\n-Intuitively (for me) the ordering is a bit harder to understand with this approach and why it stays the same as you allocate to a track. I know we proved this but I just think for somebody new it isn\u0027t exactly intuitive. \n\nMy conclusion\nA new engineer will look at the code from their own perspective, but since both approaches have the same functionality (same algebra) I\u0027d like to use the view that is most simple to understand. Therefore I\u0027m taking more from your view. That way there won\u0027t be a notion of \"scaling down/up\" by the relative bitrate. The drawback is for somebody new to understand why the ordering works as you allocate the max. I\u0027ll try to explain this in the comments.",
+      "parentUuid": "7b6d0abf_93e2784f",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "153f6afd_3b86e447",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 7
@@ -70,6 +124,42 @@
     },
     {
       "key": {
+        "uuid": "5217d550_f0850b4f",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "153f6afd_3b86e447",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95ee3980_117a233d",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "153f6afd_3b86e447",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8136149_bedf4700",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 7
@@ -84,6 +174,42 @@
       "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934a1b30_192e9467",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8136149_bedf4700",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b176e590_90abc358",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Took it out, along with some other comments that didn\u0027t necessarily add information.",
+      "parentUuid": "d8136149_bedf4700",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "006e324d_0358224f",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3650af27_2589d54c",
+      "range": {
+        "startLine": 538,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 80
+      },
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "991712d2_3df8815d",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 7
@@ -124,6 +274,24 @@
       "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "631b7c14_0c2690ce",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "991712d2_3df8815d",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +312,24 @@
     },
     {
       "key": {
+        "uuid": "dc1f8fdf_a6e15ee1",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Good catch, you\u0027re right here. I took this out.",
+      "parentUuid": "8867d68c_1753a073",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5064178_1efd90f1",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 7
@@ -158,6 +344,24 @@
       "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8922d0b7_753049c1",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5064178_1efd90f1",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +382,24 @@
     },
     {
       "key": {
+        "uuid": "c0e39940_6170e0a8",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "I did it to have less clutter in DistributeBitrateRelatively. \n\nI decided to move this struct back into DistributeBitrateRelatively, along with CreatePriorityRateObserverConfigs. It makes it a larger function, but it keeps the comparison definition in there, so that somebody isn\u0027t searching around to understand it.",
+      "parentUuid": "50ef1ca5_ddf37376",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0520a7a8_dfa10a99",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 7
@@ -192,6 +414,24 @@
       "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0406c748_92b49068",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "This is the capacity (max-min) / relative_bitrate. It\u0027s a \"scaled down\" amount of the total capacity. As I said in my longer comment, I\u0027m no longer using this to help with clarity.",
+      "parentUuid": "0520a7a8_dfa10a99",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -212,6 +452,24 @@
     },
     {
       "key": {
+        "uuid": "457c676c_804eb497",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "True. I took out this comment, but created a new comment to explain the sorting.",
+      "parentUuid": "bd8345b5_efd8db62",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55bece8e_37fa3222",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 7
@@ -229,6 +487,24 @@
     },
     {
       "key": {
+        "uuid": "38f1ca1c_4d3533a0",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "It is cool. I don\u0027t think it has a performance hit (https://stackoverflow.com/questions/3882467/defining-operator-for-a-struct). From this explanation there\u0027s no extra copying done, it\u0027s just a wrapper with references. \n\nAnyways, I\u0027m no longer using it. It isn\u0027t necessary to sort on the relative bitrate as well.",
+      "parentUuid": "55bece8e_37fa3222",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d5f8106_a12cd270",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 7
@@ -243,6 +519,24 @@
       "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9845c9f_c2ba98bc",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d5f8106_a12cd270",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -266,6 +560,30 @@
       "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "655a5bb1_9237ec3e",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "I did this and added a comment that I hope makes things more clear here. I also changed the min bitrate \u003d 0, because that can just add confusion.",
+      "parentUuid": "6439a073_de0552de",
+      "range": {
+        "startLine": 700,
+        "startChar": 0,
+        "endLine": 714,
+        "endChar": 42
+      },
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

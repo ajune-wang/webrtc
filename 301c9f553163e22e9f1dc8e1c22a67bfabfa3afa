@@ -365,6 +365,24 @@
     },
     {
       "key": {
+        "uuid": "25a73cd2_003003aa",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "Yes, it\u0027s something that has already been done. It confused me at first too.",
+      "parentUuid": "2775a13b_3c23172f",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "442a87da_8f629d69",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 6
@@ -412,6 +430,24 @@
       "side": 1,
       "message": "1. Now that we\u0027re not subclassing BitrateAllocatorTest anymore, I\u0027m afraid PriorityBitrateAllocatorTest is a bit of a misleading name.\n2. If we want to provide different values to the first call to OnNetworkChanged, I indeed can\u0027t think of a *nice* way of doing it differently, so maybe we should indeed ignore #1 and keep it as-is.\n3. FYI, there was an alternative - which I don\u0027t like - and that\u0027s the SetUp() function (note: the capital U is intentional). This function is guaranteed to run after the constructor, thereby enjoying the ability to call virtual functions safely. Using that, you could arrange a hierarchy of BitrateAllocatorTest subclasses, differentiated by the value returned by a virtual GetInitialMinBitrate(), but nothing else. Then, you move allocator_.OnNetworkChanged() from the constructor to SetUp(), etc. I\u0027m not terribly enamored with that option, though.",
       "parentUuid": "9bd8e0ac_0d22f038",
+      "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8b5a454_b2dbfc94",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:40:11Z",
+      "side": 1,
+      "message": "For the initial OnNetworkChanged() I just need enough bandwidth to not pause any streams when AddObserver() is initially called. This means a network with an initial bps \u003d kMinToggleBitrateBps * num_of_observers. Currently the main test fixture does this (300,000 bps, and the most my tests need is 60,000 bps), so I can go ahead and just use it. \n\nRemoved the PriorityBitrateAllocatorTest test fixture, and prefixed all the tests with PriorityRate.",
+      "parentUuid": "f116e17e_316cb74b",
       "revId": "301c9f553163e22e9f1dc8e1c22a67bfabfa3afa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

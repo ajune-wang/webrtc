@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "82536cc6_400031cb",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T18:35:26Z",
+      "side": 1,
+      "message": "Yes, I\u0027ll add notes about threading. The RtpTransceiver implementation uses a proxy for invoking all methods on the signaling thread, so this should be safe to use by any thread. (Proxy definition in pc/rtptransceiver.h)",
+      "parentUuid": "fea59e74_28642dfd",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99816ba4_2829e934",
         "filename": "api/rtptransceiverinterface.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-11-09T17:30:30Z",
       "side": 1,
       "message": "I\u0027m curious, is Unified Plan SDP something you enable with RTCConfiguration or how does that work?\n\nI find this comment confusing considering the implementation, RtpTransceiver, is designed for both Plan B and Unified Plan SDP. Can you clarify?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c208641_0ff50bd8",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T18:35:26Z",
+      "side": 1,
+      "message": "Tentatively, I\u0027m planning to have it specified in the RTCConfiguration. As long as that\u0027s flexible enough for users it would be the simplest approach.\n\nThe internal representation is being redone in terms of transceivers (so Plan B is supported), but as far as the public API is concerned, transceivers are only available when using Unified Plan (at least because the spec dictates a transceiver has one sender/receiver, which is not true in our current implementation).",
+      "parentUuid": "99816ba4_2829e934",
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -93,6 +129,24 @@
     },
     {
       "key": {
+        "uuid": "45ca7045_e3c1d180",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T18:35:26Z",
+      "side": 1,
+      "message": "Still not sure what the internal API will look like for the Unified Plan approach. I think it might just create the sender/receiver in the constructor (or take them as arguments), so then it will just be illegal to call these methods when Unified Plan is specified.",
+      "parentUuid": "255c387a_d54eeecd",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10c4d5a3_3bf6944d",
         "filename": "pc/rtptransceiver.cc",
         "patchSetId": 1
@@ -121,6 +175,24 @@
       "writtenOn": "2017-11-09T17:30:30Z",
       "side": 1,
       "message": "I\u0027m reminded of https://crbug.com/webrtc/7945 but pc.removeTrack(sender) should not remove the sender from the transceiver, so not sure how applicable.",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9b7592a_cc2aa852",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T18:35:26Z",
+      "side": 1,
+      "message": "This implementation is basically copied from the current behavior in PeerConnection. I think the TODOs in PeerConnection will be a good enough reminder of that issue. As more work goes on, I think it will be more clear how to fix that bug.",
+      "parentUuid": "2affeeb6_e4884c98",
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -172,6 +244,24 @@
       "writtenOn": "2017-11-09T17:30:30Z",
       "side": 1,
       "message": "There\u0027s no set_mid().\n\nAlso, should we sanity check or reset direction/currentDirection if mid is reset?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479f5851_04723b2b",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T18:35:26Z",
+      "side": 1,
+      "message": "Yes, haven\u0027t done any work with transceivers and Unified Plan yet. I was just going to defer that until later, when it\u0027s more clear how the semantics of set_mid should work.",
+      "parentUuid": "22468462_c31f95db",
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -241,6 +331,24 @@
     },
     {
       "key": {
+        "uuid": "5ed6ee03_6cf8b7f5",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T18:35:26Z",
+      "side": 1,
+      "message": "The lifetime of the BaseChannels is ultimately going to be controlled by PeerConnection. I\u0027ll clarify this comment (ownership means many different things I see now).",
+      "parentUuid": "a2b523bf_1aa6e467",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b52ff5c2_c072d75d",
         "filename": "pc/rtptransceiver.h",
         "patchSetId": 1
@@ -252,6 +360,24 @@
       "writtenOn": "2017-11-09T17:30:30Z",
       "side": 1,
       "message": "Can you add rtptransceiver_unittest.cc?\nAdding a sender shows up as sender(), stopping stops the sender and receiver, etc.",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b5beec_92e3dcba",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-09T18:35:26Z",
+      "side": 1,
+      "message": "This class is still a bit in flux since I haven\u0027t done any Unified Plan work  yet (all the private implementation here was done to facilitate https://webrtc-review.googlesource.com/c/src/+/21461 ).\n\nSo I don\u0027t really want to add unit tests yet since the internal API is not well defined yet, but if it seems important enough I can do them now instead of later.",
+      "parentUuid": "b52ff5c2_c072d75d",
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fa9a022_f676b336",
+        "filename": "sdk/android/src/jni/videodecoderfallback.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-09T15:57:03Z",
+      "side": 1,
+      "message": "Can you use @CalledByNative JNI generation?",
+      "revId": "9cce5ce57350392254a7fb188e01880025b55479",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3743862c_84ae6d3c",
+        "filename": "sdk/android/src/jni/videodecoderfallback.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-09T15:57:03Z",
+      "side": 1,
+      "message": "Perhaps there should be a helper method for this logic since it is also used in VideoDecoderWrapper?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 3
+      },
+      "revId": "9cce5ce57350392254a7fb188e01880025b55479",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "132a5be0_357244d5",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-09T12:27:59Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "32ff0fa0_fbe789cd",
+      "range": {
+        "startLine": 1508,
+        "startChar": 0,
+        "endLine": 1508,
+        "endChar": 52
+      },
+      "revId": "f396f8ff19717324e0e10c7d955ffafd76d3d21b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c93bfe6d_0375602f",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-09T11:55:31Z",
       "side": 1,
       "message": "Unrelated to this cl, but wouldn\u0027t it be nicer to let EstimateRtpClockFrequency return false/empty in this case? I.e., replace its RTC_CHECK(packets.size() \u003e\u003d 2) with \nif (packets_size() \u003c 2) { LOG... ; return rtc_optional\u003c...\u003e(); }",
+      "range": {
+        "startLine": 1511,
+        "startChar": 15,
+        "endLine": 1511,
+        "endChar": 16
+      },
+      "revId": "f396f8ff19717324e0e10c7d955ffafd76d3d21b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f6132ff_fe9cd8a8",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1511,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-09T12:27:59Z",
+      "side": 1,
+      "message": "I suppose so. I\u0027d prefer doing that in a separate CL though.",
+      "parentUuid": "c93bfe6d_0375602f",
       "range": {
         "startLine": 1511,
         "startChar": 15,

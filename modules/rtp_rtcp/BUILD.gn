@@ -198,6 +198,7 @@ rtc_static_library("rtp_rtcp") {
     "../../rtc_base:gtest_prod",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:sequenced_task_checker",
+    "../../rtc_base/time:timestamp_extrapolator",
     "../../system_wrappers",
     "../audio_coding:audio_format_conversion",
     "../remote_bitrate_estimator",

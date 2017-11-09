@@ -236,4 +236,33 @@ void I420Buffer::ScaleFrom(const I420BufferInterface& src) {
   CropAndScaleFrom(src, 0, 0, src.width(), src.height());
 }
 
+// static
+rtc::scoped_refptr<I420BufferMutableInterface>
+I420BufferMutableInterface::Create(int width, int height) {
+  return I420Buffer::Create(width, height);
+}
+
+// static
+rtc::scoped_refptr<I420BufferMutableInterface>
+I420BufferMutableInterface::Create(
+    int width, int height, int stride_y, int stride_u, int stride_v) {
+  return I420Buffer::Create(width, height, stride_y, stride_u, stride_v);
+}
+
+VideoFrameBuffer::Type I420BufferInterface::type() const {
+  return Type::kI420;
+}
+
+int I420BufferInterface::ChromaWidth() const {
+  return (width() + 1) / 2;
+}
+
+int I420BufferInterface::ChromaHeight() const {
+  return (height() + 1) / 2;
+}
+
+rtc::scoped_refptr<I420BufferInterface> I420BufferInterface::ToI420() {
+  return this;
+}
+
 }  // namespace webrtc

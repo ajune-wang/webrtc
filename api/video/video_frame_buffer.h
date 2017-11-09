@@ -95,6 +95,8 @@ class PlanarYuvBuffer : public VideoFrameBuffer {
   ~PlanarYuvBuffer() override {}
 };
 
+// Note: the implementation of below interfaces are in separate build targets.
+
 class I420BufferInterface : public PlanarYuvBuffer {
  public:
   Type type() const final;
@@ -106,6 +108,24 @@ class I420BufferInterface : public PlanarYuvBuffer {
 
  protected:
   ~I420BufferInterface() override {}
+};
+
+class I420BufferMutableInterface : public I420BufferInterface {
+ public:
+  static rtc::scoped_refptr<I420BufferMutableInterface> Create(int width,
+                                                               int height);
+  static rtc::scoped_refptr<I420BufferMutableInterface> Create(int width,
+                                                               int height,
+                                                               int stride_y,
+                                                               int stride_u,
+                                                               int stride_v);
+
+  virtual uint8_t* MutableDataY() = 0;
+  virtual uint8_t* MutableDataU() = 0;
+  virtual uint8_t* MutableDataV() = 0;
+
+ protected:
+  ~I420BufferMutableInterface() override {}
 };
 
 class I444BufferInterface : public PlanarYuvBuffer {

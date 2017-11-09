@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d905a658_a41ae8f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T14:12:22Z",
+      "side": 1,
+      "message": "rtc_base/system/",
+      "range": {
+        "startLine": 7,
+        "startChar": 23,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "5133aa38a479273a99bd3e3e324689c68474b7f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

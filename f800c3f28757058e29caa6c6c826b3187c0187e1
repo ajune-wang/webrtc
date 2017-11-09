@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "137fd071_57e906fa",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T10:01:51Z",
+      "side": 1,
+      "message": "comment updated.",
+      "parentUuid": "e26d5173_9e032df9",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 70
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "babcfe15_a6d34b8d",
         "filename": "modules/rtp_rtcp/source/time_util.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80ecdce2_93fd76e1",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T10:01:51Z",
+      "side": 1,
+      "message": "Why?\nI find it cleaner to readd this constant rather than add dependency on rtc_base/timeutil.h just for it.\nThis header is lighter than rtc_base/timeutils.h since it deals only with time units conversions.",
+      "parentUuid": "babcfe15_a6d34b8d",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "47229850_7ff826e5",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T10:01:51Z",
+      "side": 1,
+      "message": "rounding helps to avoid off by 1 error when units are converted multiple times.\nrather than searching if there is a case where it matter, prefer just to do cheap rounding.",
+      "parentUuid": "7337d910_33907a25",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be63c76d_d07f7e04",
         "filename": "modules/rtp_rtcp/source/time_util.h",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1a5e3d05_6a053863",
+        "filename": "modules/rtp_rtcp/source/time_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T10:01:51Z",
+      "side": 1,
+      "message": "yes, comment updated.\nAbsolute value should be converted differently: using wrap around rather than clipping.\nBut I do not see a use case where rtc::TimeMicros() need to be converted to compact ntp directly. Absolute time need to have ntp offset first.",
+      "parentUuid": "be63c76d_d07f7e04",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eebeb1a_127e482c",
         "filename": "modules/rtp_rtcp/source/time_util.h",
         "patchSetId": 3
@@ -114,6 +210,30 @@
       "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98c8f0b5_2d5b3c62",
+        "filename": "modules/rtp_rtcp/source/time_util.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T10:01:51Z",
+      "side": 1,
+      "message": "historical reason: this function was written before you started using microseconds.\nchanging this function is out of scope of this CL.",
+      "parentUuid": "2eebeb1a_127e482c",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

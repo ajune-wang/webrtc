@@ -16,6 +16,24 @@
       "revId": "a0681ac5a922956106d0fbd464f46e391f652f88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b641909_0e539b73",
+        "filename": "modules/audio_coding/test/TestStereo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-09T13:59:06Z",
+      "side": 1,
+      "message": "Because one big reason the config struct is there in the first place so that we can use named fields instead of positional arguments, which are hard to read? At least that\u0027s my personal reason for not introducing such a Config constructor.\n\nAlso, all of these functions are called more than once, and using a constructor such as you describe would lead to code duplication in the argument list. (In cases where there would have been just one call site, I\u0027ve tried to make expressions that define and then immediately call a lambda.)",
+      "parentUuid": "1f514f69_3c26fcef",
+      "revId": "a0681ac5a922956106d0fbd464f46e391f652f88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

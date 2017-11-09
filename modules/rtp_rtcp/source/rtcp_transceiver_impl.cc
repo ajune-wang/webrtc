@@ -104,7 +104,6 @@ void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets(int64_t delay_ms) {
   };
 
   RTC_DCHECK(config_.schedule_periodic_compound_packets);
-  RTC_DCHECK(config_.task_queue->IsCurrent());
 
   // Stop existent send task if there is one.
   ptr_factory_.InvalidateWeakPtrs();

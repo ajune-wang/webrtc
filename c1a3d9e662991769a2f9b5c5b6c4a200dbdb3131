@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52dafcb1_da0fa335",
+        "filename": "rtc_base/time/timestamp_extrapolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T12:34:38Z",
+      "side": 1,
+      "message": "When we discussed wraparound logic earlier, I learnt that when converting to a signed type, if the value to be converted doesn\u0027t fit, \"the result is implementation-defined or an implementation-defined signal is raised.\" (Now, I\u0027d need a real language lawyer to explain the difference between that and \"undefined behavior\"). See https://stackoverflow.com/questions/50605/signed-to-unsigned-conversion-in-c-is-it-always-safe\n\n\"cast to Word32\" mentioned in the comment is confusing since Word32 is not used anywhere in the code.\n\nAnd there also seems to be no tests for this logic.\n\nSo plenty of opportunities for further improvement...",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 65
+      },
+      "revId": "c1a3d9e662991769a2f9b5c5b6c4a200dbdb3131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

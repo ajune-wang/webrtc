@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f514f69_3c26fcef",
+        "filename": "modules/audio_coding/test/TestStereo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-11-09T13:46:43Z",
+      "side": 1,
+      "message": "This CL is a great step in the right direction.\nI\u0027m a bit concerned about the recurrence of having to create this (or very similar) functions to initialize the Config struct.\n\nWhat is the reason for not allowing the Config be initialized by a constructor with relevant arguments?",
+      "revId": "a0681ac5a922956106d0fbd464f46e391f652f88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f561749e_55c6a6bd",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T14:15:54Z",
+      "side": 1,
+      "message": "This is a somewhat odd name of a type. Would prefer SenderReportTimes or maybe just ReportTimes. And move the \"last\"-prefix to the name of the mapping, now |remote_senders_|. Maybe something like |last_received_sender_report_times_|, even if that\u0027s maybe a bit too long.",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "a8cd6fabc23466f8e091b1779e2009ae15db846e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

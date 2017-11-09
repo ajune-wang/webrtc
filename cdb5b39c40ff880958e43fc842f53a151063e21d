@@ -22,6 +22,30 @@
       "revId": "cdb5b39c40ff880958e43fc842f53a151063e21d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f777cf42_81199473",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-09T13:47:40Z",
+      "side": 1,
+      "message": "Done. Indeed, several of the APM stats (those related to AEC and echo detection) need to have at least one remote track to make sense, otherwise they will simply stop being updated and get stuck at their last value, without the APM itself being aware of this.",
+      "parentUuid": "25b233bd_59f15edc",
+      "range": {
+        "startLine": 273,
+        "startChar": 49,
+        "endLine": 273,
+        "endChar": 65
+      },
+      "revId": "cdb5b39c40ff880958e43fc842f53a151063e21d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

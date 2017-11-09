@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af3aa280_a76091dd",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T09:26:29Z",
+      "side": 1,
+      "message": "sorry, I do not understand your comment.\n\nThis construct is required when some code tries to take an address of the kHeaderSizeBytes (e.g. EXPECT_EQ takes parameters by reference).\nWithout this line it will fail to link with hard to understand error.\n\nhttps://github.com/google/googletest/blob/master/googletest/docs/FAQ.md#the-compiler-complains-about-undefined-references-to-some-static-const-member-variables-but-i-did-define-them-in-the-class-body-whats-wrong",
+      "parentUuid": "4ff43b3d_7e3ab95d",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "ab9b6638a36cc24878bb3bf02cd87a36c010ed73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbd0f2f9_13872acd",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ab9b6638a36cc24878bb3bf02cd87a36c010ed73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0841dd9a_e1b56c37",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T09:26:29Z",
+      "side": 1,
+      "message": "would rather remove this function in favor of\nrtc::ArrayView\u003cconst uint8_t\u003e payload() const;\nBut yes, not in this CL.",
+      "parentUuid": "bbd0f2f9_13872acd",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "ab9b6638a36cc24878bb3bf02cd87a36c010ed73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

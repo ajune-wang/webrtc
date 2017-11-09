@@ -70,6 +70,30 @@
       "revId": "98b26785397f495ae85a3c5b3381ca34af2d00c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aedc57e0_2b38a4de",
+        "filename": "common_video/libyuv/libyuv_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-11-09T11:38:14Z",
+      "side": 1,
+      "message": "For now will clean up on ConvertToI420 for now that includes\n1. remove ConvertToI420 test cases in ConvertTest\n2. Keep the ConvertFromI420 test cases in ConvertTest as it is\n3. Remove RotateTest completely\n\nRemoving ConvertFromI420 can be taken separately since even I need more time about the caller locations.\nPlease give your opinion",
+      "parentUuid": "c88afa5e_0163dece",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 1
+      },
+      "revId": "98b26785397f495ae85a3c5b3381ca34af2d00c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

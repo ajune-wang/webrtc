@@ -20,7 +20,7 @@
 #include "modules/include/module_common_types.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/logging.h"
-#include "system_wrappers/include/file_wrapper.h"
+#include "rtc_base/system/file_wrapper.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace {

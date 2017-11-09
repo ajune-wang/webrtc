@@ -14,10 +14,10 @@
 #include "modules/audio_device/include/audio_device.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/system/file_wrapper.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
-#include "system_wrappers/include/file_wrapper.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {

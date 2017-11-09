@@ -16,6 +16,58 @@
       "revId": "b67e1e454f83281d4bf4357b4da09aa7e1f3f0c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bd76da3_bda4dc5e",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:45:01Z",
+      "side": 1,
+      "message": "Yes I decided this was better.",
+      "parentUuid": "a6d6d438_ede03fb3",
+      "revId": "b67e1e454f83281d4bf4357b4da09aa7e1f3f0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a87f1ae_9bbcd7c9",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:45:01Z",
+      "side": 1,
+      "message": "I like to think of this more as capacity_bps / relative_priority \u003c other.capacity_bps / other.relative_priority. \n\nIt might just be my personal way of looking at things, but to me each observer\u0027s capacity is scaled down by its own relative bitrate. I think I more see it as all buckets being a scaled down and to allocate to those buckets you scale back up by the relative bitrate. The \"flow\" to each is always the relative_bitrate(relative_priority), but the \"total flow\" is the sum of the relative priorities up to a given observer\u0027s capacity.",
+      "revId": "b67e1e454f83281d4bf4357b4da09aa7e1f3f0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ea4ce94_a2e98beb",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-09T16:45:01Z",
+      "side": 1,
+      "message": "I like how you did the iteration where you left off.",
+      "revId": "b67e1e454f83281d4bf4357b4da09aa7e1f3f0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

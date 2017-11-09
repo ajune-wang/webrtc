@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "081817c0_0e0ad257",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T18:51:01Z",
+      "side": 1,
+      "message": "According to spec, when a sender is removed its track should be nulled and the transceiver direction change, but this should be a separate change as it might break Chromium things if we\u0027re not careful.",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfdf5290_db9c5433",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2750,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T18:51:01Z",
+      "side": 1,
+      "message": "Yeah this is odd, and broken. Upon construction the sender is assigned the track\u0027s ID (or a random ID if no track was used). When you replaceTrack(), the sender ID isn\u0027t updated... it\u0027s hard to say what implications this has or if there can be miscommunication between peers upon renegotiation. Is it really \"track_id\" or is it more like \"sender_id\"?\n\nI also don\u0027t think we can rely on any ID coming from tracks to be unique when senders and receivers can outlive tracks being added and removed.\n\nI believe adding and removing the same track in chromium can result in multiple webrtc layer tracks with the same ID. Testing is required.",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8eb782d_ddc0ad50",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2767,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T18:51:01Z",
+      "side": 1,
+      "message": "What is the connection between SSRCs and MSIDs with the new Unified Plan compared to Plan B?",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f299e4c1_295c2b0e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2982,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T18:51:01Z",
+      "side": 1,
+      "message": "When multiple transceivers per media type is supported with Unified Plan, will they all share the same channel or is code relying on GetAudio/VideoTransceiver()-\u003einternal()-\u003echannel() implicitly assuming that we only have one transceiver per media type?\n\nIf assuming single transceiver: add a TODO and if there\u0027s an appropriate DCHECK.\n\nIf channel is shared amongst transceivers, should it be owned/referenced by the PC so you don\u0027t have to look at transceivers? (In the future, 0 transceivers will be possible)\n\nIf channel is not shared amongst transceiver: This will probably affect a lot of code relying on single channels.",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9601050a_1a247dc8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-09T18:51:01Z",
+      "side": 1,
+      "message": "Add a TODO to remove this when multiple transceivers with individual transceiver directions are supported.",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

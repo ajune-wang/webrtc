@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18181772_5db9106c",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T10:28:37Z",
+      "side": 1,
+      "message": "Language nit: Drop one of the s:es.",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "7c22264146567284ed59224fc57db713b7185f9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

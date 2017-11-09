@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "6346a1b5_cb5ba260",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T10:28:37Z",
+      "side": 1,
+      "message": "Ok. I was thinking you were adding these things *in* rtc_base/timeutils.c, sorry for the confusion.",
+      "parentUuid": "80ecdce2_93fd76e1",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7337d910_33907a25",
         "filename": "modules/rtp_rtcp/source/time_util.cc",
         "patchSetId": 3
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "rounding helps to avoid off by 1 error when units are converted multiple times.\nrather than searching if there is a case where it matter, prefer just to do cheap rounding.",
       "parentUuid": "7337d910_33907a25",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "f800c3f28757058e29caa6c6c826b3187c0187e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd32b0b4_8373dff3",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T10:28:37Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "47229850_7ff826e5",
       "range": {
         "startLine": 36,
         "startChar": 9,

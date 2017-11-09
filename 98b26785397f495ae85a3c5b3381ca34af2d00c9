@@ -46,6 +46,30 @@
       "revId": "98b26785397f495ae85a3c5b3381ca34af2d00c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88afa5e_0163dece",
+        "filename": "common_video/libyuv/libyuv_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-09T10:49:02Z",
+      "side": 1,
+      "message": "\u003e But have a question here to remove |ConvertTest| as it covers |ConvertFromI420| which is still not removed.\n\nIf it is easy to get that test to work using webrtc::ConvertFromI420 and libyuv::ConvertToI420, I think that\u0027s best for now.\n\nIt seems ConvertFromI420 is only used in three places,\n\ntest/testsupport/jpeg_frame_writer.cc. Isn\u0027t jpeg using yuv internally? Then it should be possible to pass yuv input, without converting to BGR first? from jpeglib.h:\n\n\tJCS_YCbCr,\t\t/* Y/Cb/Cr (also known as YUV) */\n\ntest/gl/gl_renderer.cc. (Unclear to me what it is used for. If it matters, it should use a pixel shader for the conversion).\n\ntest/win/d3d_renderer.cc. (Similar to above).",
+      "parentUuid": "7ab4911e_3670ad8a",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 1
+      },
+      "revId": "98b26785397f495ae85a3c5b3381ca34af2d00c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

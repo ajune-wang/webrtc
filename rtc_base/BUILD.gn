@@ -917,6 +917,7 @@ if (rtc_include_tests) {
       "../api:array_view",
       "../system_wrappers:system_wrappers",
       "../test:test_support",
+      "memory:unittests",
     ]
   }
 

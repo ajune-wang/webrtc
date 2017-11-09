@@ -574,6 +574,7 @@ rtc_source_set("test_common") {
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
     "../rtc_base:sequenced_task_checker",
+    "../rtc_base/system:sleep",
     "../system_wrappers",
     "../video",
     "../voice_engine",

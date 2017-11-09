@@ -849,6 +849,8 @@ if (rtc_include_tests) {
       ":rtc_base_tests_utils",
       "../system_wrappers:system_wrappers",
       "../test:test_support",
+      "system:cpu_info",
+      "system:sleep",
       "//testing/gtest",
     ]
     if (is_win) {
@@ -918,6 +920,7 @@ if (rtc_include_tests) {
       "../system_wrappers:system_wrappers",
       "../test:test_support",
       "memory:unittests",
+      "system:sleep",
     ]
   }
 

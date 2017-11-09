@@ -21,8 +21,8 @@
 #include "modules/desktop_capture/fake_desktop_capturer.h"
 #include "modules/desktop_capture/mock_desktop_capturer_callback.h"
 #include "rtc_base/random.h"
+#include "rtc_base/system/cpu_features_wrapper.h"
 #include "rtc_base/timeutils.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
 #include "test/gtest.h"
 #include "typedefs.h"  // NOLINT(build/include)
 

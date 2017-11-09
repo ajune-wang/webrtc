@@ -93,7 +93,7 @@
 #include <limits>
 
 #include "rtc_base/checks.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "rtc_base/system/cpu_features_wrapper.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {

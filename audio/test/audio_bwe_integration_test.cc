@@ -12,7 +12,7 @@
 
 #include "common_audio/wav_file.h"
 #include "rtc_base/ptr_util.h"
-#include "system_wrappers/include/sleep.h"
+#include "rtc_base/system/sleep.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"

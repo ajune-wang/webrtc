@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "system_wrappers/include/cpu_info.h"
+#include "rtc_base/system/cpu_info.h"
 
 #if defined(WEBRTC_WIN)
 #include <windows.h>

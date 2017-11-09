@@ -9,7 +9,7 @@
  */
 
 #include "modules/media_file/media_file.h"
-#include "system_wrappers/include/sleep.h"
+#include "rtc_base/system/sleep.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 

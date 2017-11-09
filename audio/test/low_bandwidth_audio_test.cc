@@ -10,7 +10,7 @@
 
 #include "audio/test/audio_end_to_end_test.h"
 #include "rtc_base/flags.h"
-#include "system_wrappers/include/sleep.h"
+#include "rtc_base/system/sleep.h"
 #include "test/testsupport/fileutils.h"
 
 DEFINE_int(sample_rate_hz, 16000,

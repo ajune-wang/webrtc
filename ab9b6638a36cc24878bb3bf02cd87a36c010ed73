@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "55fa3c36_1f3883aa",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-09T10:14:25Z",
+      "side": 1,
+      "message": "absent value and class scope (rather than namespace scope) can be used as clues.\nthe fact it is constexpr (rather than const) also implies value must be near declaration.\n\nThis line is for linker. It has little to no value for reader of the code.",
+      "parentUuid": "cf8e7cb4_5dac2d26",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "ab9b6638a36cc24878bb3bf02cd87a36c010ed73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbd0f2f9_13872acd",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/common_header.h",
         "patchSetId": 2

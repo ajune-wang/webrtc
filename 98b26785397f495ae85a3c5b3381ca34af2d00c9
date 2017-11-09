@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "747d6b4c_c42e5f16",
+        "filename": "common_video/libyuv/libyuv_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-09T09:32:34Z",
+      "side": 1,
+      "message": "Let\u0027s remove these tests, because they basically only test libyuv now and not any webrtc functionality. libyuv has similar tests in its own repo.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 1
+      },
+      "revId": "98b26785397f495ae85a3c5b3381ca34af2d00c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

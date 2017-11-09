@@ -22,6 +22,30 @@
       "revId": "c1a3d9e662991769a2f9b5c5b6c4a200dbdb3131",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4605f34_9d2f4940",
+        "filename": "rtc_base/time/timestamp_extrapolator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-09T12:42:56Z",
+      "side": 1,
+      "message": "Yeah, I didn\u0027t attempt to clean up this code other than the trivial reshuffling required to get rid of the lint error.\n\n\"Undefined behavior\" means that the program is allowed to do anything at all from that point on. \"Implementation-defined result\" just means that the compiler is allowed to make that expression return any value of type int32_t, which is much more restrictive. But yes, the code ideally shouldn\u0027t do this. I\u0027m not going to fix that just because I move the file, though.\n\nWord32 was used here some time ago instead of int32_t, according to git. And yes, no tests.",
+      "parentUuid": "52dafcb1_da0fa335",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 65
+      },
+      "revId": "c1a3d9e662991769a2f9b5c5b6c4a200dbdb3131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

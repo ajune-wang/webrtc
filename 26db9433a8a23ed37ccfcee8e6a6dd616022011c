@@ -45,6 +45,69 @@
       "revId": "26db9433a8a23ed37ccfcee8e6a6dd616022011c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8551f07_2b9dda28",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2183,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-09T15:19:24Z",
+      "side": 1,
+      "message": "This constant is always multiplied by 1000 wherever it is being used. Might as well change it to bps in this CL?",
+      "range": {
+        "startLine": 2183,
+        "startChar": 21,
+        "endLine": 2183,
+        "endChar": 41
+      },
+      "revId": "26db9433a8a23ed37ccfcee8e6a6dd616022011c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e41d3b_ee46b134",
+        "filename": "modules/video_coding/codecs/vp8/vp8_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-09T15:19:24Z",
+      "side": 1,
+      "message": "Can we remove this function now that the fallback adapter will decide on the min_pixels?",
+      "revId": "26db9433a8a23ed37ccfcee8e6a6dd616022011c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a4a588d_a43e85ef",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-09T15:19:24Z",
+      "side": 1,
+      "message": "kDefaultEncoderMinBitrateBps?",
+      "range": {
+        "startLine": 182,
+        "startChar": 12,
+        "endLine": 182,
+        "endChar": 33
+      },
+      "revId": "26db9433a8a23ed37ccfcee8e6a6dd616022011c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

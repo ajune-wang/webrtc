@@ -20,7 +20,7 @@
 namespace webrtc {
 
 // Plain I420 buffer in standard memory.
-class I420Buffer : public I420BufferInterface {
+class I420Buffer : public I420BufferMutableInterface {
  public:
   static rtc::scoped_refptr<I420Buffer> Create(int width, int height);
   static rtc::scoped_refptr<I420Buffer> Create(int width,
@@ -35,6 +35,10 @@ class I420Buffer : public I420BufferInterface {
   static rtc::scoped_refptr<I420Buffer> Copy(const VideoFrameBuffer& buffer) {
     return Copy(*buffer.GetI420());
   }
+
+  rtc::scoped_refptr<I420BufferInterface> GetI420(VideoFrameBuffer* buffer);
+  rtc::scoped_refptr<const I420BufferInterface> GetI420(
+      const VideoFrameBuffer* buffer);
 
   static rtc::scoped_refptr<I420Buffer> Copy(
       int width, int height,
@@ -72,9 +76,9 @@ class I420Buffer : public I420BufferInterface {
   int StrideU() const override;
   int StrideV() const override;
 
-  uint8_t* MutableDataY();
-  uint8_t* MutableDataU();
-  uint8_t* MutableDataV();
+  uint8_t* MutableDataY() override;
+  uint8_t* MutableDataU() override;
+  uint8_t* MutableDataV() override;
 
   // Scale the cropped area of |src| to the size of |this| buffer, and
   // write the result into |this|.

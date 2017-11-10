@@ -115,10 +115,19 @@ class I444BufferInterface : public PlanarYuvBuffer {
   int ChromaWidth() const final;
   int ChromaHeight() const final;
 
-  rtc::scoped_refptr<I420BufferInterface> ToI420() final;
-
  protected:
   ~I444BufferInterface() override {}
+};
+
+// TODO(phoglund): remove?
+class I420BufferMutableInterface : public I420BufferInterface {
+ public:
+  virtual uint8_t* MutableDataY() = 0;
+  virtual uint8_t* MutableDataU() = 0;
+  virtual uint8_t* MutableDataV() = 0;
+
+ protected:
+  ~I420BufferMutableInterface() override {}
 };
 
 }  // namespace webrtc

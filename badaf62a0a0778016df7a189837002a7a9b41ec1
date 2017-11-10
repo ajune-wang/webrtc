@@ -52,6 +52,24 @@
       "revId": "badaf62a0a0778016df7a189837002a7a9b41ec1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a826084_8da7bd45",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-11-10T09:45:09Z",
+      "side": 1,
+      "message": "Agreed, but refactoring those APIs feels like a major effort.\nAlso +1 to refactor these setup methods to separate SetupScreenshare() and SetupVideoSVC() and calling one or the other depending on params_.screenshare.enabled",
+      "parentUuid": "303cb3ea_62b904e4",
+      "revId": "badaf62a0a0778016df7a189837002a7a9b41ec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

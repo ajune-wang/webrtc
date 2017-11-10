@@ -14,6 +14,11 @@
 
 namespace rtc {
 
+// The purpose of this is to allow video streams to use extra bandwidth for FEC.
+// TODO(alexnarest): May be worth to refactor to keep this logic in
+// video send stream.
+const int kTransmissionMaxBitrateMultiplier = 2;
+
 std::vector<uint32_t> BitrateAllocationStrategy::SetAllBitratesToMinimum(
     const ArrayView<const TrackConfig*> track_configs) {
   std::vector<uint32_t> track_allocations;
@@ -84,13 +89,33 @@ std::vector<uint32_t> AudioPriorityBitrateAllocationStrategy::AllocateBitrates(
   const TrackConfig* audio_track_config = NULL;
   size_t audio_config_index = 0;
   uint32_t sum_min_bitrates = 0;
+  uint32_t sum_max_bitrates = 0;
 
   for (const auto*& track_config : track_configs) {
     sum_min_bitrates += track_config->min_bitrate_bps;
+    sum_max_bitrates += track_config->max_bitrate_bps;
     if (track_config->track_id == audio_track_id_) {
       audio_track_config = track_config;
       audio_config_index = &track_config - &track_configs[0];
     }
+  }
+  if (sum_max_bitrates < available_bitrate) {
+    // Allow not audio streams to go above max upto
+    // kTransmissionMaxBitrateMultiplier * max_bitrate_bps
+    TrackConfig increased_track_configs[track_configs.size()];
+    std::vector<const TrackConfig*> increased_track_configs_ptr(
+        track_configs.size());
+    for (unsigned long i = 0; i < track_configs.size(); i++) {
+      increased_track_configs[i] = (*track_configs[i]);
+      increased_track_configs_ptr[i] = &increased_track_configs[i];
+      if (track_configs[i]->track_id != audio_track_id_) {
+        increased_track_configs[i].max_bitrate_bps =
+            track_configs[i]->max_bitrate_bps *
+            kTransmissionMaxBitrateMultiplier;
+      }
+    }
+    return DistributeBitratesEvenly(increased_track_configs_ptr,
+                                    available_bitrate);
   }
   if (audio_track_config == nullptr) {
     return DistributeBitratesEvenly(track_configs, available_bitrate);

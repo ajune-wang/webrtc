@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "e1f0b4d3_615ae743",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-10T13:26:19Z",
+      "side": 1,
+      "message": "The class can\u0027t be final, since it\u0027s inherited by WrappedYuvBuffer\u003cI444BufferInterfaceWithI420\u003e, and its Data*() methods are still pure abstract. Right?\n\nAgree about namespace, everything except the (deprecated) WrappedI420Buffer class and the Wrap*Buffer functions should go in the anonymous namespace, i.e., enclosed in namespace { ... }.",
+      "parentUuid": "6e45ab06_709ca90f",
+      "range": {
+        "startLine": 77,
+        "startChar": 33,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90e50c07_45273475",
         "filename": "common_video/video_frame_buffer.cc",
         "patchSetId": 9

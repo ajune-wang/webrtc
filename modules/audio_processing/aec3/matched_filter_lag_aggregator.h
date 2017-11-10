@@ -37,7 +37,8 @@ class MatchedFilterLagAggregator {
 
  private:
   ApmDataDumper* const data_dumper_;
-  std::array<int, 1664> histogram_;
+  // TODO(peah): Make to scale with the downsampling_factor.
+  std::array<int, 1664 * 2> histogram_;
   std::array<int, 250> histogram_data_;
   int histogram_data_index_ = 0;
 

@@ -1193,6 +1193,11 @@ struct EchoCanceller3Config {
 
     float floor_first_increase = 0.0001f;
   } gain_updates;
+
+  struct DelayEstimation {
+    size_t down_sampling_factor = 4;
+    size_t num_filters = 4;
+  } delay_estimation;
 };
 
 class EchoCanceller3Factory : public EchoControlFactory {

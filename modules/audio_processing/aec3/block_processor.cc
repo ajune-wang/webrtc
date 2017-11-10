@@ -183,8 +183,13 @@ void BlockProcessorImpl::UpdateEchoLeakageStatus(bool leakage_detected) {
 
 BlockProcessor* BlockProcessor::Create(const EchoCanceller3Config& config,
                                        int sample_rate_hz) {
-  std::unique_ptr<RenderDelayBuffer> render_buffer(
-      RenderDelayBuffer::Create(NumBandsForRate(sample_rate_hz)));
+  std::unique_ptr<RenderDelayBuffer> render_buffer(RenderDelayBuffer::Create(
+      NumBandsForRate(sample_rate_hz),
+      config.delay_estimation.down_sampling_factor,
+      GetDownSampledBufferSize(config.delay_estimation.down_sampling_factor,
+                               config.delay_estimation.num_filters),
+      GetRenderDelayBufferSize(config.delay_estimation.down_sampling_factor,
+                               config.delay_estimation.num_filters)));
   std::unique_ptr<RenderDelayController> delay_controller(
       RenderDelayController::Create(config, sample_rate_hz));
   std::unique_ptr<EchoRemover> echo_remover(

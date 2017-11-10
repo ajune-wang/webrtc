@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "7390d683_344e2c6d",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2235,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-10T10:29:18Z",
+      "side": 1,
+      "message": "Well, this is a bit awkward, I actually started working on this, and the first of the CLs is ready for landing, see https://webrtc-review.googlesource.com/c/src/+/17942 , but I completely forgot to include you on the CC for that one, sorry about that!\nI think it should be doable to get this done in the nicer way before the end of the month, as I think (hope?) that the most complicated part is finished in that CL.",
+      "parentUuid": "45505e16_a1f37bec",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "516d7101_eeb12554",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 3

@@ -70,14 +70,6 @@ RtpRtcp* RtpRtcp::CreateRtpRtcp(const RtpRtcp::Configuration& configuration) {
   }
 }
 
-// Deprecated.
-int32_t RtpRtcp::SetFecParameters(const FecProtectionParams* delta_params,
-                                  const FecProtectionParams* key_params) {
-  RTC_DCHECK(delta_params);
-  RTC_DCHECK(key_params);
-  return SetFecParameters(*delta_params, *key_params) ? 0 : -1;
-}
-
 ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
     : rtcp_sender_(configuration.audio,
                    configuration.clock,

@@ -346,15 +346,6 @@ class RtpRtcp : public Module {
   // Stops sending REMB on next and following sender/receiver reports.
   virtual void UnsetRemb() = 0;
 
-  RTC_DEPRECATED void SetREMBStatus(bool enable) {
-    if (!enable)
-      UnsetRemb();
-  }
-  RTC_DEPRECATED void SetREMBData(uint32_t bitrate,
-                                  const std::vector<uint32_t>& ssrcs) {
-    SetRemb(bitrate, ssrcs);
-  }
-
   // (TMMBR) Temporary Max Media Bit Rate
   virtual bool TMMBR() const = 0;
 
@@ -442,11 +433,6 @@ class RtpRtcp : public Module {
   // Returns false on failure.
   virtual bool SetFecParameters(const FecProtectionParams& delta_params,
                                 const FecProtectionParams& key_params) = 0;
-
-  // Deprecated version of member function above.
-  RTC_DEPRECATED
-  int32_t SetFecParameters(const FecProtectionParams* delta_params,
-                           const FecProtectionParams* key_params);
 
   // Set method for requestion a new key frame.
   // Returns -1 on failure else 0.

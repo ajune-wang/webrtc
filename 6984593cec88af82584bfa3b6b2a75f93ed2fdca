@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87d76f1e_032ec55b",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-10T12:46:37Z",
+      "side": 1,
+      "message": "I\u0027d prefer either I444BufferBase or I44BufferInterfaceWithToI420.",
+      "range": {
+        "startLine": 77,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 33
+      },
+      "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90e50c07_45273475",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-10T12:46:37Z",
+      "side": 1,
+      "message": "Add |override| declaration too. Even if it\u0027s missing on some other related classes.",
+      "range": {
+        "startLine": 79,
+        "startChar": 51,
+        "endLine": 79,
+        "endChar": 56
+      },
+      "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

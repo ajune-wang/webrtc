@@ -22,6 +22,30 @@
       "revId": "1465c43fd8e730e5b0ba005298298d9c1c871cbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c4a36a9_a433d0b9",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-11-10T14:42:46Z",
+      "side": 1,
+      "message": "This change tries to make audio priority logic for video FEC to be the same as default allocator to avoid such difference to affect experiment.\n\nThe refactoring will touch the default implementation and I think is out of the scope of the bitrate allocation changes.",
+      "parentUuid": "dd566b3c_3a2f2ffe",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "1465c43fd8e730e5b0ba005298298d9c1c871cbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

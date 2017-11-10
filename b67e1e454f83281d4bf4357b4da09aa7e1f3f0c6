@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2bdc3746_3082ef47",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-10T09:37:43Z",
+      "side": 1,
+      "message": "The version with division is the logically correct version (and therefore mentioned in the comment). The version with multiplication is expected to be more efficient, and hopefully less prone to numerical errors. The latter is the one that\u0027s more important for me either.",
+      "parentUuid": "2a87f1ae_9bbcd7c9",
+      "revId": "b67e1e454f83281d4bf4357b4da09aa7e1f3f0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ea4ce94_a2e98beb",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 1

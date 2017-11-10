@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "6e45ab06_709ca90f",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-10T13:19:00Z",
+      "side": 1,
+      "message": "Can you make this class final? It\u0027s useful for the reader to know, and would mean you won\u0027t have to label any methods `final`?\n\nOh, and can you put it in an anonymous namespace as well? You should always to that with things that are declared in a .cc file. (It looks like you could make the anonymous namespace also encompass a bunch of stuff surrounding this class.)",
+      "range": {
+        "startLine": 77,
+        "startChar": 33,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90e50c07_45273475",
         "filename": "common_video/video_frame_buffer.cc",
         "patchSetId": 9

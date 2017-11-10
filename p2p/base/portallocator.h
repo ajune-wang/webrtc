@@ -272,6 +272,9 @@ class PortAllocatorSession : public sigslot::has_slots<> {
   // ready(pairable).
   sigslot::signal2<PortAllocatorSession*, const std::vector<PortInterface*>&>
       SignalPortsPruned;
+
+  // Fires this signal when a candidate is gathered from a port
+  sigslot::signal2<Port*, const Candidate&> SignalCandidateReady;
   sigslot::signal2<PortAllocatorSession*,
                    const std::vector<Candidate>&> SignalCandidatesReady;
   // Candidates should be signaled to be removed when the port that generated

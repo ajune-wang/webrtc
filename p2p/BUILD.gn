@@ -31,6 +31,10 @@ rtc_static_library("rtc_p2p") {
     "base/dtlstransport.cc",
     "base/dtlstransport.h",
     "base/dtlstransportinternal.h",
+    "base/icelogger.cc",
+    "base/icelogger.h",
+    "base/icelogtype.cc",
+    "base/icelogtype.h",
     "base/icetransportinternal.h",
     "base/jseptransport.cc",
     "base/jseptransport.h",
@@ -56,6 +60,8 @@ rtc_static_library("rtc_p2p") {
     "base/session.h",
     "base/sessiondescription.cc",
     "base/sessiondescription.h",
+    "base/stringifiedenum.cc",
+    "base/stringifiedenum.h",
     "base/stun.cc",
     "base/stun.h",
     "base/stunport.cc",
@@ -88,6 +94,7 @@ rtc_static_library("rtc_p2p") {
     "../api:optional",
     "../api:ortc_api",
     "../rtc_base:rtc_base",
+    "../rtc_base:rtc_json",
     "../system_wrappers:field_trial_api",
   ]
 

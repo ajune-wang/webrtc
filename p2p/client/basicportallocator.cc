@@ -792,6 +792,8 @@ void BasicPortAllocatorSession::OnCandidateReady(
     return;
   }
 
+  SignalCandidateReady(port, c);
+
   // Mark that the port has a pairable candidate, either because we have a
   // usable candidate from the port, or simply because the port is bound to the
   // any address and therefore has no host candidate. This will trigger the port

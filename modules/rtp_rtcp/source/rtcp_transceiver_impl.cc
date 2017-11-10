@@ -97,6 +97,20 @@ void RtcpTransceiverImpl::SendCompoundPacket() {
     ReschedulePeriodicCompoundPackets(config_.report_period_ms);
 }
 
+void RtcpTransceiverImpl::SetRemb(uint64_t bitrate_bps,
+                                  std::vector<uint32_t> ssrcs) {
+  remb_.emplace();
+  remb_->SetSsrcs(std::move(ssrcs));
+  remb_->SetBitrateBps(bitrate_bps);
+  // Send a REMB immediately if we have a new REMB. The frequency of REMBs is
+  // throttled by the caller.
+  SendCompoundPacket();
+}
+
+void RtcpTransceiverImpl::UnsetRemb() {
+  remb_.reset();
+}
+
 void RtcpTransceiverImpl::HandleReceivedPacket(
     const rtcp::CommonHeader& rtcp_packet_header) {
   switch (rtcp_packet_header.type()) {
@@ -161,6 +175,10 @@ void RtcpTransceiverImpl::SendPacket() {
     RTC_DCHECK(added) << "Failed to add cname " << config_.cname
                       << " to rtcp sdes packet.";
     sender.AppendPacket(sdes);
+  }
+  if (remb_) {
+    remb_->SetSenderSsrc(config_.feedback_ssrc);
+    sender.AppendPacket(*remb_);
   }
 
   sender.Send();

@@ -70,6 +70,24 @@
       "revId": "badaf62a0a0778016df7a189837002a7a9b41ec1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a7766c6_34fb14fc",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-10T09:48:11Z",
+      "side": 1,
+      "message": "\u003e Agreed, but refactoring those APIs feels like a major effort.\n\nYes :(",
+      "parentUuid": "9a826084_8da7bd45",
+      "revId": "badaf62a0a0778016df7a189837002a7a9b41ec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

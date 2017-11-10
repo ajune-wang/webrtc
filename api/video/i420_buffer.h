@@ -36,6 +36,10 @@ class I420Buffer : public I420BufferInterface {
     return Copy(*buffer.GetI420());
   }
 
+  rtc::scoped_refptr<I420BufferInterface> GetI420(VideoFrameBuffer* buffer);
+  rtc::scoped_refptr<const I420BufferInterface> GetI420(
+      const VideoFrameBuffer* buffer);
+
   static rtc::scoped_refptr<I420Buffer> Copy(
       int width, int height,
       const uint8_t* data_y, int stride_y,

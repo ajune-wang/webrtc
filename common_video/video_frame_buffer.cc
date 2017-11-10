@@ -13,6 +13,7 @@
 
 #include <algorithm>
 
+#include "api/video/i420_buffer.h"
 #include "libyuv/convert.h"
 #include "libyuv/planar_functions.h"
 #include "libyuv/scale.h"
@@ -71,6 +72,22 @@ int WrappedI420Buffer::StrideU() const {
 }
 int WrappedI420Buffer::StrideV() const {
   return v_stride_;
+}
+
+class I444BufferInterfaceWithI420 : public I444BufferInterface {
+ public:
+  rtc::scoped_refptr<I420BufferInterface> ToI420() final;
+};
+
+rtc::scoped_refptr<I420BufferInterface> I444BufferInterfaceWithI420::ToI420() {
+  rtc::scoped_refptr<I420Buffer> i420_buffer =
+      I420Buffer::Create(width(), height());
+  libyuv::I444ToI420(DataY(), StrideY(), DataU(), StrideU(), DataV(), StrideV(),
+                     i420_buffer->MutableDataY(), i420_buffer->StrideY(),
+                     i420_buffer->MutableDataU(), i420_buffer->StrideU(),
+                     i420_buffer->MutableDataV(), i420_buffer->StrideV(),
+                     width(), height());
+  return i420_buffer;
 }
 
 // Template to implement a wrapped buffer for a I4??BufferInterface.
@@ -155,7 +172,7 @@ rtc::scoped_refptr<I444BufferInterface> WrapI444Buffer(
     int v_stride,
     const rtc::Callback0<void>& no_longer_used) {
   return rtc::scoped_refptr<I444BufferInterface>(
-      new rtc::RefCountedObject<WrappedYuvBuffer<I444BufferInterface>>(
+      new rtc::RefCountedObject<WrappedYuvBuffer<I444BufferInterfaceWithI420>>(
           width, height, y_plane, y_stride, u_plane, u_stride, v_plane,
           v_stride, no_longer_used));
 }

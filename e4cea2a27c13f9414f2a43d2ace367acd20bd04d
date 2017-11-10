@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "850f383b_c5b4b389",
+        "filename": "pc/channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-10T19:35:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "222bc262_ca56393a",
+      "revId": "e4cea2a27c13f9414f2a43d2ace367acd20bd04d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e897c371_111a5cda",
         "filename": "pc/srtptransport.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "e4cea2a27c13f9414f2a43d2ace367acd20bd04d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "703075a9_d5790280",
+        "filename": "pc/srtptransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-10T19:35:48Z",
+      "side": 1,
+      "message": "This matches the ExportKeyingMaterials method but I think your suggestion would make it cleaner. Maybe we can change all the places in one CL.",
+      "parentUuid": "e897c371_111a5cda",
+      "revId": "e4cea2a27c13f9414f2a43d2ace367acd20bd04d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -291,6 +291,29 @@
     },
     {
       "key": {
+        "uuid": "8adaefdf_d606d31d",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-10T01:22:09Z",
+      "side": 1,
+      "message": "Need to be updated as well.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 72
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "500c9cb9_25c71665",
         "filename": "pc/rtptransceiver.h",
         "patchSetId": 1
@@ -412,6 +435,29 @@
       "writtenOn": "2017-11-09T17:30:30Z",
       "side": 1,
       "message": "Can you add an enum class SdpPlanType { kPlanB, kUnifiedPlan } and have the transceiver know which mode is used?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b508e36b_f769e80a",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-10T01:22:09Z",
+      "side": 1,
+      "message": "When would these value be set?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 34
+      },
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

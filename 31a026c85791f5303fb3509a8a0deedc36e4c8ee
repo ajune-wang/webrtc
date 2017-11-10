@@ -22,6 +22,30 @@
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7c9f911_6565b1ee",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 0,
+      "message": "According to the spec, AddTrack is special and \u0027addTrack checks if the MediaStreamTrack given as an argument is already being sent to avoid sending the same MediaStreamTrack twice\u0027.\n\nSo, a spec-compliant AddTrack would not.  You\u0027d have to use AddTransceiver to do that.",
+      "parentUuid": "74f5394a_84f568f1",
+      "range": {
+        "startLine": 1114,
+        "startChar": 3,
+        "endLine": 1115,
+        "endChar": 69
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

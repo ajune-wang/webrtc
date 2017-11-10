@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8e847cb4_e4d2d72c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "So that we don\u0027t forget to do this later, should we just have a \"bool plan_b_sdp_\" now that we check right here?  For now, it would be false, but we can change that later and wouldn\u0027t need this TODO.",
+      "range": {
+        "startLine": 1001,
+        "startChar": 18,
+        "endLine": 1001,
+        "endChar": 0
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8841045b_169e2933",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2017-11-10T06:45:31Z",
       "side": 1,
       "message": "Why do this for audio only?",
+      "range": {
+        "startLine": 1132,
+        "startChar": 6,
+        "endLine": 1132,
+        "endChar": 25
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74dd0de7_6b42b8d2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m confused why you moved this down here.",
+      "parentUuid": "8841045b_169e2933",
       "range": {
         "startLine": 1132,
         "startChar": 6,
@@ -42,6 +89,70 @@
     },
     {
       "key": {
+        "uuid": "3ecd26a6_93ec99c4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "I think that\u0027s new behavior that we can implement only when unified plan mode is enabled.",
+      "parentUuid": "081817c0_0e0ad257",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb78b2aa_9ffd6def",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "I think for all of these places in which you are calling AddSender, it would be nice to put in:\n\nif (plan_b_sdp_) {\n  ...-\u003eAddSender(...);\n} else {\n  // error or TODO\n}",
+      "range": {
+        "startLine": 1200,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 1
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6140cf6_9aa90e60",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2728,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "This is the track id that we see from the local description when SetLocalDescription was called.   That was the ID used back before RtpSenders existed.  It\u0027s the only way in Plan B SDP to indicate that there\u0027s more than one track/sender in an m-line.\n\nWe should probably just refer to those as sender IDs everywhere, because that\u0027s basically what they are.  They have nothing to do with the track.",
+      "range": {
+        "startLine": 2728,
+        "startChar": 59,
+        "endLine": 2728,
+        "endChar": 0
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cfdf5290_db9c5433",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -53,6 +164,24 @@
       "writtenOn": "2017-11-09T18:51:01Z",
       "side": 1,
       "message": "Yeah this is odd, and broken. Upon construction the sender is assigned the track\u0027s ID (or a random ID if no track was used). When you replaceTrack(), the sender ID isn\u0027t updated... it\u0027s hard to say what implications this has or if there can be miscommunication between peers upon renegotiation. Is it really \"track_id\" or is it more like \"sender_id\"?\n\nI also don\u0027t think we can rely on any ID coming from tracks to be unique when senders and receivers can outlive tracks being added and removed.\n\nI believe adding and removing the same track in chromium can result in multiple webrtc layer tracks with the same ID. Testing is required.",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03c2991a_85973bf7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2750,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "replaceTrack shouldn\u0027t affect this.  The ID in the SDP does not really represent a track ID, despite what the name says.  It represents a sender ID.  It just that this was written before senders existed.  You could rename this OnSenderRemoved and rename track_id to sender_id, and that would make perfect sense.  In fact, why don\u0027t we just do that?",
+      "parentUuid": "cfdf5290_db9c5433",
       "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -94,6 +223,24 @@
     },
     {
       "key": {
+        "uuid": "a1c42d12_3cb07308",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2767,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "The track ID of the MSIDs are basically used for nothing in Unified Plan.  In Plan B, they are used for sender IDs.  \n\nSSRCs are used as the demux point in Plan B.  In Unified Plan, many things are used as demux points, but we shouldn\u0027t expect SSRCs to be signaled in Unified Plan like in Plan B.",
+      "parentUuid": "e0d6c4d9_223f2f2f",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f299e4c1_295c2b0e",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -129,6 +276,29 @@
     },
     {
       "key": {
+        "uuid": "2a582bc0_807fe1e6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2993,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "I\u0027d call this GetFirstVideoTransceiver to make it clear.",
+      "range": {
+        "startLine": 2993,
+        "startChar": 45,
+        "endLine": 2993,
+        "endChar": 0
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9601050a_1a247dc8",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -140,6 +310,46 @@
       "writtenOn": "2017-11-09T18:51:01Z",
       "side": 1,
       "message": "Add a TODO to remove this when multiple transceivers with individual transceiver directions are supported.",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7958ba8_98b34af7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3017,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "This is not a track_id.  It\u0027s a sender_id.",
+      "range": {
+        "startLine": 3017,
+        "startChar": 67,
+        "endLine": 3017,
+        "endChar": 0
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b3089b5_b9be4516",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3041,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T20:30:24Z",
+      "side": 1,
+      "message": "This is not a track_id.  This is a sender_id from the remote side, which you could call a receiver_id.   Although it probably doesn\u0027t matter, it would probably be safer to compare to receiver-id() below instead of receiver-\u003etrack()-\u003eid().",
       "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

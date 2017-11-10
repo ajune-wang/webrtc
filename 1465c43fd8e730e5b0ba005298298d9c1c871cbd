@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd566b3c_3a2f2ffe",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-10T12:33:38Z",
+      "side": 1,
+      "message": "I think so, it\u0027s strange to have an implementation of BitrateAllocationStrategy which intentionally violates the max_bitrate_bps constraints provided by the caller.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "1465c43fd8e730e5b0ba005298298d9c1c871cbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

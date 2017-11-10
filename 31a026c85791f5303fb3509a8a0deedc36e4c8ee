@@ -112,6 +112,52 @@
     },
     {
       "key": {
+        "uuid": "60aec625_dcf521ba",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T21:46:13Z",
+      "side": 1,
+      "message": "SetDirection",
+      "range": {
+        "startLine": 73,
+        "startChar": 72,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b6ec21_5673e449",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T21:46:13Z",
+      "side": 1,
+      "message": "SetChannel",
+      "range": {
+        "startLine": 27,
+        "startChar": 65,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "255c387a_d54eeecd",
         "filename": "pc/rtptransceiver.cc",
         "patchSetId": 1
@@ -262,6 +308,24 @@
       "side": 1,
       "message": "Yes, haven\u0027t done any work with transceivers and Unified Plan yet. I was just going to defer that until later, when it\u0027s more clear how the semantics of set_mid should work.",
       "parentUuid": "22468462_c31f95db",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "606ed87f_3b509f0e",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T21:46:13Z",
+      "side": 1,
+      "message": "Yeah, instead of SetMid, you might have some Associate method that does more than just set the MID.",
+      "parentUuid": "479f5851_04723b2b",
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -435,6 +499,24 @@
       "writtenOn": "2017-11-09T17:30:30Z",
       "side": 1,
       "message": "Can you add an enum class SdpPlanType { kPlanB, kUnifiedPlan } and have the transceiver know which mode is used?",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "843fb7e7_fd4710e5",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T21:46:13Z",
+      "side": 1,
+      "message": "Or just a bool, as I suggested in another CL.  Either way.",
+      "parentUuid": "e8c9e3fc_a79917c3",
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

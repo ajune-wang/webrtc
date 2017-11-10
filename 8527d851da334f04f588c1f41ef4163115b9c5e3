@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cee7ed97_b91fd6c0",
+        "filename": "sdk/android/src/jni/classreferenceholder.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-10T11:26:54Z",
+      "side": 1,
+      "message": "Not necessary since you are using the JNI generation.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 57
+      },
+      "revId": "8527d851da334f04f588c1f41ef4163115b9c5e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb355307_467cde4c",
+        "filename": "sdk/android/src/jni/videodecoderfactorywrapper.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-10T11:26:54Z",
+      "side": 1,
+      "message": "nit: return decoder !\u003d nullptr ? WrapOrUnwrapVideoDecoder(jni, decoder) : nullptr;",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 17
+      },
+      "revId": "8527d851da334f04f588c1f41ef4163115b9c5e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "885c71fc_f8bc8e5d",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-10T11:26:54Z",
+      "side": 1,
+      "message": "ternary operator",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "8527d851da334f04f588c1f41ef4163115b9c5e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9792bcc6_dd1b67d5",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-10T11:26:54Z",
+      "side": 1,
+      "message": "I think we should use GetClass now.",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "8527d851da334f04f588c1f41ef4163115b9c5e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

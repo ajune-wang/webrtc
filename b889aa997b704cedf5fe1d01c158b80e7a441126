@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6183d418_990f71a9",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T19:25:38Z",
+      "side": 1,
+      "message": "I think at this level of code, it\u0027s more accurate to say that you\u0027re wiring up to VideoSendStream::Config and VideoSendStream::Config.",
+      "range": {
+        "startLine": 91,
+        "startChar": 66,
+        "endLine": 91,
+        "endChar": 0
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "670ed203_758af8e4",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-10T19:25:38Z",
+      "side": 1,
+      "message": "This comment should explain what it\u0027s relative to (all other observer configs?).  And how does that interact with allocated_bitrate_bps and media_ratio?",
+      "range": {
+        "startLine": 132,
+        "startChar": 78,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

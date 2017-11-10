@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "45505e16_a1f37bec",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2235,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-11-10T10:19:57Z",
+      "side": 1,
+      "message": "I definitely agree that such a solution would be better. However, I\u0027m not sure it\u0027s worth derailing the progress of this fix for a very long time. Chrome cutoff seems to be at the end of this month; ivoc@ do you think you\u0027ll have the \"perfect\" fix ready by then? Otherwise, I think we should try to find a way to get this CL acceptable for the time being, since it\u0027s already functionally finished.",
+      "parentUuid": "52a78dc8_5cfcb64c",
+      "revId": "7c9a9613e537ebf0120b797f29880949fde32863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "516d7101_eeb12554",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 3

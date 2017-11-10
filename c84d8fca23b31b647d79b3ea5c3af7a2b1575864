@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b95af221_0ee5c449",
+        "filename": "native-api.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-11-10T09:12:27Z",
+      "side": 1,
+      "message": "1. I interpreted the paragraph on L36 to concern the legacy dirs.\n2. Ah yes...\n\nI like your text in the below paragraphs, but I think there\u0027s also a point of being concise. How about keeping that text but adding a summary here? E.g.:\n\n\"Clients of the WebRTC library may depend on headers and build files in the following directories. Changes will be announced in advance to [discuss-webrtc@googlegroups.com][discuss-webrtc], and a migration path will be provided.\"",
+      "parentUuid": "5520aac9_f2060a9a",
+      "revId": "c84d8fca23b31b647d79b3ea5c3af7a2b1575864",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53044571_6b3ee9c2",
         "filename": "native-api.md",
         "patchSetId": 10
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "1. The table already says \"Legacy API directory\", but I guess I could use that word in this paragraph too?\n\n2. I try to say this in the section that starts on line 47.",
       "parentUuid": "53044571_6b3ee9c2",
+      "revId": "c84d8fca23b31b647d79b3ea5c3af7a2b1575864",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bfc9d1e_c7d918d6",
+        "filename": "native-api.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-11-10T09:12:27Z",
+      "side": 1,
+      "message": "Without reading the entire below text this line leaves me with the impression that everything below is also the supported API.\n\nHow about:\n\n\"Clients may currently also use headers and build files in the following LEGACY directories. Note that this will change and that anything here which is useful, is being moved into api/.\"",
+      "parentUuid": "5dc43ea7_45f2a1ad",
       "revId": "c84d8fca23b31b647d79b3ea5c3af7a2b1575864",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

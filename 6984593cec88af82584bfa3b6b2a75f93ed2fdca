@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8742a832_42577ecb",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-10T14:48:26Z",
+      "side": 1,
+      "message": "It seems a bit fishy to have this file in several targets. Maybe better to add video_frame_api_i420 to public_deps of video_frame_api, over the transition.\n\nThat would also allow you to move i420_buffer.c to this target right away.\n\nHmm, but that would result in a circular dependency between these two targets. Is that a show-stopper? I see ways to workaround that (like temporarily move everything in video_frame_api which we want to keep there into a new target video_frame_api_this_is_the_intended_api_really, which both could publicly depend on), but that seems a bit too messy to be worth the effort.",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 26
+      },
+      "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87d76f1e_032ec55b",
         "filename": "common_video/video_frame_buffer.cc",
         "patchSetId": 9

@@ -368,6 +368,17 @@ class BaseChannel
   // Wraps the existing RtpTransport in an SrtpTransport.
   void EnableSrtpTransport_n();
 
+  // Cache the encrypted header extension IDs from the local/remote description
+  // and use them with other crypto parameters from DtlsTransport.
+  void CacheEncryptedHeaderExtensionIds(cricket::ContentSource source,
+                                        const std::vector<int>& extension_ids);
+
+  // Return true if the new header extension IDs are different from the existing
+  // ones.
+  bool EncryptedHeaderExtensionIdsChanged(
+      cricket::ContentSource source,
+      const std::vector<int>& new_extension_ids);
+
   rtc::Thread* const worker_thread_;
   rtc::Thread* const network_thread_;
   rtc::Thread* const signaling_thread_;
@@ -410,6 +421,10 @@ class BaseChannel
   MediaContentDirection local_content_direction_ = MD_INACTIVE;
   MediaContentDirection remote_content_direction_ = MD_INACTIVE;
   CandidatePairInterface* selected_candidate_pair_;
+
+  // The cached encrypted head extension IDs.
+  rtc::Optional<std::vector<int>> send_extension_ids_;
+  rtc::Optional<std::vector<int>> recv_extension_ids_;
 };
 
 // VoiceChannel is a specialization that adds support for early media, DTMF,

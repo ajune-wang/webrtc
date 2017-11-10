@@ -81,6 +81,7 @@ class MatchedFilter {
 
   MatchedFilter(ApmDataDumper* data_dumper,
                 Aec3Optimization optimization,
+                size_t sub_block_size,
                 size_t window_size_sub_blocks,
                 int num_matched_filters,
                 size_t alignment_shift_sub_blocks,
@@ -90,7 +91,7 @@ class MatchedFilter {
 
   // Updates the correlation with the values in the capture buffer.
   void Update(const DownsampledRenderBuffer& render_buffer,
-              const std::array<float, kSubBlockSize>& capture);
+              rtc::ArrayView<const float> capture);
 
   // Resets the matched filter.
   void Reset();
@@ -106,6 +107,7 @@ class MatchedFilter {
  private:
   ApmDataDumper* const data_dumper_;
   const Aec3Optimization optimization_;
+  const size_t sub_block_size_;
   const size_t filter_intra_lag_shift_;
   std::vector<std::vector<float>> filters_;
   std::vector<LagEstimate> lag_estimates_;

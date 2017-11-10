@@ -117,10 +117,11 @@ class PeerConnectionWrapper {
 
  private:
   std::unique_ptr<SessionDescriptionInterface> CreateSdp(
-      std::function<void(CreateSessionDescriptionObserver*)> fn,
+      const std::function<void(CreateSessionDescriptionObserver*)>& fn,
       std::string* error_out);
-  bool SetSdp(std::function<void(SetSessionDescriptionObserver*)> fn,
-              std::string* error_out);
+  bool SetSdp(
+      const std::function<void(SetSessionDescriptionObserver*)>& fn,
+      std::string* error_out);
 
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
   std::unique_ptr<MockPeerConnectionObserver> observer_;

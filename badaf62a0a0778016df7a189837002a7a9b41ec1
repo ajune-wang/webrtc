@@ -16,6 +16,24 @@
       "revId": "badaf62a0a0778016df7a189837002a7a9b41ec1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac0da4cc_e4fa5e87",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-11-10T08:59:36Z",
+      "side": 1,
+      "message": "It\u0027s probably because this function sets encoder_specific_settings in both cases. It may not be a good reason, but it makes at least some sense.",
+      "parentUuid": "6a6847da_35b42c44",
+      "revId": "badaf62a0a0778016df7a189837002a7a9b41ec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -122,3 +122,39 @@ not `#ifdef` or `#if defined()`:
 When combined with the `-Wundef` compiler option, this produces
 compile time warnings if preprocessor symbols are misspelled, or used
 without corresponding build rules to set them.
+
+## TODO comments
+
+TODO comments are useful to give context to code that can be a short-term
+solution or good-enough but not perfect.
+
+A TODO comment must include the string TODO in all caps, followed by the
+username of a WebRTC committer or by a bug reference.
+
+For example,
+
+```
+// TODO(bugs.webrtc.org/123456): Deprecate this function.
+// TODO(yourname): Deprecate this function.
+```
+
+The following may be a good rule of thumb:
+
+1. If there is an existing bug that’s a good fit, consider naming it in the TODO.
+2. Commit messages should generally reference a bug; if you are going to have to
+   create a bug anyway for the future CL that fixes the TODO, consider creating the
+   bug right away and naming it in the TODO.
+3. If there are other reasons why creating a bug feels useful (you want to write
+   some text about it, you know great people to CC to the bug, etc.), create a
+   bug and name it in the TODO.
+4. Otherwise, name the most appropriate contact person in the TODO.
+
+As for what format to use when naming bugs: “bugs.webrtc.org/1337” has the
+advantage of being:
+1. reasonably short
+2. obviously the name of a WebRTC bug even for those who have never seen this
+   notation before
+3. a complete URL that can be easily pasted into a web browser
+
+But there are other formats too, such as “webrtc:1337”, which we use in the "Bug:"
+field of commit messages.

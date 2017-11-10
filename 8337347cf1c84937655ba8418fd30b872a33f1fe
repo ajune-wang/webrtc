@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8841045b_169e2933",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-10T06:45:31Z",
+      "side": 1,
+      "message": "Why do this for audio only?",
+      "range": {
+        "startLine": 1132,
+        "startChar": 6,
+        "endLine": 1132,
+        "endChar": 25
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "081817c0_0e0ad257",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -117,6 +140,29 @@
       "writtenOn": "2017-11-09T18:51:01Z",
       "side": 1,
       "message": "Add a TODO to remove this when multiple transceivers with individual transceiver directions are supported.",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09403166_68636a00",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-10T06:45:31Z",
+      "side": 1,
+      "message": "Why change this to return only one voice_channel?",
+      "range": {
+        "startLine": 527,
+        "startChar": 46,
+        "endLine": 527,
+        "endChar": 60
+      },
       "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

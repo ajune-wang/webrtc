@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74f5394a_84f568f1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-10T06:45:31Z",
+      "side": 0,
+      "message": "Keep this comment?",
+      "range": {
+        "startLine": 1114,
+        "startChar": 3,
+        "endLine": 1115,
+        "endChar": 69
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -219,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "9ac883dc_95e7cf64",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-11T03:02:10Z",
+      "side": 1,
+      "message": "Yes.  SetDirection can cause onnegotiationneeded to fire.",
+      "parentUuid": "18ab1c80_efecba9c",
+      "range": {
+        "startLine": 73,
+        "startChar": 72,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "05b6ec21_5673e449",
         "filename": "pc/rtptransceiver.cc",
         "patchSetId": 1

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8249eb5a_6753824b",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82536cc6_400031cb",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99816ba4_2829e934",
         "filename": "api/rtptransceiverinterface.h",
         "patchSetId": 1
@@ -95,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "98d614ee_ca719cb7",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fe97867_b905f847",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fdaf2b9_5e17708e",
         "filename": "api/rtptransceiverinterface.h",
         "patchSetId": 1
@@ -112,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "81d92439_08995f11",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fdaf2b9_5e17708e",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60aec625_dcf521ba",
         "filename": "api/rtptransceiverinterface.h",
         "patchSetId": 1
@@ -123,6 +183,30 @@
       "writtenOn": "2017-11-10T21:46:13Z",
       "side": 1,
       "message": "SetDirection",
+      "range": {
+        "startLine": 73,
+        "startChar": 72,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ab1c80_efecba9c",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "According to the Google style guide, \"accessors and mutators may be named like variables.\" Should this function be treated as more than a mutator?",
+      "parentUuid": "60aec625_dcf521ba",
       "range": {
         "startLine": 73,
         "startChar": 72,
@@ -155,6 +239,30 @@
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29765c95_6297cc37",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05b6ec21_5673e449",
+      "range": {
+        "startLine": 27,
+        "startChar": 65,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -193,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "ac1cfc72_8e044cde",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45ca7045_e3c1d180",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10c4d5a3_3bf6944d",
         "filename": "pc/rtptransceiver.cc",
         "patchSetId": 1
@@ -207,6 +333,24 @@
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d709ad_4139fc66",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10c4d5a3_3bf6944d",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -262,6 +406,24 @@
     },
     {
       "key": {
+        "uuid": "26aa5692_8cfe779b",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2181e6e8_0ff99d84",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f9d15fc_ae9c4057",
         "filename": "pc/rtptransceiver.cc",
         "patchSetId": 1
@@ -276,6 +438,24 @@
       "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b157edc4_4843f0d2",
+        "filename": "pc/rtptransceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f9d15fc_ae9c4057",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -355,6 +535,30 @@
     },
     {
       "key": {
+        "uuid": "53f66feb_2857d76f",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "9191393d_3a6b7f6f",
+      "range": {
+        "startLine": 11,
+        "startChar": 45,
+        "endLine": 11,
+        "endChar": 63
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8adaefdf_d606d31d",
         "filename": "pc/rtptransceiver.h",
         "patchSetId": 1
@@ -378,6 +582,30 @@
     },
     {
       "key": {
+        "uuid": "eba3818a_2432f2c1",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "8adaefdf_d606d31d",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 72
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "500c9cb9_25c71665",
         "filename": "pc/rtptransceiver.h",
         "patchSetId": 1
@@ -389,6 +617,30 @@
       "writtenOn": "2017-11-09T17:30:30Z",
       "side": 1,
       "message": "nit: Can you rephrase this, it uses reference counted, ownership might be shared with other scoped_refptrs and the senders/receivers could outlive the transceiver?",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ec357a0_212d8d69",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Rephrased this paragraph. Let me know if it sounds better.",
+      "parentUuid": "500c9cb9_25c71665",
       "range": {
         "startLine": 44,
         "startChar": 14,
@@ -488,6 +740,24 @@
     },
     {
       "key": {
+        "uuid": "fc4365c6_94d86557",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Right now the implementation of RemoveTrack logs an error if the caller tries to remove a sender that does not exist. I don\u0027t want to change that behavior right now, so I\u0027m going to leave this as a boolean.",
+      "parentUuid": "b21c678a_5eb4597e",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8c9e3fc_a79917c3",
         "filename": "pc/rtptransceiver.h",
         "patchSetId": 1
@@ -523,6 +793,24 @@
     },
     {
       "key": {
+        "uuid": "3a46d2ea_865cc1f9",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "843fb7e7_fd4710e5",
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b508e36b_f769e80a",
         "filename": "pc/rtptransceiver.h",
         "patchSetId": 1
@@ -534,6 +822,30 @@
       "writtenOn": "2017-11-10T01:22:09Z",
       "side": 1,
       "message": "When would these value be set?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 34
+      },
+      "revId": "31a026c85791f5303fb3509a8a0deedc36e4c8ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ad8b4ba_1358cef8",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-11T00:16:46Z",
+      "side": 1,
+      "message": "When processing the session description. I\u0027ll add setters when I get to that part of the implementation.",
+      "parentUuid": "b508e36b_f769e80a",
       "range": {
         "startLine": 127,
         "startChar": 0,

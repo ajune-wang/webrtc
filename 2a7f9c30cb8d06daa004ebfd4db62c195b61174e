@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d91f49f_7ec8dc76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-12T19:23:06Z",
+      "side": 1,
+      "message": "Is this the same thing as BUG\u003d... ?",
+      "revId": "2a7f9c30cb8d06daa004ebfd4db62c195b61174e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

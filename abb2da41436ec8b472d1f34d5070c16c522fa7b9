@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdd48178_6824cbca",
+        "filename": "pc/peerconnectionwrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-12T19:31:14Z",
+      "side": 1,
+      "message": "If you\u0027re passing a callable that you won\u0027t save, it\u0027s better to use rtc::FunctionView instead of const std::function\u0026, because that way, the caller won\u0027t have to copy (or move) its callable into an std::function to begin with.",
+      "revId": "abb2da41436ec8b472d1f34d5070c16c522fa7b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

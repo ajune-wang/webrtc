@@ -606,7 +606,7 @@ bool OpenSSLIdentity::ConfigureIdentity(SSL_CTX* ctx) {
   // If a chain is available, use it.
   for (size_t i = 1; i < cert_chain_->GetSize(); ++i) {
     cert = static_cast<const OpenSSLCertificate*>(&cert_chain_->Get(i));
-    if (SSL_CTX_add_extra_chain_cert(ctx, cert->x509()) != 1) {
+    if (SSL_CTX_add1_chain_cert(ctx, cert->x509()) != 1) {
       LogSSLErrors("Configuring intermediate certificate");
       return false;
     }

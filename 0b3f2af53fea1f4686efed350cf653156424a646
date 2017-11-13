@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f70ba9e_8caff1bc",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-13T11:47:17Z",
+      "side": 1,
+      "message": "Yep, looks better that way, thank you.",
+      "parentUuid": "289d83cb_7bb3b399",
+      "range": {
+        "startLine": 100,
+        "startChar": 26,
+        "endLine": 100,
+        "endChar": 34
+      },
+      "revId": "0b3f2af53fea1f4686efed350cf653156424a646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65ec487e_73644eeb",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0942fb46_a84b9f17",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-13T11:47:17Z",
+      "side": 1,
+      "message": "eventually - yes, when it there will be one RtcpTransceiver per RtpTransport.\ninitially it might not be the case. Added a TODO.\n\nAnd, following your previous comment, removed this comment.",
+      "parentUuid": "65ec487e_73644eeb",
+      "range": {
+        "startLine": 106,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 29
+      },
+      "revId": "0b3f2af53fea1f4686efed350cf653156424a646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "026618a9_1aca6ac8",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-13T09:56:31Z",
       "side": 1,
       "message": "config_ is const, right? So you could call SetSenderSsrc when remb_ is created, in SendRemb(). It will look nicer to set all members in the same place. Maybe one could even have an rtc::Optional\u003cconst rtcp::Remb\u003e, not sure how that would work.",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 48
+      },
+      "revId": "0b3f2af53fea1f4686efed350cf653156424a646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c326365_129a26ce",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-13T11:47:17Z",
+      "side": 1,
+      "message": "I can now, while sender_ssrc is const. But it will be a bit dynamic in the future.\nI feel it belongs more to this function that to setting remb values: it changes independently of the bitrate/remb ssrcs and have separate meaning.\nSlightly refactored this function to make sender ssrc stand out.",
+      "parentUuid": "026618a9_1aca6ac8",
       "range": {
         "startLine": 181,
         "startChar": 0,

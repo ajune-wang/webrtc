@@ -48,7 +48,7 @@ class RtcpTransceiverImpl {
 
   void HandleReceivedPacket(const rtcp::CommonHeader& rtcp_packet_header);
 
-  void ReschedulePeriodicCompoundPackets(int64_t delay_ms);
+  void SchedulePeriodicCompoundPackets(int64_t delay_ms);
   // Sends RTCP packets.
   void SendPacket();
   // Generate Report Blocks to be send in Sender or Receiver Report.

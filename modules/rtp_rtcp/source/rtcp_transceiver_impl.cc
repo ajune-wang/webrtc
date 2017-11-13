@@ -73,7 +73,7 @@ RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
     : config_(config), ptr_factory_(this) {
   RTC_CHECK(config_.Validate());
   if (config_.schedule_periodic_compound_packets)
-    ReschedulePeriodicCompoundPackets(config_.initial_report_delay_ms);
+    SchedulePeriodicCompoundPackets(config_.initial_report_delay_ms);
 }
 
 RtcpTransceiverImpl::~RtcpTransceiverImpl() = default;
@@ -93,8 +93,11 @@ void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet) {
 
 void RtcpTransceiverImpl::SendCompoundPacket() {
   SendPacket();
-  if (config_.schedule_periodic_compound_packets)
-    ReschedulePeriodicCompoundPackets(config_.report_period_ms);
+  if (config_.schedule_periodic_compound_packets) {
+    // Stop existent send task.
+    ptr_factory_.InvalidateWeakPtrs();
+    SchedulePeriodicCompoundPackets(config_.report_period_ms);
+  }
 }
 
 void RtcpTransceiverImpl::HandleReceivedPacket(
@@ -113,7 +116,7 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
   }
 }
 
-void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets(int64_t delay_ms) {
+void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
   class SendPeriodicCompoundPacket : public rtc::QueuedTask {
    public:
     SendPeriodicCompoundPacket(rtc::TaskQueue* task_queue,
@@ -135,10 +138,7 @@ void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets(int64_t delay_ms) {
   };
 
   RTC_DCHECK(config_.schedule_periodic_compound_packets);
-  RTC_DCHECK(config_.task_queue->IsCurrent());
 
-  // Stop existent send task if there is one.
-  ptr_factory_.InvalidateWeakPtrs();
   auto task = rtc::MakeUnique<SendPeriodicCompoundPacket>(
       config_.task_queue, ptr_factory_.GetWeakPtr());
   if (delay_ms > 0)

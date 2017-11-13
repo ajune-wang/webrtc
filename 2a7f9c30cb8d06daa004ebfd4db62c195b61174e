@@ -16,6 +16,24 @@
       "revId": "2a7f9c30cb8d06daa004ebfd4db62c195b61174e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "489e6b0d_5baf3178",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-13T06:49:21Z",
+      "side": 1,
+      "message": "Yes, \"KEY\u003d\" was the Rietveld format while \"Key:\" is the Gerrit format.\n\nBut for now Gerrit is also able to parse Rietveld format.",
+      "parentUuid": "3d91f49f_7ec8dc76",
+      "revId": "2a7f9c30cb8d06daa004ebfd4db62c195b61174e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

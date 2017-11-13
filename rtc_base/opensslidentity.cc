@@ -27,6 +27,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/openssl.h"
 #include "rtc_base/openssldigest.h"
+#include "rtc_base/ptr_util.h"
 
 namespace rtc {
 
@@ -478,10 +479,12 @@ int64_t OpenSSLCertificate::CertificateExpirationTime() const {
 
 OpenSSLIdentity::OpenSSLIdentity(OpenSSLKeyPair* key_pair,
                                  OpenSSLCertificate* certificate)
-    : key_pair_(key_pair), cert_chain_(new SSLCertChain(certificate)) {
+    : key_pair_(key_pair) {
   RTC_DCHECK(key_pair != nullptr);
   RTC_DCHECK(certificate != nullptr);
-  delete certificate;
+  std::vector<std::unique_ptr<SSLCertificate>> certs;
+  certs.emplace_back(certificate);
+  cert_chain_.reset(new SSLCertChain(std::move(certs)));
 }
 
 OpenSSLIdentity::OpenSSLIdentity(OpenSSLKeyPair* key_pair,

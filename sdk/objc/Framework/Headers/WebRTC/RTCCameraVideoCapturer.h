@@ -29,6 +29,9 @@ RTC_EXPORT
 // Returns list of formats that are supported by this class for this device.
 + (NSArray<AVCaptureDeviceFormat *> *)supportedFormatsForDevice:(AVCaptureDevice *)device;
 
+// Returns the most efficient supported output pixel format for this capturer.
+- (FourCharCode)preferredOutputPixelFormat;
+
 // Starts and stops the capture session asynchronously.
 - (void)startCaptureWithDevice:(AVCaptureDevice *)device
                         format:(AVCaptureDeviceFormat *)format

@@ -8,9 +8,10 @@
 *  be found in the AUTHORS file in the root of the source tree.
 */
 
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/include/remote_ntp_time_estimator.h"
+#include "common_types.h"  // NOLINT(build/include)
 #include "system_wrappers/include/clock.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -49,6 +50,17 @@ class RemoteNtpTimeEstimatorTest : public ::testing::Test {
     NtpTime ntp = remote_clock_.CurrentNtpTime();
 
     AdvanceTimeMilliseconds(kTestRtt / 2);
+    ReceiveRtcpSr(kTestRtt, rtcp_timestamp, ntp.seconds(), ntp.fractions());
+  }
+
+  void SendRtcpSrInaccurately(int64_t ntp_error_ms,
+                              int64_t networking_delay_ms) {
+    uint32_t rtcp_timestamp = GetRemoteTimestamp();
+    int64_t ntp_error_fractions =
+        ntp_error_ms * NtpTime::kFractionsPerSecond / 1000;
+    NtpTime ntp(static_cast<uint64_t>(remote_clock_.CurrentNtpTime()) +
+                ntp_error_fractions);
+    AdvanceTimeMilliseconds(kTestRtt / 2 + networking_delay_ms);
     ReceiveRtcpSr(kTestRtt, rtcp_timestamp, ntp.seconds(), ntp.fractions());
   }
 
@@ -93,6 +105,39 @@ TEST_F(RemoteNtpTimeEstimatorTest, Estimate) {
   SendRtcpSr();
 
   // Local peer gets enough RTCP SR to calculate the capture time.
+  EXPECT_EQ(capture_ntp_time_ms, estimator_.Estimate(rtp_timestamp));
+}
+
+TEST_F(RemoteNtpTimeEstimatorTest, AveragesErrorsOut) {
+  test::ScopedFieldTrials override_field_trials(
+      "WebRTC-ClockEstimation/Enabled/");
+
+  // Remote peer sends first 5 RTCP SR without errors.
+  AdvanceTimeMilliseconds(1000);
+  SendRtcpSr();
+  AdvanceTimeMilliseconds(1000);
+  SendRtcpSr();
+  AdvanceTimeMilliseconds(1000);
+  SendRtcpSr();
+  AdvanceTimeMilliseconds(1000);
+  SendRtcpSr();
+  AdvanceTimeMilliseconds(1000);
+  SendRtcpSr();
+
+  AdvanceTimeMilliseconds(15);
+  uint32_t rtp_timestamp = GetRemoteTimestamp();
+  int64_t capture_ntp_time_ms = local_clock_.CurrentNtpInMilliseconds();
+
+  // Local peer gets enough RTCP SR to calculate the capture time.
+  EXPECT_EQ(capture_ntp_time_ms, estimator_.Estimate(rtp_timestamp));
+
+  // Remote sends corrupted RTCP SRs
+  AdvanceTimeMilliseconds(1000);
+  SendRtcpSrInaccurately(10, 10);
+  AdvanceTimeMilliseconds(1000);
+  SendRtcpSrInaccurately(-20, 5);
+
+  // Errors should be averaged out.
   EXPECT_EQ(capture_ntp_time_ms, estimator_.Estimate(rtp_timestamp));
 }
 

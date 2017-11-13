@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea9a9895_0d3dceb2",
+        "filename": "api/ortc/ortcfactoryinterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-11-13T16:06:03Z",
+      "side": 0,
+      "message": "Removing this doesn\u0027t appear to break anything, and I can\u0027t see anything including ortcfactoryinterface.h downstream.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "b5b5bcee722c8b646e545ca6b85518aa8aaa1eda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

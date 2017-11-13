@@ -34,6 +34,52 @@
       "revId": "2a7f9c30cb8d06daa004ebfd4db62c195b61174e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd640400_7b8647a3",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-13T08:50:00Z",
+      "side": 1,
+      "message": "Title looks different than others on the same level. Add some extra *** for consitency?",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 16
+      },
+      "revId": "2a7f9c30cb8d06daa004ebfd4db62c195b61174e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78c2806e_efff895e",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-13T08:50:00Z",
+      "side": 1,
+      "message": "Add some brief advice saying what a TODOs should say. Quoting advice found elsewhere: \"Each TODO should define a clear and addressable problem. A future\nreader should be able to understand what the problem is and how\nto fix it.\"",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 40
+      },
+      "revId": "2a7f9c30cb8d06daa004ebfd4db62c195b61174e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

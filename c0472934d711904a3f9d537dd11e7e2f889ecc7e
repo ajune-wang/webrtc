@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1bd6ca8_051184e1",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCCameraVideoCapturer.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2017-11-13T18:15:48Z",
+      "side": 1,
+      "message": "Is this safe? What happens if it is unsupported?",
+      "range": {
+        "startLine": 405,
+        "startChar": 6,
+        "endLine": 405,
+        "endChar": 40
+      },
+      "revId": "c0472934d711904a3f9d537dd11e7e2f889ecc7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffea2392_d9572038",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCCameraVideoCapturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2017-11-13T18:15:48Z",
+      "side": 1,
+      "message": "It might be worth doco-ing what happens when an unsupported format is passed in.",
+      "range": {
+        "startLine": 37,
+        "startChar": 32,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "c0472934d711904a3f9d537dd11e7e2f889ecc7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

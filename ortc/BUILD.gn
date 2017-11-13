@@ -78,6 +78,7 @@ if (rtc_include_tests) {
       ":ortc",
       "../api/audio_codecs:builtin_audio_decoder_factory",
       "../api/audio_codecs:builtin_audio_encoder_factory",
+      "../api:libjingle_peerconnection_api",
       "../media:rtc_media_tests_utils",
       "../p2p:p2p_test_utils",
       "../p2p:rtc_p2p",

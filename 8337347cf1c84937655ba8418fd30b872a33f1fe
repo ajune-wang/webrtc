@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d69b31f6_27b947ec",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e847cb4_e4d2d72c",
+      "range": {
+        "startLine": 1001,
+        "startChar": 18,
+        "endLine": 1001,
+        "endChar": 0
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8841045b_169e2933",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb65f638_10600f3b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "Good catch, reverted.",
+      "parentUuid": "74dd0de7_6b42b8d2",
+      "range": {
+        "startLine": 1132,
+        "startChar": 6,
+        "endLine": 1132,
+        "endChar": 25
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -130,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "6c4dc27d_583a2f00",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "I think it\u0027s fine for now since I imagine these methods will probably change quite a bit. Also, for example, CreateSender is no longer in the spec and doesn\u0027t really work with the RtpTransceiver model (should call AddTransceiver instead). There\u0027s DCHECKs in the implementation of AddSender/RemoveSender that should catch improper uses of the API.",
+      "parentUuid": "bb78b2aa_9ffd6def",
+      "range": {
+        "startLine": 1200,
+        "startChar": 0,
+        "endLine": 1200,
+        "endChar": 1
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6140cf6_9aa90e60",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -141,6 +213,30 @@
       "writtenOn": "2017-11-10T20:30:24Z",
       "side": 1,
       "message": "This is the track id that we see from the local description when SetLocalDescription was called.   That was the ID used back before RtpSenders existed.  It\u0027s the only way in Plan B SDP to indicate that there\u0027s more than one track/sender in an m-line.\n\nWe should probably just refer to those as sender IDs everywhere, because that\u0027s basically what they are.  They have nothing to do with the track.",
+      "range": {
+        "startLine": 2728,
+        "startChar": 59,
+        "endLine": 2728,
+        "endChar": 0
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b610e73_fa52a992",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2728,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "OK, I renamed track_id to sender_id in these methods and the TrackInfo struct. I\u0027m not sure what the right name for TrackInfo is, but I think any further refactoring would probably be more suitable for a follow-up CL.",
+      "parentUuid": "e6140cf6_9aa90e60",
       "range": {
         "startLine": 2728,
         "startChar": 59,
@@ -299,6 +395,30 @@
     },
     {
       "key": {
+        "uuid": "15faf00f_a52cde6a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2993,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "I think it makes sense to leave the name as-is because it is only usable with Plan B SDP where there really is just one video transceiver. I added a DCHECK to make sure this method is not called with unified plan.",
+      "parentUuid": "2a582bc0_807fe1e6",
+      "range": {
+        "startLine": 2993,
+        "startChar": 45,
+        "endLine": 2993,
+        "endChar": 0
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9601050a_1a247dc8",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -313,6 +433,24 @@
       "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a507c746_e887526d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9601050a_1a247dc8",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -339,6 +477,30 @@
     },
     {
       "key": {
+        "uuid": "4348f034_71345be6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3017,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7958ba8_98b34af7",
+      "range": {
+        "startLine": 3017,
+        "startChar": 67,
+        "endLine": 3017,
+        "endChar": 0
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b3089b5_b9be4516",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -353,6 +515,24 @@
       "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd1c5a01_8a30cd3f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3041,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b3089b5_b9be4516",
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -376,6 +556,30 @@
       "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdde6149_df48b198",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-13T19:39:39Z",
+      "side": 1,
+      "message": "Good point. Deleting them since they will be replaced by just using RtpTransceivers directly.",
+      "parentUuid": "09403166_68636a00",
+      "range": {
+        "startLine": 527,
+        "startChar": 46,
+        "endLine": 527,
+        "endChar": 60
+      },
+      "revId": "8337347cf1c84937655ba8418fd30b872a33f1fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

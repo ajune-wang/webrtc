@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a2cd1b4_729c2895",
+        "filename": "modules/video_coding/codecs/test/test_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-13T09:15:47Z",
+      "side": 1,
+      "message": "Can we use CodecName() instead? That gives more information for H.264.",
+      "range": {
+        "startLine": 197,
+        "startChar": 27,
+        "endLine": 197,
+        "endChar": 51
+      },
+      "revId": "4592b29c4bf0c2ffb18831201cd448c1f1f9ffaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb859079_bcbe326e",
+        "filename": "modules/video_coding/codecs/test/test_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-13T09:15:47Z",
+      "side": 1,
+      "message": "Since we use \"-\" in CodecName(), how about changing to \"_\" here?",
+      "range": {
+        "startLine": 199,
+        "startChar": 20,
+        "endLine": 199,
+        "endChar": 23
+      },
+      "revId": "4592b29c4bf0c2ffb18831201cd448c1f1f9ffaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

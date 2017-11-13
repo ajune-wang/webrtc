@@ -505,6 +505,24 @@
     },
     {
       "key": {
+        "uuid": "df55c6f8_490f868d",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-11-13T17:33:07Z",
+      "side": 1,
+      "message": "\"(which the compiler will probably optimise away entirely)\"\nThat\u0027s my concern; not sure if it is guaranteed to be optimized away, or if it might end up incurring the cost of pointer dereferencing. I\u0027m only asking because I wonder if I should freely use this myself in other places, including more efficiency-critical paths. For here, I think it\u0027s perfectly fine.",
+      "parentUuid": "38f1ca1c_4d3533a0",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d5f8106_a12cd270",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 7

@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "82a17ed6_e57791ae",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-13T16:12:33Z",
+      "side": 1,
+      "message": "unit?",
+      "range": {
+        "startLine": 507,
+        "startChar": 13,
+        "endLine": 507,
+        "endChar": 21
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87ee024d_5c3a19a3",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-13T16:12:33Z",
+      "side": 1,
+      "message": "Should this be have a unit? Or should it be called something like priority?",
+      "range": {
+        "startLine": 508,
+        "startChar": 11,
+        "endLine": 508,
+        "endChar": 27
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ca73a48_333802db",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-13T16:12:33Z",
+      "side": 1,
+      "message": "From a cursory reading of the code below it looks like you\u0027re sorting the streams based on capacity and greedily allocating the full capacity. I.e. since audio has a lower maximum than video, audio streams are saturated to capacity before allocating any bitrate for video. Since this allocation strategy wouldn\u0027t be entirely unreasonable, I\u0027d prefer if the comment clarified that this is indeed not the case.\n\nThat is; each stream gets a fraction of the total bitrate that is proportional to it\u0027s priority. If this fraction exceeds the stream\u0027s maximum bitrate, the excess is divided between the unsaturated streams. Maybe this should be written at the beginning of the function.",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 77
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e821fa9_1fab7a3b",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-13T16:12:33Z",
+      "side": 1,
+      "message": "\"proportionally to\" instead of \"appropriately based upon\" would make the comment clearer imo.",
+      "range": {
+        "startLine": 550,
+        "startChar": 64,
+        "endLine": 550,
+        "endChar": 77
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fabdfbb_1c4d1a5c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-13T16:12:33Z",
+      "side": 1,
+      "message": "Would the code be shorter if this function took a PriorityRateObserverConfig?\n\nCould the function name be made clearer? (I don\u0027t have any good suggestions.)",
+      "range": {
+        "startLine": 563,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 57
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0450a70_79de4c40",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-13T16:12:33Z",
+      "side": 1,
+      "message": "I\u0027d prefer to not call it \"allocated\" when we havent allocated anything for the observer yet. How about observer_share?",
+      "range": {
+        "startLine": 568,
+        "startChar": 0,
+        "endLine": 568,
+        "endChar": 70
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6183d418_990f71a9",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 8
@@ -41,6 +179,29 @@
         "startChar": 78,
         "endLine": 132,
         "endChar": 0
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b003fba4_6c263197",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-13T16:12:33Z",
+      "side": 1,
+      "message": "Could you make this more specific and how relative_bitrate is interpreted?",
+      "range": {
+        "startLine": 178,
+        "startChar": 19,
+        "endLine": 178,
+        "endChar": 23
       },
       "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

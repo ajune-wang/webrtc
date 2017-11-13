@@ -80,6 +80,29 @@
       "revId": "2a7f9c30cb8d06daa004ebfd4db62c195b61174e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e180207_72b4b6f3",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-13T09:28:00Z",
+      "side": 1,
+      "message": "may be promote more verbose TODOs, specially one that has some kind of \u0027when\u0027:\ne.g. \u0027// TODO(bugs/webrtc.org/123456): Use function above when support for c++11 will be dropped\u0027\n(for deprecation it might be better to promote tools-visible comment: \u0027RTC_DEPRECATED(yourname) // Remove after 04 May 2019\u0027)",
+      "range": {
+        "startLine": 138,
+        "startChar": 19,
+        "endLine": 138,
+        "endChar": 43
+      },
+      "revId": "2a7f9c30cb8d06daa004ebfd4db62c195b61174e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

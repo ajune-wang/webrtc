@@ -235,6 +235,30 @@
       "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75ba9db2_84e6842a",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-13T09:44:25Z",
+      "side": 1,
+      "message": "Ok, had no idea. I thought final was used also on non-virtual methods.",
+      "parentUuid": "03be07a6_9f249d63",
+      "range": {
+        "startLine": 79,
+        "startChar": 51,
+        "endLine": 79,
+        "endChar": 56
+      },
+      "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

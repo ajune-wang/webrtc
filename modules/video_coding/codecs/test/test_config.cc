@@ -193,5 +193,12 @@ std::string TestConfig::CodecName() const {
   return codec_name;
 }
 
+std::string TestConfig::FilenameWithParams() const {
+  std::string codec_name = CodecTypeToPayloadString(codec_settings.codecType);
+  std::string implementation_type = hw_encoder ? "hw" : "sw";
+  return filename + "-" + codec_name + "-" + implementation_type + "-" +
+         std::to_string(codec_settings.startBitrate);
+}
+
 }  // namespace test
 }  // namespace webrtc

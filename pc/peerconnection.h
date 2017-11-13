@@ -22,8 +22,7 @@
 #include "pc/iceserverparsing.h"
 #include "pc/peerconnectionfactory.h"
 #include "pc/rtcstatscollector.h"
-#include "pc/rtpreceiver.h"
-#include "pc/rtpsender.h"
+#include "pc/rtptransceiver.h"
 #include "pc/statscollector.h"
 #include "pc/streamcollection.h"
 #include "pc/webrtcsessiondescriptionfactory.h"
@@ -223,19 +222,13 @@ class PeerConnection : public PeerConnectionInterface,
 
   // Exposed for stats collecting.
   // TODO(steveanton): Switch callers to use the plural form and remove these.
-  virtual cricket::VoiceChannel* voice_channel() {
-    if (voice_channels_.empty()) {
-      return nullptr;
-    } else {
-      return voice_channels_[0];
-    }
+  virtual cricket::VoiceChannel* voice_channel() const {
+    return static_cast<cricket::VoiceChannel*>(
+        GetAudioTransceiver()->internal()->channel());
   }
-  virtual cricket::VideoChannel* video_channel() {
-    if (video_channels_.empty()) {
-      return nullptr;
-    } else {
-      return video_channels_[0];
-    }
+  virtual cricket::VideoChannel* video_channel() const {
+    return static_cast<cricket::VideoChannel*>(
+        GetVideoTransceiver()->internal()->channel());
   }
 
   // Only valid when using deprecated RTP data channels.
@@ -280,21 +273,32 @@ class PeerConnection : public PeerConnectionInterface,
   struct TrackInfo {
     TrackInfo() : ssrc(0) {}
     TrackInfo(const std::string& stream_label,
-              const std::string track_id,
+              const std::string sender_id,
               uint32_t ssrc)
-        : stream_label(stream_label), track_id(track_id), ssrc(ssrc) {}
+        : stream_label(stream_label), sender_id(sender_id), ssrc(ssrc) {}
     bool operator==(const TrackInfo& other) {
       return this->stream_label == other.stream_label &&
-             this->track_id == other.track_id && this->ssrc == other.ssrc;
+             this->sender_id == other.sender_id && this->ssrc == other.ssrc;
     }
     std::string stream_label;
-    std::string track_id;
+    std::string sender_id;
     uint32_t ssrc;
   };
   typedef std::vector<TrackInfo> TrackInfos;
 
   // Implements MessageHandler.
   void OnMessage(rtc::Message* msg) override;
+
+  std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
+  GetSendersInternal() const;
+  std::vector<
+      rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
+  GetReceiversInternal() const;
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetAudioTransceiver() const;
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetVideoTransceiver() const;
 
   void CreateAudioReceiver(MediaStreamInterface* stream,
                            const std::string& track_id,
@@ -457,15 +461,30 @@ class PeerConnection : public PeerConnectionInterface,
   void OnDataChannelOpenMessage(const std::string& label,
                                 const InternalDataChannelInit& config);
 
-  bool HasRtpSender(cricket::MediaType type) const;
-  RtpSenderInternal* FindSenderById(const std::string& id);
+  // Returns true if the PeerConnection is configured to use Unified Plan
+  // semantics for creating offers/answers and setting local/remote
+  // descriptions. If this is true the RtpTransceiver API will also be available
+  // to the user. If this is false, Plan B semantics are assumed.
+  // TODO(steveanton): Flip the default to be Unified Plan once sufficient time
+  // has passed.
+  bool IsUnifiedPlan() const {
+    return false;
+  }
 
-  std::vector<rtc::scoped_refptr<
-      RtpSenderProxyWithInternal<RtpSenderInternal>>>::iterator
-  FindSenderForTrack(MediaStreamTrackInterface* track);
-  std::vector<rtc::scoped_refptr<
-      RtpReceiverProxyWithInternal<RtpReceiverInternal>>>::iterator
-  FindReceiverForTrack(const std::string& track_id);
+  // Is there an RtpSender of the given type?
+  bool HasRtpSender(cricket::MediaType type) const;
+
+  // Return the RtpSender with the given track attached.
+  rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
+  FindSenderForTrack(MediaStreamTrackInterface* track) const;
+
+  // Return the RtpSender with the given id, or null if none exists.
+  rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
+  FindSenderById(const std::string& sender_id) const;
+
+  // Return the RtpReceiver with the given id, or null if none exists.
+  rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
+  FindReceiverById(const std::string& receiver_id) const;
 
   TrackInfos* GetRemoteTracks(cricket::MediaType media_type);
   TrackInfos* GetLocalTracks(cricket::MediaType media_type);
@@ -517,13 +536,6 @@ class PeerConnection : public PeerConnectionInterface,
   // Returns the last error in the session. See the enum above for details.
   Error error() const { return error_; }
   const std::string& error_desc() const { return error_desc_; }
-
-  virtual std::vector<cricket::VoiceChannel*> voice_channels() const {
-    return voice_channels_;
-  }
-  virtual std::vector<cricket::VideoChannel*> video_channels() const {
-    return video_channels_;
-  }
 
   cricket::BaseChannel* GetChannel(const std::string& content_name);
 
@@ -778,11 +790,9 @@ class PeerConnection : public PeerConnectionInterface,
   std::unique_ptr<StatsCollector> stats_;  // A pointer is passed to senders_
   rtc::scoped_refptr<RTCStatsCollector> stats_collector_;
 
-  std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
-      senders_;
   std::vector<
-      rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
-      receivers_;
+      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
+      transceivers_;
 
   Error error_ = ERROR_NONE;
   std::string error_desc_;
@@ -792,13 +802,6 @@ class PeerConnection : public PeerConnectionInterface,
 
   std::unique_ptr<cricket::TransportController> transport_controller_;
   std::unique_ptr<cricket::SctpTransportInternalFactory> sctp_factory_;
-  // TODO(steveanton): voice_channels_ and video_channels_ used to be a single
-  // VoiceChannel/VideoChannel respectively but are being changed to support
-  // multiple m= lines in unified plan. But until more work is done, these can
-  // only have 0 or 1 channel each.
-  // These channels are owned by ChannelManager.
-  std::vector<cricket::VoiceChannel*> voice_channels_;
-  std::vector<cricket::VideoChannel*> video_channels_;
   // |rtp_data_channel_| is used if in RTP data channel mode, |sctp_transport_|
   // when using SCTP.
   cricket::RtpDataChannel* rtp_data_channel_ = nullptr;

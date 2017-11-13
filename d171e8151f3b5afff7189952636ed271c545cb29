@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20fdaa1d_35996fdc",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-13T12:30:34Z",
+      "side": 1,
+      "message": "This explains better what the test is about. If I understand it correctly, it tests how low network capacity can get get before we start to build up network queues, the lower the better?\n\nBut there ought to be some other constraints, e.g., a bit rate allocation strategy assigning 0 bit rate to both audio and video would look great, which isn\u0027t so useful?",
+      "range": {
+        "startLine": 798,
+        "startChar": 0,
+        "endLine": 800,
+        "endChar": 34
+      },
+      "revId": "d171e8151f3b5afff7189952636ed271c545cb29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bf55421_9dfd84d3",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-13T12:30:34Z",
+      "side": 1,
+      "message": "I don\u0027t get what the \"Fb\" part in the name means. Please avoid non-obvious abbreviations.",
+      "range": {
+        "startLine": 818,
+        "startChar": 23,
+        "endLine": 818,
+        "endChar": 40
+      },
+      "revId": "d171e8151f3b5afff7189952636ed271c545cb29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

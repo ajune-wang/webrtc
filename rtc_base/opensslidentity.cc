@@ -219,8 +219,8 @@ std::string OpenSSLKeyPair::PrivateKeyToPEMString() const {
     RTC_NOTREACHED();
     return "";
   }
-  if (!PEM_write_bio_PrivateKey(
-      temp_memory_bio, pkey_, nullptr, nullptr, 0, nullptr, nullptr)) {
+  if (!PEM_write_bio_PrivateKey(temp_memory_bio, pkey_, nullptr, nullptr, 0,
+                                nullptr, nullptr)) {
     RTC_LOG_F(LS_ERROR) << "Failed to write private key";
     BIO_free(temp_memory_bio);
     RTC_NOTREACHED();
@@ -566,7 +566,7 @@ SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
           ERR_GET_REASON(err) == PEM_R_NO_START_LINE) {
         break;
       }
-      LOG(LS_ERROR) << "Failed to parse certificate from PEM string.";
+      RTC_LOG(LS_ERROR) << "Failed to parse certificate from PEM string.";
       BIO_free(bio);
       return nullptr;
     }
@@ -575,14 +575,14 @@ SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
   }
   BIO_free(bio);
   if (certs.empty()) {
-    LOG(LS_ERROR) << "Found no certificates in PEM string.";
+    RTC_LOG(LS_ERROR) << "Found no certificates in PEM string.";
     return nullptr;
   }
 
   OpenSSLKeyPair* key_pair =
       OpenSSLKeyPair::FromPrivateKeyPEMString(private_key);
   if (!key_pair) {
-    LOG(LS_ERROR) << "Failed to create key pair from PEM string.";
+    RTC_LOG(LS_ERROR) << "Failed to create key pair from PEM string.";
     return nullptr;
   }
 

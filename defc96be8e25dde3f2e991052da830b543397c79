@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1df5513b_695014aa",
+        "filename": "media/engine/videoencodersoftwarefallbackwrapper.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-13T08:57:03Z",
+      "side": 1,
+      "message": "enable_scaling ?",
+      "range": {
+        "startLine": 243,
+        "startChar": 9,
+        "endLine": 243,
+        "endChar": 15
+      },
+      "revId": "defc96be8e25dde3f2e991052da830b543397c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e538963d_72c90b56",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-13T08:57:03Z",
+      "side": 1,
+      "message": "remove {} to be consistent with L325 and L330.",
+      "revId": "defc96be8e25dde3f2e991052da830b543397c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "892cf0d8_1a96cee0",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-13T08:57:03Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "defc96be8e25dde3f2e991052da830b543397c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

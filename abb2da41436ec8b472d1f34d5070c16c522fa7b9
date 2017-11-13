@@ -16,6 +16,24 @@
       "revId": "abb2da41436ec8b472d1f34d5070c16c522fa7b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c69dc0a_b82e735e",
+        "filename": "pc/peerconnectionwrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-13T11:04:05Z",
+      "side": 1,
+      "message": "Thanks! I didn\u0027t know about rtc::FunctionView.",
+      "parentUuid": "fdd48178_6824cbca",
+      "revId": "abb2da41436ec8b472d1f34d5070c16c522fa7b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

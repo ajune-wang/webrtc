@@ -259,6 +259,30 @@
       "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36d1af99_9436934c",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-13T11:49:07Z",
+      "side": 1,
+      "message": "Yes, this bit me too when I first learned about it. I believe that `final` would have been more useful if it handn\u0027t had anything to do with `virtual` or `override`, but simply meant that subclasses wouldn\u0027t be allowed to override the method.\n\nThat said, I pretty much never use `final` on methods, but I find it very useful when applied to whole classes.",
+      "parentUuid": "75ba9db2_84e6842a",
+      "range": {
+        "startLine": 79,
+        "startChar": 51,
+        "endLine": 79,
+        "endChar": 56
+      },
+      "revId": "6984593cec88af82584bfa3b6b2a75f93ed2fdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

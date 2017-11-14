@@ -447,4 +447,121 @@ TEST(RtcpTransceiverImplTest,
   EXPECT_EQ(CompactNtpRttToMs(report_blocks[1].delay_since_last_sr()), 100);
 }
 
+TEST(RtcpTransceiverImplTest, RequestKeyFrameWithPli) {
+  const uint32_t kSenderSsrc = 1234;
+  const uint32_t kRemoteSsrcs[] = {4321, 5321};
+  MockTransport outgoing_transport;
+  RtcpTransceiverConfig config;
+  config.feedback_ssrc = kSenderSsrc;
+  config.schedule_periodic_compound_packets = false;
+  config.outgoing_transport = &outgoing_transport;
+  config.key_frame_request_method = webrtc::kKeyFrameReqPliRtcp;
+  RtcpTransceiverImpl rtcp_transceiver(config);
+  RtcpPacketParser rtcp_parser;
+  EXPECT_CALL(outgoing_transport, SendRtcp(_, _))
+      .WillOnce(Invoke(&rtcp_parser, &RtcpPacketParser::Parse));
+
+  rtcp_transceiver.RequestKeyFrame(kRemoteSsrcs);
+
+  EXPECT_EQ(rtcp_parser.fir()->num_packets(), 0);
+  EXPECT_EQ(rtcp_parser.pli()->num_packets(), 2);
+  EXPECT_EQ(rtcp_parser.pli()->sender_ssrc(), kSenderSsrc);
+  // Test rtcp parser overwrite first pli message with second one.
+  EXPECT_EQ(rtcp_parser.pli()->media_ssrc(), kRemoteSsrcs[1]);
+}
+
+TEST(RtcpTransceiverImplTest, RequestKeyFrameWithFir) {
+  const uint32_t kSenderSsrc = 1234;
+  const uint32_t kRemoteSsrcs[] = {4321, 5321};
+  MockTransport outgoing_transport;
+  RtcpTransceiverConfig config;
+  config.feedback_ssrc = kSenderSsrc;
+  config.schedule_periodic_compound_packets = false;
+  config.outgoing_transport = &outgoing_transport;
+  config.key_frame_request_method = webrtc::kKeyFrameReqFirRtcp;
+  RtcpTransceiverImpl rtcp_transceiver(config);
+  RtcpPacketParser rtcp_parser;
+  EXPECT_CALL(outgoing_transport, SendRtcp(_, _))
+      .WillOnce(Invoke(&rtcp_parser, &RtcpPacketParser::Parse));
+
+  rtcp_transceiver.RequestKeyFrame(kRemoteSsrcs);
+
+  EXPECT_EQ(rtcp_parser.pli()->num_packets(), 0);
+  EXPECT_EQ(rtcp_parser.fir()->num_packets(), 1);
+  EXPECT_EQ(rtcp_parser.fir()->sender_ssrc(), kSenderSsrc);
+  EXPECT_EQ(rtcp_parser.fir()->requests()[0].ssrc, kRemoteSsrcs[0]);
+  EXPECT_EQ(rtcp_parser.fir()->requests()[1].ssrc, kRemoteSsrcs[1]);
+}
+
+TEST(RtcpTransceiverImplTest, RequestKeyFrameWithFirIncreaseSeqNoPerSsrc) {
+  MockTransport outgoing_transport;
+  RtcpTransceiverConfig config;
+  config.schedule_periodic_compound_packets = false;
+  config.outgoing_transport = &outgoing_transport;
+  config.key_frame_request_method = webrtc::kKeyFrameReqFirRtcp;
+  RtcpTransceiverImpl rtcp_transceiver(config);
+  RtcpPacketParser rtcp_parser;
+  EXPECT_CALL(outgoing_transport, SendRtcp(_, _))
+      .WillRepeatedly(Invoke(&rtcp_parser, &RtcpPacketParser::Parse));
+
+  const uint32_t kBothRemoteSsrcs[] = {4321, 5321};
+  const uint32_t kOneRemoteSsrc[] = {4321};
+
+  rtcp_transceiver.RequestKeyFrame(kBothRemoteSsrcs);
+  ASSERT_EQ(rtcp_parser.fir()->requests()[0].ssrc, kBothRemoteSsrcs[0]);
+  uint8_t fir_sequence_number0 = rtcp_parser.fir()->requests()[0].seq_nr;
+  ASSERT_EQ(rtcp_parser.fir()->requests()[1].ssrc, kBothRemoteSsrcs[1]);
+  uint8_t fir_sequence_number1 = rtcp_parser.fir()->requests()[1].seq_nr;
+
+  rtcp_transceiver.RequestKeyFrame(kOneRemoteSsrc);
+  ASSERT_EQ(rtcp_parser.fir()->requests().size(), 1u);
+  ASSERT_EQ(rtcp_parser.fir()->requests()[0].ssrc, kBothRemoteSsrcs[0]);
+  EXPECT_EQ(rtcp_parser.fir()->requests()[0].seq_nr, fir_sequence_number0 + 1);
+
+  rtcp_transceiver.RequestKeyFrame(kBothRemoteSsrcs);
+  ASSERT_EQ(rtcp_parser.fir()->requests().size(), 2u);
+  ASSERT_EQ(rtcp_parser.fir()->requests()[0].ssrc, kBothRemoteSsrcs[0]);
+  EXPECT_EQ(rtcp_parser.fir()->requests()[0].seq_nr, fir_sequence_number0 + 2);
+  ASSERT_EQ(rtcp_parser.fir()->requests()[1].ssrc, kBothRemoteSsrcs[1]);
+  EXPECT_EQ(rtcp_parser.fir()->requests()[1].seq_nr, fir_sequence_number1 + 1);
+}
+
+TEST(RtcpTransceiverImplTest, KeyFrameRequestCreatesCompoundPacket) {
+  const uint32_t kRemoteSsrcs[] = {4321};
+  MockTransport outgoing_transport;
+  RtcpTransceiverConfig config;
+  config.schedule_periodic_compound_packets = false;
+  config.outgoing_transport = &outgoing_transport;
+
+  config.rtcp_mode = webrtc::RtcpMode::kCompound;
+
+  RtcpTransceiverImpl rtcp_transceiver(config);
+  RtcpPacketParser rtcp_parser;
+  EXPECT_CALL(outgoing_transport, SendRtcp(_, _))
+      .WillOnce(Invoke(&rtcp_parser, &RtcpPacketParser::Parse));
+
+  rtcp_transceiver.RequestKeyFrame(kRemoteSsrcs);
+
+  EXPECT_EQ(rtcp_parser.receiver_report()->num_packets(), 1);
+}
+
+TEST(RtcpTransceiverImplTest, KeyFrameRequestCreatesReducedSizePacket) {
+  const uint32_t kRemoteSsrcs[] = {4321};
+  MockTransport outgoing_transport;
+  RtcpTransceiverConfig config;
+  config.schedule_periodic_compound_packets = false;
+  config.outgoing_transport = &outgoing_transport;
+
+  config.rtcp_mode = webrtc::RtcpMode::kReducedSize;
+
+  RtcpTransceiverImpl rtcp_transceiver(config);
+  RtcpPacketParser rtcp_parser;
+  EXPECT_CALL(outgoing_transport, SendRtcp(_, _))
+      .WillOnce(Invoke(&rtcp_parser, &RtcpPacketParser::Parse));
+
+  rtcp_transceiver.RequestKeyFrame(kRemoteSsrcs);
+
+  EXPECT_EQ(rtcp_parser.receiver_report()->num_packets(), 0);
+}
+
 }  // namespace

@@ -13,6 +13,7 @@
 
 #include <string>
 
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/task_queue.h"
 
 namespace webrtc {
@@ -51,6 +52,8 @@ struct RtcpTransceiverConfig {
   // Rtcp report block generator for outgoing receiver reports.
   ReceiveStatisticsProvider* receive_statistics = nullptr;
 
+  RtcpMode rtcp_mode = RtcpMode::kCompound;
+  KeyFrameRequestMethod key_frame_request_method = kKeyFrameReqPliRtcp;
   //
   // Tuning parameters.
   //

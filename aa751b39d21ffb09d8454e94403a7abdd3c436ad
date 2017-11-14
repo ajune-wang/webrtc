@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9a85631_571608fb",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-11-14T18:31:26Z",
+      "side": 1,
+      "message": "++i",
+      "range": {
+        "startLine": 535,
+        "startChar": 50,
+        "endLine": 535,
+        "endChar": 53
+      },
+      "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fdaf7a9_27ae32cb",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-11-14T18:31:26Z",
+      "side": 1,
+      "message": "I prefer to be explicit and add const in front of auto\u0026 as we should avoid non-const references.",
+      "range": {
+        "startLine": 536,
+        "startChar": 4,
+        "endLine": 536,
+        "endChar": 9
+      },
+      "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1848252a_8053870a",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-11-14T18:31:26Z",
+      "side": 1,
+      "message": "++i",
+      "range": {
+        "startLine": 556,
+        "startChar": 45,
+        "endLine": 556,
+        "endChar": 48
+      },
+      "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a30571_5824a616",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-11-14T18:31:26Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 557,
+        "startChar": 8,
+        "endLine": 557,
+        "endChar": 9
+      },
+      "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

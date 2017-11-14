@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ded5a870_d8614384",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Good point! Done.",
+      "parentUuid": "f6976f5a_bdf4963b",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f60d205_86605e2a",
         "filename": "pc/transportcontroller.cc",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2017-11-03T17:34:52Z",
       "side": 1,
       "message": "Do we have any consensus on when to DCHECK versus CHECK versus return and log a warning? My first impression would be to DCHECK here (since destroying a transport that doesn\u0027t exist is a programming error).",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f39e7572_f964f5c4",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "I see your point. I\u0027m doing this just to match what we did for DtlsTransport.",
+      "parentUuid": "4f60d205_86605e2a",
       "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "21202315_25f60cb4",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01e69e6b_b22beffd",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "763798ab_8a28a311",
         "filename": "pc/transportcontroller.h",
         "patchSetId": 6
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "4c0f56f6_5bd31ab6",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "763798ab_8a28a311",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ff06cd5_01bae2c9",
         "filename": "pc/transportcontroller.h",
         "patchSetId": 6
@@ -84,6 +156,24 @@
       "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b008ba45_8a89b7a9",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Only one of srtp_transport and dtls_srtp_transport can be non-null because we only use either SDES or DTLS.",
+      "parentUuid": "5ff06cd5_01bae2c9",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "80045213_a3bdaf9e",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f627ca0_a0c58028",
+      "range": {
+        "startLine": 929,
+        "startChar": 6,
+        "endLine": 929,
+        "endChar": 27
+      },
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d15e666_8f0fcfcd",
         "filename": "pc/transportcontroller_unittest.cc",
         "patchSetId": 6
@@ -124,6 +238,24 @@
       "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc40c90f_67bc0c5b",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d15e666_8f0fcfcd",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "ad4e97c2_89da4c72",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a50175f_313c15fb",
+      "range": {
+        "startLine": 941,
+        "startChar": 2,
+        "endLine": 942,
+        "endChar": 54
+      },
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "878169d2_3a2ced8e",
         "filename": "pc/transportcontroller_unittest.cc",
         "patchSetId": 6
@@ -164,6 +320,24 @@
       "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b8bdbd9_19f371c7",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "878169d2_3a2ced8e",
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +361,30 @@
       "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aad90c54_88ee1dab",
+        "filename": "pc/transportcontroller_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-14T19:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "132b5559_16d03a57",
+      "range": {
+        "startLine": 979,
+        "startChar": 56,
+        "endLine": 980,
+        "endChar": 19
+      },
+      "revId": "0dba65fe76595e4fba413da6f1f4ac7c734d681f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

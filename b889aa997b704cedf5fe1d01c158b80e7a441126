@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0e71f4f7_153edddc",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "1. In AddObserver():\nRTC_DCHECK(isnormal(relative_bitrate));\n2. Thanks for the catch. Done.",
+      "parentUuid": "40e6ceaa_27db01d9",
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07d2e0e2_11ed4b15",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5f8e24f_d929b1cb",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07d2e0e2_11ed4b15",
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a903b4c8_b1070a10",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82a17ed6_e57791ae",
+      "range": {
+        "startLine": 507,
+        "startChar": 13,
+        "endLine": 507,
+        "endChar": 21
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1e524f6d_cf72bfd0",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "Since we are planning on using \"bitratePriority\" in the Web API, I just changed relative_bitrate--\u003ebitrate_priority. I think it makes more sense as a name.\n\n@Elad -- I tried making these fields const (or the vector of PriorityRateObserverConfigs const), but it gives me a compiler error because std::sort uses swap. I think the workaround here is to use a vector of const pointers (std::vector\u003cconst PriorityRateObserverConfig*\u003e). The problem here is now you need to define the sort function outside of the struct itself, and the code becomes messier. Is this something you recommend? I left it the same for now.",
+      "parentUuid": "1092924b_aaf05a33",
+      "range": {
+        "startLine": 508,
+        "startChar": 11,
+        "endLine": 508,
+        "endChar": 27
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ca73a48_333802db",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 8
@@ -126,6 +210,30 @@
       "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e4602cf_71fa8e21",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "Yes I think this distinction is important to emphasize. I think my previous comment here was also misleading, so thanks for catching that. The header function declaration has been updated to state this, but I also changed the comment here to hopefully clear things up.\n\nInitially the algorithm iterated by the relative capacity (capacity / relative_bitrate) and from this used a target bitrate, which I think made it more clear that we weren\u0027t greedily allocating the max to one capacity at a time. Although, Elad and I came to the conclusion that this approach was more confusing to read.",
+      "parentUuid": "2ca73a48_333802db",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 77
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -152,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "755513e7_644f2fcf",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e821fa9_1fab7a3b",
+      "range": {
+        "startLine": 550,
+        "startChar": 64,
+        "endLine": 550,
+        "endChar": 77
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fabdfbb_1c4d1a5c",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 8
@@ -172,6 +304,30 @@
       "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76070174_e57d6794",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "If it took PriorityRateObserverConfig, the struct would need to be defined in the header file. I like defining it locally clarity on understanding the sorting. I was on the fence about this function. I think it\u0027s important to emphasize this check being made (let\u0027s us know we aren\u0027t greedily allocating), but I think the function is more complex than it\u0027s worth.\n\nI decided to destroy the function.",
+      "parentUuid": "8fabdfbb_1c4d1a5c",
+      "range": {
+        "startLine": 563,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 57
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -198,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "cd062699_28fdc3c8",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0450a70_79de4c40",
+      "range": {
+        "startLine": 568,
+        "startChar": 0,
+        "endLine": 568,
+        "endChar": 70
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6183d418_990f71a9",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 8
@@ -218,6 +398,30 @@
       "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c1b4fb9_93579685",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "SGTM. I assume you meant AudioSendStream::Config and VideoSendStream::Config. Done.",
+      "parentUuid": "6183d418_990f71a9",
+      "range": {
+        "startLine": 91,
+        "startChar": 66,
+        "endLine": 91,
+        "endChar": 0
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -244,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "cd97ea5c_8e556d28",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "Done. If you don\u0027t like the second sentence for clarification here let me know.\n\nallocated_bitrate_bps - This is the field used for assigning a bitrate allocation to an observer. The  relative_bitrate interacts with this by determining the relative amount to assign to allocated_bitrate_bps. If there is enough available bandwidth to assign the min bitrate to all observers, but not enough for the max, each observer will be allocated its relative amount of the available bandwidth.\n\nmedia_ratio - This is the fraction of bitrate an observer uses for media and protection. I don\u0027t know how protection bitrate is found (defined with OnBitrateUpdated outside of the scope here), but it looks like media_ratio is used to avoid too much pausing/resuming of streams by calculating the correct (higher) minimum bitrate required of an observer. I don\u0027t think relative_bitrate really interacts much here, besides that the ratio might be a little different because the allocation is different.",
+      "parentUuid": "670ed203_758af8e4",
+      "range": {
+        "startLine": 132,
+        "startChar": 78,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b003fba4_6c263197",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 8
@@ -264,6 +492,30 @@
       "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f31bd344_396438ee",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "Yes. I was just looking over this comment and thought it needed to be changed. Thanks for the catch.",
+      "parentUuid": "b003fba4_6c263197",
+      "range": {
+        "startLine": 178,
+        "startChar": 19,
+        "endLine": 178,
+        "endChar": 23
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

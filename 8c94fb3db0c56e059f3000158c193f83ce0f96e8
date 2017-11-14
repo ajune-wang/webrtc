@@ -523,6 +523,24 @@
     },
     {
       "key": {
+        "uuid": "181e9e3d_5d9027a9",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T01:11:31Z",
+      "side": 1,
+      "message": "I see. I didn\u0027t do the investigation myself here because it isn\u0027t relative to this CL anymore, and I think it could potentially take me some time. Although, with a quick search I saw that the GCC compiler does indeed do this sort of optimization (in this given case):\nhttps://stackoverflow.com/questions/30212307/does-gcc-optimize-stdtie-used-only-for-readability\n\nSeems like one of those \"it depends\" answers, and if it\u0027s an efficiency-critical path it is something that should be checked.",
+      "parentUuid": "df55c6f8_490f868d",
+      "revId": "8c94fb3db0c56e059f3000158c193f83ce0f96e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d5f8106_a12cd270",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 7

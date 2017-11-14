@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6cfd4214_bafced94",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-14T19:22:22Z",
+      "side": 1,
+      "message": "I\u0027m going to wait until I do more Unified Plan work before moving things to the RtpTransceiver. I think it\u0027ll be more obvious what the right move is once I dig a bit deeper into the code. Left a TODO.",
+      "parentUuid": "36679e7e_ef8eada2",
+      "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "820c3b3f_b8837ae0",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be076c9_6a7436ad",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2014,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-14T19:22:22Z",
+      "side": 1,
+      "message": "The stats tests mock out voice_channel() and video_channel(), so this would DCHECK if using those helpers :(",
+      "parentUuid": "820c3b3f_b8837ae0",
+      "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "29d6f16c_74ff42bc",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-14T19:22:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e1a1195_d524a170",
+      "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b4dbc4c_09ab4d85",
         "filename": "pc/peerconnection.h",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2017-11-14T15:21:28Z",
       "side": 1,
       "message": "If all of this was part of the sender we could get rid of this struct I imagine, but that would be a different CL.",
+      "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a406c140_82a9cac2",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-14T19:22:22Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ll see what I can do to remove this down the line.",
+      "parentUuid": "4b4dbc4c_09ab4d85",
       "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

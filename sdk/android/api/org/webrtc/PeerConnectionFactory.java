@@ -18,12 +18,6 @@ import java.util.List;
  * the PeerConnection API for clients.
  */
 public class PeerConnectionFactory {
-  static {
-    // TODO(sakal): Remove once all dependencies have started using
-    // PeerConnectionFactory.initialize.
-    NativeLibrary.initialize(new NativeLibrary.DefaultLoader());
-  }
-
   public static final String TRIAL_ENABLED = "Enabled";
   public static final String VIDEO_FRAME_EMIT_TRIAL = "VideoFrameEmit";
 

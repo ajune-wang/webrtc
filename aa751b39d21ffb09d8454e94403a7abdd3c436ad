@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "09e7416e_398ae0d0",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T18:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9a85631_571608fb",
+      "range": {
+        "startLine": 535,
+        "startChar": 50,
+        "endLine": 535,
+        "endChar": 53
+      },
+      "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fdaf7a9_27ae32cb",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b228abcf_aa8c8bde",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T18:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fdaf7a9_27ae32cb",
+      "range": {
+        "startLine": 536,
+        "startChar": 4,
+        "endLine": 536,
+        "endChar": 9
+      },
+      "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "04e923c0_53608fe3",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T18:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1848252a_8053870a",
+      "range": {
+        "startLine": 556,
+        "startChar": 45,
+        "endLine": 556,
+        "endChar": 48
+      },
+      "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27a30571_5824a616",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 12
@@ -91,6 +163,30 @@
       "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf435b4_d3aa4b76",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-11-14T18:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27a30571_5824a616",
+      "range": {
+        "startLine": 557,
+        "startChar": 8,
+        "endLine": 557,
+        "endChar": 9
+      },
+      "revId": "aa751b39d21ffb09d8454e94403a7abdd3c436ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

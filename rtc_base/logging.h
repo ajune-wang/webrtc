@@ -61,6 +61,12 @@
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/thread_annotations.h"
 
+#if !defined(NDEBUG) || defined(DLOG_ALWAYS_ON)
+#define RTC_DLOG_IS_ON 1
+#else
+#define RTC_DLOG_IS_ON 0
+#endif
+
 namespace rtc {
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -359,6 +365,18 @@ inline bool LogCheckLevel(LoggingSeverity sev) {
 
 #define RTC_PLOG(sev, err) \
   RTC_LOG_ERR_EX(sev, err)
+
+// The RTC_DLOG macro is equivalent to RTC_LOG except that it only generates
+// code in debug builds.
+#if RTC_DLOG_IS_ON
+#define RTC_DLOG(sev) RTC_LOG(sev)
+#else
+#define RTC_DLOG(sev) \
+  (true ? true : ((void)(sev), true)) \
+      ? static_cast<void>(0)          \
+      : rtc::LogMessageVoidify() &    \
+        rtc::LogMessage(__FILE__, __LINE__, rtc::sev).stream()
+#endif
 
 // TODO(?): Add an "assert" wrapper that logs in the same manner.
 

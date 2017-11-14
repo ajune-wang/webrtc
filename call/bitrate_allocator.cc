@@ -25,6 +25,8 @@ namespace webrtc {
 
 // Allow packets to be transmitted in up to 2 times max video bitrate if the
 // bandwidth estimate allows it.
+// TODO(alexnarest): May be worth to refactor to keep this logic in
+// video send stream.
 const int kTransmissionMaxBitrateMultiplier = 2;
 const int kDefaultBitrateBps = 300000;
 

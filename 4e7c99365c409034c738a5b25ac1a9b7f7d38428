@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8560f97_69b75196",
+        "filename": "modules/video_coding/codecs/test/stats.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-14T09:58:59Z",
+      "side": 1,
+      "message": "I think it would be nicer to use std::accumulate here, and then not do the summing on L107-110. WDYT?",
+      "range": {
+        "startLine": 192,
+        "startChar": 31,
+        "endLine": 192,
+        "endChar": 65
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2beb4e33_9c55af30",
+        "filename": "modules/video_coding/codecs/test/stats.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-14T09:58:59Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 198,
+        "startChar": 31,
+        "endLine": 198,
+        "endChar": 65
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50320712_e846fd80",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-14T09:58:59Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 171,
+        "startChar": 42,
+        "endLine": 171,
+        "endChar": 57
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f6a28f1_c21f5d10",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-14T09:58:59Z",
+      "side": 1,
+      "message": "For async encoders, would this be \"in flight frames\"?",
+      "range": {
+        "startLine": 201,
+        "startChar": 5,
+        "endLine": 201,
+        "endChar": 24
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29eb8e5a_23d0cfb0",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-14T09:58:59Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed, because webrtc::VideoFrame has a refcounted webrtc::VideoFrameBuffer: https://cs.chromium.org/chromium/src/third_party/webrtc/api/video/video_frame.h?l\u003d106\u0026rcl\u003dcba3d274daaf57b3c6e8bc6cd10b959cf2ec73bf. So just copying the VideoFrame should be fine.",
+      "range": {
+        "startLine": 203,
+        "startChar": 21,
+        "endLine": 203,
+        "endChar": 36
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

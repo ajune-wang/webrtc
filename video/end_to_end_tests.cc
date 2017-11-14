@@ -3677,14 +3677,17 @@ TEST_F(EndToEndTest, TimingFramesAreReported) {
 
 class RtcpXrObserver : public test::EndToEndTest {
  public:
-  RtcpXrObserver(bool enable_rrtr, bool enable_target_bitrate)
+  RtcpXrObserver(bool enable_rrtr, bool enable_target_bitrate,
+                 bool enable_zero_target_bitrate)
       : EndToEndTest(test::CallTest::kDefaultTimeoutMs),
         enable_rrtr_(enable_rrtr),
         enable_target_bitrate_(enable_target_bitrate),
+        enable_zero_target_bitrate_(enable_zero_target_bitrate),
         sent_rtcp_sr_(0),
         sent_rtcp_rr_(0),
         sent_rtcp_rrtr_(0),
         sent_rtcp_target_bitrate_(false),
+        sent_zero_rtcp_target_bitrate_(false),
         sent_rtcp_dlrr_(0) {}
 
  private:
@@ -3717,13 +3720,22 @@ class RtcpXrObserver : public test::EndToEndTest {
       EXPECT_FALSE(parser.xr()->rrtr());
       if (parser.xr()->dlrr())
         ++sent_rtcp_dlrr_;
-      if (parser.xr()->target_bitrate())
+      if (parser.xr()->target_bitrate()) {
         sent_rtcp_target_bitrate_ = true;
+        for (const auto& item :
+                 parser.xr()->target_bitrate()->GetTargetBitrates()) {
+          if (item.target_bitrate_kbps == 0) {
+            sent_zero_rtcp_target_bitrate_ = true;
+            break;
+          }
+        }
+      }
     }
 
     if (sent_rtcp_sr_ > kNumRtcpReportPacketsToObserve &&
         sent_rtcp_rr_ > kNumRtcpReportPacketsToObserve &&
-        (sent_rtcp_target_bitrate_ || !enable_target_bitrate_)) {
+        (sent_rtcp_target_bitrate_ || !enable_target_bitrate_) &&
+        (sent_zero_rtcp_target_bitrate_ || !enable_zero_target_bitrate_)) {
       if (enable_rrtr_) {
         EXPECT_GT(sent_rtcp_rrtr_, 0);
         EXPECT_GT(sent_rtcp_dlrr_, 0);
@@ -3732,15 +3744,59 @@ class RtcpXrObserver : public test::EndToEndTest {
         EXPECT_EQ(sent_rtcp_dlrr_, 0);
       }
       EXPECT_EQ(enable_target_bitrate_, sent_rtcp_target_bitrate_);
+      EXPECT_EQ(enable_zero_target_bitrate_, sent_zero_rtcp_target_bitrate_);
       observation_complete_.Set();
     }
     return SEND_PACKET;
   }
 
+  size_t GetNumVideoStreams() const override {
+    // When sending a zero target bitrate, we use two spatial layers so that
+    // we'll still have a layer with non-zero bitrate.
+    return enable_zero_target_bitrate_ ? 2 : 1;
+  }
+
+  // This test uses VideoStream settings different from the the default one
+  // implemented in DefaultVideoStreamFactory, so it implements its own
+  // VideoEncoderConfig::VideoStreamFactoryInterface which is created
+  // in ModifyVideoConfigs.
+  class ZeroTargetVideoStreamFactory
+      : public VideoEncoderConfig::VideoStreamFactoryInterface {
+   public:
+    ZeroTargetVideoStreamFactory() {}
+
+   private:
+    std::vector<VideoStream> CreateEncoderStreams(
+        int width,
+        int height,
+        const VideoEncoderConfig& encoder_config) override {
+      std::vector<VideoStream> streams =
+          test::CreateVideoStreams(width, height, encoder_config);
+      // Set one of the streams' target bitrates to zero to test that a
+      // bitrate of 0 can be signalled.
+      streams[encoder_config.number_of_streams-1].min_bitrate_bps = 0;
+      streams[encoder_config.number_of_streams-1].target_bitrate_bps = 0;
+      streams[encoder_config.number_of_streams-1].max_bitrate_bps = 0;
+      return streams;
+    }
+  };
+
   void ModifyVideoConfigs(
       VideoSendStream::Config* send_config,
       std::vector<VideoReceiveStream::Config>* receive_configs,
       VideoEncoderConfig* encoder_config) override {
+    if (enable_zero_target_bitrate_) {
+      encoder_config->video_stream_factory =
+          new rtc::RefCountedObject<ZeroTargetVideoStreamFactory>();
+
+      // Configure VP8 to be able to use simulcast.
+      send_config->encoder_settings.payload_name = "VP8";
+      (*receive_configs)[0].decoders.resize(1);
+      (*receive_configs)[0].decoders[0].payload_type =
+          send_config->encoder_settings.payload_type;
+      (*receive_configs)[0].decoders[0].payload_name =
+          send_config->encoder_settings.payload_name;
+    }
     if (enable_target_bitrate_) {
       // TargetBitrate only signaled for screensharing.
       encoder_config->content_type = VideoEncoderConfig::ContentType::kScreen;
@@ -3760,32 +3816,45 @@ class RtcpXrObserver : public test::EndToEndTest {
   rtc::CriticalSection crit_;
   const bool enable_rrtr_;
   const bool enable_target_bitrate_;
+  const bool enable_zero_target_bitrate_;
   int sent_rtcp_sr_;
   int sent_rtcp_rr_ RTC_GUARDED_BY(&crit_);
   int sent_rtcp_rrtr_ RTC_GUARDED_BY(&crit_);
   bool sent_rtcp_target_bitrate_ RTC_GUARDED_BY(&crit_);
+  bool sent_zero_rtcp_target_bitrate_ RTC_GUARDED_BY(&crit_);
   int sent_rtcp_dlrr_;
 };
 
 TEST_F(EndToEndTest, TestExtendedReportsWithRrtrWithoutTargetBitrate) {
-  RtcpXrObserver test(true, false);
+  RtcpXrObserver test(/*enable_rrtr=*/true, /*enable_target_bitrate=*/false,
+                      /*enable_zero_target_bitrate=*/false);
   RunBaseTest(&test);
 }
 
 TEST_F(EndToEndTest, TestExtendedReportsWithoutRrtrWithoutTargetBitrate) {
-  RtcpXrObserver test(false, false);
+  RtcpXrObserver test(/*enable_rrtr=*/false, /*enable_target_bitrate=*/false,
+                      /*enable_zero_target_bitrate=*/false);
   RunBaseTest(&test);
 }
 
 TEST_F(EndToEndTest, TestExtendedReportsWithRrtrWithTargetBitrate) {
-  RtcpXrObserver test(true, true);
+  RtcpXrObserver test(/*enable_rrtr=*/true, /*enable_target_bitrate=*/true,
+                      /*enable_zero_target_bitrate=*/false);
   RunBaseTest(&test);
 }
 
 TEST_F(EndToEndTest, TestExtendedReportsWithoutRrtrWithTargetBitrate) {
-  RtcpXrObserver test(false, true);
+  RtcpXrObserver test(/*enable_rrtr=*/false, /*enable_target_bitrate=*/true,
+                      /*enable_zero_target_bitrate=*/false);
   RunBaseTest(&test);
 }
+
+TEST_F(EndToEndTest, TestExtendedReportsCanSignalZeroTargetBitrate) {
+  RtcpXrObserver test(/*enable_rrtr=*/false, /*enable_target_bitrate=*/true,
+                      /*enable_zero_target_bitrate=*/true);
+  RunBaseTest(&test);
+}
+
 
 TEST_F(EndToEndTest, TestReceivedRtpPacketStats) {
   static const size_t kNumRtpPacketsToSend = 5;

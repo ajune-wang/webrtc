@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3b5582b_d99bc1aa",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-11-14T15:07:25Z",
+      "side": 1,
+      "message": "Maybe check if the experiment is enabled once at construction time instead of per packet? And same for the other class.",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 58
+      },
+      "revId": "25cde0b703c37fb93e468db78e768451e0580b4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

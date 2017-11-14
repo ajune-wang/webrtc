@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d259261f_4a580441",
+        "filename": "modules/rtp_rtcp/source/remote_ntp_time_estimator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2017-11-14T10:33:04Z",
+      "side": 1,
+      "message": "It think it would be more clear if this was a new capture_ntp_time_ms and a new rtp_timestamp.\nBy just looking at the test I would guess that nothing have actually changed between line 132 and 141.",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 31
+      },
+      "revId": "d4263bc50105ab6ac87d69e08cf005d5c2f0da46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

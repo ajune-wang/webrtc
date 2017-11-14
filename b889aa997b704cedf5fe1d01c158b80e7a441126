@@ -232,6 +232,30 @@
     },
     {
       "key": {
+        "uuid": "6b808913_82725492",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-14T13:49:14Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "bc85f822_d3fb8fbd",
+      "range": {
+        "startLine": 508,
+        "startChar": 11,
+        "endLine": 508,
+        "endChar": 27
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ca73a48_333802db",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 8
@@ -361,6 +385,30 @@
       "side": 1,
       "message": "If it took PriorityRateObserverConfig, the struct would need to be defined in the header file. I like defining it locally clarity on understanding the sorting. I was on the fence about this function. I think it\u0027s important to emphasize this check being made (let\u0027s us know we aren\u0027t greedily allocating), but I think the function is more complex than it\u0027s worth.\n\nI decided to destroy the function.",
       "parentUuid": "8fabdfbb_1c4d1a5c",
+      "range": {
+        "startLine": 563,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 57
+      },
+      "revId": "b889aa997b704cedf5fe1d01c158b80e7a441126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d95cbada_733128fe",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-14T13:49:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "76070174_e57d6794",
       "range": {
         "startLine": 563,
         "startChar": 0,

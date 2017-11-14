@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36679e7e_ef8eada2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-14T15:21:28Z",
+      "side": 1,
+      "message": "If the channels are now owned by the transceivers, should the creation and destruction of channels be moved to the transceivers or appropriate helper functions called by the transceivers in a follow-up? Should we add TODOs here and at CreateVoiceChannel/CreateVideoChannel?",
+      "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "820c3b3f_b8837ae0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2014,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-14T15:21:28Z",
+      "side": 1,
+      "message": "nit: Want to use the voice_channel()/video_channel() helpers?",
+      "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e1a1195_d524a170",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-14T15:21:28Z",
+      "side": 1,
+      "message": "Should this now be SenderInfo?",
+      "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b4dbc4c_09ab4d85",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-14T15:21:28Z",
+      "side": 1,
+      "message": "If all of this was part of the sender we could get rid of this struct I imagine, but that would be a different CL.",
+      "revId": "212f664b42ca439478a562c5efe172aaa7444edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

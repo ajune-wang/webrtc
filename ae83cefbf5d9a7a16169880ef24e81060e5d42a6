@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7052363d_78f6fcfd",
+        "filename": "modules/rtp_rtcp/include/remote_ntp_time_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-11-14T17:11:07Z",
+      "side": 1,
+      "message": "const bool",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 6
+      },
+      "revId": "ae83cefbf5d9a7a16169880ef24e81060e5d42a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9929866a_15618701",
+        "filename": "modules/rtp_rtcp/source/remote_ntp_time_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-11-14T17:11:07Z",
+      "side": 1,
+      "message": "see indentation",
+      "range": {
+        "startLine": 71,
+        "startChar": 45,
+        "endLine": 71,
+        "endChar": 58
+      },
+      "revId": "ae83cefbf5d9a7a16169880ef24e81060e5d42a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7471d787_81b30c48",
+        "filename": "system_wrappers/include/rtp_to_ntp_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-11-14T17:11:07Z",
+      "side": 1,
+      "message": "const bool",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 6
+      },
+      "revId": "ae83cefbf5d9a7a16169880ef24e81060e5d42a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

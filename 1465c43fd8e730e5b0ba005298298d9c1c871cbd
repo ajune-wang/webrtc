@@ -46,6 +46,29 @@
       "revId": "1465c43fd8e730e5b0ba005298298d9c1c871cbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ff17df8_f4893535",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-11-14T15:11:55Z",
+      "side": 1,
+      "message": "Allow non audio streams",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 16
+      },
+      "revId": "1465c43fd8e730e5b0ba005298298d9c1c871cbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

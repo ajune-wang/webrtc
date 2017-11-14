@@ -468,7 +468,7 @@ class PeerConnection : public PeerConnectionInterface,
   // TODO(steveanton): Flip the default to be Unified Plan once sufficient time
   // has passed.
   bool IsUnifiedPlan() const {
-    return false;
+    return configuration_.sdp_semantics == SdpSemantics::kUnifiedPlan;
   }
 
   // Is there an RtpSender of the given type?

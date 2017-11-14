@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a80659b6_d258bcdf",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCCameraVideoCapturer.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-14T12:42:27Z",
+      "side": 1,
+      "message": "Oops of course. Changed it so that if the pixel format passed in is not supported by our pipeline, it will just use the _preferredOutputFormat instead. I don\u0027t think there is any better choice available here. Also added it to the documentation.",
+      "parentUuid": "a1bd6ca8_051184e1",
+      "range": {
+        "startLine": 405,
+        "startChar": 6,
+        "endLine": 405,
+        "endChar": 40
+      },
+      "revId": "c0472934d711904a3f9d537dd11e7e2f889ecc7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffea2392_d9572038",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCCameraVideoCapturer.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "c0472934d711904a3f9d537dd11e7e2f889ecc7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c805d798_504fdab9",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCCameraVideoCapturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-14T12:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffea2392_d9572038",
+      "range": {
+        "startLine": 37,
+        "startChar": 32,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "c0472934d711904a3f9d537dd11e7e2f889ecc7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

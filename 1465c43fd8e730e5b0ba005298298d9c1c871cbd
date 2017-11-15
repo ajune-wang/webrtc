@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "988abad9_5390e5e0",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-15T10:18:09Z",
+      "side": 1,
+      "message": "If it\u0027s a temporary thing, it might be ok. But at least, add comments clearly explaining why we do this, and the plan to phase it out.\n\nAs for the corresponding code in bitrate_allocator.cc, it\u0027s not clear to me how it relates to the new BitrateAllocationStrategy.\n\nI think it should be pretty high priority to arrange so that the default behavior is implemented as a BitrateAllocationStrategy, both to reduce code duplication, and to ensure that the new BitrateAllocationStrategy interface is flexible enough to support the default behavior.\n\nIt\u0027s confusing to have BitrateAllocator::DistributeBitrateEvenly and BitrateAllocationStrategy::DistributeBitratesEvenly with very different interfaces and likely slightly different behavior.",
+      "parentUuid": "9c4a36a9_a433d0b9",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "1465c43fd8e730e5b0ba005298298d9c1c871cbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ff17df8_f4893535",
         "filename": "rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 2

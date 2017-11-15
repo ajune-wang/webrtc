@@ -10,6 +10,7 @@
 
 package org.webrtc;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -44,5 +45,24 @@ public class VideoCodecInfo {
     this.payload = payload;
     this.name = name;
     this.params = params;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null)
+      return false;
+    if (obj == this)
+      return true;
+    if (!(obj instanceof VideoCodecInfo))
+      return false;
+
+    VideoCodecInfo otherInfo = (VideoCodecInfo) obj;
+    return name.equalsIgnoreCase(otherInfo.name) && params.equals(otherInfo.params);
+  }
+
+  @Override
+  public int hashCode() {
+    Object[] values = {name, params};
+    return Arrays.hashCode(values);
   }
 }

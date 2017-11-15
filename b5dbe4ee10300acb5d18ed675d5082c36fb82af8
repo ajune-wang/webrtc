@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1317d28e_356bbde0",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-15T13:29:25Z",
+      "side": 1,
+      "message": "Is this safe? Are we certain we always get the same exact details back?",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "b5dbe4ee10300acb5d18ed675d5082c36fb82af8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -10,11 +10,25 @@
 
 #include "sdk/android/src/jni/videocodecinfo.h"
 
+#include "media/base/codec.h"
+#include "media/base/h264_profile_level_id.h"
+#include "media/base/mediaconstants.h"
 #include "sdk/android/src/jni/classreferenceholder.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {
+
+static bool IsSameH264Profile(const cricket::CodecParameterMap& params1,
+                              const cricket::CodecParameterMap& params2) {
+  const rtc::Optional<H264::ProfileLevelId> profile_level_id =
+      H264::ParseSdpProfileLevelId(params1);
+  const rtc::Optional<H264::ProfileLevelId> other_profile_level_id =
+      H264::ParseSdpProfileLevelId(params2);
+  // Compare H264 profiles, but not levels.
+  return profile_level_id && other_profile_level_id &&
+         profile_level_id->profile == other_profile_level_id->profile;
+}
 
 SdpVideoFormat VideoCodecInfoToSdpVideoFormat(JNIEnv* jni, jobject j_info) {
   jclass video_codec_info_class = FindClass(jni, "org/webrtc/VideoCodecInfo");
@@ -51,6 +65,26 @@ jobject SdpVideoFormatToVideoCodecInfo(JNIEnv* jni,
   }
   return jni->NewObject(video_codec_info_class, video_codec_info_constructor,
                         JavaStringFromStdString(jni, format.name), j_params);
+}
+
+JNI_FUNCTION_DECLARATION(jboolean,
+                         VideoCodecInfo_isSameCodec,
+                         JNIEnv* jni,
+                         jclass,
+                         jobject info1,
+                         jobject info2) {
+  cricket::VideoCodec codec1 =
+      cricket::VideoCodec(VideoCodecInfoToSdpVideoFormat(jni, info1));
+  cricket::VideoCodec codec2 =
+      cricket::VideoCodec(VideoCodecInfoToSdpVideoFormat(jni, info2));
+
+  if (!cricket::CodecNamesEq(codec1.name, codec2.name))
+    return false;
+  if (cricket::CodecNamesEq(codec1.name.c_str(), cricket::kH264CodecName) &&
+      !IsSameH264Profile(codec1.params, codec2.params)) {
+    return false;
+  }
+  return true;
 }
 
 }  // namespace jni

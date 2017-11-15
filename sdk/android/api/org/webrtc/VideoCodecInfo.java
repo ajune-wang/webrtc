@@ -45,4 +45,24 @@ public class VideoCodecInfo {
     this.name = name;
     this.params = params;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null)
+      return false;
+    if (obj == this)
+      return true;
+    if (!(obj instanceof VideoCodecInfo))
+      return false;
+
+    VideoCodecInfo otherInfo = (VideoCodecInfo) obj;
+    return isSameCodec(this, otherInfo);
+  }
+
+  @Override
+  public int hashCode() {
+    return name.hashCode();
+  }
+
+  private static native boolean isSameCodec(VideoCodecInfo info1, VideoCodecInfo info2);
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd09d3a5_99750ecf",
+        "filename": "sdk/android/api/org/webrtc/VideoCodecInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-15T12:59:24Z",
+      "side": 1,
+      "message": "Having equals be true for different objects is not a good idea.",
+      "range": {
+        "startLine": 50,
+        "startChar": 17,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "d826ef8c9dad3d6d22a8fabc6381611232a27853",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

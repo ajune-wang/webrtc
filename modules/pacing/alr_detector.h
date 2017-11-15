@@ -30,7 +30,7 @@ namespace webrtc {
 class AlrDetector {
  public:
   AlrDetector();
-  ~AlrDetector();
+  virtual ~AlrDetector();
 
   void OnBytesSent(size_t bytes_sent, int64_t delta_time_ms);
 
@@ -39,7 +39,7 @@ class AlrDetector {
 
   // Returns time in milliseconds when the current application-limited region
   // started or empty result if the sender is currently not application-limited.
-  rtc::Optional<int64_t> GetApplicationLimitedRegionStartTime() const;
+  virtual rtc::Optional<int64_t> GetApplicationLimitedRegionStartTime() const;
 
   struct AlrExperimentSettings {
     float pacing_factor = PacedSender::kDefaultPaceMultiplier;

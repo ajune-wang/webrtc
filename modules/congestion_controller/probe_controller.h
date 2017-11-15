@@ -14,6 +14,7 @@
 #include <initializer_list>
 
 #include "common_types.h"  // NOLINT(build/include)
+#include "modules/pacing/alr_detector.h"
 #include "modules/pacing/paced_sender.h"
 #include "rtc_base/criticalsection.h"
 
@@ -26,7 +27,9 @@ class Clock;
 // bitrate is adjusted by an application.
 class ProbeController {
  public:
-  ProbeController(PacedSender* pacer, const Clock* clock);
+  ProbeController(const Clock* clock,
+                  PacedSender* pacer,
+                  AlrDetector* alr_detector);
 
   void SetBitrates(int64_t min_bitrate_bps,
                    int64_t start_bitrate_bps,
@@ -65,8 +68,9 @@ class ProbeController {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
   rtc::CriticalSection critsect_;
-  PacedSender* const pacer_;
   const Clock* const clock_;
+  PacedSender* const pacer_;
+  AlrDetector* const alr_detector_;
   NetworkState network_state_ RTC_GUARDED_BY(critsect_);
   State state_ RTC_GUARDED_BY(critsect_);
   int64_t min_bitrate_to_probe_further_bps_ RTC_GUARDED_BY(critsect_);

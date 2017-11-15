@@ -22,6 +22,30 @@
       "revId": "d826ef8c9dad3d6d22a8fabc6381611232a27853",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97d4b990_5e90ea5b",
+        "filename": "sdk/android/api/org/webrtc/VideoCodecInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-15T13:27:04Z",
+      "side": 1,
+      "message": "But they are not different, they are equal 👹\n\nChanged it to just compare name \u0026 params.",
+      "parentUuid": "fd09d3a5_99750ecf",
+      "range": {
+        "startLine": 50,
+        "startChar": 17,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "d826ef8c9dad3d6d22a8fabc6381611232a27853",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

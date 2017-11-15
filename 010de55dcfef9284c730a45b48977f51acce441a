@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dafba357_e1ba0713",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-11-15T12:58:30Z",
+      "side": 1,
+      "message": "nit: {} for multi-line if",
+      "revId": "010de55dcfef9284c730a45b48977f51acce441a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ebea7da_33c462bf",
+        "filename": "video/end_to_end_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3739,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-11-15T12:58:30Z",
+      "side": 1,
+      "message": "nit: would prefer actual type to auto here",
+      "range": {
+        "startLine": 3739,
+        "startChar": 70,
+        "endLine": 3739,
+        "endChar": 0
+      },
+      "revId": "010de55dcfef9284c730a45b48977f51acce441a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

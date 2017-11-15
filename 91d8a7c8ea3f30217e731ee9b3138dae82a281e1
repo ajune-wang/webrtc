@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7df47ab5_6aeb1c74",
+        "filename": "media/base/cryptoparams.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-15T10:52:27Z",
+      "side": 1,
+      "message": "Not that important, but\n\n1. Consider assigning the TODO to the bug:\n\n  // TODO(bugs.webrtc.org/7504): Remove this file.\n\n2. Consider moving the TODO up a bit---say, to between the copyright blurb and the #ifndef---to make it clear that it applies to this entire file, and not to the #include on line 15.",
+      "revId": "91d8a7c8ea3f30217e731ee9b3138dae82a281e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -120,6 +120,16 @@ class AndroidVideoBuffer : public AndroidVideoFrameBuffer {
 
   jobject video_frame_buffer() const;
 
+  // Crops a region defined by |cropx|, |cropY|, |cropWidth| and |cropHeight|.
+  // Scales it to size |scaleWidth| x |scaleHeight|.
+  rtc::scoped_refptr<AndroidVideoBuffer> CropAndScale(JNIEnv* jni,
+                                                      int crop_x,
+                                                      int crop_y,
+                                                      int crop_width,
+                                                      int crop_height,
+                                                      int scale_width,
+                                                      int scale_height);
+
   // Returns an instance of VideoRenderer.I420Frame (deprecated)
   jobject ToJavaI420Frame(JNIEnv* jni, int rotation);
 

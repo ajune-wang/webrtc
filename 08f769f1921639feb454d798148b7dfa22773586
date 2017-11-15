@@ -16,6 +16,24 @@
       "revId": "08f769f1921639feb454d798148b7dfa22773586",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de8c6c15_19519dc0",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-15T18:27:51Z",
+      "side": 1,
+      "message": "Yeah, a bit weird. This was initially done to keep the diff small so it was possible to review the changes. I\u0027ll move the definition up here in this CL.",
+      "parentUuid": "5416d41f_ca087ccf",
+      "revId": "08f769f1921639feb454d798148b7dfa22773586",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -55,6 +55,8 @@ int32_t VoEBaseImpl::RecordedDataIsAvailable(
   RTC_DCHECK(shared_->transmit_mixer() != nullptr);
   RTC_DCHECK(shared_->audio_device() != nullptr);
 
+  constexpr int kMaxVolumeLevel = 255;
+
   uint32_t max_volume = 0;
   uint16_t voe_mic_level = 0;
   // Check for zero to skip this calculation; the consumer may use this to
@@ -141,145 +143,27 @@ void VoEBaseImpl::PullRenderData(int bits_per_sample,
   RTC_NOTREACHED();
 }
 
-int VoEBaseImpl::Init(
-    AudioDeviceModule* external_adm,
+void VoEBaseImpl::Init(
+    AudioDeviceModule* audio_device,
     AudioProcessing* audio_processing,
     const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory) {
+  RTC_DCHECK(audio_device);
   RTC_DCHECK(audio_processing);
   rtc::CritScope cs(shared_->crit_sec());
-  WebRtcSpl_Init();
   if (shared_->process_thread()) {
     shared_->process_thread()->Start();
   }
 
-  // Create an internal ADM if the user has not added an external
-  // ADM implementation as input to Init().
-  if (external_adm == nullptr) {
-#if !defined(WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE)
-    return -1;
-#else
-    // Create the internal ADM implementation.
-    shared_->set_audio_device(AudioDeviceModule::Create(
-        AudioDeviceModule::kPlatformDefaultAudio));
-    if (shared_->audio_device() == nullptr) {
-      RTC_LOG(LS_ERROR) << "Init() failed to create the ADM";
-      return -1;
-    }
-#endif  // WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE
-  } else {
-    // Use the already existing external ADM implementation.
-    shared_->set_audio_device(external_adm);
-    RTC_LOG_F(LS_INFO)
-        << "An external ADM implementation will be used in VoiceEngine";
-  }
-
-  bool available = false;
-
-  // --------------------
-  // Reinitialize the ADM
-
-  // Register the AudioTransport implementation
-  if (shared_->audio_device()->RegisterAudioCallback(this) != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to register audio callback for the ADM";
-  }
-
-  // ADM initialization
-  if (shared_->audio_device()->Init() != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to initialize the ADM";
-    return -1;
-  }
-
-  // Initialize the default speaker
-  if (shared_->audio_device()->SetPlayoutDevice(
-          WEBRTC_VOICE_ENGINE_DEFAULT_DEVICE) != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to set the default output device";
-  }
-  if (shared_->audio_device()->InitSpeaker() != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to initialize the speaker";
-  }
-
-  // Initialize the default microphone
-  if (shared_->audio_device()->SetRecordingDevice(
-          WEBRTC_VOICE_ENGINE_DEFAULT_DEVICE) != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to set the default input device";
-  }
-  if (shared_->audio_device()->InitMicrophone() != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to initialize the microphone";
-  }
-
-  // Set number of channels
-  if (shared_->audio_device()->StereoPlayoutIsAvailable(&available) != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to query stereo playout mode";
-  }
-  if (shared_->audio_device()->SetStereoPlayout(available) != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to set mono/stereo playout mode";
-  }
-
-  // TODO(andrew): These functions don't tell us whether stereo recording
-  // is truly available. We simply set the AudioProcessing input to stereo
-  // here, because we have to wait until receiving the first frame to
-  // determine the actual number of channels anyway.
-  //
-  // These functions may be changed; tracked here:
-  // http://code.google.com/p/webrtc/issues/detail?id=204
-  shared_->audio_device()->StereoRecordingIsAvailable(&available);
-  if (shared_->audio_device()->SetStereoRecording(available) != 0) {
-    RTC_LOG(LS_ERROR) << "Init() failed to set mono/stereo recording mode";
-  }
-
+  shared_->set_audio_device(audio_device);
   shared_->set_audio_processing(audio_processing);
-
-  // Configure AudioProcessing components.
-  // TODO(peah): Move this initialization to webrtcvoiceengine.cc.
-  if (audio_processing->high_pass_filter()->Enable(true) != 0) {
-    RTC_LOG_F(LS_ERROR) << "Failed to enable high pass filter.";
-    return -1;
-  }
-  if (audio_processing->echo_cancellation()->enable_drift_compensation(false) !=
-      0) {
-    RTC_LOG_F(LS_ERROR) << "Failed to disable drift compensation.";
-    return -1;
-  }
-  if (audio_processing->noise_suppression()->set_level(kDefaultNsMode) != 0) {
-    RTC_LOG_F(LS_ERROR) << "Failed to set noise suppression level: "
-                        << kDefaultNsMode;
-    return -1;
-  }
-  GainControl* agc = audio_processing->gain_control();
-  if (agc->set_analog_level_limits(kMinVolumeLevel, kMaxVolumeLevel) != 0) {
-    RTC_LOG_F(LS_ERROR) << "Failed to set analog level limits with minimum: "
-                        << kMinVolumeLevel
-                        << " and maximum: " << kMaxVolumeLevel;
-    return -1;
-  }
-  if (agc->set_mode(kDefaultAgcMode) != 0) {
-    RTC_LOG_F(LS_ERROR) << "Failed to set mode: " << kDefaultAgcMode;
-    return -1;
-  }
-  if (agc->Enable(kDefaultAgcState) != 0) {
-    RTC_LOG_F(LS_ERROR) << "Failed to set agc state: " << kDefaultAgcState;
-    return -1;
-  }
-
-#ifdef WEBRTC_VOICE_ENGINE_AGC
-  bool agc_enabled =
-      agc->mode() == GainControl::kAdaptiveAnalog && agc->is_enabled();
-  if (shared_->audio_device()->SetAGC(agc_enabled) != 0) {
-    RTC_LOG_F(LS_ERROR) << "Failed to set agc to enabled: " << agc_enabled;
-    // TODO(ajm): No error return here due to
-    // https://code.google.com/p/webrtc/issues/detail?id=1464
-  }
-#endif
 
   RTC_DCHECK(decoder_factory);
   decoder_factory_ = decoder_factory;
-
-  return 0;
 }
 
-int VoEBaseImpl::Terminate() {
+void VoEBaseImpl::Terminate() {
   rtc::CritScope cs(shared_->crit_sec());
-  return TerminateInternal();
+  TerminateInternal();
 }
 
 int VoEBaseImpl::CreateChannel() {
@@ -510,7 +394,7 @@ int32_t VoEBaseImpl::SetRecording(bool enabled) {
   return ret;
 }
 
-int32_t VoEBaseImpl::TerminateInternal() {
+void VoEBaseImpl::TerminateInternal() {
   // Delete any remaining channel objects
   shared_->channel_manager().DestroyAllChannels();
 
@@ -518,6 +402,7 @@ int32_t VoEBaseImpl::TerminateInternal() {
     shared_->process_thread()->Stop();
   }
 
+  // XXXXXXX TODO: Move me, please!
   if (shared_->audio_device()) {
     if (shared_->audio_device()->StopPlayout() != 0) {
       RTC_LOG(LS_ERROR) << "TerminateInternal() failed to stop playout";
@@ -536,7 +421,5 @@ int32_t VoEBaseImpl::TerminateInternal() {
   }
 
   shared_->set_audio_processing(nullptr);
-
-  return 0;
 }
 }  // namespace webrtc

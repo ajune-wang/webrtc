@@ -24,17 +24,14 @@ class ProcessThread;
 class VoEBaseImpl : public VoEBase,
                     public AudioTransport {
  public:
-  int Init(
-      AudioDeviceModule* external_adm,
+  void Init(
+      AudioDeviceModule* audio_device,
       AudioProcessing* audio_processing,
       const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory) override;
-  AudioDeviceModule* audio_device_module() override {
-    return shared_->audio_device();
-  }
   voe::TransmitMixer* transmit_mixer() override {
     return shared_->transmit_mixer();
   }
-  int Terminate() override;
+  void Terminate() override;
 
   int CreateChannel() override;
   int CreateChannel(const ChannelConfig& config) override;
@@ -92,7 +89,7 @@ class VoEBaseImpl : public VoEBase,
   int32_t StopPlayout();
   int32_t StartSend();
   int32_t StopSend();
-  int32_t TerminateInternal();
+  void TerminateInternal();
 
   void GetPlayoutData(int sample_rate, size_t number_of_channels,
                       size_t number_of_frames, bool feed_data_to_apm,

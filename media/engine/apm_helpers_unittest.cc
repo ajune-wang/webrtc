@@ -29,9 +29,9 @@ struct TestHelper {
     Config config;
     config.Set<ExperimentalAgc>(new ExperimentalAgc(false));
     apm_ = rtc::scoped_refptr<AudioProcessing>(AudioProcessing::Create(config));
-    EXPECT_EQ(0, voe_wrapper_.base()->Init(
-                     &mock_audio_device_, apm_,
-                     MockAudioDecoderFactory::CreateEmptyFactory()));
+    apm_helpers::Init(apm());
+    voe_wrapper_.base()->Init(&mock_audio_device_, apm_,
+                              MockAudioDecoderFactory::CreateEmptyFactory());
   }
 
   AudioProcessing* apm() { return apm_.get(); }

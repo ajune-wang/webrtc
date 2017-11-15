@@ -88,8 +88,7 @@ void AdmSetupExpectations(webrtc::test::MockAudioDeviceModule* adm) {
   EXPECT_CALL(*adm, AddRef()).Times(1);
   EXPECT_CALL(*adm, Release())
       .WillOnce(Return(rtc::RefCountReleaseStatus::kDroppedLastRef));
-#if !defined(WEBRTC_IOS)
-  EXPECT_CALL(*adm, Recording()).WillOnce(Return(false));
+  EXPECT_CALL(*adm, Init()).WillOnce(Return(0));
 #if defined(WEBRTC_WIN)
   EXPECT_CALL(*adm, SetRecordingDevice(
       testing::Matcher<webrtc::AudioDeviceModule::WindowsDeviceType>(
@@ -101,7 +100,6 @@ void AdmSetupExpectations(webrtc::test::MockAudioDeviceModule* adm) {
   EXPECT_CALL(*adm, InitMicrophone()).WillOnce(Return(0));
   EXPECT_CALL(*adm, StereoRecordingIsAvailable(testing::_)).WillOnce(Return(0));
   EXPECT_CALL(*adm, SetStereoRecording(false)).WillOnce(Return(0));
-  EXPECT_CALL(*adm, Playing()).WillOnce(Return(false));
 #if defined(WEBRTC_WIN)
   EXPECT_CALL(*adm, SetPlayoutDevice(
       testing::Matcher<webrtc::AudioDeviceModule::WindowsDeviceType>(
@@ -113,7 +111,6 @@ void AdmSetupExpectations(webrtc::test::MockAudioDeviceModule* adm) {
   EXPECT_CALL(*adm, InitSpeaker()).WillOnce(Return(0));
   EXPECT_CALL(*adm, StereoPlayoutIsAvailable(testing::_)).WillOnce(Return(0));
   EXPECT_CALL(*adm, SetStereoPlayout(false)).WillOnce(Return(0));
-#endif  // #if !defined(WEBRTC_IOS)
   EXPECT_CALL(*adm, BuiltInAECIsAvailable()).WillOnce(Return(false));
   EXPECT_CALL(*adm, BuiltInAGCIsAvailable()).WillOnce(Return(false));
   EXPECT_CALL(*adm, BuiltInNSIsAvailable()).WillOnce(Return(false));
@@ -132,7 +129,6 @@ TEST(WebRtcVoiceEngineTestStubLibrary, StartupShutdown) {
   EXPECT_CALL(*apm, GetConfig()).WillRepeatedly(ReturnPointee(&apm_config));
   EXPECT_CALL(*apm, ApplyConfig(_)).WillRepeatedly(SaveArg<0>(&apm_config));
   EXPECT_CALL(*apm, SetExtraOptions(testing::_));
-  EXPECT_CALL(*apm, Initialize()).WillOnce(Return(0));
   EXPECT_CALL(*apm, DetachAecDump());
   StrictMock<MockTransmitMixer> transmit_mixer;
   EXPECT_CALL(transmit_mixer, EnableStereoChannelSwapping(false));
@@ -178,7 +174,6 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
     EXPECT_CALL(*apm_, GetConfig()).WillRepeatedly(ReturnPointee(&apm_config_));
     EXPECT_CALL(*apm_, ApplyConfig(_)).WillRepeatedly(SaveArg<0>(&apm_config_));
     EXPECT_CALL(*apm_, SetExtraOptions(testing::_));
-    EXPECT_CALL(*apm_, Initialize()).WillOnce(Return(0));
     EXPECT_CALL(*apm_, DetachAecDump());
     // Default Options.
     EXPECT_CALL(apm_ec_, Enable(true)).WillOnce(Return(0));

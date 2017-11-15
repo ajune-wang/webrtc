@@ -57,20 +57,14 @@ class FakeWebRtcVoiceEngine : public webrtc::VoEBase {
   WEBRTC_STUB(Release, ());
 
   // webrtc::VoEBase
-  WEBRTC_FUNC(Init,
-              (webrtc::AudioDeviceModule* adm,
-               webrtc::AudioProcessing* audioproc,
-               const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-                   decoder_factory)) {
+  void Init(webrtc::AudioDeviceModule* adm,
+            webrtc::AudioProcessing* audioproc,
+            const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
+                decoder_factory) override {
     inited_ = true;
-    return 0;
   }
-  WEBRTC_FUNC(Terminate, ()) {
+  void Terminate() override {
     inited_ = false;
-    return 0;
-  }
-  webrtc::AudioDeviceModule* audio_device_module() override {
-    return nullptr;
   }
   webrtc::voe::TransmitMixer* transmit_mixer() override {
     return transmit_mixer_;

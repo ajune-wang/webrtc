@@ -28,6 +28,7 @@
 #include "media/engine/payload_type_mapper.h"
 #include "media/engine/webrtcmediaengine.h"
 #include "media/engine/webrtcvoe.h"
+#include "modules/audio_device/audio_device_impl.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -283,15 +284,18 @@ void WebRtcVoiceEngine::Init() {
 
   channel_config_.enable_voice_pacing = true;
 
-  RTC_CHECK_EQ(0,
-               voe_wrapper_->base()->Init(adm_.get(), apm(), decoder_factory_));
-
-  // No ADM supplied? Get the default one from VoE.
+  // No ADM supplied? Create a default one.
   if (!adm_) {
-    adm_ = voe_wrapper_->base()->audio_device_module();
+#if defined(WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE)
+    adm_ = webrtc::AudioDeviceModule::Create(0,
+        webrtc::AudioDeviceModule::kPlatformDefaultAudio);
+#endif  // WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE
   }
-  RTC_DCHECK(adm_);
+  RTC_CHECK(adm());
+  webrtc::adm_helpers::Init(adm());
+  webrtc::apm_helpers::Init(apm());
 
+  voe_wrapper_->base()->Init(adm(), apm(), decoder_factory_);
   transmit_mixer_ = voe_wrapper_->base()->transmit_mixer();
   RTC_DCHECK(transmit_mixer_);
 
@@ -322,17 +326,13 @@ void WebRtcVoiceEngine::Init() {
     RTC_DCHECK(error);
   }
 
-  // Set default audio devices.
-#if !defined(WEBRTC_IOS)
-  webrtc::adm_helpers::SetRecordingDevice(adm_);
-  apm()->Initialize();
-  webrtc::adm_helpers::SetPlayoutDevice(adm_);
-#endif  // !WEBRTC_IOS
-
   // May be null for VoE injected for testing.
   if (voe()->engine()) {
     audio_state_ = webrtc::AudioState::Create(
         MakeAudioStateConfig(voe(), audio_mixer_, apm_));
+
+    // Connect the ADM to our audio path.
+    adm()->RegisterAudioCallback(audio_state_->audio_transport());
   }
 
   initialized_ = true;
@@ -726,11 +726,12 @@ int WebRtcVoiceEngine::CreateVoEChannel() {
 webrtc::AudioDeviceModule* WebRtcVoiceEngine::adm() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_DCHECK(adm_);
-  return adm_;
+  return adm_.get();
 }
 
 webrtc::AudioProcessing* WebRtcVoiceEngine::apm() const {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(apm_);
   return apm_.get();
 }
 

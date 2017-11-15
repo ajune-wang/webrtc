@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a05926b2_8fa4ef42",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2962,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-15T10:20:54Z",
+      "side": 1,
+      "message": "Can Create return nullptr? Consider asserting that apm is non-nullptr.",
+      "range": {
+        "startLine": 2962,
+        "startChar": 35,
+        "endLine": 2962,
+        "endChar": 38
+      },
+      "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed976121_a3c20fa4",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3009,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-15T10:20:54Z",
+      "side": 1,
+      "message": "You can avoid this double-check (EXPECT_TRUE(x), then if(x)) by using\n\n ASSERT_TRUE(stats.residual_echo_likelihood);\n\nThese are exactly the kind of situations ASSERT was designed for.",
+      "range": {
+        "startLine": 3008,
+        "startChar": 2,
+        "endLine": 3009,
+        "endChar": 37
+      },
+      "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be6efe68_3c839de3",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3038,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-15T10:20:54Z",
+      "side": 1,
+      "message": "Is it because you call GetStatistics again, without any processing calls in between, that you get empty stats?",
+      "range": {
+        "startLine": 3038,
+        "startChar": 18,
+        "endLine": 3038,
+        "endChar": 36
+      },
+      "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d793ac1_53e3fddd",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3049,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-15T10:20:54Z",
+      "side": 1,
+      "message": "The whole setup process is duplicated from the test above, with the exception of one or two settings. Can you consolidate? One option is to have a helper function which returns a configured APM object (in a unique_ptr).",
+      "range": {
+        "startLine": 3049,
+        "startChar": 0,
+        "endLine": 3049,
+        "endChar": 36
+      },
+      "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

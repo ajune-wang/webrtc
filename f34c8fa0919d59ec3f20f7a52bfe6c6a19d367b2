@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "174fa88d_2ba79d67",
+        "filename": "sdk/android/src/jni/androidmediaencoder_jni.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-15T15:38:22Z",
+      "side": 1,
+      "message": "We never care about profile levels here?",
+      "revId": "f34c8fa0919d59ec3f20f7a52bfe6c6a19d367b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

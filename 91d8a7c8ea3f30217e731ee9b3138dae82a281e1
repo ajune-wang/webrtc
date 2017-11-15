@@ -16,6 +16,24 @@
       "revId": "91d8a7c8ea3f30217e731ee9b3138dae82a281e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca48ab42_e826604f",
+        "filename": "media/base/cryptoparams.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-11-15T12:15:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7df47ab5_6aeb1c74",
+      "revId": "91d8a7c8ea3f30217e731ee9b3138dae82a281e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

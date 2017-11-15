@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c22f914c_9cb603b9",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-15T13:03:36Z",
+      "side": 1,
+      "message": "Add a class comment describing what this does.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 69
+      },
+      "revId": "7c5ab633669ccaabd25dcd4bb5b1e7c3a90d4a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "583747ed_03254a42",
+        "filename": "sdk/android/src/jni/videoencoderfallback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-15T13:03:36Z",
+      "side": 1,
+      "message": "I would like to call this function \u0027JavaToNativeVideoEncoder\u0027 and add comment in the header declaration that it will take a shortcut for wrapped native encoders.",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "7c5ab633669ccaabd25dcd4bb5b1e7c3a90d4a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

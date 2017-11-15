@@ -22,6 +22,30 @@
       "revId": "162461aed5b0ab19df8353f756c91228a09d4a85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fac3854b_628862c6",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5915
+      },
+      "writtenOn": "2017-11-15T09:07:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5199a497_05ea6ff4",
+      "range": {
+        "startLine": 195,
+        "startChar": 4,
+        "endLine": 195,
+        "endChar": 7
+      },
+      "revId": "162461aed5b0ab19df8353f756c91228a09d4a85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

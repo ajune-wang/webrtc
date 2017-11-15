@@ -26,6 +26,7 @@ namespace webrtc {
 enum { kStartupDelaySamples = 30 };
 enum { kFsAccuStartupSamples = 5 };
 enum { kMaxFramerateEstimate = 200 };
+enum { kNackEffectTimeSecs = 60000 };
 
 VCMJitterEstimator::VCMJitterEstimator(const Clock* clock,
                                        int32_t vcmId,
@@ -102,6 +103,7 @@ void VCMJitterEstimator::Reset() {
   _filterJitterEstimate = 0.0;
   _latestNackTimestamp = 0;
   _nackCount = 0;
+  _latestNackTimestamp = 0;
   _fsSum = 0;
   _fsCount = 0;
   _startupCount = 0;
@@ -202,6 +204,7 @@ void VCMJitterEstimator::FrameNacked() {
   if (_nackCount < _nackLimit) {
     _nackCount++;
   }
+  _latestNackTimestamp = clock_->TimeInMicroseconds();
 }
 
 // Updates Kalman estimate of the channel
@@ -386,9 +389,11 @@ void VCMJitterEstimator::UpdateMaxFrameSize(uint32_t frameSizeBytes) {
 // otherwise tries to calculate an estimate.
 int VCMJitterEstimator::GetJitterEstimate(double rttMultiplier) {
   double jitterMS = CalculateEstimate() + OPERATING_SYSTEM_JITTER;
+  uint64_t now = clock_->TimeInMicroseconds();
   if (_filterJitterEstimate > jitterMS)
     jitterMS = _filterJitterEstimate;
-  if (_nackCount >= _nackLimit)
+  if (_nackCount >= _nackLimit &&
+      now - _latestNackTimestamp < kNackEffectTimeSecs * 1000)
     jitterMS += _rttFilter.RttMs() * rttMultiplier;
 
   if (LowRateExperimentEnabled()) {

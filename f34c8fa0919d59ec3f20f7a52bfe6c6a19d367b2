@@ -16,6 +16,24 @@
       "revId": "f34c8fa0919d59ec3f20f7a52bfe6c6a19d367b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d713c640_ef79ac8d",
+        "filename": "sdk/android/src/jni/androidmediaencoder_jni.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-15T15:50:30Z",
+      "side": 1,
+      "message": "Yeah, we will never have a problem with profiles here because H264 SW is not supported on Android. This whole file will be removed soon when we switch to injectable codecs, so I think this shortcut is ok.",
+      "parentUuid": "174fa88d_2ba79d67",
+      "revId": "f34c8fa0919d59ec3f20f7a52bfe6c6a19d367b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

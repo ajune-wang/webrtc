@@ -18,7 +18,6 @@
 #include <utility>
 
 #include "modules/include/module_common_types.h"
-#include "modules/pacing/alr_detector.h"
 #include "modules/pacing/bitrate_prober.h"
 #include "modules/pacing/interval_budget.h"
 #include "modules/utility/include/process_thread.h"
@@ -58,7 +57,6 @@ PacedSender::PacedSender(const Clock* clock,
                          std::unique_ptr<PacketQueue> packets)
     : clock_(clock),
       packet_sender_(packet_sender),
-      alr_detector_(rtc::MakeUnique<AlrDetector>()),
       paused_(false),
       media_budget_(rtc::MakeUnique<IntervalBudget>(0)),
       padding_budget_(rtc::MakeUnique<IntervalBudget>(0)),
@@ -129,7 +127,6 @@ void PacedSender::SetEstimatedBitrate(uint32_t bitrate_bps) {
   pacing_bitrate_kbps_ =
       std::max(min_send_bitrate_kbps_, estimated_bitrate_bps_ / 1000) *
       pacing_factor_;
-  alr_detector_->SetEstimatedBitrate(bitrate_bps);
 }
 
 void PacedSender::SetSendBitrateLimits(int min_send_bitrate_bps,
@@ -175,12 +172,6 @@ int64_t PacedSender::ExpectedQueueTimeMs() const {
   RTC_DCHECK_GT(pacing_bitrate_kbps_, 0);
   return static_cast<int64_t>(packets_->SizeInBytes() * 8 /
                               pacing_bitrate_kbps_);
-}
-
-rtc::Optional<int64_t> PacedSender::GetApplicationLimitedRegionStartTime()
-    const {
-  rtc::CritScope cs(&critsect_);
-  return alr_detector_->GetApplicationLimitedRegionStartTime();
 }
 
 size_t PacedSender::QueueSizePackets() const {
@@ -234,8 +225,7 @@ void PacedSender::Process() {
     // do, timestamps get messed up.
     if (packet_counter_ == 0)
       return;
-    size_t bytes_sent = SendPadding(1, pacing_info);
-    alr_detector_->OnBytesSent(bytes_sent, elapsed_time_ms);
+    SendPadding(1, pacing_info);
     return;
   }
 
@@ -305,7 +295,6 @@ void PacedSender::Process() {
     if (!probing_send_failure_)
       prober_->ProbeSent(clock_->TimeInMilliseconds(), bytes_sent);
   }
-  alr_detector_->OnBytesSent(bytes_sent, elapsed_time_ms);
 }
 
 void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {

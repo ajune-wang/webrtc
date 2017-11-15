@@ -69,8 +69,13 @@ constexpr char kBweRapidRecoveryExperiment[] =
 
 }  // namespace
 
-ProbeController::ProbeController(PacedSender* pacer, const Clock* clock)
-    : pacer_(pacer), clock_(clock), enable_periodic_alr_probing_(false) {
+ProbeController::ProbeController(const Clock* clock,
+                                 PacedSender* pacer,
+                                 AlrDetector* alr_detector)
+    : clock_(clock),
+      pacer_(pacer),
+      alr_detector_(alr_detector),
+      enable_periodic_alr_probing_(false) {
   Reset();
   in_rapid_recovery_experiment_ = webrtc::field_trial::FindFullName(
                                       kBweRapidRecoveryExperiment) == "Enabled";
@@ -197,7 +202,8 @@ void ProbeController::RequestProbe() {
   //
   // If the probe session fails, the assumption is that this drop was a
   // real one from a competing flow or a network change.
-  bool in_alr = pacer_->GetApplicationLimitedRegionStartTime().has_value();
+  bool in_alr =
+      alr_detector_->GetApplicationLimitedRegionStartTime().has_value();
   bool alr_ended_recently =
       (alr_end_time_ms_.has_value() &&
        now_ms - alr_end_time_ms_.value() < kAlrEndedTimeoutMs);
@@ -262,7 +268,7 @@ void ProbeController::Process() {
 
   // Probe bandwidth periodically when in ALR state.
   rtc::Optional<int64_t> alr_start_time =
-      pacer_->GetApplicationLimitedRegionStartTime();
+      alr_detector_->GetApplicationLimitedRegionStartTime();
   if (alr_start_time && estimated_bitrate_bps_ > 0) {
     int64_t next_probe_time_ms =
         std::max(*alr_start_time, time_last_probing_initiated_ms_) +

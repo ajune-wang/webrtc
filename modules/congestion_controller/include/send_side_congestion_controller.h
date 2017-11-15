@@ -19,6 +19,7 @@
 #include "modules/congestion_controller/transport_feedback_adapter.h"
 #include "modules/include/module.h"
 #include "modules/include/module_common_types.h"
+#include "modules/pacing/alr_detector.h"
 #include "modules/pacing/paced_sender.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
@@ -117,6 +118,7 @@ class SendSideCongestionController : public CallStatsObserver,
 
   bool IsSendQueueFull() const;
   bool IsNetworkDown() const;
+  void OnBytesSent(int64_t bytes_sent, int64_t send_time_ms);
   bool HasNetworkParametersToReportChanged(uint32_t bitrate_bps,
                                            uint8_t fraction_loss,
                                            int64_t rtt);
@@ -126,6 +128,9 @@ class SendSideCongestionController : public CallStatsObserver,
   Observer* observer_ RTC_GUARDED_BY(observer_lock_);
   RtcEventLog* const event_log_;
   PacedSender* const pacer_;
+  rtc::CriticalSection alr_lock_;
+  const std::unique_ptr<AlrDetector> alr_detector_ RTC_PT_GUARDED_BY(alr_lock_);
+
   const std::unique_ptr<BitrateController> bitrate_controller_;
   std::unique_ptr<AcknowledgedBitrateEstimator> acknowledged_bitrate_estimator_;
   const std::unique_ptr<ProbeController> probe_controller_;
@@ -146,6 +151,8 @@ class SendSideCongestionController : public CallStatsObserver,
   std::unique_ptr<DelayBasedBwe> delay_based_bwe_ RTC_GUARDED_BY(bwe_lock_);
   bool in_cwnd_experiment_;
   int64_t accepted_queue_ms_;
+  int64_t alr_last_update_ms_ = 0;
+  int64_t alr_data_sent_ = 0;
   bool was_in_alr_;
 
   rtc::RaceChecker worker_race_;

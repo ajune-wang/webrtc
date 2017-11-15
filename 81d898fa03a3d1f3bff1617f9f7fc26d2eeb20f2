@@ -22,6 +22,30 @@
       "revId": "81d898fa03a3d1f3bff1617f9f7fc26d2eeb20f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbe85778_1e2cd751",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCCameraVideoCapturer.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-15T15:01:52Z",
+      "side": 1,
+      "message": "`cl format` was confused by this, but I force added a space after {",
+      "parentUuid": "91375f54_0bb0d836",
+      "range": {
+        "startLine": 412,
+        "startChar": 22,
+        "endLine": 412,
+        "endChar": 54
+      },
+      "revId": "81d898fa03a3d1f3bff1617f9f7fc26d2eeb20f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

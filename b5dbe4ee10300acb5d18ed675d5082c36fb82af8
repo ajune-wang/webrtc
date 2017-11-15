@@ -22,6 +22,30 @@
       "revId": "b5dbe4ee10300acb5d18ed675d5082c36fb82af8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8426342_50995cab",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-15T14:51:58Z",
+      "side": 1,
+      "message": "Done - removed this if statement, checking the H264 profile in HardwareVideoEncoderFactory instead.",
+      "parentUuid": "1317d28e_356bbde0",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "b5dbe4ee10300acb5d18ed675d5082c36fb82af8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5199a497_05ea6ff4",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-15T08:47:19Z",
+      "side": 1,
+      "message": "Must be changed to RTC_LOG.",
+      "range": {
+        "startLine": 195,
+        "startChar": 4,
+        "endLine": 195,
+        "endChar": 7
+      },
+      "revId": "162461aed5b0ab19df8353f756c91228a09d4a85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

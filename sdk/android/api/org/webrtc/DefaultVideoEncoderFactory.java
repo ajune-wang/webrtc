@@ -10,8 +10,8 @@
 
 package org.webrtc;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public class DefaultVideoEncoderFactory implements VideoEncoderFactory {
@@ -35,7 +35,7 @@ public class DefaultVideoEncoderFactory implements VideoEncoderFactory {
   public VideoEncoder createEncoder(VideoCodecInfo info) {
     List<VideoCodecInfo> hardwareSupportedCodecs =
         Arrays.asList(hardwareVideoEncoderFactory.getSupportedCodecs());
-    if (containsSameCodec(hardwareSupportedCodecs, info)) {
+    if (hardwareSupportedCodecs.contains(info)) {
       return hardwareVideoEncoderFactory.createEncoder(info);
     } else {
       return softwareVideoEncoderFactory.createEncoder(info);
@@ -44,27 +44,11 @@ public class DefaultVideoEncoderFactory implements VideoEncoderFactory {
 
   @Override
   public VideoCodecInfo[] getSupportedCodecs() {
-    List<VideoCodecInfo> supportedCodecInfos = new ArrayList<>();
+    LinkedHashSet<VideoCodecInfo> supportedCodecInfos = new LinkedHashSet<VideoCodecInfo>();
 
     supportedCodecInfos.addAll(Arrays.asList(softwareVideoEncoderFactory.getSupportedCodecs()));
-
-    for (VideoCodecInfo info : hardwareVideoEncoderFactory.getSupportedCodecs()) {
-      if (!containsSameCodec(supportedCodecInfos, info)) {
-        supportedCodecInfos.add(info);
-      }
-    }
+    supportedCodecInfos.addAll(Arrays.asList(hardwareVideoEncoderFactory.getSupportedCodecs()));
 
     return supportedCodecInfos.toArray(new VideoCodecInfo[supportedCodecInfos.size()]);
   }
-
-  private static boolean containsSameCodec(List<VideoCodecInfo> infos, VideoCodecInfo info) {
-    for (VideoCodecInfo otherInfo : infos) {
-      if (isSameCodec(info, otherInfo)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private static native boolean isSameCodec(VideoCodecInfo info1, VideoCodecInfo info2);
 }

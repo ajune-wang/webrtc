@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "664defdb_2849c540",
+        "filename": "modules/video_coding/codecs/test/stats.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2017-11-15T12:20:04Z",
+      "side": 1,
+      "message": "I tried, but it doesn\u0027t look nice:\nint total_psnr \u003d std::accumulate(\n        decoded_frames.begin(), decoded_frames.end(), 0,\n        [](int acc, const FrameStatistic\u0026 s) { return acc + s.psnr; });\n\nif you have more nice looking idea please share. Otherwise I would prefer to keep it as it is.",
+      "parentUuid": "c8560f97_69b75196",
+      "range": {
+        "startLine": 192,
+        "startChar": 31,
+        "endLine": 192,
+        "endChar": 65
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2beb4e33_9c55af30",
         "filename": "modules/video_coding/codecs/test/stats.cc",
         "patchSetId": 2
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "ba6e5978_d438e107",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2017-11-15T12:20:04Z",
+      "side": 1,
+      "message": "That\u0027s correct. I updated comment.",
+      "parentUuid": "6f6a28f1_c21f5d10",
+      "range": {
+        "startLine": 201,
+        "startChar": 5,
+        "endLine": 201,
+        "endChar": 24
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29eb8e5a_23d0cfb0",
         "filename": "modules/video_coding/codecs/test/videoprocessor.h",
         "patchSetId": 2
@@ -114,6 +162,30 @@
       "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e57b1ef_6ae0efc1",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2017-11-15T12:20:04Z",
+      "side": 1,
+      "message": "I tried to store VideoFrame object instead of pointer in the map. But it didn\u0027t work. It requires object to have default constructor which VideoFrame doesn\u0027t have. I would prefer to keep pointers if there is no strong objection.",
+      "parentUuid": "29eb8e5a_23d0cfb0",
+      "range": {
+        "startLine": 203,
+        "startChar": 21,
+        "endLine": 203,
+        "endChar": 36
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

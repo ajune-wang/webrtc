@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d8b3627_314815c0",
+        "filename": "voice_engine/transmit_mixer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2017-11-15T12:59:40Z",
+      "side": 1,
+      "message": "nit: should we delete the reliance on assert() in this file at the same time?",
+      "range": {
+        "startLine": 192,
+        "startChar": 10,
+        "endLine": 192,
+        "endChar": 11
+      },
+      "revId": "cf4a1ca3d0f9ce19d5deff91b74e4aa0ae649bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

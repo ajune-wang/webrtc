@@ -16,46 +16,17 @@
 #ifndef VOICE_ENGINE_VOICE_ENGINE_DEFINES_H_
 #define VOICE_ENGINE_VOICE_ENGINE_DEFINES_H_
 
-#include "modules/audio_processing/include/audio_processing.h"
-
 namespace webrtc {
 
 // VolumeControl
 enum { kMinVolumeLevel = 0 };
 enum { kMaxVolumeLevel = 255 };
 
-// Audio processing
-const NoiseSuppression::Level kDefaultNsMode = NoiseSuppression::kModerate;
-const GainControl::Mode kDefaultAgcMode =
-#if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
-    GainControl::kAdaptiveDigital;
-#else
-    GainControl::kAdaptiveAnalog;
-#endif
-const bool kDefaultAgcState =
-#if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
-    false;
-#else
-    true;
-#endif
-
 // VideoSync
 // Lowest minimum playout delay
 enum { kVoiceEngineMinMinPlayoutDelayMs = 0 };
 // Highest minimum playout delay
 enum { kVoiceEngineMaxMinPlayoutDelayMs = 10000 };
-
-}  // namespace webrtc
-
-namespace webrtc {
-
-inline int VoEId(int veId, int chId) {
-  if (chId == -1) {
-    const int dummyChannel(99);
-    return (int)((veId << 16) + dummyChannel);
-  }
-  return (int)((veId << 16) + chId);
-}
 
 }  // namespace webrtc
 

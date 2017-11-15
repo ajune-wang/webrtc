@@ -29,6 +29,7 @@ struct TestHelper {
     Config config;
     config.Set<ExperimentalAgc>(new ExperimentalAgc(false));
     apm_ = rtc::scoped_refptr<AudioProcessing>(AudioProcessing::Create(config));
+    apm_helpers::Init(apm());
     EXPECT_EQ(0, voe_wrapper_.base()->Init(
                      &mock_audio_device_, apm_,
                      MockAudioDecoderFactory::CreateEmptyFactory()));
@@ -260,13 +261,6 @@ TEST(ApmHelpersTest, MAYBE_TypingDetectionStatus_EnableDisable) {
   EXPECT_TRUE(vd->is_enabled());
   apm_helpers::SetTypingDetectionStatus(helper.apm(), false);
   EXPECT_FALSE(vd->is_enabled());
-}
-
-// TODO(solenberg): Move this test to a better place - added here for the sake
-// of duplicating all relevant tests from audio_processing_test.cc.
-TEST(ApmHelpersTest, HighPassFilter_DefaultMode) {
-  TestHelper helper;
-  EXPECT_TRUE(helper.apm()->high_pass_filter()->is_enabled());
 }
 
 // TODO(solenberg): Move this test to a better place - added here for the sake

@@ -292,6 +292,8 @@ void WebRtcVoiceEngine::Init() {
   }
   RTC_DCHECK(adm_);
 
+  webrtc::apm_helpers::Init(apm());
+
   transmit_mixer_ = voe_wrapper_->base()->transmit_mixer();
   RTC_DCHECK(transmit_mixer_);
 
@@ -325,7 +327,6 @@ void WebRtcVoiceEngine::Init() {
   // Set default audio devices.
 #if !defined(WEBRTC_IOS)
   webrtc::adm_helpers::SetRecordingDevice(adm_);
-  apm()->Initialize();
   webrtc::adm_helpers::SetPlayoutDevice(adm_);
 #endif  // !WEBRTC_IOS
 
@@ -731,6 +732,7 @@ webrtc::AudioDeviceModule* WebRtcVoiceEngine::adm() {
 
 webrtc::AudioProcessing* WebRtcVoiceEngine::apm() const {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(apm_);
   return apm_.get();
 }
 

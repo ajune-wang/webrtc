@@ -14,8 +14,8 @@
 // workaround for this.
 // http://developer.android.com/training/articles/perf-jni.html#faq_FindClass
 
-#ifndef SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_
-#define SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_
+#ifndef SDK_ANDROID_SRC_JNI_JNI_COMMON_H_
+#define SDK_ANDROID_SRC_JNI_JNI_COMMON_H_
 
 #include <jni.h>
 
@@ -37,4 +37,4 @@ jclass GetClass(JNIEnv* env, const char* name);
 }  // namespace jni
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_
+#endif  // SDK_ANDROID_SRC_JNI_JNI_COMMON_H_

@@ -82,7 +82,7 @@ public class RtpSender {
     if (cachedTrack != null && ownsTrack) {
       cachedTrack.dispose();
     }
-    JniCommon.nativeReleaseRef(nativeRtpSender);
+    JniCommon.releaseNativeRef(nativeRtpSender);
   }
 
   private static native boolean nativeSetTrack(long nativeRtpSender, long nativeTrack);

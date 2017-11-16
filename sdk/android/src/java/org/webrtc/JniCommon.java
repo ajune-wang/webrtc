@@ -15,9 +15,19 @@ import java.nio.ByteBuffer;
 /** Class with static JNI helper functions that are used in many places. */
 class JniCommon {
   /** Functions to increment/decrement an rtc::RefCountInterface pointer. */
-  static native void nativeAddRef(long nativeRefCountedPointer);
-  static native void nativeReleaseRef(long nativeRefCountedPointer);
+  static native void addNativeRef(long nativeRefCountedPointer);
+  static native void releaseNativeRef(long nativeRefCountedPointer);
 
   public static native ByteBuffer allocateNativeByteBuffer(int size);
   public static native void freeNativeByteBuffer(ByteBuffer buffer);
+
+  /**
+   * This class provides a ClassLoader that is capable of loading WebRTC Java classes regardless of
+   * what thread it's called from. Such a ClassLoader is needed for the few cases where the JNI
+   * mechanism is unable to automatically determine the appropriate ClassLoader instance.
+   */
+  @CalledByNative
+  static Object getClassLoader() {
+    return JniCommon.class.getClassLoader();
+  }
 }

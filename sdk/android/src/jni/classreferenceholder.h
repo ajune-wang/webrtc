@@ -16,8 +16,7 @@
 #ifndef SDK_ANDROID_SRC_JNI_CLASSREFERENCEHOLDER_H_
 #define SDK_ANDROID_SRC_JNI_CLASSREFERENCEHOLDER_H_
 
-// TODO(magjed): Remove this whole file and replace with either generated JNI
-// code or class_loader.h.
+// TODO(magjed): Remove this whole file and replace with generated JNI code.
 
 #include <jni.h>
 #include <map>
@@ -33,7 +32,7 @@ void FreeGlobalClassReferenceHolder();
 
 // Deprecated. Most cases of finding classes should be done with generated JNI
 // code, and the few remaining cases should use the function from
-// class_loader.h.
+// jni_common.h.
 // Returns a global reference guaranteed to be valid for the lifetime of the
 // process.
 jclass FindClass(JNIEnv* jni, const char* name);

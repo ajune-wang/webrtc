@@ -536,7 +536,7 @@ public class PeerConnection {
       receiver.dispose();
     }
     receivers.clear();
-    JniCommon.nativeReleaseRef(nativePeerConnection);
+    JniCommon.releaseNativeRef(nativePeerConnection);
     freeObserver(nativeObserver);
   }
 

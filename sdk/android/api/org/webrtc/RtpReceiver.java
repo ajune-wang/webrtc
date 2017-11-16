@@ -52,7 +52,7 @@ public class RtpReceiver {
       nativeUnsetObserver(nativeRtpReceiver, nativeObserver);
       nativeObserver = 0;
     }
-    JniCommon.nativeReleaseRef(nativeRtpReceiver);
+    JniCommon.releaseNativeRef(nativeRtpReceiver);
   }
 
   public void SetObserver(Observer observer) {

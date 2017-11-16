@@ -92,12 +92,12 @@ class WrappedNativeI420Buffer implements VideoFrame.I420Buffer {
 
   @Override
   public void retain() {
-    JniCommon.nativeAddRef(nativeBuffer);
+    JniCommon.addNativeRef(nativeBuffer);
   }
 
   @Override
   public void release() {
-    JniCommon.nativeReleaseRef(nativeBuffer);
+    JniCommon.releaseNativeRef(nativeBuffer);
   }
 
   @Override

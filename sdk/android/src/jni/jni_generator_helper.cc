@@ -11,7 +11,7 @@
 #include "sdk/android/src/jni/jni_generator_helper.h"
 
 #include "rtc_base/atomicops.h"
-#include "sdk/android/src/jni/class_loader.h"
+#include "sdk/android/src/jni/jni_common.h"
 
 namespace base {
 namespace android {

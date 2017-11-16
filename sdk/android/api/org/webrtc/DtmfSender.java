@@ -71,7 +71,7 @@ public class DtmfSender {
   }
 
   public void dispose() {
-    JniCommon.nativeReleaseRef(nativeDtmfSender);
+    JniCommon.releaseNativeRef(nativeDtmfSender);
   }
 
   private static native boolean nativeCanInsertDtmf(long nativeDtmfSender);

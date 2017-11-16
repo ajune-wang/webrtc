@@ -9,7 +9,7 @@
  */
 #include "sdk/android/src/jni/classreferenceholder.h"
 
-#include "sdk/android/src/jni/class_loader.h"
+#include "sdk/android/src/jni/jni_common.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {

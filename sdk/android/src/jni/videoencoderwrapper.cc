@@ -24,7 +24,7 @@
 #include "sdk/android/generated_video_jni/jni/VideoCodecStatus_jni.h"
 #include "sdk/android/generated_video_jni/jni/VideoEncoderWrapper_jni.h"
 #include "sdk/android/generated_video_jni/jni/VideoEncoder_jni.h"
-#include "sdk/android/src/jni/class_loader.h"
+#include "sdk/android/src/jni/jni_common.h"
 
 namespace webrtc {
 namespace jni {

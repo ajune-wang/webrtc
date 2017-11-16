@@ -87,26 +87,26 @@ bool IsForcedFallbackPossible(const CodecSpecificInfo* codec_info) {
 
 rtc::Optional<int> GetFallbackMaxPixelsFromFieldTrial() {
   if (!webrtc::field_trial::IsEnabled(kVp8ForcedFallbackEncoderFieldTrial))
-    return rtc::Optional<int>();
+    return rtc::nullopt;
 
   std::string group =
       webrtc::field_trial::FindFullName(kVp8ForcedFallbackEncoderFieldTrial);
   if (group.empty())
-    return rtc::Optional<int>();
+    return rtc::nullopt;
 
   int min_pixels;
   int max_pixels;
   int min_bps;
   if (sscanf(group.c_str(), "Enabled-%d,%d,%d", &min_pixels, &max_pixels,
              &min_bps) != 3) {
-    return rtc::Optional<int>();
+    return rtc::nullopt;
   }
 
   if (min_pixels <= 0 || max_pixels <= 0 || max_pixels < min_pixels ||
       min_bps <= 0) {
-    return rtc::Optional<int>();  // Do not log stats.
+    return rtc::nullopt;  // Do not log stats.
   }
-  return rtc::Optional<int>(max_pixels);
+  return max_pixels;
 }
 }  // namespace
 
@@ -830,7 +830,7 @@ void SendStatisticsProxy::OnSendEncodedImage(
 
   if (encoded_image.qp_ != -1) {
     if (!stats_.qp_sum)
-      stats_.qp_sum = rtc::Optional<uint64_t>(0);
+      stats_.qp_sum = 0;
     *stats_.qp_sum += encoded_image.qp_;
 
     if (codec_info) {

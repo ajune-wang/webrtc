@@ -330,8 +330,7 @@ class VideoAnalyzer : public PacketReceiver,
         frames_.pop_front();
         RTC_CHECK(!frames_.empty());
       }
-      first_encoded_timestamp_ =
-          rtc::Optional<uint32_t>(video_frame.timestamp());
+      first_encoded_timestamp_ = video_frame.timestamp();
     }
   }
 
@@ -339,7 +338,7 @@ class VideoAnalyzer : public PacketReceiver,
     rtc::CritScope lock(&crit_);
     if (!first_sent_timestamp_ &&
         encoded_frame.stream_id_ == selected_stream_) {
-      first_sent_timestamp_ = rtc::Optional<uint32_t>(encoded_frame.timestamp_);
+      first_sent_timestamp_ = encoded_frame.timestamp_;
     }
   }
 
@@ -425,7 +424,7 @@ class VideoAnalyzer : public PacketReceiver,
 
     AddFrameComparison(reference_frame, video_frame, false, render_time_ms);
 
-    last_rendered_frame_ = rtc::Optional<VideoFrame>(video_frame);
+    last_rendered_frame_ = video_frame;
 
     StopExcludingCpuThreadTime();
   }
@@ -1931,12 +1930,11 @@ void VideoQualityTest::SetupAudio(int send_channel_id,
     audio_send_config_.min_bitrate_bps = kOpusMinBitrateBps;
     audio_send_config_.max_bitrate_bps = kOpusBitrateFbBps;
   }
-  audio_send_config_.send_codec_spec =
-      rtc::Optional<AudioSendStream::Config::SendCodecSpec>(
-          {kAudioSendPayloadType,
-           {"OPUS", 48000, 2,
-            {{"usedtx", (params_.audio.dtx ? "1" : "0")},
-              {"stereo", "1"}}}});
+  audio_send_config_.send_codec_spec = AudioSendStream::Config::SendCodecSpec(
+      kAudioSendPayloadType,
+      {"OPUS", 48000, 2,
+       {{"usedtx", (params_.audio.dtx ? "1" : "0")},
+         {"stereo", "1"}}});
   audio_send_config_.encoder_factory = encoder_factory_;
   audio_send_stream_ = sender_call_->CreateAudioSendStream(audio_send_config_);
 

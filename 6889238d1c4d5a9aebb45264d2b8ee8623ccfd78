@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5774df26_0a8604f5",
+        "filename": "test/fuzzers/audio_processing_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-16T11:09:11Z",
+      "side": 1,
+      "message": "Can you drop the extra () ?",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 20
+      },
+      "revId": "6889238d1c4d5a9aebb45264d2b8ee8623ccfd78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4547e563_14292664",
+        "filename": "test/fuzzers/audio_processing_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-16T11:09:11Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 20
+      },
+      "revId": "6889238d1c4d5a9aebb45264d2b8ee8623ccfd78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

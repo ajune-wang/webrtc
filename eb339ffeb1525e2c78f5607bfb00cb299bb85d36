@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1ebfa08_93efb64f",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2962,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-16T12:52:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a05926b2_8fa4ef42",
+      "range": {
+        "startLine": 2962,
+        "startChar": 35,
+        "endLine": 2962,
+        "endChar": 38
+      },
+      "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed976121_a3c20fa4",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 14
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6e9fb9b0_1a1ad99f",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3009,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-16T12:52:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed976121_a3c20fa4",
+      "range": {
+        "startLine": 3008,
+        "startChar": 2,
+        "endLine": 3009,
+        "endChar": 37
+      },
+      "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be6efe68_3c839de3",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 14
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-15T10:20:54Z",
       "side": 1,
       "message": "Is it because you call GetStatistics again, without any processing calls in between, that you get empty stats?",
+      "range": {
+        "startLine": 3038,
+        "startChar": 18,
+        "endLine": 3038,
+        "endChar": 36
+      },
+      "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "778babca_6f5d0787",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3038,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-16T12:52:37Z",
+      "side": 1,
+      "message": "It is because the argument in GetStatistics is \u0027false\u0027 now, which signals to APM that there are no receive streams anymore. In that situation the stats should not be set by APM, because they will be stuck at the last computed value (they are no longer being updated inside APM).",
+      "parentUuid": "be6efe68_3c839de3",
       "range": {
         "startLine": 3038,
         "startChar": 18,
@@ -91,6 +163,30 @@
       "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e127cee2_e0f82b9b",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 3049,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-16T12:52:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d793ac1_53e3fddd",
+      "range": {
+        "startLine": 3049,
+        "startChar": 0,
+        "endLine": 3049,
+        "endChar": 36
+      },
+      "revId": "eb339ffeb1525e2c78f5607bfb00cb299bb85d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

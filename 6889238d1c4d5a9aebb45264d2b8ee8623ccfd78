@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9960a08e_18a27a47",
+        "filename": "test/fuzzers/audio_processing_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-11-16T12:10:54Z",
+      "side": 1,
+      "message": "This got parenthesized wrong by the conversion. I should probably fix it, for clarity, if nothing else.",
+      "parentUuid": "5774df26_0a8604f5",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 20
+      },
+      "revId": "6889238d1c4d5a9aebb45264d2b8ee8623ccfd78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4547e563_14292664",
         "filename": "test/fuzzers/audio_processing_fuzzer.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-16T11:09:11Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 20
+      },
+      "revId": "6889238d1c4d5a9aebb45264d2b8ee8623ccfd78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce3ae3a_0f3d22ed",
+        "filename": "test/fuzzers/audio_processing_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-11-16T12:10:54Z",
+      "side": 1,
+      "message": "Sure thing! Although I think both of these are correct even now, this one is at least unambiguous with the parentheses removed.",
+      "parentUuid": "4547e563_14292664",
       "range": {
         "startLine": 140,
         "startChar": 16,

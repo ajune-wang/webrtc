@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9f6db86a_4c7880ab",
+        "filename": "modules/video_coding/codecs/test/stats.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-16T10:02:20Z",
+      "side": 1,
+      "message": "Yes, it\u0027s nicer as is.",
+      "parentUuid": "664defdb_2849c540",
+      "range": {
+        "startLine": 192,
+        "startChar": 31,
+        "endLine": 192,
+        "endChar": 65
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2beb4e33_9c55af30",
         "filename": "modules/video_coding/codecs/test/stats.cc",
         "patchSetId": 2
@@ -69,6 +93,30 @@
       "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30e1e5b_26afca17",
+        "filename": "modules/video_coding/codecs/test/stats.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-16T10:02:20Z",
+      "side": 1,
+      "message": "Resolved.",
+      "parentUuid": "2beb4e33_9c55af30",
+      "range": {
+        "startLine": 198,
+        "startChar": 31,
+        "endLine": 198,
+        "endChar": 65
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -177,6 +225,30 @@
       "side": 1,
       "message": "I tried to store VideoFrame object instead of pointer in the map. But it didn\u0027t work. It requires object to have default constructor which VideoFrame doesn\u0027t have. I would prefer to keep pointers if there is no strong objection.",
       "parentUuid": "29eb8e5a_23d0cfb0",
+      "range": {
+        "startLine": 203,
+        "startChar": 21,
+        "endLine": 203,
+        "endChar": 36
+      },
+      "revId": "4e7c99365c409034c738a5b25ac1a9b7f7d38428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfb1a6b8_cb5c19a8",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-11-16T10:02:20Z",
+      "side": 1,
+      "message": "You could probably use std::map::emplace to avoid calling the default ctor of VideoFrame. But that method seems to have different semantics than std::map::operator[]: if the key already exists in the map, emplace will throw away the new value whereas operator[] will overwrite the old value. The operator[] semantics seem more natural to me, so probably better to use that.\n\nhttp://en.cppreference.com/w/cpp/container/map/emplace\nThe element may be constructed even if there already is an element with the key in the container, in which case the newly constructed element will be destroyed immediately.\n\nhttp://en.cppreference.com/w/cpp/container/map/operator_at\nReturns a reference to the value that is mapped to a key equivalent to key, performing an insertion if such key does not already exist.",
+      "parentUuid": "0e57b1ef_6ae0efc1",
       "range": {
         "startLine": 203,
         "startChar": 21,

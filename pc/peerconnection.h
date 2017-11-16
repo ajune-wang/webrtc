@@ -22,8 +22,7 @@
 #include "pc/iceserverparsing.h"
 #include "pc/peerconnectionfactory.h"
 #include "pc/rtcstatscollector.h"
-#include "pc/rtpreceiver.h"
-#include "pc/rtpsender.h"
+#include "pc/rtptransceiver.h"
 #include "pc/statscollector.h"
 #include "pc/streamcollection.h"
 #include "pc/webrtcsessiondescriptionfactory.h"
@@ -223,19 +222,13 @@ class PeerConnection : public PeerConnectionInterface,
 
   // Exposed for stats collecting.
   // TODO(steveanton): Switch callers to use the plural form and remove these.
-  virtual cricket::VoiceChannel* voice_channel() {
-    if (voice_channels_.empty()) {
-      return nullptr;
-    } else {
-      return voice_channels_[0];
-    }
+  virtual cricket::VoiceChannel* voice_channel() const {
+    return static_cast<cricket::VoiceChannel*>(
+        GetAudioTransceiver()->internal()->channel());
   }
-  virtual cricket::VideoChannel* video_channel() {
-    if (video_channels_.empty()) {
-      return nullptr;
-    } else {
-      return video_channels_[0];
-    }
+  virtual cricket::VideoChannel* video_channel() const {
+    return static_cast<cricket::VideoChannel*>(
+        GetVideoTransceiver()->internal()->channel());
   }
 
   // Only valid when using deprecated RTP data channels.
@@ -277,24 +270,34 @@ class PeerConnection : public PeerConnectionInterface,
   ~PeerConnection() override;
 
  private:
-  struct TrackInfo {
-    TrackInfo() : ssrc(0) {}
-    TrackInfo(const std::string& stream_label,
-              const std::string track_id,
-              uint32_t ssrc)
-        : stream_label(stream_label), track_id(track_id), ssrc(ssrc) {}
-    bool operator==(const TrackInfo& other) {
+  struct SenderInfo {
+    SenderInfo() : ssrc(0) {}
+    SenderInfo(const std::string& stream_label,
+               const std::string sender_id,
+               uint32_t ssrc)
+        : stream_label(stream_label), sender_id(sender_id), ssrc(ssrc) {}
+    bool operator==(const SenderInfo& other) {
       return this->stream_label == other.stream_label &&
-             this->track_id == other.track_id && this->ssrc == other.ssrc;
+             this->sender_id == other.sender_id && this->ssrc == other.ssrc;
     }
     std::string stream_label;
-    std::string track_id;
+    std::string sender_id;
     uint32_t ssrc;
   };
-  typedef std::vector<TrackInfo> TrackInfos;
 
   // Implements MessageHandler.
   void OnMessage(rtc::Message* msg) override;
+
+  std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
+  GetSendersInternal() const;
+  std::vector<
+      rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
+  GetReceiversInternal() const;
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetAudioTransceiver() const;
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetVideoTransceiver() const;
 
   void CreateAudioReceiver(MediaStreamInterface* stream,
                            const std::string& track_id,
@@ -385,20 +388,20 @@ class PeerConnection : public PeerConnectionInterface,
       cricket::MediaType media_type,
       StreamCollection* new_streams);
 
-  // Triggered when a remote track has been seen for the first time in a remote
+  // Triggered when a remote sender has been seen for the first time in a remote
   // session description. It creates a remote MediaStreamTrackInterface
   // implementation and triggers CreateAudioReceiver or CreateVideoReceiver.
-  void OnRemoteTrackSeen(const std::string& stream_label,
-                         const std::string& track_id,
-                         uint32_t ssrc,
-                         cricket::MediaType media_type);
+  void OnRemoteSenderSeen(const std::string& stream_label,
+                          const std::string& sender_id,
+                          uint32_t ssrc,
+                          cricket::MediaType media_type);
 
-  // Triggered when a remote track has been removed from a remote session
-  // description. It removes the remote track with id |track_id| from a remote
+  // Triggered when a remote sender has been removed from a remote session
+  // description. It removes the remote sender with id |sender_id| from a remote
   // MediaStream and triggers DestroyAudioReceiver or DestroyVideoReceiver.
-  void OnRemoteTrackRemoved(const std::string& stream_label,
-                            const std::string& track_id,
-                            cricket::MediaType media_type);
+  void OnRemoteSenderRemoved(const std::string& stream_label,
+                             const std::string& sender_id,
+                             cricket::MediaType media_type);
 
   // Finds remote MediaStreams without any tracks and removes them from
   // |remote_streams_| and notifies the observer that the MediaStreams no longer
@@ -407,30 +410,30 @@ class PeerConnection : public PeerConnectionInterface,
 
   // Loops through the vector of |streams| and finds added and removed
   // StreamParams since last time this method was called.
-  // For each new or removed StreamParam, OnLocalTrackSeen or
-  // OnLocalTrackRemoved is invoked.
-  void UpdateLocalTracks(const std::vector<cricket::StreamParams>& streams,
-                         cricket::MediaType media_type);
+  // For each new or removed StreamParam, OnLocalSenderSeen or
+  // OnLocalSenderRemoved is invoked.
+  void UpdateLocalSenders(const std::vector<cricket::StreamParams>& streams,
+                          cricket::MediaType media_type);
 
-  // Triggered when a local track has been seen for the first time in a local
+  // Triggered when a local sender has been seen for the first time in a local
   // session description.
   // This method triggers CreateAudioSender or CreateVideoSender if the rtp
   // streams in the local SessionDescription can be mapped to a MediaStreamTrack
   // in a MediaStream in |local_streams_|
-  void OnLocalTrackSeen(const std::string& stream_label,
-                        const std::string& track_id,
-                        uint32_t ssrc,
-                        cricket::MediaType media_type);
+  void OnLocalSenderSeen(const std::string& stream_label,
+                         const std::string& sender_id,
+                         uint32_t ssrc,
+                         cricket::MediaType media_type);
 
-  // Triggered when a local track has been removed from a local session
+  // Triggered when a local sender has been removed from a local session
   // description.
   // This method triggers DestroyAudioSender or DestroyVideoSender if a stream
   // has been removed from the local SessionDescription and the stream can be
   // mapped to a MediaStreamTrack in a MediaStream in |local_streams_|.
-  void OnLocalTrackRemoved(const std::string& stream_label,
-                           const std::string& track_id,
-                           uint32_t ssrc,
-                           cricket::MediaType media_type);
+  void OnLocalSenderRemoved(const std::string& stream_label,
+                            const std::string& sender_id,
+                            uint32_t ssrc,
+                            cricket::MediaType media_type);
 
   void UpdateLocalRtpDataChannels(const cricket::StreamParamsVec& streams);
   void UpdateRemoteRtpDataChannels(const cricket::StreamParamsVec& streams);
@@ -457,21 +460,34 @@ class PeerConnection : public PeerConnectionInterface,
   void OnDataChannelOpenMessage(const std::string& label,
                                 const InternalDataChannelInit& config);
 
+  // Returns true if the PeerConnection is configured to use Unified Plan
+  // semantics for creating offers/answers and setting local/remote
+  // descriptions. If this is true the RtpTransceiver API will also be available
+  // to the user. If this is false, Plan B semantics are assumed.
+  // TODO(steveanton): Flip the default to be Unified Plan once sufficient time
+  // has passed.
+  bool IsUnifiedPlan() const { return false; }
+
+  // Is there an RtpSender of the given type?
   bool HasRtpSender(cricket::MediaType type) const;
-  RtpSenderInternal* FindSenderById(const std::string& id);
 
-  std::vector<rtc::scoped_refptr<
-      RtpSenderProxyWithInternal<RtpSenderInternal>>>::iterator
-  FindSenderForTrack(MediaStreamTrackInterface* track);
-  std::vector<rtc::scoped_refptr<
-      RtpReceiverProxyWithInternal<RtpReceiverInternal>>>::iterator
-  FindReceiverForTrack(const std::string& track_id);
+  // Return the RtpSender with the given track attached.
+  rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
+  FindSenderForTrack(MediaStreamTrackInterface* track) const;
 
-  TrackInfos* GetRemoteTracks(cricket::MediaType media_type);
-  TrackInfos* GetLocalTracks(cricket::MediaType media_type);
-  const TrackInfo* FindTrackInfo(const TrackInfos& infos,
-                                 const std::string& stream_label,
-                                 const std::string track_id) const;
+  // Return the RtpSender with the given id, or null if none exists.
+  rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
+  FindSenderById(const std::string& sender_id) const;
+
+  // Return the RtpReceiver with the given id, or null if none exists.
+  rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
+  FindReceiverById(const std::string& receiver_id) const;
+
+  std::vector<SenderInfo>* GetRemoteSenders(cricket::MediaType media_type);
+  std::vector<SenderInfo>* GetLocalSenders(cricket::MediaType media_type);
+  const SenderInfo* FindSenderInfo(const std::vector<SenderInfo>& infos,
+                                   const std::string& stream_label,
+                                   const std::string sender_id) const;
 
   // Returns the specified SCTP DataChannel in sctp_data_channels_,
   // or nullptr if not found.
@@ -517,13 +533,6 @@ class PeerConnection : public PeerConnectionInterface,
   // Returns the last error in the session. See the enum above for details.
   Error error() const { return error_; }
   const std::string& error_desc() const { return error_desc_; }
-
-  virtual std::vector<cricket::VoiceChannel*> voice_channels() const {
-    return voice_channels_;
-  }
-  virtual std::vector<cricket::VideoChannel*> video_channels() const {
-    return video_channels_;
-  }
 
   cricket::BaseChannel* GetChannel(const std::string& content_name);
 
@@ -760,11 +769,11 @@ class PeerConnection : public PeerConnectionInterface,
 
   std::vector<std::unique_ptr<MediaStreamObserver>> stream_observers_;
 
-  // These lists store track info seen in local/remote descriptions.
-  TrackInfos remote_audio_tracks_;
-  TrackInfos remote_video_tracks_;
-  TrackInfos local_audio_tracks_;
-  TrackInfos local_video_tracks_;
+  // These lists store sender info seen in local/remote descriptions.
+  std::vector<SenderInfo> remote_audio_senders_;
+  std::vector<SenderInfo> remote_video_senders_;
+  std::vector<SenderInfo> local_audio_senders_;
+  std::vector<SenderInfo> local_video_senders_;
 
   SctpSidAllocator sid_allocator_;
   // label -> DataChannel
@@ -778,11 +787,9 @@ class PeerConnection : public PeerConnectionInterface,
   std::unique_ptr<StatsCollector> stats_;  // A pointer is passed to senders_
   rtc::scoped_refptr<RTCStatsCollector> stats_collector_;
 
-  std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
-      senders_;
   std::vector<
-      rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
-      receivers_;
+      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
+      transceivers_;
 
   Error error_ = ERROR_NONE;
   std::string error_desc_;
@@ -792,13 +799,6 @@ class PeerConnection : public PeerConnectionInterface,
 
   std::unique_ptr<cricket::TransportController> transport_controller_;
   std::unique_ptr<cricket::SctpTransportInternalFactory> sctp_factory_;
-  // TODO(steveanton): voice_channels_ and video_channels_ used to be a single
-  // VoiceChannel/VideoChannel respectively but are being changed to support
-  // multiple m= lines in unified plan. But until more work is done, these can
-  // only have 0 or 1 channel each.
-  // These channels are owned by ChannelManager.
-  std::vector<cricket::VoiceChannel*> voice_channels_;
-  std::vector<cricket::VideoChannel*> video_channels_;
   // |rtp_data_channel_| is used if in RTP data channel mode, |sctp_transport_|
   // when using SCTP.
   cricket::RtpDataChannel* rtp_data_channel_ = nullptr;

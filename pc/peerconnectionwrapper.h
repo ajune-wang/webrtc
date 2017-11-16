@@ -91,6 +91,28 @@ class PeerConnectionWrapper {
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc,
                             std::string* error_out = nullptr);
 
+  // The following are wrappers for the underlying PeerConnection's
+  // AddTransceiver method. They return the result of calling AddTransceiver
+  // with the given arguments, DCHECKing if there is an error.
+  rtc::scoped_refptr<RtpTransceiverInterface> AddTransceiver(
+      const std::string& kind);
+  rtc::scoped_refptr<RtpTransceiverInterface> AddTransceiver(
+      const std::string& kind,
+      const RtpTransceiverInit& init);
+  rtc::scoped_refptr<RtpTransceiverInterface> AddTransceiver(
+      rtc::scoped_refptr<MediaStreamTrackInterface> track);
+  rtc::scoped_refptr<RtpTransceiverInterface> AddTransceiver(
+      rtc::scoped_refptr<MediaStreamTrackInterface> track,
+      const RtpTransceiverInit& init);
+
+  // Returns a new dummy audio track with the given label.
+  rtc::scoped_refptr<AudioTrackInterface> CreateAudioTrack(
+      const std::string& label);
+
+  // Returns a new dummy video track with the given label.
+  rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
+      const std::string& label);
+
   // Calls the underlying PeerConnection's AddTrack method with an audio media
   // stream track not bound to any source.
   rtc::scoped_refptr<RtpSenderInterface> AddAudioTrack(

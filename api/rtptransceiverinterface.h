@@ -12,6 +12,7 @@
 #define API_RTPTRANSCEIVERINTERFACE_H_
 
 #include <string>
+#include <vector>
 
 #include "api/optional.h"
 #include "api/rtpreceiverinterface.h"
@@ -25,6 +26,18 @@ enum class RtpTransceiverDirection {
   kSendOnly,
   kRecvOnly,
   kInactive
+};
+
+// Structure for initializing an RtpTransceiver in a call to
+// PeerConnectionInterface::AddTransceiver.
+struct RtpTransceiverInit final {
+  // Direction of the RtpTransceiver. See RtpTransceiverInterface::direction().
+  RtpTransceiverDirection direction = RtpTransceiverDirection::kSendRecv;
+
+  // The added RtpTransceiver will be added to these streams.
+  std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams;
+
+  std::vector<RtpEncodingParameters> send_encodings;
 };
 
 // The RtpTransceiverInterface maps to the RTCRtpTransceiver defined by the

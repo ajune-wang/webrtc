@@ -49,7 +49,7 @@ class AudioRtpReceiver : public ObserverInterface,
   // sees.
   // TODO(deadbeef): Use rtc::Optional, or have another constructor that
   // doesn't take an SSRC, and make this one DCHECK(ssrc != 0).
-  AudioRtpReceiver(const std::string& track_id,
+  AudioRtpReceiver(const std::string& remote_sender_id,
                    uint32_t ssrc,
                    cricket::VoiceChannel* channel);
 

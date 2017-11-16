@@ -130,7 +130,7 @@ class RtpTransceiver final
       receivers_;
 
   bool stopped_ = false;
-  RtpTransceiverDirection direction_ = RtpTransceiverDirection::kInactive;
+  RtpTransceiverDirection direction_ = RtpTransceiverDirection::kSendRecv;
   rtc::Optional<RtpTransceiverDirection> current_direction_;
   rtc::Optional<std::string> mid_;
 

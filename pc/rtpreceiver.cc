@@ -20,15 +20,15 @@
 
 namespace webrtc {
 
-AudioRtpReceiver::AudioRtpReceiver(const std::string& track_id,
+AudioRtpReceiver::AudioRtpReceiver(const std::string& remote_sender_id,
                                    uint32_t ssrc,
                                    cricket::VoiceChannel* channel)
-    : id_(track_id),
+    : id_(remote_sender_id),
       ssrc_(ssrc),
       channel_(channel),
       track_(AudioTrackProxy::Create(
           rtc::Thread::Current(),
-          AudioTrack::Create(track_id,
+          AudioTrack::Create(remote_sender_id,
                              RemoteAudioSource::Create(ssrc, channel)))),
       cached_track_enabled_(track_->enabled()) {
   RTC_DCHECK(track_->GetSource()->remote());

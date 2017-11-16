@@ -1174,6 +1174,95 @@ bool PeerConnection::RemoveTrack(RtpSenderInterface* sender) {
   return true;
 }
 
+RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
+PeerConnection::AddTransceiver(
+    rtc::scoped_refptr<MediaStreamTrackInterface> track) {
+  return AddTransceiver(track, RtpTransceiverInit());
+}
+
+RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
+PeerConnection::AddTransceiver(
+    rtc::scoped_refptr<MediaStreamTrackInterface> track,
+    const RtpTransceiverInit& init) {
+  if (!IsUnifiedPlan()) {
+    LOG_AND_RETURN_ERROR(
+        RTCErrorType::INTERNAL_ERROR,
+        "AddTransceiver only supported when Unified Plan is enabled.");
+  }
+  if (!track) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, "track is null");
+  }
+  return AddTransceiver(track->kind(), track, init);
+}
+
+RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
+PeerConnection::AddTransceiver(const std::string& kind) {
+  return AddTransceiver(kind, RtpTransceiverInit());
+}
+
+RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
+PeerConnection::AddTransceiver(const std::string& kind,
+                               const RtpTransceiverInit& init) {
+  if (!IsUnifiedPlan()) {
+    LOG_AND_RETURN_ERROR(
+        RTCErrorType::INTERNAL_ERROR,
+        "AddTransceiver only supported when Unified Plan is enabled.");
+  }
+  if (!(kind == MediaStreamTrackInterface::kAudioKind ||
+        kind == MediaStreamTrackInterface::kVideoKind)) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                         "media type is not audio or video");
+  }
+  return AddTransceiver(kind, nullptr, init);
+}
+
+RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>
+PeerConnection::AddTransceiver(
+    const std::string& kind,
+    rtc::scoped_refptr<MediaStreamTrackInterface> track,
+    const RtpTransceiverInit& init) {
+  RTC_DCHECK((kind == MediaStreamTrackInterface::kAudioKind ||
+              kind == MediaStreamTrackInterface::kVideoKind));
+  if (track) {
+    RTC_DCHECK_EQ(kind, track->kind());
+  }
+
+  // TODO(bugs.webrtc.org/7600): Verify init.
+
+  rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender;
+  rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
+      receiver;
+  std::string receiver_id = rtc::CreateRandomUuid();
+  if (kind == MediaStreamTrackInterface::kAudioKind) {
+    sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+        signaling_thread(), new AudioRtpSender(nullptr, stats_.get()));
+    receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
+        signaling_thread(), new AudioRtpReceiver(receiver_id, 0, nullptr));
+  } else {
+    RTC_DCHECK_EQ(MediaStreamTrackInterface::kVideoKind, kind);
+    sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+        signaling_thread(), new VideoRtpSender(nullptr));
+    receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
+        signaling_thread(),
+        new VideoRtpReceiver(receiver_id, worker_thread(), 0, nullptr));
+  }
+
+  if (track) {
+    sender->SetTrack(track);
+  }
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+      transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
+          signaling_thread(), new RtpTransceiver(sender, receiver));
+  transceiver->SetDirection(init.direction);
+
+  transceivers_.push_back(transceiver);
+
+  observer_->OnRenegotiationNeeded();
+
+  return rtc::scoped_refptr<RtpTransceiverInterface>(transceiver);
+}
+
 rtc::scoped_refptr<DtmfSenderInterface> PeerConnection::CreateDtmfSender(
     AudioTrackInterface* track) {
   TRACE_EVENT0("webrtc", "PeerConnection::CreateDtmfSender");
@@ -1264,6 +1353,16 @@ PeerConnection::GetReceiversInternal() const {
                          receivers.end());
   }
   return all_receivers;
+}
+
+std::vector<rtc::scoped_refptr<RtpTransceiverInterface>>
+PeerConnection::GetTransceivers() const {
+  RTC_DCHECK(IsUnifiedPlan());
+  std::vector<rtc::scoped_refptr<RtpTransceiverInterface>> all_transceivers;
+  for (auto transceiver : transceivers_) {
+    all_transceivers.push_back(transceiver);
+  }
+  return all_transceivers;
 }
 
 bool PeerConnection::GetStats(StatsObserver* observer,

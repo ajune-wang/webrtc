@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d187deea_6fdcbcd2",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-11-16T15:10:29Z",
+      "side": 1,
+      "message": "I\u0027d prefer to keep use_bitrate_allocation_strategy, I think it is easier to read and more straight forward in places like below:\n     if (use_bitrate_allocation_strategy_) {\n        send_config-\u003etrack_id \u003d kAudioTrackId;\n        send_config-\u003emin_bitrate_bps \u003d kOpusMinBitrateBps;\n        send_config-\u003emax_bitrate_bps \u003d kOpusBitrateFbBps;\n      } else {\n        send_config-\u003esend_codec_spec-\u003etarget_bitrate_bps \u003d\n            rtc::Optional\u003cint\u003e(kOpusBitrateFbBps);\n      }",
+      "parentUuid": "0616e25b_f618e8a0",
+      "range": {
+        "startLine": 836,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 76
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ca84daa_d2ec07a0",
         "filename": "call/call_perf_tests.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9275157f_b366235e",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-11-16T15:10:29Z",
+      "side": 1,
+      "message": "const std::unique_ptr is not possible because it does not allow ownership transfer but other members changed.",
+      "parentUuid": "4ca84daa_d2ec07a0",
+      "range": {
+        "startLine": 937,
+        "startChar": 9,
+        "endLine": 937,
+        "endChar": 19
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e23884c1_03c80674",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-16T13:46:32Z",
+      "side": 1,
+      "message": "Invalidating weak pointers is as important to do on the task queue.\ncomment added.",
+      "parentUuid": "0e7bb17c_59f488d7",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "de8aa89203c5ffe5bf41f2546671d753a1acec17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d51d1d9_af1882b5",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver.cc",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "de8aa89203c5ffe5bf41f2546671d753a1acec17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0907f4f_8f2763fe",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-16T13:46:32Z",
+      "side": 1,
+      "message": "yes. changed to control crash from hang in case PostTask fails to post a task.\n\nWith issue solved and with relaxed constraint on weak_ptr_factory (should be ok to invalidate pointers after ownening task queue is destroyed) it would be possible to write async destructor.",
+      "parentUuid": "6d51d1d9_af1882b5",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 34
+      },
+      "revId": "de8aa89203c5ffe5bf41f2546671d753a1acec17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "88dcdb91_f4f7614d",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-16T13:46:32Z",
+      "side": 1,
+      "message": "no, unfortunately can\u0027t capture member variables directly (and it is not safe to capture this).\nIt sure would look cleaner.",
+      "parentUuid": "4caa7b52_48c79de3",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 47
+      },
+      "revId": "de8aa89203c5ffe5bf41f2546671d753a1acec17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60c3baef_9651014c",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver.cc",
         "patchSetId": 10
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "98c9f939_b05eb4d8",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-16T13:46:32Z",
+      "side": 1,
+      "message": "Added a todo (in addition to \u0027closure\u0027 name) to stress this is just a lambda with move capture.\n\nThis structure is explicitly very-very local.\nYou can\u0027t use this struct far from where it is defined minimizing error one normally avoid with boiler-plate constructor.\ncreating QueuedTask not just add more code, but would be error prone (e.g. because QueuedTasks::Run return bool value with obscure meaning)",
+      "parentUuid": "60c3baef_9651014c",
+      "range": {
+        "startLine": 76,
+        "startChar": 24,
+        "endLine": 76,
+        "endChar": 38
+      },
+      "revId": "de8aa89203c5ffe5bf41f2546671d753a1acec17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ee77bd_c024f6ec",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_unittest.cc",
         "patchSetId": 10
@@ -114,6 +210,30 @@
       "revId": "de8aa89203c5ffe5bf41f2546671d753a1acec17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e61f6bb_1fd187df",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-16T13:46:32Z",
+      "side": 1,
+      "message": "Not sure it make sense:\nIt seems small enough to repeat in test when needed rather than factor into common utility function. Specially that different test suites might expect different timeout or require some extra steps.\n\nMoving implementation into different file will make it harder to follow local tests.",
+      "parentUuid": "b0ee77bd_c024f6ec",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 20
+      },
+      "revId": "de8aa89203c5ffe5bf41f2546671d753a1acec17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

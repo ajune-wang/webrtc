@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a278c4ab_5a2403ae",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-11-16T11:58:13Z",
+      "side": 1,
+      "message": "Parentheses got messed up during bulk change. Looks like it should still be fine, though.",
+      "revId": "e214306f9861fa46e8fc419b0846fe78383a75bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

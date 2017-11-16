@@ -220,9 +220,8 @@ void CallTest::CreateSendConfig(size_t num_video_streams,
     audio_send_config_ = AudioSendStream::Config(send_transport);
     audio_send_config_.voe_channel_id = voe_send_.channel_id;
     audio_send_config_.rtp.ssrc = kAudioSendSsrc;
-    audio_send_config_.send_codec_spec =
-        rtc::Optional<AudioSendStream::Config::SendCodecSpec>(
-            {kAudioSendPayloadType, {"opus", 48000, 2, {{"stereo", "1"}}}});
+    audio_send_config_.send_codec_spec = AudioSendStream::Config::SendCodecSpec(
+        kAudioSendPayloadType, {"opus", 48000, 2, {{"stereo", "1"}}});
     audio_send_config_.encoder_factory = encoder_factory_;
   }
 

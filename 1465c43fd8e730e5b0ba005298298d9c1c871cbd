@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3a97d47b_64299e6a",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-11-16T13:38:19Z",
+      "side": 1,
+      "message": "I created https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8541 with some more details and associated todo with it.",
+      "parentUuid": "988abad9_5390e5e0",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "1465c43fd8e730e5b0ba005298298d9c1c871cbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff17df8_f4893535",
         "filename": "rtc_base/bitrateallocationstrategy.cc",
         "patchSetId": 2

@@ -69,8 +69,8 @@ constexpr char kBweRapidRecoveryExperiment[] =
 
 }  // namespace
 
-ProbeController::ProbeController(PacedSender* pacer, const Clock* clock)
-    : pacer_(pacer), clock_(clock), enable_periodic_alr_probing_(false) {
+ProbeController::ProbeController(const Clock* clock, PacedSender* pacer)
+    : clock_(clock), pacer_(pacer), enable_periodic_alr_probing_(false) {
   Reset();
   in_rapid_recovery_experiment_ = webrtc::field_trial::FindFullName(
                                       kBweRapidRecoveryExperiment) == "Enabled";
@@ -183,6 +183,11 @@ void ProbeController::EnablePeriodicAlrProbing(bool enable) {
   enable_periodic_alr_probing_ = enable;
 }
 
+void ProbeController::SetAlrStartTimeMs(
+    rtc::Optional<int64_t> alr_start_time_ms) {
+  rtc::CritScope cs(&critsect_);
+  alr_start_time_ms_ = alr_start_time_ms;
+}
 void ProbeController::SetAlrEndedTimeMs(int64_t alr_end_time_ms) {
   rtc::CritScope cs(&critsect_);
   alr_end_time_ms_.emplace(alr_end_time_ms);
@@ -197,7 +202,7 @@ void ProbeController::RequestProbe() {
   //
   // If the probe session fails, the assumption is that this drop was a
   // real one from a competing flow or a network change.
-  bool in_alr = pacer_->GetApplicationLimitedRegionStartTime().has_value();
+  bool in_alr = alr_start_time_ms_.has_value();
   bool alr_ended_recently =
       (alr_end_time_ms_.has_value() &&
        now_ms - alr_end_time_ms_.value() < kAlrEndedTimeoutMs);
@@ -261,11 +266,9 @@ void ProbeController::Process() {
     return;
 
   // Probe bandwidth periodically when in ALR state.
-  rtc::Optional<int64_t> alr_start_time =
-      pacer_->GetApplicationLimitedRegionStartTime();
-  if (alr_start_time && estimated_bitrate_bps_ > 0) {
+  if (alr_start_time_ms_ && estimated_bitrate_bps_ > 0) {
     int64_t next_probe_time_ms =
-        std::max(*alr_start_time, time_last_probing_initiated_ms_) +
+        std::max(*alr_start_time_ms_, time_last_probing_initiated_ms_) +
         kAlrPeriodicProbingIntervalMs;
     if (now_ms >= next_probe_time_ms) {
       InitiateProbing(now_ms, {estimated_bitrate_bps_ * 2}, true);

@@ -30,6 +30,8 @@
 
 namespace webrtc {
 namespace {
+const int64_t kAlrWindowMs = 100;
+const int64_t kAlrMaxWindowMs = 1000;
 
 const char kCwndExperiment[] = "WebRTC-CwndExperiment";
 const char kPacerPushbackExperiment[] = "WebRTC-PacerPushbackExperiment";
@@ -103,11 +105,12 @@ SendSideCongestionController::SendSideCongestionController(
       observer_(observer),
       event_log_(event_log),
       pacer_(pacer),
+      alr_detector_(rtc::MakeUnique<AlrDetector>()),
       bitrate_controller_(
           BitrateController::CreateBitrateController(clock_, event_log)),
       acknowledged_bitrate_estimator_(
           rtc::MakeUnique<AcknowledgedBitrateEstimator>()),
-      probe_controller_(new ProbeController(pacer_, clock_)),
+      probe_controller_(new ProbeController(clock_, pacer_)),
       retransmission_rate_limiter_(
           new RateLimiter(clock, kRetransmitWindowSizeMs)),
       transport_feedback_adapter_(clock_),
@@ -259,6 +262,12 @@ void SendSideCongestionController::OnSentPacket(
     return;
   transport_feedback_adapter_.OnSentPacket(sent_packet.packet_id,
                                            sent_packet.send_time_ms);
+
+  auto packet = transport_feedback_adapter_.GetPacket(sent_packet.packet_id);
+  if (packet.has_value()) {
+    OnBytesSent(packet->payload_size, packet->send_time_ms);
+  }
+
   if (in_cwnd_experiment_)
     LimitOutstandingBytes(transport_feedback_adapter_.GetOutstandingBytes());
 }
@@ -292,6 +301,23 @@ void SendSideCongestionController::Process() {
   probe_controller_->Process();
   MaybeTriggerOnNetworkChanged();
 }
+void SendSideCongestionController::OnBytesSent(int64_t bytes_sent,
+                                               int64_t send_time_ms) {
+  alr_data_sent_ += bytes_sent;
+  int64_t elapsed_time_ms = alr_last_update_ms_ - send_time_ms;
+  if (elapsed_time_ms > kAlrWindowMs) {
+    elapsed_time_ms = std::min(elapsed_time_ms, kAlrMaxWindowMs);
+    rtc::Optional<int64_t> start_time_ms;
+    {
+      rtc::CritScope lock(&alr_lock_);
+      alr_detector_->OnBytesSent(bytes_sent, elapsed_time_ms);
+      start_time_ms = alr_detector_->GetApplicationLimitedRegionStartTime();
+    }
+    probe_controller_->SetAlrStartTimeMs(start_time_ms);
+    alr_last_update_ms_ = send_time_ms;
+    alr_data_sent_ = 0;
+  }
+}
 
 void SendSideCongestionController::AddPacket(
     uint32_t ssrc,
@@ -310,8 +336,12 @@ void SendSideCongestionController::OnTransportFeedback(
       transport_feedback_adapter_.GetTransportFeedbackVector());
   SortPacketFeedbackVector(&feedback_vector);
 
-  bool currently_in_alr =
-      pacer_->GetApplicationLimitedRegionStartTime().has_value();
+  bool currently_in_alr = false;
+  {
+    rtc::CritScope lock(&alr_lock_);
+    currently_in_alr =
+        alr_detector_->GetApplicationLimitedRegionStartTime().has_value();
+  }
   if (was_in_alr_ && !currently_in_alr) {
     int64_t now_ms = rtc::TimeMillis();
     acknowledged_bitrate_estimator_->SetAlrEndedTimeMs(now_ms);
@@ -376,6 +406,10 @@ void SendSideCongestionController::MaybeTriggerOnNetworkChanged() {
       &bitrate_bps, &fraction_loss, &rtt);
   if (estimate_changed) {
     pacer_->SetEstimatedBitrate(bitrate_bps);
+    {
+      rtc::CritScope lock(&alr_lock_);
+      alr_detector_->SetEstimatedBitrate(bitrate_bps);
+    }
     probe_controller_->SetEstimatedBitrate(bitrate_bps);
     retransmission_rate_limiter_->SetMaxRate(bitrate_bps);
   }

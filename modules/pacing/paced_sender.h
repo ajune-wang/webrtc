@@ -21,7 +21,6 @@
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
-class AlrDetector;
 class BitrateProber;
 class Clock;
 class ProbeClusterCreatedObserver;
@@ -131,14 +130,6 @@ class PacedSender : public Pacer {
   // packets in the queue, given the current size and bitrate, ignoring prio.
   virtual int64_t ExpectedQueueTimeMs() const;
 
-  // Returns time in milliseconds when the current application-limited region
-  // started or empty result if the sender is currently not application-limited.
-  //
-  // Application Limited Region (ALR) refers to operating in a state where the
-  // traffic on network is limited due to application not having enough
-  // traffic to meet the current channel capacity.
-  virtual rtc::Optional<int64_t> GetApplicationLimitedRegionStartTime() const;
-
   // Returns the number of milliseconds until the module want a worker thread
   // to call Process.
   int64_t TimeUntilNextProcess() override;
@@ -167,7 +158,6 @@ class PacedSender : public Pacer {
 
   const Clock* const clock_;
   PacketSender* const packet_sender_;
-  const std::unique_ptr<AlrDetector> alr_detector_ RTC_PT_GUARDED_BY(critsect_);
 
   rtc::CriticalSection critsect_;
   bool paused_ RTC_GUARDED_BY(critsect_);

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7958b45_82d7cd15",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-16T08:28:48Z",
+      "side": 1,
+      "message": "Is the order here correct, shouldn\u0027t we prefer hardware codecs over software?",
+      "range": {
+        "startLine": 47,
+        "startChar": 45,
+        "endLine": 47,
+        "endChar": 72
+      },
+      "revId": "01db971c3f231f226ffdaca534948cefd40ae54c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dee186a_cc0a8e49",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-16T08:28:48Z",
+      "side": 1,
+      "message": "This logic doesn\u0027t look correct. I think it should check if the profile is baseline or H264 high profile is supported.",
+      "revId": "01db971c3f231f226ffdaca534948cefd40ae54c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "029748e8_a9cfa944",
+        "filename": "sdk/android/api/org/webrtc/VideoCodecInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-16T08:28:48Z",
+      "side": 1,
+      "message": "Why not equals?",
+      "range": {
+        "startLine": 60,
+        "startChar": 16,
+        "endLine": 60,
+        "endChar": 32
+      },
+      "revId": "01db971c3f231f226ffdaca534948cefd40ae54c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

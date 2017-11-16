@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0616e25b_f618e8a0",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-16T08:48:55Z",
+      "side": 1,
+      "message": "I think the code could be simplified slightly by leaving allocation_strategy_ as nullptr when use_bitrate_allocation is false, and delete the use_bitrate_allocation_ member variable.",
+      "range": {
+        "startLine": 836,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 76
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ca84daa_d2ec07a0",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-16T08:48:55Z",
+      "side": 1,
+      "message": "This could be const std::unique_ptr. And similarly for other members which are set at construction and not modified.\n\nFor pointers, note the difference between\n\nconst Foo* foo_;  // Points a a const object, ptr itself isn\u0027t const.\nFoo* const foo_;  // Points to a non-const object, ptr itself is const.\n                  // Similar to a const std::unique_ptr\u003cFoo\u003e foo_;\nconst Foo* const foo_;  // Both pointer and object pointed to are const.",
+      "range": {
+        "startLine": 937,
+        "startChar": 9,
+        "endLine": 937,
+        "endChar": 19
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

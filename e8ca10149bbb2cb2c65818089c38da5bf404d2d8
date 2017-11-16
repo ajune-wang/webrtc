@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "430d849d_4b581d62",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-16T14:01:55Z",
+      "side": 1,
+      "message": "A hadn\u0027t noticed rtc::NewClosure (and the ClosureTaskWithCleanup class) before. \n\nLooks like a reasonable easy way to detect failure. Not so fond of the NewClosure name, though.",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 39
+      },
+      "revId": "e8ca10149bbb2cb2c65818089c38da5bf404d2d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a376687_091482db",
+        "filename": "modules/audio_processing/aec3/decimator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-11-16T21:27:36Z",
+      "side": 1,
+      "message": "Actually, all three of the comments were wrong. I\u0027ve changed them to be correct.\n\nDone",
+      "parentUuid": "85b2d266_f9b957d6",
+      "revId": "5221b7636f682d6f8f2c0d94000960e0aceaabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a5c6385_a2793cca",
         "filename": "modules/audio_processing/aec3/decimator.cc",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "5221b7636f682d6f8f2c0d94000960e0aceaabd2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1e0f2ad_97b94620",
+        "filename": "modules/audio_processing/aec3/decimator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-11-16T21:27:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a5c6385_a2793cca",
+      "revId": "5221b7636f682d6f8f2c0d94000960e0aceaabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "97be8386_618943a2",
+        "filename": "modules/audio_processing/aec3/matched_filter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-11-16T21:27:36Z",
+      "side": 1,
+      "message": "Thanks!\nDone",
+      "parentUuid": "32c19bba_471da9ce",
+      "revId": "5221b7636f682d6f8f2c0d94000960e0aceaabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ced6fe60_39484b5e",
         "filename": "modules/audio_processing/aec3/suppression_gain.cc",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "5221b7636f682d6f8f2c0d94000960e0aceaabd2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e76752b1_32193b5d",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-11-16T21:27:36Z",
+      "side": 1,
+      "message": "Thanks! :-)\n\nI changed to using kBlockSize with a scaling.\n\nDone",
+      "parentUuid": "ced6fe60_39484b5e",
+      "revId": "5221b7636f682d6f8f2c0d94000960e0aceaabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

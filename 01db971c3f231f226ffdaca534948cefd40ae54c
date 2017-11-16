@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9edd80bd_18c29767",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-16T08:38:51Z",
+      "side": 1,
+      "message": "That\u0027s what I thought too. But what happened when injecting an external codec in the old API was that the internal codecs got added before the external codecs in the list. So just mirroring that behavior here.",
+      "parentUuid": "d7958b45_82d7cd15",
+      "range": {
+        "startLine": 47,
+        "startChar": 45,
+        "endLine": 47,
+        "endChar": 72
+      },
+      "revId": "01db971c3f231f226ffdaca534948cefd40ae54c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6dee186a_cc0a8e49",
         "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
         "patchSetId": 3
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "3ba6a26f_6cf5ab36",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-16T08:38:51Z",
+      "side": 1,
+      "message": "You mean if ((the profile isSameAs high profile AND high profile is supported) OR (the profile isSameAs baseline))? I\u0027m not sure how many profiles there are, just assumed there are also other ones we don\u0027t support. Or are baseline and high the only ones that would ever matter?",
+      "parentUuid": "6dee186a_cc0a8e49",
+      "revId": "01db971c3f231f226ffdaca534948cefd40ae54c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "029748e8_a9cfa944",
         "filename": "sdk/android/api/org/webrtc/VideoCodecInfo.java",
         "patchSetId": 3
@@ -53,6 +95,30 @@
       "writtenOn": "2017-11-16T08:28:48Z",
       "side": 1,
       "message": "Why not equals?",
+      "range": {
+        "startLine": 60,
+        "startChar": 16,
+        "endLine": 60,
+        "endChar": 32
+      },
+      "revId": "01db971c3f231f226ffdaca534948cefd40ae54c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc9384f_2b064d4c",
+        "filename": "sdk/android/api/org/webrtc/VideoCodecInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2017-11-16T08:38:51Z",
+      "side": 1,
+      "message": "Someone raised this issue in another CL before, if it was safe to do a case sensitive equals. I wasn\u0027t sure if all clients always use the same case when sending profile names, so I changed to case insensitive. Do you know if that\u0027s not needed?\n\nThis got me thinking though, do we know that the profile ID hex string is always the same case?",
+      "parentUuid": "029748e8_a9cfa944",
       "range": {
         "startLine": 60,
         "startChar": 16,

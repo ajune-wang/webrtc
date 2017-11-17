@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a2901d0_126e9c22",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2970,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-17T08:36:03Z",
+      "side": 1,
+      "message": "This should probably still be a fatal failure. You can return nullptr instead, and let the test fail on the same assert as if creation failed.",
+      "range": {
+        "startLine": 2970,
+        "startChar": 2,
+        "endLine": 2970,
+        "endChar": 11
+      },
+      "revId": "4ecfcf020465f387ec88bf8d9dcee82c89dbcc9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

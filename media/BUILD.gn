@@ -9,6 +9,8 @@
 import("//build/config/linux/pkg_config.gni")
 import("../webrtc.gni")
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 group("media") {
   public_deps = [
     ":rtc_media",

@@ -256,6 +256,13 @@ set_defaults("rtc_shared_library") {
   suppressed_configs = []
 }
 
+webrtc_default_visibility = [ webrtc_root + "/*" ]
+if (build_with_chromium) {
+  # Allow Chromium's WebRTC overrides targets to bypass the regular
+  # visibility restrictions.
+  webrtc_default_visibility += [ webrtc_root + "/../webrtc_overrides/*" ]
+}
+
 template("rtc_test") {
   test(target_name) {
     forward_variables_from(invoker,
@@ -267,6 +274,9 @@ template("rtc_test") {
                              "visibility",
                            ])
     forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(visibility)) {
+      visibility = webrtc_default_visibility
+    }
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
@@ -292,6 +302,9 @@ template("rtc_source_set") {
                              "visibility",
                            ])
     forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(visibility)) {
+      visibility = webrtc_default_visibility
+    }
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
@@ -314,6 +327,9 @@ template("rtc_executable") {
                              "visibility",
                            ])
     forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(visibility)) {
+      visibility = webrtc_default_visibility
+    }
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
@@ -340,6 +356,9 @@ template("rtc_static_library") {
                              "visibility",
                            ])
     forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(visibility)) {
+      visibility = webrtc_default_visibility
+    }
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
@@ -361,6 +380,9 @@ template("rtc_shared_library") {
                              "visibility",
                            ])
     forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(visibility)) {
+      visibility = webrtc_default_visibility
+    }
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
@@ -388,6 +410,9 @@ if (is_ios) {
                                "visibility",
                              ])
       forward_variables_from(invoker, [ "visibility" ])
+      if (!defined(visibility)) {
+        visibility = webrtc_default_visibility
+      }
       configs += invoker.configs
       configs -= rtc_remove_configs
       configs -= invoker.suppressed_configs

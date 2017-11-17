@@ -12,6 +12,8 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 rtc_source_set("audio_encoder_g722_config") {
   sources = [
     "audio_encoder_g722_config.h",

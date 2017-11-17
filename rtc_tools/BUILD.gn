@@ -9,6 +9,8 @@
 import("//third_party/protobuf/proto_library.gni")
 import("../webrtc.gni")
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 group("rtc_tools") {
   # This target shall build all targets in tools/.
   testonly = true

@@ -8,6 +8,8 @@
 
 import("../../webrtc.gni")
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 rtc_static_library("congestion_controller") {
   sources = [
     "acknowledged_bitrate_estimator.cc",

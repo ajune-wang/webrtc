@@ -12,6 +12,8 @@ if (is_android) {
 }
 import("../webrtc.gni")
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 rtc_static_library("system_wrappers") {
   sources = [
     "include/aligned_array.h",

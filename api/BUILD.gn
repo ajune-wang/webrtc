@@ -12,6 +12,8 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 group("api") {
   public_deps = [
     ":libjingle_peerconnection_api",

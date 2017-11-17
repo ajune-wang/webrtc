@@ -8,6 +8,8 @@
 
 import("../../webrtc.gni")
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 # Note this target is missing an implementation for the video capture.
 # Targets must link with either 'video_capture' or
 # 'video_capture_internal_impl' depending on whether they want to

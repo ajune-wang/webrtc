@@ -11,6 +11,8 @@ import("audio_coding.gni")
 import("//build/config/arm.gni")
 import("//third_party/protobuf/proto_library.gni")
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 audio_codec_deps = [
   ":cng",
   ":g711",
@@ -218,6 +220,7 @@ rtc_static_library("g711") {
 }
 
 rtc_source_set("g711_c") {
+  visibility = []
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
   sources = [
     "codecs/g711/g711.c",
@@ -257,6 +260,7 @@ rtc_static_library("g722") {
 }
 
 rtc_source_set("g722_c") {
+  visibility = []
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
   sources = [
     "codecs/g722/g722_decode.c",
@@ -298,6 +302,7 @@ rtc_static_library("ilbc") {
 }
 
 rtc_source_set("ilbc_c") {
+  visibility = []
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
   sources = [
     "codecs/ilbc/abs_quant.c",
@@ -487,6 +492,7 @@ rtc_static_library("isac") {
 }
 
 rtc_static_library("isac_c") {
+  visibility = []
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
   sources = [
     "codecs/isac/main/include/isac.h",
@@ -584,6 +590,7 @@ rtc_static_library("isac_fix") {
 }
 
 rtc_source_set("isac_fix_common") {
+  visibility = []
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
   sources = [
     "codecs/isac/fix/source/codec.h",
@@ -605,6 +612,7 @@ rtc_source_set("isac_fix_c_arm_asm") {
 }
 
 rtc_source_set("isac_fix_c") {
+  visibility = []
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
   sources = [
     "codecs/isac/fix/include/audio_decoder_isacfix.h",
@@ -767,6 +775,7 @@ rtc_static_library("pcm16b") {
 }
 
 rtc_source_set("pcm16b_c") {
+  visibility = []
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
   sources = [
     "codecs/pcm16b/pcm16b.c",
@@ -813,6 +822,7 @@ rtc_static_library("webrtc_opus") {
 }
 
 rtc_source_set("webrtc_opus_c") {
+  visibility = []
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
   sources = [
     "codecs/opus/opus_inst.h",

@@ -22,6 +22,30 @@
       "revId": "dd9f6d60d9d415e1f3c80c88d071f88e6afb5b66",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "291c7696_3e64b2a6",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2017-11-17T13:59:25Z",
+      "side": 1,
+      "message": "I forgot to remove dumping of dropped frames from FrameEncoded. I moved this to FrameDecoded where we can handle both dropped and lost frames at once.",
+      "parentUuid": "b5b43f37_d9fedfc3",
+      "range": {
+        "startLine": 231,
+        "startChar": 8,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "dd9f6d60d9d415e1f3c80c88d071f88e6afb5b66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

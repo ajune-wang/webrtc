@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d785f75f_241cd370",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-17T15:43:48Z",
+      "side": 1,
+      "message": "The header-only frames can be 1 or 2 bytes. See https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/codecs/opus/opus_interface.c?l\u003d108.",
+      "range": {
+        "startLine": 607,
+        "startChar": 69,
+        "endLine": 607,
+        "endChar": 71
+      },
+      "revId": "3403316eb432bfd899823856d6c6c795279ef362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17813c2e_04fbfab7",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-17T15:43:48Z",
+      "side": 1,
+      "message": "Strictly speaking, this is a 32 kHz file. I guess this doesn\u0027t matter, but you may want to write a comment about that. As an alternative, there is a test helper class called ResampleInputAudioFile, which does exactly what it says. It is up to you.",
+      "range": {
+        "startLine": 777,
+        "startChar": 47,
+        "endLine": 777,
+        "endChar": 60
+      },
+      "revId": "3403316eb432bfd899823856d6c6c795279ef362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30539b2d_9b45218b",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-17T15:43:48Z",
+      "side": 1,
+      "message": "You are re-declaring the variable i here. Please, pick another name.",
+      "range": {
+        "startLine": 800,
+        "startChar": 13,
+        "endLine": 800,
+        "endChar": 14
+      },
+      "revId": "3403316eb432bfd899823856d6c6c795279ef362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b30c6aeb_4db6ea6c",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-17T15:43:48Z",
+      "side": 1,
+      "message": "Should also be 2.",
+      "range": {
+        "startLine": 807,
+        "startChar": 30,
+        "endLine": 807,
+        "endChar": 31
+      },
+      "revId": "3403316eb432bfd899823856d6c6c795279ef362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

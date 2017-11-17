@@ -19,8 +19,11 @@ namespace webrtc {
 TEST(AecState, NormalUsage) {
   ApmDataDumper data_dumper(42);
   AecState state(EchoCanceller3Config{});
+  FftBuffer fft_buffer(30);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 30,
-                             std::vector<size_t>(1, 30));
+                             std::vector<size_t>(1, 30), &block_buffer,
+                             &fft_buffer);
   std::array<float, kFftLengthBy2Plus1> E2_main = {};
   std::array<float, kFftLengthBy2Plus1> Y2 = {};
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
@@ -165,8 +168,11 @@ TEST(AecState, NormalUsage) {
 TEST(AecState, ConvergedFilterDelay) {
   constexpr int kFilterLength = 10;
   AecState state(EchoCanceller3Config{});
+  FftBuffer fft_buffer(30);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 30,
-                             std::vector<size_t>(1, 30));
+                             std::vector<size_t>(1, 30), &block_buffer,
+                             &fft_buffer);
   std::array<float, kFftLengthBy2Plus1> E2_main;
   std::array<float, kFftLengthBy2Plus1> Y2;
   std::array<float, kBlockSize> x;
@@ -212,8 +218,11 @@ TEST(AecState, ExternalDelay) {
   E2_shadow.fill(0.f);
   Y2.fill(0.f);
   x.fill(0.f);
+  FftBuffer fft_buffer(30);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 30,
-                             std::vector<size_t>(1, 30));
+                             std::vector<size_t>(1, 30), &block_buffer,
+                             &fft_buffer);
   std::vector<std::array<float, kFftLengthBy2Plus1>> frequency_response(
       kAdaptiveFilterLength);
   for (auto& v : frequency_response) {

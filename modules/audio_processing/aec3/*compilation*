@@ -1,0 +1,48 @@
+-*- mode: compilation; default-directory: "~/dev/webrtc-checkout/src/modules/audio_processing/aec3/" -*-
+Compilation started at Thu Nov 16 16:24:25
+
+ninja -C ~/dev/webrtc-checkout/src/out/Default
+ninja: Entering directory `/usr/local/google/home/peah/dev/webrtc-checkout/src/out/Default'
+[1/41] CXX obj/modules/audio_processing/audio_processing/render_delay_buffer.o
+[2/41] AR obj/modules/audio_processing/libaudio_processing.a
+[3/41] STAMP obj/modules/modules.stamp
+[4/41] STAMP obj/modules/audio_processing/audio_processing_unittests.stamp
+[5/41] LINK ./apm_vad
+[6/41] LINK ./click_annotate
+[7/41] STAMP obj/modules/audio_processing/test/py_quality_assessment/unit_tests.stamp
+[8/41] STAMP obj/modules/audio_processing/test/py_quality_assessment/py_quality_assessment.stamp
+[9/41] LINK ./nonlinear_beamformer_test
+[10/41] LINK ./transient_suppression_test
+[11/41] LINK ./audio_codec_speed_tests
+[12/41] STAMP obj/modules/audio_coding/audio_coding_tests.stamp
+[13/41] LINK ./unpack_aecdump
+[14/41] LINK ./audioproc_f
+[15/41] STAMP obj/modules/audio_processing/audio_processing_tests.stamp
+[16/41] AR obj/libwebrtc.a
+[17/41] LINK ./stunserver
+[18/41] LINK ./relayserver
+[19/41] LINK ./low_bandwidth_audio_test
+[20/41] LINK ./rtc_unittests
+[21/41] LINK ./webrtc_perf_tests
+[22/41] LINK ./turnserver
+[23/41] LINK ./peerconnection_client
+[24/41] STAMP obj/examples/examples.stamp
+[25/41] LINK ./video_engine_tests
+[26/41] LINK ./bwe_simulations_tests
+[27/41] LINK ./activity_metric
+[28/41] STAMP obj/rtc_tools/rtc_tools.stamp
+[29/41] LINK ./modules_tests
+[30/41] LINK ./rtc_media_unittests
+[31/41] LINK ./ortc_unittests
+[32/41] LINK ./rtc_pc_unittests
+[33/41] LINK ./test_support_unittests
+[34/41] STAMP obj/test/test.stamp
+[35/41] LINK ./peerconnection_unittests
+[36/41] LINK ./screenshare_loopback
+[37/41] LINK ./modules_unittests
+[38/41] LINK ./voice_engine_unittests
+[39/41] LINK ./video_loopback
+[40/41] LINK ./webrtc_tests
+[41/41] STAMP obj/default.stamp
+
+Compilation finished at Thu Nov 16 16:24:29

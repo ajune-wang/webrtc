@@ -14,6 +14,7 @@
 #include <array>
 #include <memory>
 
+#include "api/array_view.h"
 #include "api/optional.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/render_buffer.h"

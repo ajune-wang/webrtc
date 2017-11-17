@@ -43,9 +43,12 @@ void RunFilterUpdateTest(int num_blocks_to_process,
   AdaptiveFirFilter main_filter(9, DetectOptimization(), &data_dumper);
   AdaptiveFirFilter shadow_filter(9, DetectOptimization(), &data_dumper);
   Aec3Fft fft;
+  FftBuffer fft_buffer(main_filter.SizePartitions());
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(
       Aec3Optimization::kNone, 3, main_filter.SizePartitions(),
-      std::vector<size_t>(1, main_filter.SizePartitions()));
+      std::vector<size_t>(1, main_filter.SizePartitions()), &block_buffer,
+      &fft_buffer);
   std::array<float, kBlockSize> x_old;
   x_old.fill(0.f);
   ShadowFilterUpdateGain shadow_gain;
@@ -160,9 +163,12 @@ std::string ProduceDebugText(size_t delay) {
 TEST(MainFilterUpdateGain, NullDataOutputGain) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
+  FftBuffer fft_buffer(filter.SizePartitions());
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3,
                              filter.SizePartitions(),
-                             std::vector<size_t>(1, filter.SizePartitions()));
+                             std::vector<size_t>(1, filter.SizePartitions()),
+                             &block_buffer, &fft_buffer);
   RenderSignalAnalyzer analyzer;
   SubtractorOutput output;
   MainFilterUpdateGain gain;

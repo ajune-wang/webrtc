@@ -60,8 +60,11 @@ TEST(RenderSignalAnalyzer, NoFalseDetectionOfNarrowBands) {
   std::array<float, kBlockSize> x_old;
   FftData X;
   Aec3Fft fft;
+  FftBuffer fft_buffer(1);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 1,
-                             std::vector<size_t>(1, 1));
+                             std::vector<size_t>(1, 1), &block_buffer,
+                             &fft_buffer);
   std::array<float, kFftLengthBy2Plus1> mask;
   x_old.fill(0.f);
 
@@ -86,8 +89,11 @@ TEST(RenderSignalAnalyzer, NarrowBandDetection) {
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   std::array<float, kBlockSize> x_old;
   Aec3Fft fft;
+  FftBuffer fft_buffer(1);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 1,
-                             std::vector<size_t>(1, 1));
+                             std::vector<size_t>(1, 1), &block_buffer,
+                             &fft_buffer);
   std::array<float, kFftLengthBy2Plus1> mask;
   x_old.fill(0.f);
   constexpr int kSinusFrequencyBin = 32;

@@ -60,8 +60,10 @@ constexpr size_t kDownsampledRenderBufferSize =
      kMatchedFilterWindowSizeSubBlocks +
      1);
 
+// constexpr size_t kRenderDelayBufferSize =
+//     (3 * kDownsampledRenderBufferSize) / (4 * kSubBlockSize);
 constexpr size_t kRenderDelayBufferSize =
-    (3 * kDownsampledRenderBufferSize) / (4 * kSubBlockSize);
+    2 * kDownsampledRenderBufferSize / kSubBlockSize;
 
 constexpr size_t kMinEchoPathDelayBlocks = 5;
 constexpr size_t kMaxApiCallsJitterBlocks = 26;

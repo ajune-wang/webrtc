@@ -8,24 +8,27 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC3_DOWNSAMPLED_RENDER_BUFFER_H_
-#define MODULES_AUDIO_PROCESSING_AEC3_DOWNSAMPLED_RENDER_BUFFER_H_
-
-#include <array>
+#include "modules/audio_processing/aec3/matrix_buffer.h"
 
 #include "modules/audio_processing/aec3/aec3_common.h"
 
 namespace webrtc {
+namespace aec3 {
 
-// Holds the circular buffer of the downsampled render data.
-struct DownsampledRenderBuffer {
-  DownsampledRenderBuffer();
-  ~DownsampledRenderBuffer();
-  std::array<float, kDownsampledRenderBufferSize> buffer = {};
-  int last_insert_index = 0;
-  int next_read_index = 0;
-};
+MatrixBuffer::MatrixBuffer(size_t size, size_t height, size_t width)
+    : buffer(size,
+             std::vector<std::vector<float>>(height,
+                                             std::vector<float>(width, 0.f))) {}
 
+MatrixBuffer::~MatrixBuffer() = default;
+
+void MatrixBuffer::Clear() {
+  for (auto& c : buffer) {
+    for (auto& b : c) {
+      std::fill(b.begin(), b.end(), 0.f);
+    }
+  }
+}
+
+}  // namespace aec3
 }  // namespace webrtc
-
-#endif  // MODULES_AUDIO_PROCESSING_AEC3_DOWNSAMPLED_RENDER_BUFFER_H_

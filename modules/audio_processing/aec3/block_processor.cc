@@ -42,8 +42,8 @@ class BlockProcessorImpl final : public BlockProcessor {
 
  private:
   static int instance_count_;
-  bool no_capture_data_received_ = true;
-  bool no_render_data_received_ = true;
+  bool capture_properly_started_ = false;
+  bool render_properly_started_ = false;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const size_t sample_rate_hz_;
   std::unique_ptr<RenderDelayBuffer> render_buffer_;
@@ -85,53 +85,61 @@ void BlockProcessorImpl::ProcessCapture(
                         &(*capture_block)[0][0],
                         LowestBandRate(sample_rate_hz_), 1);
 
-  // Do not start processing until render data has been buffered as that will
-  // cause the buffers to be wrongly aligned.
-  no_capture_data_received_ = false;
-  if (no_render_data_received_) {
-    return;
-  }
-
   data_dumper_->DumpWav("aec3_processblock_capture_input2", kBlockSize,
                         &(*capture_block)[0][0],
                         LowestBandRate(sample_rate_hz_), 1);
 
-  bool render_buffer_underrun = false;
-  if (render_buffer_overrun_occurred_) {
+  if (render_buffer_overrun_occurred_ && render_properly_started_) {
     // Reset the render buffers and the alignment functionality when there has
     // been a render buffer overrun as the buffer alignment may be noncausal.
     delay_controller_->Reset();
-    render_buffer_->Reset();
-    RTC_LOG(LS_WARNING) << "Reset due to detected render buffer overrun.";
+    render_buffer_->Clear();
+    RTC_LOG(LS_WARNING)
+        << "Hard reset due to unrecoverable render buffer overrun.";
   }
 
   // Update the render buffers with new render data, filling the buffers with
   // empty blocks when there is no render data available.
-  render_buffer_underrun = !render_buffer_->UpdateBuffers();
-  if (render_buffer_underrun) {
-    RTC_LOG(LS_WARNING) << "Render API jitter buffer underrun.";
+  const RenderDelayBuffer::BufferingEvent render_buffer_event =
+      render_buffer_->UpdateBuffers();
+  if (render_buffer_event ==
+      RenderDelayBuffer::BufferingEvent::kRenderOverrun) {
+    delay_controller_->Reset();
+    render_buffer_->ResetAlignment();
+    capture_properly_started_ = false;
+    render_properly_started_ = false;
+  } else if (render_buffer_event ==
+                 RenderDelayBuffer::BufferingEvent::kRenderUnderrun ||
+             render_buffer_event ==
+                 RenderDelayBuffer::BufferingEvent::kApiCallSkew) {
+    delay_controller_->Reset();
+    render_buffer_->ResetAlignment();
+    capture_properly_started_ = false;
+    render_properly_started_ = false;
+  }
+
+  if (!capture_properly_started_ || !render_properly_started_) {
+    capture_properly_started_ = true;
+    render_buffer_->ResetAlignment();
   }
 
   // Compute and and apply the render delay required to achieve proper signal
   // alignment.
-  const size_t old_delay = render_buffer_->Delay();
-  const size_t new_delay = delay_controller_->GetDelay(
+  const size_t estimated_delay = delay_controller_->GetDelay(
       render_buffer_->GetDownsampledRenderBuffer(), (*capture_block)[0]);
+  const size_t new_delay =
+      std::min(render_buffer_->MaxDelay(), estimated_delay);
 
-  bool delay_change;
-  if (new_delay >= kMinEchoPathDelayBlocks) {
+  bool delay_change = render_buffer_->Delay() != new_delay;
+  if (delay_change && new_delay >= kMinEchoPathDelayBlocks) {
     render_buffer_->SetDelay(new_delay);
-    const size_t achieved_delay = render_buffer_->Delay();
-    delay_change = old_delay != achieved_delay || old_delay != new_delay ||
-                   render_buffer_overrun_occurred_;
-
-    // Inform the delay controller of the actually set delay to allow it to
-    // properly react to a non-feasible delay.
-    delay_controller_->SetDelay(achieved_delay);
-  } else {
+    RTC_DCHECK_EQ(render_buffer_->Delay(), new_delay);
+    delay_controller_->SetDelay(new_delay);
+  } else if (delay_change && new_delay < kMinEchoPathDelayBlocks) {
     delay_controller_->Reset();
-    render_buffer_->Reset();
-    delay_change = true;
+    render_buffer_->ResetAlignment();
+    capture_properly_started_ = false;
+    render_properly_started_ = false;
     RTC_LOG(LS_WARNING) << "Reset due to noncausal delay.";
   }
 
@@ -143,7 +151,7 @@ void BlockProcessorImpl::ProcessCapture(
       capture_block);
 
   // Update the metrics.
-  metrics_.UpdateCapture(render_buffer_underrun);
+  metrics_.UpdateCapture(false);
 
   render_buffer_overrun_occurred_ = false;
 }
@@ -157,14 +165,6 @@ void BlockProcessorImpl::BufferRender(
   data_dumper_->DumpWav("aec3_processblock_render_input", kBlockSize,
                         &block[0][0], LowestBandRate(sample_rate_hz_), 1);
 
-  no_render_data_received_ = false;
-
-  // Do not start buffer render data until capture data has been received as
-  // that data may give a false alignment.
-  if (no_capture_data_received_) {
-    return;
-  }
-
   data_dumper_->DumpWav("aec3_processblock_render_input2", kBlockSize,
                         &block[0][0], LowestBandRate(sample_rate_hz_), 1);
 
@@ -173,6 +173,10 @@ void BlockProcessorImpl::BufferRender(
 
   // Update the metrics.
   metrics_.UpdateRender(render_buffer_overrun_occurred_);
+
+  if (capture_properly_started_) {
+    render_properly_started_ = true;
+  }
 }
 
 void BlockProcessorImpl::UpdateEchoLeakageStatus(bool leakage_detected) {

@@ -24,8 +24,11 @@ namespace webrtc {
 // Verifies that the check for non-null output residual echo power works.
 TEST(ResidualEchoEstimator, NullResidualEchoPowerOutput) {
   AecState aec_state(EchoCanceller3Config{});
+  FftBuffer fft_buffer(10);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 10,
-                             std::vector<size_t>(1, 10));
+                             std::vector<size_t>(1, 10), &block_buffer,
+                             &fft_buffer);
   std::vector<std::array<float, kFftLengthBy2Plus1>> H2;
   std::array<float, kFftLengthBy2Plus1> S2_linear;
   std::array<float, kFftLengthBy2Plus1> Y2;
@@ -41,8 +44,11 @@ TEST(ResidualEchoEstimator, BasicTest) {
   EchoCanceller3Config config;
   config.ep_strength.default_len = 0.f;
   AecState aec_state(config);
+  FftBuffer fft_buffer(10);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 10,
-                             std::vector<size_t>(1, 10));
+                             std::vector<size_t>(1, 10), &block_buffer,
+                             &fft_buffer);
   std::array<float, kFftLengthBy2Plus1> E2_main;
   std::array<float, kFftLengthBy2Plus1> E2_shadow;
   std::array<float, kFftLengthBy2Plus1> S2_linear;

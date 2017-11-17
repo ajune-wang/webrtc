@@ -32,8 +32,11 @@ float RunSubtractorTest(int num_blocks_to_process,
   std::vector<float> y(kBlockSize, 0.f);
   std::array<float, kBlockSize> x_old;
   SubtractorOutput output;
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, kAdaptiveFilterLength,
-                             std::vector<size_t>(1, kAdaptiveFilterLength));
+                             std::vector<size_t>(1, kAdaptiveFilterLength),
+                             &block_buffer, &fft_buffer);
   RenderSignalAnalyzer render_signal_analyzer;
   Random random_generator(42U);
   Aec3Fft fft;
@@ -105,8 +108,11 @@ TEST(Subtractor, NullDataDumper) {
 TEST(Subtractor, DISABLED_NullOutput) {
   ApmDataDumper data_dumper(42);
   Subtractor subtractor(&data_dumper, DetectOptimization());
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, kAdaptiveFilterLength,
-                             std::vector<size_t>(1, kAdaptiveFilterLength));
+                             std::vector<size_t>(1, kAdaptiveFilterLength),
+                             &block_buffer, &fft_buffer);
   RenderSignalAnalyzer render_signal_analyzer;
   std::vector<float> y(kBlockSize, 0.f);
 
@@ -119,8 +125,11 @@ TEST(Subtractor, DISABLED_NullOutput) {
 TEST(Subtractor, WrongCaptureSize) {
   ApmDataDumper data_dumper(42);
   Subtractor subtractor(&data_dumper, DetectOptimization());
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3, kAdaptiveFilterLength,
-                             std::vector<size_t>(1, kAdaptiveFilterLength));
+                             std::vector<size_t>(1, kAdaptiveFilterLength),
+                             &block_buffer, &fft_buffer);
   RenderSignalAnalyzer render_signal_analyzer;
   std::vector<float> y(kBlockSize - 1, 0.f);
   SubtractorOutput output;

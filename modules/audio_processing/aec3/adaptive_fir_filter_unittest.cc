@@ -153,8 +153,11 @@ TEST(AdaptiveFirFilter, UpdateErlNeonOptimization) {
 TEST(AdaptiveFirFilter, FilterAdaptationSse2Optimizations) {
   bool use_sse2 = (WebRtc_GetCPUInfo(kSSE2) != 0);
   if (use_sse2) {
+    FftBuffer fft_buffer(12);
+    aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
     RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 12,
-                               std::vector<size_t>(1, 12));
+                               std::vector<size_t>(1, 12), &block_buffer,
+                               &fft_buffer);
     Random random_generator(42U);
     std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
     FftData S_C;
@@ -264,9 +267,12 @@ TEST(AdaptiveFirFilter, NullDataDumper) {
 TEST(AdaptiveFirFilter, NullFilterOutput) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
+  FftBuffer fft_buffer(filter.SizePartitions());
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3,
                              filter.SizePartitions(),
-                             std::vector<size_t>(1, filter.SizePartitions()));
+                             std::vector<size_t>(1, filter.SizePartitions()),
+                             &block_buffer, &fft_buffer);
   EXPECT_DEATH(filter.Filter(render_buffer, nullptr), "");
 }
 
@@ -297,9 +303,12 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
   Aec3Fft fft;
+  FftBuffer fft_buffer(filter.SizePartitions());
+  aec3::MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
   RenderBuffer render_buffer(Aec3Optimization::kNone, 3,
                              filter.SizePartitions(),
-                             std::vector<size_t>(1, filter.SizePartitions()));
+                             std::vector<size_t>(1, filter.SizePartitions()),
+                             &block_buffer, &fft_buffer);
   ShadowFilterUpdateGain gain;
   Random random_generator(42U);
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));

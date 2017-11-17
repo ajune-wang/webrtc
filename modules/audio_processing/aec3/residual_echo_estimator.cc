@@ -105,7 +105,7 @@ void ResidualEchoEstimator::Estimate(
     // If the echo is saturated, estimate the echo power as the maximum echo
     // power with a leakage factor.
     if (aec_state.SaturatedEcho()) {
-      R2->fill((*std::max_element(R2->begin(), R2->end())) * 100.f);
+      R2->fill((*std::max_element(R2->begin(), R2->end())));
     }
   } else {
     // Estimate the echo generating signal power.

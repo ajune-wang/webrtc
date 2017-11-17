@@ -17,6 +17,7 @@
 
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
+#include "modules/audio_processing/aec3/buffer_statistics.h"
 #include "modules/audio_processing/aec3/downsampled_render_buffer.h"
 #include "modules/audio_processing/aec3/fft_data.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
@@ -27,19 +28,29 @@ namespace webrtc {
 // extracted with a specified delay.
 class RenderDelayBuffer {
  public:
+  enum class BufferingEvent {
+    kNone,
+    kRenderUnderrun,
+    kRenderOverrun,
+    kApiCallSkew
+  };
+
   static RenderDelayBuffer* Create(size_t num_bands);
   virtual ~RenderDelayBuffer() = default;
 
-  // Resets the buffer data.
-  virtual void Reset() = 0;
+  // Clears the buffer data.
+  virtual void Clear() = 0;
+
+  // Resets the buffer alignment.
+  virtual void ResetAlignment() = 0;
 
   // Inserts a block into the buffer and returns true if the insert is
   // successful.
   virtual bool Insert(const std::vector<std::vector<float>>& block) = 0;
 
   // Updates the buffers one step based on the specified buffer delay. Returns
-  // true if there was no overrun, otherwise returns false.
-  virtual bool UpdateBuffers() = 0;
+  // an enum indicating whether there was a special event that occurred.
+  virtual BufferingEvent UpdateBuffers() = 0;
 
   // Sets the buffer delay.
   virtual void SetDelay(size_t delay) = 0;
@@ -47,11 +58,20 @@ class RenderDelayBuffer {
   // Gets the buffer delay.
   virtual size_t Delay() const = 0;
 
+  // Gets the buffer delay.
+  virtual size_t MaxDelay() const = 0;
+
+  // Gets the observed jitter in the render and capture call sequence.
+  virtual size_t MaxApiJitter() const = 0;
+
   // Returns the render buffer for the echo remover.
   virtual const RenderBuffer& GetRenderBuffer() const = 0;
 
   // Returns the downsampled render buffer.
   virtual const DownsampledRenderBuffer& GetDownsampledRenderBuffer() const = 0;
+
+  // Returns the statistics collector for underruns and overruns.
+  virtual const BufferStatistics& GetStatistics() const = 0;
 };
 
 }  // namespace webrtc

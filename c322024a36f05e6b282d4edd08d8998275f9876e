@@ -22,6 +22,30 @@
       "revId": "c322024a36f05e6b282d4edd08d8998275f9876e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4f925dd_224a2201",
+        "filename": "sdk/android/src/jni/videodecoderwrapper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-18T15:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9968a56c_095c20e4",
+      "range": {
+        "startLine": 195,
+        "startChar": 42,
+        "endLine": 195,
+        "endChar": 52
+      },
+      "revId": "c322024a36f05e6b282d4edd08d8998275f9876e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

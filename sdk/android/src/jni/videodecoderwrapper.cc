@@ -69,9 +69,6 @@ VideoDecoderWrapper::VideoDecoderWrapper(JNIEnv* jni, jobject decoder)
   get_number_method_ =
       jni->GetMethodID(*video_codec_status_class_, "getNumber", "()I");
 
-  integer_constructor_ = jni->GetMethodID(*integer_class_, "<init>", "(I)V");
-  int_value_method_ = jni->GetMethodID(*integer_class_, "intValue", "()I");
-
   initialized_ = false;
   // QP parsing starts enabled and we disable it if the decoder provides frames.
   qp_parsing_enabled_ = true;
@@ -189,14 +186,11 @@ void VideoDecoderWrapper::OnDecodedFrame(JNIEnv* jni,
   VideoFrame frame =
       JavaToNativeFrame(jni, jframe, frame_extra_info.timestamp_rtp);
 
-  rtc::Optional<int32_t> decoding_time_ms;
-  if (jdecode_time_ms != nullptr) {
-    decoding_time_ms = jni->CallIntMethod(jdecode_time_ms, int_value_method_);
-  }
+  rtc::Optional<int> decoding_time_ms =
+      JavaIntegerToOptionalInt(jni, jdecode_time_ms);
 
-  rtc::Optional<uint8_t> qp;
-  if (jqp != nullptr) {
-    qp = jni->CallIntMethod(jqp, int_value_method_);
+  rtc::Optional<int> qp = JavaIntegerToOptionalInt(jni, jqp);
+  if (qp) {
     // The decoder provides QP values itself, no need to parse the bitstream.
     qp_parsing_enabled_ = false;
   } else {
@@ -232,7 +226,7 @@ jobject VideoDecoderWrapper::ConvertEncodedImageToJavaEncodedImage(
       jni->GetStaticObjectField(*frame_type_class_, frame_type_field);
   jobject qp = nullptr;
   if (image.qp_ != -1) {
-    qp = jni->NewObject(*integer_class_, integer_constructor_, image.qp_);
+    qp = JavaIntegerFromInt(jni, image.qp_);
   }
   return jni->NewObject(
       *encoded_image_class_, encoded_image_constructor_, buffer,

@@ -31,6 +31,8 @@ rtc_static_library("rtc_p2p") {
     "base/dtlstransport.h",
     "base/dtlstransportinternal.cc",
     "base/dtlstransportinternal.h",
+    "base/icelogger.cc",
+    "base/icelogger.h",
     "base/icetransportinternal.cc",
     "base/icetransportinternal.h",
     "base/jseptransport.cc",
@@ -91,9 +93,15 @@ rtc_static_library("rtc_p2p") {
     "../api:libjingle_peerconnection_api",
     "../api:optional",
     "../api:ortc_api",
+    "../logging:ice_log",
     "../rtc_base:rtc_base",
+    "../system_wrappers",
     "../system_wrappers:field_trial_api",
   ]
+
+  if (rtc_enable_protobuf) {
+    defines += [ "ENABLE_ICE_LOG_WITH_PROTOBUF" ]
+  }
 
   public_configs = [ ":rtc_p2p_inherited_config" ]
 

@@ -257,3 +257,36 @@ if (rtc_enable_protobuf) {
     }
   }
 }
+
+rtc_static_library("ice_log") {
+  sources = [
+    "ice_log/icelogtype.cc",
+    "ice_log/icelogtype.h",
+    "ice_log/stringifiedenum.cc",
+    "ice_log/stringifiedenum.h",
+  ]
+
+  defines = []
+
+  if (rtc_enable_protobuf) {
+    defines += [ "ENABLE_ICE_LOG_WITH_PROTOBUF" ]
+  }
+
+  deps = [
+    "..:webrtc_common",
+    "../rtc_base:rtc_base",
+  ]
+
+  public_deps = [
+    ":ice_log_proto",
+  ]
+}
+
+if (rtc_enable_protobuf) {
+  proto_library("ice_log_proto") {
+    sources = [
+      "ice_log/keyvaluepair.proto",
+    ]
+    proto_out_dir = "logging/ice_log"
+  }
+}

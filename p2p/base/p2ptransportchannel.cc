@@ -123,7 +123,8 @@ P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
               STRONG_AND_STABLE_WRITABLE_CONNECTION_PING_INTERVAL,
               true /* presume_writable_when_fully_relayed */,
               DEFAULT_REGATHER_ON_FAILED_NETWORKS_INTERVAL,
-              RECEIVING_SWITCHING_DELAY) {
+              RECEIVING_SWITCHING_DELAY),
+      ice_logger_(webrtc::icelog::IceLogger::Instance()) {
   uint32_t weak_ping_interval = ::strtoul(
       webrtc::field_trial::FindFullName("WebRTC-StunInterPacketDelay").c_str(),
       nullptr, 10);
@@ -599,6 +600,10 @@ void P2PTransportChannel::OnPortReady(PortAllocatorSession *session,
   SortConnectionsAndUpdateState();
 }
 
+void P2PTransportChannel::OnCandidateReady(Port* port, const Candidate& c) {
+  ice_logger_->LogCandidateGathered(port, c);
+}
+
 // A new candidate is available, let listeners know
 void P2PTransportChannel::OnCandidatesReady(
     PortAllocatorSession* session,
@@ -790,6 +795,10 @@ void P2PTransportChannel::OnNominated(Connection* conn) {
   }
 }
 
+void P2PTransportChannel::OnPingResponseReceived(Connection* conn) {
+  ice_logger_->LogConnectionPingResponseReceived(conn);
+}
+
 void P2PTransportChannel::AddRemoteCandidate(const Candidate& candidate) {
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
 
@@ -926,6 +935,7 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
     AddConnection(connection);
     LOG_J(LS_INFO, this) << "Created connection with origin=" << origin << ", ("
                          << connections_.size() << " total)";
+    ice_logger_->LogConnectionCreated(connection);
     return true;
   }
 
@@ -1481,6 +1491,7 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
     }
     LOG_J(LS_INFO, this) << "New selected connection: "
                          << selected_connection_->ToString();
+    ice_logger_->LogConnectionReselected(old_selected_connection, conn);
     SignalRouteChange(this, selected_connection_->remote_candidate());
     // This is a temporary, but safe fix to webrtc issue 5705.
     // TODO(honghaiz): Make all ENOTCONN error routed through the transport

@@ -18,6 +18,7 @@ declare_args() {
 }
 
 rtc_static_library("audio_processing") {
+  visibility = [ "*" ]
   sources = [
     "aec/aec_core.cc",
     "aec/aec_core.h",

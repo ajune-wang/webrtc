@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f46d613_64e5a508",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T05:10:50Z",
+      "side": 1,
+      "message": "I don\u0027t see anywhere that we can\u0027t just use RtpTransceiverDirection (notably in MediaContentDescription).  Could you please just completely eliminate MediaContentDirection in favor or RtpTransceiverDirection.  Then we don\u0027t need these conversions.",
+      "revId": "2dfbb440b992c22acf254ee12532f893cd7f025a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec00b4f7_8fdd49f4",
+        "filename": "pc/mediasession.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T05:10:50Z",
+      "side": 1,
+      "message": "This is really offer/answer specific and is only used in mediasession.cc.  Can you just move it there?",
+      "range": {
+        "startLine": 85,
+        "startChar": 43,
+        "endLine": 85,
+        "endChar": 0
+      },
+      "revId": "2dfbb440b992c22acf254ee12532f893cd7f025a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

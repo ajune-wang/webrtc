@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c49fea73_35776d63",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:13:35Z",
+      "side": 1,
+      "message": "I\u0027d say mapped to multiple RtpSenders and RtpReceivers, not streams.  That\u0027s more clear.",
+      "range": {
+        "startLine": 488,
+        "startChar": 78,
+        "endLine": 488,
+        "endChar": 0
+      },
+      "revId": "f2cc563c61bf93a445b8d723cda1e36755238ec0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fbb5f4f_5ce99620",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:13:35Z",
+      "side": 1,
+      "message": "I\u0027d say mapped to one RtpSender and one RtpReceiver, not streams.  That\u0027s more clear.",
+      "range": {
+        "startLine": 495,
+        "startChar": 20,
+        "endLine": 495,
+        "endChar": 21
+      },
+      "revId": "f2cc563c61bf93a445b8d723cda1e36755238ec0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

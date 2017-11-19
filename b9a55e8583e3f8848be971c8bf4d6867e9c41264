@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98eeac78_7aa7c9f4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2562,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "Should this be called something like RemoveSenders?",
+      "range": {
+        "startLine": 2562,
+        "startChar": 66,
+        "endLine": 2562,
+        "endChar": 0
+      },
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e9c8bf_bb8e1ac4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2568,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "Should this be called UpdateRemoteSenders?",
+      "range": {
+        "startLine": 2568,
+        "startChar": 45,
+        "endLine": 2568,
+        "endChar": 0
+      },
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75b78776_88a6f3a4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2616,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "Should this be called OnRemoteSenderAdded?",
+      "range": {
+        "startLine": 2616,
+        "startChar": 68,
+        "endLine": 2616,
+        "endChar": 0
+      },
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a1bb497_538ca666",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2742,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "And this OnLocalSenderAdded?",
+      "range": {
+        "startLine": 2742,
+        "startChar": 69,
+        "endLine": 2742,
+        "endChar": 0
+      },
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05982ab4_679b288c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2748,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "By the way, should we call \"RemoteSenderInfo\" \"ReceiverInfo\" instead? (and then LocalSenderInfo is just SenderInfo).",
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d0a0c04_d5a9ed70",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "Might as well call it RtpSenderInfo.",
+      "range": {
+        "startLine": 273,
+        "startChar": 21,
+        "endLine": 273,
+        "endChar": 0
+      },
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a4082c_0a953975",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "Might as well call this \"primary_ssrc\", or \"first_ssrc\" to make it clear it can have more than one.",
+      "range": {
+        "startLine": 285,
+        "startChar": 18,
+        "endLine": 285,
+        "endChar": 0
+      },
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4029a9b8_00181cd8",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "Might as well call this GetRemoteSenderInfos and GetLocalSenderInfos.",
+      "range": {
+        "startLine": 487,
+        "startChar": 74,
+        "endLine": 487,
+        "endChar": 0
+      },
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50727078_f0dfd103",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-11-19T01:09:59Z",
+      "side": 1,
+      "message": "Same here.  Might as well have them be sender_infos_.",
+      "range": {
+        "startLine": 776,
+        "startChar": 47,
+        "endLine": 776,
+        "endChar": 0
+      },
+      "revId": "b9a55e8583e3f8848be971c8bf4d6867e9c41264",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -127,6 +127,7 @@ class SimplePeerConnection : public webrtc::PeerConnectionObserver,
 
   bool is_mute_audio_ = false;
   bool is_record_audio_ = false;
+  bool mandatory_receive_ = false;
 
   // disallow copy-and-assign
   SimplePeerConnection(const SimplePeerConnection&) = delete;

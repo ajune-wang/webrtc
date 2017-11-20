@@ -1,0 +1,7 @@
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+
+message KeyValuePair {
+  required string key = 1;
+  required string value = 2;
+}

@@ -257,3 +257,19 @@ if (rtc_enable_protobuf) {
     }
   }
 }
+
+rtc_static_library("ice_log") {
+  sources = [
+    "ice_log/icelogtype.cc",
+    "ice_log/icelogtype.h",
+    "ice_log/stringifiedenum.cc",
+    "ice_log/stringifiedenum.h",
+  ]
+
+  defines = []
+
+  deps = [
+    "..:webrtc_common",
+    "../rtc_base:rtc_base",
+  ]
+}

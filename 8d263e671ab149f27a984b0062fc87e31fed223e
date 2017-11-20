@@ -46,6 +46,30 @@
       "revId": "8d263e671ab149f27a984b0062fc87e31fed223e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f52849_91f043f5",
+        "filename": "sdk/android/src/jni/androidvideotracksource.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-20T13:56:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f2cc2f5_a434ca1c",
+      "range": {
+        "startLine": 181,
+        "startChar": 6,
+        "endLine": 181,
+        "endChar": 59
+      },
+      "revId": "8d263e671ab149f27a984b0062fc87e31fed223e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

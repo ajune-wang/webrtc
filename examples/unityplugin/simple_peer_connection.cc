@@ -12,6 +12,8 @@
 
 #include <utility>
 
+#include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/test/fakeconstraints.h"
 #include "api/videosourceproxy.h"
 #include "media/engine/webrtcvideocapturerfactory.h"
@@ -91,7 +93,8 @@ bool SimplePeerConnection::InitializePeerConnection(const char** turn_urls,
 
     g_peer_connection_factory = webrtc::CreatePeerConnectionFactory(
         g_worker_thread.get(), g_worker_thread.get(), g_signaling_thread.get(),
-        nullptr, nullptr, nullptr);
+        nullptr, webrtc::CreateBuiltinAudioEncoderFactory(),
+        webrtc::CreateBuiltinAudioDecoderFactory(), nullptr, nullptr);
   }
   if (!g_peer_connection_factory.get()) {
     DeletePeerConnection();
@@ -148,10 +151,7 @@ bool SimplePeerConnection::CreatePeerConnection(const char** turn_urls,
   webrtc::FakeConstraints constraints;
   constraints.SetAllowDtlsSctpDataChannels();
 
-  if (is_receiver) {
-    constraints.SetMandatoryReceiveAudio(true);
-    constraints.SetMandatoryReceiveVideo(true);
-  }
+  mandatory_receive_ = is_receiver;
 
   peer_connection_ = g_peer_connection_factory->CreatePeerConnection(
       config_, &constraints, nullptr, nullptr, this);
@@ -192,7 +192,12 @@ bool SimplePeerConnection::CreateOffer() {
   if (!peer_connection_.get())
     return false;
 
-  peer_connection_->CreateOffer(this, nullptr);
+  webrtc::FakeConstraints constraints;
+  if (mandatory_receive_) {
+    constraints.SetMandatoryReceiveAudio(true);
+    constraints.SetMandatoryReceiveVideo(true);
+  }
+  peer_connection_->CreateOffer(this, &constraints);
   return true;
 }
 
@@ -200,7 +205,12 @@ bool SimplePeerConnection::CreateAnswer() {
   if (!peer_connection_.get())
     return false;
 
-  peer_connection_->CreateAnswer(this, nullptr);
+  webrtc::FakeConstraints constraints;
+  if (mandatory_receive_) {
+    constraints.SetMandatoryReceiveAudio(true);
+    constraints.SetMandatoryReceiveVideo(true);
+  }
+  peer_connection_->CreateAnswer(this, &constraints);
   return true;
 }
 
@@ -421,8 +431,8 @@ void SimplePeerConnection::AddStreams(bool audio_only) {
     RTC_DCHECK(texture_helper != nullptr)
         << "Cannot get the Surface Texture Helper.";
 
-    rtc::scoped_refptr<AndroidVideoTrackSource> source(
-        new rtc::RefCountedObject<AndroidVideoTrackSource>(
+    rtc::scoped_refptr<webrtc::jni::AndroidVideoTrackSource> source(
+        new rtc::RefCountedObject<webrtc::jni::AndroidVideoTrackSource>(
             g_signaling_thread.get(), env, texture_helper, false));
     rtc::scoped_refptr<webrtc::VideoTrackSourceProxy> proxy_source =
         webrtc::VideoTrackSourceProxy::Create(g_signaling_thread.get(),

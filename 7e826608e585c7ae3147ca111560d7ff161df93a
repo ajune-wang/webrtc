@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f245f20b_51dff412",
+        "filename": "modules/audio_device/mac/audio_mixer_manager_mac.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-20T15:52:10Z",
+      "side": 1,
+      "message": "nit, add period \u0027.\u0027",
+      "range": {
+        "startLine": 108,
+        "startChar": 62,
+        "endLine": 108,
+        "endChar": 0
+      },
+      "revId": "7e826608e585c7ae3147ca111560d7ff161df93a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8aedd431_2f10efd6",
+        "filename": "sdk/android/src/jni/androidvideotracksource.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-20T10:38:32Z",
+      "side": 1,
+      "message": "Maybe we should avoid unnecessarily retaining and releasing the buffer back to back here.",
+      "range": {
+        "startLine": 181,
+        "startChar": 6,
+        "endLine": 181,
+        "endChar": 59
+      },
+      "revId": "8d263e671ab149f27a984b0062fc87e31fed223e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9208da5f_d195fe5a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T10:11:28Z",
+      "side": 1,
+      "message": "So this is sent immediately, without affecting scheduling of periodic reports?",
+      "range": {
+        "startLine": 119,
+        "startChar": 26,
+        "endLine": 119,
+        "endChar": 41
+      },
+      "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6838993a_0f11b7b4",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T10:11:28Z",
+      "side": 1,
+      "message": "This piggybacks additional reports to this packet? Would it make sense to postpone the next periodic rtcp message in this case?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 34
+      },
+      "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c561b484_c3c8323e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T10:11:28Z",
+      "side": 1,
+      "message": "Maybe rename to SendCompoundPacket. And add some CHECK or DCHECK that rtcp_mode_ is kCompound.\n\nLooks to me like setting rtcp_mode_ to something different than kCompound would disable most of the functionality in this class. Maybe document that, with a comment on the config struct? Or do you plan to support kReducedSize for all messages?\n\nOn documenting the rtcp_mode_ flag, also make clear if it is intended to apply to sent or received rtcp messages, or both.",
+      "range": {
+        "startLine": 205,
+        "startChar": 26,
+        "endLine": 205,
+        "endChar": 36
+      },
+      "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "554bdd40_382c9769",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T10:11:28Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand how this test works. There\u0027s one call to RequestKeyFrame, but resulting in two PLI messages? While in compound mode (next test), there\u0027s only a single PLI message?",
+      "range": {
+        "startLine": 465,
+        "startChar": 0,
+        "endLine": 465,
+        "endChar": 49
+      },
+      "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

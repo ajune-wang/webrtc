@@ -22,6 +22,30 @@
       "revId": "8d263e671ab149f27a984b0062fc87e31fed223e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f2cc2f5_a434ca1c",
+        "filename": "sdk/android/src/jni/androidvideotracksource.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-20T13:02:22Z",
+      "side": 1,
+      "message": "It\u0027s a trade off between performance and how clean the code is. I\u0027m leaning towards keeping it the same.",
+      "parentUuid": "8aedd431_2f10efd6",
+      "range": {
+        "startLine": 181,
+        "startChar": 6,
+        "endLine": 181,
+        "endChar": 59
+      },
+      "revId": "8d263e671ab149f27a984b0062fc87e31fed223e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

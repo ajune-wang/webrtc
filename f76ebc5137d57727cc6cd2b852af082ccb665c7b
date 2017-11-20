@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bec0f8d0_50c11534",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T12:07:09Z",
+      "side": 1,
+      "message": "in reduced size mode - for now yes. Once send bitrate would be taken into account, it will be slightly changed (still will be sent immediately, but will affect scheduling of periodic reports)\n\nin compound mode - followed your next comment and fixed rescheduling.",
+      "parentUuid": "9208da5f_d195fe5a",
+      "range": {
+        "startLine": 119,
+        "startChar": 26,
+        "endLine": 119,
+        "endChar": 41
+      },
+      "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6838993a_0f11b7b4",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f71e846d_b0f422c5",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T12:07:09Z",
+      "side": 1,
+      "message": "It does make sense, rescheduling added",
+      "parentUuid": "6838993a_0f11b7b4",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 34
+      },
+      "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f9b605c4_8d1d5b92",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T12:07:09Z",
+      "side": 1,
+      "message": "function renamed (SendCompoundPacket is already used, so expanded this one)\n\nadded comment in the Config with brief description (and detailed links) of compound and reduced-size modes. In particular mentioned it applies only to sending packets.\n\nshouldn\u0027t check mode is Compound since Compound packets can and should be send in both modes.\n(Reduced size are allowed only in newer reduced size mode.)\n\nsetting to Compound or ReducedSize doesn\u0027t disable any functionality, it just changes how outgoing packets look like.\n\nKeyframe request is the the first implemented message that make sense in reduced size mode. (starting with rr makes packet compound, sdes should follow rr, remb is questionable)",
+      "parentUuid": "c561b484_c3c8323e",
+      "range": {
+        "startLine": 205,
+        "startChar": 26,
+        "endLine": 205,
+        "endChar": 36
+      },
+      "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "554bdd40_382c9769",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49f5927b_3f0b84f8",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T12:07:09Z",
+      "side": 1,
+      "message": "comments added, not sure how to explain it in code without comments:\nthis test verifies enough plis packets are sent to cover all requested ssrc.\n\nnext test is not much about key frame (at least not about pli) but about compound/reduced size modes:\ncompound mode should force a receiver report, reduced-mode - shouldn\u0027t",
+      "parentUuid": "554bdd40_382c9769",
+      "range": {
+        "startLine": 465,
+        "startChar": 0,
+        "endLine": 465,
+        "endChar": 49
+      },
+      "revId": "f76ebc5137d57727cc6cd2b852af082ccb665c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

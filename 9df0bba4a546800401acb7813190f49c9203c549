@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d4777bd_3542d47e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T14:29:06Z",
+      "side": 1,
+      "message": "Unrelated to this cl, but also check that initial_report_delay_delay_ms \u003e\u003d 0 ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "9df0bba4a546800401acb7813190f49c9203c549",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f9af70_63994f0a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T14:29:06Z",
+      "side": 1,
+      "message": "Is it important to have a special case for delay_ms \u003d\u003d 0 here? It would be conciser with just\n\n...-\u003ePostDelayedTask(rtc::MakeUnique\u003c...\u003e(...), delay_ms);",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 50
+      },
+      "revId": "9df0bba4a546800401acb7813190f49c9203c549",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6981371f_a10ab091",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T14:29:06Z",
+      "side": 1,
+      "message": "Maybe this is a good place for a comment like\n\n// Attach the receiver report and sdes message required at the start of a compound packet (see https://tools.ietf.org/html/rfc3550#section-6.1).\n\nBTW, that rfc says that SDES MUST be included. So maybe we should generate one even if cname is empty? \n\nAlso, from that RFC, I\u0027m not sure what to do in case the data has to be split into multiple UDP packets. As I read it, each of the pieces ought to be a \"compound packet\" in itself, starting with sender or receiver report, and SDES. Is that reading too strict? (If it needs fixing, that can be a separate cl).\n\nAnd to ensure that the messages added in this method really is first in the packet, could we change it to create and return a sender object (by value if that is reasonable, otherwise unique_ptr)?",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 70
+      },
+      "revId": "9df0bba4a546800401acb7813190f49c9203c549",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

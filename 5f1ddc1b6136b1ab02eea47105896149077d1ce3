@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf7d3502_0a4e2f5f",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T12:36:01Z",
+      "side": 1,
+      "message": "Not sure how to clarify, but it\u0027s a bit confusing that we talk about (i) reduced size *packets* and (ii) reduced size *mode*, where the latter allows both types of packets.",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 74
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d10017da_e59ef79b",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T12:36:01Z",
+      "side": 1,
+      "message": "Consider extracting this into a helper function, so RequestKeyFrame could avoid duplicating it and instead do\n\nif (config_.rtcp_mode \u003d\u003d RtcpMode::kCompound) {\n  Reschedule...();\n}\n\nOr maybe that would just add clutter?",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56ff07aa_2cc44943",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T12:36:01Z",
+      "side": 1,
+      "message": "I see, the ssrc list is exploded to produce one rtcp message per ssrc.\n\nHow does this work in reduced-size mode, sender.Send() emits multiple packets?",
+      "range": {
+        "startLine": 129,
+        "startChar": 37,
+        "endLine": 129,
+        "endChar": 0
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a0c58b0_51d4978a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T12:36:01Z",
+      "side": 1,
+      "message": "Nit: It would look cleaner with pli variable being local to the loop, even if that means that the SetSenderSsrc would be repeated. It would be even nicer with construction-time settings,\n\nsender.AppendPacket(rtcp::Pli(sender_ssrc, media_ssrc));",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 7
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63468a6f_00cb78bf",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-20T12:36:01Z",
+      "side": 1,
+      "message": "If it\u0027s easy, I think it would make sense to also check that we got a pli message, here and in the next test. That\u0027s not adding more coverage of the code, but it checks that the test itself is working correctly.",
+      "range": {
+        "startLine": 488,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 75
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

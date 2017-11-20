@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c8668bbb_081cf52c",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T15:33:43Z",
+      "side": 1,
+      "message": "Done, yep, should have added it in some previous CL, attaching to this one.\n(do not see reasonable future CL where it will make more sense to attach and seems too small not to bother about dedicated CL)",
+      "parentUuid": "5d4777bd_3542d47e",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "9df0bba4a546800401acb7813190f49c9203c549",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20f9af70_63994f0a",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c8c83533_6b4b318e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T15:33:43Z",
+      "side": 1,
+      "message": "not too important. but feels safer and faster:\n\nPostDelayedTask takes uint32_t, so passing it negative integer would likely give surprising result, i.e. careful boundary check would be needed when delay_ms will have more complicated calculation.\n\nfor delay_ms \u003d 0 (practically rare, but valid) PostTask seems to be much simpler than PostDelayedTask. PostDelayedTask may add unnecessary delay.\n\nI\u0027ll rethink this when delay_ms will be more complicated than just taking one of values from the config. (may be then this function will become more complicated too and then it would make sense to simplify call to PostDelayTask)",
+      "parentUuid": "20f9af70_63994f0a",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 50
+      },
+      "revId": "9df0bba4a546800401acb7813190f49c9203c549",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6981371f_a10ab091",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 5
@@ -68,6 +116,30 @@
       "revId": "9df0bba4a546800401acb7813190f49c9203c549",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae8a1be_3ed74bff",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T15:33:43Z",
+      "side": 1,
+      "message": "link https://tools.ietf.org/html/rfc5506#section-2 seems more modern:\nterminology \u0027Compound packet\u0027 wasn\u0027t defined rfc3550 (since back then there were no other kind of composed packets).\nput it near declaration comment to .h file:\nhttps://google.github.io/styleguide/cppguide.html#Function_Comments\n\nyes, rfc mandate to include SDES, cname is the primary reason to do it, it is not useful to include empty SDES. But for backward compatibility with current RtpRtcp, RtcpTransceiver ignores this requirement. The only improvement so far: it prints a warning when cname is missing.\n\nyes, when splitting rtcp packet into several in compound mode, each should be compound packet. That part is currently silently ignored too (same as in current RtpRtcp). Added a TODO: would be nice to fix, but this is more a theoretical issue: not aware about any complains.\n\nTo ensure compound packet generated in the beginning, added a DCHECK",
+      "parentUuid": "6981371f_a10ab091",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 70
+      },
+      "revId": "9df0bba4a546800401acb7813190f49c9203c549",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

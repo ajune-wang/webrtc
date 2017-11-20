@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "318deab1_c9422667",
+        "filename": "rtc_base/event_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2017-11-20T11:30:47Z",
+      "side": 1,
+      "message": "nit: Foo* foo",
+      "range": {
+        "startLine": 46,
+        "startChar": 6,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "4d9399e6ea80ac4bd49bb8d08b73096a73c946d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b70b3ad6_4031b3ff",
+        "filename": "rtc_base/event_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2017-11-20T11:30:47Z",
+      "side": 1,
+      "message": "nit: no space after type (same as above basically)",
+      "range": {
+        "startLine": 56,
+        "startChar": 27,
+        "endLine": 56,
+        "endChar": 41
+      },
+      "revId": "4d9399e6ea80ac4bd49bb8d08b73096a73c946d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -31,7 +31,7 @@ const size_t kMaxVuiSpsIncrease = 64;
 
 #define RETURN_FALSE_ON_FAIL(x)                                      \
   if (!(x)) {                                                        \
-    RTC_LOG_F(LS_ERROR) << " (line:" << __LINE__ << ") FAILED: " #x; \
+    RTC_DLOG_F(LS_ERROR) << " (line:" << __LINE__ << ") FAILED: " #x; \
     return false;                                                    \
   }
 
@@ -271,7 +271,7 @@ bool CopyAndRewriteVui(Sps sps,
           source->ReadExponentialGolomb(&max_dec_frame_buffering));
       if (max_num_reorder_frames == 0 &&
           max_dec_frame_buffering <= sps.max_num_ref_frames) {
-        RTC_LOG(LS_INFO) << "VUI bitstream already contains an optimal VUI.";
+        RTC_DLOG(LS_INFO) << "VUI bitstream already contains an optimal VUI.";
         *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiOk;
         return true;
       }

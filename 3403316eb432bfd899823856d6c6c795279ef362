@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f508721a_7a539c5f",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-11-20T08:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d785f75f_241cd370",
+      "range": {
+        "startLine": 607,
+        "startChar": 69,
+        "endLine": 607,
+        "endChar": 71
+      },
+      "revId": "3403316eb432bfd899823856d6c6c795279ef362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17813c2e_04fbfab7",
         "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "3403316eb432bfd899823856d6c6c795279ef362",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c6411d3_77829de5",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-11-20T08:16:46Z",
+      "side": 1,
+      "message": "Added a comment to make clear that this was intentional.",
+      "parentUuid": "17813c2e_04fbfab7",
+      "range": {
+        "startLine": 777,
+        "startChar": 47,
+        "endLine": 777,
+        "endChar": 60
+      },
+      "revId": "3403316eb432bfd899823856d6c6c795279ef362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c5b1ac1a_a412eaab",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-11-20T08:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30539b2d_9b45218b",
+      "range": {
+        "startLine": 800,
+        "startChar": 13,
+        "endLine": 800,
+        "endChar": 14
+      },
+      "revId": "3403316eb432bfd899823856d6c6c795279ef362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b30c6aeb_4db6ea6c",
         "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "3403316eb432bfd899823856d6c6c795279ef362",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "700e5de7_8e83bd04",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-11-20T08:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b30c6aeb_4db6ea6c",
+      "range": {
+        "startLine": 807,
+        "startChar": 30,
+        "endLine": 807,
+        "endChar": 31
+      },
+      "revId": "3403316eb432bfd899823856d6c6c795279ef362",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

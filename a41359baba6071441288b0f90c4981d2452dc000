@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2bf795d_96d501bf",
+        "filename": "examples/unityplugin/simple_peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5653
+      },
+      "writtenOn": "2017-11-20T19:38:42Z",
+      "side": 1,
+      "message": "Why this can not be nullptr. According to \nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/peerconnectioninterface.h?sq\u003dpackage:chromium\u0026l\u003d1110\n\n// |network_thread|, |worker_thread| and |signaling_thread| are\n// the only mandatory parameters.",
+      "range": {
+        "startLine": 96,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "a41359baba6071441288b0f90c4981d2452dc000",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

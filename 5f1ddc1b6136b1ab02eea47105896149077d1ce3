@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8a99a42b_99b228d9",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T13:33:15Z",
+      "side": 1,
+      "message": "unmentioned \u0027reduced-size mode\u0027 for receiving, hope it become less confusing.\nThere is no special code to handle incoming reduced-size packets. There is only absence of code that would validate incoming packets to be compound.\n(reduced-size mode is configuration state, reduced-size packet is a format of something appeared on the wire)",
+      "parentUuid": "cf7d3502_0a4e2f5f",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 74
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d10017da_e59ef79b",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1ec1a99a_91c42527",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T13:33:15Z",
+      "side": 1,
+      "message": "Done. look cleaner even now.\nWill sure be more helpful with more messages that may reschedule periodic compound packets.",
+      "parentUuid": "d10017da_e59ef79b",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56ff07aa_2cc44943",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-20T12:36:01Z",
       "side": 1,
       "message": "I see, the ssrc list is exploded to produce one rtcp message per ssrc.\n\nHow does this work in reduced-size mode, sender.Send() emits multiple packets?",
+      "range": {
+        "startLine": 129,
+        "startChar": 37,
+        "endLine": 129,
+        "endChar": 0
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfcc37a6_cf5aee9e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T13:33:15Z",
+      "side": 1,
+      "message": "no, reduced size packet still consists of several individual rtcp packets attached one to another. so reduced size still will produce single packet in the Lower layer datagram\nwhere whould be good place to put terminology link?\nhttps://tools.ietf.org/html/rfc5506#section-2\n(link to rfc itself is already near new rtcp_mode flag)",
+      "parentUuid": "56ff07aa_2cc44943",
       "range": {
         "startLine": 129,
         "startChar": 37,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d215795b_2effbbe7",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T13:33:15Z",
+      "side": 1,
+      "message": "Done, looks better.\nbut constructor might be less nice: it will make too easy to erroneously swap ssrcs.",
+      "parentUuid": "9a0c58b0_51d4978a",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 7
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63468a6f_00cb78bf",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7cabe8b_10f75597",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-20T13:33:15Z",
+      "side": 1,
+      "message": "do not want to check for pli message, since key frame request doesn\u0027t mean pli will be sent (next CL https://webrtc-review.googlesource.com/c/src/+/22961, currently in draft, adds sending KeyFrameRequest using rtcp Fir message)\n\nEXPECT_CALL in tests ensures that some rtcp message is sent.\nschedule_periodic_compound_packets \u003d false ensures it is not the periodic one.\ncomments added.",
+      "parentUuid": "63468a6f_00cb78bf",
+      "range": {
+        "startLine": 488,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 75
+      },
+      "revId": "5f1ddc1b6136b1ab02eea47105896149077d1ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

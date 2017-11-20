@@ -10,57 +10,33 @@
 
 #include "sdk/android/src/jni/pc/datachannelobserver_jni.h"
 
-#include "sdk/android/src/jni/classreferenceholder.h"
+#include "sdk/android/generated_peerconnection_jni/jni/DataChannel_jni.h"
 
 namespace webrtc {
 namespace jni {
 
-// Convenience, used since callbacks occur on the signaling thread, which may
-// be a non-Java thread.
-static JNIEnv* jni() {
-  return AttachCurrentThreadIfNeeded();
-}
-
 DataChannelObserverJni::DataChannelObserverJni(JNIEnv* jni, jobject j_observer)
-    : j_observer_global_(jni, j_observer),
-      j_observer_class_(jni, GetObjectClass(jni, j_observer)),
-      j_buffer_class_(jni, FindClass(jni, "org/webrtc/DataChannel$Buffer")),
-      j_on_buffered_amount_change_mid_(GetMethodID(jni,
-                                                   *j_observer_class_,
-                                                   "onBufferedAmountChange",
-                                                   "(J)V")),
-      j_on_state_change_mid_(
-          GetMethodID(jni, *j_observer_class_, "onStateChange", "()V")),
-      j_on_message_mid_(GetMethodID(jni,
-                                    *j_observer_class_,
-                                    "onMessage",
-                                    "(Lorg/webrtc/DataChannel$Buffer;)V")),
-      j_buffer_ctor_(GetMethodID(jni,
-                                 *j_buffer_class_,
-                                 "<init>",
-                                 "(Ljava/nio/ByteBuffer;Z)V")) {}
+    : j_observer_global_(jni, j_observer) {}
 
 void DataChannelObserverJni::OnBufferedAmountChange(uint64_t previous_amount) {
-  ScopedLocalRefFrame local_ref_frame(jni());
-  jni()->CallVoidMethod(*j_observer_global_, j_on_buffered_amount_change_mid_,
-                        previous_amount);
-  CHECK_EXCEPTION(jni()) << "error during CallVoidMethod";
+  JNIEnv* env = AttachCurrentThreadIfNeeded();
+  Java_DataChannel_Observer_onBufferedAmountChange(env, *j_observer_global_,
+                                                   previous_amount);
 }
 
 void DataChannelObserverJni::OnStateChange() {
-  ScopedLocalRefFrame local_ref_frame(jni());
-  jni()->CallVoidMethod(*j_observer_global_, j_on_state_change_mid_);
-  CHECK_EXCEPTION(jni()) << "error during CallVoidMethod";
+  JNIEnv* env = AttachCurrentThreadIfNeeded();
+  Java_DataChannel_Observer_onStateChange(env, *j_observer_global_);
 }
 
 void DataChannelObserverJni::OnMessage(const DataBuffer& buffer) {
-  ScopedLocalRefFrame local_ref_frame(jni());
-  jobject byte_buffer = jni()->NewDirectByteBuffer(
+  JNIEnv* env = AttachCurrentThreadIfNeeded();
+  ScopedLocalRefFrame local_ref_frame(env);
+  jobject byte_buffer = env->NewDirectByteBuffer(
       const_cast<char*>(buffer.data.data<char>()), buffer.data.size());
-  jobject j_buffer = jni()->NewObject(*j_buffer_class_, j_buffer_ctor_,
-                                      byte_buffer, buffer.binary);
-  jni()->CallVoidMethod(*j_observer_global_, j_on_message_mid_, j_buffer);
-  CHECK_EXCEPTION(jni()) << "error during CallVoidMethod";
+  jobject j_buffer =
+      Java_DataChannel_Buffer_create(env, byte_buffer, buffer.binary);
+  Java_DataChannel_Observer_onMessage(env, *j_observer_global_, j_buffer);
 }
 
 }  // namespace jni

@@ -30,12 +30,6 @@ class DataChannelObserverJni : public DataChannelObserver {
 
  private:
   const ScopedGlobalRef<jobject> j_observer_global_;
-  const ScopedGlobalRef<jclass> j_observer_class_;
-  const ScopedGlobalRef<jclass> j_buffer_class_;
-  const jmethodID j_on_buffered_amount_change_mid_;
-  const jmethodID j_on_state_change_mid_;
-  const jmethodID j_on_message_mid_;
-  const jmethodID j_buffer_ctor_;
 };
 
 }  // namespace jni

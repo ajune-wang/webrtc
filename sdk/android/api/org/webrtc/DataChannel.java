@@ -55,20 +55,25 @@ public class DataChannel {
       this.data = data;
       this.binary = binary;
     }
+
+    @CalledByNative("DataChannel_Buffer")
+    static Buffer create(ByteBuffer data, boolean binary) {
+      return new Buffer(data, binary);
+    }
   }
 
   /** Java version of C++ DataChannelObserver. */
   public interface Observer {
     /** The data channel's bufferedAmount has changed. */
-    public void onBufferedAmountChange(long previousAmount);
+    @CalledByNative("DataChannel_Observer") public void onBufferedAmountChange(long previousAmount);
     /** The data channel state has changed. */
-    public void onStateChange();
+    @CalledByNative("DataChannel_Observer") public void onStateChange();
     /**
      * A data buffer was successfully received.  NOTE: |buffer.data| will be
      * freed once this function returns so callers who want to use the data
      * asynchronously must make sure to copy it first.
      */
-    public void onMessage(Buffer buffer);
+    @CalledByNative("DataChannel_Observer") public void onMessage(Buffer buffer);
   }
 
   /** Keep in sync with DataChannelInterface::DataState. */

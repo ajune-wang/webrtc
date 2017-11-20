@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "454b9a01_71f24869",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-20T22:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c17acca1_306d17e6",
+      "revId": "f6902d554d72208912f89af981b2328d2af57361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5935892_478dd89e",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "f6902d554d72208912f89af981b2328d2af57361",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "235d2168_2e7d4ac0",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-20T22:21:26Z",
+      "side": 1,
+      "message": "I have a TODO a few lines up that should cover that. I\u0027ll clarify the comment.",
+      "parentUuid": "d5935892_478dd89e",
+      "revId": "f6902d554d72208912f89af981b2328d2af57361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "cd0ba97f_f7a0cf56",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-20T22:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efcf141b_3cc244a8",
+      "range": {
+        "startLine": 641,
+        "startChar": 43,
+        "endLine": 641,
+        "endChar": 0
+      },
+      "revId": "f6902d554d72208912f89af981b2328d2af57361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b34cd3b9_809ceb17",
         "filename": "api/rtptransceiverinterface.h",
         "patchSetId": 2
@@ -79,6 +139,30 @@
       "revId": "f6902d554d72208912f89af981b2328d2af57361",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12d7c991_c76eb466",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-20T22:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b34cd3b9_809ceb17",
+      "range": {
+        "startLine": 32,
+        "startChar": 43,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "f6902d554d72208912f89af981b2328d2af57361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "5a907571_a0eddabe",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-20T22:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88cab328_a57eb493",
+      "range": {
+        "startLine": 23,
+        "startChar": 71,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "f6902d554d72208912f89af981b2328d2af57361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a34cebf9_090d5205",
         "filename": "pc/rtptransceiver.h",
         "patchSetId": 2
@@ -125,6 +233,30 @@
       "revId": "f6902d554d72208912f89af981b2328d2af57361",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56fb9cd2_978fb1b2",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-20T22:21:26Z",
+      "side": 1,
+      "message": "I don\u0027t think it would break anything, but I switched it back since it\u0027s not needed.",
+      "parentUuid": "a34cebf9_090d5205",
+      "range": {
+        "startLine": 133,
+        "startChar": 74,
+        "endLine": 133,
+        "endChar": 0
+      },
+      "revId": "f6902d554d72208912f89af981b2328d2af57361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

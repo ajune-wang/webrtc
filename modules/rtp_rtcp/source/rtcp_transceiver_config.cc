@@ -58,6 +58,10 @@ bool RtcpTransceiverConfig::Validate() const {
                       << "missing task queue for periodic compound packets";
     return false;
   }
+  if (rtcp_mode != RtcpMode::kCompound && rtcp_mode != RtcpMode::kReducedSize) {
+    RTC_LOG(LS_ERROR) << debug_id << "unsupported rtcp mode";
+    return false;
+  }
   // TODO(danilchap): Remove or update the warning when RtcpTransceiver supports
   // send-only sessions.
   if (receive_statistics == nullptr)

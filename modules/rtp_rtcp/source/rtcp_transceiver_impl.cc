@@ -17,6 +17,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/pli.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
@@ -28,11 +29,11 @@
 #include "rtc_base/timeutils.h"
 
 namespace webrtc {
-namespace {
 
 // Helper to put several RTCP packets into lower layer datagram composing
 // Compound or Reduced-Size RTCP packet, as defined by RFC 5506 section 2.
-class PacketSender : public rtcp::RtcpPacket::PacketReadyCallback {
+class RtcpTransceiverImpl::PacketSender
+    : public rtcp::RtcpPacket::PacketReadyCallback {
  public:
   PacketSender(Transport* transport, size_t max_packet_size)
       : transport_(transport), max_packet_size_(max_packet_size) {
@@ -68,8 +69,6 @@ class PacketSender : public rtcp::RtcpPacket::PacketReadyCallback {
   uint8_t buffer_[IP_PACKET_SIZE];
 };
 
-}  // namespace
-
 RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
     : config_(config), ptr_factory_(this) {
   RTC_CHECK(config_.Validate());
@@ -94,7 +93,7 @@ void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet,
 }
 
 void RtcpTransceiverImpl::SendCompoundPacket() {
-  SendPacket();
+  SendPeriodicCompoundPacket();
   if (config_.schedule_periodic_compound_packets) {
     // Stop existent send task.
     ptr_factory_.InvalidateWeakPtrs();
@@ -117,6 +116,32 @@ void RtcpTransceiverImpl::UnsetRemb() {
   remb_.reset();
 }
 
+void RtcpTransceiverImpl::RequestKeyFrame(
+    rtc::ArrayView<const uint32_t> ssrcs) {
+  RTC_DCHECK(!ssrcs.empty());
+  const uint32_t sender_ssrc = config_.feedback_ssrc;
+  PacketSender sender(config_.outgoing_transport, config_.max_packet_size);
+  if (config_.rtcp_mode == RtcpMode::kCompound)
+    CreateCompoundPacket(&sender);
+
+  rtcp::Pli pli;
+  pli.SetSenderSsrc(sender_ssrc);
+  for (uint32_t media_ssrc : ssrcs) {
+    pli.SetMediaSsrc(media_ssrc);
+    sender.AppendPacket(pli);
+  }
+
+  sender.Send();
+
+  // Reschedule next periodic compound packet.
+  if (config_.rtcp_mode == RtcpMode::kCompound &&
+      config_.schedule_periodic_compound_packets) {
+    // Stop existent send task.
+    ptr_factory_.InvalidateWeakPtrs();
+    SchedulePeriodicCompoundPackets(config_.report_period_ms);
+  }
+}
+
 void RtcpTransceiverImpl::HandleReceivedPacket(
     const rtcp::CommonHeader& rtcp_packet_header,
     int64_t now_us) {
@@ -135,16 +160,16 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
 }
 
 void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
-  class SendPeriodicCompoundPacket : public rtc::QueuedTask {
+  class SendPeriodicCompoundPacketTask : public rtc::QueuedTask {
    public:
-    SendPeriodicCompoundPacket(rtc::TaskQueue* task_queue,
-                               rtc::WeakPtr<RtcpTransceiverImpl> ptr)
+    SendPeriodicCompoundPacketTask(rtc::TaskQueue* task_queue,
+                                   rtc::WeakPtr<RtcpTransceiverImpl> ptr)
         : task_queue_(task_queue), ptr_(std::move(ptr)) {}
     bool Run() override {
       RTC_DCHECK(task_queue_->IsCurrent());
       if (!ptr_)
         return true;
-      ptr_->SendPacket();
+      ptr_->SendPeriodicCompoundPacket();
       task_queue_->PostDelayedTask(rtc::WrapUnique(this),
                                    ptr_->config_.report_period_ms);
       return false;
@@ -157,7 +182,7 @@ void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
 
   RTC_DCHECK(config_.schedule_periodic_compound_packets);
 
-  auto task = rtc::MakeUnique<SendPeriodicCompoundPacket>(
+  auto task = rtc::MakeUnique<SendPeriodicCompoundPacketTask>(
       config_.task_queue, ptr_factory_.GetWeakPtr());
   if (delay_ms > 0)
     config_.task_queue->PostDelayedTask(std::move(task), delay_ms);
@@ -165,27 +190,29 @@ void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
     config_.task_queue->PostTask(std::move(task));
 }
 
-void RtcpTransceiverImpl::SendPacket() {
-  PacketSender sender(config_.outgoing_transport, config_.max_packet_size);
+void RtcpTransceiverImpl::CreateCompoundPacket(PacketSender* sender) {
   const uint32_t sender_ssrc = config_.feedback_ssrc;
-
   rtcp::ReceiverReport receiver_report;
   receiver_report.SetSenderSsrc(sender_ssrc);
   receiver_report.SetReportBlocks(CreateReportBlocks());
-  sender.AppendPacket(receiver_report);
+  sender->AppendPacket(receiver_report);
 
   if (!config_.cname.empty()) {
     rtcp::Sdes sdes;
     bool added = sdes.AddCName(config_.feedback_ssrc, config_.cname);
     RTC_DCHECK(added) << "Failed to add cname " << config_.cname
                       << " to rtcp sdes packet.";
-    sender.AppendPacket(sdes);
+    sender->AppendPacket(sdes);
   }
   if (remb_) {
     remb_->SetSenderSsrc(sender_ssrc);
-    sender.AppendPacket(*remb_);
+    sender->AppendPacket(*remb_);
   }
+}
 
+void RtcpTransceiverImpl::SendPeriodicCompoundPacket() {
+  PacketSender sender(config_.outgoing_transport, config_.max_packet_size);
+  CreateCompoundPacket(&sender);
   sender.Send();
 }
 

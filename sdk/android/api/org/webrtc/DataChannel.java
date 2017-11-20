@@ -28,15 +28,34 @@ public class DataChannel {
 
     public Init() {}
 
-    // Called only by native code.
-    private Init(boolean ordered, int maxRetransmitTimeMs, int maxRetransmits, String protocol,
-        boolean negotiated, int id) {
-      this.ordered = ordered;
-      this.maxRetransmitTimeMs = maxRetransmitTimeMs;
-      this.maxRetransmits = maxRetransmits;
-      this.protocol = protocol;
-      this.negotiated = negotiated;
-      this.id = id;
+    @CalledByNative("DataChannel_Init")
+    boolean getOrdered() {
+      return ordered;
+    }
+
+    @CalledByNative("DataChannel_Init")
+    int getMaxRetransmitTimeMs() {
+      return maxRetransmitTimeMs;
+    }
+
+    @CalledByNative("DataChannel_Init")
+    int getMaxRetransmits() {
+      return maxRetransmits;
+    }
+
+    @CalledByNative("DataChannel_Init")
+    String getProtocol() {
+      return protocol;
+    }
+
+    @CalledByNative("DataChannel_Init")
+    boolean getNegotiated() {
+      return negotiated;
+    }
+
+    @CalledByNative("DataChannel_Init")
+    int getId() {
+      return id;
     }
   }
 
@@ -55,20 +74,25 @@ public class DataChannel {
       this.data = data;
       this.binary = binary;
     }
+
+    @CalledByNative("DataChannel_Buffer")
+    static Buffer create(ByteBuffer data, boolean binary) {
+      return new Buffer(data, binary);
+    }
   }
 
   /** Java version of C++ DataChannelObserver. */
   public interface Observer {
     /** The data channel's bufferedAmount has changed. */
-    public void onBufferedAmountChange(long previousAmount);
+    @CalledByNative("DataChannel_Observer") public void onBufferedAmountChange(long previousAmount);
     /** The data channel state has changed. */
-    public void onStateChange();
+    @CalledByNative("DataChannel_Observer") public void onStateChange();
     /**
      * A data buffer was successfully received.  NOTE: |buffer.data| will be
      * freed once this function returns so callers who want to use the data
      * asynchronously must make sure to copy it first.
      */
-    public void onMessage(Buffer buffer);
+    @CalledByNative("DataChannel_Observer") public void onMessage(Buffer buffer);
   }
 
   /** Keep in sync with DataChannelInterface::DataState. */
@@ -79,6 +103,11 @@ public class DataChannel {
 
   public DataChannel(long nativeDataChannel) {
     this.nativeDataChannel = nativeDataChannel;
+  }
+
+  @CalledByNative
+  private static DataChannel create(long nativeDataChannel) {
+    return new DataChannel(nativeDataChannel);
   }
 
   /** Register |observer|, replacing any previously-registered observer. */
@@ -123,5 +152,12 @@ public class DataChannel {
   private native boolean sendNative(byte[] data, boolean binary);
 
   /** Dispose of native resources attached to this channel. */
-  public native void dispose();
+  public void dispose() {
+    JniCommon.nativeReleaseRef(nativeDataChannel);
+  }
+
+  @CalledByNative
+  long getNativeDataChannel() {
+    return nativeDataChannel;
+  }
 };

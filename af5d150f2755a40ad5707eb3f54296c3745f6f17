@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77e72d0f_26d159dd",
+        "filename": "modules/audio_device/mac/audio_mixer_manager_mac.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-20T15:27:34Z",
+      "side": 1,
+      "message": "Add comment which describes why this check is required.",
+      "revId": "af5d150f2755a40ad5707eb3f54296c3745f6f17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

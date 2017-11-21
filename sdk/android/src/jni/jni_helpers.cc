@@ -307,8 +307,8 @@ jobject JavaEnumFromIndexAndClassName(JNIEnv* jni,
                                       const std::string& state_class_fragment,
                                       int index) {
   const std::string state_class = "org/webrtc/" + state_class_fragment;
-  return JavaEnumFromIndex(jni, FindClass(jni, state_class.c_str()),
-                           state_class, index);
+  return JavaEnumFromIndex(jni, GetClass(jni, state_class.c_str()), state_class,
+                           index);
 }
 
 std::string GetJavaEnumName(JNIEnv* jni, jobject j_enum) {

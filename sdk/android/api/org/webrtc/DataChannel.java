@@ -11,6 +11,8 @@
 package org.webrtc;
 
 import java.nio.ByteBuffer;
+// TODO(bugs.webrtc.org/8556): Remove unnecessary import.
+import org.webrtc.DataChannel;
 
 /** Java wrapper for a C++ DataChannelInterface. */
 public class DataChannel {
@@ -28,15 +30,34 @@ public class DataChannel {
 
     public Init() {}
 
-    // Called only by native code.
-    private Init(boolean ordered, int maxRetransmitTimeMs, int maxRetransmits, String protocol,
-        boolean negotiated, int id) {
-      this.ordered = ordered;
-      this.maxRetransmitTimeMs = maxRetransmitTimeMs;
-      this.maxRetransmits = maxRetransmits;
-      this.protocol = protocol;
-      this.negotiated = negotiated;
-      this.id = id;
+    @CalledByNative("Init")
+    boolean getOrdered() {
+      return ordered;
+    }
+
+    @CalledByNative("Init")
+    int getMaxRetransmitTimeMs() {
+      return maxRetransmitTimeMs;
+    }
+
+    @CalledByNative("Init")
+    int getMaxRetransmits() {
+      return maxRetransmits;
+    }
+
+    @CalledByNative("Init")
+    String getProtocol() {
+      return protocol;
+    }
+
+    @CalledByNative("Init")
+    boolean getNegotiated() {
+      return negotiated;
+    }
+
+    @CalledByNative("Init")
+    int getId() {
+      return id;
     }
   }
 
@@ -55,30 +76,51 @@ public class DataChannel {
       this.data = data;
       this.binary = binary;
     }
+
+    @CalledByNative("Buffer")
+    static Buffer create(ByteBuffer data, boolean binary) {
+      return new Buffer(data, binary);
+    }
   }
 
   /** Java version of C++ DataChannelObserver. */
   public interface Observer {
     /** The data channel's bufferedAmount has changed. */
-    public void onBufferedAmountChange(long previousAmount);
+    @CalledByNative("Observer") public void onBufferedAmountChange(long previousAmount);
     /** The data channel state has changed. */
-    public void onStateChange();
+    @CalledByNative("Observer") public void onStateChange();
     /**
      * A data buffer was successfully received.  NOTE: |buffer.data| will be
      * freed once this function returns so callers who want to use the data
      * asynchronously must make sure to copy it first.
      */
-    public void onMessage(Buffer buffer);
+    @CalledByNative("Observer") public void onMessage(Buffer buffer);
   }
 
   /** Keep in sync with DataChannelInterface::DataState. */
-  public enum State { CONNECTING, OPEN, CLOSING, CLOSED }
+  public enum State {
+    CONNECTING,
+    OPEN,
+    CLOSING,
+    CLOSED;
+
+    // TODO(bugs.webrtc.org/8556): Remove unnecessary 'DataChannel.'.
+    @CalledByNative("State")
+    static DataChannel.State fromNativeIndex(int nativeIndex) {
+      return values()[nativeIndex];
+    }
+  }
 
   private final long nativeDataChannel;
   private long nativeObserver;
 
   public DataChannel(long nativeDataChannel) {
     this.nativeDataChannel = nativeDataChannel;
+  }
+
+  @CalledByNative
+  private static DataChannel create(long nativeDataChannel) {
+    return new DataChannel(nativeDataChannel);
   }
 
   /** Register |observer|, replacing any previously-registered observer. */
@@ -123,5 +165,12 @@ public class DataChannel {
   private native boolean sendNative(byte[] data, boolean binary);
 
   /** Dispose of native resources attached to this channel. */
-  public native void dispose();
+  public void dispose() {
+    JniCommon.nativeReleaseRef(nativeDataChannel);
+  }
+
+  @CalledByNative
+  long getNativeDataChannel() {
+    return nativeDataChannel;
+  }
 };

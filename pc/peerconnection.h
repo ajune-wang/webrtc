@@ -176,8 +176,9 @@ class PeerConnection : public PeerConnectionInterface,
   void SetAudioPlayout(bool playout) override;
   void SetAudioRecording(bool recording) override;
 
-  RTC_DEPRECATED bool StartRtcEventLog(rtc::PlatformFile file,
-                                       int64_t max_size_bytes) override;
+  RTC_DEPRECATED()
+  bool StartRtcEventLog(rtc::PlatformFile file,
+                        int64_t max_size_bytes) override;
   bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output) override;
   void StopRtcEventLog() override;
 

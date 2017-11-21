@@ -14,7 +14,8 @@
 // Annotate the declarations of deprecated functions with this to cause a
 // compiler warning when they're used. Like so:
 //
-//   RTC_DEPRECATED std::pony PonyPlz(const std::pony_spec& ps);
+//   RTC_DEPRECATED("bugs.webrtc.org/1337")
+//   std::pony PonyPlz(const std::pony_spec& ps);
 //
 // NOTE 1: The annotation goes on the declaration in the .h file, not the
 // definition in the .cc file!
@@ -23,7 +24,9 @@
 // getting warnings, do something like this:
 //
 //   std::pony DEPRECATED_PonyPlz(const std::pony_spec& ps);
-//   RTC_DEPRECATED inline std::pony PonyPlz(const std::pony_spec& ps) {
+//
+//   RTC_DEPRECATED("bugs.webrtc.org/1337")
+//   inline std::pony PonyPlz(const std::pony_spec& ps) {
 //     return DEPRECATED_PonyPlz(ps);
 //   }
 //
@@ -35,11 +38,11 @@
 #if defined(_MSC_VER)
 // Note: Deprecation warnings seem to fail to trigger on Windows
 // (https://bugs.chromium.org/p/webrtc/issues/detail?id=5368).
-#define RTC_DEPRECATED __declspec(deprecated)
+#define RTC_DEPRECATED(...) __declspec(deprecated)
 #elif defined(__GNUC__)
-#define RTC_DEPRECATED __attribute__ ((__deprecated__))
+#define RTC_DEPRECATED(...) __attribute__((__deprecated__))
 #else
-#define RTC_DEPRECATED
+#define RTC_DEPRECATED(...)
 #endif
 
 #endif  // RTC_BASE_DEPRECATION_H_

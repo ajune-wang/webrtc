@@ -39,7 +39,8 @@ class BitrateControllerImpl : public BitrateController {
 
   bool AvailableBandwidth(uint32_t* bandwidth) const override;
 
-  RTC_DEPRECATED RtcpBandwidthObserver* CreateRtcpBandwidthObserver() override;
+  RTC_DEPRECATED()
+  RtcpBandwidthObserver* CreateRtcpBandwidthObserver() override;
 
   // Deprecated
   void SetStartBitrate(int start_bitrate_bps) override;

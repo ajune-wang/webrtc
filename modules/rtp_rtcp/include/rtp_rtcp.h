@@ -435,7 +435,7 @@ class RtpRtcp : public Module {
                                 const FecProtectionParams& key_params) = 0;
 
   // Deprecated version of member function above.
-  RTC_DEPRECATED
+  RTC_DEPRECATED()
   int32_t SetFecParameters(const FecProtectionParams* delta_params,
                            const FecProtectionParams* key_params);
 

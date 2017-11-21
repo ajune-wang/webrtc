@@ -83,7 +83,7 @@ class AudioCodingModule {
   // delete it when destroyed.
   //
   // TODO(solenberg): Remove once downstream projects are updated.
-  RTC_DEPRECATED static AudioCodingModule* Create(int id);
+  RTC_DEPRECATED() static AudioCodingModule* Create(int id);
   static AudioCodingModule* Create();
   static AudioCodingModule* Create(Clock* clock);
   static AudioCodingModule* Create(const Config& config);
@@ -635,7 +635,7 @@ class AudioCodingModule {
   //    0 if the output is a correct timestamp.
   //   -1 if failed to output the correct timestamp.
   //
-  RTC_DEPRECATED virtual int32_t PlayoutTimestamp(uint32_t* timestamp) = 0;
+  RTC_DEPRECATED() virtual int32_t PlayoutTimestamp(uint32_t* timestamp) = 0;
 
   ///////////////////////////////////////////////////////////////////////////
   // int32_t PlayoutTimestamp()

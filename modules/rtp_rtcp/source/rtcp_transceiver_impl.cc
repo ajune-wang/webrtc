@@ -17,6 +17,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/fir.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/pli.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
@@ -29,6 +30,22 @@
 #include "rtc_base/timeutils.h"
 
 namespace webrtc {
+namespace {
+
+struct SenderReportTimes {
+  SenderReportTimes(int64_t local_received_time_us, NtpTime remote_sent_time)
+      : local_received_time_us(local_received_time_us),
+        remote_sent_time(remote_sent_time) {}
+  int64_t local_received_time_us;
+  NtpTime remote_sent_time;
+};
+
+}  // namespace
+
+struct RtcpTransceiverImpl::RemoteSenderDetails {
+  uint8_t fir_sequence_number = 0;
+  rtc::Optional<SenderReportTimes> last_received_sender_report;
+};
 
 // Helper to put several RTCP packets into lower layer datagram composing
 // Compound or Reduced-Size RTCP packet, as defined by RFC 5506 section 2.
@@ -124,11 +141,25 @@ void RtcpTransceiverImpl::RequestKeyFrame(
   if (config_.rtcp_mode == RtcpMode::kCompound)
     CreateCompoundPacket(&sender);
 
-  for (uint32_t media_ssrc : ssrcs) {
-    rtcp::Pli pli;
-    pli.SetSenderSsrc(sender_ssrc);
-    pli.SetMediaSsrc(media_ssrc);
-    sender.AppendPacket(pli);
+  switch (config_.key_frame_request_method) {
+    case kKeyFrameReqPliRtcp: {
+      for (uint32_t media_ssrc : ssrcs) {
+        rtcp::Pli pli;
+        pli.SetSenderSsrc(sender_ssrc);
+        pli.SetMediaSsrc(media_ssrc);
+        sender.AppendPacket(pli);
+      }
+      break;
+    }
+    case kKeyFrameReqFirRtcp: {
+      rtcp::Fir fir;
+      fir.SetSenderSsrc(sender_ssrc);
+      for (uint32_t media_ssrc : ssrcs)
+        fir.AddRequestTo(media_ssrc,
+                         ++remote_senders_[media_ssrc].fir_sequence_number);
+      sender.AppendPacket(fir);
+      break;
+    }
   }
 
   sender.Send();
@@ -145,10 +176,9 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
       rtcp::SenderReport sender_report;
       if (!sender_report.Parse(rtcp_packet_header))
         return;
-      SenderReportTimes& last =
-          last_received_sender_reports_[sender_report.sender_ssrc()];
-      last.local_received_time_us = now_us;
-      last.remote_sent_time = sender_report.ntp();
+      remote_senders_[sender_report.sender_ssrc()]
+          .last_received_sender_report.emplace(now_us,
+                                               sender_report.ntp());
       break;
     }
   }
@@ -229,10 +259,12 @@ std::vector<rtcp::ReportBlock> RtcpTransceiverImpl::CreateReportBlocks() {
       config_.receive_statistics->RtcpReportBlocks(
           rtcp::ReceiverReport::kMaxNumberOfReportBlocks);
   for (rtcp::ReportBlock& report_block : report_blocks) {
-    auto it = last_received_sender_reports_.find(report_block.source_ssrc());
-    if (it == last_received_sender_reports_.end())
+    auto it = remote_senders_.find(report_block.source_ssrc());
+    if (it == remote_senders_.end() ||
+        !it->second.last_received_sender_report.has_value())
       continue;
-    const SenderReportTimes& last_sender_report = it->second;
+    const SenderReportTimes& last_sender_report =
+        *it->second.last_received_sender_report;
     report_block.SetLastSr(CompactNtp(last_sender_report.remote_sent_time));
     report_block.SetDelayLastSr(SaturatedUsToCompactNtp(
         rtc::TimeMicros() - last_sender_report.local_received_time_us));

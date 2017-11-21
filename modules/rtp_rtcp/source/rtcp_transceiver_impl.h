@@ -52,10 +52,7 @@ class RtcpTransceiverImpl {
 
  private:
   class PacketSender;
-  struct SenderReportTimes {
-    int64_t local_received_time_us;
-    NtpTime remote_sent_time;
-  };
+  struct RemoteSenderDetails;
 
   void HandleReceivedPacket(const rtcp::CommonHeader& rtcp_packet_header,
                             int64_t now_us);
@@ -73,7 +70,7 @@ class RtcpTransceiverImpl {
   const RtcpTransceiverConfig config_;
 
   rtc::Optional<rtcp::Remb> remb_;
-  std::map<uint32_t, SenderReportTimes> last_received_sender_reports_;
+  std::map<uint32_t, RemoteSenderDetails> remote_senders_;
   rtc::WeakPtrFactory<RtcpTransceiverImpl> ptr_factory_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RtcpTransceiverImpl);

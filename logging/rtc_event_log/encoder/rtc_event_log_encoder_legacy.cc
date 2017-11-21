@@ -10,6 +10,8 @@
 
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.h"
 
+#include <utility>
+
 #include "logging/rtc_event_log/events/rtc_event_audio_network_adaptation.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_playout.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_receive_stream_config.h"
@@ -106,7 +108,13 @@ rtclog::VideoReceiveConfig_RtcpMode ConvertRtcpMode(RtcpMode rtcp_mode) {
 }
 }  // namespace
 
-std::string RtcEventLogEncoderLegacy::Encode(const RtcEvent& event) {
+std::string RtcEventLogEncoderLegacy::GetAndResetOutput() {
+  std::string output_copy(std::move(output_string_));
+  output_string_.clear();
+  return output_copy;
+}
+
+void RtcEventLogEncoderLegacy::Encode(const RtcEvent& event) {
   switch (event.GetType()) {
     case RtcEvent::Type::AudioNetworkAdaptation: {
       auto& rtc_event =
@@ -201,10 +209,9 @@ std::string RtcEventLogEncoderLegacy::Encode(const RtcEvent& event) {
 
   int event_type = static_cast<int>(event.GetType());
   RTC_NOTREACHED() << "Unknown event type (" << event_type << ")";
-  return "";
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeAudioNetworkAdaptation(
+void RtcEventLogEncoderLegacy::EncodeAudioNetworkAdaptation(
     const RtcEventAudioNetworkAdaptation& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -228,10 +235,10 @@ std::string RtcEventLogEncoderLegacy::EncodeAudioNetworkAdaptation(
   if (event.config_->num_channels)
     audio_network_adaptation->set_num_channels(*event.config_->num_channels);
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeAudioPlayout(
+void RtcEventLogEncoderLegacy::EncodeAudioPlayout(
     const RtcEventAudioPlayout& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -240,10 +247,10 @@ std::string RtcEventLogEncoderLegacy::EncodeAudioPlayout(
   auto playout_event = rtclog_event.mutable_audio_playout_event();
   playout_event->set_local_ssrc(event.ssrc_);
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeAudioReceiveStreamConfig(
+void RtcEventLogEncoderLegacy::EncodeAudioReceiveStreamConfig(
     const RtcEventAudioReceiveStreamConfig& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -261,10 +268,10 @@ std::string RtcEventLogEncoderLegacy::EncodeAudioReceiveStreamConfig(
     extension->set_id(e.id);
   }
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeAudioSendStreamConfig(
+void RtcEventLogEncoderLegacy::EncodeAudioSendStreamConfig(
     const RtcEventAudioSendStreamConfig& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -282,10 +289,10 @@ std::string RtcEventLogEncoderLegacy::EncodeAudioSendStreamConfig(
     extension->set_id(e.id);
   }
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeBweUpdateDelayBased(
+void RtcEventLogEncoderLegacy::EncodeBweUpdateDelayBased(
     const RtcEventBweUpdateDelayBased& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -295,10 +302,10 @@ std::string RtcEventLogEncoderLegacy::EncodeBweUpdateDelayBased(
   bwe_event->set_bitrate_bps(event.bitrate_bps_);
   bwe_event->set_detector_state(ConvertDetectorState(event.detector_state_));
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeBweUpdateLossBased(
+void RtcEventLogEncoderLegacy::EncodeBweUpdateLossBased(
     const RtcEventBweUpdateLossBased& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -309,26 +316,26 @@ std::string RtcEventLogEncoderLegacy::EncodeBweUpdateLossBased(
   bwe_event->set_fraction_loss(event.fraction_loss_);
   bwe_event->set_total_packets(event.total_packets_);
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeLoggingStarted(
+void RtcEventLogEncoderLegacy::EncodeLoggingStarted(
     const RtcEventLoggingStarted& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
   rtclog_event.set_type(rtclog::Event::LOG_START);
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeLoggingStopped(
+void RtcEventLogEncoderLegacy::EncodeLoggingStopped(
     const RtcEventLoggingStopped& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
   rtclog_event.set_type(rtclog::Event::LOG_END);
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeProbeClusterCreated(
+void RtcEventLogEncoderLegacy::EncodeProbeClusterCreated(
     const RtcEventProbeClusterCreated& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -340,10 +347,10 @@ std::string RtcEventLogEncoderLegacy::EncodeProbeClusterCreated(
   probe_cluster->set_min_packets(event.min_probes_);
   probe_cluster->set_min_bytes(event.min_bytes_);
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeProbeResultFailure(
+void RtcEventLogEncoderLegacy::EncodeProbeResultFailure(
     const RtcEventProbeResultFailure& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -353,10 +360,10 @@ std::string RtcEventLogEncoderLegacy::EncodeProbeResultFailure(
   probe_result->set_id(event.id_);
   probe_result->set_result(ConvertProbeResultType(event.failure_reason_));
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeProbeResultSuccess(
+void RtcEventLogEncoderLegacy::EncodeProbeResultSuccess(
     const RtcEventProbeResultSuccess& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -367,33 +374,33 @@ std::string RtcEventLogEncoderLegacy::EncodeProbeResultSuccess(
   probe_result->set_result(rtclog::BweProbeResult::SUCCESS);
   probe_result->set_bitrate_bps(event.bitrate_bps_);
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeRtcpPacketIncoming(
+void RtcEventLogEncoderLegacy::EncodeRtcpPacketIncoming(
     const RtcEventRtcpPacketIncoming& event) {
   return EncodeRtcpPacket(event.timestamp_us_, event.packet_, true);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeRtcpPacketOutgoing(
+void RtcEventLogEncoderLegacy::EncodeRtcpPacketOutgoing(
     const RtcEventRtcpPacketOutgoing& event) {
   return EncodeRtcpPacket(event.timestamp_us_, event.packet_, false);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeRtpPacketIncoming(
+void RtcEventLogEncoderLegacy::EncodeRtpPacketIncoming(
     const RtcEventRtpPacketIncoming& event) {
   return EncodeRtpPacket(event.timestamp_us_, event.header_,
                          event.packet_length_, PacedPacketInfo::kNotAProbe,
                          true);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeRtpPacketOutgoing(
+void RtcEventLogEncoderLegacy::EncodeRtpPacketOutgoing(
     const RtcEventRtpPacketOutgoing& event) {
   return EncodeRtpPacket(event.timestamp_us_, event.header_,
                          event.packet_length_, event.probe_cluster_id_, false);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeVideoReceiveStreamConfig(
+void RtcEventLogEncoderLegacy::EncodeVideoReceiveStreamConfig(
     const RtcEventVideoReceiveStreamConfig& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -427,10 +434,10 @@ std::string RtcEventLogEncoderLegacy::EncodeVideoReceiveStreamConfig(
     }
   }
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeVideoSendStreamConfig(
+void RtcEventLogEncoderLegacy::EncodeVideoSendStreamConfig(
     const RtcEventVideoSendStreamConfig& event) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(event.timestamp_us_);
@@ -468,13 +475,12 @@ std::string RtcEventLogEncoderLegacy::EncodeVideoSendStreamConfig(
     }
   }
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeRtcpPacket(
-    int64_t timestamp_us,
-    const rtc::Buffer& packet,
-    bool is_incoming) {
+void RtcEventLogEncoderLegacy::EncodeRtcpPacket(int64_t timestamp_us,
+                                                const rtc::Buffer& packet,
+                                                bool is_incoming) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(timestamp_us);
   rtclog_event.set_type(rtclog::Event::RTCP_EVENT);
@@ -518,15 +524,14 @@ std::string RtcEventLogEncoderLegacy::EncodeRtcpPacket(
   }
   rtclog_event.mutable_rtcp_packet()->set_packet_data(buffer, buffer_length);
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::EncodeRtpPacket(
-    int64_t timestamp_us,
-    const webrtc::RtpPacket& header,
-    size_t packet_length,
-    int probe_cluster_id,
-    bool is_incoming) {
+void RtcEventLogEncoderLegacy::EncodeRtpPacket(int64_t timestamp_us,
+                                               const webrtc::RtpPacket& header,
+                                               size_t packet_length,
+                                               int probe_cluster_id,
+                                               bool is_incoming) {
   rtclog::Event rtclog_event;
   rtclog_event.set_timestamp_us(timestamp_us);
   rtclog_event.set_type(rtclog::Event::RTP_EVENT);
@@ -539,10 +544,10 @@ std::string RtcEventLogEncoderLegacy::EncodeRtpPacket(
     rtclog_event.mutable_rtp_packet()->set_probe_cluster_id(probe_cluster_id);
   }
 
-  return Serialize(&rtclog_event);
+  Serialize(&rtclog_event);
 }
 
-std::string RtcEventLogEncoderLegacy::Serialize(rtclog::Event* event) {
+void RtcEventLogEncoderLegacy::Serialize(rtclog::Event* event) {
   // Even though we're only serializing a single event during this call, what
   // we intend to get is a list of events, with a tag and length preceding
   // each actual event. To produce that, we serialize a list of a single event.
@@ -558,13 +563,13 @@ std::string RtcEventLogEncoderLegacy::Serialize(rtclog::Event* event) {
   rtclog::Event* output_event = event_stream.mutable_stream(0);
   output_event->Swap(event);
 
-  std::string output_string = event_stream.SerializeAsString();
-  RTC_DCHECK(!output_string.empty());
+  size_t prev_size = output_string_.size();
+  bool success = event_stream.AppendToString(&output_string_);
+  RTC_DCHECK(success);
+  RTC_DCHECK_GT(output_string_.size(), prev_size);
 
   // When the function returns, the original Event will be unchanged.
   output_event->Swap(event);
-
-  return output_string;
 }
 
 }  // namespace webrtc

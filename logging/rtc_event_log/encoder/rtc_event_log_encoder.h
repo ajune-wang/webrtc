@@ -20,7 +20,9 @@ class RtcEventLogEncoder {
  public:
   virtual ~RtcEventLogEncoder() = default;
 
-  virtual std::string Encode(const RtcEvent& event) = 0;
+  virtual void Encode(const RtcEvent& event) = 0;
+
+  virtual std::string GetAndResetOutput() = 0;
 };
 
 }  // namespace webrtc

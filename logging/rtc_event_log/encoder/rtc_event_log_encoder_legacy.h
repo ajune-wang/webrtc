@@ -48,46 +48,46 @@ class RtcEventLogEncoderLegacy final : public RtcEventLogEncoder {
  public:
   ~RtcEventLogEncoderLegacy() override = default;
 
-  std::string Encode(const RtcEvent& event) override;
+  void Encode(const RtcEvent& event) override;
+
+  std::string GetAndResetOutput() override;
 
  private:
   // Encoding entry-point for the various RtcEvent subclasses.
-  std::string EncodeAudioNetworkAdaptation(
+  void EncodeAudioNetworkAdaptation(
       const RtcEventAudioNetworkAdaptation& event);
-  std::string EncodeAudioPlayout(const RtcEventAudioPlayout& event);
-  std::string EncodeAudioReceiveStreamConfig(
+  void EncodeAudioPlayout(const RtcEventAudioPlayout& event);
+  void EncodeAudioReceiveStreamConfig(
       const RtcEventAudioReceiveStreamConfig& event);
-  std::string EncodeAudioSendStreamConfig(
-      const RtcEventAudioSendStreamConfig& event);
-  std::string EncodeBweUpdateDelayBased(
-      const RtcEventBweUpdateDelayBased& event);
-  std::string EncodeBweUpdateLossBased(const RtcEventBweUpdateLossBased& event);
-  std::string EncodeLoggingStarted(const RtcEventLoggingStarted& event);
-  std::string EncodeLoggingStopped(const RtcEventLoggingStopped& event);
-  std::string EncodeProbeClusterCreated(
-      const RtcEventProbeClusterCreated& event);
-  std::string EncodeProbeResultFailure(const RtcEventProbeResultFailure& event);
-  std::string EncodeProbeResultSuccess(const RtcEventProbeResultSuccess&);
-  std::string EncodeRtcpPacketIncoming(const RtcEventRtcpPacketIncoming& event);
-  std::string EncodeRtcpPacketOutgoing(const RtcEventRtcpPacketOutgoing& event);
-  std::string EncodeRtpPacketIncoming(const RtcEventRtpPacketIncoming& event);
-  std::string EncodeRtpPacketOutgoing(const RtcEventRtpPacketOutgoing& event);
-  std::string EncodeVideoReceiveStreamConfig(
+  void EncodeAudioSendStreamConfig(const RtcEventAudioSendStreamConfig& event);
+  void EncodeBweUpdateDelayBased(const RtcEventBweUpdateDelayBased& event);
+  void EncodeBweUpdateLossBased(const RtcEventBweUpdateLossBased& event);
+  void EncodeLoggingStarted(const RtcEventLoggingStarted& event);
+  void EncodeLoggingStopped(const RtcEventLoggingStopped& event);
+  void EncodeProbeClusterCreated(const RtcEventProbeClusterCreated& event);
+  void EncodeProbeResultFailure(const RtcEventProbeResultFailure& event);
+  void EncodeProbeResultSuccess(const RtcEventProbeResultSuccess&);
+  void EncodeRtcpPacketIncoming(const RtcEventRtcpPacketIncoming& event);
+  void EncodeRtcpPacketOutgoing(const RtcEventRtcpPacketOutgoing& event);
+  void EncodeRtpPacketIncoming(const RtcEventRtpPacketIncoming& event);
+  void EncodeRtpPacketOutgoing(const RtcEventRtpPacketOutgoing& event);
+  void EncodeVideoReceiveStreamConfig(
       const RtcEventVideoReceiveStreamConfig& event);
-  std::string EncodeVideoSendStreamConfig(
-      const RtcEventVideoSendStreamConfig& event);
+  void EncodeVideoSendStreamConfig(const RtcEventVideoSendStreamConfig& event);
 
   // RTCP/RTP are handled similarly for incoming/outgoing.
-  std::string EncodeRtcpPacket(int64_t timestamp_us,
-                               const rtc::Buffer& packet,
-                               bool is_incoming);
-  std::string EncodeRtpPacket(int64_t timestamp_us,
-                              const RtpPacket& header,
-                              size_t packet_length,
-                              int probe_cluster_id,
-                              bool is_incoming);
+  void EncodeRtcpPacket(int64_t timestamp_us,
+                        const rtc::Buffer& packet,
+                        bool is_incoming);
+  void EncodeRtpPacket(int64_t timestamp_us,
+                       const RtpPacket& header,
+                       size_t packet_length,
+                       int probe_cluster_id,
+                       bool is_incoming);
 
-  std::string Serialize(rtclog::Event* event);
+  void Serialize(rtclog::Event* event);
+
+  std::string output_string_;
 };
 
 }  // namespace webrtc

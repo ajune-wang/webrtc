@@ -95,20 +95,8 @@ class RtcEventLogImpl final : public RtcEventLog {
   void Log(std::unique_ptr<RtcEvent> event) override;
 
  private:
-  // Appends an event to the output protobuf string, returning true on success.
-  // Fails and returns false in case the limit on output size prevents the
-  // event from being added; in this case, the output string is left unchanged.
-  // The event is encoded before being appended.
-  // We could have avoided this, because the output repeats the check, but this
-  // way, we minimize the number of lock acquisitions, task switches, etc.,
-  // that might be associated with each call to RtcEventLogOutput::Write().
-  bool AppendEventToString(const RtcEvent& event,
-                           std::string* output_string) RTC_WARN_UNUSED_RESULT;
-
   void LogToMemory(std::unique_ptr<RtcEvent> event) RTC_RUN_ON(&task_queue_);
-
   void LogEventsFromMemoryToOutput() RTC_RUN_ON(&task_queue_);
-  void LogToOutput(std::unique_ptr<RtcEvent> event) RTC_RUN_ON(&task_queue_);
   void StopOutput() RTC_RUN_ON(&task_queue_);
 
   void WriteToOutput(const std::string& output_string) RTC_RUN_ON(&task_queue_);
@@ -196,7 +184,8 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
     RTC_DCHECK(output->IsActive());
     event_output_ = std::move(output);
     num_config_events_written_ = 0;
-    LogToOutput(rtc::MakeUnique<RtcEventLoggingStarted>(start_event));
+    event_encoder_->Encode(start_event);
+    WriteToOutput(event_encoder_->GetAndResetOutput());
     LogEventsFromMemoryToOutput();
   };
 
@@ -279,26 +268,6 @@ void RtcEventLogImpl::ScheduleOutput() {
   }
 }
 
-bool RtcEventLogImpl::AppendEventToString(const RtcEvent& event,
-                                          std::string* output_string) {
-  RTC_DCHECK_RUN_ON(&task_queue_);
-
-  std::string encoded_event = event_encoder_->Encode(event);
-
-  bool appended;
-  size_t potential_new_size =
-      written_bytes_ + output_string->size() + encoded_event.length();
-  if (potential_new_size <= max_size_bytes_) {
-    // TODO(eladalon): This is inefficient; fix this in a separate CL.
-    *output_string += encoded_event;
-    appended = true;
-  } else {
-    appended = false;
-  }
-
-  return appended;
-}
-
 void RtcEventLogImpl::LogToMemory(std::unique_ptr<RtcEvent> event) {
   std::deque<std::unique_ptr<RtcEvent>>& container =
       event->IsConfigEvent() ? config_history_ : history_;
@@ -316,65 +285,25 @@ void RtcEventLogImpl::LogEventsFromMemoryToOutput() {
   RTC_DCHECK(event_output_ && event_output_->IsActive());
   last_output_ms_ = rtc::TimeMillis();
 
-  std::string output_string;
-
   // Serialize all stream configurations that haven't already been written to
   // this output. |num_config_events_written_| is used to track which configs we
   // have already written. (Note that the config may have been written to
   // previous outputs; configs are not discarded.)
-  bool appended = true;
   while (num_config_events_written_ < config_history_.size()) {
-    appended = AppendEventToString(*config_history_[num_config_events_written_],
-                                   &output_string);
-    if (!appended)
-      break;
+    event_encoder_->Encode(*config_history_[num_config_events_written_]);
     ++num_config_events_written_;
   }
 
   // Serialize the events in the event queue.
-  while (appended && !history_.empty()) {
-    appended = AppendEventToString(*history_.front(), &output_string);
-    if (appended) {
-      // Known issue - if writing to the output fails, these events will have
-      // been lost. If we try to open a new output, these events will be missing
-      // from it.
-      history_.pop_front();
-    }
+  while (!history_.empty()) {
+    event_encoder_->Encode(*history_.front());
+    // Known issue - if writing to the output fails, these events will have
+    // been lost. If we try to open a new output, these events will be missing
+    // from it.
+    history_.pop_front();
   }
 
-  WriteToOutput(output_string);
-
-  if (!appended) {
-    // Successful partial write to the output. Some events could not be written;
-    // the output should be closed, to avoid gaps.
-    StopOutput();
-  }
-}
-
-void RtcEventLogImpl::LogToOutput(std::unique_ptr<RtcEvent> event) {
-  RTC_DCHECK(event_output_ && event_output_->IsActive());
-
-  std::string output_string;
-
-  bool appended = AppendEventToString(*event, &output_string);
-
-  if (event->IsConfigEvent()) {
-    // Config events need to be kept in memory too, so that they may be
-    // rewritten into future outputs, too.
-    config_history_.push_back(std::move(event));
-  }
-
-  if (!appended) {
-    if (!event->IsConfigEvent()) {
-      // This event will not fit into the output; push it into |history_|
-      // instead, so that it might be logged into the next output (if any).
-      history_.push_back(std::move(event));
-    }
-    StopOutput();
-    return;
-  }
-
-  WriteToOutput(output_string);
+  WriteToOutput(event_encoder_->GetAndResetOutput());
 }
 
 void RtcEventLogImpl::StopOutput() {
@@ -386,8 +315,8 @@ void RtcEventLogImpl::StopOutput() {
 void RtcEventLogImpl::StopLoggingInternal() {
   if (event_output_) {
     RTC_DCHECK(event_output_->IsActive());
-    event_output_->Write(
-        event_encoder_->Encode(*rtc::MakeUnique<RtcEventLoggingStopped>()));
+    event_encoder_->Encode(*rtc::MakeUnique<RtcEventLoggingStopped>());
+    event_output_->Write(event_encoder_->GetAndResetOutput());
   }
   StopOutput();
 }

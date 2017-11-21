@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32183e08_0f712583",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-11-21T13:26:30Z",
+      "side": 1,
+      "message": "Will it still work even if you remove this line? I think the check_includes\u003dfalse makes this line a no-op. I suppose it doesn\u0027t hurt to put it there though, it will just go away when we fix the implicit target and fold it into the regular libjingle_peerconnection_api target. Your call.",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 50
+      },
+      "revId": "bb15d6bedffe8884638572dc267480be461088df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

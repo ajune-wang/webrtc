@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cfe6002_9943e715",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-21T07:57:25Z",
+      "side": 1,
+      "message": "Spelling.",
+      "range": {
+        "startLine": 476,
+        "startChar": 53,
+        "endLine": 476,
+        "endChar": 63
+      },
+      "revId": "d51c0120707a7c6a95b558a335802e8d9ce66bb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa543e40_a0d40842",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-21T07:57:25Z",
+      "side": 1,
+      "message": "And here.",
+      "range": {
+        "startLine": 497,
+        "startChar": 53,
+        "endLine": 497,
+        "endChar": 63
+      },
+      "revId": "d51c0120707a7c6a95b558a335802e8d9ce66bb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

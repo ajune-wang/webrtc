@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1a450b9_2f77e26b",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-21T17:08:41Z",
+      "side": 1,
+      "message": "The string here needs to be \"networkType\" (the spec name), not \"network_type\" (the c++ variable name).\nThis string is the name that is used in JavaScript land which was whitelisted.",
+      "revId": "e0ea74c9ed024ff66dc326b1ba85204cbbea3dc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

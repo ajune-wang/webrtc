@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db3beef4_aff00833",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-21T11:39:28Z",
+      "side": 1,
+      "message": "Here\u0027s the only case where a bug number was easily findable nearby.",
+      "revId": "fcabd2d669d27bb5f08aadeb22cd164550ed5b77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

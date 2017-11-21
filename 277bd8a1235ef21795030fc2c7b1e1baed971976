@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85f51b2a_8bf05666",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-21T10:40:24Z",
+      "side": 1,
+      "message": "Maybe\n\n  \"rtc_test always has visibility `*`; please don\u0027t specify it manually\"",
+      "revId": "277bd8a1235ef21795030fc2c7b1e1baed971976",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

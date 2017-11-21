@@ -39,6 +39,30 @@
       "revId": "fcabd2d669d27bb5f08aadeb22cd164550ed5b77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8b10488_dd12f729",
+        "filename": "rtc_base/deprecation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-21T18:13:43Z",
+      "side": 1,
+      "message": "Yes, probably. I would have to come up with something for the existing calls, but that\u0027s doable I guess.",
+      "parentUuid": "1ab9df93_0d9b777b",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 59
+      },
+      "revId": "fcabd2d669d27bb5f08aadeb22cd164550ed5b77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

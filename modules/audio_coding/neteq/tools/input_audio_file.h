@@ -25,6 +25,7 @@ namespace test {
 class InputAudioFile {
  public:
   explicit InputAudioFile(const std::string file_name);
+  InputAudioFile(const std::string file_name, bool loop_at_end);
 
   virtual ~InputAudioFile();
 
@@ -50,6 +51,7 @@ class InputAudioFile {
 
  private:
   FILE* fp_;
+  const bool loop_at_end_;
   RTC_DISALLOW_COPY_AND_ASSIGN(InputAudioFile);
 };
 

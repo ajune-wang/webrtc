@@ -57,6 +57,9 @@ struct RtcpTransceiverConfig {
   //  or allow reduced size packets: https://tools.ietf.org/html/rfc5506
   // Receiving accepts both compound and reduced-size packets.
   RtcpMode rtcp_mode = RtcpMode::kCompound;
+
+  KeyFrameRequestMethod key_frame_request_method = kKeyFrameReqPliRtcp;
+
   //
   // Tuning parameters.
   //

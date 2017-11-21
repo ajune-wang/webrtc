@@ -88,8 +88,8 @@ int32_t VideoDecoderWrapper::Decode(
   ScopedLocalRefFrame local_ref_frame(jni);
 
   FrameExtraInfo frame_extra_info;
-  frame_extra_info.capture_time_ns =
-      input_image.capture_time_ms_ * rtc::kNumNanosecsPerMillisec;
+  frame_extra_info.ntp_time_ns =
+      input_image.ntp_time_ms_ * rtc::kNumNanosecsPerMillisec;
   frame_extra_info.timestamp_rtp = input_image._timeStamp;
   frame_extra_info.qp =
       qp_parsing_enabled_ ? ParseQP(input_image) : rtc::nullopt;
@@ -129,7 +129,7 @@ void VideoDecoderWrapper::OnDecodedFrame(JNIEnv* env,
                                          jobject j_frame,
                                          jobject j_decode_time_ms,
                                          jobject j_qp) {
-  const uint64_t capture_time_ns = GetJavaVideoFrameTimestampNs(env, j_frame);
+  const uint64_t ntp_time_ns = GetJavaVideoFrameTimestampNs(env, j_frame);
 
   FrameExtraInfo frame_extra_info;
   do {
@@ -142,10 +142,11 @@ void VideoDecoderWrapper::OnDecodedFrame(JNIEnv* env,
     frame_extra_infos_.pop_front();
     // If the decoder might drop frames so iterate through the queue until we
     // find a matching timestamp.
-  } while (frame_extra_info.capture_time_ns != capture_time_ns);
+  } while (frame_extra_info.ntp_time_ns != ntp_time_ns);
 
   VideoFrame frame =
       JavaToNativeFrame(env, j_frame, frame_extra_info.timestamp_rtp);
+  frame.set_ntp_time_ms(ntp_time_ns / rtc::kNumNanosecsPerMillisec);
 
   rtc::Optional<int32_t> decoding_time_ms =
       JavaIntegerToOptionalInt(env, j_decode_time_ms);

@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46e1d282_725760f0",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-21T10:32:39Z",
+      "side": 1,
+      "message": "I would have suggested taking init by value and having a default value for it, but I think that goes against the style guide for virtual functions...\n\nThe single argument AddTransceiver could be non-virtual and call the two argument AddTransceiver function with a default RtpTransceiverInit value though, and implementations only have to override the two argument versions of AddTransceiver.",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f3e5e5b_4dc891cb",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-21T10:32:39Z",
+      "side": 1,
+      "message": "We end up with senders/receivers with a null channel. Many operations fail if it does not have a channel, for example setParameters aborts when not having a channel, which I don\u0027t think is spec-compliant.\n\nIs this a bug or something to be addressed in a follow up? Please add a TODO.",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2547a3f_30c2d5fc",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-21T10:32:39Z",
+      "side": 1,
+      "message": "Are these created with transceivers with unified_plan_(false) or am I looking at old code?\nBug to fix or add a TODO?",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "608c25ba_ac763844",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-21T10:32:39Z",
+      "side": 1,
+      "message": "If there are operations that rely on the assumption of only having 1 transceiver or Plan B, such as CreateOffer/CreateAnswer, should we DCHECK or return failure on these operations?",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32e65d7_229fa9a2",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-21T10:32:39Z",
+      "side": 1,
+      "message": "Since having one transceiver is a special case utilized when not having unified plan, I think this test would be more powerful if it tests that all senders/receivers show up when we have two transceivers.\n\nAlso, do we want to have a test for GetTransceivers() returning an empty list before we add any transceivers? (Thinking about Plan B having a default transceiver, which shouldn\u0027t be the case for Unified Plan)",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c2f474_59822245",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-21T10:32:39Z",
+      "side": 1,
+      "message": "(Unrelated to your changes) What is this ID used for? Does it have any significance with regards to SDP?",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

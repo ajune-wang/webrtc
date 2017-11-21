@@ -16,6 +16,24 @@
       "revId": "277bd8a1235ef21795030fc2c7b1e1baed971976",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af0c84c_deb65505",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-21T11:48:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85f51b2a_8bf05666",
+      "revId": "277bd8a1235ef21795030fc2c7b1e1baed971976",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

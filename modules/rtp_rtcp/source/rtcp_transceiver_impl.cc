@@ -34,27 +34,25 @@ namespace webrtc {
 // Compound or Reduced-Size RTCP packet, as defined by RFC 5506 section 2.
 // TODO(danilchap): When in compound mode and packets are so many that several
 // compound RTCP packets need to be generated, ensure each packet is compound.
-class RtcpTransceiverImpl::PacketSender
-    : public rtcp::RtcpPacket::PacketReadyCallback {
+class RtcpTransceiverImpl::PacketSender {
  public:
-  PacketSender(Transport* transport, size_t max_packet_size)
-      : transport_(transport), max_packet_size_(max_packet_size) {
+  PacketSender(rtcp::RtcpPacket::PacketReadyCallback callback,
+               size_t max_packet_size)
+      : callback_(callback), max_packet_size_(max_packet_size) {
     RTC_CHECK_LE(max_packet_size, IP_PACKET_SIZE);
   }
-  ~PacketSender() override {
-    RTC_DCHECK_EQ(index_, 0) << "Unsent rtcp packet.";
-  }
+  ~PacketSender() { RTC_DCHECK_EQ(index_, 0) << "Unsent rtcp packet."; }
 
   // Appends a packet to pending compound packet.
   // Sends rtcp compound packet if buffer was already full and resets buffer.
   void AppendPacket(const rtcp::RtcpPacket& packet) {
-    packet.Create(buffer_, &index_, max_packet_size_, this);
+    packet.Create(buffer_, &index_, max_packet_size_, callback_);
   }
 
   // Sends pending rtcp compound packet.
   void Send() {
     if (index_ > 0) {
-      OnPacketReady(buffer_, index_);
+      callback_(rtc::ArrayView<const uint8_t>(buffer_, index_));
       index_ = 0;
     }
   }
@@ -62,12 +60,7 @@ class RtcpTransceiverImpl::PacketSender
   bool IsEmpty() const { return index_ == 0; }
 
  private:
-  // Implements RtcpPacket::PacketReadyCallback
-  void OnPacketReady(uint8_t* data, size_t length) override {
-    transport_->SendRtcp(data, length);
-  }
-
-  Transport* const transport_;
+  const rtcp::RtcpPacket::PacketReadyCallback callback_;
   const size_t max_packet_size_;
   size_t index_ = 0;
   uint8_t buffer_[IP_PACKET_SIZE];
@@ -120,7 +113,10 @@ void RtcpTransceiverImpl::RequestKeyFrame(
     rtc::ArrayView<const uint32_t> ssrcs) {
   RTC_DCHECK(!ssrcs.empty());
   const uint32_t sender_ssrc = config_.feedback_ssrc;
-  PacketSender sender(config_.outgoing_transport, config_.max_packet_size);
+  auto send_packet = [this](rtc::ArrayView<const uint8_t> packet) {
+    config_.outgoing_transport->SendRtcp(packet.data(), packet.size());
+  };
+  PacketSender sender(send_packet, config_.max_packet_size);
   if (config_.rtcp_mode == RtcpMode::kCompound)
     CreateCompoundPacket(&sender);
 
@@ -215,7 +211,10 @@ void RtcpTransceiverImpl::CreateCompoundPacket(PacketSender* sender) {
 }
 
 void RtcpTransceiverImpl::SendPeriodicCompoundPacket() {
-  PacketSender sender(config_.outgoing_transport, config_.max_packet_size);
+  auto send_packet = [this](rtc::ArrayView<const uint8_t> packet) {
+    config_.outgoing_transport->SendRtcp(packet.data(), packet.size());
+  };
+  PacketSender sender(send_packet, config_.max_packet_size);
   CreateCompoundPacket(&sender);
   sender.Send();
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7e9f8c2_7dd8f264",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-11-21T16:43:47Z",
+      "side": 1,
+      "message": "Usually Rtt in WebRTC code.",
+      "range": {
+        "startLine": 822,
+        "startChar": 31,
+        "endLine": 822,
+        "endChar": 34
+      },
+      "revId": "9d5435d878bfc1b31be7c42e12830d972309c6ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b42160_740a4ed2",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-11-21T16:43:47Z",
+      "side": 1,
+      "message": "empty line above",
+      "range": {
+        "startLine": 917,
+        "startChar": 4,
+        "endLine": 917,
+        "endChar": 10
+      },
+      "revId": "9d5435d878bfc1b31be7c42e12830d972309c6ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

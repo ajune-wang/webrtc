@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "720772ce_dc424623",
+        "filename": "modules/audio_device/ios/audio_device_ios.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2017-11-21T23:42:26Z",
+      "side": 1,
+      "message": "\u003c\u003d DBL_EPSILON?",
+      "range": {
+        "startLine": 682,
+        "startChar": 22,
+        "endLine": 682,
+        "endChar": 23
+      },
+      "revId": "8db328d6d68a548ce57f9d2c9b0e30b036f9d7b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88f4270_74b7c7d6",
+        "filename": "modules/audio_device/ios/audio_device_ios.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2017-11-21T23:42:26Z",
+      "side": 1,
+      "message": "Do we know for sure it\u0027s the playout_parameters_ and not record or channel?",
+      "range": {
+        "startLine": 682,
+        "startChar": 28,
+        "endLine": 682,
+        "endChar": 47
+      },
+      "revId": "8db328d6d68a548ce57f9d2c9b0e30b036f9d7b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

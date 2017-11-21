@@ -8,15 +8,22 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_processing/aec3/echo_path_variability.h"
+#ifndef MODULES_AUDIO_PROCESSING_AEC3_MATRIX_BUFFER_H_
+#define MODULES_AUDIO_PROCESSING_AEC3_MATRIX_BUFFER_H_
+
+#include <vector>
 
 namespace webrtc {
+struct MatrixBuffer {
+  MatrixBuffer(size_t size, size_t height, size_t width);
+  ~MatrixBuffer();
+  void Clear();
 
-EchoPathVariability::EchoPathVariability(bool gain_change,
-                                         DelayAdjustment delay_change,
-                                         bool clock_drift)
-    : gain_change(gain_change),
-      delay_change(delay_change),
-      clock_drift(clock_drift) {}
+  std::vector<std::vector<std::vector<float>>> buffer;
+  size_t last_insert_index = 0;
+  size_t next_read_index = 0;
+};
 
 }  // namespace webrtc
+
+#endif  // MODULES_AUDIO_PROCESSING_AEC3_MATRIX_BUFFER_H_

@@ -24,8 +24,10 @@ namespace webrtc {
 // Verifies that the check for non-null output residual echo power works.
 TEST(ResidualEchoEstimator, NullResidualEchoPowerOutput) {
   AecState aec_state(EchoCanceller3Config{});
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 10,
-                             std::vector<size_t>(1, 10));
+  FftBuffer fft_buffer(10);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(10, &block_buffer, &spectrum_buffer, &fft_buffer);
   std::vector<std::array<float, kFftLengthBy2Plus1>> H2;
   std::array<float, kFftLengthBy2Plus1> S2_linear;
   std::array<float, kFftLengthBy2Plus1> Y2;
@@ -37,24 +39,28 @@ TEST(ResidualEchoEstimator, NullResidualEchoPowerOutput) {
 #endif
 
 TEST(ResidualEchoEstimator, BasicTest) {
-  ResidualEchoEstimator estimator(EchoCanceller3Config{});
   EchoCanceller3Config config;
   config.ep_strength.default_len = 0.f;
+  config.delay.min_echo_path_delay_blocks = 0;
+  ResidualEchoEstimator estimator(config);
   AecState aec_state(config);
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 10,
-                             std::vector<size_t>(1, 10));
+  FftBuffer fft_buffer(10);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(10, &block_buffer, &spectrum_buffer, &fft_buffer);
+  spectrum_buffer.Clear();
+
   std::array<float, kFftLengthBy2Plus1> E2_main;
   std::array<float, kFftLengthBy2Plus1> E2_shadow;
   std::array<float, kFftLengthBy2Plus1> S2_linear;
   std::array<float, kFftLengthBy2Plus1> S2_fallback;
   std::array<float, kFftLengthBy2Plus1> Y2;
   std::array<float, kFftLengthBy2Plus1> R2;
-  EchoPathVariability echo_path_variability(false, false);
+  EchoPathVariability echo_path_variability(
+      false, EchoPathVariability::DelayAdjustment::kNone, false);
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   std::vector<std::array<float, kFftLengthBy2Plus1>> H2(10);
   Random random_generator(42U);
-  FftData X;
-  std::array<float, kBlockSize> x_old;
   std::array<float, kBlockSize> s;
   Aec3Fft fft;
 
@@ -78,9 +84,51 @@ TEST(ResidualEchoEstimator, BasicTest) {
 
   for (int k = 0; k < 2000; ++k) {
     RandomizeSampleVector(&random_generator, x[0]);
-    std::for_each(x[0].begin(), x[0].end(), [](float& a) { a /= 30.f; });
-    fft.PaddedFft(x[0], x_old, &X);
-    render_buffer.Insert(x);
+    std::for_each(x[0].begin(), x[0].end(), [](float& a) { a *= 1 / 30.f; });
+
+    const auto increase_read = [&]() {
+      block_buffer.next_read_index =
+          (block_buffer.next_read_index + 1) % block_buffer.buffer.size();
+      spectrum_buffer.next_read_index = (spectrum_buffer.buffer.size() +
+                                         spectrum_buffer.next_read_index - 1) %
+                                        spectrum_buffer.buffer.size();
+      fft_buffer.next_read_index =
+          (fft_buffer.buffer.size() + fft_buffer.next_read_index - 1) %
+          block_buffer.buffer.size();
+
+    };
+
+    const auto increase_insert = [&]() {
+      block_buffer.last_insert_index =
+          (block_buffer.last_insert_index + 1) % block_buffer.buffer.size();
+      spectrum_buffer.last_insert_index =
+          (spectrum_buffer.buffer.size() + spectrum_buffer.last_insert_index -
+           1) %
+          spectrum_buffer.buffer.size();
+      fft_buffer.last_insert_index =
+          (fft_buffer.buffer.size() + fft_buffer.last_insert_index - 1) %
+          fft_buffer.buffer.size();
+    };
+
+    const size_t prev_insert_index = block_buffer.last_insert_index;
+
+    increase_insert();
+
+    for (size_t k = 0; k < x.size(); ++k) {
+      std::copy(x[k].begin(), x[k].end(),
+                block_buffer.buffer[block_buffer.last_insert_index][k].begin());
+    }
+    fft.PaddedFft(block_buffer.buffer[block_buffer.last_insert_index][0],
+                  block_buffer.buffer[prev_insert_index][0],
+                  &fft_buffer.buffer[fft_buffer.last_insert_index]);
+
+    fft_buffer.buffer[fft_buffer.last_insert_index].Spectrum(
+        Aec3Optimization::kNone,
+        spectrum_buffer.buffer[spectrum_buffer.last_insert_index]);
+
+    increase_read();
+
+    render_buffer.UpdateSpectralSum();
 
     aec_state.HandleEchoPathChange(echo_path_variability);
     aec_state.Update(H2, h, true, 2, render_buffer, E2_main, Y2, x[0], s,

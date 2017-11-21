@@ -16,6 +16,24 @@
       "revId": "c94f6da066a2dc64f8dd722c71617a3c29873b67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5f4d6f_1aa1be9a",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-21T16:03:05Z",
+      "side": 1,
+      "message": "Done, it is now a MockCreateSessionDescriptionObserver*.",
+      "parentUuid": "cdf03944_f70cf473",
+      "revId": "c94f6da066a2dc64f8dd722c71617a3c29873b67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

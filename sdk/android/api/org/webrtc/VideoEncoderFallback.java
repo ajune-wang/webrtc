@@ -27,5 +27,13 @@ public class VideoEncoderFallback extends WrappedNativeVideoEncoder {
     return createNativeEncoder(fallback, primary);
   }
 
+  @Override
+  public boolean isHardwareAccelerated() {
+    if (primary instanceof WrappedNativeVideoEncoder) {
+      return ((WrappedNativeVideoEncoder) primary).isHardwareAccelerated();
+    }
+    return true;
+  }
+
   private static native long createNativeEncoder(VideoEncoder fallback, VideoEncoder primary);
 }

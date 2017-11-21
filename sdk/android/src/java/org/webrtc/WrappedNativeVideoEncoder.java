@@ -16,6 +16,11 @@ package org.webrtc;
 abstract class WrappedNativeVideoEncoder implements VideoEncoder {
   @CalledByNative abstract public long createNativeEncoder();
 
+  @CalledByNative
+  boolean isHardwareAccelerated() {
+    return false;
+  }
+
   @Override
   public VideoCodecStatus initEncode(Settings settings, Callback encodeCallback) {
     throw new UnsupportedOperationException("Not implemented.");

@@ -107,11 +107,11 @@ struct RtcpStatistics {
   uint8_t fraction_lost;
   union {
     uint32_t packets_lost;
-    RTC_DEPRECATED uint32_t cumulative_lost;
+    RTC_DEPRECATED() uint32_t cumulative_lost;
   };
   union {
     uint32_t extended_highest_sequence_number;
-    RTC_DEPRECATED uint32_t extended_max_sequence_number;
+    RTC_DEPRECATED() uint32_t extended_max_sequence_number;
   };
   uint32_t jitter;
 };
@@ -321,7 +321,7 @@ struct NetworkStatistics {
   uint16_t currentPacketLossRate;
   // Late loss rate; fraction between 0 and 1, scaled to Q14.
   union {
-    RTC_DEPRECATED uint16_t currentDiscardRate;
+    RTC_DEPRECATED() uint16_t currentDiscardRate;
   };
   // fraction (of original stream) of synthesized audio inserted through
   // expansion (in Q14)

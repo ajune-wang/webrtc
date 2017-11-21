@@ -315,7 +315,7 @@ class AudioProcessing : public rtc::RefCountInterface {
   // Allows passing in an optional configuration at create-time.
   static AudioProcessing* Create(const webrtc::Config& config);
   // Deprecated. Use the Create below, with nullptr PostProcessing.
-  RTC_DEPRECATED
+  RTC_DEPRECATED()
   static AudioProcessing* Create(const webrtc::Config& config,
                                  NonlinearBeamformer* beamformer);
   // Allows passing in optional user-defined processing modules.

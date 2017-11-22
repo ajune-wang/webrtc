@@ -103,20 +103,6 @@ void AppendResultList(std::string& output,
                       const std::string& units,
                       bool important);
 
-// Prints memory commit charge stats for use by perf graphs.
-void PrintSystemCommitCharge(const std::string& test_name,
-                             size_t charge,
-                             bool important);
-
-void PrintSystemCommitCharge(FILE* target,
-                             const std::string& test_name,
-                             size_t charge,
-                             bool important);
-
-std::string SystemCommitChargeToString(const std::string& test_name,
-                                       size_t charge,
-                                       bool important);
-
 // Converts list of values into comma-separated string for PrintResultList.
 template <typename Container>
 std::string ValuesToString(const Container& container) {

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7fcea70f_84ed4369",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-22T09:47:43Z",
+      "side": 1,
+      "message": "I disagree, I don\u0027t think that is clearer than just \n\n  if (allocation_strategy_) { ... }\n\nor\n\n  if (allocation_strategy_ !\u003d nullptr) { ... }\n\nHaving two separate variables and an invariant \"use_bitrate_allocation_strategy_ \u003d\u003d true if and only if allocation_strategy_ !\u003d nullptr\" makes the code slightly harder to reason about.\n\nBut if you really want a separate bool, I won\u0027t insist on this point.",
+      "parentUuid": "d187deea_6fdcbcd2",
+      "range": {
+        "startLine": 836,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 76
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ca84daa_d2ec07a0",
         "filename": "call/call_perf_tests.cc",
         "patchSetId": 7
@@ -93,6 +117,30 @@
       "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de803eb8_9e784be3",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-22T09:47:43Z",
+      "side": 1,
+      "message": "If it\u0027s assigned only in an initializer expression as part of construction, like on line 836 above, const should work fine. Do you assign (or reset) the unique_ptr anywhere else? What errors do you get if you add const?",
+      "parentUuid": "9275157f_b366235e",
+      "range": {
+        "startLine": 937,
+        "startChar": 9,
+        "endLine": 937,
+        "endChar": 19
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

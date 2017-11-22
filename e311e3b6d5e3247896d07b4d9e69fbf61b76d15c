@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "251b6465_ec40bcc8",
+        "filename": "sdk/android/src/jni/encodedimage.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-22T11:58:30Z",
+      "side": 1,
+      "message": "Use the old interface and make a copy and set |capture_time_ns| if you have to.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 58
+      },
+      "revId": "e311e3b6d5e3247896d07b4d9e69fbf61b76d15c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

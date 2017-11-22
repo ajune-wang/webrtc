@@ -2,6 +2,80 @@
   "comments": [
     {
       "key": {
+        "uuid": "12da94b4_46c36a7c",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-22T18:37:16Z",
+      "side": 1,
+      "message": "Should this 12 be a constant or something? Or is it obvious where it came from to someone more familiar with the code?",
+      "revId": "d5b50404104fb0dbb23049c6db2b85c76410dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbc20b93_7d77faf9",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-22T18:37:16Z",
+      "side": 1,
+      "message": "Ditto on this 3 that appears in a bunch of places.",
+      "revId": "d5b50404104fb0dbb23049c6db2b85c76410dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98e8be27_bc68637a",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-22T18:37:16Z",
+      "side": 1,
+      "message": "fft_buffer.buffer.size()",
+      "revId": "d5b50404104fb0dbb23049c6db2b85c76410dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "450a614e_044f8359",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-22T18:37:16Z",
+      "side": 1,
+      "message": "Some way to figure out which of these differs between all these blocks would be nice, this seems like an easy way to hide bugs.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "d5b50404104fb0dbb23049c6db2b85c76410dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b51776c7_3def1dbb",
         "filename": "modules/audio_processing/aec3/block_processor.cc",
         "patchSetId": 1

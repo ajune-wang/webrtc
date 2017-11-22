@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3ba18bc_36e382c6",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFallback.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-22T10:49:20Z",
+      "side": 1,
+      "message": "return IsWrappedHardwareEncoder(primary);",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 16
+      },
+      "revId": "5cdafff9a68a5574cf3385fb98ab141d154eaaaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ac50b8e_4b03d9d9",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-22T10:49:20Z",
+      "side": 1,
+      "message": "Add a static function here:\nboolean IsWrappedHardwareEncoder(VideoEncoder encoder) {\n  return (encoder instanceof WrappedNativeVideoEncoder) \u0026\u0026 encoder.isHardwareAccelerated;\n}",
+      "revId": "5cdafff9a68a5574cf3385fb98ab141d154eaaaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c919135b_6070b174",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-22T10:49:20Z",
+      "side": 1,
+      "message": "I prefer to make this pure virtual than to provide a default that some encoders override.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "5cdafff9a68a5574cf3385fb98ab141d154eaaaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9a11f00_cdd1a03a",
+        "filename": "sdk/android/src/jni/videoencoderfactorywrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-22T10:49:20Z",
+      "side": 1,
+      "message": "Let\u0027s move the instanceof check into the Java code, to reduce the JNI interaction here.",
+      "range": {
+        "startLine": 62,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 66
+      },
+      "revId": "5cdafff9a68a5574cf3385fb98ab141d154eaaaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

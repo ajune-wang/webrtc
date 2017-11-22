@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae98a9ad_8245189b",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-22T09:18:08Z",
+      "side": 1,
+      "message": "This adds an element to the mapping, if media_ssrc isn\u0027t already known?\n\nI know coding style prefers preincrement over postincrement in general. But in this case, I think postincrement is preferable, since (i) the operator gets closer to the affected counter, and (ii) we\u0027ll get transmitted seqno starting from zero, not one, which seems cleaner.\n\nIf postincrement isn\u0027t acceptable, it might be better with the longer\n\nauto\u0026 remote_sender \u003d remote_senders_[media_ssrc];\nfir.AddRequest(media_ssrc, remote_sender.fir_sequence_number);\n++remote_sender.fir_sequence_number;",
+      "range": {
+        "startLine": 156,
+        "startChar": 27,
+        "endLine": 156,
+        "endChar": 54
+      },
+      "revId": "62bf55d8db58f3273de7c7828bc2506ee552d6dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2261f243_7fb95135",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-22T09:18:08Z",
+      "side": 1,
+      "message": "I think I\u0027d prefer to omit .has_value() (implicit conversion to bool) and replace .value() with dereference using *. But this is about personal preference, so keep as is if you think it\u0027s better.",
+      "range": {
+        "startLine": 264,
+        "startChar": 48,
+        "endLine": 264,
+        "endChar": 57
+      },
+      "revId": "62bf55d8db58f3273de7c7828bc2506ee552d6dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9cd4b53_5bd1e955",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-22T09:18:08Z",
+      "side": 1,
+      "message": "Can you declare a map where the value type is only forward declared?",
+      "range": {
+        "startLine": 73,
+        "startChar": 21,
+        "endLine": 73,
+        "endChar": 38
+      },
+      "revId": "62bf55d8db58f3273de7c7828bc2506ee552d6dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

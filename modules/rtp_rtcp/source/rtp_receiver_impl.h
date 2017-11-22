@@ -57,6 +57,8 @@ class RtpReceiverImpl : public RtpReceiver {
 
   int32_t Energy(uint8_t array_of_energy[kRtpCsrcSize]) const override;
 
+  void SetSynchronizationSourceAudioLevel(uint8_t level) override;
+
   TelephoneEventHandler* GetTelephoneEventHandler() override;
 
   std::vector<RtpSource> GetSources() const override;

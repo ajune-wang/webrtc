@@ -106,6 +106,8 @@ class RtpReceiver {
   // Returns the current energy of the RTP stream received.
   virtual int32_t Energy(uint8_t array_of_energy[kRtpCsrcSize]) const = 0;
 
+  virtual void SetSynchronizationSourceAudioLevel(uint8_t level) = 0;
+
   virtual std::vector<RtpSource> GetSources() const = 0;
 };
 }  // namespace webrtc

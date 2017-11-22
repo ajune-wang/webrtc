@@ -163,6 +163,10 @@ int32_t RtpReceiverImpl::Energy(
   return rtp_media_receiver_->Energy(array_of_energy);
 }
 
+void RtpReceiverImpl::SetSynchronizationSourceAudioLevel(uint8_t level) {
+  ssrc_sources_.back().set_audio_level(rtc::Optional<uint8_t>(level));
+}
+
 bool RtpReceiverImpl::IncomingRtpPacket(const RTPHeader& rtp_header,
                                         const uint8_t* payload,
                                         size_t payload_length,

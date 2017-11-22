@@ -521,6 +521,15 @@ AudioMixer::Source::AudioFrameInfo Channel::GetAudioFrameWithInfo(
   // https://crbug.com/webrtc/7517).
   _outputAudioLevel.ComputeLevel(*audio_frame, kAudioSampleDurationSeconds);
 
+  // TODO(zstein): This only needs to happen when the audio level RTP header is
+  // missing.
+  RmsLevel rms_level;
+  size_t length =
+      audio_frame->samples_per_channel_ * audio_frame->num_channels_;
+  rms_level.Analyze(rtc::ArrayView<const int16_t>(audio_frame->data(), length));
+  auto level = rms_level.Average();
+  rtp_receiver_->SetSynchronizationSourceAudioLevel(level);
+
   if (capture_start_rtp_time_stamp_ < 0 && audio_frame->timestamp_ != 0) {
     // The first frame with a valid rtp timestamp.
     capture_start_rtp_time_stamp_ = audio_frame->timestamp_;

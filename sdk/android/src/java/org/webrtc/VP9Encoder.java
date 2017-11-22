@@ -13,5 +13,10 @@ package org.webrtc;
 class VP9Encoder extends WrappedNativeVideoEncoder {
   @Override public native long createNativeEncoder();
 
+  @Override
+  boolean isSoftwareEncoder() {
+    return true;
+  }
+
   static native boolean isSupported();
 }

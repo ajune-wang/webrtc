@@ -21,14 +21,15 @@ jobject NativeToJavaFrameType(JNIEnv* env, FrameType frame_type) {
   return Java_FrameType_fromNativeIndex(env, frame_type);
 }
 
-jobject NativeToJavaEncodedImage(JNIEnv* jni, const EncodedImage& image) {
+jobject NativeToJavaEncodedImage(JNIEnv* jni,
+                                 const EncodedImage& image,
+                                 int64_t capture_time_ns) {
   jobject buffer = jni->NewDirectByteBuffer(image._buffer, image._length);
   jobject frame_type = NativeToJavaFrameType(jni, image._frameType);
   jobject qp = (image.qp_ == -1) ? nullptr : JavaIntegerFromInt(jni, image.qp_);
   return Java_EncodedImage_create(
-      jni, buffer, image._encodedWidth, image._encodedHeight,
-      image.capture_time_ms_ * rtc::kNumNanosecsPerMillisec, frame_type,
-      static_cast<jint>(image.rotation_), image._completeFrame, qp);
+      jni, buffer, image._encodedWidth, image._encodedHeight, capture_time_ns,
+      frame_type, static_cast<jint>(image.rotation_), image._completeFrame, qp);
 }
 
 }  // namespace jni

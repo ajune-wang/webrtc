@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b51776c7_3def1dbb",
+        "filename": "modules/audio_processing/aec3/block_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-22T18:17:05Z",
+      "side": 1,
+      "message": "You reset alignment here, but then also on line 146 once |capture_properly_started_| becomes true. Is this intended behavior?",
+      "revId": "d5b50404104fb0dbb23049c6db2b85c76410dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "309565a7_abded0e4",
+        "filename": "modules/audio_processing/aec3/block_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-22T18:17:05Z",
+      "side": 1,
+      "message": "The if statement and the comment here don\u0027t seem to refer to the same condition.",
+      "revId": "d5b50404104fb0dbb23049c6db2b85c76410dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff0de160_477292c5",
+        "filename": "modules/audio_processing/aec3/buffer_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-22T18:17:05Z",
+      "side": 1,
+      "message": "This comment is wrong :)",
+      "revId": "d5b50404104fb0dbb23049c6db2b85c76410dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2647328_cab9cc20",
+        "filename": "modules/audio_processing/aec3/buffer_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-22T18:17:05Z",
+      "side": 1,
+      "message": "Should this be overrun not overflow to be consistent with the usage of underrun and overrun elsewhere in variable names and comments?",
+      "revId": "d5b50404104fb0dbb23049c6db2b85c76410dfbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -137,7 +137,6 @@ TEST(WebRtcVoiceEngineTestStubLibrary, StartupShutdown) {
   EXPECT_CALL(*apm, GetConfig()).WillRepeatedly(ReturnPointee(&apm_config));
   EXPECT_CALL(*apm, ApplyConfig(_)).WillRepeatedly(SaveArg<0>(&apm_config));
   EXPECT_CALL(*apm, SetExtraOptions(testing::_));
-  EXPECT_CALL(*apm, Initialize()).WillOnce(Return(0));
   EXPECT_CALL(*apm, DetachAecDump());
   StrictMock<MockTransmitMixer> transmit_mixer;
   EXPECT_CALL(transmit_mixer, EnableStereoChannelSwapping(false));
@@ -183,13 +182,21 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
     EXPECT_CALL(*apm_, GetConfig()).WillRepeatedly(ReturnPointee(&apm_config_));
     EXPECT_CALL(*apm_, ApplyConfig(_)).WillRepeatedly(SaveArg<0>(&apm_config_));
     EXPECT_CALL(*apm_, SetExtraOptions(testing::_));
-    EXPECT_CALL(*apm_, Initialize()).WillOnce(Return(0));
     EXPECT_CALL(*apm_, DetachAecDump());
     // Default Options.
     EXPECT_CALL(apm_ec_, Enable(true)).WillOnce(Return(0));
     EXPECT_CALL(apm_ec_, enable_metrics(true)).WillOnce(Return(0));
     EXPECT_CALL(apm_gc_, Enable(true)).WillOnce(Return(0));
+#if defined(WEBRTC_IOS) || defined(WEBRTC_ANDROID)
+    EXPECT_CALL(apm_gc_, set_mode(webrtc::GainControl::kFixedDigital))
+        .WillOnce(Return(0));
+#else
+    EXPECT_CALL(apm_gc_, set_mode(webrtc::GainControl::kAdaptiveAnalog))
+        .WillOnce(Return(0));
+#endif
     EXPECT_CALL(apm_ns_, Enable(true)).WillOnce(Return(0));
+    EXPECT_CALL(apm_ns_, set_level(webrtc::NoiseSuppression::kHigh))
+        .WillOnce(Return(0));
     EXPECT_CALL(apm_vd_, Enable(true)).WillOnce(Return(0));
     EXPECT_CALL(transmit_mixer_, EnableStereoChannelSwapping(false));
     // Init does not overwrite default AGC config.
@@ -210,6 +217,7 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
     engine_->Init();
     send_parameters_.codecs.push_back(kPcmuCodec);
     recv_parameters_.codecs.push_back(kPcmuCodec);
+
     // Default Options.
     EXPECT_TRUE(IsHighPassFilterEnabled());
   }

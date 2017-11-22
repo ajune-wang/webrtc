@@ -29,6 +29,7 @@ struct TestHelper {
     Config config;
     config.Set<ExperimentalAgc>(new ExperimentalAgc(false));
     apm_ = rtc::scoped_refptr<AudioProcessing>(AudioProcessing::Create(config));
+    apm_helpers::Init(apm());
     EXPECT_EQ(0, voe_wrapper_.base()->Init(
                      &mock_audio_device_, apm_,
                      MockAudioDecoderFactory::CreateEmptyFactory()));
@@ -97,21 +98,6 @@ TEST(ApmHelpersTest, AgcConfig_GetAndSet) {
             actual_config.limiterEnable);
   EXPECT_EQ(agc_config.targetLeveldBOv,
             actual_config.targetLeveldBOv);
-}
-
-TEST(ApmHelpersTest, AgcStatus_DefaultMode) {
-  TestHelper helper;
-  GainControl* gc = helper.apm()->gain_control();
-#if defined(TARGET_IPHONE_SIMULATOR) && TARGET_IPHONE_SIMULATOR
-  EXPECT_FALSE(gc->is_enabled());
-  EXPECT_EQ(GainControl::kAdaptiveDigital, gc->mode());
-#elif defined(WEBRTC_IOS) || defined(WEBRTC_ANDROID)
-  EXPECT_FALSE(gc->is_enabled());
-  EXPECT_EQ(GainControl::kFixedDigital, gc->mode());
-#else
-  EXPECT_TRUE(gc->is_enabled());
-  EXPECT_EQ(GainControl::kAdaptiveAnalog, gc->mode());
-#endif
 }
 
 TEST(ApmHelpersTest, AgcStatus_EnableDisable) {
@@ -220,13 +206,6 @@ TEST(ApmHelpersTest, AecmMode_EnableDisableCng) {
   EXPECT_TRUE(ecm->is_comfort_noise_enabled());
 }
 
-TEST(ApmHelpersTest, NsStatus_DefaultMode) {
-  TestHelper helper;
-  NoiseSuppression* ns = helper.apm()->noise_suppression();
-  EXPECT_EQ(NoiseSuppression::kModerate, ns->level());
-  EXPECT_FALSE(ns->is_enabled());
-}
-
 TEST(ApmHelpersTest, NsStatus_EnableDisable) {
   TestHelper helper;
   NoiseSuppression* ns = helper.apm()->noise_suppression();
@@ -260,13 +239,6 @@ TEST(ApmHelpersTest, MAYBE_TypingDetectionStatus_EnableDisable) {
   EXPECT_TRUE(vd->is_enabled());
   apm_helpers::SetTypingDetectionStatus(helper.apm(), false);
   EXPECT_FALSE(vd->is_enabled());
-}
-
-// TODO(solenberg): Move this test to a better place - added here for the sake
-// of duplicating all relevant tests from audio_processing_test.cc.
-TEST(ApmHelpersTest, HighPassFilter_DefaultMode) {
-  TestHelper helper;
-  EXPECT_TRUE(helper.apm()->high_pass_filter()->is_enabled());
 }
 
 // TODO(solenberg): Move this test to a better place - added here for the sake

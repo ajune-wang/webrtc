@@ -567,7 +567,6 @@ VideoSendStream::VideoSendStream(
       new VideoStreamEncoder(num_cpu_cores, &stats_proxy_,
                              config_.encoder_settings,
                              config_.pre_encode_callback,
-                             config_.post_encode_callback,
                              std::unique_ptr<OveruseFrameDetector>()));
   worker_queue_->PostTask(std::unique_ptr<rtc::QueuedTask>(new ConstructionTask(
       &send_stream_, &thread_sync_event_, &stats_proxy_,
@@ -992,11 +991,13 @@ EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
   if (codec_specific_info->codecType == kVideoCodecVP8) {
     simulcast_idx = codec_specific_info->codecSpecific.VP8.simulcastIdx;
   }
+#if 0
   if (config_->post_encode_callback) {
     config_->post_encode_callback->EncodedFrameCallback(EncodedFrame(
         encoded_image._buffer, encoded_image._length, encoded_image._frameType,
         simulcast_idx, encoded_image._timeStamp));
   }
+#endif
   {
     rtc::CritScope lock(&encoder_activity_crit_sect_);
     if (check_encoder_activity_task_)

@@ -336,12 +336,10 @@ class OveruseFrameDetector::CheckOveruseTask : public rtc::QueuedTask {
 OveruseFrameDetector::OveruseFrameDetector(
     const CpuOveruseOptions& options,
     AdaptationObserverInterface* observer,
-    EncodedFrameObserver* encoder_timing,
     CpuOveruseMetricsObserver* metrics_observer)
     : check_overuse_task_(nullptr),
       options_(options),
       observer_(observer),
-      encoder_timing_(encoder_timing),
       metrics_observer_(metrics_observer),
       num_process_times_(0),
       // TODO(nisse): Use rtc::Optional
@@ -470,13 +468,6 @@ void OveruseFrameDetector::FrameSent(uint32_t timestamp,
     if (timing.last_send_us != -1) {
       int encode_duration_us =
           static_cast<int>(timing.last_send_us - timing.capture_us);
-      if (encoder_timing_) {
-        // TODO(nisse): Update encoder_timing_ to also use us units.
-        encoder_timing_->OnEncodeTiming(timing.capture_time_us /
-                                        rtc::kNumMicrosecsPerMillisec,
-                                        encode_duration_us /
-                                        rtc::kNumMicrosecsPerMillisec);
-      }
       if (last_processed_capture_time_us_ != -1) {
         int64_t diff_us = timing.capture_us - last_processed_capture_time_us_;
         usage_->AddSample(1e-3 * encode_duration_us, 1e-3 * diff_us);

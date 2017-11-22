@@ -2142,7 +2142,9 @@ TEST_P(EndToEndTest, ObserversEncodedFrames) {
 
     CreateSendConfig(1, 0, 0, sender_transport.get());
     CreateMatchingReceiveConfigs(receiver_transport.get());
+#if 0
     video_send_config_.post_encode_callback = &post_encode_observer;
+#endif
     video_receive_configs_[0].pre_decode_callback = &pre_decode_observer;
 
     CreateVideoStreams();
@@ -4997,7 +4999,9 @@ TEST_P(EndToEndLogTest, LogsEncodedFramesWhenRequested) {
       encoder_ = VP8Encoder::Create();
       decoder_ = VP8Decoder::Create();
 
+#if 0
       send_config->post_encode_callback = this;
+#endif
       send_config->encoder_settings.payload_name = "VP8";
       send_config->encoder_settings.encoder = encoder_.get();
 

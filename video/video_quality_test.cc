@@ -1848,9 +1848,10 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
     video_receive_configs_[params_.ss.selected_stream].renderer =
         analyzer.get();
     video_send_config_.pre_encode_callback = analyzer->pre_encode_proxy();
+#if 0
     RTC_DCHECK(!video_send_config_.post_encode_callback);
     video_send_config_.post_encode_callback = analyzer->encode_timing_proxy();
-
+#endif
     SetupScreenshareOrSVC();
 
     CreateFlexfecStreams();

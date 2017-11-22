@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dbd96a83_1ff26fbb",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-11-22T17:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7e9f8c2_7dd8f264",
+      "range": {
+        "startLine": 822,
+        "startChar": 31,
+        "endLine": 822,
+        "endChar": 34
+      },
+      "revId": "9d5435d878bfc1b31be7c42e12830d972309c6ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6b42160_740a4ed2",
         "filename": "call/call_perf_tests.cc",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "9d5435d878bfc1b31be7c42e12830d972309c6ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8a93be_6248c66e",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-11-22T17:32:47Z",
+      "side": 1,
+      "message": "git cl format removes the line",
+      "parentUuid": "a6b42160_740a4ed2",
+      "range": {
+        "startLine": 917,
+        "startChar": 4,
+        "endLine": 917,
+        "endChar": 10
+      },
+      "revId": "9d5435d878bfc1b31be7c42e12830d972309c6ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

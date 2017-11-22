@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "31b5430b_e110f552",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-11-22T17:32:47Z",
+      "side": 1,
+      "message": "It can not be that simple because allocation_strategy_ will became false after \nif (use_bitrate_allocation_strategy_) {\n        sender_call-\u003eSetBitrateAllocationStrategy(\n            std::move(allocation_strategy_));\n}",
+      "parentUuid": "7fcea70f_84ed4369",
+      "range": {
+        "startLine": 836,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 76
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ca84daa_d2ec07a0",
         "filename": "call/call_perf_tests.cc",
         "patchSetId": 7
@@ -141,6 +165,30 @@
       "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81912b3f_d149653a",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5619
+      },
+      "writtenOn": "2017-11-22T17:32:47Z",
+      "side": 1,
+      "message": "sender_call-\u003eSetBitrateAllocationStrategy(\n            std::move(allocation_strategy_) is the problem\n\"Only non-const unique_ptr can transfer the ownership of the managed object to another unique_ptr. If an object\u0027s lifetime is managed by a const std::unique_ptr, it is limited to the scope in which the pointer was created.\" from http://en.cppreference.com/w/cpp/memory/unique_ptr",
+      "parentUuid": "de803eb8_9e784be3",
+      "range": {
+        "startLine": 937,
+        "startChar": 9,
+        "endLine": 937,
+        "endChar": 19
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

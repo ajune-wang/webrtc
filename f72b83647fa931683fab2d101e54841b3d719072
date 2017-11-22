@@ -1,0 +1,226 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99a19571_d9609f53",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1652,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "Still TODO?",
+      "range": {
+        "startLine": 1652,
+        "startChar": 30,
+        "endLine": 1652,
+        "endChar": 69
+      },
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b63ae6_67474abf",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "You can accomplish this with one constructor by making the second argument default to true.",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "043a081d_3c8deda3",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "It\u0027s probably better to use the codec headers in api/audio_codecs/. (That\u0027s a very thin and uniform wrapper around the headers you use now.)",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "039eb4c9_cdaf1a34",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "This line may not be necessary.",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500ca7c5_54811408",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "It probably makes more sense to use a literal 12 here (because you index up to 11), and then static_assert that sizeof(rtp_header) \u003d\u003d kRtpHeaderLength just before line 140.",
+      "range": {
+        "startLine": 127,
+        "startChar": 23,
+        "endLine": 127,
+        "endChar": 39
+      },
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f880b994_1f456356",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "Not necessary---`payload_type` is an uint8_t.",
+      "range": {
+        "startLine": 129,
+        "startChar": 33,
+        "endLine": 129,
+        "endChar": 39
+      },
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a8ed5be_3aef209b",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "Can this overflow?",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "402c41c6_b6fa3395",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "This function is too long. Break it up into smaller functions, please.",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03d553d7_d7485f9a",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "`const`. Especially useful with iterators, since one usually mutates those.",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65c91e47_3a4a3db4",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "Without `new`:\n\n  codec \u003d rtc::MakeUnique\u003cAudioEncoderOpusImpl\u003e(config, FlagPayloadTypeOr(111));\n\nBut if you use the public codec API as I suggested above, it\u0027ll be simply\n\n  codec \u003d AudioEncoderOpus::MakeAudioEncoder(config, FlagPayloadTypeOr(111));",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a585ca4_9eec74c0",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "If you use the public API, you can get rid of the #ifdefs.",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8462c46_b527dd1c",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-22T01:26:42Z",
+      "side": 1,
+      "message": "Or maybe\n\n  const uint8_t header[16] \u003d {0};\n  RTC_CHECK_EQ(fwrite(header, sizeof(header), 1, out_file), sizeof(header));",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

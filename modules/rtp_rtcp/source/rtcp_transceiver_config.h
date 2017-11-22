@@ -20,6 +20,20 @@ namespace webrtc {
 class ReceiveStatisticsProvider;
 class Transport;
 
+// Callbacks designed for rtp receiver triggered by rtcp packets.
+class RtpReceiverRtcpCallbacks {
+ public:
+  virtual ~RtpReceiverRtcpCallbacks() = default;
+  // All callbacks have default empty implementation, thus user need only to
+  // implement callbacks she interested in.
+  virtual void OnSenderReport(uint32_t sender_ssrc,
+                              NtpTime ntp_time,
+                              uint32_t rtp_time) {}
+  virtual void OnBye(uint32_t sender_ssrc) {}
+  virtual void OnBitrateAllocation(uint32_t sender_ssrc,
+                                   const BitrateAllocation& allocation) {}
+};
+
 struct RtcpTransceiverConfig {
   RtcpTransceiverConfig();
   RtcpTransceiverConfig(const RtcpTransceiverConfig&);
@@ -51,6 +65,11 @@ struct RtcpTransceiverConfig {
 
   // Rtcp report block generator for outgoing receiver reports.
   ReceiveStatisticsProvider* receive_statistics = nullptr;
+
+  //
+  // Global callback. Should outlive RtcpTransceiver.
+  //
+  RtpReceiverRtcpCallbacks* receiver_callbacks = nullptr;
 
   // Configures if sending should
   //  enforce compound packets: https://tools.ietf.org/html/rfc4585#section-3.1

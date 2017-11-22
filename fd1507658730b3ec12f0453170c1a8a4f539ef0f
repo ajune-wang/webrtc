@@ -93,6 +93,30 @@
       "revId": "fd1507658730b3ec12f0453170c1a8a4f539ef0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "497a4649_1fb09cc0",
+        "filename": "sdk/android/src/jni/wrappednativecodec.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-22T15:58:15Z",
+      "side": 1,
+      "message": "Hmm, no I think it\u0027s better to have a separate function. I guess it wouldn\u0027t be merging. I just want to get rid of the manual JNI code. So add a function Java_WrappedNativeDecoder_isInstanceOf that only does an instanceof check.",
+      "parentUuid": "0318d840_522aba4c",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 75
+      },
+      "revId": "fd1507658730b3ec12f0453170c1a8a4f539ef0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

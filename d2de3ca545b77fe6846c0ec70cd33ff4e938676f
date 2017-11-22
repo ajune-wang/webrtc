@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "995f696f_7d7b74c6",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-22T13:03:07Z",
+      "side": 1,
+      "message": "no, I do not know optimizers well enough to guess.\nSendImmediateFeedback is non-virtual, private and defined in same translation unit, so smart optimizer can inline it.\nnon-standard rtc::FunctionView might make it harder for optimizer.\nOn the other side inlining might increase binary size (a bit), so it might be good idea not to.\nAnyway - prefer optimizer decide itself if it should be inlined or not.",
+      "parentUuid": "fabf1108_fabe61cb",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 61
+      },
+      "revId": "d2de3ca545b77fe6846c0ec70cd33ff4e938676f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfeb5617_a44a5234",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "d2de3ca545b77fe6846c0ec70cd33ff4e938676f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e73b306c_009a0be3",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-22T13:03:07Z",
+      "side": 1,
+      "message": "deleted comments in the Impl version (since thread-safe version supposed to be used)\n\nwhile these two classes have extremely similar interfaces, they are not identical, e.g. where\nthread-safe takes movable arguments: std::vector / rtc::CopyOnWriteBuffer,\nthread-unsafe takes \u0027view\u0027 arguments: rtc::ArrayView\u003cconst ...\u003e",
+      "parentUuid": "cfeb5617_a44a5234",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 67
+      },
+      "revId": "d2de3ca545b77fe6846c0ec70cd33ff4e938676f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

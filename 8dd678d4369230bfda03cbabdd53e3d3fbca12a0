@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd8ec353_4bac4348",
+        "filename": "infra/config/cq.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-22T08:22:23Z",
+      "side": 1,
+      "message": "The failure was on \"client.webrtc/builders/Win32 ASan\", I think this will catch it.",
+      "range": {
+        "startLine": 66,
+        "startChar": 6,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "8dd678d4369230bfda03cbabdd53e3d3fbca12a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

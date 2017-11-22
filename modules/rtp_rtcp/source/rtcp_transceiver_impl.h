@@ -53,6 +53,10 @@ class RtcpTransceiverImpl {
 
   void HandleReceivedPacket(const rtcp::CommonHeader& rtcp_packet_header,
                             int64_t now_us);
+  void HandleBye(const rtcp::CommonHeader& rtcp_packet_header);
+  void HandleExtendedReports(const rtcp::CommonHeader& rtcp_packet_header);
+  void HandleSenderReport(const rtcp::CommonHeader& rtcp_packet_header,
+                          int64_t now_us);
 
   void ReschedulePeriodicCompoundPackets();
   void SchedulePeriodicCompoundPackets(int64_t delay_ms);

@@ -16,7 +16,9 @@
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/extended_reports.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/fir.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/pli.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
@@ -25,6 +27,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/timeutils.h"
@@ -36,6 +39,19 @@ struct SenderReportTimes {
   int64_t local_received_time_us;
   NtpTime remote_sent_time;
 };
+
+// Useful for tests and send-only endpoint.
+RtpReceiverRtcpCallbacks* NullReceiverCallbacks() {
+  static RtpReceiverRtcpCallbacks null_callbacks;
+  return &null_callbacks;
+}
+
+// Set fields that have reasonable default nonnull values.
+RtcpTransceiverConfig ReplaceNullsWithDefaults(RtcpTransceiverConfig config) {
+  if (config.receiver_callbacks == nullptr)
+    config.receiver_callbacks = NullReceiverCallbacks();
+  return config;
+}
 
 }  // namespace
 
@@ -88,7 +104,7 @@ class RtcpTransceiverImpl::PacketSender
 };
 
 RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
-    : config_(config), ptr_factory_(this) {
+    : config_(ReplaceNullsWithDefaults(config)), ptr_factory_(this) {
   RTC_CHECK(config_.Validate());
   if (config_.schedule_periodic_compound_packets)
     SchedulePeriodicCompoundPackets(config_.initial_report_delay_ms);
@@ -160,19 +176,64 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
     const rtcp::CommonHeader& rtcp_packet_header,
     int64_t now_us) {
   switch (rtcp_packet_header.type()) {
-    case rtcp::SenderReport::kPacketType: {
-      rtcp::SenderReport sender_report;
-      if (!sender_report.Parse(rtcp_packet_header))
-        return;
-      rtc::Optional<SenderReportTimes>& last =
-          remote_senders_[sender_report.sender_ssrc()]
-              .last_received_sender_report;
-      last.emplace();
-      last->local_received_time_us = now_us;
-      last->remote_sent_time = sender_report.ntp();
+    case rtcp::Bye::kPacketType:
+      HandleBye(rtcp_packet_header);
       break;
-    }
+    case rtcp::ExtendedReports::kPacketType:
+      HandleExtendedReports(rtcp_packet_header);
+      break;
+    case rtcp::SenderReport::kPacketType:
+      HandleSenderReport(rtcp_packet_header, now_us);
+      break;
   }
+}
+
+void RtcpTransceiverImpl::HandleBye(
+    const rtcp::CommonHeader& rtcp_packet_header) {
+  rtcp::Bye bye;
+  if (!bye.Parse(rtcp_packet_header))
+    return;
+  config_.receiver_callbacks->OnBye(bye.sender_ssrc());
+}
+
+void RtcpTransceiverImpl::HandleExtendedReports(
+    const rtcp::CommonHeader& rtcp_packet_header) {
+  rtcp::ExtendedReports xr;
+  if (!xr.Parse(rtcp_packet_header))
+    return;
+  if (xr.target_bitrate()) {
+    // Convert from rtcp::TargetBitrate to BitrateAllocation from common types.
+    BitrateAllocation bitrate_allocation;
+    for (const auto& item : xr.target_bitrate()->GetTargetBitrates()) {
+      if (item.spatial_layer >= kMaxSpatialLayers ||
+          item.temporal_layer >= kMaxTemporalStreams) {
+        RTC_DLOG(LS_WARNING) << config_.debug_id
+            << "Invalid incoming TargetBitrate with spatial layer "
+            << item.spatial_layer << ", temporal layer " << item.temporal_layer;
+        continue;
+      }
+      bitrate_allocation.SetBitrate(item.spatial_layer, item.temporal_layer,
+                                    item.target_bitrate_kbps * 1000);
+    }
+    config_.receiver_callbacks->OnBitrateAllocation(xr.sender_ssrc(),
+                                                    bitrate_allocation);
+  }
+}
+
+void RtcpTransceiverImpl::HandleSenderReport(
+    const rtcp::CommonHeader& rtcp_packet_header,
+    int64_t now_us) {
+  rtcp::SenderReport sender_report;
+  if (!sender_report.Parse(rtcp_packet_header))
+    return;
+  rtc::Optional<SenderReportTimes>& last =
+      remote_senders_[sender_report.sender_ssrc()].last_received_sender_report;
+  last.emplace();
+  last->local_received_time_us = now_us;
+  last->remote_sent_time = sender_report.ntp();
+  config_.receiver_callbacks->OnSenderReport(sender_report.sender_ssrc(),
+                                             sender_report.ntp(),
+                                             sender_report.rtp_timestamp());
 }
 
 void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets() {

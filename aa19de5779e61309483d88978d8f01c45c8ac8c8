@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f22ee6ec_a5ff1be5",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-22T08:49:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "028b797c_314714b0",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f3e5e5b_4dc891cb",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -69,6 +87,24 @@
       "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b7d595_a23496ab",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-22T08:49:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d50deedd_62726e66",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "1c80ca19_baf0276f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-22T08:49:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c99ba834_1f24ee93",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "608c25ba_ac763844",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -139,6 +193,24 @@
       "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df76f441_56951968",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-22T08:49:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b60915d5_73162b5c",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -177,6 +249,24 @@
     },
     {
       "key": {
+        "uuid": "6b48d10b_cb8d6d48",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-22T08:49:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5ca7cf62_81cbe224",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71c2f474_59822245",
         "filename": "pc/rtpreceiver.cc",
         "patchSetId": 3
@@ -209,6 +299,24 @@
       "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1cf480_cb4ce40f",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-11-22T08:49:38Z",
+      "side": 1,
+      "message": "I wonder why the pointer isn\u0027t simply used. Maybe not to confuse ptrs to proxy wrappers and ptrs to internal. In Chrome land I sometimes use the pointers as unique identifiers.",
+      "parentUuid": "898a1776_836817cb",
+      "revId": "aa19de5779e61309483d88978d8f01c45c8ac8c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

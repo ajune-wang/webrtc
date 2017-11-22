@@ -153,8 +153,11 @@ TEST(AdaptiveFirFilter, UpdateErlNeonOptimization) {
 TEST(AdaptiveFirFilter, FilterAdaptationSse2Optimizations) {
   bool use_sse2 = (WebRtc_GetCPUInfo(kSSE2) != 0);
   if (use_sse2) {
-    RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 12,
-                               std::vector<size_t>(1, 12));
+    FftBuffer fft_buffer(12);
+    MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+    VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+    RenderBuffer render_buffer(12, &block_buffer, &spectrum_buffer,
+                               &fft_buffer);
     Random random_generator(42U);
     std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
     FftData S_C;
@@ -172,7 +175,7 @@ TEST(AdaptiveFirFilter, FilterAdaptationSse2Optimizations) {
 
     for (size_t k = 0; k < 500; ++k) {
       RandomizeSampleVector(&random_generator, x[0]);
-      render_buffer.Insert(x);
+      render_buffer.UpdateSpectralSum();
 
       ApplyFilter_SSE2(render_buffer, H_SSE2, &S_SSE2);
       ApplyFilter(render_buffer, H_C, &S_C);
@@ -264,9 +267,11 @@ TEST(AdaptiveFirFilter, NullDataDumper) {
 TEST(AdaptiveFirFilter, NullFilterOutput) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3,
-                             filter.SizePartitions(),
-                             std::vector<size_t>(1, filter.SizePartitions()));
+  FftBuffer fft_buffer(filter.SizePartitions());
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(filter.SizePartitions(), &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   EXPECT_DEATH(filter.Filter(render_buffer, nullptr), "");
 }
 
@@ -297,9 +302,11 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
   Aec3Fft fft;
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3,
-                             filter.SizePartitions(),
-                             std::vector<size_t>(1, filter.SizePartitions()));
+  FftBuffer fft_buffer(filter.SizePartitions());
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(filter.SizePartitions(), &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   ShadowFilterUpdateGain gain;
   Random random_generator(42U);
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
@@ -345,7 +352,51 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       x_hp_filter.Process(x[0]);
       y_hp_filter.Process(y);
 
-      render_buffer.Insert(x);
+      const auto increase_read = [&]() {
+        block_buffer.next_read_index =
+            (block_buffer.next_read_index + 1) % block_buffer.buffer.size();
+        spectrum_buffer.next_read_index =
+            (spectrum_buffer.buffer.size() + spectrum_buffer.next_read_index -
+             1) %
+            spectrum_buffer.buffer.size();
+        fft_buffer.next_read_index =
+            (fft_buffer.buffer.size() + fft_buffer.next_read_index - 1) %
+            block_buffer.buffer.size();
+
+      };
+
+      const auto increase_insert = [&]() {
+        block_buffer.last_insert_index =
+            (block_buffer.last_insert_index + 1) % block_buffer.buffer.size();
+        spectrum_buffer.last_insert_index =
+            (spectrum_buffer.buffer.size() + spectrum_buffer.last_insert_index -
+             1) %
+            spectrum_buffer.buffer.size();
+        fft_buffer.last_insert_index =
+            (fft_buffer.buffer.size() + fft_buffer.last_insert_index - 1) %
+            fft_buffer.buffer.size();
+      };
+
+      const size_t prev_insert_index = block_buffer.last_insert_index;
+
+      increase_insert();
+
+      for (size_t k = 0; k < x.size(); ++k) {
+        std::copy(
+            x[k].begin(), x[k].end(),
+            block_buffer.buffer[block_buffer.last_insert_index][k].begin());
+      }
+      fft.PaddedFft(block_buffer.buffer[block_buffer.last_insert_index][0],
+                    block_buffer.buffer[prev_insert_index][0],
+                    &fft_buffer.buffer[fft_buffer.last_insert_index]);
+
+      fft_buffer.buffer[fft_buffer.last_insert_index].Spectrum(
+          Aec3Optimization::kNone,
+          spectrum_buffer.buffer[spectrum_buffer.last_insert_index]);
+
+      increase_read();
+
+      render_buffer.UpdateSpectralSum();
       render_signal_analyzer.Update(render_buffer, aec_state.FilterDelay());
 
       filter.Filter(render_buffer, &S);
@@ -363,7 +414,8 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       gain.Compute(render_buffer, render_signal_analyzer, E,
                    filter.SizePartitions(), false, &G);
       filter.Adapt(render_buffer, G);
-      aec_state.HandleEchoPathChange(EchoPathVariability(false, false));
+      aec_state.HandleEchoPathChange(EchoPathVariability(
+          false, EchoPathVariability::DelayAdjustment::kNone, false));
       aec_state.Update(filter.FilterFrequencyResponse(),
                        filter.FilterImpulseResponse(), true, rtc::nullopt,
                        render_buffer, E2_main, Y2, x[0], s, false);

@@ -10,6 +10,7 @@
 
 #include "modules/audio_processing/aec3/aec_state.h"
 
+#include "modules/audio_processing/aec3/aec3_fft.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "test/gtest.h"
 
@@ -19,14 +20,21 @@ namespace webrtc {
 TEST(AecState, NormalUsage) {
   ApmDataDumper data_dumper(42);
   AecState state(EchoCanceller3Config{});
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 30,
-                             std::vector<size_t>(1, 30));
+  FftBuffer fft_buffer(30);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(30, &block_buffer, &spectrum_buffer, &fft_buffer);
   std::array<float, kFftLengthBy2Plus1> E2_main = {};
   std::array<float, kFftLengthBy2Plus1> Y2 = {};
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
-  EchoPathVariability echo_path_variability(false, false);
+  EchoPathVariability echo_path_variability(
+      false, EchoPathVariability::DelayAdjustment::kNone, false);
   std::array<float, kBlockSize> s;
+  Aec3Fft fft;
   s.fill(100.f);
+  block_buffer.Clear();
+  fft_buffer.Clear();
+  spectrum_buffer.Clear();
 
   std::vector<std::array<float, kFftLengthBy2Plus1>>
       converged_filter_frequency_response(10);
@@ -57,14 +65,16 @@ TEST(AecState, NormalUsage) {
 
   // Verify that linear AEC usability becomes false after an echo path change is
   // reported
-  state.HandleEchoPathChange(EchoPathVariability(true, false));
+  state.HandleEchoPathChange(EchoPathVariability(
+      true, EchoPathVariability::DelayAdjustment::kNone, false));
   state.Update(converged_filter_frequency_response, impulse_response, true, 2,
                render_buffer, E2_main, Y2, x[0], s, false);
   EXPECT_FALSE(state.UsableLinearEstimate());
 
   // Verify that the active render detection works as intended.
   std::fill(x[0].begin(), x[0].end(), 101.f);
-  state.HandleEchoPathChange(EchoPathVariability(true, true));
+  state.HandleEchoPathChange(EchoPathVariability(
+      true, EchoPathVariability::DelayAdjustment::kNewDetectedDelay, false));
   state.Update(converged_filter_frequency_response, impulse_response, true, 2,
                render_buffer, E2_main, Y2, x[0], s, false);
   EXPECT_FALSE(state.ActiveRender());
@@ -91,7 +101,49 @@ TEST(AecState, NormalUsage) {
 
   x[0][0] = 5000.f;
   for (size_t k = 0; k < render_buffer.Buffer().size(); ++k) {
-    render_buffer.Insert(x);
+    const auto increase_read = [&]() {
+      block_buffer.next_read_index =
+          (block_buffer.next_read_index + 1) % block_buffer.buffer.size();
+      spectrum_buffer.next_read_index = (spectrum_buffer.buffer.size() +
+                                         spectrum_buffer.next_read_index - 1) %
+                                        spectrum_buffer.buffer.size();
+      fft_buffer.next_read_index =
+          (fft_buffer.buffer.size() + fft_buffer.next_read_index - 1) %
+          block_buffer.buffer.size();
+
+    };
+
+    const auto increase_insert = [&]() {
+      block_buffer.last_insert_index =
+          (block_buffer.last_insert_index + 1) % block_buffer.buffer.size();
+      spectrum_buffer.last_insert_index =
+          (spectrum_buffer.buffer.size() + spectrum_buffer.last_insert_index -
+           1) %
+          spectrum_buffer.buffer.size();
+      fft_buffer.last_insert_index =
+          (fft_buffer.buffer.size() + fft_buffer.last_insert_index - 1) %
+          fft_buffer.buffer.size();
+    };
+
+    const size_t prev_insert_index = block_buffer.last_insert_index;
+
+    increase_insert();
+
+    for (size_t k = 0; k < x.size(); ++k) {
+      std::copy(x[k].begin(), x[k].end(),
+                block_buffer.buffer[block_buffer.last_insert_index][k].begin());
+    }
+    fft.PaddedFft(block_buffer.buffer[block_buffer.last_insert_index][0],
+                  block_buffer.buffer[prev_insert_index][0],
+                  &fft_buffer.buffer[fft_buffer.last_insert_index]);
+
+    fft_buffer.buffer[fft_buffer.last_insert_index].Spectrum(
+        Aec3Optimization::kNone,
+        spectrum_buffer.buffer[spectrum_buffer.last_insert_index]);
+
+    increase_read();
+
+    render_buffer.UpdateSpectralSum();
   }
 
   Y2.fill(10.f * 10000.f * 10000.f);
@@ -155,12 +207,15 @@ TEST(AecState, NormalUsage) {
 TEST(AecState, ConvergedFilterDelay) {
   constexpr int kFilterLength = 10;
   AecState state(EchoCanceller3Config{});
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 30,
-                             std::vector<size_t>(1, 30));
+  FftBuffer fft_buffer(30);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(30, &block_buffer, &spectrum_buffer, &fft_buffer);
   std::array<float, kFftLengthBy2Plus1> E2_main;
   std::array<float, kFftLengthBy2Plus1> Y2;
   std::array<float, kBlockSize> x;
-  EchoPathVariability echo_path_variability(false, false);
+  EchoPathVariability echo_path_variability(
+      false, EchoPathVariability::DelayAdjustment::kNone, false);
   std::array<float, kBlockSize> s;
   s.fill(100.f);
   x.fill(0.f);
@@ -201,8 +256,10 @@ TEST(AecState, ExternalDelay) {
   E2_shadow.fill(0.f);
   Y2.fill(0.f);
   x.fill(0.f);
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 30,
-                             std::vector<size_t>(1, 30));
+  FftBuffer fft_buffer(30);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(30, &block_buffer, &spectrum_buffer, &fft_buffer);
   std::vector<std::array<float, kFftLengthBy2Plus1>> frequency_response(
       kAdaptiveFilterLength);
   for (auto& v : frequency_response) {
@@ -213,7 +270,8 @@ TEST(AecState, ExternalDelay) {
   impulse_response.fill(0.f);
 
   for (size_t k = 0; k < frequency_response.size() - 1; ++k) {
-    state.HandleEchoPathChange(EchoPathVariability(false, false));
+    state.HandleEchoPathChange(EchoPathVariability(
+        false, EchoPathVariability::DelayAdjustment::kNone, false));
     state.Update(frequency_response, impulse_response, true, k * kBlockSize + 5,
                  render_buffer, E2_main, Y2, x, s, false);
     EXPECT_TRUE(state.ExternalDelay());
@@ -222,7 +280,8 @@ TEST(AecState, ExternalDelay) {
 
   // Verify that the externally reported delay is properly unset when it is no
   // longer present.
-  state.HandleEchoPathChange(EchoPathVariability(false, false));
+  state.HandleEchoPathChange(EchoPathVariability(
+      false, EchoPathVariability::DelayAdjustment::kNone, false));
   state.Update(frequency_response, impulse_response, true, rtc::nullopt,
                render_buffer, E2_main, Y2, x, s, false);
   EXPECT_FALSE(state.ExternalDelay());

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a34630bc_6e492435",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-11-22T12:09:52Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be nicer to just return the Metrics struct from the function?",
+      "range": {
+        "startLine": 949,
+        "startChar": 0,
+        "endLine": 949,
+        "endChar": 54
+      },
+      "revId": "64007016becbcacfb3974145b6190cbaa4fcda4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

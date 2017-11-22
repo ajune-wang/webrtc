@@ -18,6 +18,7 @@ config("common_audio_config") {
 }
 
 rtc_static_library("common_audio") {
+  visibility = [ "*" ]
   sources = [
     "audio_converter.cc",
     "audio_converter.h",

@@ -8,6 +8,8 @@
 
 import("../webrtc.gni")
 
+visibility = [ "*" ]  # By default, targets in this file may be used by anyone.
+
 group("stats") {
   public_deps = [
     ":rtc_stats",

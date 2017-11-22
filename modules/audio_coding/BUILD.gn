@@ -178,6 +178,7 @@ config("red_config") {
 }
 
 rtc_static_library("red") {
+  visibility = [ "*" ]
   sources = [
     "codecs/red/audio_encoder_copy_red.cc",
     "codecs/red/audio_encoder_copy_red.h",
@@ -2179,6 +2180,7 @@ if (rtc_include_tests) {
 # webrtc/api/audio_codecs:audio_codecs_api instead.
 # TODO(kwiberg): Remove this.
 rtc_source_set("audio_decoder_interface") {
+  visibility = [ "*" ]
   sources = [
     "codecs/audio_decoder.h",
   ]
@@ -2191,6 +2193,7 @@ rtc_source_set("audio_decoder_interface") {
 # webrtc/api/audio_codecs:audio_codecs_api instead.
 # TODO(ossu): Remove this.
 rtc_source_set("audio_encoder_interface") {
+  visibility = [ "*" ]
   sources = [
     "codecs/audio_encoder.h",
   ]

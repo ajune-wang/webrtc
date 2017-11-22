@@ -87,6 +87,7 @@ rtc_static_library("rtc_pc_base") {
 }
 
 rtc_source_set("rtc_pc") {
+  visibility = [ "*" ]
   public_deps = [
     ":rtc_pc_base",
   ]

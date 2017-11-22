@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "783c308e_a5b33c27",
+        "filename": "sdk/android/src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-22T15:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcc10aea_ad76d965",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "fd1507658730b3ec12f0453170c1a8a4f539ef0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "399d11d5_c78acaaf",
         "filename": "sdk/android/src/jni/wrappednativecodec.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-22T13:43:25Z",
       "side": 1,
       "message": "Make a static Java function that merges the instanceof check to reduce the JNI code here.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 75
+      },
+      "revId": "fd1507658730b3ec12f0453170c1a8a4f539ef0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0318d840_522aba4c",
+        "filename": "sdk/android/src/jni/wrappednativecodec.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-22T15:28:41Z",
+      "side": 1,
+      "message": "\u003e Make a static Java function that merges the instanceof check to reduce the JNI code here.\n\nDo you mean a method that returns 0 if the class is not a WrappedNativeVideoDecoder? And then do the if check on the return value?",
+      "parentUuid": "399d11d5_c78acaaf",
       "range": {
         "startLine": 28,
         "startChar": 0,

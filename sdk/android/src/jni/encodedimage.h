@@ -23,7 +23,10 @@ class EncodedImage;
 namespace jni {
 
 jobject NativeToJavaFrameType(JNIEnv* env, FrameType frame_type);
-jobject NativeToJavaEncodedImage(JNIEnv* jni, const EncodedImage& image);
+// Capture time is sometimes 0 in |image|, so pass it in from outside.
+jobject NativeToJavaEncodedImage(JNIEnv* jni,
+                                 const EncodedImage& image,
+                                 int64_t capture_time_ns);
 
 }  // namespace jni
 }  // namespace webrtc

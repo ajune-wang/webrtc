@@ -17,6 +17,12 @@
 
 namespace webrtc {
 
+// Converts time obtained using rtc::TimeMicros to ntp format.
+// Note that TimeMicrosToNtp(rtc::TimeMicros()) will diverge from actual NtpTime
+// but for rtp protocol it is more important for clock to be monotonic
+// than to represent actual ntp time.
+NtpTime TimeMicrosToNtp(int64_t time_us);
+
 // Converts NTP timestamp to RTP timestamp.
 inline uint32_t NtpToRtp(NtpTime ntp, uint32_t freq) {
   uint32_t tmp = (static_cast<uint64_t>(ntp.fractions()) * freq) >> 32;

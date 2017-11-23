@@ -13,7 +13,9 @@
 #include <string>
 #include <vector>
 
-#include "sdk/android/src/jni/classreferenceholder.h"
+#include "sdk/android/generated_peerconnection_jni/jni/RTCStatsCollectorCallback_jni.h"
+#include "sdk/android/generated_peerconnection_jni/jni/RTCStatsReport_jni.h"
+#include "sdk/android/generated_peerconnection_jni/jni/RTCStats_jni.h"
 
 namespace webrtc {
 namespace jni {
@@ -23,18 +25,7 @@ RTCStatsCollectorCallbackWrapper::RTCStatsCollectorCallbackWrapper(
     jobject j_callback)
     : j_callback_global_(jni, j_callback),
       j_callback_class_(jni, GetObjectClass(jni, j_callback)),
-      j_stats_report_class_(FindClass(jni, "org/webrtc/RTCStatsReport")),
-      j_stats_report_ctor_(GetMethodID(jni,
-                                       j_stats_report_class_,
-                                       "<init>",
-                                       "(JLjava/util/Map;)V")),
-      j_stats_class_(FindClass(jni, "org/webrtc/RTCStats")),
-      j_stats_ctor_(GetMethodID(
-          jni,
-          j_stats_class_,
-          "<init>",
-          "(JLjava/lang/String;Ljava/lang/String;Ljava/util/Map;)V")),
-      j_linked_hash_map_class_(FindClass(jni, "java/util/LinkedHashMap")),
+      j_linked_hash_map_class_(jni->FindClass("java/util/LinkedHashMap")),
       j_linked_hash_map_ctor_(
           GetMethodID(jni, j_linked_hash_map_class_, "<init>", "()V")),
       j_linked_hash_map_put_(GetMethodID(
@@ -42,29 +33,29 @@ RTCStatsCollectorCallbackWrapper::RTCStatsCollectorCallbackWrapper(
           j_linked_hash_map_class_,
           "put",
           "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;")),
-      j_boolean_class_(FindClass(jni, "java/lang/Boolean")),
+      j_boolean_class_(jni->FindClass("java/lang/Boolean")),
       j_boolean_ctor_(GetMethodID(jni, j_boolean_class_, "<init>", "(Z)V")),
       j_integer_class_(jni->FindClass("java/lang/Integer")),
-      j_long_class_(FindClass(jni, "java/lang/Long")),
+      j_long_class_(jni->FindClass("java/lang/Long")),
       j_long_ctor_(GetMethodID(jni, j_long_class_, "<init>", "(J)V")),
-      j_big_integer_class_(FindClass(jni, "java/math/BigInteger")),
+      j_big_integer_class_(jni->FindClass("java/math/BigInteger")),
       j_big_integer_ctor_(GetMethodID(jni,
                                       j_big_integer_class_,
                                       "<init>",
                                       "(Ljava/lang/String;)V")),
-      j_double_class_(FindClass(jni, "java/lang/Double")),
+      j_double_class_(jni->FindClass("java/lang/Double")),
       j_double_ctor_(GetMethodID(jni, j_double_class_, "<init>", "(D)V")),
-      j_string_class_(FindClass(jni, "java/lang/String")) {}
+      j_string_class_(jni->FindClass("java/lang/String")) {
+  CHECK_EXCEPTION(jni) << "error during RTCStatsCollectorCallbackWrapper ctor";
+}
 
 void RTCStatsCollectorCallbackWrapper::OnStatsDelivered(
     const rtc::scoped_refptr<const RTCStatsReport>& report) {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
   ScopedLocalRefFrame local_ref_frame(jni);
   jobject j_report = ReportToJava(jni, report);
-  jmethodID m = GetMethodID(jni, *j_callback_class_, "onStatsDelivered",
-                            "(Lorg/webrtc/RTCStatsReport;)V");
-  jni->CallVoidMethod(*j_callback_global_, m, j_report);
-  CHECK_EXCEPTION(jni) << "error during CallVoidMethod";
+  Java_RTCStatsCollectorCallback_onStatsDelivered(jni, *j_callback_global_,
+                                                  j_report);
 }
 
 jobject RTCStatsCollectorCallbackWrapper::ReportToJava(
@@ -82,9 +73,8 @@ jobject RTCStatsCollectorCallbackWrapper::ReportToJava(
     jni->CallObjectMethod(j_stats_map, j_linked_hash_map_put_, j_id, j_stats);
     CHECK_EXCEPTION(jni) << "error during CallObjectMethod";
   }
-  jobject j_report = jni->NewObject(j_stats_report_class_, j_stats_report_ctor_,
-                                    report->timestamp_us(), j_stats_map);
-  CHECK_EXCEPTION(jni) << "error during NewObject";
+  jobject j_report =
+      Java_RTCStatsReport_create(jni, report->timestamp_us(), j_stats_map);
   return j_report;
 }
 
@@ -106,8 +96,7 @@ jobject RTCStatsCollectorCallbackWrapper::StatsToJava(JNIEnv* jni,
     CHECK_EXCEPTION(jni) << "error during CallObjectMethod";
   }
   jobject j_stats =
-      jni->NewObject(j_stats_class_, j_stats_ctor_, stats.timestamp_us(),
-                     j_type, j_id, j_members);
+      Java_RTCStats_create(jni, stats.timestamp_us(), j_type, j_id, j_members);
   CHECK_EXCEPTION(jni) << "error during NewObject";
   return j_stats;
 }

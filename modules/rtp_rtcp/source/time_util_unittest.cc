@@ -9,9 +9,42 @@
  */
 #include "modules/rtp_rtcp/source/time_util.h"
 
+#include "rtc_base/fakeclock.h"
+#include "rtc_base/timeutils.h"
+#include "system_wrappers/include/clock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
+
+TEST(TimeUtilTest, TimeMicrosToNtpMatchRealTimeClockInitially) {
+  Clock* legacy_clock = Clock::GetRealTimeClock();
+  NtpTime old_time1 = legacy_clock->CurrentNtpTime();
+  NtpTime new_time2 = TimeMicrosToNtp(rtc::TimeMicros());
+  NtpTime old_time3 = legacy_clock->CurrentNtpTime();
+  NtpTime new_time4 = TimeMicrosToNtp(rtc::TimeMicros());
+
+  // This test will fail once every 136 years, when NtpTime wraparound.
+  // More often than that, it will fail if system adjust ntp time while test
+  // is running.
+  // To mitigate ntp time adjustment and potentional different precisions of
+  // Clock and TimeMicrosToNtp, relax expectation by a millisecond.
+  EXPECT_LE(old_time1.ToMs(), new_time2.ToMs() + 1);
+  EXPECT_LE(new_time2.ToMs(), old_time3.ToMs() + 1);
+  EXPECT_LE(old_time3.ToMs(), new_time4.ToMs() + 1);
+}
+
+TEST(TimeUtilTest, TimeMicrosToNtpDoesntChangeBetweenRuns) {
+  rtc::ScopedFakeClock clock;
+  // TimeMicrosToNtp is not pure: it behave differently between different
+  // execution of the program, but should behave same during same execution.
+  const int64_t time_us = 12345;
+  clock.SetTimeMicros(2);
+  uint64_t time_ntp = static_cast<uint64_t>(TimeMicrosToNtp(time_us));
+  clock.SetTimeMicros(time_us);
+  EXPECT_EQ(time_ntp, static_cast<uint64_t>(TimeMicrosToNtp(time_us)));
+  clock.SetTimeMicros(1000000);
+  EXPECT_EQ(time_ntp, static_cast<uint64_t>(TimeMicrosToNtp(time_us)));
+}
 
 TEST(TimeUtilTest, CompactNtp) {
   const uint32_t kNtpSec = 0x12345678;

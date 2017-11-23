@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "752e4c6f_fc303ba7",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/FileVideoCapturerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-23T16:10:09Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "c1178f06e4ce0f58fbc27f398120a6ce5b4dcfb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

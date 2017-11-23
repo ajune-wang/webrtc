@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd12faba_1c8575c3",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/CallActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-23T16:10:09Z",
+      "side": 0,
+      "message": "Hmm, do we need to remove these? Won\u0027t that bring the problem back?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 61
+      },
+      "revId": "02d71fde8d13b40e31d2f5552cf091eed0a28c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

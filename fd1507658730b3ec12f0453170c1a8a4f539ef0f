@@ -117,6 +117,30 @@
       "revId": "fd1507658730b3ec12f0453170c1a8a4f539ef0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b123f974_13d4e8d4",
+        "filename": "sdk/android/src/jni/wrappednativecodec.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-23T13:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "497a4649_1fb09cc0",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 75
+      },
+      "revId": "fd1507658730b3ec12f0453170c1a8a4f539ef0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

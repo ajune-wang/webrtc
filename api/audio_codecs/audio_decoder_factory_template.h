@@ -46,6 +46,10 @@ struct Helper<T, Ts...> {
   }
   static bool IsSupportedDecoder(const SdpAudioFormat& format) {
     auto opt_config = T::SdpToConfig(format);
+    static_assert(std::is_same<decltype(opt_config),
+                               rtc::Optional<typename T::Config>>::value,
+                  "T::SdpToConfig() must return a value of type "
+                  "rtc::Optional<T::Config>");
     return opt_config ? true : Helper<Ts...>::IsSupportedDecoder(format);
   }
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(

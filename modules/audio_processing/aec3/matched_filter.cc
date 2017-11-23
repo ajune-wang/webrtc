@@ -337,9 +337,9 @@ void MatchedFilter::Update(const DownsampledRenderBuffer& render_buffer,
     float error_sum = 0.f;
     bool filters_updated = false;
 
-    size_t x_start_index =
-        (render_buffer.position + alignment_shift + sub_block_size_ - 1) %
-        render_buffer.buffer.size();
+    size_t x_start_index = (render_buffer.next_read_index + alignment_shift +
+                            sub_block_size_ - 1) %
+                           render_buffer.buffer.size();
 
     switch (optimization_) {
 #if defined(WEBRTC_ARCH_X86_FAMILY)

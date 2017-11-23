@@ -38,9 +38,11 @@ void RunFilterUpdateTest(int num_blocks_to_process,
   AdaptiveFirFilter main_filter(9, DetectOptimization(), &data_dumper);
   AdaptiveFirFilter shadow_filter(9, DetectOptimization(), &data_dumper);
   Aec3Fft fft;
-  RenderBuffer render_buffer(
-      Aec3Optimization::kNone, 3, main_filter.SizePartitions(),
-      std::vector<size_t>(1, main_filter.SizePartitions()));
+  FftBuffer fft_buffer(main_filter.SizePartitions());
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(main_filter.SizePartitions(), &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   std::array<float, kBlockSize> x_old;
   x_old.fill(0.f);
   ShadowFilterUpdateGain shadow_gain;
@@ -67,7 +69,30 @@ void RunFilterUpdateTest(int num_blocks_to_process,
     // Create the render signal.
     RandomizeSampleVector(&random_generator, x[0]);
     delay_buffer.Delay(x[0], y);
-    render_buffer.Insert(x);
+
+    const size_t prev_insert_index = block_buffer.last_insert_index;
+
+    block_buffer.IncLastInsertIndex();
+    spectrum_buffer.DecLastInsertIndex();
+    fft_buffer.DecLastInsertIndex();
+
+    for (size_t k = 0; k < x.size(); ++k) {
+      std::copy(x[k].begin(), x[k].end(),
+                block_buffer.buffer[block_buffer.last_insert_index][k].begin());
+    }
+    fft.PaddedFft(block_buffer.buffer[block_buffer.last_insert_index][0],
+                  block_buffer.buffer[prev_insert_index][0],
+                  &fft_buffer.buffer[fft_buffer.last_insert_index]);
+
+    fft_buffer.buffer[fft_buffer.last_insert_index].Spectrum(
+        Aec3Optimization::kNone,
+        spectrum_buffer.buffer[spectrum_buffer.last_insert_index]);
+
+    block_buffer.IncNextReadIndex();
+    spectrum_buffer.DecNextReadIndex();
+    fft_buffer.DecNextReadIndex();
+
+    render_buffer.UpdateSpectralSum();
     render_signal_analyzer.Update(render_buffer, delay_samples / kBlockSize);
 
     shadow_filter.Filter(render_buffer, &S);
@@ -103,8 +128,10 @@ std::string ProduceDebugText(size_t delay) {
 // Verifies that the check for non-null output gain parameter works.
 TEST(ShadowFilterUpdateGain, NullDataOutputGain) {
   ApmDataDumper data_dumper(42);
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 1,
-                             std::vector<size_t>(1, 1));
+  FftBuffer fft_buffer(1);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(1, &block_buffer, &spectrum_buffer, &fft_buffer);
   RenderSignalAnalyzer analyzer;
   FftData E;
   ShadowFilterUpdateGain gain;
@@ -151,9 +178,9 @@ TEST(ShadowFilterUpdateGain, DecreasingGain) {
   RunFilterUpdateTest(200, 65, blocks_with_saturation, &e, &y, &G_b);
   RunFilterUpdateTest(300, 65, blocks_with_saturation, &e, &y, &G_c);
 
-  G_a.Spectrum(Aec3Optimization::kNone, &G_a_power);
-  G_b.Spectrum(Aec3Optimization::kNone, &G_b_power);
-  G_c.Spectrum(Aec3Optimization::kNone, &G_c_power);
+  G_a.Spectrum(Aec3Optimization::kNone, G_a_power);
+  G_b.Spectrum(Aec3Optimization::kNone, G_b_power);
+  G_c.Spectrum(Aec3Optimization::kNone, G_c_power);
 
   EXPECT_GT(std::accumulate(G_a_power.begin(), G_a_power.end(), 0.),
             std::accumulate(G_b_power.begin(), G_b_power.end(), 0.));

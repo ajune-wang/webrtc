@@ -151,13 +151,11 @@ TEST(MatchedFilter, LagEstimation) {
       MatchedFilter filter(&data_dumper, DetectOptimization(), sub_block_size,
                            kWindowSizeSubBlocks, kNumMatchedFilters,
                            kAlignmentShiftSubBlocks, 150);
+      EchoCanceller3Config config;
+      config.delay.down_sampling_factor = down_sampling_factor;
+      config.delay.num_filters = kNumMatchedFilters;
       std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-          RenderDelayBuffer::Create(
-              3, down_sampling_factor,
-              GetDownSampledBufferSize(down_sampling_factor,
-                                       kNumMatchedFilters),
-              GetRenderDelayBufferSize(down_sampling_factor,
-                                       kNumMatchedFilters)));
+          RenderDelayBuffer::Create(config, 3));
 
       // Analyze the correlation between render and capture.
       for (size_t k = 0; k < (300 + delay_samples / sub_block_size); ++k) {
@@ -179,7 +177,7 @@ TEST(MatchedFilter, LagEstimation) {
       // Find which lag estimate should be the most accurate.
       rtc::Optional<size_t> expected_most_accurate_lag_estimate;
       size_t alignment_shift_sub_blocks = 0;
-      for (size_t k = 0; k < kNumMatchedFilters; ++k) {
+      for (size_t k = 0; k < config.delay.num_filters; ++k) {
         if ((alignment_shift_sub_blocks + 3 * kWindowSizeSubBlocks / 4) *
                 sub_block_size >
             delay_samples) {
@@ -236,6 +234,9 @@ TEST(MatchedFilter, LagEstimation) {
 TEST(MatchedFilter, LagNotReliableForUncorrelatedRenderAndCapture) {
   Random random_generator(42U);
   for (auto down_sampling_factor : kDownSamplingFactors) {
+    EchoCanceller3Config config;
+    config.delay.down_sampling_factor = down_sampling_factor;
+    config.delay.num_filters = kNumMatchedFilters;
     const size_t sub_block_size = kBlockSize / down_sampling_factor;
 
     std::vector<std::vector<float>> render(3,
@@ -245,11 +246,7 @@ TEST(MatchedFilter, LagNotReliableForUncorrelatedRenderAndCapture) {
     std::fill(capture.begin(), capture.end(), 0.f);
     ApmDataDumper data_dumper(0);
     std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-        RenderDelayBuffer::Create(
-            3, down_sampling_factor,
-            GetDownSampledBufferSize(down_sampling_factor, kNumMatchedFilters),
-            GetRenderDelayBufferSize(down_sampling_factor,
-                                     kNumMatchedFilters)));
+        RenderDelayBuffer::Create(config, 3));
     MatchedFilter filter(&data_dumper, DetectOptimization(), sub_block_size,
                          kWindowSizeSubBlocks, kNumMatchedFilters,
                          kAlignmentShiftSubBlocks, 150);
@@ -289,11 +286,7 @@ TEST(MatchedFilter, LagNotUpdatedForLowLevelRender) {
                          kWindowSizeSubBlocks, kNumMatchedFilters,
                          kAlignmentShiftSubBlocks, 150);
     std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-        RenderDelayBuffer::Create(
-            3, down_sampling_factor,
-            GetDownSampledBufferSize(down_sampling_factor, kNumMatchedFilters),
-            GetRenderDelayBufferSize(down_sampling_factor,
-                                     kNumMatchedFilters)));
+        RenderDelayBuffer::Create(EchoCanceller3Config(), 3));
     Decimator capture_decimator(down_sampling_factor);
 
     // Analyze the correlation between render and capture.

@@ -18,12 +18,6 @@ import java.util.List;
  * the PeerConnection API for clients.
  */
 public class PeerConnectionFactory {
-  static {
-    // TODO(sakal): Remove once all dependencies have started using
-    // PeerConnectionFactory.initialize.
-    NativeLibrary.initialize(new NativeLibrary.DefaultLoader());
-  }
-
   public static final String TRIAL_ENABLED = "Enabled";
   public static final String VIDEO_FRAME_EMIT_TRIAL = "VideoFrameEmit";
 
@@ -138,22 +132,6 @@ public class PeerConnectionFactory {
   private static native void nativeInitializeAndroidGlobals(
       Context context, boolean videoHwAcceleration);
 
-  // Deprecated, use PeerConnectionFactory.initialize instead.
-  @Deprecated
-  public static void initializeAndroidGlobals(Context context, boolean videoHwAcceleration) {
-    ContextUtils.initialize(context);
-    nativeInitializeAndroidGlobals(context, videoHwAcceleration);
-  }
-
-  // Older signature of initializeAndroidGlobals. The extra parameters are now meaningless.
-  // Deprecated, use PeerConnectionFactory.initialize instead.
-  @Deprecated
-  public static boolean initializeAndroidGlobals(Object context, boolean initializeAudio,
-      boolean initializeVideo, boolean videoHwAcceleration) {
-    initializeAndroidGlobals((Context) context, videoHwAcceleration);
-    return true;
-  }
-
   // Field trial initialization. Must be called before PeerConnectionFactory
   // is created.
   // Deprecated, use PeerConnectionFactory.initialize instead.
@@ -169,10 +147,8 @@ public class PeerConnectionFactory {
     return NativeLibrary.isLoaded() ? nativeFieldTrialsFindFullName(name) : "";
   }
   private static native String nativeFieldTrialsFindFullName(String name);
-  // Internal tracing initialization. Must be called before PeerConnectionFactory is created to
-  // prevent racing with tracing code.
-  // Deprecated, use PeerConnectionFactory.initialize instead.
-  @Deprecated public static native void initializeInternalTracer();
+  // Internal tracing initialization.
+  private static native void initializeInternalTracer();
   // Internal tracing shutdown, called to prevent resource leaks. Must be called after
   // PeerConnectionFactory is gone to prevent races with code performing tracing.
   public static native void shutdownInternalTracer();

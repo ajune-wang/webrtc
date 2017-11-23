@@ -104,6 +104,41 @@
     },
     {
       "key": {
+        "uuid": "59b49017_7b206b21",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T03:09:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7527c10_6e315b21",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1575c3b_a6927dc1",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T03:09:17Z",
+      "side": 1,
+      "message": "Is this the right buffer to check here? There is no delay on this buffer so you can underrun easily.\n\nAn api call flow of 1C 1R 1C 1R 1C 1R 10C will underrun.\n\nI see this when I try this CL on Home platform.",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdd6e273_c89c669a",
         "filename": "modules/audio_processing/aec3/render_signal_analyzer_unittest.cc",
         "patchSetId": 2

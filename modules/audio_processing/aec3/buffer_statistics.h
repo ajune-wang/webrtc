@@ -8,24 +8,29 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC3_DOWNSAMPLED_RENDER_BUFFER_H_
-#define MODULES_AUDIO_PROCESSING_AEC3_DOWNSAMPLED_RENDER_BUFFER_H_
+#ifndef MODULES_AUDIO_PROCESSING_AEC3_BUFFER_STATISTICS_H_
+#define MODULES_AUDIO_PROCESSING_AEC3_BUFFER_STATISTICS_H_
 
 #include <vector>
-
-#include "modules/audio_processing/aec3/aec3_common.h"
 
 namespace webrtc {
 
 // Holds the circular buffer of the downsampled render data.
-struct DownsampledRenderBuffer {
-  explicit DownsampledRenderBuffer(size_t downsampled_buffer_size);
-  ~DownsampledRenderBuffer();
-  std::vector<float> buffer;
-  int last_insert_index = 0;
-  int next_read_index = 0;
+class BufferStatistics {
+ public:
+  BufferStatistics();
+  ~BufferStatistics();
+  void Reset();
+  void AddUnderrun(size_t timestamp);
+  void AddSurplusOverflow(size_t timestamp);
+
+ private:
+  std::vector<size_t> render_underruns_;
+  std::vector<size_t> render_surplus_overflows_;
+  int next_underrun_index_ = 0;
+  int next_overflow_index_ = 0;
 };
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AEC3_DOWNSAMPLED_RENDER_BUFFER_H_
+#endif  // MODULES_AUDIO_PROCESSING_AEC3_BUFFER_STATISTICS_H_

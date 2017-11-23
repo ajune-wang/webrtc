@@ -32,8 +32,11 @@ float RunSubtractorTest(int num_blocks_to_process,
   std::vector<float> y(kBlockSize, 0.f);
   std::array<float, kBlockSize> x_old;
   SubtractorOutput output;
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, kAdaptiveFilterLength,
-                             std::vector<size_t>(1, kAdaptiveFilterLength));
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(kAdaptiveFilterLength, &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   RenderSignalAnalyzer render_signal_analyzer;
   Random random_generator(42U);
   Aec3Fft fft;
@@ -54,22 +57,49 @@ float RunSubtractorTest(int num_blocks_to_process,
     } else {
       delay_buffer.Delay(x[0], y);
     }
-    render_buffer.Insert(x);
+
+    const size_t prev_insert_index = block_buffer.last_insert_index;
+
+    block_buffer.IncLastInsertIndex();
+    spectrum_buffer.DecLastInsertIndex();
+    fft_buffer.DecLastInsertIndex();
+
+    for (size_t k = 0; k < x.size(); ++k) {
+      std::copy(x[k].begin(), x[k].end(),
+                block_buffer.buffer[block_buffer.last_insert_index][k].begin());
+    }
+    fft.PaddedFft(block_buffer.buffer[block_buffer.last_insert_index][0],
+                  block_buffer.buffer[prev_insert_index][0],
+                  &fft_buffer.buffer[fft_buffer.last_insert_index]);
+
+    fft_buffer.buffer[fft_buffer.last_insert_index].Spectrum(
+        Aec3Optimization::kNone,
+        spectrum_buffer.buffer[spectrum_buffer.last_insert_index]);
+
+    block_buffer.IncNextReadIndex();
+    spectrum_buffer.DecNextReadIndex();
+    fft_buffer.DecNextReadIndex();
+
+    render_buffer.UpdateSpectralSum();
     render_signal_analyzer.Update(render_buffer, aec_state.FilterDelay());
 
     // Handle echo path changes.
     if (std::find(blocks_with_echo_path_changes.begin(),
                   blocks_with_echo_path_changes.end(),
                   k) != blocks_with_echo_path_changes.end()) {
-      subtractor.HandleEchoPathChange(EchoPathVariability(true, true));
+      subtractor.HandleEchoPathChange(EchoPathVariability(
+          true, EchoPathVariability::DelayAdjustment::kNewDetectedDelay,
+          false));
     }
     subtractor.Process(render_buffer, y, render_signal_analyzer, aec_state,
                        &output);
 
-    aec_state.HandleEchoPathChange(EchoPathVariability(false, false));
+    aec_state.HandleEchoPathChange(EchoPathVariability(
+        false, EchoPathVariability::DelayAdjustment::kNone, false));
     aec_state.Update(subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(), delay_samples / kBlockSize,
+                     subtractor.ConvergedFilter(),
+                     rtc::Optional<size_t>(delay_samples / kBlockSize),
                      render_buffer, E2_main, Y2, x[0], output.s_main, false);
   }
 
@@ -104,8 +134,11 @@ TEST(Subtractor, NullDataDumper) {
 TEST(Subtractor, DISABLED_NullOutput) {
   ApmDataDumper data_dumper(42);
   Subtractor subtractor(&data_dumper, DetectOptimization());
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, kAdaptiveFilterLength,
-                             std::vector<size_t>(1, kAdaptiveFilterLength));
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(kAdaptiveFilterLength, &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   RenderSignalAnalyzer render_signal_analyzer;
   std::vector<float> y(kBlockSize, 0.f);
 
@@ -118,8 +151,11 @@ TEST(Subtractor, DISABLED_NullOutput) {
 TEST(Subtractor, WrongCaptureSize) {
   ApmDataDumper data_dumper(42);
   Subtractor subtractor(&data_dumper, DetectOptimization());
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, kAdaptiveFilterLength,
-                             std::vector<size_t>(1, kAdaptiveFilterLength));
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(kAdaptiveFilterLength, &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   RenderSignalAnalyzer render_signal_analyzer;
   std::vector<float> y(kBlockSize - 1, 0.f);
   SubtractorOutput output;

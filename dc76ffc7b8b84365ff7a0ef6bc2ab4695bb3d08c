@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f2451433_4b379c4e",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-23T09:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c707715_c7150d23",
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5138d65e_49b02ee0",
         "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "60eb15c5_f560e919",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-23T09:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5138d65e_49b02ee0",
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dee39d08_8b94e3d3",
         "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00025a22_b1176f1a",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-23T09:54:22Z",
+      "side": 1,
+      "message": "Right. It required a bunch of static_casts, or the compiler would complain.",
+      "parentUuid": "dee39d08_8b94e3d3",
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "38d6b8c3_0081605b",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-23T09:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46a4d940_cb89a57b",
+      "range": {
+        "startLine": 188,
+        "startChar": 29,
+        "endLine": 188,
+        "endChar": 61
+      },
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d12e6ac_d2737501",
         "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
         "patchSetId": 3
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "d3d4d37f_e8b2534c",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-23T09:54:22Z",
+      "side": 1,
+      "message": "Only slightly. I could have made a templated CreateCodec function then.",
+      "parentUuid": "4d12e6ac_d2737501",
+      "range": {
+        "startLine": 208,
+        "startChar": 6,
+        "endLine": 208,
+        "endChar": 36
+      },
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1155d5b9_5ab5d4ab",
         "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
         "patchSetId": 3
@@ -113,6 +215,24 @@
       "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebb5d35f_0cf46c79",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-23T09:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1155d5b9_5ab5d4ab",
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

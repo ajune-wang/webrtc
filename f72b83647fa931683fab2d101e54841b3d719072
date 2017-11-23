@@ -283,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "bd49a3a3_05765579",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-23T09:24:53Z",
+      "side": 1,
+      "message": "Right, that\u0027s what I thought. Signed integer overflow is UB.",
+      "parentUuid": "9e434df4_d702f720",
+      "revId": "f72b83647fa931683fab2d101e54841b3d719072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "402c41c6_b6fa3395",
         "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
         "patchSetId": 2

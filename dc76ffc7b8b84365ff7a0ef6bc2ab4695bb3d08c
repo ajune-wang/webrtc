@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c707715_c7150d23",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-23T09:24:53Z",
+      "side": 1,
+      "message": "This constructor can be called with 1 argument, so needs to be `explicit`.",
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5138d65e_49b02ee0",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-23T09:24:53Z",
+      "side": 1,
+      "message": "Hmm. This is a global variable that\u0027s not trivially destructible. Foul!\n\nhttps://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables\n\nConsider doing something like this instead:\n\nconst std::map\u003cstd::string, CodecTypeAndInfo\u003e\u0026 CodecList() {\n  static const auto* const codec_list \u003d\n    new std::map\u003cstd::string, CodecTypeAndInfo\u003e{\n      {\"opus\", {CodecType::kOpus, 111, true}},\n      {\"pcmu\", {CodecType::kPcmU, 0, false}},\n      {\"pcma\", {CodecType::kPcmA, 8, false}},\n      {\"g722\", {CodecType::kG722, 9, false}},\n      {\"pcm16b_8\", {CodecType::kPcm16b8, 93, false}},\n      {\"pcm16b_16\", {CodecType::kPcm16b16, 94, false}},\n      {\"pcm16b_32\", {CodecType::kPcm16b32, 95, false}},\n      {\"pcm16b_48\", {CodecType::kPcm16b48, 96, false}},\n      {\"ilbc\", {CodecType::kIlbc, 102, false}},\n      {\"isac\", {CodecType::kIsac, 103, false}}};\n  return *codec_list;\n}",
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee39d08_8b94e3d3",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-23T09:24:53Z",
+      "side": 1,
+      "message": "Excellent. But now you can write it without having to mention all the indices, and without having to mutate the array:\n\n  const uint8_t rtp_header[] \u003d {0x80, payload_type \u0026 0x7F, ...};",
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46a4d940_cb89a57b",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-23T09:24:53Z",
+      "side": 1,
+      "message": "ossu@ fixed rtc::Optional. You should be able to write just FLAG_bitrate here.",
+      "range": {
+        "startLine": 188,
+        "startChar": 29,
+        "endLine": 188,
+        "endChar": 61
+      },
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d12e6ac_d2737501",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-23T09:24:53Z",
+      "side": 1,
+      "message": "Did you find it irritating that not all the codecs had a Config member type? I could add them...",
+      "range": {
+        "startLine": 208,
+        "startChar": 6,
+        "endLine": 208,
+        "endChar": 36
+      },
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1155d5b9_5ab5d4ab",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-23T09:24:53Z",
+      "side": 1,
+      "message": "You could probably simplify this with the use of a local helper function:\n\n  const auto default_payload_type \u003d [\u0026]{\n    switch (sample_rate_hz) {\n      case 8000: return 13;\n      case 16000: return 98;\n      case 32000: return 99;\n      case 48000: return 100;\n    }\n  };\n  cng_config.payload_type \u003d FLAG_cng_payload_type !\u003d -1 ?\n      FLAG_cng_payload_type : default_payload_type();",
+      "revId": "dc76ffc7b8b84365ff7a0ef6bc2ab4695bb3d08c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

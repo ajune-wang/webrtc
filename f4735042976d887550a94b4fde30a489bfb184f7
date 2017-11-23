@@ -2,6 +2,108 @@
   "comments": [
     {
       "key": {
+        "uuid": "a9acbd53_915dfcef",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T00:42:00Z",
+      "side": 1,
+      "message": "All of these if statements have the same insides, there must be a way to nicely merge the conditions?\n\nIf they don\u0027t then it needs comments because I wont be the last person to be confused :)",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0204615_fa69ee04",
+        "filename": "modules/audio_processing/aec3/buffer_statistics.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T00:42:00Z",
+      "side": 1,
+      "message": "Need consistent spacing around namespaces.",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6770712f_ff48c7a6",
+        "filename": "modules/audio_processing/aec3/matrix_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T00:42:00Z",
+      "side": 1,
+      "message": "Need space above here.",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "626dba30_01880980",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T00:42:00Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t end in a period.",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6db7c9a2_fe3e83c7",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T00:42:00Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t have a period either! :)",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7527c10_6e315b21",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T00:42:00Z",
+      "side": 1,
+      "message": "I\u0027m assuming this is negative on purpose, but I\u0027m not immediately sure why, so I wanted to make sure it wasn\u0027t a typo.",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdd6e273_c89c669a",
         "filename": "modules/audio_processing/aec3/render_signal_analyzer_unittest.cc",
         "patchSetId": 2
@@ -13,6 +115,40 @@
       "writtenOn": "2017-11-22T22:31:50Z",
       "side": 1,
       "message": "Is this 1 related to the kAdaptiveFilterLength of the fft parameter. They always seem to be the same.",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0af62ce_21afa79e",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T00:42:00Z",
+      "side": 1,
+      "message": "Is there a style-guide reason these aren\u0027t else if?",
+      "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4de9c7a_ca6202e3",
+        "filename": "modules/audio_processing/aec3/subtractor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2017-11-23T00:42:00Z",
+      "side": 1,
+      "message": "typo",
       "revId": "f4735042976d887550a94b4fde30a489bfb184f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

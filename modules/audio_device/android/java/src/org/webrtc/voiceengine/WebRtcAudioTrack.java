@@ -222,6 +222,8 @@ public class WebRtcAudioTrack {
     if (DEBUG) {
       WebRtcAudioUtils.logDeviceInfo(TAG);
     }
+
+    WebRtcAudioUtils.logAudioState(TAG);
   }
 
   private boolean initPlayout(int sampleRate, int channels) {

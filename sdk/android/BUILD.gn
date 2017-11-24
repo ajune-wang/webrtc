@@ -280,6 +280,7 @@ generate_jni("generated_peerconnection_jni") {
   sources = [
     "api/org/webrtc/DataChannel.java",
     "api/org/webrtc/MediaConstraints.java",
+    "api/org/webrtc/MediaStream.java",
     "api/org/webrtc/NetworkMonitor.java",
     "api/org/webrtc/NetworkMonitorAutoDetect.java",
     "api/org/webrtc/RTCStats.java",

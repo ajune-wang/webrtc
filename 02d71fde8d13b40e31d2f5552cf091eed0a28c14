@@ -22,6 +22,30 @@
       "revId": "02d71fde8d13b40e31d2f5552cf091eed0a28c14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd245ae_138591d1",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/CallActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-24T10:17:24Z",
+      "side": 0,
+      "message": "I think adding this was a mistake in the first place. It fixes a problem on a specific device in a specific build configuration. I don\u0027t think this is what the focus of AppRTCMobile should be. Additionally, this makes AppRTCMobile test the new native library loading logic.",
+      "parentUuid": "fd12faba_1c8575c3",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 61
+      },
+      "revId": "02d71fde8d13b40e31d2f5552cf091eed0a28c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

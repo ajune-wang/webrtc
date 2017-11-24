@@ -22,6 +22,30 @@
       "revId": "c1178f06e4ce0f58fbc27f398120a6ce5b4dcfb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95ad2f96_353a6d4c",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/FileVideoCapturerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-24T10:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "752e4c6f_fc303ba7",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "c1178f06e4ce0f58fbc27f398120a6ce5b4dcfb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

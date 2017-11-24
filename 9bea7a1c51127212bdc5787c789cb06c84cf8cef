@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "069c3129_e06e12e2",
+        "filename": "api/audio_codecs/audio_encoder_factory_template.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-24T09:22:30Z",
+      "side": 1,
+      "message": "Are there any common properties that all T::Configs must share? I think they all have frame_size_ms as a parameter, for instance.",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "9bea7a1c51127212bdc5787c789cb06c84cf8cef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d63b7937_00d31bea",
         "filename": "api/audio_codecs/g722/audio_encoder_g722.h",
         "patchSetId": 1

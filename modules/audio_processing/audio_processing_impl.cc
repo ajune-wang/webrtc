@@ -1580,8 +1580,17 @@ AudioProcessing::AudioProcessingStatistics AudioProcessingImpl::GetStatistics()
     const {
   AudioProcessingStatistics stats;
   EchoCancellation::Metrics metrics;
-  if (public_submodules_->echo_cancellation->GetMetrics(&metrics) ==
-      Error::kNoError) {
+  if (private_submodules_->echo_controller) {
+    rtc::CritScope cs_capture(&crit_capture_);
+    EchoControl::Metrics ec_metrics =
+        private_submodules_->echo_controller->GetMetrics();
+    float erl = static_cast<float>(ec_metrics.echo_return_loss);
+    float erle = static_cast<float>(ec_metrics.echo_return_loss_enhancement);
+    // Instant value will also be used for min, max and average.
+    stats.echo_return_loss.Set(erl, erl, erl, erl);
+    stats.echo_return_loss_enhancement.Set(erle, erle, erle, erle);
+  } else if (public_submodules_->echo_cancellation->GetMetrics(&metrics) ==
+             Error::kNoError) {
     stats.a_nlp.Set(metrics.a_nlp);
     stats.divergent_filter_fraction = metrics.divergent_filter_fraction;
     stats.echo_return_loss.Set(metrics.echo_return_loss);

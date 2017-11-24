@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc4bacaa_77187f8c",
+        "filename": "sdk/android/api/org/webrtc/RTCStatsReport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-24T12:29:24Z",
+      "side": 1,
+      "message": "Make not private?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 10
+      },
+      "revId": "0e321a0971e1f828d26770f6914625a127c5acab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6656abc9_9d8ce68d",
+        "filename": "sdk/android/src/jni/pc/rtcstatscollectorcallbackwrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-24T12:29:24Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 51
+      },
+      "revId": "0e321a0971e1f828d26770f6914625a127c5acab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

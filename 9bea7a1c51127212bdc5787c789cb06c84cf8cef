@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d63b7937_00d31bea",
+        "filename": "api/audio_codecs/g722/audio_encoder_g722.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-11-24T09:13:58Z",
+      "side": 1,
+      "message": "Use \"Config\"? here and below?",
+      "revId": "9bea7a1c51127212bdc5787c789cb06c84cf8cef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b641874f_5c851bf4",
+        "filename": "api/audio_codecs/ilbc/audio_encoder_ilbc.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-11-24T09:13:58Z",
+      "side": 1,
+      "message": "Use Config instead, here and below?",
+      "revId": "9bea7a1c51127212bdc5787c789cb06c84cf8cef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

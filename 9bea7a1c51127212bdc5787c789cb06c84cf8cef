@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65d27f00_f8030a9b",
+        "filename": "api/audio_codecs/audio_encoder_factory_template.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-24T12:07:50Z",
+      "side": 1,
+      "message": "You may be right for our current set of codecs, but I don\u0027t think that\u0027s true in general. For example, a codec with no adjustable parameters would likely want an empty config struct (we have exactly this case for at least one of our decoders).\n\nThe idea with the config structs is that their contents are entirely up to the codec, so that they can be a good fit to what the codec needs.",
+      "parentUuid": "069c3129_e06e12e2",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "9bea7a1c51127212bdc5787c789cb06c84cf8cef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d63b7937_00d31bea",
         "filename": "api/audio_codecs/g722/audio_encoder_g722.h",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "0c7cc301_ff1dd8ee",
+        "filename": "api/audio_codecs/g722/audio_encoder_g722.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-24T12:07:50Z",
+      "side": 1,
+      "message": "I\u0027d rather not---it\u0027s easier to see what\u0027s going on if we refer to the type by its real name instead of an alias. The alias is for users of these API structs who want a uniform way to refer to the config type.",
+      "parentUuid": "d63b7937_00d31bea",
+      "revId": "9bea7a1c51127212bdc5787c789cb06c84cf8cef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b641874f_5c851bf4",
         "filename": "api/audio_codecs/ilbc/audio_encoder_ilbc.h",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2017-11-24T09:13:58Z",
       "side": 1,
       "message": "Use Config instead, here and below?",
+      "revId": "9bea7a1c51127212bdc5787c789cb06c84cf8cef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37aa7dd3_b469d6af",
+        "filename": "api/audio_codecs/ilbc/audio_encoder_ilbc.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-24T12:07:50Z",
+      "side": 1,
+      "message": "Same answer here.",
+      "parentUuid": "b641874f_5c851bf4",
       "revId": "9bea7a1c51127212bdc5787c789cb06c84cf8cef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

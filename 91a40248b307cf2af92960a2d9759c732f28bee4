@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65a5e929_e441440b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-24T12:11:36Z",
+      "side": 1,
+      "message": "You can use\n auto ec_metrics \u003d ...;\ninstead, and maybe save yourself the line break. It is up to you.",
+      "range": {
+        "startLine": 1585,
+        "startChar": 4,
+        "endLine": 1585,
+        "endChar": 24
+      },
+      "revId": "91a40248b307cf2af92960a2d9759c732f28bee4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -17,7 +17,17 @@ public class MediaStreamTrack {
 
   public enum MediaType {
     MEDIA_TYPE_AUDIO,
-    MEDIA_TYPE_VIDEO,
+    MEDIA_TYPE_VIDEO;
+
+    @CalledByNative("MediaType")
+    static MediaType getAudioType() {
+      return MEDIA_TYPE_AUDIO;
+    }
+
+    @CalledByNative("MediaType")
+    static MediaType getVideoType() {
+      return MEDIA_TYPE_VIDEO;
+    }
   }
 
   final long nativeTrack;
@@ -27,36 +37,36 @@ public class MediaStreamTrack {
   }
 
   public String id() {
-    return nativeId(nativeTrack);
+    return getNativeId(nativeTrack);
   }
 
   public String kind() {
-    return nativeKind(nativeTrack);
+    return getNativeKind(nativeTrack);
   }
 
   public boolean enabled() {
-    return nativeEnabled(nativeTrack);
+    return getNativeEnabled(nativeTrack);
   }
 
   public boolean setEnabled(boolean enable) {
-    return nativeSetEnabled(nativeTrack, enable);
+    return setNativeEnabled(nativeTrack, enable);
   }
 
   public State state() {
-    return nativeState(nativeTrack);
+    return getNativeState(nativeTrack);
   }
 
   public void dispose() {
     JniCommon.nativeReleaseRef(nativeTrack);
   }
 
-  private static native String nativeId(long nativeTrack);
+  private static native String getNativeId(long nativeTrack);
 
-  private static native String nativeKind(long nativeTrack);
+  private static native String getNativeKind(long nativeTrack);
 
-  private static native boolean nativeEnabled(long nativeTrack);
+  private static native boolean getNativeEnabled(long nativeTrack);
 
-  private static native boolean nativeSetEnabled(long nativeTrack, boolean enabled);
+  private static native boolean setNativeEnabled(long nativeTrack, boolean enabled);
 
-  private static native State nativeState(long nativeTrack);
+  private static native State getNativeState(long nativeTrack);
 }

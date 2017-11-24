@@ -16,8 +16,8 @@
 
 #include "modules/bitrate_controller/include/bitrate_controller.h"
 #include "modules/congestion_controller/acknowledged_bitrate_estimator.h"
+#include "modules/congestion_controller/alr_detector.h"
 #include "modules/congestion_controller/probe_controller.h"
-#include "modules/pacing/alr_detector.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/format_macros.h"
@@ -103,6 +103,7 @@ SendSideCongestionController::SendSideCongestionController(
       observer_(observer),
       event_log_(event_log),
       pacer_(pacer),
+      alr_detector_(rtc::MakeUnique<AlrDetector>()),
       bitrate_controller_(
           BitrateController::CreateBitrateController(clock_, event_log)),
       acknowledged_bitrate_estimator_(
@@ -264,8 +265,15 @@ void SendSideCongestionController::OnSentPacket(
     return;
   transport_feedback_adapter_.OnSentPacket(sent_packet.packet_id,
                                            sent_packet.send_time_ms);
-  if (in_cwnd_experiment_)
-    LimitOutstandingBytes(transport_feedback_adapter_.GetOutstandingBytes());
+  LimitOutstandingBytes();
+  auto packet = transport_feedback_adapter_.GetPacket(sent_packet.packet_id);
+  if (packet.has_value()) {
+    rtc::CritScope lock(&alr_lock_);
+    alr_detector_->OnPacketSent(packet->payload_size, packet->send_time_ms);
+    rtc::Optional<int64_t> start_time_ms =
+        alr_detector_->GetApplicationLimitedRegionStartTime();
+    probe_controller_->SetAlrStartTimeMs(start_time_ms);
+  }
 }
 
 void SendSideCongestionController::OnRttUpdate(int64_t avg_rtt_ms,
@@ -315,8 +323,12 @@ void SendSideCongestionController::OnTransportFeedback(
       transport_feedback_adapter_.GetTransportFeedbackVector());
   SortPacketFeedbackVector(&feedback_vector);
 
-  bool currently_in_alr =
-      pacer_->GetApplicationLimitedRegionStartTime().has_value();
+  bool currently_in_alr = false;
+  {
+    rtc::CritScope lock(&alr_lock_);
+    currently_in_alr =
+        alr_detector_->GetApplicationLimitedRegionStartTime().has_value();
+  }
   if (was_in_alr_ && !currently_in_alr) {
     int64_t now_ms = rtc::TimeMillis();
     acknowledged_bitrate_estimator_->SetAlrEndedTimeMs(now_ms);
@@ -339,14 +351,15 @@ void SendSideCongestionController::OnTransportFeedback(
   }
   if (result.recovered_from_overuse)
     probe_controller_->RequestProbe();
-  if (in_cwnd_experiment_)
-    LimitOutstandingBytes(transport_feedback_adapter_.GetOutstandingBytes());
+  LimitOutstandingBytes();
 }
 
-void SendSideCongestionController::LimitOutstandingBytes(
-    size_t num_outstanding_bytes) {
-  RTC_DCHECK(in_cwnd_experiment_);
+void SendSideCongestionController::LimitOutstandingBytes() {
+  if (!in_cwnd_experiment_)
+    return;
   rtc::CritScope lock(&network_state_lock_);
+  size_t num_outstanding_bytes =
+      transport_feedback_adapter_.GetOutstandingBytes();
   rtc::Optional<int64_t> min_rtt_ms =
       transport_feedback_adapter_.GetMinFeedbackLoopRtt();
   // No valid RTT. Could be because send-side BWE isn't used, in which case
@@ -381,6 +394,10 @@ void SendSideCongestionController::MaybeTriggerOnNetworkChanged() {
       &bitrate_bps, &fraction_loss, &rtt);
   if (estimate_changed) {
     pacer_->SetEstimatedBitrate(bitrate_bps);
+    {
+      rtc::CritScope lock(&alr_lock_);
+      alr_detector_->SetEstimatedBitrate(bitrate_bps);
+    }
     probe_controller_->SetEstimatedBitrate(bitrate_bps);
     retransmission_rate_limiter_->SetMaxRate(bitrate_bps);
   }

@@ -9,7 +9,7 @@
  */
 #include <stdio.h>
 
-#include "modules/pacing/alr_detector.h"
+#include "modules/congestion_controller/alr_detector.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
 #include "video/video_quality_test.h"

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/pacing/alr_detector.h"
+#include "modules/congestion_controller/alr_detector.h"
 
 #include "test/field_trial.h"
 #include "test/gtest.h"

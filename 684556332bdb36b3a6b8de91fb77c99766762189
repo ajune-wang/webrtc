@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d109aae6_b693e4a9",
+        "filename": "sdk/android/api/org/webrtc/MediaStream.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-26T11:44:30Z",
+      "side": 1,
+      "message": "nit: I would like to call this addNativeAudioTrack and the other method addAudioTrackToNativeStream.",
+      "range": {
+        "startLine": 100,
+        "startChar": 7,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "684556332bdb36b3a6b8de91fb77c99766762189",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

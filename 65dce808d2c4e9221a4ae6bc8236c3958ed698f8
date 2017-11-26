@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1de0e187_1b001727",
+        "filename": "sdk/android/api/org/webrtc/MediaStreamTrack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-26T11:34:29Z",
+      "side": 1,
+      "message": "I would prefer the fromNative index approach.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "65dce808d2c4e9221a4ae6bc8236c3958ed698f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

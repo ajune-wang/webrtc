@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6e2b827c_928b58f4",
+        "filename": "tools_webrtc/ios/tryserver.webrtc/ios64_sim_ios11_dbg.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2017-11-27T14:15:45Z",
+      "side": 1,
+      "message": "Maybe, I don\u0027t know.\nIf we do, should we use it for the other bots too?",
+      "parentUuid": "0b710835_98c70850",
+      "range": {
+        "startLine": 5,
+        "startChar": 20,
+        "endLine": 5,
+        "endChar": 23
+      },
+      "revId": "5dcdddb1fffff5a7409e5941a24a1dab8111e0fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb071ef1_84eb594c",
         "filename": "tools_webrtc/ios/tryserver.webrtc/ios64_sim_ios11_dbg.json",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-27T14:11:20Z",
       "side": 1,
       "message": "Which models can we pick?",
+      "range": {
+        "startLine": 21,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "5dcdddb1fffff5a7409e5941a24a1dab8111e0fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fc32bd_fbb3ef83",
+        "filename": "tools_webrtc/ios/tryserver.webrtc/ios64_sim_ios11_dbg.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2017-11-27T14:15:45Z",
+      "side": 1,
+      "message": "PRODUCT_TYPES \u003d {\n    \u0027iPad 4 GSM CDMA\u0027: \u0027iPad3,6\u0027,\n    \u0027iPad 5th Gen\u0027:    \u0027iPad6,11\u0027,\n    \u0027iPad Air\u0027:        \u0027iPad4,1\u0027,\n    \u0027iPad Air 2\u0027:      \u0027iPad5,3\u0027,\n    \u0027iPhone 5\u0027:        \u0027iPhone5,1\u0027,\n    \u0027iPhone 5s\u0027:       \u0027iPhone6,1\u0027,\n    \u0027iPhone 6s\u0027:       \u0027iPhone8,1\u0027,\n    \u0027iPhone 7\u0027:        \u0027iPhone9,1\u0027,\n  }\n\n\nhttps://cs.chromium.org/chromium/build/scripts/slave/recipe_modules/ios/api.py?q\u003dios/api.py\u0026sq\u003dpackage:chromium\u0026dr\u0026l\u003d14",
+      "parentUuid": "cb071ef1_84eb594c",
       "range": {
         "startLine": 21,
         "startChar": 22,

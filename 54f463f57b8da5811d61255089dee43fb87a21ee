@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d0bbe5e_b853910b",
+        "filename": "modules/desktop_capture/window_finder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2017-11-27T23:46:55Z",
+      "side": 1,
+      "message": "Please add a comment explaining why you\u0027re doing this.",
+      "range": {
+        "startLine": 61,
+        "startChar": 42,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "54f463f57b8da5811d61255089dee43fb87a21ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

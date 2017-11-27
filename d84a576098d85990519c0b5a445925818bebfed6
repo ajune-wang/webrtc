@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f7f0afd9_20200cd7",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T21:02:16Z",
+      "side": 1,
+      "message": "Can remove this comment because it\u0027s not true anymore.",
+      "range": {
+        "startLine": 13,
+        "startChar": 41,
+        "endLine": 13,
+        "endChar": 74
+      },
+      "revId": "d84a576098d85990519c0b5a445925818bebfed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5bd2efc_6b29d4ee",
         "filename": "test/testsupport/perf_test.cc",
         "patchSetId": 3

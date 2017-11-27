@@ -16,6 +16,24 @@
       "revId": "12a47fd85fd4b895225e859f1dd4ad47abbd21fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f781d872_32d50632",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-27T13:06:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b795b8ed_75bb95e6",
+      "revId": "12a47fd85fd4b895225e859f1dd4ad47abbd21fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

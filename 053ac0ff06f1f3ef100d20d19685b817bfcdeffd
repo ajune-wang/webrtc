@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "3eda42a1_970fbbbf",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-27T08:29:02Z",
+      "side": 1,
+      "message": "\u003e It is possible but I think it is more straight forward to have strategy created at constructor rather than at runtime.\n\nOk, for test code (and it looks like it depends on OnCallsCreated only called once, which I guess is reasonable). Otherwise, I think I would insist; eliminating unneeded member variable state usually makes the code easier to understand.",
+      "parentUuid": "ff213ea9_cbd21a21",
+      "range": {
+        "startLine": 836,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 76
+      },
+      "revId": "053ac0ff06f1f3ef100d20d19685b817bfcdeffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ca84daa_d2ec07a0",
         "filename": "call/call_perf_tests.cc",
         "patchSetId": 7

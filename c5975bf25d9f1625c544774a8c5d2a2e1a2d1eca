@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53ae331a_226e7bb8",
+        "filename": "rtc_base/event_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T12:07:33Z",
+      "side": 1,
+      "message": "But they\u0027re not disabled, and actually cause mac_asan bot to regularly time out.\nhttps://build.chromium.org/p/tryserver.webrtc/builders/mac_asan\nhttps://chromium-swarm.appspot.com/task?id\u003d3a15fcc279006b10\u0026refresh\u003d10\u0026show_raw\u003d1",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 38
+      },
+      "revId": "c5975bf25d9f1625c544774a8c5d2a2e1a2d1eca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

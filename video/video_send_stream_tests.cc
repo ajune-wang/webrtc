@@ -15,7 +15,7 @@
 #include "call/rtp_transport_controller_send.h"
 #include "common_video/include/frame_callback.h"
 #include "common_video/include/video_frame.h"
-#include "modules/pacing/alr_detector.h"
+#include "modules/congestion_controller/alr_detector.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/source/rtcp_sender.h"

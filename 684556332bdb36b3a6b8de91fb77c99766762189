@@ -22,6 +22,30 @@
       "revId": "684556332bdb36b3a6b8de91fb77c99766762189",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85182250_9c423a4a",
+        "filename": "sdk/android/api/org/webrtc/MediaStream.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-11-27T10:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d109aae6_b693e4a9",
+      "range": {
+        "startLine": 100,
+        "startChar": 7,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "684556332bdb36b3a6b8de91fb77c99766762189",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

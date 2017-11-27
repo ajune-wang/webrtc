@@ -32,6 +32,7 @@
 #include "rtc_base/protobuf_utils.h"
 #include "rtc_base/sha1digest.h"
 #include "rtc_base/stringencode.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 #include "typedefs.h"  // NOLINT(build/include)
@@ -524,6 +525,51 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusBitExactness) {
                    network_stats_checksum,
                    rtcp_stats_checksum,
                    FLAG_gen_ref);
+}
+
+class NetEqDecodingTestWithOpusDtxFieldTrial : public NetEqDecodingTest {
+ public:
+  NetEqDecodingTestWithOpusDtxFieldTrial()
+      : override_field_trials_("WebRTC-NetEqOpusDtxDelayFix/Enabled/") {}
+
+ private:
+  test::ScopedFieldTrials override_field_trials_;
+};
+
+#if !defined(WEBRTC_IOS) &&                                         \
+    defined(WEBRTC_NETEQ_UNITTEST_BITEXACT) &&                      \
+    defined(WEBRTC_CODEC_OPUS)
+#define MAYBE_TestOpusDtxBitExactness TestOpusDtxBitExactness
+#else
+#define MAYBE_TestOpusDtxBitExactness DISABLED_TestOpusDtxBitExactness
+#endif
+TEST_F(NetEqDecodingTestWithOpusDtxFieldTrial, MAYBE_TestOpusDtxBitExactness) {
+  const std::string input_rtp_file =
+      webrtc::test::ResourcePath("audio_coding/neteq_opus_dtx", "rtp");
+
+  const std::string output_checksum =
+      PlatformChecksum("713af6c92881f5aab1285765ee6680da9d1c06ce",
+                       "5b1e691ab1c4465c742d6d944bc71e3b1c0e4c0e",
+                       "b096114dd8c233eaf2b0ce9802ac95af13933772",
+                       "713af6c92881f5aab1285765ee6680da9d1c06ce",
+                       "713af6c92881f5aab1285765ee6680da9d1c06ce");
+
+  const std::string network_stats_checksum =
+      PlatformChecksum("bab58dc587d956f326056d7340c96eb9d2d3cc21",
+                       "9a37270e4242fbd31e80bb47dc5e7ab82cf2d557",
+                       "4f1e9734bc80a290faaf9d611efcb8d7802dbc4f",
+                       "bab58dc587d956f326056d7340c96eb9d2d3cc21",
+                       "bab58dc587d956f326056d7340c96eb9d2d3cc21");
+
+  const std::string rtcp_stats_checksum =
+      PlatformChecksum("ac27a7f305efb58b39bf123dccee25dee5758e63",
+                       "ac27a7f305efb58b39bf123dccee25dee5758e63",
+                       "ac27a7f305efb58b39bf123dccee25dee5758e63",
+                       "ac27a7f305efb58b39bf123dccee25dee5758e63",
+                       "ac27a7f305efb58b39bf123dccee25dee5758e63");
+
+  DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
+                   rtcp_stats_checksum, FLAG_gen_ref);
 }
 
 // Use fax mode to avoid time-scaling. This is to simplify the testing of

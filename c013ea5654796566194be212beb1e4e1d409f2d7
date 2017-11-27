@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0ec71ad_7cb177ce",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-27T08:22:25Z",
+      "side": 1,
+      "message": "Avoid lower-case l, since it\u0027s so close to 1. Prefer uppercase L or cast expression.",
+      "range": {
+        "startLine": 52,
+        "startChar": 36,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "c013ea5654796566194be212beb1e4e1d409f2d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c141d16_bfc4e9cd",
+        "filename": "modules/rtp_rtcp/source/time_util.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-27T08:22:25Z",
+      "side": 1,
+      "message": "\"Diverge\" is a bit vague. I see two cases: rtc::TimeMicros runnign at a sligthly different frequency than utc/ntp time, and hence drifting away. That shouldn\u0027t happen on linux (CLOCK_MONOTONIC obeys the adjtime calls done by the ntp daemon), but not sure how other systems behave.\n\nAnd the conversion will not track system time changes like settimeofday.\n\nWould be clarify what differences to expect.",
+      "range": {
+        "startLine": 21,
+        "startChar": 53,
+        "endLine": 21,
+        "endChar": 60
+      },
+      "revId": "c013ea5654796566194be212beb1e4e1d409f2d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0927205b_bb1f8c65",
+        "filename": "modules/rtp_rtcp/source/time_util_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-27T08:22:25Z",
+      "side": 1,
+      "message": "Use EXPECT_NEAR?",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 11
+      },
+      "revId": "c013ea5654796566194be212beb1e4e1d409f2d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

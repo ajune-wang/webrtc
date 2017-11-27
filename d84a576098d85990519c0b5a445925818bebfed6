@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5bd2efc_6b29d4ee",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T20:53:07Z",
+      "side": 1,
+      "message": "The naming of stringstreams here could be better. Some suggestions: sstream or str or val_stream.",
+      "range": {
+        "startLine": 57,
+        "startChar": 21,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "d84a576098d85990519c0b5a445925818bebfed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8b285f4_294f3814",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T20:53:07Z",
+      "side": 1,
+      "message": "The separate internal stream is not required. But yes, it\u0027s subjective which way is better.\nAt least make a consistent naming scheme for them.",
+      "range": {
+        "startLine": 65,
+        "startChar": 23,
+        "endLine": 65,
+        "endChar": 35
+      },
+      "revId": "d84a576098d85990519c0b5a445925818bebfed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7667ed7_a3efe6f7",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T20:53:07Z",
+      "side": 1,
+      "message": "This check should not be necessary. Try one of these:\n\n    for (auto it \u003d list_of_scalars_-\u003ebegin(); it !\u003d list_of_scalars_-\u003eend(); ++it) {\n      if (it !\u003d list_of_scalars_-\u003ebegin()) {\n        val_stream \u003c\u003c \",\";\n      }\n      val_stream \u003c\u003c *it;\n    }\n--\n    std::string sep \u003d \"\";\n    for (auto scalar : list_of_scalars_) {\n      val_stream \u003c\u003c sep \u003c\u003c scalar;\n      sep \u003d \",\";\n    }",
+      "range": {
+        "startLine": 67,
+        "startChar": 34,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "d84a576098d85990519c0b5a445925818bebfed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c48f4e92_207940e4",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T20:53:07Z",
+      "side": 1,
+      "message": "This can\u0027t be hardcoded. Previously it was automatically detected for the executable.",
+      "range": {
+        "startLine": 187,
+        "startChar": 37,
+        "endLine": 187,
+        "endChar": 54
+      },
+      "revId": "d84a576098d85990519c0b5a445925818bebfed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b14a11f4_1f691a65",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T20:53:07Z",
+      "side": 1,
+      "message": "I see that the typical loop doesn\u0027t easily work here but I\u0027d still stick to it.\nSee example in the other comment.",
+      "range": {
+        "startLine": 191,
+        "startChar": 9,
+        "endLine": 191,
+        "endChar": 13
+      },
+      "revId": "d84a576098d85990519c0b5a445925818bebfed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55856625_26271a72",
+        "filename": "test/testsupport/perf_test_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T20:53:07Z",
+      "side": 1,
+      "message": "There is no error (stddev) specified here. Seems like a feature regression.",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "d84a576098d85990519c0b5a445925818bebfed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb7d314_dba0b54c",
+        "filename": "test/testsupport/perf_test_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-11-27T20:53:07Z",
+      "side": 1,
+      "message": "There\u0027s no such thing as `undefined` in JSON.\nhttps://stackoverflow.com/a/14946821\n\"improvement_direction\" should just be removed.",
+      "range": {
+        "startLine": 28,
+        "startChar": 32,
+        "endLine": 28,
+        "endChar": 41
+      },
+      "revId": "d84a576098d85990519c0b5a445925818bebfed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

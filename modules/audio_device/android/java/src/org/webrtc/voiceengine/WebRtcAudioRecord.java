@@ -11,7 +11,6 @@
 package org.webrtc.voiceengine;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder.AudioSource;
@@ -19,7 +18,6 @@ import android.os.Process;
 import java.lang.System;
 import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
-import org.webrtc.ContextUtils;
 import org.webrtc.Logging;
 import org.webrtc.ThreadUtils;
 
@@ -243,6 +241,12 @@ public class WebRtcAudioRecord {
     }
     audioThread = new AudioRecordThread("AudioRecordJavaThread");
     audioThread.start();
+    try {
+      Thread.sleep(50);
+    } catch (InterruptedException e) {
+      // NOP
+    }
+    WebRtcAudioUtils.logAudioState(TAG);
     return true;
   }
 

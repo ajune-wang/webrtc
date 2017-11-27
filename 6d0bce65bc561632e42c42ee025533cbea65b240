@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e23be2f1_07f7ae02",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2017-11-27T22:26:19Z",
+      "side": 1,
+      "message": "I think you can move the entire source_set() out of \"if (rtc_include_tests)\" condition. So the test classes won\u0027t be included to the production.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 38
+      },
+      "revId": "6d0bce65bc561632e42c42ee025533cbea65b240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

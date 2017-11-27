@@ -46,6 +46,30 @@
       "revId": "b37da4d63225283f3596345867920c7bb9c4463b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2a7e48e_f7df6520",
+        "filename": ".gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-27T11:45:22Z",
+      "side": 1,
+      "message": "I think it is good to give a small intro of why we are pinning to iOS 9.0 and leave the bug for the full context. But feel free to ignore the comment, it is not super-important.",
+      "parentUuid": "6619db19_9225ac75",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 31
+      },
+      "revId": "b37da4d63225283f3596345867920c7bb9c4463b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

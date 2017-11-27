@@ -34,21 +34,6 @@ bool CorrectUsage(size_t size, size_t alignment) {
   return 0u == scoped_address % alignment;
 }
 
-TEST(AlignedMalloc, GetRightAlign) {
-  const size_t size = 100;
-  const size_t alignment = 32;
-  const size_t left_misalignment = 1;
-  std::unique_ptr<char, AlignedFreeDeleter> scoped(
-      static_cast<char*>(AlignedMalloc(size, alignment)));
-  EXPECT_TRUE(scoped.get() != NULL);
-  const uintptr_t aligned_address = reinterpret_cast<uintptr_t>(scoped.get());
-  const uintptr_t misaligned_address = aligned_address - left_misalignment;
-  const char* misaligned_ptr =
-      reinterpret_cast<const char*>(misaligned_address);
-  const char* realigned_ptr = GetRightAlign(misaligned_ptr, alignment);
-  EXPECT_EQ(scoped.get(), realigned_ptr);
-}
-
 TEST(AlignedMalloc, IncorrectSize) {
   const size_t incorrect_size = 0;
   const size_t alignment = 64;

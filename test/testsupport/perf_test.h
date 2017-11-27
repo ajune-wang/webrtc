@@ -17,6 +17,7 @@
 
 #include <sstream>
 #include <string>
+#include <vector>
 
 namespace webrtc {
 namespace test {
@@ -59,26 +60,9 @@ void PrintResultMeanAndError(const std::string& measurement,
 void PrintResultList(const std::string& measurement,
                      const std::string& modifier,
                      const std::string& trace,
-                     const std::string& values,
+                     const std::vector<double>& values,
                      const std::string& units,
                      bool important);
-
-// Converts list of values into comma-separated string for PrintResultList.
-template <typename Container>
-std::string ValuesToString(const Container& container) {
-  if (container.empty())
-    return "";
-
-  std::stringstream ss;
-  auto it = container.begin();
-  while (true) {
-    ss << *it;
-    if (++it == container.end())
-      break;
-    ss << ',';
-  }
-  return ss.str();
-}
 
 }  // namespace test
 }  // namespace webrtc

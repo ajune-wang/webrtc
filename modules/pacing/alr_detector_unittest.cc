@@ -116,7 +116,7 @@ TEST_F(AlrDetectorTest, ShortSpike) {
 
   // ALR ends when usage is above 65%.
   SimulateOutgoingTrafficIn(&alr_detector_)
-      .ForTimeMs(1000)
+      .ForTimeMs(3000)
       .AtPercentOfEstimatedBitrate(100);
   EXPECT_FALSE(alr_detector_.GetApplicationLimitedRegionStartTime());
 }

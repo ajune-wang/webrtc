@@ -22,6 +22,29 @@
       "revId": "a41359baba6071441288b0f90c4981d2452dc000",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8afd43c8_e97d3dbf",
+        "filename": "examples/unityplugin/simple_peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5653
+      },
+      "writtenOn": "2017-11-27T17:18:18Z",
+      "side": 1,
+      "message": "This line may move to InitializePeerConnection(), and remove bool is_receiver from parameter list of CreatePeerConnection()",
+      "range": {
+        "startLine": 154,
+        "startChar": 2,
+        "endLine": 154,
+        "endChar": 33
+      },
+      "revId": "a41359baba6071441288b0f90c4981d2452dc000",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

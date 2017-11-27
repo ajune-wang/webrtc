@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3831ec9e_9fe6c42c",
+        "filename": "examples/unityplugin/simple_peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2017-11-27T18:51:02Z",
+      "side": 1,
+      "message": "I do not think we can pass in nullptr for those two entries. As it finally gets passed into WebrtcVoiceEngine, which does not handle nullptr case for encoder factory.\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/webrtcvoiceengine.h?type\u003dcs\u0026sq\u003dpackage:chromium\u0026l\u003d51",
+      "parentUuid": "a2bf795d_96d501bf",
+      "range": {
+        "startLine": 96,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "a41359baba6071441288b0f90c4981d2452dc000",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8afd43c8_e97d3dbf",
         "filename": "examples/unityplugin/simple_peer_connection.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "a41359baba6071441288b0f90c4981d2452dc000",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e883eb1_e53e3522",
+        "filename": "examples/unityplugin/simple_peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2017-11-27T18:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8afd43c8_e97d3dbf",
+      "range": {
+        "startLine": 154,
+        "startChar": 2,
+        "endLine": 154,
+        "endChar": 33
+      },
+      "revId": "a41359baba6071441288b0f90c4981d2452dc000",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

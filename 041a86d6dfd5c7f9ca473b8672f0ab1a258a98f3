@@ -1,0 +1,198 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de5eecbf_9bea2e51",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "Again, consider ArrayView or pass-by-value. Since you are making a copy here, pass-by-value is probably the best choice.",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d393302f_6d2a6d3c",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "There are no accessors, just a ToJSON function. Consider making a function instead of a class? Or do you do it this way because storing the numbers is more compact or otherwise less expensive?",
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b59dfa_f7786850",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "Consider replacing the whole if-for-if with\n\n  const char* sep \u003d \",\";\n  for (double s : list_of_scalars_) {\n    json_stream \u003c\u003c s \u003c\u003c sep;\n    sep \u003d \"\";\n  }",
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec807c31_a437288a",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "ArrayView or pass-by-value",
+      "range": {
+        "startLine": 92,
+        "startChar": 13,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ac284e6_4ae4c07c",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "There are no accessors, just a ToJSON function. Consider making a function instead of a class?",
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d64693b_6aff5960",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "ArrayView or pass-by-value (technically you already pass by value here, but since you use `const`, you can\u0027t use std::move on line 158).",
+      "range": {
+        "startLine": 143,
+        "startChar": 21,
+        "endLine": 143,
+        "endChar": 46
+      },
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "951a9b4e_480e792e",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "Use the same for loop trick as above.",
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeec6fa4_f3b2a563",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "Use the same for loop trick as above.",
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d56f27d3_b154d399",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "ArrayView or pass-by-value",
+      "range": {
+        "startLine": 227,
+        "startChar": 21,
+        "endLine": 227,
+        "endChar": 47
+      },
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ace9c3e_998dce16",
+        "filename": "test/testsupport/perf_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T12:43:12Z",
+      "side": 1,
+      "message": "Use rtc::ArrayView\u003cT\u003e instead of const std::vector\u003cT\u003e\u0026. It\u0027s ~just as fast and just as convenient, but doesn\u0027t require the caller to actually have the things stored in a std::vector of exactly the right size.\n\nAlternatively, if the implementation is always going to make a copy, or pass it on to someone who is going to make a copy: consider passing the vector by value. That way, the caller may choose to move instead of copy.",
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

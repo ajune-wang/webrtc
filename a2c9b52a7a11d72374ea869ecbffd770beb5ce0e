@@ -52,6 +52,24 @@
       "revId": "a2c9b52a7a11d72374ea869ecbffd770beb5ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23355dd1_00623371",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-28T12:08:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb6d2b5d_f13bfe75",
+      "revId": "a2c9b52a7a11d72374ea869ecbffd770beb5ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

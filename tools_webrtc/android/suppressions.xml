@@ -20,6 +20,9 @@
   <issue id="IconMissingDensityFolder" severity="ignore"/>
   <issue id="OldTargetApi" severity="ignore"/>
 
+  <!-- TODO(bugs.webrtc.org/8580): Remove this suppression after it's fixed -->
+  <issue id="NewApi" severity="ignore"/>
+
   <issue id="GoogleAppIndexingWarning" severity="ignore"/>
   <issue id="MissingRegistered" severity="ignore"/>
 

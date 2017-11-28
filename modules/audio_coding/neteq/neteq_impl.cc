@@ -48,6 +48,7 @@
 #include "rtc_base/sanitizer.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 
@@ -213,6 +214,9 @@ int NetEqImpl::GetAudio(AudioFrame* audio_frame, bool* muted) {
              last_output_sample_rate_hz_ == 32000 ||
              last_output_sample_rate_hz_ == 48000)
       << "Unexpected sample rate " << last_output_sample_rate_hz_;
+
+  RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.TargetJitterBufferDelayMs",
+                            TargetDelayMs());
   return kOK;
 }
 
@@ -311,7 +315,7 @@ int NetEqImpl::SetTargetDelay() {
   return kNotImplemented;
 }
 
-int NetEqImpl::TargetDelayMs() {
+int NetEqImpl::TargetDelayMs() const {
   rtc::CritScope lock(&crit_sect_);
   RTC_DCHECK(delay_manager_.get());
   // The value from TargetLevel() is in number of packets, represented in Q8.

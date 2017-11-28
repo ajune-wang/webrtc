@@ -53,7 +53,6 @@ void PrintResultMeanAndError(const std::string& measurement,
                              const std::string& units,
                              bool important);
 
-
 // Like PrintResult(), but prints an entire list of results. The |values|
 // will generally be a list of comma-separated numbers. A typical
 // post-processing step might produce plots of their mean and standard
@@ -64,6 +63,10 @@ void PrintResultList(const std::string& measurement,
                      const std::vector<double>& values,
                      const std::string& units,
                      bool important);
+
+// Get all perf results to date in a JSON format as described in
+// https://github.com/catapult-project/catapult/blob/master/dashboard/docs/data-format.md
+std::string GetPerfResultsJSON();
 
 }  // namespace test
 }  // namespace webrtc

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d6b22e5_9bf3b100",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-28T12:16:51Z",
+      "side": 1,
+      "message": "I think it would be better with this as a non-inner class responsible for the num_packets counter and method, and holding a pointer to an RtcpPacketParser. Then let the caller pass an RtcpPacketParser to the constructor. So test cases would construct two objects,\n\nRtcpPacketParser parser;\nTransportSomething transport(\u0026parser);\n\nAnd then we don\u0027t need any class inheriting from RtcpPacketParser.\n\nThat way, the changes can be seen as replacing MockTransport with a transport explicitly wired to an RtcpPacketParser.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 53
+      },
+      "revId": "139e90b6931bd2b015ca6916ef900a1f3d8d1e1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

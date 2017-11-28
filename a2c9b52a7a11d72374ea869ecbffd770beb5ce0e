@@ -34,6 +34,24 @@
       "revId": "a2c9b52a7a11d72374ea869ecbffd770beb5ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb6d2b5d_f13bfe75",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T11:54:56Z",
+      "side": 1,
+      "message": "Right. But the constraint would be simpler if we put the CHECK first (since then we\u0027d support no fragmentation whatsoever). I don\u0027t think it\u0027s worth the extra complexity just to make this CHECK not catch that caller error.",
+      "parentUuid": "c7c58498_7e88eccb",
+      "revId": "a2c9b52a7a11d72374ea869ecbffd770beb5ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

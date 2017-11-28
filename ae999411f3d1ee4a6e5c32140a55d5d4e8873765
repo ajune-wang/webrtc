@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b8a33d5_1c4c76d5",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-11-28T10:36:21Z",
+      "side": 1,
+      "message": "The SendImmediateFeedback method is a bit more complex than its name suggests. It depends on config_.rtcp_mode, and will either send a packet with a single rtcp message, or it will send a compound packet including the periodic info, additional info via the caller\u0027s FunctionView argument, and reschedule.\n\nMaybe it would be simpler to have an std::vector\u003cRtcpPacket\u003e (possibly const ref) as argument rather than a FunctionView?\n\nI think it would be nice with either a comment explaining what it does (could go in this cl), or a simpler interface (could be a separate cl).",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 23
+      },
+      "revId": "ae999411f3d1ee4a6e5c32140a55d5d4e8873765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

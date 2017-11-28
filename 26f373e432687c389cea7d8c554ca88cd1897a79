@@ -91,6 +91,30 @@
       "revId": "26f373e432687c389cea7d8c554ca88cd1897a79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e62da6f6_b78db0c5",
+        "filename": "p2p/base/relayserver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-28T19:28:20Z",
+      "side": 1,
+      "message": "Gotcha: the \u0027u\u0027 suffix is a habit from using gtest. Removed.\n\nIt\u0027s basically testing that size \u003e 0, but the arguments are reversed (hence the LT). I\u0027ll reverse the arguments and change it to GT to be more clear.",
+      "parentUuid": "425c7bc8_b73976e3",
+      "range": {
+        "startLine": 431,
+        "startChar": 17,
+        "endLine": 431,
+        "endChar": 18
+      },
+      "revId": "26f373e432687c389cea7d8c554ca88cd1897a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

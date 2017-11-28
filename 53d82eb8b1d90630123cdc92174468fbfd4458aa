@@ -16,6 +16,24 @@
       "revId": "53d82eb8b1d90630123cdc92174468fbfd4458aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b667c0f5_04d8d7a3",
+        "filename": "p2p/base/relayserver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-28T19:28:20Z",
+      "side": 0,
+      "message": "The test creates its own virtual socket server, so I don\u0027t think there should be any collision between several instances of the test running. Maybe this test wasn\u0027t using a virtual socket server before and the random ports are a vestige from that.",
+      "parentUuid": "41f93d20_cbce57bc",
+      "revId": "53d82eb8b1d90630123cdc92174468fbfd4458aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

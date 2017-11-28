@@ -22,6 +22,30 @@
       "revId": "ae999411f3d1ee4a6e5c32140a55d5d4e8873765",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41c30abf_b02afc46",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-28T11:27:41Z",
+      "side": 1,
+      "message": "SendImmediateFeedback does as little as it has to to send feedback immediately.\nIn particular it ensures configuration is respected. That imply that in compound mode it should create compound, not a reduced size packet. Creating compound packet implies sending receiver report that implies postponing periodic report.\n\nI\u0027ll put those implementation details comments in follow-up CL together with changing SendImmediateFeedback signature from functional to imperative style (which is more common and thus more readable for c++).",
+      "parentUuid": "7b8a33d5_1c4c76d5",
+      "range": {
+        "startLine": 137,
+        "startChar": 2,
+        "endLine": 137,
+        "endChar": 23
+      },
+      "revId": "ae999411f3d1ee4a6e5c32140a55d5d4e8873765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6764da26_d6123824",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-11-28T09:46:49Z",
+      "side": 1,
+      "message": "\"rtc_test\" unfortunately has to always default to \"*\" (https://webrtc-review.googlesource.com/c/src/+/24560 and https://webrtc-review.googlesource.com/c/src/+/24900).\n\nThis is probably the \"merge conflict\" spotted by Gerrit.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 5
+      },
+      "revId": "a38ba49d3e559593b58975fffa596c4682475990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

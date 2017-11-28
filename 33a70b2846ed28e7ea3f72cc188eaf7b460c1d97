@@ -22,6 +22,30 @@
       "revId": "33a70b2846ed28e7ea3f72cc188eaf7b460c1d97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ec75cc_0713bb8e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-11-28T12:01:23Z",
+      "side": 1,
+      "message": "but this class is the test::Parser (that also happens to implement Transport interface)\nmost of the time it is used as Parser to pull details about last packet or number of individual packets.\n\nI hided Transport interface instead.",
+      "parentUuid": "7270b9d7_d73bd786",
+      "range": {
+        "startLine": 86,
+        "startChar": 52,
+        "endLine": 86,
+        "endChar": 68
+      },
+      "revId": "33a70b2846ed28e7ea3f72cc188eaf7b460c1d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

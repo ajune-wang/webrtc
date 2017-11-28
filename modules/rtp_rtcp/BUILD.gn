@@ -221,11 +221,13 @@ rtc_static_library("rtp_rtcp") {
 
 rtc_source_set("rtcp_transceiver") {
   public = [
+    "source/register_token.h",
     "source/rtcp_transceiver.h",
     "source/rtcp_transceiver_config.h",
     "source/rtcp_transceiver_impl.h",
   ]
   sources = [
+    "source/register_token_internal.h",
     "source/rtcp_transceiver.cc",
     "source/rtcp_transceiver_config.cc",
     "source/rtcp_transceiver_impl.cc",
@@ -323,6 +325,7 @@ if (rtc_include_tests) {
       "source/packet_loss_stats_unittest.cc",
       "source/playout_delay_oracle_unittest.cc",
       "source/receive_statistics_unittest.cc",
+      "source/register_token_unittest.cc",
       "source/remote_ntp_time_estimator_unittest.cc",
       "source/rtcp_nack_stats_unittest.cc",
       "source/rtcp_packet/app_unittest.cc",
@@ -394,6 +397,7 @@ if (rtc_include_tests) {
       "../../rtc_base:rtc_base_approved",
       "../../rtc_base:rtc_base_tests_utils",
       "../../rtc_base:rtc_task_queue",
+      "../../rtc_base:weak_ptr",
       "../../system_wrappers:system_wrappers",
       "../../test:field_trial",
       "../../test:rtp_test_utils",

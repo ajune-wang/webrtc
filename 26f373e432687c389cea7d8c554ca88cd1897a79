@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a0129ed_4a2fa97d",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-28T02:24:28Z",
+      "side": 1,
+      "message": "Requires API change.",
+      "range": {
+        "startLine": 35,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "26f373e432687c389cea7d8c554ca88cd1897a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "925880f9_34a3c27b",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-28T02:24:28Z",
+      "side": 1,
+      "message": "Should be deleted soon anyways.",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "26f373e432687c389cea7d8c554ca88cd1897a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc0c5083_dc114919",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-28T02:24:28Z",
+      "side": 1,
+      "message": "Requires API change.",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 23
+      },
+      "revId": "26f373e432687c389cea7d8c554ca88cd1897a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

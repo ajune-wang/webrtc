@@ -68,6 +68,29 @@
       "revId": "26f373e432687c389cea7d8c554ca88cd1897a79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "425c7bc8_b73976e3",
+        "filename": "p2p/base/relayserver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T11:41:28Z",
+      "side": 1,
+      "message": "The \"u\" suffix is unnecessary, since the comparison is done with rtc::SafeLt().\n\nAlso, did you really mean LT and not GT?",
+      "range": {
+        "startLine": 431,
+        "startChar": 17,
+        "endLine": 431,
+        "endChar": 18
+      },
+      "revId": "26f373e432687c389cea7d8c554ca88cd1897a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

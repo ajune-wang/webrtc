@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41f93d20_cbce57bc",
+        "filename": "p2p/base/relayserver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-28T11:41:28Z",
+      "side": 0,
+      "message": "The intent behind randomizing ports in tests is usually to let several instances execute in parallel without colliding. Don\u0027t we need that anymore?",
+      "revId": "53d82eb8b1d90630123cdc92174468fbfd4458aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

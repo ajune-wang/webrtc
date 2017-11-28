@@ -8,8 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/pacing/alr_detector.h"
+#include "modules/congestion_controller/alr_detector.h"
 
+#include <algorithm>
 #include <string>
 
 #include "rtc_base/checks.h"
@@ -17,6 +18,9 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/field_trial.h"
+
+const int64_t kAlrWindowMs = 100;
+const int64_t kAlrMaxWindowMs = 1000;
 
 namespace webrtc {
 
@@ -29,27 +33,31 @@ AlrDetector::AlrDetector()
     : bandwidth_usage_percent_(kDefaultAlrBandwidthUsagePercent),
       alr_start_budget_level_percent_(kDefaultAlrStartBudgetLevelPercent),
       alr_stop_budget_level_percent_(kDefaultAlrStopBudgetLevelPercent),
-      alr_budget_(0, true) {
-  RTC_CHECK(
-      field_trial::FindFullName(kStrictPacingAndProbingExperimentName)
-          .empty() ||
-      field_trial::FindFullName(kScreenshareProbingBweExperimentName).empty());
-  rtc::Optional<AlrExperimentSettings> experiment_settings =
-      ParseAlrSettingsFromFieldTrial(kScreenshareProbingBweExperimentName);
-  if (!experiment_settings) {
-    experiment_settings =
-        ParseAlrSettingsFromFieldTrial(kStrictPacingAndProbingExperimentName);
-  }
-  if (experiment_settings) {
-    alr_stop_budget_level_percent_ =
-        experiment_settings->alr_stop_budget_level_percent;
-    alr_start_budget_level_percent_ =
-        experiment_settings->alr_start_budget_level_percent;
-    bandwidth_usage_percent_ = experiment_settings->alr_bandwidth_usage_percent;
+      alr_budget_(0, true) {}
+
+void AlrDetector::SetScreenshareStatus(bool screenshare) {
+  auto settings = ParseAlrSettingsFromFieldTrial(screenshare);
+  if (settings) {
+    alr_stop_budget_level_percent_ = settings->alr_stop_budget_level_percent;
+    alr_start_budget_level_percent_ = settings->alr_start_budget_level_percent;
+    bandwidth_usage_percent_ = settings->alr_bandwidth_usage_percent;
   }
 }
-
 AlrDetector::~AlrDetector() {}
+
+// TODO(srte): OnPacketSent should be merged with OnBytesSent. It's probably a
+// good idea to remove the dependency on IntervalBudget at the same time.
+void AlrDetector::OnPacketSent(size_t packet_size, int64_t send_time_ms) {
+  data_sent_ += packet_size;
+  int64_t elapsed_time_ms = send_time_ms - last_update_ms_;
+  if (elapsed_time_ms >= kAlrWindowMs) {
+    int64_t time_delta_ms = std::min(elapsed_time_ms, kAlrMaxWindowMs);
+    int64_t data_delta_bytes = data_sent_ - last_update_data_sent_;
+    OnBytesSent(data_delta_bytes, time_delta_ms);
+    last_update_ms_ = send_time_ms;
+    last_update_data_sent_ = data_sent_;
+  }
+}
 
 void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t delta_time_ms) {
   alr_budget_.UseBudget(bytes_sent);
@@ -67,14 +75,27 @@ void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t delta_time_ms) {
 
 void AlrDetector::SetEstimatedBitrate(int bitrate_bps) {
   RTC_DCHECK(bitrate_bps);
-  const auto target_rate_kbps = int64_t{bitrate_bps} *
-                                bandwidth_usage_percent_ / (1000 * 100);
+  const auto target_rate_kbps =
+      int64_t{bitrate_bps} * bandwidth_usage_percent_ / (1000 * 100);
   alr_budget_.set_target_rate_kbps(rtc::dchecked_cast<int>(target_rate_kbps));
 }
 
 rtc::Optional<int64_t> AlrDetector::GetApplicationLimitedRegionStartTime()
     const {
   return alr_started_time_ms_;
+}
+rtc::Optional<AlrDetector::AlrExperimentSettings>
+AlrDetector::ParseAlrSettingsFromFieldTrial(bool screenshare) {
+  RTC_CHECK(
+      field_trial::FindFullName(kStrictPacingAndProbingExperimentName)
+          .empty() ||
+      field_trial::FindFullName(kScreenshareProbingBweExperimentName).empty());
+  if (screenshare) {
+    return ParseAlrSettingsFromFieldTrial(kScreenshareProbingBweExperimentName);
+  } else {
+    return ParseAlrSettingsFromFieldTrial(
+        kStrictPacingAndProbingExperimentName);
+  }
 }
 
 rtc::Optional<AlrDetector::AlrExperimentSettings>

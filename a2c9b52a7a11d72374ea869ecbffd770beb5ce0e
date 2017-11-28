@@ -16,6 +16,24 @@
       "revId": "a2c9b52a7a11d72374ea869ecbffd770beb5ce0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7c58498_7e88eccb",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-11-28T11:46:30Z",
+      "side": 1,
+      "message": "If we have zero bytes if payload, but a non-null fragmentation header, then I would see this as an error on the part of the caller (ACM). This check is here to make it obvious what we have opted not to support in this function.",
+      "parentUuid": "9fc514d9_0020ce7e",
+      "revId": "a2c9b52a7a11d72374ea869ecbffd770beb5ce0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

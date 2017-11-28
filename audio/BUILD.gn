@@ -59,6 +59,8 @@ rtc_static_library("audio") {
     "../rtc_base:rtc_task_queue",
     "../system_wrappers",
     "../voice_engine",
+    "../voice_engine:audio_level",
+    "//audio/utility:audio_frame_operations",
   ]
 }
 if (rtc_include_tests) {

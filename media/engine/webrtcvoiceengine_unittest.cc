@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#if 0
+
 #include <memory>
 #include <utility>
 
@@ -33,7 +35,6 @@
 #include "test/gtest.h"
 #include "test/mock_audio_decoder_factory.h"
 #include "test/mock_audio_encoder_factory.h"
-#include "voice_engine/transmit_mixer.h"
 
 using testing::_;
 using testing::ContainerEq;
@@ -83,14 +84,6 @@ class FakeVoEWrapper : public cricket::VoEWrapper {
   explicit FakeVoEWrapper(cricket::FakeWebRtcVoiceEngine* engine)
       : cricket::VoEWrapper(engine) {
   }
-};
-
-class MockTransmitMixer : public webrtc::voe::TransmitMixer {
- public:
-  MockTransmitMixer() = default;
-  virtual ~MockTransmitMixer() = default;
-
-  MOCK_METHOD1(EnableStereoChannelSwapping, void(bool enable));
 };
 
 void AdmSetupExpectations(webrtc::test::MockAudioDeviceModule* adm) {
@@ -148,9 +141,8 @@ TEST(WebRtcVoiceEngineTestStubLibrary, StartupShutdown) {
   EXPECT_CALL(*apm, ApplyConfig(_)).WillRepeatedly(SaveArg<0>(&apm_config));
   EXPECT_CALL(*apm, SetExtraOptions(testing::_));
   EXPECT_CALL(*apm, DetachAecDump());
-  StrictMock<MockTransmitMixer> transmit_mixer;
   EXPECT_CALL(transmit_mixer, EnableStereoChannelSwapping(false));
-  cricket::FakeWebRtcVoiceEngine voe(&transmit_mixer);
+  cricket::FakeWebRtcVoiceEngine voe();
   EXPECT_FALSE(voe.IsInited());
   {
     cricket::WebRtcVoiceEngine engine(
@@ -184,7 +176,7 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
         apm_ns_(*apm_->noise_suppression()),
         apm_vd_(*apm_->voice_detection()),
         call_(webrtc::Call::Config(&event_log_)),
-        voe_(&transmit_mixer_),
+        voe_(),
         override_field_trials_(field_trials) {
     // AudioDeviceModule.
     AdmSetupExpectations(&adm_);
@@ -725,7 +717,6 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
   webrtc::test::MockEchoCancellation& apm_ec_;
   webrtc::test::MockNoiseSuppression& apm_ns_;
   webrtc::test::MockVoiceDetection& apm_vd_;
-  StrictMock<MockTransmitMixer> transmit_mixer_;
   webrtc::RtcEventLogNullImpl event_log_;
   cricket::FakeCall call_;
   cricket::FakeWebRtcVoiceEngine voe_;
@@ -3561,3 +3552,5 @@ TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
   EXPECT_GE(find_codec({"telephone-event", 32000, 1}), num_specs);
   EXPECT_GE(find_codec({"telephone-event", 48000, 1}), num_specs);
 }
+
+#endif

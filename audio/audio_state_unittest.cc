@@ -11,6 +11,7 @@
 #include <memory>
 
 #include "audio/audio_state.h"
+#include "modules/audio_device/include/mock_audio_device.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
 #include "test/gtest.h"
@@ -26,24 +27,21 @@ const int kBytesPerSample = 2;
 
 struct ConfigHelper {
   ConfigHelper() : audio_mixer(AudioMixerImpl::Create()) {
-    EXPECT_CALL(mock_voice_engine, audio_transport())
-        .WillRepeatedly(testing::Return(&audio_transport));
-
     audio_state_config.voice_engine = &mock_voice_engine;
     audio_state_config.audio_mixer = audio_mixer;
     audio_state_config.audio_processing =
         new rtc::RefCountedObject<MockAudioProcessing>();
+    audio_state_config.audio_device_module =
+        new rtc::RefCountedObject<MockAudioDeviceModule>();
   }
   AudioState::Config& config() { return audio_state_config; }
   MockVoiceEngine& voice_engine() { return mock_voice_engine; }
   rtc::scoped_refptr<AudioMixer> mixer() { return audio_mixer; }
-  MockAudioTransport& original_audio_transport() { return audio_transport; }
 
  private:
   testing::StrictMock<MockVoiceEngine> mock_voice_engine;
   AudioState::Config audio_state_config;
   rtc::scoped_refptr<AudioMixer> audio_mixer;
-  MockAudioTransport audio_transport;
 };
 
 class FakeAudioSource : public AudioMixer::Source {
@@ -82,6 +80,7 @@ TEST(AudioStateTest, GetVoiceEngine) {
   EXPECT_EQ(audio_state->voice_engine(), &helper.voice_engine());
 }
 
+/* TODO: Verify that the transport proxy calls onto streams etc instead.
 // Test that RecordedDataIsAvailable calls get to the original transport.
 TEST(AudioStateAudioPathTest, RecordedAudioArrivesAtOriginalTransport) {
   ConfigHelper helper;
@@ -90,17 +89,19 @@ TEST(AudioStateAudioPathTest, RecordedAudioArrivesAtOriginalTransport) {
       AudioState::Create(helper.config());
 
   // Setup completed. Ensure call of original transport is forwarded to new.
-  uint32_t new_mic_level;
-  EXPECT_CALL(
-      helper.original_audio_transport(),
-      RecordedDataIsAvailable(nullptr, kSampleRate / 100, kBytesPerSample,
-                              kNumberOfChannels, kSampleRate, 0, 0, 0, false,
-                              testing::Ref(new_mic_level)));
+  // uint32_t new_mic_level;
+  // EXPECT_CALL(
+  //     helper.original_audio_transport(),
+  //     RecordedDataIsAvailable(nullptr, kSampleRate / 100, kBytesPerSample,
+  //                             kNumberOfChannels, kSampleRate, 0, 0, 0, false,
+  //                             testing::Ref(new_mic_level)));
 
+  uint32_t new_mic_level;
   audio_state->audio_transport()->RecordedDataIsAvailable(
       nullptr, kSampleRate / 100, kBytesPerSample, kNumberOfChannels,
       kSampleRate, 0, 0, 0, false, new_mic_level);
 }
+*/
 
 TEST(AudioStateAudioPathTest,
      QueryingProxyForAudioShouldResultInGetAudioCallOnMixerSource) {

@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#if 0
+
 #include "media/engine/apm_helpers.h"
 
 #include "media/engine/webrtcvoe.h"
@@ -16,7 +18,6 @@
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_audio_decoder_factory.h"
-#include "voice_engine/transmit_mixer.h"
 
 namespace webrtc {
 namespace {
@@ -41,10 +42,6 @@ struct TestHelper {
 
   test::MockAudioDeviceModule* adm() {
     return &mock_audio_device_;
-  }
-
-  voe::TransmitMixer* transmit_mixer() {
-    return voe_wrapper_.base()->transmit_mixer();
   }
 
   bool GetEcMetricsStatus() const {
@@ -285,3 +282,5 @@ TEST(ApmHelpersTest, StereoSwapping_EnableDisable) {
   EXPECT_FALSE(helper.transmit_mixer()->IsStereoChannelSwappingEnabled());
 }
 }  // namespace webrtc
+
+#endif

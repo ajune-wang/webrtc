@@ -42,9 +42,15 @@ class AudioState final : public webrtc::AudioState {
   void SetPlayout(bool enabled) override;
   void SetRecording(bool enabled) override;
 
+  LevelStats CurrentAudioLevel() const override;
+  void SetStereoChannelSwapping(bool enable) override;
+
   VoiceEngine* voice_engine();
   rtc::scoped_refptr<AudioMixer> mixer();
   bool typing_noise_detected() const;
+
+  void SetSendingStream(webrtc::AudioSendStream* stream, bool sending,
+                        int sample_rate_hz, size_t num_channels);
 
  private:
   // rtc::RefCountInterface implementation.

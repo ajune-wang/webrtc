@@ -13,7 +13,12 @@
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/logging.h"
-#include "voice_engine/transmit_mixer.h"
+
+#if !defined(WEBRTC_ANDROID) && !defined(WEBRTC_IOS)
+#define WEBRTC_VOICE_ENGINE_TYPING_DETECTION 1
+#else
+#define WEBRTC_VOICE_ENGINE_TYPING_DETECTION 0
+#endif
 
 namespace webrtc {
 namespace apm_helpers {

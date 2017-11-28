@@ -46,7 +46,6 @@
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
-#include "voice_engine/utility.h"
 
 namespace webrtc {
 namespace voe {
@@ -489,9 +488,6 @@ AudioMixer::Source::AudioFrameInfo Channel::GetAudioFrameWithInfo(
     AudioFrameOperations::Mute(audio_frame);
   }
 
-  // Store speech type for dead-or-alive detection
-  _outputSpeechType = audio_frame->speech_type_;
-
   {
     // Pass the audio buffers to an optional sink callback, before applying
     // scaling/panning, as that applies to the mix operation.
@@ -624,7 +620,6 @@ Channel::Channel(int32_t channelId,
       _includeAudioLevelIndication(false),
       transport_overhead_per_packet_(0),
       rtp_overhead_per_packet_(0),
-      _outputSpeechType(AudioFrame::kNormalSpeech),
       rtcp_observer_(new VoERtcpObserver(this)),
       associate_send_channel_(ChannelOwner(nullptr)),
       pacing_enabled_(config.enable_voice_pacing),
@@ -868,9 +863,6 @@ bool Channel::SetEncoder(int payload_type,
   rtp_codec.channels = encoder->NumChannels();
   rtp_codec.rate = 0;
 
-  cached_encoder_props_.emplace(
-      EncoderProps{encoder->SampleRateHz(), encoder->NumChannels()});
-
   if (_rtpRtcpModule->RegisterSendPayload(rtp_codec) != 0) {
     _rtpRtcpModule->DeRegisterSendPayload(payload_type);
     if (_rtpRtcpModule->RegisterSendPayload(rtp_codec) != 0) {
@@ -887,10 +879,6 @@ bool Channel::SetEncoder(int payload_type,
 void Channel::ModifyEncoder(
     rtc::FunctionView<void(std::unique_ptr<AudioEncoder>*)> modifier) {
   audio_coding_->ModifyEncoder(modifier);
-}
-
-rtc::Optional<Channel::EncoderProps> Channel::GetEncoderProps() const {
-  return cached_encoder_props_;
 }
 
 int32_t Channel::GetRecCodec(CodecInst& codec) {
@@ -1347,40 +1335,16 @@ int Channel::ResendPackets(const uint16_t* sequence_numbers, int length) {
   return _rtpRtcpModule->SendNACK(sequence_numbers, length);
 }
 
-void Channel::ProcessAndEncodeAudio(const AudioFrame& audio_input) {
+// XXX: MOBILE APP (currently via TransmitMixer)
+void Channel::ProcessAndEncodeAudio(std::unique_ptr<AudioFrame> audio_frame) {
   // Avoid posting any new tasks if sending was already stopped in StopSend().
   rtc::CritScope cs(&encoder_queue_lock_);
   if (!encoder_queue_is_active_) {
     return;
   }
-  std::unique_ptr<AudioFrame> audio_frame(new AudioFrame());
-  // TODO(henrika): try to avoid copying by moving ownership of audio frame
-  // either into pool of frames or into the task itself.
-  audio_frame->CopyFrom(audio_input);
   // Profile time between when the audio frame is added to the task queue and
   // when the task is actually executed.
   audio_frame->UpdateProfileTimeStamp();
-  encoder_queue_->PostTask(std::unique_ptr<rtc::QueuedTask>(
-      new ProcessAndEncodeAudioTask(std::move(audio_frame), this)));
-}
-
-void Channel::ProcessAndEncodeAudio(const int16_t* audio_data,
-                                    int sample_rate,
-                                    size_t number_of_frames,
-                                    size_t number_of_channels) {
-  // Avoid posting as new task if sending was already stopped in StopSend().
-  rtc::CritScope cs(&encoder_queue_lock_);
-  if (!encoder_queue_is_active_) {
-    return;
-  }
-  std::unique_ptr<AudioFrame> audio_frame(new AudioFrame());
-  const auto props = GetEncoderProps();
-  RTC_CHECK(props);
-  audio_frame->sample_rate_hz_ = std::min(props->sample_rate_hz, sample_rate);
-  audio_frame->num_channels_ =
-      std::min(props->num_channels, number_of_channels);
-  RemixAndResample(audio_data, number_of_frames, number_of_channels,
-                   sample_rate, &input_resampler_, audio_frame.get());
   encoder_queue_->PostTask(std::unique_ptr<rtc::QueuedTask>(
       new ProcessAndEncodeAudioTask(std::move(audio_frame), this)));
 }

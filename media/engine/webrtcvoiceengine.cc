@@ -44,7 +44,6 @@
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
-#include "voice_engine/transmit_mixer.h"
 
 namespace cricket {
 namespace {
@@ -161,7 +160,8 @@ rtc::Optional<std::string> GetAudioNetworkAdaptorConfig(
 webrtc::AudioState::Config MakeAudioStateConfig(
     VoEWrapper* voe_wrapper,
     rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer,
-    rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
+    rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing,
+    rtc::scoped_refptr<webrtc::AudioDeviceModule> audio_device_module) {
   webrtc::AudioState::Config config;
   config.voice_engine = voe_wrapper->engine();
   if (audio_mixer) {
@@ -170,6 +170,7 @@ webrtc::AudioState::Config MakeAudioStateConfig(
     config.audio_mixer = webrtc::AudioMixerImpl::Create();
   }
   config.audio_processing = audio_processing;
+  config.audio_device_module = audio_device_module;
   return config;
 }
 
@@ -300,8 +301,15 @@ void WebRtcVoiceEngine::Init() {
   webrtc::adm_helpers::Init(adm());
   webrtc::apm_helpers::Init(apm());
   RTC_CHECK_EQ(0, voe_wrapper_->base()->Init(adm(), apm(), decoder_factory_));
-  transmit_mixer_ = voe_wrapper_->base()->transmit_mixer();
-  RTC_DCHECK(transmit_mixer_);
+
+  // May be null for VoE injected for testing.
+  if (voe()->engine()) {
+    audio_state_ = webrtc::AudioState::Create(
+        MakeAudioStateConfig(voe(), audio_mixer_, apm_, adm_));
+
+    // Connect the ADM to our audio path.
+    adm()->RegisterAudioCallback(audio_state_->audio_transport());
+  }
 
   // Save the default AGC configuration settings. This must happen before
   // calling ApplyOptions or the default will be overwritten.
@@ -328,15 +336,6 @@ void WebRtcVoiceEngine::Init() {
     options.residual_echo_detector = true;
     bool error = ApplyOptions(options);
     RTC_DCHECK(error);
-  }
-
-  // May be null for VoE injected for testing.
-  if (voe()->engine()) {
-    audio_state_ = webrtc::AudioState::Create(
-        MakeAudioStateConfig(voe(), audio_mixer_, apm_));
-
-    // Connect the ADM to our audio path.
-    adm()->RegisterAudioCallback(audio_state_->audio_transport());
   }
 
   initialized_ = true;
@@ -543,7 +542,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
 
   if (options.stereo_swapping) {
     RTC_LOG(LS_INFO) << "Stereo swapping enabled? " << *options.stereo_swapping;
-    transmit_mixer()->EnableStereoChannelSwapping(*options.stereo_swapping);
+    audio_state_->SetStereoChannelSwapping(*options.stereo_swapping);
   }
 
   if (options.audio_jitter_buffer_max_packets) {
@@ -635,7 +634,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
 // TODO(solenberg): Remove, once AudioMonitor is gone.
 int WebRtcVoiceEngine::GetInputLevel() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  int8_t level = transmit_mixer()->AudioLevel();
+  int8_t level = audio_state_->CurrentAudioLevel().quantized_audio_level;
   RTC_DCHECK_LE(0, level);
   return level;
 }
@@ -721,12 +720,6 @@ webrtc::AudioProcessing* WebRtcVoiceEngine::apm() const {
   return apm_.get();
 }
 
-webrtc::voe::TransmitMixer* WebRtcVoiceEngine::transmit_mixer() {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_DCHECK(transmit_mixer_);
-  return transmit_mixer_;
-}
-
 AudioCodecs WebRtcVoiceEngine::CollectCodecs(
     const std::vector<webrtc::AudioCodecSpec>& specs) const {
   PayloadTypeMapper mapper;
@@ -808,7 +801,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
  public:
   WebRtcAudioSendStream(
       int ch,
-      webrtc::AudioTransport* voe_audio_transport,
       uint32_t ssrc,
       const std::string& c_name,
       const std::string track_id,
@@ -820,16 +812,13 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
       webrtc::Call* call,
       webrtc::Transport* send_transport,
       const rtc::scoped_refptr<webrtc::AudioEncoderFactory>& encoder_factory)
-      : voe_audio_transport_(voe_audio_transport),
-        call_(call),
+      : call_(call),
         config_(send_transport),
         send_side_bwe_with_overhead_(
             webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
         max_send_bitrate_bps_(max_send_bitrate_bps),
         rtp_parameters_(CreateRtpParametersWithOneEncoding()) {
     RTC_DCHECK_GE(ch, 0);
-    // TODO(solenberg): Once we're not using FakeWebRtcVoiceEngine anymore:
-    // RTC_DCHECK(voe_audio_transport);
     RTC_DCHECK(call);
     RTC_DCHECK(encoder_factory);
     config_.rtp.ssrc = ssrc;
@@ -964,11 +953,18 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
               int sample_rate,
               size_t number_of_channels,
               size_t number_of_frames) override {
+    RTC_DCHECK_EQ(16, bits_per_sample);
     RTC_CHECK_RUNS_SERIALIZED(&audio_capture_race_checker_);
-    RTC_DCHECK(voe_audio_transport_);
-    voe_audio_transport_->PushCaptureData(config_.voe_channel_id, audio_data,
-                                          bits_per_sample, sample_rate,
-                                          number_of_channels, number_of_frames);
+    RTC_DCHECK(stream_);
+    std::unique_ptr<webrtc::AudioFrame> audio_frame(new webrtc::AudioFrame());
+    audio_frame->UpdateFrame(audio_frame->timestamp_,
+                             static_cast<const int16_t*>(audio_data),
+                             number_of_frames,
+                             sample_rate,
+                             audio_frame->speech_type_,
+                             audio_frame->vad_activity_,
+                             number_of_channels);
+    stream_->OnAudioData(std::move(audio_frame));
   }
 
   // Callback from the |source_| when it is going away. In case Start() has
@@ -1131,7 +1127,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
 
   rtc::ThreadChecker worker_thread_checker_;
   rtc::RaceChecker audio_capture_race_checker_;
-  webrtc::AudioTransport* const voe_audio_transport_ = nullptr;
   webrtc::Call* call_ = nullptr;
   webrtc::AudioSendStream::Config config_;
   const bool send_side_bwe_with_overhead_;
@@ -1833,17 +1828,12 @@ bool WebRtcVoiceMediaChannel::AddSendStream(const StreamParams& sp) {
     return false;
   }
 
-  // Save the channel to send_streams_, so that RemoveSendStream() can still
-  // delete the channel in case failure happens below.
-  webrtc::AudioTransport* audio_transport =
-      engine()->voe()->base()->audio_transport();
-
   rtc::Optional<std::string> audio_network_adaptor_config =
       GetAudioNetworkAdaptorConfig(options_);
   WebRtcAudioSendStream* stream = new WebRtcAudioSendStream(
-      channel, audio_transport, ssrc, sp.cname, sp.id, send_codec_spec_,
-      send_rtp_extensions_, max_send_bitrate_bps_, audio_network_adaptor_config,
-      call_, this, engine()->encoder_factory_);
+      channel, ssrc, sp.cname, sp.id, send_codec_spec_, send_rtp_extensions_,
+      max_send_bitrate_bps_, audio_network_adaptor_config, call_, this,
+      engine()->encoder_factory_);
   send_streams_.insert(std::make_pair(ssrc, stream));
 
   // At this point the stream's local SSRC has been updated. If it is the first

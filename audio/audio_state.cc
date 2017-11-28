@@ -16,7 +16,6 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/thread.h"
-#include "voice_engine/transmit_mixer.h"
 
 namespace webrtc {
 namespace internal {
@@ -24,7 +23,7 @@ namespace internal {
 AudioState::AudioState(const AudioState::Config& config)
     : config_(config),
       voe_base_(config.voice_engine),
-      audio_transport_proxy_(voe_base_->audio_transport(),
+      audio_transport_proxy_(config_.audio_device_module.get(),
                              config_.audio_processing.get(),
                              config_.audio_mixer) {
   process_thread_checker_.DetachFromThread();
@@ -47,11 +46,14 @@ rtc::scoped_refptr<AudioMixer> AudioState::mixer() {
 
 bool AudioState::typing_noise_detected() const {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
-  // TODO(solenberg): Remove const_cast once AudioState owns transmit mixer
-  //                  functionality.
-  voe::TransmitMixer* transmit_mixer =
-      const_cast<AudioState*>(this)->voe_base_->transmit_mixer();
-  return transmit_mixer->typing_noise_detected();
+  return audio_transport_proxy_.typing_noise_detected();
+}
+
+void AudioState::SetSendingStream(webrtc::AudioSendStream* stream, bool sending,
+                                  int sample_rate_hz, size_t num_channels) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  audio_transport_proxy_.SetSendingStream(stream, sending, sample_rate_hz,
+                                          num_channels);
 }
 
 void AudioState::SetPlayout(bool enabled) {
@@ -61,33 +63,42 @@ void AudioState::SetPlayout(bool enabled) {
   if (enabled == currently_enabled) {
     return;
   }
-  VoEBase* const voe = VoEBase::GetInterface(voice_engine());
-  RTC_DCHECK(voe);
   if (enabled) {
     null_audio_poller_.reset();
   }
   // Will stop/start playout of the underlying device, if necessary, and
   // remember the setting for when it receives subsequent calls of
   // StartPlayout.
-  voe->SetPlayout(enabled);
+  voe_base_->SetPlayout(enabled);
   if (!enabled) {
     null_audio_poller_ =
         rtc::MakeUnique<NullAudioPoller>(&audio_transport_proxy_);
   }
-  voe->Release();
 }
 
 void AudioState::SetRecording(bool enabled) {
   RTC_LOG(INFO) << "SetRecording(" << enabled << ")";
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   // TODO(henrika): keep track of state as in SetPlayout().
-  VoEBase* const voe = VoEBase::GetInterface(voice_engine());
-  RTC_DCHECK(voe);
   // Will stop/start recording of the underlying device, if necessary, and
   // remember the setting for when it receives subsequent calls of
   // StartPlayout.
-  voe->SetRecording(enabled);
-  voe->Release();
+  voe_base_->SetRecording(enabled);
+}
+
+AudioState::LevelStats AudioState::CurrentAudioLevel() const {
+  const voe::AudioLevel& audio_level = audio_transport_proxy_.audio_level();
+  LevelStats result;
+  result.audio_level = audio_level.LevelFullRange();
+  RTC_DCHECK_LE(0, result.audio_level);
+  result.total_input_energy = audio_level.TotalEnergy();
+  result.total_input_duration = audio_level.TotalDuration();
+  result.quantized_audio_level = audio_level.Level();
+  return result;
+}
+
+void AudioState::SetStereoChannelSwapping(bool enable) {
+  audio_transport_proxy_.SetStereoChannelSwapping(enable);
 }
 
 // Reference count; implementation copied from rtc::RefCountedObject.

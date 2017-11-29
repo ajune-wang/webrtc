@@ -46,6 +46,13 @@ class DtlsSrtpTransport : public RtpTransportInternalAdapter {
 
   bool IsActive() { return srtp_transport_->IsActive(); }
 
+  // Helper method to get RTP Absoulute SendTime extension header id if
+  // present in remote supported extensions list.
+  void CacheRtpAbsSendTimeHeaderExtension(int rtp_abs_sendtime_extn_id) {
+    srtp_transport_->CacheRtpAbsSendTimeHeaderExtension(
+        rtp_abs_sendtime_extn_id);
+  }
+
   // TODO(zhihuang): Remove this when we remove RtpTransportAdapter.
   RtpTransportAdapter* GetInternal() override { return nullptr; }
 

@@ -177,6 +177,29 @@
       "revId": "c8f45f78893ace74aa54a42087896f92a14f632a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c736d811_9d16e5ee",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-29T00:35:37Z",
+      "side": 1,
+      "message": "Also thanks for adding these detailed comments. They will help greatly future readers who come across this logic.",
+      "range": {
+        "startLine": 600,
+        "startChar": 2,
+        "endLine": 606,
+        "endChar": 43
+      },
+      "revId": "c8f45f78893ace74aa54a42087896f92a14f632a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

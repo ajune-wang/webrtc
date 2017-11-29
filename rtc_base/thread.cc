@@ -14,6 +14,8 @@
 #include <comdef.h>
 #elif defined(WEBRTC_POSIX)
 #include <time.h>
+#else
+#error "Either WEBRTC_WIN or WEBRTC_POSIX needs to be defined."
 #endif
 
 #include "rtc_base/checks.h"
@@ -118,28 +120,13 @@ Thread::ScopedDisallowBlockingCalls::~ScopedDisallowBlockingCalls() {
 // DEPRECATED.
 Thread::Thread() : Thread(SocketServer::CreateDefault()) {}
 
-Thread::Thread(SocketServer* ss)
-    : MessageQueue(ss, false),
-      running_(true, false),
-#if defined(WEBRTC_WIN)
-      thread_(nullptr),
-      thread_id_(0),
-#endif
-      owned_(true),
-      blocking_calls_allowed_(true) {
+Thread::Thread(SocketServer* ss) : MessageQueue(ss, false) {
   SetName("Thread", this);  // default name
   DoInit();
 }
 
 Thread::Thread(std::unique_ptr<SocketServer> ss)
-    : MessageQueue(std::move(ss), false),
-      running_(true, false),
-#if defined(WEBRTC_WIN)
-      thread_(nullptr),
-      thread_id_(0),
-#endif
-      owned_(true),
-      blocking_calls_allowed_(true) {
+    : MessageQueue(std::move(ss), false) {
   SetName("Thread", this);  // default name
   DoInit();
 }
@@ -184,7 +171,8 @@ bool Thread::SleepMs(int milliseconds) {
 }
 
 bool Thread::SetName(const std::string& name, const void* obj) {
-  if (running()) return false;
+  RTC_DCHECK(!IsRunning());
+
   name_ = name;
   if (obj) {
     char buf[16];
@@ -195,10 +183,11 @@ bool Thread::SetName(const std::string& name, const void* obj) {
 }
 
 bool Thread::Start(Runnable* runnable) {
-  RTC_DCHECK(owned_);
-  if (!owned_) return false;
-  RTC_DCHECK(!running());
-  if (running()) return false;
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK(!IsRunning());
+
+  if (IsRunning())
+    return false;
 
   Restart();  // reset IsQuitting() if the thread is being restarted
 
@@ -206,14 +195,14 @@ bool Thread::Start(Runnable* runnable) {
   // we start a new thread.
   ThreadManager::Instance();
 
+  owned_ = true;
+
   ThreadInit* init = new ThreadInit;
   init->thread = this;
   init->runnable = runnable;
 #if defined(WEBRTC_WIN)
   thread_ = CreateThread(nullptr, 0, PreRun, init, 0, &thread_id_);
-  if (thread_) {
-    running_.Set();
-  } else {
+  if (!thread_) {
     return false;
   }
 #elif defined(WEBRTC_POSIX)
@@ -223,9 +212,10 @@ bool Thread::Start(Runnable* runnable) {
   int error_code = pthread_create(&thread_, &attr, PreRun, init);
   if (0 != error_code) {
     RTC_LOG(LS_ERROR) << "Unable to create pthread, error " << error_code;
+    thread_ = 0;
     return false;
   }
-  running_.Set();
+  RTC_DCHECK(thread_);
 #endif
   return true;
 }
@@ -235,6 +225,7 @@ bool Thread::WrapCurrent() {
 }
 
 void Thread::UnwrapCurrent() {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   // Clears the platform-specific thread-specific storage.
   ThreadManager::Instance()->SetCurrentThread(nullptr);
 #if defined(WEBRTC_WIN)
@@ -244,9 +235,12 @@ void Thread::UnwrapCurrent() {
           << "When unwrapping thread, failed to close handle.";
     }
     thread_ = nullptr;
+    thread_id_ = 0;
   }
+#elif defined(WEBRTC_POSIX)
+  thread_ = 0;
 #endif
-  running_.Reset();
+  thread_checker_.DetachFromThread();
 }
 
 void Thread::SafeWrapCurrent() {
@@ -254,25 +248,27 @@ void Thread::SafeWrapCurrent() {
 }
 
 void Thread::Join() {
-  if (running()) {
-    RTC_DCHECK(!IsCurrent());
-    if (Current() && !Current()->blocking_calls_allowed_) {
-      RTC_LOG(LS_WARNING) << "Waiting for the thread to join, "
-                          << "but blocking calls have been disallowed";
-    }
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  if (!IsRunning())
+    return;
+
+  RTC_DCHECK(!IsCurrent());
+  if (Current() && !Current()->blocking_calls_allowed_) {
+    RTC_LOG(LS_WARNING) << "Waiting for the thread to join, "
+                        << "but blocking calls have been disallowed";
+  }
 
 #if defined(WEBRTC_WIN)
-    RTC_DCHECK(thread_ != nullptr);
-    WaitForSingleObject(thread_, INFINITE);
-    CloseHandle(thread_);
-    thread_ = nullptr;
-    thread_id_ = 0;
+  RTC_DCHECK(thread_ != nullptr);
+  WaitForSingleObject(thread_, INFINITE);
+  CloseHandle(thread_);
+  thread_ = nullptr;
+  thread_id_ = 0;
 #elif defined(WEBRTC_POSIX)
-    void *pv;
-    pthread_join(thread_, &pv);
+  pthread_join(thread_, nullptr);
+  thread_ = 0;
 #endif
-    running_.Reset();
-  }
+  thread_checker_.DetachFromThread();
 }
 
 bool Thread::SetAllowBlockingCalls(bool allow) {
@@ -319,12 +315,16 @@ void Thread::Run() {
 }
 
 bool Thread::IsOwned() {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK(IsRunning());
   return owned_;
 }
 
 void Thread::Stop() {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   MessageQueue::Quit();
   Join();
+  thread_checker_.DetachFromThread();
 }
 
 void Thread::Send(const Location& posted_from,
@@ -498,8 +498,10 @@ bool Thread::ProcessMessages(int cmsLoop) {
 
 bool Thread::WrapCurrentWithThreadManager(ThreadManager* thread_manager,
                                           bool need_synchronize_access) {
-  if (running())
-    return false;
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK(!IsRunning());
+
+  owned_ = false;
 
 #if defined(WEBRTC_WIN)
   if (need_synchronize_access) {
@@ -515,11 +517,17 @@ bool Thread::WrapCurrentWithThreadManager(ThreadManager* thread_manager,
 #elif defined(WEBRTC_POSIX)
   thread_ = pthread_self();
 #endif
-
-  owned_ = false;
-  running_.Set();
   thread_manager->SetCurrentThread(this);
   return true;
+}
+
+bool Thread::IsRunning() {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+#if defined(WEBRTC_WIN)
+  return thread_ != nullptr;
+#elif defined(WEBRTC_POSIX)
+  return thread_ != 0;
+#endif
 }
 
 AutoThread::AutoThread() : Thread(SocketServer::CreateDefault()) {

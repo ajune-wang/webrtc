@@ -249,8 +249,6 @@ TEST(ThreadTest, Names) {
 }
 
 TEST(ThreadTest, Wrap) {
-  Thread* current_thread = Thread::Current();
-  current_thread->UnwrapCurrent();
   CustomThread* cthread = new CustomThread();
   EXPECT_TRUE(cthread->WrapCurrent());
   EXPECT_TRUE(cthread->RunningForTest());
@@ -258,7 +256,6 @@ TEST(ThreadTest, Wrap) {
   cthread->UnwrapCurrent();
   EXPECT_FALSE(cthread->RunningForTest());
   delete cthread;
-  current_thread->WrapCurrent();
 }
 
 TEST(ThreadTest, Invoke) {

@@ -14,240 +14,256 @@
 #include <algorithm>
 
 #include "modules/audio_processing/aec3/aec3_common.h"
+#include "modules/audio_processing/aec3/aec3_fft.h"
 #include "modules/audio_processing/aec3/block_processor.h"
 #include "modules/audio_processing/aec3/decimator.h"
+#include "modules/audio_processing/aec3/fft_buffer.h"
 #include "modules/audio_processing/aec3/fft_data.h"
+#include "modules/audio_processing/aec3/matrix_buffer.h"
 #include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
+namespace aec3 {
 namespace {
 
-class ApiCallJitterBuffer {
- public:
-  explicit ApiCallJitterBuffer(size_t num_bands) {
-    buffer_.fill(std::vector<std::vector<float>>(
-        num_bands, std::vector<float>(kBlockSize, 0.f)));
-  }
-
-  ~ApiCallJitterBuffer() = default;
-
-  void Reset() {
-    size_ = 0;
-    last_insert_index_ = 0;
-  }
-
-  void Insert(const std::vector<std::vector<float>>& block) {
-    RTC_DCHECK_LT(size_, buffer_.size());
-    last_insert_index_ = (last_insert_index_ + 1) % buffer_.size();
-    RTC_DCHECK_EQ(buffer_[last_insert_index_].size(), block.size());
-    RTC_DCHECK_EQ(buffer_[last_insert_index_][0].size(), block[0].size());
-    for (size_t k = 0; k < block.size(); ++k) {
-      std::copy(block[k].begin(), block[k].end(),
-                buffer_[last_insert_index_][k].begin());
-    }
-    ++size_;
-  }
-
-  void Remove(std::vector<std::vector<float>>* block) {
-    RTC_DCHECK_LT(0, size_);
-    --size_;
-    const size_t extract_index =
-        (last_insert_index_ - size_ + buffer_.size()) % buffer_.size();
-    for (size_t k = 0; k < block->size(); ++k) {
-      std::copy(buffer_[extract_index][k].begin(),
-                buffer_[extract_index][k].end(), (*block)[k].begin());
-    }
-  }
-
-  size_t Size() const { return size_; }
-  bool Full() const { return size_ >= (buffer_.size()); }
-  bool Empty() const { return size_ == 0; }
-
- private:
-  std::array<std::vector<std::vector<float>>, kMaxApiCallsJitterBlocks> buffer_;
-  size_t size_ = 0;
-  int last_insert_index_ = 0;
-};
+constexpr int kBufferHeadroom =
+    kAdaptiveFilterLength > kUnknownDelayRenderWindowSize
+        ? kAdaptiveFilterLength
+        : kUnknownDelayRenderWindowSize;
 
 class RenderDelayBufferImpl final : public RenderDelayBuffer {
  public:
-  RenderDelayBufferImpl(size_t num_bands,
-                        size_t down_sampling_factor,
-                        size_t downsampled_render_buffer_size,
-                        size_t render_delay_buffer_size);
+  RenderDelayBufferImpl(const EchoCanceller3Config& config, size_t num_bands);
   ~RenderDelayBufferImpl() override;
 
-  void Reset() override;
-  bool Insert(const std::vector<std::vector<float>>& block) override;
-  bool UpdateBuffers() override;
+  void Clear() override;
+  void ResetAlignment() override;
+  RenderDelayBufferImpl::BufferingEvent Insert(
+      const std::vector<std::vector<float>>& block) override;
+  BufferingEvent PrepareCaptureCall() override;
   void SetDelay(size_t delay) override;
   size_t Delay() const override { return delay_; }
-
-  const RenderBuffer& GetRenderBuffer() const override { return fft_buffer_; }
+  size_t MaxDelay() const override {
+    return blocks_.buffer.size() - 1 - kBufferHeadroom;
+  }
+  size_t MaxApiJitter() const override { return max_api_jitter_; }
+  const RenderBuffer& GetRenderBuffer() const override {
+    return echo_remover_buffer_;
+  }
 
   const DownsampledRenderBuffer& GetDownsampledRenderBuffer() const override {
-    return downsampled_render_buffer_;
+    return ds_render_;
   }
 
  private:
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const Aec3Optimization optimization_;
-  const size_t down_sampling_factor_;
+  const EchoCanceller3Config config_;
   const size_t sub_block_size_;
-  std::vector<std::vector<std::vector<float>>> buffer_;
-  size_t delay_ = 0;
-  size_t last_insert_index_ = 0;
-  RenderBuffer fft_buffer_;
-  DownsampledRenderBuffer downsampled_render_buffer_;
+  MatrixBuffer blocks_;
+  VectorBuffer spectra_;
+  FftBuffer ffts_;
+  size_t delay_;
+  int max_api_jitter_ = 0;
+  int render_surplus_ = 0;
+  bool first_reset_occurred_ = false;
+  RenderBuffer echo_remover_buffer_;
+  DownsampledRenderBuffer ds_render_;
   Decimator render_decimator_;
-  ApiCallJitterBuffer api_call_jitter_buffer_;
   const std::vector<std::vector<float>> zero_block_;
+  const Aec3Fft fft_;
+  size_t capture_call_counter_ = 0;
+  std::vector<float> render_ds_;
+  int render_calls_in_a_row_ = 0;
+  void IncreaseRead();
+  void IncreaseInsert();
+
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RenderDelayBufferImpl);
 };
 
 int RenderDelayBufferImpl::instance_count_ = 0;
 
-RenderDelayBufferImpl::RenderDelayBufferImpl(
-    size_t num_bands,
-    size_t down_sampling_factor,
-    size_t downsampled_render_buffer_size,
-    size_t render_delay_buffer_size)
+RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
+                                             size_t num_bands)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
       optimization_(DetectOptimization()),
-      down_sampling_factor_(down_sampling_factor),
-      sub_block_size_(down_sampling_factor_ > 0
-                          ? kBlockSize / down_sampling_factor
+      config_(config),
+      sub_block_size_(config_.delay.down_sampling_factor > 0
+                          ? kBlockSize / config_.delay.down_sampling_factor
                           : kBlockSize),
-      buffer_(
-          render_delay_buffer_size,
-          std::vector<std::vector<float>>(num_bands,
-                                          std::vector<float>(kBlockSize, 0.f))),
-      fft_buffer_(
-          optimization_,
-          num_bands,
-          std::max(kUnknownDelayRenderWindowSize, kAdaptiveFilterLength),
-          std::vector<size_t>(1, kAdaptiveFilterLength)),
-      downsampled_render_buffer_(downsampled_render_buffer_size),
-      render_decimator_(down_sampling_factor_),
-      api_call_jitter_buffer_(num_bands),
-      zero_block_(num_bands, std::vector<float>(kBlockSize, 0.f)) {
-  RTC_DCHECK_LT(buffer_.size(), downsampled_render_buffer_.buffer.size());
+      blocks_(GetRenderDelayBufferSize(config_.delay.down_sampling_factor,
+                                       config_.delay.num_filters),
+              num_bands,
+              kBlockSize),
+      spectra_(blocks_.buffer.size(), kFftLengthBy2Plus1),
+      ffts_(blocks_.buffer.size()),
+      delay_(config_.delay.min_echo_path_delay_blocks),
+      echo_remover_buffer_(kAdaptiveFilterLength, &blocks_, &spectra_, &ffts_),
+      ds_render_(GetDownSampledBufferSize(config_.delay.down_sampling_factor,
+                                          config_.delay.num_filters)),
+      render_decimator_(config_.delay.down_sampling_factor),
+      zero_block_(num_bands, std::vector<float>(kBlockSize, 0.f)),
+      fft_(),
+      render_ds_(sub_block_size_, 0.f) {
+  Clear();
+  RTC_DCHECK_EQ(blocks_.buffer.size(), ffts_.buffer.size());
+  RTC_DCHECK_EQ(spectra_.buffer.size(), ffts_.buffer.size());
 }
 
 RenderDelayBufferImpl::~RenderDelayBufferImpl() = default;
 
-void RenderDelayBufferImpl::Reset() {
-  // Empty all data in the buffers.
-  delay_ = 0;
-  last_insert_index_ = 0;
-  downsampled_render_buffer_.position = 0;
-  std::fill(downsampled_render_buffer_.buffer.begin(),
-            downsampled_render_buffer_.buffer.end(), 0.f);
-  fft_buffer_.Clear();
-  api_call_jitter_buffer_.Reset();
-  for (auto& c : buffer_) {
-    for (auto& b : c) {
-      std::fill(b.begin(), b.end(), 0.f);
-    }
-  }
+void RenderDelayBufferImpl::Clear() {
+  blocks_.Clear();
+  spectra_.Clear();
+  ffts_.Clear();
+  std::fill(ds_render_.buffer.begin(), ds_render_.buffer.end(), 0.f);
+
+  blocks_.last_insert = 0;
+  spectra_.last_insert = 0;
+  ffts_.last_insert = 0;
+  ds_render_.last_insert = 0;
+
+  ResetAlignment();
+  capture_call_counter_ = 0;
 }
 
-bool RenderDelayBufferImpl::Insert(
+void RenderDelayBufferImpl::ResetAlignment() {
+  delay_ = config_.delay.min_echo_path_delay_blocks;
+  const int initial_jitter_offset =
+      std::max<int>(std::min(config_.delay.api_call_jitter_blocks,
+                             config_.delay.min_echo_path_delay_blocks),
+                    1);
+
+  auto& d = ds_render_;
+  auto& b = blocks_;
+  auto& s = spectra_;
+  auto& f = ffts_;
+  d.next_read = d.OffsetIndex(
+      d.last_insert, static_cast<int>(initial_jitter_offset * sub_block_size_));
+  b.next_read = b.OffsetIndex(
+      b.last_insert, -static_cast<int>(delay_ + initial_jitter_offset));
+  s.next_read = s.OffsetIndex(s.last_insert,
+                              static_cast<int>(delay_ + initial_jitter_offset));
+  f.next_read = f.OffsetIndex(f.last_insert,
+                              static_cast<int>(delay_ + initial_jitter_offset));
+  render_surplus_ = 0;
+  if (!first_reset_occurred_) {
+    max_api_jitter_ = 0;
+  }
+  first_reset_occurred_ = true;
+}
+
+RenderDelayBufferImpl::BufferingEvent RenderDelayBufferImpl::Insert(
     const std::vector<std::vector<float>>& block) {
-  RTC_DCHECK_EQ(block.size(), buffer_[0].size());
-  RTC_DCHECK_EQ(block[0].size(), buffer_[0][0].size());
+  RTC_DCHECK_EQ(block.size(), blocks_.buffer[0].size());
+  RTC_DCHECK_EQ(block[0].size(), blocks_.buffer[0][0].size());
+  BufferingEvent event = BufferingEvent::kNone;
 
-  if (api_call_jitter_buffer_.Full()) {
-    // Report buffer overrun and let the caller handle the overrun.
-    return false;
+  ++render_surplus_;
+  if (first_reset_occurred_) {
+    ++render_calls_in_a_row_;
+    max_api_jitter_ = std::max(max_api_jitter_, render_calls_in_a_row_);
   }
-  api_call_jitter_buffer_.Insert(block);
 
-  return true;
+  const size_t prev_insert = blocks_.last_insert;
+  IncreaseInsert();
+
+  if (ds_render_.next_read == ds_render_.last_insert ||
+      blocks_.next_read == blocks_.last_insert) {
+    event = BufferingEvent::kRenderOverrun;
+    IncreaseRead();
+  }
+
+  for (size_t k = 0; k < block.size(); ++k) {
+    std::copy(block[k].begin(), block[k].end(),
+              blocks_.buffer[blocks_.last_insert][k].begin());
+  }
+
+  render_decimator_.Decimate(block[0], render_ds_);
+  std::copy(render_ds_.rbegin(), render_ds_.rend(),
+            ds_render_.buffer.begin() + ds_render_.last_insert);
+
+  fft_.PaddedFft(block[0], blocks_.buffer[prev_insert][0],
+                 &ffts_.buffer[ffts_.last_insert]);
+
+  ffts_.buffer[ffts_.last_insert].Spectrum(
+      optimization_, spectra_.buffer[spectra_.last_insert]);
+
+  return event;
 }
 
-bool RenderDelayBufferImpl::UpdateBuffers() {
-  bool underrun = true;
-  // Update the buffers with a new block if such is available, otherwise insert
-  // a block of silence.
-  if (api_call_jitter_buffer_.Size() > 0) {
-    last_insert_index_ = (last_insert_index_ + 1) % buffer_.size();
-    api_call_jitter_buffer_.Remove(&buffer_[last_insert_index_]);
-    underrun = false;
+RenderDelayBufferImpl::BufferingEvent
+RenderDelayBufferImpl::PrepareCaptureCall() {
+  BufferingEvent event = BufferingEvent::kNone;
+  render_calls_in_a_row_ = 0;
+
+  if (ds_render_.next_read == ds_render_.last_insert ||
+      blocks_.next_read == blocks_.last_insert) {
+    IncreaseInsert();
+    event = BufferingEvent::kRenderUnderrun;
+  }
+  RTC_DCHECK_NE(blocks_.next_read, blocks_.last_insert);
+
+  --render_surplus_;
+  IncreaseRead();
+  echo_remover_buffer_.UpdateSpectralSum();
+
+  if (render_surplus_ >=
+      static_cast<int>(config_.delay.api_call_jitter_blocks)) {
+    event = BufferingEvent::kApiCallSkew;
+    RTC_LOG(LS_WARNING) << "Api call skew detected at " << capture_call_counter_
+                        << ".";
   }
 
-  downsampled_render_buffer_.position =
-      (downsampled_render_buffer_.position - sub_block_size_ +
-       downsampled_render_buffer_.buffer.size()) %
-      downsampled_render_buffer_.buffer.size();
-
-  rtc::ArrayView<const float> input(
-      underrun ? zero_block_[0].data() : buffer_[last_insert_index_][0].data(),
-      kBlockSize);
-  rtc::ArrayView<float> output(downsampled_render_buffer_.buffer.data() +
-                                   downsampled_render_buffer_.position,
-                               sub_block_size_);
-  data_dumper_->DumpWav("aec3_render_decimator_input", input.size(),
-                        input.data(), 16000, 1);
-  render_decimator_.Decimate(input, output);
-  data_dumper_->DumpWav("aec3_render_decimator_output", output.size(),
-                        output.data(), 16000 / down_sampling_factor_, 1);
-  for (size_t k = 0; k < output.size() / 2; ++k) {
-    float tmp = output[k];
-    output[k] = output[output.size() - 1 - k];
-    output[output.size() - 1 - k] = tmp;
-  }
-
-  if (underrun) {
-    fft_buffer_.Insert(zero_block_);
-  } else {
-    fft_buffer_.Insert(buffer_[(last_insert_index_ - delay_ + buffer_.size()) %
-                               buffer_.size()]);
-  }
-  return !underrun;
+  ++capture_call_counter_;
+  return event;
 }
 
 void RenderDelayBufferImpl::SetDelay(size_t delay) {
   if (delay_ == delay) {
+    RTC_NOTREACHED();
     return;
   }
 
-  // If there is a new delay set, clear the fft buffer.
-  fft_buffer_.Clear();
-
-  if ((buffer_.size() - 1) < delay) {
-    // If the desired delay is larger than the delay buffer, shorten the delay
-    // buffer size to achieve the desired alignment with the available buffer
-    // size.
-    downsampled_render_buffer_.position =
-        (downsampled_render_buffer_.position +
-         sub_block_size_ * (delay - (buffer_.size() - 1))) %
-        downsampled_render_buffer_.buffer.size();
-
-    last_insert_index_ =
-        (last_insert_index_ - (delay - (buffer_.size() - 1)) + buffer_.size()) %
-        buffer_.size();
-    delay_ = buffer_.size() - 1;
-  } else {
-    delay_ = delay;
+  int delta_delay = static_cast<int>(delay_) - static_cast<int>(delay);
+  delay_ = delay;
+  if (delay_ > MaxDelay()) {
+    delay_ = std::min(MaxDelay(), delay);
+    RTC_NOTREACHED();
   }
+
+  // Recompute the read indices according to the set delay.
+  blocks_.UpdateNextReadIndex(delta_delay);
+  spectra_.UpdateNextReadIndex(-delta_delay);
+  ffts_.UpdateNextReadIndex(-delta_delay);
 }
+
+void RenderDelayBufferImpl::IncreaseRead() {
+  ds_render_.UpdateNextReadIndex(-static_cast<int>(sub_block_size_));
+  blocks_.IncNextReadIndex();
+  spectra_.DecNextReadIndex();
+  ffts_.DecNextReadIndex();
+};
+
+void RenderDelayBufferImpl::IncreaseInsert() {
+  ds_render_.UpdateLastInsertIndex(-static_cast<int>(sub_block_size_));
+  blocks_.IncLastInsertIndex();
+  spectra_.DecLastInsertIndex();
+  ffts_.DecLastInsertIndex();
+};
 
 }  // namespace
 
-RenderDelayBuffer* RenderDelayBuffer::Create(
-    size_t num_bands,
-    size_t down_sampling_factor,
-    size_t downsampled_render_buffer_size,
-    size_t render_delay_buffer_size) {
-  return new RenderDelayBufferImpl(num_bands, down_sampling_factor,
-                                   downsampled_render_buffer_size,
-                                   render_delay_buffer_size);
+}  // namespace aec3
+
+RenderDelayBuffer* RenderDelayBuffer::Create(const EchoCanceller3Config& config,
+                                             size_t num_bands) {
+  return new aec3::RenderDelayBufferImpl(config, num_bands);
 }
 
 }  // namespace webrtc

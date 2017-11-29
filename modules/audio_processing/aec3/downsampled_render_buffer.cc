@@ -13,7 +13,7 @@
 namespace webrtc {
 
 DownsampledRenderBuffer::DownsampledRenderBuffer(size_t downsampled_buffer_size)
-    : buffer(downsampled_buffer_size, 0.f) {}
+    : size(downsampled_buffer_size), buffer(downsampled_buffer_size, 0.f) {}
 
 DownsampledRenderBuffer::~DownsampledRenderBuffer() = default;
 

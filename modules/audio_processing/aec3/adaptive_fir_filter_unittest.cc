@@ -21,6 +21,7 @@
 #include "modules/audio_processing/aec3/aec3_fft.h"
 #include "modules/audio_processing/aec3/aec_state.h"
 #include "modules/audio_processing/aec3/cascaded_biquad_filter.h"
+#include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/aec3/render_signal_analyzer.h"
 #include "modules/audio_processing/aec3/shadow_filter_update_gain.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
@@ -47,8 +48,8 @@ std::string ProduceDebugText(size_t delay) {
 // Verifies that the optimized methods for filter adaptation are similar to
 // their reference counterparts.
 TEST(AdaptiveFirFilter, FilterAdaptationNeonOptimizations) {
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 12,
-                             std::vector<size_t>(1, 12));
+  std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
+      RenderDelayBuffer::Create(EchoCanceller3Config(), 3));
   Random random_generator(42U);
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   FftData S_C;
@@ -66,8 +67,13 @@ TEST(AdaptiveFirFilter, FilterAdaptationNeonOptimizations) {
 
   for (size_t k = 0; k < 30; ++k) {
     RandomizeSampleVector(&random_generator, x[0]);
-    render_buffer.Insert(x);
+    render_delay_buffer->Insert(x);
+    if (k == 0) {
+      render_delay_buffer->ResetAlignment();
+    }
+    render_delay_buffer->PrepareCaptureCall();
   }
+  const auto& render_buffer = render_delay_buffer->GetRenderBuffer();
 
   for (size_t j = 0; j < G.re.size(); ++j) {
     G.re[j] = j / 10001.f;
@@ -153,8 +159,8 @@ TEST(AdaptiveFirFilter, UpdateErlNeonOptimization) {
 TEST(AdaptiveFirFilter, FilterAdaptationSse2Optimizations) {
   bool use_sse2 = (WebRtc_GetCPUInfo(kSSE2) != 0);
   if (use_sse2) {
-    RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 12,
-                               std::vector<size_t>(1, 12));
+    std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
+        RenderDelayBuffer::Create(EchoCanceller3Config(), 3));
     Random random_generator(42U);
     std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
     FftData S_C;
@@ -172,7 +178,12 @@ TEST(AdaptiveFirFilter, FilterAdaptationSse2Optimizations) {
 
     for (size_t k = 0; k < 500; ++k) {
       RandomizeSampleVector(&random_generator, x[0]);
-      render_buffer.Insert(x);
+      render_delay_buffer->Insert(x);
+      if (k == 0) {
+        render_delay_buffer->ResetAlignment();
+      }
+      render_delay_buffer->PrepareCaptureCall();
+      const auto& render_buffer = render_delay_buffer->GetRenderBuffer();
 
       ApplyFilter_SSE2(render_buffer, H_SSE2, &S_SSE2);
       ApplyFilter(render_buffer, H_C, &S_C);
@@ -264,9 +275,11 @@ TEST(AdaptiveFirFilter, NullDataDumper) {
 TEST(AdaptiveFirFilter, NullFilterOutput) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3,
-                             filter.SizePartitions(),
-                             std::vector<size_t>(1, filter.SizePartitions()));
+  FftBuffer fft_buffer(filter.SizePartitions());
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(filter.SizePartitions(), &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   EXPECT_DEATH(filter.Filter(render_buffer, nullptr), "");
 }
 
@@ -297,9 +310,11 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
   Aec3Fft fft;
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3,
-                             filter.SizePartitions(),
-                             std::vector<size_t>(1, filter.SizePartitions()));
+  FftBuffer fft_buffer(filter.SizePartitions());
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(filter.SizePartitions(), &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   ShadowFilterUpdateGain gain;
   Random random_generator(42U);
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
@@ -345,7 +360,29 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       x_hp_filter.Process(x[0]);
       y_hp_filter.Process(y);
 
-      render_buffer.Insert(x);
+      const size_t prev_insert_index = block_buffer.last_insert;
+
+      block_buffer.IncLastInsertIndex();
+      spectrum_buffer.DecLastInsertIndex();
+      fft_buffer.DecLastInsertIndex();
+
+      for (size_t k = 0; k < x.size(); ++k) {
+        std::copy(x[k].begin(), x[k].end(),
+                  block_buffer.buffer[block_buffer.last_insert][k].begin());
+      }
+      fft.PaddedFft(block_buffer.buffer[block_buffer.last_insert][0],
+                    block_buffer.buffer[prev_insert_index][0],
+                    &fft_buffer.buffer[fft_buffer.last_insert]);
+
+      fft_buffer.buffer[fft_buffer.last_insert].Spectrum(
+          Aec3Optimization::kNone,
+          spectrum_buffer.buffer[spectrum_buffer.last_insert]);
+
+      block_buffer.IncNextReadIndex();
+      spectrum_buffer.DecNextReadIndex();
+      fft_buffer.DecNextReadIndex();
+
+      render_buffer.UpdateSpectralSum();
       render_signal_analyzer.Update(render_buffer, aec_state.FilterDelay());
 
       filter.Filter(render_buffer, &S);
@@ -363,7 +400,8 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       gain.Compute(render_buffer, render_signal_analyzer, E,
                    filter.SizePartitions(), false, &G);
       filter.Adapt(render_buffer, G);
-      aec_state.HandleEchoPathChange(EchoPathVariability(false, false));
+      aec_state.HandleEchoPathChange(EchoPathVariability(
+          false, EchoPathVariability::DelayAdjustment::kNone, false));
       aec_state.Update(filter.FilterFrequencyResponse(),
                        filter.FilterImpulseResponse(), true, rtc::nullopt,
                        render_buffer, E2_main, Y2, x[0], s, false);

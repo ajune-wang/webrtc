@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_PACING_ALR_DETECTOR_H_
-#define MODULES_PACING_ALR_DETECTOR_H_
+#ifndef MODULES_CONGESTION_CONTROLLER_ALR_DETECTOR_H_
+#define MODULES_CONGESTION_CONTROLLER_ALR_DETECTOR_H_
 
 #include "api/optional.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -32,7 +32,7 @@ class AlrDetector {
   AlrDetector();
   ~AlrDetector();
 
-  void OnBytesSent(size_t bytes_sent, int64_t delta_time_ms);
+  void OnBytesSent(size_t bytes_sent, int64_t send_time_ms);
 
   // Set current estimated bandwidth.
   void SetEstimatedBitrate(int bitrate_bps);
@@ -74,10 +74,12 @@ class AlrDetector {
   int alr_start_budget_level_percent_;
   int alr_stop_budget_level_percent_;
 
+  int64_t last_send_time_ms_ = 0;
+
   IntervalBudget alr_budget_;
   rtc::Optional<int64_t> alr_started_time_ms_;
 };
 
 }  // namespace webrtc
 
-#endif  // MODULES_PACING_ALR_DETECTOR_H_
+#endif  // MODULES_CONGESTION_CONTROLLER_ALR_DETECTOR_H_

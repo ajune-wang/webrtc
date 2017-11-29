@@ -20,9 +20,11 @@
 
 namespace webrtc {
 
+class RtcEventLog;
+
 class PacketQueue2 : public PacketQueue {
  public:
-  explicit PacketQueue2(const Clock* clock);
+  explicit PacketQueue2(const Clock* clock, RtcEventLog* event_log);
   ~PacketQueue2() override;
 
   using Packet = PacketQueue::Packet;
@@ -105,6 +107,8 @@ class PacketQueue2 : public PacketQueue {
   // The enqueue time of every packet currently in the queue. Used to figure out
   // the age of the oldest packet in the queue.
   std::multiset<int64_t> enqueue_times_;
+
+  RtcEventLog* event_log_;
 };
 }  // namespace webrtc
 

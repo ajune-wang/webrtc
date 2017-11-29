@@ -106,7 +106,7 @@ SendSideCongestionController::SendSideCongestionController(
       bitrate_controller_(
           BitrateController::CreateBitrateController(clock_, event_log)),
       acknowledged_bitrate_estimator_(
-          rtc::MakeUnique<AcknowledgedBitrateEstimator>()),
+          rtc::MakeUnique<AcknowledgedBitrateEstimator>(event_log)),
       probe_controller_(new ProbeController(pacer_, clock_)),
       retransmission_rate_limiter_(
           new RateLimiter(clock, kRetransmitWindowSizeMs)),

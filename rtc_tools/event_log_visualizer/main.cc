@@ -273,6 +273,7 @@ int main(int argc, char* argv[]) {
   if (FLAG_plot_pacer_delay) {
     analyzer.CreatePacerDelayGraph(collection->AppendNewPlot());
   }
+  analyzer.CreateQueueDelayGraph(collection->AppendNewPlot());
   if (FLAG_plot_audio_encoder_bitrate_bps) {
     analyzer.CreateAudioEncoderTargetBitrateGraph(collection->AppendNewPlot());
   }

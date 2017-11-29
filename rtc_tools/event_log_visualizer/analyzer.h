@@ -107,6 +107,8 @@ class EventLogAnalyzer {
                                     int file_sample_rate_hz,
                                     Plot* plot);
 
+  void CreateQueueDelayGraph(Plot* plot);
+
   // Returns a vector of capture and arrival timestamps for the video frames
   // of the stream with the most number of frames.
   std::vector<std::pair<int64_t, int64_t>> GetFrameTimestamps() const;
@@ -190,6 +192,12 @@ class EventLogAnalyzer {
   std::vector<ParsedRtcEventLog::BweProbeResultEvent> bwe_probe_result_events_;
 
   std::vector<ParsedRtcEventLog::BweDelayBasedUpdate> bwe_delay_updates_;
+
+  std::vector<ParsedRtcEventLog::BweAckedBitrateEvent> acked_bitrate_events_;
+
+  std::vector<ParsedRtcEventLog::AlrStateEvent> alr_state_events_;
+
+  std::vector<ParsedRtcEventLog::PacketQueueTime> packet_queue_time_events_;
 
   // Window and step size used for calculating moving averages, e.g. bitrate.
   // The generated data points will be |step_| microseconds apart.

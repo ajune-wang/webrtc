@@ -12,7 +12,10 @@
 
 #include <algorithm>
 
+#include "logging/rtc_event_log/events/rtc_event_packet_queue_time.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/ptr_util.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -20,10 +23,11 @@ namespace webrtc {
 PacketQueue2::Stream::Stream() : bytes(0) {}
 PacketQueue2::Stream::~Stream() {}
 
-PacketQueue2::PacketQueue2(const Clock* clock)
-    : PacketQueue(clock),
+PacketQueue2::PacketQueue2(const Clock* clock, RtcEventLog* event_log)
+    : PacketQueue(clock, event_log),
       clock_(clock),
-      time_last_updated_(clock_->TimeInMilliseconds()) {}
+      time_last_updated_(clock_->TimeInMilliseconds()),
+      event_log_(event_log) {}
 
 PacketQueue2::~PacketQueue2() {}
 
@@ -134,6 +138,11 @@ void PacketQueue2::FinalizePop(const Packet& packet) {
 
     pop_packet_.reset();
     pop_stream_.reset();
+
+    if (event_log_ && !packet.retransmission) {
+      event_log_->Log(rtc::MakeUnique<RtcEventPacketQueueTime>(
+          packet.ssrc, time_in_non_paused_state_ms));
+    }
   }
 }
 

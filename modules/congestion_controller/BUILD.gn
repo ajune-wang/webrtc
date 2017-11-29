@@ -12,6 +12,8 @@ rtc_static_library("congestion_controller") {
   sources = [
     "acknowledged_bitrate_estimator.cc",
     "acknowledged_bitrate_estimator.h",
+    "alr_detector.cc",
+    "alr_detector.h",
     "bitrate_estimator.cc",
     "bitrate_estimator.h",
     "delay_based_bwe.cc",
@@ -69,6 +71,7 @@ if (rtc_include_tests) {
 
     sources = [
       "acknowledged_bitrate_estimator_unittest.cc",
+      "alr_detector_unittest.cc",
       "congestion_controller_unittests_helper.cc",
       "congestion_controller_unittests_helper.h",
       "delay_based_bwe_unittest.cc",

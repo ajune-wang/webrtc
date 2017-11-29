@@ -12,9 +12,12 @@
 
 #include <string>
 
+#include "logging/rtc_event_log/events/rtc_event_alr_state.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/timeutils.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -25,11 +28,14 @@ const char AlrDetector::kScreenshareProbingBweExperimentName[] =
 const char AlrDetector::kStrictPacingAndProbingExperimentName[] =
     "WebRTC-StrictPacingAndProbing";
 
-AlrDetector::AlrDetector()
+AlrDetector::AlrDetector() : AlrDetector(nullptr) {}
+
+AlrDetector::AlrDetector(RtcEventLog* event_log)
     : bandwidth_usage_percent_(kDefaultAlrBandwidthUsagePercent),
       alr_start_budget_level_percent_(kDefaultAlrStartBudgetLevelPercent),
       alr_stop_budget_level_percent_(kDefaultAlrStopBudgetLevelPercent),
-      alr_budget_(0, true) {
+      alr_budget_(0, true),
+      event_log_(event_log) {
   RTC_CHECK(
       field_trial::FindFullName(kStrictPacingAndProbingExperimentName)
           .empty() ||
@@ -54,7 +60,6 @@ AlrDetector::~AlrDetector() {}
 void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t delta_time_ms) {
   alr_budget_.UseBudget(bytes_sent);
   alr_budget_.IncreaseBudget(delta_time_ms);
-
   if (alr_budget_.budget_level_percent() > alr_start_budget_level_percent_ &&
       !alr_started_time_ms_) {
     alr_started_time_ms_.emplace(rtc::TimeMillis());
@@ -62,6 +67,13 @@ void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t delta_time_ms) {
                  alr_stop_budget_level_percent_ &&
              alr_started_time_ms_) {
     alr_started_time_ms_.reset();
+  }
+  int usage = 100 - alr_budget_.budget_level_percent();
+  uint32_t usage_kbps = usage * alr_budget_.target_rate_kbps() / 200;
+  usage_kbps *= 100.0 / bandwidth_usage_percent_;
+  if (event_log_) {
+    event_log_->Log(rtc::MakeUnique<RtcEventAlrState>(
+        alr_started_time_ms_.has_value(), usage_kbps * 1000));
   }
 }
 

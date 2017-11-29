@@ -38,6 +38,7 @@ class ProbeController {
 
   void EnablePeriodicAlrProbing(bool enable);
 
+  void SetAlrStartTimeMs(rtc::Optional<int64_t> alr_start_time);
   void SetAlrEndedTimeMs(int64_t alr_end_time);
 
   void RequestProbe();
@@ -75,6 +76,7 @@ class ProbeController {
   int64_t start_bitrate_bps_ RTC_GUARDED_BY(critsect_);
   int64_t max_bitrate_bps_ RTC_GUARDED_BY(critsect_);
   int64_t last_bwe_drop_probing_time_ms_ RTC_GUARDED_BY(critsect_);
+  rtc::Optional<int64_t> alr_start_time_ms_ RTC_GUARDED_BY(critsect_);
   rtc::Optional<int64_t> alr_end_time_ms_ RTC_GUARDED_BY(critsect_);
   bool enable_periodic_alr_probing_ RTC_GUARDED_BY(critsect_);
   int64_t time_of_last_large_drop_ms_ RTC_GUARDED_BY(critsect_);

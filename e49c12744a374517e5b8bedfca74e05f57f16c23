@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c66aefbe_92669722",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-29T11:51:19Z",
+      "side": 1,
+      "message": "Works. Thanks.",
+      "parentUuid": "459d9cf8_7df49903",
+      "range": {
+        "startLine": 226,
+        "startChar": 2,
+        "endLine": 226,
+        "endChar": 8
+      },
+      "revId": "e49c12744a374517e5b8bedfca74e05f57f16c23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c71f93e_4a15f8d8",
         "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-28T15:06:37Z",
       "side": 1,
       "message": "I would prefer not to apply this to such a long method where only parts are guarded off. Can you split this method into smaller parts to reduce the scope of the annotation?",
+      "range": {
+        "startLine": 248,
+        "startChar": 2,
+        "endLine": 248,
+        "endChar": 16
+      },
+      "revId": "e49c12744a374517e5b8bedfca74e05f57f16c23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee76c13c_cd83731e",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-29T11:51:19Z",
+      "side": 1,
+      "message": "Will try.",
+      "parentUuid": "1c71f93e_4a15f8d8",
       "range": {
         "startLine": 248,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dc7c4e68_cd828ec8",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-29T11:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d72c998_72156533",
+      "range": {
+        "startLine": 250,
+        "startChar": 4,
+        "endLine": 250,
+        "endChar": 21
+      },
+      "revId": "e49c12744a374517e5b8bedfca74e05f57f16c23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7899a33_73a118f9",
         "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8fac9e64_2e026f4a",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-29T11:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7899a33_73a118f9",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 280,
+        "endChar": 33
+      },
+      "revId": "e49c12744a374517e5b8bedfca74e05f57f16c23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e9be02b_be499cda",
         "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
         "patchSetId": 5
@@ -114,6 +210,30 @@
       "revId": "e49c12744a374517e5b8bedfca74e05f57f16c23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e27d7772_9b3c4651",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-29T11:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e9be02b_be499cda",
+      "range": {
+        "startLine": 306,
+        "startChar": 6,
+        "endLine": 306,
+        "endChar": 30
+      },
+      "revId": "e49c12744a374517e5b8bedfca74e05f57f16c23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -160,6 +280,30 @@
       "revId": "e49c12744a374517e5b8bedfca74e05f57f16c23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeccc8ba_342e8ba8",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-11-29T11:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0dd678f_c737aa85",
+      "range": {
+        "startLine": 331,
+        "startChar": 2,
+        "endLine": 331,
+        "endChar": 8
+      },
+      "revId": "e49c12744a374517e5b8bedfca74e05f57f16c23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

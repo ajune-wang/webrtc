@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e98c48ec_a695ccfd",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-29T11:35:50Z",
+      "side": 1,
+      "message": "At all call sites, all you do is pass the returned string to a stream. Consider letting this function take the stream as an argument instead:\n\n  void PrintList(std::ostream* ostream, const Container\u0026 values);\n\nThat way, you don\u0027t have to create a large temp string.\n\nAlso, pass the container by const reference, since many container types are expensive to copy.",
+      "revId": "ebe225f7bd00fa3d49ac1aaceb6a265ed0761085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f07f786c_d41aadde",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-29T11:35:50Z",
+      "side": 1,
+      "message": "Consider replacing lines 40-44 with\n\n  const char* sep \u003d \"\";\n  for (const auto\u0026 v : values) {\n    value_stream \u003c\u003c sep \u003c\u003c v;\n    sep \u003d \",\";\n  }\n\nIt\u0027s the same number of lines, but readers don\u0027t have to check that you got the manual iterator handling right.",
+      "revId": "ebe225f7bd00fa3d49ac1aaceb6a265ed0761085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500145b2_2658a8d5",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-29T11:35:50Z",
+      "side": 1,
+      "message": "Can you get rid of the backslashes by using\n\n  \u0027\"\u0027\n\nfor just a double quote and a raw string literal for the longer string?",
+      "revId": "ebe225f7bd00fa3d49ac1aaceb6a265ed0761085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1c9c06_11d8f543",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-29T11:35:50Z",
+      "side": 1,
+      "message": "This const, on the other hand, *is* useful: it promises that the function body doesn\u0027t modify `values`.",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 90,
+        "endChar": 26
+      },
+      "revId": "ebe225f7bd00fa3d49ac1aaceb6a265ed0761085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9cc70ab_0d36f3a3",
+        "filename": "test/testsupport/perf_test.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-29T11:35:50Z",
+      "side": 1,
+      "message": "A top-level const in a function declaration is useless. See https://abseil.io/tips/109",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 26
+      },
+      "revId": "ebe225f7bd00fa3d49ac1aaceb6a265ed0761085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06135a4b_d95c625e",
+        "filename": "test/testsupport/perf_test_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-29T11:35:50Z",
+      "side": 1,
+      "message": "The explicit length is not necessary (and not useful, since the compiler won\u0027t enforce that it\u0027s the same as the number of initialized elements).\n\nAlso, consider moving this array definition much closer to the single point of use.",
+      "range": {
+        "startLine": 50,
+        "startChar": 28,
+        "endLine": 50,
+        "endChar": 29
+      },
+      "revId": "ebe225f7bd00fa3d49ac1aaceb6a265ed0761085",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -433,6 +433,24 @@
       "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55853024_9602738a",
+        "filename": "test/testsupport/perf_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-29T11:35:50Z",
+      "side": 1,
+      "message": "Yes. The caller can use any type that stores the Ts contiguously in memory: std::vector\u003cT\u003e, T[], rtc::BufferT\u003cT\u003e---and they can specify what range to use, if they don\u0027t want all of it.\n\n  void Foo(rtc::ArrayView\u003cT\u003e);\n\n  std::vector\u003cT\u003e vect \u003d {...};\n  T arr[] \u003d {...};\n  T single;\n  Foo(vect);\n  Foo(arr);\n  Foo(rtc::ArrayView(\u0026vect[1], 2));  // Just the second and third element.\n  Foo(rtc::ArrayView(\u0026single, 1));",
+      "parentUuid": "f7ac212d_cfba256c",
+      "revId": "041a86d6dfd5c7f9ca473b8672f0ab1a258a98f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

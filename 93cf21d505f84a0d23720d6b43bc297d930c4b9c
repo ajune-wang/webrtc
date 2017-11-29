@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbe2d88a_76a900ff",
+        "filename": "modules/congestion_controller/alr_detector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-11-29T13:25:09Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to wait to update the alr detector.",
+      "revId": "93cf21d505f84a0d23720d6b43bc297d930c4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f7938c7_354e5a85",
+        "filename": "modules/congestion_controller/alr_detector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-11-29T13:25:09Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "93cf21d505f84a0d23720d6b43bc297d930c4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bde1662_3d3c66d1",
+        "filename": "modules/congestion_controller/alr_detector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-11-29T13:25:09Z",
+      "side": 1,
+      "message": "Remove SetScreenshareStatus",
+      "revId": "93cf21d505f84a0d23720d6b43bc297d930c4b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

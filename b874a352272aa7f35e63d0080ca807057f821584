@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0fcdf6c_64c4e8f2",
+        "filename": "modules/congestion_controller/alr_detector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-11-29T13:25:09Z",
+      "side": 0,
+      "message": "The equivalent logic does not seem to be implemented. What we do here is to make sure that not both experiments are active at the same time, and then parse them to see if any of them are active.\n\nWe wont need a AlrDetector::ParseAlrSettingsFromFieldTrial(bool screenshare) function.",
+      "revId": "b874a352272aa7f35e63d0080ca807057f821584",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

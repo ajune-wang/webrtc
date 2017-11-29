@@ -12,6 +12,7 @@
 #include "p2p/base/teststunserver.h"
 #include "p2p/client/basicportallocator.h"
 #include "pc/mediasession.h"
+#include "pc/peerconnection.h"
 #include "pc/peerconnectionwrapper.h"
 #include "pc/sdputils.h"
 #ifdef WEBRTC_ANDROID
@@ -19,6 +20,7 @@
 #endif
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "api/peerconnectionproxy.h"
 #include "pc/test/fakeaudiocapturemodule.h"
 #include "rtc_base/fakenetwork.h"
 #include "rtc_base/gunit.h"
@@ -152,6 +154,16 @@ class PeerConnectionIceUnitTest : public ::testing::Test {
     }
   }
 
+  // Set ICE mode on the given session description
+  void SetIceMode(SessionDescriptionInterface* sdesc,
+                  const cricket::IceMode ice_mode) {
+    auto* desc = sdesc->description();
+    for (const auto& content : desc->contents()) {
+      auto* transport_info = desc->GetTransportInfoByName(content.name);
+      transport_info->description.ice_mode = ice_mode;
+    }
+  }
+
   cricket::TransportDescription* GetFirstTransportDescription(
       SessionDescriptionInterface* sdesc) {
     auto* desc = sdesc->description();
@@ -170,6 +182,17 @@ class PeerConnectionIceUnitTest : public ::testing::Test {
         desc->GetTransportInfoByName(desc->contents()[0].name);
     RTC_DCHECK(transport_info);
     return &transport_info->description;
+  }
+
+  cricket::IceRole GetIceRole(const WrapperPtr& pc_wrapper_ptr) {
+    auto* pci = reinterpret_cast<
+        PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
+        pc_wrapper_ptr->pc());
+    PeerConnection* p = reinterpret_cast<PeerConnection*>(pci->internal());
+    return p->voice_channel()
+        ->rtp_dtls_transport()
+        ->ice_transport()
+        ->GetIceRole();
   }
 
   bool AddCandidateToFirstTransport(cricket::Candidate* candidate,
@@ -786,6 +809,52 @@ TEST_F(PeerConnectionIceUnitTest,
             local_transports[1].description.ice_ufrag);
   EXPECT_EQ(answer_transports[1].description.ice_pwd,
             local_transports[1].description.ice_pwd);
+}
+
+TEST_F(PeerConnectionIceUnitTest,
+       OfferFromLiteIceControlledAndAnswerFromFullIceControlling) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+  auto callee = CreatePeerConnectionWithAudioVideo();
+
+  auto offer = caller->CreateOffer();
+  SetIceMode(offer.get(), cricket::IceMode::ICEMODE_LITE);
+  ASSERT_TRUE(
+      caller->SetLocalDescription(CloneSessionDescription(offer.get())));
+  ASSERT_TRUE(
+      callee->SetRemoteDescription(CloneSessionDescription(offer.get())));
+
+  auto answer = callee->CreateAnswer();
+  SetIceMode(answer.get(), cricket::IceMode::ICEMODE_FULL);
+  ASSERT_TRUE(
+      callee->SetLocalDescription(CloneSessionDescription(answer.get())));
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(CloneSessionDescription(answer.get())));
+
+  ASSERT_TRUE(GetIceRole(caller) == cricket::ICEROLE_CONTROLLED);
+  ASSERT_TRUE(GetIceRole(callee) == cricket::ICEROLE_CONTROLLING);
+}
+
+TEST_F(PeerConnectionIceUnitTest,
+       OfferFromLiteIceControllingAndAnswerFromLiteIceControlled) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+  auto callee = CreatePeerConnectionWithAudioVideo();
+
+  auto offer = caller->CreateOffer();
+  SetIceMode(offer.get(), cricket::IceMode::ICEMODE_LITE);
+  ASSERT_TRUE(
+      caller->SetLocalDescription(CloneSessionDescription(offer.get())));
+  ASSERT_TRUE(
+      callee->SetRemoteDescription(CloneSessionDescription(offer.get())));
+
+  auto answer = callee->CreateAnswer();
+  SetIceMode(answer.get(), cricket::IceMode::ICEMODE_LITE);
+  ASSERT_TRUE(
+      callee->SetLocalDescription(CloneSessionDescription(answer.get())));
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(CloneSessionDescription(answer.get())));
+
+  ASSERT_TRUE(GetIceRole(caller) == cricket::ICEROLE_CONTROLLING);
+  ASSERT_TRUE(GetIceRole(callee) == cricket::ICEROLE_CONTROLLED);
 }
 
 }  // namespace webrtc

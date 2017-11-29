@@ -94,6 +94,7 @@ rtc_source_set("rtc_base_approved_generic") {
   visibility = [
     ":rtc_base_approved",
     ":rtc_base_approved_objc",
+    ":weak_ptr_unittests",
   ]
 
   # TODO(kjellander): Remove (bugs.webrtc.org/7480)

@@ -20,8 +20,8 @@ rtc_static_library("audio") {
     "audio_send_stream.h",
     "audio_state.cc",
     "audio_state.h",
-    "audio_transport_proxy.cc",
-    "audio_transport_proxy.h",
+    "audio_transport_impl.cc",
+    "audio_transport_impl.h",
     "conversion.h",
     "null_audio_poller.cc",
     "null_audio_poller.h",
@@ -59,6 +59,8 @@ rtc_static_library("audio") {
     "../rtc_base:rtc_task_queue",
     "../system_wrappers",
     "../voice_engine",
+    "../voice_engine:audio_level",
+    "//audio/utility:audio_frame_operations",
   ]
 }
 if (rtc_include_tests) {

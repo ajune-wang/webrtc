@@ -41,7 +41,7 @@ struct CallHelper {
     audio_state_config.voice_engine = &voice_engine_;
     audio_state_config.audio_mixer = webrtc::AudioMixerImpl::Create();
     audio_state_config.audio_processing = webrtc::AudioProcessing::Create();
-    EXPECT_CALL(voice_engine_, audio_transport());
+    audio_state_config.audio_device_module = &audio_device_module_;
     webrtc::Call::Config config(&event_log_);
     config.audio_state = webrtc::AudioState::Create(audio_state_config);
     call_.reset(webrtc::Call::Create(config));
@@ -52,6 +52,7 @@ struct CallHelper {
 
  private:
   testing::NiceMock<webrtc::test::MockVoiceEngine> voice_engine_;
+  testing::NiceMock<webrtc::test::MockAudioDeviceModule> audio_device_module_;
   webrtc::RtcEventLogNullImpl event_log_;
   std::unique_ptr<webrtc::Call> call_;
 };
@@ -431,9 +432,6 @@ TEST(CallBitrateTest,
 
 TEST(CallTest, RecreatingAudioStreamWithSameSsrcReusesRtpState) {
   constexpr uint32_t kSSRC = 12345;
-  testing::NiceMock<test::MockAudioDeviceModule> mock_adm;
-  rtc::scoped_refptr<test::MockAudioMixer> mock_mixer(
-      new rtc::RefCountedObject<test::MockAudioMixer>);
 
   // There's similar functionality in cricket::VoEWrapper but it's not reachable
   // from here. Since we're working on removing VoE interfaces, I doubt it's
@@ -454,9 +452,12 @@ TEST(CallTest, RecreatingAudioStreamWithSameSsrcReusesRtpState) {
 
   AudioState::Config audio_state_config;
   audio_state_config.voice_engine = voice_engine.voe;
-  audio_state_config.audio_mixer = mock_mixer;
+  audio_state_config.audio_mixer =
+      new rtc::RefCountedObject<test::MockAudioMixer>();
   audio_state_config.audio_processing = AudioProcessing::Create();
-  voice_engine.base->Init(&mock_adm, audio_state_config.audio_processing.get(),
+  audio_state_config.audio_device_module =
+      new rtc::RefCountedObject<test::MockAudioDeviceModule>();
+  voice_engine.base->Init(audio_state_config.audio_device_module, nullptr,
                           CreateBuiltinAudioDecoderFactory());
   auto audio_state = AudioState::Create(audio_state_config);
 

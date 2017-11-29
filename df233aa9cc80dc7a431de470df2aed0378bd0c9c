@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "487e1bf5_ecc97697",
+        "filename": "logging/rtc_event_log/rtc_event_log.proto",
+        "patchSetId": 5
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "Most bitrates (except for the probe results) use a 32 bit integer. Any reason for 64 bits? Is it 64 bits in the C++ code?",
+      "range": {
+        "startLine": 327,
+        "startChar": 11,
+        "endLine": 327,
+        "endChar": 17
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e4ae75_d996bf04",
+        "filename": "logging/rtc_event_log/rtc_event_log2text.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "This should probably not reuse the bwe flag.",
+      "range": {
+        "startLine": 790,
+        "startChar": 12,
+        "endLine": 790,
+        "endChar": 20
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4703fa5_98cd30c8",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "Where does 200 come from?",
+      "range": {
+        "startLine": 72,
+        "startChar": 65,
+        "endLine": 72,
+        "endChar": 68
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede5edc1_3a28c0c0",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "I don\u0027t understand what usage_kbps represents or why it is computed this way.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 49
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a1afe15_4bf0b7eb",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "If we always encode a bitrate in kilobits per second, then it would be more efficient to change the proto so that it stores a value in kbps too.",
+      "range": {
+        "startLine": 76,
+        "startChar": 55,
+        "endLine": 76,
+        "endChar": 59
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "940ad947_0d941af9",
+        "filename": "modules/pacing/alr_detector.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "Please be aware that srte@ is moving and refactoring this file.",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6026896e_f75b336d",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "I actually don\u0027t think the color has any effect. Could you check? I believe there is a bug filed for removing this field.",
+      "range": {
+        "startLine": 1091,
+        "startChar": 38,
+        "endLine": 1091,
+        "endChar": 44
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028fe994_a4d7605f",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "Whether we show ALR shouldn\u0027t be controlled by overuse detector settings.",
+      "range": {
+        "startLine": 1113,
+        "startChar": 8,
+        "endLine": 1113,
+        "endChar": 27
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04c6dd50_f28fc26e",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "This is confusing. Based on this code, I would expect the alr_state to be treated the same as the other series. However, the output code treats series number 4 differently from the other ones.",
+      "range": {
+        "startLine": 1117,
+        "startChar": 12,
+        "endLine": 1117,
+        "endChar": 32
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4232b58_f6d287fe",
+        "filename": "rtc_tools/event_log_visualizer/plot_python.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-11-29T16:11:13Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m not familiar with these options. What does it produce?",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 29
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

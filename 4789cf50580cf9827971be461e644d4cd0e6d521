@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e53c6239_a08990e8",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-11-29T13:00:38Z",
+      "side": 1,
+      "message": "Can you add\n\n  /* empty argument */\n\nor something in there?",
+      "range": {
+        "startLine": 1118,
+        "startChar": 49,
+        "endLine": 1118,
+        "endChar": 50
+      },
+      "revId": "4789cf50580cf9827971be461e644d4cd0e6d521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

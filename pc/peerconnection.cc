@@ -576,24 +576,6 @@ std::string BadStateErrMsg(PeerConnectionInterface::SignalingState state) {
   return desc.str();
 }
 
-#define GET_STRING_OF_ERROR_CODE(err) \
-  case webrtc::PeerConnection::err:   \
-    result = #err;                    \
-    break;
-
-std::string GetErrorCodeString(webrtc::PeerConnection::Error err) {
-  std::string result;
-  switch (err) {
-    GET_STRING_OF_ERROR_CODE(ERROR_NONE)
-    GET_STRING_OF_ERROR_CODE(ERROR_CONTENT)
-    GET_STRING_OF_ERROR_CODE(ERROR_TRANSPORT)
-    default:
-      RTC_NOTREACHED();
-      break;
-  }
-  return result;
-}
-
 std::string MakeErrorString(const std::string& error, const std::string& desc) {
   std::ostringstream ret;
   ret << error << " " << desc;
@@ -3467,7 +3449,7 @@ bool PeerConnection::SetCurrentOrPendingLocalDescription(
   }
 
   pending_ice_restarts_.clear();
-  if (error() != ERROR_NONE) {
+  if (session_error() != SessionError::kNone) {
     return BadLocalSdp(local_description()->type(), GetSessionErrorMsg(),
                        err_desc);
   }
@@ -3556,7 +3538,7 @@ bool PeerConnection::SetCurrentOrPendingRemoteDescription(
     }
   }
 
-  if (error() != ERROR_NONE) {
+  if (session_error() != SessionError::kNone) {
     return BadRemoteSdp(remote_description()->type(), GetSessionErrorMsg(),
                         err_desc);
   }
@@ -3593,11 +3575,12 @@ std::vector<cricket::BaseChannel*> PeerConnection::Channels() const {
   return channels;
 }
 
-void PeerConnection::SetError(Error error, const std::string& error_desc) {
-  RTC_DCHECK(signaling_thread()->IsCurrent());
-  if (error != error_) {
-    error_ = error;
-    error_desc_ = error_desc;
+void PeerConnection::SetSessionError(SessionError error,
+                                     const std::string& error_desc) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  if (error != session_error_) {
+    session_error_ = error;
+    session_error_desc_ = error_desc;
   }
 }
 
@@ -3608,7 +3591,7 @@ bool PeerConnection::UpdateSessionState(Action action,
 
   // If there's already a pending error then no state transition should happen.
   // But all call-sites should be verifying this before calling us!
-  RTC_DCHECK(error() == ERROR_NONE);
+  RTC_DCHECK(session_error() == SessionError::kNone);
   std::string td_err;
   if (action == kOffer) {
     if (!PushdownTransportDescription(source, cricket::CA_OFFER, &td_err)) {
@@ -3618,9 +3601,9 @@ bool PeerConnection::UpdateSessionState(Action action,
                              ? PeerConnectionInterface::kHaveLocalOffer
                              : PeerConnectionInterface::kHaveRemoteOffer);
     if (!PushdownMediaDescription(cricket::CA_OFFER, source, err_desc)) {
-      SetError(ERROR_CONTENT, *err_desc);
+      SetSessionError(SessionError::kContent, *err_desc);
     }
-    if (error() != ERROR_NONE) {
+    if (session_error() != SessionError::kNone) {
       return BadOfferSdp(source, GetSessionErrorMsg(), err_desc);
     }
   } else if (action == kPrAnswer) {
@@ -3632,9 +3615,9 @@ bool PeerConnection::UpdateSessionState(Action action,
                              ? PeerConnectionInterface::kHaveLocalPrAnswer
                              : PeerConnectionInterface::kHaveRemotePrAnswer);
     if (!PushdownMediaDescription(cricket::CA_PRANSWER, source, err_desc)) {
-      SetError(ERROR_CONTENT, *err_desc);
+      SetSessionError(SessionError::kTransport, *err_desc);
     }
-    if (error() != ERROR_NONE) {
+    if (session_error() != SessionError::kNone) {
       return BadPranswerSdp(source, GetSessionErrorMsg(), err_desc);
     }
   } else if (action == kAnswer) {
@@ -3661,9 +3644,9 @@ bool PeerConnection::UpdateSessionState(Action action,
     EnableChannels();
     ChangeSignalingState(PeerConnectionInterface::kStable);
     if (!PushdownMediaDescription(cricket::CA_ANSWER, source, err_desc)) {
-      SetError(ERROR_CONTENT, *err_desc);
+      SetSessionError(SessionError::kContent, *err_desc);
     }
-    if (error() != ERROR_NONE) {
+    if (session_error() != SessionError::kNone) {
       return BadAnswerSdp(source, GetSessionErrorMsg(), err_desc);
     }
   }
@@ -4065,8 +4048,8 @@ void PeerConnection::OnCertificateReady(
 }
 
 void PeerConnection::OnDtlsSrtpSetupFailure(cricket::BaseChannel*, bool rtcp) {
-  SetError(ERROR_TRANSPORT,
-           rtcp ? kDtlsSrtpSetupFailureRtcp : kDtlsSrtpSetupFailureRtp);
+  SetSessionError(SessionError::kTransport,
+                  rtcp ? kDtlsSrtpSetupFailureRtcp : kDtlsSrtpSetupFailureRtp);
 }
 
 void PeerConnection::OnTransportControllerConnectionState(
@@ -4689,7 +4672,7 @@ bool PeerConnection::ValidateSessionDescription(
     cricket::ContentSource source,
     std::string* err_desc) {
   std::string type;
-  if (error() != ERROR_NONE) {
+  if (session_error() != SessionError::kNone) {
     return BadSdp(source, type, GetSessionErrorMsg(), err_desc);
   }
 
@@ -4776,10 +4759,23 @@ bool PeerConnection::ExpectSetRemoteDescription(Action action) {
   }
 }
 
+const char* PeerConnection::SessionErrorToString(SessionError error) const {
+  switch (error) {
+    case SessionError::kNone:
+      return "ERROR_NONE";
+    case SessionError::kContent:
+      return "ERROR_CONTENT";
+    case SessionError::kTransport:
+      return "ERROR_TRANSPORT";
+  }
+  RTC_NOTREACHED();
+  return "";
+}
+
 std::string PeerConnection::GetSessionErrorMsg() {
   std::ostringstream desc;
-  desc << kSessionError << GetErrorCodeString(error()) << ". ";
-  desc << kSessionErrorDesc << error_desc() << ".";
+  desc << kSessionError << SessionErrorToString(session_error()) << ". ";
+  desc << kSessionErrorDesc << session_error_desc() << ".";
   return desc.str();
 }
 

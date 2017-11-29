@@ -45,6 +45,30 @@
       "revId": "79341553b02cbfc8835bd1f6f9d3d23705263430",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bccfd26b_c5694fb3",
+        "filename": "test/testsupport/perf_test_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2017-11-29T16:42:02Z",
+      "side": 1,
+      "message": "Done.\n\nI added a ClearPerfResults() function, because otherwise PerfTest.TestGetPerfResultsJSON would include results for PrintResult()s outside the test.\n\nWe could just move PerfTest.TestGetPerfResultsJSON to be executed first, but it makes the test somewhat brittle and not self-contained.\n\nWhat do you think?",
+      "parentUuid": "c5d5054f_c18920ea",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 40
+      },
+      "revId": "79341553b02cbfc8835bd1f6f9d3d23705263430",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

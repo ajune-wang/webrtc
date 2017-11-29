@@ -22,6 +22,30 @@
       "revId": "063eab6f4abd4fb838590af578428daa50914b49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83b9c3ae_b50bf471",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-29T18:07:21Z",
+      "side": 1,
+      "message": "Unfortunately ICE_CANDIDATE_COMPONENT_DEFAULT is not constexpr so the expression can\u0027t be made constexpr.",
+      "parentUuid": "8a7cebca_8e4e443a",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "063eab6f4abd4fb838590af578428daa50914b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

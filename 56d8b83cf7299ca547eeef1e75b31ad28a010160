@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77c74f4a_60b2119f",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-11-29T12:30:18Z",
+      "side": 1,
+      "message": "nit: No need for two empty lines. One at most.",
+      "revId": "56d8b83cf7299ca547eeef1e75b31ad28a010160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

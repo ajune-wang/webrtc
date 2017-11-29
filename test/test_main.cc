@@ -50,6 +50,7 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
+  printf("%s\n", argv[0]);
   webrtc::test::SetExecutablePath(argv[0]);
   std::string fieldtrials = FLAG_force_fieldtrials;
   webrtc::test::InitFieldTrialsFromString(fieldtrials);

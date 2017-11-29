@@ -74,6 +74,12 @@ ParsedRtcEventLog::EventType GetRuntimeEventType(
       return ParsedRtcEventLog::EventType::BWE_PROBE_CLUSTER_CREATED_EVENT;
     case rtclog::Event::BWE_PROBE_RESULT_EVENT:
       return ParsedRtcEventLog::EventType::BWE_PROBE_RESULT_EVENT;
+    case rtclog::Event::BWE_ACKED_BITRATE_EVENT:
+      return ParsedRtcEventLog::EventType::BWE_ACKED_BITRATE_EVENT;
+    case rtclog::Event::ALR_STATE_EVENT:
+      return ParsedRtcEventLog::EventType::ALR_STATE_EVENT;
+    case rtclog::Event::PACKET_QUEUE_TIME:
+      return ParsedRtcEventLog::EventType::PACKET_QUEUE_TIME;
   }
   return ParsedRtcEventLog::EventType::UNKNOWN_EVENT;
 }
@@ -651,6 +657,58 @@ ParsedRtcEventLog::BweProbeResultEvent ParsedRtcEventLog::GetBweProbeResult(
   } else {
     RTC_NOTREACHED();
   }
+
+  return res;
+}
+
+ParsedRtcEventLog::BweAckedBitrateEvent ParsedRtcEventLog::GetAckedBitrate(
+    size_t index) const {
+  RTC_CHECK_LT(index, GetNumberOfEvents());
+  const rtclog::Event& event = events_[index];
+  RTC_CHECK(event.has_type());
+  RTC_CHECK_EQ(event.type(), rtclog::Event::BWE_ACKED_BITRATE_EVENT);
+  RTC_CHECK(event.has_acked_bitrate());
+  const rtclog::BweAckedBitrate& ab_event = event.acked_bitrate();
+  BweAckedBitrateEvent res;
+  res.timestamp = GetTimestamp(index);
+  RTC_CHECK(ab_event.has_bitrate_bps());
+  res.bitrate_bps = ab_event.bitrate_bps();
+
+  return res;
+}
+
+ParsedRtcEventLog::AlrStateEvent ParsedRtcEventLog::GetAlrState(
+    size_t index) const {
+  RTC_CHECK_LT(index, GetNumberOfEvents());
+  const rtclog::Event& event = events_[index];
+  RTC_CHECK(event.has_type());
+  RTC_CHECK_EQ(event.type(), rtclog::Event::ALR_STATE_EVENT);
+  RTC_CHECK(event.has_alr_state());
+  const rtclog::AlrState& alr_event = event.alr_state();
+  AlrStateEvent res;
+  res.timestamp = GetTimestamp(index);
+  RTC_CHECK(alr_event.has_in_alr());
+  res.in_alr = alr_event.in_alr();
+  RTC_CHECK(alr_event.has_usage_bps());
+  res.usage_bps = alr_event.usage_bps();
+
+  return res;
+}
+
+ParsedRtcEventLog::PacketQueueTime ParsedRtcEventLog::GetQueueTime(
+    size_t index) const {
+  RTC_CHECK_LT(index, GetNumberOfEvents());
+  const rtclog::Event& event = events_[index];
+  RTC_CHECK(event.has_type());
+  RTC_CHECK_EQ(event.type(), rtclog::Event::PACKET_QUEUE_TIME);
+  RTC_CHECK(event.has_packet_queue_time());
+  const rtclog::PacketQueueTime& queue_event = event.packet_queue_time();
+  PacketQueueTime res;
+  res.timestamp = GetTimestamp(index);
+  RTC_CHECK(queue_event.has_queue_time_ms());
+  res.queue_time_ms = queue_event.queue_time_ms();
+  RTC_CHECK(queue_event.has_ssrc());
+  res.ssrc = queue_event.ssrc();
 
   return res;
 }

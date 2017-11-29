@@ -20,9 +20,11 @@
 
 namespace webrtc {
 
+class RtcEventLog;
+
 class PacketQueue {
  public:
-  explicit PacketQueue(const Clock* clock);
+  explicit PacketQueue(const Clock* clock, RtcEventLog* event_log);
   virtual ~PacketQueue();
 
   struct Packet {
@@ -111,6 +113,7 @@ class PacketQueue {
   int64_t queue_time_sum_;
   int64_t time_last_updated_;
   bool paused_;
+  RtcEventLog* event_log_;
 };
 }  // namespace webrtc
 

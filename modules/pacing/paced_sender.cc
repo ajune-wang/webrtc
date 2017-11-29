@@ -46,11 +46,13 @@ const float PacedSender::kDefaultPaceMultiplier = 2.5f;
 
 PacedSender::PacedSender(const Clock* clock,
                          PacketSender* packet_sender,
-                         RtcEventLog* event_log) :
-    PacedSender(clock, packet_sender, event_log,
-                webrtc::field_trial::IsEnabled("WebRTC-RoundRobinPacing")
-                    ? rtc::MakeUnique<PacketQueue2>(clock)
-                    : rtc::MakeUnique<PacketQueue>(clock)) {}
+                         RtcEventLog* event_log)
+    : PacedSender(clock,
+                  packet_sender,
+                  event_log,
+                  webrtc::field_trial::IsEnabled("WebRTC-RoundRobinPacing")
+                      ? rtc::MakeUnique<PacketQueue2>(clock, event_log)
+                      : rtc::MakeUnique<PacketQueue>(clock, event_log)) {}
 
 PacedSender::PacedSender(const Clock* clock,
                          PacketSender* packet_sender,
@@ -58,7 +60,7 @@ PacedSender::PacedSender(const Clock* clock,
                          std::unique_ptr<PacketQueue> packets)
     : clock_(clock),
       packet_sender_(packet_sender),
-      alr_detector_(rtc::MakeUnique<AlrDetector>()),
+      alr_detector_(rtc::MakeUnique<AlrDetector>(event_log)),
       paused_(false),
       media_budget_(rtc::MakeUnique<IntervalBudget>(0)),
       padding_budget_(rtc::MakeUnique<IntervalBudget>(0)),

@@ -19,12 +19,19 @@
 
 namespace webrtc {
 
+class RtcEventLog;
 struct PacketFeedback;
 
 class AcknowledgedBitrateEstimator {
  public:
   explicit AcknowledgedBitrateEstimator(
       std::unique_ptr<BitrateEstimator> bitrate_estimator);
+
+  explicit AcknowledgedBitrateEstimator(RtcEventLog* event_log);
+
+  AcknowledgedBitrateEstimator(
+      std::unique_ptr<BitrateEstimator> bitrate_estimator,
+      RtcEventLog* event_log);
 
   AcknowledgedBitrateEstimator();
 
@@ -37,6 +44,7 @@ class AcknowledgedBitrateEstimator {
   void MaybeExpectFastRateChange(int64_t packet_arrival_time_ms);
   rtc::Optional<int64_t> alr_ended_time_ms_;
   std::unique_ptr<BitrateEstimator> bitrate_estimator_;
+  RtcEventLog* event_log_;
 };
 
 }  // namespace webrtc

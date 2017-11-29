@@ -65,6 +65,23 @@ class ParsedRtcEventLog {
     BandwidthUsage detector_state;
   };
 
+  struct BweAckedBitrateEvent {
+    uint64_t timestamp;
+    int32_t bitrate_bps;
+  };
+
+  struct AlrStateEvent {
+    uint64_t timestamp;
+    bool in_alr;
+    uint32_t usage_bps;
+  };
+
+  struct PacketQueueTime {
+    uint64_t timestamp;
+    uint32_t ssrc;
+    int64_t queue_time_ms;
+  };
+
   enum EventType {
     UNKNOWN_EVENT = 0,
     LOG_START = 1,
@@ -80,7 +97,10 @@ class ParsedRtcEventLog {
     AUDIO_SENDER_CONFIG_EVENT = 11,
     AUDIO_NETWORK_ADAPTATION_EVENT = 16,
     BWE_PROBE_CLUSTER_CREATED_EVENT = 17,
-    BWE_PROBE_RESULT_EVENT = 18
+    BWE_PROBE_RESULT_EVENT = 18,
+    BWE_ACKED_BITRATE_EVENT = 19,
+    ALR_STATE_EVENT = 20,
+    PACKET_QUEUE_TIME = 21
   };
 
   enum class MediaType { ANY, AUDIO, VIDEO, DATA };
@@ -179,6 +199,12 @@ class ParsedRtcEventLog {
   BweProbeResultEvent GetBweProbeResult(size_t index) const;
 
   MediaType GetMediaType(uint32_t ssrc, PacketDirection direction) const;
+
+  BweAckedBitrateEvent GetAckedBitrate(size_t index) const;
+
+  AlrStateEvent GetAlrState(size_t index) const;
+
+  PacketQueueTime GetQueueTime(size_t index) const;
 
  private:
   rtclog::StreamConfig GetVideoReceiveConfig(const rtclog::Event& event) const;

@@ -164,6 +164,12 @@ std::string EventTypeToString(webrtc::rtclog::Event::EventType event_type) {
       return "BWE_PROBE_CREATED";
     case webrtc::rtclog::Event::BWE_PROBE_RESULT_EVENT:
       return "BWE_PROBE_RESULT";
+    case webrtc::rtclog::Event::BWE_ACKED_BITRATE_EVENT:
+      return "BWE_ACKED_BITRATE";
+    case webrtc::rtclog::Event::ALR_STATE_EVENT:
+      return "ALR_STATE_EVENT";
+    case webrtc::rtclog::Event::PACKET_QUEUE_TIME:
+      return "PACKET_QUEUE_TIME";
   }
   RTC_NOTREACHED();
   return "UNKNOWN_EVENT";

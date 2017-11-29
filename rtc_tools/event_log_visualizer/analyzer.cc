@@ -522,6 +522,18 @@ EventLogAnalyzer::EventLogAnalyzer(const ParsedRtcEventLog& log)
         bwe_probe_result_events_.push_back(parsed_log_.GetBweProbeResult(i));
         break;
       }
+      case ParsedRtcEventLog::BWE_ACKED_BITRATE_EVENT: {
+        acked_bitrate_events_.push_back(parsed_log_.GetAckedBitrate(i));
+        break;
+      }
+      case ParsedRtcEventLog::ALR_STATE_EVENT: {
+        alr_state_events_.push_back(parsed_log_.GetAlrState(i));
+        break;
+      }
+      case ParsedRtcEventLog::PACKET_QUEUE_TIME: {
+        packet_queue_time_events_.push_back(parsed_log_.GetQueueTime(i));
+        break;
+      }
       case ParsedRtcEventLog::UNKNOWN_EVENT: {
         break;
       }
@@ -1083,16 +1095,49 @@ void EventLogAnalyzer::CreateTotalBitrateGraph(
       }
     }
 
+    TimeSeries acked_bitrate("Acked bitrate", LineStyle::kLine);
+    for (auto& ab : acked_bitrate_events_) {
+      float x = static_cast<float>(ab.timestamp - begin_time_) / 1000000;
+      float y = static_cast<float>(ab.bitrate_bps / 1000);
+      acked_bitrate.points.emplace_back(x, y);
+    }
+
+    TimeSeries alr_usage("Bitrate usage", LineStyle::kLine);
+    IntervalSeries alr_state("ALR", "#555555", IntervalSeries::kHorizontal);
+    bool in_alr = false;
+    int64_t alr_start = 0;
+    for (auto& alr : alr_state_events_) {
+      float y = static_cast<float>(alr.timestamp - begin_time_) / 1000000;
+      alr_usage.points.emplace_back(y, alr.usage_bps / 1000);
+      if (!in_alr && alr.in_alr) {
+        alr_start = alr.timestamp;
+        in_alr = true;
+      } else if (in_alr && !alr.in_alr) {
+        float x = static_cast<float>(alr_start - begin_time_) / 1000000;
+        alr_state.intervals.emplace_back(x, y);
+        in_alr = false;
+      }
+    }
+
+    if (in_alr) {
+      float x = static_cast<float>(alr_start - begin_time_) / 1000000;
+      float y = static_cast<float>(end_time_ - begin_time_) / 1000000;
+      alr_state.intervals.emplace_back(x, y);
+    }
+
     if (show_detector_state) {
       plot->AppendIntervalSeries(std::move(overusing_series));
       plot->AppendIntervalSeries(std::move(underusing_series));
       plot->AppendIntervalSeries(std::move(normal_series));
+      plot->AppendIntervalSeries(std::move(alr_state));
     }
 
     plot->AppendTimeSeries(std::move(loss_series));
     plot->AppendTimeSeries(std::move(delay_series));
     plot->AppendTimeSeries(std::move(created_series));
     plot->AppendTimeSeries(std::move(result_series));
+    plot->AppendTimeSeries(std::move(acked_bitrate));
+    plot->AppendTimeSeries(std::move(alr_usage));
   }
 
   // Overlay the incoming REMB over the outgoing bitrate
@@ -1128,6 +1173,33 @@ void EventLogAnalyzer::CreateTotalBitrateGraph(
   } else if (desired_direction == webrtc::PacketDirection::kOutgoingPacket) {
     plot->SetTitle("Outgoing RTP bitrate");
   }
+}
+
+void EventLogAnalyzer::CreateQueueDelayGraph(Plot* plot) {
+  std::map<uint32_t, TimeSeries> series;
+  float max = 0;
+  for (auto& qt : packet_queue_time_events_) {
+    auto it = series.find(qt.ssrc);
+    if (it == series.end()) {
+      std::stringstream ss;
+      ss << "SSRC " << qt.ssrc;
+      it = series
+               .insert(std::make_pair(qt.ssrc,
+                                      TimeSeries(ss.str(), LineStyle::kLine)))
+               .first;
+    }
+
+    float x = static_cast<float>(qt.timestamp - begin_time_) / 1000000;
+    float y = static_cast<float>(qt.queue_time_ms);
+    max = y > max ? y : max;
+    it->second.points.emplace_back(x, y);
+  }
+
+  for (auto& ts : series)
+    plot->AppendTimeSeries(std::move(ts.second));
+  plot->SetTitle("Pacer queue time");
+  plot->SetXAxis(0, call_duration_s_, "Time (s)");
+  plot->SetYAxis(0, max * 1.1, "Time (ms)");
 }
 
 // For each SSRC, plot the bandwidth used by that stream.

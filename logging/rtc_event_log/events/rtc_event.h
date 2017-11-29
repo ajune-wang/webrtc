@@ -30,14 +30,17 @@ class RtcEvent {
   // superclass, but the *actual* information - rtclog::StreamConfig, etc. -
   // is kept separate.
   enum class Type {
+    AlrStateEvent,
     AudioNetworkAdaptation,
     AudioPlayout,
     AudioReceiveStreamConfig,
     AudioSendStreamConfig,
+    BweUpdateAckedBitrateBased,
     BweUpdateDelayBased,
     BweUpdateLossBased,
     LoggingStarted,
     LoggingStopped,
+    PacketQueueTime,
     ProbeClusterCreated,
     ProbeResultFailure,
     ProbeResultSuccess,
@@ -46,7 +49,7 @@ class RtcEvent {
     RtpPacketIncoming,
     RtpPacketOutgoing,
     VideoReceiveStreamConfig,
-    VideoSendStreamConfig
+    VideoSendStreamConfig,
   };
 
   RtcEvent() : timestamp_us_(rtc::TimeMicros()) {}

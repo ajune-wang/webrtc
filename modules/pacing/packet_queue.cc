@@ -14,6 +14,8 @@
 #include <list>
 #include <vector>
 
+#include "logging/rtc_event_log/events/rtc_event_packet_queue_time.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/include/module_common_types.h"
 #include "modules/pacing/alr_detector.h"
 #include "modules/pacing/bitrate_prober.h"
@@ -21,6 +23,7 @@
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/ptr_util.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -48,12 +51,13 @@ PacketQueue::Packet::Packet(const Packet& other) = default;
 
 PacketQueue::Packet::~Packet() {}
 
-PacketQueue::PacketQueue(const Clock* clock)
+PacketQueue::PacketQueue(const Clock* clock, RtcEventLog* event_log)
     : bytes_(0),
       clock_(clock),
       queue_time_sum_(0),
       time_last_updated_(clock_->TimeInMilliseconds()),
-      paused_(false) {}
+      paused_(false),
+      event_log_(event_log) {}
 
 PacketQueue::~PacketQueue() {}
 
@@ -87,6 +91,10 @@ void PacketQueue::FinalizePop(const PacketQueue::Packet& packet) {
   packet_queue_time_ms -= packet.sum_paused_ms;
   RTC_DCHECK_LE(packet_queue_time_ms, queue_time_sum_);
   queue_time_sum_ -= packet_queue_time_ms;
+  if (event_log_ && !packet.retransmission) {
+    event_log_->Log(rtc::MakeUnique<RtcEventPacketQueueTime>(
+        packet.ssrc, packet_queue_time_ms));
+  }
   packet_list_.erase(packet.this_it);
   RTC_DCHECK_EQ(packet_list_.size(), prio_queue_.size());
   if (packet_list_.empty())

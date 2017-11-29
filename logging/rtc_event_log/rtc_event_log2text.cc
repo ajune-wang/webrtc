@@ -785,6 +785,42 @@ int main(int argc, char* argv[]) {
         event_recognized = true;
         break;
       }
+
+      case webrtc::ParsedRtcEventLog::BWE_ACKED_BITRATE_EVENT: {
+        if (FLAG_bwe) {
+          webrtc::ParsedRtcEventLog::BweAckedBitrateEvent acked_bitrate =
+              parsed_stream.GetAckedBitrate(i);
+          std::cout << parsed_stream.GetTimestamp(i) << "\tACKED_BITRATE"
+                    << "\tbitrate_bps=" << acked_bitrate.bitrate_bps
+                    << std::endl;
+        }
+        event_recognized = true;
+        break;
+      }
+
+      case webrtc::ParsedRtcEventLog::ALR_STATE_EVENT: {
+        if (FLAG_bwe) {
+          webrtc::ParsedRtcEventLog::AlrStateEvent alr_state =
+              parsed_stream.GetAlrState(i);
+          std::cout << parsed_stream.GetTimestamp(i) << "\tALR_STATE"
+                    << "\tin_alr=" << alr_state.in_alr
+                    << "\tusage_bps=" << alr_state.usage_bps << std::endl;
+        }
+        event_recognized = true;
+        break;
+      }
+
+      case webrtc::ParsedRtcEventLog::PACKET_QUEUE_TIME: {
+        if (FLAG_bwe) {
+          webrtc::ParsedRtcEventLog::PacketQueueTime packet_queue_time =
+              parsed_stream.GetQueueTime(i);
+          std::cout << parsed_stream.GetTimestamp(i) << "\tPACKET_QUEUE_TIME"
+                    << "\tqueue_time_ms=" << packet_queue_time.queue_time_ms
+                    << "\tssrc=" << packet_queue_time.ssrc << std::endl;
+        }
+        event_recognized = true;
+        break;
+      }
     }
 
     if (!event_recognized) {

@@ -12,6 +12,8 @@
 
 #include <utility>
 
+#include "logging/rtc_event_log/events/rtc_event_bwe_acked_bitrate.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/ptr_util.h"
 
@@ -23,12 +25,23 @@ bool IsInSendTimeHistory(const PacketFeedback& packet) {
 }
 }  // namespace
 
-AcknowledgedBitrateEstimator::AcknowledgedBitrateEstimator()
-    : AcknowledgedBitrateEstimator(rtc::MakeUnique<BitrateEstimator>()) {}
-
 AcknowledgedBitrateEstimator::AcknowledgedBitrateEstimator(
     std::unique_ptr<BitrateEstimator> bitrate_estimator)
-    : bitrate_estimator_(std::move(bitrate_estimator)) {}
+    : bitrate_estimator_(std::move(bitrate_estimator)), event_log_(nullptr) {}
+
+AcknowledgedBitrateEstimator::AcknowledgedBitrateEstimator()
+    : AcknowledgedBitrateEstimator(rtc::MakeUnique<BitrateEstimator>(),
+                                   nullptr) {}
+
+AcknowledgedBitrateEstimator::AcknowledgedBitrateEstimator(
+    RtcEventLog* event_log)
+    : bitrate_estimator_(rtc::MakeUnique<BitrateEstimator>()),
+      event_log_(event_log) {}
+
+AcknowledgedBitrateEstimator::AcknowledgedBitrateEstimator(
+    std::unique_ptr<BitrateEstimator> bitrate_estimator,
+    RtcEventLog* event_log)
+    : bitrate_estimator_(std::move(bitrate_estimator)), event_log_(event_log) {}
 
 void AcknowledgedBitrateEstimator::IncomingPacketFeedbackVector(
     const std::vector<PacketFeedback>& packet_feedback_vector) {
@@ -40,6 +53,11 @@ void AcknowledgedBitrateEstimator::IncomingPacketFeedbackVector(
       MaybeExpectFastRateChange(packet.send_time_ms);
       bitrate_estimator_->Update(packet.arrival_time_ms, packet.payload_size);
     }
+  }
+  rtc::Optional<uint32_t> estimate = bitrate_estimator_->bitrate_bps();
+  if (event_log_) {
+    event_log_->Log(
+        rtc::MakeUnique<RtcEventBweAckedBitrate>(estimate ? *estimate : 0));
   }
 }
 

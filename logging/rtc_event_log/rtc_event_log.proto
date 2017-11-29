@@ -40,6 +40,9 @@ message Event {
     AUDIO_NETWORK_ADAPTATION_EVENT = 16;
     BWE_PROBE_CLUSTER_CREATED_EVENT = 17;
     BWE_PROBE_RESULT_EVENT = 18;
+    BWE_ACKED_BITRATE_EVENT = 19;
+    ALR_STATE_EVENT = 20;
+    PACKET_QUEUE_TIME = 21;
   }
 
   // required - Indicates the type of this event
@@ -81,6 +84,15 @@ message Event {
 
     // required if type == BWE_PROBE_RESULT_EVENT
     BweProbeResult probe_result = 18;
+
+    // required if type == BWE_ACKED_BITRATE_EVENT
+    BweAckedBitrate acked_bitrate = 19;
+
+    // required if type == ALR_STATE_EVENT
+    AlrState alr_state = 20;
+
+    // required if type == PACKET_QUEUE_TIME
+    PacketQueueTime packet_queue_time = 21;
   }
 }
 
@@ -313,4 +325,24 @@ message BweProbeResult {
 
   // optional - but required if result == SUCCESS. The resulting bitrate in bps.
   optional uint64 bitrate_bps = 3;
+}
+
+message BweAckedBitrate {
+  optional uint64 bitrate_bps = 1;
+}
+
+message AlrState {
+  // required - If we are in ALR or not.
+  optional bool in_alr = 1;
+
+  // required - The usage of the link in bps.
+  optional uint64 usage_bps = 2;
+}
+
+message PacketQueueTime {
+  // required - How long the packet was in the pacer queue.
+  optional uint32 queue_time_ms = 1;
+
+  // required - The ssrc.
+  optional uint32 ssrc = 2;
 }

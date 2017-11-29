@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea897694_e0e299f6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3618,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-29T22:34:22Z",
+      "side": 1,
+      "message": "kContent?",
+      "range": {
+        "startLine": 3618,
+        "startChar": 36,
+        "endLine": 3618,
+        "endChar": 46
+      },
+      "revId": "7ba34fe6886fc7e4c03ba1d145540bfec2b68050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "705eb2c0_90f567cc",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-29T22:34:22Z",
+      "side": 1,
+      "message": "Do we still need to assign values to them?",
+      "range": {
+        "startLine": 289,
+        "startChar": 9,
+        "endLine": 289,
+        "endChar": 15
+      },
+      "revId": "7ba34fe6886fc7e4c03ba1d145540bfec2b68050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

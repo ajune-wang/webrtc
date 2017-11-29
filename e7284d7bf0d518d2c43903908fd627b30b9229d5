@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e9f342f_137418f4",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-29T18:01:28Z",
+      "side": 1,
+      "message": "nit: can just inline below (sdesc-\u003edescription()-\u003econtents())",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 34
+      },
+      "revId": "e7284d7bf0d518d2c43903908fd627b30b9229d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "719775c3_6a2573fe",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-29T18:01:28Z",
+      "side": 1,
+      "message": "Add a TODO to rewrite this in terms of the standard IceTransport once it\u0027s implemented.",
+      "revId": "e7284d7bf0d518d2c43903908fd627b30b9229d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "627c4087_4bbc164d",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-29T18:01:28Z",
+      "side": 1,
+      "message": "Here\u0027s my suggestion for a slight rewording of this comment. Feel free to take it or leave what you have.\n\nTest that if the initial offerer (caller) uses the lite implementation of ICE and the callee uses the full implementation then the caller takes the CONTROLLED role and the callee takes the CONTROLLING role. This is specified in RFC5245 Section 5.1.1.",
+      "range": {
+        "startLine": 815,
+        "startChar": 0,
+        "endLine": 817,
+        "endChar": 76
+      },
+      "revId": "e7284d7bf0d518d2c43903908fd627b30b9229d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f30cbde_ca63b8cd",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-29T18:01:28Z",
+      "side": 1,
+      "message": "Small thing when using EXPECT_EQ: the error message is written assuming the arguments are like EXPECT_EQ(expected, actual). So in this case, just reverse the order of the arguments:\n\nEXPECT_EQ(cricket::ICEROLE_CONTROLLED, GetIceRole(caller));",
+      "revId": "e7284d7bf0d518d2c43903908fd627b30b9229d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4c3c6a_f9f12670",
+        "filename": "pc/peerconnection_ice_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-29T18:01:28Z",
+      "side": 1,
+      "message": "Again, a comment suggestion.\n\nTest that if the caller and callee both use the lite implementation of ICE then the initial offerer (caller) will take the CONTROLLING role and the callee will take the CONTROLLED role. This is specified in RFC5245 Section 5.1.1.",
+      "range": {
+        "startLine": 839,
+        "startChar": 0,
+        "endLine": 841,
+        "endChar": 55
+      },
+      "revId": "e7284d7bf0d518d2c43903908fd627b30b9229d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

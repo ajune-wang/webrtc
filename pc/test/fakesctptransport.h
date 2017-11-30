@@ -26,6 +26,7 @@ class FakeSctpTransport : public cricket::SctpTransportInternal {
     remote_port_.emplace(remote_port);
     return true;
   }
+  bool IsStreamAvailable(int sid) const override { return true; }
   bool OpenStream(int sid) override { return true; }
   bool ResetStream(int sid) override { return true; }
   bool SendData(const cricket::SendDataParams& params,

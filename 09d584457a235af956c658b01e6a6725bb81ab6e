@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7227b01_63d0c6cf",
+        "filename": "media/engine/convert_legacy_video_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6196
+      },
+      "writtenOn": "2017-11-30T00:59:41Z",
+      "side": 1,
+      "message": "Drive-by code review: an alternative fix would be to put the two \"\u003d false\" lines in the struct, where the two member variables are declared, thus ensuring that the bug could not be repeated. That is:\n\n    bool is_hardware_accelerated \u003d false;\n\nand\n\n    bool has_internal_source \u003d false;\n\nin the struct declaration.\n\nI\u0027m surprised clang didn\u0027t warn about the previous code - curious.",
+      "revId": "09d584457a235af956c658b01e6a6725bb81ab6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

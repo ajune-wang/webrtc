@@ -202,7 +202,8 @@ TEST_F(TestProbeBitrateEstimator, IgnoreSizeFirstReceivePacket) {
 }
 
 TEST_F(TestProbeBitrateEstimator, NoLastEstimatedBitrateBps) {
-  EXPECT_FALSE(probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps());
+  EXPECT_FALSE(
+      probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps(0));
 }
 
 TEST_F(TestProbeBitrateEstimator, FetchLastEstimatedBitrateBps) {
@@ -212,10 +213,11 @@ TEST_F(TestProbeBitrateEstimator, FetchLastEstimatedBitrateBps) {
   AddPacketFeedback(0, 1000, 30, 40);
 
   auto estimated_bitrate_bps =
-      probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps();
+      probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps(0);
   EXPECT_TRUE(estimated_bitrate_bps);
   EXPECT_NEAR(*estimated_bitrate_bps, 800000, 10);
-  EXPECT_FALSE(probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps());
+  EXPECT_FALSE(
+      probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps(50));
 }
 
 }  // namespace webrtc

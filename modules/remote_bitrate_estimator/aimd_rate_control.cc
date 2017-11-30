@@ -279,7 +279,7 @@ uint32_t AimdRateControl::ClampBitrate(uint32_t new_bitrate_bps,
   // We allow a bit more lag at very low rates to not too easily get stuck if
   // the encoder produces uneven outputs.
   const uint32_t max_bitrate_bps =
-      static_cast<uint32_t>(1.5f * incoming_bitrate_bps) + 10000;
+      static_cast<uint32_t>(1.2f * incoming_bitrate_bps) + 10000;
   if (new_bitrate_bps > current_bitrate_bps_ &&
       new_bitrate_bps > max_bitrate_bps) {
     new_bitrate_bps = std::max(current_bitrate_bps_, max_bitrate_bps);

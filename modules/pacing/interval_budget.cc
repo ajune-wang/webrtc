@@ -14,7 +14,7 @@
 
 namespace webrtc {
 namespace {
-constexpr int kWindowMs = 500;
+constexpr int kWindowMs = 250;
 constexpr int kDeltaTimeMs = 2000;
 }
 

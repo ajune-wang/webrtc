@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a79a61f9_a554f01f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-11-30T21:27:44Z",
+      "side": 0,
+      "message": "It seems that this logic is removed. Do we still want this check with early return? I remember that there was an issue caused by doing something after peerconnection is closed.",
+      "range": {
+        "startLine": 1578,
+        "startChar": 6,
+        "endLine": 1578,
+        "endChar": 14
+      },
+      "revId": "53fe1c2661d90ccf83dd7c4189762de4cb8fbf96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

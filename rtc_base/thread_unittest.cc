@@ -104,15 +104,25 @@ class CustomThread : public rtc::Thread {
  public:
   CustomThread()
       : Thread(std::unique_ptr<SocketServer>(new rtc::NullSocketServer())) {}
-  ~CustomThread() override { Stop(); }
+  ~CustomThread() override {
+    RTC_DCHECK(!wrapped_);
+    Stop();
+  }
+
   bool Start() { return false; }
 
   bool WrapCurrent() {
-    return Thread::WrapCurrent();
+    RTC_DCHECK(!wrapped_);
+    wrapped_ = Thread::WrapCurrent();
+    return wrapped_;
   }
   void UnwrapCurrent() {
+    RTC_DCHECK(wrapped_);
     Thread::UnwrapCurrent();
+    wrapped_ = false;
   }
+ private:
+  bool wrapped_ = false;
 };
 
 
@@ -233,7 +243,7 @@ TEST(ThreadTest, DISABLED_Main) {
 // There's no easy way to verify the name was set properly at this time.
 TEST(ThreadTest, Names) {
   // Default name
-  auto thread = Thread::CreateWithSocketServer();
+  std::unique_ptr<Thread> thread = Thread::CreateWithSocketServer();
   EXPECT_TRUE(thread->Start());
   thread->Stop();
   // Name with no object parameter
@@ -249,8 +259,13 @@ TEST(ThreadTest, Names) {
 }
 
 TEST(ThreadTest, Wrap) {
-  Thread* current_thread = Thread::Current();
-  current_thread->UnwrapCurrent();
+  // It's possible that a previously run test has initialized the ThreadManager
+  // and subsequently wrapped the main thread.  That will conflict with this
+  // test unless we temporarily disconnect the current thread from the
+  // ThreadManager.
+  auto* main_thread = ThreadManager::Instance()->CurrentThread();
+  ThreadManager::Instance()->SetCurrentThread(nullptr);
+
   CustomThread* cthread = new CustomThread();
   EXPECT_TRUE(cthread->WrapCurrent());
   EXPECT_TRUE(cthread->RunningForTest());
@@ -258,7 +273,8 @@ TEST(ThreadTest, Wrap) {
   cthread->UnwrapCurrent();
   EXPECT_FALSE(cthread->RunningForTest());
   delete cthread;
-  current_thread->WrapCurrent();
+
+  ThreadManager::Instance()->SetCurrentThread(main_thread);
 }
 
 TEST(ThreadTest, Invoke) {

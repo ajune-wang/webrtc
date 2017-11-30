@@ -66,7 +66,7 @@ class TransientSuppressor {
   void UpdateKeypress(bool key_pressed);
   void UpdateRestoration(float voice_probability);
 
-  void UpdateBuffers(float* data);
+  void PrepareCaptureCall(float* data);
 
   void HardRestoration(float* spectral_mean);
   void SoftRestoration(float* spectral_mean);

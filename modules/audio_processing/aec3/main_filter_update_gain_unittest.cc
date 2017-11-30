@@ -43,9 +43,11 @@ void RunFilterUpdateTest(int num_blocks_to_process,
   AdaptiveFirFilter main_filter(9, DetectOptimization(), &data_dumper);
   AdaptiveFirFilter shadow_filter(9, DetectOptimization(), &data_dumper);
   Aec3Fft fft;
-  RenderBuffer render_buffer(
-      Aec3Optimization::kNone, 3, main_filter.SizePartitions(),
-      std::vector<size_t>(1, main_filter.SizePartitions()));
+  FftBuffer fft_buffer(main_filter.SizePartitions());
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(main_filter.SizePartitions(), &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   std::array<float, kBlockSize> x_old;
   x_old.fill(0.f);
   ShadowFilterUpdateGain shadow_gain;
@@ -92,7 +94,30 @@ void RunFilterUpdateTest(int num_blocks_to_process,
       RandomizeSampleVector(&random_generator, x[0]);
     }
     delay_buffer.Delay(x[0], y);
-    render_buffer.Insert(x);
+
+    const size_t prev_insert_index = block_buffer.write;
+
+    block_buffer.IncWriteIndex();
+    spectrum_buffer.DecWriteIndex();
+    fft_buffer.DecWriteIndex();
+
+    for (size_t k = 0; k < x.size(); ++k) {
+      std::copy(x[k].begin(), x[k].end(),
+                block_buffer.buffer[block_buffer.write][k].begin());
+    }
+    fft.PaddedFft(block_buffer.buffer[block_buffer.write][0],
+                  block_buffer.buffer[prev_insert_index][0],
+                  &fft_buffer.buffer[fft_buffer.write]);
+
+    fft_buffer.buffer[fft_buffer.write].Spectrum(
+        Aec3Optimization::kNone, spectrum_buffer.buffer[spectrum_buffer.write]);
+
+    block_buffer.IncReadIndex();
+    spectrum_buffer.DecReadIndex();
+    fft_buffer.DecReadIndex();
+
+    render_buffer.UpdateSpectralSum();
+
     render_signal_analyzer.Update(render_buffer, aec_state.FilterDelay());
 
     // Apply the main filter.
@@ -119,8 +144,8 @@ void RunFilterUpdateTest(int num_blocks_to_process,
     fft.ZeroPaddedFft(e_shadow, &E_shadow);
 
     // Compute spectra for future use.
-    E_main.Spectrum(Aec3Optimization::kNone, &output.E2_main);
-    E_shadow.Spectrum(Aec3Optimization::kNone, &output.E2_shadow);
+    E_main.Spectrum(Aec3Optimization::kNone, output.E2_main);
+    E_shadow.Spectrum(Aec3Optimization::kNone, output.E2_shadow);
 
     // Adapt the shadow filter.
     shadow_gain.Compute(render_buffer, render_signal_analyzer, E_shadow,
@@ -133,7 +158,8 @@ void RunFilterUpdateTest(int num_blocks_to_process,
     main_filter.Adapt(render_buffer, G);
 
     // Update the delay.
-    aec_state.HandleEchoPathChange(EchoPathVariability(false, false));
+    aec_state.HandleEchoPathChange(EchoPathVariability(
+        false, EchoPathVariability::DelayAdjustment::kNone, false));
     aec_state.Update(main_filter.FilterFrequencyResponse(),
                      main_filter.FilterImpulseResponse(), true, rtc::nullopt,
                      render_buffer, E2_main, Y2, x[0], s, false);
@@ -159,9 +185,11 @@ std::string ProduceDebugText(size_t delay) {
 TEST(MainFilterUpdateGain, NullDataOutputGain) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3,
-                             filter.SizePartitions(),
-                             std::vector<size_t>(1, filter.SizePartitions()));
+  FftBuffer fft_buffer(filter.SizePartitions());
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(filter.SizePartitions(), &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
   RenderSignalAnalyzer analyzer;
   SubtractorOutput output;
   MainFilterUpdateGain gain;
@@ -214,9 +242,9 @@ TEST(MainFilterUpdateGain, DecreasingGain) {
   RunFilterUpdateTest(300, 65, blocks_with_echo_path_changes,
                       blocks_with_saturation, false, &e, &y, &G_c);
 
-  G_a.Spectrum(Aec3Optimization::kNone, &G_a_power);
-  G_b.Spectrum(Aec3Optimization::kNone, &G_b_power);
-  G_c.Spectrum(Aec3Optimization::kNone, &G_c_power);
+  G_a.Spectrum(Aec3Optimization::kNone, G_a_power);
+  G_b.Spectrum(Aec3Optimization::kNone, G_b_power);
+  G_c.Spectrum(Aec3Optimization::kNone, G_c_power);
 
   EXPECT_GT(std::accumulate(G_a_power.begin(), G_a_power.end(), 0.),
             std::accumulate(G_b_power.begin(), G_b_power.end(), 0.));
@@ -256,8 +284,8 @@ TEST(MainFilterUpdateGain, SaturationBehavior) {
   RunFilterUpdateTest(201, 65, blocks_with_echo_path_changes,
                       blocks_with_saturation, false, &e, &y, &G_b);
 
-  G_a.Spectrum(Aec3Optimization::kNone, &G_a_power);
-  G_b.Spectrum(Aec3Optimization::kNone, &G_b_power);
+  G_a.Spectrum(Aec3Optimization::kNone, G_a_power);
+  G_b.Spectrum(Aec3Optimization::kNone, G_b_power);
 
   EXPECT_LT(std::accumulate(G_a_power.begin(), G_a_power.end(), 0.),
             std::accumulate(G_b_power.begin(), G_b_power.end(), 0.));
@@ -281,8 +309,8 @@ TEST(MainFilterUpdateGain, EchoPathChangeBehavior) {
   RunFilterUpdateTest(100, 65, blocks_with_echo_path_changes,
                       blocks_with_saturation, false, &e, &y, &G_b);
 
-  G_a.Spectrum(Aec3Optimization::kNone, &G_a_power);
-  G_b.Spectrum(Aec3Optimization::kNone, &G_b_power);
+  G_a.Spectrum(Aec3Optimization::kNone, G_a_power);
+  G_b.Spectrum(Aec3Optimization::kNone, G_b_power);
 
   EXPECT_LT(std::accumulate(G_a_power.begin(), G_a_power.end(), 0.),
             std::accumulate(G_b_power.begin(), G_b_power.end(), 0.));

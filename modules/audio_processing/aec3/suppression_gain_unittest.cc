@@ -60,10 +60,11 @@ TEST(SuppressionGain, BasicGainComputation) {
   AecState aec_state(EchoCanceller3Config{});
   ApmDataDumper data_dumper(42);
   Subtractor subtractor(&data_dumper, DetectOptimization());
-  RenderBuffer render_buffer(
-      DetectOptimization(), 1,
-      std::max(kUnknownDelayRenderWindowSize, kAdaptiveFilterLength),
-      std::vector<size_t>(1, kAdaptiveFilterLength));
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(kAdaptiveFilterLength, &block_buffer,
+                             &spectrum_buffer, &fft_buffer);
 
   // Verify the functionality for forcing a zero gain.
   E2.fill(1000000000.f);

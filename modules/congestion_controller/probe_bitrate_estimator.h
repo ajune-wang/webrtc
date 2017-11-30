@@ -18,6 +18,7 @@
 
 namespace webrtc {
 class RtcEventLog;
+class RtcEvent;
 
 class ProbeBitrateEstimator {
  public:
@@ -28,7 +29,9 @@ class ProbeBitrateEstimator {
   // Returns the estimated bitrate if the probe completes a valid cluster.
   int HandleProbeAndEstimateBitrate(const PacketFeedback& packet_feedback);
 
-  rtc::Optional<int> FetchAndResetLastEstimatedBitrateBps();
+  // Probe results are reported only after |timeout_ms| have passed after
+  // receiving them.
+  rtc::Optional<int> FetchAndResetLastEstimatedBitrateBps(int64_t timeout_ms);
 
  private:
   struct AggregatedCluster {
@@ -48,6 +51,8 @@ class ProbeBitrateEstimator {
   std::map<int, AggregatedCluster> clusters_;
   RtcEventLog* const event_log_;
   rtc::Optional<int> estimated_bitrate_bps_;
+  int64_t last_estimate_update_ms_;
+  int last_cluster_id_;
 };
 
 }  // namespace webrtc

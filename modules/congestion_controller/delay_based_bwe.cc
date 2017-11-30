@@ -237,7 +237,7 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
   int64_t now_ms = clock_->TimeInMilliseconds();
 
   rtc::Optional<int> probe_bitrate_bps =
-      probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps();
+      probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps(50);
   // Currently overusing the bandwidth.
   if (overusing) {
     if (acked_bitrate_bps &&

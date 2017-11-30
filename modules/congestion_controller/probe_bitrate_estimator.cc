@@ -18,6 +18,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
+#include "rtc_base/timeutils.h"
 
 namespace {
 // The minumum number of probes we need to receive feedback about in percent
@@ -54,7 +55,9 @@ constexpr int kMaxProbeIntervalMs = 1000;
 namespace webrtc {
 
 ProbeBitrateEstimator::ProbeBitrateEstimator(RtcEventLog* event_log)
-    : event_log_(event_log) {}
+    : event_log_(event_log),
+      last_estimate_update_ms_(0),
+      last_cluster_id_(-1) {}
 
 ProbeBitrateEstimator::~ProbeBitrateEstimator() = default;
 
@@ -161,16 +164,26 @@ int ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
     res = kTargetUtilizationFraction * receive_bps;
   }
   if (event_log_) {
-    event_log_->Log(
-        rtc::MakeUnique<RtcEventProbeResultSuccess>(cluster_id, res));
+    last_cluster_id_ = cluster_id;
   }
   estimated_bitrate_bps_ = res;
+  last_estimate_update_ms_ = rtc::TimeMillis();
   return *estimated_bitrate_bps_;
 }
 
-rtc::Optional<int>
-ProbeBitrateEstimator::FetchAndResetLastEstimatedBitrateBps() {
+rtc::Optional<int> ProbeBitrateEstimator::FetchAndResetLastEstimatedBitrateBps(
+    int64_t timeout_ms) {
   rtc::Optional<int> estimated_bitrate_bps = estimated_bitrate_bps_;
+
+  int64_t now_ms = rtc::TimeMillis();
+  if (!estimated_bitrate_bps || now_ms < last_estimate_update_ms_ + timeout_ms)
+    return rtc::Optional<int>();
+
+  if (event_log_) {
+    event_log_->Log(rtc::MakeUnique<RtcEventProbeResultSuccess>(
+        last_cluster_id_, *estimated_bitrate_bps));
+  }
+
   estimated_bitrate_bps_.reset();
   return estimated_bitrate_bps;
 }

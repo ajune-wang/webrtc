@@ -52,11 +52,6 @@ constexpr size_t kMatchedFilterWindowSizeSubBlocks = 32;
 constexpr size_t kMatchedFilterAlignmentShiftSizeSubBlocks =
     kMatchedFilterWindowSizeSubBlocks * 3 / 4;
 
-constexpr size_t kMinEchoPathDelayBlocks = 5;
-constexpr size_t kMaxApiCallsJitterBlocks = 26;
-constexpr size_t kRenderTransferQueueSize = kMaxApiCallsJitterBlocks / 2;
-static_assert(2 * kRenderTransferQueueSize >= kMaxApiCallsJitterBlocks,
-              "Requirement to ensure buffer overflow detection");
 
 constexpr size_t kEchoPathChangeConvergenceBlocks = 2 * kNumBlocksPerSecond;
 
@@ -79,6 +74,10 @@ constexpr size_t GetDownSampledBufferSize(size_t down_sampling_factor,
   return kBlockSize / down_sampling_factor *
          (kMatchedFilterAlignmentShiftSizeSubBlocks * num_matched_filters +
           kMatchedFilterWindowSizeSubBlocks + 1);
+}
+
+constexpr size_t GetRenderTransferQueueSize(size_t api_call_jitter_blocks) {
+  return api_call_jitter_blocks;
 }
 
 constexpr size_t GetRenderDelayBufferSize(size_t down_sampling_factor,

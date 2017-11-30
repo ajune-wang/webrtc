@@ -62,6 +62,14 @@ rtc::Optional<size_t> EchoPathDelayEstimator::EstimateDelay(
   data_dumper_->DumpWav("aec3_capture_decimator_output",
                         downsampled_capture.size(), downsampled_capture.data(),
                         16000 / down_sampling_factor_, 1);
+
+  data_dumper_->DumpWav("aec3_echo_path_delay_estimator_capture_input",
+                        downsampled_capture.size(), downsampled_capture.data(),
+                        16000, 1);
+  data_dumper_->DumpWav(
+      "aec3_echo_path_delay_estimator_render_input", downsampled_capture.size(),
+      render_buffer.buffer.data() + render_buffer.next_read, 16000, 1);
+
   matched_filter_.Update(render_buffer, downsampled_capture);
 
   rtc::Optional<size_t> aggregated_matched_filter_lag =

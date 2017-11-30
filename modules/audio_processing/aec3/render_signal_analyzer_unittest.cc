@@ -60,16 +60,44 @@ TEST(RenderSignalAnalyzer, NoFalseDetectionOfNarrowBands) {
   std::array<float, kBlockSize> x_old;
   FftData X;
   Aec3Fft fft;
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 1,
-                             std::vector<size_t>(1, 1));
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(1, &block_buffer, &spectrum_buffer, &fft_buffer);
+  block_buffer.Clear();
+  spectrum_buffer.Clear();
+  fft_buffer.Clear();
   std::array<float, kFftLengthBy2Plus1> mask;
   x_old.fill(0.f);
 
   for (size_t k = 0; k < 100; ++k) {
     RandomizeSampleVector(&random_generator, x[0]);
     fft.PaddedFft(x[0], x_old, &X);
-    render_buffer.Insert(x);
-    analyzer.Update(render_buffer, 0);
+
+    const size_t prev_insert_index = block_buffer.last_insert;
+
+    block_buffer.IncLastInsertIndex();
+    spectrum_buffer.DecLastInsertIndex();
+    fft_buffer.DecLastInsertIndex();
+
+    for (size_t j = 0; j < x.size(); ++j) {
+      std::copy(x[j].begin(), x[j].end(),
+                block_buffer.buffer[block_buffer.last_insert][j].begin());
+    }
+    fft.PaddedFft(block_buffer.buffer[block_buffer.last_insert][0],
+                  block_buffer.buffer[prev_insert_index][0],
+                  &fft_buffer.buffer[fft_buffer.last_insert]);
+
+    fft_buffer.buffer[fft_buffer.last_insert].Spectrum(
+        Aec3Optimization::kNone,
+        spectrum_buffer.buffer[spectrum_buffer.last_insert]);
+
+    block_buffer.IncNextReadIndex();
+    spectrum_buffer.DecNextReadIndex();
+    fft_buffer.DecNextReadIndex();
+
+    render_buffer.UpdateSpectralSum();
+    analyzer.Update(render_buffer, rtc::Optional<size_t>(0));
   }
 
   mask.fill(1.f);
@@ -86,8 +114,14 @@ TEST(RenderSignalAnalyzer, NarrowBandDetection) {
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   std::array<float, kBlockSize> x_old;
   Aec3Fft fft;
-  RenderBuffer render_buffer(Aec3Optimization::kNone, 3, 1,
-                             std::vector<size_t>(1, 1));
+  FftBuffer fft_buffer(kAdaptiveFilterLength);
+  MatrixBuffer block_buffer(fft_buffer.buffer.size(), 3, kBlockSize);
+  VectorBuffer spectrum_buffer(fft_buffer.buffer.size(), kFftLengthBy2Plus1);
+  RenderBuffer render_buffer(1, &block_buffer, &spectrum_buffer, &fft_buffer);
+  block_buffer.Clear();
+  spectrum_buffer.Clear();
+  fft_buffer.Clear();
+
   std::array<float, kFftLengthBy2Plus1> mask;
   x_old.fill(0.f);
   constexpr int kSinusFrequencyBin = 32;
@@ -97,7 +131,30 @@ TEST(RenderSignalAnalyzer, NarrowBandDetection) {
     for (size_t k = 0; k < 100; ++k) {
       ProduceSinusoid(16000, 16000 / 2 * kSinusFrequencyBin / kFftLengthBy2,
                       &sample_counter, x[0]);
-      render_buffer.Insert(x);
+
+      const size_t prev_insert_index = block_buffer.last_insert;
+
+      block_buffer.IncLastInsertIndex();
+      spectrum_buffer.DecLastInsertIndex();
+      fft_buffer.DecLastInsertIndex();
+
+      for (size_t j = 0; j < x.size(); ++j) {
+        std::copy(x[j].begin(), x[j].end(),
+                  block_buffer.buffer[block_buffer.last_insert][j].begin());
+      }
+      fft.PaddedFft(block_buffer.buffer[block_buffer.last_insert][0],
+                    block_buffer.buffer[prev_insert_index][0],
+                    &fft_buffer.buffer[fft_buffer.last_insert]);
+
+      fft_buffer.buffer[fft_buffer.last_insert].Spectrum(
+          Aec3Optimization::kNone,
+          spectrum_buffer.buffer[spectrum_buffer.last_insert]);
+
+      block_buffer.IncNextReadIndex();
+      spectrum_buffer.DecNextReadIndex();
+      fft_buffer.DecNextReadIndex();
+
+      render_buffer.UpdateSpectralSum();
       analyzer.Update(render_buffer, known_delay ? rtc::Optional<size_t>(0)
                                                  : rtc::nullopt);
     }

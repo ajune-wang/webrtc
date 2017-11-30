@@ -178,7 +178,7 @@ int TransientSuppressor::Suppress(float* data,
   }
 
   UpdateKeypress(key_pressed);
-  UpdateBuffers(data);
+  PrepareCaptureCall(data);
 
   int result = 0;
   if (detection_enabled_) {
@@ -226,8 +226,8 @@ int TransientSuppressor::Suppress(float* data,
   return result;
 }
 
-// This should only be called when detection is enabled. UpdateBuffers() must
-// have been called. At return, |out_buffer_| will be filled with the
+// This should only be called when detection is enabled. PrepareCaptureCall()
+// must have been called. At return, |out_buffer_| will be filled with the
 // processed output.
 void TransientSuppressor::Suppress(float* in_ptr,
                                    float* spectral_mean,
@@ -335,7 +335,7 @@ void TransientSuppressor::UpdateRestoration(float voice_probability) {
 
 // Shift buffers to make way for new data. Must be called after
 // |detection_enabled_| is updated by UpdateKeypress().
-void TransientSuppressor::UpdateBuffers(float* data) {
+void TransientSuppressor::PrepareCaptureCall(float* data) {
   // TODO(aluebs): Change to ring buffer.
   memmove(in_buffer_.get(),
           &in_buffer_[data_length_],

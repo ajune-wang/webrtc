@@ -37,10 +37,14 @@ MainFilterUpdateGain::MainFilterUpdateGain()
 
 MainFilterUpdateGain::~MainFilterUpdateGain() {}
 
-void MainFilterUpdateGain::HandleEchoPathChange() {
+void MainFilterUpdateGain::HandleEchoPathChange(
+    const EchoPathVariability& echo_path_variability) {
   H_error_.fill(kHErrorInitial);
-  poor_excitation_counter_ = kPoorExcitationCounterInitial;
-  call_counter_ = 0;
+  if (echo_path_variability.delay_change ==
+      EchoPathVariability::DelayAdjustment::kBufferFlush) {
+    poor_excitation_counter_ = kPoorExcitationCounterInitial;
+    call_counter_ = 0;
+  }
 }
 
 void MainFilterUpdateGain::Compute(
@@ -57,7 +61,7 @@ void MainFilterUpdateGain::Compute(
   const auto& E2_shadow = subtractor_output.E2_shadow;
   FftData* G = gain_fft;
   const size_t size_partitions = filter.SizePartitions();
-  const auto& X2 = render_buffer.SpectralSum(size_partitions);
+  auto X2 = render_buffer.SpectralSum(size_partitions);
   const auto& erl = filter.Erl();
 
   ++call_counter_;

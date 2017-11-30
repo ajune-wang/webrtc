@@ -24,7 +24,7 @@ if (!build_with_chromium) {
       "rtc_tools",
     ]
     if (rtc_include_tests) {
-      deps += [ ":webrtc_tests" ]
+      deps += [ ":webrtc_all_tests" ]
     }
   }
 }
@@ -296,9 +296,10 @@ if (!build_with_chromium) {
   }
 
   if (rtc_include_tests) {
-    # Target to build all the WebRTC tests (but not examples or tools).
-    # Executable in order to get a target that links all WebRTC code.
-    rtc_executable("webrtc_tests") {
+    # This target acts as a root for all tests in the GN build graph. Test
+    # binaries must be added as dependencies here in order to be compiled by
+    # default.
+    rtc_static_library("webrtc_all_tests") {
       testonly = true
 
       # Only the root target should depend on this.

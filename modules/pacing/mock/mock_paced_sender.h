@@ -34,8 +34,6 @@ class MockPacedSender : public PacedSender {
   MOCK_CONST_METHOD0(QueueInMs, int64_t());
   MOCK_CONST_METHOD0(QueueInPackets, int());
   MOCK_CONST_METHOD0(ExpectedQueueTimeMs, int64_t());
-  MOCK_CONST_METHOD0(GetApplicationLimitedRegionStartTime,
-                     rtc::Optional<int64_t>());
   MOCK_METHOD0(Process, void());
 };
 

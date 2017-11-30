@@ -140,6 +140,7 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":video_quality_test",
+      "../modules/congestion_controller",
       "../modules/pacing:pacing",
       "../test:field_trial",
       "../test:test_common",
@@ -275,6 +276,7 @@ if (rtc_include_tests) {
       "../media:rtc_media_base",
       "../media:rtc_media_tests_utils",
       "../modules:module_api",
+      "../modules/congestion_controller",
       "../modules/pacing",
       "../modules/rtp_rtcp",
       "../modules/rtp_rtcp:mock_rtp_rtcp",

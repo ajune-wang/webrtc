@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "common_types.h"  // NOLINT(build/include)
+#include "modules/congestion_controller/alr_detector.h"
 #include "modules/congestion_controller/delay_based_bwe.h"
 #include "modules/congestion_controller/transport_feedback_adapter.h"
 #include "modules/include/module.h"
@@ -125,12 +126,15 @@ class SendSideCongestionController : public CallStatsObserver,
   bool HasNetworkParametersToReportChanged(uint32_t bitrate_bps,
                                            uint8_t fraction_loss,
                                            int64_t rtt);
-  void LimitOutstandingBytes(size_t num_outstanding_bytes);
+  void MaybeApplyCongestionWindow();
   const Clock* const clock_;
   rtc::CriticalSection observer_lock_;
   Observer* observer_ RTC_GUARDED_BY(observer_lock_);
   RtcEventLog* const event_log_;
   PacedSender* const pacer_;
+  rtc::CriticalSection alr_lock_;
+  const std::unique_ptr<AlrDetector> alr_detector_ RTC_PT_GUARDED_BY(alr_lock_);
+
   const std::unique_ptr<BitrateController> bitrate_controller_;
   std::unique_ptr<AcknowledgedBitrateEstimator> acknowledged_bitrate_estimator_;
   const std::unique_ptr<ProbeController> probe_controller_;

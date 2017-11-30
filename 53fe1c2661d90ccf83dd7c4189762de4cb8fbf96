@@ -22,6 +22,30 @@
       "revId": "53fe1c2661d90ccf83dd7c4189762de4cb8fbf96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05f9708d_6b7501af",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-11-30T21:51:44Z",
+      "side": 0,
+      "message": "The session state is checked first thing in ApplyLocalDescription (in VerifySessionDescription). I don\u0027t quite remember the exact issue that was caused by not having the IsClosed here, but there are a bunch of new tests that verify the behavior of SetLocalDescription/SetRemoteDescription when the PeerConnection is closed so I\u0027m fairly confident this doesn\u0027t break anything.",
+      "parentUuid": "a79a61f9_a554f01f",
+      "range": {
+        "startLine": 1578,
+        "startChar": 6,
+        "endLine": 1578,
+        "endChar": 14
+      },
+      "revId": "53fe1c2661d90ccf83dd7c4189762de4cb8fbf96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

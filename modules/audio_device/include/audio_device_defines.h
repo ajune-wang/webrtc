@@ -13,6 +13,7 @@
 
 #include <stddef.h>
 
+#include "rtc_base/deprecation.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
@@ -54,17 +55,16 @@ class AudioTransport {
   // The data will not undergo audio processing.
   // |voe_channel| is the id of the VoE channel which is the sink to the
   // capture data.
-  virtual void PushCaptureData(int voe_channel,
-                               const void* audio_data,
-                               int bits_per_sample,
-                               int sample_rate,
-                               size_t number_of_channels,
-                               size_t number_of_frames) = 0;
+  RTC_DEPRECATED virtual void PushCaptureData(
+      int voe_channel,
+      const void* audio_data,
+      int bits_per_sample,
+      int sample_rate,
+      size_t number_of_channels,
+      size_t number_of_frames) {}
 
   // Method to pull mixed render audio data from all active VoE channels.
   // The data will not be passed as reference for audio processing internally.
-  // TODO(xians): Support getting the unmixed render data from specific VoE
-  // channel.
   virtual void PullRenderData(int bits_per_sample,
                               int sample_rate,
                               size_t number_of_channels,

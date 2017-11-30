@@ -13,7 +13,7 @@
 
 #include <memory>
 
-#include "audio/audio_transport_proxy.h"
+#include "audio/audio_transport_impl.h"
 #include "audio/null_audio_poller.h"
 #include "audio/scoped_voe_interface.h"
 #include "call/audio_state.h"
@@ -36,15 +36,21 @@ class AudioState final : public webrtc::AudioState {
     return config_.audio_processing.get();
   }
   AudioTransport* audio_transport() override {
-    return &audio_transport_proxy_;
+    return &audio_transport_;
   }
 
   void SetPlayout(bool enabled) override;
   void SetRecording(bool enabled) override;
 
+  Stats GetAudioInputStats() const override;
+  void SetStereoChannelSwapping(bool enable) override;
+
   VoiceEngine* voice_engine();
   rtc::scoped_refptr<AudioMixer> mixer();
   bool typing_noise_detected() const;
+
+  void SetSendingStream(webrtc::AudioSendStream* stream, bool sending,
+                        int sample_rate_hz, size_t num_channels);
 
  private:
   // rtc::RefCountInterface implementation.
@@ -63,8 +69,8 @@ class AudioState final : public webrtc::AudioState {
   mutable volatile int ref_count_ = 0;
 
   // Transports mixed audio from the mixer to the audio device and
-  // recorded audio to the VoE AudioTransport.
-  AudioTransportProxy audio_transport_proxy_;
+  // recorded audio to the sending streams.
+  AudioTransportImpl audio_transport_;
 
   // Null audio poller is used to continue polling the audio streams if audio
   // playout is disabled so that audio processing still happens and the audio

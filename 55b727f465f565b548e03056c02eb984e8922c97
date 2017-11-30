@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1a35368_b97abe5f",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-11-30T10:44:57Z",
+      "side": 1,
+      "message": "I think we should only log when we enter/exit ALR.",
+      "revId": "55b727f465f565b548e03056c02eb984e8922c97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

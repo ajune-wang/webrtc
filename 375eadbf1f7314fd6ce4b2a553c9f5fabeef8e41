@@ -22,6 +22,29 @@
       "revId": "375eadbf1f7314fd6ce4b2a553c9f5fabeef8e41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3577373a_3fe31269",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-01T11:30:57Z",
+      "side": 1,
+      "message": "This was not verified in the old code, right? Was that a bug that is now fixed or was it implicitly guaranteed by some other check?",
+      "range": {
+        "startLine": 327,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 70
+      },
+      "revId": "375eadbf1f7314fd6ce4b2a553c9f5fabeef8e41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

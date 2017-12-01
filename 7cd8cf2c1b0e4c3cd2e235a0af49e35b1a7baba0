@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c8a4c04_ee5bc504",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-01T11:25:09Z",
+      "side": 1,
+      "message": "I don\u0027t think it makes sense to check the field trials here.",
+      "range": {
+        "startLine": 304,
+        "startChar": 13,
+        "endLine": 304,
+        "endChar": 37
+      },
+      "revId": "7cd8cf2c1b0e4c3cd2e235a0af49e35b1a7baba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "825d0374_aaaec84c",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-01T11:25:09Z",
+      "side": 1,
+      "message": "nit: We could also do encoder_factory \u003d rtc::MakeUnique",
+      "range": {
+        "startLine": 311,
+        "startChar": 4,
+        "endLine": 311,
+        "endChar": 19
+      },
+      "revId": "7cd8cf2c1b0e4c3cd2e235a0af49e35b1a7baba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a211f6eb_1cc3b8d1",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-01T11:25:09Z",
+      "side": 1,
+      "message": "nit: We usually have colon here.",
+      "range": {
+        "startLine": 43,
+        "startChar": 28,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "7cd8cf2c1b0e4c3cd2e235a0af49e35b1a7baba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

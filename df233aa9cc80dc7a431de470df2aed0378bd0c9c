@@ -469,6 +469,30 @@
       "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37360cb8_a6ad17e8",
+        "filename": "rtc_tools/event_log_visualizer/plot_python.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-12-01T14:29:36Z",
+      "side": 1,
+      "message": "This was just a hack to make the ALR intervals hatched (https://www.collindelker.com/images/frame_hatch2.png) instead of being drawn in a solid color. This makes it much clearer when ALR regions and detector state regions overlap.",
+      "parentUuid": "da47a22b_803c0859",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 29
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

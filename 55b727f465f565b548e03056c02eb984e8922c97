@@ -52,6 +52,24 @@
       "revId": "55b727f465f565b548e03056c02eb984e8922c97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ce34a4c_14f8d42c",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-12-01T14:12:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "397cea67_d822228d",
+      "revId": "55b727f465f565b548e03056c02eb984e8922c97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

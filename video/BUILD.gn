@@ -278,6 +278,7 @@ if (rtc_include_tests) {
       "../modules/pacing",
       "../modules/rtp_rtcp",
       "../modules/rtp_rtcp:mock_rtp_rtcp",
+      "../modules/rtp_rtcp:rtcp_transceiver",
       "../modules/utility",
       "../modules/video_coding",
       "../modules/video_coding:video_coding_utility",

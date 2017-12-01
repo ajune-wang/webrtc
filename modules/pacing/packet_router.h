@@ -11,6 +11,7 @@
 #ifndef MODULES_PACING_PACKET_ROUTER_H_
 #define MODULES_PACING_PACKET_ROUTER_H_
 
+#include <atomic>
 #include <list>
 #include <vector>
 
@@ -124,7 +125,7 @@ class PacketRouter : public PacedSender::PacketSender,
   std::vector<RtpRtcp*> receiver_remb_candidates_ RTC_GUARDED_BY(modules_crit_);
   RtpRtcp* active_remb_module_ RTC_GUARDED_BY(modules_crit_);
 
-  volatile int transport_seq_;
+  std::atomic<uint16_t> transport_seq_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(PacketRouter);
 };

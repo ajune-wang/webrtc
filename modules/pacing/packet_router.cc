@@ -33,7 +33,7 @@ PacketRouter::PacketRouter()
       bitrate_bps_(0),
       max_bitrate_bps_(std::numeric_limits<decltype(max_bitrate_bps_)>::max()),
       active_remb_module_(nullptr),
-      transport_seq_(0) {}
+      transport_seq_(1) {}
 
 PacketRouter::~PacketRouter() {
   RTC_DCHECK(rtp_send_modules_.empty());
@@ -129,25 +129,12 @@ size_t PacketRouter::TimeToSendPadding(size_t bytes_to_send,
 }
 
 void PacketRouter::SetTransportWideSequenceNumber(uint16_t sequence_number) {
-  rtc::AtomicOps::ReleaseStore(&transport_seq_, sequence_number);
+  // Store next sequence number to return since fetch_add returns old value.
+  transport_seq_.store(sequence_number + 1);
 }
 
 uint16_t PacketRouter::AllocateSequenceNumber() {
-  int prev_seq = rtc::AtomicOps::AcquireLoad(&transport_seq_);
-  int desired_prev_seq;
-  int new_seq;
-  do {
-    desired_prev_seq = prev_seq;
-    new_seq = (desired_prev_seq + 1) & 0xFFFF;
-    // Note: CompareAndSwap returns the actual value of transport_seq at the
-    // time the CAS operation was executed. Thus, if prev_seq is returned, the
-    // operation was successful - otherwise we need to retry. Saving the
-    // return value saves us a load on retry.
-    prev_seq = rtc::AtomicOps::CompareAndSwap(&transport_seq_, desired_prev_seq,
-                                              new_seq);
-  } while (prev_seq != desired_prev_seq);
-
-  return new_seq;
+  return transport_seq_.fetch_add(1);
 }
 
 void PacketRouter::OnReceiveBitrateChanged(const std::vector<uint32_t>& ssrcs,

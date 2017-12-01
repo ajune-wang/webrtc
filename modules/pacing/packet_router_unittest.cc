@@ -17,6 +17,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/fakeclock.h"
+#include "rtc_base/ptr_util.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -32,6 +33,7 @@ namespace {
 using ::testing::_;
 using ::testing::AnyNumber;
 using ::testing::AtLeast;
+using ::testing::Each;
 using ::testing::Field;
 using ::testing::Gt;
 using ::testing::Le;
@@ -307,6 +309,40 @@ TEST(PacketRouterTest, AllocateSequenceNumbers) {
     uint32_t expected_unwrapped_seq = static_cast<uint32_t>(kStartSeq) + i;
     EXPECT_EQ(static_cast<uint16_t>(expected_unwrapped_seq & 0xFFFF), seq);
   }
+}
+
+TEST(PacketRouterTest, AllocateSequenceNumbersIsThreadSafe) {
+  static constexpr size_t kNumPackets = 32;
+  struct Shared {
+    rtc::Event start = {false, false};
+    PacketRouter packet_router;
+    bool received[kNumPackets] = {};
+  } shared;
+
+  static constexpr uint16_t kStartSeq = 0xFFF0;
+  ASSERT_THAT(shared.received, Each(false));
+
+  rtc::ThreadRunFunction function = [](void* obj) {
+    Shared* shared = static_cast<Shared*>(obj);
+    shared->start.Wait(2000);
+    uint16_t index = shared->packet_router.AllocateSequenceNumber() - kStartSeq;
+    ASSERT_LT(index, kNumPackets);
+    shared->received[index] = true;
+  };
+  std::unique_ptr<rtc::PlatformThread> threads[kNumPackets];
+  for (auto& thread_ptr : threads) {
+    thread_ptr = rtc::MakeUnique<rtc::PlatformThread>(function, &shared, "n");
+    thread_ptr->Start();
+  }
+  shared.packet_router.SetTransportWideSequenceNumber(kStartSeq - 1);
+  // Wake all threads.
+  shared.start.Set();
+
+  // Wait for all threads to run.
+  for (const auto& thread_ptr : threads) {
+    thread_ptr->Stop();
+  }
+  EXPECT_THAT(shared.received, Each(true));
 }
 
 TEST(PacketRouterTest, SendTransportFeedback) {

@@ -16,9 +16,9 @@
 #include "common_video/include/frame_callback.h"
 #include "common_video/include/video_frame.h"
 #include "modules/pacing/alr_detector.h"
+#include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp.h"
-#include "modules/rtp_rtcp/source/rtcp_sender.h"
+#include "modules/rtp_rtcp/source/rtcp_transceiver_impl.h"
 #include "modules/rtp_rtcp/source/rtp_format_vp9.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
@@ -782,17 +782,12 @@ void VideoSendStreamTest::TestNackRetransmission(
       if (++send_count_ == 3) {
         uint16_t nack_sequence_number = header.sequenceNumber - 1;
         nacked_sequence_number_ = nack_sequence_number;
-        RTCPSender rtcp_sender(false, Clock::GetRealTimeClock(), nullptr,
-                               nullptr, nullptr, transport_adapter_.get());
 
-        rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
-        rtcp_sender.SetRemoteSSRC(kVideoSendSsrcs[0]);
-
-        RTCPSender::FeedbackState feedback_state;
-
-        EXPECT_EQ(0,
-                  rtcp_sender.SendRTCP(
-                      feedback_state, kRtcpNack, 1, &nack_sequence_number));
+        RtcpTransceiverConfig rtcp_config;
+        rtcp_config.schedule_periodic_compound_packets = false;
+        rtcp_config.outgoing_transport = transport_adapter_.get();
+        RtcpTransceiverImpl rtcp_sender(rtcp_config);
+        rtcp_sender.SendNack(kVideoSendSsrcs[0], {nack_sequence_number});
       }
 
       uint16_t sequence_number = header.sequenceNumber;
@@ -973,16 +968,12 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
             kVideoSendSsrcs[0], header.sequenceNumber,
             (packet_count_ * (100 - kLossPercent)) / 100,  // Cumulative lost.
             static_cast<uint8_t>((255 * kLossPercent) / 100));  // Loss percent.
-        RTCPSender rtcp_sender(false, Clock::GetRealTimeClock(),
-                               &lossy_receive_stats, nullptr, nullptr,
-                               transport_adapter_.get());
-
-        rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
-        rtcp_sender.SetRemoteSSRC(kVideoSendSsrcs[0]);
-
-        RTCPSender::FeedbackState feedback_state;
-
-        EXPECT_EQ(0, rtcp_sender.SendRTCP(feedback_state, kRtcpRr));
+        RtcpTransceiverConfig rtcp_config;
+        rtcp_config.schedule_periodic_compound_packets = false;
+        rtcp_config.outgoing_transport = transport_adapter_.get();
+        rtcp_config.receive_statistics = &lossy_receive_stats;
+        RtcpTransceiverImpl rtcp_sender(rtcp_config);
+        rtcp_sender.SendCompoundPacket();
       }
     }
 
@@ -1120,7 +1111,6 @@ TEST_F(VideoSendStreamTest, SuspendBelowMinBitrate) {
    public:
     RembObserver()
         : SendTest(kDefaultTimeoutMs),
-          clock_(Clock::GetRealTimeClock()),
           stream_(nullptr),
           test_state_(kBeforeSuspend),
           rtp_count_(0),
@@ -1231,20 +1221,18 @@ TEST_F(VideoSendStreamTest, SuspendBelowMinBitrate) {
         RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_) {
       FakeReceiveStatistics receive_stats(kVideoSendSsrcs[0],
                                           last_sequence_number_, rtp_count_, 0);
-      RTCPSender rtcp_sender(false, clock_, &receive_stats, nullptr, nullptr,
-                             transport_adapter_.get());
-
-      rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
-      rtcp_sender.SetRemoteSSRC(kVideoSendSsrcs[0]);
+      RtcpTransceiverConfig rtcp_config;
+      rtcp_config.schedule_periodic_compound_packets = false;
+      rtcp_config.outgoing_transport = transport_adapter_.get();
+      rtcp_config.receive_statistics = &receive_stats;
+      RtcpTransceiverImpl rtcp_sender(rtcp_config);
       if (remb_value > 0) {
         rtcp_sender.SetRemb(remb_value, std::vector<uint32_t>());
       }
-      RTCPSender::FeedbackState feedback_state;
-      EXPECT_EQ(0, rtcp_sender.SendRTCP(feedback_state, kRtcpRr));
+      rtcp_sender.SendCompoundPacket();
     }
 
     std::unique_ptr<internal::TransportAdapter> transport_adapter_;
-    Clock* const clock_;
     VideoSendStream* stream_;
 
     rtc::CriticalSection crit_;
@@ -1423,7 +1411,6 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
    public:
     BitrateObserver()
         : SendTest(kDefaultTimeoutMs),
-          retranmission_rate_limiter_(Clock::GetRealTimeClock(), 1000),
           stream_(nullptr),
           bitrate_capped_(false) {}
 
@@ -1448,9 +1435,8 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
                           "bps",
                           false);
         if (total_bitrate_bps > kHighBitrateBps) {
-          rtp_rtcp_->SetRemb(kRembBitrateBps,
-                             std::vector<uint32_t>(1, header.ssrc));
-          rtp_rtcp_->Process();
+          rtcp_->SetRemb(kRembBitrateBps, { header.ssrc });
+          rtcp_->SendCompoundPacket();
           bitrate_capped_ = true;
         } else if (bitrate_capped_ &&
                    total_bitrate_bps < kRembRespectedBitrateBps) {
@@ -1465,11 +1451,10 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
         VideoSendStream* send_stream,
         const std::vector<VideoReceiveStream*>& receive_streams) override {
       stream_ = send_stream;
-      RtpRtcp::Configuration config;
+      RtcpTransceiverConfig config;
+      config.schedule_periodic_compound_packets = false;
       config.outgoing_transport = feedback_transport_.get();
-      config.retransmission_rate_limiter = &retranmission_rate_limiter_;
-      rtp_rtcp_.reset(RtpRtcp::CreateRtpRtcp(config));
-      rtp_rtcp_->SetRTCPStatus(RtcpMode::kReducedSize);
+      rtcp_.emplace(config);
     }
 
     void ModifyVideoConfigs(
@@ -1487,9 +1472,8 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
           << "Timeout while waiting for low bitrate stats after REMB.";
     }
 
-    std::unique_ptr<RtpRtcp> rtp_rtcp_;
     std::unique_ptr<internal::TransportAdapter> feedback_transport_;
-    RateLimiter retranmission_rate_limiter_;
+    rtc::Optional<RtcpTransceiverImpl> rtcp_;
     VideoSendStream* stream_;
     bool bitrate_capped_;
   } test;

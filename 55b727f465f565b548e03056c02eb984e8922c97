@@ -34,6 +34,24 @@
       "revId": "55b727f465f565b548e03056c02eb984e8922c97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "397cea67_d822228d",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-01T12:47:53Z",
+      "side": 1,
+      "message": "For a given ALR configuration we should be able to simulate this by feeding in the packets and feedback into the ALR detector.\n\nIn general, it is better to not add anything to the log until you know that you need it. Adding fields later is easy. Removing fields are hard.",
+      "parentUuid": "b2c3d406_5fed71d6",
+      "revId": "55b727f465f565b548e03056c02eb984e8922c97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

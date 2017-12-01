@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "60a42889_f8ca2363",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-01T13:09:27Z",
+      "side": 1,
+      "message": "I do want to put it into own class, but prefer to do it in separate CL (it has different complications)\n\nperformance it not that critical for these sequence numbers, so prefer to use default (stricter) memory order to make it more readable.",
+      "parentUuid": "fd8cffde_b9a03dfd",
+      "range": {
+        "startLine": 136,
+        "startChar": 36,
+        "endLine": 136,
+        "endChar": 37
+      },
+      "revId": "723110633ec5efa45b8d26cbdee459691c56d314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d550be73_a7d2f201",
         "filename": "modules/pacing/packet_router_unittest.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-01T12:55:55Z",
       "side": 1,
       "message": "Does the thread stop imply needed memory barriers to make the stores to received[index] visible?",
+      "range": {
+        "startLine": 343,
+        "startChar": 16,
+        "endLine": 343,
+        "endChar": 20
+      },
+      "revId": "723110633ec5efa45b8d26cbdee459691c56d314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8555b920_aeeb3c5f",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-01T13:09:27Z",
+      "side": 1,
+      "message": "test would fail otherwise.",
+      "parentUuid": "d550be73_a7d2f201",
       "range": {
         "startLine": 343,
         "startChar": 16,

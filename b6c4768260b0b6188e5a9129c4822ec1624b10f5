@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fc7cfc6_f21ae4d9",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-01T17:39:48Z",
+      "side": 1,
+      "message": "Can you update EnableSdes_n and EnableDtlsSrtp_n to use this function? It looks like both those methods have the same logic as here.",
+      "revId": "b6c4768260b0b6188e5a9129c4822ec1624b10f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4158fcc2_54f83059",
+        "filename": "pc/channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-01T17:39:48Z",
+      "side": 1,
+      "message": "Maybe leave a TODO that this is being removed?",
+      "revId": "b6c4768260b0b6188e5a9129c4822ec1624b10f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cd4bc61_66239c73",
+        "filename": "pc/channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-01T17:39:48Z",
+      "side": 1,
+      "message": "Leave a TODO here?",
+      "revId": "b6c4768260b0b6188e5a9129c4822ec1624b10f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

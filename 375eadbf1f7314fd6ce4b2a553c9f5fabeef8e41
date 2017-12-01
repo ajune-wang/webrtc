@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "342ca81c_b712e738",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-12-01T11:57:00Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "3289439a_b06dd934",
+      "range": {
+        "startLine": 142,
+        "startChar": 37,
+        "endLine": 142,
+        "endChar": 73
+      },
+      "revId": "375eadbf1f7314fd6ce4b2a553c9f5fabeef8e41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3577373a_3fe31269",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "375eadbf1f7314fd6ce4b2a553c9f5fabeef8e41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f758723_0196760e",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-12-01T11:57:00Z",
+      "side": 1,
+      "message": "The check in the old code did not use the constant, but checked for \u003e\u003d 0. I must have missed it when I introduced the constant.",
+      "parentUuid": "3577373a_3fe31269",
+      "range": {
+        "startLine": 327,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 70
+      },
+      "revId": "375eadbf1f7314fd6ce4b2a553c9f5fabeef8e41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1183,37 +1183,15 @@ PeerConnection::AddTransceiver(
 
   // TODO(bugs.webrtc.org/7600): Verify init.
 
-  rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender;
-  rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
-      receiver;
-  std::string receiver_id = rtc::CreateRandomUuid();
-  if (media_type == cricket::MEDIA_TYPE_AUDIO) {
-    sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
-        signaling_thread(), new AudioRtpSender(nullptr, stats_.get()));
-    receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
-        signaling_thread(), new AudioRtpReceiver(receiver_id, {}, 0, nullptr));
-  } else {
-    RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, media_type);
-    sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
-        signaling_thread(), new VideoRtpSender(nullptr));
-    receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
-        signaling_thread(),
-        new VideoRtpReceiver(receiver_id, {}, worker_thread(), 0, nullptr));
-  }
+  auto transceiver = CreateTransceiver(media_type);
   // TODO(bugs.webrtc.org/7600): Initializing the sender/receiver with a null
   // channel prevents users from calling SetParameters on them, which is needed
   // to be in compliance with the spec.
 
-  if (track) {
-    sender->SetTrack(track);
-  }
-
-  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
-      transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
-          signaling_thread(), new RtpTransceiver(sender, receiver));
   transceiver->SetDirection(init.direction);
-
-  transceivers_.push_back(transceiver);
+  if (track) {
+    transceiver->sender()->SetTrack(track);
+  }
 
   observer_->OnRenegotiationNeeded();
 
@@ -1565,31 +1543,33 @@ RTCError PeerConnection::ApplyLocalDescription(
     AllocateSctpSids(role);
   }
 
-  // Update state and SSRC of local MediaStreams and DataChannels based on the
-  // local session description.
-  const cricket::ContentInfo* audio_content =
-      GetFirstAudioContent(local_description()->description());
-  if (audio_content) {
-    if (audio_content->rejected) {
-      RemoveSenders(cricket::MEDIA_TYPE_AUDIO);
-    } else {
-      const cricket::AudioContentDescription* audio_desc =
-          static_cast<const cricket::AudioContentDescription*>(
-              audio_content->description);
-      UpdateLocalSenders(audio_desc->streams(), audio_desc->type());
+  if (!IsUnifiedPlan()) {
+    // Update state and SSRC of local MediaStreams and DataChannels based on the
+    // local session description.
+    const cricket::ContentInfo* audio_content =
+        GetFirstAudioContent(local_description()->description());
+    if (audio_content) {
+      if (audio_content->rejected) {
+        RemoveSenders(cricket::MEDIA_TYPE_AUDIO);
+      } else {
+        const cricket::AudioContentDescription* audio_desc =
+            static_cast<const cricket::AudioContentDescription*>(
+                audio_content->description);
+        UpdateLocalSenders(audio_desc->streams(), audio_desc->type());
+      }
     }
-  }
 
-  const cricket::ContentInfo* video_content =
-      GetFirstVideoContent(local_description()->description());
-  if (video_content) {
-    if (video_content->rejected) {
-      RemoveSenders(cricket::MEDIA_TYPE_VIDEO);
-    } else {
-      const cricket::VideoContentDescription* video_desc =
-          static_cast<const cricket::VideoContentDescription*>(
-              video_content->description);
-      UpdateLocalSenders(video_desc->streams(), video_desc->type());
+    const cricket::ContentInfo* video_content =
+        GetFirstVideoContent(local_description()->description());
+    if (video_content) {
+      if (video_content->rejected) {
+        RemoveSenders(cricket::MEDIA_TYPE_VIDEO);
+      } else {
+        const cricket::VideoContentDescription* video_desc =
+            static_cast<const cricket::VideoContentDescription*>(
+                video_content->description);
+        UpdateLocalSenders(video_desc->streams(), video_desc->type());
+      }
     }
   }
 
@@ -2454,10 +2434,30 @@ void PeerConnection::PostCreateSessionDescriptionFailure(
 }
 
 void PeerConnection::GetOptionsForOffer(
-    const PeerConnectionInterface::RTCOfferAnswerOptions& rtc_options,
+    const PeerConnectionInterface::RTCOfferAnswerOptions& offer_answer_options,
     cricket::MediaSessionOptions* session_options) {
-  ExtractSharedMediaSessionOptions(rtc_options, session_options);
+  ExtractSharedMediaSessionOptions(offer_answer_options, session_options);
 
+  if (IsUnifiedPlan()) {
+    GetOptionsForUnifiedPlanOffer(offer_answer_options, session_options);
+  } else {
+    GetOptionsForPlanBOffer(offer_answer_options, session_options);
+  }
+
+  // Apply ICE restart flag and renomination flag.
+  for (auto& options : session_options->media_description_options) {
+    options.transport_options.ice_restart = offer_answer_options.ice_restart;
+    options.transport_options.enable_ice_renomination =
+        configuration_.enable_ice_renomination;
+  }
+
+  session_options->rtcp_cname = rtcp_cname_;
+  session_options->crypto_options = factory_->options().crypto_options;
+}
+
+void PeerConnection::GetOptionsForPlanBOffer(
+    const PeerConnectionInterface::RTCOfferAnswerOptions& offer_answer_options,
+    cricket::MediaSessionOptions* session_options) {
   // Figure out transceiver directional preferences.
   bool send_audio = HasRtpSender(cricket::MEDIA_TYPE_AUDIO);
   bool send_video = HasRtpSender(cricket::MEDIA_TYPE_VIDEO);
@@ -2472,15 +2472,19 @@ void PeerConnection::GetOptionsForOffer(
   bool offer_new_data_description = HasDataChannels();
 
   // The "offer_to_receive_X" options allow those defaults to be overridden.
-  if (rtc_options.offer_to_receive_audio != RTCOfferAnswerOptions::kUndefined) {
-    recv_audio = (rtc_options.offer_to_receive_audio > 0);
+  if (offer_answer_options.offer_to_receive_audio !=
+      RTCOfferAnswerOptions::kUndefined) {
+    recv_audio = (offer_answer_options.offer_to_receive_audio > 0);
     offer_new_audio_description =
-        offer_new_audio_description || (rtc_options.offer_to_receive_audio > 0);
+        offer_new_audio_description ||
+        (offer_answer_options.offer_to_receive_audio > 0);
   }
-  if (rtc_options.offer_to_receive_video != RTCOfferAnswerOptions::kUndefined) {
-    recv_video = (rtc_options.offer_to_receive_video > 0);
+  if (offer_answer_options.offer_to_receive_video !=
+      RTCOfferAnswerOptions::kUndefined) {
+    recv_video = (offer_answer_options.offer_to_receive_video > 0);
     offer_new_video_description =
-        offer_new_video_description || (rtc_options.offer_to_receive_video > 0);
+        offer_new_video_description ||
+        (offer_answer_options.offer_to_receive_video > 0);
   }
 
   rtc::Optional<size_t> audio_index;
@@ -2532,13 +2536,6 @@ void PeerConnection::GetOptionsForOffer(
       !data_index ? nullptr
                   : &session_options->media_description_options[*data_index];
 
-  // Apply ICE restart flag and renomination flag.
-  for (auto& options : session_options->media_description_options) {
-    options.transport_options.ice_restart = rtc_options.ice_restart;
-    options.transport_options.enable_ice_renomination =
-        configuration_.enable_ice_renomination;
-  }
-
   AddRtpSenderOptions(GetSendersInternal(), audio_media_description_options,
                       video_media_description_options);
   AddRtpDataChannelOptions(rtp_data_channels_, data_media_description_options);
@@ -2551,9 +2548,31 @@ void PeerConnection::GetOptionsForOffer(
   if (!rtp_data_channels_.empty() || data_channel_type() != cricket::DCT_RTP) {
     session_options->data_channel_type = data_channel_type();
   }
+}
 
-  session_options->rtcp_cname = rtcp_cname_;
-  session_options->crypto_options = factory_->options().crypto_options;
+void PeerConnection::GetOptionsForUnifiedPlanOffer(
+    const RTCOfferAnswerOptions& offer_answer_options,
+    cricket::MediaSessionOptions* session_options) {
+  int mline_index = 0;
+  for (auto transceiver : transceivers_) {
+    if (transceiver->stopped()) {
+      continue;
+    }
+    std::string mid =
+        (transceiver->mid() ? *transceiver->mid() : rtc::ToString(mline_index));
+    cricket::MediaDescriptionOptions media_description_options(
+        transceiver->internal()->media_type(), mid, transceiver->direction(),
+        false);
+    cricket::SenderOptions sender_options;
+    sender_options.track_id = transceiver->sender()->id();
+    sender_options.stream_ids = transceiver->sender()->stream_ids();
+    sender_options.num_sim_layers = 1;
+    media_description_options.sender_options.push_back(sender_options);
+    session_options->media_description_options.push_back(
+        media_description_options);
+    transceiver->internal()->set_mline_index(mline_index);
+    ++mline_index;
+  }
 }
 
 void PeerConnection::GetOptionsForAnswer(
@@ -3124,6 +3143,115 @@ void PeerConnection::OnDataChannelOpenMessage(
 }
 
 rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+PeerConnection::CreateTransceiver(cricket::MediaType media_type) {
+  rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender;
+  rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
+      receiver;
+  std::string receiver_id = rtc::CreateRandomUuid();
+  if (media_type == cricket::MEDIA_TYPE_AUDIO) {
+    sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+        signaling_thread(), new AudioRtpSender(nullptr, stats_.get()));
+    receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
+        signaling_thread(), new AudioRtpReceiver(receiver_id, {}, 0, nullptr));
+  } else {
+    RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, media_type);
+    sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+        signaling_thread(), new VideoRtpSender(nullptr));
+    receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
+        signaling_thread(),
+        new VideoRtpReceiver(receiver_id, {}, worker_thread(), 0, nullptr));
+  }
+  // TODO(bugs.webrtc.org/7600): Initializing the sender/receiver with a null
+  // channel prevents users from calling SetParameters on them, which is needed
+  // to be in compliance with the spec.
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+      transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
+          signaling_thread(), new RtpTransceiver(sender, receiver));
+  transceivers_.push_back(transceiver);
+  return transceiver;
+}
+
+RTCErrorOr<rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
+PeerConnection::AssociateTransceiver(cricket::ContentSource source,
+                                     int mline_index,
+                                     const ContentInfo& content_info) {
+  const std::string& mid = content_info.name;
+  auto media_desc = static_cast<const cricket::MediaContentDescription*>(
+      content_info.description);
+  auto transceiver = GetAssociatedTransceiver(mid);
+  if (source == cricket::CS_LOCAL) {
+    if (!transceiver) {
+      transceiver = GetTransceiverByMLineIndex(mline_index);
+      if (!transceiver) {
+        LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                             "Unknown transceiver");
+      }
+    }
+  } else {
+    RTC_DCHECK_EQ(source, cricket::CS_REMOTE);
+    // If the m= section is being recycled, dissociate the currently associated
+    // RtpTransceiver.
+    if (transceiver && content_info.rejected) {
+      transceiver->internal()->set_mid(rtc::nullopt);
+      transceiver->internal()->set_mline_index(rtc::nullopt);
+      transceiver = nullptr;
+    }
+    if (!transceiver &&
+        RtpTransceiverDirectionHasRecv(media_desc->direction())) {
+      transceiver = GetTransceiverForReceive(media_desc->type());
+    }
+    if (!transceiver) {
+      transceiver = CreateTransceiver(media_desc->type());
+    }
+  }
+  RTC_DCHECK(transceiver);
+  if (transceiver->internal()->media_type() != media_desc->type()) {
+    LOG_AND_RETURN_ERROR(
+        RTCErrorType::INVALID_PARAMETER,
+        "Transceiver type does not match media description type.");
+  }
+  transceiver->internal()->set_mid(mid);
+  transceiver->internal()->set_mline_index(mline_index);
+  return transceiver;
+}
+
+rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+PeerConnection::GetAssociatedTransceiver(const std::string& mid) const {
+  for (auto transceiver : transceivers_) {
+    if (transceiver->mid() == mid) {
+      return transceiver;
+    }
+  }
+  return nullptr;
+}
+
+rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+PeerConnection::GetTransceiverByMLineIndex(int mline_index) const {
+  for (auto transceiver : transceivers_) {
+    if (transceiver->internal()->mline_index() == mline_index) {
+      return transceiver;
+    }
+  }
+  return nullptr;
+}
+
+rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+PeerConnection::GetTransceiverForReceive(cricket::MediaType media_type) const {
+  for (auto transceiver : transceivers_) {
+    if (transceiver->stopped()) {
+      continue;
+    }
+    if (transceiver->internal()->media_type() != media_type) {
+      continue;
+    }
+    if (transceiver->mid() && transceiver->sender()->track()) {
+      return transceiver;
+    }
+  }
+  return nullptr;
+}
+
+rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
 PeerConnection::GetAudioTransceiver() const {
   // This method only works with Plan B SDP, where there is a single
   // audio/video transceiver.
@@ -3405,23 +3533,97 @@ RTCError PeerConnection::SetCurrentOrPendingLocalDescription(
     pending_local_description_ = std::move(desc);
   }
 
-  // Transport and Media channels will be created only when offer is set.
-  if (action == cricket::CA_OFFER) {
-    // TODO(mallinath) - Handle CreateChannel failure, as new local description
-    // is applied. Restore back to old description.
-    RTCError error = CreateChannels(local_description()->description());
-    if (!error.ok()) {
-      return error;
+  const cricket::ContentGroup* bundle_group = nullptr;
+  if (configuration_.bundle_policy ==
+      PeerConnectionInterface::kBundlePolicyMaxBundle) {
+    bundle_group = local_description()->description()->GetGroupByName(
+        cricket::GROUP_TYPE_BUNDLE);
+    if (!bundle_group) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                           "max-bundle configured but session description "
+                           "has no BUNDLE group");
     }
   }
 
-  // Remove unused channels if MediaContentDescription is rejected.
-  RemoveUnusedChannels(local_description()->description());
+  // Transport and Media channels will be created only when offer is set.
+  if (IsUnifiedPlan()) {
+    int mline_index = -1;
+    for (const cricket::ContentInfo& content_info :
+         local_description()->description()->contents()) {
+      ++mline_index;
+      if (!cricket::IsMediaContent(&content_info)) {
+        continue;
+      }
+      const std::string& mid = content_info.name;
+      auto* media_description = static_cast<cricket::MediaContentDescription*>(
+          content_info.description);
+      cricket::MediaType media_type = media_description->type();
+      if (media_type == cricket::MEDIA_TYPE_AUDIO ||
+          media_type == cricket::MEDIA_TYPE_VIDEO) {
+        auto transceiver_or_error =
+            AssociateTransceiver(cricket::CS_LOCAL, mline_index, content_info);
+        if (!transceiver_or_error.ok()) {
+          return transceiver_or_error.MoveError();
+        }
+        auto transceiver = transceiver_or_error.MoveValue();
+        if (transceiver->stopped()) {
+          continue;
+        }
+        if (action == cricket::CA_ANSWER || action == cricket::CA_PRANSWER) {
+          transceiver->internal()->set_current_direction(
+              media_description->direction());
+        }
+        if (content_info.rejected) {
+          cricket::BaseChannel* channel = transceiver->internal()->channel();
+          if (channel) {
+            transceiver->internal()->SetChannel(nullptr);
+            DestroyBaseChannel(channel);
+          }
+        } else {
+          if (!transceiver->internal()->channel()) {
+            cricket::BaseChannel* channel;
+            if (media_type == cricket::MEDIA_TYPE_AUDIO) {
+              channel = CreateVoiceChannel(
+                  mid, GetTransportNameForMediaSection(mid, bundle_group));
+            } else {
+              RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, media_type);
+              channel = CreateVideoChannel(
+                  mid, GetTransportNameForMediaSection(mid, bundle_group));
+            }
+            if (!channel) {
+              // TODO(steveanton): handle CreateChannel failure by restoring
+              // back to old description.
+              LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
+                                   "Failed to create channel.");
+            }
+            transceiver->internal()->SetChannel(channel);
+          }
+        }
+      } else if (media_type == cricket::MEDIA_TYPE_DATA) {
+        // TODO
+      } else {
+        LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, "unknown type");
+      }
+    }
+  } else {
+    if (action == cricket::CA_OFFER) {
+      // TODO(mallinath) - Handle CreateChannel failure, as new local
+      // description is applied. Restore back to old description.
+      RTCError error = CreateChannels(local_description()->description());
+      if (!error.ok()) {
+        return error;
+      }
+    }
+
+    // Remove unused channels if MediaContentDescription is rejected.
+    RemoveUnusedChannels(local_description()->description());
+  }
 
   RTCError error = UpdateSessionState(action, cricket::CS_LOCAL);
   if (!error.ok()) {
     return error;
   }
+
   if (remote_description()) {
     // Now that we have a local description, we can push down remote candidates.
     UseCandidatesInSessionDescription(remote_description());
@@ -3460,18 +3662,59 @@ RTCError PeerConnection::SetCurrentOrPendingRemoteDescription(
     pending_remote_description_ = std::move(desc);
   }
 
-  // Transport and Media channels will be created only when offer is set.
-  if (action == cricket::CA_OFFER) {
-    // TODO(mallinath) - Handle CreateChannel failure, as new local description
-    // is applied. Restore back to old description.
-    RTCError error = CreateChannels(remote_description()->description());
-    if (!error.ok()) {
-      return error;
+  const cricket::ContentGroup* bundle_group = nullptr;
+  if (configuration_.bundle_policy ==
+      PeerConnectionInterface::kBundlePolicyMaxBundle) {
+    bundle_group = local_description()->description()->GetGroupByName(
+        cricket::GROUP_TYPE_BUNDLE);
+    if (!bundle_group) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                           "max-bundle configured but session description "
+                           "has no BUNDLE group");
     }
   }
 
-  // Remove unused channels if MediaContentDescription is rejected.
-  RemoveUnusedChannels(remote_description()->description());
+  // Transport and Media channels will be created only when offer is set.
+  if (IsUnifiedPlan()) {
+    int mline_index = -1;
+    for (const cricket::ContentInfo& content_info :
+         remote_description()->description()->contents()) {
+      ++mline_index;
+      if (!cricket::IsMediaContent(&content_info)) {
+        continue;
+      }
+      // const std::string& mid = content_info.name;
+      auto* media_description = static_cast<cricket::MediaContentDescription*>(
+          content_info.description);
+      cricket::MediaType media_type = media_description->type();
+      if (media_type == cricket::MEDIA_TYPE_AUDIO ||
+          media_type == cricket::MEDIA_TYPE_VIDEO) {
+        auto transceiver_or_error =
+            AssociateTransceiver(cricket::CS_REMOTE, mline_index, content_info);
+        if (!transceiver_or_error.ok()) {
+          return transceiver_or_error.MoveError();
+        }
+        auto transceiver = transceiver_or_error.MoveValue();
+        // TODO
+        RTC_DCHECK(transceiver);
+      } else {
+        LOG_AND_RETURN_ERROR(RTCErrorType::UNSUPPORTED_PARAMETER,
+                             "Only audio and video supported currently");
+      }
+    }
+  } else {
+    if (action == cricket::CA_OFFER) {
+      // TODO(mallinath) - Handle CreateChannel failure, as new local
+      // description is applied. Restore back to old description.
+      RTCError error = CreateChannels(remote_description()->description());
+      if (!error.ok()) {
+        return error;
+      }
+    }
+
+    // Remove unused channels if MediaContentDescription is rejected.
+    RemoveUnusedChannels(remote_description()->description());
+  }
 
   // NOTE: Candidates allocation will be initiated only when SetLocalDescription
   // is called.

@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6ec5f30_1ead65e7",
+        "filename": "modules/audio_processing/aec3/matrix_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-01T15:17:01Z",
+      "side": 1,
+      "message": "Just wondering, why not array (or similar) if size is fixed and specified at construction?",
+      "revId": "4a58c0d6800449e5027784569fe4aed384be216c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbaff32d_9b506235",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-01T15:17:01Z",
+      "side": 1,
+      "message": "Should not be used?",
+      "revId": "4a58c0d6800449e5027784569fe4aed384be216c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd762516_867d31f6",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-01T15:17:01Z",
+      "side": 1,
+      "message": "RenderDelayBufferImpl:: not needed.",
+      "revId": "4a58c0d6800449e5027784569fe4aed384be216c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5fd6c4a_26e35c6c",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-01T15:17:01Z",
+      "side": 1,
+      "message": "Consider just storing the values needed for this class (instead of the whole config).",
+      "revId": "4a58c0d6800449e5027784569fe4aed384be216c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1121e0b6_eb873eb2",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-01T15:17:01Z",
+      "side": 1,
+      "message": "Line 136-138 have no effect.",
+      "revId": "4a58c0d6800449e5027784569fe4aed384be216c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904706e9_79bf4acf",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-01T15:17:01Z",
+      "side": 1,
+      "message": "RenderDelayBufferImpl:: not needed on return type.",
+      "revId": "4a58c0d6800449e5027784569fe4aed384be216c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8a42d20_64f97595",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-01T15:17:01Z",
+      "side": 1,
+      "message": "RenderDelayBufferImpl:: not needed on return type.",
+      "revId": "4a58c0d6800449e5027784569fe4aed384be216c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

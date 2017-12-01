@@ -196,8 +196,12 @@ void BaseChannel::Init_w(DtlsTransportInternal* rtp_dtls_transport,
                          rtc::PacketTransportInternal* rtcp_packet_transport) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
-    return InitNetwork_n(rtp_dtls_transport, rtcp_dtls_transport,
-                         rtp_packet_transport, rtcp_packet_transport);
+    SetTransports_n(rtp_dtls_transport, rtcp_dtls_transport,
+                    rtp_packet_transport, rtcp_packet_transport);
+
+    if (rtcp_mux_required_) {
+      rtcp_mux_filter_.SetActive();
+    }
   });
 
   // Both RTP and RTCP channels should be set, we can call SetInterface on
@@ -205,18 +209,19 @@ void BaseChannel::Init_w(DtlsTransportInternal* rtp_dtls_transport,
   media_channel_->SetInterface(this);
 }
 
-void BaseChannel::InitNetwork_n(
-    DtlsTransportInternal* rtp_dtls_transport,
-    DtlsTransportInternal* rtcp_dtls_transport,
-    rtc::PacketTransportInternal* rtp_packet_transport,
-    rtc::PacketTransportInternal* rtcp_packet_transport) {
-  RTC_DCHECK(network_thread_->IsCurrent());
-  SetTransports_n(rtp_dtls_transport, rtcp_dtls_transport, rtp_packet_transport,
-                  rtcp_packet_transport);
+void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+    SetRtpTransport(rtp_transport);
 
-  if (rtcp_mux_required_) {
-    rtcp_mux_filter_.SetActive();
-  }
+    if (rtcp_mux_required_) {
+      rtcp_mux_filter_.SetActive();
+    }
+  });
+
+  // Both RTP and RTCP channels should be set, we can call SetInterface on
+  // the media channel and it can set network options.
+  media_channel_->SetInterface(this);
 }
 
 void BaseChannel::Deinit() {
@@ -238,6 +243,28 @@ void BaseChannel::Deinit() {
     network_thread_->Clear(&invoker_);
     network_thread_->Clear(this);
   });
+}
+
+void BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
+  if (!network_thread_->IsCurrent()) {
+    network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      SetRtpTransport(rtp_transport);
+      return;
+    });
+  }
+
+  RTC_DCHECK(rtp_transport);
+
+  if (rtp_transport_) {
+    DisconnectFromRtpTransport();
+  }
+  rtp_transport_ = rtp_transport;
+  RTC_LOG(LS_INFO) << "Setting the RtpTransport for " << content_name()
+                   << " on "
+                   << rtp_transport->rtp_packet_transport()->transport_name();
+  ConnectToRtpTransport();
+
+  UpdateWritableState_n();
 }
 
 void BaseChannel::SetTransports(DtlsTransportInternal* rtp_dtls_transport,

@@ -90,6 +90,8 @@ class BaseChannel
               DtlsTransportInternal* rtcp_dtls_transport,
               rtc::PacketTransportInternal* rtp_packet_transport,
               rtc::PacketTransportInternal* rtcp_packet_transport);
+  void Init_w(webrtc::RtpTransportInternal* rtp_transport);
+
   // Deinit may be called multiple times and is simply ignored if it's already
   // done.
   void Deinit();
@@ -113,6 +115,13 @@ class BaseChannel
   bool srtp_active() const { return sdes_active() || dtls_active(); }
 
   bool writable() const { return writable_; }
+
+  // Set an RTP level transport which could be an RtpTransport without
+  // encryption, an SrtpTransport for SDES or a DtlsSrtpTransport for DTLS-SRTP.
+  // This can be called from any thread and it hops to the network thread
+  // internally. This method is not currently used and it would replace the
+  // |SetTransports|.
+  void SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport);
 
   // Set the transport(s), and update writability and "ready-to-send" state.
   // |rtp_transport| must be non-null.
@@ -349,10 +358,6 @@ class BaseChannel
  private:
   void ConnectToRtpTransport();
   void DisconnectFromRtpTransport();
-  void InitNetwork_n(DtlsTransportInternal* rtp_dtls_transport,
-                     DtlsTransportInternal* rtcp_dtls_transport,
-                     rtc::PacketTransportInternal* rtp_packet_transport,
-                     rtc::PacketTransportInternal* rtcp_packet_transport);
   void SignalSentPacket_n(const rtc::SentPacket& sent_packet);
   void SignalSentPacket_w(const rtc::SentPacket& sent_packet);
   bool IsReadyToSendMedia_n() const;

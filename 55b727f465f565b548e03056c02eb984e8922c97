@@ -16,6 +16,24 @@
       "revId": "55b727f465f565b548e03056c02eb984e8922c97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2c3d406_5fed71d6",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-12-01T12:38:29Z",
+      "side": 1,
+      "message": "But then we will loose important bits which may be used for debugging later. We could see ALR regions but now will have no idea why are they in such way. If you think it\u0027s fine, I\u0027ll remove alr budged level from the log at all.",
+      "parentUuid": "c1a35368_b97abe5f",
+      "revId": "55b727f465f565b548e03056c02eb984e8922c97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

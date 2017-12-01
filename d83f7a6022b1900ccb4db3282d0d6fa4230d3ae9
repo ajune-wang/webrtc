@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2170fae_bbf0dcce",
+        "filename": "modules/congestion_controller/alr_detector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-01T09:35:32Z",
+      "side": 1,
+      "message": "I think you can skip .has_value(). But that\u0027s optional (pun intended).",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "d83f7a6022b1900ccb4db3282d0d6fa4230d3ae9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7caca1ad_9093ca17",
+        "filename": "modules/congestion_controller/alr_detector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-01T09:35:32Z",
+      "side": 1,
+      "message": "Never seen this before. Why don\u0027t we do static_cast?",
+      "range": {
+        "startLine": 82,
+        "startChar": 6,
+        "endLine": 82,
+        "endChar": 26
+      },
+      "revId": "d83f7a6022b1900ccb4db3282d0d6fa4230d3ae9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9087509c_ca4d7078",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-01T09:35:32Z",
+      "side": 1,
+      "message": "What\u0027s PT_GUARDED_BY?\n\nHow come we need a separate lock for the alr detector?",
+      "range": {
+        "startLine": 136,
+        "startChar": 1,
+        "endLine": 136,
+        "endChar": 80
+      },
+      "revId": "d83f7a6022b1900ccb4db3282d0d6fa4230d3ae9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "691a13b7_2c82f2b9",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-01T09:35:32Z",
+      "side": 1,
+      "message": "I know by experience that internal projects have had issues with us taking locks here. Some projects may not even make use of the alr_detector at this point. Can we make the alr detector optional and only take the lock if it\u0027s actually being used?\n\nActually looking closer at this, we now take three locks on each sent packet:\n1. MaybeApplyCongestionWindow\n2. transport_feedback_adapter_.GetPacket\n3. alr_lock_\n\nI don\u0027t think this is a good situation to be in...",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 36
+      },
+      "revId": "d83f7a6022b1900ccb4db3282d0d6fa4230d3ae9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dd36a6d_2080c56e",
+        "filename": "modules/remote_bitrate_estimator/send_time_history.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-01T09:35:32Z",
+      "side": 1,
+      "message": "Add a test for this method.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 57
+      },
+      "revId": "d83f7a6022b1900ccb4db3282d0d6fa4230d3ae9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

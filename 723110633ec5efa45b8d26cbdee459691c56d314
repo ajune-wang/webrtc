@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "17e3ecb1_57f45df2",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-01T14:16:18Z",
+      "side": 1,
+      "message": "I take it this is because previous behavior was to start at one? Would make sense to switch to zero-based sequence numbers at some point.",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "723110633ec5efa45b8d26cbdee459691c56d314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd8cffde_b9a03dfd",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 2
@@ -49,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7401e08b_d3b0db5a",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-01T14:16:18Z",
+      "side": 1,
+      "message": "Ack. Consider what memory order to use when you get to move it to its own class.",
+      "parentUuid": "60a42889_f8ca2363",
+      "range": {
+        "startLine": 136,
+        "startChar": 36,
+        "endLine": 136,
+        "endChar": 37
+      },
+      "revId": "723110633ec5efa45b8d26cbdee459691c56d314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d550be73_a7d2f201",
         "filename": "modules/pacing/packet_router_unittest.cc",
         "patchSetId": 2
@@ -93,6 +140,30 @@
       "revId": "723110633ec5efa45b8d26cbdee459691c56d314",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942a473d_0ab9dcc1",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-01T14:16:18Z",
+      "side": 1,
+      "message": "I\u0027m curious if it\u0027s guaranteed by the spec. I don\u0027t know, but I would expect that pthread_join and the like imply memory synchronization so that one can rely on the terminated thread\u0027s stores.",
+      "parentUuid": "8555b920_aeeb3c5f",
+      "range": {
+        "startLine": 343,
+        "startChar": 16,
+        "endLine": 343,
+        "endChar": 20
+      },
+      "revId": "723110633ec5efa45b8d26cbdee459691c56d314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

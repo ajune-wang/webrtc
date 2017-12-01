@@ -77,6 +77,9 @@ class MockVoEChannelProxy : public voe::ChannelProxy {
       AudioMixer::Source::AudioFrameInfo(int sample_rate_hz,
                                          AudioFrame* audio_frame));
   MOCK_CONST_METHOD0(PreferredSampleRate, int());
+  // TODO(solenberg): Talk the compiler into accepting this mock method:
+  // MOCK_METHOD1(ProcessAndEncodeAudio,
+  //              void(std::unique_ptr<AudioFrame> audio_frame));
   MOCK_METHOD1(SetTransportOverhead, void(int transport_overhead_per_packet));
   MOCK_METHOD1(AssociateSendChannel,
                void(const ChannelProxy& send_channel_proxy));

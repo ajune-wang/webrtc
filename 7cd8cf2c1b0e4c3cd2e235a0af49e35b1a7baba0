@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "91ef080a_6c06079a",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-01T12:50:32Z",
+      "side": 1,
+      "message": "Ok, let\u0027s disable it in the tests.",
+      "parentUuid": "0c8a4c04_ee5bc504",
+      "range": {
+        "startLine": 304,
+        "startChar": 13,
+        "endLine": 304,
+        "endChar": 37
+      },
+      "revId": "7cd8cf2c1b0e4c3cd2e235a0af49e35b1a7baba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "825d0374_aaaec84c",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "007f6175_b1d66a33",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-01T12:50:32Z",
+      "side": 1,
+      "message": "Ok, updated the assignments here. We have other places in this file where we use reset() that I haven\u0027t updated.",
+      "parentUuid": "825d0374_aaaec84c",
+      "range": {
+        "startLine": 311,
+        "startChar": 4,
+        "endLine": 311,
+        "endChar": 19
+      },
+      "revId": "7cd8cf2c1b0e4c3cd2e235a0af49e35b1a7baba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a211f6eb_1cc3b8d1",
         "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "7cd8cf2c1b0e4c3cd2e235a0af49e35b1a7baba0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c45fabe3_e1554454",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-01T12:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a211f6eb_1cc3b8d1",
+      "range": {
+        "startLine": 43,
+        "startChar": 28,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "7cd8cf2c1b0e4c3cd2e235a0af49e35b1a7baba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3289439a_b06dd934",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-01T09:11:13Z",
+      "side": 1,
+      "message": "Will these locks be removed in a later CL as you plan to move to TaskQueue?",
+      "range": {
+        "startLine": 142,
+        "startChar": 37,
+        "endLine": 142,
+        "endChar": 73
+      },
+      "revId": "375eadbf1f7314fd6ce4b2a553c9f5fabeef8e41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf202cfd_7a0f0fb9",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T02:50:38Z",
+      "side": 1,
+      "message": "I think CreateUnencryptedRtpTransport would be nice here to make it clear.",
+      "range": {
+        "startLine": 332,
+        "startChar": 70,
+        "endLine": 332,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f05a2032_b4c85217",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T02:50:38Z",
+      "side": 1,
+      "message": "It seems like making this into FindRtpTransport would be a nice helper method.",
+      "range": {
+        "startLine": 343,
+        "startChar": 73,
+        "endLine": 343,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75ae0bc6_5fedeb32",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T02:50:38Z",
+      "side": 1,
+      "message": "Is it possible for specific SDP to trigger this?  We don\u0027t want strings from uncontrolled sources causing DCHECKs to be hit, nor to be passed.",
+      "range": {
+        "startLine": 349,
+        "startChar": 65,
+        "endLine": 349,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d1fa8d0_2dadc66d",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T02:50:38Z",
+      "side": 1,
+      "message": "Huh?  Why is DTLS being used here?  Shouldn\u0027t that only be in CreateDtlsSrtpTransport?\n\nActually, now that I think more about it, I think the PacketTransport should be passed in to the Create method.  SDES doesn\u0027t want to use DTLS.  It wants to use ICE directly.  And UnencyrptedRtp doesn\u0027t want to use DTLS.  It wants to use ICE or raw UDP.",
+      "range": {
+        "startLine": 361,
+        "startChar": 3,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3ea35e6_adfd87a3",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T02:50:38Z",
+      "side": 1,
+      "message": "And when not using SRTP (either SDES or DTLS-SRTP)?",
+      "range": {
+        "startLine": 207,
+        "startChar": 64,
+        "endLine": 207,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f87ac28_600254f6",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T02:50:38Z",
+      "side": 1,
+      "message": "It seems like it would make sense to continue using rtc::RefCountedObject, in particular with rtc::RefCountedObject\u003cRtpTransportWrapper\u003e.",
+      "range": {
+        "startLine": 208,
+        "startChar": 30,
+        "endLine": 208,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24d833fd_b88447b4",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T02:50:38Z",
+      "side": 1,
+      "message": "rtp_transports_ is fine here.",
+      "range": {
+        "startLine": 288,
+        "startChar": 30,
+        "endLine": 288,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

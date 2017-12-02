@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49f184f0_4ac1c088",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T01:41:46Z",
+      "side": 1,
+      "message": "I think it\u0027s time to refactor ContentInfo.  Instead of mirroring XML Jingle with ContentInfo and content name and content description, we should mirror how we are using it now: a MediaSection.  How to change this:\n\n1.  Rename ContentInfo to MediaSection.\n2.  Replace ContentInfo.name with mid.\n3.  Replace type string with MediaType.\n4.  Replace ContentDescription pointer with a MediaContentDescription, the only kind we ever have.\n5.  Inline a bunch of the MediaContentDescription: \n  - MediaType (already replaced above)\n  - Protocol (which should be an enum, not a string, by the way) \n  - Direction\n  - rtcp_reduced_size\n  - bandwidth\n  - CryptoParams (should be SdesParameters or SrtpParameters)\n  - rtp_header_extensions\n  - conference_mode (should be renamed to enable_screenshare_simulcast)\n  - content address\n  - rtcp mux\n6.  Remove a bunch of things that aren\u0027t used any more:\n  - multistream\n  - crypto_required\n  - partial\n  - lang (in AudioContentDescription)\n  - agc_minus_10db (in AudioContentDescription)\n\nThat basically leaves use_sctp_map, that can probably be inlined MediaSection, and codecs.  How do we deal with codecs?  I suggest instead of having one vector\u003cCodec\u003e, we have three vectors, one for each of AudioCodec, VideoCodec, and DataCodec.  That way no type casting will be needed and everything will be inlined.  \n\n\nThis change would make everything *way* more simple.",
+      "range": {
+        "startLine": 387,
+        "startChar": 61,
+        "endLine": 387,
+        "endChar": 0
+      },
+      "revId": "b7b506ea0582facd171d08dedbf3b652178a3f73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eafc4ff8_1b0c61c2",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T01:41:46Z",
+      "side": 1,
+      "message": "Why not call it EnableSending?",
+      "range": {
+        "startLine": 658,
+        "startChar": 21,
+        "endLine": 658,
+        "endChar": 0
+      },
+      "revId": "b7b506ea0582facd171d08dedbf3b652178a3f73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

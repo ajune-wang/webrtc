@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5495d4_d463337e",
+        "filename": "pc/channelmanager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-02T01:37:19Z",
+      "side": 1,
+      "message": "The duplicated logic here is temporary and would be removed in follow up CLs.",
+      "range": {
+        "startLine": 187,
+        "startChar": 30,
+        "endLine": 187,
+        "endChar": 48
+      },
+      "revId": "bc2917ceec5f30da0d44e70f14b96e619ca6607d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bbf1fe7_f6910b3f",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-02T01:09:08Z",
+      "side": 1,
+      "message": "In general, we want to be able to test CHP, so this should be true.",
+      "range": {
+        "startLine": 301,
+        "startChar": 8,
+        "endLine": 301,
+        "endChar": 13
+      },
+      "revId": "22d6990844f787361f9bece3d2d8a2bdd9438f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f800260_6d67b1dc",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_mediacodec.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-02T01:09:08Z",
+      "side": 1,
+      "message": "Sounds like the new HW encoder is not ready for primetime. The quality thresholds on L56 are already very loose compared to libvpx.",
+      "range": {
+        "startLine": 43,
+        "startChar": 31,
+        "endLine": 43,
+        "endChar": 45
+      },
+      "revId": "22d6990844f787361f9bece3d2d8a2bdd9438f03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

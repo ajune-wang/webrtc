@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7e47df7_9865191e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T01:09:17Z",
+      "side": 0,
+      "message": "This feels too risky to remove.  You probably want this refactoring to have no behavior changes, and this has a potential of being a behavior change.",
+      "range": {
+        "startLine": 1578,
+        "startChar": 19,
+        "endLine": 1578,
+        "endChar": 0
+      },
+      "revId": "57ff7bf6950bfebfee8985ae653b28c76da31f79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

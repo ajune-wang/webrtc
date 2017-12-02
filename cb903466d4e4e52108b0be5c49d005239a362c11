@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15136848_4444f971",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T01:09:17Z",
+      "side": 1,
+      "message": "These could use a comment also.  Actually, it seems like something you could just inline into SetLocalDescription and SetRemoteDescription since they are only called once from there.",
+      "range": {
+        "startLine": 381,
+        "startChar": 57,
+        "endLine": 381,
+        "endChar": 0
+      },
+      "revId": "cb903466d4e4e52108b0be5c49d005239a362c11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "877e9fc5_d6605191",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-02T01:09:17Z",
+      "side": 1,
+      "message": "Actually, here too, it seems cleaner to inline it.  Just have SetLocalDescription and SetRemoteDescription and not 3 versions of each.  If we do have more than 1 of each, I think it should be to have a synchronous that returns RTCError vs. the one that uses a callback.",
+      "range": {
+        "startLine": 389,
+        "startChar": 57,
+        "endLine": 389,
+        "endChar": 0
+      },
+      "revId": "cb903466d4e4e52108b0be5c49d005239a362c11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

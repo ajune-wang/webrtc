@@ -22,6 +22,30 @@
       "revId": "897e1367629e78de709746c43249667bfa412e91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "238afc9c_4cb0546a",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2017-12-04T08:02:40Z",
+      "side": 1,
+      "message": "ah yes of course. thanks for the upcoming fix :)",
+      "parentUuid": "8fed5d6b_0bacca8b",
+      "range": {
+        "startLine": 952,
+        "startChar": 6,
+        "endLine": 952,
+        "endChar": 35
+      },
+      "revId": "897e1367629e78de709746c43249667bfa412e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

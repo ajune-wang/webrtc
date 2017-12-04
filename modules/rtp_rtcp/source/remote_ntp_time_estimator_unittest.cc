@@ -108,11 +108,6 @@ TEST_F(RemoteNtpTimeEstimatorTest, Estimate) {
 }
 
 TEST_F(RemoteNtpTimeEstimatorTest, AveragesErrorsOut) {
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-ClockEstimation/Enabled/");
-  // Reset estimator_ because it checks experiment status during construction.
-  estimator_.reset(new RemoteNtpTimeEstimator(&local_clock_));
-
   // Remote peer sends first 5 RTCP SR without errors.
   AdvanceTimeMilliseconds(1000);
   SendRtcpSr();

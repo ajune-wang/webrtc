@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "388d2f6c_7f4acfbd",
+        "filename": "modules/rtp_rtcp/include/remote_ntp_time_estimator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-04T17:27:25Z",
+      "side": 1,
+      "message": "now unused?",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "c05f45d8259eb957f93cba189174f73ea1d1f239",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "261444b1_a06d85e2",
+        "filename": "modules/rtp_rtcp/source/remote_ntp_time_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-04T17:27:25Z",
+      "side": 1,
+      "message": "can be removed?",
+      "range": {
+        "startLine": 15,
+        "startChar": 59,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "c05f45d8259eb957f93cba189174f73ea1d1f239",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

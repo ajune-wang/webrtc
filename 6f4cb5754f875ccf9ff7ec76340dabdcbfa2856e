@@ -22,6 +22,30 @@
       "revId": "6f4cb5754f875ccf9ff7ec76340dabdcbfa2856e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce35e738_b68007be",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-12-04T08:14:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bc587cd9_ef3adf08",
+      "range": {
+        "startLine": 302,
+        "startChar": 4,
+        "endLine": 302,
+        "endChar": 22
+      },
+      "revId": "6f4cb5754f875ccf9ff7ec76340dabdcbfa2856e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

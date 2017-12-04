@@ -11,14 +11,18 @@
 #include <memory>
 #include <vector>
 
+#include "api/optional.h"
 #include "call/call.h"
 #include "call/rtp_transport_controller_send.h"
 #include "common_video/include/frame_callback.h"
 #include "common_video/include/video_frame.h"
 #include "modules/pacing/alr_detector.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp.h"
-#include "modules/rtp_rtcp/source/rtcp_sender.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/compound_packet.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/nack.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/remb.h"
 #include "modules/rtp_rtcp/source/rtp_format_vp9.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
@@ -380,27 +384,6 @@ TEST_F(VideoSendStreamTest, SupportsVideoTimingFrames) {
 
   RunBaseTest(&test);
 }
-
-class FakeReceiveStatistics : public ReceiveStatisticsProvider {
- public:
-  FakeReceiveStatistics(uint32_t send_ssrc,
-                        uint32_t last_sequence_number,
-                        uint32_t cumulative_lost,
-                        uint8_t fraction_lost) {
-    stat_.SetMediaSsrc(send_ssrc);
-    stat_.SetExtHighestSeqNum(last_sequence_number);
-    stat_.SetCumulativeLost(cumulative_lost);
-    stat_.SetFractionLost(fraction_lost);
-  }
-
-  std::vector<rtcp::ReportBlock> RtcpReportBlocks(size_t max_blocks) override {
-    EXPECT_GE(max_blocks, 1u);
-    return {stat_};
-  }
-
- private:
-  rtcp::ReportBlock stat_;
-};
 
 class UlpfecObserver : public test::EndToEndTest {
  public:
@@ -769,8 +752,7 @@ void VideoSendStreamTest::TestNackRetransmission(
         : SendTest(kDefaultTimeoutMs),
           send_count_(0),
           retransmit_ssrc_(retransmit_ssrc),
-          retransmit_payload_type_(retransmit_payload_type),
-          nacked_sequence_number_(-1) {
+          retransmit_payload_type_(retransmit_payload_type) {
     }
 
    private:
@@ -780,19 +762,13 @@ void VideoSendStreamTest::TestNackRetransmission(
 
       // Nack second packet after receiving the third one.
       if (++send_count_ == 3) {
-        uint16_t nack_sequence_number = header.sequenceNumber - 1;
-        nacked_sequence_number_ = nack_sequence_number;
-        RTCPSender rtcp_sender(false, Clock::GetRealTimeClock(), nullptr,
-                               nullptr, nullptr, transport_adapter_.get());
+        nacked_sequence_number_.emplace(header.sequenceNumber - 1);
 
-        rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
-        rtcp_sender.SetRemoteSSRC(kVideoSendSsrcs[0]);
-
-        RTCPSender::FeedbackState feedback_state;
-
-        EXPECT_EQ(0,
-                  rtcp_sender.SendRTCP(
-                      feedback_state, kRtcpNack, 1, &nack_sequence_number));
+        rtcp::Nack nack;
+        nack.SetMediaSsrc(kVideoSendSsrcs[0]);
+        nack.SetPacketIds({*nacked_sequence_number_});
+        auto raw_packet = nack.Build();
+        transport_adapter_->SendRtcp(raw_packet.data(), raw_packet.size());
       }
 
       uint16_t sequence_number = header.sequenceNumber;
@@ -835,7 +811,7 @@ void VideoSendStreamTest::TestNackRetransmission(
     int send_count_;
     uint32_t retransmit_ssrc_;
     uint8_t retransmit_payload_type_;
-    int nacked_sequence_number_;
+    rtc::Optional<uint16_t> nacked_sequence_number_;
   } test(retransmit_ssrc, retransmit_payload_type);
 
   RunBaseTest(&test);
@@ -969,20 +945,15 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
       // Send lossy receive reports to trigger FEC enabling.
       const int kLossPercent = 5;
       if (packet_count_++ % (100 / kLossPercent) != 0) {
-        FakeReceiveStatistics lossy_receive_stats(
-            kVideoSendSsrcs[0], header.sequenceNumber,
-            (packet_count_ * (100 - kLossPercent)) / 100,  // Cumulative lost.
-            static_cast<uint8_t>((255 * kLossPercent) / 100));  // Loss percent.
-        RTCPSender rtcp_sender(false, Clock::GetRealTimeClock(),
-                               &lossy_receive_stats, nullptr, nullptr,
-                               transport_adapter_.get());
-
-        rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
-        rtcp_sender.SetRemoteSSRC(kVideoSendSsrcs[0]);
-
-        RTCPSender::FeedbackState feedback_state;
-
-        EXPECT_EQ(0, rtcp_sender.SendRTCP(feedback_state, kRtcpRr));
+        rtcp::ReportBlock rb;
+        rb.SetMediaSsrc(kVideoSendSsrcs[0]);
+        rb.SetExtHighestSeqNum(header.sequenceNumber);
+        rb.SetCumulativeLost((packet_count_ * (100 - kLossPercent)) / 100);
+        rb.SetFractionLost((255 * kLossPercent) / 100);
+        rtcp::ReceiverReport rr;
+        rr.AddReportBlock(rb);
+        auto raw_packet = rr.Build();
+        transport_adapter_->SendRtcp(raw_packet.data(), raw_packet.size());
       }
     }
 
@@ -1120,7 +1091,6 @@ TEST_F(VideoSendStreamTest, SuspendBelowMinBitrate) {
    public:
     RembObserver()
         : SendTest(kDefaultTimeoutMs),
-          clock_(Clock::GetRealTimeClock()),
           stream_(nullptr),
           test_state_(kBeforeSuspend),
           rtp_count_(0),
@@ -1229,22 +1199,24 @@ TEST_F(VideoSendStreamTest, SuspendBelowMinBitrate) {
 
     virtual void SendRtcpFeedback(int remb_value)
         RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_) {
-      FakeReceiveStatistics receive_stats(kVideoSendSsrcs[0],
-                                          last_sequence_number_, rtp_count_, 0);
-      RTCPSender rtcp_sender(false, clock_, &receive_stats, nullptr, nullptr,
-                             transport_adapter_.get());
-
-      rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
-      rtcp_sender.SetRemoteSSRC(kVideoSendSsrcs[0]);
+      rtcp::ReportBlock rb;
+      rb.SetMediaSsrc(kVideoSendSsrcs[0]);
+      rb.SetExtHighestSeqNum(last_sequence_number_);
+      rb.SetCumulativeLost(rtp_count_);
+      rtcp::ReceiverReport rr;
+      rr.AddReportBlock(rb);
+      rtcp::CompoundPacket rtcp_packet;
+      rtcp_packet.Append(&rr);
+      rtcp::Remb remb;
       if (remb_value > 0) {
-        rtcp_sender.SetRemb(remb_value, std::vector<uint32_t>());
+        remb.SetBitrateBps(remb_value);
+        rtcp_packet.Append(&remb);
       }
-      RTCPSender::FeedbackState feedback_state;
-      EXPECT_EQ(0, rtcp_sender.SendRTCP(feedback_state, kRtcpRr));
+      auto raw_packet = rtcp_packet.Build();
+      transport_adapter_->SendRtcp(raw_packet.data(), raw_packet.size());
     }
 
     std::unique_ptr<internal::TransportAdapter> transport_adapter_;
-    Clock* const clock_;
     VideoSendStream* stream_;
 
     rtc::CriticalSection crit_;
@@ -1423,7 +1395,6 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
    public:
     BitrateObserver()
         : SendTest(kDefaultTimeoutMs),
-          retranmission_rate_limiter_(Clock::GetRealTimeClock(), 1000),
           stream_(nullptr),
           bitrate_capped_(false) {}
 
@@ -1448,9 +1419,11 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
                           "bps",
                           false);
         if (total_bitrate_bps > kHighBitrateBps) {
-          rtp_rtcp_->SetRemb(kRembBitrateBps,
-                             std::vector<uint32_t>(1, header.ssrc));
-          rtp_rtcp_->Process();
+          rtcp::Remb remb;
+          remb.SetBitrateBps(kRembBitrateBps);
+          remb.SetSsrcs({ header.ssrc });
+          auto raw_packet = remb.Build();
+          feedback_transport_->SendRtcp(raw_packet.data(), raw_packet.size());
           bitrate_capped_ = true;
         } else if (bitrate_capped_ &&
                    total_bitrate_bps < kRembRespectedBitrateBps) {
@@ -1465,11 +1438,6 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
         VideoSendStream* send_stream,
         const std::vector<VideoReceiveStream*>& receive_streams) override {
       stream_ = send_stream;
-      RtpRtcp::Configuration config;
-      config.outgoing_transport = feedback_transport_.get();
-      config.retransmission_rate_limiter = &retranmission_rate_limiter_;
-      rtp_rtcp_.reset(RtpRtcp::CreateRtpRtcp(config));
-      rtp_rtcp_->SetRTCPStatus(RtcpMode::kReducedSize);
     }
 
     void ModifyVideoConfigs(
@@ -1487,9 +1455,7 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
           << "Timeout while waiting for low bitrate stats after REMB.";
     }
 
-    std::unique_ptr<RtpRtcp> rtp_rtcp_;
     std::unique_ptr<internal::TransportAdapter> feedback_transport_;
-    RateLimiter retranmission_rate_limiter_;
     VideoSendStream* stream_;
     bool bitrate_capped_;
   } test;

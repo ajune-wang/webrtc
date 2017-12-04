@@ -117,8 +117,21 @@ class SendSideCongestionController : public CallStatsObserver,
   void OnTransportFeedback(const rtcp::TransportFeedback& feedback) override;
   std::vector<PacketFeedback> GetTransportFeedbackVector() const override;
 
+  // Sets the minimum send bitrate and maximum padding bitrate requested by send
+  // streams.
+  // |min_send_bitrate_bps| might be higher that the estimated available network
+  // bitrate and if so, the pacer will send with |min_send_bitrate_bps|.
+  // |max_padding_bitrate_bps| might be higher than the estimate available
+  // network bitrate and if so, the pacer will send padding packets to reach
+  // the min of the estimated available bitrate and |max_padding_bitrate_bps|.
+  void SetSendBitrateLimits(int64_t min_send_bitrate_bps,
+                            int64_t max_padding_bitrate_bps);
+  void SetPacingFactor(float pacing_factor);
+  float GetPacingFactor() const;
+
  private:
   void MaybeTriggerOnNetworkChanged();
+  void UpdatePacingRates();
 
   bool IsSendQueueFull() const;
   bool IsNetworkDown() const;
@@ -136,6 +149,7 @@ class SendSideCongestionController : public CallStatsObserver,
   const std::unique_ptr<ProbeController> probe_controller_;
   const std::unique_ptr<RateLimiter> retransmission_rate_limiter_;
   TransportFeedbackAdapter transport_feedback_adapter_;
+  int64_t last_estimated_bitrate_bps_;
   rtc::CriticalSection network_state_lock_;
   uint32_t last_reported_bitrate_bps_ RTC_GUARDED_BY(network_state_lock_);
   uint8_t last_reported_fraction_loss_ RTC_GUARDED_BY(network_state_lock_);
@@ -152,6 +166,10 @@ class SendSideCongestionController : public CallStatsObserver,
   bool in_cwnd_experiment_;
   int64_t accepted_queue_ms_;
   bool was_in_alr_;
+
+  int64_t min_pacing_bitrate_bps_;
+  int64_t max_padding_bitrate_bps_;
+  float pacing_factor_;
 
   rtc::RaceChecker worker_race_;
 

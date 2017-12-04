@@ -22,6 +22,30 @@
       "revId": "7371d10e58bfb1b39d5ac165e46bacf89664563a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3515469d_4cd8d1f1",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-12-04T16:58:48Z",
+      "side": 1,
+      "message": "It has the property of handling both all uint32 and int32 values, so therefore a safe replacement where any of those types has previously been used. It\u0027s also generally safer to use in calculations where the number is multiplied, which reduces the risk of accidental weird behaviour. Do you see any downside to using int64?",
+      "parentUuid": "699b02ff_4b1bfc4c",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "7371d10e58bfb1b39d5ac165e46bacf89664563a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

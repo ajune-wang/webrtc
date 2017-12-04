@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71d7eba5_e1c893a2",
+        "filename": "modules/audio_processing/test/conversational_speech/timing.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-12-04T09:26:42Z",
+      "side": 1,
+      "message": "Either switch to std::atof (and adjust the type for the gain variables) or modify README to document that only integer gains are supported.",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "44efe8f21d87ee141e22856bdea0cebdd7ac87cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

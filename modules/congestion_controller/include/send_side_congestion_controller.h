@@ -122,10 +122,10 @@ class SendSideCongestionController : public CallStatsObserver,
 
   bool IsSendQueueFull() const;
   bool IsNetworkDown() const;
-  bool HasNetworkParametersToReportChanged(uint32_t bitrate_bps,
+  bool HasNetworkParametersToReportChanged(int64_t bitrate_bps,
                                            uint8_t fraction_loss,
                                            int64_t rtt);
-  void LimitOutstandingBytes(size_t num_outstanding_bytes);
+  void MaybeApplyCongestionWindow();
   const Clock* const clock_;
   rtc::CriticalSection observer_lock_;
   Observer* observer_ RTC_GUARDED_BY(observer_lock_);
@@ -137,9 +137,9 @@ class SendSideCongestionController : public CallStatsObserver,
   const std::unique_ptr<RateLimiter> retransmission_rate_limiter_;
   TransportFeedbackAdapter transport_feedback_adapter_;
   rtc::CriticalSection network_state_lock_;
-  uint32_t last_reported_bitrate_bps_ RTC_GUARDED_BY(network_state_lock_);
+  int64_t last_reported_target_bitrate_bps_ RTC_GUARDED_BY(network_state_lock_);
   uint8_t last_reported_fraction_loss_ RTC_GUARDED_BY(network_state_lock_);
-  int64_t last_reported_rtt_ RTC_GUARDED_BY(network_state_lock_);
+  int64_t last_reported_rtt_ms_ RTC_GUARDED_BY(network_state_lock_);
   NetworkState network_state_ RTC_GUARDED_BY(network_state_lock_);
   bool pause_pacer_ RTC_GUARDED_BY(network_state_lock_);
   // Duplicate the pacer paused state to avoid grabbing a lock when

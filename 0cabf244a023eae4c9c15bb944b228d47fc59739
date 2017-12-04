@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18be5615_32b82666",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-04T17:06:06Z",
+      "side": 1,
+      "message": "previously_in_alr",
+      "range": {
+        "startLine": 1097,
+        "startChar": 9,
+        "endLine": 1097,
+        "endChar": 15
+      },
+      "revId": "0cabf244a023eae4c9c15bb944b228d47fc59739",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a4574cb_7637dd25",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-04T17:06:06Z",
+      "side": 1,
+      "message": "We want to move away from hard coding this mapping everywhere. Please use ToCallTime() instead. Same below.",
+      "range": {
+        "startLine": 1100,
+        "startChar": 0,
+        "endLine": 1100,
+        "endChar": 74
+      },
+      "revId": "0cabf244a023eae4c9c15bb944b228d47fc59739",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6da619aa_e231c1de",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-04T17:06:06Z",
+      "side": 1,
+      "message": "This should not be visualized unconditionally. Some visualization frameworks won\u0027t support this type of series.",
+      "range": {
+        "startLine": 1123,
+        "startChar": 0,
+        "endLine": 1123,
+        "endChar": 53
+      },
+      "revId": "0cabf244a023eae4c9c15bb944b228d47fc59739",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d012a6e2_c47f95d4",
+        "filename": "rtc_tools/event_log_visualizer/plot_python.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-04T17:06:06Z",
+      "side": 1,
+      "message": "It seems we\u0027re now going to index outside the array. Or am I missing something?",
+      "range": {
+        "startLine": 107,
+        "startChar": 17,
+        "endLine": 107,
+        "endChar": 31
+      },
+      "revId": "0cabf244a023eae4c9c15bb944b228d47fc59739",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

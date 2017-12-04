@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3f061004_b45735e0",
+        "filename": "logging/rtc_event_log/rtc_event_log2text.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-04T17:06:06Z",
+      "side": 1,
+      "message": "This, however, means that there is no way to view only the bitrate changes (or only the ALR changes).",
+      "parentUuid": "74581e51_7501929b",
+      "range": {
+        "startLine": 790,
+        "startChar": 12,
+        "endLine": 790,
+        "endChar": 20
+      },
+      "revId": "df233aa9cc80dc7a431de470df2aed0378bd0c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4703fa5_98cd30c8",
         "filename": "modules/pacing/alr_detector.cc",
         "patchSetId": 5

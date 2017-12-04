@@ -22,6 +22,30 @@
       "revId": "57ff7bf6950bfebfee8985ae653b28c76da31f79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c06ec6ab_e932c091",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-04T19:24:24Z",
+      "side": 0,
+      "message": "Zhi had the same question, so I did a little more digging since I added these checks a month or two ago. Looks like it\u0027s a holdover from when WebRtcSession was separate from PeerConnection. Previously, when the PeerConnection got closed it wouldn\u0027t notify WebRtcSession about it and so WebRtcSession wouldn\u0027t hit the check in VerifySessionDescription that rejects SetLocal/RemoteDescription if the signaling state isn\u0027t right. Now we don\u0027t have that problem since there\u0027s only one place for the signaling state so VerifySessionDescription will catch the closed case before doing any work. When merging these classes I added a test that enumerates the entire matrix of (starting state, closed status, action) to ensure the correct state transition happens, so I\u0027m not worried about breaking that behavior.\n\nThis is the CL that introduced the IsClosed checks: https://webrtc-review.googlesource.com/c/src/+/6640",
+      "parentUuid": "f7e47df7_9865191e",
+      "range": {
+        "startLine": 1578,
+        "startChar": 19,
+        "endLine": 1578,
+        "endChar": 0
+      },
+      "revId": "57ff7bf6950bfebfee8985ae653b28c76da31f79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

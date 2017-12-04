@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "699b02ff_4b1bfc4c",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-04T16:42:59Z",
+      "side": 1,
+      "message": "Why do we need int64? Most places use uint32_t or int32_t for bitrates.",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "7371d10e58bfb1b39d5ac165e46bacf89664563a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

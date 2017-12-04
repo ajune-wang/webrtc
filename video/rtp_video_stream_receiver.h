@@ -39,14 +39,11 @@
 namespace webrtc {
 
 class NackModule;
-class PacedSender;
 class PacketRouter;
 class ProcessThread;
 class ReceiveStatistics;
 class ReceiveStatisticsProxy;
-class RemoteNtpTimeEstimator;
 class RtcpRttStats;
-class RtpHeaderParser;
 class RtpPacketReceived;
 class RTPPayloadRegistry;
 class RtpReceiver;

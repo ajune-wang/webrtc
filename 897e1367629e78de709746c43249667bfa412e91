@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fed5d6b_0bacca8b",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-12-04T08:00:53Z",
+      "side": 1,
+      "message": "It should be better to depend on :rtc_base_approved (it exposes rtc_base/event.h through public_deps on :rtc_base_approved_generic) which will compile logging_mac.mm if the target platform is mac and we are not building inside chromium.\n\nBut I am trying to reunify the :rtc_base_approved target to remove usage of public_deps so I think it is safe to leave it here since weak_ptr_unittest.cc doesn\u0027t use logging. I will change it during the refactoring.",
+      "range": {
+        "startLine": 952,
+        "startChar": 6,
+        "endLine": 952,
+        "endChar": 35
+      },
+      "revId": "897e1367629e78de709746c43249667bfa412e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

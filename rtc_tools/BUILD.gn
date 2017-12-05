@@ -76,7 +76,6 @@ rtc_executable("frame_analyzer") {
   deps = [
     ":command_line_parser",
     ":video_quality_analysis",
-    "$rtc_libyuv_dir",
     "//build/win:default_exe_manifest",
   ]
 }

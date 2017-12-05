@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37cf5bee_3cf99aef",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1820,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-05T13:06:20Z",
+      "side": 1,
+      "message": "Do these need to be immediate output, or can we do deferred?",
+      "range": {
+        "startLine": 1820,
+        "startChar": 69,
+        "endLine": 1820,
+        "endChar": 0
+      },
+      "revId": "cc56bec9603ed7a363008b451949d185a3e45fd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

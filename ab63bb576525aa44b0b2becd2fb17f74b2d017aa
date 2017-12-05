@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2af56ea1_3ac8dc29",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-12-05T12:58:27Z",
+      "side": 1,
+      "message": "I don\u0027t see why reinterpret_cast is needed",
+      "range": {
+        "startLine": 80,
+        "startChar": 20,
+        "endLine": 80,
+        "endChar": 36
+      },
+      "revId": "ab63bb576525aa44b0b2becd2fb17f74b2d017aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

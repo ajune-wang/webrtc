@@ -78,6 +78,8 @@ rtc_executable("frame_analyzer") {
     ":video_quality_analysis",
     "$rtc_libyuv_dir",
     "//build/win:default_exe_manifest",
+
+    # TODO(mbonadei): probably it needs a dependency on common_video?
   ]
 }
 

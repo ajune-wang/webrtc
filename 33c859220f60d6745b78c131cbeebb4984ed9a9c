@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47574414_b409ff4e",
+        "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-12-05T20:32:11Z",
+      "side": 1,
+      "message": "(nit) is this space necessary?\nsame below for the other variables",
+      "range": {
+        "startLine": 274,
+        "startChar": 28,
+        "endLine": 274,
+        "endChar": 29
+      },
+      "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c355e20_cdc5ef33",
+        "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-12-05T20:32:11Z",
+      "side": 1,
+      "message": "Nit.\n\noutput \u003c\u003c (v ? *v : \"float(\u0027nan\u0027)\") \u003c\u003c \", \";\nMore compact and hence better to be reused below (line 297).",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 5
+      },
+      "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d144022_7170115f",
+        "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2017-12-05T20:32:11Z",
+      "side": 1,
+      "message": "|script_name|",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 55
+      },
+      "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

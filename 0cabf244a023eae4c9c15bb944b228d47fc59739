@@ -187,6 +187,30 @@
       "revId": "0cabf244a023eae4c9c15bb944b228d47fc59739",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7bd5e29_a425387a",
+        "filename": "rtc_tools/event_log_visualizer/plot_python.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-05T10:26:00Z",
+      "side": 1,
+      "message": "Have you checked that the plot looks comprehensible if there is an overlap between alr_state and overuse_detector?",
+      "parentUuid": "5a37051a_bef3ae44",
+      "range": {
+        "startLine": 107,
+        "startChar": 17,
+        "endLine": 107,
+        "endChar": 31
+      },
+      "revId": "0cabf244a023eae4c9c15bb944b228d47fc59739",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

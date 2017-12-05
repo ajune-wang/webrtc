@@ -105,6 +105,7 @@ rtc_static_library("rtc_event_log_impl") {
     "../modules/audio_coding:audio_network_adaptor",
     "../modules/remote_bitrate_estimator:remote_bitrate_estimator",
     "../modules/rtp_rtcp",
+    "../modules/rtp_rtcp:rtp_rtcp_format",
     "../rtc_base:protobuf_utils",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
@@ -154,6 +155,7 @@ if (rtc_enable_protobuf) {
     }
     deps = [
       "../call:video_stream_api",
+      "../modules/rtp_rtcp:rtp_rtcp_format",
       "../rtc_base:protobuf_utils",
       "../rtc_base:rtc_base_approved",
     ]
@@ -183,6 +185,7 @@ if (rtc_enable_protobuf) {
         "../modules/audio_coding:audio_network_adaptor",
         "../modules/remote_bitrate_estimator:remote_bitrate_estimator",
         "../modules/rtp_rtcp",
+        "../modules/rtp_rtcp:rtp_rtcp_format",
         "../rtc_base:rtc_base_approved",
         "../rtc_base:rtc_base_tests_utils",
         "../system_wrappers:metrics_default",
@@ -205,6 +208,7 @@ if (rtc_enable_protobuf) {
         ":rtc_event_log_impl",
         ":rtc_event_log_parser",
         "../modules/rtp_rtcp:rtp_rtcp",
+        "../modules/rtp_rtcp:rtp_rtcp_format",
         "../rtc_base:rtc_base_approved",
         "../system_wrappers:field_trial_default",
         "../system_wrappers:metrics_default",
@@ -227,6 +231,7 @@ if (rtc_enable_protobuf) {
         ":rtc_event_log_impl",
         ":rtc_event_log_parser",
         "../call:video_stream_api",
+        "../modules/rtp_rtcp:rtp_rtcp_format",
         "../rtc_base:rtc_base_approved",
 
         # TODO(kwiberg): Remove this dependency.

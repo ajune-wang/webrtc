@@ -149,6 +149,7 @@ if (rtc_include_tests) {
       "../congestion_controller",
       "../pacing",
       "../rtp_rtcp",
+      "../rtp_rtcp:rtp_rtcp_format",
       "../video_coding:video_coding_utility",
       "//testing/gmock",
       "//testing/gtest",
@@ -206,6 +207,7 @@ if (rtc_include_tests) {
       "../../test:test_support",
       "../pacing:pacing",
       "../rtp_rtcp:rtp_rtcp",
+      "../rtp_rtcp:rtp_rtcp_format",
       "//testing/gmock",
     ]
     if (is_win) {

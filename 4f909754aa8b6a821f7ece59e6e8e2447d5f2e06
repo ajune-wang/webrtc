@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc3a88af_44cfb401",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T02:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf202cfd_7a0f0fb9",
+      "range": {
+        "startLine": 332,
+        "startChar": 70,
+        "endLine": 332,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f05a2032_b4c85217",
         "filename": "pc/transportcontroller.cc",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96870f24_d0fe159d",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T02:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f05a2032_b4c85217",
+      "range": {
+        "startLine": 343,
+        "startChar": 73,
+        "endLine": 343,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8cce8f01_13f86e0d",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T02:29:20Z",
+      "side": 1,
+      "message": "Yeah, this is a good point. Then maybe just check the type and return a nullptr if anything goes wrong.",
+      "parentUuid": "75ae0bc6_5fedeb32",
+      "range": {
+        "startLine": 349,
+        "startChar": 65,
+        "endLine": 349,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d1fa8d0_2dadc66d",
         "filename": "pc/transportcontroller.cc",
         "patchSetId": 11
@@ -82,6 +154,30 @@
       "writtenOn": "2017-12-02T02:50:38Z",
       "side": 1,
       "message": "Huh?  Why is DTLS being used here?  Shouldn\u0027t that only be in CreateDtlsSrtpTransport?\n\nActually, now that I think more about it, I think the PacketTransport should be passed in to the Create method.  SDES doesn\u0027t want to use DTLS.  It wants to use ICE directly.  And UnencyrptedRtp doesn\u0027t want to use DTLS.  It wants to use ICE or raw UDP.",
+      "range": {
+        "startLine": 361,
+        "startChar": 3,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20539309_4cbfc289",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T02:29:20Z",
+      "side": 1,
+      "message": "DtlsTransport is just a wrapper over ICE transport, if the local certificates iare not set, it will downgrade to an ICE transport. To be specific, if (!dtls_active_) just fire signals (https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/dtlstransport.cc?sq\u003dpackage:chromium\u0026l\u003d500).\n\nThe idea here is passing the whole SDP to TransportController and it can determine which kind of RTP transport to create.\n\nIf the SDP contains crypto param\n  Do SDES with DtlsTransport downgraded to ICE\nElse if the SDP contains fingerpinter\n  Do DTLS-SRTP with DtlsTransport\nElse\n  Do unencrypted RTP (with ICE or Udp?)\n\nThen the real question is: How can TransportController tell if unencrypted RTP is over ICE or UdpTransport?\nI think we can assume unencrypted RTP is also build on top of ICE because TransportController is a peerconnection specific thing and we always use ICE with PeerConnection. The RCS\u0027s requirements could be meet in ORTC style. If we want to do that, we can create an unencrypted RTP with UdpTransport using the OrtcFactory and set it to BaseChannel.\n\nDo you think PeerConnection should take care of that as well? If TransportController take PacketTransportInternal* instead of creating them internally, then who should own the UdpPacketTransport or the ICE transport.",
+      "parentUuid": "6d1fa8d0_2dadc66d",
       "range": {
         "startLine": 361,
         "startChar": 3,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "876c845a_d5e88017",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T02:29:20Z",
+      "side": 1,
+      "message": "In that case, only rtp_transport is non-null. I\u0027ll update the comments.",
+      "parentUuid": "d3ea35e6_adfd87a3",
+      "range": {
+        "startLine": 207,
+        "startChar": 64,
+        "endLine": 207,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f87ac28_600254f6",
         "filename": "pc/transportcontroller.h",
         "patchSetId": 11
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "f06871d1_6de4bd2b",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T02:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f87ac28_600254f6",
+      "range": {
+        "startLine": 208,
+        "startChar": 30,
+        "endLine": 208,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24d833fd_b88447b4",
         "filename": "pc/transportcontroller.h",
         "patchSetId": 11
@@ -160,6 +304,30 @@
       "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea683c1a_afc7fee3",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T02:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24d833fd_b88447b4",
+      "range": {
+        "startLine": 288,
+        "startChar": 30,
+        "endLine": 288,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

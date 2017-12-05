@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fb85847_4e652eaa",
+        "filename": "api/jsep.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-05T01:45:34Z",
+      "side": 1,
+      "message": "StringableSdpType?",
+      "range": {
+        "startLine": 101,
+        "startChar": 33,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "687c44c33e8269e4e940aa93330d742532c0fa81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fea5b6ee_3ab5f6d3",
+        "filename": "api/jsep.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-05T01:45:34Z",
+      "side": 1,
+      "message": "I think we should still keep the strings around for parsing and serializing purposes.  And it seems like a generic to/from string should go in this file as well.",
+      "range": {
+        "startLine": 115,
+        "startChar": 30,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "687c44c33e8269e4e940aa93330d742532c0fa81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714f12b4_006495c2",
+        "filename": "api/jsep.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-05T01:45:34Z",
+      "side": 1,
+      "message": "There are a ton of places that call this.  Are you sure it will work in all of them?\n\nAnother option is to:\n1.  Add GetType() and maybe GetTypeAsString()\n2.  Change everything to use GetType() (or perhaps GetTypeAsString, if that\u0027s easier).\n3.  Delete type()\n  (or change the return type and change the callers of GetType to type(), but at that point, who cares?)",
+      "range": {
+        "startLine": 135,
+        "startChar": 54,
+        "endLine": 135,
+        "endChar": 0
+      },
+      "revId": "687c44c33e8269e4e940aa93330d742532c0fa81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

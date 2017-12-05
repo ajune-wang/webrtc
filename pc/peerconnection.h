@@ -241,12 +241,22 @@ class PeerConnection : public PeerConnectionInterface,
   // Exposed for stats collecting.
   // TODO(steveanton): Switch callers to use the plural form and remove these.
   virtual cricket::VoiceChannel* voice_channel() const {
-    return static_cast<cricket::VoiceChannel*>(
-        GetAudioTransceiver()->internal()->channel());
+    if (IsUnifiedPlan()) {
+      // TODO(steveanton): Need to figure out what to do with stats...
+      return nullptr;
+    } else {
+      return static_cast<cricket::VoiceChannel*>(
+          GetAudioTransceiver()->internal()->channel());
+    }
   }
   virtual cricket::VideoChannel* video_channel() const {
-    return static_cast<cricket::VideoChannel*>(
-        GetVideoTransceiver()->internal()->channel());
+    if (IsUnifiedPlan()) {
+      // TODO(steveanton): Need to figure out what to do with stats...
+      return nullptr;
+    } else {
+      return static_cast<cricket::VideoChannel*>(
+          GetVideoTransceiver()->internal()->channel());
+    }
   }
 
   // Only valid when using deprecated RTP data channels.
@@ -391,8 +401,16 @@ class PeerConnection : public PeerConnectionInterface,
 
   // Returns a MediaSessionOptions struct with options decided by |options|,
   // the local MediaStreams and DataChannels.
-  void GetOptionsForOffer(
-      const PeerConnectionInterface::RTCOfferAnswerOptions& rtc_options,
+  void GetOptionsForOffer(const PeerConnectionInterface::RTCOfferAnswerOptions&
+                              offer_answer_options,
+                          cricket::MediaSessionOptions* session_options);
+  void GetOptionsForPlanBOffer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
+      cricket::MediaSessionOptions* session_options);
+  void GetOptionsForUnifiedPlanOffer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
       cricket::MediaSessionOptions* session_options);
 
   // Returns a MediaSessionOptions struct with options decided by
@@ -501,6 +519,24 @@ class PeerConnection : public PeerConnectionInterface,
   bool IsUnifiedPlan() const {
     return configuration_.sdp_semantics == SdpSemantics::kUnifiedPlan;
   }
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  CreateTransceiver(cricket::MediaType media_type);
+
+  RTCErrorOr<
+      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
+  AssociateTransceiver(cricket::ContentSource source,
+                       int mline_index,
+                       const cricket::ContentInfo& content_info);
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetAssociatedTransceiver(const std::string& mid) const;
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetTransceiverByMLineIndex(int mline_index) const;
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetTransceiverForReceive(cricket::MediaType media_type) const;
 
   // Is there an RtpSender of the given type?
   bool HasRtpSender(cricket::MediaType type) const;

@@ -109,6 +109,16 @@ class RtpTransceiver final
     return receivers_;
   }
 
+  rtc::Optional<int> mline_index() const { return mline_index_; }
+  void set_mline_index(rtc::Optional<int> mline_index) {
+    mline_index_ = mline_index;
+  }
+
+  void set_mid(const rtc::Optional<std::string>& mid) { mid_ = mid; }
+  void set_current_direction(RtpTransceiverDirection direction) {
+    current_direction_ = direction;
+  }
+
   // RtpTransceiverInterface implementation.
   rtc::Optional<std::string> mid() const override;
   rtc::scoped_refptr<RtpSenderInterface> sender() const override;
@@ -133,6 +143,7 @@ class RtpTransceiver final
   RtpTransceiverDirection direction_ = RtpTransceiverDirection::kInactive;
   rtc::Optional<RtpTransceiverDirection> current_direction_;
   rtc::Optional<std::string> mid_;
+  rtc::Optional<int> mline_index_;
 
   cricket::BaseChannel* channel_ = nullptr;
 };

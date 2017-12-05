@@ -22,6 +22,30 @@
       "revId": "cc56bec9603ed7a363008b451949d185a3e45fd5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "618a2287_a8d2f7a1",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1820,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-12-05T13:08:56Z",
+      "side": 1,
+      "message": "I think in the new API it could be deferred. For now, output have to be provided at start of the logging.",
+      "parentUuid": "37cf5bee_3cf99aef",
+      "range": {
+        "startLine": 1820,
+        "startChar": 69,
+        "endLine": 1820,
+        "endChar": 0
+      },
+      "revId": "cc56bec9603ed7a363008b451949d185a3e45fd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -40,7 +40,8 @@ rtc_static_library("pacing") {
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
     "../remote_bitrate_estimator",
-    "../rtp_rtcp",
+    "../rtp_rtcp:rtp_rtcp",
+    "../rtp_rtcp:rtp_rtcp_format",
     "../utility",
   ]
 }
@@ -63,8 +64,9 @@ if (rtc_include_tests) {
       "../../system_wrappers:system_wrappers",
       "../../test:field_trial",
       "../../test:test_support",
-      "../rtp_rtcp",
       "../rtp_rtcp:mock_rtp_rtcp",
+      "../rtp_rtcp:rtp_rtcp",
+      "../rtp_rtcp:rtp_rtcp_format",
       "//testing/gmock",
     ]
 

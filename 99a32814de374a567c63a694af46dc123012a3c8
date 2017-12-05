@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac411fb5_5aaa675b",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-05T09:41:05Z",
+      "side": 1,
+      "message": "Use WEBRTC_ANDROID instead.",
+      "range": {
+        "startLine": 389,
+        "startChar": 70,
+        "endLine": 389,
+        "endChar": 77
+      },
+      "revId": "99a32814de374a567c63a694af46dc123012a3c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

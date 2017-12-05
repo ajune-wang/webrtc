@@ -42,15 +42,15 @@ class AlrDetector {
   rtc::Optional<int64_t> GetApplicationLimitedRegionStartTime() const;
 
   struct AlrExperimentSettings {
-    float pacing_factor = PacedSender::kDefaultPaceMultiplier;
-    int64_t max_paced_queue_time = PacedSender::kMaxQueueLengthMs;
-    int alr_bandwidth_usage_percent = kDefaultAlrBandwidthUsagePercent;
-    int alr_start_budget_level_percent = kDefaultAlrStartBudgetLevelPercent;
-    int alr_stop_budget_level_percent = kDefaultAlrStopBudgetLevelPercent;
+    float pacing_factor;
+    int64_t max_paced_queue_time;
+    int alr_bandwidth_usage_percent;
+    int alr_start_budget_level_percent;
+    int alr_stop_budget_level_percent;
     // Will be sent to the receive side for stats slicing.
     // Can be 0..6, because it's sent as a 3 bits value and there's also
     // reserved value to indicate absence of experiment.
-    int group_id = 0;
+    int group_id;
   };
   static rtc::Optional<AlrExperimentSettings> ParseAlrSettingsFromFieldTrial(
       const char* experiment_name);

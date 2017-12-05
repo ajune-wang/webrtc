@@ -35,6 +35,13 @@ const char kCwndExperiment[] = "WebRTC-CwndExperiment";
 const char kPacerPushbackExperiment[] = "WebRTC-PacerPushbackExperiment";
 const int64_t kDefaultAcceptedQueueMs = 250;
 
+// Pacing-rate relative to our target send rate.
+// Multiplicative factor that is applied to the target bitrate to calculate
+// the number of bytes that can be transmitted per interval.
+// Increasing this factor will result in lower delays in cases of bitrate
+// overshoots from the encoder.
+const float kDefaultPaceMultiplier = 2.5f;
+
 bool CwndExperimentEnabled() {
   std::string experiment_string =
       webrtc::field_trial::FindFullName(kCwndExperiment);
@@ -111,6 +118,7 @@ SendSideCongestionController::SendSideCongestionController(
       retransmission_rate_limiter_(
           new RateLimiter(clock, kRetransmitWindowSizeMs)),
       transport_feedback_adapter_(clock_),
+      last_estimated_bitrate_bps_(0),
       last_reported_bitrate_bps_(0),
       last_reported_fraction_loss_(0),
       last_reported_rtt_(0),
@@ -122,6 +130,9 @@ SendSideCongestionController::SendSideCongestionController(
       in_cwnd_experiment_(CwndExperimentEnabled()),
       accepted_queue_ms_(kDefaultAcceptedQueueMs),
       was_in_alr_(false),
+      min_pacing_bitrate_bps_(0u),
+      max_padding_bitrate_bps_(0u),
+      pacing_factor_(kDefaultPaceMultiplier),
       pacer_pushback_experiment_(
           webrtc::field_trial::IsEnabled(kPacerPushbackExperiment)) {
   delay_based_bwe_->SetMinBitrate(min_bitrate_bps_);
@@ -385,9 +396,11 @@ void SendSideCongestionController::MaybeTriggerOnNetworkChanged() {
   bool estimate_changed = bitrate_controller_->GetNetworkParameters(
       &bitrate_bps, &fraction_loss, &rtt);
   if (estimate_changed) {
-    pacer_->SetEstimatedBitrate(bitrate_bps);
+    pacer_->SetAlrTargetBitrate(bitrate_bps);
     probe_controller_->SetEstimatedBitrate(bitrate_bps);
     retransmission_rate_limiter_->SetMaxRate(bitrate_bps);
+    last_estimated_bitrate_bps_ = bitrate_bps;
+    UpdatePacingRates();
   }
 
   if (!pacer_pushback_experiment_) {
@@ -444,6 +457,36 @@ bool SendSideCongestionController::HasNetworkParametersToReportChanged(
   last_reported_fraction_loss_ = fraction_loss;
   last_reported_rtt_ = rtt;
   return changed;
+}
+
+void SendSideCongestionController::UpdatePacingRates() {
+  rtc::CritScope cs(&network_state_lock_);
+  int64_t bitrate = last_estimated_bitrate_bps_;
+  int64_t pacing = std::max(min_pacing_bitrate_bps_, bitrate) * pacing_factor_;
+  int64_t padding = std::min(max_padding_bitrate_bps_, bitrate);
+  pacer_->SetPacingRates(pacing, padding);
+}
+
+void SendSideCongestionController::SetSendBitrateLimits(
+    int64_t min_send_bitrate_bps,
+    int64_t max_padding_bitrate_bps) {
+  rtc::CritScope cs(&network_state_lock_);
+  min_pacing_bitrate_bps_ = min_send_bitrate_bps;
+  max_padding_bitrate_bps_ = max_padding_bitrate_bps;
+  UpdatePacingRates();
+}
+
+void SendSideCongestionController::SetPacingFactor(float pacing_factor) {
+  rtc::CritScope cs(&network_state_lock_);
+  pacing_factor_ = pacing_factor;
+  // Make sure new padding factor is applied immediately, otherwise we need to
+  // wait for the send bitrate estimate to be updated before this takes effect.
+  UpdatePacingRates();
+}
+
+float SendSideCongestionController::GetPacingFactor() const {
+  rtc::CritScope cs(&network_state_lock_);
+  return pacing_factor_;
 }
 
 bool SendSideCongestionController::IsSendQueueFull() const {

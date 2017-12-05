@@ -211,6 +211,30 @@
       "revId": "0cabf244a023eae4c9c15bb944b228d47fc59739",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef8e4d23_68acd39e",
+        "filename": "rtc_tools/event_log_visualizer/plot_python.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-12-05T12:20:16Z",
+      "side": 1,
+      "message": "It looks nice against normal and overusing regions, but not really comprehensible with underuse region. I tried to adjust it to look nicer, but still the best way would be best to enable only one of alr_state and detector_state at a time.",
+      "parentUuid": "a7bd5e29_a425387a",
+      "range": {
+        "startLine": 107,
+        "startChar": 17,
+        "endLine": 107,
+        "endChar": 31
+      },
+      "revId": "0cabf244a023eae4c9c15bb944b228d47fc59739",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "7371d10e58bfb1b39d5ac165e46bacf89664563a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7de80e4_c42261c6",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-05T10:05:22Z",
+      "side": 1,
+      "message": "It is now a third type used for bitrates. I\u0027d prefer moving to a single one.\n\nMoreover, the cast to a int64_t is safe but if at some point you need to call a function that uses a 32-bit type you\u0027ll have to do some extra work to check the cast.",
+      "parentUuid": "3515469d_4cd8d1f1",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "7371d10e58bfb1b39d5ac165e46bacf89664563a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

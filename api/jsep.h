@@ -22,6 +22,7 @@
 
 #include <stddef.h>
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -86,6 +87,19 @@ class IceCandidateCollection {
   virtual const IceCandidateInterface* at(size_t index) const = 0;
 };
 
+// Enum that describes the type of the SessionDescriptionInterface.
+// Corresponds to RTCSdpType in the WebRTC specification.
+// https://w3c.github.io/webrtc-pc/#dom-rtcsdptype
+enum class SdpType {
+  kOffer,     // Description must be treated as an SDP offer.
+  kPrAnswer,  // Description must be treated as an SDP answer, but not a final
+              // answer.
+  kAnswer  // Description must be treated as an SDP final answer, and the offer-
+           // answer exchange must be considered complete.
+};
+
+class SdpTypeBackwardsCompatible;
+
 // Class representation of an SDP session description.
 //
 // An instance of this interface is supposed to be owned by one class at a time
@@ -95,6 +109,7 @@ class IceCandidateCollection {
 class SessionDescriptionInterface {
  public:
   // Supported types:
+  // TODO(steveanton): These are deprecated, replaced by SdpType.
   static const char kOffer[];
   static const char kPrAnswer[];
   static const char kAnswer[];
@@ -110,8 +125,14 @@ class SessionDescriptionInterface {
   virtual std::string session_id() const = 0;
   virtual std::string session_version() const = 0;
 
-  // kOffer/kPrAnswer/kAnswer
-  virtual std::string type() const = 0;
+  // Returns the type of this session description as an SdpType. Options are
+  // described in the SdpType enum.
+  // TODO(steveanton): This method used to return a std::string. The
+  // SdpTypeBackwardsCompatible class is introduced as a stop gap so as to avoid
+  // breaking old clients while letting new clients use this field as if it
+  // returned SdpType. Remove the wrapper class and switch to returning SdpType
+  // once all downstream users have updated.
+  virtual SdpTypeBackwardsCompatible type() const = 0;
 
   // Adds the specified candidate to the description.
   //
@@ -140,12 +161,52 @@ class SessionDescriptionInterface {
   virtual bool ToString(std::string* out) const = 0;
 };
 
+// This class wraps SdpType and makes it available to be implicitly cast to a
+// string. It should only be used as implicitly cast to SdpType.
+class SdpTypeBackwardsCompatible {
+ public:
+  explicit SdpTypeBackwardsCompatible(SdpType type) : type_(type) {}
+
+  operator std::string() const { return static_cast<const char*>(*this); }
+
+  operator const char*() const {
+    switch (type_) {
+      case SdpType::kOffer:
+        return SessionDescriptionInterface::kOffer;
+      case SdpType::kPrAnswer:
+        return SessionDescriptionInterface::kPrAnswer;
+      case SdpType::kAnswer:
+        return SessionDescriptionInterface::kAnswer;
+    }
+    return "";
+  }
+
+  operator SdpType() const { return type_; }
+
+ private:
+  SdpType type_;
+};
+
 // Creates a SessionDescriptionInterface based on the SDP string and the type.
 // Returns null if the sdp string can't be parsed or the type is unsupported.
 // |error| may be null.
+// TODO(steveanton): This function is deprecated. Please use the below method
+// instead. Remove this once all callers have switched to the below function.
 SessionDescriptionInterface* CreateSessionDescription(const std::string& type,
                                                       const std::string& sdp,
                                                       SdpParseError* error);
+
+// Creates a SessionDescriptionInterface based on the SDP string and the type.
+// Returns null if the SDP string cannot be parsed.
+// If using the signature with |error_out|, details of the parsing error may be
+// written to |error_out| if it is not null.
+std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
+    SdpType type,
+    const std::string& sdp);
+std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
+    SdpType type,
+    const std::string& sdp,
+    SdpParseError* error_out);
 
 // CreateOffer and CreateAnswer callback interface.
 class CreateSessionDescriptionObserver : public rtc::RefCountInterface {

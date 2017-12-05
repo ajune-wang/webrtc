@@ -515,6 +515,18 @@ void Conductor::UIThreadCallback(int msg_id, void* data) {
   }
 }
 
+static std::string SdpTypeToString(webrtc::SdpType type) {
+  switch (type) {
+    case webrtc::SdpType::kOffer:
+      return "offer";
+    case webrtc::SdpType::kPrAnswer:
+      return "pranswer";
+    case webrtc::SdpType::kAnswer:
+      return "answer";
+  }
+  return "";
+}
+
 void Conductor::OnSuccess(webrtc::SessionDescriptionInterface* desc) {
   peer_connection_->SetLocalDescription(
       DummySetSessionDescriptionObserver::Create(), desc);
@@ -534,7 +546,7 @@ void Conductor::OnSuccess(webrtc::SessionDescriptionInterface* desc) {
 
   Json::StyledWriter writer;
   Json::Value jmessage;
-  jmessage[kSessionDescriptionTypeName] = desc->type();
+  jmessage[kSessionDescriptionTypeName] = SdpTypeToString(desc->type());
   jmessage[kSessionDescriptionSdpName] = sdp;
   SendMessage(writer.write(jmessage));
 }

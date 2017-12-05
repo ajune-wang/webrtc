@@ -49,7 +49,7 @@ AudioDeviceLinuxPulse::AudioDeviceLinuxPulse()
       _stopRec(false),
       _startPlay(false),
       _stopPlay(false),
-      _AGC(false),
+      _AGC(true),
       update_speaker_volume_at_startup_(false),
       _sndCardPlayDelay(0),
       _sndCardRecDelay(0),
@@ -2008,8 +2008,8 @@ int32_t AudioDeviceLinuxPulse::ProcessRecordedData(int8_t* bufferData,
       // change is needed.
       // Set this new mic level (received from the observer as return
       // value in the callback).
-      RTC_LOG(LS_VERBOSE) << "AGC change of volume: old=" << currentMicLevel
-                          << " => new=" << newMicLevel;
+      RTC_LOG(LS_INFO) << "AGC change of volume: old=" << currentMicLevel
+                       << " => new=" << newMicLevel;
       if (SetMicrophoneVolume(newMicLevel) == -1) {
         RTC_LOG(LS_WARNING)
             << "the required modification of the microphone volume failed";

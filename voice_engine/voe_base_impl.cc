@@ -62,6 +62,9 @@ int32_t VoEBaseImpl::RecordedDataIsAvailable(
   // Check for zero to skip this calculation; the consumer may use this to
   // indicate no volume is available.
   if (volume != 0) {
+
+    RTC_LOG(INFO) << "___volume: " << volume;
+
     // Scale from ADM to VoE level range
     if (shared_->audio_device()->MaxMicrophoneVolume(&max_volume) == 0) {
       if (max_volume) {

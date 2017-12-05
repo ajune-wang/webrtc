@@ -22,6 +22,30 @@
       "revId": "ab63bb576525aa44b0b2becd2fb17f74b2d017aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94626388_9baac7a0",
+        "filename": "test/test_main.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2017-12-05T13:09:47Z",
+      "side": 1,
+      "message": "There is no conversion from \u0027const char*\u0027 to \u0027const uint8_t*\u0027 (\u0027const unsigned char*\u0027 in my machine).",
+      "parentUuid": "2af56ea1_3ac8dc29",
+      "range": {
+        "startLine": 80,
+        "startChar": 20,
+        "endLine": 80,
+        "endChar": 36
+      },
+      "revId": "ab63bb576525aa44b0b2becd2fb17f74b2d017aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

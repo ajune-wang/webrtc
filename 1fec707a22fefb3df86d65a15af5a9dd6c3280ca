@@ -16,6 +16,24 @@
       "revId": "1fec707a22fefb3df86d65a15af5a9dd6c3280ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a295cde4_eda09280",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2017-12-05T07:51:52Z",
+      "side": 1,
+      "message": "For this instance it might make sense to use the define in send side congestion controller? Not sure exactly what behavior that is supposed to be tested here, so I figured that if 2.5 is expected it might be a good thing that these tests fail if the constant in send side CC is changed later on, just to provide some caution.\n\nOtherwise I kind of wonder if the tests here really should depend on pacer/send side cc handling of the pacing factor? Maybe it\u0027d make sense to use a mock instead, then the real default value of the pace multiplier would not matter. What do you think?",
+      "parentUuid": "d64a2fd0_d8bb83a3",
+      "revId": "1fec707a22fefb3df86d65a15af5a9dd6c3280ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

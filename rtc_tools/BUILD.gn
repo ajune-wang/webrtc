@@ -73,10 +73,14 @@ rtc_executable("frame_analyzer") {
     "frame_analyzer/frame_analyzer.cc",
   ]
 
+  # TODO(bugs.webrtc.org/8605): remove this include_dir as soon
+  # as WebRTC will start to #include libyuv headers using fully
+  # qualified paths.
+  include_dirs = [ "//third_party/libyuv/include" ]
+
   deps = [
     ":command_line_parser",
     ":video_quality_analysis",
-    "$rtc_libyuv_dir",
     "//build/win:default_exe_manifest",
   ]
 }

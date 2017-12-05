@@ -660,7 +660,11 @@ if (is_win || is_android) {
       "../system_wrappers:metrics_default",
     ]
     if (is_android) {
-      deps += [ "../sdk/android:libjingle_peerconnection_jni" ]
+      deps += [
+        "../api/audio_codecs:builtin_audio_decoder_factory",
+        "../api/audio_codecs:builtin_audio_encoder_factory",
+        "../sdk/android:libjingle_peerconnection_jni",
+      ]
     }
   }
 }

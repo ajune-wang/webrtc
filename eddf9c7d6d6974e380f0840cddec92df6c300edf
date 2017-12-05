@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0af7da77_394aa367",
+        "filename": "api/jsep.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T19:28:46Z",
+      "side": 1,
+      "message": "The trybots are not happy about new pure virtual methods. Probably need a default implementation.",
+      "range": {
+        "startLine": 137,
+        "startChar": 18,
+        "endLine": 137,
+        "endChar": 25
+      },
+      "revId": "eddf9c7d6d6974e380f0840cddec92df6c300edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

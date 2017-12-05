@@ -532,20 +532,6 @@ bool CheckForRemoteIceRestart(const SessionDescriptionInterface* old_desc,
   return false;
 }
 
-// Converts from SessionDescriptionInterface type to cricket::ContentAction.
-cricket::ContentAction ContentActionFromSessionType(
-    const std::string& session_type) {
-  if (session_type == SessionDescriptionInterface::kOffer) {
-    return cricket::CA_OFFER;
-  } else if (session_type == SessionDescriptionInterface::kPrAnswer) {
-    return cricket::CA_PRANSWER;
-  } else if (session_type == SessionDescriptionInterface::kAnswer) {
-    return cricket::CA_ANSWER;
-  }
-  RTC_NOTREACHED() << "unknown action type";
-  return cricket::CA_OFFER;
-}
-
 }  // namespace
 
 // Upon completion, posts a task to execute the callback of the
@@ -1531,9 +1517,9 @@ RTCError PeerConnection::ApplyLocalDescription(
   stats_->UpdateStats(kStatsOutputLevelStandard);
 
   // Update the initial_offerer flag if this session is the initial_offerer.
-  cricket::ContentAction action = ContentActionFromSessionType(desc->type());
+  SdpType type = desc->GetType();
   if (!initial_offerer_.has_value()) {
-    initial_offerer_.emplace(action == cricket::CA_OFFER);
+    initial_offerer_.emplace(type == SdpType::kOffer);
     if (*initial_offerer_) {
       transport_controller_->SetIceRole(cricket::ICEROLE_CONTROLLING);
     } else {
@@ -1541,7 +1527,7 @@ RTCError PeerConnection::ApplyLocalDescription(
     }
   }
 
-  if (action == cricket::CA_ANSWER) {
+  if (type == SdpType::kAnswer) {
     current_local_description_ = std::move(desc);
     pending_local_description_ = nullptr;
     current_remote_description_ = std::move(pending_remote_description_);
@@ -1553,7 +1539,7 @@ RTCError PeerConnection::ApplyLocalDescription(
   RTC_DCHECK(local_description());
 
   // Transport and Media channels will be created only when offer is set.
-  if (action == cricket::CA_OFFER) {
+  if (type == SdpType::kOffer) {
     // TODO(mallinath) - Handle CreateChannel failure, as new local description
     // is applied. Restore back to old description.
     RTCError error = CreateChannels(local_description()->description());
@@ -1565,7 +1551,7 @@ RTCError PeerConnection::ApplyLocalDescription(
   // Remove unused channels if MediaContentDescription is rejected.
   RemoveUnusedChannels(local_description()->description());
 
-  error = UpdateSessionState(action, cricket::CS_LOCAL);
+  error = UpdateSessionState(type, cricket::CS_LOCAL);
   if (!error.ok()) {
     return error;
   }
@@ -1700,8 +1686,8 @@ RTCError PeerConnection::ApplyRemoteDescription(
   // Grab ownership of the description being replaced for the remainder of this
   // method, since it's used below as |old_remote_description|.
   std::unique_ptr<SessionDescriptionInterface> replaced_remote_description;
-  cricket::ContentAction action = ContentActionFromSessionType(desc->type());
-  if (action == cricket::CA_ANSWER) {
+  SdpType type = desc->GetType();
+  if (type == SdpType::kAnswer) {
     replaced_remote_description = pending_remote_description_
                                       ? std::move(pending_remote_description_)
                                       : std::move(current_remote_description_);
@@ -1717,7 +1703,7 @@ RTCError PeerConnection::ApplyRemoteDescription(
   RTC_DCHECK(remote_description());
 
   // Transport and Media channels will be created only when offer is set.
-  if (action == cricket::CA_OFFER) {
+  if (type == SdpType::kOffer) {
     // TODO(mallinath) - Handle CreateChannel failure, as new local description
     // is applied. Restore back to old description.
     RTCError error = CreateChannels(remote_description()->description());
@@ -1731,7 +1717,7 @@ RTCError PeerConnection::ApplyRemoteDescription(
 
   // NOTE: Candidates allocation will be initiated only when SetLocalDescription
   // is called.
-  error = UpdateSessionState(action, cricket::CS_REMOTE);
+  error = UpdateSessionState(type, cricket::CS_REMOTE);
   if (!error.ok()) {
     return error;
   }
@@ -1751,7 +1737,7 @@ RTCError PeerConnection::ApplyRemoteDescription(
       // against the current description.
       if (CheckForRemoteIceRestart(old_remote_description, remote_description(),
                                    content.name)) {
-        if (action == cricket::CA_OFFER) {
+        if (type == SdpType::kOffer) {
           pending_ice_restarts_.insert(content.name);
         }
       } else {
@@ -3493,7 +3479,7 @@ void PeerConnection::SetSessionError(SessionError error,
   }
 }
 
-RTCError PeerConnection::UpdateSessionState(cricket::ContentAction action,
+RTCError PeerConnection::UpdateSessionState(SdpType type,
                                             cricket::ContentSource source) {
   RTC_DCHECK_RUN_ON(signaling_thread());
 
@@ -3501,23 +3487,23 @@ RTCError PeerConnection::UpdateSessionState(cricket::ContentAction action,
   // But all call-sites should be verifying this before calling us!
   RTC_DCHECK(session_error() == SessionError::kNone);
   std::string td_err;
-  if (action == cricket::CA_OFFER) {
-    RTCError error = PushdownTransportDescription(source, cricket::CA_OFFER);
+  if (type == SdpType::kOffer) {
+    RTCError error = PushdownTransportDescription(source, SdpType::kOffer);
     if (!error.ok()) {
       return error;
     }
     ChangeSignalingState(source == cricket::CS_LOCAL
                              ? PeerConnectionInterface::kHaveLocalOffer
                              : PeerConnectionInterface::kHaveRemoteOffer);
-    error = PushdownMediaDescription(cricket::CA_OFFER, source);
+    error = PushdownMediaDescription(SdpType::kOffer, source);
     if (!error.ok()) {
       SetSessionError(SessionError::kContent, error.message());
     }
     if (session_error() != SessionError::kNone) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, GetSessionErrorMsg());
     }
-  } else if (action == cricket::CA_PRANSWER) {
-    RTCError error = PushdownTransportDescription(source, cricket::CA_PRANSWER);
+  } else if (type == SdpType::kPrAnswer) {
+    RTCError error = PushdownTransportDescription(source, SdpType::kPrAnswer);
     if (!error.ok()) {
       return error;
     }
@@ -3525,14 +3511,14 @@ RTCError PeerConnection::UpdateSessionState(cricket::ContentAction action,
     ChangeSignalingState(source == cricket::CS_LOCAL
                              ? PeerConnectionInterface::kHaveLocalPrAnswer
                              : PeerConnectionInterface::kHaveRemotePrAnswer);
-    error = PushdownMediaDescription(cricket::CA_PRANSWER, source);
+    error = PushdownMediaDescription(SdpType::kPrAnswer, source);
     if (!error.ok()) {
       SetSessionError(SessionError::kContent, error.message());
     }
     if (session_error() != SessionError::kNone) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, GetSessionErrorMsg());
     }
-  } else if (action == cricket::CA_ANSWER) {
+  } else if (type == SdpType::kAnswer) {
     const cricket::ContentGroup* local_bundle =
         local_description()->description()->GetGroupByName(
             cricket::GROUP_TYPE_BUNDLE);
@@ -3550,13 +3536,13 @@ RTCError PeerConnection::UpdateSessionState(cricket::ContentAction action,
     }
     // Only push down the transport description after enabling BUNDLE; we don't
     // want to push down a description on a transport about to be destroyed.
-    RTCError error = PushdownTransportDescription(source, cricket::CA_ANSWER);
+    RTCError error = PushdownTransportDescription(source, SdpType::kAnswer);
     if (!error.ok()) {
       return error;
     }
     EnableChannels();
     ChangeSignalingState(PeerConnectionInterface::kStable);
-    error = PushdownMediaDescription(cricket::CA_ANSWER, source);
+    error = PushdownMediaDescription(SdpType::kAnswer, source);
     if (!error.ok()) {
       SetSessionError(SessionError::kContent, error.message());
     }
@@ -3568,7 +3554,7 @@ RTCError PeerConnection::UpdateSessionState(cricket::ContentAction action,
 }
 
 RTCError PeerConnection::PushdownMediaDescription(
-    cricket::ContentAction action,
+    SdpType type,
     cricket::ContentSource source) {
   const SessionDescription* sdesc =
       (source == cricket::CS_LOCAL ? local_description() : remote_description())
@@ -3587,8 +3573,8 @@ RTCError PeerConnection::PushdownMediaDescription(
       std::string error;
       bool success =
           (source == cricket::CS_LOCAL)
-              ? channel->SetLocalContent(content_desc, action, &error)
-              : channel->SetRemoteContent(content_desc, action, &error);
+              ? channel->SetLocalContent(content_desc, type, &error)
+              : channel->SetRemoteContent(content_desc, type, &error);
       if (!success) {
         LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, std::move(error));
       }
@@ -3623,7 +3609,7 @@ bool PeerConnection::PushdownSctpParameters_n(cricket::ContentSource source) {
 
 RTCError PeerConnection::PushdownTransportDescription(
     cricket::ContentSource source,
-    cricket::ContentAction action) {
+    SdpType type) {
   RTC_DCHECK_RUN_ON(signaling_thread());
 
   const SessionDescriptionInterface* sdesc =
@@ -3636,10 +3622,10 @@ RTCError PeerConnection::PushdownTransportDescription(
     bool success;
     if (source == cricket::CS_LOCAL) {
       success = transport_controller_->SetLocalTransportDescription(
-          tinfo.content_name, tinfo.description, action, &error);
+          tinfo.content_name, tinfo.description, type, &error);
     } else {
       success = transport_controller_->SetRemoteTransportDescription(
-          tinfo.content_name, tinfo.description, action, &error);
+          tinfo.content_name, tinfo.description, type, &error);
     }
     if (!success) {
       LOG_AND_RETURN_ERROR(
@@ -4544,9 +4530,9 @@ RTCError PeerConnection::ValidateSessionDescription(
     LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, kInvalidSdp);
   }
 
-  cricket::ContentAction action = ContentActionFromSessionType(sdesc->type());
-  if ((source == cricket::CS_LOCAL && !ExpectSetLocalDescription(action)) ||
-      (source == cricket::CS_REMOTE && !ExpectSetRemoteDescription(action))) {
+  SdpType type = sdesc->GetType();
+  if ((source == cricket::CS_LOCAL && !ExpectSetLocalDescription(type)) ||
+      (source == cricket::CS_REMOTE && !ExpectSetRemoteDescription(type))) {
     LOG_AND_RETURN_ERROR(
         RTCErrorType::INVALID_PARAMETER,
         "Called in wrong state: " + GetSignalingStateString(signaling_state()));
@@ -4577,7 +4563,7 @@ RTCError PeerConnection::ValidateSessionDescription(
   // m-lines that do not rtcp-mux enabled.
 
   // Verify m-lines in Answer when compared against Offer.
-  if (action == cricket::CA_ANSWER || action == cricket::CA_PRANSWER) {
+  if (type == SdpType::kPrAnswer || type == SdpType::kAnswer) {
     const cricket::SessionDescription* offer_desc =
         (source == cricket::CS_LOCAL) ? remote_description()->description()
                                       : local_description()->description();
@@ -4605,25 +4591,25 @@ RTCError PeerConnection::ValidateSessionDescription(
   return RTCError::OK();
 }
 
-bool PeerConnection::ExpectSetLocalDescription(cricket::ContentAction action) {
+bool PeerConnection::ExpectSetLocalDescription(SdpType type) {
   PeerConnectionInterface::SignalingState state = signaling_state();
-  if (action == cricket::CA_OFFER) {
+  if (type == SdpType::kOffer) {
     return (state == PeerConnectionInterface::kStable) ||
            (state == PeerConnectionInterface::kHaveLocalOffer);
   } else {
-    RTC_DCHECK(action == cricket::CA_ANSWER || action == cricket::CA_PRANSWER);
+    RTC_DCHECK(type == SdpType::kPrAnswer || type == SdpType::kAnswer);
     return (state == PeerConnectionInterface::kHaveRemoteOffer) ||
            (state == PeerConnectionInterface::kHaveLocalPrAnswer);
   }
 }
 
-bool PeerConnection::ExpectSetRemoteDescription(cricket::ContentAction action) {
+bool PeerConnection::ExpectSetRemoteDescription(SdpType type) {
   PeerConnectionInterface::SignalingState state = signaling_state();
-  if (action == cricket::CA_OFFER) {
+  if (type == SdpType::kOffer) {
     return (state == PeerConnectionInterface::kStable) ||
            (state == PeerConnectionInterface::kHaveRemoteOffer);
   } else {
-    RTC_DCHECK(action == cricket::CA_ANSWER || action == cricket::CA_PRANSWER);
+    RTC_DCHECK(type == SdpType::kPrAnswer || type == SdpType::kAnswer);
     return (state == PeerConnectionInterface::kHaveLocalOffer) ||
            (state == PeerConnectionInterface::kHaveRemotePrAnswer);
   }

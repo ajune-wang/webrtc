@@ -59,6 +59,7 @@ using webrtc::JsepSessionDescription;
 using webrtc::RtpExtension;
 using webrtc::RtpTransceiverDirection;
 using webrtc::SdpParseError;
+using webrtc::SdpType;
 using webrtc::SessionDescriptionInterface;
 
 typedef std::vector<AudioCodec> AudioCodecs;

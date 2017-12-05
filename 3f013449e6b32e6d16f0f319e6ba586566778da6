@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f85d216_4ebc1248",
+        "filename": "video/replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-05T09:47:44Z",
+      "side": 1,
+      "message": "I would move the definition of |red_payload_type| and |fec_payload_type| to L76.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 10
+      },
+      "revId": "3f013449e6b32e6d16f0f319e6ba586566778da6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69ddf0b1_572c3e31",
+        "filename": "video/replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-05T09:47:44Z",
+      "side": 1,
+      "message": "Might as well rename this to ulpfec_payload_type, to be consistent with the VideoReceiveStream::Config name.",
+      "range": {
+        "startLine": 121,
+        "startChar": 11,
+        "endLine": 121,
+        "endChar": 27
+      },
+      "revId": "3f013449e6b32e6d16f0f319e6ba586566778da6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "367d0074_e6ed7def",
+        "filename": "video/replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-05T09:47:44Z",
+      "side": 1,
+      "message": "UlpfecPayloadType()",
+      "range": {
+        "startLine": 124,
+        "startChar": 11,
+        "endLine": 124,
+        "endChar": 25
+      },
+      "revId": "3f013449e6b32e6d16f0f319e6ba586566778da6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37349980_e24f5caf",
+        "filename": "video/replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-05T09:47:44Z",
+      "side": 1,
+      "message": "Move up two lines, and add line for FLAG_red_payload_type_rtx.",
+      "range": {
+        "startLine": 358,
+        "startChar": 2,
+        "endLine": 359,
+        "endChar": 11
+      },
+      "revId": "3f013449e6b32e6d16f0f319e6ba586566778da6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

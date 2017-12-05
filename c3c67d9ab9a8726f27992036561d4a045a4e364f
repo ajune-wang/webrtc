@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f86a92a7_e1d5733f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-05T19:23:32Z",
+      "side": 1,
+      "message": "Maybe explain more about it. Non-trivial inline methods in the header is not allowed.",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 0
+      },
+      "revId": "c3c67d9ab9a8726f27992036561d4a045a4e364f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

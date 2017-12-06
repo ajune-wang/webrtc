@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9f07b89_c959978e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-06T12:05:22Z",
+      "side": 1,
+      "message": "too",
+      "range": {
+        "startLine": 9,
+        "startChar": 54,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "38381ba67e656296eb10eba15c55e9786c3c3a27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ee20225_cf14e66f",
+        "filename": "modules/video_coding/video_packet_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-06T12:05:22Z",
+      "side": 1,
+      "message": "Maybe clearer to use 3000 as the timestamp here?",
+      "range": {
+        "startLine": 494,
+        "startChar": 59,
+        "endLine": 494,
+        "endChar": 61
+      },
+      "revId": "38381ba67e656296eb10eba15c55e9786c3c3a27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

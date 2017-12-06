@@ -93,14 +93,18 @@ int32_t VoEBaseImpl::RecordedDataIsAvailable(
   // packetize+transmit the RTP packet.
   shared_->transmit_mixer()->ProcessAndEncodeAudio();
 
-  // Scale from VoE to ADM level range.
+  // Get latest target microphone level from the analog AGC and modify
+  // the actual microphone level but only when needed.
   uint32_t new_voe_mic_level = shared_->transmit_mixer()->CaptureLevel();
-  if (new_voe_mic_level != voe_mic_level) {
-    // Return the new volume if AGC has changed the volume.
-    return static_cast<int>((new_voe_mic_level * max_volume +
-                             static_cast<int>(kMaxVolumeLevel / 2)) /
-                            kMaxVolumeLevel);
-  }
+  // Only return non-zero mic level when the analog AGC wants to modify the
+  // microphone level. The output parameter |new_mic_volume| contains the new
+  // target level scaled to fit the "ADM range" [0, max_volume].
+  new_voe_mic_level == voe_mic_level
+      ? new_mic_volume = 0
+      : new_mic_volume =
+            static_cast<uint32_t>((new_voe_mic_level * max_volume +
+                                   static_cast<int>(kMaxVolumeLevel / 2)) /
+                                  kMaxVolumeLevel);
 
   return 0;
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "07f60f5c_c846afcc",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-06T12:21:20Z",
+      "side": 1,
+      "message": "What benefits will it give to switch to zero-based?\n\ncurrently VideoSendStreamTest.SupportsUlpfecWithExtensions test implicitly rely these sequence numbers start with 1.\nIt might slightly help with offline bwe issues analysis too (to avoid wondering if seq_no 0 was lost or is it previous version of the webrtc)",
+      "parentUuid": "17e3ecb1_57f45df2",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "723110633ec5efa45b8d26cbdee459691c56d314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd8cffde_b9a03dfd",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 2
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "I would argue that choosing a too strict memory ordering is bad too (although obviously not as bad as choosing one that\u0027s too lenient), since the memory ordering choice documents the requirements that the author considered.\n\nSuggestion: Wrap the atomic variable and its operations in a small class (local to this file, if possible), and document in detail what it does and how it behaves (in all maybe a couple of sentences). Given such documentation, it\u0027ll probably be easy to choose the right memory ordering, and if not, note in the implementation that you may be using a memory ordering that\u0027s stricter than necessary.",
       "parentUuid": "7401e08b_d3b0db5a",
+      "range": {
+        "startLine": 136,
+        "startChar": 36,
+        "endLine": 136,
+        "endChar": 37
+      },
+      "revId": "723110633ec5efa45b8d26cbdee459691c56d314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea135f58_10e77455",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-06T12:21:20Z",
+      "side": 1,
+      "message": "I do not feel I understand memory ordering good enough to write a comment why one or another was chosen (and that why prefer to use safer default instead of choosing).\nWhich probably mean I shouldn\u0027t touch atomic code at all.",
+      "parentUuid": "194ea0d6_c0f2bcb2",
       "range": {
         "startLine": 136,
         "startChar": 36,

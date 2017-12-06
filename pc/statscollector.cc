@@ -859,10 +859,10 @@ void StatsCollector::ExtractVoiceInfo() {
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   StatsReport::Id transport_id(GetTransportIdFromProxy(
-      proxy_to_transport_, pc_->voice_channel()->content_name()));
+      proxy_to_transport_, pc_->voice_channel()->mid()));
   if (!transport_id.get()) {
     RTC_LOG(LS_ERROR) << "Failed to get transport name for proxy "
-                      << pc_->voice_channel()->content_name();
+                      << pc_->voice_channel()->mid();
     return;
   }
 
@@ -892,10 +892,10 @@ void StatsCollector::ExtractVideoInfo(
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
   StatsReport::Id transport_id(GetTransportIdFromProxy(
-      proxy_to_transport_, pc_->video_channel()->content_name()));
+      proxy_to_transport_, pc_->video_channel()->mid()));
   if (!transport_id.get()) {
     RTC_LOG(LS_ERROR) << "Failed to get transport name for proxy "
-                      << pc_->video_channel()->content_name();
+                      << pc_->video_channel()->mid();
     return;
   }
   ExtractStatsFromList(video_info.receivers, transport_id, this,

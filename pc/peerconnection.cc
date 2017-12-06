@@ -3446,14 +3446,13 @@ void PeerConnection::StopRtcEventLog_w() {
 
 cricket::BaseChannel* PeerConnection::GetChannel(
     const std::string& content_name) {
-  if (voice_channel() && voice_channel()->content_name() == content_name) {
+  if (voice_channel() && voice_channel()->mid() == content_name) {
     return voice_channel();
   }
-  if (video_channel() && video_channel()->content_name() == content_name) {
+  if (video_channel() && video_channel()->mid() == content_name) {
     return video_channel();
   }
-  if (rtp_data_channel() &&
-      rtp_data_channel()->content_name() == content_name) {
+  if (rtp_data_channel() && rtp_data_channel()->mid() == content_name) {
     return rtp_data_channel();
   }
   return nullptr;
@@ -3721,14 +3720,14 @@ bool PeerConnection::EnableBundle(const cricket::ContentGroup& bundle) {
 
   auto maybe_set_transport = [this, bundle,
                               transport_name](cricket::BaseChannel* ch) {
-    if (!ch || !bundle.HasContentName(ch->content_name())) {
+    if (!ch || !bundle.HasContentName(ch->mid())) {
       return;
     }
 
     std::string old_transport_name = ch->transport_name();
     if (old_transport_name == transport_name) {
-      RTC_LOG(LS_INFO) << "BUNDLE already enabled for " << ch->content_name()
-                       << " on " << transport_name << ".";
+      RTC_LOG(LS_INFO) << "BUNDLE already enabled for " << ch->mid() << " on "
+                       << transport_name << ".";
       return;
     }
 
@@ -3743,7 +3742,7 @@ bool PeerConnection::EnableBundle(const cricket::ContentGroup& bundle) {
     }
 
     ch->SetTransports(rtp_dtls_transport, rtcp_dtls_transport);
-    RTC_LOG(LS_INFO) << "Enabled BUNDLE for " << ch->content_name() << " on "
+    RTC_LOG(LS_INFO) << "Enabled BUNDLE for " << ch->mid() << " on "
                      << transport_name << ".";
     transport_controller_->DestroyDtlsTransport(
         old_transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
@@ -3913,16 +3912,15 @@ std::unique_ptr<SessionStats> PeerConnection::GetSessionStats_s() {
   ChannelNamePairs channel_name_pairs;
   if (voice_channel()) {
     channel_name_pairs.voice = ChannelNamePair(
-        voice_channel()->content_name(), voice_channel()->transport_name());
+        voice_channel()->mid(), voice_channel()->transport_name());
   }
   if (video_channel()) {
     channel_name_pairs.video = ChannelNamePair(
-        video_channel()->content_name(), video_channel()->transport_name());
+        video_channel()->mid(), video_channel()->transport_name());
   }
   if (rtp_data_channel()) {
-    channel_name_pairs.data =
-        ChannelNamePair(rtp_data_channel()->content_name(),
-                        rtp_data_channel()->transport_name());
+    channel_name_pairs.data = ChannelNamePair(
+        rtp_data_channel()->mid(), rtp_data_channel()->transport_name());
   }
   if (sctp_transport_) {
     RTC_DCHECK(sctp_content_name_);

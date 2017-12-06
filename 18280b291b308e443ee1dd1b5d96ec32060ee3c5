@@ -22,6 +22,53 @@
       "revId": "18280b291b308e443ee1dd1b5d96ec32060ee3c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01223e21_0257bc12",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3448,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-06T02:31:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c2fa4606_7e1d30ba",
+      "range": {
+        "startLine": 3448,
+        "startChar": 23,
+        "endLine": 3448,
+        "endChar": 35
+      },
+      "revId": "18280b291b308e443ee1dd1b5d96ec32060ee3c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19162cc7_9d404e94",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3929,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-06T02:31:39Z",
+      "side": 1,
+      "message": "It would make sense to change ChannelNamePair.content_name to ChannelNamePair.mid as well, and sctp_content_name_ to sctp_mid_, and PeerConnection::GetTransportName(content_name) to GetTransportName(mid) and IceRestartPending(content_name) to IceRestartPending(mid) and NeedsIceRestart(content_name) to NeedsIceRestart(mid) CreateSctpTransport_n(content_name, ...) to CreateSctpTransport_n(mid, ...).",
+      "range": {
+        "startLine": 3929,
+        "startChar": 68,
+        "endLine": 3929,
+        "endChar": 0
+      },
+      "revId": "18280b291b308e443ee1dd1b5d96ec32060ee3c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

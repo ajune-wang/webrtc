@@ -72,7 +72,7 @@ enum class DegradationPreference {
   BALANCED,
 };
 
-enum class PriorityType { VERY_LOW, LOW, MEDIUM, HIGH };
+enum class PriorityType { VERY_LOW = 1, LOW = 2, MEDIUM = 4, HIGH = 8 };
 
 struct RtcpFeedback {
   RtcpFeedbackType type = RtcpFeedbackType::CCM;
@@ -361,9 +361,10 @@ struct RtpEncodingParameters {
   // codec as long as it's present.
   rtc::Optional<DtxStatus> dtx;
 
-  // The relative priority of this encoding.
-  // TODO(deadbeef): Not implemented.
-  rtc::Optional<PriorityType> priority;
+  // The relative bitrate priority of this encoding. Currently this is
+  // implemented on the sender level (using the first RtpEncodingParameters
+  // of the rtp parameters).
+  PriorityType priority = PriorityType::LOW;
 
   // If set, this represents the Transport Independent Application Specific
   // maximum bandwidth defined in RFC3890. If unset, there is no maximum

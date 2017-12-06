@@ -1106,7 +1106,9 @@ TEST_F(WebRtcVoiceEngineTestFake, SetRtpParametersEncodingsActive) {
   EXPECT_FALSE(GetSendStream(kSsrcX).IsSending());
 
   // Now change it back to active and verify we resume sending.
+  // This should occur even when other parameters are updated.
   parameters.encodings[0].active = true;
+  parameters.encodings[0].max_bitrate_bps = rtc::Optional<int>(6000);
   EXPECT_TRUE(channel_->SetRtpSendParameters(kSsrcX, parameters));
   EXPECT_TRUE(GetSendStream(kSsrcX).IsSending());
 }
@@ -1200,6 +1202,25 @@ TEST_F(WebRtcVoiceEngineTestFake, SetRtpSendParameterUpdatesMaxBitrate) {
 
   const int max_bitrate = GetSendStreamConfig(kSsrcX).max_bitrate_bps;
   EXPECT_EQ(max_bitrate, kMaxBitrateBps);
+}
+
+// Test that the bitrate_priority in the send stream config gets updated when
+// SetRtpSendParameters is set for the VoiceMediaChannel.
+TEST_F(WebRtcVoiceEngineTestFake, SetRtpSendParameterUpdatesBitratePriority) {
+  EXPECT_TRUE(SetupSendStream());
+  webrtc::RtpParameters rtp_parameters = channel_->GetRtpSendParameters(kSsrcX);
+
+  // Expect the default LOW priority to be set initially.
+  EXPECT_EQ(webrtc::PriorityType::LOW, rtp_parameters.encodings[0].priority);
+  rtp_parameters.encodings[0].priority = webrtc::PriorityType::HIGH;
+  EXPECT_TRUE(channel_->SetRtpSendParameters(kSsrcX, rtp_parameters));
+
+  // The priority should get set for both the audio channel's rtp parameters
+  // and the audio send stream's audio config.
+  EXPECT_EQ(webrtc::PriorityType::HIGH,
+            channel_->GetRtpSendParameters(kSsrcX).encodings[0].priority);
+  EXPECT_EQ(static_cast<double>(webrtc::PriorityType::HIGH),
+            GetSendStreamConfig(kSsrcX).bitrate_priority);
 }
 
 // Test that GetRtpReceiveParameters returns the currently configured codecs.

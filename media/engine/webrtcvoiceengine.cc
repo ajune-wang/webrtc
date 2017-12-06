@@ -1021,20 +1021,26 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
 
     const rtc::Optional<int> old_rtp_max_bitrate =
         rtp_parameters_.encodings[0].max_bitrate_bps;
-
+    webrtc::PriorityType old_priority = rtp_parameters_.encodings[0].priority;
     rtp_parameters_ = parameters;
+    config_.bitrate_priority =
+        static_cast<double>(rtp_parameters_.encodings[0].priority);
 
+    bool reconfigure_send_stream =
+        (rtp_parameters_.encodings[0].max_bitrate_bps != old_rtp_max_bitrate) ||
+        (rtp_parameters_.encodings[0].priority != old_priority);
     if (rtp_parameters_.encodings[0].max_bitrate_bps != old_rtp_max_bitrate) {
-      // Reconfigure AudioSendStream with new bit rate.
+      // Update the bitrate range.
       if (send_rate) {
         config_.send_codec_spec->target_bitrate_bps = send_rate;
       }
       UpdateAllowedBitrateRange();
-      ReconfigureAudioSendStream();
-    } else {
-      // parameters.encodings[0].active could have changed.
-      UpdateSendState();
     }
+    if (reconfigure_send_stream)
+      ReconfigureAudioSendStream();
+
+    // parameters.encodings[0].active could have changed.
+    UpdateSendState();
     return true;
   }
 

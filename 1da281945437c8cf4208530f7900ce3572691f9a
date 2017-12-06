@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c03c8f23_5200dee1",
+        "filename": "p2p/base/sessiondescription.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-06T02:20:39Z",
+      "side": 1,
+      "message": "FYI, this only exists in pc/, so we can move it out of p2p/base.  Maybe call it webrtc::SdpSource.",
+      "range": {
+        "startLine": 188,
+        "startChar": 2,
+        "endLine": 188,
+        "endChar": 0
+      },
+      "revId": "1da281945437c8cf4208530f7900ce3572691f9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

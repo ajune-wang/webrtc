@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e6df441_cb650aeb",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-06T19:19:03Z",
+      "side": 1,
+      "message": "pthatcher@:\nAnother option here is to allow the priority to a double, and still have a default of PriorityType::LOW. This would allow Chrome to use the spec defined PriorityType with 4 values, but applications more flexibility by using any double value for the priority.\n\nI also wanted to address that the priority is specified as a 2 byte unsigned integer with values 128/256/512/1024, although this looks like an intended value for the scheduling \"half\" of the priority.\nEnumeration description:\nhttps://www.w3.org/TR/webrtc/#dom-rtcprioritytype\nSection 6.4\nhttps://tools.ietf.org/html/draft-ietf-rtcweb-data-channel-13\n\nI kept it simple initially here, allowing just the 4 values of the enum.\nThoughts?",
+      "revId": "df4433ded61349703872597759e4df7e9dfccee1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "416b4858_10d566bb",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-06T19:19:03Z",
+      "side": 1,
+      "message": "eladalon@\nI found that changes here aren\u0027t being unit tested.\nFor the audio_send_stream.cc there are unit tests but there is no testing being done to see if the bitrate allocator is affected appropriately by the reconfiguration.\n\nIt seems that writing these tests could be potentially very difficult and in previous CLs similar to this type of update there weren\u0027t any tests written here. Thoughts?",
+      "revId": "df4433ded61349703872597759e4df7e9dfccee1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

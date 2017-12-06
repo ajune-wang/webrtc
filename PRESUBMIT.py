@@ -401,10 +401,22 @@ def CheckNoPackageBoundaryViolations(input_api, gn_files, output_api):
         long_text='\n\n'.join(str(err) for err in errors))]
   return []
 
+def CheckPublicDepsIsNotUsed(gn_files, output_api):
+  result = []
+  error_msg = ('The attribute `public_deps` must be avoided from WebRTC'
+               ' BUILD.gn files.\nUsed in: %s (line %d).')
+  for affected_file in gn_files:
+    for (line_number, affected_line) in affected_file.ChangedContents():
+      if 'public_deps' in affected_line:
+        result.append(
+            output_api.PresubmitError(error_msg % (affected_file.LocalPath(),
+                                                   line_number)))
+  return result
+
 def CheckGnChanges(input_api, output_api):
   source_file_filter = lambda x: input_api.FilterSourceFile(
       x, white_list=(r'.+\.(gn|gni)$',),
-      black_list=r'.*/presubmit_checks_lib/testdata/.*')
+      black_list=(r'.*/presubmit_checks_lib/testdata/.*',))
 
   gn_files = []
   for f in input_api.AffectedSourceFiles(source_file_filter):
@@ -416,6 +428,7 @@ def CheckGnChanges(input_api, output_api):
     result.extend(CheckNoMixingSources(input_api, gn_files, output_api))
     result.extend(CheckNoPackageBoundaryViolations(input_api, gn_files,
                                                    output_api))
+    result.extend(CheckPublicDepsIsNotUsed(gn_files, output_api))
   return result
 
 def CheckGnGen(input_api, output_api):

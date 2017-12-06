@@ -57,6 +57,7 @@ class MockRenderDelayBuffer : public RenderDelayBuffer {
   MOCK_CONST_METHOD0(GetRenderBuffer, const RenderBuffer&());
   MOCK_CONST_METHOD0(GetDownsampledRenderBuffer,
                      const DownsampledRenderBuffer&());
+  MOCK_CONST_METHOD1(NonCausalDelay, bool(size_t delay));
 
  private:
   const RenderBuffer& FakeGetRenderBuffer() const { return render_buffer_; }

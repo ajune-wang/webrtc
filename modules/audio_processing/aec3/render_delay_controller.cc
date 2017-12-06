@@ -28,6 +28,8 @@ namespace {
 class RenderDelayControllerImpl final : public RenderDelayController {
  public:
   RenderDelayControllerImpl(const EchoCanceller3Config& config,
+                            int non_causal_offset,
+                            int initial_delay,
                             int sample_rate_hz);
   ~RenderDelayControllerImpl() override;
   void Reset() override;
@@ -76,6 +78,8 @@ int RenderDelayControllerImpl::instance_count_ = 0;
 
 RenderDelayControllerImpl::RenderDelayControllerImpl(
     const EchoCanceller3Config& config,
+    int non_causal_offset,
+    int initial_delay,
     int sample_rate_hz)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
@@ -85,9 +89,7 @@ RenderDelayControllerImpl::RenderDelayControllerImpl(
       delay_(default_delay_),
       delay_estimator_(data_dumper_.get(), config),
       echo_path_delay_samples_(default_delay_ * kBlockSize),
-      capture_delay_buffer_(
-          kBlockSize * (config.delay.api_call_jitter_blocks + 2),
-          0.f) {
+      capture_delay_buffer_(kBlockSize * non_causal_offset, 0.f) {
   RTC_DCHECK(ValidFullBandRate(sample_rate_hz));
   delay_estimator_.LogDelayEstimationProperties(sample_rate_hz,
                                                 capture_delay_buffer_.size());

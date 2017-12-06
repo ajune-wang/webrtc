@@ -68,6 +68,15 @@ class RenderDelayBuffer {
 
   // Returns the downsampled render buffer.
   virtual const DownsampledRenderBuffer& GetDownsampledRenderBuffer() const = 0;
+
+  // Returns whether the specified delay is noncausal.
+  virtual bool NonCausalDelay(size_t delay) const = 0;
+
+  // Returns the maximum non calusal offset that can occur in the delay buffer.
+  static int MaxNonCausalOffset(const EchoCanceller3Config& config) const;
+
+  // Returns the initial delay to use in the delay buffer.
+  static int InitialDelay(const EchoCanceller3Config& config) const;
 };
 
 }  // namespace webrtc

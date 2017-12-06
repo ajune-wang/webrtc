@@ -52,6 +52,8 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
     return low_rate_;
   }
 
+  bool NonCausalDelay(size_t delay) const override { return delay == 0; }
+
  private:
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
@@ -119,8 +121,7 @@ RenderDelayBufferImpl::~RenderDelayBufferImpl() = default;
 
 void RenderDelayBufferImpl::Reset() {
   delay_ = min_echo_path_delay_blocks_;
-  const int offset1 = std::max<int>(
-      std::min(api_call_jitter_blocks_, min_echo_path_delay_blocks_), 1);
+  const int offset1 = std::max<int>(api_call_jitter_blocks_, 1);
   const int offset2 = static_cast<int>(delay_ + offset1);
   const int offset3 = offset1 * sub_block_size_;
   low_rate_.read = low_rate_.OffsetIndex(low_rate_.write, offset3);
@@ -166,7 +167,8 @@ RenderDelayBuffer::BufferingEvent RenderDelayBufferImpl::PrepareCaptureCall() {
   BufferingEvent event = BufferingEvent::kNone;
   render_calls_in_a_row_ = 0;
 
-  if (low_rate_.read == low_rate_.write || blocks_.read == blocks_.write) {
+  RTC_DCHECK_NE(blocks_.read, blocks_.write);
+  if (low_rate_.read == low_rate_.write) {
     event = BufferingEvent::kRenderUnderrun;
   } else {
     IncreaseRead();
@@ -231,6 +233,16 @@ void RenderDelayBufferImpl::IncreaseInsert() {
 };
 
 }  // namespace
+
+int RenderDelayBuffer::MaxNonCausalOffset(
+    const EchoCanceller3Config& config) const {
+  api_call_jitter_blocks_(),
+      min_echo_path_delay_blocks_(config.delay.min_echo_path_delay_blocks),
+
+      return config.delay.api_call_jitter_blocks;
+}
+
+int RenderDelayBuffer::InitialDelay(const EchoCanceller3Config& config) const {}
 
 RenderDelayBuffer* RenderDelayBuffer::Create(const EchoCanceller3Config& config,
                                              size_t num_bands) {

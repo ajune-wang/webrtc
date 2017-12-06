@@ -55,6 +55,7 @@ class BlockProcessorImpl final : public BlockProcessor {
   std::unique_ptr<EchoRemover> echo_remover_;
   BlockProcessorMetrics metrics_;
   RenderDelayBuffer::BufferingEvent render_event_;
+  size_t capture_call_counter_ = 0;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(BlockProcessorImpl);
 };
 
@@ -86,6 +87,9 @@ void BlockProcessorImpl::ProcessCapture(
   RTC_DCHECK(capture_block);
   RTC_DCHECK_EQ(NumBandsForRate(sample_rate_hz_), capture_block->size());
   RTC_DCHECK_EQ(kBlockSize, (*capture_block)[0].size());
+
+  capture_call_counter_++;
+
   data_dumper_->DumpRaw("aec3_processblock_call_order",
                         static_cast<int>(BlockProcessorApiCall::kCapture));
   data_dumper_->DumpWav("aec3_processblock_capture_input", kBlockSize,
@@ -112,7 +116,8 @@ void BlockProcessorImpl::ProcessCapture(
         EchoPathVariability::DelayAdjustment::kBufferFlush;
     delay_controller_->Reset();
     render_buffer_->Reset();
-    RTC_LOG(LS_WARNING) << "Reset due to render buffer overrun.";
+    RTC_LOG(LS_WARNING) << "Reset due to render buffer overrun: "
+                        << capture_call_counter_;
   }
 
   // Update the render buffers with any newly arrived render blocks and prepare
@@ -126,6 +131,9 @@ void BlockProcessorImpl::ProcessCapture(
         EchoPathVariability::DelayAdjustment::kBufferReadjustment;
     delay_controller_->Reset();
     render_buffer_->Reset();
+
+    RTC_LOG(LS_WARNING) << "Reset due to render buffer underrrun "
+                        << capture_call_counter_;
   } else if (render_event_ == RenderDelayBuffer::BufferingEvent::kApiCallSkew) {
     // There have been too many render calls in a row. Reset to avoid noncausal
     // echo.
@@ -135,6 +143,8 @@ void BlockProcessorImpl::ProcessCapture(
     render_buffer_->Reset();
     capture_properly_started_ = false;
     render_properly_started_ = false;
+    RTC_LOG(LS_WARNING) << "Reset due to render buffer api skew "
+                        << capture_call_counter_;
   }
 
   data_dumper_->DumpWav("aec3_processblock_capture_input2", kBlockSize,
@@ -155,8 +165,7 @@ void BlockProcessorImpl::ProcessCapture(
     render_buffer_->SetDelay(new_delay);
     RTC_DCHECK_EQ(render_buffer_->Delay(), new_delay);
     delay_controller_->SetDelay(new_delay);
-  } else if (delay_change &&
-             new_delay < config_.delay.min_echo_path_delay_blocks) {
+  } else if (delay_change && render_buffer_->NonCausalDelay(new_delay)) {
     // A noncausal delay has been detected. This can only happen if there is
     // clockdrift, an audio pipeline issue has occurred or the specified minimum
     // delay is too short. Perform a full reset.

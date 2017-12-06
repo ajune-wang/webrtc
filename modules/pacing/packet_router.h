@@ -11,6 +11,7 @@
 #ifndef MODULES_PACING_PACKET_ROUTER_H_
 #define MODULES_PACING_PACKET_ROUTER_H_
 
+#include <atomic>
 #include <list>
 #include <vector>
 
@@ -73,7 +74,7 @@ class PacketRouter : public PacedSender::PacketSender,
   size_t TimeToSendPadding(size_t bytes,
                            const PacedPacketInfo& packet_info) override;
 
-  void SetTransportWideSequenceNumber(uint16_t sequence_number);
+  void SetTransportWideSequenceNumberForTesting(uint16_t next_sequence_number);
   uint16_t AllocateSequenceNumber() override;
 
   // Called every time there is a new bitrate estimate for a receive channel
@@ -124,7 +125,7 @@ class PacketRouter : public PacedSender::PacketSender,
   std::vector<RtpRtcp*> receiver_remb_candidates_ RTC_GUARDED_BY(modules_crit_);
   RtpRtcp* active_remb_module_ RTC_GUARDED_BY(modules_crit_);
 
-  volatile int transport_seq_;
+  std::atomic<uint16_t> transport_seq_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(PacketRouter);
 };

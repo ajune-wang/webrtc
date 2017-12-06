@@ -398,18 +398,19 @@ DelayManager::IATVector DelayManager::ScaleHistogram(const IATVector& histogram,
   RTC_DCHECK_EQ(old_packet_length % 10, 0);
   RTC_DCHECK_EQ(new_packet_length % 10, 0);
   IATVector new_histogram(histogram.size(), 0);
-  int acc = 0;
+  int64_t acc = 0;
   int time_counter = 0;
   size_t new_histogram_idx = 0;
   for (size_t i = 0; i < histogram.size(); i++) {
     acc += histogram[i];
     time_counter += old_packet_length;
     // The bins should be scaled, to ensure the histogram still sums to one.
-    const int scaled_acc = acc * new_packet_length / time_counter;
-    int actually_used_acc = 0;
+    const int64_t scaled_acc = acc * new_packet_length / time_counter;
+    int64_t actually_used_acc = 0;
     while (time_counter >= new_packet_length) {
       actually_used_acc += scaled_acc;
-      new_histogram[new_histogram_idx] += scaled_acc;
+      new_histogram[new_histogram_idx] = rtc::saturated_cast<int>(
+          new_histogram[new_histogram_idx] + scaled_acc);
       new_histogram_idx =
           std::min(new_histogram_idx + 1, new_histogram.size() - 1);
       time_counter -= new_packet_length;

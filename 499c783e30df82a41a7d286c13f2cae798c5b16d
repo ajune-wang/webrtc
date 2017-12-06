@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0993147_875448f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-12-06T11:14:46Z",
+      "side": 1,
+      "message": "Yes, that\u0027s puzzling---is some other target in the mess also setting check_includes\u003dfalse?\n\nBut all we\u0027d need to do in order to solve it is to split out the dependencies into smaller build targets, right?",
+      "revId": "499c783e30df82a41a7d286c13f2cae798c5b16d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -68,6 +68,7 @@ int32_t VoEBaseImpl::RecordedDataIsAvailable(
         voe_mic_level = static_cast<uint16_t>(
             (volume * kMaxVolumeLevel + static_cast<int>(max_volume / 2)) /
             max_volume);
+        // RTC_LOG(INFO) << "voe mic volume: " << voe_mic_level;
       }
     }
     // We learned that on certain systems (e.g Linux) the voe_mic_level
@@ -95,11 +96,15 @@ int32_t VoEBaseImpl::RecordedDataIsAvailable(
 
   // Scale from VoE to ADM level range.
   uint32_t new_voe_mic_level = shared_->transmit_mixer()->CaptureLevel();
+  uint32_t mic_volume = 0;
   if (new_voe_mic_level != voe_mic_level) {
-    // Return the new volume if AGC has changed the volume.
-    return static_cast<int>((new_voe_mic_level * max_volume +
-                             static_cast<int>(kMaxVolumeLevel / 2)) /
-                            kMaxVolumeLevel);
+    // Only deliver non-zero change when the analog AGC wants to modify the
+    // microphone level.
+    mic_volume = static_cast<uint32_t>((new_voe_mic_level * max_volume +
+                                        static_cast<int>(kMaxVolumeLevel / 2)) /
+                                       kMaxVolumeLevel);
+    // RTC_LOG(INFO) << "new volume: " << mic_volume;
+    new_mic_volume = mic_volume;
   }
 
   return 0;

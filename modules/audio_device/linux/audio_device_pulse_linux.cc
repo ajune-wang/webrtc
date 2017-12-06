@@ -580,6 +580,7 @@ int32_t AudioDeviceLinuxPulse::StereoPlayout(bool& enabled) const {
 }
 
 int32_t AudioDeviceLinuxPulse::SetAGC(bool enable) {
+  RTC_LOG(INFO) << "SetAGC(" << enable << ")";
   rtc::CritScope lock(&_critSect);
   _AGC = enable;
 
@@ -2008,8 +2009,8 @@ int32_t AudioDeviceLinuxPulse::ProcessRecordedData(int8_t* bufferData,
       // change is needed.
       // Set this new mic level (received from the observer as return
       // value in the callback).
-      RTC_LOG(LS_VERBOSE) << "AGC change of volume: old=" << currentMicLevel
-                          << " => new=" << newMicLevel;
+      RTC_LOG(LS_INFO) << "AGC change of volume: old=" << currentMicLevel
+                       << " => new=" << newMicLevel;
       if (SetMicrophoneVolume(newMicLevel) == -1) {
         RTC_LOG(LS_WARNING)
             << "the required modification of the microphone volume failed";

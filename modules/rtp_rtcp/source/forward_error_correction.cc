@@ -165,6 +165,10 @@ int ForwardErrorCorrection::EncodeFec(const PacketList& media_packets,
   // Adapt packet masks to missing media packets.
   int num_mask_bits = InsertZerosInPacketMasks(media_packets, num_fec_packets);
   if (num_mask_bits < 0) {
+    RTC_LOG(LS_WARNING) << "Trying to protect too many media packets with a "
+                           "single block of FEC packets. Will not protect any "
+                           "instead.";
+    fec_packets->clear();
     return -1;
   }
   packet_mask_size_ = internal::PacketMaskSize(num_mask_bits);

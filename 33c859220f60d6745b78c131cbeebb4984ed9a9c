@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "20255c4d_651c779e",
+        "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-06T09:48:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ad225fa_c7974eeb",
+      "range": {
+        "startLine": 265,
+        "startChar": 37,
+        "endLine": 265,
+        "endChar": 43
+      },
+      "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47574414_b409ff4e",
         "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "009a6375_4b70d430",
+        "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-06T09:48:47Z",
+      "side": 1,
+      "message": "I guess not, I\u0027ll remove it.",
+      "parentUuid": "47574414_b409ff4e",
+      "range": {
+        "startLine": 274,
+        "startChar": 28,
+        "endLine": 274,
+        "endChar": 29
+      },
+      "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d98d447a_83c76e70",
+        "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-06T09:48:47Z",
+      "side": 1,
+      "message": "I agree that your solution looks nicer, but the compiler doesn\u0027t allow it because *v and \"float(\u0027nan\u0027)\" have different types, so I\u0027ll keep the existing code for now.",
+      "parentUuid": "5c355e20_cdc5ef33",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 5
+      },
+      "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d144022_7170115f",
         "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f94a14a_de459cff",
+        "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-06T09:48:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d144022_7170115f",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 55
+      },
+      "revId": "33c859220f60d6745b78c131cbeebb4984ed9a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

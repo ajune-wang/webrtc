@@ -22,6 +22,30 @@
       "revId": "1da281945437c8cf4208530f7900ce3572691f9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4167286_12aa0ef3",
+        "filename": "p2p/base/sessiondescription.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-06T18:28:36Z",
+      "side": 1,
+      "message": "OK, I\u0027ll do that in a follow-up CL.",
+      "parentUuid": "c03c8f23_5200dee1",
+      "range": {
+        "startLine": 188,
+        "startChar": 2,
+        "endLine": 188,
+        "endChar": 0
+      },
+      "revId": "1da281945437c8cf4208530f7900ce3572691f9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "311e5ca7_d5fa6523",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-06T12:27:11Z",
+      "side": 0,
+      "message": "I think it would be very nice to get rid of this loop and CompareAndSwap.",
+      "range": {
+        "startLine": 148,
+        "startChar": 41,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "8e28c56a301c338fb1e520b6aad94aec0c160a93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

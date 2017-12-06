@@ -241,7 +241,8 @@ void AudioSendStream::Start() {
   if (config_.min_bitrate_bps != -1 && config_.max_bitrate_bps != -1) {
     // Audio BWE is enabled.
     transport_->packet_sender()->SetAccountForAudioPackets(true);
-    ConfigureBitrateObserver(config_.min_bitrate_bps, config_.max_bitrate_bps);
+    ConfigureBitrateObserver(config_.min_bitrate_bps, config_.max_bitrate_bps,
+                             config_.bitrate_priority);
   }
 
   ScopedVoEInterface<VoEBase> base(voice_engine());
@@ -600,20 +601,23 @@ void AudioSendStream::ReconfigureBitrateObserver(
   // limits set, but would only have us call RemoveBitrateObserver if we were
   // previously configured with bitrate limits.
   if (stream->config_.min_bitrate_bps == new_config.min_bitrate_bps &&
-      stream->config_.max_bitrate_bps == new_config.max_bitrate_bps) {
+      stream->config_.max_bitrate_bps == new_config.max_bitrate_bps &&
+      stream->config_.bitrate_priority == new_config.bitrate_priority) {
     return;
   }
 
   if (new_config.min_bitrate_bps != -1 && new_config.max_bitrate_bps != -1) {
     stream->ConfigureBitrateObserver(new_config.min_bitrate_bps,
-                                     new_config.max_bitrate_bps);
+                                     new_config.max_bitrate_bps,
+                                     new_config.bitrate_priority);
   } else {
     stream->RemoveBitrateObserver();
   }
 }
 
 void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
-                                               int max_bitrate_bps) {
+                                               int max_bitrate_bps,
+                                               double bitrate_priority) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_DCHECK_GE(max_bitrate_bps, min_bitrate_bps);
   rtc::Event thread_sync_event(false /* manual_reset */, false);
@@ -622,8 +626,10 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
     // sure the bitrate limits in config_ are up-to-date.
     config_.min_bitrate_bps = min_bitrate_bps;
     config_.max_bitrate_bps = max_bitrate_bps;
+    config_.bitrate_priority = bitrate_priority;
+    // This either updates the current observer or adds a new observer.
     bitrate_allocator_->AddObserver(this, min_bitrate_bps, max_bitrate_bps, 0,
-                                    true, config_.track_id);
+                                    true, config_.track_id, bitrate_priority);
     thread_sync_event.Set();
   });
   thread_sync_event.Wait(rtc::Event::kForever);

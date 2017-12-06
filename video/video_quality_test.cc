@@ -17,11 +17,15 @@
 #include <string>
 #include <vector>
 
+
+#include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "api/optional.h"
 #include "call/call.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
+#include "media/engine/adm_helpers.h"
+#include "media/engine/apm_helpers.h"
 #include "media/engine/internalencoderfactory.h"
 #include "media/engine/webrtcvideoengine.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
@@ -1986,7 +1990,7 @@ void VideoQualityTest::SetupAudio(int send_channel_id,
 void VideoQualityTest::RunWithRenderers(const Params& params) {
   std::unique_ptr<test::LayerFilteringTransport> send_transport;
   std::unique_ptr<test::DirectTransport> recv_transport;
-  std::unique_ptr<test::FakeAudioDevice> fake_audio_device;
+  rtc::scoped_refptr<AudioDeviceModule> audio_device;
   ::VoiceEngineState voe;
   std::unique_ptr<test::VideoRenderer> local_preview;
   std::vector<std::unique_ptr<test::VideoRenderer>> loopback_renderers;
@@ -2001,23 +2005,54 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
     Call::Config call_config(event_log_.get());
     call_config.bitrate_config = params_.call.call_bitrate_config;
 
-    fake_audio_device.reset(new test::FakeAudioDevice(
-        test::FakeAudioDevice::CreatePulsedNoiseCapturer(32000, 48000),
-        test::FakeAudioDevice::CreateDiscardRenderer(48000),
-        1.f));
+    const bool real_audio = true;
+    if (!real_audio) {
+      audio_device = new test::FakeAudioDevice(
+          test::FakeAudioDevice::CreatePulsedNoiseCapturer(32000, 48000),
+          test::FakeAudioDevice::CreateDiscardRenderer(48000), 1.f);
+    } else {
+      audio_device =
+          AudioDeviceModule::Create(AudioDeviceModule::kPlatformDefaultAudio);
+      webrtc::adm_helpers::Init(audio_device.get());
+    }
+
+    // Experimental AGC is default. Disable explicitly.
+    Config config;
+    config.Set<ExperimentalAgc>(new ExperimentalAgc(true));
+
+    rtc::TaskQueue* file_writer_queue = new rtc::TaskQueue("file_writer_queue");
+
+    const std::string filename =
+        webrtc::test::TempFilename(webrtc::test::OutputPath(), "aec_dump");
+    std::cerr << "[test] writing AEC dump to " << filename << std::endl;
+    std::cout << "[test] writing AEC dump to " << filename << std::endl;
+
+    std::unique_ptr<webrtc::AecDump> aec_dump =
+        webrtc::AecDumpFactory::Create(filename, -1, file_writer_queue);
+
+
 
     rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing(
-        webrtc::AudioProcessing::Create());
+        webrtc::AudioProcessing::Create(config));
+    audio_processing->AttachAecDump(std::move(aec_dump));
+
+    webrtc::apm_helpers::Init(audio_processing.get());
+    // Enabled adaptive analog AGC.
+    webrtc::apm_helpers::SetAgcStatus(audio_processing.get(),
+                                      audio_device.get(), true);
+    GainControl* gc = audio_processing.get()->gain_control();
+    ASSERT_TRUE(gc->is_enabled());
+    ASSERT_EQ(GainControl::kAdaptiveAnalog, gc->mode());
 
     if (params_.audio.enabled) {
-      CreateVoiceEngine(&voe, fake_audio_device.get(), audio_processing.get(),
+      CreateVoiceEngine(&voe, audio_device.get(), audio_processing.get(),
                         decoder_factory_);
       AudioState::Config audio_state_config;
       audio_state_config.voice_engine = voe.voice_engine;
       audio_state_config.audio_mixer = AudioMixerImpl::Create();
       audio_state_config.audio_processing = audio_processing;
       call_config.audio_state = AudioState::Create(audio_state_config);
-      fake_audio_device->RegisterAudioCallback(
+      audio_device->RegisterAudioCallback(
           call_config.audio_state->audio_transport());
     }
 
@@ -2160,6 +2195,11 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
 
     local_preview.reset();
     loopback_renderers.clear();
+
+    audio_device.get()->StopPlayout();
+    audio_device.get()->StopRecording();
+    audio_device.get()->RegisterAudioCallback(nullptr);
+    audio_device.get()->Terminate();
 
     DestroyCalls();
   });

@@ -165,6 +165,7 @@ if (rtc_include_tests) {
       "video_loopback.cc",
     ]
     deps = [
+      "../modules/audio_processing/aec_dump:aec_dump_impl",
       ":video_quality_test",
       "../rtc_base:rtc_base_approved",
       "../system_wrappers:metrics_default",

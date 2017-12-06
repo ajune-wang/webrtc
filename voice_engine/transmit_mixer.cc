@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "audio/utility/audio_frame_operations.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
@@ -185,7 +186,10 @@ void TransmitMixer::ProcessAudio(int delay_ms, int clock_drift,
     // Silently ignore this failure to avoid flooding the logs.
   }
 
+  // RTC_LOG(INFO) << "before AGC: " << current_mic_level;
   GainControl* agc = audioproc_->gain_control();
+  RTC_DCHECK(agc->is_enabled());
+  RTC_DCHECK_EQ(GainControl::kAdaptiveAnalog, agc->mode());
   if (agc->set_stream_analog_level(current_mic_level) != 0) {
     RTC_DLOG(LS_ERROR) << "set_stream_analog_level failed: current_mic_level = "
                        << current_mic_level;
@@ -207,6 +211,11 @@ void TransmitMixer::ProcessAudio(int delay_ms, int clock_drift,
 
   // Store new capture level. Only updated when analog AGC is enabled.
   _captureLevel = agc->stream_analog_level();
+  // RTC_LOG(INFO) << "after AGC: " << _captureLevel;
+  if (current_mic_level != static_cast<int>(_captureLevel)) {
+    RTC_LOG(INFO) << "___old: " << current_mic_level;
+    RTC_LOG(INFO) << "___new: " << _captureLevel;
+  }
 }
 
 #if WEBRTC_VOICE_ENGINE_TYPING_DETECTION

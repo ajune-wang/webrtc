@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "744407b3_dccd316a",
+        "filename": "audio/audio_state_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "What\u0027s this all about?",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64cb8733_869ce28c",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "I\u0027d say either:\n1. Retain old behavior WRT to drift compensation in this CL - although we are disabling it, maybe someone else isn\u0027t. Remove it as a separate CL after checking with the signal processing team / PSA:ing etc.\n2. Check with the signal processing team right now and if they consider the feature dead, keep your code as-is.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7a03be9_360e67a8",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "current_mic_level -\u003e analog_level in log message?",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cbec68e_b1da2eca",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Is there a reason why this was the first parameter set in TransmitMixer::ProcessAudio? My guess is: probably not, but maybe check? Just in case an updated delay alters the interpretation of the following parameters being set.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66961af8_3f66c25c",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Was going to ask you to create a bug about this missing functionality, bug I see you\u0027ve already done so. Great!\n\nhttp://crbug.com/webrtc/8598",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45adfaf8_1e9be4bb",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Not having to go through each and every Channel and collect these each time is just ... just grand! :D\n\nI think it should be possible to fold picking the best native sample rate (now done in InitializeCaptureFrame) into UpdateSendingStreams, though that\u0027s just a constant overhead of a few iterations, so it\u0027s not a big deal.\n\nGoing forward, AudioState\u0027s Add- and RemoveSendingStream could probably be updated be linear in the number of streams (i.e. O(n^2) when adding n streams), but that\u0027s definitely nothing I\u0027ll press for in this CL.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a406341_8812b9fb",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Is capture_lock_ a new lock? Are we now locking more than before?\nAlso, with it unlocked during processing, the set of sending streams might not match the ones we got send_sample_rate_hz etc. for. That\u0027s probably ok, right?",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80c4cc0b_a706cfcb",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Oh, no! I just found myself wishing we had cdr but for arbitrary iterable containers in C++.\nSo you could do for (auto\u0026 stream : cdr(sending_streams)) or something. Maybe in C++36. :)",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b83c97ac_20bbf5f8",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "It took a little bit, but I see what you\u0027re doing. Perhaps add a comment here to help guide other readers. Something like:\n// Send the original frame to the first stream w/o copying.\nTogether with the initial explanation at the beginning of the block might help.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c29530f1_109143a7",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Why not SendAudioData? Maps better against SendTelephoneEvent below.\nNot sure the interface should prescribe that this call would encode and send the data (as in the comment). A diffuse Send (as this is a SendStream) seems more correct.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b7afa28_7b325b56",
+        "filename": "media/engine/webrtcvoe.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "If this is to replace what FakeVoEWrapper did before, shouldn\u0027t it at least take a webrtc::VoiceEngine* and set base_ to that one? Now base and engine are two different things... seems wrong.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb73494_c1fa97c7",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Can this one go now that we have audio_state() below?\nIt doesn\u0027t seem to be used, and is returning shared ownership. :(\nPerhaps in a follow-up CL?",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749559ed_4429fb3a",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Why is the ADM now AddRef/Released four times instead of only once?",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43fbc3dc_4d105a88",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2790,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Make TODO message better! (or just do it!)",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efffcbc7_735ae591",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 3339,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Same question. Is the ownership now more spread out, or is the ADM just handed around more?",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e27845bd_6ca9117d",
+        "filename": "modules/audio_device/include/audio_device_defines.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "RTC_DEPRECATED has caused problems downstream before. (Creates a warning and warnings are treated as errors). Although, if the bots are happy with this, so am I.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50631930_3efb7716",
+        "filename": "test/mock_voe_channel_proxy.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "gmock doesn\u0027t deal with move-only types. :(\nThere are some examples of this being worked around in other areas of WebRTC you could have a gander at.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

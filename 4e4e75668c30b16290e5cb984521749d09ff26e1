@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b38b613c_c12bbbed",
+        "filename": "audio/DEPS",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 0,
+      "message": "Thanks! :)",
+      "revId": "4e4e75668c30b16290e5cb984521749d09ff26e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b078d36_02fa50b1",
+        "filename": "media/engine/apm_helpers.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 0,
+      "message": "This comment is clearly not apt anymore, but why is the #if removed?",
+      "revId": "4e4e75668c30b16290e5cb984521749d09ff26e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21da4d0f_f799e0ba",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 0,
+      "message": "The old call discarded data if the Channel wasn\u0027t sending; the new one will call Channel::ProcessAndEncodeAudio regardless. Comments? :)",
+      "revId": "4e4e75668c30b16290e5cb984521749d09ff26e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

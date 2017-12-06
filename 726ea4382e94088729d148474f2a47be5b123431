@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d7f5e51_fc4513d7",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-06T17:22:52Z",
+      "side": 1,
+      "message": "Why are these values taken from audio_frame, if you just initialized it?\nI guess it just means \"no change\". Bit unintuitive. :/",
+      "revId": "726ea4382e94088729d148474f2a47be5b123431",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -170,6 +170,9 @@ declare_args() {
   # Build sources requiring GTK. NOTICE: This is not present in Chrome OS
   # build environments, even if available for Chromium builds.
   rtc_use_gtk = !build_with_chromium
+
+  # Determine whether or not to include metal rendering
+  rtc_use_metal_rendering = is_mac || (is_ios && current_cpu == "arm64")
 }
 
 # A second declare_args block, so that declarations within it can

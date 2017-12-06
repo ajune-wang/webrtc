@@ -12,11 +12,6 @@ if (is_ios) {
   import("//build/config/ios/ios_sdk.gni")
 }
 
-declare_args() {
-  # Determine whether or not to include metal rendering
-  rtc_use_metal_rendering = is_mac || (is_ios && current_cpu == "arm64")
-}
-
 group("sdk") {
   public_deps = []
   if (!build_with_chromium) {

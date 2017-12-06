@@ -131,13 +131,13 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
                          rtc::Thread* network_thread,
                          rtc::Thread* signaling_thread,
                          std::unique_ptr<MediaChannel> media_channel,
-                         const std::string& content_name,
+                         const std::string& mid,
                          bool rtcp_mux_required,
                          bool srtp_required)
     : worker_thread_(worker_thread),
       network_thread_(network_thread),
       signaling_thread_(signaling_thread),
-      content_name_(content_name),
+      mid_(mid),
       rtcp_mux_required_(rtcp_mux_required),
       unencrypted_rtp_transport_(
           rtc::MakeUnique<webrtc::RtpTransport>(rtcp_mux_required)),
@@ -146,7 +146,7 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
   RTC_DCHECK_RUN_ON(worker_thread_);
   rtp_transport_ = unencrypted_rtp_transport_.get();
   ConnectToRtpTransport();
-  RTC_LOG(LS_INFO) << "Created channel for " << content_name;
+  RTC_LOG(LS_INFO) << "Created channel for " << mid;
 }
 
 BaseChannel::~BaseChannel() {
@@ -161,7 +161,7 @@ BaseChannel::~BaseChannel() {
   // the media channel may try to send on the dead transport channel. NULLing
   // is not an effective strategy since the sends will come on another thread.
   media_channel_.reset();
-  RTC_LOG(LS_INFO) << "Destroyed channel: " << content_name_;
+  RTC_LOG(LS_INFO) << "Destroyed channel: " << mid_;
 }
 
 void BaseChannel::ConnectToRtpTransport() {
@@ -259,7 +259,7 @@ void BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
     DisconnectFromRtpTransport();
   }
   rtp_transport_ = rtp_transport;
-  RTC_LOG(LS_INFO) << "Setting the RtpTransport for " << content_name();
+  RTC_LOG(LS_INFO) << "Setting the RtpTransport for " << mid();
   ConnectToRtpTransport();
 
   UpdateWritableState_n();
@@ -321,13 +321,12 @@ void BaseChannel::SetTransports_n(
   // If this BaseChannel doesn't require RTCP mux and we haven't fully
   // negotiated RTCP mux, we need an RTCP transport.
   if (rtcp_packet_transport) {
-    RTC_LOG(LS_INFO) << "Setting RTCP Transport for " << content_name()
-                     << " on " << debug_name << " transport "
-                     << rtcp_packet_transport;
+    RTC_LOG(LS_INFO) << "Setting RTCP Transport for " << mid() << " on "
+                     << debug_name << " transport " << rtcp_packet_transport;
     SetTransport_n(/*rtcp=*/true, rtcp_dtls_transport, rtcp_packet_transport);
   }
 
-  RTC_LOG(LS_INFO) << "Setting RTP Transport for " << content_name() << " on "
+  RTC_LOG(LS_INFO) << "Setting RTP Transport for " << mid() << " on "
                    << debug_name << " transport " << rtp_packet_transport;
   SetTransport_n(/*rtcp=*/false, rtp_dtls_transport, rtp_packet_transport);
 
@@ -594,7 +593,7 @@ bool BaseChannel::SendPacket(bool rtcp,
 
   // Protect ourselves against crazy data.
   if (!ValidPacket(rtcp, packet)) {
-    RTC_LOG(LS_ERROR) << "Dropping outgoing " << content_name_ << " "
+    RTC_LOG(LS_ERROR) << "Dropping outgoing " << mid_ << " "
                       << RtpRtcpStringLiteral(rtcp)
                       << " packet: wrong size=" << packet->size();
     return false;
@@ -719,7 +718,7 @@ void BaseChannel::ChannelWritable_n() {
     return;
   }
 
-  RTC_LOG(LS_INFO) << "Channel writable (" << content_name_ << ")"
+  RTC_LOG(LS_INFO) << "Channel writable (" << mid_ << ")"
                    << (was_ever_writable_ ? "" : " for the first time");
 
   was_ever_writable_ = true;
@@ -737,7 +736,7 @@ void BaseChannel::ChannelNotWritable_n() {
   if (!writable_)
     return;
 
-  RTC_LOG(LS_INFO) << "Channel not writable (" << content_name_ << ")";
+  RTC_LOG(LS_INFO) << "Channel not writable (" << mid_ << ")";
   writable_ = false;
   UpdateMediaSendRecvState();
 }
@@ -1184,7 +1183,7 @@ void BaseChannel::ActivateRtcpMux() {
       transport_name_.empty()
           ? rtp_transport_->rtp_packet_transport()->transport_name()
           : transport_name_;
-  RTC_LOG(LS_INFO) << "Enabling rtcp-mux for " << content_name()
+  RTC_LOG(LS_INFO) << "Enabling rtcp-mux for " << mid()
                    << "; no longer need RTCP transport for " << debug_name;
   if (rtp_transport_->rtcp_packet_transport()) {
     SetTransport_n(/*rtcp=*/true, nullptr, nullptr);
@@ -1205,14 +1204,14 @@ VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
                            rtc::Thread* signaling_thread,
                            MediaEngineInterface* media_engine,
                            std::unique_ptr<VoiceMediaChannel> media_channel,
-                           const std::string& content_name,
+                           const std::string& mid,
                            bool rtcp_mux_required,
                            bool srtp_required)
     : BaseChannel(worker_thread,
                   network_thread,
                   signaling_thread,
                   std::move(media_channel),
-                  content_name,
+                  mid,
                   rtcp_mux_required,
                   srtp_required),
       media_engine_(media_engine) {}
@@ -1580,14 +1579,14 @@ VideoChannel::VideoChannel(rtc::Thread* worker_thread,
                            rtc::Thread* network_thread,
                            rtc::Thread* signaling_thread,
                            std::unique_ptr<VideoMediaChannel> media_channel,
-                           const std::string& content_name,
+                           const std::string& mid,
                            bool rtcp_mux_required,
                            bool srtp_required)
     : BaseChannel(worker_thread,
                   network_thread,
                   signaling_thread,
                   std::move(media_channel),
-                  content_name,
+                  mid,
                   rtcp_mux_required,
                   srtp_required) {}
 
@@ -1840,14 +1839,14 @@ RtpDataChannel::RtpDataChannel(rtc::Thread* worker_thread,
                                rtc::Thread* network_thread,
                                rtc::Thread* signaling_thread,
                                std::unique_ptr<DataMediaChannel> media_channel,
-                               const std::string& content_name,
+                               const std::string& mid,
                                bool rtcp_mux_required,
                                bool srtp_required)
     : BaseChannel(worker_thread,
                   network_thread,
                   signaling_thread,
                   std::move(media_channel),
-                  content_name,
+                  mid,
                   rtcp_mux_required,
                   srtp_required) {}
 

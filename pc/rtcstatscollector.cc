@@ -79,7 +79,7 @@ std::string RTCTransportStatsIDFromTransportChannel(
 std::string RTCTransportStatsIDFromBaseChannel(
     const std::map<std::string, std::string>& proxy_to_transport,
     const cricket::BaseChannel& base_channel) {
-  auto proxy_it = proxy_to_transport.find(base_channel.content_name());
+  auto proxy_it = proxy_to_transport.find(base_channel.mid());
   if (proxy_it == proxy_to_transport.cend())
     return "";
   return RTCTransportStatsIDFromTransportChannel(
@@ -664,18 +664,16 @@ void RTCStatsCollector::GetStatsReport(
     // |ProducePartialResultsOnNetworkThread|.
     channel_name_pairs_.reset(new ChannelNamePairs());
     if (pc_->voice_channel()) {
-      channel_name_pairs_->voice =
-          ChannelNamePair(pc_->voice_channel()->content_name(),
-                          pc_->voice_channel()->transport_name());
+      channel_name_pairs_->voice = ChannelNamePair(
+          pc_->voice_channel()->mid(), pc_->voice_channel()->transport_name());
     }
     if (pc_->video_channel()) {
-      channel_name_pairs_->video =
-          ChannelNamePair(pc_->video_channel()->content_name(),
-                          pc_->video_channel()->transport_name());
+      channel_name_pairs_->video = ChannelNamePair(
+          pc_->video_channel()->mid(), pc_->video_channel()->transport_name());
     }
     if (pc_->rtp_data_channel()) {
       channel_name_pairs_->data =
-          ChannelNamePair(pc_->rtp_data_channel()->content_name(),
+          ChannelNamePair(pc_->rtp_data_channel()->mid(),
                           pc_->rtp_data_channel()->transport_name());
     }
     if (pc_->sctp_content_name()) {

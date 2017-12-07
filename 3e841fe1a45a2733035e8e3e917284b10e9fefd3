@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b173b5cc_fa714531",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-07T15:51:26Z",
+      "side": 1,
+      "message": "Hmm... fair enough!",
+      "parentUuid": "72b4a398_aa0f6482",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c970d5b_f322f7a0",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 18
@@ -263,6 +281,24 @@
     },
     {
       "key": {
+        "uuid": "13f1ddb4_5e7c8ef4",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-07T15:51:26Z",
+      "side": 1,
+      "message": "Since streams are added one-by-one, each time doing this linear transform, adding n streams will take n^2 time. Since these are send streams, though, chances are you won\u0027t have that many, so that\u0027s probably fine. Altogether, this is much better than before!",
+      "parentUuid": "02041c06_51dae93a",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a406341_8812b9fb",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 18
@@ -292,6 +328,24 @@
       "side": 1,
       "message": "capture_lock_ is a new lock, and we grab it twice in this function to not hog it while processing.\n\nGone though, is lock_ in TransmitMixer, as well as the lock which is grabbed when iterating over Channels with ChannelManager::Iterator (https://cs.chromium.org/chromium/src/third_party/webrtc/voice_engine/channel_manager.cc?l\u003d116). Note also that ChannelManager::Iterator does not hold the lock while iterating over channels so AFAICT it is broken and there is a potential race each time ChannelManager::Iterator is used.\n\nSo we\u0027re taking one less lock.",
       "parentUuid": "8a406341_8812b9fb",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "175e1def_7f82f4ea",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-07T15:51:26Z",
+      "side": 1,
+      "message": "Sweet!",
+      "parentUuid": "a9b29f55_d83e6bfa",
       "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

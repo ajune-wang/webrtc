@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86fff1aa_1316b1db",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-07T13:47:00Z",
+      "side": 1,
+      "message": "FindExtensionIds",
+      "range": {
+        "startLine": 140,
+        "startChar": 47,
+        "endLine": 140,
+        "endChar": 65
+      },
+      "revId": "610eb05054e3240bbc91103151e1d07702378043",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c915b0d_2676e568",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-07T13:47:00Z",
+      "side": 1,
+      "message": "Call this once and reuse result below?",
+      "range": {
+        "startLine": 601,
+        "startChar": 10,
+        "endLine": 601,
+        "endChar": 55
+      },
+      "revId": "610eb05054e3240bbc91103151e1d07702378043",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

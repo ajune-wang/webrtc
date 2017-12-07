@@ -11,15 +11,18 @@
 #ifndef MODULES_CONGESTION_CONTROLLER_INCLUDE_SEND_SIDE_CONGESTION_CONTROLLER_H_
 #define MODULES_CONGESTION_CONTROLLER_INCLUDE_SEND_SIDE_CONGESTION_CONTROLLER_H_
 
+#include <map>
 #include <memory>
 #include <vector>
 
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/congestion_controller/delay_based_bwe.h"
 #include "modules/congestion_controller/transport_feedback_adapter.h"
 #include "modules/include/module.h"
 #include "modules/include/module_common_types.h"
 #include "modules/pacing/paced_sender.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "network_control/include/network_control.h"
+#include "network_control/include/network_types.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/networkroute.h"
@@ -31,16 +34,14 @@ struct SentPacket;
 
 namespace webrtc {
 
-class BitrateController;
 class Clock;
-class AcknowledgedBitrateEstimator;
-class ProbeController;
 class RateLimiter;
 class RtcEventLog;
 
 class SendSideCongestionController : public CallStatsObserver,
                                      public Module,
-                                     public TransportFeedbackObserver {
+                                     public TransportFeedbackObserver,
+                                     public RtcpBandwidthObserver {
  public:
   // Observer class for bitrate changes announced due to change in bandwidth
   // estimate or due to that the send pacer is full. Fraction loss and rtt is
@@ -86,10 +87,7 @@ class SendSideCongestionController : public CallStatsObserver,
   virtual void SignalNetworkState(NetworkState state);
   virtual void SetTransportOverhead(size_t transport_overhead_bytes_per_packet);
 
-  // Deprecated: Use GetBandwidthObserver instead.
-  RTC_DEPRECATED virtual BitrateController* GetBitrateController() const;
-
-  virtual RtcpBandwidthObserver* GetBandwidthObserver() const;
+  virtual RtcpBandwidthObserver* GetBandwidthObserver();
 
   virtual bool AvailableBandwidth(uint32_t* bandwidth) const;
   virtual int64_t GetPacerQueuingDelayMs() const;
@@ -102,7 +100,13 @@ class SendSideCongestionController : public CallStatsObserver,
 
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet);
 
-  // Implements CallStatsObserver.
+  // Implements RtcpBandwidthObserver
+  void OnReceivedEstimatedBitrate(uint32_t bitrate) override;
+  void OnReceivedRtcpReceiverReport(const ReportBlockList& report_blocks,
+                                    int64_t rtt,
+                                    int64_t now_ms) override;
+
+  // Ignored
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
 
   // Implements Module.
@@ -117,46 +121,112 @@ class SendSideCongestionController : public CallStatsObserver,
   void OnTransportFeedback(const rtcp::TransportFeedback& feedback) override;
   std::vector<PacketFeedback> GetTransportFeedbackVector() const override;
 
- private:
-  void MaybeTriggerOnNetworkChanged();
+  // Sets the minimum send bitrate and maximum padding bitrate requested by send
+  // streams.
+  // |min_send_bitrate_bps| might be higher that the estimated available network
+  // bitrate and if so, the pacer will send with |min_send_bitrate_bps|.
+  // |max_padding_bitrate_bps| might be higher than the estimate available
+  // network bitrate and if so, the pacer will send padding packets to reach
+  // the min of the estimated available bitrate and |max_padding_bitrate_bps|.
+  void SetSendBitrateLimits(int64_t min_send_bitrate_bps,
+                            int64_t max_padding_bitrate_bps);
+  void SetPacingFactor(float pacing_factor);
+  float GetPacingFactor() const;
 
+ protected:
+  // Waits long enough that any outstanding tasks should be finished. Used by
+  // unit tests.
+  void Sync();
+
+ private:
+  void OnNetworkAvailability(network::NetworkAvailability);
+  void OnTargetTransferRate(network::TargetTransferRate);
+  void OnCongestionWindow(network::CongestionWindow);
+
+  void OnCongestionInvalidation(network::Invalidation);
+  void OnNetworkInvalidation(network::Invalidation);
+
+  void SetPacerState(bool pacer_paused);
+  void Wait();
+
+  void OnReceivedRtcpReceiverReportBlocks(const ReportBlockList& report_blocks,
+                                          int64_t now_ms);
+  bool GetNetworkParameters(int32_t* estimated_bitrate_bps,
+                            uint8_t* fraction_loss,
+                            int64_t* rtt_ms);
   bool IsSendQueueFull() const;
-  bool IsNetworkDown() const;
-  bool HasNetworkParametersToReportChanged(uint32_t bitrate_bps,
+  bool HasNetworkParametersToReportChanged(int64_t bitrate_bps,
                                            uint8_t fraction_loss,
                                            int64_t rtt);
-  void LimitOutstandingBytes(size_t num_outstanding_bytes);
   const Clock* const clock_;
+  std::unique_ptr<rtc::TaskQueue> task_queue_;
   rtc::CriticalSection observer_lock_;
   Observer* observer_ RTC_GUARDED_BY(observer_lock_);
   RtcEventLog* const event_log_;
   PacedSender* const pacer_;
-  const std::unique_ptr<BitrateController> bitrate_controller_;
-  std::unique_ptr<AcknowledgedBitrateEstimator> acknowledged_bitrate_estimator_;
-  const std::unique_ptr<ProbeController> probe_controller_;
+
+  rtc::CriticalSection controller_lock_;
+
+  rtc::Optional<network::PacerConfig> current_pacer_config_;
+  rtc::Optional<network::TargetTransferRate> current_target_rate_;
+  rtc::Optional<network::CongestionWindow> congestion_window_;
+
   const std::unique_ptr<RateLimiter> retransmission_rate_limiter_;
   TransportFeedbackAdapter transport_feedback_adapter_;
+
+  int64_t last_process_update_ms_;
+
+  std::map<uint32_t, RTCPReportBlock> last_report_blocks_;
+  network::units::Timestamp last_report_block_time_;
+
   rtc::CriticalSection network_state_lock_;
-  uint32_t last_reported_bitrate_bps_ RTC_GUARDED_BY(network_state_lock_);
-  uint8_t last_reported_fraction_loss_ RTC_GUARDED_BY(network_state_lock_);
-  int64_t last_reported_rtt_ RTC_GUARDED_BY(network_state_lock_);
-  NetworkState network_state_ RTC_GUARDED_BY(network_state_lock_);
-  bool pause_pacer_ RTC_GUARDED_BY(network_state_lock_);
-  // Duplicate the pacer paused state to avoid grabbing a lock when
-  // pausing the pacer. This can be removed when we move this class
-  // over to the task queue.
-  bool pacer_paused_;
-  rtc::CriticalSection bwe_lock_;
-  int min_bitrate_bps_ RTC_GUARDED_BY(bwe_lock_);
-  std::unique_ptr<DelayBasedBwe> delay_based_bwe_ RTC_GUARDED_BY(bwe_lock_);
-  bool in_cwnd_experiment_;
-  int64_t accepted_queue_ms_;
-  bool was_in_alr_;
+  int64_t last_reported_target_bitrate_bps_;
+  uint8_t last_reported_fraction_loss_;
+  int64_t last_reported_rtt_ms_;
+  bool network_available_ = true;
+
+  rtc::CriticalSection streams_config_lock_;
+  network::StreamsConfig streams_config_ RTC_GUARDED_BY(streams_config_lock_);
+
+  bool pacer_paused_ = false;
 
   rtc::RaceChecker worker_race_;
 
   bool pacer_pushback_experiment_ = false;
+  bool using_task_queue_;
   float encoding_rate_ = 1.0;
+
+  // Receivers are declared in the end to make sure they could not access
+  // internals by accident.
+  network::CongestionWindow::HandlingReceiver::uptr CongestionWindowReceiver;
+  network::NetworkAvailability::HandlingReceiver::uptr
+      NetworkAvailabilityReceiver;
+  network::TargetTransferRate::HandlingReceiver::uptr
+      TargetTransferRateReceiver;
+
+  network::Invalidation::HandlingReceiver::uptr CongestionInvalidationReceiver;
+  network::Invalidation::HandlingReceiver::uptr NetworkInvalidationReceiver;
+
+  // The controller should be created after receivers so it safely can call them
+  std::unique_ptr<network::NetworkControllerInterface> controller_;
+
+  // Junctions are created last so they could not be used after the controller
+  // has been destructed.
+  network::SentPacket::Junction SentPacketJunction;
+  network::TransportPacketsFeedback::Junction TransportPacketsFeedbackJunction;
+  network::TransportLossReport::Junction TransportLossReportJunction;
+  network::RoundTripTimeReport::Junction RoundTripTimeReportJunction;
+  network::RemoteBitrateReport::Junction RemoteBitrateReportJunction;
+  network::TargetRateConstraints::Junction TransferRateConstraintsJunction;
+  network::StreamsConfig::Junction StreamsConfigJunction;
+  network::NetworkAvailability::Junction NetworkAvailabilityJunction;
+  network::NetworkRouteChange::Junction NetworkRouteChangeJunction;
+
+  network::ProcessInterval::Junction ProcessIntervalJunction;
+  network::Invalidation::Junction CongestionInvalidationJunction;
+  network::Invalidation::Junction NetworkInvalidationJunction;
+
+  network::PacerState::Junction PacerStateJunction;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(SendSideCongestionController);
 };

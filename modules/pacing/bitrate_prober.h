@@ -45,7 +45,7 @@ class BitrateProber {
 
   // Returns the number of milliseconds until the next probe should be sent to
   // get accurate probing.
-  int TimeUntilNextProbe(int64_t now_ms);
+  int TimeUntilNextProbe(int64_t now_ms) const;
 
   // Information about the current probing cluster.
   PacedPacketInfo CurrentCluster() const;
@@ -85,9 +85,6 @@ class BitrateProber {
     int64_t time_started_ms = -1;
     int retries = 0;
   };
-
-  // Resets the state of the prober and clears any cluster/timing data tracked.
-  void ResetState(int64_t now_ms);
 
   int64_t GetNextProbeTime(const ProbeCluster& cluster);
 

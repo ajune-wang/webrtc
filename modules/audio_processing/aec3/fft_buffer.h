@@ -45,8 +45,8 @@ struct FftBuffer {
   void DecReadIndex() { read = DecIndex(read); }
 
   std::vector<FftData> buffer;
-  size_t write = 0;
-  size_t read = 0;
+  int write = 0;
+  int read = 0;
 };
 
 }  // namespace webrtc

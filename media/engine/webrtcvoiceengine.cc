@@ -1755,18 +1755,9 @@ void WebRtcVoiceMediaChannel::SetSend(bool send) {
     return;
   }
 
-  // Apply channel specific options, and initialize the ADM for recording (this
-  // may take time on some platforms, e.g. Android).
+  // Apply channel specific options.
   if (send) {
     engine()->ApplyOptions(options_);
-
-    // InitRecording() may return an error if the ADM is already recording.
-    if (!engine()->adm()->RecordingIsInitialized() &&
-        !engine()->adm()->Recording()) {
-      if (engine()->adm()->InitRecording() != 0) {
-        RTC_LOG(LS_WARNING) << "Failed to initialize recording";
-      }
-    }
   }
 
   // Change the settings on each send channel.

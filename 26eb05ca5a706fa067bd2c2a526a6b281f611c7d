@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ef23a19_9a195548",
+        "filename": "call/video_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-07T00:26:02Z",
+      "side": 1,
+      "message": "How hard would it be to add a vector of bitrate priorities?  Or, better yet, a vector of RtpEncodingParameters here?",
+      "range": {
+        "startLine": 58,
+        "startChar": 63,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77d644c9_416d229b",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-07T00:26:02Z",
+      "side": 1,
+      "message": "I find that confusing.  Wouldn\u0027t it make sense for all of the layers to have the same value instead of most of them having 0?",
+      "range": {
+        "startLine": 281,
+        "startChar": 44,
+        "endLine": 281,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c0491bc_d30c03a4",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-07T00:26:02Z",
+      "side": 1,
+      "message": "{}s",
+      "range": {
+        "startLine": 284,
+        "startChar": 36,
+        "endLine": 284,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40634024_83b3f545",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-07T00:26:02Z",
+      "side": 1,
+      "message": "{}s",
+      "range": {
+        "startLine": 1040,
+        "startChar": 35,
+        "endLine": 1040,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d13c6c9_97c88c08",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-07T00:26:02Z",
+      "side": 1,
+      "message": "If only the first one had a non-zero value, what\u0027s the point of the sum? \n\n(The sum does make sense, though, if each layer has its own bitrate priority).",
+      "range": {
+        "startLine": 968,
+        "startChar": 59,
+        "endLine": 968,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

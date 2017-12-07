@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe78f091_6436e1a8",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-07T00:26:02Z",
+      "side": 1,
+      "message": "Defining a kDefaultBitratePriority might be good.  Avoids a lot of 1.0s everywhere.",
+      "range": {
+        "startLine": 365,
+        "startChar": 24,
+        "endLine": 365,
+        "endChar": 0
+      },
+      "revId": "6452621242034f18f591bee9ff131c7a18c83e16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

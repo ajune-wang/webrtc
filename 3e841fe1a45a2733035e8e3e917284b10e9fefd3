@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "72b4a398_aa0f6482",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T14:29:28Z",
+      "side": 1,
+      "message": "Well, it is called from a *static* function, so I thought this clearer than accessing the fields directly.",
+      "parentUuid": "03e453b7_fd9b2d6e",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c970d5b_f322f7a0",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 18

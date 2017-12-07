@@ -46,6 +46,30 @@
       "revId": "53789df9525ff677e5f1cd5a04221fe748ebf192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9451a497_a0df0ac4",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-07T10:12:44Z",
+      "side": 1,
+      "message": "I still think it would be a slight improvement to move the logic to PacketSender. E.g, you could pass outgoing_transport to the PacketSender constructor, and then let the PacketSender constructor could create the callback object like\n\ncallback_ \u003d [\u0026] (...) { outgoing_transport_-\u003eSendRtcp(...); }\n\nI leave that for your judgement.\n\n(It would be even nicer if there were a easy way convert a (private) method reference into a FunctionView, so the PacketSender::callback_ variable could be replaced by a private member function, but I\u0027m not sure if that works).",
+      "parentUuid": "5b6ff2ae_146af00c",
+      "range": {
+        "startLine": 235,
+        "startChar": 22,
+        "endLine": 235,
+        "endChar": 33
+      },
+      "revId": "53789df9525ff677e5f1cd5a04221fe748ebf192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

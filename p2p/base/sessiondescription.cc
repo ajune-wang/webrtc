@@ -81,20 +81,6 @@ bool ContentGroup::RemoveContentName(const std::string& content_name) {
 
 SessionDescription::SessionDescription() = default;
 
-SessionDescription::SessionDescription(const ContentInfos& contents)
-    : contents_(contents) {}
-
-SessionDescription::SessionDescription(const ContentInfos& contents,
-                                       const ContentGroups& groups)
-    : contents_(contents), content_groups_(groups) {}
-
-SessionDescription::SessionDescription(const ContentInfos& contents,
-                                       const TransportInfos& transports,
-                                       const ContentGroups& groups)
-    : contents_(contents),
-      transport_infos_(transports),
-      content_groups_(groups) {}
-
 SessionDescription::SessionDescription(const SessionDescription&) = default;
 
 SessionDescription::~SessionDescription() {
@@ -156,14 +142,14 @@ const ContentInfo* SessionDescription::FirstContent() const {
 void SessionDescription::AddContent(const std::string& name,
                                     const std::string& type,
                                     ContentDescription* description) {
-  contents_.push_back(ContentInfo(name, type, description));
+  AddContent(name, type, /*rejected=*/false, description);
 }
 
 void SessionDescription::AddContent(const std::string& name,
                                     const std::string& type,
                                     bool rejected,
                                     ContentDescription* description) {
-  contents_.push_back(ContentInfo(name, type, rejected, description));
+  AddContent(name, type, rejected, /*bundle_only=*/false, description);
 }
 
 void SessionDescription::AddContent(const std::string& name,
@@ -171,8 +157,13 @@ void SessionDescription::AddContent(const std::string& name,
                                     bool rejected,
                                     bool bundle_only,
                                     ContentDescription* description) {
-  contents_.push_back(
-      ContentInfo(name, type, rejected, bundle_only, description));
+  ContentInfo content;
+  content.name = name;
+  content.type = type;
+  content.rejected = rejected;
+  content.bundle_only = bundle_only;
+  content.description = description;
+  contents_.push_back(std::move(content));
 }
 
 bool SessionDescription::RemoveContentByName(const std::string& name) {

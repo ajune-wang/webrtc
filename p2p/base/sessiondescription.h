@@ -31,27 +31,7 @@ class ContentDescription {
 // Analagous to a <jingle><content> or <session><description>.
 // name = name of <content name="...">
 // type = xmlns of <content>
-struct ContentInfo {
-  ContentInfo() {}
-  ContentInfo(const std::string& name,
-              const std::string& type,
-              ContentDescription* description)
-      : name(name), type(type), description(description) {}
-  ContentInfo(const std::string& name,
-              const std::string& type,
-              bool rejected,
-              ContentDescription* description) :
-      name(name), type(type), rejected(rejected), description(description) {}
-  ContentInfo(const std::string& name,
-              const std::string& type,
-              bool rejected,
-              bool bundle_only,
-              ContentDescription* description)
-      : name(name),
-        type(type),
-        rejected(rejected),
-        bundle_only(bundle_only),
-        description(description) {}
+struct ContentInfo final {
   std::string name;
   std::string type;
   bool rejected = false;
@@ -65,7 +45,7 @@ typedef std::vector<std::string> ContentNames;
 // group. This group can also be shared with the peers in a pre-defined format.
 // GroupInfo should be populated only with the |content_name| of the
 // MediaDescription.
-class ContentGroup {
+class ContentGroup final {
  public:
   explicit ContentGroup(const std::string& semantics);
   ContentGroup(const ContentGroup&);
@@ -98,14 +78,9 @@ const ContentInfo* FindContentInfoByType(
 // Describes a collection of contents, each with its own name and
 // type.  Analogous to a <jingle> or <session> stanza.  Assumes that
 // contents are unique be name, but doesn't enforce that.
-class SessionDescription {
+class SessionDescription final {
  public:
   SessionDescription();
-  explicit SessionDescription(const ContentInfos& contents);
-  SessionDescription(const ContentInfos& contents, const ContentGroups& groups);
-  SessionDescription(const ContentInfos& contents,
-                     const TransportInfos& transports,
-                     const ContentGroups& groups);
   ~SessionDescription();
 
   SessionDescription* Copy() const;

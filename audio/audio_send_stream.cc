@@ -137,6 +137,19 @@ void AudioSendStream::Reconfigure(
   ConfigureStream(this, new_config, false);
 }
 
+AudioSendStream::ExtensionIds AudioSendStream::find_extension_ids(
+    const std::vector<RtpExtension>& extensions) {
+  ExtensionIds ids;
+  for (const auto& extension : extensions) {
+    if (extension.uri == RtpExtension::kAudioLevelUri) {
+      ids.audio_level = extension.id;
+    } else if (extension.uri == RtpExtension::kTransportSequenceNumberUri) {
+      ids.transport_sequence_number = extension.id;
+    }
+  }
+  return ids;
+}
+
 void AudioSendStream::ConfigureStream(
     webrtc::internal::AudioSendStream* stream,
     const webrtc::AudioSendStream::Config& new_config,
@@ -176,26 +189,6 @@ void AudioSendStream::ConfigureStream(
     channel_proxy->RegisterTransport(
         stream->timed_send_transport_adapter_.get());
   }
-
-  // RFC 5285: Each distinct extension MUST have a unique ID. The value 0 is
-  // reserved for padding and MUST NOT be used as a local identifier.
-  // So it should be safe to use 0 here to indicate "not configured".
-  struct ExtensionIds {
-    int audio_level = 0;
-    int transport_sequence_number = 0;
-  };
-
-  auto find_extension_ids = [](const std::vector<RtpExtension>& extensions) {
-    ExtensionIds ids;
-    for (const auto& extension : extensions) {
-      if (extension.uri == RtpExtension::kAudioLevelUri) {
-        ids.audio_level = extension.id;
-      } else if (extension.uri == RtpExtension::kTransportSequenceNumberUri) {
-        ids.transport_sequence_number = extension.id;
-      }
-    }
-    return ids;
-  };
 
   const ExtensionIds old_ids = find_extension_ids(old_config.rtp.extensions);
   const ExtensionIds new_ids = find_extension_ids(new_config.rtp.extensions);
@@ -238,7 +231,9 @@ void AudioSendStream::ConfigureStream(
 
 void AudioSendStream::Start() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  if (config_.min_bitrate_bps != -1 && config_.max_bitrate_bps != -1) {
+  if (config_.min_bitrate_bps != -1 && config_.max_bitrate_bps != -1 &&
+      find_extension_ids(config_.rtp.extensions).transport_sequence_number !=
+          0) {
     // Audio BWE is enabled.
     transport_->packet_sender()->SetAccountForAudioPackets(true);
     ConfigureBitrateObserver(config_.min_bitrate_bps, config_.max_bitrate_bps);
@@ -600,11 +595,17 @@ void AudioSendStream::ReconfigureBitrateObserver(
   // limits set, but would only have us call RemoveBitrateObserver if we were
   // previously configured with bitrate limits.
   if (stream->config_.min_bitrate_bps == new_config.min_bitrate_bps &&
-      stream->config_.max_bitrate_bps == new_config.max_bitrate_bps) {
+      stream->config_.max_bitrate_bps == new_config.max_bitrate_bps &&
+      find_extension_ids(stream->config_.rtp.extensions)
+              .transport_sequence_number ==
+          find_extension_ids(new_config.rtp.extensions)
+              .transport_sequence_number) {
     return;
   }
 
-  if (new_config.min_bitrate_bps != -1 && new_config.max_bitrate_bps != -1) {
+  if (new_config.min_bitrate_bps != -1 && new_config.max_bitrate_bps != -1 &&
+      find_extension_ids(new_config.rtp.extensions).transport_sequence_number !=
+          0) {
     stream->ConfigureBitrateObserver(new_config.min_bitrate_bps,
                                      new_config.max_bitrate_bps);
   } else {

@@ -70,6 +70,30 @@
       "revId": "53789df9525ff677e5f1cd5a04221fe748ebf192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "510c3769_53d0beae",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-07T10:29:19Z",
+      "side": 1,
+      "message": "rtc::FunctionView is a view, unlike std::function it doesn\u0027t own what it points to.\n\nstd::function\u003c\u003e callback_ \u003d [\u0026] (...) {};\nwould work, but std::function is not among allowed features in webrtc.\n\nrtc::FunctionView\u003c\u003e callback_ \u003d [\u0026] (...) {}; \nis an error, it would point to destroyed temporary lambda.\n\nanother solution is to make callback_ a lambda type, but since that type can\u0027t be written explicitly, it would require template dark magic to put it as member inside PacketSender.",
+      "parentUuid": "9451a497_a0df0ac4",
+      "range": {
+        "startLine": 235,
+        "startChar": 22,
+        "endLine": 235,
+        "endChar": 33
+      },
+      "revId": "53789df9525ff677e5f1cd5a04221fe748ebf192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "c9e3c583_df16e4b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-07T15:00:41Z",
+      "side": 1,
+      "message": "done, (except I do not like pronoun \u0027we\u0027 in comments, so last line I made slightly different)",
+      "parentUuid": "fc1f3e4d_3fd7b381",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f0e72c5_2130f5c7",
         "filename": "call/call.cc",
         "patchSetId": 5
@@ -59,6 +83,30 @@
       "writtenOn": "2017-12-07T13:14:29Z",
       "side": 1,
       "message": "Would be nice with CopyOnWriteBuffer here too, just for consistency (I don\u0027t know if there\u0027s also a memcpy to get rid of?). Feel free to do right away, or a separate cl.",
+      "range": {
+        "startLine": 241,
+        "startChar": 51,
+        "endLine": 242,
+        "endChar": 42
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "707149aa_b3daa422",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-07T15:00:41Z",
+      "side": 1,
+      "message": "Yep, would like to have CopyOnWriteBuffer here too, Even if no extra memcpy on that path yet. (but note RtcpTransceiver takes that parameter in ReceivePacket function to pass ownership to different task queue),\n\nPrefer to postpone to another CL (in patchset#1 I updated Rtcp too, but in patchset#3 decided to go for smaller CL)",
+      "parentUuid": "6f0e72c5_2130f5c7",
       "range": {
         "startLine": 241,
         "startChar": 51,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "a81ec90b_e83f769f",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-07T15:00:41Z",
+      "side": 1,
+      "message": "yes, should be done before move, but can also be replaced with parsed_packet.size().\nmove avoids refcount (that is cheap but not free).\nI just try to make this CL smaller - changing PacketReceiver interface is not as simple as it seems.",
+      "parentUuid": "e6b3a3b7_dcbdf32b",
+      "range": {
+        "startLine": 1326,
+        "startChar": 0,
+        "endLine": 1326,
+        "endChar": 29
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ba30b18_f5f8428d",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 5
@@ -114,6 +186,30 @@
       "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a965224_0c886c3f",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-07T15:00:41Z",
+      "side": 1,
+      "message": "pointer to ref-counted pointer to class with pointer to actual buffer.\n\nYes, I agree it would be better to pass in packet by value, I might even have draft for it.",
+      "parentUuid": "7ba30b18_f5f8428d",
+      "range": {
+        "startLine": 1394,
+        "startChar": 0,
+        "endLine": 1394,
+        "endChar": 35
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

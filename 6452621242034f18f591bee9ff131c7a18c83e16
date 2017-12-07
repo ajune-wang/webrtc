@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7df882bd_f1f2a939",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "Done and done. I agree that calling this bitrate_priority makes more sense here. I wasn\u0027t sure if we wanted to keep the naming the same for mapping it up to the Web API, but I like the idea of pushing the one name for two definitions up to JS land :).",
+      "parentUuid": "62323445_bfcbb1cd",
+      "range": {
+        "startLine": 365,
+        "startChar": 24,
+        "endLine": 365,
+        "endChar": 0
+      },
+      "revId": "6452621242034f18f591bee9ff131c7a18c83e16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1992fb78_0daddc71",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 3
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "62b90566_39554fdd",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1992fb78_0daddc71",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 76
+      },
+      "revId": "6452621242034f18f591bee9ff131c7a18c83e16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3804682e_2f7617a1",
         "filename": "media/engine/webrtcvideoengine_unittest.cc",
         "patchSetId": 3
@@ -86,6 +134,24 @@
       "revId": "6452621242034f18f591bee9ff131c7a18c83e16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8aabb6dd_4904ccdc",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4810,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "Ah thanks for the catch. Did this when the original default was PriorityType::Low \u003d 2. Updated.",
+      "parentUuid": "3804682e_2f7617a1",
+      "revId": "6452621242034f18f591bee9ff131c7a18c83e16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -109,6 +175,30 @@
       "revId": "6452621242034f18f591bee9ff131c7a18c83e16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae48aea_90c767e7",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "You\u0027re right, this is testing a different behavior. I separated this test. Did the same in the webrtcvideoengine_unittest.cc as well.",
+      "parentUuid": "35bdb810_3f7909b5",
+      "range": {
+        "startLine": 1215,
+        "startChar": 0,
+        "endLine": 1215,
+        "endChar": 49
+      },
+      "revId": "6452621242034f18f591bee9ff131c7a18c83e16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

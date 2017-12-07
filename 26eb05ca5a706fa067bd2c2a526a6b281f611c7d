@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5250e673_8bdba812",
+        "filename": "call/video_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "As discussed offline, out of scope for the current CL. Once the WebRTCVideoSendStream has more than just one encoding parameter I think I\u0027ll add this in (next up on my TODO).",
+      "parentUuid": "3ef23a19_9a195548",
+      "range": {
+        "startLine": 58,
+        "startChar": 63,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77d644c9_416d229b",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7c248bac_23187567",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "Discussed offline, but for reference:\nThe current allocation default for BitrateAllocator is done per-sender with all an equal distribution (bitrate_priority\u003d1.0). For example:\nsender_1: 1 video stream, bitrate_priority for BitrateAllocator \u003d 1.0\nsender_2: 3 simulcast video streams, bitrate_priority for BitrateAllocator \u003d 1.0\nBut if each VideoStream here was assigned the default instead:\nsender_1: 1 video stream, bitrate_priority for BitrateAllocator \u003d 1.0\nsender_2: 3 simulcast video streams, bitrate_priority for BitrateAllocator \u003d 3.0\n\nOnce we support RTCRtpSender.setParameters for multiple encodings we can set these properly for each VideoStream. I think at that point we\u0027ll have to discuss these changes as mentioned above. Then by default if you setup two senders like above, the simulcast sender would be given a higher bitrate priority.",
+      "parentUuid": "77d644c9_416d229b",
+      "range": {
+        "startLine": 281,
+        "startChar": 44,
+        "endLine": 281,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa9bcf73_edfc628a",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -59,6 +107,24 @@
       "writtenOn": "2017-12-07T15:11:37Z",
       "side": 1,
       "message": "super-nit: I would prefer |i| instead of |s|. The rationale is that |s| makes the reader pause and wonder - \"S for stream? S for something else? Why not |i|? Wait, is this an inner loop?\"\nNot important for me in any way, of course. Just a thought I wanted to share.",
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "394de67e_e56e397b",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "Makes sense. Thanks for pointing it out, it\u0027s nice to get feedback on little improvements that make code more readable. Updated.",
+      "parentUuid": "fa9bcf73_edfc628a",
       "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -105,6 +171,48 @@
     },
     {
       "key": {
+        "uuid": "9863ead7_6c5afb30",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "Yes we do have a DCHECK against this, but stream[0] is set to the bitrate_priority of the video sender. This has a default value of 1.0, or it\u0027s otherwise set by setting rtp parameters, in which case it must be set above a value of 0. Since the BitrateAllocator is allocating bitrate for the the entire video sender (one BitrateObserver for multiple simulcast streams), and we are summing all VideoStream\u0027s bitrate_priority when AddObserver is called, we should never hit a case where this value is \u003c\u003d 0.\n\n\"Would it be misleading or problematic to set all of the values to |bitrate_priority|?\"\n--\u003e The problem would be that this would change the default behavior for the BitrateAllocator\u0027s allocation. I answered this in detail in Peter\u0027s comment above.",
+      "parentUuid": "b1a94026_3dd6a058",
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d4decfa_06207226",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c0491bc_d30c03a4",
+      "range": {
+        "startLine": 284,
+        "startChar": 36,
+        "endLine": 284,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40634024_83b3f545",
         "filename": "media/engine/webrtcvoiceengine.cc",
         "patchSetId": 2
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "ed065810_f97ffa44",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40634024_83b3f545",
+      "range": {
+        "startLine": 1040,
+        "startChar": 35,
+        "endLine": 1040,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d13c6c9_97c88c08",
         "filename": "video/video_send_stream.cc",
         "patchSetId": 2
@@ -148,6 +280,30 @@
       "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ae2f504_7d2a370c",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T22:01:51Z",
+      "side": 1,
+      "message": "As discussed offline, I did this because this logic works currently and makes sense down the road when we start implementing the relative bitrate per encoding stream. That way I don\u0027t have to make changes here later.",
+      "parentUuid": "2d13c6c9_97c88c08",
+      "range": {
+        "startLine": 968,
+        "startChar": 59,
+        "endLine": 968,
+        "endChar": 0
+      },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

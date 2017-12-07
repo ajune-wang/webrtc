@@ -600,6 +600,27 @@ TEST_F(RtpSenderReceiverTest, SetAudioMaxSendBitrate) {
   DestroyAudioRtpSender();
 }
 
+TEST_F(RtpSenderReceiverTest, SetAudioBitratePriority) {
+  CreateAudioRtpSender();
+
+  webrtc::RtpParameters params = audio_rtp_sender_->GetParameters();
+  EXPECT_EQ(1, params.encodings.size());
+  EXPECT_EQ(1.0, params.encodings[0].priority);
+  double new_priority = 2.0;
+  params.encodings[0].priority = new_priority;
+  EXPECT_TRUE(audio_rtp_sender_->SetParameters(params));
+
+  params = audio_rtp_sender_->GetParameters();
+  EXPECT_EQ(1, params.encodings.size());
+  EXPECT_EQ(new_priority, params.encodings[0].priority);
+
+  params = voice_media_channel_->GetRtpSendParameters(kAudioSsrc);
+  EXPECT_EQ(1, params.encodings.size());
+  EXPECT_EQ(new_priority, params.encodings[0].priority);
+
+  DestroyAudioRtpSender();
+}
+
 TEST_F(RtpSenderReceiverTest, VideoSenderCanSetParameters) {
   CreateVideoRtpSender();
 
@@ -632,6 +653,27 @@ TEST_F(RtpSenderReceiverTest, SetVideoMaxSendBitrate) {
 
   // Verify that the global bitrate limit has not been changed.
   EXPECT_EQ(-1, video_media_channel_->max_bps());
+
+  DestroyVideoRtpSender();
+}
+
+TEST_F(RtpSenderReceiverTest, SetVideoBitratePriority) {
+  CreateVideoRtpSender();
+
+  webrtc::RtpParameters params = video_rtp_sender_->GetParameters();
+  EXPECT_EQ(1, params.encodings.size());
+  EXPECT_EQ(1.0, params.encodings[0].priority);
+  double new_priority = 2.0;
+  params.encodings[0].priority = new_priority;
+  EXPECT_TRUE(video_rtp_sender_->SetParameters(params));
+
+  params = video_rtp_sender_->GetParameters();
+  EXPECT_EQ(1, params.encodings.size());
+  EXPECT_EQ(new_priority, params.encodings[0].priority);
+
+  params = video_media_channel_->GetRtpSendParameters(kVideoSsrc);
+  EXPECT_EQ(1, params.encodings.size());
+  EXPECT_EQ(new_priority, params.encodings[0].priority);
 
   DestroyVideoRtpSender();
 }

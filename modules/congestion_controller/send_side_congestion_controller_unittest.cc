@@ -8,16 +8,19 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "modules/congestion_controller/include/send_side_congestion_controller.h"
 #include "logging/rtc_event_log/mock/mock_rtc_event_log.h"
 #include "modules/bitrate_controller/include/bitrate_controller.h"
 #include "modules/congestion_controller/congestion_controller_unittests_helper.h"
 #include "modules/congestion_controller/include/mock/mock_congestion_observer.h"
-#include "modules/congestion_controller/include/send_side_congestion_controller.h"
 #include "modules/pacing/mock/mock_paced_sender.h"
 #include "modules/pacing/packet_router.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
+#include "network_control/include/network_types.h"
+#include "network_control/include/test/network_message_test.h"
+#include "rtc_base/event.h"
 #include "rtc_base/socket.h"
 #include "system_wrappers/include/clock.h"
 #include "test/field_trial.h"
@@ -26,23 +29,55 @@
 
 using testing::_;
 using testing::AtLeast;
+using testing::Field;
 using testing::Ge;
+using testing::Matcher;
 using testing::NiceMock;
+using testing::Property;
 using testing::Return;
 using testing::SaveArg;
 using testing::StrictMock;
 
-namespace webrtc {
+using webrtc::network::units::DataRate;
+using webrtc::network::ProbeClusterConfig;
+using webrtc::network::PacerConfig;
+using webrtc::network::PacerState;
+using webrtc::network::signal::test::MockReceiver;
 
+namespace webrtc {
+namespace test {
 namespace {
 const webrtc::PacedPacketInfo kPacingInfo0(0, 5, 2000);
 const webrtc::PacedPacketInfo kPacingInfo1(1, 8, 4000);
 
 const uint32_t kInitialBitrateBps = 60000;
+const float kDefaultPacingRate = 2.5f;
 
+class SendSideCongestionControllerForTest
+    : public SendSideCongestionController {
+ public:
+  SendSideCongestionControllerForTest(const Clock* clock,
+                                      Observer* observer,
+                                      RtcEventLog* event_log,
+                                      PacedSender* pacer)
+      : SendSideCongestionController(clock, observer, event_log, pacer) {}
+  ~SendSideCongestionControllerForTest() {}
+  void Process() override {
+    SendSideCongestionController::Process();
+    SendSideCongestionController::Sync();
+  }
+  void Sync() { SendSideCongestionController::Sync(); }
+};
+
+inline Matcher<ProbeClusterConfig> ProbeRateEqBps(int bps) {
+  return Field(&ProbeClusterConfig::target_data_rate, DataRate::bps(bps));
+}
+
+inline Matcher<PacerConfig> PacerRateEqBps(int bps) {
+  return Property(&PacerConfig::data_rate, DataRate::bps(bps));
+}
 }  // namespace
 
-namespace test {
 
 class SendSideCongestionControllerTest : public ::testing::Test {
  protected:
@@ -51,25 +86,45 @@ class SendSideCongestionControllerTest : public ::testing::Test {
   ~SendSideCongestionControllerTest() override {}
 
   void SetUp() override {
+    // Controller has to be reset before pacer to make sure it has no active
+    // references to pacer
+    controller_.reset();
     pacer_.reset(new NiceMock<MockPacedSender>());
-    controller_.reset(new SendSideCongestionController(
+    EXPECT_CALL(*pacer_, GetPacerConfigReceiver()).WillOnce(Return(&pacing_));
+    EXPECT_CALL(*pacer_, GetProbeClusterConfigReceiver())
+        .WillOnce(Return(&clusters_));
+    /*
+    EXPECT_CALL(*pacer_, GetPacerStateReceiver())
+        .WillOnce(Return(&pacer_state_));*/
+
+    controller_.reset(new SendSideCongestionControllerForTest(
         &clock_, &observer_, &event_log_, pacer_.get()));
     bandwidth_observer_ = controller_->GetBandwidthObserver();
 
+    testing::Mock::VerifyAndClearExpectations(pacer_.get());
     // Set the initial bitrate estimate and expect the |observer| and |pacer_|
     // to be updated.
     EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps, _, _, _));
-    EXPECT_CALL(*pacer_, SetEstimatedBitrate(kInitialBitrateBps));
-    EXPECT_CALL(*pacer_, CreateProbeCluster(kInitialBitrateBps * 3));
-    EXPECT_CALL(*pacer_, CreateProbeCluster(kInitialBitrateBps * 5));
+    EXPECT_CALL(pacing_, OnMessage(PacerRateEqBps(kInitialBitrateBps *
+                                                  kDefaultPacingRate)));
+    EXPECT_CALL(clusters_, OnMessage(ProbeRateEqBps(kInitialBitrateBps * 3)));
+    EXPECT_CALL(clusters_, OnMessage(ProbeRateEqBps(kInitialBitrateBps * 5)));
     controller_->SetBweBitrates(0, kInitialBitrateBps, 5 * kInitialBitrateBps);
+    controller_->Sync();
+    testing::Mock::VerifyAndClearExpectations(pacer_.get());
+    testing::Mock::VerifyAndClearExpectations(&pacing_);
+    testing::Mock::VerifyAndClearExpectations(&clusters_);
   }
 
   // Custom setup - use an observer that tracks the target bitrate, without
   // prescribing on which iterations it must change (like a mock would).
   void TargetBitrateTrackingSetup() {
+    controller_.reset();
     pacer_.reset(new NiceMock<MockPacedSender>());
-    controller_.reset(new SendSideCongestionController(
+    EXPECT_CALL(*pacer_, GetPacerConfigReceiver()).WillOnce(Return(&pacing_));
+    EXPECT_CALL(*pacer_, GetProbeClusterConfigReceiver())
+        .WillOnce(Return(&clusters_));
+    controller_.reset(new SendSideCongestionControllerForTest(
         &clock_, &target_bitrate_observer_, &event_log_, pacer_.get()));
     controller_->SetBweBitrates(0, kInitialBitrateBps, 5 * kInitialBitrateBps);
   }
@@ -136,8 +191,12 @@ class SendSideCongestionControllerTest : public ::testing::Test {
   NiceMock<MockRtcEventLog> event_log_;
   RtcpBandwidthObserver* bandwidth_observer_;
   PacketRouter packet_router_;
+
+  NiceMock<MockReceiver<ProbeClusterConfig>> clusters_;
+  NiceMock<MockReceiver<PacerConfig>> pacing_;
+  NiceMock<MockReceiver<PacerState>> pacer_state_;
   std::unique_ptr<NiceMock<MockPacedSender>> pacer_;
-  std::unique_ptr<SendSideCongestionController> controller_;
+  std::unique_ptr<SendSideCongestionControllerForTest> controller_;
 
   rtc::Optional<uint32_t> target_bitrate_bps_;
 };
@@ -148,13 +207,15 @@ TEST_F(SendSideCongestionControllerTest, OnNetworkChanged) {
   controller_->Process();
 
   EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps * 2, _, _, _));
-  EXPECT_CALL(*pacer_, SetEstimatedBitrate(kInitialBitrateBps * 2));
+  EXPECT_CALL(pacing_, OnMessage(PacerRateEqBps(kInitialBitrateBps * 2 *
+                                                kDefaultPacingRate)));
   bandwidth_observer_->OnReceivedEstimatedBitrate(kInitialBitrateBps * 2);
   clock_.AdvanceTimeMilliseconds(25);
   controller_->Process();
 
   EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps, _, _, _));
-  EXPECT_CALL(*pacer_, SetEstimatedBitrate(kInitialBitrateBps));
+  EXPECT_CALL(pacing_, OnMessage(PacerRateEqBps(kInitialBitrateBps *
+                                                kDefaultPacingRate)));
   bandwidth_observer_->OnReceivedEstimatedBitrate(kInitialBitrateBps);
   clock_.AdvanceTimeMilliseconds(25);
   controller_->Process();
@@ -162,14 +223,14 @@ TEST_F(SendSideCongestionControllerTest, OnNetworkChanged) {
 
 TEST_F(SendSideCongestionControllerTest, OnSendQueueFull) {
   EXPECT_CALL(*pacer_, ExpectedQueueTimeMs())
-      .WillOnce(Return(PacedSender::kMaxQueueLengthMs + 1));
+      .WillRepeatedly(Return(PacedSender::kMaxQueueLengthMs + 1));
 
   EXPECT_CALL(observer_, OnNetworkChanged(0, _, _, _));
   controller_->Process();
 
   // Let the pacer not be full next time the controller checks.
   EXPECT_CALL(*pacer_, ExpectedQueueTimeMs())
-      .WillOnce(Return(PacedSender::kMaxQueueLengthMs - 1));
+      .WillRepeatedly(Return(PacedSender::kMaxQueueLengthMs - 1));
 
   EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps, _, _, _));
   controller_->Process();
@@ -177,23 +238,24 @@ TEST_F(SendSideCongestionControllerTest, OnSendQueueFull) {
 
 TEST_F(SendSideCongestionControllerTest, OnSendQueueFullAndEstimateChange) {
   EXPECT_CALL(*pacer_, ExpectedQueueTimeMs())
-      .WillOnce(Return(PacedSender::kMaxQueueLengthMs + 1));
+      .WillRepeatedly(Return(PacedSender::kMaxQueueLengthMs + 1));
   EXPECT_CALL(observer_, OnNetworkChanged(0, _, _, _));
   controller_->Process();
 
   // Receive new estimate but let the queue still be full.
   bandwidth_observer_->OnReceivedEstimatedBitrate(kInitialBitrateBps * 2);
   EXPECT_CALL(*pacer_, ExpectedQueueTimeMs())
-      .WillOnce(Return(PacedSender::kMaxQueueLengthMs + 1));
+      .WillRepeatedly(Return(PacedSender::kMaxQueueLengthMs + 1));
   //  The send pacer should get the new estimate though.
-  EXPECT_CALL(*pacer_, SetEstimatedBitrate(kInitialBitrateBps * 2));
+  EXPECT_CALL(pacing_, OnMessage(PacerRateEqBps(kInitialBitrateBps * 2 *
+                                                kDefaultPacingRate)));
   clock_.AdvanceTimeMilliseconds(25);
   controller_->Process();
 
   // Let the pacer not be full next time the controller checks.
   // |OnNetworkChanged| should be called with the new estimate.
   EXPECT_CALL(*pacer_, ExpectedQueueTimeMs())
-      .WillOnce(Return(PacedSender::kMaxQueueLengthMs - 1));
+      .WillRepeatedly(Return(PacedSender::kMaxQueueLengthMs - 1));
   EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps * 2, _, _, _));
   clock_.AdvanceTimeMilliseconds(25);
   controller_->Process();
@@ -202,40 +264,48 @@ TEST_F(SendSideCongestionControllerTest, OnSendQueueFullAndEstimateChange) {
 TEST_F(SendSideCongestionControllerTest, SignalNetworkState) {
   EXPECT_CALL(observer_, OnNetworkChanged(0, _, _, _));
   controller_->SignalNetworkState(kNetworkDown);
+  controller_->Sync();
 
   EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps, _, _, _));
   controller_->SignalNetworkState(kNetworkUp);
+  controller_->Sync();
 
   EXPECT_CALL(observer_, OnNetworkChanged(0, _, _, _));
   controller_->SignalNetworkState(kNetworkDown);
+  controller_->Sync();
 }
 
 TEST_F(SendSideCongestionControllerTest, OnNetworkRouteChanged) {
   int new_bitrate = 200000;
   testing::Mock::VerifyAndClearExpectations(pacer_.get());
   EXPECT_CALL(observer_, OnNetworkChanged(new_bitrate, _, _, _));
-  EXPECT_CALL(*pacer_, SetEstimatedBitrate(new_bitrate));
+  EXPECT_CALL(pacing_,
+              OnMessage(PacerRateEqBps(new_bitrate * kDefaultPacingRate)));
   rtc::NetworkRoute route;
   route.local_network_id = 1;
   controller_->OnNetworkRouteChanged(route, new_bitrate, -1, -1);
+  controller_->Sync();
 
   // If the bitrate is reset to -1, the new starting bitrate will be
   // the minimum default bitrate kMinBitrateBps.
   EXPECT_CALL(
       observer_,
       OnNetworkChanged(congestion_controller::GetMinBitrateBps(), _, _, _));
-  EXPECT_CALL(*pacer_,
-              SetEstimatedBitrate(congestion_controller::GetMinBitrateBps()));
+  EXPECT_CALL(
+      pacing_,
+      OnMessage(PacerRateEqBps(congestion_controller::GetMinBitrateBps() *
+                               kDefaultPacingRate)));
   route.local_network_id = 2;
   controller_->OnNetworkRouteChanged(route, -1, -1, -1);
+  controller_->Sync();
 }
 
 TEST_F(SendSideCongestionControllerTest, OldFeedback) {
   int new_bitrate = 200000;
   testing::Mock::VerifyAndClearExpectations(pacer_.get());
   EXPECT_CALL(observer_, OnNetworkChanged(new_bitrate, _, _, _));
-  EXPECT_CALL(*pacer_, SetEstimatedBitrate(new_bitrate));
-
+  EXPECT_CALL(pacing_,
+              OnMessage(PacerRateEqBps(new_bitrate * kDefaultPacingRate)));
   // Send a few packets on the first network route.
   std::vector<PacketFeedback> packets;
   packets.push_back(PacketFeedback(0, 0, 0, 1500, kPacingInfo0));
@@ -251,6 +321,7 @@ TEST_F(SendSideCongestionControllerTest, OldFeedback) {
   rtc::NetworkRoute route;
   route.local_network_id = 1;
   controller_->OnNetworkRouteChanged(route, new_bitrate, -1, -1);
+  controller_->Sync();
 
   for (const PacketFeedback& packet : packets) {
     rtcp::TransportFeedback feedback;
@@ -260,6 +331,7 @@ TEST_F(SendSideCongestionControllerTest, OldFeedback) {
                                            packet.arrival_time_ms * 1000));
     feedback.Build();
     controller_->OnTransportFeedback(feedback);
+    controller_->Sync();
   }
 
   // If the bitrate is reset to -1, the new starting bitrate will be
@@ -267,10 +339,15 @@ TEST_F(SendSideCongestionControllerTest, OldFeedback) {
   EXPECT_CALL(
       observer_,
       OnNetworkChanged(congestion_controller::GetMinBitrateBps(), _, _, _));
-  EXPECT_CALL(*pacer_,
-              SetEstimatedBitrate(congestion_controller::GetMinBitrateBps()));
+
+  EXPECT_CALL(
+      pacing_,
+      OnMessage(PacerRateEqBps(congestion_controller::GetMinBitrateBps() *
+                               kDefaultPacingRate)));
+
   route.local_network_id = 2;
   controller_->OnNetworkRouteChanged(route, -1, -1, -1);
+  controller_->Sync();
 }
 
 TEST_F(SendSideCongestionControllerTest,
@@ -290,14 +367,15 @@ TEST_F(SendSideCongestionControllerTest,
   controller_->Process();
 
   // Receive new estimate but let the queue still be full.
-  EXPECT_CALL(*pacer_, SetEstimatedBitrate(kInitialBitrateBps * 2));
+  EXPECT_CALL(pacing_, OnMessage(PacerRateEqBps(kInitialBitrateBps * 2 *
+                                                kDefaultPacingRate)));
   bandwidth_observer_->OnReceivedEstimatedBitrate(kInitialBitrateBps * 2);
   clock_.AdvanceTimeMilliseconds(25);
   controller_->Process();
 
   // Let the pacer not be full next time the controller checks.
   EXPECT_CALL(*pacer_, ExpectedQueueTimeMs())
-      .WillOnce(Return(PacedSender::kMaxQueueLengthMs - 1));
+      .WillRepeatedly(Return(PacedSender::kMaxQueueLengthMs - 1));
   EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps * 2, _, _, _));
   controller_->Process();
 }
@@ -311,10 +389,12 @@ TEST_F(SendSideCongestionControllerTest, GetPacerQueuingDelayMs) {
 
   // Expect zero pacer delay when network is down.
   controller_->SignalNetworkState(kNetworkDown);
+  controller_->Sync();
   EXPECT_EQ(0, controller_->GetPacerQueuingDelayMs());
 
   // Network is up, pacer delay should be reported.
   controller_->SignalNetworkState(kNetworkUp);
+  controller_->Sync();
   EXPECT_EQ(kQueueTimeMs, controller_->GetPacerQueuingDelayMs());
 }
 
@@ -323,7 +403,7 @@ TEST_F(SendSideCongestionControllerTest, GetProbingInterval) {
   controller_->Process();
 
   EXPECT_CALL(observer_, OnNetworkChanged(_, _, _, testing::Ne(0)));
-  EXPECT_CALL(*pacer_, SetEstimatedBitrate(_));
+  EXPECT_CALL(pacing_, OnMessage(_));
   bandwidth_observer_->OnReceivedEstimatedBitrate(kInitialBitrateBps * 2);
   clock_.AdvanceTimeMilliseconds(25);
   controller_->Process();
@@ -331,13 +411,14 @@ TEST_F(SendSideCongestionControllerTest, GetProbingInterval) {
 
 TEST_F(SendSideCongestionControllerTest, ProbeOnRouteChange) {
   testing::Mock::VerifyAndClearExpectations(pacer_.get());
-  EXPECT_CALL(*pacer_, CreateProbeCluster(kInitialBitrateBps * 6));
-  EXPECT_CALL(*pacer_, CreateProbeCluster(kInitialBitrateBps * 12));
+  EXPECT_CALL(clusters_, OnMessage(ProbeRateEqBps(kInitialBitrateBps * 6)));
+  EXPECT_CALL(clusters_, OnMessage(ProbeRateEqBps(kInitialBitrateBps * 12)));
   EXPECT_CALL(observer_, OnNetworkChanged(kInitialBitrateBps * 2, _, _, _));
   rtc::NetworkRoute route;
   route.local_network_id = 1;
   controller_->OnNetworkRouteChanged(route, 2 * kInitialBitrateBps, 0,
                                      20 * kInitialBitrateBps);
+  controller_->Sync();
 }
 
 // Estimated bitrate reduced when the feedbacks arrive with such a long delay,
@@ -381,6 +462,7 @@ TEST_F(SendSideCongestionControllerTest, LongFeedbackDelays) {
     OnSentPacket(later_packet);
 
     controller_->OnTransportFeedback(feedback);
+    controller_->Sync();
 
     // Check that packets have timed out.
     for (PacketFeedback& packet : packets) {
@@ -426,6 +508,7 @@ TEST_F(SendSideCongestionControllerTest, LongFeedbackDelays) {
     OnSentPacket(later_packet);
 
     controller_->OnTransportFeedback(feedback);
+    controller_->Sync();
     ComparePacketFeedbackVectors(packets,
                                  controller_->GetTransportFeedbackVector());
   }

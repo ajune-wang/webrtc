@@ -22,6 +22,30 @@
       "revId": "53789df9525ff677e5f1cd5a04221fe748ebf192",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b6ff2ae_146af00c",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-07T09:27:36Z",
+      "side": 1,
+      "message": "I tried, but didn\u0027t found that cleaner: callback is used twice inside PacketSender, so moving it inside still cause about same code duplication.\n(second use could be simplified to just outgoing_transport_-\u003eSendRtcp, but that would make it less visible it should be same.)",
+      "parentUuid": "3d3d4133_3ac306f4",
+      "range": {
+        "startLine": 235,
+        "startChar": 22,
+        "endLine": 235,
+        "endChar": 33
+      },
+      "revId": "53789df9525ff677e5f1cd5a04221fe748ebf192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

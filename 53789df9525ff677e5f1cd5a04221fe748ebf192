@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d3d4133_3ac306f4",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-07T08:56:43Z",
+      "side": 1,
+      "message": "Looks like you use the same send_packet callback here and below. Any reason it can\u0027t be done inside PacketSender, by giving it access to the outging_transport?",
+      "range": {
+        "startLine": 235,
+        "startChar": 22,
+        "endLine": 235,
+        "endChar": 33
+      },
+      "revId": "53789df9525ff677e5f1cd5a04221fe748ebf192",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

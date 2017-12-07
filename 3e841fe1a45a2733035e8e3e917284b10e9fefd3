@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "03e453b7_fd9b2d6e",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-07T13:57:23Z",
+      "side": 1,
+      "message": "Does this really need a separate function, seeing as it\u0027s only a couple of lines, only called from one site but - since it may be called from elsewhere - requires another thread check?",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c970d5b_f322f7a0",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-07T13:57:23Z",
+      "side": 1,
+      "message": "These constants need no longer be at file scope. I\u0027d probably remove them altogether and just check against zeroes in AudioSendStreamTest::GetStats.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ecfb924_e692fa83",
+        "filename": "audio/audio_state.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-07T13:57:23Z",
+      "side": 1,
+      "message": "I think Add/Remove should ensure they\u0027re only called once per stream:\n- (D)CHECK that erase removes exactly one item.\n- (D)CHECK that sending_streams_ doesn\u0027t contain stream already in AddSendingStream.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "744407b3_dccd316a",
         "filename": "audio/audio_state_unittest.cc",
         "patchSetId": 18

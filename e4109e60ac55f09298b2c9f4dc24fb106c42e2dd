@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3757b48_5a6e3ecb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-07T13:14:29Z",
+      "side": 1,
+      "message": "Capitalization.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 2
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc1f3e4d_3fd7b381",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-07T13:14:29Z",
+      "side": 1,
+      "message": "Suggested edit:\n\nRtpPacketReceived keeps a reference to a CopyOnWriteBuffer. By\npassing it the same CopyOnWriteBuffer that was created by\nBaseChannel, we avoid one allocation and memcpy.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f0e72c5_2130f5c7",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-07T13:14:29Z",
+      "side": 1,
+      "message": "Would be nice with CopyOnWriteBuffer here too, just for consistency (I don\u0027t know if there\u0027s also a memcpy to get rid of?). Feel free to do right away, or a separate cl.",
+      "range": {
+        "startLine": 241,
+        "startChar": 51,
+        "endLine": 242,
+        "endChar": 42
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6b3a3b7_dcbdf32b",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-07T13:14:29Z",
+      "side": 1,
+      "message": "It has to be done early (far from where it is used) due to the std::move(packet) below?\n\nMove constructors of scoped_refptr and CopyOnWriteBuffer are only to avoid refcount updates?\nI find scoped_refptr::release() (which this is based on) a bit scary; if it is used only for the move constructor, maybe it can be made private.",
+      "range": {
+        "startLine": 1326,
+        "startChar": 0,
+        "endLine": 1326,
+        "endChar": 29
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ba30b18_f5f8428d",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-07T13:14:29Z",
+      "side": 1,
+      "message": "Makes my head spin a bit... This is essentially a pointer to a scoped_refptr (only member variable of CopyOnWriteBuffer). Passing *packet to DeliverPacket below makes a copy, increasing the ref count.\n\nNot for this cl, but do you agree that CopyOnWritebuffer should always be passed by value, using std::move where we want to optimize away recount updates?",
+      "range": {
+        "startLine": 1394,
+        "startChar": 0,
+        "endLine": 1394,
+        "endChar": 35
+      },
+      "revId": "e4109e60ac55f09298b2c9f4dc24fb106c42e2dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

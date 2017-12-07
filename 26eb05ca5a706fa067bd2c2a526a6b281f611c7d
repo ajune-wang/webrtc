@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "fa9bcf73_edfc628a",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-12-07T15:11:37Z",
+      "side": 1,
+      "message": "super-nit: I would prefer |i| instead of |s|. The rationale is that |s| makes the reader pause and wonder - \"S for stream? S for something else? Why not |i|? Wait, is this an inner loop?\"\nNot important for me in any way, of course. Just a thought I wanted to share.",
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c0491bc_d30c03a4",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -65,6 +82,23 @@
         "endLine": 284,
         "endChar": 0
       },
+      "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1a94026_3dd6a058",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-12-07T15:11:37Z",
+      "side": 1,
+      "message": "Don\u0027t we have a DCHECK against this? Are we sure we wouldn\u0027t be dividing by this somewhere down the line? Would it be misleading or problematic to set all of the values to |bitrate_priority|?",
       "revId": "26eb05ca5a706fa067bd2c2a526a6b281f611c7d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

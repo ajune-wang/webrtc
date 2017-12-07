@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b3ab221d_737c46e8",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-07T00:15:37Z",
+      "side": 1,
+      "message": "I talked with Steve, and decided to expose this field as a double, then validation checks that it is \u003e\u003d 0. As part of the work for exposing this to Chrome I think we\u0027ll want to be returning an RTCError if there are problems  with the parameters, as opposed to a bool:\nhttps://www.w3.org/TR/webrtc/#dom-rtcrtpsender-setparameters",
+      "parentUuid": "0e6df441_cb650aeb",
+      "revId": "df4433ded61349703872597759e4df7e9dfccee1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "416b4858_10d566bb",
         "filename": "video/video_send_stream.cc",
         "patchSetId": 1

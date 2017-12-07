@@ -45,8 +45,8 @@ struct MatrixBuffer {
 
   size_t size;
   std::vector<std::vector<std::vector<float>>> buffer;
-  size_t write = 0;
-  size_t read = 0;
+  int write = 0;
+  int read = 0;
 };
 
 }  // namespace webrtc

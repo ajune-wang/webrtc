@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "1b3147aa_fb332695",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Henrik, Per - is it safe to assume that no APM user will enable drift compensation?",
+      "parentUuid": "64cb8733_869ce28c",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7a03be9_360e67a8",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 18
@@ -50,6 +68,24 @@
       "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adf3b083_f2a55ebd",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7a03be9_360e67a8",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "f1e9b676_d2e13502",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "AFAICT APM only uses this value from inside the ProcessNnn... methods, so parameter setting order shouldn\u0027t matter.",
+      "parentUuid": "5cbec68e_b1da2eca",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66961af8_3f66c25c",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 18
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "13d34fd3_1bba8e6b",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "66961af8_3f66c25c",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45adfaf8_1e9be4bb",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 18
@@ -98,6 +170,24 @@
       "writtenOn": "2017-12-06T17:22:52Z",
       "side": 1,
       "message": "Not having to go through each and every Channel and collect these each time is just ... just grand! :D\n\nI think it should be possible to fold picking the best native sample rate (now done in InitializeCaptureFrame) into UpdateSendingStreams, though that\u0027s just a constant overhead of a few iterations, so it\u0027s not a big deal.\n\nGoing forward, AudioState\u0027s Add- and RemoveSendingStream could probably be updated be linear in the number of streams (i.e. O(n^2) when adding n streams), but that\u0027s definitely nothing I\u0027ll press for in this CL.",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02041c06_51dae93a",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Yes, we could eliminate the iteration across available rates by caching the max(sample_rate, send_sample_rate_hz_). We can\u0027t fold it into UpdateSendingStreams though, since we don\u0027t have a separate reset signal from the ADM but must assume rate and channel config can change from one call here to another.\n\nNot sure what you mean re: AudioState - I don\u0027t see any n^2 behavior there right now. Map insert/lookup/erase should be log-ish, then there\u0027s a linear transform into a vector. Where\u0027s my blind spot?",
+      "parentUuid": "45adfaf8_1e9be4bb",
       "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "a9b29f55_d83e6bfa",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "capture_lock_ is a new lock, and we grab it twice in this function to not hog it while processing.\n\nGone though, is lock_ in TransmitMixer, as well as the lock which is grabbed when iterating over Channels with ChannelManager::Iterator (https://cs.chromium.org/chromium/src/third_party/webrtc/voice_engine/channel_manager.cc?l\u003d116). Note also that ChannelManager::Iterator does not hold the lock while iterating over channels so AFAICT it is broken and there is a potential race each time ChannelManager::Iterator is used.\n\nSo we\u0027re taking one less lock.",
+      "parentUuid": "8a406341_8812b9fb",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80c4cc0b_a706cfcb",
         "filename": "audio/audio_transport_impl.cc",
         "patchSetId": 18
@@ -132,6 +240,24 @@
       "writtenOn": "2017-12-06T17:22:52Z",
       "side": 1,
       "message": "Oh, no! I just found myself wishing we had cdr but for arbitrary iterable containers in C++.\nSo you could do for (auto\u0026 stream : cdr(sending_streams)) or something. Maybe in C++36. :)",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fd08505_3102c398",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Totally - if you wish to spend the next 19 years trying to push it into the standard. ;)",
+      "parentUuid": "80c4cc0b_a706cfcb",
       "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -155,6 +281,24 @@
     },
     {
       "key": {
+        "uuid": "710126c4_62c83953",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Good idea.",
+      "parentUuid": "b83c97ac_20bbf5f8",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c29530f1_109143a7",
         "filename": "call/audio_send_stream.h",
         "patchSetId": 18
@@ -169,6 +313,24 @@
       "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08eab727_d1830772",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29530f1_109143a7",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "70dc2d09_a7278dcb",
+        "filename": "media/engine/webrtcvoe.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Yes, it is wrong, but it is temporary.",
+      "parentUuid": "0b7afa28_7b325b56",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fb73494_c1fa97c7",
         "filename": "media/engine/webrtcvoiceengine.cc",
         "patchSetId": 18
@@ -206,6 +386,24 @@
     },
     {
       "key": {
+        "uuid": "a2ef2ddf_1dbc27da",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "But it is used, see e.g.: https://cs.chromium.org/chromium/src/third_party/webrtc/pc/peerconnectionfactory.cc?l\u003d352\n\nI thought it best to keep the public method separate from the internal ones for the reason you mention - this one returns explicitly shared ownership.",
+      "parentUuid": "8fb73494_c1fa97c7",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "749559ed_4429fb3a",
         "filename": "media/engine/webrtcvoiceengine_unittest.cc",
         "patchSetId": 18
@@ -220,6 +418,24 @@
       "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89de2586_ec64e99d",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Because it is now also owned by AudioState.",
+      "parentUuid": "749559ed_4429fb3a",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +473,24 @@
     },
     {
       "key": {
+        "uuid": "7022f28d_26e93d18",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 3339,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "Same answer.",
+      "parentUuid": "efffcbc7_735ae591",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e27845bd_6ca9117d",
         "filename": "modules/audio_device/include/audio_device_defines.h",
         "patchSetId": 18
@@ -271,6 +505,24 @@
       "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4112bbc3_0f1fa256",
+        "filename": "modules/audio_device/include/audio_device_defines.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 1,
+      "message": "They were happy last time I looked.",
+      "parentUuid": "e27845bd_6ca9117d",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

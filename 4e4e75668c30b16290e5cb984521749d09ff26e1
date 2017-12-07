@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7dabb535_9ee88155",
+        "filename": "audio/DEPS",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "b38b613c_c12bbbed",
+      "revId": "4e4e75668c30b16290e5cb984521749d09ff26e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b078d36_02fa50b1",
         "filename": "media/engine/apm_helpers.cc",
         "patchSetId": 18
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "563091ff_c5d5a386",
+        "filename": "media/engine/apm_helpers.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 0,
+      "message": "Because RecordingDataIsAvailable() checks whether VAD is enabled instead. See: https://webrtc-review.googlesource.com/c/src/+/26681/18/audio/audio_transport_impl.cc#177\n\nI think this is preferable to trying to maintain compiler flags. The code path is the same for all platforms, and only configuration of the APM differs.",
+      "parentUuid": "9b078d36_02fa50b1",
+      "revId": "4e4e75668c30b16290e5cb984521749d09ff26e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21da4d0f_f799e0ba",
         "filename": "media/engine/webrtcvoiceengine.cc",
         "patchSetId": 18
@@ -50,6 +86,24 @@
       "revId": "4e4e75668c30b16290e5cb984521749d09ff26e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39576c5b_3e0b8ecb",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-07T13:43:24Z",
+      "side": 0,
+      "message": "Channel::encoder_queue_is_active_ mirrors the sending status, and is checked in Channel::ProcessAndEncodeAudio. However, there was a subtle case where it may be out of sync - see channel.cc in new PS.\n\nI defer fixing the messy voe::Channel state properly for later.",
+      "parentUuid": "21da4d0f_f799e0ba",
+      "revId": "4e4e75668c30b16290e5cb984521749d09ff26e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

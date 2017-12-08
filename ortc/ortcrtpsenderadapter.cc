@@ -156,12 +156,12 @@ OrtcRtpSenderAdapter::OrtcRtpSenderAdapter(
 void OrtcRtpSenderAdapter::CreateInternalSender() {
   switch (kind_) {
     case cricket::MEDIA_TYPE_AUDIO:
-      internal_sender_ = new AudioRtpSender(
+      internal_sender_ = new rtc::RefCountedObject<AudioRtpSender>(
           rtp_transport_controller_->voice_channel(), nullptr);
       break;
     case cricket::MEDIA_TYPE_VIDEO:
-      internal_sender_ =
-          new VideoRtpSender(rtp_transport_controller_->video_channel());
+      internal_sender_ = new rtc::RefCountedObject<VideoRtpSender>(
+          rtp_transport_controller_->video_channel());
       break;
     case cricket::MEDIA_TYPE_DATA:
       RTC_NOTREACHED();

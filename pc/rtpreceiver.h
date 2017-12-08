@@ -42,7 +42,7 @@ class RtpReceiverInternal : public RtpReceiverInterface {
 
 class AudioRtpReceiver : public ObserverInterface,
                          public AudioSourceInterface::AudioObserver,
-                         public rtc::RefCountedObject<RtpReceiverInternal>,
+                         public RtpReceiverInternal,
                          public sigslot::has_slots<> {
  public:
   // An SSRC of 0 will create a receiver that will match the first SSRC it
@@ -112,7 +112,7 @@ class AudioRtpReceiver : public ObserverInterface,
   bool received_first_packet_ = false;
 };
 
-class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
+class VideoRtpReceiver : public RtpReceiverInternal,
                          public sigslot::has_slots<> {
  public:
   // An SSRC of 0 will create a receiver that will match the first SSRC it

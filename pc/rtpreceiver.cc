@@ -157,8 +157,8 @@ VideoRtpReceiver::VideoRtpReceiver(
     : id_(track_id),
       ssrc_(ssrc),
       channel_(channel),
-      source_(new RefCountedObject<VideoTrackSource>(&broadcaster_,
-                                                     true /* remote */)),
+      source_(new rtc::RefCountedObject<VideoTrackSource>(&broadcaster_,
+                                                          true /* remote */)),
       track_(VideoTrackProxy::Create(
           rtc::Thread::Current(),
           worker_thread,

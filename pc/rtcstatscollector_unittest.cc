@@ -282,23 +282,23 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
         network_thread_(rtc::Thread::Current()),
         signaling_thread_(rtc::Thread::Current()),
         media_engine_(new cricket::FakeMediaEngine()),
-        pc_factory_(new FakePeerConnectionFactory(
+        pc_factory_(new rtc::RefCountedObject<FakePeerConnectionFactory>(
             std::unique_ptr<cricket::MediaEngineInterface>(media_engine_))),
-        pc_(pc_factory_) {
+        pc_(new rtc::RefCountedObject<MockPeerConnection>(pc_factory_)) {
     // Default return values for mocks.
-    EXPECT_CALL(pc_, local_streams()).WillRepeatedly(Return(nullptr));
-    EXPECT_CALL(pc_, remote_streams()).WillRepeatedly(Return(nullptr));
-    EXPECT_CALL(pc_, GetSenders()).WillRepeatedly(Return(
+    EXPECT_CALL(*pc_, local_streams()).WillRepeatedly(Return(nullptr));
+    EXPECT_CALL(*pc_, remote_streams()).WillRepeatedly(Return(nullptr));
+    EXPECT_CALL(*pc_, GetSenders()).WillRepeatedly(Return(
         std::vector<rtc::scoped_refptr<RtpSenderInterface>>()));
-    EXPECT_CALL(pc_, GetReceivers()).WillRepeatedly(Return(
+    EXPECT_CALL(*pc_, GetReceivers()).WillRepeatedly(Return(
         std::vector<rtc::scoped_refptr<RtpReceiverInterface>>()));
-    EXPECT_CALL(pc_, sctp_data_channels()).WillRepeatedly(
+    EXPECT_CALL(*pc_, sctp_data_channels()).WillRepeatedly(
         ReturnRef(data_channels_));
-    EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
-    EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
-    EXPECT_CALL(pc_, GetSessionStats(_)).WillRepeatedly(ReturnNull());
-    EXPECT_CALL(pc_, GetLocalCertificate(_, _)).WillRepeatedly(Return(false));
-    EXPECT_CALL(pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
+    EXPECT_CALL(*pc_, video_channel()).WillRepeatedly(ReturnNull());
+    EXPECT_CALL(*pc_, voice_channel()).WillRepeatedly(ReturnNull());
+    EXPECT_CALL(*pc_, GetSessionStats(_)).WillRepeatedly(ReturnNull());
+    EXPECT_CALL(*pc_, GetLocalCertificate(_, _)).WillRepeatedly(Return(false));
+    EXPECT_CALL(*pc_, GetRemoteSSLCertificate_ReturnsRawPointer(_))
         .WillRepeatedly(Return(nullptr));
   }
 
@@ -307,7 +307,7 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
   rtc::Thread* network_thread() { return network_thread_; }
   rtc::Thread* signaling_thread() { return signaling_thread_; }
   cricket::FakeMediaEngine* media_engine() { return media_engine_; }
-  MockPeerConnection& pc() { return pc_; }
+  MockPeerConnection& pc() { return *pc_; }
   std::vector<rtc::scoped_refptr<DataChannel>>& data_channels() {
     return data_channels_;
   }
@@ -323,7 +323,7 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
                                 uint32_t ssrc) {
     rtc::scoped_refptr<StreamCollection> local_streams =
         StreamCollection::Create();
-    EXPECT_CALL(pc_, local_streams())
+    EXPECT_CALL(*pc_, local_streams())
         .WillRepeatedly(Return(local_streams));
 
     rtc::scoped_refptr<MediaStream> local_stream =
@@ -342,7 +342,7 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
     }
 
     rtc::scoped_refptr<MockRtpSender> sender = CreateMockSender(track, ssrc);
-    EXPECT_CALL(pc_, GetSenders()).WillRepeatedly(Return(
+    EXPECT_CALL(*pc_, GetSenders()).WillRepeatedly(Return(
         std::vector<rtc::scoped_refptr<RtpSenderInterface>>({
             rtc::scoped_refptr<RtpSenderInterface>(sender.get()) })));
   }
@@ -352,7 +352,7 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
                                    uint32_t ssrc) {
     rtc::scoped_refptr<StreamCollection> remote_streams =
         StreamCollection::Create();
-    EXPECT_CALL(pc_, remote_streams())
+    EXPECT_CALL(*pc_, remote_streams())
         .WillRepeatedly(Return(remote_streams));
 
     rtc::scoped_refptr<MediaStream> remote_stream =
@@ -372,7 +372,7 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
 
     rtc::scoped_refptr<MockRtpReceiver> receiver =
         CreateMockReceiver(track, ssrc);
-    EXPECT_CALL(pc_, GetReceivers()).WillRepeatedly(Return(
+    EXPECT_CALL(*pc_, GetReceivers()).WillRepeatedly(Return(
         std::vector<rtc::scoped_refptr<RtpReceiverInterface>>({
             rtc::scoped_refptr<RtpReceiverInterface>(receiver.get()) })));
   }
@@ -455,15 +455,15 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
       rtp_receivers_.push_back(rtc::scoped_refptr<RtpReceiverInterface>(
           rtp_receiver.get()));
     }
-    EXPECT_CALL(pc_, GetSenders()).WillRepeatedly(Return(rtp_senders_));
-    EXPECT_CALL(pc_, GetReceivers()).WillRepeatedly(Return(rtp_receivers_));
+    EXPECT_CALL(*pc_, GetSenders()).WillRepeatedly(Return(rtp_senders_));
+    EXPECT_CALL(*pc_, GetReceivers()).WillRepeatedly(Return(rtp_receivers_));
 
     auto* voice_media_channel = new MockVoiceMediaChannel();
     voice_channel_.reset(new cricket::VoiceChannel(
         worker_thread_, network_thread_, nullptr, media_engine_,
         rtc::WrapUnique(voice_media_channel), "VoiceContentName",
         kDefaultRtcpMuxRequired, kDefaultSrtpRequired));
-    EXPECT_CALL(pc_, voice_channel())
+    EXPECT_CALL(*pc_, voice_channel())
         .WillRepeatedly(Return(voice_channel_.get()));
     EXPECT_CALL(*voice_media_channel, GetStats(_))
         .WillOnce(DoAll(SetArgPointee<0>(*voice_media_info_), Return(true)));
@@ -473,7 +473,7 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
         worker_thread_, network_thread_, nullptr,
         rtc::WrapUnique(video_media_channel), "VideoContentName",
         kDefaultRtcpMuxRequired, kDefaultSrtpRequired));
-    EXPECT_CALL(pc_, video_channel())
+    EXPECT_CALL(*pc_, video_channel())
         .WillRepeatedly(Return(video_channel_.get()));
     EXPECT_CALL(*video_media_channel, GetStats(_))
         .WillOnce(DoAll(SetArgPointee<0>(*video_media_info_), Return(true)));
@@ -488,7 +488,7 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
   // |media_engine_| is actually owned by |pc_factory_|.
   cricket::FakeMediaEngine* media_engine_;
   rtc::scoped_refptr<FakePeerConnectionFactory> pc_factory_;
-  MockPeerConnection pc_;
+  rtc::scoped_refptr<MockPeerConnection> pc_;
 
   std::vector<rtc::scoped_refptr<DataChannel>> data_channels_;
   std::unique_ptr<cricket::VoiceChannel> voice_channel_;
@@ -977,7 +977,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCCertificateStatsChain) {
 
 TEST_F(RTCStatsCollectorTest, CollectRTCDataChannelStats) {
   test_->data_channels().push_back(
-      new MockDataChannel(
+      new rtc::RefCountedObject<MockDataChannel>(
           0, "MockDataChannel0", DataChannelInterface::kConnecting, "udp",
           1, 2, 3, 4));
   RTCDataChannelStats expected_data_channel0("RTCDataChannel_0", 0);
@@ -991,7 +991,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCDataChannelStats) {
   expected_data_channel0.bytes_received = 4;
 
   test_->data_channels().push_back(
-      new MockDataChannel(
+      new rtc::RefCountedObject<MockDataChannel>(
           1, "MockDataChannel1", DataChannelInterface::kOpen, "tcp",
           5, 6, 7, 8));
   RTCDataChannelStats expected_data_channel1("RTCDataChannel_1", 0);
@@ -1005,7 +1005,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCDataChannelStats) {
   expected_data_channel1.bytes_received = 8;
 
   test_->data_channels().push_back(
-      new MockDataChannel(
+      new rtc::RefCountedObject<MockDataChannel>(
           2, "MockDataChannel2", DataChannelInterface::kClosing, "udp",
           9, 10, 11, 12));
   RTCDataChannelStats expected_data_channel2("RTCDataChannel_2", 0);
@@ -1019,7 +1019,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCDataChannelStats) {
   expected_data_channel2.bytes_received = 12;
 
   test_->data_channels().push_back(
-      new MockDataChannel(
+      new rtc::RefCountedObject<MockDataChannel>(
           3, "MockDataChannel3", DataChannelInterface::kClosed, "tcp",
           13, 14, 15, 16));
   RTCDataChannelStats expected_data_channel3("RTCDataChannel_3", 0);

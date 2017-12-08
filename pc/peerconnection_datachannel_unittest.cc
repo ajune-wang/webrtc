@@ -30,11 +30,10 @@ using RTCConfiguration = PeerConnectionInterface::RTCConfiguration;
 using RTCOfferAnswerOptions = PeerConnectionInterface::RTCOfferAnswerOptions;
 using ::testing::Values;
 
-class PeerConnectionFactoryForDataChannelTest
-    : public rtc::RefCountedObject<PeerConnectionFactory> {
+class PeerConnectionFactoryForDataChannelTest : public PeerConnectionFactory {
  public:
   PeerConnectionFactoryForDataChannelTest()
-      : rtc::RefCountedObject<PeerConnectionFactory>(
+      : PeerConnectionFactory(
             rtc::Thread::Current(),
             rtc::Thread::Current(),
             rtc::Thread::Current(),
@@ -107,7 +106,7 @@ class PeerConnectionDataChannelTest : public ::testing::Test {
       const RTCConfiguration& config,
       const PeerConnectionFactoryInterface::Options factory_options) {
     rtc::scoped_refptr<PeerConnectionFactoryForDataChannelTest> pc_factory(
-        new PeerConnectionFactoryForDataChannelTest());
+        new rtc::RefCountedObject<PeerConnectionFactoryForDataChannelTest>());
     pc_factory->SetOptions(factory_options);
     RTC_CHECK(pc_factory->Initialize());
     auto observer = rtc::MakeUnique<MockPeerConnectionObserver>();

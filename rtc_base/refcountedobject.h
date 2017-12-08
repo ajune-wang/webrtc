@@ -19,7 +19,7 @@
 namespace rtc {
 
 template <class T>
-class RefCountedObject : public T {
+class RefCountedObject final : public T {
  public:
   RefCountedObject() {}
 

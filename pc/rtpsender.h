@@ -78,7 +78,7 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
 
 class AudioRtpSender : public DtmfProviderInterface,
                        public ObserverInterface,
-                       public rtc::RefCountedObject<RtpSenderInternal> {
+                       public RtpSenderInternal {
  public:
   // StatsCollector provided so that Add/RemoveLocalAudioTrack can be called
   // at the appropriate times.
@@ -177,8 +177,7 @@ class AudioRtpSender : public DtmfProviderInterface,
   std::unique_ptr<LocalAudioSinkAdapter> sink_adapter_;
 };
 
-class VideoRtpSender : public ObserverInterface,
-                       public rtc::RefCountedObject<RtpSenderInternal> {
+class VideoRtpSender : public ObserverInterface, public RtpSenderInternal {
  public:
   // |channel| can be null if one does not exist yet.
   VideoRtpSender(VideoTrackInterface* track,

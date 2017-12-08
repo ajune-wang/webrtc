@@ -50,8 +50,7 @@ namespace webrtc {
 // MediaType specified in the constructor. Audio RtpTransceivers will have
 // AudioRtpSenders, AudioRtpReceivers, and a VoiceChannel. Video RtpTransceivers
 // will have VideoRtpSenders, VideoRtpReceivers, and a VideoChannel.
-class RtpTransceiver final
-    : public rtc::RefCountedObject<RtpTransceiverInterface> {
+class RtpTransceiver : public RtpTransceiverInterface {
  public:
   // Construct a Plan B-style RtpTransceiver with no senders, receivers, or
   // channel set.

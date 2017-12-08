@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8683001_b5d8e60d",
+        "filename": "call/call.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-08T11:57:38Z",
+      "side": 1,
+      "message": "FWIW, this line is what\u0027s currently breaking the webRTC roller:\nhttps://logs.chromium.org/v/?s\u003dchromium%2Fbb%2Ftryserver.chromium.win%2Fwin-msvc-dbg%2F906%2F%2B%2Frecipes%2Fsteps%2Fcompile__with_patch_%2F0%2Fstdout\n\nlength needs to be size_t not int, or mvsc barfs (with the Chrome compile flags).",
+      "revId": "292a73eeea6658367b6763e8949519fdc2617279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

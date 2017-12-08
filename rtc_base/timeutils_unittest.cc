@@ -13,7 +13,10 @@
 #include "rtc_base/fakeclock.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
+#include "rtc_base/platform_thread.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/thread.h"
+#include "test/gmock.h"
 
 namespace rtc {
 
@@ -56,6 +59,39 @@ TEST(TimeTest, TestTimeDiff64) {
   int64_t ts_later = ts_earlier + ts_diff;
   EXPECT_EQ(ts_diff, rtc::TimeDiff(ts_later, ts_earlier));
   EXPECT_EQ(-ts_diff, rtc::TimeDiff(ts_earlier, ts_later));
+}
+
+TEST(TimeTest, TimeIsMonotonicAcrossThreads) {
+  struct PerThread {
+    rtc::Event* start_event;
+    int64_t time;
+  };
+  static constexpr int kNumThreads = 32;
+  rtc::Event start_event(/*manual=*/true, /*initial=*/false);
+  int64_t start_time = rtc::SystemTimeNanos();
+  PerThread objs[kNumThreads];
+  for (auto& obj : objs) {
+    obj.time = start_time;
+    obj.start_event = &start_event;
+  }
+
+  rtc::ThreadRunFunction function = [](void* obj) {
+    PerThread* pobj = static_cast<PerThread*>(obj);
+    pobj->start_event->Wait(2000);
+    int64_t now = rtc::SystemTimeNanos();
+    EXPECT_LE(pobj->time, now);
+    pobj->time = now;
+  };
+  std::unique_ptr<rtc::PlatformThread> threads[kNumThreads];
+  for (int i = 0; i < kNumThreads; i++) {
+    threads[i] = rtc::MakeUnique<rtc::PlatformThread>(function, objs + i, "t");
+    threads[i]->Start();
+  }
+  start_event.Set();
+  for (int i = 0; i < kNumThreads; i++) {
+    threads[i]->Stop();
+    EXPECT_LE(objs[i].time, rtc::SystemTimeNanos());
+  }
 }
 
 class TimestampWrapAroundHandlerTest : public testing::Test {

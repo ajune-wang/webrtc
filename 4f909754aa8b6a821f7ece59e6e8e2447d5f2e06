@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "99d6a06b_ca514110",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2017-12-08T19:12:53Z",
+      "side": 1,
+      "message": "Let\u0027s just remove CreateUnencryptedRtpTransport.",
+      "parentUuid": "20539309_4cbfc289",
+      "range": {
+        "startLine": 361,
+        "startChar": 3,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "4f909754aa8b6a821f7ece59e6e8e2447d5f2e06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3ea35e6_adfd87a3",
         "filename": "pc/transportcontroller.h",
         "patchSetId": 11

@@ -10,15 +10,14 @@
 
 package org.webrtc;
 
-import static org.webrtc.NetworkMonitorAutoDetect.ConnectionType;
 import static org.webrtc.NetworkMonitorAutoDetect.INVALID_NET_ID;
-import static org.webrtc.NetworkMonitorAutoDetect.NetworkInformation;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import java.util.ArrayList;
 import java.util.List;
+import org.webrtc.NetworkMonitorAutoDetect.ConnectionType;
+import org.webrtc.NetworkMonitorAutoDetect.NetworkInformation;
 
 /**
  * Borrowed from Chromium's src/net/android/java/src/org/chromium/net/NetworkChangeNotifier.java
@@ -62,9 +61,9 @@ public class NetworkMonitor {
 
   /**
    * Returns the singleton instance.
+   * This may be called from native or from Java code.
    */
-  @CalledByNative
-  public static NetworkMonitor getInstance() {
+  public synchronized static NetworkMonitor getInstance() {
     if (instance == null) {
       instance = new NetworkMonitor();
     }
@@ -86,9 +85,9 @@ public class NetworkMonitor {
   private void startMonitoring(long nativeObserver) {
     Logging.d(TAG, "Start monitoring from native observer " + nativeObserver);
     nativeNetworkObservers.add(nativeObserver);
-    if (autoDetector == null) {
-      createAutoDetector();
-    }
+
+    createAutoDetectorIfNeeded();
+
     // The observers expect a network list update after they call startMonitoring.
     final NetworkMonitorAutoDetect.NetworkState networkState =
         autoDetector.getCurrentNetworkState();
@@ -125,7 +124,10 @@ public class NetworkMonitor {
     return autoDetector == null ? INVALID_NET_ID : autoDetector.getDefaultNetId();
   }
 
-  private void createAutoDetector() {
+  private synchronized void createAutoDetectorIfNeeded() {
+    if (autoDetector != null) {
+      return;
+    }
     autoDetector = new NetworkMonitorAutoDetect(new NetworkMonitorAutoDetect.Observer() {
 
       @Override
@@ -235,7 +237,7 @@ public class NetworkMonitor {
 
   // For testing only.
   static void createAutoDetectorForTest() {
-    getInstance().createAutoDetector();
+    getInstance().createAutoDetectorIfNeeded();
   }
 
   // For testing only.

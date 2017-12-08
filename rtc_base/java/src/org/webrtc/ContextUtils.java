@@ -26,7 +26,7 @@ public class ContextUtils {
    * by PeerConnectionFactory.initialize. The application context must be set before creating
    * a PeerConnectionFactory and must not be modified while it is alive.
    */
-  public static void initialize(Context applicationContext) {
+  public static synchronized void initialize(Context applicationContext) {
     if (applicationContext == null) {
       throw new IllegalArgumentException(
           "Application context cannot be null for ContextUtils.initialize.");

@@ -10,14 +10,14 @@
 
 #include "system_wrappers/include/clock.h"
 
-#if defined(_WIN32)
+#if defined(WEBRTC_WIN)
 
 // Windows needs to be included before mmsystem.h
 #include "rtc_base/win32.h"
 
 #include <MMSystem.h>
 
-#elif ((defined WEBRTC_LINUX) || (defined WEBRTC_MAC))
+#elif defined(WEBRTC_POSIX)
 
 #include <sys/time.h>
 #include <time.h>

@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57bfbce5_b5bbb00f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-08T19:28:10Z",
+      "side": 1,
+      "message": "May be worth organizing this code into separate methods (or even classes) for unified plan vs. plan B.",
+      "revId": "2010719f90d052e75c349e65a9061ca8b3853530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc1f88e_cf14a86e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2785,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-08T19:28:10Z",
+      "side": 1,
+      "message": "What does setting the mline index do here? Can\u0027t it be different when SLR/SRD is called?",
+      "range": {
+        "startLine": 2785,
+        "startChar": 29,
+        "endLine": 2785,
+        "endChar": 44
+      },
+      "revId": "2010719f90d052e75c349e65a9061ca8b3853530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82148a31_8db8fd42",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3400,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-08T19:28:10Z",
+      "side": 1,
+      "message": "Need to handle rejected transceivers here as well?",
+      "revId": "2010719f90d052e75c349e65a9061ca8b3853530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0dc68e5_ecbd5cd9",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3410,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-08T19:28:10Z",
+      "side": 1,
+      "message": "I don\u0027t think this happens in one step; I believe you have to first reject the m\u003d section, then recycle it on the next round.",
+      "revId": "2010719f90d052e75c349e65a9061ca8b3853530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8182566e_cbec31b8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3450,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-08T19:28:10Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand this method; could you explain?",
+      "revId": "2010719f90d052e75c349e65a9061ca8b3853530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1410a5fe_c0b4272f",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-08T19:28:10Z",
+      "side": 1,
+      "message": "Couldn\u0027t you enumerate the stats for each sender/receiver?",
+      "revId": "2010719f90d052e75c349e65a9061ca8b3853530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6556e1f_59a53774",
+        "filename": "pc/peerconnection_multitrack_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-08T19:28:10Z",
+      "side": 1,
+      "message": "May want to name this \"transceiver_unittest\" since that\u0027s what it\u0027s focused on?",
+      "revId": "2010719f90d052e75c349e65a9061ca8b3853530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ce5538c_64e4c24a",
+        "filename": "pc/peerconnection_multitrack_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-08T19:28:10Z",
+      "side": 1,
+      "message": "Great tests; may benefit from some tests for recycling and other odd things though.",
+      "revId": "2010719f90d052e75c349e65a9061ca8b3853530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -297,9 +297,6 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
   void SetSend(bool enable) {
     ASSERT_TRUE(channel_);
     if (enable) {
-      EXPECT_CALL(adm_, RecordingIsInitialized()).WillOnce(Return(false));
-      EXPECT_CALL(adm_, Recording()).WillOnce(Return(false));
-      EXPECT_CALL(adm_, InitRecording()).WillOnce(Return(0));
       EXPECT_CALL(*apm_, SetExtraOptions(testing::_));
     }
     channel_->SetSend(enable);
@@ -2823,10 +2820,6 @@ TEST_F(WebRtcVoiceEngineTestFake, SetOptionOverridesViaChannels) {
               BuiltInAGCIsAvailable()).Times(8).WillRepeatedly(Return(false));
   EXPECT_CALL(adm_,
               BuiltInNSIsAvailable()).Times(8).WillRepeatedly(Return(false));
-  EXPECT_CALL(adm_,
-              RecordingIsInitialized()).Times(2).WillRepeatedly(Return(false));
-  EXPECT_CALL(adm_, Recording()).Times(2).WillRepeatedly(Return(false));
-  EXPECT_CALL(adm_, InitRecording()).Times(2).WillRepeatedly(Return(0));
   webrtc::AudioProcessing::Config apm_config;
   EXPECT_CALL(*apm_, GetConfig())
       .Times(10)

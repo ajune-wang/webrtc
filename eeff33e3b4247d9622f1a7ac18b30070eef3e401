@@ -16,6 +16,24 @@
       "revId": "eeff33e3b4247d9622f1a7ac18b30070eef3e401",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd0423a_0091e699",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-08T15:47:32Z",
+      "side": 1,
+      "message": "I think current guidelines is to avoid |const scoped_refptr\u003cT\u003e\u0026|.\n\nWhen ownership is just forwarded, std::move can be used to eliminate some refcount ops.\n\n(And for functions which don\u0027t need to manipulate refcount or ownership, just pass T* (or const T* or const T\u0026 as appropriate).",
+      "parentUuid": "8675cc09_729a5852",
+      "revId": "eeff33e3b4247d9622f1a7ac18b30070eef3e401",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

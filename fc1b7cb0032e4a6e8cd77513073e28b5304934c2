@@ -22,6 +22,30 @@
       "revId": "fc1b7cb0032e4a6e8cd77513073e28b5304934c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "216feb5c_bc054045",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-08T23:02:29Z",
+      "side": 1,
+      "message": "We don\u0027t have the infrastructure to create ICE transport directly (setting up the JsepTransport, update the ref-count). Use CreateDtlsTransport_n for now with comments.",
+      "parentUuid": "b974417e_dc677030",
+      "range": {
+        "startLine": 408,
+        "startChar": 3,
+        "endLine": 408,
+        "endChar": 0
+      },
+      "revId": "fc1b7cb0032e4a6e8cd77513073e28b5304934c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

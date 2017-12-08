@@ -24,15 +24,15 @@ struct FftBuffer {
   explicit FftBuffer(size_t size);
   ~FftBuffer();
 
-  size_t IncIndex(size_t index) {
+  size_t IncIndex(size_t index) const {
     return index < buffer.size() - 1 ? index + 1 : 0;
   }
 
-  size_t DecIndex(size_t index) {
+  size_t DecIndex(size_t index) const {
     return index > 0 ? index - 1 : buffer.size() - 1;
   }
 
-  size_t OffsetIndex(size_t index, int offset) {
+  size_t OffsetIndex(size_t index, int offset) const {
     RTC_DCHECK_GE(buffer.size(), offset);
     return (buffer.size() + index + offset) % buffer.size();
   }
@@ -45,8 +45,8 @@ struct FftBuffer {
   void DecReadIndex() { read = DecIndex(read); }
 
   std::vector<FftData> buffer;
-  size_t write = 0;
-  size_t read = 0;
+  int write = 0;
+  int read = 0;
 };
 
 }  // namespace webrtc

@@ -25,17 +25,15 @@ namespace {
 
 float RunSubtractorTest(int num_blocks_to_process,
                         int delay_samples,
-                        int filter_length_blocks,
                         bool uncorrelated_inputs,
                         const std::vector<int>& blocks_with_echo_path_changes) {
   ApmDataDumper data_dumper(42);
-  EchoCanceller3Config config;
-  config.filter.length_blocks = filter_length_blocks;
-  Subtractor subtractor(config, &data_dumper, DetectOptimization());
+  Subtractor subtractor(&data_dumper, DetectOptimization());
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   std::vector<float> y(kBlockSize, 0.f);
   std::array<float, kBlockSize> x_old;
   SubtractorOutput output;
+  EchoCanceller3Config config;
   config.delay.min_echo_path_delay_blocks = 0;
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
       RenderDelayBuffer::Create(config, 3));
@@ -45,7 +43,7 @@ float RunSubtractorTest(int num_blocks_to_process,
   std::array<float, kFftLengthBy2Plus1> Y2;
   std::array<float, kFftLengthBy2Plus1> E2_main;
   std::array<float, kFftLengthBy2Plus1> E2_shadow;
-  AecState aec_state(config);
+  AecState aec_state(EchoCanceller3Config{});
   x_old.fill(0.f);
   Y2.fill(0.f);
   E2_main.fill(0.f);
@@ -98,10 +96,9 @@ float RunSubtractorTest(int num_blocks_to_process,
   return output_power / y_power;
 }
 
-std::string ProduceDebugText(size_t delay, int filter_length_blocks) {
+std::string ProduceDebugText(size_t delay) {
   std::ostringstream ss;
-  ss << "Delay: " << delay << ", ";
-  ss << "Length: " << filter_length_blocks;
+  ss << "Delay: " << delay;
   return ss.str();
 }
 
@@ -111,8 +108,7 @@ std::string ProduceDebugText(size_t delay, int filter_length_blocks) {
 
 // Verifies that the check for non data dumper works.
 TEST(Subtractor, NullDataDumper) {
-  EXPECT_DEATH(
-      Subtractor(EchoCanceller3Config(), nullptr, DetectOptimization()), "");
+  EXPECT_DEATH(Subtractor(nullptr, DetectOptimization()), "");
 }
 
 // Verifies the check for null subtractor output.
@@ -120,34 +116,32 @@ TEST(Subtractor, NullDataDumper) {
 // tests on test bots has been fixed.
 TEST(Subtractor, DISABLED_NullOutput) {
   ApmDataDumper data_dumper(42);
-  EchoCanceller3Config config;
-  Subtractor subtractor(config, &data_dumper, DetectOptimization());
+  Subtractor subtractor(&data_dumper, DetectOptimization());
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-      RenderDelayBuffer::Create(config, 3));
+      RenderDelayBuffer::Create(EchoCanceller3Config(), 3));
   RenderSignalAnalyzer render_signal_analyzer;
   std::vector<float> y(kBlockSize, 0.f);
 
-  EXPECT_DEATH(
-      subtractor.Process(render_delay_buffer->GetRenderBuffer(), y,
-                         render_signal_analyzer, AecState(config), nullptr),
-      "");
+  EXPECT_DEATH(subtractor.Process(render_delay_buffer->GetRenderBuffer(), y,
+                                  render_signal_analyzer,
+                                  AecState(EchoCanceller3Config{}), nullptr),
+               "");
 }
 
 // Verifies the check for the capture signal size.
 TEST(Subtractor, WrongCaptureSize) {
   ApmDataDumper data_dumper(42);
-  EchoCanceller3Config config;
-  Subtractor subtractor(config, &data_dumper, DetectOptimization());
+  Subtractor subtractor(&data_dumper, DetectOptimization());
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-      RenderDelayBuffer::Create(config, 3));
+      RenderDelayBuffer::Create(EchoCanceller3Config(), 3));
   RenderSignalAnalyzer render_signal_analyzer;
   std::vector<float> y(kBlockSize - 1, 0.f);
   SubtractorOutput output;
 
-  EXPECT_DEATH(
-      subtractor.Process(render_delay_buffer->GetRenderBuffer(), y,
-                         render_signal_analyzer, AecState(config), &output),
-      "");
+  EXPECT_DEATH(subtractor.Process(render_delay_buffer->GetRenderBuffer(), y,
+                                  render_signal_analyzer,
+                                  AecState(EchoCanceller3Config{}), &output),
+               "");
 }
 
 #endif
@@ -155,30 +149,24 @@ TEST(Subtractor, WrongCaptureSize) {
 // Verifies that the subtractor is able to converge on correlated data.
 TEST(Subtractor, Convergence) {
   std::vector<int> blocks_with_echo_path_changes;
-  for (size_t filter_length_blocks : {12, 20, 30}) {
-    for (size_t delay_samples : {0, 64, 150, 200, 301}) {
-      SCOPED_TRACE(ProduceDebugText(delay_samples, filter_length_blocks));
+  for (size_t delay_samples : {0, 64, 150, 200, 301}) {
+    SCOPED_TRACE(ProduceDebugText(delay_samples));
 
-      float echo_to_nearend_power =
-          RunSubtractorTest(300, delay_samples, filter_length_blocks, false,
-                            blocks_with_echo_path_changes);
-      EXPECT_GT(0.1f, echo_to_nearend_power);
-    }
+    float echo_to_nearend_power = RunSubtractorTest(
+        100, delay_samples, false, blocks_with_echo_path_changes);
+    EXPECT_GT(0.1f, echo_to_nearend_power);
   }
 }
 
 // Verifies that the subtractor does not converge on uncorrelated signals.
 TEST(Subtractor, NonConvergenceOnUncorrelatedSignals) {
   std::vector<int> blocks_with_echo_path_changes;
-  for (size_t filter_length_blocks : {12, 20, 30}) {
-    for (size_t delay_samples : {0, 64, 150, 200, 301}) {
-      SCOPED_TRACE(ProduceDebugText(delay_samples, filter_length_blocks));
+  for (size_t delay_samples : {0, 64, 150, 200, 301}) {
+    SCOPED_TRACE(ProduceDebugText(delay_samples));
 
-      float echo_to_nearend_power =
-          RunSubtractorTest(100, delay_samples, filter_length_blocks, true,
-                            blocks_with_echo_path_changes);
-      EXPECT_NEAR(1.f, echo_to_nearend_power, 0.05);
-    }
+    float echo_to_nearend_power = RunSubtractorTest(
+        100, delay_samples, true, blocks_with_echo_path_changes);
+    EXPECT_NEAR(1.f, echo_to_nearend_power, 0.05);
   }
 }
 
@@ -187,15 +175,12 @@ TEST(Subtractor, NonConvergenceOnUncorrelatedSignals) {
 TEST(Subtractor, EchoPathChangeReset) {
   std::vector<int> blocks_with_echo_path_changes;
   blocks_with_echo_path_changes.push_back(99);
-  for (size_t filter_length_blocks : {12, 20, 30}) {
-    for (size_t delay_samples : {0, 64, 150, 200, 301}) {
-      SCOPED_TRACE(ProduceDebugText(delay_samples, filter_length_blocks));
+  for (size_t delay_samples : {0, 64, 150, 200, 301}) {
+    SCOPED_TRACE(ProduceDebugText(delay_samples));
 
-      float echo_to_nearend_power =
-          RunSubtractorTest(100, delay_samples, filter_length_blocks, false,
-                            blocks_with_echo_path_changes);
-      EXPECT_NEAR(1.f, echo_to_nearend_power, 0.0000001f);
-    }
+    float echo_to_nearend_power = RunSubtractorTest(
+        100, delay_samples, false, blocks_with_echo_path_changes);
+    EXPECT_NEAR(1.f, echo_to_nearend_power, 0.0000001f);
   }
 }
 

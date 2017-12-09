@@ -33,9 +33,7 @@ namespace webrtc {
 // Proves linear echo cancellation functionality
 class Subtractor {
  public:
-  Subtractor(const EchoCanceller3Config& config,
-             ApmDataDumper* data_dumper,
-             Aec3Optimization optimization);
+  Subtractor(ApmDataDumper* data_dumper, Aec3Optimization optimization);
   ~Subtractor();
 
   // Performs the echo subtraction.
@@ -54,7 +52,8 @@ class Subtractor {
   }
 
   // Returns the estimate of the impulse response for the main adaptive filter.
-  const std::vector<float>& FilterImpulseResponse() const {
+  const std::array<float, kAdaptiveFilterTimeDomainLength>&
+  FilterImpulseResponse() const {
     return main_filter_.FilterImpulseResponse();
   }
 

@@ -452,7 +452,7 @@ TEST_F(PeerConnectionRtpLegacyObserverTest,
   EXPECT_FALSE(observer->called());
 }
 
-// RtpTransceiver Tests
+// RtpTransceiver Tests.
 
 // Test that by default there are no transceivers with Unified Plan.
 TEST_F(PeerConnectionRtpTest, PeerConnectionHasNoTransceivers) {
@@ -600,6 +600,239 @@ TEST_F(PeerConnectionRtpTest, UnifiedPlanCanClosePeerConnection) {
   auto caller = CreatePeerConnectionWithUnifiedPlan();
 
   caller->pc()->Close();
+}
+
+// Unified Plan AddTrack tests.
+
+// Test that adding an audio track creates a new audio RtpSender with the given
+// track.
+TEST_F(PeerConnectionRtpTest, UnifiedPlanAddAudioTrackCreatesAudioSender) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto audio_track = caller->CreateAudioTrack("a");
+  auto sender = caller->pc()->AddTrack(audio_track, {});
+  ASSERT_TRUE(sender);
+
+  EXPECT_EQ(cricket::MEDIA_TYPE_AUDIO, sender->media_type());
+  EXPECT_EQ(audio_track, sender->track());
+}
+
+// Test that adding a video track creates a new video RtpSender with the given
+// track.
+TEST_F(PeerConnectionRtpTest, UnifiedPlanAddVideoTrackCreatesVideoSender) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto video_track = caller->CreateVideoTrack("a");
+  auto sender = caller->pc()->AddTrack(video_track, {});
+  ASSERT_TRUE(sender);
+
+  EXPECT_EQ(cricket::MEDIA_TYPE_VIDEO, sender->media_type());
+  EXPECT_EQ(video_track, sender->track());
+}
+
+// Test that adding a track to a new PeerConnection creates an RtpTransceiver
+// with the sender that AddTrack returns and in the sendrecv direction.
+TEST_F(PeerConnectionRtpTest, UnifiedPlanAddFirstTrackCreatesTransceiver) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto sender = caller->AddAudioTrack("a");
+  ASSERT_TRUE(sender);
+
+  auto transceivers = caller->pc()->GetTransceivers();
+  ASSERT_EQ(1u, transceivers.size());
+  EXPECT_EQ(sender, transceivers[0]->sender());
+  EXPECT_EQ(RtpTransceiverDirection::kSendRecv, transceivers[0]->direction());
+}
+
+// Test that if a transceiver of the same type but no track had been added to
+// the PeerConnection and later a call to AddTrack is made, the resulting sender
+// is the transceiver's sender and the sender's track is the newly-added track.
+TEST_F(PeerConnectionRtpTest, UnifiedPlanAddTrackReusesTransceiver) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  auto audio_track = caller->CreateAudioTrack("a");
+  auto sender = caller->pc()->AddTrack(audio_track, {});
+  ASSERT_TRUE(sender);
+
+  auto transceivers = caller->pc()->GetTransceivers();
+  ASSERT_EQ(1u, transceivers.size());
+  EXPECT_EQ(transceiver, transceivers[0]);
+  EXPECT_EQ(sender, transceiver->sender());
+  EXPECT_EQ(audio_track, sender->track());
+}
+
+// Test that adding two tracks to a new PeerConnection creates two
+// RtpTransceivers in the same order.
+TEST_F(PeerConnectionRtpTest, UnifiedPlanTwoAddTrackCreatesTwoTransceivers) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto sender1 = caller->AddAudioTrack("a");
+  auto sender2 = caller->AddVideoTrack("v");
+  ASSERT_TRUE(sender2);
+
+  auto transceivers = caller->pc()->GetTransceivers();
+  ASSERT_EQ(2u, transceivers.size());
+  EXPECT_EQ(sender1, transceivers[0]->sender());
+  EXPECT_EQ(sender2, transceivers[1]->sender());
+}
+
+// Test that if there are multiple transceivers with no sending track then a
+// later call to AddTrack will use the one of the same type as the newly-added
+// track.
+TEST_F(PeerConnectionRtpTest, UnifiedPlanAddTrackReusesTransceiverOfType) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto audio_transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  auto video_transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  auto sender = caller->AddVideoTrack("v");
+
+  ASSERT_EQ(2u, caller->pc()->GetTransceivers().size());
+  EXPECT_NE(sender, audio_transceiver->sender());
+  EXPECT_EQ(sender, video_transceiver->sender());
+}
+
+// Test that if the only transceivers that do not have a sending track have a
+// different type from the added track, then AddTrack will create a new
+// transceiver for the track.
+TEST_F(PeerConnectionRtpTest,
+       UnifiedPlanAddTrackDoesNotReuseTransceiverOfWrongType) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  auto sender = caller->AddVideoTrack("v");
+
+  auto transceivers = caller->pc()->GetTransceivers();
+  ASSERT_EQ(2u, transceivers.size());
+  EXPECT_NE(sender, transceivers[0]->sender());
+  EXPECT_EQ(sender, transceivers[1]->sender());
+}
+
+// Test that the first available transceiver is reused by AddTrack when multiple
+// are available.
+TEST_F(PeerConnectionRtpTest,
+       UnifiedPlanAddTrackReusesFirstMatchingTransceiver) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  auto sender = caller->AddAudioTrack("a");
+
+  auto transceivers = caller->pc()->GetTransceivers();
+  ASSERT_EQ(2u, transceivers.size());
+  EXPECT_EQ(sender, transceivers[0]->sender());
+  EXPECT_NE(sender, transceivers[1]->sender());
+}
+
+// Test that a call to AddTrack that reuses a transceiver will change the
+// direction from inactive to sendonly.
+TEST_F(PeerConnectionRtpTest,
+       UnifiedPlanAddTrackChangesDirectionFromInactiveToSendOnly) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  RtpTransceiverInit init;
+  init.direction = RtpTransceiverDirection::kInactive;
+  auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO, init);
+  caller->AddAudioTrack("a");
+
+  EXPECT_EQ(RtpTransceiverDirection::kSendOnly, transceiver->direction());
+}
+
+// Test that a call to AddTrack that reuses a transceiver will change the
+// direction from recvonly to sendrecv.
+TEST_F(PeerConnectionRtpTest,
+       UnifiedPlanAddTrackChangesDirectionFromRecvOnlyToSendRecv) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  RtpTransceiverInit init;
+  init.direction = RtpTransceiverDirection::kRecvOnly;
+  auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO, init);
+  caller->AddAudioTrack("a");
+
+  EXPECT_EQ(RtpTransceiverDirection::kSendRecv, transceiver->direction());
+}
+
+// Unified Plan AddTrack error handling.
+
+TEST_F(PeerConnectionRtpTest, UnifiedPlanAddTrackErrorIfClosed) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto audio_track = caller->CreateAudioTrack("a");
+  caller->pc()->Close();
+
+  EXPECT_FALSE(caller->pc()->AddTrack(audio_track, {}));
+}
+
+TEST_F(PeerConnectionRtpTest, UnifiedPlanAddTrackErrorIfTrackAlreadyHasSender) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto audio_track = caller->CreateAudioTrack("a");
+  ASSERT_TRUE(caller->pc()->AddTrack(audio_track, {}));
+  EXPECT_FALSE(caller->pc()->AddTrack(audio_track, {}));
+}
+
+// Unified Plan RemoveTrack tests.
+
+// Test that calling RemoveTrack on a sender with a previously-added track
+// clears the sender's track.
+TEST_F(PeerConnectionRtpTest, UnifiedPlanRemoveTrackClearsSenderTrack) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto sender = caller->AddAudioTrack("a");
+  ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
+
+  EXPECT_FALSE(sender->track());
+}
+
+// Test that calling RemoveTrack on a sender where the transceiver is configured
+// in the sendrecv direction changes the transceiver's direction to recvonly.
+TEST_F(PeerConnectionRtpTest,
+       UnifiedPlanRemoveTrackChangesDirectionFromSendRecvToRecvOnly) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  RtpTransceiverInit init;
+  init.direction = RtpTransceiverDirection::kSendRecv;
+  auto transceiver =
+      caller->AddTransceiver(caller->CreateAudioTrack("a"), init);
+  caller->pc()->RemoveTrack(transceiver->sender());
+
+  EXPECT_EQ(RtpTransceiverDirection::kRecvOnly, transceiver->direction());
+}
+
+// Test that calling RemoveTrack on a sender where the transceiver is configured
+// in the sendonly direction changes the transceiver's direction to inactive.
+TEST_F(PeerConnectionRtpTest,
+       UnifiedPlanRemoveTrackChangesDirectionFromSendOnlyToInactive) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  RtpTransceiverInit init;
+  init.direction = RtpTransceiverDirection::kSendOnly;
+  auto transceiver =
+      caller->AddTransceiver(caller->CreateAudioTrack("a"), init);
+  caller->pc()->RemoveTrack(transceiver->sender());
+
+  EXPECT_EQ(RtpTransceiverDirection::kInactive, transceiver->direction());
+}
+
+// Unified Plan RemoveTrack error handling.
+
+TEST_F(PeerConnectionRtpTest, UnifiedPlanRemoveTrackErrorIfClosed) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto sender = caller->AddAudioTrack("a");
+  caller->pc()->Close();
+
+  EXPECT_FALSE(caller->pc()->RemoveTrack(sender));
+}
+
+TEST_F(PeerConnectionRtpTest,
+       UnifiedPlanRemoveTrackNoErrorIfTrackAlreadyRemoved) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+
+  auto sender = caller->AddAudioTrack("a");
+  ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
+
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender));
 }
 
 }  // namespace webrtc

@@ -109,6 +109,12 @@ class RtpTransceiver final
     return receivers_;
   }
 
+  // Returns the backing object for the transceiver's Unified Plan sender.
+  rtc::scoped_refptr<RtpSenderInternal> sender_internal() const;
+
+  // Returns the backing object for the transceiver's Unified Plan receiver.
+  rtc::scoped_refptr<RtpReceiverInternal> receiver_internal() const;
+
   // RtpTransceiverInterface implementation.
   rtc::Optional<std::string> mid() const override;
   rtc::scoped_refptr<RtpSenderInterface> sender() const override;

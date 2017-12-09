@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38ad81bf_865b9e19",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-09T16:57:00Z",
+      "side": 1,
+      "message": "I\u0027m confused by this.  Does this automatically wrap the given streams in scoped_refptr?  That seems dangerous.  I don\u0027t think we can safely retain a reference to the streams because there\u0027s no guarantee the caller won\u0027t destroy the streams immediately after calling AddTrack.\n\nBut this is call kind of silly anyway.  The only thing we need is the label of the stream.  So we might as well just change everything to take a \"std::vector\u003cstd::string\u003e stream_labels\", including for the public AddTrack.  That would be safer and more simple.",
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff597c75_d6943af1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-09T16:57:00Z",
+      "side": 1,
+      "message": "We should rename this stream_labels.\n\nIt\u0027s kind of confusing.  The MediaStream calls it a label.  The SDP calls it a \"MediaStreamID\".  Our code internally calls it a stream label, stream ID, a sync label, and a sync group.\n\nI think we should unify around \"stream label\", but whatever we pick we should pick one and use it every where.  But we\u0027re kind of stuck with stream-\u003elabel() here.  I don\u0027t care that it would conflict with \"MediaStreamID\".  So I\u0027m in favor of \"stream label\".  But I could live with \"stream ID\" if there\u0027s a good argument for it.",
+      "range": {
+        "startLine": 1108,
+        "startChar": 75,
+        "endLine": 1108,
+        "endChar": 0
+      },
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dc5c7c4_efe596db",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-09T16:57:00Z",
+      "side": 1,
+      "message": "Would a better name be FindFirstTranscieverForAddedTrack?",
+      "range": {
+        "startLine": 361,
+        "startChar": 35,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e799531c_6c5d9723",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-09T16:57:00Z",
+      "side": 1,
+      "message": "Why is this change needed?",
+      "range": {
+        "startLine": 86,
+        "startChar": 63,
+        "endLine": 86,
+        "endChar": 0
+      },
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

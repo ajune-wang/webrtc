@@ -224,6 +224,44 @@ void TransportController::SetMetricsObserver(
                                metrics_observer));
 }
 
+RTCError TransportController::SetRtpTransportDescription(
+    SdpType type,
+    ContentSource source,
+    webrtc::SessionDescriptionInterface* sdesc,
+    bool bundle_enabled,
+    bool rtcp_mux_required) {
+  if (!network_thread_->IsCurrent()) {
+    network_thread_->Invoke<RTCError>(RTC_FROM_HERE, [&] {
+      return SetRtpTransportDescription(type, source, sdes, bundle_enabled,
+                                        rtcp_mux_required);
+    })
+  }
+
+  RTC_DCHECK(sdesc);
+  for (auto content_info : sdesc->description()->contents()) {
+    auto jsep_transport = GetOrCreateJsepTransport(content_info->name);
+    const MediaContentDescription* content_desc =
+        static_cast<const MediaContentDescription*>(content_info->description);
+    if (rtcp_mux_required && !content_desc->rtcp_mux()) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                           "rtcpMuxPolicy is 'require', but media description "
+                           "does not contain 'a=rtcp-mux'.");
+    }
+    if (!jsep_transport->SetRtcpMux(enable, type, source)) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                           "Failed to setup RTCP mux filter.");
+    }
+
+    if (!content_desc->cryptos().empty()) {
+      if (!jsep_transport->SetSdes(content_desc->crytos(), type, source)) {
+        LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                           "Failed to set SDES cryptos.");
+      }
+    }
+  }
+  return RTCError::OK();
+}
+
 DtlsTransportInternal* TransportController::CreateDtlsTransport(
     const std::string& transport_name,
     int component) {
@@ -244,10 +282,10 @@ DtlsTransportInternal* TransportController::CreateDtlsTransport_n(
     return existing_channel->dtls();
   }
 
-  // Need to create a new channel.
+  // Need to create a new transport.
   JsepTransport* transport = GetOrCreateJsepTransport(transport_name);
 
-  // Create DTLS channel wrapping ICE channel, and configure it.
+  // Create DTLS transport wrapping ICE channel, and configure it.
   IceTransportInternal* ice =
       CreateIceTransportChannel_n(transport_name, component);
   DtlsTransportInternal* dtls =
@@ -261,9 +299,9 @@ DtlsTransportInternal* TransportController::CreateDtlsTransport_n(
     RTC_DCHECK(set_cert_success);
   }
 
-  // Connect to signals offered by the channels. Currently, the DTLS channel
-  // forwards signals from the ICE channel, so we only need to connect to the
-  // DTLS channel. In the future this won't be the case.
+  // Connect to signals offered by the transport. Currently, the DTLS transport
+  // forwards signals from the ICE transport, so we only need to connect to the
+  // DTLS transport. In the future this won't be the case.
   dtls->SignalWritableState.connect(
       this, &TransportController::OnChannelWritableState_n);
   dtls->SignalReceivingState.connect(
@@ -465,8 +503,8 @@ JsepTransport* TransportController::GetOrCreateJsepTransport(
     return transport;
   }
 
-  transport = new JsepTransport(transport_name, certificate_);
-  transports_[transport_name] = std::unique_ptr<JsepTransport>(transport);
+  transports_[transport_name] =
+      rtc::MakeUnique<JsepTransport>(transport_name, certificate_);
   return transport;
 }
 

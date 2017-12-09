@@ -37,6 +37,8 @@ class DtlsSrtpTransport : public RtpTransportInternalAdapter {
 
   void SetRtcpMuxEnabled(bool enable) override;
 
+  void ActivateRtcpMux() override;
+
   // Set the header extension ids that should be encrypted.
   void UpdateSendEncryptedHeaderExtensionIds(
       const std::vector<int>& send_extension_ids);

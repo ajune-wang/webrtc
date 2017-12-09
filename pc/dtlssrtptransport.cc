@@ -39,6 +39,10 @@ DtlsSrtpTransport::DtlsSrtpTransport(
                                             &DtlsSrtpTransport::OnSentPacket);
 }
 
+void DtlsSrtpTransport::ActivateRtcpMux() {
+  SetDtlsTransports(rtp_dtls_transport_, /*rtcp_dtls_transport_*/ nullptr);
+}
+
 void DtlsSrtpTransport::SetDtlsTransports(
     cricket::DtlsTransportInternal* rtp_dtls_transport,
     cricket::DtlsTransportInternal* rtcp_dtls_transport) {

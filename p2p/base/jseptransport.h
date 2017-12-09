@@ -22,6 +22,11 @@
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/sessiondescription.h"
 #include "p2p/base/transportinfo.h"
+// #include "pc/dtlssrtptransport.h"
+// #include "pc/rtcpmuxfilter.h"
+// #include "pc/rtptransport.h"
+// #include "pc/srtpfilter.h"
+// #include "pc/srtptransport.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/messagequeue.h"
 #include "rtc_base/rtccertificate.h"
@@ -331,6 +336,12 @@ class JsepTransport : public sigslot::has_slots<> {
                                     const rtc::SSLFingerprint* fingerprint,
                                     std::string* error_desc) const;
 
+  bool SetRtcpMux(bool enable, webrtc::SdpType type, ContentSource source);
+
+  bool SetSdes(const std::vector<CryptoParams>& cryptos,
+               webrtc::SdpType type,
+               ContentSource source);
+
  private:
   // Negotiates the transport parameters based on the current local and remote
   // transport description, such as the ICE role to use, and whether DTLS
@@ -374,6 +385,12 @@ class JsepTransport : public sigslot::has_slots<> {
 
   // Candidate component => DTLS channel
   std::map<int, DtlsTransportInternal*> channels_;
+
+  RtpTransportInternal* rtp_transport_ = nullptr;
+  SrtpTransport* sdes_transport_ = nullptr;
+  DtlsSrtpTransport* dtls_srtp_transport_ = nullptr;
+  SrtpFilter sdes_negotiator_;
+  RtcpMuxFilter rtcp_mux_filter_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransport);
 };

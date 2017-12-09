@@ -24,6 +24,10 @@ void RtpTransport::SetRtcpMuxEnabled(bool enable) {
   MaybeSignalReadyToSend();
 }
 
+void RtpTransport::ActiveRtcpMux() {
+  SetRtcpPacketTransport(nullptr);
+}
+
 void RtpTransport::SetRtpPacketTransport(
     rtc::PacketTransportInternal* new_packet_transport) {
   if (new_packet_transport == rtp_packet_transport_) {

@@ -370,6 +370,32 @@ bool JsepTransport::VerifyCertificateFingerprint(
   return BadTransportDescription(desc.str(), error_desc);
 }
 
+bool JsepTransport::SetRtcpMux(bool enable,
+                               webrtc::SdpType type,
+                               ContentSource source) {
+  bool ret = false;
+  switch (type) {
+    case SdpType::kOffer:
+      ret = rtcp_mux_filter_.SetOffer(enable, src);
+      break;
+    case SdpType::kPrAnswer:
+      // This may activate RTCP muxing, but we don't yet destroy the transport
+      // because the final answer may deactivate it.
+      ret = rtcp_mux_filter_.SetProvisionalrAnswer(enable, src);
+      break;
+    case SdpType::kAnswer:
+      ret = rtcp_mux_filter_.SetAnswer(enable, src);
+      rtp_transport_->ActivateRtcpMux();
+      break;
+    default:
+      RTC_NOTREACHED();
+  }
+  if (ret) {
+    RTC_DCHECK(rtp_transport_);
+    rtp_transport_->SetRtcpMuxEnabled(rtcp_mux_filter_->IsActive());
+  }
+}
+
 bool JsepTransport::ApplyLocalTransportDescription(
     DtlsTransportInternal* dtls_transport,
     std::string* error_desc) {

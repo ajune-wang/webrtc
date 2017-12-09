@@ -112,6 +112,13 @@ class TransportController : public sigslot::has_slots<>,
   bool GetStats(const std::string& transport_name, TransportStats* stats);
   void SetMetricsObserver(webrtc::MetricsObserverInterface* metrics_observer);
 
+  RTCError SetRtpTransportDescription(
+      webrtc::SdpType type,
+      ContentSource source,
+      webrtc::SessionDescriptionInterface* sdesc,
+      bool bundle_enabled,
+      bool rtcp_mux_required);
+
   // Creates a channel if it doesn't exist. Otherwise, increments a reference
   // count and returns an existing channel.
   DtlsTransportInternal* CreateDtlsTransport(const std::string& transport_name,

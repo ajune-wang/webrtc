@@ -34,6 +34,10 @@ cricket::MediaType JavaToNativeMediaType(JNIEnv* jni, jobject j_media_type);
 
 jobject NativeToJavaMediaType(JNIEnv* jni, cricket::MediaType media_type);
 
+jobject NativeToJavaMediaTrackState(
+    JNIEnv* env,
+    MediaStreamTrackInterface::TrackState state);
+
 cricket::Candidate JavaToNativeCandidate(JNIEnv* jni, jobject j_candidate);
 
 jobject NativeToJavaCandidate(JNIEnv* env, const cricket::Candidate& candidate);
@@ -51,9 +55,6 @@ std::unique_ptr<SessionDescriptionInterface> JavaToNativeSessionDescription(
 
 jobject NativeToJavaSessionDescription(JNIEnv* jni,
                                        const SessionDescriptionInterface* desc);
-
-PeerConnectionFactoryInterface::Options
-JavaToNativePeerConnectionFactoryOptions(JNIEnv* jni, jobject options);
 
 /*****************************************************
  * Below are all things that go into RTCConfiguration.

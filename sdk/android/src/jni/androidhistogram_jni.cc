@@ -11,7 +11,6 @@
 #include <map>
 #include <memory>
 
-#include "sdk/android/src/jni/classreferenceholder.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "system_wrappers/include/metrics.h"
 

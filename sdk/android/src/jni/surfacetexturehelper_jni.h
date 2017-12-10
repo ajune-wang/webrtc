@@ -63,6 +63,14 @@ class SurfaceTextureHelper : public rtc::RefCountInterface {
   const ScopedGlobalRef<jobject> j_surface_texture_helper_;
 };
 
+void SurfaceTextureHelperTextureToYUV(JNIEnv* env,
+                                      jobject j_surface_texture_helper,
+                                      jobject buffer,
+                                      int width,
+                                      int height,
+                                      int stride,
+                                      const NativeHandleImpl& native_handle);
+
 }  // namespace jni
 }  // namespace webrtc
 

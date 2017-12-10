@@ -282,6 +282,10 @@ rtc::Optional<int32_t> JavaToNativeOptionalInt(JNIEnv* jni, jobject integer) {
   return JNI_Integer::Java_Integer_intValue(jni, integer);
 }
 
+long JavaToNativeLong(JNIEnv* env, jobject j_long) {
+  return JNI_Long::Java_Long_longValue(env, j_long);
+}
+
 jobject NativeToJavaBoolean(JNIEnv* env, bool b) {
   return JNI_Boolean::Java_Boolean_ConstructorJLB_Z(env, b);
 }

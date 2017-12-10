@@ -18,7 +18,6 @@
 #include "sdk/android/generated_peerconnection_jni/jni/RTCStatsCollectorCallback_jni.h"
 #include "sdk/android/generated_peerconnection_jni/jni/RTCStatsReport_jni.h"
 #include "sdk/android/generated_peerconnection_jni/jni/RTCStats_jni.h"
-#include "sdk/android/src/jni/classreferenceholder.h"
 
 namespace webrtc {
 namespace jni {

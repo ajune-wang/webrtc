@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-#include "p2p/base/jseptransport.h"
+#include "p2p/base/transporthelper.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/socketaddress.h"
 

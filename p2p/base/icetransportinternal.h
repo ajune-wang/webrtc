@@ -15,9 +15,9 @@
 
 #include "api/candidate.h"
 #include "p2p/base/candidatepairinterface.h"
-#include "p2p/base/jseptransport.h"
 #include "p2p/base/packettransportinternal.h"
 #include "p2p/base/transportdescription.h"
+#include "p2p/base/transporthelper.h"
 #include "rtc_base/stringencode.h"
 
 namespace webrtc {

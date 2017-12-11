@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "172fdb5c_e6c98cec",
+        "filename": "modules/rtp_rtcp/source/rtp_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-11T13:09:15Z",
+      "side": 1,
+      "message": "I don\u0027t think this function serves any purpose after this change. Would be nice with a followup cl to delete it.",
+      "range": {
+        "startLine": 41,
+        "startChar": 5,
+        "endLine": 41,
+        "endChar": 18
+      },
+      "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b14a59_001a24bd",
+        "filename": "modules/video_capture/device_info_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-11T13:09:15Z",
+      "side": 1,
+      "message": "It\u0027s nice to get rid of this #ifdef:ery. \n\nI just want to add that I think \"_strnicmp\" is a poor choice of name to be used on all platforms (not this cl\u0027s fault, that\u0027s how rtc_base/stringutils.h does it). Identifiers starting with underscore are traditionally reserved for the C library implementation.\n\nI\u0027d prefer the posix name strncasecmp, and if we for some reason can\u0027t simple define a function with that name on windows, we should move the function to the rtc namespace and use either rtc::stricmp or rtc::strncasecmp, with no leading underscore.",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbce082f_97302096",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-11T13:09:15Z",
+      "side": 1,
+      "message": "Android handling is a bit confusing... build/config/BUILDCONFIG.gn, arranges so that an android build has is_android \u003d true, is_posix \u003d true, but is_linux \u003d false. But then then out BUILD.gn sets the WEBRTC_LINUX if either is_linux or is_android is true. So as far as I see, that means that this #elif clause includes android both before and after the change.",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

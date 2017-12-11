@@ -31,7 +31,7 @@
 #endif
 
 #include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
+#include "system_wrappers/include/last_system_error.h"
 
 #if defined(_MSC_VER)
 // Warning C4722: destructor never returns, potential memory leak.

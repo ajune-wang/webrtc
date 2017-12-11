@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e6048b8_10833b80",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "A single blank line appears:\n\nBetween consecutive members or initializers of a class: fields, constructors, methods, nested classes, static initializers, and instance initializers.\n\nPlease fix everywhere.",
+      "range": {
+        "startLine": 258,
+        "startChar": 4,
+        "endLine": 258,
+        "endChar": 5
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6c1c00d_57d8d792",
+        "filename": "sdk/android/api/org/webrtc/VideoFrameDrawer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "nit: copyPlaneNative",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 39
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4ff9f0_7b046a64",
+        "filename": "sdk/android/api/org/webrtc/VideoRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "You can just call the constructor?",
+      "range": {
+        "startLine": 189,
+        "startChar": 21,
+        "endLine": 189,
+        "endChar": 39
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8e3110b_95d28038",
+        "filename": "sdk/android/api/org/webrtc/VideoRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "nit: createNativeVideoRenderer or something. This doesn\u0027t wrap native renderer.",
+      "range": {
+        "startLine": 224,
+        "startChar": 26,
+        "endLine": 224,
+        "endChar": 49
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6c1069_2bae66a7",
+        "filename": "sdk/android/src/jni/classreferenceholder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "Can you deprecate these?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3de8e8_d33d035b",
+        "filename": "sdk/android/src/jni/jni_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "nit: str.data()",
+      "range": {
+        "startLine": 165,
+        "startChar": 51,
+        "endLine": 165,
+        "endChar": 58
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea4ce74_fd620a9b",
+        "filename": "sdk/android/src/jni/pc/java_native_conversion.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "I think we should get rid of this file. Can you avoid adding new things here and add individual files for RtpParameters and SessionDescription.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 80
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b660143b_7dc7f8d8",
+        "filename": "sdk/android/src/jni/pc/java_native_conversion.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "Looks like this belong to mediastreamtrack_jni.cc",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 35
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45a29c7f_a85f932e",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory_jni.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "Maybe we should have an enum with different threads to avoid duplicating code?",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3536a9ce_0b35b0bd",
+        "filename": "sdk/android/src/jni/pc/sdpobserver_jni.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "Just duplicate this.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 31
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3aa4499_37140b89",
+        "filename": "sdk/android/src/jni/videocodecinfo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T14:49:00Z",
+      "side": 1,
+      "message": "nit: Maybe use make_pair?",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 42
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

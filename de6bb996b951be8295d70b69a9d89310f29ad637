@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "587b65f3_c496fad6",
+        "filename": "modules/audio_processing/aec3/matrix_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-11T12:54:45Z",
+      "side": 1,
+      "message": "Indices have changed type from size_t to int. Consider using int as input for IncIndex, DecIndex and OffsetIndex.",
+      "revId": "de6bb996b951be8295d70b69a9d89310f29ad637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30219654_caa0bc9f",
+        "filename": "modules/audio_processing/aec3/vector_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-11T12:54:45Z",
+      "side": 1,
+      "message": "size_t -\u003e int in IncIndex, DecIndex and OffsetIndex?",
+      "revId": "de6bb996b951be8295d70b69a9d89310f29ad637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

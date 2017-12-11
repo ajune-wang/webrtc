@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "327e70bd_04b0957a",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-12-11T21:13:27Z",
+      "side": 1,
+      "message": "I don\u0027t think the \"rtc_\" prefix is useful for build targets; GN forces you to name the directory (rtc_base) explicitly unless you\u0027re already in it.",
+      "revId": "290833600a472dba268887c7d07e20e6f50c8de0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

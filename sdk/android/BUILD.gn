@@ -83,6 +83,7 @@ rtc_source_set("base_jni") {
     "../../api:optional",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_checks",
     "../../system_wrappers:metrics_api",
   ]
 
@@ -227,6 +228,7 @@ rtc_static_library("video_jni") {
     "../../modules/video_coding:webrtc_vp9",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_checks",
     "../../rtc_base:rtc_task_queue",
     "../../rtc_base:sequenced_task_checker",
     "../../rtc_base:weak_ptr",
@@ -379,6 +381,7 @@ rtc_static_library("peerconnection_jni") {
     "../../pc:peerconnection",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_checks",
     "../../rtc_base:rtc_task_queue",
     "../../system_wrappers:field_trial_api",
   ]

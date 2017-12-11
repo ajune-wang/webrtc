@@ -10,15 +10,15 @@
 
 package org.webrtc;
 
-import static org.webrtc.NetworkMonitorAutoDetect.ConnectionType;
 import static org.webrtc.NetworkMonitorAutoDetect.INVALID_NET_ID;
-import static org.webrtc.NetworkMonitorAutoDetect.NetworkInformation;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import java.util.ArrayList;
 import java.util.List;
+import org.webrtc.NetworkMonitorAutoDetect.ConnectionType;
+import org.webrtc.NetworkMonitorAutoDetect.NetworkInformation;
 
 /**
  * Borrowed from Chromium's src/net/android/java/src/org/chromium/net/NetworkChangeNotifier.java
@@ -38,16 +38,20 @@ public class NetworkMonitor {
 
   private static final String TAG = "NetworkMonitor";
 
-  // We are storing application context so it is okay.
-  private static NetworkMonitor instance;
+  // Lazy initialization holder class idiom for static fields.
+  private static class InstanceHolder {
+    // We are storing application context so it is okay.
+    static final NetworkMonitor instance = new NetworkMonitor();
+  }
 
   // Native observers of the connection type changes.
   private final ArrayList<Long> nativeNetworkObservers;
   // Java observers of the connection type changes.
   private final ArrayList<NetworkObserver> networkObservers;
 
-  // Object that detects the connection type changes.
-  private NetworkMonitorAutoDetect autoDetector;
+  private final Object autoDetectorLock = new Object();
+  // Object that detects the connection type changes and brings up mobile networks.
+  private volatile NetworkMonitorAutoDetect autoDetector;
 
   private ConnectionType currentConnectionType = ConnectionType.CONNECTION_UNKNOWN;
 
@@ -62,13 +66,11 @@ public class NetworkMonitor {
 
   /**
    * Returns the singleton instance.
+   * This may be called from native or from Java code.
    */
   @CalledByNative
   public static NetworkMonitor getInstance() {
-    if (instance == null) {
-      instance = new NetworkMonitor();
-    }
-    return instance;
+    return InstanceHolder.instance;
   }
 
   private static void assertIsTrue(boolean condition) {
@@ -86,12 +88,10 @@ public class NetworkMonitor {
   private void startMonitoring(long nativeObserver) {
     Logging.d(TAG, "Start monitoring from native observer " + nativeObserver);
     nativeNetworkObservers.add(nativeObserver);
-    if (autoDetector == null) {
-      createAutoDetector();
-    }
+    NetworkMonitorAutoDetect detector = getOrCreateAutoDetector();
+
     // The observers expect a network list update after they call startMonitoring.
-    final NetworkMonitorAutoDetect.NetworkState networkState =
-        autoDetector.getCurrentNetworkState();
+    final NetworkMonitorAutoDetect.NetworkState networkState = detector.getCurrentNetworkState();
     updateCurrentConnectionType(NetworkMonitorAutoDetect.getConnectionType(networkState));
     updateObserverActiveNetworkList(nativeObserver);
   }
@@ -101,15 +101,18 @@ public class NetworkMonitor {
     Logging.d(TAG, "Stop monitoring from native observer " + nativeObserver);
     nativeNetworkObservers.remove(nativeObserver);
     if (nativeNetworkObservers.isEmpty()) {
-      autoDetector.destroy();
-      autoDetector = null;
+      synchronized (autoDetectorLock) {
+        autoDetector.destroy();
+        autoDetector = null;
+      }
     }
   }
 
   // Returns true if network binding is supported on this platform.
   @CalledByNative
   private boolean networkBindingSupported() {
-    return autoDetector != null && autoDetector.supportNetworkCallback();
+    NetworkMonitorAutoDetect detector = autoDetector;
+    return detector != null && detector.supportNetworkCallback();
   }
 
   @CalledByNative
@@ -122,11 +125,26 @@ public class NetworkMonitor {
   }
 
   private long getCurrentDefaultNetId() {
-    return autoDetector == null ? INVALID_NET_ID : autoDetector.getDefaultNetId();
+    NetworkMonitorAutoDetect detector = autoDetector;
+    return detector == null ? INVALID_NET_ID : detector.getDefaultNetId();
   }
 
-  private void createAutoDetector() {
-    autoDetector = new NetworkMonitorAutoDetect(new NetworkMonitorAutoDetect.Observer() {
+  public NetworkMonitorAutoDetect getOrCreateAutoDetector() {
+    // Lazy initialization using double-checked-lock idiom.
+    NetworkMonitorAutoDetect result = autoDetector;
+    if (result == null) {
+      synchronized (autoDetectorLock) {
+        result = autoDetector;
+        if (result == null) {
+          autoDetector = result = createAutoDetector();
+        }
+      }
+    }
+    return result;
+  }
+
+  private NetworkMonitorAutoDetect createAutoDetector() {
+    return new NetworkMonitorAutoDetect(new NetworkMonitorAutoDetect.Observer() {
 
       @Override
       public void onConnectionTypeChanged(ConnectionType newConnectionType) {
@@ -229,17 +247,7 @@ public class NetworkMonitor {
       long nativePtr, NetworkInformation[] networkInfos);
 
   // For testing only.
-  static void resetInstanceForTests() {
-    instance = new NetworkMonitor();
-  }
-
-  // For testing only.
-  static void createAutoDetectorForTest() {
-    getInstance().createAutoDetector();
-  }
-
-  // For testing only.
   static NetworkMonitorAutoDetect getAutoDetectorForTest() {
-    return getInstance().autoDetector;
+    return getInstance().getOrCreateAutoDetector();
   }
 }

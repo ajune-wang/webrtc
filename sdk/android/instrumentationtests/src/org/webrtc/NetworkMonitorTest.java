@@ -165,8 +165,6 @@ public class NetworkMonitorTest {
    */
   private void createTestMonitor() {
     Context context = InstrumentationRegistry.getTargetContext();
-    NetworkMonitor.resetInstanceForTests();
-    NetworkMonitor.createAutoDetectorForTest();
     receiver = NetworkMonitor.getAutoDetectorForTest();
     assertNotNull(receiver);
 

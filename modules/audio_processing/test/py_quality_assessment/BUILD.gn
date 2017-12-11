@@ -118,6 +118,7 @@ rtc_executable("fake_polqa") {
   deps = [
     "../../../..:webrtc_common",
     "../../../../rtc_base:rtc_base_approved",
+    "../../../../rtc_base:rtc_checks",
   ]
 }
 

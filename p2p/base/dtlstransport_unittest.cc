@@ -62,6 +62,7 @@ cricket::TransportDescription MakeTransportDescription(
 
 using cricket::ConnectionRole;
 using webrtc::SdpType;
+class JsepTransport;
 
 enum Flags { NF_REOFFER = 0x1, NF_EXPECT_FAILURE = 0x2 };
 

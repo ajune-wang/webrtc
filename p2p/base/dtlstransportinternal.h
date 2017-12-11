@@ -16,8 +16,8 @@
 #include <vector>
 
 #include "p2p/base/icetransportinternal.h"
-#include "p2p/base/jseptransport.h"
 #include "p2p/base/packettransportinternal.h"
+#include "p2p/base/transporthelper.h"
 #include "rtc_base/sslstreamadapter.h"
 #include "rtc_base/stringencode.h"
 

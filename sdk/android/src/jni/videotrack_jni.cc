@@ -13,7 +13,6 @@
 #include "api/mediastreaminterface.h"
 #include "rtc_base/logging.h"
 #include "sdk/android/generated_video_jni/jni/VideoSink_jni.h"
-#include "sdk/android/src/jni/classreferenceholder.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/videoframe.h"
 

@@ -35,6 +35,7 @@ config("libjingle_peerconnection_jni_warnings_config") {
 
 generate_jni("generated_base_jni") {
   sources = [
+    "src/java/org/webrtc/JniHelper.java",
     "src/java/org/webrtc/WebRtcClassLoader.java",
   ]
   jni_package = ""
@@ -64,7 +65,6 @@ rtc_source_set("base_jni") {
     "src/jni/androidhistogram_jni.cc",
     "src/jni/class_loader.cc",
     "src/jni/class_loader.h",
-    "src/jni/classreferenceholder.cc",
     "src/jni/classreferenceholder.h",
     "src/jni/jni_common.cc",
     "src/jni/jni_generator_helper.cc",
@@ -127,14 +127,19 @@ generate_jni("generated_video_jni") {
     "api/org/webrtc/MediaCodecVideoDecoder.java",
     "api/org/webrtc/MediaCodecVideoEncoder.java",
     "api/org/webrtc/SurfaceTextureHelper.java",
+    "api/org/webrtc/VideoCodecInfo.java",
     "api/org/webrtc/VideoCodecStatus.java",
     "api/org/webrtc/VideoDecoder.java",
+    "api/org/webrtc/VideoDecoderFactory.java",
     "api/org/webrtc/VideoEncoder.java",
     "api/org/webrtc/VideoEncoderFactory.java",
     "api/org/webrtc/VideoFrame.java",
+    "api/org/webrtc/VideoRenderer.java",
     "api/org/webrtc/VideoSink.java",
+    "src/java/org/webrtc/EglBase14.java",
     "src/java/org/webrtc/VideoDecoderWrapper.java",
     "src/java/org/webrtc/VideoEncoderWrapper.java",
+    "src/java/org/webrtc/WrappedNativeI420Buffer.java",
     "src/java/org/webrtc/WrappedNativeVideoDecoder.java",
     "src/java/org/webrtc/WrappedNativeVideoEncoder.java",
   ]
@@ -294,18 +299,24 @@ generate_jni("generated_peerconnection_jni") {
     "api/org/webrtc/DataChannel.java",
     "api/org/webrtc/IceCandidate.java",
     "api/org/webrtc/MediaConstraints.java",
+    "api/org/webrtc/MediaSource.java",
     "api/org/webrtc/MediaStream.java",
     "api/org/webrtc/MediaStreamTrack.java",
     "api/org/webrtc/NetworkMonitor.java",
     "api/org/webrtc/NetworkMonitorAutoDetect.java",
     "api/org/webrtc/PeerConnection.java",
+    "api/org/webrtc/PeerConnectionFactory.java",
     "api/org/webrtc/RTCStats.java",
     "api/org/webrtc/RTCStatsCollectorCallback.java",
     "api/org/webrtc/RTCStatsReport.java",
+    "api/org/webrtc/RtpParameters.java",
     "api/org/webrtc/RtpReceiver.java",
     "api/org/webrtc/RtpSender.java",
+    "api/org/webrtc/SdpObserver.java",
+    "api/org/webrtc/SessionDescription.java",
     "api/org/webrtc/StatsObserver.java",
     "api/org/webrtc/StatsReport.java",
+    "api/org/webrtc/TurnCustomizer.java",
   ]
   jni_package = ""
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
@@ -334,6 +345,7 @@ rtc_static_library("peerconnection_jni") {
     "src/jni/pc/peerconnection.cc",
     "src/jni/pc/peerconnection.h",
     "src/jni/pc/peerconnectionfactory_jni.cc",
+    "src/jni/pc/peerconnectionfactory_jni.h",
     "src/jni/pc/rtcstatscollectorcallbackwrapper.cc",
     "src/jni/pc/rtcstatscollectorcallbackwrapper.h",
     "src/jni/pc/rtpreceiver.cc",
@@ -617,6 +629,7 @@ rtc_android_library("libjingle_peerconnection_java") {
     "src/java/org/webrtc/CameraCapturer.java",
     "src/java/org/webrtc/CameraSession.java",
     "src/java/org/webrtc/WebRtcClassLoader.java",
+    "src/java/org/webrtc/JniHelper.java",
     "src/java/org/webrtc/DynamicBitrateAdjuster.java",
     "src/java/org/webrtc/EglBase10.java",
     "src/java/org/webrtc/EglBase14.java",

@@ -12,7 +12,6 @@
 #include "api/videosourceproxy.h"
 #include "rtc_base/logging.h"
 #include "sdk/android/src/jni/androidvideotracksource.h"
-#include "sdk/android/src/jni/classreferenceholder.h"
 
 namespace webrtc {
 

@@ -18,6 +18,18 @@
 namespace webrtc {
 namespace jni {
 
+void SurfaceTextureHelperTextureToYUV(JNIEnv* env,
+                                      jobject j_surface_texture_helper,
+                                      jobject buffer,
+                                      int width,
+                                      int height,
+                                      int stride,
+                                      const NativeHandleImpl& native_handle) {
+  Java_SurfaceTextureHelper_textureToYUV(
+      env, j_surface_texture_helper, buffer, width, height, stride,
+      native_handle.oes_texture_id, native_handle.sampling_matrix.ToJava(env));
+}
+
 rtc::scoped_refptr<SurfaceTextureHelper> SurfaceTextureHelper::create(
     JNIEnv* jni,
     const char* thread_name,

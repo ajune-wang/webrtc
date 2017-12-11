@@ -12,7 +12,6 @@
 #include <memory>
 
 #include "sdk/android/generated_metrics_jni/jni/Metrics_jni.h"
-#include "sdk/android/src/jni/classreferenceholder.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "system_wrappers/include/metrics.h"
 #include "system_wrappers/include/metrics_default.h"

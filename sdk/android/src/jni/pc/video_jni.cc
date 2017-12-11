@@ -17,10 +17,10 @@
 #include "media/engine/webrtcvideodecoderfactory.h"
 #include "media/engine/webrtcvideoencoderfactory.h"
 #include "rtc_base/logging.h"
+#include "sdk/android/generated_video_jni/jni/EglBase14_jni.h"
 #include "sdk/android/src/jni/androidmediadecoder_jni.h"
 #include "sdk/android/src/jni/androidmediaencoder_jni.h"
 #include "sdk/android/src/jni/androidvideotracksource.h"
-#include "sdk/android/src/jni/classreferenceholder.h"
 #include "sdk/android/src/jni/pc/ownedfactoryandthreads.h"
 #include "sdk/android/src/jni/surfacetexturehelper_jni.h"
 #include "sdk/android/src/jni/videodecoderfactorywrapper.h"
@@ -71,7 +71,7 @@ jobject GetJavaSurfaceTextureHelper(
 }
 
 JNI_FUNCTION_DECLARATION(jlong,
-                         PeerConnectionFactory_nativeCreateVideoSource,
+                         PeerConnectionFactory_createNativeVideoSource,
                          JNIEnv* jni,
                          jclass,
                          jlong native_factory,
@@ -92,7 +92,7 @@ JNI_FUNCTION_DECLARATION(jlong,
 }
 
 JNI_FUNCTION_DECLARATION(jlong,
-                         PeerConnectionFactory_nativeCreateVideoTrack,
+                         PeerConnectionFactory_createNativeVideoTrack,
                          JNIEnv* jni,
                          jclass,
                          jlong native_factory,
@@ -108,7 +108,7 @@ JNI_FUNCTION_DECLARATION(jlong,
 
 JNI_FUNCTION_DECLARATION(
     void,
-    PeerConnectionFactory_nativeSetVideoHwAccelerationOptions,
+    PeerConnectionFactory_setNativeVideoHwAccelerationOptions,
     JNIEnv* jni,
     jclass,
     jlong native_factory,
@@ -117,15 +117,12 @@ JNI_FUNCTION_DECLARATION(
   OwnedFactoryAndThreads* owned_factory =
       reinterpret_cast<OwnedFactoryAndThreads*>(native_factory);
 
-  jclass j_eglbase14_context_class =
-      FindClass(jni, "org/webrtc/EglBase14$Context");
-
   if (owned_factory->legacy_encoder_factory()) {
     MediaCodecVideoEncoderFactory* encoder_factory =
         static_cast<MediaCodecVideoEncoderFactory*>(
             owned_factory->legacy_encoder_factory());
     if (encoder_factory &&
-        jni->IsInstanceOf(local_egl_context, j_eglbase14_context_class)) {
+        Java_Context_isEgl14Context(jni, local_egl_context)) {
       RTC_LOG(LS_INFO) << "Set EGL context for HW encoding.";
       encoder_factory->SetEGLContext(jni, local_egl_context);
     }

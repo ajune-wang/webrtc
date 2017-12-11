@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "sdk/android/src/jni/pc/peerconnectionfactory_jni.h"
+
 #include <memory>
 #include <utility>
 
@@ -23,6 +25,7 @@
 #include "rtc_base/event_tracer.h"
 #include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"
+#include "sdk/android/generated_peerconnection_jni/jni/PeerConnectionFactory_jni.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/pc/androidnetworkmonitor_jni.h"
 #include "sdk/android/src/jni/pc/audio_jni.h"
@@ -40,6 +43,25 @@
 namespace webrtc {
 namespace jni {
 
+namespace {
+PeerConnectionFactoryInterface::Options
+JavaToNativePeerConnectionFactoryOptions(JNIEnv* jni, jobject options) {
+  int network_ignore_mask = Java_Options_getNetworkIgnoreMask(jni, options);
+  bool disable_encryption = Java_Options_getDisableEncryption(jni, options);
+  bool disable_network_monitor =
+      Java_Options_getDisableNetworkMonitor(jni, options);
+
+  PeerConnectionFactoryInterface::Options native_options;
+
+  // This doesn't necessarily match the c++ version of this struct; feel free
+  // to add more parameters as necessary.
+  native_options.network_ignore_mask = network_ignore_mask;
+  native_options.disable_encryption = disable_encryption;
+  native_options.disable_network_monitor = disable_network_monitor;
+  return native_options;
+}
+}  // namespace
+
 // Note: Some of the video-specific PeerConnectionFactory methods are
 // implemented in "video_jni.cc". This is done so that if an application
 // doesn't need video support, it can just link with "null_video_jni.cc"
@@ -53,8 +75,26 @@ static char* field_trials_init_string = nullptr;
 static bool factory_static_initialized = false;
 static bool video_hw_acceleration_enabled = true;
 
+void PeerConnectionFactoryNetworkThreadReady() {
+  RTC_LOG(LS_INFO) << "Network thread JavaCallback";
+  JNIEnv* env = AttachCurrentThreadIfNeeded();
+  Java_PeerConnectionFactory_onNetworkThreadReady(env);
+}
+
+void PeerConnectionFactoryWorkerThreadReady() {
+  RTC_LOG(LS_INFO) << "Worker thread JavaCallback";
+  JNIEnv* env = AttachCurrentThreadIfNeeded();
+  Java_PeerConnectionFactory_onWorkerThreadReady(env);
+}
+
+void PeerConnectionFactorySignalingThreadReady() {
+  RTC_LOG(LS_INFO) << "Signaling thread JavaCallback";
+  JNIEnv* env = AttachCurrentThreadIfNeeded();
+  Java_PeerConnectionFactory_onSignalingThreadReady(env);
+}
+
 JNI_FUNCTION_DECLARATION(jlong,
-                         PeerConnectionFactory_nativeCreateObserver,
+                         PeerConnectionFactory_createNativeObserver,
                          JNIEnv* jni,
                          jclass,
                          jobject j_observer) {
@@ -62,7 +102,7 @@ JNI_FUNCTION_DECLARATION(jlong,
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         PeerConnectionFactory_nativeInitializeAndroidGlobals,
+                         PeerConnectionFactory_initializeNativeAndroidGlobals,
                          JNIEnv* jni,
                          jclass,
                          jobject context,
@@ -93,14 +133,14 @@ JNI_FUNCTION_DECLARATION(void,
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         PeerConnectionFactory_nativeInitializeInternalTracer,
+                         PeerConnectionFactory_initializeNativeInternalTracer,
                          JNIEnv* jni,
                          jclass) {
   rtc::tracing::SetupInternalTracer();
 }
 
 JNI_FUNCTION_DECLARATION(jstring,
-                         PeerConnectionFactory_nativeFieldTrialsFindFullName,
+                         PeerConnectionFactory_findNativeFieldTrialsFullName,
                          JNIEnv* jni,
                          jclass,
                          jstring j_name) {
@@ -132,7 +172,7 @@ JNI_FUNCTION_DECLARATION(void,
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         PeerConnectionFactory_nativeShutdownInternalTracer,
+                         PeerConnectionFactory_shutdownNativeInternalTracer,
                          JNIEnv* jni,
                          jclass) {
   rtc::tracing::ShutdownInternalTracer();
@@ -252,7 +292,7 @@ jlong CreatePeerConnectionFactoryForJava(
 
 JNI_FUNCTION_DECLARATION(
     jlong,
-    PeerConnectionFactory_nativeCreatePeerConnectionFactory,
+    PeerConnectionFactory_createNativePeerConnectionFactory,
     JNIEnv* jni,
     jclass,
     jobject joptions,
@@ -265,7 +305,7 @@ JNI_FUNCTION_DECLARATION(
 
 JNI_FUNCTION_DECLARATION(
     jlong,
-    PeerConnectionFactory_nativeCreatePeerConnectionFactoryWithAudioProcessing,
+    PeerConnectionFactory_createNativePeerConnectionFactoryWithAudioProcessing,
     JNIEnv* jni,
     jclass,
     jobject joptions,
@@ -280,7 +320,7 @@ JNI_FUNCTION_DECLARATION(
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         PeerConnectionFactory_nativeFreeFactory,
+                         PeerConnectionFactory_freeNativeFactory,
                          JNIEnv*,
                          jclass,
                          jlong j_p) {
@@ -293,7 +333,7 @@ JNI_FUNCTION_DECLARATION(void,
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         PeerConnectionFactory_nativeThreadsCallbacks,
+                         PeerConnectionFactory_invokeNativeThreadsCallbacks,
                          JNIEnv*,
                          jclass,
                          jlong j_p) {
@@ -303,7 +343,7 @@ JNI_FUNCTION_DECLARATION(void,
 }
 
 JNI_FUNCTION_DECLARATION(jlong,
-                         PeerConnectionFactory_nativeCreateLocalMediaStream,
+                         PeerConnectionFactory_createNativeLocalMediaStream,
                          JNIEnv* jni,
                          jclass,
                          jlong native_factory,
@@ -316,7 +356,7 @@ JNI_FUNCTION_DECLARATION(jlong,
 }
 
 JNI_FUNCTION_DECLARATION(jlong,
-                         PeerConnectionFactory_nativeCreateAudioSource,
+                         PeerConnectionFactory_createNativeAudioSource,
                          JNIEnv* jni,
                          jclass,
                          jlong native_factory,
@@ -333,7 +373,7 @@ JNI_FUNCTION_DECLARATION(jlong,
 }
 
 JNI_FUNCTION_DECLARATION(jlong,
-                         PeerConnectionFactory_nativeCreateAudioTrack,
+                         PeerConnectionFactory_createNativeAudioTrack,
                          JNIEnv* jni,
                          jclass,
                          jlong native_factory,
@@ -348,7 +388,7 @@ JNI_FUNCTION_DECLARATION(jlong,
 }
 
 JNI_FUNCTION_DECLARATION(jboolean,
-                         PeerConnectionFactory_nativeStartAecDump,
+                         PeerConnectionFactory_startNativeAecDump,
                          JNIEnv* jni,
                          jclass,
                          jlong native_factory,
@@ -360,7 +400,7 @@ JNI_FUNCTION_DECLARATION(jboolean,
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         PeerConnectionFactory_nativeStopAecDump,
+                         PeerConnectionFactory_stopNativeAecDump,
                          JNIEnv* jni,
                          jclass,
                          jlong native_factory) {
@@ -370,7 +410,7 @@ JNI_FUNCTION_DECLARATION(void,
 }
 
 JNI_FUNCTION_DECLARATION(void,
-                         PeerConnectionFactory_nativeSetOptions,
+                         PeerConnectionFactory_setNativeOptions,
                          JNIEnv* jni,
                          jclass,
                          jlong native_factory,
@@ -393,7 +433,7 @@ JNI_FUNCTION_DECLARATION(void,
 }
 
 JNI_FUNCTION_DECLARATION(jlong,
-                         PeerConnectionFactory_nativeCreatePeerConnection,
+                         PeerConnectionFactory_createNativePeerConnection,
                          JNIEnv* jni,
                          jclass,
                          jlong factory,
@@ -408,13 +448,8 @@ JNI_FUNCTION_DECLARATION(jlong,
       PeerConnectionInterface::RTCConfigurationType::kAggressive);
   JavaToNativeRTCConfiguration(jni, j_rtc_config, &rtc_config);
 
-  jclass j_rtc_config_class = GetObjectClass(jni, j_rtc_config);
-  jfieldID j_key_type_id = GetFieldID(jni, j_rtc_config_class, "keyType",
-                                      "Lorg/webrtc/PeerConnection$KeyType;");
-  jobject j_key_type = GetObjectField(jni, j_rtc_config, j_key_type_id);
-
   // Generate non-default certificate.
-  rtc::KeyType key_type = JavaToNativeKeyType(jni, j_key_type);
+  rtc::KeyType key_type = GetRtcConfigKeyType(jni, j_rtc_config);
   if (key_type != rtc::KT_DEFAULT) {
     rtc::scoped_refptr<rtc::RTCCertificate> certificate =
         rtc::RTCCertificateGenerator::GenerateCertificate(

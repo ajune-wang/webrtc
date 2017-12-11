@@ -9,19 +9,19 @@
  */
 
 #include "api/mediastreaminterface.h"
+#include "sdk/android/generated_peerconnection_jni/jni/MediaSource_jni.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {
 
 JNI_FUNCTION_DECLARATION(jobject,
-                         MediaSource_nativeState,
+                         MediaSource_getNativeState,
                          JNIEnv* jni,
                          jclass,
                          jlong j_p) {
-  rtc::scoped_refptr<MediaSourceInterface> p(
-      reinterpret_cast<MediaSourceInterface*>(j_p));
-  return JavaEnumFromIndexAndClassName(jni, "MediaSource$State", p->state());
+  return Java_State_fromNativeIndex(
+      jni, reinterpret_cast<MediaSourceInterface*>(j_p)->state());
 }
 
 }  // namespace jni

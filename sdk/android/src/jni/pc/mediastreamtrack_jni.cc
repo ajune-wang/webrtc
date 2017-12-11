@@ -9,7 +9,7 @@
  */
 
 #include "api/mediastreaminterface.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "sdk/android/src/jni/pc/java_native_conversion.h"
 
 namespace webrtc {
 namespace jni {
@@ -45,9 +45,8 @@ JNI_FUNCTION_DECLARATION(jobject,
                          JNIEnv* jni,
                          jclass,
                          jlong j_p) {
-  return JavaEnumFromIndexAndClassName(
-      jni, "MediaStreamTrack$State",
-      reinterpret_cast<MediaStreamTrackInterface*>(j_p)->state());
+  return NativeToJavaMediaTrackState(
+      jni, reinterpret_cast<MediaStreamTrackInterface*>(j_p)->state());
 }
 
 JNI_FUNCTION_DECLARATION(jboolean,

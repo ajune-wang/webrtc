@@ -14,6 +14,9 @@
 
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/mocks/mock_rtcp_rtt_stats.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/app.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/compound_packet.h"
 #include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/event.h"
 #include "rtc_base/fakeclock.h"
@@ -31,6 +34,8 @@ using ::testing::ElementsAre;
 using ::testing::Invoke;
 using ::testing::Return;
 using ::testing::SizeIs;
+using ::testing::StrictMock;
+using ::webrtc::BitrateAllocation;
 using ::webrtc::CompactNtp;
 using ::webrtc::CompactNtpRttToMs;
 using ::webrtc::MockRtcpRttStats;
@@ -40,6 +45,8 @@ using ::webrtc::RtcpTransceiverConfig;
 using ::webrtc::RtcpTransceiverImpl;
 using ::webrtc::SaturatedUsToCompactNtp;
 using ::webrtc::TimeMicrosToNtp;
+using ::webrtc::rtcp::Bye;
+using ::webrtc::rtcp::CompoundPacket;
 using ::webrtc::rtcp::ReportBlock;
 using ::webrtc::rtcp::SenderReport;
 using ::webrtc::test::RtcpPacketParser;
@@ -47,6 +54,14 @@ using ::webrtc::test::RtcpPacketParser;
 class MockReceiveStatisticsProvider : public webrtc::ReceiveStatisticsProvider {
  public:
   MOCK_METHOD1(RtcpReportBlocks, std::vector<ReportBlock>(size_t));
+};
+
+class MockMediaReceiverRtcpCallbacks
+    : public webrtc::MediaReceiverRtcpCallbacks {
+ public:
+  MOCK_METHOD3(OnSenderReport, void(uint32_t, NtpTime, uint32_t));
+  MOCK_METHOD1(OnBye, void(uint32_t));
+  MOCK_METHOD2(OnBitrateAllocation, void(uint32_t, const BitrateAllocation&));
 };
 
 // Since some tests will need to wait for this period, make it small to avoid
@@ -107,6 +122,17 @@ class RtcpParserTransport : public webrtc::Transport {
   RtcpPacketParser* const parser_;
   int num_packets_ = 0;
 };
+
+RtcpTransceiverConfig DefaultTestConfig() {
+  // RtcpTransceiverConfig default constructor sets default value for prod.
+  // Test differs: it doesn't need to support all key features: Default test
+  // config turns off everything by default.
+  static MockTransport null_transport;
+  RtcpTransceiverConfig config;
+  config.outgoing_transport = &null_transport;
+  config.schedule_periodic_compound_packets = false;
+  return config;
+}
 
 TEST(RtcpTransceiverImplTest, DelaysSendingFirstCompondPacket) {
   rtc::TaskQueue queue("rtcp");
@@ -361,9 +387,189 @@ TEST(RtcpTransceiverImplTest, ReceiverReportUsesReceiveStatistics) {
             kMediaSsrc);
 }
 
-// TODO(danilchap): Write test ReceivePacket handles several rtcp_packets
-// stacked together when callbacks will be implemented that can be used for
-// cleaner expectations.
+TEST(RtcpTransceiverImplTest, CallbacksOnSenderReport) {
+  const uint32_t kRemoteSsrc = 12345;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc, &callback);
+
+  const NtpTime kRemoteNtp(0x9876543211);
+  const uint32_t kRemoteRtp = 0x444555;
+  SenderReport sr;
+  sr.SetSenderSsrc(kRemoteSsrc);
+  sr.SetNtp(kRemoteNtp);
+  sr.SetRtpTimestamp(kRemoteRtp);
+  auto raw_packet = sr.Build();
+
+  EXPECT_CALL(callback, OnSenderReport(kRemoteSsrc, kRemoteNtp, kRemoteRtp));
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
+
+TEST(RtcpTransceiverImplTest, MultipleCallbacksOnSameSsrc) {
+  const uint32_t kRemoteSsrc = 12345;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback1;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback2;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc, &callback1);
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc, &callback2);
+
+  const NtpTime kRemoteNtp(0x9876543211);
+  const uint32_t kRemoteRtp = 0x444555;
+  SenderReport sr;
+  sr.SetSenderSsrc(kRemoteSsrc);
+  sr.SetNtp(kRemoteNtp);
+  sr.SetRtpTimestamp(kRemoteRtp);
+  auto raw_packet = sr.Build();
+
+  EXPECT_CALL(callback1, OnSenderReport(kRemoteSsrc, kRemoteNtp, kRemoteRtp));
+  EXPECT_CALL(callback2, OnSenderReport(kRemoteSsrc, kRemoteNtp, kRemoteRtp));
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
+
+TEST(RtcpTransceiverImplTest, DoesntCallbackAfterRemoved) {
+  const uint32_t kRemoteSsrc = 12345;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback1;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback2;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc, &callback1);
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc, &callback2);
+
+  SenderReport sr;
+  sr.SetSenderSsrc(kRemoteSsrc);
+  auto raw_packet = sr.Build();
+
+  rtcp_transceiver.RemoveMediaReceiver(kRemoteSsrc, &callback1);
+
+  EXPECT_CALL(callback1, OnSenderReport(_, _, _)).Times(0);
+  EXPECT_CALL(callback2, OnSenderReport(_, _, _));
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
+
+TEST(RtcpTransceiverImplTest, CallbacksBySenderSsrc) {
+  const uint32_t kRemoteSsrc1 = 12345;
+  const uint32_t kRemoteSsrc2 = 22345;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback1;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback2;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc1, &callback1);
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc2, &callback2);
+
+  SenderReport sr;
+  sr.SetSenderSsrc(kRemoteSsrc1);
+  auto raw_packet = sr.Build();
+
+  EXPECT_CALL(callback1, OnSenderReport(_, _, _));
+  EXPECT_CALL(callback2, OnSenderReport(_, _, _)).Times(0);
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
+
+TEST(RtcpTransceiverImplTest, CallbacksOnByeBySenderSsrc) {
+  const uint32_t kRemoteSsrc1 = 12345;
+  const uint32_t kRemoteSsrc2 = 22345;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback1;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback2;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc1, &callback1);
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc2, &callback2);
+
+  Bye bye;
+  bye.SetSenderSsrc(kRemoteSsrc1);
+  auto raw_packet = bye.Build();
+
+  EXPECT_CALL(callback1, OnBye(kRemoteSsrc1));
+  EXPECT_CALL(callback2, OnBye(_)).Times(0);
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
+
+TEST(RtcpTransceiverImplTest, CallbacksOnTargetBitrateBySenderSsrc) {
+  const uint32_t kRemoteSsrc1 = 12345;
+  const uint32_t kRemoteSsrc2 = 22345;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback1;
+  StrictMock<MockMediaReceiverRtcpCallbacks> callback2;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc1, &callback1);
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc2, &callback2);
+
+  webrtc::rtcp::TargetBitrate target_bitrate;
+  target_bitrate.AddTargetBitrate(0, 0, /*target_bitrate_kbps=*/10);
+  target_bitrate.AddTargetBitrate(0, 1, /*target_bitrate_kbps=*/20);
+  target_bitrate.AddTargetBitrate(1, 0, /*target_bitrate_kbps=*/40);
+  target_bitrate.AddTargetBitrate(1, 1, /*target_bitrate_kbps=*/80);
+  webrtc::rtcp::ExtendedReports xr;
+  xr.SetSenderSsrc(kRemoteSsrc1);
+  xr.SetTargetBitrate(target_bitrate);
+  auto raw_packet = xr.Build();
+
+  BitrateAllocation bitrate_allocation;
+  bitrate_allocation.SetBitrate(0, 0, /*bitrate_bps=*/10000);
+  bitrate_allocation.SetBitrate(0, 1, /*bitrate_bps=*/20000);
+  bitrate_allocation.SetBitrate(1, 0, /*bitrate_bps=*/40000);
+  bitrate_allocation.SetBitrate(1, 1, /*bitrate_bps=*/80000);
+  EXPECT_CALL(callback1, OnBitrateAllocation(kRemoteSsrc1, bitrate_allocation));
+  EXPECT_CALL(callback2, OnBitrateAllocation(_, _)).Times(0);
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
+
+TEST(RtcpTransceiverImplTest, SkipsIncorrectTargetBitrateEntries) {
+  const uint32_t kRemoteSsrc = 12345;
+  MockMediaReceiverRtcpCallbacks callback;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc, &callback);
+
+  webrtc::rtcp::TargetBitrate target_bitrate;
+  target_bitrate.AddTargetBitrate(0, 0, /*target_bitrate_kbps=*/10);
+  target_bitrate.AddTargetBitrate(0, webrtc::kMaxTemporalStreams, 20);
+  target_bitrate.AddTargetBitrate(webrtc::kMaxSpatialLayers, 0, 40);
+
+  webrtc::rtcp::ExtendedReports xr;
+  xr.SetTargetBitrate(target_bitrate);
+  xr.SetSenderSsrc(kRemoteSsrc);
+  auto raw_packet = xr.Build();
+
+  BitrateAllocation expected_allocation;
+  expected_allocation.SetBitrate(0, 0, /*bitrate_bps=*/10000);
+  EXPECT_CALL(callback, OnBitrateAllocation(kRemoteSsrc, expected_allocation));
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
+
+TEST(RtcpTransceiverImplTest, CallbacksOnByeBehindSenderReport) {
+  const uint32_t kRemoteSsrc = 12345;
+  MockMediaReceiverRtcpCallbacks callback;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc, &callback);
+
+  CompoundPacket compound;
+  SenderReport sr;
+  sr.SetSenderSsrc(kRemoteSsrc);
+  compound.Append(&sr);
+  Bye bye;
+  bye.SetSenderSsrc(kRemoteSsrc);
+  compound.Append(&bye);
+  auto raw_packet = compound.Build();
+
+  EXPECT_CALL(callback, OnBye(kRemoteSsrc));
+  EXPECT_CALL(callback, OnSenderReport(kRemoteSsrc, _, _));
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
+
+TEST(RtcpTransceiverImplTest, CallbacksOnByeBehindUnknownBlock) {
+  const uint32_t kRemoteSsrc = 12345;
+  MockMediaReceiverRtcpCallbacks callback;
+  RtcpTransceiverImpl rtcp_transceiver(DefaultTestConfig());
+  rtcp_transceiver.AddMediaReceiver(kRemoteSsrc, &callback);
+
+  CompoundPacket compound;
+  // Use Application-Defined packet as 'unknown' rtcp block.
+  webrtc::rtcp::App app;
+  compound.Append(&app);
+  Bye bye;
+  bye.SetSenderSsrc(kRemoteSsrc);
+  compound.Append(&bye);
+  auto raw_packet = compound.Build();
+
+  EXPECT_CALL(callback, OnBye(kRemoteSsrc));
+  rtcp_transceiver.ReceivePacket(raw_packet, /*now_us=*/0);
+}
 
 TEST(RtcpTransceiverImplTest,
      WhenSendsReceiverReportSetsLastSenderReportTimestampPerRemoteSsrc) {

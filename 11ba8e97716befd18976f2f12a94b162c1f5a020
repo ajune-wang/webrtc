@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "650093c1_8d1de652",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T12:16:36Z",
+      "side": 1,
+      "message": "Is it thread safe now?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdfb3217_caa54da2",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T12:16:36Z",
+      "side": 1,
+      "message": "Is this thread safe enough or should getOrCreateAutoDetector be called?",
+      "range": {
+        "startLine": 114,
+        "startChar": 40,
+        "endLine": 114,
+        "endChar": 52
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "272cf8fd_4183f259",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T12:16:36Z",
+      "side": 1,
+      "message": "I would like to avoid adding new public methods.",
+      "range": {
+        "startLine": 132,
+        "startChar": 2,
+        "endLine": 132,
+        "endChar": 8
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b1bb5e0_d6c77dde",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T12:16:36Z",
+      "side": 1,
+      "message": "Is this called often enough to really warrant this?",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 59
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3ebb5e0_a05eeabb",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-11T12:16:36Z",
+      "side": 1,
+      "message": "Can we instead initialize this in the constructor?",
+      "range": {
+        "startLine": 139,
+        "startChar": 10,
+        "endLine": 139,
+        "endChar": 55
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

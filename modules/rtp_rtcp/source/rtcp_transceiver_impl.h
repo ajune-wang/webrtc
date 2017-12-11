@@ -36,6 +36,11 @@ class RtcpTransceiverImpl {
   explicit RtcpTransceiverImpl(const RtcpTransceiverConfig& config);
   ~RtcpTransceiverImpl();
 
+  void AddMediaReceiverCallbacks(uint32_t remote_ssrc,
+                                 MediaReceiverRtcpCallbacks* callbacks);
+  void RemoveMediaReceiverCallbacks(uint32_t remote_ssrc,
+                                    MediaReceiverRtcpCallbacks* callbacks);
+
   void ReceivePacket(rtc::ArrayView<const uint8_t> packet, int64_t now_us);
 
   void SendCompoundPacket();
@@ -54,6 +59,7 @@ class RtcpTransceiverImpl {
 
   void HandleReceivedPacket(const rtcp::CommonHeader& rtcp_packet_header,
                             int64_t now_us);
+  void HandleBye(const rtcp::CommonHeader& rtcp_packet_header);
   void HandleSenderReport(const rtcp::CommonHeader& rtcp_packet_header,
                           int64_t now_us);
   void HandleExtendedReports(const rtcp::CommonHeader& rtcp_packet_header,

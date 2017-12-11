@@ -13,12 +13,27 @@
 
 #include <string>
 
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/task_queue.h"
 
 namespace webrtc {
 class ReceiveStatisticsProvider;
 class Transport;
+
+class MediaReceiverRtcpCallbacks {
+ public:
+  virtual ~MediaReceiverRtcpCallbacks() = default;
+
+  // All callbacks have default empty implementation. This way user needs to
+  // implement only callbacks she interested in.
+  virtual void OnSenderReport(uint32_t sender_ssrc,
+                              NtpTime ntp_time,
+                              uint32_t rtp_time) {}
+  virtual void OnBye(uint32_t sender_ssrc) {}
+  virtual void OnBitrateAllocation(uint32_t sender_ssrc,
+                                   const BitrateAllocation& allocation) {}
+};
 
 struct RtcpTransceiverConfig {
   RtcpTransceiverConfig();

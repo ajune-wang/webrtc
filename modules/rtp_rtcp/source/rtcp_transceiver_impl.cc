@@ -16,6 +16,7 @@
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/extended_reports.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/fir.h"
@@ -27,6 +28,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/timeutils.h"
@@ -44,6 +46,7 @@ struct SenderReportTimes {
 struct RtcpTransceiverImpl::RemoteSenderState {
   uint8_t fir_sequence_number = 0;
   rtc::Optional<SenderReportTimes> last_received_sender_report;
+  std::vector<MediaReceiverRtcpCallbacks*> callbacks;
 };
 
 // Helper to put several RTCP packets into lower layer datagram composing
@@ -90,6 +93,27 @@ RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
 }
 
 RtcpTransceiverImpl::~RtcpTransceiverImpl() = default;
+
+void RtcpTransceiverImpl::AddMediaReceiverCallbacks(
+    uint32_t remote_ssrc,
+    MediaReceiverRtcpCallbacks* callbacks) {
+  auto& store = remote_senders_[remote_ssrc].callbacks;
+  RTC_DCHECK(std::find(store.begin(), store.end(), callbacks) == store.end());
+  store.push_back(callbacks);
+}
+
+void RtcpTransceiverImpl::RemoveMediaReceiverCallbacks(
+    uint32_t remote_ssrc,
+    MediaReceiverRtcpCallbacks* callbacks) {
+  auto remote_sender_it = remote_senders_.find(remote_ssrc);
+  if (remote_sender_it == remote_senders_.end())
+    return;
+  auto& store = remote_sender_it->second.callbacks;
+  auto it = std::find(store.begin(), store.end(), callbacks);
+  if (it == store.end())
+    return;
+  store.erase(it);
+}
 
 void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet,
                                         int64_t now_us) {
@@ -157,6 +181,9 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
     const rtcp::CommonHeader& rtcp_packet_header,
     int64_t now_us) {
   switch (rtcp_packet_header.type()) {
+    case rtcp::Bye::kPacketType:
+      HandleBye(rtcp_packet_header);
+      break;
     case rtcp::SenderReport::kPacketType:
       HandleSenderReport(rtcp_packet_header, now_us);
       break;
@@ -166,17 +193,36 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
   }
 }
 
+void RtcpTransceiverImpl::HandleBye(
+    const rtcp::CommonHeader& rtcp_packet_header) {
+  rtcp::Bye bye;
+  if (!bye.Parse(rtcp_packet_header))
+    return;
+  auto remote_sender_it = remote_senders_.find(bye.sender_ssrc());
+  if (remote_sender_it == remote_senders_.end())
+    return;
+  for (MediaReceiverRtcpCallbacks* callback :
+       remote_sender_it->second.callbacks)
+    callback->OnBye(bye.sender_ssrc());
+}
+
 void RtcpTransceiverImpl::HandleSenderReport(
     const rtcp::CommonHeader& rtcp_packet_header,
     int64_t now_us) {
   rtcp::SenderReport sender_report;
   if (!sender_report.Parse(rtcp_packet_header))
     return;
+  RemoteSenderState& remote_sender =
+      remote_senders_[sender_report.sender_ssrc()];
   rtc::Optional<SenderReportTimes>& last =
-      remote_senders_[sender_report.sender_ssrc()].last_received_sender_report;
+      remote_sender.last_received_sender_report;
   last.emplace();
   last->local_received_time_us = now_us;
   last->remote_sent_time = sender_report.ntp();
+
+  for (MediaReceiverRtcpCallbacks* callback : remote_sender.callbacks)
+    callback->OnSenderReport(sender_report.sender_ssrc(), sender_report.ntp(),
+                             sender_report.rtp_timestamp());
 }
 
 void RtcpTransceiverImpl::HandleExtendedReports(
@@ -200,6 +246,33 @@ void RtcpTransceiverImpl::HandleExtendedReports(
       config_.rtt_observer->OnRttUpdate(rtt_ms);
     }
   }
+
+  if (!extended_reports.target_bitrate())
+    return;
+  uint32_t remote_ssrc = extended_reports.sender_ssrc();
+  auto remote_sender_it = remote_senders_.find(remote_ssrc);
+  if (remote_sender_it == remote_senders_.end() ||
+      remote_sender_it->second.callbacks.empty())
+    return;
+
+  // Convert rtcp::TargetBitrate to BitrateAllocation from common types.
+  BitrateAllocation bitrate_allocation;
+  for (const rtcp::TargetBitrate::BitrateItem& item :
+       extended_reports.target_bitrate()->GetTargetBitrates()) {
+    if (item.spatial_layer >= kMaxSpatialLayers ||
+        item.temporal_layer >= kMaxTemporalStreams) {
+      RTC_DLOG(LS_WARNING)
+          << config_.debug_id
+          << "Invalid incoming TargetBitrate with spatial layer "
+          << item.spatial_layer << ", temporal layer " << item.temporal_layer;
+      continue;
+    }
+    bitrate_allocation.SetBitrate(item.spatial_layer, item.temporal_layer,
+                                  item.target_bitrate_kbps * 1000);
+  }
+  for (MediaReceiverRtcpCallbacks* callback :
+       remote_sender_it->second.callbacks)
+    callback->OnBitrateAllocation(remote_ssrc, bitrate_allocation);
 }
 
 void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets() {

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_PACING_ALR_DETECTOR_H_
-#define MODULES_PACING_ALR_DETECTOR_H_
+#ifndef MODULES_CONGESTION_CONTROLLER_ALR_DETECTOR_H_
+#define MODULES_CONGESTION_CONTROLLER_ALR_DETECTOR_H_
 
 #include "api/optional.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -35,7 +35,7 @@ class AlrDetector {
   explicit AlrDetector(RtcEventLog* event_log);
   ~AlrDetector();
 
-  void OnBytesSent(size_t bytes_sent, int64_t delta_time_ms);
+  void OnBytesSent(size_t bytes_sent, int64_t send_time_ms);
 
   // Set current estimated bandwidth.
   void SetEstimatedBitrate(int bitrate_bps);
@@ -45,15 +45,15 @@ class AlrDetector {
   rtc::Optional<int64_t> GetApplicationLimitedRegionStartTime() const;
 
   struct AlrExperimentSettings {
-    float pacing_factor = PacedSender::kDefaultPaceMultiplier;
-    int64_t max_paced_queue_time = PacedSender::kMaxQueueLengthMs;
-    int alr_bandwidth_usage_percent = kDefaultAlrBandwidthUsagePercent;
-    int alr_start_budget_level_percent = kDefaultAlrStartBudgetLevelPercent;
-    int alr_stop_budget_level_percent = kDefaultAlrStopBudgetLevelPercent;
+    float pacing_factor;
+    int64_t max_paced_queue_time;
+    int alr_bandwidth_usage_percent;
+    int alr_start_budget_level_percent;
+    int alr_stop_budget_level_percent;
     // Will be sent to the receive side for stats slicing.
     // Can be 0..6, because it's sent as a 3 bits value and there's also
     // reserved value to indicate absence of experiment.
-    int group_id = 0;
+    int group_id;
   };
   static rtc::Optional<AlrExperimentSettings> ParseAlrSettingsFromFieldTrial(
       const char* experiment_name);
@@ -77,6 +77,8 @@ class AlrDetector {
   int alr_start_budget_level_percent_;
   int alr_stop_budget_level_percent_;
 
+  rtc::Optional<int64_t> last_send_time_ms_;
+
   IntervalBudget alr_budget_;
   rtc::Optional<int64_t> alr_started_time_ms_;
 
@@ -85,4 +87,4 @@ class AlrDetector {
 
 }  // namespace webrtc
 
-#endif  // MODULES_PACING_ALR_DETECTOR_H_
+#endif  // MODULES_CONGESTION_CONTROLLER_ALR_DETECTOR_H_

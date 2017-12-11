@@ -40,9 +40,6 @@ class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
   RtpPacketSender* packet_sender() override;
   const RtpKeepAliveConfig& keepalive_config() const override;
 
-  void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                     int max_padding_bitrate_bps) override;
-
   void SetKeepAliveConfig(const RtpKeepAliveConfig& config);
 
  private:

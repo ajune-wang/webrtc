@@ -29,6 +29,7 @@ rtc_static_library("primitives") {
   deps = [
     "../..:webrtc_common",
     "../../rtc_base:rtc_base",  # TODO(kjellander): Cleanup in bugs.webrtc.org/3806.
+    "../../rtc_base:rtc_checks",
   ]
 }
 
@@ -37,7 +38,9 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = []
-    deps = []
+    deps = [
+      "../../rtc_base:rtc_checks",
+    ]
     if (rtc_desktop_capture_supported) {
       deps += [
         ":desktop_capture_mock",
@@ -87,6 +90,7 @@ if (rtc_include_tests) {
       ":primitives",
       "../..:webrtc_common",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:rtc_checks",
       "../../system_wrappers:cpu_features_api",
       "../../test:test_support",
       "//testing/gmock",
@@ -126,6 +130,7 @@ if (rtc_include_tests) {
     deps = [
       ":primitives",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:rtc_checks",
       "../../system_wrappers",
     ]
   }
@@ -328,6 +333,7 @@ rtc_static_library("desktop_capture_generic") {
     "../..:webrtc_common",
     "../../api:refcountedbase",
     "../../rtc_base:rtc_base",  # TODO(kjellander): Cleanup in bugs.webrtc.org/3806.
+    "../../rtc_base:rtc_checks",
     "../../system_wrappers",
     "../../system_wrappers:cpu_features_api",
     "../../system_wrappers:metrics_api",

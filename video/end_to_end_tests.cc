@@ -2579,7 +2579,7 @@ TEST_P(EndToEndTest, TriggerMidCallProbing) {
   };
 
   bool success = false;
-  const int kMaxAttempts = 3;
+  const int kMaxAttempts = 1;
   for (int i = 0; i < kMaxAttempts; ++i) {
     TriggerMidCallProbingTest test(&task_queue_, &success);
     RunBaseTest(&test);

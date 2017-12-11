@@ -15,7 +15,8 @@
 #include "call/rtp_transport_controller_send.h"
 #include "common_video/include/frame_callback.h"
 #include "common_video/include/video_frame.h"
-#include "modules/pacing/alr_detector.h"
+#include "modules/congestion_controller/alr_detector.h"
+#include "modules/congestion_controller/include/send_side_congestion_controller.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/source/rtcp_sender.h"
@@ -48,6 +49,9 @@
 #include "call/video_send_stream.h"
 
 namespace webrtc {
+namespace {
+const float kDefaultPaceMultiplier = 2.5f;
+}
 
 enum VideoFormat { kGeneric, kVP8, };
 
@@ -3550,7 +3554,7 @@ TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
         : test::SendTest(kDefaultTimeoutMs),
           configure_send_side_(configure_send_side),
           expected_pacing_factor_(expected_pacing_factor),
-          paced_sender_(nullptr) {}
+          send_side_cc(nullptr) {}
 
     void ModifyVideoConfigs(
         VideoSendStream::Config* send_config,
@@ -3585,14 +3589,14 @@ TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
     void OnRtpTransportControllerSendCreated(
         RtpTransportControllerSend* controller) override {
       // Grab a reference to the pacer.
-      paced_sender_ = controller->pacer();
+      send_side_cc = controller->send_side_cc();
     }
 
     void OnVideoStreamsCreated(
         VideoSendStream* send_stream,
         const std::vector<VideoReceiveStream*>& receive_streams) override {
       // Video streams created, check that pacer is correctly configured.
-      EXPECT_EQ(expected_pacing_factor_, paced_sender_->GetPacingFactor());
+      EXPECT_EQ(expected_pacing_factor_, send_side_cc->GetPacingFactor());
       observation_complete_.Set();
     }
 
@@ -3603,7 +3607,7 @@ TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
    private:
     const bool configure_send_side_;
     const float expected_pacing_factor_;
-    const PacedSender* paced_sender_;
+    const SendSideCongestionController* send_side_cc;
   };
 
   // Send-side bwe on, use pacing factor from |kAlrProbingExperiment| above.
@@ -3611,8 +3615,7 @@ TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
   RunBaseTest(&test_with_send_side);
 
   // Send-side bwe off, use default pacing factor.
-  PacingFactorObserver test_without_send_side(
-      false, PacedSender::kDefaultPaceMultiplier);
+  PacingFactorObserver test_without_send_side(false, kDefaultPaceMultiplier);
   RunBaseTest(&test_without_send_side);
 }
 

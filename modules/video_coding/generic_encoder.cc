@@ -14,8 +14,8 @@
 
 #include "api/optional.h"
 #include "api/video/i420_buffer.h"
+#include "modules/congestion_controller/alr_detector.h"
 #include "modules/include/module_common_types_public.h"
-#include "modules/pacing/alr_detector.h"
 #include "modules/video_coding/encoded_frame.h"
 #include "modules/video_coding/media_optimization.h"
 #include "rtc_base/checks.h"

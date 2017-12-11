@@ -11,17 +11,18 @@
 #ifndef MODULES_PACING_PACED_SENDER_H_
 #define MODULES_PACING_PACED_SENDER_H_
 
+#include <atomic>
 #include <memory>
 
 #include "api/optional.h"
 #include "modules/pacing/pacer.h"
 #include "modules/pacing/packet_queue2.h"
+#include "network_control/include/network_types.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/thread_annotations.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
-class AlrDetector;
 class BitrateProber;
 class Clock;
 class ProbeClusterCreatedObserver;
@@ -55,12 +56,6 @@ class PacedSender : public Pacer {
   // encoding them). Bitrate sent may temporarily exceed target set by
   // UpdateBitrate() so that this limit will be upheld.
   static const int64_t kMaxQueueLengthMs;
-  // Pacing-rate relative to our target send rate.
-  // Multiplicative factor that is applied to the target bitrate to calculate
-  // the number of bytes that can be transmitted per interval.
-  // Increasing this factor will result in lower delays in cases of bitrate
-  // overshoots from the encoder.
-  static const float kDefaultPaceMultiplier;
 
   PacedSender(const Clock* clock,
               PacketSender* packet_sender,
@@ -82,26 +77,12 @@ class PacedSender : public Pacer {
   void Resume();
 
   // Enable bitrate probing. Enabled by default, mostly here to simplify
-  // testing. Must be called before any packets are being sent to have an
-  // effect.
+  // testing. Must be called before any packets are being sent.
   void SetProbingEnabled(bool enabled);
 
-  // Sets the estimated capacity of the network. Must be called once before
-  // packets can be sent.
-  // |bitrate_bps| is our estimate of what we are allowed to send on average.
-  // We will pace out bursts of packets at a bitrate of
-  // |bitrate_bps| * kDefaultPaceMultiplier.
-  void SetEstimatedBitrate(uint32_t bitrate_bps) override;
-
-  // Sets the minimum send bitrate and maximum padding bitrate requested by send
-  // streams.
-  // |min_send_bitrate_bps| might be higher that the estimated available network
-  // bitrate and if so, the pacer will send with |min_send_bitrate_bps|.
-  // |max_padding_bitrate_bps| might be higher than the estimate available
-  // network bitrate and if so, the pacer will send padding packets to reach
-  // the min of the estimated available bitrate and |max_padding_bitrate_bps|.
-  void SetSendBitrateLimits(int min_send_bitrate_bps,
-                            int max_padding_bitrate_bps);
+  // Sets the pacing rates. Must be called once before packets can be sent.
+  void SetPacingRates(uint32_t pacing_rate_bps,
+                      uint32_t padding_rate_bps) override;
 
   // Returns true if we send the packet now, else it will add the packet
   // information to the queue and call TimeToSendPacket when it's time to send.
@@ -131,14 +112,6 @@ class PacedSender : public Pacer {
   // packets in the queue, given the current size and bitrate, ignoring prio.
   virtual int64_t ExpectedQueueTimeMs() const;
 
-  // Returns time in milliseconds when the current application-limited region
-  // started or empty result if the sender is currently not application-limited.
-  //
-  // Application Limited Region (ALR) refers to operating in a state where the
-  // traffic on network is limited due to application not having enough
-  // traffic to meet the current channel capacity.
-  virtual rtc::Optional<int64_t> GetApplicationLimitedRegionStartTime() const;
-
   // Returns the number of milliseconds until the module want a worker thread
   // to call Process.
   int64_t TimeUntilNextProcess() override;
@@ -148,58 +121,86 @@ class PacedSender : public Pacer {
 
   // Called when the prober is associated with a process thread.
   void ProcessThreadAttached(ProcessThread* process_thread) override;
-  void SetPacingFactor(float pacing_factor);
-  float GetPacingFactor() const;
+
   void SetQueueTimeLimit(int limit_ms);
 
+  virtual network::PacerConfig::Receiver* GetPacerConfigReceiver();
+  virtual network::PacerState::Receiver* GetPacerStateReceiver();
+  virtual network::ProbeClusterConfig::Receiver*
+  GetProbeClusterConfigReceiver();
+
+ protected:
+  void Sync(int cycles);
+
  private:
+  void OnPacerConfig(network::PacerConfig);
+  void OnPacerState(network::PacerState);
+  void OnProbeClusterConfig(network::ProbeClusterConfig);
+  void OnProcessInterval(network::ProcessInterval);
+  void OnPacket(PacketQueue::Packet);
+  void OnProbingState(bool);
+
+  void SyncPacketsState();
+  void Wait();
+
   // Updates the number of bytes that can be sent for the next time interval.
-  void UpdateBudgetWithElapsedTime(int64_t delta_time_in_ms)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
-  void UpdateBudgetWithBytesSent(size_t bytes)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
+  void UpdateBudgetWithElapsedTime(int64_t delta_time_in_ms);
+  void UpdateBudgetWithBytesSent(size_t bytes);
 
   bool SendPacket(const PacketQueue::Packet& packet,
-                  const PacedPacketInfo& cluster_info)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
-  size_t SendPadding(size_t padding_needed, const PacedPacketInfo& cluster_info)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
+                  const PacedPacketInfo& cluster_info);
+  size_t SendPadding(size_t padding_needed,
+                     const PacedPacketInfo& cluster_info);
+
+  std::unique_ptr<rtc::TaskQueue> task_queue_;
 
   const Clock* const clock_;
   PacketSender* const packet_sender_;
-  const std::unique_ptr<AlrDetector> alr_detector_ RTC_PT_GUARDED_BY(critsect_);
 
-  rtc::CriticalSection critsect_;
-  bool paused_ RTC_GUARDED_BY(critsect_);
+  bool paused_;
   // This is the media budget, keeping track of how many bits of media
   // we can pace out during the current interval.
-  const std::unique_ptr<IntervalBudget> media_budget_
-      RTC_PT_GUARDED_BY(critsect_);
+  const std::unique_ptr<IntervalBudget> media_budget_;
   // This is the padding budget, keeping track of how many bits of padding we're
   // allowed to send out during the current interval. This budget will be
   // utilized when there's no media to send.
-  const std::unique_ptr<IntervalBudget> padding_budget_
-      RTC_PT_GUARDED_BY(critsect_);
+  const std::unique_ptr<IntervalBudget> padding_budget_;
 
-  const std::unique_ptr<BitrateProber> prober_ RTC_PT_GUARDED_BY(critsect_);
-  bool probing_send_failure_ RTC_GUARDED_BY(critsect_);
+  const std::unique_ptr<BitrateProber> prober_;
   // Actual configured bitrates (media_budget_ may temporarily be higher in
   // order to meet pace time constraint).
-  uint32_t estimated_bitrate_bps_ RTC_GUARDED_BY(critsect_);
-  uint32_t min_send_bitrate_kbps_ RTC_GUARDED_BY(critsect_);
-  uint32_t max_padding_bitrate_kbps_ RTC_GUARDED_BY(critsect_);
-  uint32_t pacing_bitrate_kbps_ RTC_GUARDED_BY(critsect_);
+  uint32_t pacing_bitrate_kbps_;
 
-  int64_t time_last_update_us_ RTC_GUARDED_BY(critsect_);
-  int64_t first_sent_packet_ms_ RTC_GUARDED_BY(critsect_);
+  int64_t time_last_update_us_;
+  int64_t first_sent_packet_ms_;
 
-  const std::unique_ptr<PacketQueue> packets_ RTC_PT_GUARDED_BY(critsect_);
-  uint64_t packet_counter_ RTC_GUARDED_BY(critsect_);
+  const std::unique_ptr<PacketQueue> packets_;
+
+  rtc::CriticalSection critsect_;
+  size_t queue_size_packets_ RTC_GUARDED_BY(critsect_);
+  size_t queue_size_bytes_ RTC_GUARDED_BY(critsect_);
+  int64_t oldest_queue_time_ms_ RTC_GUARDED_BY(critsect_);
+
+  uint64_t packet_counter_;
   ProcessThread* process_thread_ = nullptr;
 
-  float pacing_factor_ RTC_GUARDED_BY(critsect_);
-  int64_t queue_time_limit RTC_GUARDED_BY(critsect_);
-  bool account_for_audio_ RTC_GUARDED_BY(critsect_);
+  int32_t queue_time_limit;
+  bool account_for_audio_;
+
+  network::PacerConfig::TaskQueueReceiver::uptr PacerConfigReceiver;
+  network::PacerState::TaskQueueReceiver::uptr PacerStateReceiver;
+  network::ProbeClusterConfig::TaskQueueReceiver::uptr
+      ProbeClusterConfigReceiver;
+  network::ProcessInterval::TaskQueueReceiver::uptr ProcessIntervalReceiver;
+  network::signal::TaskQueueReceiver<PacketQueue::Packet>::uptr PacketReceiver;
+  network::signal::TaskQueueReceiver<bool>::uptr ProbingStateReceiver;
+
+  network::PacerConfig::Junction PacerConfigJunction;
+  network::PacerState::Junction PacerStateJunction;
+  network::ProbeClusterConfig::Junction ProbeClusterConfigJunction;
+  network::ProcessInterval::Junction ProcessIntervalJunction;
+  network::signal::Junction<PacketQueue::Packet> PacketJunction;
+  network::signal::Junction<bool> ProbingStateJunction;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_PACED_SENDER_H_

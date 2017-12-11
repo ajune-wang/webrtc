@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2fc9680_9be7bafa",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-11T12:59:53Z",
+      "side": 1,
+      "message": "I think this if-statement should be optimized away in non-debug builds.",
+      "range": {
+        "startLine": 434,
+        "startChar": 0,
+        "endLine": 434,
+        "endChar": 17
+      },
+      "revId": "bdb1d9176e22ce43ec1283559d8682b6aae1a58e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

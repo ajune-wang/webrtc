@@ -12,13 +12,13 @@
 #include <memory>
 
 #include "p2p/base/basicpacketsocketfactory.h"
-#include "p2p/base/jseptransport.h"
 #include "p2p/base/relayport.h"
 #include "p2p/base/stunport.h"
 #include "p2p/base/tcpport.h"
 #include "p2p/base/testrelayserver.h"
 #include "p2p/base/teststunserver.h"
 #include "p2p/base/testturnserver.h"
+#include "p2p/base/transporthelper.h"
 #include "p2p/base/turnport.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/buffer.h"

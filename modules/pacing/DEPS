@@ -1,4 +1,5 @@
 include_rules = [
-  "+system_wrappers",
+  "+network_control/include",
   "+logging/rtc_event_log"
+  "+system_wrappers",
 ]

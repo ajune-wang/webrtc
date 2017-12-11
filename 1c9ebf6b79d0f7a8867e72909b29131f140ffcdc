@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaf1ddd1_e3aac02a",
+        "filename": "p2p/base/dtlstransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-11T18:47:34Z",
+      "side": 1,
+      "message": "The only thing the FakeJsepTransport is used for is to implement a DtlsTestClient.  So why not just inline all of this into DtlsTestClient?  DtlsTestClient even has a \"TODO: Remove the dependency on JsepTransport\".  It sounds like a good time to do that.  \n\n\nIn particular, it seems like it\u0027s only used to:\n\n- GetSslRole(): This is only used to test the negotiation of DTLS, which is actually contained in the JsepTransport.  So this test (TestDtlsSetupWithLegacyAsAnswerer) should be moved to JsepTransport tests.  Otherwise, you end up with a unit test that\u0027s just testing the FakeJsepTransport, which only exists for the test.  It\u0027s a test testing itself.\n\n- GetLocalCertificate(): Basically the same as GetSslRole.  It\u0027s actually testing JsepTransport, and thus FakeJsepTransport, and should be moved to avoid having a test test itself.\n\n- negotiated_dtls(): Similar to GetSslRole and GetLocalCertificate, we\u0027re verifying things got negotiated correctly at the JSEP/SDP level, so this kind of check should be in a test for JsepTransport.\n\n\n- SetRemoteTransportDescription(MakeTransportDescription(...), ...): Is only used for calling \"dtls_transport-\u003eice_transport()-\u003eSetRemoteIceParameters(remote_description_-\u003eGetIceParameters())\", \"dtls_transport-\u003eice_transport()-\u003eSetRemoteIceMode(remote_description_-\u003eice_mode)\", and \"dtls_transport-\u003eSetRemoteFingerprint(...)\".  But we can call those quite easily directly rather than through SetRemoteTransportDescription.\n\n- SetLocalTransportDescription(MakeTransportDescription(...), ...)): Is only used for calling \"dtls_transport-\u003eice_transport()-\u003eSetLocalIceParameters(local_description_-\u003eGetIceParameters())\", and \"dtls_transport-\u003eSetRemoteFingerprint(...)\".  But we can call  those quite easily directly rather than through SetLocalTransportDescription.\n\n- AddChannel(...): Basically does the same thing as SetLocalTransportDescription and SetRemoteTransportDescription if they were called before AddChannel.  So we could easily replace this call, or perhaps just remove it.\n\n\n\nWe\u0027d end up deleting a lot of code instead of adding code.  And it would test real things and not test fakes.",
+      "range": {
+        "startLine": 119,
+        "startChar": 70,
+        "endLine": 119,
+        "endChar": 0
+      },
+      "revId": "1c9ebf6b79d0f7a8867e72909b29131f140ffcdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "061a4aba_58448510",
+        "filename": "p2p/base/transporthelper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-11T18:47:34Z",
+      "side": 1,
+      "message": "Instead of a big \"transporthelper\", I think we should find proper homes for some of these things.\n\nFor example:\n\n- IceConnectionState, IceGatheringState, IceConfig, ContinualGatheringPolicy, NominationMode, ConnectionInfo(s), and IceCredentialsChanged to p2p/icetransport.h (to which we can later move and rename p2ptransportchannel). \n\n- DtlsTransportState to p2p/dtltransport.h.\n\n- TransportStats, TransportChannelStats, and VerifyCandidate(s) to pc/transport_controller.h\n\n- BadTransportDescription to jseptransport.cc (the only place it is used).\n\n- TransportChannelStatsList to /dev/null.",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 0
+      },
+      "revId": "1c9ebf6b79d0f7a8867e72909b29131f140ffcdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

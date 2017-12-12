@@ -140,6 +140,30 @@
       "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba6b479e_9981e532",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2017-12-12T01:39:00Z",
+      "side": 1,
+      "message": "Actually it looks like WEBRTC_LINUX is defined on Android (unlike OS_LINUX/is_linux in chromium). From webrtc/BUILD.gn:\n  if (is_android) {\n    defines +\u003d [\n      \"WEBRTC_LINUX\",\n      \"WEBRTC_ANDROID\",\n    ]\n  }\n\nReplaced ((defined WEBRTC_LINUX) || (defined WEBRTC_MAC)) with defined(WEBRTC_POSIX) in the rest of this file.",
+      "parentUuid": "669b19b3_4afe2526",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

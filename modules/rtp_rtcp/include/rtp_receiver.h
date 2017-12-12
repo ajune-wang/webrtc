@@ -106,6 +106,13 @@ class RtpReceiver {
   // Returns the current energy of the RTP stream received.
   virtual int32_t Energy(uint8_t array_of_energy[kRtpCsrcSize]) const = 0;
 
+  // Returns true if the audio level was not inclued as an RTP header
+  // extension and needs to be computed.
+  virtual bool NeedsSSRCAudioLevel() const = 0;
+
+  // Sets the computed audio level for the latest synchronization source.
+  virtual void SetSSRCAudioLevel(uint8_t level) = 0;
+
   virtual std::vector<RtpSource> GetSources() const = 0;
 };
 }  // namespace webrtc

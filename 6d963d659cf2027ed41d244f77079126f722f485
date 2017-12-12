@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d6b1013d_9d467176",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-12T21:39:31Z",
+      "side": 1,
+      "message": "No, there is no value in having a full MediaStreamInterface at this point in the code.  The only thing we use it for is the label.",
+      "parentUuid": "52a60ae7_c52b1125",
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff597c75_d6943af1",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1

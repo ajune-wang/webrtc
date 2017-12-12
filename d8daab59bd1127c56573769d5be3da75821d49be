@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56a7cb32_6ed0d256",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-12-12T13:52:31Z",
+      "side": 1,
+      "message": "Could we DCHECK that we get a sane value here?",
+      "revId": "d8daab59bd1127c56573769d5be3da75821d49be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd018233_2d378d9b",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-12-12T13:52:31Z",
+      "side": 1,
+      "message": "And if not, do we want |encoder_bitrate_priority_| to retain its old value, or do we want to reset it to something?",
+      "revId": "d8daab59bd1127c56573769d5be3da75821d49be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

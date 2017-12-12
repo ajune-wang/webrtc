@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c9abe5a9_43903e00",
+        "filename": "modules/rtp_rtcp/source/rtp_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2017-12-12T01:32:53Z",
+      "side": 1,
+      "message": "I agree. I\u0027ll look into fixing it in a separate CL",
+      "parentUuid": "172fdb5c_e6c98cec",
+      "range": {
+        "startLine": 41,
+        "startChar": 5,
+        "endLine": 41,
+        "endChar": 18
+      },
+      "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7b14a59_001a24bd",
         "filename": "modules/video_capture/device_info_impl.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "70f5ce0a_ac7670a5",
+        "filename": "modules/video_capture/device_info_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2017-12-12T01:32:53Z",
+      "side": 1,
+      "message": "I agree, but I\u0027d prefer to add rtc::CompareStrings() to avoid confusion with any non-standard functions provided on some platforms",
+      "parentUuid": "c7b14a59_001a24bd",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbce082f_97302096",
         "filename": "system_wrappers/source/clock.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2017-12-11T13:09:15Z",
       "side": 1,
       "message": "Android handling is a bit confusing... build/config/BUILDCONFIG.gn, arranges so that an android build has is_android \u003d true, is_posix \u003d true, but is_linux \u003d false. But then then out BUILD.gn sets the WEBRTC_LINUX if either is_linux or is_android is true. So as far as I see, that means that this #elif clause includes android both before and after the change.",
+      "range": {
+        "startLine": 20,
+        "startChar": 14,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "669b19b3_4afe2526",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2017-12-12T01:32:53Z",
+      "side": 1,
+      "message": "The problem here is that timeval is used on all platforms in RealTimeClock::CurrentNtpTime() (including android AFAICT), but time.h wasn\u0027t included. Also I think sys/time.h and time.h should be provided on android, so I think it should still work on Android. Will verify that.",
+      "parentUuid": "fbce082f_97302096",
       "range": {
         "startLine": 20,
         "startChar": 14,

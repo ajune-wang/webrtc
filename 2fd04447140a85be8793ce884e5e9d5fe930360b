@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "41f3dfa3_a9fa2441",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-12-12T13:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e434cdd_2f0e8140",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 4
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4eb478da_aac4ded1",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2e6a8355_e7bd1b78",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-12-12T13:19:26Z",
+      "side": 1,
+      "message": "Ack, maybe change in separate cl?",
+      "parentUuid": "4eb478da_aac4ded1",
+      "range": {
+        "startLine": 204,
+        "startChar": 1,
+        "endLine": 205,
+        "endChar": 38
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bed46aa3_e1a0f929",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2017-12-12T09:43:27Z",
       "side": 1,
       "message": "Maybe clearer to initialize |is_limited_in_resolution| with false, instead of |stats_.bw_limited_resolution|? Since it will be overwritten by the function call on the next line anyway.",
+      "range": {
+        "startLine": 908,
+        "startChar": 34,
+        "endLine": 908,
+        "endChar": 62
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec6f0d6a_599e0859",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-12-12T13:19:26Z",
+      "side": 1,
+      "message": "|is_limited_in_resolution| is only updated when a frame is removed from encoded_frames_.\nAdded a comment.",
+      "parentUuid": "bed46aa3_e1a0f929",
       "range": {
         "startLine": 908,
         "startChar": 34,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fccb1127_e652d735",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-12-12T13:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e2e63e4_381ac352",
+      "range": {
+        "startLine": 1203,
+        "startChar": 4,
+        "endLine": 1203,
+        "endChar": 31
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65a795c9_2c4a7996",
         "filename": "video/send_statistics_proxy_unittest.cc",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e364b6b4_b2561cf9",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-12-12T13:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65a795c9_2c4a7996",
+      "range": {
+        "startLine": 1239,
+        "startChar": 4,
+        "endLine": 1239,
+        "endChar": 31
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e434cdd_2f0e8140",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-12T09:43:27Z",
+      "side": 1,
+      "message": "Should we track this in a bug?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 4
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eb478da_aac4ded1",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-12T09:43:27Z",
+      "side": 1,
+      "message": "I think this could be replaced by\nauto it \u003d encoded_frames_.begin();\nwhile (it !\u003d encoded_frames_.end() {\n...\nit \u003d encoded_frames_.erase(it);\n}\n\nAccording to cppreference.com:\n\"References and iterators to the erased elements are invalidated. Other references and iterators are not affected.\"",
+      "range": {
+        "startLine": 204,
+        "startChar": 1,
+        "endLine": 205,
+        "endChar": 38
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bed46aa3_e1a0f929",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-12T09:43:27Z",
+      "side": 1,
+      "message": "Maybe clearer to initialize |is_limited_in_resolution| with false, instead of |stats_.bw_limited_resolution|? Since it will be overwritten by the function call on the next line anyway.",
+      "range": {
+        "startLine": 908,
+        "startChar": 34,
+        "endLine": 908,
+        "endChar": 62
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e2e63e4_381ac352",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-12T09:43:27Z",
+      "side": 1,
+      "message": "Is it safer to increment with the number of ticks that correspond to the configured frame rate, instead?",
+      "range": {
+        "startLine": 1203,
+        "startChar": 4,
+        "endLine": 1203,
+        "endChar": 31
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65a795c9_2c4a7996",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2017-12-12T09:43:27Z",
+      "side": 1,
+      "message": "And here, etc.",
+      "range": {
+        "startLine": 1239,
+        "startChar": 4,
+        "endLine": 1239,
+        "endChar": 31
+      },
+      "revId": "2fd04447140a85be8793ce884e5e9d5fe930360b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

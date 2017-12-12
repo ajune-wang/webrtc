@@ -89,6 +89,50 @@ rtc_source_set("rtc_base_approved") {
   }
 }
 
+rtc_source_set("rtc_checks") {
+  sources = [
+    "checks.cc",
+    "checks.h",
+  ]
+  deps = [
+    ":rtc_safe_compare",
+    "..:webrtc_common",
+    "../system_wrappers:last_system_error",
+  ]
+}
+
+rtc_source_set("rtc_type_traits") {
+  sources = [
+    "type_traits.h",
+  ]
+}
+
+rtc_source_set("sanitizer") {
+  sources = [
+    "sanitizer.h",
+  ]
+}
+
+rtc_source_set("rtc_safe_compare") {
+  sources = [
+    "numerics/safe_compare.h",
+  ]
+  deps = [
+    ":rtc_type_traits",
+  ]
+}
+
+rtc_source_set("rtc_rate_limiter") {
+  sources = [
+    "rate_limiter.cc",
+    "rate_limiter.h",
+  ]
+  deps = [
+    ":rtc_base_approved",
+    "../system_wrappers",
+  ]
+}
+
 # The subset of rtc_base approved for use outside of libjingle.
 rtc_source_set("rtc_base_approved_generic") {
   visibility = [
@@ -97,13 +141,13 @@ rtc_source_set("rtc_base_approved_generic") {
     ":weak_ptr_unittests",
   ]
 
-  # TODO(kjellander): Remove (bugs.webrtc.org/7480)
-  # Enabling GN check triggers a cyclic dependency caused by rate_limiter.cc:
-  #   :rtc_base_approved -> ../system_wrappers -> :rtc_base_approved
-  check_includes = false
   defines = []
   libs = []
-  deps = []
+  deps = [
+    ":rtc_checks",
+    ":rtc_safe_compare",
+    ":rtc_type_traits",
+  ]
 
   sources = [
     "arraysize.h",
@@ -122,8 +166,6 @@ rtc_source_set("rtc_base_approved_generic") {
     "bytebuffer.cc",
     "bytebuffer.h",
     "byteorder.h",
-    "checks.cc",
-    "checks.h",
     "constructormagic.h",
     "copyonwritebuffer.cc",
     "copyonwritebuffer.h",
@@ -145,7 +187,6 @@ rtc_source_set("rtc_base_approved_generic") {
     "numerics/histogram_percentile_counter.h",
     "numerics/mod_ops.h",
     "numerics/moving_max_counter.h",
-    "numerics/safe_compare.h",
     "numerics/safe_conversions.h",
     "numerics/safe_conversions_impl.h",
     "numerics/safe_minmax.h",
@@ -162,8 +203,6 @@ rtc_source_set("rtc_base_approved_generic") {
     "race_checker.h",
     "random.cc",
     "random.h",
-    "rate_limiter.cc",
-    "rate_limiter.h",
     "rate_statistics.cc",
     "rate_statistics.h",
     "ratetracker.cc",
@@ -171,7 +210,6 @@ rtc_source_set("rtc_base_approved_generic") {
     "refcount.h",
     "refcountedobject.h",
     "refcounter.h",
-    "sanitizer.h",
     "scoped_ref_ptr.h",
     "string_to_number.cc",
     "string_to_number.h",
@@ -191,10 +229,13 @@ rtc_source_set("rtc_base_approved_generic") {
     "timeutils.cc",
     "timeutils.h",
     "trace_event.h",
-    "type_traits.h",
   ]
 
-  deps += [ "..:webrtc_common" ]
+  deps += [
+    "..:webrtc_common",
+    "../api:array_view",
+    "../api:optional",
+  ]
 
   if (is_android) {
     libs += [ "log" ]
@@ -205,7 +246,30 @@ rtc_source_set("rtc_base_approved_generic") {
   }
 
   if (is_win) {
-    sources += [ "file_win.cc" ]
+    sources += [
+      "file_win.cc",
+      "win32.cc",
+      "win32.h",
+      "win32filesystem.cc",
+      "win32filesystem.h",
+      "win32securityerrors.cc",
+      "win32window.cc",
+      "win32window.h",
+    ]
+
+    libs += [
+      "crypt32.lib",
+      "iphlpapi.lib",
+      "secur32.lib",
+    ]
+
+    cflags += [
+      # Suppress warnings about WIN32_LEAN_AND_MEAN.
+      "/wd4005",
+      "/wd4703",
+    ]
+
+    defines += [ "_CRT_NONSTDC_NO_DEPRECATE" ]
   }
 
   if (build_with_chromium) {
@@ -351,6 +415,7 @@ rtc_source_set("rtc_task_queue_api") {
 rtc_source_set("rtc_task_queue_impl") {
   deps = [
     ":rtc_base_approved",
+    ":rtc_checks",
     ":rtc_task_queue_api",
   ]
   if (rtc_build_libevent) {
@@ -386,6 +451,7 @@ rtc_static_library("sequenced_task_checker") {
   ]
   deps = [
     ":rtc_base_approved",
+    ":rtc_checks",
     ":rtc_task_queue",
   ]
 }
@@ -411,6 +477,8 @@ rtc_static_library("rtc_numerics") {
   ]
   deps = [
     ":rtc_base_approved",
+    ":rtc_checks",
+    ":rtc_safe_compare",
     "../api:optional",
   ]
 }
@@ -480,8 +548,10 @@ rtc_static_library("rtc_base_generic") {
   libs = []
   defines = []
   deps = [
+    ":rtc_checks",
     "..:webrtc_common",
     "../api:optional",
+    "../system_wrappers:last_system_error",
   ]
   public_deps = [
     ":rtc_base_approved",
@@ -683,32 +753,6 @@ rtc_static_library("rtc_base_generic") {
     ]
   }
 
-  if (is_win) {
-    sources += [
-      "win32.cc",
-      "win32.h",
-      "win32filesystem.cc",
-      "win32filesystem.h",
-      "win32securityerrors.cc",
-      "win32window.cc",
-      "win32window.h",
-    ]
-
-    libs += [
-      "crypt32.lib",
-      "iphlpapi.lib",
-      "secur32.lib",
-    ]
-
-    cflags += [
-      # Suppress warnings about WIN32_LEAN_AND_MEAN.
-      "/wd4005",
-      "/wd4703",
-    ]
-
-    defines += [ "_CRT_NONSTDC_NO_DEPRECATE" ]
-  }
-
   if (is_posix) {
     sources += [
       "ifaddrs_converter.cc",
@@ -798,6 +842,7 @@ rtc_source_set("rtc_base_tests_utils") {
   public_configs = [ ":rtc_base_tests_utils_exported_config" ]
   deps = [
     ":rtc_base",
+    ":rtc_checks",
     "../test:field_trial",
     "../test:test_support",
   ]
@@ -844,6 +889,7 @@ if (rtc_include_tests) {
       ":rtc_base",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":rtc_checks",
       "../system_wrappers:system_wrappers",
       "../test:test_support",
       "//testing/gtest",
@@ -904,6 +950,9 @@ if (rtc_include_tests) {
       ":rtc_base_approved",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":rtc_checks",
+      ":rtc_rate_limiter",
+      ":rtc_safe_compare",
       ":rtc_task_queue",
       "../api:array_view",
       "../system_wrappers:system_wrappers",
@@ -935,6 +984,7 @@ if (rtc_include_tests) {
     deps = [
       ":rtc_base_approved",
       ":rtc_base_tests_main",
+      ":rtc_checks",
       ":rtc_task_queue",
       ":sequenced_task_checker",
       "../test:test_support",
@@ -1027,6 +1077,7 @@ if (rtc_include_tests) {
     deps = [
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":rtc_checks",
       "../api:optional",
       "../test:test_support",
     ]

@@ -342,6 +342,31 @@ class PeerConnection : public PeerConnectionInterface,
   void RemoveVideoTrack(VideoTrackInterface* track,
                         MediaStreamInterface* stream);
 
+  // AddTrack that returns an RTCError.
+  RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackInternal(
+      rtc::scoped_refptr<MediaStreamTrackInterface> track,
+      const std::vector<std::string>& stream_labels);
+  // AddTrack implementation when Unified Plan is specified.
+  RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackUnifiedPlan(
+      rtc::scoped_refptr<MediaStreamTrackInterface> track,
+      const std::vector<std::string>& stream_labels);
+  // AddTrack implementation when Plan B is specified.
+  RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackPlanB(
+      rtc::scoped_refptr<MediaStreamTrackInterface> track,
+      const std::vector<std::string>& stream_labels);
+
+  // Returns the first RtpTransceiver suitable for a newly added track, if such
+  // transceiver is available.
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  FindFirstTransceiverForAddedTrack(
+      rtc::scoped_refptr<MediaStreamTrackInterface> track);
+
+  // RemoveTrack that returns an RTCError.
+  RTCError RemoveTrackInternal(rtc::scoped_refptr<RtpSenderInterface> sender);
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  FindTransceiverBySender(rtc::scoped_refptr<RtpSenderInterface> sender);
+
   RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>> AddTransceiver(
       cricket::MediaType media_type,
       rtc::scoped_refptr<MediaStreamTrackInterface> track,

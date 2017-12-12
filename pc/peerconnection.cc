@@ -1005,83 +1005,189 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::AddTrack(
     MediaStreamTrackInterface* track,
     std::vector<MediaStreamInterface*> streams) {
   TRACE_EVENT0("webrtc", "PeerConnection::AddTrack");
-  if (IsClosed()) {
+  std::vector<std::string> stream_labels;
+  for (auto* stream : streams) {
+    if (!stream) {
+      RTC_LOG(LS_ERROR) << "Stream list has null element.";
+      return nullptr;
+    }
+    stream_labels.push_back(stream->label());
+  }
+  // TODO(bugs.webrtc.org/7933): MediaSession expects the sender to have exactly
+  // one stream. AddTrackInternal will return an error if there is more than one
+  // stream, but if the caller specifies none then we need to generate a random
+  // stream label.
+  if (stream_labels.empty()) {
+    stream_labels.push_back(rtc::CreateRandomUuid());
+  }
+  auto sender_or_error = AddTrackInternal(track, stream_labels);
+  if (!sender_or_error.ok()) {
     return nullptr;
   }
-  if (streams.size() >= 2) {
-    RTC_LOG(LS_ERROR)
-        << "Adding a track with two streams is not currently supported.";
-    return nullptr;
+  return sender_or_error.MoveValue();
+}
+
+RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>
+PeerConnection::AddTrackInternal(
+    rtc::scoped_refptr<MediaStreamTrackInterface> track,
+    const std::vector<std::string>& stream_labels) {
+  if (!track) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, "Track is null.");
+  }
+  // TODO(bugs.webrtc.org/7932): Support adding a track to multiple streams.
+  if (stream_labels.size() > 1u) {
+    LOG_AND_RETURN_ERROR(
+        RTCErrorType::UNSUPPORTED_OPERATION,
+        "AddTrack with more than one stream is not currently supported.");
+  }
+  if (IsClosed()) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_STATE,
+                         "PeerConnection is closed.");
   }
   if (FindSenderForTrack(track)) {
-    RTC_LOG(LS_ERROR) << "Sender for track " << track->id()
-                      << " already exists.";
-    return nullptr;
+    LOG_AND_RETURN_ERROR(
+        RTCErrorType::INVALID_PARAMETER,
+        "Sender already exists for track " + track->id() + ".");
   }
+  auto sender_or_error =
+      (IsUnifiedPlan() ? AddTrackUnifiedPlan(track, stream_labels)
+                       : AddTrackPlanB(track, stream_labels));
+  if (sender_or_error.ok()) {
+    observer_->OnRenegotiationNeeded();
+  }
+  return sender_or_error;
+}
 
-  // TODO(deadbeef): Support adding a track to multiple streams.
-  rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> new_sender;
+RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>
+PeerConnection::AddTrackPlanB(
+    rtc::scoped_refptr<MediaStreamTrackInterface> track,
+    const std::vector<std::string>& stream_labels) {
   if (track->kind() == MediaStreamTrackInterface::kAudioKind) {
-    new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+    auto new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(),
-        new AudioRtpSender(static_cast<AudioTrackInterface*>(track),
+        new AudioRtpSender(static_cast<AudioTrackInterface*>(track.get()),
                            voice_channel(), stats_.get()));
     GetAudioTransceiver()->internal()->AddSender(new_sender);
-    if (!streams.empty()) {
-      new_sender->internal()->set_stream_id(streams[0]->label());
-    }
+    new_sender->internal()->set_stream_ids(stream_labels);
     const RtpSenderInfo* sender_info =
         FindSenderInfo(local_audio_sender_infos_,
                        new_sender->internal()->stream_id(), track->id());
     if (sender_info) {
       new_sender->internal()->SetSsrc(sender_info->first_ssrc);
     }
+    return rtc::scoped_refptr<RtpSenderInterface>(new_sender);
   } else if (track->kind() == MediaStreamTrackInterface::kVideoKind) {
-    new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
+    auto new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(),
-        new VideoRtpSender(static_cast<VideoTrackInterface*>(track),
+        new VideoRtpSender(static_cast<VideoTrackInterface*>(track.get()),
                            video_channel()));
     GetVideoTransceiver()->internal()->AddSender(new_sender);
-    if (!streams.empty()) {
-      new_sender->internal()->set_stream_id(streams[0]->label());
-    }
+    new_sender->internal()->set_stream_ids(stream_labels);
     const RtpSenderInfo* sender_info =
         FindSenderInfo(local_video_sender_infos_,
                        new_sender->internal()->stream_id(), track->id());
     if (sender_info) {
       new_sender->internal()->SetSsrc(sender_info->first_ssrc);
     }
+    return rtc::scoped_refptr<RtpSenderInterface>(new_sender);
   } else {
-    RTC_LOG(LS_ERROR) << "CreateSender called with invalid kind: "
-                      << track->kind();
-    return rtc::scoped_refptr<RtpSenderInterface>();
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                         "Track has invalid kind: " + track->kind());
   }
+}
 
-  observer_->OnRenegotiationNeeded();
-  return new_sender;
+RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>
+PeerConnection::AddTrackUnifiedPlan(
+    rtc::scoped_refptr<MediaStreamTrackInterface> track,
+    const std::vector<std::string>& stream_labels) {
+  auto transceiver = FindFirstTransceiverForAddedTrack(track);
+  if (transceiver) {
+    transceiver->sender()->SetTrack(track);
+    transceiver->internal()->sender_internal()->set_stream_ids(stream_labels);
+    if (transceiver->direction() == RtpTransceiverDirection::kRecvOnly) {
+      transceiver->SetDirection(RtpTransceiverDirection::kSendRecv);
+    } else if (transceiver->direction() == RtpTransceiverDirection::kInactive) {
+      transceiver->SetDirection(RtpTransceiverDirection::kSendOnly);
+    }
+    return transceiver->sender();
+  } else {
+    RtpTransceiverInit init;
+    init.stream_labels = stream_labels;
+    auto transceiver_or_error = AddTransceiver(track, init);
+    if (!transceiver_or_error.ok()) {
+      return transceiver_or_error.MoveError();
+    }
+    return transceiver_or_error.MoveValue()->sender();
+  }
+}
+
+rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+PeerConnection::FindFirstTransceiverForAddedTrack(
+    rtc::scoped_refptr<MediaStreamTrackInterface> track) {
+  RTC_DCHECK(track);
+  for (auto transceiver : transceivers_) {
+    if (!transceiver->sender()->track() &&
+        cricket::MediaTypeToString(transceiver->internal()->media_type()) ==
+            track->kind() &&
+        !transceiver->internal()->has_ever_been_used_to_send()) {
+      return transceiver;
+    }
+  }
+  return nullptr;
 }
 
 bool PeerConnection::RemoveTrack(RtpSenderInterface* sender) {
   TRACE_EVENT0("webrtc", "PeerConnection::RemoveTrack");
+  return RemoveTrackInternal(sender).ok();
+}
+
+RTCError PeerConnection::RemoveTrackInternal(
+    rtc::scoped_refptr<RtpSenderInterface> sender) {
+  if (!sender) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, "Sender is null.");
+  }
   if (IsClosed()) {
-    return false;
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_STATE,
+                         "PeerConnection is closed.");
   }
-
-  bool removed;
-  if (sender->media_type() == cricket::MEDIA_TYPE_AUDIO) {
-    removed = GetAudioTransceiver()->internal()->RemoveSender(sender);
+  if (IsUnifiedPlan()) {
+    auto transceiver = FindTransceiverBySender(sender);
+    if (!transceiver || !sender->track()) {
+      return RTCError::OK();
+    }
+    sender->SetTrack(nullptr);
+    if (transceiver->direction() == RtpTransceiverDirection::kSendRecv) {
+      transceiver->internal()->SetDirection(RtpTransceiverDirection::kRecvOnly);
+    } else if (transceiver->direction() == RtpTransceiverDirection::kSendOnly) {
+      transceiver->internal()->SetDirection(RtpTransceiverDirection::kInactive);
+    }
   } else {
-    RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, sender->media_type());
-    removed = GetVideoTransceiver()->internal()->RemoveSender(sender);
+    bool removed;
+    if (sender->media_type() == cricket::MEDIA_TYPE_AUDIO) {
+      removed = GetAudioTransceiver()->internal()->RemoveSender(sender);
+    } else {
+      RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, sender->media_type());
+      removed = GetVideoTransceiver()->internal()->RemoveSender(sender);
+    }
+    if (!removed) {
+      LOG_AND_RETURN_ERROR(
+          RTCErrorType::INVALID_PARAMETER,
+          "Couldn't find sender " + sender->id() + " to remove.");
+    }
   }
-  if (!removed) {
-    RTC_LOG(LS_ERROR) << "Couldn't find sender " << sender->id()
-                      << " to remove.";
-    return false;
-  }
-
   observer_->OnRenegotiationNeeded();
-  return true;
+  return RTCError::OK();
+}
+
+rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+PeerConnection::FindTransceiverBySender(
+    rtc::scoped_refptr<RtpSenderInterface> sender) {
+  for (auto transceiver : transceivers_) {
+    if (transceiver->sender() == sender) {
+      return transceiver;
+    }
+  }
+  return nullptr;
 }
 
 RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>

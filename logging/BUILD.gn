@@ -79,6 +79,8 @@ rtc_source_set("rtc_event_log_api") {
     "../modules/remote_bitrate_estimator:remote_bitrate_estimator",
     "../modules/rtp_rtcp:rtp_rtcp_format",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
+    "../system_wrappers",
   ]
 
   # TODO(eladalon): Remove this.
@@ -108,6 +110,7 @@ rtc_static_library("rtc_event_log_impl") {
     "../modules/rtp_rtcp:rtp_rtcp_format",
     "../rtc_base:protobuf_utils",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "../rtc_base:rtc_task_queue",
     "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
@@ -150,6 +153,7 @@ if (rtc_enable_protobuf) {
       "../modules/rtp_rtcp:rtp_rtcp_format",
       "../rtc_base:protobuf_utils",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_checks",
       "../system_wrappers",
     ]
 
@@ -187,6 +191,7 @@ if (rtc_enable_protobuf) {
         "../modules/rtp_rtcp:rtp_rtcp_format",
         "../rtc_base:rtc_base_approved",
         "../rtc_base:rtc_base_tests_utils",
+        "../rtc_base:rtc_checks",
         "../system_wrappers:metrics_default",
         "../test:test_support",
         "//testing/gmock",
@@ -210,6 +215,7 @@ if (rtc_enable_protobuf) {
         "../modules/rtp_rtcp:rtp_rtcp_format",
         "../rtc_base:protobuf_utils",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_checks",
         "../system_wrappers:field_trial_default",
         "../system_wrappers:metrics_default",
         "../test:rtp_test_utils",
@@ -235,6 +241,7 @@ if (rtc_enable_protobuf) {
         "../modules/rtp_rtcp:rtp_rtcp_format",
         "../rtc_base:protobuf_utils",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_checks",
 
         # TODO(kwiberg): Remove this dependency.
         "../api/audio_codecs:audio_codecs_api",
@@ -258,6 +265,7 @@ if (rtc_enable_protobuf) {
         ":rtc_event_log_impl",
         ":rtc_event_log_proto",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_checks",
       ]
       if (!build_with_chromium && is_clang) {
         # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).

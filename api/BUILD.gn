@@ -87,6 +87,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     ":optional",
     ":rtc_stats_api",
     ":video_frame_api",
+    "../rtc_base:rtc_checks",
     "audio_codecs:audio_codecs_api",
 
     # Basically, don't add stuff here. You might break sensitive downstream
@@ -186,6 +187,7 @@ rtc_source_set("rtc_stats_api") {
 
   deps = [
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
   ]
 }
 
@@ -221,6 +223,7 @@ rtc_source_set("video_frame_api") {
 
   deps = [
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
   ]
 }
 
@@ -233,6 +236,7 @@ rtc_source_set("video_frame_api_i420") {
     ":video_frame_api",
     "$rtc_libyuv_dir",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "../system_wrappers",
   ]
 }
@@ -242,7 +246,8 @@ rtc_source_set("array_view") {
     "array_view.h",
   ]
   deps = [
-    "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
+    "../rtc_base:rtc_type_traits",
   ]
 }
 
@@ -253,7 +258,8 @@ rtc_source_set("optional") {
   ]
   deps = [
     ":array_view",
-    "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
+    "../rtc_base:sanitizer",
   ]
 }
 
@@ -326,6 +332,7 @@ if (rtc_include_tests) {
       "../api:peerconnection_and_implicit_call_api",
       "../media:rtc_media_base",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_checks",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -358,6 +365,7 @@ if (rtc_include_tests) {
       ":ortc_api",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
+      "../rtc_base:rtc_checks",
       "../test:test_support",
     ]
   }

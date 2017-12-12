@@ -49,6 +49,7 @@ rtc_static_library("ortc") {
     "../pc:rtc_pc_base",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
   ]
 
   if (!build_with_chromium && is_clang) {

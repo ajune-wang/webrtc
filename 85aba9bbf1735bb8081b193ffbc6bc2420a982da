@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d6f87106_d9b71d8f",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e6048b8_10833b80",
+      "range": {
+        "startLine": 258,
+        "startChar": 4,
+        "endLine": 258,
+        "endChar": 5
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6c1c00d_57d8d792",
         "filename": "sdk/android/api/org/webrtc/VideoFrameDrawer.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "973de9e2_db661cd8",
+        "filename": "sdk/android/api/org/webrtc/VideoFrameDrawer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6c1c00d_57d8d792",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 39
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fe9a0df7_26e1d807",
+        "filename": "sdk/android/api/org/webrtc/VideoRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Yes. The reason for using a static helper function here is that the generated constructor name was long, like in ridiculously long.",
+      "parentUuid": "db4ff9f0_7b046a64",
+      "range": {
+        "startLine": 189,
+        "startChar": 21,
+        "endLine": 189,
+        "endChar": 39
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8e3110b_95d28038",
         "filename": "sdk/android/api/org/webrtc/VideoRenderer.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e114b868_73751340",
+        "filename": "sdk/android/api/org/webrtc/VideoRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8e3110b_95d28038",
+      "range": {
+        "startLine": 224,
+        "startChar": 26,
+        "endLine": 224,
+        "endChar": 49
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8b90c20b_284fadbe",
+        "filename": "sdk/android/src/jni/classreferenceholder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a6c1069_2bae66a7",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b3de8e8_d33d035b",
         "filename": "sdk/android/src/jni/jni_helpers.cc",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2f771e0_43504689",
+        "filename": "sdk/android/src/jni/jni_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "std::string::data() returns a const char*. You can get a non-const pointer in C++17. Let\u0027s do like this for now.",
+      "parentUuid": "5b3de8e8_d33d035b",
+      "range": {
+        "startLine": 165,
+        "startChar": 51,
+        "endLine": 165,
+        "endChar": 58
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "fa1b7120_c5742c36",
+        "filename": "sdk/android/src/jni/pc/java_native_conversion.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Done, I split it up into new files and targets.",
+      "parentUuid": "0ea4ce74_fd620a9b",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 80
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b660143b_7dc7f8d8",
         "filename": "sdk/android/src/jni/pc/java_native_conversion.cc",
         "patchSetId": 2
@@ -183,6 +351,30 @@
       "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e398b019_8e5c62a1",
+        "filename": "sdk/android/src/jni/pc/java_native_conversion.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b660143b_7dc7f8d8",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 35
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "e1145cc3_76ec2a5f",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory_jni.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "No, let\u0027s keep it this way. It won\u0027t be less code sending in an enum. We would be able to remove two declarations here, yes, but we would have to create a new enum, and I want to get a function pointer from these so we would have to bind the enum, causing even more bloat.",
+      "parentUuid": "45a29c7f_a85f932e",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3536a9ce_0b35b0bd",
         "filename": "sdk/android/src/jni/pc/sdpobserver_jni.h",
         "patchSetId": 2
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "dd474e2d_ec431186",
+        "filename": "sdk/android/src/jni/pc/sdpobserver_jni.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Done. I also created a .cc file and moved the implementation there.",
+      "parentUuid": "3536a9ce_0b35b0bd",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 31
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3aa4499_37140b89",
         "filename": "sdk/android/src/jni/videocodecinfo.cc",
         "patchSetId": 2
@@ -252,6 +492,30 @@
       "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5414ada_389f9358",
+        "filename": "sdk/android/src/jni/videocodecinfo.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-12T09:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3aa4499_37140b89",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 42
+      },
+      "revId": "85aba9bbf1735bb8081b193ffbc6bc2420a982da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

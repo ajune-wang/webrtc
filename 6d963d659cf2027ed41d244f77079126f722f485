@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "52a60ae7_c52b1125",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-12T19:28:01Z",
+      "side": 1,
+      "message": "The MediaStreamInterface is reference counted, so I\u0027m not sure that I understand your concerns about them being destroyed by the caller.\n\nIs there no value in having the stream represented by a full object MediaStreamInterface?",
+      "parentUuid": "38ad81bf_865b9e19",
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff597c75_d6943af1",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2017-12-09T16:57:00Z",
       "side": 1,
       "message": "We should rename this stream_labels.\n\nIt\u0027s kind of confusing.  The MediaStream calls it a label.  The SDP calls it a \"MediaStreamID\".  Our code internally calls it a stream label, stream ID, a sync label, and a sync group.\n\nI think we should unify around \"stream label\", but whatever we pick we should pick one and use it every where.  But we\u0027re kind of stuck with stream-\u003elabel() here.  I don\u0027t care that it would conflict with \"MediaStreamID\".  So I\u0027m in favor of \"stream label\".  But I could live with \"stream ID\" if there\u0027s a good argument for it.",
+      "range": {
+        "startLine": 1108,
+        "startChar": 75,
+        "endLine": 1108,
+        "endChar": 0
+      },
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6bd5080_5b8dbd4e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-12T19:28:01Z",
+      "side": 1,
+      "message": "stream_label sounds fine with me. Renaming that sounds like a good candidate for a follow-up CL.",
+      "parentUuid": "ff597c75_d6943af1",
       "range": {
         "startLine": 1108,
         "startChar": 75,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "7485dfcf_8765ec18",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-12T19:28:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dc5c7c4_efe596db",
+      "range": {
+        "startLine": 361,
+        "startChar": 35,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e799531c_6c5d9723",
         "filename": "pc/rtpsender.h",
         "patchSetId": 1
@@ -76,6 +142,30 @@
       "writtenOn": "2017-12-09T16:57:00Z",
       "side": 1,
       "message": "Why is this change needed?",
+      "range": {
+        "startLine": 86,
+        "startChar": 63,
+        "endLine": 86,
+        "endChar": 0
+      },
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c539604e_d9e6e8f4",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-12T19:28:01Z",
+      "side": 1,
+      "message": "I was told that it\u0027s best to pass reference counted pointer using the rtc::scoped_refptr instead of a bare pointer. I guess it\u0027s not strictly related to this CL change, but it seemed like a convenient time to change it.",
+      "parentUuid": "e799531c_6c5d9723",
       "range": {
         "startLine": 86,
         "startChar": 63,

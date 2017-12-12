@@ -24,6 +24,7 @@ rtc_static_library("audio_frame_operations") {
     "../../modules:module_api",
     "../../modules/audio_coding:audio_format_conversion",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_checks",
   ]
 }
 
@@ -37,6 +38,7 @@ if (rtc_include_tests) {
       ":audio_frame_operations",
       "../../modules:module_api",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:rtc_checks",
       "../../test:test_support",
       "//testing/gtest",
     ]

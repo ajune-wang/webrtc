@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "93946bb1_b902550e",
+        "filename": "modules/video_capture/device_info_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-12T07:39:06Z",
+      "side": 1,
+      "message": "The name CompareStrings also isn\u0027t ideal, since there\u0027s little clue in the name as to what the function really does. Something like rtc::StringsEqualNoCase would be better.\n\nReusing the name of the posix function strncasecmp (see http://pubs.opengroup.org/onlinepubs/009695399/functions/strcasecmp.html, which also specifies the n version) for a portability wrapper function would also be fine, provided our version really is compatible with that standard.",
+      "parentUuid": "70f5ce0a_ac7670a5",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "8a92fb8d3e584d3f32366eeb0e0fe71fb6865e79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbce082f_97302096",
         "filename": "system_wrappers/source/clock.cc",
         "patchSetId": 1

@@ -300,7 +300,7 @@ bool DelayBasedBwe::UpdateEstimate(int64_t now_ms,
   return rate_control_.ValidEstimate();
 }
 
-void DelayBasedBwe::OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) {
+void DelayBasedBwe::OnRttUpdate(int64_t avg_rtt_ms) {
   rate_control_.SetRtt(avg_rtt_ms);
 }
 

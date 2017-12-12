@@ -14,13 +14,10 @@
 #include <stdio.h>
 #include <string>
 
-#if defined(WEBRTC_WIN)
-#include "rtc_base/win32.h"
-#endif
-
 namespace rtc {
 
 #if defined(WEBRTC_WIN)
+#include <windows.h>
 typedef HANDLE PlatformFile;
 #elif defined(WEBRTC_POSIX)
 typedef int PlatformFile;

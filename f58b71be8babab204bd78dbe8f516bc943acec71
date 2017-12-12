@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ce34202_ff662262",
+        "filename": "sdk/android/src/jni/classreferenceholder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-12T09:42:51Z",
+      "side": 1,
+      "message": "nit: I think this should be marked inline to avoid linker errors.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "f58b71be8babab204bd78dbe8f516bc943acec71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

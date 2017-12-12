@@ -52,6 +52,7 @@
 #include "rtc_base/nullsocketserver.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/win32socketinit.h"
+#include "system_wrappers/include/last_system_error.h"
 
 #if defined(WEBRTC_POSIX)
 #include <netinet/tcp.h>  // for TCP_NODELAY

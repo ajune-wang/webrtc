@@ -92,6 +92,7 @@ rtc_static_library("rtc_p2p") {
     "../api:optional",
     "../api:ortc_api",
     "../rtc_base:rtc_base",
+    "../rtc_base:rtc_checks",
     "../system_wrappers:field_trial_api",
   ]
 
@@ -178,6 +179,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
+      "../rtc_base:rtc_checks",
       "../test:test_support",
       "//testing/gmock",
       "//testing/gtest",
@@ -200,6 +202,7 @@ rtc_static_library("libstunprober") {
     ":rtc_p2p",
     "..:webrtc_common",
     "../rtc_base:rtc_base",
+    "../rtc_base:rtc_checks",
   ]
 }
 
@@ -216,6 +219,7 @@ if (rtc_include_tests) {
       ":rtc_p2p",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_tests_utils",
+      "../rtc_base:rtc_checks",
       "//testing/gmock",
       "//testing/gtest",
     ]

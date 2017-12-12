@@ -232,6 +232,7 @@ if (!build_with_chromium) {
         "../modules/audio_coding:neteq_tools",
         "../modules/rtp_rtcp:rtp_rtcp_format",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_checks",
         "../rtc_base:rtc_numerics",
 
         # TODO(kwiberg): Remove this dependency.
@@ -335,6 +336,7 @@ if (rtc_include_tests) {
       "$rtc_libyuv_dir",
       "../common_video:common_video",
       "../rtc_base",
+      "../rtc_base:rtc_checks",
       "../test:test_main",
       "//testing/gtest",
     ]

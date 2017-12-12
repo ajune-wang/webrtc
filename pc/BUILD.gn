@@ -76,6 +76,7 @@ rtc_static_library("rtc_pc_base") {
     "../media:rtc_media_base",
     "../p2p:rtc_p2p",
     "../rtc_base:rtc_base",
+    "../rtc_base:rtc_checks",
     "../rtc_base:rtc_task_queue",
   ]
 
@@ -184,6 +185,7 @@ rtc_static_library("peerconnection") {
     "../p2p:rtc_p2p",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "../stats",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",
@@ -293,6 +295,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_main",
       "../rtc_base:rtc_base_tests_utils",
+      "../rtc_base:rtc_checks",
       "../system_wrappers:metrics_default",
       "../test:test_support",
     ]
@@ -345,6 +348,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
+      "../rtc_base:rtc_checks",
       "../test:test_support",
       "//testing/gmock",
     ]
@@ -436,6 +440,7 @@ if (rtc_include_tests) {
     deps = [
       ":peerconnection",
       ":rtc_pc_base",
+      "../rtc_base:rtc_checks",
     ]
     if (is_android) {
       deps += [ ":android_black_magic" ]

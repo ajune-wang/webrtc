@@ -69,6 +69,7 @@ if (is_ios || is_mac) {
 
     deps = [
       "../rtc_base:rtc_base",
+      "../rtc_base:rtc_checks",
     ]
     configs += [ "..:common_objc" ]
 
@@ -106,6 +107,7 @@ if (is_ios || is_mac) {
       deps = [
         ":common_objc",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_checks",
       ]
 
       if (is_clang) {
@@ -139,6 +141,7 @@ if (is_ios || is_mac) {
         "../common_video",
         "../media:rtc_media_base",
         "../rtc_base:rtc_base",
+        "../rtc_base:rtc_checks",
       ]
 
       configs += [ "..:common_objc" ]
@@ -196,6 +199,7 @@ if (is_ios || is_mac) {
         "../common_video",
         "../media:rtc_media_base",
         "../rtc_base:rtc_base",
+        "../rtc_base:rtc_checks",
       ]
 
       configs += [ "..:common_objc" ]
@@ -260,6 +264,7 @@ if (is_ios || is_mac) {
           ":video_objc",
           "../api:video_frame_api",
           "../rtc_base:rtc_base_approved",
+          "../rtc_base:rtc_checks",
         ]
         configs += [ "..:common_objc" ]
         public_configs = [ ":common_config_objc" ]
@@ -516,6 +521,7 @@ if (is_ios || is_mac) {
         "../modules:module_api",
         "../pc:peerconnection",
         "../rtc_base:rtc_base",
+        "../rtc_base:rtc_checks",
       ]
     }
 
@@ -771,6 +777,7 @@ if (is_ios || is_mac) {
         "../api:video_frame_api_i420",
         "../common_video",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_checks",
       ]
 
       if (!build_with_chromium && is_clang) {
@@ -795,6 +802,7 @@ if (is_ios || is_mac) {
         "../modules:module_api",
         "../modules/video_coding:webrtc_h264",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_checks",
       ]
       if (!build_with_chromium && is_clang) {
         # Suppress warnings from the Chromium Clang plugin
@@ -830,6 +838,7 @@ if (is_ios || is_mac) {
         "../modules/video_coding:video_coding_utility",
         "../modules/video_coding:webrtc_h264",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_checks",
         "../system_wrappers",
       ]
 

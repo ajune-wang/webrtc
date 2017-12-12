@@ -68,6 +68,7 @@ rtc_source_set("video_test_common") {
     "../media:rtc_media_base",
     "../modules/video_capture:video_capture_module",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "../rtc_base:rtc_task_queue",
     "../system_wrappers",
   ]
@@ -95,6 +96,7 @@ rtc_source_set("rtp_test_utils") {
     "../modules/rtp_rtcp",
     "../modules/rtp_rtcp:rtp_rtcp_format",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "//testing/gtest",
   ]
 }
@@ -218,6 +220,7 @@ if (rtc_include_tests) {
       "../api:video_frame_api_i420",
       "../common_video",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_checks",
       "../system_wrappers",
       "//testing/gmock",
       "//testing/gtest",
@@ -361,6 +364,7 @@ if (is_ios) {
     deps = [
       "..:webrtc_common",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_checks",
       "../sdk:common_objc",
     ]
   }
@@ -382,6 +386,7 @@ rtc_source_set("fileutils") {
     "..:webrtc_common",
     "../api:optional",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
   ]
   if (is_ios) {
     deps += [ ":fileutils_objc" ]
@@ -445,6 +450,7 @@ rtc_source_set("fileutils_unittests") {
     ":test_support",
     "../api:optional",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "//testing/gmock",
     "//testing/gtest",
   ]
@@ -485,6 +491,7 @@ rtc_source_set("single_threaded_task_queue") {
   ]
   deps = [
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
   ]
 }
 
@@ -504,6 +511,7 @@ rtc_source_set("fake_audio_device") {
     "../common_audio:common_audio",
     "../modules/audio_device:audio_device",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "../system_wrappers",
   ]
 }
@@ -582,6 +590,7 @@ rtc_source_set("test_common") {
     "../modules/video_coding:webrtc_vp8",
     "../modules/video_coding:webrtc_vp9",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "../rtc_base:rtc_task_queue",
     "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
@@ -663,6 +672,7 @@ rtc_source_set("test_renderer_generic") {
     "../media:rtc_media_base",
     "../modules/media_file",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
     "//testing/gtest",
   ]
   if (!(is_linux && use_x11) && !is_mac && !is_win) {

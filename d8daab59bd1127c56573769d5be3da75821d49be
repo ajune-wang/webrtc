@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8e156647_a0aa8cce",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-12T18:42:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56a7cb32_6ed0d256",
+      "revId": "d8daab59bd1127c56573769d5be3da75821d49be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd018233_2d378d9b",
         "filename": "video/video_send_stream.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "d8daab59bd1127c56573769d5be3da75821d49be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a51d8f0_24046d66",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-12T18:42:48Z",
+      "side": 1,
+      "message": "We should never hit this case, because of the way VideoStreams are created higher up. As discussed, I changed it to a DCHECK.",
+      "parentUuid": "cd018233_2d378d9b",
+      "revId": "d8daab59bd1127c56573769d5be3da75821d49be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

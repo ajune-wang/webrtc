@@ -56,6 +56,7 @@ rtc_static_library("system_wrappers") {
     "..:webrtc_common",
     "../api:optional",
     "../modules:module_api_public",
+    "../rtc_base:rtc_checks",
   ]
 
   if (is_android) {
@@ -105,6 +106,12 @@ rtc_static_library("system_wrappers") {
   ]
 }
 
+rtc_source_set("last_system_error") {
+  sources = [
+    "include/last_system_error.h",
+  ]
+}
+
 rtc_source_set("cpu_features_api") {
   sources = [
     "include/cpu_features_wrapper.h",
@@ -133,6 +140,7 @@ rtc_source_set("metrics_api") {
   deps = [
     "..:webrtc_common",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_checks",
   ]
 }
 

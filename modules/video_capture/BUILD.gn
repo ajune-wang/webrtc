@@ -126,6 +126,7 @@ if (!build_with_chromium) {
     deps = [
       ":video_capture_module",
       "../../rtc_base:rtc_base_approved",
+      "../../rtc_base:rtc_checks",
       "../../system_wrappers",
     ]
 

@@ -35,6 +35,7 @@ rtc_static_library("utility") {
     "../../audio/utility:audio_frame_operations",
     "../../common_audio",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_checks",
     "../../rtc_base:rtc_task_queue",
     "../../system_wrappers",
     "../media_file",

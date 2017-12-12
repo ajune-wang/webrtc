@@ -372,9 +372,10 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
 
 #if defined(WEBRTC_IOS)
   // On iOS, VPIO provides built-in EC.
-  options.echo_cancellation = false;
+  RTC_LOG(LS_INFO) << "Special iOS version: now using WebRTC AECM!";
+  options.echo_cancellation = true;
+  ec_mode = webrtc::kEcAecm;
   options.extended_filter_aec = false;
-  RTC_LOG(LS_INFO) << "Always disable AEC on iOS. Use built-in instead.";
 #elif defined(WEBRTC_ANDROID)
   ec_mode = webrtc::kEcAecm;
   options.extended_filter_aec = false;

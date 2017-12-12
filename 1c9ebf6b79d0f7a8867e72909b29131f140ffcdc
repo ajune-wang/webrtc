@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4307a7b7_efbbc8f7",
+        "filename": "p2p/base/dtlstransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-12T04:01:00Z",
+      "side": 1,
+      "message": "Yeah, this could be done in parallel.",
+      "parentUuid": "aaf1ddd1_e3aac02a",
+      "range": {
+        "startLine": 119,
+        "startChar": 70,
+        "endLine": 119,
+        "endChar": 0
+      },
+      "revId": "1c9ebf6b79d0f7a8867e72909b29131f140ffcdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "061a4aba_58448510",
         "filename": "p2p/base/transporthelper.h",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "1c9ebf6b79d0f7a8867e72909b29131f140ffcdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e6a0e93_655ae7aa",
+        "filename": "p2p/base/transporthelper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-12T04:01:00Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "061a4aba_58448510",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 0
+      },
+      "revId": "1c9ebf6b79d0f7a8867e72909b29131f140ffcdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

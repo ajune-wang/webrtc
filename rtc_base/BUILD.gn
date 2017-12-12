@@ -654,7 +654,7 @@ rtc_static_library("rtc_base_generic") {
     sources += [ "macifaddrs_converter.cc" ]
   }
 
-  if (use_x11) {
+  if (rtc_use_x11) {
     libs += [
       "dl",
       "rt",
@@ -733,6 +733,9 @@ rtc_source_set("gtest_prod") {
 
 config("rtc_base_tests_utils_exported_config") {
   defines = [ "GTEST_RELATIVE_PATH" ]
+  if (!rtc_desktop_capture_supported) {
+    defines += [ "WEBRTC_DISABLE_SCREENCASTING" ]
+  }
 }
 
 config("rtc_base_tests_utils_warnings_config") {

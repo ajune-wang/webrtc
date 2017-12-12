@@ -7,6 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+#include "pc/jseptransport.h"
 
 #include <memory>
 
@@ -47,6 +48,13 @@ class JsepTransportTest : public testing::Test, public sigslot::has_slots<> {
     transport_.reset(new JsepTransport("test content name", nullptr));
   }
 
+  bool IceCredentialsChanged(const std::string& old_ufrag,
+                             const std::string& old_pwd,
+                             const std::string& new_ufrag,
+                             const std::string& new_pwd) {
+    return (old_ufrag != new_ufrag) || (old_pwd != new_pwd);
+  }
+
  protected:
   std::unique_ptr<FakeDtlsTransport> fake_dtls_transport_;
   std::unique_ptr<FakeIceTransport> fake_ice_transport_;
@@ -75,10 +83,10 @@ TEST_F(JsepTransportTest, TestChannelIceParameters) {
 // Verifies that IceCredentialsChanged returns true when either ufrag or pwd
 // changed, and false in other cases.
 TEST_F(JsepTransportTest, TestIceCredentialsChanged) {
-  EXPECT_TRUE(cricket::IceCredentialsChanged("u1", "p1", "u2", "p2"));
-  EXPECT_TRUE(cricket::IceCredentialsChanged("u1", "p1", "u2", "p1"));
-  EXPECT_TRUE(cricket::IceCredentialsChanged("u1", "p1", "u1", "p2"));
-  EXPECT_FALSE(cricket::IceCredentialsChanged("u1", "p1", "u1", "p1"));
+  EXPECT_TRUE(IceCredentialsChanged("u1", "p1", "u2", "p2"));
+  EXPECT_TRUE(IceCredentialsChanged("u1", "p1", "u2", "p1"));
+  EXPECT_TRUE(IceCredentialsChanged("u1", "p1", "u1", "p2"));
+  EXPECT_FALSE(IceCredentialsChanged("u1", "p1", "u1", "p1"));
 }
 
 // Tests SetNeedsIceRestartFlag and NeedsIceRestart, ensuring NeedsIceRestart

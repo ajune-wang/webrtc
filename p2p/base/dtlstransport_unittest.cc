@@ -14,6 +14,8 @@
 
 #include "p2p/base/dtlstransport.h"
 #include "p2p/base/fakeicetransport.h"
+// TODO(zhihuang): Remove this once the tests doesn't rely on it.
+#include "p2p/base/fakejseptransport.h"
 #include "p2p/base/packettransportinternal.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/dscp.h"
@@ -84,7 +86,7 @@ class DtlsTestClient : public sigslot::has_slots<> {
   }
   void SetupChannels(int count, cricket::IceRole role, int async_delay_ms = 0) {
     transport_.reset(
-        new cricket::JsepTransport("dtls content name", certificate_));
+        new cricket::FakeJsepTransport("dtls content name", certificate_));
     for (int i = 0; i < count; ++i) {
       cricket::FakeIceTransport* fake_ice_channel =
           new cricket::FakeIceTransport(transport_->mid(), i);
@@ -114,7 +116,7 @@ class DtlsTestClient : public sigslot::has_slots<> {
     }
   }
 
-  cricket::JsepTransport* transport() { return transport_.get(); }
+  cricket::FakeJsepTransport* transport() { return transport_.get(); }
 
   cricket::FakeIceTransport* GetFakeIceTransort(int component) {
     for (const auto& ch : fake_ice_transports_) {
@@ -416,7 +418,7 @@ class DtlsTestClient : public sigslot::has_slots<> {
   rtc::scoped_refptr<rtc::RTCCertificate> certificate_;
   std::vector<std::unique_ptr<cricket::FakeIceTransport>> fake_ice_transports_;
   std::vector<std::unique_ptr<cricket::DtlsTransport>> dtls_transports_;
-  std::unique_ptr<cricket::JsepTransport> transport_;
+  std::unique_ptr<cricket::FakeJsepTransport> transport_;
   size_t packet_size_ = 0u;
   std::set<int> received_;
   rtc::SSLProtocolVersion ssl_max_version_ = rtc::SSL_PROTOCOL_DTLS_12;

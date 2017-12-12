@@ -18,8 +18,8 @@
 
 #include "api/candidate.h"
 #include "p2p/base/dtlstransport.h"
-#include "p2p/base/jseptransport.h"
 #include "p2p/base/p2ptransportchannel.h"
+#include "pc/jseptransport.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/refcountedobject.h"

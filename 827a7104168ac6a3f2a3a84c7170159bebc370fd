@@ -93,6 +93,23 @@
       "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b84f5390_b153c4cc",
+        "filename": "rtc_base/testutils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-13T10:13:54Z",
+      "side": 1,
+      "message": "Would it be possible to pull these things out into their own file instead? That way we could avoid adding another #define and use the build config to include the file only in the targets requiring X11.",
+      "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

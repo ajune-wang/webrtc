@@ -100,9 +100,11 @@ class OveruseFrameDetectorTest : public ::testing::Test,
     uint32_t timestamp = 0;
     while (num_frames-- > 0) {
       frame.set_timestamp(timestamp);
-      overuse_detector_->FrameCaptured(frame, rtc::TimeMicros());
+      int64_t capture_time_us = rtc::TimeMicros();
+      overuse_detector_->FrameCaptured(frame, capture_time_us);
       clock_.AdvanceTimeMicros(delay_us);
-      overuse_detector_->FrameSent(timestamp, rtc::TimeMicros());
+      overuse_detector_->FrameSent(timestamp, rtc::TimeMicros(),
+                                   capture_time_us, delay_us);
       clock_.AdvanceTimeMicros(interval_us - delay_us);
       timestamp += interval_us * 90 / 1000;
     }
@@ -302,12 +304,13 @@ TEST_F(OveruseFrameDetectorTest, MeasuresMultipleConcurrentSamples) {
   for (size_t i = 0; i < 1000; ++i) {
     // Unique timestamps.
     frame.set_timestamp(static_cast<uint32_t>(i));
-    overuse_detector_->FrameCaptured(frame, rtc::TimeMicros());
+    int64_t capture_time_us = rtc::TimeMicros();
+    overuse_detector_->FrameCaptured(frame, capture_time_us);
     clock_.AdvanceTimeMicros(kIntervalUs);
     if (i > kNumFramesEncodingDelay) {
       overuse_detector_->FrameSent(
-          static_cast<uint32_t>(i - kNumFramesEncodingDelay),
-          rtc::TimeMicros());
+          static_cast<uint32_t>(i - kNumFramesEncodingDelay), rtc::TimeMicros(),
+          capture_time_us, kIntervalUs);
     }
     overuse_detector_->CheckForOveruse();
   }
@@ -324,13 +327,16 @@ TEST_F(OveruseFrameDetectorTest, UpdatesExistingSamples) {
   uint32_t timestamp = 0;
   for (size_t i = 0; i < 1000; ++i) {
     frame.set_timestamp(timestamp);
-    overuse_detector_->FrameCaptured(frame, rtc::TimeMicros());
+    int64_t capture_time_us = rtc::TimeMicros();
+    overuse_detector_->FrameCaptured(frame, capture_time_us);
     // Encode and send first parts almost instantly.
     clock_.AdvanceTimeMicros(rtc::kNumMicrosecsPerMillisec);
-    overuse_detector_->FrameSent(timestamp, rtc::TimeMicros());
+    overuse_detector_->FrameSent(timestamp, rtc::TimeMicros(), capture_time_us,
+                                 rtc::kNumMicrosecsPerMillisec);
     // Encode heavier part, resulting in >85% usage total.
     clock_.AdvanceTimeMicros(kDelayUs - rtc::kNumMicrosecsPerMillisec);
-    overuse_detector_->FrameSent(timestamp, rtc::TimeMicros());
+    overuse_detector_->FrameSent(timestamp, rtc::TimeMicros(), capture_time_us,
+                                 kDelayUs);
     clock_.AdvanceTimeMicros(kIntervalUs - kDelayUs);
     timestamp += kIntervalUs * 90 / 1000;
     overuse_detector_->CheckForOveruse();

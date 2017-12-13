@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8d6796c_8ad49feb",
+        "filename": "modules/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-13T09:23:34Z",
+      "side": 1,
+      "message": "We\u0027re moving away from public_deps, but you\u0027re not really making anything worse here so let\u0027s go for that...",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f15b41eb_8861d520",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-13T09:23:34Z",
+      "side": 1,
+      "message": "Why was this necessary? Are you sure it\u0027s always appropriate to set dummy build if we\u0027re not including the internal audio device?",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 364,
+        "endChar": 5
+      },
+      "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f26e9933_4cd71f08",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-12-13T10:27:32Z",
+      "side": 1,
+      "message": "Not technically supposed to be part of this CL, right? But I\u0027ll let it slide, because it\u0027s been bothering me in one of my CLs for the past two days. :-)",
+      "revId": "92ef8bc72c388b65433db7dad8eaefd0880c1e46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8be86a62_95a0411e",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-12-13T10:27:32Z",
+      "side": 1,
+      "message": "Move this target to the numerics/ subdirectory, since that\u0027s where all its files are?",
+      "revId": "92ef8bc72c388b65433db7dad8eaefd0880c1e46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365745a2_246fe28b",
+        "filename": "rtc_base/physicalsocketserver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-12-13T10:27:32Z",
+      "side": 1,
+      "message": "You\u0027ve duplicated this one. Can that be avoided, or isn\u0027t it worth doing?",
+      "revId": "92ef8bc72c388b65433db7dad8eaefd0880c1e46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

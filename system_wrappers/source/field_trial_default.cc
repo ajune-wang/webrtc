@@ -10,6 +10,7 @@
 #include "system_wrappers/include/field_trial_default.h"
 #include "system_wrappers/include/field_trial.h"
 
+#include <mutex>
 #include <string>
 
 // Simple field trial implementation, which allows client to
@@ -17,9 +18,11 @@
 namespace webrtc {
 namespace field_trial {
 
+static std::mutex trials_mutex;
 static const char* trials_init_string = NULL;
 
 std::string FindFullName(const std::string& name) {
+  std::lock_guard<std::mutex> lock(trials_mutex);
   if (trials_init_string == NULL)
     return std::string();
 
@@ -54,10 +57,12 @@ std::string FindFullName(const std::string& name) {
 
 // Optionally initialize field trial from a string.
 void InitFieldTrialsFromString(const char* trials_string) {
+  std::lock_guard<std::mutex> lock(trials_mutex);
   trials_init_string = trials_string;
 }
 
 const char* GetFieldTrialString() {
+  std::lock_guard<std::mutex> lock(trials_mutex);
   return trials_init_string;
 }
 

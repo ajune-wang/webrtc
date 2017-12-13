@@ -111,7 +111,7 @@ rtc_static_library("video_coding") {
     "../../system_wrappers",
     "../../system_wrappers:field_trial_api",
     "../../system_wrappers:metrics_api",
-    "../pacing",
+    "../congestion_controller",
     "../rtp_rtcp:rtp_rtcp_format",
     "../utility:utility",
   ]

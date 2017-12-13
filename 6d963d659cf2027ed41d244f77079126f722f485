@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "5698c771_8b698a89",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-13T19:08:40Z",
+      "side": 1,
+      "message": "OK. I think I was treating streams with the same level of importance to object identity as tracks which actually do things with media. But any track-stream synchronization is outside the scope of PC, they are, as you say, just labels at this point, and the \"add/remove track to stream\" steps described in the spec[1] are already handled in Chromium, not WebRTC, as of this recent CL[2] (part of unifying callbacks and object sync work). As such, it is now true that the MediaStreamInterface is only used as a label-holder in Chromium (before [2] the OnChanged event was wired up).\n\nMediaStreamInterface* is still used to map lower and upper layer versions of MediaStreams, and the ptr is used to distinguish between different remote stream objects with the same IDs. But this is on the receiver, not the sender/local streams. For local streams we don\u0027t have the same problem of ID collisions, and passing IDs to AddTrack makes sense.\n\nI support nuking MediaStreamInterface even for remote streams if done in coordination with Chromium (different remote streams with the same ID still need to be different objects, this will require a different map in content or to keep track of which are the active ones so that the ID refers to the latest stream with that ID and not one previously removed).\n\nAs for this CL, we can go ahead with stream IDs.\n\n[1] https://w3c.github.io/webrtc-pc/#set-associated-remote-streams\n[2] https://chromium-review.googlesource.com/c/chromium/src/+/789843",
+      "parentUuid": "3852d72b_984dc30b",
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff597c75_d6943af1",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1

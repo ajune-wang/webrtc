@@ -44,6 +44,12 @@ class RtcpTransceiver {
   // Stops sending REMB in following compound packets.
   void UnsetRemb();
 
+  // TODO(bugs.webrtc.org/8239): Remove SendFeedback and SSRC functions and move
+  // generating of the TransportFeedback message inside RtcpTransceiverImpl when
+  // there is one RtcpTransceiver per rtp transport.
+  uint32_t SSRC() const;
+  bool SendFeedbackPacket(const rtcp::TransportFeedback& packet);
+
   // Reports missing packets, https://tools.ietf.org/html/rfc4585#section-6.2.1
   void SendNack(uint32_t ssrc, std::vector<uint16_t> sequence_numbers);
 

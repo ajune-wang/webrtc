@@ -45,6 +45,30 @@
       "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b79c9eec_b1f1b628",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2017-12-13T09:30:04Z",
+      "side": 1,
+      "message": "While testing my changes, I was setting \"rtc_include_internal_audio_device \u003d false\" to also avoid dependencies on Pulse/Alsa. However the audio_device_unittest was always trying to create the device, so this define is now checked in the test (see https://webrtc-review.googlesource.com/c/src/+/32360/1/modules/audio_device/audio_device_unittest.cc#458) and no device created in this case.",
+      "parentUuid": "f15b41eb_8861d520",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 364,
+        "endChar": 5
+      },
+      "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

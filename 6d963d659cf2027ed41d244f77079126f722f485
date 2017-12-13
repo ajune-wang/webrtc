@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "3852d72b_984dc30b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2017-12-13T15:58:46Z",
+      "side": 1,
+      "message": "The spec only cares about labels at this point.   The only thing this is for is to stick a string (MSID) in the SDP that goes out of CreateOffer/CreateAnswer.  That\u0027s it.  There is nothing else that is done with this.  There is no relationship between the stream passed in here and the sender.  The track is important and tied to the sender.  The stream is not.  The stream is just a label.  \n\nIf the app calls AddTrack with different streams that have the same label, it will have the exact same affect because the exact same string will be put in the SDP and then the remote side won\u0027t be able to tell the difference.  In fact, passing in a stream label makes this fact more obvious to the caller of AddTrack, whereas passing in a stream is actually deceiving.\n\nPC does not keep track of relationships of streams.  At all.  It doesn\u0027t care about streams.  At all.  It only cares about a stream label for one thing: to stick that string into the SDP when creating a local offer/answer and then having that label pop out in an event when setting the remote offer/answer.   That\u0027s it.  We\u0027re just conveying a string in SDP.  PC doesn\u0027t care about the object for anything else.  \n\nIn fact, I think we should eliminate MediaStreamInterface from peerconnection.cc.  Because it\u0027s really just a JS-level convenience thing that doesn\u0027t have to exist in the C++ at all.  The only reason streams are passed in here instead of labels was because the WG thought that would be easier for the JS app developer to pass in.  \n\nIn short, there is absolutely no reason to pass anything in here other than a vector of strings.",
+      "parentUuid": "48d91121_c12948de",
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff597c75_d6943af1",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1

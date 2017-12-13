@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c93246d7_1f73e110",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-13T11:27:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f826ba4b_13c7953f",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "8e39ad4286c6f672a25de820740accff7385c673",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfd772d0_28ac9378",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "95e63adc_7fdb87a8",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-13T11:27:58Z",
+      "side": 1,
+      "message": "Yes, I have a use case in mind for several observers.\nMore importantly, I found supporting multiple observers easier and safer than implementing and using error handling for adding duplicate observer.\n(e.g. when observer need to be recreated, it might be safer to first add new one, then remove old one to be sure no messages were missed.)",
+      "parentUuid": "bfd772d0_28ac9378",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 52
+      },
+      "revId": "8e39ad4286c6f672a25de820740accff7385c673",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b96a68a_706b4b00",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "8e39ad4286c6f672a25de820740accff7385c673",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87219185_a2a20837",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-13T11:27:58Z",
+      "side": 1,
+      "message": "yes, it adds a mapping and here it definitely should. (other places where entry is added are more questionable)\n\nnope, elements are never deleted, it is a good idea to cleanup it somehow.\nAdded a TODO.",
+      "parentUuid": "4b96a68a_706b4b00",
+      "range": {
+        "startLine": 100,
+        "startChar": 17,
+        "endLine": 100,
+        "endChar": 45
+      },
+      "revId": "8e39ad4286c6f672a25de820740accff7385c673",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

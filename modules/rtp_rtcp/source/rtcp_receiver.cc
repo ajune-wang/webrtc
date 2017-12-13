@@ -63,7 +63,7 @@ struct RTCPReceiver::PacketInformation {
   uint32_t remote_ssrc = 0;
   std::vector<uint16_t> nack_sequence_numbers;
   ReportBlockList report_blocks;
-  int64_t rtt_ms = 0;
+  std::vector<int64_t> rtts_ms;
   uint32_t receiver_estimated_max_bitrate_bps = 0;
   std::unique_ptr<rtcp::TransportFeedback> transport_feedback;
   rtc::Optional<BitrateAllocation> target_bitrate_allocation;
@@ -507,7 +507,7 @@ void RTCPReceiver::HandleReportBlock(const ReportBlock& report_block,
   TRACE_COUNTER_ID1(TRACE_DISABLED_BY_DEFAULT("webrtc_rtp"), "RR_RTT",
                     report_block.source_ssrc(), rtt_ms);
 
-  packet_information->rtt_ms = rtt_ms;
+  packet_information->rtts_ms.push_back(rtt_ms);
   packet_information->report_blocks.push_back(report_block_info->report_block);
 }
 
@@ -970,8 +970,12 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
     if ((packet_information.packet_type_flags & kRtcpSr) ||
         (packet_information.packet_type_flags & kRtcpRr)) {
       int64_t now_ms = clock_->TimeInMilliseconds();
+      int64_t avg_rtt_ms = 0;
+      for (int64_t rtt : packet_information.rtts_ms) {
+        avg_rtt_ms += rtt / packet_information.rtts_ms.size();
+      }
       rtcp_bandwidth_observer_->OnReceivedRtcpReceiverReport(
-          packet_information.report_blocks, packet_information.rtt_ms, now_ms);
+          packet_information.report_blocks, avg_rtt_ms, now_ms);
     }
   }
   if ((packet_information.packet_type_flags & kRtcpSr) ||

@@ -21,6 +21,12 @@
 namespace webrtc {
 
 namespace {
+// The minimum number probing packets used.
+constexpr int kMinProbePacketsSent = 5;
+
+// The minimum probing duration in ms.
+constexpr int kMinProbeDurationMs = 15;
+
 // Maximum waiting time from the time of initiating probing to getting
 // the measured results back.
 constexpr int64_t kMaxWaitingTimeForProbingResultMs = 1000;
@@ -69,12 +75,18 @@ constexpr char kBweRapidRecoveryExperiment[] =
 
 }  // namespace
 
-ProbeController::ProbeController(PacedSender* pacer, const Clock* clock)
-    : pacer_(pacer), clock_(clock), enable_periodic_alr_probing_(false) {
+ProbeController::ProbeController(
+    const Clock* clock,
+    network::ProbeClusterConfig::Observer* observer)
+    : clock_(clock),
+      cluster_config_observer_(observer),
+      enable_periodic_alr_probing_(false) {
   Reset();
   in_rapid_recovery_experiment_ = webrtc::field_trial::FindFullName(
                                       kBweRapidRecoveryExperiment) == "Enabled";
 }
+
+ProbeController::~ProbeController() {}
 
 void ProbeController::SetBitrates(int64_t min_bitrate_bps,
                                   int64_t start_bitrate_bps,
@@ -183,6 +195,11 @@ void ProbeController::EnablePeriodicAlrProbing(bool enable) {
   enable_periodic_alr_probing_ = enable;
 }
 
+void ProbeController::SetAlrStartTimeMs(
+    rtc::Optional<int64_t> alr_start_time_ms) {
+  rtc::CritScope cs(&critsect_);
+  alr_start_time_ms_ = alr_start_time_ms;
+}
 void ProbeController::SetAlrEndedTimeMs(int64_t alr_end_time_ms) {
   rtc::CritScope cs(&critsect_);
   alr_end_time_ms_.emplace(alr_end_time_ms);
@@ -197,7 +214,7 @@ void ProbeController::RequestProbe() {
   //
   // If the probe session fails, the assumption is that this drop was a
   // real one from a competing flow or a network change.
-  bool in_alr = pacer_->GetApplicationLimitedRegionStartTime().has_value();
+  bool in_alr = alr_start_time_ms_.has_value();
   bool alr_ended_recently =
       (alr_end_time_ms_.has_value() &&
        now_ms - alr_end_time_ms_.value() < kAlrEndedTimeoutMs);
@@ -261,11 +278,9 @@ void ProbeController::Process() {
     return;
 
   // Probe bandwidth periodically when in ALR state.
-  rtc::Optional<int64_t> alr_start_time =
-      pacer_->GetApplicationLimitedRegionStartTime();
-  if (alr_start_time && estimated_bitrate_bps_ > 0) {
+  if (alr_start_time_ms_ && estimated_bitrate_bps_ > 0) {
     int64_t next_probe_time_ms =
-        std::max(*alr_start_time, time_last_probing_initiated_ms_) +
+        std::max(*alr_start_time_ms_, time_last_probing_initiated_ms_) +
         kAlrPeriodicProbingIntervalMs;
     if (now_ms >= next_probe_time_ms) {
       InitiateProbing(now_ms, {estimated_bitrate_bps_ * 2}, true);
@@ -285,7 +300,17 @@ void ProbeController::InitiateProbing(
       bitrate = max_probe_bitrate_bps;
       probe_further = false;
     }
-    pacer_->CreateProbeCluster(rtc::dchecked_cast<int>(bitrate));
+    using network::units::Timestamp;
+    using network::units::TimeDelta;
+    using network::units::DataRate;
+    using network::units::DataSize;
+
+    network::ProbeClusterConfig config;
+    config.time_created = Timestamp::ms(now_ms);
+    config.target_data_rate = DataRate::bps(rtc::dchecked_cast<int>(bitrate));
+    config.target_duration = TimeDelta::ms(kMinProbeDurationMs);
+    config.target_probe_count = kMinProbePacketsSent;
+    cluster_config_observer_->OnMessage(config);
   }
   time_last_probing_initiated_ms_ = now_ms;
   if (probe_further) {

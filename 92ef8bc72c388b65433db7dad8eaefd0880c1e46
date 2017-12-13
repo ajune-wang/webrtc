@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b5879550_59edc3c7",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-13T10:47:49Z",
+      "side": 1,
+      "message": "Right, this will go away shortly after I rebase (Mirko is landing a fix)",
+      "parentUuid": "f26e9933_4cd71f08",
+      "revId": "92ef8bc72c388b65433db7dad8eaefd0880c1e46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8be86a62_95a0411e",
         "filename": "rtc_base/BUILD.gn",
         "patchSetId": 15
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "cbefde4f_8bf3c119",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-13T10:47:49Z",
+      "side": 1,
+      "message": "Numerics doesn\u0027t have a BUILD.gn of its own, and the other numerics files are listed in here.",
+      "parentUuid": "8be86a62_95a0411e",
+      "revId": "92ef8bc72c388b65433db7dad8eaefd0880c1e46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "365745a2_246fe28b",
         "filename": "rtc_base/physicalsocketserver.cc",
         "patchSetId": 15
@@ -50,6 +86,24 @@
       "revId": "92ef8bc72c388b65433db7dad8eaefd0880c1e46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "159f8c43_61f8877e",
+        "filename": "rtc_base/physicalsocketserver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-13T10:47:49Z",
+      "side": 1,
+      "message": "Tommi suggested we get rid of my new last_system_error.h header, which the two call sites were including, and inline it to the two places it\u0027s used in. I\u0027m fine with both alternatives. Adding one header, build target and dependencies for 10 lines of code does seem like overkill, so I think I prefer this solution (though if we get more call sites we should pull this into a header).",
+      "parentUuid": "365745a2_246fe28b",
+      "revId": "92ef8bc72c388b65433db7dad8eaefd0880c1e46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

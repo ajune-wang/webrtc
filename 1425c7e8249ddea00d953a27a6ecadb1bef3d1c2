@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "971e3344_151c17a9",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-13T12:52:12Z",
+      "side": 1,
+      "message": "I don\u0027t follow this. Why are we check if old frames were limited in resolution? Isn\u0027t it more relevant for frames that are not old? I\u0027m probably misunderstanding how this works. :)",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 5
+      },
+      "revId": "1425c7e8249ddea00d953a27a6ecadb1bef3d1c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

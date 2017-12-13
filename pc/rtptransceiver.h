@@ -115,6 +115,17 @@ class RtpTransceiver final
   // Returns the backing object for the transceiver's Unified Plan receiver.
   rtc::scoped_refptr<RtpReceiverInternal> receiver_internal() const;
 
+  rtc::Optional<int> mline_index() const { return mline_index_; }
+  void set_mline_index(rtc::Optional<int> mline_index) {
+    mline_index_ = mline_index;
+  }
+
+  void set_mid(const rtc::Optional<std::string>& mid) { mid_ = mid; }
+  void set_direction(RtpTransceiverDirection direction) {
+    direction_ = direction;
+  }
+  void set_current_direction(RtpTransceiverDirection direction);
+
   // Returns true if this transceiver has ever had the current direction set to
   // sendonly or sendrecv.
   bool has_ever_been_used_to_send() const {
@@ -145,8 +156,7 @@ class RtpTransceiver final
   RtpTransceiverDirection direction_ = RtpTransceiverDirection::kInactive;
   rtc::Optional<RtpTransceiverDirection> current_direction_;
   rtc::Optional<std::string> mid_;
-  // TODO(steveanton): Implement this once there is a mechanism to set the
-  // current direction.
+  rtc::Optional<int> mline_index_;
   bool has_ever_been_used_to_send_ = false;
 
   cricket::BaseChannel* channel_ = nullptr;

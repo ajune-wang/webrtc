@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d74240ef_c2d76db5",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-13T16:17:48Z",
+      "side": 1,
+      "message": "Disabled, because new estimator does\u0027t use the min_frame_samples setting.",
+      "range": {
+        "startLine": 741,
+        "startChar": 34,
+        "endLine": 741,
+        "endChar": 63
+      },
+      "revId": "c4adc812eb77ec9f0811e48470b8562b95b2ce2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc32115a_994a4c65",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-13T16:17:48Z",
+      "side": 1,
+      "message": "Below tests all use OnTargetFrameRateUpdated in one way or the other, and that is a nop for the new estimator. MAybe some of the tests still are relevant, without that call?",
+      "range": {
+        "startLine": 846,
+        "startChar": 0,
+        "endLine": 846,
+        "endChar": 5
+      },
+      "revId": "c4adc812eb77ec9f0811e48470b8562b95b2ce2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a0cec37_53ec62ea",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-13T16:17:48Z",
+      "side": 1,
+      "message": "This call and the one in the test below are left-overs, I\u0027ll delete them.",
+      "range": {
+        "startLine": 974,
+        "startChar": 0,
+        "endLine": 974,
+        "endChar": 64
+      },
+      "revId": "c4adc812eb77ec9f0811e48470b8562b95b2ce2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

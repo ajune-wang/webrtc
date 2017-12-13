@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "48d91121_c12948de",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-13T15:42:26Z",
+      "side": 1,
+      "message": "The WebRTC spec, and Chromium implementation, uses objects for all interfaces and events/callbacks, not ids/labels. It is possible to end up with multiple track objects and stream objects that share the same ID, and I\u0027ve had to fix bugs caused by objects getting mixed up because they had the same ID and there was faulty assumptions about IDs being unique. E.g. if you add, remove, and then add again a remote track or stream you should end up with a new object with the same ID. One track could be muted, the other could be unmuted.\n\nSurely which track / streams were added is important, not just what label they go by.\n\nIs the plan to make the webrtc layer only care about labels? If I inspect a peer connection I will get ahold of objects (senders, receivers, streams, tracks), not IDs. The tracks and streams that I add are the ones that I expect to have been added if I look at the PC.\n\nI would be very careful about changing APIs to use ids/labels over references. If I call AddTrack with this track and those stream, those are the objects that should be tied to the sender, not some other track or streams that have the same IDs. There is a relationship here. It\u0027s not just conceptual. The sender should reference the streams, the streams should not be able to reach ref count 0 as long as they are in-use.\n\nAs for \"the caller might destroy...\". Its a ref counted object, so there should be no explicit delete call. On the other hand, if we *don\u0027t* keep a reference to the objects because we only keep labels, the streams could be deleted because there are no references sender -\u003e streams.\n\nFrom a Chromium perspective, if the PC does not keep track of the relationships of objects, only relationships between labels, I would have to duplicate this work effort in chromium to protect objects against destruction. I would probably have to make assumptions about when a PC is or is not using an object separate from the PC implementation.\n\nI encourage you use references. I\u0027d argue that labels is not the only thing you are using in this layer. You are using objects which have associated labels. Objects need to be referenced when used - ownership is shared.",
+      "parentUuid": "2a562510_72e82529",
+      "revId": "6d963d659cf2027ed41d244f77079126f722f485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff597c75_d6943af1",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1

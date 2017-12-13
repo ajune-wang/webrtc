@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f826ba4b_13c7953f",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-13T09:54:02Z",
+      "side": 1,
+      "message": "Please add a comment on the overall purpose of the class.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "8e39ad4286c6f672a25de820740accff7385c673",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfd772d0_28ac9378",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-13T09:54:02Z",
+      "side": 1,
+      "message": "Are there any usecases for more than one observer for the same ssrc? If not, could simplify to support only a single observer and CHECK fail if user attempts to register more than one.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 52
+      },
+      "revId": "8e39ad4286c6f672a25de820740accff7385c673",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b96a68a_706b4b00",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-13T09:54:02Z",
+      "side": 1,
+      "message": "This adds a new pair to the mapping, if the ssrc isn\u0027t already known.\n\nDo we ever delete elements from this mapping?",
+      "range": {
+        "startLine": 100,
+        "startChar": 17,
+        "endLine": 100,
+        "endChar": 45
+      },
+      "revId": "8e39ad4286c6f672a25de820740accff7385c673",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

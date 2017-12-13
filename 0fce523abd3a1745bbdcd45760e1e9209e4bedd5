@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb997fc1_5507f54e",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2017-12-13T00:12:10Z",
+      "side": 1,
+      "message": "The WebRTC spec says that sources should only be included for packets that have been played out - not sure this actually guarantees playout has happened as is.",
+      "revId": "0fce523abd3a1745bbdcd45760e1e9209e4bedd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "023bd67e_36f7286e",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2017-12-13T00:12:10Z",
+      "side": 1,
+      "message": "This causes a data race: https://chromium-swarm.appspot.com/task?id\u003d3a655d3bfaee2f10\u0026refresh\u003d10\u0026show_raw\u003d1\n\nvoe::Channel::GetAudioFrameWithInfo and RtpReceiverImpl::IncomingRtpPacket are called from different threads. Looking for a different place to compute the level.",
+      "revId": "0fce523abd3a1745bbdcd45760e1e9209e4bedd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ab307ad_c3251a10",
+        "filename": "voice_engine/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2017-12-13T00:12:10Z",
+      "side": 1,
+      "message": "Maybe this can be done more directly in RTPReceiverAudio::ParseRtpPacket.",
+      "revId": "0fce523abd3a1745bbdcd45760e1e9209e4bedd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "1425c7e8249ddea00d953a27a6ecadb1bef3d1c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fabd7a5f_064b1b7e",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-12-13T14:11:46Z",
+      "side": 1,
+      "message": "If simulcast layers are encoded on different threads, all layers for one frame might not have been encoded before the next frame starts.\nThe encoded frame info is stored in EncodedFrameMap to make sure all layer info have been received once the frame is removed (send_statistics_proxy.h, line 186).",
+      "parentUuid": "971e3344_151c17a9",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 5
+      },
+      "revId": "1425c7e8249ddea00d953a27a6ecadb1bef3d1c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1063,7 +1063,6 @@ public class PeerConnectionTest {
   }
 
   // Flaky on Android. See webrtc:7761
-  @DisabledTest
   @Test
   @MediumTest
   public void testTrackRemovalAndAddition() throws Exception {

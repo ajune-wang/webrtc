@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "368baec1_75266d3b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-13T20:03:40Z",
+      "side": 1,
+      "message": "If we\u0027re moving away from MediaStreamInterface, should we add a TODO to deprecate and remove AddTrack that takes MediaStreamInterface* in favor of a new AddTrack that takes std::vector\u003cstd::string\u003e?",
+      "revId": "2f5ad4d6487ed104a40137369ed44a6538d023f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c6d3fa6_b22e657c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-13T20:03:40Z",
+      "side": 1,
+      "message": "nit: I think this check and log belongs to AddTrackUnifiedPlan and AddTrackPlanB, rather than the calling place here. Or, if we keep these here, we should DCHECK the same things in the AddTrackUnifiedPlan/PlanB functions.",
+      "revId": "2f5ad4d6487ed104a40137369ed44a6538d023f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "434b35ab_ae5d5279",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-13T20:03:40Z",
+      "side": 1,
+      "message": "nit: If you do \"class PeerConnectionRtpUnifiedPlanTest : public PeerConnectionRtpTest {};\" then you can make \"UnifiedPlan\" part of the test suite name instead of each test name, this is what I did with PeerConnectionRtpCallbacksTest above (same file).",
+      "revId": "2f5ad4d6487ed104a40137369ed44a6538d023f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbabe7a6_73ce241c",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-13T20:03:40Z",
+      "side": 1,
+      "message": "1. What about a test doing sender-\u003eSetTrack(nullptr); before RemoveTrack? The steps should be aborted before changing the direction of the transceiver.\n\n...hang on that doesn\u0027t make sense? Is this a spec bug or am I confused?\nSo if you s-\u003eSetTrack(nullptr) then RemoveTrack(s) is a NO-OP, and you can start sending again with s-\u003eSetTrack(track). But if you RemoveTrack(s) first and then do s-\u003eSetTrack(track) it doesn\u0027t work because the direction is incorrect and you would have to re-negotiate.\n\nCan you clear up the confusion for me, add a test or TODO, or file a spec bug?\n\n2. Speaking of re-negotiation, can you add tests making sure the negotiationneeded bit is updated on adding and removing tracks?",
+      "revId": "2f5ad4d6487ed104a40137369ed44a6538d023f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

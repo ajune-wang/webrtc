@@ -1034,6 +1034,11 @@ PeerConnection::AddTrackInternal(
   if (!track) {
     LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, "Track is null.");
   }
+  if (!(track->kind() == MediaStreamTrackInterface::kAudioKind ||
+        track->kind() == MediaStreamTrackInterface::kVideoKind)) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                         "Track has invalid kind: " + track->kind());
+  }
   // TODO(bugs.webrtc.org/7932): Support adding a track to multiple streams.
   if (stream_labels.size() > 1u) {
     LOG_AND_RETURN_ERROR(
@@ -1076,7 +1081,8 @@ PeerConnection::AddTrackPlanB(
       new_sender->internal()->SetSsrc(sender_info->first_ssrc);
     }
     return rtc::scoped_refptr<RtpSenderInterface>(new_sender);
-  } else if (track->kind() == MediaStreamTrackInterface::kVideoKind) {
+  } else {
+    RTC_DCHECK_EQ(MediaStreamTrackInterface::kVideoKind, track->kind());
     auto new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(),
         new VideoRtpSender(static_cast<VideoTrackInterface*>(track.get()),
@@ -1090,9 +1096,6 @@ PeerConnection::AddTrackPlanB(
       new_sender->internal()->SetSsrc(sender_info->first_ssrc);
     }
     return rtc::scoped_refptr<RtpSenderInterface>(new_sender);
-  } else {
-    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
-                         "Track has invalid kind: " + track->kind());
   }
 }
 
@@ -1102,23 +1105,23 @@ PeerConnection::AddTrackUnifiedPlan(
     const std::vector<std::string>& stream_labels) {
   auto transceiver = FindFirstTransceiverForAddedTrack(track);
   if (transceiver) {
-    transceiver->sender()->SetTrack(track);
-    transceiver->internal()->sender_internal()->set_stream_ids(stream_labels);
     if (transceiver->direction() == RtpTransceiverDirection::kRecvOnly) {
       transceiver->SetDirection(RtpTransceiverDirection::kSendRecv);
     } else if (transceiver->direction() == RtpTransceiverDirection::kInactive) {
       transceiver->SetDirection(RtpTransceiverDirection::kSendOnly);
     }
-    return transceiver->sender();
   } else {
-    RtpTransceiverInit init;
-    init.stream_labels = stream_labels;
-    auto transceiver_or_error = AddTransceiver(track, init);
-    if (!transceiver_or_error.ok()) {
-      return transceiver_or_error.MoveError();
-    }
-    return transceiver_or_error.MoveValue()->sender();
+    cricket::MediaType media_type =
+        (track->kind() == MediaStreamTrackInterface::kAudioKind
+             ? cricket::MEDIA_TYPE_AUDIO
+             : cricket::MEDIA_TYPE_VIDEO);
+    transceiver = CreateTransceiver(media_type);
+    transceiver->internal()->set_created_by_addtrack(true);
+    transceiver->SetDirection(RtpTransceiverDirection::kSendRecv);
   }
+  transceiver->sender()->SetTrack(track);
+  transceiver->internal()->sender_internal()->set_stream_ids(stream_labels);
+  return transceiver->sender();
 }
 
 rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
@@ -1257,10 +1260,26 @@ PeerConnection::AddTransceiver(
 
   // TODO(bugs.webrtc.org/7600): Verify init.
 
+  auto transceiver = CreateTransceiver(media_type);
+  transceiver->SetDirection(init.direction);
+  if (track) {
+    transceiver->sender()->SetTrack(track);
+  }
+
+  observer_->OnRenegotiationNeeded();
+
+  return rtc::scoped_refptr<RtpTransceiverInterface>(transceiver);
+}
+
+rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+PeerConnection::CreateTransceiver(cricket::MediaType media_type) {
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender;
   rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
       receiver;
   std::string receiver_id = rtc::CreateRandomUuid();
+  // TODO(bugs.webrtc.org/7600): Initializing the sender/receiver with a null
+  // channel prevents users from calling SetParameters on them, which is needed
+  // to be in compliance with the spec.
   if (media_type == cricket::MEDIA_TYPE_AUDIO) {
     sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(), new AudioRtpSender(nullptr, stats_.get()));
@@ -1274,24 +1293,11 @@ PeerConnection::AddTransceiver(
         signaling_thread(),
         new VideoRtpReceiver(receiver_id, {}, worker_thread(), 0, nullptr));
   }
-  // TODO(bugs.webrtc.org/7600): Initializing the sender/receiver with a null
-  // channel prevents users from calling SetParameters on them, which is needed
-  // to be in compliance with the spec.
-
-  if (track) {
-    sender->SetTrack(track);
-  }
-
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
       transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
           signaling_thread(), new RtpTransceiver(sender, receiver));
-  transceiver->SetDirection(init.direction);
-
   transceivers_.push_back(transceiver);
-
-  observer_->OnRenegotiationNeeded();
-
-  return rtc::scoped_refptr<RtpTransceiverInterface>(transceiver);
+  return transceiver;
 }
 
 rtc::scoped_refptr<DtmfSenderInterface> PeerConnection::CreateDtmfSender(

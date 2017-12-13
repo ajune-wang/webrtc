@@ -372,6 +372,11 @@ class PeerConnection : public PeerConnectionInterface,
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
       const RtpTransceiverInit& init);
 
+  // Create a new RtpTransceiver of the given type and add it to the list of
+  // transceivers.
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  CreateTransceiver(cricket::MediaType media_type);
+
   void SetIceConnectionState(IceConnectionState new_state);
   // Called any time the IceGatheringState changes
   void OnIceGatheringChange(IceGatheringState new_state);

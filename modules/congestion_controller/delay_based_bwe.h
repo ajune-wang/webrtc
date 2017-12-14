@@ -51,7 +51,7 @@ class DelayBasedBwe {
   Result IncomingPacketFeedbackVector(
       const std::vector<PacketFeedback>& packet_feedback_vector,
       rtc::Optional<uint32_t> acked_bitrate_bps);
-  void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms);
+  void OnRttUpdate(int64_t avg_rtt_ms);
   bool LatestEstimate(std::vector<uint32_t>* ssrcs,
                       uint32_t* bitrate_bps) const;
   void SetStartBitrate(int start_bitrate_bps);

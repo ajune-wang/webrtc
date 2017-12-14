@@ -14,7 +14,9 @@
 #include <initializer_list>
 
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/pacing/paced_sender.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "network_control/include/network_types.h"
+
 #include "rtc_base/criticalsection.h"
 
 namespace webrtc {
@@ -26,7 +28,9 @@ class Clock;
 // bitrate is adjusted by an application.
 class ProbeController {
  public:
-  ProbeController(PacedSender* pacer, const Clock* clock);
+  ProbeController(const Clock* clock,
+                  network::ProbeClusterConfig::Observer* observer);
+  ~ProbeController();
 
   void SetBitrates(int64_t min_bitrate_bps,
                    int64_t start_bitrate_bps,
@@ -38,6 +42,7 @@ class ProbeController {
 
   void EnablePeriodicAlrProbing(bool enable);
 
+  void SetAlrStartTimeMs(rtc::Optional<int64_t> alr_start_time);
   void SetAlrEndedTimeMs(int64_t alr_end_time);
 
   void RequestProbe();
@@ -65,8 +70,9 @@ class ProbeController {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
   rtc::CriticalSection critsect_;
-  PacedSender* const pacer_;
   const Clock* const clock_;
+  network::ProbeClusterConfig::Observer* cluster_config_observer_;
+
   NetworkState network_state_ RTC_GUARDED_BY(critsect_);
   State state_ RTC_GUARDED_BY(critsect_);
   int64_t min_bitrate_to_probe_further_bps_ RTC_GUARDED_BY(critsect_);
@@ -75,6 +81,7 @@ class ProbeController {
   int64_t start_bitrate_bps_ RTC_GUARDED_BY(critsect_);
   int64_t max_bitrate_bps_ RTC_GUARDED_BY(critsect_);
   int64_t last_bwe_drop_probing_time_ms_ RTC_GUARDED_BY(critsect_);
+  rtc::Optional<int64_t> alr_start_time_ms_ RTC_GUARDED_BY(critsect_);
   rtc::Optional<int64_t> alr_end_time_ms_ RTC_GUARDED_BY(critsect_);
   bool enable_periodic_alr_probing_ RTC_GUARDED_BY(critsect_);
   int64_t time_of_last_large_drop_ms_ RTC_GUARDED_BY(critsect_);

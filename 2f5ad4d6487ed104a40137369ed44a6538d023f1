@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "da1bf7c0_4817d4cd",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-14T10:27:37Z",
+      "side": 1,
+      "message": "I think \"AddTrackWithStreamLabels\" is good. (I thought of that and of \"AddLocalTrack\".) Once the old is deprecated and removed we can rename it to \"AddTrack\" if we like.",
+      "parentUuid": "56dff346_1bce6711",
+      "revId": "2f5ad4d6487ed104a40137369ed44a6538d023f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c6d3fa6_b22e657c",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -69,6 +87,24 @@
       "revId": "2f5ad4d6487ed104a40137369ed44a6538d023f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e79764e_7f0b1fca",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-14T10:27:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26f73d6b_ee3afc03",
+      "revId": "2f5ad4d6487ed104a40137369ed44a6538d023f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

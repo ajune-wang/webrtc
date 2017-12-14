@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1273fca_3baa9f2e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-14T10:27:37Z",
+      "side": 1,
+      "message": "Do we want to TRACE_EVENT? I don\u0027t know why you would/wouldn\u0027t want to but I noticed the old signature does it.",
+      "revId": "df15f40b0f18e685697e1e83278c95c0923a2a5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

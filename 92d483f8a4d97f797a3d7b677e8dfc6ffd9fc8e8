@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65e576a8_e92ec589",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-14T23:45:34Z",
+      "side": 1,
+      "message": "See above TODO. I think the real solution is to require a cert on construction. I\u0027ll just say that.",
+      "parentUuid": "1575ea67_04896362",
+      "range": {
+        "startLine": 110,
+        "startChar": 75,
+        "endLine": 110,
+        "endChar": 0
+      },
+      "revId": "92d483f8a4d97f797a3d7b677e8dfc6ffd9fc8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b23ad6b_2394f1ae",
         "filename": "p2p/base/dtlstransport.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d5e68c37_28b2fa24",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-14T23:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b23ad6b_2394f1ae",
+      "range": {
+        "startLine": 117,
+        "startChar": 56,
+        "endLine": 117,
+        "endChar": 0
+      },
+      "revId": "92d483f8a4d97f797a3d7b677e8dfc6ffd9fc8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c05661ee_bd70260b",
         "filename": "p2p/base/dtlstransport_unittest.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "92d483f8a4d97f797a3d7b677e8dfc6ffd9fc8e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1595e76_8dfff691",
+        "filename": "p2p/base/dtlstransport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-14T23:45:34Z",
+      "side": 1,
+      "message": "Just a mistake, meant to switch from negotiated_dtls() to IsDtlsActive() everywhere.",
+      "parentUuid": "c05661ee_bd70260b",
+      "range": {
+        "startLine": 270,
+        "startChar": 71,
+        "endLine": 270,
+        "endChar": 0
+      },
+      "revId": "92d483f8a4d97f797a3d7b677e8dfc6ffd9fc8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

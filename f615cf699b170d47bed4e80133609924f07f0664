@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6496ea74_77127c91",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-14T23:45:34Z",
+      "side": 0,
+      "message": "It turns out I couldn\u0027t remove this after all. There was a test that was ensuring an m\u003d section can be rejected in an answer, and this calls SetRemoteFingerprint with an empty fingerprint (because none is in the answer), which fails the whole offer/answer exchange.\n\nSo I left a TODO for now, and hopefully we can clean this up after some more refactoring. My thinking is that you have:\n\n* Transports\n* Senders\n* Receivers\n\nAnd that setting SDP with a rejected m\u003d section should (possibly, depending on bundling) stop the transports, and stop the senders/receivers. Not push down bogus parameters from the rejected m\u003d section, as we\u0027ve been doing.",
+      "parentUuid": "825bc327_f5f7a021",
+      "revId": "f615cf699b170d47bed4e80133609924f07f0664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8041ee8_afbc168c",
         "filename": "p2p/base/dtlstransport_unittest.cc",
         "patchSetId": 1

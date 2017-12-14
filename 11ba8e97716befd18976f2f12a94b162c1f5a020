@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "0d01589d_beb3cd26",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-14T11:44:07Z",
+      "side": 1,
+      "message": "I looked at the CL and didn\u0027t see this used.",
+      "parentUuid": "1eb58d87_c14241c5",
+      "range": {
+        "startLine": 132,
+        "startChar": 2,
+        "endLine": 132,
+        "endChar": 8
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b1bb5e0_d6c77dde",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
         "patchSetId": 4
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "We should not initialize this in the NetworkMonitor constructor. \nNetworkMonitor could be there between calls. This should only be created when calls started or potential calls coming to enable multi-networking.",
       "parentUuid": "d3ebb5e0_a05eeabb",
+      "range": {
+        "startLine": 139,
+        "startChar": 10,
+        "endLine": 139,
+        "endChar": 55
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d76ed564_5020bbf0",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-14T11:44:07Z",
+      "side": 1,
+      "message": "Okay, can we initialize it in startMonitoring then?",
+      "parentUuid": "1062e082_eed4c449",
       "range": {
         "startLine": 139,
         "startChar": 10,

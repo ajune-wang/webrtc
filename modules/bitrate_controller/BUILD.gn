@@ -14,6 +14,7 @@ rtc_static_library("bitrate_controller") {
   # congestion_controller:congestion_controller if enabled.
   check_includes = false
 
+  visibility = [ "*" ]
   sources = [
     "bitrate_controller_impl.cc",
     "bitrate_controller_impl.h",

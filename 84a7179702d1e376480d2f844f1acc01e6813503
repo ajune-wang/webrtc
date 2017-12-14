@@ -22,6 +22,53 @@
       "revId": "84a7179702d1e376480d2f844f1acc01e6813503",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a721fbc_54e43949",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-14T16:00:32Z",
+      "side": 1,
+      "message": "Maybe RobustToNoise or something along those lines?\nI think one of things the original test was intended to capture was that the initial key-frame is heavier to encode, and we don\u0027t want trigger over-use on the very first frame (especially if other call setup things are happening in the background).\n\nMaybe change the test to first add a very large sample and then converge to the lower load?",
+      "parentUuid": "69440932_345b9928",
+      "range": {
+        "startLine": 741,
+        "startChar": 34,
+        "endLine": 741,
+        "endChar": 49
+      },
+      "revId": "84a7179702d1e376480d2f844f1acc01e6813503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3771bc57_2fd2751f",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-14T16:00:32Z",
+      "side": 1,
+      "message": "InitialUsage() * 0.75 + 3.75? That seems a little arbitrary, but ok :)",
+      "range": {
+        "startLine": 754,
+        "startChar": 29,
+        "endLine": 754,
+        "endChar": 43
+      },
+      "revId": "84a7179702d1e376480d2f844f1acc01e6813503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

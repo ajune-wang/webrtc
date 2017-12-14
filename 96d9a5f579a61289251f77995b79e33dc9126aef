@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20921687_13a15fa6",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2017-12-14T10:33:02Z",
+      "side": 1,
+      "message": "I think we normally prefer to include stdio.h. Same in the other files you changed.",
+      "range": {
+        "startLine": 14,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "96d9a5f579a61289251f77995b79e33dc9126aef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

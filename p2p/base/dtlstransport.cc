@@ -239,14 +239,6 @@ bool DtlsTransport::SetRemoteFingerprint(const std::string& digest_alg,
     return true;
   }
 
-  // If the other side doesn't support DTLS, turn off |dtls_active_|.
-  if (digest_alg.empty()) {
-    RTC_DCHECK(!digest_len);
-    LOG_J(LS_INFO, this) << "Other side didn't support DTLS.";
-    dtls_active_ = false;
-    return true;
-  }
-
   // Otherwise, we must have a local certificate before setting remote
   // fingerprint.
   if (!dtls_active_) {

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c2d46a29_e4c9b925",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-14T16:19:30Z",
+      "side": 1,
+      "message": "The very first frame is totally ignored (which might be a god thing, then?), because the filter wants both the encode time and the time since previous frame, and the latter info is unavailable. That\u0027s why the initial expectation is an EXPECT_EQ.\n\nThe intention with the test is to check that we stay close to the initial value, which we do because we have seen data for only a fraction of the filter time constant. There\u0027s no noise in this testcase. (A few cases of noise are tested by the RandomFrameInterlval tests below).",
+      "parentUuid": "2a721fbc_54e43949",
+      "range": {
+        "startLine": 741,
+        "startChar": 34,
+        "endLine": 741,
+        "endChar": 49
+      },
+      "revId": "84a7179702d1e376480d2f844f1acc01e6813503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3771bc57_2fd2751f",
         "filename": "video/overuse_frame_detector_unittest.cc",
         "patchSetId": 6
@@ -60,6 +84,30 @@
       "writtenOn": "2017-12-14T16:00:32Z",
       "side": 1,
       "message": "InitialUsage() * 0.75 + 3.75? That seems a little arbitrary, but ok :)",
+      "range": {
+        "startLine": 754,
+        "startChar": 29,
+        "endLine": 754,
+        "endChar": 43
+      },
+      "revId": "84a7179702d1e376480d2f844f1acc01e6813503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c9573dd_409f8933",
+        "filename": "video/overuse_frame_detector_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-14T16:19:30Z",
+      "side": 1,
+      "message": "It\u0027s a weighted average of the initial value and the true cpu usage of appr 15%, with the somewhat arbitrary weight of 0.75 for the initial value. \n\nWould 0.75 * InitialUsage() + 0.25 * 15 be clearer? Or some symbolic name for 15?",
+      "parentUuid": "3771bc57_2fd2751f",
       "range": {
         "startLine": 754,
         "startChar": 29,

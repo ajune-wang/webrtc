@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec25b3a3_d2029543",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-12-14T17:18:08Z",
+      "side": 1,
+      "message": "You should probably only declare it here, and move the definition to a .cc file. Otherwise, you get multiple definitions of kDefaultBitratePriority when this header is included from different modules.",
+      "revId": "6d21a4547e53064d3567be7505133f6c08a03196",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

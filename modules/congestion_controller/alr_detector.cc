@@ -8,8 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/pacing/alr_detector.h"
+#include "modules/congestion_controller/alr_detector.h"
 
+#include <algorithm>
 #include <string>
 
 #include "logging/rtc_event_log/events/rtc_event_alr_state.h"
@@ -58,7 +59,16 @@ AlrDetector::AlrDetector(RtcEventLog* event_log)
 
 AlrDetector::~AlrDetector() {}
 
-void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t delta_time_ms) {
+void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t send_time_ms) {
+  if (!last_send_time_ms_.has_value()) {
+    last_send_time_ms_ = send_time_ms;
+    // Since the duration for sending the bytes is unknwon, return without
+    // updating alr state.
+    return;
+  }
+  int64_t delta_time_ms = send_time_ms - *last_send_time_ms_;
+  last_send_time_ms_ = send_time_ms;
+
   alr_budget_.UseBudget(bytes_sent);
   alr_budget_.IncreaseBudget(delta_time_ms);
   bool state_changed = false;
@@ -80,9 +90,9 @@ void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t delta_time_ms) {
 
 void AlrDetector::SetEstimatedBitrate(int bitrate_bps) {
   RTC_DCHECK(bitrate_bps);
-  const auto target_rate_kbps = int64_t{bitrate_bps} *
+  const auto target_rate_kbps = static_cast<int64_t>(bitrate_bps) *
                                 bandwidth_usage_percent_ / (1000 * 100);
-  alr_budget_.set_target_rate_kbps(rtc::dchecked_cast<int>(target_rate_kbps));
+  alr_budget_.set_target_rate_kbps(std::max<int>(target_rate_kbps, 1));
 }
 
 rtc::Optional<int64_t> AlrDetector::GetApplicationLimitedRegionStartTime()

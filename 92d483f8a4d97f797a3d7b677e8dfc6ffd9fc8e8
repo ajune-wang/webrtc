@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1575ea67_04896362",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-14T02:52:45Z",
+      "side": 1,
+      "message": "Can we put a TODO to rename this something sensible like Activate()?",
+      "range": {
+        "startLine": 110,
+        "startChar": 75,
+        "endLine": 110,
+        "endChar": 0
+      },
+      "revId": "92d483f8a4d97f797a3d7b677e8dfc6ffd9fc8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b23ad6b_2394f1ae",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-14T02:52:45Z",
+      "side": 1,
+      "message": "Can we put a TODO to rename this to something sensible like Start()?  That\u0027s what ORTC calls it.",
+      "range": {
+        "startLine": 117,
+        "startChar": 56,
+        "endLine": 117,
+        "endChar": 0
+      },
+      "revId": "92d483f8a4d97f797a3d7b677e8dfc6ffd9fc8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c05661ee_bd70260b",
+        "filename": "p2p/base/dtlstransport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-14T02:52:45Z",
+      "side": 1,
+      "message": "If negotiated_dtls_ is always false, can we just remove this block?",
+      "range": {
+        "startLine": 270,
+        "startChar": 71,
+        "endLine": 270,
+        "endChar": 0
+      },
+      "revId": "92d483f8a4d97f797a3d7b677e8dfc6ffd9fc8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

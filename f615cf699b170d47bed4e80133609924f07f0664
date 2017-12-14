@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d3f3793_1ebe2631",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-14T00:37:10Z",
+      "side": 0,
+      "message": "I can\u0027t imagine anything depending on this. Ok to remove it?",
+      "revId": "f615cf699b170d47bed4e80133609924f07f0664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8041ee8_afbc168c",
+        "filename": "p2p/base/dtlstransport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-14T00:37:10Z",
+      "side": 0,
+      "message": "I remove NegotiateOrdering from here since it\u0027s covered more in depth by DtlsEventOrderingTest.",
+      "revId": "f615cf699b170d47bed4e80133609924f07f0664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d43f0ee_e2f92762",
+        "filename": "p2p/base/dtlstransport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-14T00:37:10Z",
+      "side": 0,
+      "message": "Not really relevant here, responsibility of JsepTransport.",
+      "revId": "f615cf699b170d47bed4e80133609924f07f0664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

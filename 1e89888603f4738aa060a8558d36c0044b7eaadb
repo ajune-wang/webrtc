@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d0e84bd_96454d9a",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-12-14T09:49:47Z",
+      "side": 1,
+      "message": "I think it\u0027s better to reset the nack count after a certain period of receiving no nacks, otherwise we will react to any single nack after the count has reached |_nackLimit|.\n\nSo I think a better name would be kNackCountTimeoutMs.",
+      "revId": "1e89888603f4738aa060a8558d36c0044b7eaadb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e248cb50_b294afcc",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-12-14T09:49:47Z",
+      "side": 1,
+      "message": "Update (or simply remove) this comment and TODO.",
+      "revId": "1e89888603f4738aa060a8558d36c0044b7eaadb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af1ea35c_09f933b8",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2017-12-14T09:49:47Z",
+      "side": 1,
+      "message": "As mentioned above, I think it\u0027s better to simply reset the |_nackCount| after the timeout period.",
+      "revId": "1e89888603f4738aa060a8558d36c0044b7eaadb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

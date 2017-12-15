@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e3c92f7_ef4ff349",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-15T20:59:14Z",
+      "side": 1,
+      "message": "Why was this not needed before?",
+      "revId": "c23724eb706f5f4ef7b9e46a8f558be4c4d4729b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

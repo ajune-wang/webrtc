@@ -12,13 +12,18 @@
 
 #include <algorithm>
 #include <memory>
+#include <utility>
 
 #include "p2p/base/port.h"
+#include "pc/mediasession.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/thread.h"
 
 using webrtc::SdpType;
+using webrtc::RTCError;
+using webrtc::RTCErrorType;
 
 namespace {
 
@@ -265,6 +270,70 @@ void TransportController::SetMetricsObserver(
                                metrics_observer));
 }
 
+RTCError TransportController::SetRtpTransportDescription(
+    SdpType type,
+    ContentSource source,
+    const webrtc::SessionDescriptionInterface* sdesc,
+    bool bundle_enabled,
+    bool rtcp_mux_required) {
+  if (!network_thread_->IsCurrent()) {
+    network_thread_->Invoke<RTCError>(RTC_FROM_HERE, [&] {
+      return SetRtpTransportDescription(type, source, sdesc, bundle_enabled,
+                                        rtcp_mux_required);
+    });
+  }
+
+  RTC_DCHECK(sdesc);
+
+  if (!SetSrtpType(sdesc)) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                         "SRTP type is mismatched in offer and answer.");
+  }
+
+  rtcp_mux_required_ = rtcp_mux_required;
+  bundle_enabled_ = bundle_enabled;
+
+  if (bundle_enabled) {
+    return SetBundledRtpTransportDescription(sdesc, type, source);
+  }
+
+  RTCError error;
+  for (auto content_info : sdesc->description()->contents()) {
+    error = SetContentDescriptionPerTransport(content_info, type, source);
+    if (!error.ok()) {
+      return error;
+    }
+  }
+  return RTCError::OK();
+}
+
+bool TransportController::SetSrtpType(
+    const webrtc::SessionDescriptionInterface* sdesc) {
+  if (!sdesc) {
+    return false;
+  }
+
+  if (sdesc->description()->contents().size() == 0) {
+    return true;
+  }
+
+  auto content_info = sdesc->description()->contents()[0];
+  const MediaContentDescription* content_desc =
+      static_cast<const MediaContentDescription*>(content_info.description);
+
+  if (content_desc->cryptos().empty() &&
+      (!srtp_type_ || *srtp_type_ == SrtpType::kDtlsSrtp)) {
+    srtp_type_ = std::move(SrtpType::kDtlsSrtp);
+    return true;
+
+  } else if (!content_desc->cryptos().empty() &&
+             (!srtp_type_ || *srtp_type_ == SrtpType::kSdes)) {
+    srtp_type_ = std::move(SrtpType::kSdes);
+    return true;
+  }
+  return false;
+}
+
 DtlsTransportInternal* TransportController::CreateDtlsTransport(
     const std::string& transport_name,
     int component) {
@@ -285,10 +354,10 @@ DtlsTransportInternal* TransportController::CreateDtlsTransport_n(
     return existing_channel->dtls();
   }
 
-  // Need to create a new channel.
+  // Need to create a new transport.
   JsepTransport* transport = GetOrCreateJsepTransport(transport_name);
 
-  // Create DTLS channel wrapping ICE channel, and configure it.
+  // Create DTLS transport wrapping ICE channel, and configure it.
   IceTransportInternal* ice =
       CreateIceTransportChannel_n(transport_name, component);
   DtlsTransportInternal* dtls =
@@ -302,9 +371,9 @@ DtlsTransportInternal* TransportController::CreateDtlsTransport_n(
     RTC_DCHECK(set_cert_success);
   }
 
-  // Connect to signals offered by the channels. Currently, the DTLS channel
-  // forwards signals from the ICE channel, so we only need to connect to the
-  // DTLS channel. In the future this won't be the case.
+  // Connect to signals offered by the transport. Currently, the DTLS transport
+  // forwards signals from the ICE transport, so we only need to connect to the
+  // DTLS transport. In the future this won't be the case.
   dtls->SignalWritableState.connect(
       this, &TransportController::OnChannelWritableState_n);
   dtls->SignalReceivingState.connect(
@@ -506,8 +575,8 @@ JsepTransport* TransportController::GetOrCreateJsepTransport(
     return transport;
   }
 
-  transport = new JsepTransport(transport_name, certificate_);
-  transports_[transport_name] = std::unique_ptr<JsepTransport>(transport);
+  transports_[transport_name] =
+      rtc::MakeUnique<JsepTransport>(transport_name, certificate_);
   return transport;
 }
 
@@ -821,6 +890,104 @@ void TransportController::SetMetricsObserver_n(
   for (auto& channel : channels_) {
     channel->dtls()->ice_transport()->SetMetricsObserver(metrics_observer);
   }
+}
+
+RTCError TransportController::SetBundledRtpTransportDescription(
+    const webrtc::SessionDescriptionInterface* sdesc,
+    webrtc::SdpType type,
+    ContentSource source) {
+  std::string bundled_mid = GetBundledMid(sdesc);
+  MergeEncryptedHeaderExtensionIdsForBundle(sdesc);
+
+  for (auto content_info : sdesc->description()->contents()) {
+    if (content_info.name == bundled_mid) {
+      return SetContentDescriptionPerTransport(content_info, type, source);
+    }
+  }
+  LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                       "The bundled MID is not found.");
+}
+
+RTCError TransportController::SetContentDescriptionPerTransport(
+    const ContentInfo& content_info,
+    webrtc::SdpType type,
+    ContentSource source) {
+  auto jsep_transport = GetOrCreateJsepTransport(content_info.name);
+  const MediaContentDescription* content_desc =
+      static_cast<const MediaContentDescription*>(content_info.description);
+  if (rtcp_mux_required_ && !content_desc->rtcp_mux()) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                         "rtcpMuxPolicy is 'require', but media description "
+                         "does not contain 'a=rtcp-mux'.");
+  }
+  if (!jsep_transport->SetRtcpMux(content_desc->rtcp_mux(), type, source)) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                         "Failed to setup RTCP mux filter.");
+  }
+
+  if (srtp_type_ && *srtp_type_ == SrtpType::kSdes) {
+    auto encrypted_header_extension_ids =
+        bundle_enabled_ ? *bundled_encrypted_header_extension_ids_
+                        : GetEncryptedHeaderExtensionIds(content_info);
+    if (!jsep_transport->SetSdes(content_desc->cryptos(),
+                                 encrypted_header_extension_ids, type,
+                                 source)) {
+      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                           "Failed to set SDES cryptos.");
+    }
+  }
+  return RTCError::OK();
+}
+
+std::string TransportController::GetBundledMid(
+    const webrtc::SessionDescriptionInterface* sdesc) {
+  auto bundle_group =
+      sdesc->description()->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
+  return bundle_group ? (*bundle_group->FirstContentName()) : "";
+}
+
+void TransportController::MergeEncryptedHeaderExtensionIdsForBundle(
+    const webrtc::SessionDescriptionInterface* sdesc) {
+  RTC_DCHECK(sdesc);
+  if (!bundle_enabled_) {
+    return;
+  }
+
+  std::vector<int> merged_ids;
+  // Union the encrypted header IDs when bundle is
+  for (auto content_info : sdesc->description()->contents()) {
+    std::vector<int> extension_ids =
+        GetEncryptedHeaderExtensionIds(content_info);
+    for (int id : extension_ids) {
+      auto it = std::find(merged_ids.begin(), merged_ids.end(), id);
+      if (it != merged_ids.end()) {
+        merged_ids.push_back(id);
+      }
+    }
+  }
+  bundled_encrypted_header_extension_ids_ = std::move(merged_ids);
+}
+
+std::vector<int> TransportController::GetEncryptedHeaderExtensionIds(
+    const ContentInfo& content_info) {
+  auto jsep_transport = GetOrCreateJsepTransport(content_info.name);
+  const MediaContentDescription* content_desc =
+      static_cast<const MediaContentDescription*>(content_info.description);
+
+  std::vector<int> encrypted_header_extension_ids;
+  if (jsep_transport->EncryptedHeaderExtensionEnabled()) {
+    for (auto extension : content_desc->rtp_header_extensions()) {
+      if (!extension.encrypt) {
+        continue;
+      }
+      auto it = std::find(encrypted_header_extension_ids.begin(),
+                          encrypted_header_extension_ids.end(), extension.id);
+      if (it == encrypted_header_extension_ids.end()) {
+        encrypted_header_extension_ids.push_back(extension.id);
+      }
+    }
+  }
+  return encrypted_header_extension_ids;
 }
 
 void TransportController::OnChannelWritableState_n(

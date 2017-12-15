@@ -39,6 +39,8 @@ class RtpTransport : public RtpTransportInternal {
   bool rtcp_mux_enabled() const override { return rtcp_mux_enabled_; }
   void SetRtcpMuxEnabled(bool enable) override;
 
+  void ActivateRtcpMux() override;
+
   rtc::PacketTransportInternal* rtp_packet_transport() const override {
     return rtp_packet_transport_;
   }
@@ -69,6 +71,10 @@ class RtpTransport : public RtpTransportInternal {
   bool HandlesPayloadType(int payload_type) const override;
 
   void AddHandledPayloadType(int payload_type) override;
+
+  sigslot::signal<>& SignalRtcpMuxFullyEnabled() override {
+    return SignalRtcpMuxFullyEnabled_;
+  }
 
  protected:
   // TODO(zstein): Remove this when we remove RtpTransportAdapter.
@@ -102,6 +108,8 @@ class RtpTransport : public RtpTransportInternal {
                     int flags);
 
   bool WantsPacket(bool rtcp, const rtc::CopyOnWriteBuffer* packet);
+
+  sigslot::signal<> SignalRtcpMuxFullyEnabled_;
 
   bool rtcp_mux_enabled_;
 

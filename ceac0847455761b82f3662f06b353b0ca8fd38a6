@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "089e5706_ac2c34f7",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2017-12-15T01:51:28Z",
+      "side": 1,
+      "message": "This logic is equivalent to BaseChannel but I\u0027m not sure if we really need it.\nThis is useful when \n\"rtp_dtls_transport_-\u003ecrypto_options().enable_encrypted_rtp_header_extensions\" is false, but the SDP contains encrypted head extensions ids.",
+      "range": {
+        "startLine": 979,
+        "startChar": 23,
+        "endLine": 979,
+        "endChar": 54
+      },
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

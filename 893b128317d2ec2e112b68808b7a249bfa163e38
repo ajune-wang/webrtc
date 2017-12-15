@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "bf64c65d_02e3895d",
+        "filename": "audio/audio_state_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-15T12:29:37Z",
+      "side": 1,
+      "message": "nit: Why\u0027s the return value called flags? Sounds like it should be levels.\n\n(same for a few other tests, below)",
+      "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03916fd0_954fd1bb",
+        "filename": "audio/audio_state_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2017-12-15T12:29:37Z",
+      "side": 1,
+      "message": "What\u0027s the significance of these values (8001, 32000 and 8000 in the test above) when the sample rate below is set to 16000?",
+      "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55c4a14c_df9ddf4f",
         "filename": "modules/audio_device/include/audio_device_defines.h",
         "patchSetId": 23

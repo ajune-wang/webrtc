@@ -16,6 +16,24 @@
       "revId": "c23724eb706f5f4ef7b9e46a8f558be4c4d4729b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed35f0bc_d42c5227",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-15T21:02:52Z",
+      "side": 1,
+      "message": "The previous code would get the transport name by querying SessionStats.proxy_to_transport using the voice_channel\u0027s content_name. The SessionStats is mocked in these methods to provide the \"VoiceContentName\" -\u003e \"TransportName\" mapping. The new code asks voice_channel\u0027s transport_name directly when creating the ChannelNamePairs in GetStatsReport.",
+      "parentUuid": "2e3c92f7_ef4ff349",
+      "revId": "c23724eb706f5f4ef7b9e46a8f558be4c4d4729b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

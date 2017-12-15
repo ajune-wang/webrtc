@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55c4a14c_df9ddf4f",
+        "filename": "modules/audio_device/include/audio_device_defines.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-12-15T11:59:24Z",
+      "side": 1,
+      "message": "Please note in a comment which bug coordinates the eventual removal of this method, and what callers should use instead.",
+      "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1715877e_85f6c128",
+        "filename": "test/mock_voe_channel_proxy.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-12-15T11:59:24Z",
+      "side": 1,
+      "message": "Did you forget to run `git cl format`?",
+      "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

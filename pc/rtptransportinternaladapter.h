@@ -37,6 +37,8 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     return transport_->rtcp_mux_enabled();
   }
 
+  void ActivateRtcpMux() override { transport_->ActivateRtcpMux(); }
+
   rtc::PacketTransportInternal* rtp_packet_transport() const override {
     return transport_->rtp_packet_transport();
   }
@@ -92,9 +94,15 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     return transport_->GetParameters();
   }
 
+  sigslot::signal<>& SignalRtcpMuxFullyEnabled() override {
+    return SignalRtcpMuxFullyEnabled_;
+  }
+
  protected:
   // Owned by the subclasses.
   RtpTransportInternal* transport_;
+
+  sigslot::signal<> SignalRtcpMuxFullyEnabled_;
 };
 
 }  // namespace webrtc

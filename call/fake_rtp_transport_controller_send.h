@@ -49,9 +49,6 @@ class FakeRtpTransportControllerSend
     return keepalive_;
   }
 
-  void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                     int max_padding_bitrate_bps) override {}
-
   void set_keepalive_config(const RtpKeepAliveConfig& keepalive_config) {
     keepalive_ = keepalive_config;
   }

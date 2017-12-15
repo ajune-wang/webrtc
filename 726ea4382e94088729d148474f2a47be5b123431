@@ -16,6 +16,24 @@
       "revId": "726ea4382e94088729d148474f2a47be5b123431",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7c7eab2_551e2750",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-15T00:38:15Z",
+      "side": 1,
+      "message": "UpdateFrame() requires sending in all AudioFrame parameters, but I didn\u0027t want to duplicate the default state here, so instead it is copied from the original constructed object, just to keep intact.",
+      "parentUuid": "8d7f5e51_fc4513d7",
+      "revId": "726ea4382e94088729d148474f2a47be5b123431",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

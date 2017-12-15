@@ -13,6 +13,7 @@
 #include <sstream>
 #include <string>
 
+#include "api/rtpparameters.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -54,6 +55,7 @@ VideoEncoderConfig::VideoEncoderConfig()
       encoder_specific_settings(nullptr),
       min_transmit_bitrate_bps(0),
       max_bitrate_bps(0),
+      bitrate_priority(kDefaultBitratePriority),
       number_of_streams(0) {}
 
 VideoEncoderConfig::VideoEncoderConfig(VideoEncoderConfig&&) = default;

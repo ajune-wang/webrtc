@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "069eb65e_cf37ee83",
+        "filename": "audio/audio_state_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-15T13:14:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf64c65d_02e3895d",
+      "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03916fd0_954fd1bb",
         "filename": "audio/audio_state_unittest.cc",
         "patchSetId": 23
@@ -33,6 +51,24 @@
       "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c1f2d7_a84388d6",
+        "filename": "audio/audio_state_unittest.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-15T13:14:12Z",
+      "side": 1,
+      "message": "To exercise the sample rate picking logic - min(input rate, max(stream rates)), rounded to a supported rate.\nSimilar for the channel counts.",
+      "parentUuid": "03916fd0_954fd1bb",
+      "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

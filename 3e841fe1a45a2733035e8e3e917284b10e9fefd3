@@ -618,6 +618,24 @@
     },
     {
       "key": {
+        "uuid": "1dceb3f2_c3912b2f",
+        "filename": "media/engine/webrtcvoe.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-15T13:14:12Z",
+      "side": 1,
+      "message": "Yes, it is kind of lame. Let me just land 3 more CLs though and this can be removed.\n\nIt won\u0027t blow up because the VoiceEngine instance will be referenced only by the AudioState which is created within WebRtcVoiceEngine, while WebRtcVoiceEngine itself calls directly on the VoEBase mock which we provide in webrtcvoiceengine_unittest.cc.",
+      "parentUuid": "7bb6a0ac_b899f433",
+      "revId": "3e841fe1a45a2733035e8e3e917284b10e9fefd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fb73494_c1fa97c7",
         "filename": "media/engine/webrtcvoiceengine.cc",
         "patchSetId": 18

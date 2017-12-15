@@ -70,6 +70,24 @@
       "revId": "eeff33e3b4247d9622f1a7ac18b30070eef3e401",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ed46aaf_9bf9895b",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-15T07:55:15Z",
+      "side": 1,
+      "message": "In the assignment\n\n  config.audio_mixer \u003d audio_mixer\n\nthe left-hand side is a scoped_refptr. It currently works with a raw pointer at the right hand side, but I think that\u0027s a feature we shouldn\u0027t depend on and would like to phase out.\n\nI think the correct way is to take audio_mixer and similar argument as a scoped_refptr\u003cT\u003e (no const ref), and write the assignment as\n\n  config.audio_mixer \u003d std::move(audio_mixer);\n\nwhich will keep refcount updates at a minimum.\n\nI\u0027m afraid I don\u0027t quite grasp interaction between std:move and copy elision, maybe it\u0027s right to also change the return statement to return std::move(config); to eliminate useless refcount updates, I\u0027m not sure.",
+      "parentUuid": "9c990652_4cb1e7b3",
+      "revId": "eeff33e3b4247d9622f1a7ac18b30070eef3e401",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -40,6 +40,10 @@ class RtpTransportInternal : public RtpTransportInterface,
   // of updating them.
   virtual bool rtcp_mux_enabled() const = 0;
 
+  // Permanently enable RTCP muxing and destroy the P2P level transport for
+  // RTCP.
+  virtual void ActivateRtcpMux() = 0;
+
   virtual rtc::PacketTransportInternal* rtp_packet_transport() const = 0;
   virtual void SetRtpPacketTransport(rtc::PacketTransportInternal* rtp) = 0;
 
@@ -66,6 +70,8 @@ class RtpTransportInternal : public RtpTransportInterface,
   sigslot::signal1<bool> SignalWritableState;
 
   sigslot::signal1<const rtc::SentPacket&> SignalSentPacket;
+
+  virtual sigslot::signal<>& SignalRtcpMuxFullyEnabled() = 0;
 
   virtual bool IsWritable(bool rtcp) const = 0;
 

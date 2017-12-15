@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "api/candidate.h"
+#include "api/rtcerror.h"
 #include "p2p/base/dtlstransport.h"
 #include "p2p/base/p2ptransportchannel.h"
 #include "pc/jseptransport.h"
@@ -36,6 +37,11 @@ class MetricsObserverInterface;
 }  // namespace webrtc
 
 namespace cricket {
+
+enum class SrtpType {
+  kSdes,
+  kDtlsSrtp,
+};
 
 class TransportController : public sigslot::has_slots<>,
                             public rtc::MessageHandler {
@@ -111,6 +117,13 @@ class TransportController : public sigslot::has_slots<>,
   // GetSslCipherSuite and GetDtlsSrtpCryptoSuite are not const. Fix this.
   bool GetStats(const std::string& transport_name, TransportStats* stats);
   void SetMetricsObserver(webrtc::MetricsObserverInterface* metrics_observer);
+
+  webrtc::RTCError SetRtpTransportDescription(
+      const webrtc::SessionDescriptionInterface* sdesc,
+      webrtc::SdpType type,
+      ContentSource source,
+      bool bundle_enabled,
+      bool rtcp_mux_required);
 
   // Creates a channel if it doesn't exist. Otherwise, increments a reference
   // count and returns an existing channel.
@@ -227,6 +240,20 @@ class TransportController : public sigslot::has_slots<>,
   bool ReadyForRemoteCandidates_n(const std::string& transport_name) const;
   bool GetStats_n(const std::string& transport_name, TransportStats* stats);
   void SetMetricsObserver_n(webrtc::MetricsObserverInterface* metrics_observer);
+  webrtc::RTCError SetBundledRtpTransportDescription(
+      const webrtc::SessionDescriptionInterface* sdesc,
+      webrtc::SdpType type,
+      ContentSource source);
+  webrtc::RTCError SetContentDescriptionPerTransport(
+      const ContentInfo& content_info,
+      webrtc::SdpType type,
+      ContentSource source);
+  std::string GetBundledMid(const webrtc::SessionDescriptionInterface* sdesc);
+  void MergeEncryptedHeaderExtensionIdsForBundle(
+      const webrtc::SessionDescriptionInterface* sdesc);
+  std::vector<int> GetEncryptedHeaderExtensionIds(
+      const ContentInfo& content_info);
+  bool ExtractAndSetSrtpType(const webrtc::SessionDescriptionInterface* sdesc);
 
   // Handlers for signals from Transport.
   void OnChannelWritableState_n(rtc::PacketTransportInternal* transport);
@@ -266,6 +293,11 @@ class TransportController : public sigslot::has_slots<>,
   rtc::AsyncInvoker invoker_;
 
   webrtc::MetricsObserverInterface* metrics_observer_ = nullptr;
+
+  rtc::Optional<SrtpType> srtp_type_;
+  bool rtcp_mux_required_ = true;
+  bool bundle_enabled_ = true;
+  rtc::Optional<std::vector<int>> bundled_encrypted_header_extension_ids_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(TransportController);
 };

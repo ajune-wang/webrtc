@@ -266,6 +266,92 @@ bool JsepTransport::VerifyCertificateFingerprint(
   return BadTransportDescription(desc.str(), error_desc);
 }
 
+bool JsepTransport::SetRtcpMux(bool enable,
+                               webrtc::SdpType type,
+                               ContentSource source) {
+  bool ret = false;
+  switch (type) {
+    case SdpType::kOffer:
+      ret = rtcp_mux_filter_.SetOffer(enable, source);
+      break;
+    case SdpType::kPrAnswer:
+      // This may activate RTCP muxing, but we don't yet destroy the transport
+      // because the final answer may deactivate it.
+      ret = rtcp_mux_filter_.SetProvisionalAnswer(enable, source);
+      break;
+    case SdpType::kAnswer:
+      ret = rtcp_mux_filter_.SetAnswer(enable, source);
+      RTC_DCHECK(rtp_transport_);
+      rtp_transport_->ActivateRtcpMux();
+      break;
+    default:
+      RTC_NOTREACHED();
+  }
+  if (ret && rtp_transport_) {
+    rtp_transport_->SetRtcpMuxEnabled(rtcp_mux_filter_.IsActive());
+  }
+  return ret;
+}
+
+bool JsepTransport::SetSdes(const std::vector<CryptoParams>& cryptos,
+                            const std::vector<int>& encrypted_extension_ids,
+                            webrtc::SdpType type,
+                            ContentSource source) {
+  bool ret = false;
+  CacheEncryptedHeaderExtensionIds(source, encrypted_extension_ids);
+  switch (type) {
+    case SdpType::kOffer:
+      ret = sdes_negotiator_.SetOffer(cryptos, source);
+      break;
+    case SdpType::kPrAnswer:
+      ret = sdes_negotiator_.SetProvisionalAnswer(cryptos, source);
+      break;
+    case SdpType::kAnswer:
+      ret = sdes_negotiator_.SetAnswer(cryptos, source);
+      break;
+    default:
+      RTC_NOTREACHED();
+  }
+
+  if (!sdes_transport_) {
+    return ret;
+  }
+
+  // If setting an SDES answer succeeded, apply the negotiated parameters
+  // to the SRTP transport.
+  if ((type == SdpType::kPrAnswer || type == SdpType::kAnswer) && ret) {
+    if (sdes_negotiator_.send_cipher_suite() &&
+        sdes_negotiator_.recv_cipher_suite()) {
+      RTC_DCHECK(cached_send_extension_ids_);
+      RTC_DCHECK(cached_recv_extension_ids_);
+      ret = sdes_transport_->SetRtpParams(
+          *(sdes_negotiator_.send_cipher_suite()),
+          sdes_negotiator_.send_key().data(),
+          static_cast<int>(sdes_negotiator_.send_key().size()),
+          *(cached_send_extension_ids_),
+          *(sdes_negotiator_.recv_cipher_suite()),
+          sdes_negotiator_.recv_key().data(),
+          static_cast<int>(sdes_negotiator_.recv_key().size()),
+          *(cached_recv_extension_ids_));
+    } else {
+      RTC_LOG(LS_INFO) << "No crypto keys are provided for SDES.";
+      if (type == SdpType::kAnswer) {
+        // Explicitly reset the |sdes_transport_| if no crypto param is
+        // provided in the answer. No need to call |ResetParams()| for
+        // |sdes_negotiator_| because it resets the params inside |SetAnswer|.
+        sdes_transport_->ResetParams();
+      }
+    }
+  }
+  return ret;
+}
+
+bool JsepTransport::EncryptedHeaderExtensionEnabled() {
+  auto it = channels_.find(ICE_CANDIDATE_COMPONENT_RTP);
+  return it != channels_.end() &&
+         it->second->crypto_options().enable_encrypted_rtp_header_extensions;
+}
+
 bool JsepTransport::ApplyLocalTransportDescription(
     DtlsTransportInternal* dtls_transport,
     std::string* error_desc) {
@@ -433,6 +519,14 @@ bool JsepTransport::NegotiateRole(SdpType local_description_type,
 
   ssl_role_.emplace(is_remote_server ? rtc::SSL_CLIENT : rtc::SSL_SERVER);
   return true;
+}
+
+void JsepTransport::CacheEncryptedHeaderExtensionIds(
+    ContentSource source,
+    const std::vector<int>& extension_ids) {
+  source == ContentSource::CS_LOCAL
+      ? cached_recv_extension_ids_ = std::move(extension_ids)
+      : cached_send_extension_ids_ = std::move(extension_ids);
 }
 
 }  // namespace cricket

@@ -23,6 +23,10 @@
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/sessiondescription.h"
 #include "p2p/base/transportinfo.h"
+#include "pc/rtcpmuxfilter.h"
+#include "pc/rtptransport.h"
+#include "pc/srtpfilter.h"
+#include "pc/srtptransport.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/messagequeue.h"
 #include "rtc_base/rtccertificate.h"
@@ -153,6 +157,15 @@ class JsepTransport : public sigslot::has_slots<> {
                                     const rtc::SSLFingerprint* fingerprint,
                                     std::string* error_desc) const;
 
+  bool SetRtcpMux(bool enable, webrtc::SdpType type, ContentSource source);
+
+  bool SetSdes(const std::vector<CryptoParams>& cryptos,
+               const std::vector<int>& encrypted_extension_ids,
+               webrtc::SdpType type,
+               ContentSource source);
+
+  bool EncryptedHeaderExtensionEnabled();
+
  private:
   // Negotiates the transport parameters based on the current local and remote
   // transport description, such as the ICE role to use, and whether DTLS
@@ -183,6 +196,9 @@ class JsepTransport : public sigslot::has_slots<> {
       DtlsTransportInternal* dtls_transport,
       std::string* error_desc);
 
+  void CacheEncryptedHeaderExtensionIds(ContentSource source,
+                                        const std::vector<int>& extension_ids);
+
   const std::string mid_;
   // needs-ice-restart bit as described in JSEP.
   bool needs_ice_restart_ = false;
@@ -196,6 +212,15 @@ class JsepTransport : public sigslot::has_slots<> {
 
   // Candidate component => DTLS channel
   std::map<int, DtlsTransportInternal*> channels_;
+
+  webrtc::RtpTransportInternal* rtp_transport_ = nullptr;
+  webrtc::SrtpTransport* sdes_transport_ = nullptr;
+  SrtpFilter sdes_negotiator_;
+  RtcpMuxFilter rtcp_mux_filter_;
+
+  // The cached encrypted header extension IDs.
+  rtc::Optional<std::vector<int>> cached_send_extension_ids_;
+  rtc::Optional<std::vector<int>> cached_recv_extension_ids_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransport);
 };

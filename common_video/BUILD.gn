@@ -13,6 +13,8 @@ config("common_video_config") {
 }
 
 rtc_static_library("common_video") {
+  visibility = [ "*" ]
+
   # TODO(bugs.webrtc.org/6828): Remove dependency cycle:
   # //common_video:common_video ->
   # //media:rtc_media_base ->

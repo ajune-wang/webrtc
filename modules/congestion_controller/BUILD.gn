@@ -9,6 +9,7 @@
 import("../../webrtc.gni")
 
 rtc_static_library("congestion_controller") {
+  visibility = [ "*" ]
   sources = [
     "acknowledged_bitrate_estimator.cc",
     "acknowledged_bitrate_estimator.h",

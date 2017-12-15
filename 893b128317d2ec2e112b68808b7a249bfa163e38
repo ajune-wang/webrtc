@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1e4441bb_1523dd2c",
+        "filename": "modules/audio_device/include/audio_device_defines.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-15T12:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55c4a14c_df9ddf4f",
+      "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1715877e_85f6c128",
         "filename": "test/mock_voe_channel_proxy.h",
         "patchSetId": 23
@@ -33,6 +51,24 @@
       "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8c02f65_a8fc5aa0",
+        "filename": "test/mock_voe_channel_proxy.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2017-12-15T12:28:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1715877e_85f6c128",
+      "revId": "893b128317d2ec2e112b68808b7a249bfa163e38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

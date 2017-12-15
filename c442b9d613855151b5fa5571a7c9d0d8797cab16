@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbd416ad_2d4f38c1",
+        "filename": "examples/unityplugin/simple_peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-15T10:46:15Z",
+      "side": 1,
+      "message": "What are you doing here? Do you just want the SW codecs? Then use InternalEncoderFactory.\n\nA nit, use rtc::MakeUnique here.",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 106,
+        "endChar": 60
+      },
+      "revId": "c442b9d613855151b5fa5571a7c9d0d8797cab16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

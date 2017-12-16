@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_SESSIONDESCRIPTION_H_
-#define P2P_BASE_SESSIONDESCRIPTION_H_
+#ifndef PC_SESSIONDESCRIPTION_H_
+#define PC_SESSIONDESCRIPTION_H_
 
 #include <string>
 #include <vector>
@@ -40,8 +40,8 @@ struct ContentInfo {
   ContentInfo(const std::string& name,
               const std::string& type,
               bool rejected,
-              ContentDescription* description) :
-      name(name), type(type), rejected(rejected), description(description) {}
+              ContentDescription* description)
+      : name(name), type(type), rejected(rejected), description(description) {}
   ContentInfo(const std::string& name,
               const std::string& type,
               bool rejected,
@@ -90,10 +90,10 @@ class ContentGroup {
 typedef std::vector<ContentInfo> ContentInfos;
 typedef std::vector<ContentGroup> ContentGroups;
 
-const ContentInfo* FindContentInfoByName(
-    const ContentInfos& contents, const std::string& name);
-const ContentInfo* FindContentInfoByType(
-    const ContentInfos& contents, const std::string& type);
+const ContentInfo* FindContentInfoByName(const ContentInfos& contents,
+                                         const std::string& name);
+const ContentInfo* FindContentInfoByType(const ContentInfos& contents,
+                                         const std::string& type);
 
 // Describes a collection of contents, each with its own name and
 // type.  Analogous to a <jingle> or <session> stanza.  Assumes that
@@ -140,8 +140,7 @@ class SessionDescription {
   // Transport accessors.
   const TransportInfos& transport_infos() const { return transport_infos_; }
   TransportInfos& transport_infos() { return transport_infos_; }
-  const TransportInfo* GetTransportInfoByName(
-      const std::string& name) const;
+  const TransportInfo* GetTransportInfoByName(const std::string& name) const;
   TransportInfo* GetTransportInfoByName(const std::string& name);
   const TransportDescription* GetTransportDescriptionByName(
       const std::string& name) const {
@@ -183,10 +182,8 @@ class SessionDescription {
 
 // Indicates whether a ContentDescription was sent by the local client
 // or received from the remote client.
-enum ContentSource {
-  CS_LOCAL, CS_REMOTE
-};
+enum ContentSource { CS_LOCAL, CS_REMOTE };
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_SESSIONDESCRIPTION_H_
+#endif  // PC_SESSIONDESCRIPTION_H_

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "279513b1_7d029838",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-16T06:19:01Z",
+      "side": 0,
+      "message": "Could we now get rid of session_stats.proxy_to_transport?  The only other place that uses it can just call x_channel-\u003etransport_name():\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/rtcstatscollector.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026l\u003d1003",
+      "range": {
+        "startLine": 1004,
+        "startChar": 65,
+        "endLine": 1004,
+        "endChar": 0
+      },
+      "revId": "f9381f0e734a64a3a58f19312c3d26825616cc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,7 @@
 #include "api/peerconnectioninterface.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/pc/mediaconstraints.h"
+#include "sdk/android/src/jni/pc/mediastream.h"
 #include "sdk/android/src/jni/pc/rtpreceiver.h"
 
 namespace webrtc {
@@ -26,10 +27,11 @@ namespace jni {
 
 void JavaToNativeRTCConfiguration(
     JNIEnv* jni,
-    jobject j_rtc_config,
+    const JavaRef<jobject>& j_rtc_config,
     PeerConnectionInterface::RTCConfiguration* rtc_config);
 
-rtc::KeyType GetRtcConfigKeyType(JNIEnv* env, jobject j_rtc_config);
+rtc::KeyType GetRtcConfigKeyType(JNIEnv* env,
+                                 const JavaRef<jobject>& j_rtc_config);
 
 // Adapter between the C++ PeerConnectionObserver interface and the Java
 // PeerConnection.Observer interface.  Wraps an instance of the Java interface
@@ -37,7 +39,7 @@ rtc::KeyType GetRtcConfigKeyType(JNIEnv* env, jobject j_rtc_config);
 class PeerConnectionObserverJni : public PeerConnectionObserver,
                                   public sigslot::has_slots<> {
  public:
-  PeerConnectionObserverJni(JNIEnv* jni, jobject j_observer);
+  PeerConnectionObserverJni(JNIEnv* jni, const JavaRef<jobject>& j_observer);
   virtual ~PeerConnectionObserverJni();
 
   // Implementation of PeerConnectionObserver interface, which propagates
@@ -64,35 +66,23 @@ class PeerConnectionObserverJni : public PeerConnectionObserver,
   const MediaConstraintsInterface* constraints() { return constraints_.get(); }
 
  private:
-  typedef std::map<MediaStreamInterface*, jobject> NativeToJavaStreamsMap;
-  typedef std::map<MediaStreamTrackInterface*, jobject>
-      NativeToJavaMediaTrackMap;
+  typedef std::map<MediaStreamInterface*, GlobalJavaMediaStream>
+      NativeToJavaStreamsMap;
   typedef std::map<MediaStreamTrackInterface*, RtpReceiverInterface*>
       NativeMediaStreamTrackToNativeRtpReceiver;
 
   void DisposeRemoteStream(const NativeToJavaStreamsMap::iterator& it);
 
   // If the NativeToJavaStreamsMap contains the stream, return it.
-  // Otherwise, create a new Java MediaStream.
-  jobject GetOrCreateJavaStream(
+  // Otherwise, create a new Java MediaStream. Returns a global jobject.
+  ScopedJavaGlobalRef<jobject>& GetOrCreateJavaStream(
+      JNIEnv* env,
       const rtc::scoped_refptr<MediaStreamInterface>& stream);
 
   // Converts array of streams, creating or re-using Java streams as necessary.
-  jobjectArray NativeToJavaMediaStreamArray(
+  ScopedJavaLocalRef<jobjectArray> NativeToJavaMediaStreamArray(
       JNIEnv* jni,
       const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams);
-
-  // The three methods below must be called from within a local ref
-  // frame (e.g., using ScopedLocalRefFrame), otherwise they will
-  // leak references.
-  //
-  // Create a Java track object to wrap |track|, and add it to |j_stream|.
-  void AddNativeAudioTrackToJavaStream(
-      rtc::scoped_refptr<AudioTrackInterface> track,
-      jobject j_stream);
-  void AddNativeVideoTrackToJavaStream(
-      rtc::scoped_refptr<VideoTrackInterface> track,
-      jobject j_stream);
 
   // Callbacks invoked when a native stream changes, and the Java stream needs
   // to be updated; MediaStreamObserver is used to make this simpler.
@@ -105,7 +95,7 @@ class PeerConnectionObserverJni : public PeerConnectionObserver,
   void OnVideoTrackRemovedFromStream(VideoTrackInterface* track,
                                      MediaStreamInterface* stream);
 
-  const ScopedGlobalRef<jobject> j_observer_global_;
+  const ScopedJavaGlobalRef<jobject> j_observer_global_;
 
   // C++ -> Java remote streams. The stored jobects are global refs and must be
   // manually deleted upon removal. Use DisposeRemoteStream().

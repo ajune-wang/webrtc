@@ -66,14 +66,12 @@ class AttachThreadScoped {
 };
 
 // Scoped holder for global Java refs.
-template<class T>  // T is jclass, jobject, jintArray, etc.
-class ScopedGlobalRef {
+template <class T>  // T is jclass, jobject, jintArray, etc.
+class ScopedJavaGlobalRef {
  public:
-  ScopedGlobalRef(JNIEnv* jni, T obj)
+  ScopedJavaGlobalRef(JNIEnv* jni, T obj)
       : jni_(jni), obj_(static_cast<T>(NewGlobalRef(jni, obj))) {}
-  ~ScopedGlobalRef() {
-    DeleteGlobalRef(jni_, obj_);
-  }
+  ~ScopedJavaGlobalRef() { DeleteGlobalRef(jni_, obj_); }
   T operator*() const {
     return obj_;
   }

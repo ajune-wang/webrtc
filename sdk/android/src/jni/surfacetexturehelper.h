@@ -22,6 +22,8 @@
 namespace webrtc {
 namespace jni {
 
+struct NativeHandleImpl;
+
 // Helper class to create and synchronize access to an Android SurfaceTexture.
 // It is used for creating VideoFrameBuffers from a SurfaceTexture when
 // the SurfaceTexture has been updated.
@@ -42,10 +44,12 @@ namespace jni {
 class SurfaceTextureHelper : public rtc::RefCountInterface {
  public:
   // Might return null if creating the Java SurfaceTextureHelper fails.
-  static rtc::scoped_refptr<SurfaceTextureHelper>
-  create(JNIEnv* jni, const char* thread_name, jobject j_egl_context);
+  static rtc::scoped_refptr<SurfaceTextureHelper> create(
+      JNIEnv* jni,
+      const char* thread_name,
+      const JavaRef<jobject>& j_egl_context);
 
-  jobject GetJavaSurfaceTextureHelper() const;
+  const ScopedJavaGlobalRef<jobject>& GetJavaSurfaceTextureHelper() const;
 
   rtc::scoped_refptr<VideoFrameBuffer> CreateTextureFrame(
       int width,
@@ -57,19 +61,21 @@ class SurfaceTextureHelper : public rtc::RefCountInterface {
 
  protected:
   ~SurfaceTextureHelper();
-  SurfaceTextureHelper(JNIEnv* jni, jobject j_surface_texture_helper);
+  SurfaceTextureHelper(JNIEnv* jni,
+                       const JavaRef<jobject>& j_surface_texture_helper);
 
  private:
-  const ScopedGlobalRef<jobject> j_surface_texture_helper_;
+  const ScopedJavaGlobalRef<jobject> j_surface_texture_helper_;
 };
 
-void SurfaceTextureHelperTextureToYUV(JNIEnv* env,
-                                      jobject j_surface_texture_helper,
-                                      jobject buffer,
-                                      int width,
-                                      int height,
-                                      int stride,
-                                      const NativeHandleImpl& native_handle);
+void SurfaceTextureHelperTextureToYUV(
+    JNIEnv* env,
+    const JavaRef<jobject>& j_surface_texture_helper,
+    const JavaRef<jobject>& buffer,
+    int width,
+    int height,
+    int stride,
+    const NativeHandleImpl& native_handle);
 
 }  // namespace jni
 }  // namespace webrtc

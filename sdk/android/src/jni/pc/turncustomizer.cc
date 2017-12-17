@@ -9,16 +9,25 @@
  */
 
 #include "api/turncustomizer.h"
+#include "sdk/android/generated_peerconnection_jni/jni/TurnCustomizer_jni.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {
 
-JNI_FUNCTION_DECLARATION(void,
-                         TurnCustomizer_freeNativeTurnCustomizer,
-                         JNIEnv* jni,
-                         jclass,
-                         jlong j_turn_customizer_pointer) {
+TurnCustomizer* GetNativeTurnCustomizer(
+    JNIEnv* env,
+    const JavaRef<jobject>& j_turn_customizer) {
+  if (IsNull(env, j_turn_customizer))
+    return nullptr;
+  return reinterpret_cast<webrtc::TurnCustomizer*>(
+      Java_TurnCustomizer_getNativeTurnCustomizer(env, j_turn_customizer));
+}
+
+static void JNI_TurnCustomizer_FreeTurnCustomizer(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&,
+    jlong j_turn_customizer_pointer) {
   delete reinterpret_cast<TurnCustomizer*>(j_turn_customizer_pointer);
 }
 

@@ -29,7 +29,7 @@ class VideoSinkWrapper : public rtc::VideoSinkInterface<VideoFrame> {
  private:
   void OnFrame(const VideoFrame& frame) override;
 
-  const ScopedGlobalRef<jobject> j_sink_;
+  const ScopedJavaGlobalRef<jobject> j_sink_;
 };
 
 VideoSinkWrapper::VideoSinkWrapper(JNIEnv* jni, jobject j_sink)
@@ -37,8 +37,7 @@ VideoSinkWrapper::VideoSinkWrapper(JNIEnv* jni, jobject j_sink)
 
 void VideoSinkWrapper::OnFrame(const VideoFrame& frame) {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
-  ScopedLocalRefFrame local_ref_frame(jni);
-  Java_VideoSink_onFrame(jni, *j_sink_, NativeToJavaFrame(jni, frame));
+  Java_VideoSink_onFrame(jni, j_sink_, NativeToJavaFrame(jni, frame));
 }
 
 }  // namespace

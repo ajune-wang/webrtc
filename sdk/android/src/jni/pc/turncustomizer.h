@@ -8,24 +8,20 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_SRC_JNI_PC_MEDIASTREAMTRACK_H_
-#define SDK_ANDROID_SRC_JNI_PC_MEDIASTREAMTRACK_H_
+#ifndef SDK_ANDROID_SRC_JNI_PC_TURNCUSTOMIZER_H_
+#define SDK_ANDROID_SRC_JNI_PC_TURNCUSTOMIZER_H_
 
-#include <jni.h>
-
-#include "api/mediatypes.h"
+#include "api/turncustomizer.h"
 #include "sdk/android/src/jni/scoped_java_ref.h"
 
 namespace webrtc {
 namespace jni {
 
-ScopedJavaLocalRef<jobject> NativeToJavaMediaType(
-    JNIEnv* jni,
-    cricket::MediaType media_type);
-cricket::MediaType JavaToNativeMediaType(JNIEnv* jni,
-                                         const JavaRef<jobject>& j_media_type);
+TurnCustomizer* GetNativeTurnCustomizer(
+    JNIEnv* env,
+    const JavaRef<jobject>& j_turn_customizer);
 
 }  // namespace jni
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_SRC_JNI_PC_MEDIASTREAMTRACK_H_
+#endif  // SDK_ANDROID_SRC_JNI_PC_TURNCUSTOMIZER_H_

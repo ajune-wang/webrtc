@@ -16,6 +16,7 @@
 
 #include "common_types.h"  // NOLINT(build/include)
 #include "rtc_base/logging.h"
+#include "rtc_base/stringutils.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
@@ -107,23 +108,27 @@ int32_t RTPReceiverAudio::OnNewPayloadTypeCreated(
     const SdpAudioFormat& audio_format) {
   rtc::CritScope lock(&crit_sect_);
 
-  if (RtpUtility::StringCompare(audio_format.name.c_str(), "telephone-event",
-                                15)) {
+  if (rtc::ascicmp(audio_format.name.c_str(), "telephone-event") == 0) {
     telephone_event_payload_type_ = payload_type;
   }
-  if (RtpUtility::StringCompare(audio_format.name.c_str(), "cn", 2)) {
+  if (rtc::ascicmp(audio_format.name.c_str(), "cn") == 0) {
     // We support comfort noise at four different frequencies.
-    if (audio_format.clockrate_hz == 8000) {
-      cng_nb_payload_type_ = payload_type;
-    } else if (audio_format.clockrate_hz == 16000) {
-      cng_wb_payload_type_ = payload_type;
-    } else if (audio_format.clockrate_hz == 32000) {
-      cng_swb_payload_type_ = payload_type;
-    } else if (audio_format.clockrate_hz == 48000) {
-      cng_fb_payload_type_ = payload_type;
-    } else {
-      assert(false);
-      return -1;
+    switch (audio_format.clockrate_hz) {
+      case 8000:
+        cng_nb_payload_type_ = payload_type;
+        break;
+      case 16000:
+        cng_wb_payload_type_ = payload_type;
+        break;
+      case 32000:
+        cng_swb_payload_type_ = payload_type;
+        break;
+      case 48000:
+        cng_fb_payload_type_ = payload_type;
+        break;
+      default:
+        assert(false);
+        return -1;
     }
   }
   return 0;

@@ -80,7 +80,7 @@ static const char* kPayloadNameGeneric = "Generic";
 static const char* kPayloadNameStereo = "Stereo";
 
 static bool CodecNamesEq(const char* name1, const char* name2) {
-  return _stricmp(name1, name2) == 0;
+  return rtc::ascicmp(name1, name2) == 0;
 }
 
 const char* CodecTypeToPayloadString(VideoCodecType type) {

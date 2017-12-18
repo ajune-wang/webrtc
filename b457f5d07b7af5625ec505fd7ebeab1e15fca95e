@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be3d46ff_4d9c8a82",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-12-18T10:45:26Z",
+      "side": 1,
+      "message": "Needed to compensate for the lower adaptation speed achieved by the new parameters.",
+      "range": {
+        "startLine": 309,
+        "startChar": 41,
+        "endLine": 309,
+        "endChar": 45
+      },
+      "revId": "b457f5d07b7af5625ec505fd7ebeab1e15fca95e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf678635_b27a938a",
+        "filename": "modules/audio_processing/aec3/main_filter_update_gain_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-12-18T10:45:26Z",
+      "side": 1,
+      "message": "Since the echo path is a pure delay (dirac pulse in the impulse response) all of the filter lengths overmodel the echo path. With a lower adaptation speed, that overmodelling becomes mode emphasized. The changes in this test addresses this by using less strict requirements for longer filters.",
+      "revId": "b457f5d07b7af5625ec505fd7ebeab1e15fca95e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "459c9c8d_17b6d754",
+        "filename": "modules/audio_processing/aec3/main_filter_update_gain_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-12-18T10:45:26Z",
+      "side": 1,
+      "message": "Since the echo path is a pure delay (dirac pulse in the impulse response) all of the filter lengths overmodel the echo path. With a lower adaptation speed, that overmodelling becomes mode emphasized. The changes in this test addresses this by only running the test for the filter length 12 blocks.",
+      "revId": "b457f5d07b7af5625ec505fd7ebeab1e15fca95e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdd6cded_209ef4e5",
+        "filename": "modules/audio_processing/aec3/shadow_filter_update_gain_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-12-18T10:45:26Z",
+      "side": 1,
+      "message": "Since the echo path is a pure delay (dirac pulse in the impulse response) all of the filter lengths overmodel the echo path. With a lower adaptation speed, that overmodelling becomes mode emphasized. The changes in this test addresses this by using less strict requirements for longer filters.",
+      "revId": "b457f5d07b7af5625ec505fd7ebeab1e15fca95e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edfc168f_e61cb155",
+        "filename": "modules/audio_processing/aec3/subtractor_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-12-18T10:45:26Z",
+      "side": 1,
+      "message": "Since the echo path is a pure delay (dirac pulse in the impulse response) all of the filter lengths overmodel the echo path. With a lower adaptation speed, that overmodelling becomes mode emphasized. The changes in this test addresses this by using less strict requirements for longer filters.",
+      "revId": "b457f5d07b7af5625ec505fd7ebeab1e15fca95e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8268008_72e92154",
+        "filename": "modules/audio_processing/aec3/subtractor_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2017-12-18T10:45:26Z",
+      "side": 1,
+      "message": "Since the echo path is a pure delay (dirac pulse in the impulse response) all of the filter lengths overmodel the echo path. With a lower adaptation speed, that overmodelling becomes mode emphasized. The changes in this test addresses this by allowing the filter a longer time to converge.",
+      "revId": "b457f5d07b7af5625ec505fd7ebeab1e15fca95e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

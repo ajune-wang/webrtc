@@ -181,11 +181,7 @@ int32_t DeviceInfoLinux::CreateCapabilityMap(const char* deviceUniqueIdUTF8) {
   close(fd);
 
   // Store the new used device name
-  _lastUsedDeviceNameLength = deviceUniqueIdUTF8Length;
-  _lastUsedDeviceName =
-      (char*)realloc(_lastUsedDeviceName, _lastUsedDeviceNameLength + 1);
-  memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8,
-         _lastUsedDeviceNameLength + 1);
+  _lastUsedDeviceName = deviceUniqueIdUTF8;
 
   RTC_LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
 

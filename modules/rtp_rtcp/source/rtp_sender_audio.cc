@@ -20,6 +20,7 @@
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/stringutils.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 
@@ -32,13 +33,13 @@ RTPSenderAudio::RTPSenderAudio(Clock* clock, RTPSender* rtp_sender)
 RTPSenderAudio::~RTPSenderAudio() {}
 
 int32_t RTPSenderAudio::RegisterAudioPayload(
-    const char payloadName[RTP_PAYLOAD_NAME_SIZE],
+    const char payload_name[RTP_PAYLOAD_NAME_SIZE],
     const int8_t payload_type,
     const uint32_t frequency,
     const size_t channels,
     const uint32_t rate,
     RtpUtility::Payload** payload) {
-  if (RtpUtility::StringCompare(payloadName, "cn", 2)) {
+  if (rtc::ascicmp(payload_name, "cn") == 0) {
     rtc::CritScope cs(&send_audio_critsect_);
     //  we can have multiple CNG payload types
     switch (frequency) {
@@ -57,7 +58,7 @@ int32_t RTPSenderAudio::RegisterAudioPayload(
       default:
         return -1;
     }
-  } else if (RtpUtility::StringCompare(payloadName, "telephone-event", 15)) {
+  } else if (rtc::ascicmp(payload_name, "telephone-event") == 0) {
     rtc::CritScope cs(&send_audio_critsect_);
     // Don't add it to the list
     // we dont want to allow send with a DTMF payloadtype
@@ -66,9 +67,9 @@ int32_t RTPSenderAudio::RegisterAudioPayload(
     return 0;
   }
   *payload = new RtpUtility::Payload(
-      payloadName,
+      payload_name,
       PayloadUnion(AudioPayload{
-          SdpAudioFormat(payloadName, frequency, channels), rate}));
+          SdpAudioFormat(payload_name, frequency, channels), rate}));
   return 0;
 }
 

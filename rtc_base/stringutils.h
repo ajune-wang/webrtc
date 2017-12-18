@@ -18,7 +18,6 @@
 
 #if defined(WEBRTC_WIN)
 #include <malloc.h>
-#include <wchar.h>
 #include <windows.h>
 #define alloca _alloca
 #endif  // WEBRTC_WIN
@@ -52,33 +51,10 @@ bool string_match(const char* target, const char* pattern);
 ///////////////////////////////////////////////////////////////////////////////
 // Rename a few common string functions so they are consistent across platforms.
 // tolowercase is like tolower, but not compatible with end-of-file value
-//
-// It's not clear if we will ever use wchar_t strings on unix.  In theory,
-// all strings should be Utf8 all the time, except when interfacing with Win32
-// APIs that require Utf16.
 ///////////////////////////////////////////////////////////////////////////////
 inline char tolowercase(char c) {
   return static_cast<char>(tolower(c));
 }
-
-#if defined(WEBRTC_WIN)
-
-inline wchar_t tolowercase(wchar_t c) {
-  return static_cast<wchar_t>(towlower(c));
-}
-
-#endif  // WEBRTC_WIN
-
-#if defined(WEBRTC_POSIX)
-
-inline int _stricmp(const char* s1, const char* s2) {
-  return strcasecmp(s1, s2);
-}
-inline int _strnicmp(const char* s1, const char* s2, size_t n) {
-  return strncasecmp(s1, s2, n);
-}
-
-#endif // WEBRTC_POSIX
 
 ///////////////////////////////////////////////////////////////////////////////
 // Traits simplifies porting string functions to be CTYPE-agnostic
@@ -190,50 +166,39 @@ size_t sprintfn(CTYPE* buffer, size_t buflen, const CTYPE* format, ...) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Allow safe comparing and copying ascii (not UTF-8) with both wide and
-// non-wide character strings.
+// Allow safe comparing and copying ascii (not UTF-8).
 ///////////////////////////////////////////////////////////////////////////////
 
 inline int asccmp(const char* s1, const char* s2) {
   return strcmp(s1, s2);
 }
+
 inline int ascicmp(const char* s1, const char* s2) {
+#if defined(WEBRTC_WIN)
   return _stricmp(s1, s2);
+#else
+  return strcasecmp(s1, s2);
+#endif
 }
+
 inline int ascncmp(const char* s1, const char* s2, size_t n) {
   return strncmp(s1, s2, n);
 }
+
 inline int ascnicmp(const char* s1, const char* s2, size_t n) {
+#if defined(WEBRTC_WIN)
   return _strnicmp(s1, s2, n);
+#else
+  return strncasecmp(s1, s2, n);
+#endif
 }
-inline size_t asccpyn(char* buffer, size_t buflen,
-                      const char* source, size_t srclen = SIZE_UNKNOWN) {
+
+inline size_t asccpyn(char* buffer,
+                      size_t buflen,
+                      const char* source,
+                      size_t srclen = SIZE_UNKNOWN) {
   return strcpyn(buffer, buflen, source, srclen);
 }
-
-#if defined(WEBRTC_WIN)
-
-typedef wchar_t(*CharacterTransformation)(wchar_t);
-inline wchar_t identity(wchar_t c) { return c; }
-int ascii_string_compare(const wchar_t* s1, const char* s2, size_t n,
-                         CharacterTransformation transformation);
-
-inline int asccmp(const wchar_t* s1, const char* s2) {
-  return ascii_string_compare(s1, s2, static_cast<size_t>(-1), identity);
-}
-inline int ascicmp(const wchar_t* s1, const char* s2) {
-  return ascii_string_compare(s1, s2, static_cast<size_t>(-1), tolowercase);
-}
-inline int ascncmp(const wchar_t* s1, const char* s2, size_t n) {
-  return ascii_string_compare(s1, s2, n, identity);
-}
-inline int ascnicmp(const wchar_t* s1, const char* s2, size_t n) {
-  return ascii_string_compare(s1, s2, n, tolowercase);
-}
-size_t asccpyn(wchar_t* buffer, size_t buflen,
-               const char* source, size_t srclen = SIZE_UNKNOWN);
-
-#endif  // WEBRTC_WIN
 
 ///////////////////////////////////////////////////////////////////////////////
 // Traits<char> specializations
@@ -244,20 +209,6 @@ struct Traits<char> {
   typedef std::string string;
   inline static const char* empty_str() { return ""; }
 };
-
-///////////////////////////////////////////////////////////////////////////////
-// Traits<wchar_t> specializations (Windows only, currently)
-///////////////////////////////////////////////////////////////////////////////
-
-#if defined(WEBRTC_WIN)
-
-template<>
-struct Traits<wchar_t> {
-  typedef std::wstring string;
-  inline static const wchar_t* empty_str() { return L""; }
-};
-
-#endif  // WEBRTC_WIN
 
 ///////////////////////////////////////////////////////////////////////////////
 // UTF helpers (Windows only)

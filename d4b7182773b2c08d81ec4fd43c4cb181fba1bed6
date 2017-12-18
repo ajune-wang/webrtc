@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9101f87_80f10282",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-18T20:54:44Z",
+      "side": 1,
+      "message": "\"deprecated constraints-based...\"",
+      "revId": "d4b7182773b2c08d81ec4fd43c4cb181fba1bed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e2c1bb9_20c2f694",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-18T20:54:44Z",
+      "side": 1,
+      "message": "Maybe some javadoc comments about these methods and why they\u0027re deprecated?",
+      "revId": "d4b7182773b2c08d81ec4fd43c4cb181fba1bed6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

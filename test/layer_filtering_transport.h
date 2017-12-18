@@ -23,6 +23,7 @@ namespace test {
 
 class LayerFilteringTransport : public test::DirectTransport {
  public:
+  // If |ssrc_to_filter| is 0, all SSRCs will be filtered.
   LayerFilteringTransport(SingleThreadedTaskQueueForTesting* task_queue,
                           const FakeNetworkPipe::Config& config,
                           Call* send_call,
@@ -30,14 +31,18 @@ class LayerFilteringTransport : public test::DirectTransport {
                           uint8_t vp9_video_payload_type,
                           int selected_tl,
                           int selected_sl,
-                          const std::map<uint8_t, MediaType>& payload_type_map);
+                          const std::map<uint8_t, MediaType>& payload_type_map,
+                          uint32_t ssrc_to_filter_min = 0,
+                          uint32_t ssrc_to_filter_max = 0xFFFFFF);
   LayerFilteringTransport(SingleThreadedTaskQueueForTesting* task_queue,
                           std::unique_ptr<FakeNetworkPipe> pipe,
                           Call* send_call,
                           uint8_t vp8_video_payload_type,
                           uint8_t vp9_video_payload_type,
                           int selected_tl,
-                          int selected_sl);
+                          int selected_sl,
+                          uint32_t ssrc_to_filter_min = 0,
+                          uint32_t ssrc_to_filter_max = 0xFFFFFF);
   bool DiscardedLastPacket() const;
   bool SendRtp(const uint8_t* data,
                size_t length,
@@ -52,6 +57,8 @@ class LayerFilteringTransport : public test::DirectTransport {
   const int selected_tl_;
   const int selected_sl_;
   bool discarded_last_packet_;
+  const uint32_t ssrc_to_filter_min_;
+  const uint32_t ssrc_to_filter_max_;
 };
 
 }  // namespace test

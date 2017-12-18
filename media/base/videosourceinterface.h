@@ -14,7 +14,7 @@
 #include <limits>
 
 #include "api/optional.h"
-#include "media/base/videosinkinterface.h"
+#include "common_video/include/videosinkinterface.h"
 
 namespace rtc {
 

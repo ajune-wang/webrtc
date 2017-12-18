@@ -22,7 +22,7 @@
 #include "call/call.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
-#include "media/base/videosinkinterface.h"
+#include "common_video/include/videosinkinterface.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/utility/quality_scaler.h"
 #include "modules/video_coding/video_coding_impl.h"

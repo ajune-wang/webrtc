@@ -8,13 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_BASE_VIDEOSINKINTERFACE_H_
-#define MEDIA_BASE_VIDEOSINKINTERFACE_H_
+#ifndef COMMON_VIDEO_INCLUDE_VIDEOSINKINTERFACE_H_
+#define COMMON_VIDEO_INCLUDE_VIDEOSINKINTERFACE_H_
 
 #include <rtc_base/checks.h>
-// TODO(nisse): Consider moving this interface (and possibly
-// VideoSourceInterface too) from media/base to common_video, to
-// reduce dependency cycles.
+
 namespace rtc {
 
 template <typename VideoFrameT>
@@ -31,4 +29,4 @@ class VideoSinkInterface {
 
 }  // namespace rtc
 
-#endif  // MEDIA_BASE_VIDEOSINKINTERFACE_H_
+#endif  // COMMON_VIDEO_INCLUDE_VIDEOSINKINTERFACE_H_

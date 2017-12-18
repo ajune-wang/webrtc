@@ -22,6 +22,30 @@
       "revId": "f9381f0e734a64a3a58f19312c3d26825616cc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39258864_be74f4ba",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-18T18:23:21Z",
+      "side": 0,
+      "message": "Sure, I can do that in a follow-up CL.",
+      "parentUuid": "279513b1_7d029838",
+      "range": {
+        "startLine": 1004,
+        "startChar": 65,
+        "endLine": 1004,
+        "endChar": 0
+      },
+      "revId": "f9381f0e734a64a3a58f19312c3d26825616cc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

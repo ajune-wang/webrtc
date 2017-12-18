@@ -25,7 +25,6 @@
 #include "test/gtest.h"
 #include "test/mock_audio_decoder_factory.h"
 #include "test/mock_voe_channel_proxy.h"
-#include "test/mock_voice_engine.h"
 
 namespace webrtc {
 namespace test {

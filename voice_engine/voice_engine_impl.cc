@@ -16,7 +16,6 @@
 
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "rtc_base/checks.h"
-#include "voice_engine/channel_proxy.h"
 #include "voice_engine/voice_engine_impl.h"
 
 namespace webrtc {
@@ -55,14 +54,6 @@ int VoiceEngineImpl::Release() {
   }
 
   return new_ref;
-}
-
-std::unique_ptr<voe::ChannelProxy> VoiceEngineImpl::GetChannelProxy(
-    int channel_id) {
-  RTC_DCHECK(channel_id >= 0);
-  rtc::CritScope cs(crit_sec());
-  return std::unique_ptr<voe::ChannelProxy>(
-      new voe::ChannelProxy(channel_manager().GetChannel(channel_id)));
 }
 
 VoiceEngine* VoiceEngine::Create() {

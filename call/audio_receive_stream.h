@@ -109,6 +109,10 @@ class AudioReceiveStream {
     // of Call.
     int voe_channel_id = -1;
 
+    // NetEq settings.
+    size_t jitter_buffer_max_packets = 50;
+    bool jitter_buffer_fast_accelerate = false;
+
     // Identifier for an A/V synchronization group. Empty string to disable.
     // TODO(pbos): Synchronize streams in a sync group, not just one video
     // stream to one audio stream. Tracked by issue webrtc:4762.

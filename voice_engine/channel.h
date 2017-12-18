@@ -142,14 +142,10 @@ class Channel
 
   enum { KNumSocketThreads = 1 };
   enum { KNumberOfSocketBuffers = 8 };
+  Channel(size_t jitter_buffer_max_packets,
+          bool jitter_buffer_fast_playout,
+          rtc::scoped_refptr<AudioDecoderFactory> decoder_factory);
   virtual ~Channel();
-  static int32_t CreateChannel(Channel*& channel,
-                               int32_t channelId,
-                               uint32_t instanceId,
-                               const VoEBase::ChannelConfig& config);
-  Channel(int32_t channelId,
-          uint32_t instanceId,
-          const VoEBase::ChannelConfig& config);
   int32_t Init();
   void Terminate();
   int32_t SetEngineInformation(ProcessThread& moduleProcessThread,
@@ -157,12 +153,6 @@ class Channel
                                rtc::TaskQueue* encoder_queue);
 
   void SetSink(std::unique_ptr<AudioSinkInterface> sink);
-
-  // TODO(ossu): Don't use! It's only here to confirm that the decoder factory
-  // passed into AudioReceiveStream is the same as the one set when creating the
-  // ADM. Once Channel creation is moved into Audio{Send,Receive}Stream this can
-  // go.
-  const rtc::scoped_refptr<AudioDecoderFactory>& GetAudioDecoderFactory() const;
 
   void SetReceiveCodecs(const std::map<int, SdpAudioFormat>& codecs);
 
@@ -270,8 +260,6 @@ class Channel
 
   int PreferredSampleRate() const;
 
-  uint32_t InstanceId() const { return _instanceId; }
-  int32_t ChannelId() const { return _channelId; }
   bool Playing() const { return channel_state_.Get().playing; }
   bool Sending() const { return channel_state_.Get().sending; }
   RtpRtcp* RtpRtcpModulePtr() const { return _rtpRtcpModule.get(); }
@@ -346,9 +334,6 @@ class Channel
   // for encoding.
   void ProcessAndEncodeAudioOnTaskQueue(AudioFrame* audio_input);
 
-  uint32_t _instanceId;
-  int32_t _channelId;
-
   rtc::CriticalSection _callbackCritSect;
   rtc::CriticalSection volume_settings_critsect_;
 
@@ -409,7 +394,7 @@ class Channel
   rtc::CriticalSection assoc_send_channel_lock_;
   ChannelOwner associate_send_channel_ RTC_GUARDED_BY(assoc_send_channel_lock_);
 
-  bool pacing_enabled_;
+  bool pacing_enabled_ = true;
   PacketRouter* packet_router_ = nullptr;
   std::unique_ptr<TransportFeedbackProxy> feedback_observer_proxy_;
   std::unique_ptr<TransportSequenceNumberProxy> seq_num_allocator_proxy_;

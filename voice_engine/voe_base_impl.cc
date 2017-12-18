@@ -38,6 +38,8 @@ VoEBaseImpl::~VoEBaseImpl() {
   TerminateInternal();
 }
 
+/*
+
 int VoEBaseImpl::Init(
     AudioDeviceModule* audio_device,
     AudioProcessing* audio_processing,
@@ -120,4 +122,6 @@ void VoEBaseImpl::TerminateInternal() {
 
   shared_->set_audio_device(nullptr);
 }
+
+*/
 }  // namespace webrtc

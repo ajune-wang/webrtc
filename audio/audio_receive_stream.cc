@@ -71,29 +71,23 @@ AudioReceiveStream::AudioReceiveStream(
     : config_(config), audio_state_(audio_state) {
   RTC_LOG(LS_INFO) << "AudioReceiveStream: " << config_.ToString();
   RTC_DCHECK_NE(config_.voe_channel_id, -1);
+  RTC_DCHECK(config.decoder_factory);
   RTC_DCHECK(audio_state_.get());
   RTC_DCHECK(packet_router);
 
   module_process_thread_checker_.DetachFromThread();
 
-  VoiceEngineImpl* voe_impl = static_cast<VoiceEngineImpl*>(voice_engine());
-  channel_proxy_ = voe_impl->GetChannelProxy(config_.voe_channel_id);
+  // TODO:
+  channel_proxy_ = new ChannelProxy(new voe::Channel(
+      config.jitter_buffer_max_packets,
+      config.jitter_buffer_fast_accelerate,
+      std::move(config.decoder_factory)));
   channel_proxy_->SetRtcEventLog(event_log);
   channel_proxy_->SetLocalSSRC(config.rtp.local_ssrc);
   // TODO(solenberg): Config NACK history window (which is a packet count),
   // using the actual packet size for the configured codec.
   channel_proxy_->SetNACKStatus(config_.rtp.nack.rtp_history_ms != 0,
                                 config_.rtp.nack.rtp_history_ms / 20);
-
-  // TODO(ossu): This is where we'd like to set the decoder factory to
-  // use. However, since it needs to be included when constructing Channel, we
-  // cannot do that until we're able to move Channel ownership into the
-  // Audio{Send,Receive}Streams.  The best we can do is check that we're not
-  // trying to use two different factories using the different interfaces.
-  RTC_CHECK(config.decoder_factory);
-  RTC_CHECK_EQ(config.decoder_factory,
-               channel_proxy_->GetAudioDecoderFactory());
-
   channel_proxy_->RegisterTransport(config.rtcp_send_transport);
   channel_proxy_->SetReceiveCodecs(config.decoder_map);
 
@@ -316,12 +310,6 @@ void AudioReceiveStream::OnRtpPacket(const RtpPacketReceived& packet) {
 const webrtc::AudioReceiveStream::Config& AudioReceiveStream::config() const {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   return config_;
-}
-
-VoiceEngine* AudioReceiveStream::voice_engine() const {
-  auto* voice_engine = audio_state()->voice_engine();
-  RTC_DCHECK(voice_engine);
-  return voice_engine;
 }
 
 internal::AudioState* AudioReceiveStream::audio_state() const {

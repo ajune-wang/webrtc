@@ -80,7 +80,6 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   const webrtc::AudioReceiveStream::Config& config() const;
 
  private:
-  VoiceEngine* voice_engine() const;
   AudioState* audio_state() const;
 
   rtc::ThreadChecker worker_thread_checker_;

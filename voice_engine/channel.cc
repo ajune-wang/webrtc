@@ -574,24 +574,10 @@ int Channel::PreferredSampleRate() const {
                   audio_coding_->PlayoutFrequency());
 }
 
-int32_t Channel::CreateChannel(Channel*& channel,
-                               int32_t channelId,
-                               uint32_t instanceId,
-                               const VoEBase::ChannelConfig& config) {
-  channel = new Channel(channelId, instanceId, config);
-  if (channel == NULL) {
-    RTC_LOG(LS_ERROR) << "unable to allocate memory for new channel";
-    return -1;
-  }
-  return 0;
-}
-
-Channel::Channel(int32_t channelId,
-                 uint32_t instanceId,
-                 const VoEBase::ChannelConfig& config)
-    : _instanceId(instanceId),
-      _channelId(channelId),
-      event_log_proxy_(new RtcEventLogProxy()),
+Channel::Channel(size_t jitter_buffer_max_packets,
+                 bool jitter_buffer_fast_playout,
+                 rtc::scoped_refptr<AudioDecoderFactory> decoder_factory)
+    : event_log_proxy_(new RtcEventLogProxy()),
       rtcp_rtt_stats_proxy_(new RtcpRttStatsProxy()),
       rtp_header_parser_(RtpHeaderParser::Create()),
       rtp_payload_registry_(new RTPPayloadRegistry()),
@@ -624,16 +610,17 @@ Channel::Channel(int32_t channelId,
       rtp_overhead_per_packet_(0),
       rtcp_observer_(new VoERtcpObserver(this)),
       associate_send_channel_(ChannelOwner(nullptr)),
-      pacing_enabled_(config.enable_voice_pacing),
       feedback_observer_proxy_(new TransportFeedbackProxy()),
       seq_num_allocator_proxy_(new TransportSequenceNumberProxy()),
       rtp_packet_sender_proxy_(new RtpPacketSenderProxy()),
       retransmission_rate_limiter_(new RateLimiter(Clock::GetRealTimeClock(),
                                                    kMaxRetransmissionWindowMs)),
-      decoder_factory_(config.acm_config.decoder_factory),
+      decoder_factory_(decoder_factory),
       use_twcc_plr_for_ana_(
           webrtc::field_trial::FindFullName("UseTwccPlrForAna") == "Enabled") {
-  AudioCodingModule::Config acm_config(config.acm_config);
+  AudioCodingModule::Config acm_config;
+  acm_config.neteq_config.max_packets_in_buffer = jitter_buffer_max_packets;
+  acm_config.neteq_config.enable_fast_accelerate = jitter_buffer_fast_playout;
   acm_config.neteq_config.enable_muted_state = true;
   audio_coding_.reset(AudioCodingModule::Create(acm_config));
 
@@ -747,11 +734,6 @@ int32_t Channel::SetEngineInformation(ProcessThread& moduleProcessThread,
 void Channel::SetSink(std::unique_ptr<AudioSinkInterface> sink) {
   rtc::CritScope cs(&_callbackCritSect);
   audio_sink_ = std::move(sink);
-}
-
-const rtc::scoped_refptr<AudioDecoderFactory>&
-Channel::GetAudioDecoderFactory() const {
-  return decoder_factory_;
 }
 
 int32_t Channel::StartPlayout() {

@@ -17,7 +17,6 @@
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
 #include "test/gtest.h"
-#include "test/mock_voice_engine.h"
 
 namespace webrtc {
 namespace test {

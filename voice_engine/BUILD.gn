@@ -15,8 +15,6 @@ rtc_static_library("voice_engine") {
   sources = [
     "channel.cc",
     "channel.h",
-    "channel_manager.cc",
-    "channel_manager.h",
     "channel_proxy.cc",
     "channel_proxy.h",
     "include/voe_base.h",
@@ -134,10 +132,8 @@ if (rtc_include_tests) {
     }
 
     sources = [
-      "channel_unittest.cc",
       "transport_feedback_packet_loss_tracker_unittest.cc",
       "utility_unittest.cc",
-      "voe_base_unittest.cc",
     ]
 
     data = [

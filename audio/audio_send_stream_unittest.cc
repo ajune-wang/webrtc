@@ -33,7 +33,6 @@
 #include "test/mock_audio_encoder.h"
 #include "test/mock_audio_encoder_factory.h"
 #include "test/mock_voe_channel_proxy.h"
-#include "test/mock_voice_engine.h"
 
 namespace webrtc {
 namespace test {

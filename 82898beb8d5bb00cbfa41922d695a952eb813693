@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fec6fb09_9391330f",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-12-18T19:32:46Z",
+      "side": 1,
+      "message": "nit: Move accordingly in the .cc file, perhaps?",
+      "revId": "82898beb8d5bb00cbfa41922d695a952eb813693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69599ea3_d9d132a0",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-12-18T19:32:46Z",
+      "side": 1,
+      "message": "Putting this in the fixture makes it harder to reason about how many events gets pushed into it, or when. It seems like it\u0027s always one, which is then immediately examined. Would it perhaps be better to move this into the individual tests? That way, you won\u0027t have to history_.clear() and explain why in TestRtcEventAudioNetworkAdaptation().",
+      "revId": "82898beb8d5bb00cbfa41922d695a952eb813693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c0f71ad_c8147e5a",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2017-12-18T19:32:46Z",
+      "side": 1,
+      "message": "Should we perhaps also introduce unit tests that validate EncodeBatch for batches longer than one element?",
+      "revId": "82898beb8d5bb00cbfa41922d695a952eb813693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

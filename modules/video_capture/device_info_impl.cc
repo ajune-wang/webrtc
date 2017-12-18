@@ -23,16 +23,9 @@
 namespace webrtc {
 namespace videocapturemodule {
 
-DeviceInfoImpl::DeviceInfoImpl()
-    : _apiLock(*RWLockWrapper::CreateRWLock()),
-      _lastUsedDeviceName(NULL),
-      _lastUsedDeviceNameLength(0) {}
+DeviceInfoImpl::DeviceInfoImpl() : _apiLock(*RWLockWrapper::CreateRWLock()) {}
 
 DeviceInfoImpl::~DeviceInfoImpl(void) {
-  _apiLock.AcquireLockExclusive();
-  free(_lastUsedDeviceName);
-  _apiLock.ReleaseLockExclusive();
-
   delete &_apiLock;
 }
 
@@ -42,15 +35,12 @@ int32_t DeviceInfoImpl::NumberOfCapabilities(const char* deviceUniqueIdUTF8) {
 
   _apiLock.AcquireLockShared();
 
-  if (_lastUsedDeviceNameLength == strlen((char*)deviceUniqueIdUTF8)) {
-    // Is it the same device that is asked for again.
-    if (_strnicmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
-                  _lastUsedDeviceNameLength) == 0) {
-      // yes
-      _apiLock.ReleaseLockShared();
-      return static_cast<int32_t>(_captureCapabilities.size());
-    }
+  // Is it the same device that is asked for again.
+  if (rtc::ascicmp(_lastUsedDeviceName.c_str(), deviceUniqueIdUTF8) == 0) {
+    _apiLock.ReleaseLockShared();
+    return static_cast<int32_t>(_captureCapabilities.size());
   }
+
   // Need to get exclusive rights to create the new capability map.
   _apiLock.ReleaseLockShared();
   WriteLockScoped cs2(_apiLock);
@@ -66,9 +56,7 @@ int32_t DeviceInfoImpl::GetCapability(const char* deviceUniqueIdUTF8,
 
   ReadLockScoped cs(_apiLock);
 
-  if ((_lastUsedDeviceNameLength != strlen((char*)deviceUniqueIdUTF8)) ||
-      (_strnicmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
-                 _lastUsedDeviceNameLength) != 0)) {
+  if (rtc::ascicmp(_lastUsedDeviceName.c_str(), deviceUniqueIdUTF8) != 0) {
     _apiLock.ReleaseLockShared();
     _apiLock.AcquireLockExclusive();
     if (-1 == CreateCapabilityMap(deviceUniqueIdUTF8)) {
@@ -100,9 +88,7 @@ int32_t DeviceInfoImpl::GetBestMatchedCapability(
     return -1;
 
   ReadLockScoped cs(_apiLock);
-  if ((_lastUsedDeviceNameLength != strlen((char*)deviceUniqueIdUTF8)) ||
-      (_strnicmp((char*)_lastUsedDeviceName, (char*)deviceUniqueIdUTF8,
-                 _lastUsedDeviceNameLength) != 0)) {
+  if (rtc::ascicmp(_lastUsedDeviceName.c_str(), deviceUniqueIdUTF8) != 0) {
     _apiLock.ReleaseLockShared();
     _apiLock.AcquireLockExclusive();
     if (-1 == CreateCapabilityMap(deviceUniqueIdUTF8)) {

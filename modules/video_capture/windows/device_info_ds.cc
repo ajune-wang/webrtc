@@ -529,12 +529,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
   RELEASE_AND_CLEAR(captureDevice);  // Release the capture device
 
   // Store the new used device name
-  _lastUsedDeviceNameLength = deviceUniqueIdUTF8Length;
-  _lastUsedDeviceName =
-      (char*)realloc(_lastUsedDeviceName, _lastUsedDeviceNameLength + 1);
-  memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8,
-         _lastUsedDeviceNameLength + 1);
-  RTC_LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
+  _lastUsedDeviceName = deviceUniqueIdUTF8;
 
   return static_cast<int32_t>(_captureCapabilities.size());
 }

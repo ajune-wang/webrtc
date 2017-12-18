@@ -30,6 +30,7 @@
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/rate_limiter.h"
+#include "rtc_base/stringutils.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
@@ -237,8 +238,7 @@ int32_t RTPSender::RegisterPayload(
     RTC_DCHECK(payload);
 
     // Check if it's the same as we already have.
-    if (RtpUtility::StringCompare(
-            payload->name, payload_name, RTP_PAYLOAD_NAME_SIZE - 1)) {
+    if (rtc::ascicmp(payload->name, payload_name)) {
       if (audio_configured_ && payload->typeSpecific.is_audio()) {
         auto& p = payload->typeSpecific.audio_payload();
         if (rtc::SafeEq(p.format.clockrate_hz, frequency) &&

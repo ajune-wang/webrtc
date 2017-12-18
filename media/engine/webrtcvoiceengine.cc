@@ -116,7 +116,7 @@ std::string ToString(const AudioCodec& codec) {
 }
 
 bool IsCodec(const AudioCodec& codec, const char* ref_name) {
-  return (_stricmp(codec.name.c_str(), ref_name) == 0);
+  return rtc::ascicmp(codec.name.c_str(), ref_name) == 0;
 }
 
 bool FindCodec(const std::vector<AudioCodec>& codecs,

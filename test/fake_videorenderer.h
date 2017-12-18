@@ -12,7 +12,7 @@
 #define TEST_FAKE_VIDEORENDERER_H_
 
 #include "api/video/video_frame.h"
-#include "media/base/videosinkinterface.h"
+#include "common_video/include/videosinkinterface.h"
 
 namespace webrtc {
 namespace test {

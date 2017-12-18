@@ -22,26 +22,44 @@ namespace webrtc {
 
 namespace {
 
+const float kHamming64[64] = {
+    0.08,       0.08228584, 0.08912066, 0.10043651, 0.11612094, 0.13601808,
+    0.15993016, 0.18761956, 0.21881106, 0.25319469, 0.29042872, 0.3301431,
+    0.37194313, 0.41541338, 0.46012184, 0.50562416, 0.55146812, 0.5971981,
+    0.64235963, 0.68650386, 0.72919207, 0.77,       0.80852209, 0.84437549,
+    0.87720386, 0.90668095, 0.93251381, 0.95444568, 0.97225861, 0.98577555,
+    0.99486218, 0.99942818, 0.99942818, 0.99486218, 0.98577555, 0.97225861,
+    0.95444568, 0.93251381, 0.90668095, 0.87720386, 0.84437549, 0.80852209,
+    0.77,       0.72919207, 0.68650386, 0.64235963, 0.5971981,  0.55146812,
+    0.50562416, 0.46012184, 0.41541338, 0.37194313, 0.3301431,  0.29042872,
+    0.25319469, 0.21881106, 0.18761956, 0.15993016, 0.13601808, 0.11612094,
+    0.10043651, 0.08912066, 0.08228584, 0.08};
+
 void PredictionError(const Aec3Fft& fft,
                      const FftData& S,
                      rtc::ArrayView<const float> y,
                      std::array<float, kBlockSize>* e,
                      FftData* E,
                      std::array<float, kBlockSize>* s) {
-  std::array<float, kFftLength> s_scratch;
-  fft.Ifft(S, &s_scratch);
+  std::array<float, kFftLength> tmp;
+  fft.Ifft(S, &tmp);
   constexpr float kScale = 1.0f / kFftLengthBy2;
-  std::transform(y.begin(), y.end(), s_scratch.begin() + kFftLengthBy2,
-                 e->begin(), [&](float a, float b) { return a - b * kScale; });
-  std::for_each(e->begin(), e->end(),
-                [](float& a) { a = rtc::SafeClamp(a, -32768.f, 32767.f); });
-  fft.ZeroPaddedFft(*e, E);
+  std::transform(y.begin(), y.end(), tmp.begin() + kFftLengthBy2, e->begin(),
+                 [&](float a, float b) { return a - b * kScale; });
 
   if (s) {
     for (size_t k = 0; k < s->size(); ++k) {
-      (*s)[k] = kScale * s_scratch[k + kFftLengthBy2];
+      (*s)[k] = kScale * tmp[k + kFftLengthBy2];
     }
   }
+
+  std::for_each(e->begin(), e->end(),
+                [](float& a) { a = rtc::SafeClamp(a, -32768.f, 32767.f); });
+
+  std::transform(e->begin(), e->end(), std::begin(kHamming64), tmp.begin(),
+                 [](float a, float b) { return a * b; });
+
+  fft.ZeroPaddedFft(rtc::ArrayView<const float>(tmp.data(), 64), E);
 }
 }  // namespace
 
@@ -110,7 +128,6 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
   // Form the output of the shadow filter.
   shadow_filter_.Filter(render_buffer, &S);
   PredictionError(fft_, S, y, &e_shadow, &E_shadow, nullptr);
-
 
   if (!converged_filter_) {
     const auto sum_of_squares = [](float a, float b) { return a + b * b; };

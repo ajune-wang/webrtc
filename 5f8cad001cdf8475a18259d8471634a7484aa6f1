@@ -22,6 +22,30 @@
       "revId": "5f8cad001cdf8475a18259d8471634a7484aa6f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86e79cce_33eccdb6",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-18T13:09:01Z",
+      "side": 1,
+      "message": "No, the problem is that if we try just before the limit and then just again after, the new frame-rate throttling mechanism (min 180ms between frames) will kick in and drop the frame when we actually expect is to succeed. Added comment.",
+      "parentUuid": "031f915e_5dd1f979",
+      "range": {
+        "startLine": 445,
+        "startChar": 60,
+        "endLine": 445,
+        "endChar": 79
+      },
+      "revId": "5f8cad001cdf8475a18259d8471634a7484aa6f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

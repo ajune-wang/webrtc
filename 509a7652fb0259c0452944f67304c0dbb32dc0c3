@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ce0f7f8_3e667586",
+        "filename": "modules/audio_processing/aec3/subtractor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2017-12-18T14:02:06Z",
+      "side": 1,
+      "message": "\"f\" suffix should probably be used. MSVC compiler complaining..",
+      "revId": "509a7652fb0259c0452944f67304c0dbb32dc0c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

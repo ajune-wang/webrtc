@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '41f6c8762dca5575d4dfee57457fd6b47a93cad9',
+  'chromium_revision': 'a8268b0279c6a279885c16db638aa117addeb094',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -56,7 +56,7 @@ deps = {
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '20997c6a4a326d4c8803490f6d2369d0beed90b9',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'f51d69b2fb1e1a2dc7babd39975824249246ac5b',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'ab7baf1bdc7fb32f6c8dfef029cb09d3a64a6edd',
   'src/third_party/android_tools': {
     'url': Var('chromium_git') + '/android_tools.git' + '@' + 'a2e9bc7c1b41d983577907df51d339fb1e0fd02f',
     'condition': 'checkout_android',
@@ -113,7 +113,7 @@ deps = {
   'src/third_party/libsrtp':
     Var('chromium_git') + '/chromium/deps/libsrtp.git' + '@' + '1d45b8e599dc2db6ea3ae22dbc94a8c504652423',
   'src/third_party/libvpx/source/libvpx':
-    Var('chromium_git') + '/webm/libvpx.git' + '@' +  'cbe62b9c2d2b006aba52c8eebe7d842e59166fe4',
+    Var('chromium_git') + '/webm/libvpx.git' + '@' +  '14dbdd95e686eafbe556c154c9e0bd76fe1d2d1a',
   'src/third_party/libyuv':
     Var('chromium_git') + '/libyuv/libyuv.git' + '@' + 'd94a4867bf8be91e4c0fa8b7a4133ba060fe524f',
   'src/third_party/lss': {

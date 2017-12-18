@@ -1212,8 +1212,6 @@ VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
 
 VoiceChannel::~VoiceChannel() {
   TRACE_EVENT0("webrtc", "VoiceChannel::~VoiceChannel");
-  StopAudioMonitor();
-  StopMediaMonitor();
   // this can't be done in the base class, since it calls a virtual
   DisableMedia_w();
   Deinit();
@@ -1336,50 +1334,12 @@ std::vector<webrtc::RtpSource> VoiceChannel::GetSources_w(uint32_t ssrc) const {
   return media_channel()->GetSources(ssrc);
 }
 
-void VoiceChannel::StartMediaMonitor(int cms) {
-  media_monitor_.reset(new VoiceMediaMonitor(media_channel(), worker_thread(),
-      rtc::Thread::Current()));
-  media_monitor_->SignalUpdate.connect(
-      this, &VoiceChannel::OnMediaMonitorUpdate);
-  media_monitor_->Start(cms);
-}
-
-void VoiceChannel::StopMediaMonitor() {
-  if (media_monitor_) {
-    media_monitor_->Stop();
-    media_monitor_->SignalUpdate.disconnect(this);
-    media_monitor_.reset();
-  }
-}
-
-void VoiceChannel::StartAudioMonitor(int cms) {
-  audio_monitor_.reset(new AudioMonitor(this, rtc::Thread::Current()));
-  audio_monitor_
-    ->SignalUpdate.connect(this, &VoiceChannel::OnAudioMonitorUpdate);
-  audio_monitor_->Start(cms);
-}
-
-void VoiceChannel::StopAudioMonitor() {
-  if (audio_monitor_) {
-    audio_monitor_->Stop();
-    audio_monitor_.reset();
-  }
-}
-
-bool VoiceChannel::IsAudioMonitorRunning() const {
-  return (audio_monitor_.get() != NULL);
-}
-
 int VoiceChannel::GetInputLevel_w() {
   return media_engine_->GetInputLevel();
 }
 
 int VoiceChannel::GetOutputLevel_w() {
   return media_channel()->GetOutputLevel();
-}
-
-void VoiceChannel::GetActiveStreams_w(AudioInfo::StreamList* actives) {
-  media_channel()->GetActiveStreams(actives);
 }
 
 void VoiceChannel::OnPacketReceived(bool rtcp,
@@ -1555,17 +1515,6 @@ void VoiceChannel::OnConnectionMonitorUpdate(
   SignalConnectionMonitor(this, infos);
 }
 
-void VoiceChannel::OnMediaMonitorUpdate(
-    VoiceMediaChannel* media_channel, const VoiceMediaInfo& info) {
-  RTC_DCHECK(media_channel == this->media_channel());
-  SignalMediaMonitor(this, info);
-}
-
-void VoiceChannel::OnAudioMonitorUpdate(AudioMonitor* monitor,
-                                        const AudioInfo& info) {
-  SignalAudioMonitor(this, info);
-}
-
 VideoChannel::VideoChannel(rtc::Thread* worker_thread,
                            rtc::Thread* network_thread,
                            rtc::Thread* signaling_thread,
@@ -1583,7 +1532,6 @@ VideoChannel::VideoChannel(rtc::Thread* worker_thread,
 
 VideoChannel::~VideoChannel() {
   TRACE_EVENT0("webrtc", "VideoChannel::~VideoChannel");
-  StopMediaMonitor();
   // this can't be done in the base class, since it calls a virtual
   DisableMedia_w();
 
@@ -1676,21 +1624,6 @@ void VideoChannel::FillBitrateInfo(BandwidthEstimationInfo* bwe_info) {
 bool VideoChannel::GetStats(VideoMediaInfo* stats) {
   return InvokeOnWorker<bool>(RTC_FROM_HERE, Bind(&VideoMediaChannel::GetStats,
                                                   media_channel(), stats));
-}
-
-void VideoChannel::StartMediaMonitor(int cms) {
-  media_monitor_.reset(new VideoMediaMonitor(media_channel(), worker_thread(),
-      rtc::Thread::Current()));
-  media_monitor_->SignalUpdate.connect(
-      this, &VideoChannel::OnMediaMonitorUpdate);
-  media_monitor_->Start(cms);
-}
-
-void VideoChannel::StopMediaMonitor() {
-  if (media_monitor_) {
-    media_monitor_->Stop();
-    media_monitor_.reset();
-  }
 }
 
 bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
@@ -1818,14 +1751,6 @@ void VideoChannel::OnConnectionMonitorUpdate(
   SignalConnectionMonitor(this, infos);
 }
 
-// TODO(pthatcher): Look into removing duplicate code between
-// audio, video, and data, perhaps by using templates.
-void VideoChannel::OnMediaMonitorUpdate(
-    VideoMediaChannel* media_channel, const VideoMediaInfo &info) {
-  RTC_DCHECK(media_channel == this->media_channel());
-  SignalMediaMonitor(this, info);
-}
-
 RtpDataChannel::RtpDataChannel(rtc::Thread* worker_thread,
                                rtc::Thread* network_thread,
                                rtc::Thread* signaling_thread,
@@ -1843,7 +1768,6 @@ RtpDataChannel::RtpDataChannel(rtc::Thread* worker_thread,
 
 RtpDataChannel::~RtpDataChannel() {
   TRACE_EVENT0("webrtc", "RtpDataChannel::~RtpDataChannel");
-  StopMediaMonitor();
   // this can't be done in the base class, since it calls a virtual
   DisableMedia_w();
 
@@ -2058,28 +1982,6 @@ void RtpDataChannel::OnConnectionMonitorUpdate(
     ConnectionMonitor* monitor,
     const std::vector<ConnectionInfo>& infos) {
   SignalConnectionMonitor(this, infos);
-}
-
-void RtpDataChannel::StartMediaMonitor(int cms) {
-  media_monitor_.reset(new DataMediaMonitor(media_channel(), worker_thread(),
-      rtc::Thread::Current()));
-  media_monitor_->SignalUpdate.connect(this,
-                                       &RtpDataChannel::OnMediaMonitorUpdate);
-  media_monitor_->Start(cms);
-}
-
-void RtpDataChannel::StopMediaMonitor() {
-  if (media_monitor_) {
-    media_monitor_->Stop();
-    media_monitor_->SignalUpdate.disconnect(this);
-    media_monitor_.reset();
-  }
-}
-
-void RtpDataChannel::OnMediaMonitorUpdate(DataMediaChannel* media_channel,
-                                          const DataMediaInfo& info) {
-  RTC_DCHECK(media_channel == this->media_channel());
-  SignalMediaMonitor(this, info);
 }
 
 void RtpDataChannel::OnDataReceived(const ReceiveDataParams& params,

@@ -1961,20 +1961,6 @@ bool WebRtcVoiceMediaChannel::SetLocalSource(uint32_t ssrc,
 }
 
 // TODO(solenberg): Remove, once AudioMonitor is gone.
-bool WebRtcVoiceMediaChannel::GetActiveStreams(
-    AudioInfo::StreamList* actives) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  actives->clear();
-  for (const auto& ch : recv_streams_) {
-    int level = ch.second->GetOutputLevel();
-    if (level > 0) {
-      actives->push_back(std::make_pair(ch.first, level));
-    }
-  }
-  return true;
-}
-
-// TODO(solenberg): Remove, once AudioMonitor is gone.
 int WebRtcVoiceMediaChannel::GetOutputLevel() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   int highest = 0;

@@ -45,7 +45,6 @@ const uint32_t kSsrc2 = 0x2222;
 const int kAudioPts[] = {0, 8};
 const int kVideoPts[] = {97, 99};
 enum class NetworkIsWorker { Yes, No };
-const int kDefaultTimeout = 10000;  // 10 seconds.
 }  // namespace
 
 template <class ChannelT,
@@ -248,10 +247,7 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
         CreateChannel(worker_thread, network_thread_, &media_engine_,
                       std::move(ch2), fake_rtp_dtls_transport2_.get(),
                       fake_rtcp_dtls_transport2_.get(), rtp2, rtcp2, flags2);
-    channel1_->SignalMediaMonitor.connect(this,
-                                          &ChannelTest<T>::OnMediaMonitor1);
-    channel2_->SignalMediaMonitor.connect(this,
-                                          &ChannelTest<T>::OnMediaMonitor2);
+
     channel1_->SignalRtcpMuxFullyActive.connect(
         this, &ChannelTest<T>::OnRtcpMuxFullyActive1);
     channel2_->SignalRtcpMuxFullyActive.connect(
@@ -1658,26 +1654,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(CheckCustomRtcp2(kSsrc2));
   }
 
-  // Test that the media monitor can be run and gives callbacks.
-  void TestMediaMonitor() {
-    CreateChannels(0, 0);
-    EXPECT_TRUE(SendInitiate());
-    EXPECT_TRUE(SendAccept());
-    channel1_->StartMediaMonitor(100);
-    channel2_->StartMediaMonitor(100);
-    // Ensure we get callbacks and stop.
-    EXPECT_TRUE_WAIT(media_info_callbacks1_ > 0, kDefaultTimeout);
-    EXPECT_TRUE_WAIT(media_info_callbacks2_ > 0, kDefaultTimeout);
-    channel1_->StopMediaMonitor();
-    channel2_->StopMediaMonitor();
-    // Ensure a restart of a stopped monitor works.
-    channel1_->StartMediaMonitor(100);
-    EXPECT_TRUE_WAIT(media_info_callbacks1_ > 0, kDefaultTimeout);
-    channel1_->StopMediaMonitor();
-    // Ensure stopping a stopped monitor is OK.
-    channel1_->StopMediaMonitor();
-  }
-
   void TestSetContentFailure() {
     CreateChannels(0, 0);
 
@@ -2343,10 +2319,6 @@ TEST_F(VoiceChannelSingleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
 }
 
-TEST_F(VoiceChannelSingleThreadTest, TestMediaMonitor) {
-  Base::TestMediaMonitor();
-}
-
 // Test that InsertDtmf properly forwards to the media channel.
 TEST_F(VoiceChannelSingleThreadTest, TestInsertDtmf) {
   CreateChannels(0, 0);
@@ -2694,10 +2666,6 @@ TEST_F(VoiceChannelDoubleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
 }
 
-TEST_F(VoiceChannelDoubleThreadTest, TestMediaMonitor) {
-  Base::TestMediaMonitor();
-}
-
 // Test that InsertDtmf properly forwards to the media channel.
 TEST_F(VoiceChannelDoubleThreadTest, TestInsertDtmf) {
   CreateChannels(0, 0);
@@ -2999,10 +2967,6 @@ TEST_F(VideoChannelSingleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
 }
 
-TEST_F(VideoChannelSingleThreadTest, TestMediaMonitor) {
-  Base::TestMediaMonitor();
-}
-
 TEST_F(VideoChannelSingleThreadTest, TestSetContentFailure) {
   Base::TestSetContentFailure();
 }
@@ -3220,10 +3184,6 @@ TEST_F(VideoChannelDoubleThreadTest, SendSrtpToSrtpOnThread) {
 
 TEST_F(VideoChannelDoubleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
-}
-
-TEST_F(VideoChannelDoubleThreadTest, TestMediaMonitor) {
-  Base::TestMediaMonitor();
 }
 
 TEST_F(VideoChannelDoubleThreadTest, TestSetContentFailure) {
@@ -3464,10 +3424,6 @@ TEST_F(RtpDataChannelSingleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
 }
 
-TEST_F(RtpDataChannelSingleThreadTest, TestMediaMonitor) {
-  Base::TestMediaMonitor();
-}
-
 TEST_F(RtpDataChannelSingleThreadTest, SocketOptionsMergedOnSetTransport) {
   Base::SocketOptionsMergedOnSetTransport();
 }
@@ -3586,10 +3542,6 @@ TEST_F(RtpDataChannelDoubleThreadTest, SendSrtpToSrtpOnThread) {
 
 TEST_F(RtpDataChannelDoubleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
-}
-
-TEST_F(RtpDataChannelDoubleThreadTest, TestMediaMonitor) {
-  Base::TestMediaMonitor();
 }
 
 TEST_F(RtpDataChannelDoubleThreadTest, SocketOptionsMergedOnSetTransport) {

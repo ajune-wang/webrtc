@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ad19807e_9e49836b",
+        "filename": "sdk/android/src/jni/pc/mediastream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-19T14:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "222429fd_760825f9",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "52ffe2b6931cbe83df0854f43423fabb8cfe91a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "669d5ec4_77390568",
         "filename": "sdk/android/src/jni/pc/mediastream.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "52ffe2b6931cbe83df0854f43423fabb8cfe91a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cc38890_547a60b6",
+        "filename": "sdk/android/src/jni/pc/mediastream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-19T14:32:47Z",
+      "side": 1,
+      "message": "We still need it for calling Java_Observer_onAddStream and Java_Observer_onRemoveStream.",
+      "parentUuid": "669d5ec4_77390568",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "52ffe2b6931cbe83df0854f43423fabb8cfe91a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7d5c5a8d_43cd25cc",
+        "filename": "sdk/android/src/jni/pc/mediastream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-19T14:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acd6087b_d7e88432",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "52ffe2b6931cbe83df0854f43423fabb8cfe91a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "527bfaa7_049e8fd1",
         "filename": "sdk/android/src/jni/pc/peerconnection.cc",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "db51f4e3_3a6d175c",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-19T14:32:47Z",
+      "side": 1,
+      "message": "Yes, that\u0027s much better, done.",
+      "parentUuid": "527bfaa7_049e8fd1",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 51
+      },
+      "revId": "52ffe2b6931cbe83df0854f43423fabb8cfe91a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9007ca7_2dfe8087",
         "filename": "sdk/android/src/jni/pc/peerconnection.cc",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "52ffe2b6931cbe83df0854f43423fabb8cfe91a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9728caa_a9357396",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2017-12-19T14:32:47Z",
+      "side": 1,
+      "message": "Done, but I had to return a reference to JavaMediaStream since this is something we store in a map in a member variable.",
+      "parentUuid": "c9007ca7_2dfe8087",
+      "range": {
+        "startLine": 362,
+        "startChar": 35,
+        "endLine": 362,
+        "endChar": 56
+      },
+      "revId": "52ffe2b6931cbe83df0854f43423fabb8cfe91a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

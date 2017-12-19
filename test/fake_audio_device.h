@@ -102,6 +102,8 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
   int32_t Init() override;
   int32_t RegisterAudioCallback(AudioTransport* callback) override;
 
+  void SetCapturer(std::unique_ptr<Capturer> capturer);
+
   int32_t StartPlayout() override;
   int32_t StopPlayout() override;
   int32_t StartRecording() override;
@@ -121,11 +123,11 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
   static bool Run(void* obj);
   void ProcessAudio();
 
-  const std::unique_ptr<Capturer> capturer_ RTC_GUARDED_BY(lock_);
   const std::unique_ptr<Renderer> renderer_ RTC_GUARDED_BY(lock_);
   const float speed_;
 
   rtc::CriticalSection lock_;
+  std::unique_ptr<Capturer> capturer_ RTC_GUARDED_BY(lock_);
   AudioTransport* audio_callback_ RTC_GUARDED_BY(lock_);
   bool rendering_ RTC_GUARDED_BY(lock_);
   bool capturing_ RTC_GUARDED_BY(lock_);

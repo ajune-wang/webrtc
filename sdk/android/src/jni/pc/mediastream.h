@@ -28,7 +28,7 @@ class JavaMediaStream : public sigslot::has_slots<> {
       rtc::scoped_refptr<MediaStreamInterface> media_stream);
   ~JavaMediaStream();
 
-  jobject j_media_stream() { return *j_media_stream_; }
+  ScopedJavaGlobalRef<jobject>& j_media_stream() { return j_media_stream_; }
 
  private:
   void OnAudioTrackAddedToStream(AudioTrackInterface* track,
@@ -39,7 +39,7 @@ class JavaMediaStream : public sigslot::has_slots<> {
                                      MediaStreamInterface* stream);
   void OnVideoTrackRemovedFromStream(VideoTrackInterface* track,
                                      MediaStreamInterface* stream);
-  ScopedGlobalRef<jobject> j_media_stream_;
+  ScopedJavaGlobalRef<jobject> j_media_stream_;
   std::unique_ptr<MediaStreamObserver> observer_;
 };
 

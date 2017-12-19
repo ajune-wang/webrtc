@@ -479,13 +479,18 @@ rtc_source_set("ilbc_c") {
 
 rtc_static_library("isac_common") {
   sources = [
+    "codecs/isac/audio_decoder_isac_t.h",
+    "codecs/isac/audio_decoder_isac_t_impl.h",
     "codecs/isac/audio_encoder_isac_t.h",
     "codecs/isac/audio_encoder_isac_t_impl.h",
+    "codecs/isac/bandwidth_info.h",
     "codecs/isac/locked_bandwidth_info.cc",
     "codecs/isac/locked_bandwidth_info.h",
   ]
   deps = [
     "../..:webrtc_common",
+    "../../:typedefs",
+    "../../api:optional",
     "../../api/audio_codecs:audio_codecs_api",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
@@ -618,9 +623,13 @@ rtc_source_set("isac_fix_common") {
     "codecs/isac/fix/source/codec.h",
     "codecs/isac/fix/source/fft.c",
     "codecs/isac/fix/source/fft.h",
+    "codecs/isac/fix/source/filterbank_internal.h",
     "codecs/isac/fix/source/settings.h",
   ]
   public_configs = [ ":isac_fix_config" ]
+  deps = [
+    "../../:typedefs",
+  ]
 }
 
 rtc_source_set("isac_fix_c_arm_asm") {
@@ -1900,6 +1909,7 @@ if (rtc_include_tests) {
     testonly = true
     sources = [
       "codecs/isac/main/util/utility.c",
+      "codecs/isac/main/util/utility.h",
     ]
   }
 

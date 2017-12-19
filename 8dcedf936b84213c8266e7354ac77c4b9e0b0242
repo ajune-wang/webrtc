@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e23fe3c3_82c5a878",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-19T14:49:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6327bcc0_554c6153",
+      "range": {
+        "startLine": 314,
+        "startChar": 29,
+        "endLine": 314,
+        "endChar": 30
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "311ed626_18286193",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-19T13:20:12Z",
       "side": 1,
       "message": "To avoid code duplication and confusion, the static Create can delegate its work to this function.",
+      "range": {
+        "startLine": 334,
+        "startChar": 17,
+        "endLine": 334,
+        "endChar": 47
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7012610_fdab55f0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-19T14:49:09Z",
+      "side": 1,
+      "message": "Since we\u0027re going to remove those functions soon, I\u0027m not sure if it\u0027s worth the effort to reimplement them. wdyt?",
+      "parentUuid": "311ed626_18286193",
       "range": {
         "startLine": 334,
         "startChar": 17,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "212c780c_34dfa5ca",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-19T14:49:09Z",
+      "side": 1,
+      "message": "Good idea, very fancy.",
+      "parentUuid": "398fcb5c_52e72375",
+      "range": {
+        "startLine": 319,
+        "startChar": 5,
+        "endLine": 319,
+        "endChar": 15
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dec3ed20_d4b60d32",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74830b74_b4232862",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-19T14:49:09Z",
+      "side": 1,
+      "message": "The private unique_ptrs will be set to nullptr after a call to Create (due to the std::move), so it\u0027s safe to call it again (but it won\u0027t use the same submodules that were set before the first call to Create). I\u0027ll try to make that more clear in the documentation below at the Create functions.",
+      "parentUuid": "dec3ed20_d4b60d32",
+      "range": {
+        "startLine": 638,
+        "startChar": 0,
+        "endLine": 638,
+        "endChar": 28
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "488feb52_e55d54ab",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-19T14:49:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37febba3_169eca83",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 28
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75f3b19a_2071b722",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f93f93a_d0497a7d",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-19T14:49:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75f3b19a_2071b722",
+      "range": {
+        "startLine": 653,
+        "startChar": 2,
+        "endLine": 653,
+        "endChar": 18
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

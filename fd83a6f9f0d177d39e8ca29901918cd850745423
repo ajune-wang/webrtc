@@ -94,6 +94,30 @@
       "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5706244_bdcad11a",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-19T14:23:14Z",
+      "side": 1,
+      "message": "Well, the problem is with a POSIX header, don\u0027t remember which one but I think it was \u003csys/socket.h\u003e or something like that. It\u0027s not a NACL header but I suppose NACL makes it visible.",
+      "parentUuid": "5c9f244b_ea5393a4",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

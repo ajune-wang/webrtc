@@ -428,14 +428,30 @@ class PeerConnection : public PeerConnectionInterface,
 
   // Returns a MediaSessionOptions struct with options decided by |options|,
   // the local MediaStreams and DataChannels.
-  void GetOptionsForOffer(
-      const PeerConnectionInterface::RTCOfferAnswerOptions& rtc_options,
+  void GetOptionsForOffer(const PeerConnectionInterface::RTCOfferAnswerOptions&
+                              offer_answer_options,
+                          cricket::MediaSessionOptions* session_options);
+  void GetOptionsForPlanBOffer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
+      cricket::MediaSessionOptions* session_options);
+  void GetOptionsForUnifiedPlanOffer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
       cricket::MediaSessionOptions* session_options);
 
   // Returns a MediaSessionOptions struct with options decided by
   // |constraints|, the local MediaStreams and DataChannels.
-  void GetOptionsForAnswer(const RTCOfferAnswerOptions& options,
+  void GetOptionsForAnswer(const RTCOfferAnswerOptions& offer_answer_options,
                            cricket::MediaSessionOptions* session_options);
+  void GetOptionsForPlanBAnswer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
+      cricket::MediaSessionOptions* session_options);
+  void GetOptionsForUnifiedPlanAnswer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
+      cricket::MediaSessionOptions* session_options);
 
   // Generates MediaDescriptionOptions for the |session_opts| based on existing
   // local description or remote description.
@@ -538,6 +554,22 @@ class PeerConnection : public PeerConnectionInterface,
   bool IsUnifiedPlan() const {
     return configuration_.sdp_semantics == SdpSemantics::kUnifiedPlan;
   }
+
+  RTCErrorOr<
+      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
+  AssociateTransceiver(cricket::ContentSource source,
+                       int mline_index,
+                       const cricket::ContentInfo& content,
+                       const cricket::ContentInfo* old_content);
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetAssociatedTransceiver(const std::string& mid) const;
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetTransceiverByMLineIndex(int mline_index) const;
+
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  FindAvailableTransceiverToReceive(cricket::MediaType media_type) const;
 
   // Is there an RtpSender of the given type?
   bool HasRtpSender(cricket::MediaType type) const;
@@ -860,6 +892,7 @@ class PeerConnection : public PeerConnectionInterface,
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
       transceivers_;
+  std::set<std::string> used_mids_;
 
   SessionError session_error_ = SessionError::kNone;
   std::string session_error_desc_;

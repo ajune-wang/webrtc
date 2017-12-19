@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "452b1dd5_22ef05f9",
+        "filename": "modules/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2017-12-19T19:56:04Z",
+      "side": 1,
+      "message": "Changed to \"deps\" to match change in master.",
+      "parentUuid": "c8d6796c_8ad49feb",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f15b41eb_8861d520",
         "filename": "modules/audio_device/BUILD.gn",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "18978b93_e099bd46",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2017-12-19T19:56:04Z",
+      "side": 1,
+      "message": "I\u0027m testing on Linux Ubuntu and bam uilding with system-provided libraries, i.e. not the sysroot from WebRTC/Chromium. As I also didn\u0027t have the various audio related libraries installed (pulse/alsa), I got linker errors without this define set because WebRTC is correctly built without the audio devices, but the tests still used them.\n\nError:\n$ ninja -C out/Default \nninja: Entering directory `out/Default\u0027\n[1/1] Regenerating ninja files\n[4/5] LINK ./modules_unittests\nFAILED: modules_unittests \npython \"../../build/toolchain/gcc_link_wrapper.py\" --output\u003d\"./modules_unittests\" -- ../../third_party/llvm-build/Release+Asserts/bin/clang++ -Wl,--fatal-warnings -fPIC -Wl,-z,noexecstack -Wl,-z,now -Wl,-z,relro -Wl,-z,defs -Wl,--no-as-needed -lpthread -Wl,--as-needed -fuse-ld\u003dlld -m64 -Werror -Wl,-O1 -Wl,--gc-sections -Wl,--gdb-index -nostdlib++ -Wl,-rpath-link\u003d. -Wl,--disable-new-dtags -o \"./modules_unittests\" -Wl,--start-group @\"./modules_unittests.rsp\"  -Wl,--end-group   -ldl -lpthread -lrt -lm \n/home/jojo/develop/google/webrtc/src/out/Default/../../third_party/llvm-build/Release+Asserts/bin/ld.lld: error: undefined symbol: webrtc::AudioDeviceModule::Create(webrtc::AudioDeviceModule::AudioLayer)\n\u003e\u003e\u003e referenced by audio_device_unittest.cc:465 (../../modules/audio_device/audio_device_unittest.cc:465)\n\u003e\u003e\u003e               obj/modules/audio_device/audio_device_unittests/audio_device_unittest.o:(webrtc::AudioDeviceTest::AudioDeviceTest())\nclang: error: linker command failed with exit code 1 (use -v to see invocation)\nninja: build stopped: subcommand failed.\n\nThinking about it, this change should probably be in a separate CL as it\u0027s not X11 related, what do you think?",
+      "parentUuid": "6a839c75_c7fe0164",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 364,
+        "endChar": 5
+      },
+      "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b84f5390_b153c4cc",
         "filename": "rtc_base/testutils.h",
         "patchSetId": 1
@@ -110,6 +158,24 @@
       "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2cdff3d_e882a73c",
+        "filename": "rtc_base/testutils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2017-12-19T19:56:04Z",
+      "side": 1,
+      "message": "This code has been removed in https://webrtc.googlesource.com/src/+/aec6842b3141d1dd95597652e4c27cdfc0bd7418",
+      "parentUuid": "b84f5390_b153c4cc",
+      "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

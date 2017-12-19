@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26b2f1eb_cb3cddd2",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-19T19:47:29Z",
+      "side": 1,
+      "message": "personal request: can you please add rtcp_trasceiver target to public too.\nI created separate target from rtp_rtcp since it is still in development, but would like to use it outside too.",
+      "range": {
+        "startLine": 228,
+        "startChar": 12,
+        "endLine": 228,
+        "endChar": 0
+      },
+      "revId": "bfae95287259a9a73d536543f794d44a2a248228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

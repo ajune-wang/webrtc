@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "e1558d28_5184fec9",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T21:29:07Z",
+      "side": 1,
+      "message": "old_local_description could point to different things which may or may not have been moved around since it was set, it\u0027s not obvious this is not a dangling pointer by now. Can you DCHECK that it is either null or equal to one of the unique_ptrs?\n\nSame comment for old_remote_description.",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f14fd8_a1dea8e6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1969,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T21:29:07Z",
+      "side": 1,
+      "message": "Here (:1969) and below (:2024) you update receivers, (transceivers), remote tracks and remote streams. It\u0027s a lot of code and spread out. Can you place them in helper functions and/or put them together in an \"if-else\" for readability?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf892801_2080f24d",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -478,6 +512,23 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "Same here about having CreateOffer or CreateAnswer change the state.\n\nCould it be that set_mid means \"this transceiver is associated with this mid\" and set_mline_index means \"this transceiver was offered/answered with this index in the most recent call to CreateOffer/CreateAnswer, but might not be associated yet\"?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4fe62e8_82df4416",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T21:29:07Z",
+      "side": 1,
+      "message": "There\u0027s a lot of code for both plan B and unified plan, and it\u0027s all spread out in one .cc file with \"if plan B, if unified plan\" code paths in several places, and peerconnection.cc is pretty big.\n\nWould it be worth refactoring all of this into helper classes? Kind of like how stats collection is its own classes even though they are implementing an operation of PeerConnection.\nE.g. DescriptionHandlerInterface::ApplyLocal/RemoteDescription, with implementations PlanBDescriptionHandler and UnifiedPlanDescriptionHandler. You set which handler to use at construction and you refer to it to do any updating of senders/receivers/transceivers/tracks/streams.\n\nThis would make peerconnection.cc thinner and make it more clear what code has to do with what.\nYou\u0027re more familiar with this code so you tell me if that makes sense. It might be difficult to decouple this into separate classes, or require friend-ing, but it might be a good idea.\n\nThoughts?",
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

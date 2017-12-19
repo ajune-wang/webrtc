@@ -46,6 +46,30 @@
       "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "726ffef3_388edb59",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-19T11:40:59Z",
+      "side": 1,
+      "message": "That deps add is already on the rtc_base_approved_generic, where the offending files are, so just adding it there doesn\u0027t work. I need to add it for the API target as well (and, I suppose, any other target that depends on rtc_base and includes those headers).",
+      "parentUuid": "54641198_28c129d1",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54641198_28c129d1",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-12-19T11:02:08Z",
+      "side": 1,
+      "message": "Is it possible to move:\n\nif (is_nacl) {\n  deps +\u003d [ \"//native_client_sdk/src/libraries/nacl_io\" ]\n}\n\ninto the target that really needs it (I suppose rtc_base)?\nI see we are already doing it for rtc_base:rtc_base_approved_generic and rtc_base:rtc_base_generic.",
+      "parentUuid": "c7f886f1_89ad9ba6",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

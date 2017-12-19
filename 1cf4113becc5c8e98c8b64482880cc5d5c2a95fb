@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e4f7171_72853bfe",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-19T02:12:49Z",
+      "side": 1,
+      "message": "May want to point to the relevant parts of the spec here, since it\u0027s some of the most convoluted logic, with a weird history.",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14594abe_e12be200",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-19T02:12:49Z",
+      "side": 1,
+      "message": "... In other words, that the weird logic above is specific to AddTrack. May want to clarify that.",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e76001_2b4785fb",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-19T02:12:49Z",
+      "side": 1,
+      "message": "I wonder if we should verify that if still has a MID?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a790d27_cbd8c65b",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-19T02:12:49Z",
+      "side": 1,
+      "message": "May want to comment that this is tested for backwards compatibility. I don\u0027t think it\u0027s associated with the standard, is it?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

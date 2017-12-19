@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cea96505_f6429d0d",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-19T11:09:51Z",
+      "side": 1,
+      "message": "add usings just inside unnamed namespace",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "e0a1800e32a90d5d8962d0414fbe0cfefd2abced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb510be_68d1fef5",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-19T11:09:51Z",
+      "side": 1,
+      "message": "prefer ON_CALL instead of EXPECT_CALL for mock functions you do not test.",
+      "range": {
+        "startLine": 152,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 13
+      },
+      "revId": "e0a1800e32a90d5d8962d0414fbe0cfefd2abced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aadd6175_63304bef",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-19T11:09:51Z",
+      "side": 1,
+      "message": "avoid sleeping too much in tests.\nFakeAudioDevice seems to bound to real clock, but at least you can increase it\u0027s speed to wait less.\nIf you can refactor tests to wait until Capture is called or timeout (indicating failure), it would be even better.",
+      "range": {
+        "startLine": 176,
+        "startChar": 15,
+        "endLine": 176,
+        "endChar": 0
+      },
+      "revId": "e0a1800e32a90d5d8962d0414fbe0cfefd2abced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

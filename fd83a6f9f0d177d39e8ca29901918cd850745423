@@ -70,6 +70,30 @@
       "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c9f244b_ea5393a4",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-12-19T11:51:03Z",
+      "side": 1,
+      "message": "Oh, now I see. It sounds like a problem I am hitting while removing public_deps.\n\nIs the error related to the include path of a nacl header? In that case I think the problem is the usage of public_configs in the native_client_sdk/src/libraries/nacl_io:nacl_io target [1].\n\nUsing all_dependent_configs instead of public_configs should remove the need of depending on\nit in all the targets that include these headers because just depending on rtc_base will be\nenough to inherit the include path.\n\nI think we can try locally and eventually file a CL to fix that in nacl_io directly.\n\n[1] - https://cs.chromium.org/chromium/src/native_client_sdk/src/libraries/nacl_io/BUILD.gn?l\u003d206\u0026rcl\u003debb66ffb22611d7cc1a50711b0c3eb5a609a5a79",
+      "parentUuid": "726ffef3_388edb59",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "03b5cf1a_b4e6c92b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-19T16:31:26Z",
+      "side": 1,
+      "message": "Ah, sorry, I think I misunderstood your first comment. I thought you meant I should reimplement the Create method to use this one, but you meant it the other way around. I guess that makes sense, done.",
+      "parentUuid": "6a16639a_ef882015",
+      "range": {
+        "startLine": 334,
+        "startChar": 17,
+        "endLine": 334,
+        "endChar": 47
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "398fcb5c_52e72375",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1

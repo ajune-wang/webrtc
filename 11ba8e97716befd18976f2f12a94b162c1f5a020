@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "e381b51e_60b73022",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2017-12-19T18:14:41Z",
+      "side": 1,
+      "message": "Removed this and use lock instead.",
+      "parentUuid": "5b5e9be3_e3847ae4",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 59
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3ebb5e0_a05eeabb",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
         "patchSetId": 4
@@ -282,6 +306,30 @@
       "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90134709_b2f97748",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2017-12-19T18:14:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d76ed564_5020bbf0",
+      "range": {
+        "startLine": 139,
+        "startChar": 10,
+        "endLine": 139,
+        "endChar": 55
+      },
+      "revId": "11ba8e97716befd18976f2f12a94b162c1f5a020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

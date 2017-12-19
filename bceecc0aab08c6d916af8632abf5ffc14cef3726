@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4fed5cd_3521ce1d",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2017-12-19T18:14:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72c67774_f573cf4a",
+      "range": {
+        "startLine": 54,
+        "startChar": 10,
+        "endLine": 54,
+        "endChar": 18
+      },
+      "revId": "bceecc0aab08c6d916af8632abf5ffc14cef3726",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d536a325_3a5a4a8b",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-14T11:44:07Z",
       "side": 1,
       "message": "This synchronized block looks strange to me because you don\u0027t even check if auto detector is null here.",
+      "range": {
+        "startLine": 195,
+        "startChar": 4,
+        "endLine": 195,
+        "endChar": 37
+      },
+      "revId": "bceecc0aab08c6d916af8632abf5ffc14cef3726",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143cd0e3_7216294f",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2017-12-19T18:14:41Z",
+      "side": 1,
+      "message": "Added check on the null pointer.",
+      "parentUuid": "d536a325_3a5a4a8b",
       "range": {
         "startLine": 195,
         "startChar": 4,

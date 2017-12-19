@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ee7b43f_e55e47c1",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_audio.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-19T09:58:30Z",
+      "side": 1,
+      "message": "assert is not webrtc style. And debug check + error return is bad style (one reason is that error handling of the failure return value will be poorly tested). While touching this code, consider changing to either RTC_LOG(LS_ERROR) \u003c\u003c msg + return -1, or FATAL() \u003c\u003c msg and no return.",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 22
+      },
+      "revId": "6d532994e96d2576793f058a865c24e7f310a538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d60442aa_6396cb98",
+        "filename": "modules/video_capture/device_info_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-19T09:58:30Z",
+      "side": 1,
+      "message": "Prefer wholesale reformatting like this in a separate cl with exlcusively formatting changes.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "6d532994e96d2576793f058a865c24e7f310a538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "582bb6ff_514b8ea6",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-19T09:58:30Z",
+      "side": 1,
+      "message": "This is a pretty useless alias. And I\u0027m not sure I like tha asc* naming convention, it seems to be a remnant of this char/wchar_t templating which you are deleting.\n\nI\u0027d prefer to use plain strcmp and strncmp rather than asccmp and ascncmp. And for consistency, rename the case insensitive functions to something starting with str or rtc::str. Where my preference is still the posix-style names.",
+      "range": {
+        "startLine": 172,
+        "startChar": 11,
+        "endLine": 172,
+        "endChar": 17
+      },
+      "revId": "6d532994e96d2576793f058a865c24e7f310a538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

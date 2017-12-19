@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31fc1a03_1dc1013e",
+        "filename": "modules/video_capture/device_info_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2017-12-19T09:58:30Z",
+      "side": 0,
+      "message": "Would be good to know if there was ever any reason to do it this way.",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "8424acdde3391e1fa500da0190c63b637f8c0ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -142,6 +142,30 @@
       "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8967558d_05b3f86b",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2017-12-19T14:27:49Z",
+      "side": 1,
+      "message": "Yes, this CL is good to go. I will try to create another one to confirm that this is another case where all_dependent_configs should be used.",
+      "parentUuid": "ccf58d54_a165c0e0",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

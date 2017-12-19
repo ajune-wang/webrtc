@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce92523c_a51dfa73",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "Here and elsewhere: What about the ssrc \u003d\u003d 0 case, will this CHECK fail?\n\nEven if we get an Info, this can produce non-unique stats IDs if multiple senders can have ssrc \u003d\u003d 0 before connecting.\n\nIf we should be able to support ssrc being \"undefined\" for a sender, we need to give senders an ID guaranteed to be unique (for example, a sequence number that increases every time we create a sender) and use that for the RTCStats::id. If you do that, I would suggest doing it in a separate CL and just skip the stats if voice_sender_info is null.",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8c2b033_9c7414bc",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "nit: Unnecessary newline and comment. A comment at the top saying iterating receivers to get remote tracks makes sense though (and same for iterating senders to get local tracks).",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f403d14_bafb18a7",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "See next comment.",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77574e9d_e606788e",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "This was before your change too, but I think there is a bug. local_streams() are streams added with addStream, not addTrack-streams, which are only stored by stream_ids in the sender[1]. pthatcher has argued about moving away from streams, since they\u0027re only IDs at this point[2], the concept of a stream object only making sense in JavaScript land. So we should not rely on MediaStreamInterface::GetAudio/VideoTracks().\n\nThis might make sense to do in a follow-up CL, you decide, but I think we need to implement ProduceMediaStreamStats as determining which tracks belong to which stream based on looping through senders, their tracks and stream IDs. This should also be done for receivers instead of remote_streams() since we want to deprecate remote_streams(), but the remote case will work without bugs.\n\nWe should have test coverage doing this:\n\n  stream \u003d { track1 }  // Which track is added to a stream is irrelevant for addTrack.\n  addTrack(track2, stream);\n  Expect RTCMediaStreamStats describing \"stream -\u003e track2\", not \"stream -\u003e track1\" and\n  RTCMediaStreamTrackStats describing track2, not track1.\n\nI suspect we would fail this test, but I haven\u0027t tested. Can you file a bug or address?\n\n[1] https://cs.chromium.org/chromium/src/third_party/webrtc/api/rtpsenderinterface.h?q\u003dRtpSenderInterface\u0026sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026l\u003d52\n[2] https://webrtc-review.googlesource.com/c/src/+/31647/1/pc/peerconnection.cc#1010",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5725afe_f7d605ab",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "If we have an enum with { kAddStream, kAddTrack }, can we TEST_P and run all tests using tracks/streams for both API usages like the legacy stats unittest change?",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7393782_6d4efeb1",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "We should have a test case for multiple senders with ssrc \u003d\u003d 0, if this is what happens before you setLocalDescription/connect or in any other circumstance.",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73219465_8e8c4efc",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "Here and elsewhere: If you want to test the same thing it should be AddTrack(track_, {stream_});",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae7ebe4d_b057792a",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "Since you\u0027ve already returned on false, DCHECK(GetParam())?",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85bd9062_96405542",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2191,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "nit: Is it possible to do this with enum instead of Bool? kAddStream, kAddTrack",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268b1618_cb23edbc",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-19T20:20:14Z",
+      "side": 1,
+      "message": "What about the ssrc \u003d\u003d 0 case? Before you connect, can multiple senders all have ssrc 0? If so, can you only add the mapping if ssrc !\u003d 0?",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

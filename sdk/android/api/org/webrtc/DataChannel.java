@@ -13,6 +13,7 @@ package org.webrtc;
 import java.nio.ByteBuffer;
 
 /** Java wrapper for a C++ DataChannelInterface. */
+@JNINamespace("webrtc::jni")
 public class DataChannel {
   /** Java wrapper for WebIDL RTCDataChannel. */
   public static class Init {
@@ -113,33 +114,55 @@ public class DataChannel {
   /** Register |observer|, replacing any previously-registered observer. */
   public void registerObserver(Observer observer) {
     if (nativeObserver != 0) {
-      unregisterObserverNative(nativeObserver);
+      nativeUnregisterObserver(nativeObserver);
     }
-    nativeObserver = registerObserverNative(observer);
+    nativeObserver = nativeRegisterObserver(observer);
   }
-  private native long registerObserverNative(Observer observer);
+
+  private native long nativeRegisterObserver(Observer observer);
 
   /** Unregister the (only) observer. */
   public void unregisterObserver() {
-    unregisterObserverNative(nativeObserver);
+    nativeUnregisterObserver(nativeObserver);
   }
-  private native void unregisterObserverNative(long nativeObserver);
 
-  public native String label();
+  private native void nativeUnregisterObserver(long observer);
 
-  public native int id();
+  public String label() {
+    return nativeLabel();
+  }
 
-  public native State state();
+  public int id() {
+    return nativeId();
+  }
+
+  public State state() {
+    return nativeState();
+  }
+
+  private native String nativeLabel();
+
+  private native int nativeId();
+
+  private native State nativeState();
 
   /**
    * Return the number of bytes of application data (UTF-8 text and binary data)
    * that have been queued using SendBuffer but have not yet been transmitted
    * to the network.
    */
-  public native long bufferedAmount();
+  public long bufferedAmount() {
+    return nativeBufferedAmount();
+  }
+
+  private native long nativeBufferedAmount();
 
   /** Close the channel. */
-  public native void close();
+  public void close() {
+    nativeClose();
+  }
+
+  private native void nativeClose();
 
   /** Send |data| to the remote peer; return success. */
   public boolean send(Buffer buffer) {
@@ -147,9 +170,10 @@ public class DataChannel {
     // ByteBuffer is direct and/or is backed by an array.
     byte[] data = new byte[buffer.data.remaining()];
     buffer.data.get(data);
-    return sendNative(data, buffer.binary);
+    return nativeSend(data, buffer.binary);
   }
-  private native boolean sendNative(byte[] data, boolean binary);
+
+  private native boolean nativeSend(byte[] data, boolean binary);
 
   /** Dispose of native resources attached to this channel. */
   public void dispose() {

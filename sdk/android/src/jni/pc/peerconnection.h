@@ -27,10 +27,11 @@ namespace jni {
 
 void JavaToNativeRTCConfiguration(
     JNIEnv* jni,
-    jobject j_rtc_config,
+    const JavaRef<jobject>& j_rtc_config,
     PeerConnectionInterface::RTCConfiguration* rtc_config);
 
-rtc::KeyType GetRtcConfigKeyType(JNIEnv* env, jobject j_rtc_config);
+rtc::KeyType GetRtcConfigKeyType(JNIEnv* env,
+                                 const JavaRef<jobject>& j_rtc_config);
 
 // Adapter between the C++ PeerConnectionObserver interface and the Java
 // PeerConnection.Observer interface.  Wraps an instance of the Java interface
@@ -38,7 +39,7 @@ rtc::KeyType GetRtcConfigKeyType(JNIEnv* env, jobject j_rtc_config);
 class PeerConnectionObserverJni : public PeerConnectionObserver,
                                   public sigslot::has_slots<> {
  public:
-  PeerConnectionObserverJni(JNIEnv* jni, jobject j_observer);
+  PeerConnectionObserverJni(JNIEnv* jni, const JavaRef<jobject>& j_observer);
   virtual ~PeerConnectionObserverJni();
 
   // Implementation of PeerConnectionObserver interface, which propagates
@@ -73,13 +74,13 @@ class PeerConnectionObserverJni : public PeerConnectionObserver,
   void DisposeRemoteStream(const NativeToJavaStreamsMap::iterator& it);
 
   // If the NativeToJavaStreamsMap contains the stream, return it.
-  // Otherwise, create a new Java MediaStream. Returns a global jobject.
-  jobject GetOrCreateJavaStream(
+  // Otherwise, create a new Java MediaStream.
+  ScopedJavaGlobalRef<jobject>& GetOrCreateJavaStream(
       JNIEnv* env,
       const rtc::scoped_refptr<MediaStreamInterface>& stream);
 
   // Converts array of streams, creating or re-using Java streams as necessary.
-  jobjectArray NativeToJavaMediaStreamArray(
+  ScopedJavaLocalRef<jobjectArray> NativeToJavaMediaStreamArray(
       JNIEnv* jni,
       const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams);
 
@@ -94,7 +95,7 @@ class PeerConnectionObserverJni : public PeerConnectionObserver,
   void OnVideoTrackRemovedFromStream(VideoTrackInterface* track,
                                      MediaStreamInterface* stream);
 
-  const ScopedGlobalRef<jobject> j_observer_global_;
+  const ScopedJavaGlobalRef<jobject> j_observer_global_;
 
   // C++ -> Java remote streams. The stored jobects are global refs and must be
   // manually deleted upon removal. Use DisposeRemoteStream().

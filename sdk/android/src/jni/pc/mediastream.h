@@ -11,10 +11,8 @@
 #ifndef SDK_ANDROID_SRC_JNI_PC_MEDIASTREAM_H_
 #define SDK_ANDROID_SRC_JNI_PC_MEDIASTREAM_H_
 
-#include <jni.h>
-
 #include "api/mediastreaminterface.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "sdk/android/src/jni/scoped_java_ref.h"
 
 namespace webrtc {
 namespace jni {
@@ -26,10 +24,10 @@ class GlobalJavaMediaStream {
       rtc::scoped_refptr<MediaStreamInterface> media_stream);
   ~GlobalJavaMediaStream();
 
-  jobject j_media_stream() { return *j_media_stream_; }
+  ScopedJavaGlobalRef<jobject>& j_media_stream() { return j_media_stream_; }
 
  private:
-  ScopedGlobalRef<jobject> j_media_stream_;
+  ScopedJavaGlobalRef<jobject> j_media_stream_;
 };
 
 jclass GetMediaStreamClass(JNIEnv* env);
@@ -37,20 +35,20 @@ jclass GetMediaStreamClass(JNIEnv* env);
 void AddNativeAudioTrackToJavaStream(
     JNIEnv* env,
     rtc::scoped_refptr<AudioTrackInterface> track,
-    jobject j_stream);
+    const JavaRef<jobject>& j_stream);
 
 void AddNativeVideoTrackToJavaStream(
     JNIEnv* env,
     rtc::scoped_refptr<VideoTrackInterface> track,
-    jobject j_stream);
+    const JavaRef<jobject>& j_stream);
 
 void RemoveAudioTrackFromStream(JNIEnv* env,
                                 AudioTrackInterface* track,
-                                jobject j_media_stream);
+                                const JavaRef<jobject>& j_media_stream);
 
 void RemoveVideoTrackFromStream(JNIEnv* env,
                                 VideoTrackInterface* track,
-                                jobject j_media_stream);
+                                const JavaRef<jobject>& j_media_stream);
 
 }  // namespace jni
 }  // namespace webrtc

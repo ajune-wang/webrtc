@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8ee05ac_bb1693eb",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2017-12-19T12:18:33Z",
+      "side": 1,
+      "message": "We could add a setter for the config struct as well, but then we would have to make a copy, which is less efficient than the current approach (not sure how important that is).",
+      "range": {
+        "startLine": 654,
+        "startChar": 26,
+        "endLine": 654,
+        "endChar": 54
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

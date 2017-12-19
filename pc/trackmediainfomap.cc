@@ -135,6 +135,7 @@ TrackMediaInfoMap::TrackMediaInfoMap(
         audio_track_by_sender_info_[&sender_info] = associated_track;
         voice_infos_by_local_track_[associated_track].push_back(&sender_info);
       }
+      voice_info_by_sender_ssrc_[sender_info.ssrc()] = &sender_info;
     }
     for (auto& receiver_info : voice_media_info_->receivers) {
       AudioTrackInterface* associated_track =
@@ -150,6 +151,7 @@ TrackMediaInfoMap::TrackMediaInfoMap(
         audio_track_by_receiver_info_[&receiver_info] = unsignaled_audio_track;
         voice_info_by_remote_track_[unsignaled_audio_track] = &receiver_info;
       }
+      voice_info_by_receiver_ssrc_[receiver_info.ssrc()] = &receiver_info;
     }
   }
   if (video_media_info_) {
@@ -162,6 +164,7 @@ TrackMediaInfoMap::TrackMediaInfoMap(
         video_track_by_sender_info_[&sender_info] = associated_track;
         video_infos_by_local_track_[associated_track].push_back(&sender_info);
       }
+      video_info_by_sender_ssrc_[sender_info.ssrc()] = &sender_info;
     }
     for (auto& receiver_info : video_media_info_->receivers) {
       VideoTrackInterface* associated_track =
@@ -177,6 +180,7 @@ TrackMediaInfoMap::TrackMediaInfoMap(
         video_track_by_receiver_info_[&receiver_info] = unsignaled_video_track;
         video_info_by_remote_track_[unsignaled_video_track] = &receiver_info;
       }
+      video_info_by_receiver_ssrc_[receiver_info.ssrc()] = &receiver_info;
     }
   }
 }
@@ -201,6 +205,25 @@ TrackMediaInfoMap::GetVideoSenderInfos(
 const cricket::VideoReceiverInfo* TrackMediaInfoMap::GetVideoReceiverInfo(
     const VideoTrackInterface& remote_video_track) const {
   return FindValueOrNull(video_info_by_remote_track_, &remote_video_track);
+}
+
+const cricket::VoiceSenderInfo* TrackMediaInfoMap::GetVoiceSenderInfoBySsrc(
+    uint32_t ssrc) const {
+  return FindValueOrNull(voice_info_by_sender_ssrc_, ssrc);
+}
+const cricket::VoiceReceiverInfo* TrackMediaInfoMap::GetVoiceReceiverInfoBySsrc(
+    uint32_t ssrc) const {
+  return FindValueOrNull(voice_info_by_receiver_ssrc_, ssrc);
+}
+
+const cricket::VideoSenderInfo* TrackMediaInfoMap::GetVideoSenderInfoBySsrc(
+    uint32_t ssrc) const {
+  return FindValueOrNull(video_info_by_sender_ssrc_, ssrc);
+}
+
+const cricket::VideoReceiverInfo* TrackMediaInfoMap::GetVideoReceiverInfoBySsrc(
+    uint32_t ssrc) const {
+  return FindValueOrNull(video_info_by_receiver_ssrc_, ssrc);
 }
 
 rtc::scoped_refptr<AudioTrackInterface> TrackMediaInfoMap::GetAudioTrack(

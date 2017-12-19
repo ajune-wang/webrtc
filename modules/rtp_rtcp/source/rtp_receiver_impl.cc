@@ -96,7 +96,8 @@ RtpReceiverImpl::RtpReceiverImpl(Clock* clock,
       num_csrcs_(0),
       current_remote_csrc_(),
       last_received_timestamp_(0),
-      last_received_frame_time_ms_(-1) {
+      last_received_frame_time_ms_(-1),
+      needs_ssrc_audio_level_(false) {
   assert(incoming_messages_callback);
 
   memset(current_remote_csrc_, 0, sizeof(current_remote_csrc_));
@@ -163,6 +164,16 @@ int32_t RtpReceiverImpl::Energy(
   return rtp_media_receiver_->Energy(array_of_energy);
 }
 
+bool RtpReceiverImpl::NeedsSSRCAudioLevel() const {
+  return needs_ssrc_audio_level_;
+}
+
+void RtpReceiverImpl::SetSSRCAudioLevel(uint8_t level) {
+  RTC_DCHECK(!ssrc_sources_.empty());
+  needs_ssrc_audio_level_ = false;
+  ssrc_sources_.back().set_audio_level(rtc::Optional<uint8_t>(level));
+}
+
 bool RtpReceiverImpl::IncomingRtpPacket(const RTPHeader& rtp_header,
                                         const uint8_t* payload,
                                         size_t payload_length,
@@ -193,6 +204,7 @@ bool RtpReceiverImpl::IncomingRtpPacket(const RTPHeader& rtp_header,
           ? rtc::Optional<uint8_t>(rtp_header.extension.audioLevel)
           : rtc::nullopt;
   UpdateSources(audio_level);
+  needs_ssrc_audio_level_ = !rtp_header.extension.hasAudioLevel;
 
   int32_t ret_val = rtp_media_receiver_->ParseRtpPacket(
       &webrtc_rtp_header, payload_specific, is_red, payload, payload_length,

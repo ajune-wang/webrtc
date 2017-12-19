@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+// #include "logging/rtc_event_log/icelogger.h"
 #include "p2p/base/common.h"
 #include "p2p/base/portallocator.h"
 #include "rtc_base/base64.h"
@@ -681,6 +682,7 @@ void Port::SendBindingResponse(StunMessage* request,
         << ", id=" << rtc::hex_encode(response.transaction_id());
 
     conn->stats_.sent_ping_responses++;
+    conn->SignalConnectivityCheckResponseSent(conn);
   }
 }
 
@@ -1128,6 +1130,7 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
   }
 
   stats_.recv_ping_requests++;
+  SignalConnectivityCheckReceived(this);
 
   // This is a validated stun request from remote peer.
   port_->SendBindingResponse(msg, remote_addr);
@@ -1458,6 +1461,7 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
   packet_loss_estimator_.ReceivedResponse(request->id(), time_received);
 
   stats_.recv_ping_responses++;
+  SignalConnectivityCheckResponseReceived(this);
 
   MaybeUpdateLocalCandidate(request, response);
 }
@@ -1502,6 +1506,7 @@ void Connection::OnConnectionRequestSent(ConnectionRequest* request) {
                     << ", use_candidate=" << use_candidate_attr()
                     << ", nomination=" << nomination();
   stats_.sent_ping_requests_total++;
+  SignalConnectivityCheckSent(this);
   if (stats_.recv_ping_responses == 0) {
     stats_.sent_ping_requests_before_first_response++;
   }

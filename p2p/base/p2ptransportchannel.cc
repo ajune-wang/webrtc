@@ -17,6 +17,7 @@
 
 #include "api/candidate.h"
 #include "api/umametrics.h"
+#include "logging/rtc_event_log/icelogger.h"
 #include "p2p/base/candidatepairinterface.h"
 #include "p2p/base/common.h"
 #include "p2p/base/relayport.h"  // For RELAY_PORT_TYPE.
@@ -103,7 +104,8 @@ static constexpr int b_is_better = -1;
 
 P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
                                          int component,
-                                         PortAllocator* allocator)
+                                         PortAllocator* allocator,
+                                         webrtc::RtcEventLog* event_log)
     : transport_name_(transport_name),
       component_(component),
       allocator_(allocator),
@@ -131,6 +133,14 @@ P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
   if (weak_ping_interval) {
     weak_ping_interval_ = static_cast<int>(weak_ping_interval);
   }
+  ice_log_.set_event_log(event_log);
+  // Self-signals for ICE logging.
+  SignalCandidatePairAdded.connect(
+      this, &P2PTransportChannel::OnCandidatePairStateUpdate<
+                webrtc::IceLogCpState::kInactive>);
+  SignalCandidatePairSelected.connect(
+      this, &P2PTransportChannel::OnCandidatePairStateUpdate<
+                webrtc::IceLogCpState::kSelected>);
 }
 
 P2PTransportChannel::~P2PTransportChannel() {
@@ -177,7 +187,23 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
   connection->SignalDestroyed.connect(
       this, &P2PTransportChannel::OnConnectionDestroyed);
   connection->SignalNominated.connect(this, &P2PTransportChannel::OnNominated);
+  // Signals for ICE logging.
+  connection->SignalConnectivityCheckSent.connect(
+      this, &P2PTransportChannel::OnCandidatePairStateUpdate<
+                webrtc::IceLogCpState::kCheckSent>);
+  connection->SignalConnectivityCheckReceived.connect(
+      this, &P2PTransportChannel::OnCandidatePairStateUpdate<
+                webrtc::IceLogCpState::kCheckReceived>);
+  connection->SignalConnectivityCheckResponseSent.connect(
+      this, &P2PTransportChannel::OnCandidatePairStateUpdate<
+                webrtc::IceLogCpState::kCheckResponseSent>);
+  connection->SignalConnectivityCheckResponseReceived.connect(
+      this, &P2PTransportChannel::OnCandidatePairStateUpdate<
+                webrtc::IceLogCpState::kCheckResponseReceived>);
+
   had_connection_ = true;
+
+  SignalCandidatePairAdded(connection);
 }
 
 // Determines whether we should switch the selected connection to
@@ -1472,6 +1498,7 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
   // destroyed, so don't use it.
   Connection* old_selected_connection = selected_connection_;
   selected_connection_ = conn;
+  SignalCandidatePairSelected(conn);
   network_route_.reset();
   if (selected_connection_) {
     ++nomination_;
@@ -2183,6 +2210,45 @@ int P2PTransportChannel::SampleRegatherAllNetworksInterval() {
   auto interval = config_.regather_all_networks_interval_range;
   RTC_DCHECK(interval);
   return rand_.Rand(interval->min(), interval->max());
+}
+
+// TODO(qingsi): remove this copy of the same function in |network| after
+// refactoring various ToString methods in |connection|, |port|, |network|.
+namespace {
+
+std::string AdapterTypeToString(rtc::AdapterType type) {
+  switch (type) {
+    case rtc::ADAPTER_TYPE_UNKNOWN:
+      return "Unknown";
+    case rtc::ADAPTER_TYPE_ETHERNET:
+      return "Ethernet";
+    case rtc::ADAPTER_TYPE_WIFI:
+      return "Wifi";
+    case rtc::ADAPTER_TYPE_CELLULAR:
+      return "Cellular";
+    case rtc::ADAPTER_TYPE_VPN:
+      return "VPN";
+    case rtc::ADAPTER_TYPE_LOOPBACK:
+      return "Loopback";
+    default:
+      RTC_NOTREACHED() << "Invalid type " << type;
+      return std::string();
+  }
+}
+
+}  // namespace
+
+std::string P2PTransportChannel::GetCandidatePairDescription(
+    Connection* conn) const {
+  const Candidate& local = conn->local_candidate();
+  const Candidate& remote = conn->remote_candidate();
+  Port* const port = conn->port();
+  rtc::Network* const network = port->Network();
+  std::stringstream ss;
+  ss << port->content_name() << ":" << local.type() << ":" << local.protocol()
+     << ":" << AdapterTypeToString(network->type()) << "->" << remote.type()
+     << ":" << remote.protocol();
+  return ss.str();
 }
 
 }  // namespace cricket

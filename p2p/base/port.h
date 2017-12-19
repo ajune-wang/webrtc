@@ -491,6 +491,12 @@ class Connection : public CandidatePairInterface,
 
   sigslot::signal1<Connection*> SignalStateChange;
 
+  // Signals used for ICE logging.
+  sigslot::signal1<Connection*> SignalConnectivityCheckSent;
+  sigslot::signal1<Connection*> SignalConnectivityCheckReceived;
+  sigslot::signal1<Connection*> SignalConnectivityCheckResponseSent;
+  sigslot::signal1<Connection*> SignalConnectivityCheckResponseReceived;
+
   // Sent when the connection has decided that it is no longer of value.  It
   // will delete itself immediately after this call.
   sigslot::signal1<Connection*> SignalDestroyed;

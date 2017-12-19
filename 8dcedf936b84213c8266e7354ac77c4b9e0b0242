@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "6a16639a_ef882015",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-12-19T15:59:32Z",
+      "side": 1,
+      "message": "That\u0027s fine too, the code lgtm as is.\n\nI wouldn\u0027t consider it reimplementing though, the reasoning goes either way. This function body could simply be:\n\nreturn AudioProcessing::Create(config, std::move(capture_post_processing_), std::move(echo_control_factory_), nonlinear_beamformer_.release());\n\nThen it\u0027s clear to anyone considering constructing APM this way that every APM creation delegates to a single function and it\u0027s obvious that it\u0027s safe to swap out a AudioProcessing::Create call. This decreases the work for whoever makes and reviews those changes.",
+      "parentUuid": "d7012610_fdab55f0",
+      "range": {
+        "startLine": 334,
+        "startChar": 17,
+        "endLine": 334,
+        "endChar": 47
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "398fcb5c_52e72375",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1

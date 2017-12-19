@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bde74082_8f357019",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-12-19T15:59:32Z",
+      "side": 1,
+      "message": "It\u0027s not uncommon to let the setters return references to the object, might be worth doing here:\n\nAudioProcessingBuilder\u0026 SetEchoControlFactory(...) {\n  // ...\n  return *this;\n}\n\nUsers can then chain calls. Comparison:\n\n// returns reference:\nauto apm \u003d AudioProcessingBuilder(config).SetCapturePostProcessing(std::move(capture_post_processing))\n                              .SetEchoControlFactory(std::move(echo_control_factory))\n                              .SetNonLinearBeamFormer(std::move(nonlinear_beamformer))\n                              .Create();\n// doesn\u0027t return reference:\nAudioProcessingBuilder apm_builder(config);\napm_builder.SetCapturePostProcessing(std::move(capture_post_processing));\napm_builder.SetEchoControlFactory(std::move(echo_control_factory));\napm_builder.SetNonLinearBeamFormer(std::move(nonlinear_beamformer));\nauto apm \u003d apm_builder.Create();",
+      "range": {
+        "startLine": 644,
+        "startChar": 2,
+        "endLine": 644,
+        "endChar": 6
+      },
+      "revId": "51fef07153a28966d5e3d46eccfe2e67a4bb297a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

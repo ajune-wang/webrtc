@@ -22,6 +22,30 @@
       "revId": "a63d855f2e0fefa1fc3e867381148351866ac0a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c893c7_426ef066",
+        "filename": "call/video_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2017-12-19T15:17:14Z",
+      "side": 1,
+      "message": "I tend to agree.",
+      "parentUuid": "000e7b52_63ae4182",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "a63d855f2e0fefa1fc3e867381148351866ac0a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

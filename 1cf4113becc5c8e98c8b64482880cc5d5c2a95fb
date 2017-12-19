@@ -2,6 +2,511 @@
   "comments": [
     {
       "key": {
+        "uuid": "cf892801_2080f24d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1985,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "Is this a TODO?",
+      "range": {
+        "startLine": 1985,
+        "startChar": 50,
+        "endLine": 1985,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ab869c9_13e47064",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "If the transceiver doesn\u0027t have a direction we treat it as those it has recv direction and process removal of something?",
+      "range": {
+        "startLine": 1988,
+        "startChar": 47,
+        "endLine": 1988,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14ed8a2d_6046678b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "Is this a TODO?",
+      "range": {
+        "startLine": 1990,
+        "startChar": 49,
+        "endLine": 1990,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2adbb13_a1525b32",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1993,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "If UpdateTransceiversAndDataChannels updates the direction, why do we do so here?",
+      "range": {
+        "startLine": 1993,
+        "startChar": 72,
+        "endLine": 1993,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32287d2b_261e69db",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1996,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "If UpdateTransceiversAndDataChannels is already stopping the transceiver if the remote side rejected, why do we do so here?",
+      "range": {
+        "startLine": 1996,
+        "startChar": 28,
+        "endLine": 1996,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fc6a4a6_3364902d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2094,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "Can we add some names to make this more readable?  \n\nFor example, alias ContentInfo to MediaSection.  And add media_sections() along with contents() and mid() along with name(), and a media_description() that auto-type-casts to a MediaContentDescription (to avoid all the typecasting here).",
+      "range": {
+        "startLine": 2094,
+        "startChar": 71,
+        "endLine": 2094,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8149a171_5b53c3f3",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2096,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "new_content would make this more clear (and new_contents)",
+      "range": {
+        "startLine": 2096,
+        "startChar": 54,
+        "endLine": 2096,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88d7a20b_fdf83524",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "If the old_content was media and the new_content isn\u0027t.... shouldn\u0027t we just fail?  That seems like an invalid thing to be setting.",
+      "range": {
+        "startLine": 2100,
+        "startChar": 15,
+        "endLine": 2100,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa9eee6e_fa7c33bf",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2107,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "An early continue here would be nice.",
+      "range": {
+        "startLine": 2107,
+        "startChar": 50,
+        "endLine": 2107,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6754e4b_ff2ebf83",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "Is the mid used even if association fails?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4adf5aa_8701a60c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "If it\u0027s only called here, why not inline it?",
+      "range": {
+        "startLine": 2126,
+        "startChar": 71,
+        "endLine": 2126,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52e53072_4bdb1d86",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2153,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "An early return here would be nice",
+      "range": {
+        "startLine": 2153,
+        "startChar": 5,
+        "endLine": 2153,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb282e07_c01f214d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2155,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "An early return here would be nice as well",
+      "range": {
+        "startLine": 2155,
+        "startChar": 19,
+        "endLine": 2155,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e941651_32c2db73",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2241,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "GetTransceiverByMid?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4bb6182_7e38f58f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "It would be nice to have the spec section reference for this.",
+      "range": {
+        "startLine": 2270,
+        "startChar": 20,
+        "endLine": 2270,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a897e567_b927ead9",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3104,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "Do we need to use this set or can we just make sure we don\u0027t use any mid already in the local and remote descriptions?",
+      "range": {
+        "startLine": 3104,
+        "startChar": 74,
+        "endLine": 3104,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "454dd2ba_a1337ee9",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3111,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "We should put a TODO here to pull the number of encodings out of the RTP parameters of the transceiver which came from AddTransceiver.",
+      "range": {
+        "startLine": 3111,
+        "startChar": 36,
+        "endLine": 3111,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "414c3681_bde144ae",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3131,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "Might be more readable to have a \n\nsize_t mline_count \u003d std::max(local_contents.size(), remote_contents.size());\nfor (size_t i \u003d 0; i \u003c mline_count; ++i)",
+      "range": {
+        "startLine": 3131,
+        "startChar": 67,
+        "endLine": 3131,
+        "endChar": 68
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d5fd96_a93e2c67",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3142,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "It seems like things would be more readable if you had a GetMediaSection(desc, index).   Then you could do something like:\n\nauto local_msection \u003d GetMediaSection(local_description(), i);\nauto remote_msection \u003d GetMediaSection(remote_description(), i);\nauto msection \u003d local_msection ? *local_msection : *remote_msection;\nauto media \u003d msection.media_description()\nhad_been_rejected \u003d (local_msection \u0026\u0026 local_msection-\u003erejected) || (remote_msection \u0026\u0026 remote_msection-\u003erejected)\nauto transceiver \u003d GetAssociatedTransceiver(msection.mid());",
+      "range": {
+        "startLine": 3142,
+        "startChar": 5,
+        "endLine": 3142,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e6d7fa6_9dda446b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3155,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "Just calling CreateOffer or CreateAnswer causes the transceiver state to change?  Is that right?  I thought that could only happen when we call SetLocal or SetRemote.  But I could be wrong.",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0d7286a_d7229a49",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3167,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "A reference to a spec section might be good.",
+      "range": {
+        "startLine": 3167,
+        "startChar": 43,
+        "endLine": 3167,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1f0e04_57662838",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3182,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "Same here about having CreateOffer or CreateAnswer change the state.\n\nCould it be that set_mid means \"this transceiver is associated with this mid\" and set_mline_index means \"this transceiver was offered/answered with this index in the most recent call to CreateOffer/CreateAnswer, but might not be associated yet\"?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7db5c0e_d4ce603a",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "This could use a comment.",
+      "range": {
+        "startLine": 917,
+        "startChar": 35,
+        "endLine": 917,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5e4f7171_72853bfe",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 9
@@ -64,6 +569,52 @@
       "writtenOn": "2017-12-19T02:12:49Z",
       "side": 1,
       "message": "May want to comment that this is tested for backwards compatibility. I don\u0027t think it\u0027s associated with the standard, is it?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f5d2504_f38ec233",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "This needs a comment describing what it is.",
+      "range": {
+        "startLine": 118,
+        "startChar": 65,
+        "endLine": 118,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed8d3e5_d0c92e16",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-19T20:32:22Z",
+      "side": 1,
+      "message": "We need a comment explaining current_direction vs direction.",
+      "range": {
+        "startLine": 126,
+        "startChar": 3,
+        "endLine": 126,
+        "endChar": 0
+      },
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

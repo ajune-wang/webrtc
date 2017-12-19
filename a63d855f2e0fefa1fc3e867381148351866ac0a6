@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "000e7b52_63ae4182",
+        "filename": "call/video_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2017-12-19T14:55:38Z",
+      "side": 1,
+      "message": "I\u0027d rather just hardcode 1.0 as the default here then have this dependency.  \n\nOr use an rtc::optional.",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "a63d855f2e0fefa1fc3e867381148351866ac0a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

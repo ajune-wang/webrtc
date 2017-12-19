@@ -46,6 +46,30 @@
       "revId": "a63d855f2e0fefa1fc3e867381148351866ac0a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5894c68d_27ec42cf",
+        "filename": "call/video_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2017-12-19T19:39:02Z",
+      "side": 1,
+      "message": "I decided to define this as 1.0 here. I thought through doing an optional here and it creates a lot of extra logic farther down, when really this value should be defined for every sender. It should get set anyways in the WebRtcVideoSendStream (other CL). This \"fallback\" default only gets used in edge cases, which I don\u0027t think should be a problem with having two separately defined defaults.",
+      "parentUuid": "f5c893c7_426ef066",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "a63d855f2e0fefa1fc3e867381148351866ac0a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

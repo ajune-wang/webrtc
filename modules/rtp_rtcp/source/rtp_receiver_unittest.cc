@@ -270,6 +270,7 @@ TEST_F(RtpReceiverTest, GetSourcesContainsAudioLevelExtension) {
   auto sources = rtp_receiver_->GetSources();
   EXPECT_THAT(sources, UnorderedElementsAre(RtpSource(
                            time1_ms, kSsrc1, RtpSourceType::SSRC, 10)));
+  EXPECT_FALSE(rtp_receiver_->NeedsSSRCAudioLevel());
 
   // Receive a packet from a different SSRC with a different level and check
   // that they are both remembered.
@@ -287,6 +288,7 @@ TEST_F(RtpReceiverTest, GetSourcesContainsAudioLevelExtension) {
               UnorderedElementsAre(
                   RtpSource(time1_ms, kSsrc1, RtpSourceType::SSRC, 10),
                   RtpSource(time2_ms, kSsrc2, RtpSourceType::SSRC, 20)));
+  EXPECT_FALSE(rtp_receiver_->NeedsSSRCAudioLevel());
 
   // Receive a packet from the first SSRC again and check that the level is
   // updated.
@@ -304,6 +306,7 @@ TEST_F(RtpReceiverTest, GetSourcesContainsAudioLevelExtension) {
               UnorderedElementsAre(
                   RtpSource(time3_ms, kSsrc1, RtpSourceType::SSRC, 30),
                   RtpSource(time2_ms, kSsrc2, RtpSourceType::SSRC, 20)));
+  EXPECT_FALSE(rtp_receiver_->NeedsSSRCAudioLevel());
 }
 
 TEST_F(RtpReceiverTest,
@@ -336,6 +339,7 @@ TEST_F(RtpReceiverTest,
   sources = rtp_receiver_->GetSources();
   EXPECT_THAT(sources, UnorderedElementsAre(
                            RtpSource(time2_ms, kSsrc1, RtpSourceType::SSRC)));
+  EXPECT_TRUE(rtp_receiver_->NeedsSSRCAudioLevel());
 }
 
 TEST_F(RtpReceiverTest, UpdatesTimestampsIfAndOnlyIfPacketArrivesInOrder) {

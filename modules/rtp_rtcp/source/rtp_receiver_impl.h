@@ -57,6 +57,9 @@ class RtpReceiverImpl : public RtpReceiver {
 
   int32_t Energy(uint8_t array_of_energy[kRtpCsrcSize]) const override;
 
+  bool NeedsSSRCAudioLevel() const override;
+  void SetSSRCAudioLevel(uint8_t level) override;
+
   TelephoneEventHandler* GetTelephoneEventHandler() override;
 
   std::vector<RtpSource> GetSources() const override;
@@ -108,6 +111,7 @@ class RtpReceiverImpl : public RtpReceiver {
   // The RtpSource objects are sorted chronologically.
   std::list<RtpSource> csrc_sources_;
   std::vector<RtpSource> ssrc_sources_;
+  bool needs_ssrc_audio_level_;
 };
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_SOURCE_RTP_RECEIVER_IMPL_H_

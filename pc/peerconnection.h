@@ -413,6 +413,44 @@ class PeerConnection : public PeerConnectionInterface,
   RTCError ApplyRemoteDescription(
       std::unique_ptr<SessionDescriptionInterface> desc);
 
+  // Updates the local RtpTransceivers according to the JSEP rules. Called as
+  // part of setting the local/remote description.
+  RTCError UpdateTransceiversAndDataChannels(
+      cricket::ContentSource source,
+      const SessionDescriptionInterface* old_session,
+      const SessionDescriptionInterface& new_session,
+      const cricket::ContentGroup* bundle_group);
+
+  // Either creates or destroys the transceiver's BaseChannel according to the
+  // given media section.
+  RTCError UpdateTransceiverChannel(
+      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+          transceiver,
+      const cricket::ContentInfo& content,
+      const cricket::ContentGroup* bundle_group);
+
+  // Associate the given transceiver according to the JSEP rules.
+  RTCErrorOr<
+      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
+  AssociateTransceiver(cricket::ContentSource source,
+                       int mline_index,
+                       const cricket::ContentInfo& content,
+                       const cricket::ContentInfo* old_content);
+
+  // Returns the RtpTransceiver, if found, that is associated to the given MID.
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetAssociatedTransceiver(const std::string& mid) const;
+
+  // Returns the RtpTransceiver, if found, that was assigned to the given mline
+  // index in CreateOffer.
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  GetTransceiverByMLineIndex(int mline_index) const;
+
+  // Returns an RtpTransciever, if available, that can be used to receive the
+  // given media type according to JSEP rules.
+  rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+  FindAvailableTransceiverToReceive(cricket::MediaType media_type) const;
+
   // Returns the media section in the given session description that is
   // associated with the RtpTransceiver. Returns null if none found or this
   // RtpTransceiver is not associated. Logic varies depending on the
@@ -428,14 +466,30 @@ class PeerConnection : public PeerConnectionInterface,
 
   // Returns a MediaSessionOptions struct with options decided by |options|,
   // the local MediaStreams and DataChannels.
-  void GetOptionsForOffer(
-      const PeerConnectionInterface::RTCOfferAnswerOptions& rtc_options,
+  void GetOptionsForOffer(const PeerConnectionInterface::RTCOfferAnswerOptions&
+                              offer_answer_options,
+                          cricket::MediaSessionOptions* session_options);
+  void GetOptionsForPlanBOffer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
+      cricket::MediaSessionOptions* session_options);
+  void GetOptionsForUnifiedPlanOffer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
       cricket::MediaSessionOptions* session_options);
 
   // Returns a MediaSessionOptions struct with options decided by
   // |constraints|, the local MediaStreams and DataChannels.
-  void GetOptionsForAnswer(const RTCOfferAnswerOptions& options,
+  void GetOptionsForAnswer(const RTCOfferAnswerOptions& offer_answer_options,
                            cricket::MediaSessionOptions* session_options);
+  void GetOptionsForPlanBAnswer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
+      cricket::MediaSessionOptions* session_options);
+  void GetOptionsForUnifiedPlanAnswer(
+      const PeerConnectionInterface::RTCOfferAnswerOptions&
+          offer_answer_options,
+      cricket::MediaSessionOptions* session_options);
 
   // Generates MediaDescriptionOptions for the |session_opts| based on existing
   // local description or remote description.
@@ -860,6 +914,7 @@ class PeerConnection : public PeerConnectionInterface,
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
       transceivers_;
+  std::set<std::string> used_mids_;
 
   SessionError session_error_ = SessionError::kNone;
   std::string session_error_desc_;

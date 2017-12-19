@@ -39,18 +39,17 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
-#include "sdk/android/generated_peerconnection_jni/jni/MediaStream_jni.h"
 #include "sdk/android/generated_peerconnection_jni/jni/PeerConnection_jni.h"
-#include "sdk/android/generated_peerconnection_jni/jni/RtpSender_jni.h"
-#include "sdk/android/generated_peerconnection_jni/jni/TurnCustomizer_jni.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/pc/datachannel.h"
 #include "sdk/android/src/jni/pc/icecandidate.h"
 #include "sdk/android/src/jni/pc/mediaconstraints.h"
 #include "sdk/android/src/jni/pc/rtcstatscollectorcallbackwrapper.h"
+#include "sdk/android/src/jni/pc/rtpsender.h"
 #include "sdk/android/src/jni/pc/sdpobserver.h"
 #include "sdk/android/src/jni/pc/sessiondescription.h"
 #include "sdk/android/src/jni/pc/statsobserver.h"
+#include "sdk/android/src/jni/pc/turncustomizer.h"
 
 namespace webrtc {
 namespace jni {
@@ -60,15 +59,6 @@ namespace {
 PeerConnectionInterface* ExtractNativePC(JNIEnv* jni, jobject j_pc) {
   return reinterpret_cast<PeerConnectionInterface*>(
       Java_PeerConnection_getNativePeerConnection(jni, j_pc));
-}
-
-jobject NativeToJavaRtpSender(JNIEnv* env,
-                              rtc::scoped_refptr<RtpSenderInterface> sender) {
-  if (!sender)
-    return nullptr;
-  // Sender is now owned by the Java object, and will be freed from
-  // RtpSender.dispose(), called by PeerConnection.dispose() or getSenders().
-  return Java_RtpSender_Constructor(env, jlongFromPointer(sender.release()));
 }
 
 PeerConnectionInterface::IceServers JavaToNativeIceServers(
@@ -169,10 +159,7 @@ void JavaToNativeRTCConfiguration(
     rtc_config->ice_regather_interval_range.emplace(min, max);
   }
 
-  if (!IsNull(jni, j_turn_customizer)) {
-    rtc_config->turn_customizer = reinterpret_cast<webrtc::TurnCustomizer*>(
-        Java_TurnCustomizer_getNativeTurnCustomizer(jni, j_turn_customizer));
-  }
+  rtc_config->turn_customizer = GetNativeTurnCustomizer(jni, j_turn_customizer);
 }
 
 rtc::KeyType GetRtcConfigKeyType(JNIEnv* env, jobject j_rtc_config) {
@@ -247,13 +234,13 @@ void PeerConnectionObserverJni::OnAddStream(
   ScopedLocalRefFrame local_ref_frame(env);
   // The stream could be added into the remote_streams_ map when calling
   // OnAddTrack.
-  jobject j_stream = GetOrCreateJavaStream(stream);
+  jobject j_stream = GetOrCreateJavaStream(env, stream);
 
   for (const auto& track : stream->GetAudioTracks()) {
-    AddNativeAudioTrackToJavaStream(track, j_stream);
+    AddNativeAudioTrackToJavaStream(env, track, j_stream);
   }
   for (const auto& track : stream->GetVideoTracks()) {
-    AddNativeVideoTrackToJavaStream(track, j_stream);
+    AddNativeVideoTrackToJavaStream(env, track, j_stream);
   }
 
   Java_Observer_onAddStream(env, *j_observer_global_, j_stream);
@@ -272,29 +259,13 @@ void PeerConnectionObserverJni::OnAddStream(
   stream_observers_.push_back(std::move(observer));
 }
 
-void PeerConnectionObserverJni::AddNativeAudioTrackToJavaStream(
-    rtc::scoped_refptr<AudioTrackInterface> track,
-    jobject j_stream) {
-  JNIEnv* env = AttachCurrentThreadIfNeeded();
-  Java_MediaStream_addNativeAudioTrack(env, j_stream,
-                                       jlongFromPointer(track.release()));
-}
-
-void PeerConnectionObserverJni::AddNativeVideoTrackToJavaStream(
-    rtc::scoped_refptr<VideoTrackInterface> track,
-    jobject j_stream) {
-  JNIEnv* env = AttachCurrentThreadIfNeeded();
-  Java_MediaStream_addNativeVideoTrack(env, j_stream,
-                                       jlongFromPointer(track.release()));
-}
-
 void PeerConnectionObserverJni::OnAudioTrackAddedToStream(
     AudioTrackInterface* track,
     MediaStreamInterface* stream) {
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   ScopedLocalRefFrame local_ref_frame(env);
-  jobject j_stream = GetOrCreateJavaStream(stream);
-  AddNativeAudioTrackToJavaStream(track, j_stream);
+  AddNativeAudioTrackToJavaStream(env, track,
+                                  GetOrCreateJavaStream(env, stream));
 }
 
 void PeerConnectionObserverJni::OnVideoTrackAddedToStream(
@@ -302,8 +273,8 @@ void PeerConnectionObserverJni::OnVideoTrackAddedToStream(
     MediaStreamInterface* stream) {
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   ScopedLocalRefFrame local_ref_frame(env);
-  jobject j_stream = GetOrCreateJavaStream(stream);
-  AddNativeVideoTrackToJavaStream(track, j_stream);
+  AddNativeVideoTrackToJavaStream(env, track,
+                                  GetOrCreateJavaStream(env, stream));
 }
 
 void PeerConnectionObserverJni::OnAudioTrackRemovedFromStream(
@@ -311,8 +282,7 @@ void PeerConnectionObserverJni::OnAudioTrackRemovedFromStream(
     MediaStreamInterface* stream) {
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   ScopedLocalRefFrame local_ref_frame(env);
-  jobject j_stream = GetOrCreateJavaStream(stream);
-  Java_MediaStream_removeAudioTrack(env, j_stream, jlongFromPointer(track));
+  RemoveAudioTrackFromStream(env, track, GetOrCreateJavaStream(env, stream));
 }
 
 void PeerConnectionObserverJni::OnVideoTrackRemovedFromStream(
@@ -320,8 +290,7 @@ void PeerConnectionObserverJni::OnVideoTrackRemovedFromStream(
     MediaStreamInterface* stream) {
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   ScopedLocalRefFrame local_ref_frame(env);
-  jobject j_stream = GetOrCreateJavaStream(stream);
-  Java_MediaStream_removeVideoTrack(env, j_stream, jlongFromPointer(track));
+  RemoveVideoTrackFromStream(env, track, GetOrCreateJavaStream(env, stream));
 }
 
 void PeerConnectionObserverJni::OnRemoveStream(
@@ -331,7 +300,8 @@ void PeerConnectionObserverJni::OnRemoveStream(
   NativeToJavaStreamsMap::iterator it = remote_streams_.find(stream);
   RTC_CHECK(it != remote_streams_.end())
       << "unexpected stream: " << std::hex << stream;
-  Java_Observer_onRemoveStream(env, *j_observer_global_, it->second);
+  Java_Observer_onRemoveStream(env, *j_observer_global_,
+                               it->second.j_media_stream());
 
   // Release the refptr reference so that DisposeRemoteStream can assert
   // it removes the final reference.
@@ -374,7 +344,6 @@ void PeerConnectionObserverJni::SetConstraints(
 void PeerConnectionObserverJni::DisposeRemoteStream(
     const NativeToJavaStreamsMap::iterator& it) {
   MediaStreamInterface* stream = it->first;
-  jobject j_stream = it->second;
 
   // Remove the observer first, so it doesn't react to events during deletion.
   stream_observers_.erase(
@@ -386,38 +355,32 @@ void PeerConnectionObserverJni::DisposeRemoteStream(
       stream_observers_.end());
 
   remote_streams_.erase(it);
-  JNIEnv* env = AttachCurrentThreadIfNeeded();
-  Java_MediaStream_dispose(env, j_stream);
-  DeleteGlobalRef(env, j_stream);
 }
 
 // If the NativeToJavaStreamsMap contains the stream, return it.
 // Otherwise, create a new Java MediaStream.
 jobject PeerConnectionObserverJni::GetOrCreateJavaStream(
+    JNIEnv* env,
     const rtc::scoped_refptr<MediaStreamInterface>& stream) {
   NativeToJavaStreamsMap::iterator it = remote_streams_.find(stream);
-  if (it != remote_streams_.end()) {
-    return it->second;
+  if (it == remote_streams_.end()) {
+    it = remote_streams_
+             .emplace(std::piecewise_construct,
+                      std::forward_as_tuple(stream.get()),
+                      std::forward_as_tuple(env, stream))
+             .first;
   }
-  // Java MediaStream holds one reference. Corresponding Release() is in
-  // MediaStream_free, triggered by MediaStream.dispose().
-  stream->AddRef();
-  JNIEnv* env = AttachCurrentThreadIfNeeded();
-  jobject j_stream =
-      Java_MediaStream_Constructor(env, jlongFromPointer(stream.get()));
-
-  remote_streams_[stream] = NewGlobalRef(env, j_stream);
-  return j_stream;
+  return it->second.j_media_stream();
 }
 
 jobjectArray PeerConnectionObserverJni::NativeToJavaMediaStreamArray(
     JNIEnv* jni,
     const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams) {
-  jobjectArray java_streams = jni->NewObjectArray(
-      streams.size(), org_webrtc_MediaStream_clazz(jni), nullptr);
+  jobjectArray java_streams =
+      jni->NewObjectArray(streams.size(), GetMediaStreamClass(jni), nullptr);
   CHECK_EXCEPTION(jni) << "error during NewObjectArray";
   for (size_t i = 0; i < streams.size(); ++i) {
-    jobject j_stream = GetOrCreateJavaStream(streams[i]);
+    jobject j_stream = GetOrCreateJavaStream(jni, streams[i]);
     jni->SetObjectArrayElement(java_streams, i, j_stream);
   }
   return java_streams;
@@ -439,7 +402,7 @@ JNI_FUNCTION_DECLARATION(jobject,
                          jobject j_pc) {
   const SessionDescriptionInterface* sdp =
       ExtractNativePC(jni, j_pc)->local_description();
-  return sdp ? NativeToJavaSessionDescription(jni, sdp) : NULL;
+  return sdp ? NativeToJavaSessionDescription(jni, sdp) : nullptr;
 }
 
 JNI_FUNCTION_DECLARATION(jobject,
@@ -448,7 +411,7 @@ JNI_FUNCTION_DECLARATION(jobject,
                          jobject j_pc) {
   const SessionDescriptionInterface* sdp =
       ExtractNativePC(jni, j_pc)->remote_description();
-  return sdp ? NativeToJavaSessionDescription(jni, sdp) : NULL;
+  return sdp ? NativeToJavaSessionDescription(jni, sdp) : nullptr;
 }
 
 JNI_FUNCTION_DECLARATION(jobject,
@@ -705,7 +668,6 @@ JNI_FUNCTION_DECLARATION(void,
                          JNIEnv* jni,
                          jobject j_pc) {
   ExtractNativePC(jni, j_pc)->Close();
-  return;
 }
 
 }  // namespace jni

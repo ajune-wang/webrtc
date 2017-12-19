@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "6327bcc0_554c6153",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-12-19T13:20:12Z",
+      "side": 1,
+      "message": "Should probably be either set_capture_post_processing or SetCapturePostProcessing.\nhttps://google.github.io/styleguide/cppguide.html#Function_Names",
+      "range": {
+        "startLine": 314,
+        "startChar": 29,
+        "endLine": 314,
+        "endChar": 30
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "311ed626_18286193",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-12-19T13:20:12Z",
+      "side": 1,
+      "message": "To avoid code duplication and confusion, the static Create can delegate its work to this function.",
+      "range": {
+        "startLine": 334,
+        "startChar": 17,
+        "endLine": 334,
+        "endChar": 47
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "398fcb5c_52e72375",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-12-19T13:20:12Z",
+      "side": 1,
+      "message": "This is a nice opportunity to use the fancy TODO(bugs.webrtc.org/1337) todo-style, pointing to a tracking bug for this refactoring.",
+      "range": {
+        "startLine": 319,
+        "startChar": 5,
+        "endLine": 319,
+        "endChar": 15
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec3ed20_d4b60d32",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-12-19T13:20:12Z",
+      "side": 1,
+      "message": "What is the state of the AudioProcessingBuilder after calling Create? Might be worth documenting. Do we allow multiple Create calls? Do we want to guard (flip a bool and (D)CHECK) against it?",
+      "range": {
+        "startLine": 638,
+        "startChar": 0,
+        "endLine": 638,
+        "endChar": 28
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37febba3_169eca83",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-12-19T13:20:12Z",
+      "side": 1,
+      "message": "The class should explicitly disable copy semantics, maybe also move.\nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/constructormagic.h",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 28
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f3b19a_2071b722",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2017-12-19T13:20:12Z",
+      "side": 1,
+      "message": "While we\u0027re changing code anyway, aren\u0027t these meant to return scoped_refptr\u003cAudioProcessing\u003e at some point? Can we do that now? peah@?",
+      "range": {
+        "startLine": 653,
+        "startChar": 2,
+        "endLine": 653,
+        "endChar": 18
+      },
+      "revId": "8dcedf936b84213c8266e7354ac77c4b9e0b0242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8ee05ac_bb1693eb",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1

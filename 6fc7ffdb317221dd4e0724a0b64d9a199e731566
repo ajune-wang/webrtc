@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a30f8c97_d6cbe448",
+        "filename": "modules/congestion_controller/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-19T09:10:38Z",
+      "side": 1,
+      "message": "We can limit this one\u0027s visibility to this file, if you want.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "6fc7ffdb317221dd4e0724a0b64d9a199e731566",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

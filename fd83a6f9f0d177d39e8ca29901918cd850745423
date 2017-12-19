@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7f886f1_89ad9ba6",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2017-12-19T10:46:53Z",
+      "side": 1,
+      "message": "This here would be a pretty legit use of public_deps from rtc_base, but let\u0027s not do that I suppose :)",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "fd83a6f9f0d177d39e8ca29901918cd850745423",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

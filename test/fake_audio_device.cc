@@ -241,9 +241,9 @@ std::unique_ptr<FakeAudioDevice::Renderer>
 FakeAudioDevice::FakeAudioDevice(std::unique_ptr<Capturer> capturer,
                                  std::unique_ptr<Renderer> renderer,
                                  float speed)
-    : capturer_(std::move(capturer)),
-      renderer_(std::move(renderer)),
+    : renderer_(std::move(renderer)),
       speed_(speed),
+      capturer_(std::move(capturer)),
       audio_callback_(nullptr),
       rendering_(false),
       capturing_(false),
@@ -270,6 +270,12 @@ FakeAudioDevice::~FakeAudioDevice() {
   StopPlayout();
   StopRecording();
   thread_.Stop();
+}
+
+void FakeAudioDevice::SetCapturer(std::unique_ptr<Capturer> capturer) {
+  rtc::CritScope cs(&lock_);
+  RTC_CHECK(capturer);
+  capturer_ = std::move(capturer);
 }
 
 int32_t FakeAudioDevice::StartPlayout() {

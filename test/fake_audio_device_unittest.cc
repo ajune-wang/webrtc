@@ -13,9 +13,16 @@
 
 #include "common_audio/wav_file.h"
 #include "common_audio/wav_header.h"
+#include "rtc_base/ptr_util.h"
+#include "system_wrappers/include/sleep.h"
 #include "test/fake_audio_device.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
+
+using testing::_;
+using testing::AtLeast;
+using testing::Return;
 
 namespace webrtc {
 namespace test {
@@ -125,6 +132,50 @@ TEST(BoundedWavFileWriterTest, EndSilenceCutoff) {
   static const std::vector<int16_t> kExpectedSamples(kInputSamples.begin(),
                                                      kInputSamples.end() - 4);
   RunTest(kInputSamples, kExpectedSamples, 8);
+}
+
+class MockCapturer : public FakeAudioDevice::Capturer {
+ public:
+  MockCapturer() {}
+  ~MockCapturer() {}
+  MOCK_CONST_METHOD0(SamplingFrequency, int());
+  MOCK_METHOD1(Capture, bool(rtc::BufferT<int16_t>* buffer));
+};
+
+TEST(FakeAudioDeviceTest, SwitchCapturers) {
+  auto capturer_1 = rtc::MakeUnique<MockCapturer>();
+  MockCapturer* capturer_1_ptr = capturer_1.get();
+  auto capturer_2 = rtc::MakeUnique<MockCapturer>();
+  MockCapturer* capturer_2_ptr = capturer_2.get();
+
+  // Set a valid frequency for the capturers.
+  EXPECT_CALL(*capturer_1_ptr, SamplingFrequency())
+      .WillRepeatedly(Return(8000));
+  EXPECT_CALL(*capturer_2_ptr, SamplingFrequency())
+      .WillRepeatedly(Return(8000));
+
+  // Set up a fake audio device that uses one of the capturers.
+  FakeAudioDevice fake_audio_device(
+      std::move(capturer_1),
+      FakeAudioDevice::CreateDiscardRenderer(/*sampling_frequency_in_hz=*/8000),
+      1.0);
+  fake_audio_device.Init();
+  fake_audio_device.StartRecording();
+
+  // Expect both capturers to be used at one point.
+  EXPECT_CALL(*capturer_1_ptr, Capture(_))
+      .Times(AtLeast(1))
+      .WillRepeatedly(Return(true));
+  EXPECT_CALL(*capturer_2_ptr, Capture(_))
+      .Times(AtLeast(1))
+      .WillRepeatedly(Return(true));
+
+  // Switch to the other capturer halfway through.
+  SleepMs(100);
+  fake_audio_device.SetCapturer(std::move(capturer_2));
+  SleepMs(100);
+
+  fake_audio_device.StopRecording();
 }
 
 }  // namespace test

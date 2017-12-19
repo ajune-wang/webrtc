@@ -314,6 +314,10 @@ class AudioProcessing : public rtc::RefCountInterface {
   // instance for the near-end stream, and additional instances for each far-end
   // stream which requires processing. On the server-side, this would typically
   // be one instance for every incoming stream.
+  // The Create functions are deprecated, please use AudioProcessingBuilder
+  // instead.
+  // TODO(ivoc): Remove these Create functions when all callers have moved to
+  // AudioProcessingBuilder.
   static AudioProcessing* Create();
   // Allows passing in an optional configuration at create-time.
   static AudioProcessing* Create(const webrtc::Config& config);
@@ -629,6 +633,30 @@ class AudioProcessing : public rtc::RefCountInterface {
       kNativeSampleRatesHz[kNumNativeSampleRates - 1];
 
   static const int kChunkSizeMs = 10;
+};
+
+class AudioProcessingBuilder {
+ public:
+  AudioProcessingBuilder();
+  ~AudioProcessingBuilder();
+  // The AudioProcessingBuilder takes ownership of the echo_control_factory.
+  void setEchoControlFactory(
+      std::unique_ptr<EchoControlFactory> echo_control_factory);
+  // The AudioProcessingBuilder takes ownership of the capture_post_processing.
+  void setCapturePostProcessing(
+      std::unique_ptr<PostProcessing> capture_post_processing);
+  // The AudioProcessingBuilder takes ownership of the nonlinear beamformer.
+  void setNonlinearBeamformer(NonlinearBeamformer* nonlinear_beamformer);
+  // This creates an APM instance using the previously set components. Note that
+  // the previously set components are invalidated by this call, their ownership
+  // is transfered into the created APM instance.
+  AudioProcessing* Create();
+  AudioProcessing* Create(const webrtc::Config& config);
+
+ private:
+  std::unique_ptr<EchoControlFactory> echo_control_factory_;
+  std::unique_ptr<PostProcessing> capture_post_processing_;
+  NonlinearBeamformer* nonlinear_beamformer_;
 };
 
 class StreamConfig {

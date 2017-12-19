@@ -308,6 +308,40 @@ struct AudioProcessingImpl::ApmPrivateSubmodules {
   std::unique_ptr<PostProcessing> capture_post_processor;
 };
 
+AudioProcessingBuilder::AudioProcessingBuilder() = default;
+AudioProcessingBuilder::~AudioProcessingBuilder() = default;
+
+void AudioProcessingBuilder::setCapturePostProcessing(
+    std::unique_ptr<PostProcessing> capture_post_processing) {
+  capture_post_processing_ = std::move(capture_post_processing);
+}
+
+void AudioProcessingBuilder::setEchoControlFactory(
+    std::unique_ptr<EchoControlFactory> echo_control_factory) {
+  echo_control_factory_ = std::move(echo_control_factory);
+}
+
+void AudioProcessingBuilder::setNonlinearBeamformer(
+    NonlinearBeamformer* nonlinear_beamformer) {
+  nonlinear_beamformer_ = nonlinear_beamformer;
+}
+
+AudioProcessing* AudioProcessingBuilder::Create() {
+  webrtc::Config config;
+  return Create(config);
+}
+
+AudioProcessing* AudioProcessingBuilder::Create(const webrtc::Config& config) {
+  AudioProcessingImpl* apm = new rtc::RefCountedObject<AudioProcessingImpl>(
+      config, std::move(capture_post_processing_),
+      std::move(echo_control_factory_), nonlinear_beamformer_);
+  if (apm->Initialize() != AudioProcessing::kNoError) {
+    delete apm;
+    apm = nullptr;
+  }
+  return apm;
+}
+
 AudioProcessing* AudioProcessing::Create() {
   webrtc::Config config;
   return Create(config, nullptr, nullptr, nullptr);

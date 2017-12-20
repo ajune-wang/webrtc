@@ -168,6 +168,55 @@ public class YuvConverter {
         () -> { JniCommon.freeNativeByteBuffer(buffer); });
   }
 
+  /** Converts the texture buffer to I420. */
+  public I420Buffer convert(TextureBuffer textureBuffer, TextureBuffer maskBuffer) {
+    final int width = textureBuffer.getWidth();
+    final int height = textureBuffer.getHeight();
+
+    // SurfaceTextureHelper requires a stride that is divisible by 8.  Round width up.
+    // See SurfaceTextureHelper for details on the size and format.
+    final int stride = ((width + 7) / 8) * 8;
+    final int uvHeight = (height + 1) / 2;
+    // Due to the layout used by SurfaceTextureHelper, vPos + stride * uvHeight would overrun the
+    // buffer.  Add one row at the bottom to compensate for this.  There will never be data in the
+    // extra row, but now other code does not have to deal with v stride * v height exceeding the
+    // buffer's capacity.
+    final int size = stride * (height + uvHeight + 1) * 2;
+    ByteBuffer buffer = JniCommon.allocateNativeByteBuffer(size);
+    convert(buffer, width, height, stride, textureBuffer.getTextureId(),
+        RendererCommon.convertMatrixFromAndroidGraphicsMatrix(textureBuffer.getTransformMatrix()),
+        textureBuffer.getType());
+
+    final int yPos = 0;
+    final int uPos = yPos + stride * height;
+    // Rows of U and V alternate in the buffer, so V data starts after the first row of U.
+    final int vPos = uPos + stride / 2;
+
+    buffer.position(yPos);
+    buffer.limit(yPos + stride * height);
+    ByteBuffer dataY = buffer.slice();
+
+    buffer.position(uPos);
+    buffer.limit(uPos + stride * uvHeight);
+    ByteBuffer dataU = buffer.slice();
+
+    buffer.position(vPos);
+    buffer.limit(vPos + stride * uvHeight);
+    ByteBuffer dataV = buffer.slice();
+
+    final int aPos = uPos + stride * uvHeight;
+    buffer.position(aPos);
+    buffer.limit(aPos + stride * (height + uvHeight + 1));
+    ByteBuffer dataA = buffer.slice();
+    convert(dataA, width, height, stride, maskBuffer.getTextureId(),
+        RendererCommon.convertMatrixFromAndroidGraphicsMatrix(maskBuffer.getTransformMatrix()),
+        maskBuffer.getType());
+
+    // SurfaceTextureHelper uses the same stride for Y, U, and V data.
+    return JavaI420ABuffer.wrap(width, height, dataY, stride, dataU, stride, dataV, stride, dataA,
+        stride, () -> { JniCommon.freeNativeByteBuffer(buffer); });
+  }
+
   /** Deprecated, use convert(TextureBuffer). */
   @Deprecated
   void convert(ByteBuffer buf, int width, int height, int stride, int srcTextureId,

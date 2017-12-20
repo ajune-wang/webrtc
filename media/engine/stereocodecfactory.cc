@@ -29,7 +29,7 @@ bool IsStereoCodec(const cricket::VideoCodec& codec) {
 
 namespace webrtc {
 
-constexpr const char* kStereoAssociatedCodecName = cricket::kVp9CodecName;
+constexpr const char* kStereoAssociatedCodecName = cricket::kVp8CodecName;
 
 StereoEncoderFactory::StereoEncoderFactory(
     std::unique_ptr<VideoEncoderFactory> factory)

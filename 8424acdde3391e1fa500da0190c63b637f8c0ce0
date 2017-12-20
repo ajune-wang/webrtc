@@ -22,6 +22,30 @@
       "revId": "8424acdde3391e1fa500da0190c63b637f8c0ce0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42de28c1_db06c4fe",
+        "filename": "modules/video_capture/device_info_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2017-12-20T01:50:49Z",
+      "side": 0,
+      "message": "One would need to have good code archaeology skills to figure it out. I\u0027d guess it\u0027s because the author was trying to avoid _stricmp() for some reason. In any case I don\u0027t see any reason to keep this code in its current form.",
+      "parentUuid": "31fc1a03_1dc1013e",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "8424acdde3391e1fa500da0190c63b637f8c0ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

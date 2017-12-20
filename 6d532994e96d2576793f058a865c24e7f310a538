@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c952f45_2aad54fa",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_audio.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2017-12-20T01:50:49Z",
+      "side": 1,
+      "message": "Replaced with RTC_NOTREACHED().",
+      "parentUuid": "6ee7b43f_e55e47c1",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 22
+      },
+      "revId": "6d532994e96d2576793f058a865c24e7f310a538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d60442aa_6396cb98",
         "filename": "modules/video_capture/device_info_impl.h",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "31785bad_9ad8ab0d",
+        "filename": "modules/video_capture/device_info_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2017-12-20T01:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d60442aa_6396cb98",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 61
+      },
+      "revId": "6d532994e96d2576793f058a865c24e7f310a538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "582bb6ff_514b8ea6",
         "filename": "rtc_base/stringutils.h",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2017-12-19T09:58:30Z",
       "side": 1,
       "message": "This is a pretty useless alias. And I\u0027m not sure I like tha asc* naming convention, it seems to be a remnant of this char/wchar_t templating which you are deleting.\n\nI\u0027d prefer to use plain strcmp and strncmp rather than asccmp and ascncmp. And for consistency, rename the case insensitive functions to something starting with str or rtc::str. Where my preference is still the posix-style names.",
+      "range": {
+        "startLine": 172,
+        "startChar": 11,
+        "endLine": 172,
+        "endChar": 17
+      },
+      "revId": "6d532994e96d2576793f058a865c24e7f310a538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7761b368_3c56a739",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2017-12-20T01:50:49Z",
+      "side": 1,
+      "message": "I agree that asc* is not a pretty name. But the functions are there. We can use them for now and replace with something better later. strcmp would not be compliant with google style guide. \n\nWDYT about implementing the same approach as in chromium? Here we have StringPiece that solves string comparison for case-sensetive case. https://codesearch.chromium.org/chromium/src/base/strings/string_piece.h?dr\u003dCSs (it\u0027s just simple \u003d\u003d operation).\nCompareCaseInsensitiveASCII() implements case-insensitive comparison. StartsWith() allows to check string prefix. This will help to avoid the error prone sized comparison when the whole string needs to be compared.",
+      "parentUuid": "582bb6ff_514b8ea6",
       "range": {
         "startLine": 172,
         "startChar": 11,

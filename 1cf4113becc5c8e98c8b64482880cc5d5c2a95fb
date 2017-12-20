@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "420402bf_5d924f88",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-20T22:35:33Z",
+      "side": 1,
+      "message": "First, could you quote the spec here as a comment?\n\nSecond, what about the removal part (you quoted addition)?  If we don\u0027t have a direction, what is there to remove?",
+      "parentUuid": "cdbf717e_632274c9",
+      "range": {
+        "startLine": 1988,
+        "startChar": 47,
+        "endLine": 1988,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14ed8a2d_6046678b",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -248,6 +272,30 @@
       "side": 1,
       "message": "Hmm, so in the WebRTC spec setting the current direction and stopping the transceiver happen after processing added/removed tracks. Would it cause an issue doing these out of order? If so, UpdateTransceiversAndDataChannels should not do those things and they should be left here.",
       "parentUuid": "e2adbb13_a1525b32",
+      "range": {
+        "startLine": 1993,
+        "startChar": 72,
+        "endLine": 1993,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dce8701_0c704bf3",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1993,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-20T22:35:33Z",
+      "side": 1,
+      "message": "It seems like we should set the direction and stop the transceiver before firing an add/remove event so that the event has the latest info.  But maybe we should sit down with the spec together.",
+      "parentUuid": "47444050_340b7bd5",
       "range": {
         "startLine": 1993,
         "startChar": 72,
@@ -424,6 +472,30 @@
     },
     {
       "key": {
+        "uuid": "97107543_265140db",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-20T22:35:33Z",
+      "side": 1,
+      "message": "I think we should return an error on invalid SDP (and this seems invalid) rather than ignoring it and processing the rest.",
+      "parentUuid": "c465312a_a0412836",
+      "range": {
+        "startLine": 2100,
+        "startChar": 15,
+        "endLine": 2100,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa9eee6e_fa7c33bf",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -570,6 +642,30 @@
       "side": 1,
       "message": "I personally like the symmetry of having the nested ifs. I think it clarifies the intent more than doing early returns.",
       "parentUuid": "52e53072_4bdb1d86",
+      "range": {
+        "startLine": 2153,
+        "startChar": 5,
+        "endLine": 2153,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e736ebbc_831549d8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2153,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-20T22:35:33Z",
+      "side": 1,
+      "message": "I\u0027m always a fan of less indentation, but I won\u0027t fight you on it.",
+      "parentUuid": "cbcdd51a_8301e270",
       "range": {
         "startLine": 2153,
         "startChar": 5,
@@ -734,6 +830,30 @@
     },
     {
       "key": {
+        "uuid": "70dabdb9_2d1ae57c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3104,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-20T22:35:33Z",
+      "side": 1,
+      "message": "OK, that makes sense.  Perhaps \"seen_mids\" should be called \"allocated_mids\"?  That would make it more clear for me.  I know CreateOffer can allocate things.  \"Seen\" is more vague.",
+      "parentUuid": "614ec6fc_49348cbb",
+      "range": {
+        "startLine": 3104,
+        "startChar": 74,
+        "endLine": 3104,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "454dd2ba_a1337ee9",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -828,6 +948,30 @@
     },
     {
       "key": {
+        "uuid": "04d8bc93_9d9d58d5",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3131,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-20T22:35:33Z",
+      "side": 1,
+      "message": "number_of_mlines?",
+      "parentUuid": "f404a38e_aaeb7d05",
+      "range": {
+        "startLine": 3131,
+        "startChar": 67,
+        "endLine": 3131,
+        "endChar": 68
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27d5fd96_a93e2c67",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -910,6 +1054,24 @@
     },
     {
       "key": {
+        "uuid": "05255b8a_761a26ce",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3155,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-20T22:35:33Z",
+      "side": 1,
+      "message": "Oh, right... well... can you add some explanatory comments here to make it clear to the poor code reader?",
+      "parentUuid": "cb6525fc_058ebaef",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0d7286a_d7229a49",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -986,6 +1148,24 @@
       "side": 1,
       "message": "Yes, that\u0027s exactly what set_mid and set_mline_index mean.",
       "parentUuid": "0b1f0e04_57662838",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e30a7e_78ae869e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3182,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-20T22:35:33Z",
+      "side": 1,
+      "message": "Could you make this clear in the comments in RtpTransceiver?  I can\u0027t think of better names for these, but perhaps some nice comments will help.",
+      "parentUuid": "4eb7c28a_0d663333",
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

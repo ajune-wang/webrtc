@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "c776398d_732e7d9d",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-12-20T08:33:17Z",
+      "side": 1,
+      "message": "That was my initial feeling since afaik the ADM should not have any X11 dependency unless key-press detection requires it (https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_device/win/audio_device_core_win.cc?sq\u003dpackage:chromium\u0026l\u003d4199).\n\nSo yes, if possible, please try to focus on only X11 in one CL and then come up with a more suitable title (and link to issue) for the rest.",
+      "parentUuid": "18978b93_e099bd46",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 364,
+        "endChar": 5
+      },
+      "revId": "827a7104168ac6a3f2a3a84c7170159bebc370fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b84f5390_b153c4cc",
         "filename": "rtc_base/testutils.h",
         "patchSetId": 1

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cdad8b7a_ee399fa4",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2017-12-20T14:48:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a991ec10_ff92dced",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 11
+      },
+      "revId": "0757a691114d970728fa9c30977ec1850a86bf9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7ebd056_e66b4214",
         "filename": "test/fake_audio_device_unittest.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ec0e0a54_f625be1e",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2017-12-20T14:48:28Z",
+      "side": 1,
+      "message": "Apparently gmock-matchers needs the class to have a const_iterator defined, which rtc::BufferT doesn\u0027t have. (Instead, it uses pointers for begin() and end())",
+      "parentUuid": "c7ebd056_e66b4214",
+      "range": {
+        "startLine": 144,
+        "startChar": 36,
+        "endLine": 144,
+        "endChar": 0
+      },
+      "revId": "0757a691114d970728fa9c30977ec1850a86bf9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "685d2583_6af8ac83",
         "filename": "test/fake_audio_device_unittest.cc",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "0757a691114d970728fa9c30977ec1850a86bf9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3524e5c2_9c101433",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2017-12-20T14:48:28Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "685d2583_6af8ac83",
+      "range": {
+        "startLine": 153,
+        "startChar": 36,
+        "endLine": 153,
+        "endChar": 0
+      },
+      "revId": "0757a691114d970728fa9c30977ec1850a86bf9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

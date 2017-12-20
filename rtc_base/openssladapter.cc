@@ -936,7 +936,7 @@ bool OpenSSLAdapter::VerifyServerName(SSL* ssl, const char* host,
       (X509_NAME_get_text_by_NID(subject, NID_commonName, data, sizeof(data)) >
        0)) {
     data[sizeof(data)-1] = 0;
-    if (_stricmp(data, host) == 0)
+    if (ascicmp(data, host) == 0)
       ok = true;
   }
 

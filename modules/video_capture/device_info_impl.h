@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CAPTURE_MAIN_SOURCE_DEVICE_INFO_IMPL_H_
 #define MODULES_VIDEO_CAPTURE_MAIN_SOURCE_DEVICE_INFO_IMPL_H_
 
+#include <string>
 #include <vector>
 
 #include "modules/video_capture/video_capture.h"
@@ -52,8 +53,7 @@ protected:
     typedef std::vector<VideoCaptureCapability> VideoCaptureCapabilities;
     VideoCaptureCapabilities _captureCapabilities;
     RWLockWrapper& _apiLock;
-    char* _lastUsedDeviceName;
-    uint32_t _lastUsedDeviceNameLength;
+    std::string _lastUsedDeviceName;
 };
 }  // namespace videocapturemodule
 }  // namespace webrtc

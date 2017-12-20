@@ -31,8 +31,9 @@ bool PayloadIsCompatible(const RtpUtility::Payload& payload,
 bool PayloadIsCompatible(const RtpUtility::Payload& payload,
                          const VideoCodec& video_codec) {
   if (!payload.typeSpecific.is_video() ||
-      _stricmp(payload.name, video_codec.plName) != 0)
+      rtc::ascicmp(payload.name, video_codec.plName) != 0) {
     return false;
+  }
   // For H264, profiles must match as well.
   if (video_codec.codecType == kVideoCodecH264) {
     return video_codec.H264().profile ==
@@ -294,7 +295,8 @@ void RTPPayloadRegistry::SetRtxPayloadType(int payload_type,
 bool RTPPayloadRegistry::IsRed(const RTPHeader& header) const {
   rtc::CritScope cs(&crit_sect_);
   auto it = payload_type_map_.find(header.payloadType);
-  return it != payload_type_map_.end() && _stricmp(it->second.name, "red") == 0;
+  return it != payload_type_map_.end() &&
+         rtc::ascicmp(it->second.name, "red") == 0;
 }
 
 int RTPPayloadRegistry::GetPayloadTypeFrequency(
@@ -339,7 +341,7 @@ int8_t RTPPayloadRegistry::GetPayloadTypeWithName(
     const char* payload_name) const {
   rtc::CritScope cs(&crit_sect_);
   for (const auto& it : payload_type_map_) {
-    if (_stricmp(it.second.name, payload_name) == 0)
+    if (rtc::ascicmp(it.second.name, payload_name) == 0)
       return it.first;
   }
   return -1;

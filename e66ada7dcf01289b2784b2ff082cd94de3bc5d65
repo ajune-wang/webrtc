@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9e08cea_a4404796",
+        "filename": "sdk/android/src/jni/pc/mediastream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-20T10:22:17Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this. Just use JniCommon.nativeReleaseRef",
+      "range": {
+        "startLine": 152,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 58
+      },
+      "revId": "e66ada7dcf01289b2784b2ff082cd94de3bc5d65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b62629_9ac1c3ca",
+        "filename": "sdk/android/src/jni/pc/mediastream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-20T10:22:17Z",
+      "side": 1,
+      "message": "nit: I would prefer a vertical whitespace here.",
+      "revId": "e66ada7dcf01289b2784b2ff082cd94de3bc5d65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

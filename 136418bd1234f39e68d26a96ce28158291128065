@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cc821dc8_9748bb59",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T06:03:20Z",
+      "side": 1,
+      "message": "I think the Right Thing to do is to skip generating stats for tracks with no SSRC assigned, and file a new bug for that. bugs.webrtc.org/8673 filed.",
+      "parentUuid": "ce92523c_a51dfa73",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8c2b033_9c7414bc",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 3
@@ -70,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "873df984_f6b8b9ae",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T06:03:20Z",
+      "side": 1,
+      "message": "Yep. My thinking here is that there should be only one way we care about streams, and dropping the concept in the C++ layer might very well be the Right Thing. But until we have a functioning streams handling in Chrome, we have to make sure this one works.",
+      "parentUuid": "77574e9d_e606788e",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5725afe_f7d605ab",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 3
@@ -81,6 +117,24 @@
       "writtenOn": "2017-12-19T20:20:14Z",
       "side": 1,
       "message": "If we have an enum with { kAddStream, kAddTrack }, can we TEST_P and run all tests using tracks/streams for both API usages like the legacy stats unittest change?",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b0ca9c_f200f625",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T06:03:20Z",
+      "side": 1,
+      "message": "I went back a bit on this in my warmup exercise in (old) statscollector. It seems only the tests that are using tracks and streams should be affected (many aren\u0027t). There are 3 cases:\n\n- AddStream(track)\n- AddTrack(track, null)\n- AddTrack(track, stream)\n\nWriting tests so that they make sense in 2 scenarios turned out to be a bigger rewrite than I thought, so I did a minimalist approach here. Will look again.",
+      "parentUuid": "f5725afe_f7d605ab",
       "revId": "136418bd1234f39e68d26a96ce28158291128065",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "912c5614_e69a3d54",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T06:03:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c7393782_6d4efeb1",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73219465_8e8c4efc",
         "filename": "pc/statscollector_unittest.cc",
         "patchSetId": 3
@@ -118,6 +190,24 @@
       "revId": "136418bd1234f39e68d26a96ce28158291128065",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2026274_23f0b8c1",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T06:03:20Z",
+      "side": 1,
+      "message": "Actually not, since this code\u0027s AddTrack (and AddStream) are functions of statscollector, not functions of PeerConnection. It\u0027s a very unit-testy thing.",
+      "parentUuid": "73219465_8e8c4efc",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +245,24 @@
     },
     {
       "key": {
+        "uuid": "aab3f5ff_f5757ff5",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2191,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T06:03:20Z",
+      "side": 1,
+      "message": "Yes, it\u0027s possible. Would read more nicely.",
+      "parentUuid": "85bd9062_96405542",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "268b1618_cb23edbc",
         "filename": "pc/trackmediainfomap.cc",
         "patchSetId": 3
@@ -166,6 +274,24 @@
       "writtenOn": "2017-12-19T20:20:14Z",
       "side": 1,
       "message": "What about the ssrc \u003d\u003d 0 case? Before you connect, can multiple senders all have ssrc 0? If so, can you only add the mapping if ssrc !\u003d 0?",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f877adf_d2e2e1d3",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T06:03:20Z",
+      "side": 1,
+      "message": "Given that we only report on connected tracks, not adding the mapping is the Right Thing.",
+      "parentUuid": "268b1618_cb23edbc",
       "revId": "136418bd1234f39e68d26a96ce28158291128065",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

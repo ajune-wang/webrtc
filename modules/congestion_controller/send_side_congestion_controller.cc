@@ -258,7 +258,7 @@ void SendSideCongestionController::SignalNetworkState(NetworkState state) {
 void SendSideCongestionController::SetTransportOverhead(
     size_t transport_overhead_bytes_per_packet) {
   transport_feedback_adapter_.SetTransportOverhead(
-      transport_overhead_bytes_per_packet);
+      rtc::dchecked_cast<int>(transport_overhead_bytes_per_packet));
 }
 
 void SendSideCongestionController::OnSentPacket(

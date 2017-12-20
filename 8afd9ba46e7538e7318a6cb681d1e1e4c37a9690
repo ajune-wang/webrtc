@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8579ee2c_4c6fb3a5",
+        "filename": "test/call_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "nit: DHECK_LE",
+      "range": {
+        "startLine": 199,
+        "startChar": 58,
+        "endLine": 199,
+        "endChar": 0
+      },
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941f7d62_0effcd89",
+        "filename": "test/call_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "Why not return the Config* ?\nLooks like you can also make it const if you update the FillEncoderConfiguration to also be const",
+      "range": {
+        "startLine": 80,
+        "startChar": 67,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a31460f_8e5b0c7b",
+        "filename": "test/call_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "nit: num_used_ssrcs to be consistent with the other parameters here?",
+      "range": {
+        "startLine": 82,
+        "startChar": 47,
+        "endLine": 82,
+        "endChar": 0
+      },
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73cd97ca_a469dc9d",
+        "filename": "test/call_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "Imo, most these other \"Create*\" methods should be called \"CreateAndSet*\" since they also mutate the local state. Up to you if it\u0027s worth spending the time on that though",
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efd26632_80c2907c",
+        "filename": "test/layer_filtering_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "Avoid defaults if possible. Rather use a delegate constructor in that case.\nAlso, either use std::numeric_limits\u003c\u003e to infer max/min or an optional so you don\u0027t have to hard-code the limits at all.",
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b65a8b_7eb9b1f5",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "What does sv stand for?\nMaybe just loopback_test ?",
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13aaa008_79f6462e",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "Could you add another where video is hd with simulcast? Maybe even sim for screenshare? Probably will have to disable for mobile then...",
+      "range": {
+        "startLine": 904,
+        "startChar": 74,
+        "endLine": 904,
+        "endChar": 0
+      },
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e072b75c_a9c8af64",
+        "filename": "video/sv_loopback.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "Can expand on this description?",
+      "range": {
+        "startLine": 39,
+        "startChar": 64,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94936227_7d00678d",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-20T16:19:39Z",
+      "side": 1,
+      "message": "nit: If you want two elements with the same default values I think you could also do\nvideo(2, {false, 640, 480, 30, 50, 800, 800, false, \"VP8\", 1, -1, 0, false, false, \"\"}),\n\nsame below",
+      "range": {
+        "startLine": 1127,
+        "startChar": 25,
+        "endLine": 1127,
+        "endChar": 0
+      },
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

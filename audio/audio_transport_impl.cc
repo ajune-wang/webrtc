@@ -92,6 +92,7 @@ AudioTransportImpl::AudioTransportImpl(AudioMixer* mixer,
     : audio_processing_(audio_processing),
       audio_device_module_(audio_device_module),
       mixer_(mixer) {
+  RTC_LOG(INFO) << "___AudioTransport::AudioTransport";
   RTC_DCHECK(mixer);
   RTC_DCHECK(audio_processing);
   RTC_DCHECK(audio_device_module);
@@ -112,6 +113,7 @@ int32_t AudioTransportImpl::RecordedDataIsAvailable(
     const uint32_t volume,
     const bool key_pressed,
     uint32_t& /*new_mic_volume*/) {  // NOLINT: to avoid changing APIs
+  RTC_LOG(INFO) << "__RecordedDataIsAvailable: " << number_of_frames;
   RTC_DCHECK(audio_data);
   RTC_DCHECK_GE(number_of_channels, 1);
   RTC_DCHECK_LE(number_of_channels, 2);
@@ -219,6 +221,7 @@ int32_t AudioTransportImpl::NeedMorePlayData(const size_t nSamples,
                                               size_t& nSamplesOut,
                                               int64_t* elapsed_time_ms,
                                               int64_t* ntp_time_ms) {
+  RTC_LOG(INFO) << "__NeedMorePlayData: " << nSamples;
   RTC_DCHECK_EQ(sizeof(int16_t) * nChannels, nBytesPerSample);
   RTC_DCHECK_GE(nChannels, 1);
   RTC_DCHECK_LE(nChannels, 2);

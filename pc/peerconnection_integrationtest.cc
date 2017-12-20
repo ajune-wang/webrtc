@@ -206,6 +206,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       const PeerConnectionInterface::RTCConfiguration& config,
       rtc::Thread* network_thread,
       rtc::Thread* worker_thread) {
+    RTC_LOG(INFO) << "___CreateWithConfig";
     std::unique_ptr<FakeRTCCertificateGenerator> cert_generator(
         new FakeRTCCertificateGenerator());
     PeerConnectionWrapper* client(new PeerConnectionWrapper(debug_name));
@@ -310,6 +311,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   }
 
   void AddAudioOnlyMediaStream() {
+    RTC_LOG(INFO) << "___AddAudioOnlyMediaStream";
     AddMediaStreamFromTracks(CreateLocalAudioTrack(), nullptr);
   }
 
@@ -318,6 +320,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   }
 
   rtc::scoped_refptr<webrtc::AudioTrackInterface> CreateLocalAudioTrack() {
+    RTC_LOG(INFO) << "___CreateLocalAudioTrack";
     FakeConstraints constraints;
     // Disable highpass filter so that we can get all the test audio frames.
     constraints.AddMandatory(MediaConstraintsInterface::kHighpassFilter, false);
@@ -347,6 +350,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   void AddMediaStreamFromTracks(
       const rtc::scoped_refptr<webrtc::AudioTrackInterface>& audio,
       const rtc::scoped_refptr<webrtc::VideoTrackInterface>& video) {
+    RTC_LOG(INFO) << "___AddMediaStreamFromTracks";
     rtc::scoped_refptr<MediaStreamInterface> stream =
         peer_connection_factory_->CreateLocalMediaStream(
             rtc::CreateRandomUuid());
@@ -357,6 +361,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       stream->AddTrack(video);
     }
     EXPECT_TRUE(pc()->AddStream(stream));
+    RTC_LOG(INFO) << "AddMediaStreamFromTracks___";
   }
 
   bool SignalingStateStable() {
@@ -571,7 +576,9 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
 
  private:
   explicit PeerConnectionWrapper(const std::string& debug_name)
-      : debug_name_(debug_name) {}
+      : debug_name_(debug_name) {
+    RTC_LOG(INFO) << "___PeerConnectionWrapper: " <<  debug_name;
+  }
 
   bool Init(
       const MediaConstraintsInterface* constraints,
@@ -580,6 +587,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator,
       rtc::Thread* network_thread,
       rtc::Thread* worker_thread) {
+    RTC_LOG(INFO) << "___Init";
     // There's an error in this test code if Init ends up being called twice.
     RTC_DCHECK(!peer_connection_);
     RTC_DCHECK(!peer_connection_factory_);
@@ -613,6 +621,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     peer_connection_ =
         CreatePeerConnection(std::move(port_allocator), constraints, config,
                              std::move(cert_generator));
+    RTC_LOG(INFO) << "Init___";
     return peer_connection_.get() != nullptr;
   }
 
@@ -1035,6 +1044,7 @@ class PeerConnectionIntegrationTest : public testing::Test {
   bool CreatePeerConnectionWrappersWithConfig(
       const PeerConnectionInterface::RTCConfiguration& caller_config,
       const PeerConnectionInterface::RTCConfiguration& callee_config) {
+    RTC_LOG(INFO) << "___CreatePeerConnectionWrappersWithConfig";
     caller_.reset(PeerConnectionWrapper::CreateWithConfig(
         "Caller", caller_config, network_thread_.get(), worker_thread_.get()));
     callee_.reset(PeerConnectionWrapper::CreateWithConfig(
@@ -1066,6 +1076,7 @@ class PeerConnectionIntegrationTest : public testing::Test {
   // Once called, SDP blobs and ICE candidates will be automatically signaled
   // between PeerConnections.
   void ConnectFakeSignaling() {
+    RTC_LOG(INFO) << "___ConnectFakeSignaling";
     caller_->set_signaling_message_receiver(callee_.get());
     callee_->set_signaling_message_receiver(caller_.get());
   }

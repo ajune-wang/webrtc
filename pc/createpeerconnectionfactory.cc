@@ -20,6 +20,8 @@
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/thread.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
@@ -46,8 +48,10 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     cricket::WebRtcVideoDecoderFactory* video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
     rtc::scoped_refptr<AudioProcessing> audio_processing) {
+  RTC_LOG(INFO) << "___CreatePeerConnectionFactory (2)";
   rtc::scoped_refptr<AudioProcessing> audio_processing_use = audio_processing;
   if (!audio_processing_use) {
+    RTC_LOG(INFO) << "___AudioProcessing::Create";
     audio_processing_use = AudioProcessing::Create();
   }
 
@@ -108,6 +112,7 @@ CreatePeerConnectionFactoryWithAudioMixer(
     cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
     cricket::WebRtcVideoDecoderFactory* video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer) {
+  RTC_LOG(INFO) << "___CreatePeerConnectionFactoryWithAudioMixer";
   return CreatePeerConnectionFactory(
       network_thread, worker_thread, signaling_thread, default_adm,
       audio_encoder_factory, audio_decoder_factory, video_encoder_factory,
@@ -123,6 +128,7 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory,
     cricket::WebRtcVideoEncoderFactory* video_encoder_factory,
     cricket::WebRtcVideoDecoderFactory* video_decoder_factory) {
+  RTC_LOG(INFO) << "___CreatePeerConnectionFactory (1)";
   return CreatePeerConnectionFactoryWithAudioMixer(
       network_thread, worker_thread, signaling_thread, default_adm,
       audio_encoder_factory, audio_decoder_factory, video_encoder_factory,

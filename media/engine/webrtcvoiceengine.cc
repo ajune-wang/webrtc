@@ -204,7 +204,10 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
                         decoder_factory,
                         audio_mixer,
                         audio_processing,
-                        nullptr) {}
+                        nullptr) {
+      RTC_LOG(INFO) << "___WebRtcVoiceEngine::WebRtcVoiceEngine (2): adm="
+                    << adm;
+    }
 
 WebRtcVoiceEngine::WebRtcVoiceEngine(
     webrtc::AudioDeviceModule* adm,
@@ -219,6 +222,7 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
       audio_mixer_(audio_mixer),
       apm_(audio_processing),
       voe_wrapper_(voe_wrapper) {
+  RTC_LOG(INFO) << "___WebRtcVoiceEngine::WebRtcVoiceEngine (1)";
   // This may be called from any thread, so detach thread checkers.
   worker_thread_checker_.DetachFromThread();
   signal_thread_checker_.DetachFromThread();
@@ -231,7 +235,7 @@ WebRtcVoiceEngine::WebRtcVoiceEngine(
 
 WebRtcVoiceEngine::~WebRtcVoiceEngine() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::~WebRtcVoiceEngine";
+  RTC_LOG(LS_INFO) << "___WebRtcVoiceEngine::~WebRtcVoiceEngine";
   if (initialized_) {
     StopAecDump();
     voe_wrapper_->base()->Terminate();
@@ -246,7 +250,7 @@ WebRtcVoiceEngine::~WebRtcVoiceEngine() {
 
 void WebRtcVoiceEngine::Init() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_LOG(LS_INFO) << "WebRtcVoiceEngine::Init";
+  RTC_LOG(LS_INFO) << "___WebRtcVoiceEngine::Init";
 
   // TaskQueue expects to be created/destroyed on the same thread.
   low_priority_worker_queue_.reset(
@@ -341,6 +345,7 @@ VoiceMediaChannel* WebRtcVoiceEngine::CreateChannel(
     webrtc::Call* call,
     const MediaConfig& config,
     const AudioOptions& options) {
+  RTC_LOG(INFO) << "___CreateChannel";
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   return new WebRtcVoiceMediaChannel(this, config, options, call);
 }
@@ -644,9 +649,12 @@ void WebRtcVoiceEngine::RegisterChannel(WebRtcVoiceMediaChannel* channel) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_DCHECK(channel);
   channels_.push_back(channel);
+  RTC_LOG(INFO) << "___RegisterChannel: " << channel
+                << " (size=" << channels_.size() << ")";
 }
 
 void WebRtcVoiceEngine::UnregisterChannel(WebRtcVoiceMediaChannel* channel) {
+  RTC_LOG(INFO) << "___UnregisterChannel: " << channel;
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   auto it = std::find(channels_.begin(), channels_.end(), channel);
   RTC_DCHECK(it != channels_.end());
@@ -801,6 +809,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
             webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
         max_send_bitrate_bps_(max_send_bitrate_bps),
         rtp_parameters_(CreateRtpParametersWithOneEncoding()) {
+    RTC_LOG(INFO) << "___WebRtcVoiceMediaChannel::WebRtcAudioSendStream: "
+                  << "c_name: " << c_name << " track_id: " << track_id;
     RTC_DCHECK_GE(ch, 0);
     RTC_DCHECK(call);
     RTC_DCHECK(encoder_factory);
@@ -821,6 +831,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
   }
 
   ~WebRtcAudioSendStream() override {
+    RTC_LOG(INFO) << "___WebRtcVoiceMediaChannel::~WebRtcAudioSendStream";
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     ClearSource();
     call_->DestroyAudioSendStream(stream_);
@@ -878,6 +889,9 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
   }
 
   void SetSend(bool send) {
+    if (send != send_) {
+      RTC_LOG(INFO) << "___WebRtcAudioSendStream::SetSend: " << send;
+    }
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     send_ = send;
     UpdateSendState();
@@ -906,6 +920,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
   // This method is called on the libjingle worker thread.
   // TODO(xians): Make sure Start() is called only once.
   void SetSource(AudioSource* source) {
+    RTC_LOG(INFO) << "___SetSource: " << source;
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     RTC_DCHECK(source);
     if (source_) {
@@ -921,6 +936,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
   // callback will be received after this method.
   // This method is called on the libjingle worker thread.
   void ClearSource() {
+    RTC_LOG(INFO) << "___ClearSource";
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     if (source_) {
       source_->SetSink(nullptr);
@@ -1022,6 +1038,10 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     RTC_DCHECK(stream_);
     RTC_DCHECK_EQ(1UL, rtp_parameters_.encodings.size());
+    RTC_LOG(INFO) << "___UpdateSendState: "
+                  << "source: " << source_
+                  << ", send: " << send_
+                  << ", rtp.active: " << rtp_parameters_.encodings[0].active;
     if (send_ && source_ != nullptr && rtp_parameters_.encodings[0].active) {
       stream_->Start();
     } else {  // !send || source_ = nullptr
@@ -1145,6 +1165,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       const rtc::scoped_refptr<webrtc::AudioDecoderFactory>& decoder_factory,
       const std::map<int, webrtc::SdpAudioFormat>& decoder_map)
       : call_(call), config_() {
+    RTC_LOG(INFO) << "___WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream: "
+                  << ch;
     RTC_DCHECK_GE(ch, 0);
     RTC_DCHECK(call);
     config_.rtp.remote_ssrc = remote_ssrc;
@@ -1161,6 +1183,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
   }
 
   ~WebRtcAudioReceiveStream() {
+    RTC_LOG(INFO) << "___WebRtcVoiceMediaChannel::~WebRtcAudioReceiveStream";
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     call_->DestroyAudioReceiveStream(stream_);
   }
@@ -1229,6 +1252,9 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
   }
 
   void SetPlayout(bool playout) {
+    if (playout != playout_) {
+      RTC_LOG(INFO) << "___WebRtcAudioReceiveStream::SetPlayout: " << playout;
+    }
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     RTC_DCHECK(stream_);
     if (playout) {
@@ -1274,6 +1300,7 @@ WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel(WebRtcVoiceEngine* engine,
                                                  const AudioOptions& options,
                                                  webrtc::Call* call)
     : VoiceMediaChannel(config), engine_(engine), call_(call) {
+  RTC_LOG(INFO) << "___WebRtcVoiceMediaChannel";
   RTC_LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel";
   RTC_DCHECK(call);
   engine->RegisterChannel(this);
@@ -1281,6 +1308,7 @@ WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel(WebRtcVoiceEngine* engine,
 }
 
 WebRtcVoiceMediaChannel::~WebRtcVoiceMediaChannel() {
+  RTC_LOG(INFO) << "___~WebRtcVoiceMediaChannel";
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::~WebRtcVoiceMediaChannel";
   // TODO(solenberg): Should be able to delete the streams directly, without
@@ -1710,6 +1738,9 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
 }
 
 void WebRtcVoiceMediaChannel::SetPlayout(bool playout) {
+  if (desired_playout_ != playout) {
+    RTC_LOG(INFO) << "___SetPlayout: " << playout;
+  }
   desired_playout_ = playout;
   return ChangePlayout(desired_playout_);
 }
@@ -1732,11 +1763,14 @@ void WebRtcVoiceMediaChannel::SetSend(bool send) {
   if (send_ == send) {
     return;
   }
+  RTC_LOG(INFO) << "___SetSend: " << send;
 
   // Apply channel specific options, and initialize the ADM for recording (this
   // may take time on some platforms, e.g. Android).
   if (send) {
     engine()->ApplyOptions(options_);
+
+     RTC_LOG(INFO) << "___pre-init recording side of ADM";
 
     // InitRecording() may return an error if the ADM is already recording.
     if (!engine()->adm()->RecordingIsInitialized() &&

@@ -755,6 +755,8 @@ Channel::GetAudioDecoderFactory() const {
 }
 
 int32_t Channel::StartPlayout() {
+  RTC_LOG(INFO) << "___StartPlayout: "
+                << "[" << _instanceId << ", ch=" << _channelId << "]";
   if (channel_state_.Get().playing) {
     return 0;
   }
@@ -768,7 +770,8 @@ int32_t Channel::StopPlayout() {
   if (!channel_state_.Get().playing) {
     return 0;
   }
-
+  RTC_LOG(INFO) << "___StopPlayout "
+                << "[" << _instanceId << ", ch=" << _channelId << "]";
   channel_state_.SetPlaying(false);
   _outputAudioLevel.Clear();
 
@@ -779,6 +782,8 @@ int32_t Channel::StartSend() {
   if (channel_state_.Get().sending) {
     return 0;
   }
+  RTC_LOG(INFO) << "___StartSend "
+                << "[" << _instanceId << ", ch=" << _channelId << "]";
   channel_state_.SetSending(true);
 
   // Resume the previous sequence number which was reset by StopSend(). This
@@ -806,6 +811,8 @@ void Channel::StopSend() {
   if (!channel_state_.Get().sending) {
     return;
   }
+  RTC_LOG(INFO) << "___StopSend: "
+                << "[" << _instanceId << ", ch=" << _channelId << "]";
   channel_state_.SetSending(false);
 
   // Post a task to the encoder thread which sets an event when the task is

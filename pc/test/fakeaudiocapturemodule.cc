@@ -16,6 +16,8 @@
 #include "rtc_base/thread.h"
 #include "rtc_base/timeutils.h"
 
+#include "rtc_base/logging.h"
+
 // Audio sample value that is high enough that it doesn't occur naturally when
 // frames are being faked. E.g. NetEq will not generate this large sample value
 // unless it has received an audio frame containing a sample of this value.
@@ -55,6 +57,7 @@ FakeAudioCaptureModule::~FakeAudioCaptureModule() {
 }
 
 rtc::scoped_refptr<FakeAudioCaptureModule> FakeAudioCaptureModule::Create() {
+  RTC_LOG(LS_INFO) << "___Create";
   rtc::scoped_refptr<FakeAudioCaptureModule> capture_module(
       new rtc::RefCountedObject<FakeAudioCaptureModule>());
   if (!capture_module->Initialize()) {
@@ -76,12 +79,14 @@ int32_t FakeAudioCaptureModule::ActiveAudioLayer(
 
 int32_t FakeAudioCaptureModule::RegisterAudioCallback(
     webrtc::AudioTransport* audio_callback) {
+  RTC_LOG(INFO) << "___RegisterAudioCallback: " << audio_callback;
   rtc::CritScope cs(&crit_callback_);
   audio_callback_ = audio_callback;
   return 0;
 }
 
 int32_t FakeAudioCaptureModule::Init() {
+  RTC_LOG(INFO) << "___Init";
   // Initialize is called by the factory method. Safe to ignore this Init call.
   return 0;
 }
@@ -153,6 +158,9 @@ int32_t FakeAudioCaptureModule::PlayoutIsAvailable(bool* /*available*/) {
 }
 
 int32_t FakeAudioCaptureModule::InitPlayout() {
+  if (play_is_initialized_)
+    return 0;
+  RTC_LOG(INFO) << "___InitPlayout";
   play_is_initialized_ = true;
   return 0;
 }
@@ -167,6 +175,9 @@ int32_t FakeAudioCaptureModule::RecordingIsAvailable(bool* /*available*/) {
 }
 
 int32_t FakeAudioCaptureModule::InitRecording() {
+  if (rec_is_initialized_)
+    return 0;
+  RTC_LOG(INFO) << "___InitRecording";
   rec_is_initialized_ = true;
   return 0;
 }
@@ -179,6 +190,7 @@ int32_t FakeAudioCaptureModule::StartPlayout() {
   if (!play_is_initialized_) {
     return -1;
   }
+  RTC_LOG(INFO) << "___StartPlayout";
   {
     rtc::CritScope cs(&crit_);
     playing_ = true;
@@ -189,6 +201,9 @@ int32_t FakeAudioCaptureModule::StartPlayout() {
 }
 
 int32_t FakeAudioCaptureModule::StopPlayout() {
+  if (!playing_)
+    return 0;
+  RTC_LOG(INFO) << "___StopPlayout";
   bool start = false;
   {
     rtc::CritScope cs(&crit_);
@@ -208,6 +223,7 @@ int32_t FakeAudioCaptureModule::StartRecording() {
   if (!rec_is_initialized_) {
     return -1;
   }
+  RTC_LOG(INFO) << "___StartRecording";
   {
     rtc::CritScope cs(&crit_);
     recording_ = true;
@@ -218,6 +234,9 @@ int32_t FakeAudioCaptureModule::StartRecording() {
 }
 
 int32_t FakeAudioCaptureModule::StopRecording() {
+  if (!recording_)
+    return 0;
+  RTC_LOG(INFO) << "___StopRecording";
   bool start = false;
   {
     rtc::CritScope cs(&crit_);
@@ -492,6 +511,7 @@ void FakeAudioCaptureModule::ReceiveFrameP() {
     if (!audio_callback_) {
       return;
     }
+    // RTC_LOG(INFO) << "___ReceiveFrameP";
     ResetRecBuffer();
     size_t nSamplesOut = 0;
     int64_t elapsed_time_ms = 0;
@@ -522,6 +542,7 @@ void FakeAudioCaptureModule::SendFrameP() {
   if (!audio_callback_) {
     return;
   }
+  // RTC_LOG(INFO) << "___SendFrameP";
   bool key_pressed = false;
   uint32_t current_mic_level = 0;
   MicrophoneVolume(&current_mic_level);

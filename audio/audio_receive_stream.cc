@@ -130,6 +130,7 @@ void AudioReceiveStream::Start() {
   if (playing_) {
     return;
   }
+  RTC_LOG(INFO) << "___Start";
   channel_proxy_->StartPlayout();
   playing_ = true;
   audio_state()->AddReceivingStream(this);
@@ -140,6 +141,7 @@ void AudioReceiveStream::Stop() {
   if (!playing_) {
     return;
   }
+  RTC_LOG(INFO) << "___Stop";
   channel_proxy_->StopPlayout();
   playing_ = false;
   audio_state()->RemoveReceivingStream(this);

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "686b555c_76856d82",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "I think the comment above old_local_description should clarify that enough? Do you think we need more than that comment?",
+      "parentUuid": "e1558d28_5184fec9",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6f14fd8_a1dea8e6",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2017-12-19T21:29:07Z",
       "side": 1,
       "message": "Here (:1969) and below (:2024) you update receivers, (transceivers), remote tracks and remote streams. It\u0027s a lot of code and spread out. Can you place them in helper functions and/or put them together in an \"if-else\" for readability?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11836070_44dd3a96",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1969,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Yes, I\u0027ll do that in a follow-up CL since there a bug that can be fixed by combining the Plan B stuff.",
+      "parentUuid": "a6f14fd8_a1dea8e6",
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "78fb5022_066ed932",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1985,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "cf892801_2080f24d",
+      "range": {
+        "startLine": 1985,
+        "startChar": 50,
+        "endLine": 1985,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab869c9_13e47064",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -70,6 +130,30 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "If the transceiver doesn\u0027t have a direction we treat it as those it has recv direction and process removal of something?",
+      "range": {
+        "startLine": 1988,
+        "startChar": 47,
+        "endLine": 1988,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdbf717e_632274c9",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "In step 2.2.8.5 of \"Setting a session description\" in the WebRTC spec it says:\n\nIf direction is \"sendrecv\" or \"recvonly\", and transceiver\u0027s [[CurrentDirection]] slot is neither \"sendrecv\" nor \"recvonly\", process the addition of a remote track for the media description, given transceiver and trackEvents.\n\nI interpreted \"CurrentDirection slot neither sendrecv nor recvonly\" to also include if it\u0027s not yet set.",
+      "parentUuid": "9ab869c9_13e47064",
       "range": {
         "startLine": 1988,
         "startChar": 47,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "45f2585d_f5dd52c3",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "14ed8a2d_6046678b",
+      "range": {
+        "startLine": 1990,
+        "startChar": 49,
+        "endLine": 1990,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2adbb13_a1525b32",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -116,6 +224,30 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "If UpdateTransceiversAndDataChannels updates the direction, why do we do so here?",
+      "range": {
+        "startLine": 1993,
+        "startChar": 72,
+        "endLine": 1993,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47444050_340b7bd5",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1993,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Hmm, so in the WebRTC spec setting the current direction and stopping the transceiver happen after processing added/removed tracks. Would it cause an issue doing these out of order? If so, UpdateTransceiversAndDataChannels should not do those things and they should be left here.",
+      "parentUuid": "e2adbb13_a1525b32",
       "range": {
         "startLine": 1993,
         "startChar": 72,
@@ -174,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "f13b8de0_181d1587",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2094,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Sure, I\u0027ll do that in another CL.",
+      "parentUuid": "0fc6a4a6_3364902d",
+      "range": {
+        "startLine": 2094,
+        "startChar": 71,
+        "endLine": 2094,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8149a171_5b53c3f3",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -194,6 +350,30 @@
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d65e370_ef6d6f8e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2096,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8149a171_5b53c3f3",
+      "range": {
+        "startLine": 2096,
+        "startChar": 54,
+        "endLine": 2096,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -220,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "c465312a_a0412836",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Is it worth returning an error in that case? Right now it would succeed but just ignore the section.",
+      "parentUuid": "88d7a20b_fdf83524",
+      "range": {
+        "startLine": 2100,
+        "startChar": 15,
+        "endLine": 2100,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa9eee6e_fa7c33bf",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -231,6 +435,30 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "An early continue here would be nice.",
+      "range": {
+        "startLine": 2107,
+        "startChar": 50,
+        "endLine": 2107,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa791fd_a28b75c3",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2107,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "But the data channel still needs to be handled? Though maybe it can just use the GetFirstDataContent helper.",
+      "parentUuid": "fa9eee6e_fa7c33bf",
       "range": {
         "startLine": 2107,
         "startChar": 50,
@@ -283,6 +511,30 @@
     },
     {
       "key": {
+        "uuid": "ad8c6ba9_7505f8b7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2126,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "It\u0027s a nontrivial method itself and can probably be reused by the Plan B code.",
+      "parentUuid": "b4adf5aa_8701a60c",
+      "range": {
+        "startLine": 2126,
+        "startChar": 71,
+        "endLine": 2126,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52e53072_4bdb1d86",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -294,6 +546,30 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "An early return here would be nice",
+      "range": {
+        "startLine": 2153,
+        "startChar": 5,
+        "endLine": 2153,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbcdd51a_8301e270",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2153,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "I personally like the symmetry of having the nested ifs. I think it clarifies the intent more than doing early returns.",
+      "parentUuid": "52e53072_4bdb1d86",
       "range": {
         "startLine": 2153,
         "startChar": 5,
@@ -346,6 +622,24 @@
     },
     {
       "key": {
+        "uuid": "76d5ae1a_26bdb891",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2241,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "I think it might be more readable as-is since the spec always refers to finding the associated transceiver.",
+      "parentUuid": "7e941651_32c2db73",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4bb6182_7e38f58f",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -369,6 +663,30 @@
     },
     {
       "key": {
+        "uuid": "424c6b00_f88a8bb8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4bb6182_7e38f58f",
+      "range": {
+        "startLine": 2270,
+        "startChar": 20,
+        "endLine": 2270,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a897e567_b927ead9",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -380,6 +698,30 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "Do we need to use this set or can we just make sure we don\u0027t use any mid already in the local and remote descriptions?",
+      "range": {
+        "startLine": 3104,
+        "startChar": 74,
+        "endLine": 3104,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "614ec6fc_49348cbb",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3104,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "The MID in the created offer should also be unique, and the only way I can think of ensuring that is to maintain a set of allocated MIDs that include what has already been allocated for the offer.",
+      "parentUuid": "a897e567_b927ead9",
       "range": {
         "startLine": 3104,
         "startChar": 74,
@@ -415,6 +757,30 @@
     },
     {
       "key": {
+        "uuid": "c8aff69e_3ad58947",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3111,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "454dd2ba_a1337ee9",
+      "range": {
+        "startLine": 3111,
+        "startChar": 36,
+        "endLine": 3111,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "414c3681_bde144ae",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -426,6 +792,30 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "Might be more readable to have a \n\nsize_t mline_count \u003d std::max(local_contents.size(), remote_contents.size());\nfor (size_t i \u003d 0; i \u003c mline_count; ++i)",
+      "range": {
+        "startLine": 3131,
+        "startChar": 67,
+        "endLine": 3131,
+        "endChar": 68
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f404a38e_aaeb7d05",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3131,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Hmm, I think mline_count is a bit deceptive in this case since it\u0027s the maximum mline count. Can\u0027t think of a better name though.",
+      "parentUuid": "414c3681_bde144ae",
       "range": {
         "startLine": 3131,
         "startChar": 67,
@@ -461,6 +851,30 @@
     },
     {
       "key": {
+        "uuid": "6596e201_498f74e6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3142,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "I rewrote this in the spirit of what you suggested. Let me know what you think.",
+      "parentUuid": "27d5fd96_a93e2c67",
+      "range": {
+        "startLine": 3142,
+        "startChar": 5,
+        "endLine": 3142,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e6d7fa6_9dda446b",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -472,6 +886,24 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "Just calling CreateOffer or CreateAnswer causes the transceiver state to change?  Is that right?  I thought that could only happen when we call SetLocal or SetRemote.  But I could be wrong.",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb6525fc_058ebaef",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3155,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Yes, according to JSEP the mline index should be remembered so that it can be matched in SetLocalDescription.",
+      "parentUuid": "8e6d7fa6_9dda446b",
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -501,6 +933,30 @@
     },
     {
       "key": {
+        "uuid": "08767459_fcc240a4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3167,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Put a reference at the top of the function.",
+      "parentUuid": "d0d7286a_d7229a49",
+      "range": {
+        "startLine": 3167,
+        "startChar": 43,
+        "endLine": 3167,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b1f0e04_57662838",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -518,6 +974,24 @@
     },
     {
       "key": {
+        "uuid": "4eb7c28a_0d663333",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3182,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Yes, that\u0027s exactly what set_mid and set_mline_index mean.",
+      "parentUuid": "0b1f0e04_57662838",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4fe62e8_82df4416",
         "filename": "pc/peerconnection.h",
         "patchSetId": 9
@@ -529,6 +1003,24 @@
       "writtenOn": "2017-12-19T21:29:07Z",
       "side": 1,
       "message": "There\u0027s a lot of code for both plan B and unified plan, and it\u0027s all spread out in one .cc file with \"if plan B, if unified plan\" code paths in several places, and peerconnection.cc is pretty big.\n\nWould it be worth refactoring all of this into helper classes? Kind of like how stats collection is its own classes even though they are implementing an operation of PeerConnection.\nE.g. DescriptionHandlerInterface::ApplyLocal/RemoteDescription, with implementations PlanBDescriptionHandler and UnifiedPlanDescriptionHandler. You set which handler to use at construction and you refer to it to do any updating of senders/receivers/transceivers/tracks/streams.\n\nThis would make peerconnection.cc thinner and make it more clear what code has to do with what.\nYou\u0027re more familiar with this code so you tell me if that makes sense. It might be difficult to decouple this into separate classes, or require friend-ing, but it might be a good idea.\n\nThoughts?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b091661d_b3e048ca",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "I\u0027m still on the fence about this. I agree that it\u0027s confusing with the big if\u0027s branching of Unified Plan vs Plan B. It might be tricky splitting out the code because everything in PeerConnection seems to be so interdependent. But I\u0027ll take another look at the situation and see if it makes sense now that the bulk of the Unified Plan work is done here.",
+      "parentUuid": "c4fe62e8_82df4416",
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -558,6 +1050,30 @@
     },
     {
       "key": {
+        "uuid": "049555e3_3c1d4aaf",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7db5c0e_d4ce603a",
+      "range": {
+        "startLine": 917,
+        "startChar": 35,
+        "endLine": 917,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e4f7171_72853bfe",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 9
@@ -572,6 +1088,24 @@
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec65075b_2f075b7b",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e4f7171_72853bfe",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -592,6 +1126,24 @@
     },
     {
       "key": {
+        "uuid": "52b25f99_5579922c",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14594abe_e12be200",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48e76001_2b4785fb",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 9
@@ -609,6 +1161,24 @@
     },
     {
       "key": {
+        "uuid": "36efd3dc_a6934a7e",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48e76001_2b4785fb",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a790d27_cbd8c65b",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 9
@@ -620,6 +1190,24 @@
       "writtenOn": "2017-12-19T02:12:49Z",
       "side": 1,
       "message": "May want to comment that this is tested for backwards compatibility. I don\u0027t think it\u0027s associated with the standard, is it?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10d4e7b1_e38e177c",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "I guess it\u0027s unlikely that the MIDs would change between CreateOffer/SetLocalDescription, but this test is mostly aiming to verify  interop with other endpoints which generate different MIDs (e.g., Firefox generates sdparta_0).",
+      "parentUuid": "6a790d27_cbd8c65b",
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -649,6 +1237,30 @@
     },
     {
       "key": {
+        "uuid": "92b50555_4c705025",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f5d2504_f38ec233",
+      "range": {
+        "startLine": 118,
+        "startChar": 65,
+        "endLine": 118,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ed8d3e5_d0c92e16",
         "filename": "pc/rtptransceiver.h",
         "patchSetId": 9
@@ -669,6 +1281,30 @@
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4de2266b_366b4023",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-20T04:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ed8d3e5_d0c92e16",
+      "range": {
+        "startLine": 126,
+        "startChar": 3,
+        "endLine": 126,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

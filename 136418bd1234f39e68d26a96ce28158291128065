@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "fb68d79a_d448b0f2",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T11:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc821dc8_9748bb59",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8c2b033_9c7414bc",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 3
@@ -89,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "fc47b927_281d524b",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T11:12:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4f403d14_bafb18a7",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77574e9d_e606788e",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 3
@@ -121,6 +157,24 @@
       "revId": "136418bd1234f39e68d26a96ce28158291128065",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "377ccde4_ff70e4f2",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T11:12:46Z",
+      "side": 1,
+      "message": "Filed https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8674 so as to not forget this issue. Not solving at this time.",
+      "parentUuid": "873df984_f6b8b9ae",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -159,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "c406d80d_c3635785",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T11:12:46Z",
+      "side": 1,
+      "message": "The function is used in 3 tests - CollectRTCOutboundRTPStreamStats_Audio, _Video and CollectNoStreamRTCOutboundRTPStreamStats_Audio. So making a TEST_P would only reduce the tests by 1 - I don\u0027t think this is worth the additional complexification.",
+      "parentUuid": "78b0ca9c_f200f625",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7393782_6d4efeb1",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 3
@@ -191,6 +263,24 @@
       "revId": "136418bd1234f39e68d26a96ce28158291128065",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20e179ba_de3f3a66",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T11:12:46Z",
+      "side": 1,
+      "message": "Test added that ssrc \u003d 0 is ignored.",
+      "parentUuid": "912c5614_e69a3d54",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -246,6 +336,24 @@
     },
     {
       "key": {
+        "uuid": "f0dd3894_f7b14a53",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T11:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae7ebe4d_b057792a",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85bd9062_96405542",
         "filename": "pc/statscollector_unittest.cc",
         "patchSetId": 3
@@ -278,6 +386,24 @@
       "revId": "136418bd1234f39e68d26a96ce28158291128065",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a48a649f_11645c98",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2191,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-20T11:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aab3f5ff_f5757ff5",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -15,6 +15,7 @@
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/base/mediaengine.h"
+#include "media/engine/stereocodecfactory.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/utility/include/jvm_android.h"
 // We don't depend on the audio processing module implementation.
@@ -212,6 +213,8 @@ jlong CreatePeerConnectionFactoryForJava(
       video_encoder_factory = std::unique_ptr<VideoEncoderFactory>(
           CreateVideoEncoderFactory(jni, jencoder_factory));
     }
+    video_encoder_factory = std::unique_ptr<VideoEncoderFactory>(
+        new StereoEncoderFactory(std::move(video_encoder_factory)));
 
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory = nullptr;
     if (jdecoder_factory == nullptr) {
@@ -222,6 +225,8 @@ jlong CreatePeerConnectionFactoryForJava(
       video_decoder_factory = std::unique_ptr<VideoDecoderFactory>(
           CreateVideoDecoderFactory(jni, jdecoder_factory));
     }
+    video_decoder_factory = std::unique_ptr<VideoDecoderFactory>(
+        new StereoDecoderFactory(std::move(video_decoder_factory)));
 
     rtc::scoped_refptr<AudioDeviceModule> adm_scoped = nullptr;
     media_engine.reset(CreateMediaEngine(

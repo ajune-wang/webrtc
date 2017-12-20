@@ -7,6 +7,7 @@
 # be found in the AUTHORS file in the root of the source tree.
 
 import("../webrtc.gni")
+
 if (is_android) {
   import("//build/config/android/config.gni")
   import("//build/config/android/rules.gni")
@@ -112,7 +113,9 @@ if (is_android) {
     apk_name = "AppRTCMobileTest"
     android_manifest = "androidtests/AndroidManifest.xml"
 
-    java_files = [ "androidtests/src/org/appspot/apprtc/test/PeerConnectionClientTest.java" ]
+    java_files = [
+      "androidtests/src/org/appspot/apprtc/test/PeerConnectionClientTest.java",
+    ]
 
     apk_under_test = ":AppRTCMobile"
 
@@ -641,6 +644,7 @@ if (is_win || is_android) {
         "unityplugin/classreferenceholder.h",
         "unityplugin/jni_onload.cc",
       ]
+      suppressed_configs += [ "//build/config/android:hide_all_but_jni_onload" ]
     }
 
     if (!build_with_chromium && is_clang) {
@@ -659,8 +663,11 @@ if (is_win || is_android) {
       "../api:video_frame_api",
       "../api/audio_codecs:builtin_audio_decoder_factory",
       "../api/audio_codecs:builtin_audio_encoder_factory",
+      "../media:rtc_internal_video_codecs",
       "../media:rtc_media",
       "../media:rtc_media_base",
+      "../modules/audio_device:audio_device",
+      "../modules/audio_processing:audio_processing",
       "../modules/video_capture:video_capture_module",
       "../pc:libjingle_peerconnection",
       "../rtc_base:rtc_base",

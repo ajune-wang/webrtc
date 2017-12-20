@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a991ec10_ff92dced",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-20T13:42:18Z",
+      "side": 1,
+      "message": "may be int16_t (to match parameter type constructor takes)",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 11
+      },
+      "revId": "0757a691114d970728fa9c30977ec1850a86bf9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ebd056_e66b4214",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-20T13:42:18Z",
+      "side": 1,
+      "message": "may be\nEXPECT_THAT(recording_buffer, Each(Le(kAmplitude)));",
+      "range": {
+        "startLine": 144,
+        "startChar": 36,
+        "endLine": 144,
+        "endChar": 0
+      },
+      "revId": "0757a691114d970728fa9c30977ec1850a86bf9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "685d2583_6af8ac83",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2017-12-20T13:42:18Z",
+      "side": 1,
+      "message": "may be\nEXPECT_THAT(recording_buffer, Contains(Gt(kAmplitude)));",
+      "range": {
+        "startLine": 153,
+        "startChar": 36,
+        "endLine": 153,
+        "endChar": 0
+      },
+      "revId": "0757a691114d970728fa9c30977ec1850a86bf9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

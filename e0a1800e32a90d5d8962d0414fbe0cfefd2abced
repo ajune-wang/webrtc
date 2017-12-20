@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "969e3958_2e08fdaa",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2017-12-20T13:20:05Z",
+      "side": 1,
+      "message": "Reverted.",
+      "parentUuid": "cea96505_f6429d0d",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "e0a1800e32a90d5d8962d0414fbe0cfefd2abced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bb510be_68d1fef5",
         "filename": "test/fake_audio_device_unittest.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a5d49726_5174d3b9",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2017-12-20T13:20:05Z",
+      "side": 1,
+      "message": "Reverted.",
+      "parentUuid": "3bb510be_68d1fef5",
+      "range": {
+        "startLine": 152,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 13
+      },
+      "revId": "e0a1800e32a90d5d8962d0414fbe0cfefd2abced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aadd6175_63304bef",
         "filename": "test/fake_audio_device_unittest.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "e0a1800e32a90d5d8962d0414fbe0cfefd2abced",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de5e51ad_2099c05b",
+        "filename": "test/fake_audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5652
+      },
+      "writtenOn": "2017-12-20T13:20:05Z",
+      "side": 1,
+      "message": "Reverted.",
+      "parentUuid": "aadd6175_63304bef",
+      "range": {
+        "startLine": 176,
+        "startChar": 15,
+        "endLine": 176,
+        "endChar": 0
+      },
+      "revId": "e0a1800e32a90d5d8962d0414fbe0cfefd2abced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

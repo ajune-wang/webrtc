@@ -288,6 +288,9 @@ class PeerConnection : public PeerConnectionInterface,
   // factory, it shouldn't really be public).
   bool GetSslRole(const std::string& content_name, rtc::SSLRole* role);
 
+  // Clear cached stats in the rtcstatscollector.
+  void ClearStatsCache() override;
+
  protected:
   ~PeerConnection() override;
 

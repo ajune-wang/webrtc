@@ -847,6 +847,15 @@ class PeerConnectionInterfaceTest : public testing::Test {
     return observer->called();
   }
 
+  // Call the standards-compliant GetStats function.
+  bool DoGetRTCStats() {
+    rtc::scoped_refptr<webrtc::MockRTCStatsCollectorCallback> callback(
+        new rtc::RefCountedObject<webrtc::MockRTCStatsCollectorCallback>());
+    pc_->GetStats(callback);
+    EXPECT_TRUE_WAIT(callback->called(), kTimeout);
+    return callback->called();
+  }
+
   void InitiateCall() {
     CreatePeerConnectionWithoutDtls();
     // Create a local stream with audio&video tracks.
@@ -1512,6 +1521,31 @@ TEST_F(PeerConnectionInterfaceTest, AddTrackWithoutStream) {
   EXPECT_NE(video_sender->stream_ids(), audio_sender->stream_ids());
 }
 
+// Test creating senders without a connected PC.
+TEST_F(PeerConnectionInterfaceTest, AddTrackBeforeConnecting) {
+  CreatePeerConnectionWithoutDtls();
+  // Create a dummy stream, so tracks share a stream label.
+  rtc::scoped_refptr<AudioTrackInterface> audio_track(
+      pc_factory_->CreateAudioTrack("audio_track", nullptr));
+  rtc::scoped_refptr<VideoTrackInterface> video_track(
+      pc_factory_->CreateVideoTrack(
+          "video_track", pc_factory_->CreateVideoSource(
+                             std::unique_ptr<cricket::VideoCapturer>(
+                                 new cricket::FakeVideoCapturer()))));
+  auto audio_sender =
+      pc_->AddTrack(audio_track, std::vector<MediaStreamInterface*>());
+  auto video_sender =
+      pc_->AddTrack(video_track, std::vector<MediaStreamInterface*>());
+  EXPECT_EQ("audio_track", audio_sender->id());
+  EXPECT_EQ(audio_track, audio_sender->track());
+  EXPECT_EQ("video_track", video_sender->id());
+  EXPECT_EQ(video_track, video_sender->track());
+  // If the ID is truly a random GUID, it should be infinitely unlikely they
+  // will be the same.
+  EXPECT_NE(video_sender->stream_ids(), audio_sender->stream_ids());
+  DoGetStats(nullptr);
+}
+
 TEST_F(PeerConnectionInterfaceTest, CreateOfferReceiveAnswer) {
   InitiateCall();
   WaitAndVerifyOnAddStream(kStreamLabel1);
@@ -1758,6 +1792,22 @@ TEST_F(PeerConnectionInterfaceTest, GetStatsForInvalidTrack) {
   rtc::scoped_refptr<AudioTrackInterface> unknown_audio_track(
       pc_factory_->CreateAudioTrack("unknown track", NULL));
   EXPECT_FALSE(DoGetStats(unknown_audio_track));
+}
+
+TEST_F(PeerConnectionInterfaceTest, GetRTCStatsAfterCalling) {
+  InitiateCall();
+  EXPECT_TRUE(DoGetRTCStats());
+}
+
+TEST_F(PeerConnectionInterfaceTest, GetRTCStatsBeforeCalling) {
+  CreatePeerConnectionWithoutDtls();
+  // EXPECT_TRUE(DoGetRTCStats());
+  pc_->ClearStatsCache();
+  AddAudioVideoStream(kStreamLabel1, "audio_track", "video_track");
+  EXPECT_TRUE(DoGetRTCStats());
+  pc_->ClearStatsCache();
+  CreateOfferReceiveAnswer();
+  EXPECT_TRUE(DoGetRTCStats());
 }
 
 // This test setup two RTP data channels in loop back.

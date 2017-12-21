@@ -29,7 +29,6 @@ PacketQueue2::~PacketQueue2() {}
 
 void PacketQueue2::Push(const Packet& packet_to_insert) {
   Packet packet(packet_to_insert);
-
   auto stream_info_it = streams_.find(packet.ssrc);
   if (stream_info_it == streams_.end()) {
     stream_info_it = streams_.emplace(packet.ssrc, Stream()).first;
@@ -190,7 +189,6 @@ int64_t PacketQueue2::AverageQueueTimeMs() const {
 PacketQueue2::Stream* PacketQueue2::GetHighestPriorityStream() {
   RTC_CHECK(!stream_priorities_.empty());
   uint32_t ssrc = stream_priorities_.begin()->second;
-
   auto stream_info_it = streams_.find(ssrc);
   RTC_CHECK(stream_info_it != streams_.end());
   RTC_CHECK(stream_info_it->second.priority_it == stream_priorities_.begin());

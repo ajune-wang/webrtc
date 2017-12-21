@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "83299e6b_c92e7120",
+        "filename": "test/call_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-12-21T15:58:06Z",
+      "side": 1,
+      "message": "It\u0027s a mess to actually put it in the member non-pointer variable afterwards.",
+      "parentUuid": "78bd5969_9aa023a6",
+      "range": {
+        "startLine": 80,
+        "startChar": 67,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "8afd9ba46e7538e7318a6cb681d1e1e4c37a9690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a31460f_8e5b0c7b",
         "filename": "test/call_test.h",
         "patchSetId": 4

@@ -22,6 +22,30 @@
       "revId": "9ceacd7ee8c129a47cd14a6625901187be57b5ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f5263e7_51d317ee",
+        "filename": "modules/pacing/packet_queue2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2017-12-21T15:58:06Z",
+      "side": 1,
+      "message": "Yes, leftover artifact after adding debug output. Removed.",
+      "parentUuid": "fbd377b0_13640d2d",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 21
+      },
+      "revId": "9ceacd7ee8c129a47cd14a6625901187be57b5ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

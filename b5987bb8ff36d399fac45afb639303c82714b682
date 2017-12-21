@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c7e81c8_da30f9d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2017-12-21T13:13:40Z",
+      "side": 1,
+      "message": "I cannot see from the code (patch set 3) which method was deprecated.",
+      "range": {
+        "startLine": 9,
+        "startChar": 57,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "b5987bb8ff36d399fac45afb639303c82714b682",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

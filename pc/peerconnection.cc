@@ -5069,4 +5069,10 @@ void PeerConnection::DestroyBaseChannel(cricket::BaseChannel* channel) {
   }
 }
 
+void PeerConnection::ClearStatsCache() {
+  if (stats_collector_) {
+    stats_collector_->ClearCachedStatsReport();
+  }
+}
+
 }  // namespace webrtc

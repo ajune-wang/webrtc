@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dddcb3ad_1771c5e8",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2017-12-21T12:14:31Z",
+      "side": 1,
+      "message": "nit, \"Force software AEC on iOS\"",
+      "revId": "91b0d340bd93c5e2abf5f61ed448cdcb9554e2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

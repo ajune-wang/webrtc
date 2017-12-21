@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbd377b0_13640d2d",
+        "filename": "modules/pacing/packet_queue2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2017-12-21T14:52:56Z",
+      "side": 1,
+      "message": "I\u0027m assuming these empty lines were added by accident?",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 21
+      },
+      "revId": "9ceacd7ee8c129a47cd14a6625901187be57b5ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

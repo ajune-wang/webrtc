@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2975c4e1_a3816cf4",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2017-12-21T11:59:49Z",
+      "side": 1,
+      "message": "Note: I don\u0027t think you need the / between the .. and the :. The usual way to write dep names is as \u003cdir-name-without-trailing-slash\u003e:\u003ctarget-name\u003e, and I\u0027m pretty sure that still works even when the dir name ends in \"..\".",
+      "revId": "fe4e221f4747041edd5e36686742c60c2a0fba16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

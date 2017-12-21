@@ -1335,7 +1335,7 @@ void VideoSendStreamImpl::SetTransportOverhead(
 
 void VideoSendStreamImpl::OnPacketAdded(uint32_t ssrc, uint16_t seq_num) {
   if (!worker_queue_->IsCurrent()) {
-    worker_queue_->PostTask([&] { this->OnPacketAdded(ssrc, seq_num); });
+    worker_queue_->PostTask([&] { weak_ptr_->OnPacketAdded(ssrc, seq_num); });
     return;
   }
   const auto& ssrcs = config_->rtp.ssrcs;
@@ -1351,7 +1351,7 @@ void VideoSendStreamImpl::OnPacketFeedbackVector(
     const std::vector<PacketFeedback>& packet_feedback_vector) {
   if (!worker_queue_->IsCurrent()) {
     worker_queue_->PostTask(
-        [&] { this->OnPacketFeedbackVector(packet_feedback_vector); });
+        [&] { weak_ptr_->OnPacketFeedbackVector(packet_feedback_vector); });
     return;
   }
   // Lost feedbacks are not considered to be lost packets.

@@ -155,12 +155,14 @@ bool PeerConnectionFactory::Initialize() {
 }
 
 void PeerConnectionFactory::SetOptions(const Options& options) {
+  RTC_LOG(INFO) << "___SetOptions";
   options_ = options;
 }
 
 rtc::scoped_refptr<AudioSourceInterface>
 PeerConnectionFactory::CreateAudioSource(
     const MediaConstraintsInterface* constraints) {
+  RTC_LOG(INFO) << "___CreateAudioSource";
   RTC_DCHECK(signaling_thread_->IsCurrent());
   rtc::scoped_refptr<LocalAudioSource> source(
       LocalAudioSource::Create(constraints));
@@ -232,6 +234,7 @@ PeerConnectionFactory::CreatePeerConnection(
     std::unique_ptr<cricket::PortAllocator> allocator,
     std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator,
     PeerConnectionObserver* observer) {
+  RTC_LOG(INFO) << "___CreatePeerConnection";
   RTC_DCHECK(signaling_thread_->IsCurrent());
 
   if (!cert_generator.get()) {
@@ -271,6 +274,7 @@ PeerConnectionFactory::CreatePeerConnection(
 
 rtc::scoped_refptr<MediaStreamInterface>
 PeerConnectionFactory::CreateLocalMediaStream(const std::string& label) {
+  RTC_LOG(INFO) << "___CreateLocalMediaStream: " << label;
   RTC_DCHECK(signaling_thread_->IsCurrent());
   return MediaStreamProxy::Create(signaling_thread_,
                                   MediaStream::Create(label));
@@ -288,6 +292,7 @@ rtc::scoped_refptr<VideoTrackInterface> PeerConnectionFactory::CreateVideoTrack(
 rtc::scoped_refptr<AudioTrackInterface>
 PeerConnectionFactory::CreateAudioTrack(const std::string& id,
                                         AudioSourceInterface* source) {
+  RTC_LOG(INFO) << "___CreateAudioTrack: " << id;
   RTC_DCHECK(signaling_thread_->IsCurrent());
   rtc::scoped_refptr<AudioTrackInterface> track(AudioTrack::Create(id, source));
   return AudioTrackProxy::Create(signaling_thread_, track);

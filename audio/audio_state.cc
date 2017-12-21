@@ -31,6 +31,7 @@ AudioState::AudioState(const AudioState::Config& config)
       audio_transport_(config_.audio_mixer,
                        config_.audio_processing.get(),
                        config_.audio_device_module.get()) {
+  RTC_LOG(INFO) << "___AudioState::AudioState";
   process_thread_checker_.DetachFromThread();
   RTC_DCHECK(config_.audio_mixer);
   RTC_DCHECK(config_.audio_device_module);
@@ -53,6 +54,7 @@ bool AudioState::typing_noise_detected() const {
 }
 
 void AudioState::AddReceivingStream(webrtc::AudioReceiveStream* stream) {
+  RTC_LOG(INFO) << "___AddReceivingStream: " << stream;
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK_EQ(0, receiving_streams_.count(stream));
   receiving_streams_.insert(stream);
@@ -75,6 +77,7 @@ void AudioState::AddReceivingStream(webrtc::AudioReceiveStream* stream) {
 }
 
 void AudioState::RemoveReceivingStream(webrtc::AudioReceiveStream* stream) {
+  RTC_LOG(INFO) << "___RemoveReceivingStream: " << stream;
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   auto count = receiving_streams_.erase(stream);
   RTC_DCHECK_EQ(1, count);
@@ -87,6 +90,8 @@ void AudioState::RemoveReceivingStream(webrtc::AudioReceiveStream* stream) {
 
 void AudioState::AddSendingStream(webrtc::AudioSendStream* stream,
                                   int sample_rate_hz, size_t num_channels) {
+  RTC_LOG(INFO) << "___AddSendingStream: "
+                << stream << ", " << num_channels;
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   auto& properties = sending_streams_[stream];
   properties.sample_rate_hz = sample_rate_hz;
@@ -107,6 +112,7 @@ void AudioState::AddSendingStream(webrtc::AudioSendStream* stream,
 }
 
 void AudioState::RemoveSendingStream(webrtc::AudioSendStream* stream) {
+  RTC_LOG(INFO) << "___RemoveSendingStream: " << stream;
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   auto count = sending_streams_.erase(stream);
   RTC_DCHECK_EQ(1, count);
@@ -117,7 +123,7 @@ void AudioState::RemoveSendingStream(webrtc::AudioSendStream* stream) {
 }
 
 void AudioState::SetPlayout(bool enabled) {
-  RTC_LOG(INFO) << "SetPlayout(" << enabled << ")";
+  RTC_LOG(INFO) << "___SetPlayout(" << enabled << ")";
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   if (playout_enabled_ != enabled) {
     playout_enabled_ = enabled;
@@ -135,7 +141,7 @@ void AudioState::SetPlayout(bool enabled) {
 }
 
 void AudioState::SetRecording(bool enabled) {
-  RTC_LOG(INFO) << "SetRecording(" << enabled << ")";
+  RTC_LOG(INFO) << "___SetRecording(" << enabled << ")";
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   if (recording_enabled_ != enabled) {
     recording_enabled_ = enabled;

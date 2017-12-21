@@ -20,8 +20,13 @@ namespace webrtc {
 void IceEventLog::LogCandidatePairStatus(
     const std::string& candidate_pair_desc_,
     IceCandidatePairStatus status) {
-  event_log_->Log(
-      rtc::MakeUnique<RtcEventIceCandidatePair>(candidate_pair_desc_, status));
+  // The creator of IceEventLog is responsible of attaching a valid instance of
+  // RtcEventLog via set_event_log before logging.
+  RTC_DCHECK(event_log_ != nullptr);
+  if (event_log_) {
+    event_log_->Log(rtc::MakeUnique<RtcEventIceCandidatePair>(
+        candidate_pair_desc_, status));
+  }
 }
 
 }  // namespace webrtc

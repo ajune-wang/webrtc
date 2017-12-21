@@ -363,13 +363,8 @@ class Network {
   void set_ignored(bool ignored) { ignored_ = ignored; }
 
   AdapterType type() const { return type_; }
-  void set_type(AdapterType type) {
-    if (type_ == type) {
-      return;
-    }
-    type_ = type;
-    SignalTypeChanged(this);
-  }
+  std::string type_str() const { return type_str_; };
+  void set_type(AdapterType type);
 
   uint16_t GetCost() const {
     switch (type_) {
@@ -417,6 +412,7 @@ class Network {
   int scope_id_;
   bool ignored_;
   AdapterType type_;
+  std::string type_str_;
   int preference_;
   bool active_ = true;
   uint16_t id_ = 0;

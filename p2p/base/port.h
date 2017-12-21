@@ -19,6 +19,8 @@
 
 #include "api/candidate.h"
 #include "api/optional.h"
+#include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
+#include "logging/rtc_event_log/icelogger.h"
 #include "p2p/base/candidatepairinterface.h"
 #include "p2p/base/jseptransport.h"
 #include "p2p/base/packetlossestimator.h"
@@ -491,6 +493,10 @@ class Connection : public CandidatePairInterface,
 
   sigslot::signal1<Connection*> SignalStateChange;
 
+  // Signal used for ICE logging.
+  sigslot::signal2<Connection*, webrtc::IceCandidatePairStatus>
+      SignalConnectivityCheckStatus;
+
   // Sent when the connection has decided that it is no longer of value.  It
   // will delete itself immediately after this call.
   sigslot::signal1<Connection*> SignalDestroyed;
@@ -589,6 +595,10 @@ class Connection : public CandidatePairInterface,
   std::string ToDebugId() const;
   std::string ToString() const;
   std::string ToSensitiveString() const;
+  // Simpler string description than ToString().
+  // type:protocol:network->type:protocol,
+  // where the lhs of -> is the local candidate, and the rhs is the remote.
+  std::string ToDescriptionString();
   // Prints pings_since_last_response_ into a string.
   void PrintPingsSinceLastResponse(std::string* pings, size_t max);
 
@@ -724,6 +734,8 @@ class Connection : public CandidatePairInterface,
   int receiving_timeout_;
   int64_t time_created_ms_;
   int num_pings_sent_ = 0;
+
+  std::string desc_string_;
 
   friend class Port;
   friend class ConnectionRequest;

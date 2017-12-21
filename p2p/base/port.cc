@@ -681,6 +681,8 @@ void Port::SendBindingResponse(StunMessage* request,
         << ", id=" << rtc::hex_encode(response.transaction_id());
 
     conn->stats_.sent_ping_responses++;
+    conn->SignalConnectivityCheckStatus(
+        conn, webrtc::IceCandidatePairStatus::kCheckResponseSent);
   }
 }
 
@@ -1128,6 +1130,8 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
   }
 
   stats_.recv_ping_requests++;
+  SignalConnectivityCheckStatus(this,
+                                webrtc::IceCandidatePairStatus::kCheckReceived);
 
   // This is a validated stun request from remote peer.
   port_->SendBindingResponse(msg, remote_addr);
@@ -1435,6 +1439,21 @@ std::string Connection::ToSensitiveString() const {
   return ToString();
 }
 
+std::string Connection::ToDescriptionString() {
+  if (desc_string_.empty()) {
+    const Candidate& local = local_candidate();
+    const Candidate& remote = remote_candidate();
+    const Port* port = this->port();
+    const rtc::Network* network = port->Network();
+    std::stringstream ss;
+    ss << port->content_name() << ":" << local.type() << ":" << local.protocol()
+       << ":" << network->type_str() << "->" << remote.type() << ":"
+       << remote.protocol();
+    desc_string_ = ss.str();
+  }
+  return desc_string_;
+}
+
 void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
                                              StunMessage* response) {
   // Log at LS_INFO if we receive a ping response on an unwritable
@@ -1458,6 +1477,8 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
   packet_loss_estimator_.ReceivedResponse(request->id(), time_received);
 
   stats_.recv_ping_responses++;
+  SignalConnectivityCheckStatus(
+      this, webrtc::IceCandidatePairStatus::kCheckResponseReceived);
 
   MaybeUpdateLocalCandidate(request, response);
 }
@@ -1502,6 +1523,8 @@ void Connection::OnConnectionRequestSent(ConnectionRequest* request) {
                     << ", use_candidate=" << use_candidate_attr()
                     << ", nomination=" << nomination();
   stats_.sent_ping_requests_total++;
+  SignalConnectivityCheckStatus(this,
+                                webrtc::IceCandidatePairStatus::kCheckSent);
   if (stats_.recv_ping_responses == 0) {
     stats_.sent_ping_requests_before_first_response++;
   }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a9bed3f_c35da655",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2017-12-21T08:00:56Z",
+      "side": 1,
+      "message": "To fix the presubmit error:\nThe \"Bug: [bug number]\" footer is mandatory. Please create a bug and reference it using either of:\n\nAdd a space after the colon.",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "3691d42d82cc3a28781faddb47bbaf05214d18a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

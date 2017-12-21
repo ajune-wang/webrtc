@@ -23,7 +23,6 @@ namespace cricket {
 FakeAudioSendStream::FakeAudioSendStream(
     int id, const webrtc::AudioSendStream::Config& config)
     : id_(id), config_(config) {
-  RTC_DCHECK(config.voe_channel_id != -1);
 }
 
 void FakeAudioSendStream::Reconfigure(
@@ -72,7 +71,6 @@ webrtc::AudioSendStream::Stats FakeAudioSendStream::GetStats(
 FakeAudioReceiveStream::FakeAudioReceiveStream(
     int id, const webrtc::AudioReceiveStream::Config& config)
     : id_(id), config_(config) {
-  RTC_DCHECK(config.voe_channel_id != -1);
 }
 
 const webrtc::AudioReceiveStream::Config&

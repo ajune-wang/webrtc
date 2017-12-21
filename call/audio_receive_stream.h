@@ -29,11 +29,6 @@
 namespace webrtc {
 class AudioSinkInterface;
 
-// WORK IN PROGRESS
-// This class is under development and is not yet intended for for use outside
-// of WebRtc/Libjingle. Please use the VoiceEngine API instead.
-// See: https://bugs.chromium.org/p/webrtc/issues/detail?id=4690
-
 class AudioReceiveStream {
  public:
   struct Stats {
@@ -103,11 +98,12 @@ class AudioReceiveStream {
 
     Transport* rtcp_send_transport = nullptr;
 
-    // Underlying VoiceEngine handle, used to map AudioReceiveStream to lower-
-    // level components.
-    // TODO(solenberg): Remove when VoiceEngine channels are created outside
-    // of Call.
+    // TODO(solenberg): Remove once clients don't use it anymore.
     int voe_channel_id = -1;
+
+    // NetEq settings.
+    size_t jitter_buffer_max_packets = 50;
+    bool jitter_buffer_fast_accelerate = false;
 
     // Identifier for an A/V synchronization group. Empty string to disable.
     // TODO(pbos): Synchronize streams in a sync group, not just one video

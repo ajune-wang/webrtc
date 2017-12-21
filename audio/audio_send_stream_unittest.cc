@@ -33,10 +33,10 @@
 #include "test/mock_audio_encoder.h"
 #include "test/mock_audio_encoder_factory.h"
 #include "test/mock_voe_channel_proxy.h"
-#include "test/mock_voice_engine.h"
 
 namespace webrtc {
 namespace test {
+#if 0
 namespace {
 
 using testing::_;
@@ -186,7 +186,6 @@ struct ConfigHelper {
   BitrateAllocator* bitrate_allocator() { return &bitrate_allocator_; }
   rtc::TaskQueue* worker_queue() { return &worker_queue_; }
   RtcEventLog* event_log() { return &event_log_; }
-  MockVoiceEngine* voice_engine() { return &voice_engine_; }
 
   static void AddBweToConfig(AudioSendStream::Config* config) {
     config->rtp.extensions.push_back(
@@ -305,7 +304,6 @@ struct ConfigHelper {
   }
 
  private:
-  testing::StrictMock<MockVoiceEngine> voice_engine_;
   rtc::scoped_refptr<AudioState> audio_state_;
   AudioSendStream::Config stream_config_;
   testing::StrictMock<MockVoEChannelProxy>* channel_proxy_ = nullptr;
@@ -569,5 +567,6 @@ TEST(AudioSendStreamTest, ReconfigureTransportCcResetsFirst) {
   }
   send_stream.Reconfigure(new_config);
 }
+#endif
 }  // namespace test
 }  // namespace webrtc

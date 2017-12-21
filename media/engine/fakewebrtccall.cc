@@ -72,7 +72,6 @@ webrtc::AudioSendStream::Stats FakeAudioSendStream::GetStats(
 FakeAudioReceiveStream::FakeAudioReceiveStream(
     int id, const webrtc::AudioReceiveStream::Config& config)
     : id_(id), config_(config) {
-  RTC_DCHECK(config.voe_channel_id != -1);
 }
 
 const webrtc::AudioReceiveStream::Config&

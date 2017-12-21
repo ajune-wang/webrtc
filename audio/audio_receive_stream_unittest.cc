@@ -25,10 +25,10 @@
 #include "test/gtest.h"
 #include "test/mock_audio_decoder_factory.h"
 #include "test/mock_voe_channel_proxy.h"
-#include "test/mock_voice_engine.h"
 
 namespace webrtc {
 namespace test {
+/*
 namespace {
 
 using testing::_;
@@ -143,7 +143,6 @@ struct ConfigHelper {
   AudioReceiveStream::Config& config() { return stream_config_; }
   rtc::scoped_refptr<AudioState> audio_state() { return audio_state_; }
   rtc::scoped_refptr<MockAudioMixer> audio_mixer() { return audio_mixer_; }
-  MockVoiceEngine& voice_engine() { return voice_engine_; }
   MockVoEChannelProxy* channel_proxy() { return channel_proxy_; }
   RtpStreamReceiverControllerInterface* rtp_stream_receiver_controller() {
     return &rtp_stream_receiver_controller_;
@@ -176,7 +175,6 @@ struct ConfigHelper {
   PacketRouter packet_router_;
   rtc::scoped_refptr<AudioDecoderFactory> decoder_factory_;
   MockRtcEventLog event_log_;
-  testing::StrictMock<MockVoiceEngine> voice_engine_;
   rtc::scoped_refptr<AudioState> audio_state_;
   rtc::scoped_refptr<MockAudioMixer> audio_mixer_;
   AudioReceiveStream::Config stream_config_;
@@ -394,5 +392,6 @@ TEST(AudioReceiveStreamTest, StreamsShouldBeAddedToMixerOnceOnStart) {
   // Stop stream before it is being destructed.
   recv_stream2.Stop();
 }
+*/
 }  // namespace test
 }  // namespace webrtc

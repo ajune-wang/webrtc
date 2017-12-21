@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1224b7ad_8a0801b1",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2017-12-21T00:12:39Z",
+      "side": 1,
+      "message": "Where did this rtc_internal_video_codecs come from? So weird that the bots all suggested you to add this but this thing doesn\u0027t seem to exist anywhere?\n\nAnyway, when relanding your change, definitely remove this and fix the dependency\nTry it out like this:\n\n  gn gen --check out/android-arm-output --args\u003d\u0027target_cpu\u003d\"arm\" target_os\u003d\"android\"\u0027",
+      "range": {
+        "startLine": 675,
+        "startChar": 10,
+        "endLine": 675,
+        "endChar": 41
+      },
+      "revId": "7ed2af5b461387191de2456cba906dd5d25766b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

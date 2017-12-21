@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3ce3738_891ae964",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-21T22:28:13Z",
+      "side": 1,
+      "message": "I still think OnCandidatePairEvent \"IceCandidatePairEvent event\" would be a better naming scheme for this.",
+      "range": {
+        "startLine": 295,
+        "startChar": 74,
+        "endLine": 295,
+        "endChar": 0
+      },
+      "revId": "db416f2d5756a74e89119147c6baa976b88f0150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6072715a_f56d19e4",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-21T22:28:13Z",
+      "side": 1,
+      "message": "If we\u0027re going to log this a lot (and we are), we should return a const std::string\u0026 to avoid copying.",
+      "range": {
+        "startLine": 1442,
+        "startChar": 47,
+        "endLine": 1442,
+        "endChar": 0
+      },
+      "revId": "db416f2d5756a74e89119147c6baa976b88f0150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cf9f5f7_ab00d7b6",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1453,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-21T22:28:13Z",
+      "side": 1,
+      "message": "I\u0027d prefer an early return:\n\nif (!desc_string_.empty()) {\n  return desc_string_.\n}",
+      "range": {
+        "startLine": 1453,
+        "startChar": 3,
+        "endLine": 1453,
+        "endChar": 0
+      },
+      "revId": "db416f2d5756a74e89119147c6baa976b88f0150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a264f5f4_1874e833",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-21T22:28:13Z",
+      "side": 1,
+      "message": "Having a signal member with a connect method  is basically the same as having the following:\n\nvoid set_ice_event_log(webrtc::IceEventLog* ice_event_log);\nwebrtc::IceEventLog* ice_event_log_;\n\n\nI would prefer that.  It should work fine even though the class is subclasses elsewhere.",
+      "range": {
+        "startLine": 498,
+        "startChar": 36,
+        "endLine": 498,
+        "endChar": 0
+      },
+      "revId": "db416f2d5756a74e89119147c6baa976b88f0150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d9a3f78_8eae5057",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-21T22:28:13Z",
+      "side": 1,
+      "message": "We already have ToDebugId().  Maybe this is ToLogId() or ToLogDescripiton()?",
+      "revId": "db416f2d5756a74e89119147c6baa976b88f0150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "066a8bea_f8351c09",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-21T22:28:13Z",
+      "side": 1,
+      "message": "If you rename the above to ToLogX, please call this log_x_.",
+      "range": {
+        "startLine": 738,
+        "startChar": 27,
+        "endLine": 738,
+        "endChar": 0
+      },
+      "revId": "db416f2d5756a74e89119147c6baa976b88f0150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af017381_64ab7900",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2017-12-21T22:28:13Z",
+      "side": 1,
+      "message": "AdapterTypeToString(ADAPTER_TYPE_UNKNOWN)",
+      "range": {
+        "startLine": 895,
+        "startChar": 27,
+        "endLine": 895,
+        "endChar": 0
+      },
+      "revId": "db416f2d5756a74e89119147c6baa976b88f0150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

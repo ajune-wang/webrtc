@@ -24,6 +24,7 @@
 
 namespace webrtc {
 class PacketRouter;
+class ProcessThread;
 class RtcEventLog;
 class RtpPacketReceived;
 class RtpStreamReceiverControllerInterface;
@@ -42,6 +43,7 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
  public:
   AudioReceiveStream(RtpStreamReceiverControllerInterface* receiver_controller,
                      PacketRouter* packet_router,
+                     ProcessThread* module_process_thread,
                      const webrtc::AudioReceiveStream::Config& config,
                      const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
                      webrtc::RtcEventLog* event_log);
@@ -52,7 +54,7 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   void Stop() override;
   webrtc::AudioReceiveStream::Stats GetStats() const override;
   int GetOutputLevel() const override;
-  void SetSink(std::unique_ptr<AudioSinkInterface> sink) override;
+  void SetSink(AudioSinkInterface* sink) override;
   void SetGain(float gain) override;
   std::vector<webrtc::RtpSource> GetSources() const override;
 
@@ -80,7 +82,6 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   const webrtc::AudioReceiveStream::Config& config() const;
 
  private:
-  VoiceEngine* voice_engine() const;
   AudioState* audio_state() const;
 
   rtc::ThreadChecker worker_thread_checker_;

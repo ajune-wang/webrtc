@@ -54,7 +54,6 @@
 #include "test/testsupport/test_artifacts.h"
 #include "test/vcm_capturer.h"
 #include "test/video_renderer.h"
-#include "voice_engine/include/voe_base.h"
 
 #include "test/rtp_file_writer.h"
 
@@ -76,47 +75,6 @@ constexpr uint32_t kThumbnailSendSsrcStart = 0xE0000;
 constexpr uint32_t kThumbnailRtxSsrcStart = 0xF0000;
 
 constexpr int kDefaultMaxQp = cricket::WebRtcVideoChannel::kDefaultQpMax;
-
-struct VoiceEngineState {
-  VoiceEngineState()
-      : voice_engine(nullptr),
-        base(nullptr),
-        send_channel_id(-1),
-        receive_channel_id(-1) {}
-
-  webrtc::VoiceEngine* voice_engine;
-  webrtc::VoEBase* base;
-  int send_channel_id;
-  int receive_channel_id;
-};
-
-void CreateVoiceEngine(
-    VoiceEngineState* voe,
-    webrtc::AudioDeviceModule* adm,
-    rtc::scoped_refptr<webrtc::AudioDecoderFactory> decoder_factory) {
-  voe->voice_engine = webrtc::VoiceEngine::Create();
-  voe->base = webrtc::VoEBase::GetInterface(voe->voice_engine);
-  EXPECT_EQ(0, adm->Init());
-  EXPECT_EQ(0, voe->base->Init(adm, nullptr, decoder_factory));
-  webrtc::VoEBase::ChannelConfig config;
-  config.enable_voice_pacing = true;
-  voe->send_channel_id = voe->base->CreateChannel(config);
-  EXPECT_GE(voe->send_channel_id, 0);
-  voe->receive_channel_id = voe->base->CreateChannel();
-  EXPECT_GE(voe->receive_channel_id, 0);
-}
-
-void DestroyVoiceEngine(VoiceEngineState* voe) {
-  voe->base->DeleteChannel(voe->send_channel_id);
-  voe->send_channel_id = -1;
-  voe->base->DeleteChannel(voe->receive_channel_id);
-  voe->receive_channel_id = -1;
-  voe->base->Release();
-  voe->base = nullptr;
-
-  webrtc::VoiceEngine::Delete(voe->voice_engine);
-  voe->voice_engine = nullptr;
-}
 
 class VideoStreamFactory
     : public webrtc::VideoEncoderConfig::VideoStreamFactoryInterface {
@@ -2039,12 +1997,9 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
   });
 }
 
-void VideoQualityTest::SetupAudio(int send_channel_id,
-                                  int receive_channel_id,
-                                  Transport* transport,
+void VideoQualityTest::SetupAudio(Transport* transport,
                                   AudioReceiveStream** audio_receive_stream) {
   audio_send_config_ = AudioSendStream::Config(transport);
-  audio_send_config_.voe_channel_id = send_channel_id;
   audio_send_config_.rtp.ssrc = kAudioSendSsrc;
 
   // Add extension to enable audio send side BWE, and allow audio bit rate
@@ -2069,7 +2024,6 @@ void VideoQualityTest::SetupAudio(int send_channel_id,
   AudioReceiveStream::Config audio_config;
   audio_config.rtp.local_ssrc = kReceiverLocalAudioSsrc;
   audio_config.rtcp_send_transport = transport;
-  audio_config.voe_channel_id = receive_channel_id;
   audio_config.rtp.remote_ssrc = audio_send_config_.rtp.ssrc;
   audio_config.rtp.transport_cc = params_.call.send_side_bwe;
   audio_config.rtp.extensions = audio_send_config_.rtp.extensions;
@@ -2086,7 +2040,6 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
   num_video_streams_ = params.call.dual_video ? 2 : 1;
   std::unique_ptr<test::LayerFilteringTransport> send_transport;
   std::unique_ptr<test::DirectTransport> recv_transport;
-  ::VoiceEngineState voe;
   std::unique_ptr<test::VideoRenderer> local_preview;
   std::vector<std::unique_ptr<test::VideoRenderer>> loopback_renderers;
   AudioReceiveStream* audio_receive_stream = nullptr;
@@ -2107,9 +2060,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
             1.f);
 
     if (params_.audio.enabled) {
-      CreateVoiceEngine(&voe, fake_audio_device.get(), decoder_factory_);
       AudioState::Config audio_state_config;
-      audio_state_config.voice_engine = voe.voice_engine;
       audio_state_config.audio_mixer = AudioMixerImpl::Create();
       audio_state_config.audio_processing = AudioProcessing::Create();
       audio_state_config.audio_device_module = fake_audio_device;
@@ -2185,8 +2136,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
     }
 
     if (params_.audio.enabled) {
-      SetupAudio(voe.send_channel_id, voe.receive_channel_id,
-                 send_transport.get(), &audio_receive_stream);
+      SetupAudio(send_transport.get(), &audio_receive_stream);
     }
 
     for (VideoReceiveStream* receive_stream : video_receive_streams_)
@@ -2235,9 +2185,6 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
     video_capturers_.clear();
     send_transport.reset();
     recv_transport.reset();
-
-    if (params_.audio.enabled)
-      DestroyVoiceEngine(&voe);
 
     local_preview.reset();
     loopback_renderers.clear();

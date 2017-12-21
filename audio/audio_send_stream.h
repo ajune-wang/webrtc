@@ -25,7 +25,6 @@
 #include "voice_engine/transport_feedback_packet_loss_tracker.h"
 
 namespace webrtc {
-class VoiceEngine;
 class RtcEventLog;
 class RtcpBandwidthObserver;
 class RtcpRttStats;
@@ -45,6 +44,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   AudioSendStream(const webrtc::AudioSendStream::Config& config,
                   const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
                   rtc::TaskQueue* worker_queue,
+                  ProcessThread* module_process_thread,
                   RtpTransportControllerSendInterface* transport,
                   BitrateAllocator* bitrate_allocator,
                   RtcEventLog* event_log,
@@ -83,13 +83,13 @@ class AudioSendStream final : public webrtc::AudioSendStream,
 
   RtpState GetRtpState() const;
   const TimeInterval& GetActiveLifetime() const;
+  const voe::ChannelProxy& GetChannelProxy() const;
 
  private:
   class TimedTransport;
 
   internal::AudioState* audio_state();
   const internal::AudioState* audio_state() const;
-  VoiceEngine* voice_engine() const;
 
   void StoreEncoderProperties(int sample_rate_hz, size_t num_channels);
 

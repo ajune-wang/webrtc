@@ -42,6 +42,7 @@ int VoEBaseImpl::Init(
     AudioDeviceModule* audio_device,
     AudioProcessing* audio_processing,
     const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory) {
+  RTC_LOG(INFO) << "___Init";
   RTC_DCHECK(audio_device);
   rtc::CritScope cs(shared_->crit_sec());
   if (shared_->process_thread()) {
@@ -57,6 +58,7 @@ int VoEBaseImpl::Init(
 }
 
 void VoEBaseImpl::Terminate() {
+  RTC_LOG(INFO) << "___Terminate";
   rtc::CritScope cs(shared_->crit_sec());
   TerminateInternal();
 }

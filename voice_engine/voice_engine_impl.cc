@@ -19,6 +19,8 @@
 #include "voice_engine/channel_proxy.h"
 #include "voice_engine/voice_engine_impl.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 // Counter to be ensure that we can add a correct ID in all static trace

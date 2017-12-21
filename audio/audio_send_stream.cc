@@ -236,6 +236,7 @@ void AudioSendStream::Start() {
   if (sending_) {
     return;
   }
+  RTC_LOG(INFO) << "___Start";
 
   if (config_.min_bitrate_bps != -1 && config_.max_bitrate_bps != -1 &&
       (FindExtensionIds(config_.rtp.extensions).transport_sequence_number !=
@@ -249,6 +250,7 @@ void AudioSendStream::Start() {
   sending_ = true;
   audio_state()->AddSendingStream(this, encoder_sample_rate_hz_,
                                   encoder_num_channels_);
+  RTC_LOG(INFO) << "Start___";
 }
 
 void AudioSendStream::Stop() {
@@ -256,15 +258,18 @@ void AudioSendStream::Stop() {
   if (!sending_) {
     return;
   }
+  RTC_LOG(INFO) << "___Stop";
 
   RemoveBitrateObserver();
   channel_proxy_->StopSend();
   sending_ = false;
   audio_state()->RemoveSendingStream(this);
+  RTC_LOG(INFO) << "Stop___ ";
 }
 
 void AudioSendStream::SendAudioData(std::unique_ptr<AudioFrame> audio_frame) {
   RTC_CHECK_RUNS_SERIALIZED(&audio_capture_race_checker_);
+  RTC_LOG(INFO) << "__SendAudioData";
   channel_proxy_->ProcessAndEncodeAudio(std::move(audio_frame));
 }
 

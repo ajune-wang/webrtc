@@ -713,6 +713,7 @@ void BaseChannel::UpdateWritableState_n() {
 }
 
 void BaseChannel::ChannelWritable_n() {
+  RTC_LOG(INFO) << "___ChannelWritable_n";
   RTC_DCHECK(network_thread_->IsCurrent());
   if (writable_) {
     return;
@@ -732,6 +733,7 @@ bool BaseChannel::ShouldSetupDtlsSrtp_n() const {
 }
 
 void BaseChannel::ChannelNotWritable_n() {
+  RTC_LOG(INFO) << "___ChannelNotWritable_n";
   RTC_DCHECK(network_thread_->IsCurrent());
   if (!writable_)
     return;
@@ -1401,6 +1403,7 @@ void BaseChannel::UpdateMediaSendRecvState() {
 }
 
 void VoiceChannel::UpdateMediaSendRecvState_w() {
+  RTC_LOG(INFO) << "___UpdateMediaSendRecvState_w";
   // Render incoming data if we're the active call, and we have the local
   // content. We receive data on the default channel and multiplexed streams.
   bool recv = IsReadyToReceiveMedia_w();
@@ -1411,7 +1414,8 @@ void VoiceChannel::UpdateMediaSendRecvState_w() {
   bool send = IsReadyToSendMedia_w();
   media_channel()->SetSend(send);
 
-  RTC_LOG(LS_INFO) << "Changing voice state, recv=" << recv << " send=" << send;
+  RTC_LOG(LS_INFO) << "___Changing voice state, recv=" << recv << " send=" << send;
+  RTC_LOG(INFO) << "___UpdateMediaSendRecvState_w";
 }
 
 bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,

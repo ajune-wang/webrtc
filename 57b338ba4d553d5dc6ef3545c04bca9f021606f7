@@ -1,0 +1,344 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14b6ab6b_c73b84a4",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Is this planned to be used in chromium? Can it be called out in the CL description, since it relates to the PeerConnection API?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "909d8a09_86fa890b",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "nit: Doesn\u0027t need same comment as in other header.",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3ef53b5_c6b1585b",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "nit: Could be located below GetStats, like in other header, for consistency.",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4beddaa1_f020c637",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Difficult to understand what this is really testing. Is it that two tracks can be added? That they have unique IDs? Or that stats can be gathered for them?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5cc3f6a_f0f800db",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t seem relevant, here or in the above test. I think it was copy-pasted.",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7798719b_b91f9033",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1804,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Delete before landing?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad73df43_eff3bcb1",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1807,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Should anything about these stats be verified?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db696035_809e2b44",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Why also do the offer/answer? Is that in scope for this test?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d3846c5_44eb80e7",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "nit: \"the senders\"",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ddcb63_b303afe0",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Just thinking: won\u0027t this produce incorrect behavior if replaceTrack is called? We store stats on a per-sender (aka \"send stream\") basis, not a per-track-attachment basis. So if replaceTrack is called, wouldn\u0027t we see a new stats object with the stats carried over from the old one?\n\nI feel like more effort could be spent on ensuring that the underlying stats are stored in a way that matches the spec. Because there\u0027s only so far we can smooth things over at this layer of code. It may still be too early for that though.",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfe77ec7_b4c22b6f",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "This RTC_CHECK somewhat worries me. This is information coming from very different areas of the codebase, and I\u0027d be concerned that a race condition or just change in assumptions could break it in the future. What do you think?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76fa3f8f_db4e3154",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Comment and DCHECK don\u0027t seem to align",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c39f5106_c45a6b27",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Comment explaining this test, or a rename, would be good. It\u0027s not clear what significance or meaning \"zero SSRC\" has. Right now, it means \"track has been added, but SLD hasn\u0027t been called\".",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "254c3923_19cb48a1",
+        "filename": "pc/statscollector.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Could use some comments here. It\u0027s pretty odd to have both AddTrack and AddLocalAudioTrack.",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c496730f_a2ec1d48",
+        "filename": "pc/statscollector.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Where is this actually called by PeerConnection or otherwise?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49554088_f0576532",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "ASSERT_TRUE(track_report)?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b076b5d_9c459e79",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2193,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "nit: \"StreamOrNoStream\"?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "152e62e4_1340a4b5",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "What\u0027s causing the SSRC to be 0 here? Does this just indicate that a sender has been created, but no local description has been set? Would be useful to put more info in the bug.",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5b4da64_84d0023f",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "Why no duplicate check here, where there\u0027s one in all the blocks above?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12b558b8_636081f6",
+        "filename": "pc/trackmediainfomap.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-21T00:55:58Z",
+      "side": 1,
+      "message": "It pains me we have to rely more on SSRCs... It\u0027s a bit counter to the move to identifying tracks by MID. It looks like previously, RTCStatsCollector got the sender infos from the tracks; is there a reason this can\u0027t continue?",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

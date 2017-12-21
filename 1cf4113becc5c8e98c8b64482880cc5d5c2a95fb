@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "bf7cdc63_2e35aa07",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "Done.\n\nPart of the removal is to generate a track event. I\u0027m going to leave that as a TODO until I talk to hbos to figure out how best to expose that to the Chromium layer. The other part looks to be updating the receiver streams.",
+      "parentUuid": "420402bf_5d924f88",
+      "range": {
+        "startLine": 1988,
+        "startChar": 47,
+        "endLine": 1988,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14ed8a2d_6046678b",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -308,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "65ac3a00_ac2d6717",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1993,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "I think that\u0027s the intention of the spec. It\u0027s implemented by adding these track events to a list that gets fired all at once at the end of SetRemoteDescription. One thing that does affect the order is that processing the addition/removal of a remote track compares the transceiver\u0027s current direction which is the current direction before it\u0027s updated in the answer. So I think that logic needs to be pulled out of UpdateTransceiverAndDataChannels and put back into SetLocal/RemoteDescription.",
+      "parentUuid": "2dce8701_0c704bf3",
+      "range": {
+        "startLine": 1993,
+        "startChar": 72,
+        "endLine": 1993,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32287d2b_261e69db",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -328,6 +376,30 @@
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "088bc31e_30ca2226",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1996,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "Discussion in comment above.",
+      "parentUuid": "32287d2b_261e69db",
+      "range": {
+        "startLine": 1996,
+        "startChar": 28,
+        "endLine": 1996,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -366,6 +438,30 @@
       "side": 1,
       "message": "Sure, I\u0027ll do that in another CL.",
       "parentUuid": "0fc6a4a6_3364902d",
+      "range": {
+        "startLine": 2094,
+        "startChar": 71,
+        "endLine": 2094,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0435857_974c6d6f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2094,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "Might be a little better now.",
+      "parentUuid": "f13b8de0_181d1587",
       "range": {
         "startLine": 2094,
         "startChar": 71,
@@ -496,6 +592,30 @@
     },
     {
       "key": {
+        "uuid": "36818c30_fb81e7a4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "No longer an issue since it turns out we never parse anything besides media content.",
+      "parentUuid": "97107543_265140db",
+      "range": {
+        "startLine": 2100,
+        "startChar": 15,
+        "endLine": 2100,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa9eee6e_fa7c33bf",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -554,6 +674,24 @@
       "writtenOn": "2017-12-19T20:32:22Z",
       "side": 1,
       "message": "Is the mid used even if association fails?",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cfc7f0d_944d63da",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "I think it\u0027s worth being conservative and never reusing a MID even if it doesn\u0027t associate.",
+      "parentUuid": "e6754e4b_ff2ebf83",
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -854,6 +992,30 @@
     },
     {
       "key": {
+        "uuid": "9f1c4744_08cbd15a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3104,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "I think seen_mids captures the semantics a bit better. CreateOffer doesn\u0027t actually allocate anything from seen_mids (since the MIDs it puts in the offer are just proposed and not effective until SetLocal/RemoteDescription is called).",
+      "parentUuid": "70dabdb9_2d1ae57c",
+      "range": {
+        "startLine": 3104,
+        "startChar": 74,
+        "endLine": 3104,
+        "endChar": 0
+      },
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "454dd2ba_a1337ee9",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -1072,6 +1234,24 @@
     },
     {
       "key": {
+        "uuid": "ce54bbc0_1ead9a2e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3155,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05255b8a_761a26ce",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0d7286a_d7229a49",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 9
@@ -1166,6 +1346,24 @@
       "side": 1,
       "message": "Could you make this clear in the comments in RtpTransceiver?  I can\u0027t think of better names for these, but perhaps some nice comments will help.",
       "parentUuid": "4eb7c28a_0d663333",
+      "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19237907_a1a7e290",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3182,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2017-12-21T22:23:09Z",
+      "side": 1,
+      "message": "I added comments in the last patch set. Let me know if you think there should be more explanation.",
+      "parentUuid": "b9e30a7e_78ae869e",
       "revId": "1cf4113becc5c8e98c8b64482880cc5d5c2a95fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

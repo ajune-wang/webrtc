@@ -16,6 +16,24 @@
       "revId": "91b0d340bd93c5e2abf5f61ed448cdcb9554e2ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e85e0227_d36c8dc9",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 6013
+      },
+      "writtenOn": "2017-12-21T12:20:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dddcb3ad_1771c5e8",
+      "revId": "91b0d340bd93c5e2abf5f61ed448cdcb9554e2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

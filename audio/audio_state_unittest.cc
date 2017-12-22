@@ -51,9 +51,9 @@ class FakeAudioSource : public AudioMixer::Source {
   // methods don't use any override declarations, and we want to avoid
   // warnings from -Winconsistent-missing-override. See
   // http://crbug.com/428099.
-  int Ssrc() const /*override*/ { return 0; }
+  int Ssrc() const override { return 0; }
 
-  int PreferredSampleRate() const /*override*/ { return kSampleRate; }
+  int PreferredSampleRate() const override { return kSampleRate; }
 
   MOCK_METHOD2(GetAudioFrameWithInfo,
                AudioFrameInfo(int sample_rate_hz, AudioFrame* audio_frame));

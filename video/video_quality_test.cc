@@ -1559,6 +1559,10 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
 
   // FEC supported only for single video stream mode yet.
   if (params_.video[0].flexfec) {
+    video_send_configs_[0].rtp.flexfec.payload_type = kFlexfecPayloadType;
+    video_send_configs_[0].rtp.flexfec.ssrc = kFlexfecSendSsrc;
+    video_send_configs_[0].rtp.flexfec.protected_media_ssrcs = {
+        kVideoSendSsrcs[0]};
     // Override send config constructed by CreateSendConfig.
     if (decode_all_receive_streams) {
       for (uint32_t media_ssrc : video_send_configs_[0].rtp.ssrcs) {

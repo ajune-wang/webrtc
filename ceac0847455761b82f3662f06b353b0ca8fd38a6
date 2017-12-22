@@ -2,6 +2,205 @@
   "comments": [
     {
       "key": {
+        "uuid": "19f7c2ff_a370af39",
+        "filename": "pc/dtlssrtptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "Since this just does:\n\nSetDtlsTransports(rtp_dtls_transport_, nullptr);\n\nI\u0027d remove it, since JsepTransport can already do that.\n\nWith the ORTC API (which uses RtcpParameters instead of SetRtcpMuxEnabled and SetDtlsTransports), I may need to rethink things. Really we need a tri-state to support PR answers:\n\n* disabled\n* provisionally enabled\n* enabled\n\nRight now, changing RtcpParameters.mux to false destroys the RTCP transport, and you can\u0027t change it back. So we may need to rethink that at some point, when switching to the ORTC API.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5aefb0c_4d533c6e",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "We have many protocols to do an offer/answer with, but I\u0027m not so fond of this pattern. It would be a lot simpler as:\n\nbool ret \u003d rtcp_mux_negotiator_.Process(type, source, enable);\nif (!ret) { return ret; }\nrtp_transport_-\u003eSetRtcpMuxEnabled(rtcp_mux_negotiator_.IsActive());\n\nYou could imagine how it may simplify the code below as well.\n\nbool ret \u003d sdes_negotiator_.Process(type, source, cryptos, extension_ids);\nif (!ret) { return ret; }\nif (sdes_negotiator_.NewCryptoParams()) {\n  /* ... * /\n}\n\nBasically:\n\n1. Pass in all input information together.\n2. Get all output/processed information together.\n\nNot really needed for this CL though.",
+      "range": {
+        "startLine": 272,
+        "startChar": 2,
+        "endLine": 293,
+        "endChar": 13
+      },
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62b802af_7c683d71",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "Not sure why we need this. TransportController already has the crypto options it was constructed with, which it gave to this DtlsTransport in the first place.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b73c3a2a_02245253",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "I\u0027d prefer everything going through \"SetLocalTransportDescription\"/\"SetRemoteTransportDescription\". That significantly lessens the testing surface, and is more in line with what this class was designed to be, a transport-level offer/answer processor.\n\nBasically, I\u0027d suggest moving SetContentDescriptionPerTransport to JsepTransport, and merging it with SetLocal/RemoteTransportDescription.",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 37
+      },
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c517d78_cdcad488",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "Not sure why this is needed. It looks like with BaseChannel, the RtpTransport is only upgraded to DtlsSrtpTransport on an answer, so maybe that\u0027s why they need to be cached? I\u0027d hope when this CL is complete, that wouldn\u0027t be necessary though, since the right thing would be created on the first description.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed424f57_20ac6f13",
+        "filename": "pc/rtptransportinternal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "I imagine the plan was for TransportController to listen to this signal to destroy the RTCP transport, but why\u0027s that needed when JsepTransport could provide the signal directly?",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc50abb6_feb93cff",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "This no longer supports un-encrypted RTP? That may be a problem for some tests.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1070b212_3ff8fbab",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "It\u0027s a corner case, but BUNDLE may really be enabled for a subset of the m\u003d sections. So this really still needs to enumerate them all.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45937e19_cb56e2b9",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "It probably doesn\u0027t matter, but why not? I also don\u0027t see why srtp_type_ is stored as a member variable, rather than being determined per-transport.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4e5fd21_76ab266d",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "This should only union the IDs in the bundle group, correct? So it may need to check the contents of the group in |sdesc|.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad03f953_b068a833",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "Would be cleaner if this wasn\u0027t stored as a member variable.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "089e5706_ac2c34f7",
         "filename": "pc/transportcontroller.cc",
         "patchSetId": 4
@@ -18,6 +217,53 @@
         "startChar": 23,
         "endLine": 979,
         "endChar": 54
+      },
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0f4076a_75e550d8",
+        "filename": "pc/transportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "Can\u0027t we just check crypto_options_ here though?",
+      "parentUuid": "089e5706_ac2c34f7",
+      "range": {
+        "startLine": 979,
+        "startChar": 23,
+        "endLine": 979,
+        "endChar": 54
+      },
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d258e469_17433bfb",
+        "filename": "pc/transportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2017-12-22T23:38:53Z",
+      "side": 1,
+      "message": "Could be set on construction",
+      "range": {
+        "startLine": 126,
+        "startChar": 11,
+        "endLine": 126,
+        "endChar": 28
       },
       "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

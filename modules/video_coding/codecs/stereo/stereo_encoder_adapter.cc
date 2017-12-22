@@ -58,11 +58,19 @@ struct StereoEncoderAdapter::ImageStereoInfo {
 };
 
 StereoEncoderAdapter::StereoEncoderAdapter(
-    VideoEncoderFactory* factory,
+    VideoEncoderFactory* external_factory,
+    VideoEncoderFactory* internal_factory,
     const SdpVideoFormat& associated_format)
-    : factory_(factory),
+    : external_factory_(external_factory),
+      internal_factory_(internal_factory),
       associated_format_(associated_format),
-      encoded_complete_callback_(nullptr) {}
+      encoded_complete_callback_(nullptr) {
+  associated_codec_info_ = external_factory_ -> QueryVideoEncoder(
+      associated_format);
+  RTC_LOG(LS_ERROR)<< "StereoEncoderAdapter HW Support "
+      << associated_format.name << " = "
+      << associated_codec_info_.is_hardware_accelerated;
+}
 
 StereoEncoderAdapter::~StereoEncoderAdapter() {
   Release();
@@ -80,11 +88,15 @@ int StereoEncoderAdapter::InitEncode(const VideoCodec* inst,
   RTC_DCHECK_EQ(kVideoCodecStereo, inst->codecType);
   VideoCodec settings = *inst;
   settings.codecType = PayloadStringToCodecType(associated_format_.name);
+  VideoEncoderFactory* factory = external_factory_;
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoEncoder> encoder =
-        factory_->CreateVideoEncoder(associated_format_);
+        factory->CreateVideoEncoder(associated_format_);
+    factory = internal_factory_;
     const int rv =
         encoder->InitEncode(&settings, number_of_cores, max_payload_size);
+    RTC_LOG(LS_ERROR)<<"StereoEncoderAdapter::InitEncode Implementation Name: "
+        <<encoder->ImplementationName();
     if (rv) {
       RTC_LOG(LS_ERROR) << "Failed to create stereo codec index " << i;
       return rv;
@@ -104,8 +116,16 @@ int StereoEncoderAdapter::Encode(const VideoFrame& input_image,
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
 
-  const bool has_alpha = input_image.video_frame_buffer()->type() ==
+  const bool has_software_alpha = input_image.video_frame_buffer()->type() ==
                          VideoFrameBuffer::Type::kI420A;
+
+  rtc::scoped_refptr<I420BufferInterface> alpha_buffer = input_image.video_frame_buffer()->MaskI420();
+
+  const bool has_hardware_alpha = input_image.video_frame_buffer()->type() ==
+                         VideoFrameBuffer::Type::kNative && (alpha_buffer != nullptr);
+
+  const bool has_alpha = has_software_alpha || has_hardware_alpha;
+
   image_stereo_info_.emplace(
       std::piecewise_construct, std::forward_as_tuple(input_image.timestamp()),
       std::forward_as_tuple(picture_index_++,
@@ -121,14 +141,16 @@ int StereoEncoderAdapter::Encode(const VideoFrame& input_image,
     return rv;
 
   // Encode AXX
-  const I420ABufferInterface* yuva_buffer =
-      input_image.video_frame_buffer()->GetI420A();
-  rtc::scoped_refptr<I420BufferInterface> alpha_buffer =
-      WrapI420Buffer(input_image.width(), input_image.height(),
-                     yuva_buffer->DataA(), yuva_buffer->StrideA(),
-                     stereo_dummy_planes_.data(), yuva_buffer->StrideU(),
-                     stereo_dummy_planes_.data(), yuva_buffer->StrideV(),
-                     rtc::KeepRefUntilDone(input_image.video_frame_buffer()));
+  if (has_software_alpha) {
+    const I420ABufferInterface* yuva_buffer =
+        input_image.video_frame_buffer()->GetI420A();
+    alpha_buffer =
+        WrapI420Buffer(input_image.width(), input_image.height(),
+                       yuva_buffer->DataA(), yuva_buffer->StrideA(),
+                       stereo_dummy_planes_.data(), yuva_buffer->StrideU(),
+                       stereo_dummy_planes_.data(), yuva_buffer->StrideV(),
+                       rtc::KeepRefUntilDone(input_image.video_frame_buffer()));
+  }
   VideoFrame alpha_image(alpha_buffer, input_image.timestamp(),
                          input_image.render_time_ms(), input_image.rotation());
   rv = encoders_[kAXXStream]->Encode(alpha_image, codec_specific_info,
@@ -179,6 +201,10 @@ int StereoEncoderAdapter::Release() {
 
 const char* StereoEncoderAdapter::ImplementationName() const {
   return "StereoEncoderAdapter";
+}
+
+bool StereoEncoderAdapter::SupportsNativeHandle() const {
+  return associated_codec_info_.is_hardware_accelerated;
 }
 
 EncodedImageCallback::Result StereoEncoderAdapter::OnEncodedImage(

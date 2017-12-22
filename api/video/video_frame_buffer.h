@@ -63,6 +63,7 @@ class VideoFrameBuffer : public rtc::RefCountInterface {
   // software encoders.
   virtual rtc::scoped_refptr<I420BufferInterface> ToI420() = 0;
 
+  virtual rtc::scoped_refptr<I420BufferInterface> MaskI420();
   // These functions should only be called if type() is of the correct type.
   // Calling with a different type will result in a crash.
   // TODO(magjed): Return raw pointers for GetI420 once deprecated interface is
@@ -73,6 +74,8 @@ class VideoFrameBuffer : public rtc::RefCountInterface {
   const I420ABufferInterface* GetI420A() const;
   I444BufferInterface* GetI444();
   const I444BufferInterface* GetI444() const;
+
+
 
  protected:
   ~VideoFrameBuffer() override {}

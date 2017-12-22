@@ -46,7 +46,7 @@ class AndroidVideoI420Buffer : public I420BufferInterface {
                          int width,
                          int height,
                          jobject j_video_frame_buffer);
-  ~AndroidVideoI420Buffer();
+  ~AndroidVideoI420Buffer() override;
 
  private:
   const uint8_t* DataY() const override { return data_y_; }
@@ -73,12 +73,68 @@ class AndroidVideoI420Buffer : public I420BufferInterface {
   int stride_v_;
 };
 
+class AndroidVideoI420ABuffer : public I420ABufferInterface {
+ public:
+  // Adopts and takes ownership of the Java VideoFrame.Buffer. I.e. retain()
+  // will not be called, but release() will be called when the returned
+  // AndroidVideoBuffer is destroyed.
+  static rtc::scoped_refptr<AndroidVideoI420ABuffer>
+  Adopt(JNIEnv* jni, int width, int height, jobject j_video_frame_buffer);
+
+ protected:
+  // Should not be called directly. Adopts the buffer. Use Adopt() instead for
+  // clarity.
+  AndroidVideoI420ABuffer(JNIEnv* jni,
+                          int width,
+                          int height,
+                          jobject j_video_frame_buffer);
+  ~AndroidVideoI420ABuffer() override;
+
+ private:
+  const uint8_t* DataY() const override { return data_y_; }
+  const uint8_t* DataU() const override { return data_u_; }
+  const uint8_t* DataV() const override { return data_v_; }
+  const uint8_t* DataA() const override { return data_a_; }
+
+  int StrideY() const override { return stride_y_; }
+  int StrideU() const override { return stride_u_; }
+  int StrideV() const override { return stride_v_; }
+  int StrideA() const override { return stride_a_; }
+
+  int width() const override { return width_; }
+  int height() const override { return height_; }
+
+  const int width_;
+  const int height_;
+  // Holds a VideoFrame.I420Buffer.
+  const ScopedGlobalRef<jobject> j_video_frame_buffer_;
+
+  const uint8_t* data_y_;
+  const uint8_t* data_u_;
+  const uint8_t* data_v_;
+  int stride_y_;
+  int stride_u_;
+  int stride_v_;
+
+  const uint8_t* data_a_;
+  int stride_a_;
+};
+
 rtc::scoped_refptr<AndroidVideoI420Buffer> AndroidVideoI420Buffer::Adopt(
     JNIEnv* jni,
     int width,
     int height,
     jobject j_video_frame_buffer) {
   return new rtc::RefCountedObject<AndroidVideoI420Buffer>(
+      jni, width, height, j_video_frame_buffer);
+}
+
+rtc::scoped_refptr<AndroidVideoI420ABuffer> AndroidVideoI420ABuffer::Adopt(
+    JNIEnv* jni,
+    int width,
+    int height,
+    jobject j_video_frame_buffer) {
+  return new rtc::RefCountedObject<AndroidVideoI420ABuffer>(
       jni, width, height, j_video_frame_buffer);
 }
 
@@ -102,7 +158,36 @@ AndroidVideoI420Buffer::AndroidVideoI420Buffer(JNIEnv* jni,
   stride_v_ = Java_I420Buffer_getStrideV(jni, j_video_frame_buffer);
 }
 
+AndroidVideoI420ABuffer::AndroidVideoI420ABuffer(JNIEnv* jni,
+                                                 int width,
+                                                 int height,
+                                                 jobject j_video_frame_buffer)
+    : width_(width),
+      height_(height),
+      j_video_frame_buffer_(jni, j_video_frame_buffer) {
+  jobject j_data_y = Java_I420Buffer_getDataY(jni, j_video_frame_buffer);
+  jobject j_data_u = Java_I420Buffer_getDataU(jni, j_video_frame_buffer);
+  jobject j_data_v = Java_I420Buffer_getDataV(jni, j_video_frame_buffer);
+
+  data_y_ = static_cast<const uint8_t*>(jni->GetDirectBufferAddress(j_data_y));
+  data_u_ = static_cast<const uint8_t*>(jni->GetDirectBufferAddress(j_data_u));
+  data_v_ = static_cast<const uint8_t*>(jni->GetDirectBufferAddress(j_data_v));
+
+  stride_y_ = Java_I420Buffer_getStrideY(jni, j_video_frame_buffer);
+  stride_u_ = Java_I420Buffer_getStrideU(jni, j_video_frame_buffer);
+  stride_v_ = Java_I420Buffer_getStrideV(jni, j_video_frame_buffer);
+
+  jobject j_data_a = Java_I420ABuffer_getDataA(jni, j_video_frame_buffer);
+  data_a_ = static_cast<const uint8_t*>(jni->GetDirectBufferAddress(j_data_a));
+  stride_a_ = Java_I420ABuffer_getStrideA(jni, j_video_frame_buffer);
+}
+
 AndroidVideoI420Buffer::~AndroidVideoI420Buffer() {
+  JNIEnv* jni = AttachCurrentThreadIfNeeded();
+  Java_Buffer_release(jni, *j_video_frame_buffer_);
+}
+
+AndroidVideoI420ABuffer::~AndroidVideoI420ABuffer() {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
   Java_Buffer_release(jni, *j_video_frame_buffer_);
 }
@@ -345,8 +430,32 @@ rtc::scoped_refptr<I420BufferInterface> AndroidVideoBuffer::ToI420() {
   ScopedLocalRefFrame local_ref_frame(jni);
   jobject j_i420_buffer = Java_Buffer_toI420(jni, *j_video_frame_buffer_);
 
+  jclass j_i420a_class = FindClass(jni, "org/webrtc/JavaI420ABuffer");
+  if (jni->IsInstanceOf(j_i420_buffer, j_i420a_class))
+    return AndroidVideoI420ABuffer::Adopt(jni, width_, height_, j_i420_buffer);
   // We don't need to retain the buffer because toI420 returns a new object that
   // we are assumed to take the ownership of.
+  return AndroidVideoI420Buffer::Adopt(jni, width_, height_, j_i420_buffer);
+}
+
+rtc::scoped_refptr<I420BufferInterface> AndroidVideoBuffer::MaskI420() {
+  JNIEnv* jni = AttachCurrentThreadIfNeeded();
+  ScopedLocalRefFrame local_ref_frame(jni);
+
+  jclass j_texture_buffer_class = FindClass(jni, "org/webrtc/TextureBufferImpl");
+
+  if (!jni->IsInstanceOf(*j_video_frame_buffer_, j_texture_buffer_class)) {
+    return nullptr;
+  }
+
+  jmethodID j_mask_i420_method = GetMethodID(jni, j_texture_buffer_class,
+                                             "maskI420", "()Lorg/webrtc/VideoFrame$I420Buffer;");
+
+
+  jobject j_i420_buffer = jni->CallObjectMethod(*j_video_frame_buffer_,
+                                                j_mask_i420_method);
+  if (j_i420_buffer == nullptr) return nullptr;
+
   return AndroidVideoI420Buffer::Adopt(jni, width_, height_, j_i420_buffer);
 }
 

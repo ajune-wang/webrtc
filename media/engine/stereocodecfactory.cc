@@ -29,14 +29,16 @@ bool IsStereoCodec(const cricket::VideoCodec& codec) {
 
 namespace webrtc {
 
-constexpr const char* kStereoAssociatedCodecName = cricket::kVp9CodecName;
+constexpr const char* kStereoAssociatedCodecName = cricket::kVp8CodecName;
 
 StereoEncoderFactory::StereoEncoderFactory(
-    std::unique_ptr<VideoEncoderFactory> factory)
-    : factory_(std::move(factory)) {}
+    std::unique_ptr<VideoEncoderFactory> external_factory,
+    std::unique_ptr<VideoEncoderFactory> internal_factory)
+    : external_factory_(std::move(external_factory)),
+      internal_factory_(std::move(internal_factory)) {}
 
 std::vector<SdpVideoFormat> StereoEncoderFactory::GetSupportedFormats() const {
-  std::vector<SdpVideoFormat> formats = factory_->GetSupportedFormats();
+  std::vector<SdpVideoFormat> formats = external_factory_->GetSupportedFormats();
   for (const auto& format : formats) {
     if (cricket::CodecNamesEq(format.name, kStereoAssociatedCodecName)) {
       SdpVideoFormat stereo_format = format;
@@ -53,15 +55,15 @@ std::vector<SdpVideoFormat> StereoEncoderFactory::GetSupportedFormats() const {
 VideoEncoderFactory::CodecInfo StereoEncoderFactory::QueryVideoEncoder(
     const SdpVideoFormat& format) const {
   if (!IsStereoCodec(cricket::VideoCodec(format)))
-    return factory_->QueryVideoEncoder(format);
-  return factory_->QueryVideoEncoder(
+    return external_factory_->QueryVideoEncoder(format);
+  return external_factory_->QueryVideoEncoder(
       SdpVideoFormat(kStereoAssociatedCodecName));
 }
 
 std::unique_ptr<VideoEncoder> StereoEncoderFactory::CreateVideoEncoder(
     const SdpVideoFormat& format) {
   if (!IsStereoCodec(cricket::VideoCodec(format)))
-    return factory_->CreateVideoEncoder(format);
+    return external_factory_->CreateVideoEncoder(format);
   const auto& it =
       format.parameters.find(cricket::kCodecParamAssociatedCodecName);
   if (it == format.parameters.end()) {
@@ -71,7 +73,9 @@ std::unique_ptr<VideoEncoder> StereoEncoderFactory::CreateVideoEncoder(
   SdpVideoFormat associated_format = format;
   associated_format.name = it->second;
   return std::unique_ptr<VideoEncoder>(
-      new StereoEncoderAdapter(factory_.get(), associated_format));
+      new StereoEncoderAdapter(external_factory_.get(),
+                               internal_factory_.get(),
+                               associated_format));
 }
 
 StereoDecoderFactory::StereoDecoderFactory(

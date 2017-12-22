@@ -132,6 +132,7 @@ class AndroidVideoBuffer : public AndroidVideoFrameBuffer {
 
   // Returns an instance of VideoRenderer.I420Frame (deprecated)
   jobject ToJavaI420Frame(JNIEnv* jni, int rotation);
+  rtc::scoped_refptr<I420BufferInterface> MaskI420() override;
 
  protected:
   // Should not be called directly. Adopts the Java VideoFrame.Buffer. Use

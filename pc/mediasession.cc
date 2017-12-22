@@ -1309,16 +1309,16 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
 
   // Iterate through the media description options, matching with existing media
   // descriptions in |current_description|.
-  int msection_index = 0;
+  size_t msection_index = 0;
   for (const MediaDescriptionOptions& media_description_options :
        session_options.media_description_options) {
     const ContentInfo* current_content = nullptr;
     if (current_description &&
-        msection_index <
-            static_cast<int>(current_description->contents().size())) {
+        msection_index < current_description->contents().size()) {
       current_content = &current_description->contents()[msection_index];
       // Media type must match.
-      RTC_DCHECK(IsMediaContentOfType(current_content,
+      RTC_DCHECK(current_content->rejected ||
+                 IsMediaContentOfType(current_content,
                                       media_description_options.type));
     }
     switch (media_description_options.type) {
@@ -1424,7 +1424,7 @@ SessionDescription* MediaSessionDescriptionFactory::CreateAnswer(
              session_options.media_description_options.size());
   // Iterate through the media description options, matching with existing
   // media descriptions in |current_description|.
-  int msection_index = 0;
+  size_t msection_index = 0;
   for (const MediaDescriptionOptions& media_description_options :
        session_options.media_description_options) {
     const ContentInfo* offer_content = &offer->contents()[msection_index];
@@ -1435,8 +1435,7 @@ SessionDescription* MediaSessionDescriptionFactory::CreateAnswer(
     RTC_DCHECK(media_description_options.mid == offer_content->name);
     const ContentInfo* current_content = nullptr;
     if (current_description &&
-        msection_index <
-            static_cast<int>(current_description->contents().size())) {
+        msection_index < current_description->contents().size()) {
       current_content = &current_description->contents()[msection_index];
     }
     switch (media_description_options.type) {
@@ -1802,8 +1801,8 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
       GetAudioCodecsForOffer(media_description_options.direction);
 
   AudioCodecs filtered_codecs;
-  // Add the codecs from current content if exists.
-  if (current_content) {
+  // Add the codecs from current content if exists and is not being recycled.
+  if (current_content && !current_content->rejected) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_AUDIO));
     const AudioContentDescription* acd =
         current_content->media_description()->as_audio();
@@ -1877,8 +1876,8 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
                                         &crypto_suites);
 
   VideoCodecs filtered_codecs;
-  // Add the codecs from current content if exists.
-  if (current_content) {
+  // Add the codecs from current content if exists and is not being recycled.
+  if (current_content && !current_content->rejected) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_VIDEO));
     const VideoContentDescription* vcd =
         current_content->media_description()->as_video();
@@ -2039,7 +2038,7 @@ bool MediaSessionDescriptionFactory::AddAudioContentForAnswer(
 
   AudioCodecs filtered_codecs;
   // Add the codecs from current content if exists.
-  if (current_content) {
+  if (current_content && !current_content->rejected) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_AUDIO));
     const AudioContentDescription* acd =
         current_content->media_description()->as_audio();
@@ -2121,7 +2120,7 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
 
   VideoCodecs filtered_codecs;
   // Add the codecs from current content if exists.
-  if (current_content) {
+  if (current_content && !current_content->rejected) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_VIDEO));
     const VideoContentDescription* vcd =
         current_content->media_description()->as_video();

@@ -26,6 +26,7 @@ class EchoCancellationImpl : public EchoCancellation {
  public:
   EchoCancellationImpl(rtc::CriticalSection* crit_render,
                        rtc::CriticalSection* crit_capture);
+
   ~EchoCancellationImpl() override;
 
   void ProcessRenderAudio(rtc::ArrayView<const float> packed_render_audio);
@@ -70,7 +71,6 @@ class EchoCancellationImpl : public EchoCancellation {
   int GetDelayMetrics(int* median,
                       int* std,
                       float* fraction_poor_delays) override;
-
  private:
   class Canceller;
   struct StreamProperties;
@@ -104,6 +104,9 @@ class EchoCancellationImpl : public EchoCancellation {
   bool extended_filter_enabled_ RTC_GUARDED_BY(crit_capture_);
   bool delay_agnostic_enabled_ RTC_GUARDED_BY(crit_capture_);
   bool refined_adaptive_filter_enabled_ RTC_GUARDED_BY(crit_capture_) = false;
+
+  // Only active on Chrome OS devices.
+  const bool enforce_chrome_os_zero_stream_delay_ RTC_GUARDED_BY(crit_capture_);
 
   std::vector<std::unique_ptr<Canceller>> cancellers_;
   std::unique_ptr<StreamProperties> stream_properties_;

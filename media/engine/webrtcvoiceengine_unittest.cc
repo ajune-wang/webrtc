@@ -3297,7 +3297,7 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
   // we never want it to create a decoder at this stage.
   testing::NiceMock<webrtc::test::MockAudioDeviceModule> adm;
   rtc::scoped_refptr<webrtc::AudioProcessing> apm =
-      webrtc::AudioProcessing::Create();
+      webrtc::AudioProcessingBuilder().Create();
   cricket::WebRtcVoiceEngine engine(
       &adm, webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
       webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
@@ -3320,7 +3320,7 @@ TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
       .WillRepeatedly(Return(rtc::RefCountReleaseStatus::kDroppedLastRef));
   {
     rtc::scoped_refptr<webrtc::AudioProcessing> apm =
-        webrtc::AudioProcessing::Create();
+        webrtc::AudioProcessingBuilder().Create();
     cricket::WebRtcVoiceEngine engine(
         &adm, webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
         webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
@@ -3341,7 +3341,7 @@ TEST(WebRtcVoiceEngineTest, HasCorrectPayloadTypeMapping) {
   // type assignments checked here? It shouldn't really matter.
   testing::NiceMock<webrtc::test::MockAudioDeviceModule> adm;
   rtc::scoped_refptr<webrtc::AudioProcessing> apm =
-      webrtc::AudioProcessing::Create();
+      webrtc::AudioProcessingBuilder().Create();
   cricket::WebRtcVoiceEngine engine(
       &adm, webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
       webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
@@ -3386,7 +3386,7 @@ TEST(WebRtcVoiceEngineTest, HasCorrectPayloadTypeMapping) {
 TEST(WebRtcVoiceEngineTest, Has32Channels) {
   testing::NiceMock<webrtc::test::MockAudioDeviceModule> adm;
   rtc::scoped_refptr<webrtc::AudioProcessing> apm =
-      webrtc::AudioProcessing::Create();
+      webrtc::AudioProcessingBuilder().Create();
   cricket::WebRtcVoiceEngine engine(
       &adm, webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
       webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
@@ -3424,7 +3424,7 @@ TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
   // I think it will become clear once audio decoder injection is completed.
   testing::NiceMock<webrtc::test::MockAudioDeviceModule> adm;
   rtc::scoped_refptr<webrtc::AudioProcessing> apm =
-      webrtc::AudioProcessing::Create();
+      webrtc::AudioProcessingBuilder().Create();
   cricket::WebRtcVoiceEngine engine(
       &adm, webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
       webrtc::CreateBuiltinAudioDecoderFactory(), nullptr, apm);
@@ -3466,7 +3466,7 @@ TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
   testing::NiceMock<webrtc::test::MockAudioDeviceModule> adm;
 
   rtc::scoped_refptr<webrtc::AudioProcessing> apm =
-      webrtc::AudioProcessing::Create();
+      webrtc::AudioProcessingBuilder().Create();
   cricket::WebRtcVoiceEngine engine(&adm, unused_encoder_factory,
                                     mock_decoder_factory, nullptr, apm);
   engine.Init();

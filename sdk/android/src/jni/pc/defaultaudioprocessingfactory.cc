@@ -26,9 +26,9 @@ JNI_FUNCTION_DECLARATION(
   std::unique_ptr<PostProcessing> post_processor(
       reinterpret_cast<PostProcessing*>(native_post_processor));
   rtc::scoped_refptr<AudioProcessing> audio_processing =
-      AudioProcessing::Create(webrtc::Config(), std::move(post_processor),
-                              nullptr /* echo_control_factory */,
-                              nullptr /* beamformer */);
+      AudioProcessingBuilder()
+          .SetCapturePostProcessing(std::move(post_processor))
+          .Create();
   return jlongFromPointer(audio_processing.release());
 }
 

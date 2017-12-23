@@ -108,6 +108,18 @@ TEST_F(PeerConnectionJsepTest, VideoOnlyInitialOffer) {
   EXPECT_EQ(cricket::MEDIA_TYPE_VIDEO, contents[0].media_description()->type());
 }
 
+// Test that an initial offer with one data channel generates one data media
+// section.
+TEST_F(PeerConnectionJsepTest, DataOnlyInitialOffer) {
+  auto caller = CreatePeerConnection();
+  caller->pc()->CreateDataChannel("dc", nullptr);
+  auto offer = caller->CreateOffer();
+
+  auto contents = offer->description()->contents();
+  ASSERT_EQ(1u, contents.size());
+  EXPECT_EQ(cricket::MEDIA_TYPE_DATA, contents[0].media_description()->type());
+}
+
 // Test that multiple media sections in the initial offer are ordered in the
 // order the transceivers were added to the PeerConnection. This is required by
 // JSEP section 5.2.1.
@@ -729,6 +741,18 @@ TEST_F(PeerConnectionJsepTest, CalleeDoesReoffer) {
 
   EXPECT_EQ(2u, caller->pc()->GetTransceivers().size());
   EXPECT_EQ(2u, callee->pc()->GetTransceivers().size());
+}
+
+// Tests for data channels, possibly mixed with audio and/or video.
+
+TEST_F(PeerConnectionJsepTest, OfferAnswerWithAudioVideoDataChannel) {
+  auto caller = CreatePeerConnection();
+  caller->AddAudioTrack("a");
+  caller->AddVideoTrack("v");
+  caller->pc()->CreateDataChannel("dc", nullptr);
+  auto callee = CreatePeerConnection();
+
+  EXPECT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 }
 
 }  // namespace webrtc

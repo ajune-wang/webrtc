@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5454ef9f_ec9344ce",
+        "filename": "pc/dtlssrtptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2017-12-23T00:27:27Z",
+      "side": 1,
+      "message": "I think we should just not support the combination of pranswer and non-muxed RTCP.  Make the rule: \"if you use pranswer, you must use rtcp mux\".  The interaction people wanting both at the same time (which is probably 0) must be so small that we shouldn\u0027t spend any effort supporting it.  At the very least, we can say that if you say you can do muxed in a pranswer, you can\u0027t back out, meaning we only need disable and enabled.",
+      "parentUuid": "19f7c2ff_a370af39",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b5aefb0c_4d533c6e",
         "filename": "pc/jseptransport.cc",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2017-12-22T23:38:53Z",
       "side": 1,
       "message": "We have many protocols to do an offer/answer with, but I\u0027m not so fond of this pattern. It would be a lot simpler as:\n\nbool ret \u003d rtcp_mux_negotiator_.Process(type, source, enable);\nif (!ret) { return ret; }\nrtp_transport_-\u003eSetRtcpMuxEnabled(rtcp_mux_negotiator_.IsActive());\n\nYou could imagine how it may simplify the code below as well.\n\nbool ret \u003d sdes_negotiator_.Process(type, source, cryptos, extension_ids);\nif (!ret) { return ret; }\nif (sdes_negotiator_.NewCryptoParams()) {\n  /* ... * /\n}\n\nBasically:\n\n1. Pass in all input information together.\n2. Get all output/processed information together.\n\nNot really needed for this CL though.",
+      "range": {
+        "startLine": 272,
+        "startChar": 2,
+        "endLine": 293,
+        "endChar": 13
+      },
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "457ede83_21b6adb5",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2017-12-23T00:27:27Z",
+      "side": 1,
+      "message": "Yeah, I generally prefer breaking it down into \"input signals and out put what to do\" and \"do what I\u0027m told\", which  I think that\u0027s what you\u0027re saying.  \n\nHowever, we can simplify this by dropping some support for non-muxed RTCP.  In particular:\n1.  Run the RTCP demux filter on all packets, even before the remote side hasn\u0027t said it can do rtcp-mux.  This has some risk if the remote side uses the payload types reserved for RTCP mux, but the chances of that are practically 0.\n\n2.  Destroying the RTCP transport as soon as we get any signal that the remote side does rtcp-mux.",
+      "parentUuid": "b5aefb0c_4d533c6e",
       "range": {
         "startLine": 272,
         "startChar": 2,
@@ -82,6 +124,30 @@
     },
     {
       "key": {
+        "uuid": "2d521763_661e204c",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2017-12-23T00:27:27Z",
+      "side": 1,
+      "message": "I agree",
+      "parentUuid": "b73c3a2a_02245253",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 37
+      },
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c517d78_cdcad488",
         "filename": "pc/jseptransport.h",
         "patchSetId": 4
@@ -93,6 +159,24 @@
       "writtenOn": "2017-12-22T23:38:53Z",
       "side": 1,
       "message": "Not sure why this is needed. It looks like with BaseChannel, the RtpTransport is only upgraded to DtlsSrtpTransport on an answer, so maybe that\u0027s why they need to be cached? I\u0027d hope when this CL is complete, that wouldn\u0027t be necessary though, since the right thing would be created on the first description.",
+      "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "658b8532_8898b910",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2017-12-23T00:27:27Z",
+      "side": 1,
+      "message": "I think it\u0027s because we need the list of extensions when the DTLS handshake completes.  We could also just store the entire session description and read through it instead of just storing the IDs.",
+      "parentUuid": "3c517d78_cdcad488",
       "revId": "ceac0847455761b82f3662f06b353b0ca8fd38a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

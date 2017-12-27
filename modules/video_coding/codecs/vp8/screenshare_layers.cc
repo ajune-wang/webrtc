@@ -19,8 +19,17 @@
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/metrics.h"
+#ifdef HAVE_NO_SW_CODECS
+struct vpx_codec_enc_cfg {
+  uint32_t rc_target_bitrate;
+  uint32_t rc_min_quantizer;
+  uint32_t rc_max_quantizer;
+};
+typedef struct vpx_codec_enc_cfg vpx_codec_enc_cfg_t;
+#else
 #include "vpx/vp8cx.h"
 #include "vpx/vpx_encoder.h"
+#endif
 
 namespace webrtc {
 

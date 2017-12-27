@@ -14,6 +14,8 @@
 #include <memory>
 #include <vector>
 
+#include "api/video_codecs/video_encoder.h"
+
 namespace webrtc {
 
 class VideoEncoder;

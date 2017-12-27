@@ -16,9 +16,9 @@
 #include <string>
 #include <vector>
 
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/networkmonitor.h"
 #include "rtc_base/thread_checker.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

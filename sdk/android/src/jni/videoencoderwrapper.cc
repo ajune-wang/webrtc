@@ -18,12 +18,12 @@
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/utility/vp8_header_parser.h"
 #include "modules/video_coding/utility/vp9_uncompressed_header_parser.h"
+#include "rtc_base/jni/class_loader.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/random.h"
 #include "rtc_base/timeutils.h"
 #include "sdk/android/generated_video_jni/jni/VideoEncoderWrapper_jni.h"
 #include "sdk/android/generated_video_jni/jni/VideoEncoder_jni.h"
-#include "sdk/android/src/jni/class_loader.h"
 #include "sdk/android/src/jni/encodedimage.h"
 #include "sdk/android/src/jni/videocodecstatus.h"
 

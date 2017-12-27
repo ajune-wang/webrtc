@@ -683,7 +683,10 @@ if (is_win || is_android) {
       "../system_wrappers:metrics_default",
     ]
     if (is_android) {
-      deps += [ "../sdk/android:libjingle_peerconnection_jni" ]
+      deps += [
+        "../rtc_base:base_jni",
+        "../sdk/android:libjingle_peerconnection_jni",
+      ]
     }
   }
 }
@@ -702,7 +705,8 @@ if (is_android) {
     output = "${root_out_dir}/lib.java${_target_dir_name}/${target_name}.jar"
     direct_deps_only = true
     use_interface_jars = false
-    use_unprocessed_jars = true
+
+    # use_unprocessed_jars = true
     requires_android = true
     deps = [
       ":webrtc_unity_java",

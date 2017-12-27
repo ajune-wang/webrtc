@@ -29,8 +29,8 @@
 
 #if defined(WEBRTC_ANDROID)
 #include "examples/unityplugin/classreferenceholder.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/src/jni/androidvideotracksource.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 #endif
 
 // Names used for media stream labels.

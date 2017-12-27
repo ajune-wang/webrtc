@@ -8,15 +8,15 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/android/src/jni/class_loader.h"
+#include "rtc_base/jni/class_loader.h"
 
 #include <algorithm>
 #include <string>
 
 #include "rtc_base/checks.h"
-#include "sdk/android/generated_base_jni/jni/WebRtcClassLoader_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
-#include "sdk/android/src/jni/scoped_java_ref.h"
+#include "rtc_base/generated_base_jni/jni/WebRtcClassLoader_jni.h"
+#include "rtc_base/jni/jni_helpers.h"
+#include "rtc_base/jni/scoped_java_ref.h"
 
 // Abort the process if |jni| has a Java exception pending. This macros uses the
 // comma operator to execute ExceptionDescribe and ExceptionClear ignoring their

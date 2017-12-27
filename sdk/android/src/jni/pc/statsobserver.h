@@ -12,7 +12,7 @@
 #define SDK_ANDROID_SRC_JNI_PC_STATSOBSERVER_H_
 
 #include "api/peerconnectioninterface.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "rtc_base/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

@@ -16,7 +16,7 @@
 
 #include "api/video_codecs/video_decoder.h"
 #include "common_video/h264/h264_bitstream_parser.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "rtc_base/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

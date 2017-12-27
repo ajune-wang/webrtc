@@ -24,8 +24,19 @@
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
 
+#ifdef HAVE_NO_SW_CODECS
+struct vpx_codec_enc_cfg {
+  int* ts_target_bitrate;
+  int* ts_rate_decimator;
+  int ts_number_layers;
+  int ts_periodicity;
+  int* ts_layer_id;
+};
+typedef struct vpx_codec_enc_cfg vpx_codec_enc_cfg_t;
+#else
 #include "vpx/vp8cx.h"
 #include "vpx/vpx_encoder.h"
+#endif
 
 namespace webrtc {
 

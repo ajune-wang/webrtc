@@ -9,6 +9,13 @@
 import("../../webrtc.gni")
 
 rtc_static_library("video_coding") {
+  defines = []
+  deps = []
+
+  if (!rtc_use_builtin_sw_codecs) {
+    defines += [ "HAVE_NO_SW_CODECS" ]
+  }
+
   sources = [
     "codec_database.cc",
     "codec_database.h",
@@ -88,15 +95,18 @@ rtc_static_library("video_coding") {
     suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
   }
 
-  deps = [
+  if (rtc_use_builtin_sw_codecs) {
+    deps += [
+      ":webrtc_i420",
+      "../../media:rtc_internal_video_codecs",
+    ]
+  }
+
+  deps += [
     ":codec_globals_headers",
     ":video_coding_utility",
     ":webrtc_h264",
-    ":webrtc_i420",
-    ":webrtc_stereo",
-    ":webrtc_vp8",
     ":webrtc_vp8_helpers",
-    ":webrtc_vp9",
     "..:module_api",
     "..:module_api_public",
     "../..:webrtc_common",
@@ -281,19 +291,39 @@ rtc_static_library("webrtc_stereo") {
 }
 
 # This target includes VP8 files that may be used for any VP8 codec, internal SW or external HW.
-rtc_source_set("webrtc_vp8_helpers") {
+rtc_static_library("webrtc_vp8_helpers") {
+  defines = []
+
+  if (!rtc_use_builtin_sw_codecs) {
+    defines += [ "HAVE_NO_SW_CODECS" ]
+  }
+
   sources = [
+    "codecs/vp8/default_temporal_layers.cc",
+    "codecs/vp8/default_temporal_layers.h",
     "codecs/vp8/include/vp8_common_types.h",
+    "codecs/vp8/screenshare_layers.cc",
     "codecs/vp8/screenshare_layers.h",
+    "codecs/vp8/simulcast_rate_allocator.cc",
     "codecs/vp8/simulcast_rate_allocator.h",
+    "codecs/vp8/temporal_layers.cc",
     "codecs/vp8/temporal_layers.h",
   ]
+
+  # TODO(jschuh): Bug 1348: fix this warning.
+  configs += [ "//build/config/compiler:no_size_t_to_int_warning" ]
+
+  if (!build_with_chromium && is_clang) {
+    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
 
   deps = [
     ":video_coding_utility",
     "..:module_api",
     "../..:webrtc_common",
     "../../:typedefs",
+    "../../api:optional",
     "../../api/video_codecs:video_codecs_api",
     "../../common_video",
     "../../rtc_base:checks",
@@ -302,18 +332,16 @@ rtc_source_set("webrtc_vp8_helpers") {
     "../../system_wrappers:field_trial_api",
     "../../system_wrappers:metrics_api",
   ]
+  if (rtc_use_builtin_sw_codecs && rtc_build_libvpx) {
+    deps += [ rtc_libvpx_dir ]
+  }
 }
 
 # This target includes the internal SW codec.
 rtc_static_library("webrtc_vp8") {
   sources = [
-    "codecs/vp8/default_temporal_layers.cc",
-    "codecs/vp8/default_temporal_layers.h",
     "codecs/vp8/include/vp8.h",
     "codecs/vp8/include/vp8_common_types.h",
-    "codecs/vp8/screenshare_layers.cc",
-    "codecs/vp8/simulcast_rate_allocator.cc",
-    "codecs/vp8/temporal_layers.cc",
     "codecs/vp8/vp8_impl.cc",
     "codecs/vp8/vp8_impl.h",
   ]

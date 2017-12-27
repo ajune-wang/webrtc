@@ -116,12 +116,17 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
           frame->SetRenderTime(timing_->RenderTimeMs(frame->timestamp, now_ms));
         wait_ms = timing_->MaxWaitingTime(frame->RenderTime(), now_ms);
 
+        /* Hack(qiangchen): This should be changed on the receiver side
+         * to make sure the pre-decode frame not being dropped. Otherwise
+         * when YUV key frame comes, there is a chance that stashed Alpha frames
+         * may be dropped, which breaks the Alpha dependence chain.
+
         // This will cause the frame buffer to prefer high framerate rather
         // than high resolution in the case of the decoder not decoding fast
         // enough and the stream has multiple spatial and temporal layers.
         if (wait_ms == 0)
           continue;
-
+        */
         break;
       }
     }  // rtc::Critscope lock(&crit_);

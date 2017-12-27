@@ -295,8 +295,8 @@ int32_t VideoSender::AddVideoFrame(const VideoFrame& videoFrame,
   if (_encoder == nullptr)
     return VCM_UNINITIALIZED;
   SetEncoderParameters(encoder_params, encoder_has_internal_source);
-  if (_mediaOpt.DropFrame()) {
-    RTC_LOG(LS_VERBOSE) << "Drop Frame "
+  if (false && _mediaOpt.DropFrame()) {
+    RTC_LOG(LS_ERROR) << "Drop Frame "
                         << "target bitrate "
                         << encoder_params.target_bitrate.get_sum_bps()
                         << " loss rate " << encoder_params.loss_rate << " rtt "

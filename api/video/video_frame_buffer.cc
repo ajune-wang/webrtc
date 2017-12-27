@@ -13,6 +13,9 @@
 #include "rtc_base/checks.h"
 
 namespace webrtc {
+rtc::scoped_refptr<I420BufferInterface> VideoFrameBuffer::MaskI420(){
+  return nullptr;
+}
 
 rtc::scoped_refptr<I420BufferInterface> VideoFrameBuffer::GetI420() {
   RTC_CHECK(type() == Type::kI420);

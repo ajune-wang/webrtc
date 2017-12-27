@@ -221,8 +221,13 @@ static int const kKbpsMultiplier = 1000;
   RTCDefaultVideoDecoderFactory *decoderFactory = [[RTCDefaultVideoDecoderFactory alloc] init];
   RTCDefaultVideoEncoderFactory *encoderFactory = [[RTCDefaultVideoEncoderFactory alloc] init];
   encoderFactory.preferredCodec = [settings currentVideoCodecSettingFromStore];
-  _factory = [[RTCPeerConnectionFactory alloc] initWithEncoderFactory:encoderFactory
-                                                       decoderFactory:decoderFactory];
+
+  RTCPeerConnectionFactoryOptions *factoryOptions = [[RTCPeerConnectionFactoryOptions alloc] init];
+  factoryOptions.videoEncoderFactory = encoderFactory;
+  factoryOptions.videoDecoderFactory = decoderFactory;
+  factoryOptions.disableLinkLocalNetworks = YES;
+
+  _factory = [[RTCPeerConnectionFactory alloc] initWithOptions:factoryOptions];
 
 #if defined(WEBRTC_IOS)
   if (kARDAppClientEnableTracing) {

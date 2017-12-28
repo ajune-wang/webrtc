@@ -10,8 +10,8 @@
 
 #include <jni.h>
 
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_video_jni/jni/YuvHelper_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 #include "third_party/libyuv/include/libyuv/convert.h"
 
 namespace webrtc {

@@ -11,9 +11,9 @@
 #include <memory>
 
 #include "modules/audio_processing/include/audio_processing.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "sdk/android/generated_audio_jni/jni/DefaultAudioProcessingFactory_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

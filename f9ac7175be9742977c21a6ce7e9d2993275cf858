@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b053406_b54ca9f7",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "Do we really want to expose this outside of testing?\nI\u0027m thinking if an app needs to call this there is likely something wrong with our implementation.\n\nThe fact that you need to call this before and after AddAudioVideoStream() is because our implementation has a bug, it violates\nhttps://github.com/w3c/webrtc-stats/pull/243/files.\n\nI think the appropriate thing to do is to clear the cache on relevant peerconnection.cc events, which should be a separate CL.",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67cee3c9_cc5df650",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "How about returning the result as callback-\u003ereport() instead of bool?",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af002303_ece5d3a7",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1798,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "See other comment about having to clear the cache being a bug.\n\nMight I suggest we move this type of testing to rtcstats_integrationtest.cc? I think it\u0027s better organized if all (spec compliant) stats tests are in the test files dedicated to stats collection (rtcstats_integrationttest.cc for full stack or rtcstatscollector_unittest.cc for mocking).\n\nRTCStatsIntegrationTest uses a PeerConnectionTestWrapper to help set up a call with StartCall(). (If more precision is needed to work directly with a PeerConnectionInterface instead of a Wrapper a second ::testing::Test class can be added to the same file.)",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56607918_5968a357",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "nit throughout this CL: At least in chromium it is required to have http[s]:// before links, I assume it\u0027s the same here and elsewhere.",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4150bb9_f07cc1d8",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "nit: Bug reference and comment.",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6dd227_561918b6",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK_NE",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "895985ab_505c001b",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "nit: Comment and bug reference like above.",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03415a28_3af84e6d",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "Can you add a TODO to move over from local_streams(), referencing the bug you filed https://crbug.com/webrtc/8674",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b59780a_db05345a",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "Should we also check for the existence of RTCMediaStreamTrackStats without streams here or in a separate test?",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88b1932a_34f49427",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-28T19:26:22Z",
+      "side": 1,
+      "message": "Here and other \"..._by_..._ssrc_\" maps: When unconnected, while it does not make sense to pair the SSRC and sender, it still makes sense to pair the sender and the track. Can you move this if to just around the ssrc mapping?\n\nYou forgot to do this \"if\" in the other places, meaning the \"count(ssrc) \u003d\u003d 0\" DHCECKs could still be hit.",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

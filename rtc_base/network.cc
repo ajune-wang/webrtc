@@ -892,6 +892,7 @@ Network::Network(const std::string& name,
       scope_id_(0),
       ignored_(false),
       type_(ADAPTER_TYPE_UNKNOWN),
+      type_str_(AdapterTypeToString(ADAPTER_TYPE_UNKNOWN)),
       preference_(0) {}
 
 Network::Network(const std::string& name,
@@ -907,6 +908,7 @@ Network::Network(const std::string& name,
       scope_id_(0),
       ignored_(false),
       type_(type),
+      type_str_(AdapterTypeToString(type)),
       preference_(0) {}
 
 Network::Network(const Network&) = default;
@@ -970,13 +972,22 @@ IPAddress Network::GetBestIP() const {
   return static_cast<IPAddress>(selected_ip);
 }
 
+void Network::set_type(AdapterType type) {
+  if (type_ == type) {
+    return;
+  }
+  type_ = type;
+  type_str_ = AdapterTypeToString(type_);
+  SignalTypeChanged(this);
+}
+
 std::string Network::ToString() const {
   std::stringstream ss;
   // Print out the first space-terminated token of the network desc, plus
   // the IP address.
-  ss << "Net[" << description_.substr(0, description_.find(' '))
-     << ":" << prefix_.ToSensitiveString() << "/" << prefix_length_
-     << ":" << AdapterTypeToString(type_) << "]";
+  ss << "Net[" << description_.substr(0, description_.find(' ')) << ":"
+     << prefix_.ToSensitiveString() << "/" << prefix_length_ << ":" << type_str_
+     << "]";
   return ss.str();
 }
 

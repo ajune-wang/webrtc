@@ -178,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "c5c97926_679b4e8c",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-29T16:36:11Z",
+      "side": 1,
+      "message": "\u003e But until we have functioning streams handling in Chrome, we have to make sure this one works.\n\nActually, looking at senders instead of local_streams() works with both addTrack() and addStream() because whichever API you use senders are created, so there is no reason to postpone this based on Chrome. It would be worth doing it in a separate CL though.",
+      "parentUuid": "377ccde4_ff70e4f2",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5725afe_f7d605ab",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 3
@@ -225,6 +243,24 @@
       "side": 1,
       "message": "The function is used in 3 tests - CollectRTCOutboundRTPStreamStats_Audio, _Video and CollectNoStreamRTCOutboundRTPStreamStats_Audio. So making a TEST_P would only reduce the tests by 1 - I don\u0027t think this is worth the additional complexification.",
       "parentUuid": "78b0ca9c_f200f625",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1de6328d_0758f6b3",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-29T16:36:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c406d80d_c3635785",
       "revId": "136418bd1234f39e68d26a96ce28158291128065",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -313,6 +349,24 @@
       "side": 1,
       "message": "Actually not, since this code\u0027s AddTrack (and AddStream) are functions of statscollector, not functions of PeerConnection. It\u0027s a very unit-testy thing.",
       "parentUuid": "73219465_8e8c4efc",
+      "revId": "136418bd1234f39e68d26a96ce28158291128065",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f123abe6_95716798",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-29T16:36:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e2026274_23f0b8c1",
       "revId": "136418bd1234f39e68d26a96ce28158291128065",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

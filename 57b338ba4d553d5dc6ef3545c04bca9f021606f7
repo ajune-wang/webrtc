@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1e98684f_2263587b",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "It should be. The spec description of caching (file:///home/hta/webrtc/webrtc-specs/webrtc-stats/webrtc-stats.html#guidelines-for-getstats-results-caching-throttling) is not enforced today, the simplest way to enforce it is to clear the cache in \"structure-changing\" operations.\n\nThis could be internal to webrtc, or done by Chrome. The practical reason I added it to this header now is that the unit test is written in terms of the peerconnectioninterface. I\u0027ll mention it in the CL description.",
+      "parentUuid": "14b6ab6b_c73b84a4",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "909d8a09_86fa890b",
         "filename": "pc/peerconnection.h",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3934a409_9be35017",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "909d8a09_86fa890b",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4ea77c7b_36abbb05",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3ef53b5_c6b1585b",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4beddaa1_f020c637",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a9297f0_bc5424cf",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1524,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "What it\u0027s really testing is that getStats() doesn\u0027t crash. I\u0027ll remove the rest of the checks, they were a result of copy/paste.",
+      "parentUuid": "4beddaa1_f020c637",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "e5731f90_32f7405e",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "a5cc3f6a_f0f800db",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7798719b_b91f9033",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 5
@@ -101,6 +191,24 @@
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee8b1d8_b65ab818",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1804,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Uncommented instead. GetStats should always work.",
+      "parentUuid": "7798719b_b91f9033",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "8fb7c9d9_cf248f08",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1807,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "No, that\u0027s the business of rtcstatscollector_unittest and integration tests (I\u0027ve got some tests up in Javascript-land that verify stats).",
+      "parentUuid": "ad73df43_eff3bcb1",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db696035_809e2b44",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 5
@@ -135,6 +261,24 @@
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27ba962e_008e1685",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Renamed test to GetRTCStatsBeforeAndAfterCalling and deleted the GetRTCStatsAfterCalling test. It\u0027s showing the evolution of the test / bughunt; erasing tracks is good.",
+      "parentUuid": "db696035_809e2b44",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "d070bc69_b6ebb126",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d3846c5_44eb80e7",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51ddcb63_b303afe0",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 5
@@ -166,6 +328,24 @@
       "writtenOn": "2017-12-21T00:55:58Z",
       "side": 1,
       "message": "Just thinking: won\u0027t this produce incorrect behavior if replaceTrack is called? We store stats on a per-sender (aka \"send stream\") basis, not a per-track-attachment basis. So if replaceTrack is called, wouldn\u0027t we see a new stats object with the stats carried over from the old one?\n\nI feel like more effort could be spent on ensuring that the underlying stats are stored in a way that matches the spec. Because there\u0027s only so far we can smooth things over at this layer of code. It may still be too early for that though.",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8756bb8_9bfd5baf",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "replaceTrack is hard! (echoes of Ritchie saying the same thing about rename() when asked why the Unix API had create(), link() and unlink() but no rename()).\nThis belongs together with the work for detached tracks (see bug above). What we\u0027re currently recording is wrong for tracks, but right for senders - once https://github.com/w3c/webrtc-stats/pull/273 is merged, there will be a stat that these numbers are right for, so I don\u0027t want to change this stuff until we start trying to support that.",
+      "parentUuid": "51ddcb63_b303afe0",
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "c92d1b7a_3180fa3a",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "I think that\u0027s a good argument for leaving it in.\n\nIf we don\u0027t have voice sender info for a sender while the call is connected, I think we have a serious bug. Offhand, I can\u0027t think of a situation where it\u0027s OK to leave such a bug in, and that\u0027s a reason to fail early and hard when it happens.\n\nThe alternative is to silently skip over generating stats for this track (nobody reads logs).",
+      "parentUuid": "cfe77ec7_b4c22b6f",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76fa3f8f_db4e3154",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 5
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "87b957d9_7add9f07",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Replaced comment with an explanation of what SSRC 0 means.",
+      "parentUuid": "76fa3f8f_db4e3154",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c39f5106_c45a6b27",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 5
@@ -220,6 +436,24 @@
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f2988b4_92befa0a",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Added comment about SSRC 0 and reference to bugs.webrtc.org/8673.",
+      "parentUuid": "c39f5106_c45a6b27",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +491,24 @@
     },
     {
       "key": {
+        "uuid": "45b6afe7_c4554275",
+        "filename": "pc/statscollector.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Moved this to a separate CL as proposed. Oops - this should have been called from AddTrack in peerconnection.",
+      "parentUuid": "c496730f_a2ec1d48",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49554088_f0576532",
         "filename": "pc/statscollector_unittest.cc",
         "patchSetId": 5
@@ -271,6 +523,24 @@
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e2ed737_c5009769",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "49554088_f0576532",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +561,24 @@
     },
     {
       "key": {
+        "uuid": "eb5c0894_39218e9c",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Name was mainly chosen to make gtest\u0027s test listing look intuitive and not too wide.",
+      "parentUuid": "5b076b5d_9c459e79",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "152e62e4_1340a4b5",
         "filename": "pc/trackmediainfomap.cc",
         "patchSetId": 5
@@ -305,6 +593,24 @@
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b405532_ecbedda9",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Yes, that\u0027s what causes it. More text added to bug.",
+      "parentUuid": "152e62e4_1340a4b5",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +631,24 @@
     },
     {
       "key": {
+        "uuid": "6764e249_e488d328",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Forgot it. Added.",
+      "parentUuid": "b5b4da64_84d0023f",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12b558b8_636081f6",
         "filename": "pc/trackmediainfomap.h",
         "patchSetId": 5
@@ -339,6 +663,24 @@
       "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2726d63_91339f05",
+        "filename": "pc/trackmediainfomap.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2017-12-29T16:28:47Z",
+      "side": 1,
+      "message": "Identifying tracks by MID is a bad idea, since MIDs belong to transceivers only, and transceivers only make sense with SDP.\nI\u0027m thinking that we should mint an unique number to identify senders internally. But that belongs to the part where we fix the ssrc 0 and start generating sender stats not track stats.",
+      "parentUuid": "12b558b8_636081f6",
+      "revId": "57b338ba4d553d5dc6ef3545c04bca9f021606f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

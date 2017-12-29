@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ba903876_88e3ba0c",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-29T16:46:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3ab5bf40_f07e4404",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67cee3c9_cc5df650",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 7
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "302cd872_94ca150d",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-29T16:46:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9878ec9a_19af6ac6",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af002303_ece5d3a7",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 7
@@ -104,6 +140,24 @@
       "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "033f6e98_abdf889b",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1798,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-29T16:46:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "54d4385b_0819950e",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -238,6 +292,24 @@
       "side": 1,
       "message": "The count() RTC_CHECK is actually checking something else - it checks whether the key is present in the map, and fails if it is already present. After reading the spec pages on C++ map\u003c\u003e, it seems that this is the canonical way to check for presence.\nThe map will work fine with zeroes, as long as there\u0027s only one of them. (Which I suppose is why this hasn\u0027t bitten us before).\nBut you\u0027re right - the check needs to e on video senders too.\n(On video receivers, the ssrc\u003d\u003d0 case can\u0027t exist, because it\u0027s created by incoming signalling.)",
       "parentUuid": "88b1932a_34f49427",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "050bb675_b425d06f",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2017-12-29T16:46:31Z",
+      "side": 1,
+      "message": "While we treat ssrc \u003d\u003d 0 as a special value, I\u0027ve seen TODOs indicating that it should be a valid value. Also with things that are configured by a remote party, I\u0027m happier to see ifs than DCHECKs in case it becomes an attack vector. Or do we trust other parts of the code to have guarded against this, as it should have, if 0 is indeed an invalid value?",
+      "parentUuid": "30013d2e_a623fb75",
       "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

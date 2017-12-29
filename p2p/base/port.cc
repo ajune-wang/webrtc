@@ -681,6 +681,9 @@ void Port::SendBindingResponse(StunMessage* request,
         << ", id=" << rtc::hex_encode(response.transaction_id());
 
     conn->stats_.sent_ping_responses++;
+    conn->ice_event_log()->LogCandidatePairEvent(
+        webrtc::IceCandidatePairEventType::kCheckResponseSent, conn->hash(),
+        conn->ToLogDescription());
   }
 }
 
@@ -944,6 +947,7 @@ Connection::Connection(Port* port,
   // TODO(mallinath) - Start connections from STATE_FROZEN.
   // Wire up to send stun packets
   requests_.SignalSendPacket.connect(this, &Connection::OnSendStunPacket);
+  hash_ = static_cast<uint32_t>(std::hash<std::string>{}(ToDebugId()));
   LOG_J(LS_INFO, this) << "Connection created";
 }
 
@@ -1128,6 +1132,9 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
   }
 
   stats_.recv_ping_requests++;
+  ice_event_log_->LogCandidatePairEvent(
+      webrtc::IceCandidatePairEventType::kCheckReceived, hash(),
+      ToLogDescription());
 
   // This is a validated stun request from remote peer.
   port_->SendBindingResponse(msg, remote_addr);
@@ -1186,6 +1193,8 @@ void Connection::Prune() {
     pruned_ = true;
     requests_.Clear();
     set_write_state(STATE_WRITE_TIMEOUT);
+    ice_event_log_->LogCandidatePairEvent(
+        webrtc::IceCandidatePairEventType::kPruned, hash(), ToLogDescription());
   }
 }
 
@@ -1435,6 +1444,25 @@ std::string Connection::ToSensitiveString() const {
   return ToString();
 }
 
+const webrtc::IceCandidatePairDescription& Connection::ToLogDescription() {
+  if (log_desc_.has_value()) {
+    return log_desc_.value();
+  }
+  const Candidate& local = local_candidate();
+  const Candidate& remote = remote_candidate();
+  const rtc::Network* network = port()->Network();
+  log_desc_ = webrtc::IceCandidatePairDescription();
+  log_desc_->media_content = port()->content_name();
+  log_desc_->local_candidate_type = local.type();
+  log_desc_->local_candidate_protocol = local.protocol();
+  log_desc_->local_transport_address = local.address().ToString();
+  log_desc_->local_network_type = network->type_str();
+  log_desc_->remote_candidate_type = remote.type();
+  log_desc_->remote_candidate_protocol = remote.protocol();
+  log_desc_->remote_transport_address = remote.address().ToString();
+  return log_desc_.value();
+}
+
 void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
                                              StunMessage* response) {
   // Log at LS_INFO if we receive a ping response on an unwritable
@@ -1458,6 +1486,9 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
   packet_loss_estimator_.ReceivedResponse(request->id(), time_received);
 
   stats_.recv_ping_responses++;
+  ice_event_log_->LogCandidatePairEvent(
+      webrtc::IceCandidatePairEventType::kCheckResponseReceived, hash(),
+      ToLogDescription());
 
   MaybeUpdateLocalCandidate(request, response);
 }
@@ -1502,6 +1533,9 @@ void Connection::OnConnectionRequestSent(ConnectionRequest* request) {
                     << ", use_candidate=" << use_candidate_attr()
                     << ", nomination=" << nomination();
   stats_.sent_ping_requests_total++;
+  ice_event_log_->LogCandidatePairEvent(
+      webrtc::IceCandidatePairEventType::kCheckSent, hash(),
+      ToLogDescription());
   if (stats_.recv_ping_responses == 0) {
     stats_.sent_ping_requests_before_first_response++;
   }

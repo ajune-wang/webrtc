@@ -494,8 +494,9 @@ class VoiceChannel : public BaseChannel {
   void SetRawAudioSink(uint32_t ssrc,
                        std::unique_ptr<webrtc::AudioSinkInterface> sink);
   webrtc::RtpParameters GetRtpSendParameters(uint32_t ssrc) const;
-  bool SetRtpSendParameters(uint32_t ssrc,
-                            const webrtc::RtpParameters& parameters);
+  webrtc::RTCError SetRtpSendParameters(
+      uint32_t ssrc,
+      const webrtc::RtpParameters& parameters);
   webrtc::RtpParameters GetRtpReceiveParameters(uint32_t ssrc) const;
   bool SetRtpReceiveParameters(uint32_t ssrc,
                                const webrtc::RtpParameters& parameters);
@@ -523,7 +524,8 @@ class VoiceChannel : public BaseChannel {
   int GetOutputLevel_w();
   void GetActiveStreams_w(AudioInfo::StreamList* actives);
   webrtc::RtpParameters GetRtpSendParameters_w(uint32_t ssrc) const;
-  bool SetRtpSendParameters_w(uint32_t ssrc, webrtc::RtpParameters parameters);
+  webrtc::RTCError SetRtpSendParameters_w(uint32_t ssrc,
+                                          webrtc::RtpParameters parameters);
   webrtc::RtpParameters GetRtpReceiveParameters_w(uint32_t ssrc) const;
   bool SetRtpReceiveParameters_w(uint32_t ssrc,
                                  webrtc::RtpParameters parameters);
@@ -604,8 +606,9 @@ class VideoChannel : public BaseChannel {
                     const VideoOptions* options,
                     rtc::VideoSourceInterface<webrtc::VideoFrame>* source);
   webrtc::RtpParameters GetRtpSendParameters(uint32_t ssrc) const;
-  bool SetRtpSendParameters(uint32_t ssrc,
-                            const webrtc::RtpParameters& parameters);
+  webrtc::RTCError SetRtpSendParameters(
+      uint32_t ssrc,
+      const webrtc::RtpParameters& parameters);
   webrtc::RtpParameters GetRtpReceiveParameters(uint32_t ssrc) const;
   bool SetRtpReceiveParameters(uint32_t ssrc,
                                const webrtc::RtpParameters& parameters);
@@ -622,7 +625,8 @@ class VideoChannel : public BaseChannel {
                           std::string* error_desc) override;
   bool GetStats_w(VideoMediaInfo* stats);
   webrtc::RtpParameters GetRtpSendParameters_w(uint32_t ssrc) const;
-  bool SetRtpSendParameters_w(uint32_t ssrc, webrtc::RtpParameters parameters);
+  webrtc::RTCError SetRtpSendParameters_w(uint32_t ssrc,
+                                          webrtc::RtpParameters parameters);
   webrtc::RtpParameters GetRtpReceiveParameters_w(uint32_t ssrc) const;
   bool SetRtpReceiveParameters_w(uint32_t ssrc,
                                  webrtc::RtpParameters parameters);

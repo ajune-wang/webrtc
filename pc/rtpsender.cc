@@ -197,10 +197,10 @@ RtpParameters AudioRtpSender::GetParameters() const {
   return channel_->GetRtpSendParameters(ssrc_);
 }
 
-bool AudioRtpSender::SetParameters(const RtpParameters& parameters) {
+RTCError AudioRtpSender::SetParameters(const RtpParameters& parameters) {
   TRACE_EVENT0("webrtc", "AudioRtpSender::SetParameters");
   if (!channel_ || stopped_) {
-    return false;
+    return RTCError(RTCErrorType::INVALID_STATE);
   }
   return channel_->SetRtpSendParameters(ssrc_, parameters);
 }
@@ -399,10 +399,10 @@ RtpParameters VideoRtpSender::GetParameters() const {
   return channel_->GetRtpSendParameters(ssrc_);
 }
 
-bool VideoRtpSender::SetParameters(const RtpParameters& parameters) {
+RTCError VideoRtpSender::SetParameters(const RtpParameters& parameters) {
   TRACE_EVENT0("webrtc", "VideoRtpSender::SetParameters");
   if (!channel_ || stopped_) {
-    return false;
+    return RTCError(RTCErrorType::INVALID_STATE);
   }
   return channel_->SetRtpSendParameters(ssrc_, parameters);
 }

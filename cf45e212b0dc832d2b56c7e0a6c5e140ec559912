@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68aff6ef_3cbd5116",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-02T12:53:45Z",
+      "side": 1,
+      "message": "nit: https://",
+      "revId": "cf45e212b0dc832d2b56c7e0a6c5e140ec559912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eef6b3e_550c64f2",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-02T12:53:45Z",
+      "side": 1,
+      "message": "nit: TODO here about not relying on this relationship, since AddTrack(track, stream) does not mean stream-\u003egetTracks() is not empty or has an unrelated set of tracks.\n\nWe\u0027ll need to discuss separately what to do with backwards-compatibility of \"local streams\", since this currently works with legacy:\npc.addStream(stream);\nstream.addTrack(track);  // pc now knows of track\n\nThis was something I did not think about in planning to implement legacy on top of non-legacy. It is not the case for addTrack-streams.",
+      "revId": "cf45e212b0dc832d2b56c7e0a6c5e140ec559912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

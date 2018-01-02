@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1947bcd5_95a645e2",
+        "filename": "tools_webrtc/autoroller/roll_deps.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-02T12:08:54Z",
+      "side": 1,
+      "message": "I prefer commit_queue_mode here and in _UploadCL, this name sounds like a reference to the commit queue itself.",
+      "range": {
+        "startLine": 504,
+        "startChar": 4,
+        "endLine": 504,
+        "endChar": 16
+      },
+      "revId": "cae98c502d7a8b3db1817e0d93a2dfa136e57d93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

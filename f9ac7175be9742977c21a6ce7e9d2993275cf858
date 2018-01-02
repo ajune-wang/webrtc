@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "e8588327_b43a7f5a",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8693 filed and referenced from .h file.",
+      "parentUuid": "ba903876_88e3ba0c",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67cee3c9_cc5df650",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 7
@@ -161,6 +179,24 @@
     },
     {
       "key": {
+        "uuid": "ddb68938_14a04fa9",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1798,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "Bug reference inserted.",
+      "parentUuid": "033f6e98_abdf889b",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56607918_5968a357",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 7
@@ -175,6 +211,24 @@
       "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14d570c3_a464ff8c",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56607918_5968a357",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +249,24 @@
     },
     {
       "key": {
+        "uuid": "1bbb5ce7_1af287a7",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4150bb9_f07cc1d8",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c6dd227_561918b6",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 7
@@ -209,6 +281,24 @@
       "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b2d1e5c_b5d02202",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c6dd227_561918b6",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -229,6 +319,24 @@
     },
     {
       "key": {
+        "uuid": "dd59327b_0d489ca4",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "895985ab_505c001b",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03415a28_3af84e6d",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 7
@@ -246,6 +354,24 @@
     },
     {
       "key": {
+        "uuid": "3feba518_661559df",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03415a28_3af84e6d",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b59780a_db05345a",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 7
@@ -260,6 +386,24 @@
       "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "005a33f2_069f1ea9",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "Do you mean checking that there are no stream stats created?\nI don\u0027t think there can be, since the default setup for the mock PC is to return an empty stream array from the relevant calls.\nYou can\u0027t tell from the track stats that there are no associated streams.\nNot sure what you\u0027re asking to add, so resolving this one.",
+      "parentUuid": "9b59780a_db05345a",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -313,6 +457,24 @@
       "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57ad39fe_e1aa45d4",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-02T10:22:50Z",
+      "side": 1,
+      "message": "sender_info SSRCs are filled in by the local side, so not an attack vector.\nRemote SSRCs are an attack vector. I\u0027ve changed those to DCHECKs.\n(In case of duplicates, last one wins, and things will likely fail to work.)",
+      "parentUuid": "050bb675_b425d06f",
+      "revId": "f9ac7175be9742977c21a6ce7e9d2993275cf858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -49,6 +49,8 @@ class StatsCollector {
   // Adds a MediaStream with tracks that can be used as a |selector| in a call
   // to GetStats.
   void AddStream(MediaStreamInterface* stream);
+  void AddTrack(AudioTrackInterface* track);
+  void AddTrack(VideoTrackInterface* track);
 
   // Adds a local audio track that is used for getting some voice statistics.
   void AddLocalAudioTrack(AudioTrackInterface* audio_track, uint32_t ssrc);

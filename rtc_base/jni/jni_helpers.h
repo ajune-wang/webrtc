@@ -11,8 +11,8 @@
 // This file contain convenience functions and classes for JNI.
 // Before using any of the methods, InitGlobalJniVariables must be called.
 
-#ifndef SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_
-#define SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_
+#ifndef RTC_BASE_JNI_JNI_HELPERS_H_
+#define RTC_BASE_JNI_JNI_HELPERS_H_
 
 #include <jni.h>
 #include <map>
@@ -22,9 +22,9 @@
 #include "api/optional.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
+#include "rtc_base/jni/scoped_java_ref.h"
 #include "rtc_base/refcount.h"
 #include "rtc_base/thread_checker.h"
-#include "sdk/android/src/jni/scoped_java_ref.h"
 
 // Abort the process if |jni| has a Java exception pending.
 // This macros uses the comma operator to execute ExceptionDescribe
@@ -42,12 +42,12 @@
 namespace webrtc {
 namespace jni {
 
-jint InitGlobalJniVariables(JavaVM *jvm);
+jint InitGlobalJniVariables(JavaVM* jvm);
 
 // Return a |JNIEnv*| usable on this thread or NULL if this thread is detached.
 JNIEnv* GetEnv();
 
-JavaVM *GetJVM();
+JavaVM* GetJVM();
 
 // Return a |JNIEnv*| usable on this thread.  Attaches to |g_jvm| if necessary.
 JNIEnv* AttachCurrentThreadIfNeeded();
@@ -299,4 +299,4 @@ using webrtc::jni::InitGlobalJniVariables;
 
 }  // namespace webrtc_jni
 
-#endif  // SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_
+#endif  // RTC_BASE_JNI_JNI_HELPERS_H_

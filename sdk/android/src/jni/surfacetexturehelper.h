@@ -14,9 +14,9 @@
 #include <jni.h>
 
 #include "api/video/video_frame_buffer.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/refcount.h"
 #include "rtc_base/scoped_ref_ptr.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

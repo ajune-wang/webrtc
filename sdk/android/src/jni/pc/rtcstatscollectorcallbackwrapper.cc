@@ -14,7 +14,7 @@
 #include <vector>
 
 #include "rtc_base/stringencode.h"
-#include "sdk/android/generated_external_classes_jni/jni/BigInteger_jni.h"
+#include "sdk/android/generated_big_integer_jni/jni/BigInteger_jni.h"
 #include "sdk/android/generated_peerconnection_jni/jni/RTCStatsCollectorCallback_jni.h"
 #include "sdk/android/generated_peerconnection_jni/jni/RTCStatsReport_jni.h"
 #include "sdk/android/generated_peerconnection_jni/jni/RTCStats_jni.h"

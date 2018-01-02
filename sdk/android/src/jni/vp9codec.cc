@@ -11,9 +11,9 @@
 #include <jni.h>
 
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_video_jni/jni/VP9Decoder_jni.h"
 #include "sdk/android/generated_video_jni/jni/VP9Encoder_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

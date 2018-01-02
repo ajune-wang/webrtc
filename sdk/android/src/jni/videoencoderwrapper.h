@@ -19,8 +19,8 @@
 #include "api/video_codecs/video_encoder.h"
 #include "common_video/h264/h264_bitstream_parser.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/task_queue.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/videoframe.h"
 
 namespace webrtc {

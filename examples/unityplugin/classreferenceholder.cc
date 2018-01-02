@@ -11,7 +11,7 @@
 
 #include <utility>
 
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "rtc_base/jni/jni_helpers.h"
 
 namespace unity_plugin {
 

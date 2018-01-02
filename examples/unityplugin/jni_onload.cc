@@ -13,9 +13,9 @@
 #define JNIEXPORT __attribute__((visibility("default")))
 
 #include "examples/unityplugin/classreferenceholder.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/ssladapter.h"
 #include "sdk/android/src/jni/classreferenceholder.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

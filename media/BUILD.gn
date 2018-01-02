@@ -128,6 +128,7 @@ rtc_static_library("rtc_media_base") {
 
 rtc_static_library("rtc_constants") {
   defines = []
+  sources = []
   libs = []
   deps = []
 
@@ -152,8 +153,6 @@ rtc_static_library("rtc_internal_video_codecs") {
     "engine/scopedvideodecoder.h",
     "engine/scopedvideoencoder.cc",
     "engine/scopedvideoencoder.h",
-    "engine/simulcast.cc",
-    "engine/simulcast.h",
     "engine/simulcast_encoder_adapter.cc",
     "engine/simulcast_encoder_adapter.h",
     "engine/stereocodecfactory.cc",
@@ -164,9 +163,7 @@ rtc_static_library("rtc_internal_video_codecs") {
     "engine/videoencodersoftwarefallbackwrapper.h",
     "engine/vp8_encoder_simulcast_proxy.cc",
     "engine/vp8_encoder_simulcast_proxy.h",
-    "engine/webrtcvideodecoderfactory.cc",
     "engine/webrtcvideodecoderfactory.h",
-    "engine/webrtcvideoencoderfactory.cc",
     "engine/webrtcvideoencoderfactory.h",
   ]
 
@@ -218,6 +215,10 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base:checks",
   ]
 
+  if (!rtc_use_builtin_sw_codecs) {
+    defines += [ "HAVE_NO_SW_CODECS" ]
+  }
+
   sources = [
     "engine/adm_helpers.cc",
     "engine/adm_helpers.h",
@@ -226,12 +227,18 @@ rtc_static_library("rtc_audio_video") {
     "engine/nullwebrtcvideoengine.h",
     "engine/payload_type_mapper.cc",
     "engine/payload_type_mapper.h",
+    "engine/simulcast.cc",
+    "engine/simulcast.h",
     "engine/webrtcmediaengine.cc",
     "engine/webrtcmediaengine.h",
     "engine/webrtcvideocapturer.cc",
     "engine/webrtcvideocapturer.h",
     "engine/webrtcvideocapturerfactory.cc",
     "engine/webrtcvideocapturerfactory.h",
+    "engine/webrtcvideodecoderfactory.cc",
+    "engine/webrtcvideodecoderfactory.h",
+    "engine/webrtcvideoencoderfactory.cc",
+    "engine/webrtcvideoencoderfactory.h",
     "engine/webrtcvideoengine.cc",
     "engine/webrtcvideoengine.h",
     "engine/webrtcvoe.h",
@@ -280,9 +287,11 @@ rtc_static_library("rtc_audio_video") {
   } else {
     deps += [ "../modules/audio_processing/aec_dump:null_aec_dump_factory" ]
   }
+  if (rtc_use_builtin_sw_codecs) {
+    deps += [ ":rtc_internal_video_codecs" ]
+  }
   deps += [
     ":rtc_constants",
-    ":rtc_internal_video_codecs",
     ":rtc_media_base",
     "..:webrtc_common",
     "../api:call_api",

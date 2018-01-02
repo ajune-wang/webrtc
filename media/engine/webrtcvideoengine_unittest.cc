@@ -1422,7 +1422,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
         channel_->GetRtpSendParameters(last_ssrc_);
     EXPECT_EQ(1UL, parameters.encodings.size());
     parameters.encodings[0].max_bitrate_bps = stream_max;
-    EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, parameters));
+    EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, parameters).ok());
     // Read back the parameteres and verify they have the correct value
     parameters = channel_->GetRtpSendParameters(last_ssrc_);
     EXPECT_EQ(1UL, parameters.encodings.size());
@@ -4332,7 +4332,7 @@ TEST_F(WebRtcVideoChannelTest, CannotSetMaxBitrateForNonexistentStream) {
 
   nonexistent_parameters.encodings.push_back(webrtc::RtpEncodingParameters());
   EXPECT_FALSE(
-      channel_->SetRtpSendParameters(last_ssrc_, nonexistent_parameters));
+      channel_->SetRtpSendParameters(last_ssrc_, nonexistent_parameters).ok());
 }
 
 TEST_F(WebRtcVideoChannelTest,
@@ -4346,10 +4346,10 @@ TEST_F(WebRtcVideoChannelTest,
   webrtc::RtpParameters parameters = channel_->GetRtpSendParameters(last_ssrc_);
   // Two or more encodings should result in failure.
   parameters.encodings.push_back(webrtc::RtpEncodingParameters());
-  EXPECT_FALSE(channel_->SetRtpSendParameters(last_ssrc_, parameters));
+  EXPECT_FALSE(channel_->SetRtpSendParameters(last_ssrc_, parameters).ok());
   // Zero encodings should also fail.
   parameters.encodings.clear();
-  EXPECT_FALSE(channel_->SetRtpSendParameters(last_ssrc_, parameters));
+  EXPECT_FALSE(channel_->SetRtpSendParameters(last_ssrc_, parameters).ok());
 }
 
 // Changing the SSRC through RtpParameters is not allowed.
@@ -4357,7 +4357,7 @@ TEST_F(WebRtcVideoChannelTest, CannotSetSsrcInRtpSendParameters) {
   AddSendStream();
   webrtc::RtpParameters parameters = channel_->GetRtpSendParameters(last_ssrc_);
   parameters.encodings[0].ssrc = 0xdeadbeef;
-  EXPECT_FALSE(channel_->SetRtpSendParameters(last_ssrc_, parameters));
+  EXPECT_FALSE(channel_->SetRtpSendParameters(last_ssrc_, parameters).ok());
 }
 
 // Test that a stream will not be sending if its encoding is made inactive
@@ -4374,12 +4374,12 @@ TEST_F(WebRtcVideoChannelTest, SetRtpSendParametersEncodingsActive) {
   ASSERT_EQ(1u, parameters.encodings.size());
   ASSERT_TRUE(parameters.encodings[0].active);
   parameters.encodings[0].active = false;
-  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, parameters));
+  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, parameters).ok());
   EXPECT_FALSE(stream->IsSending());
 
   // Now change it back to active and verify we resume sending.
   parameters.encodings[0].active = true;
-  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, parameters));
+  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, parameters).ok());
   EXPECT_TRUE(stream->IsSending());
 }
 
@@ -4404,7 +4404,7 @@ TEST_F(WebRtcVideoChannelTest,
   parameters.encodings[0].active = false;
   EXPECT_EQ(1u, GetFakeSendStreams().size());
   EXPECT_EQ(1, fake_call_->GetNumCreatedSendStreams());
-  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, parameters));
+  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, parameters).ok());
   EXPECT_FALSE(stream->IsSending());
 
   // Reorder the codec list, causing the stream to be reconfigured.
@@ -4463,7 +4463,7 @@ TEST_F(WebRtcVideoChannelTest, SetAndGetRtpSendParameters) {
       channel_->GetRtpSendParameters(last_ssrc_);
 
   // We should be able to set the params we just got.
-  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, initial_params));
+  EXPECT_TRUE(channel_->SetRtpSendParameters(last_ssrc_, initial_params).ok());
 
   // ... And this shouldn't change the params returned by GetRtpSendParameters.
   EXPECT_EQ(initial_params, channel_->GetRtpSendParameters(last_ssrc_));

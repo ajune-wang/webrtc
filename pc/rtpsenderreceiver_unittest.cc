@@ -569,7 +569,7 @@ TEST_F(RtpSenderReceiverTest, AudioSenderCanSetParameters) {
 
   RtpParameters params = audio_rtp_sender_->GetParameters();
   EXPECT_EQ(1u, params.encodings.size());
-  EXPECT_TRUE(audio_rtp_sender_->SetParameters(params));
+  EXPECT_TRUE(audio_rtp_sender_->SetParameters(params).ok());
 
   DestroyAudioRtpSender();
 }
@@ -582,7 +582,7 @@ TEST_F(RtpSenderReceiverTest, SetAudioMaxSendBitrate) {
   EXPECT_EQ(1, params.encodings.size());
   EXPECT_FALSE(params.encodings[0].max_bitrate_bps);
   params.encodings[0].max_bitrate_bps = 1000;
-  EXPECT_TRUE(audio_rtp_sender_->SetParameters(params));
+  EXPECT_TRUE(audio_rtp_sender_->SetParameters(params).ok());
 
   // Read back the parameters and verify they have been changed.
   params = audio_rtp_sender_->GetParameters();
@@ -605,7 +605,7 @@ TEST_F(RtpSenderReceiverTest, VideoSenderCanSetParameters) {
 
   RtpParameters params = video_rtp_sender_->GetParameters();
   EXPECT_EQ(1u, params.encodings.size());
-  EXPECT_TRUE(video_rtp_sender_->SetParameters(params));
+  EXPECT_TRUE(video_rtp_sender_->SetParameters(params).ok());
 
   DestroyVideoRtpSender();
 }
@@ -618,7 +618,7 @@ TEST_F(RtpSenderReceiverTest, SetVideoMaxSendBitrate) {
   EXPECT_EQ(1, params.encodings.size());
   EXPECT_FALSE(params.encodings[0].max_bitrate_bps);
   params.encodings[0].max_bitrate_bps = 1000;
-  EXPECT_TRUE(video_rtp_sender_->SetParameters(params));
+  EXPECT_TRUE(video_rtp_sender_->SetParameters(params).ok());
 
   // Read back the parameters and verify they have been changed.
   params = video_rtp_sender_->GetParameters();

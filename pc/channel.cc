@@ -1283,16 +1283,17 @@ webrtc::RtpParameters VoiceChannel::GetRtpSendParameters_w(
   return media_channel()->GetRtpSendParameters(ssrc);
 }
 
-bool VoiceChannel::SetRtpSendParameters(
+webrtc::RTCError VoiceChannel::SetRtpSendParameters(
     uint32_t ssrc,
     const webrtc::RtpParameters& parameters) {
-  return InvokeOnWorker<bool>(
+  return InvokeOnWorker<webrtc::RTCError>(
       RTC_FROM_HERE,
       Bind(&VoiceChannel::SetRtpSendParameters_w, this, ssrc, parameters));
 }
 
-bool VoiceChannel::SetRtpSendParameters_w(uint32_t ssrc,
-                                          webrtc::RtpParameters parameters) {
+webrtc::RTCError VoiceChannel::SetRtpSendParameters_w(
+    uint32_t ssrc,
+    webrtc::RtpParameters parameters) {
   return media_channel()->SetRtpSendParameters(ssrc, parameters);
 }
 
@@ -1618,16 +1619,17 @@ webrtc::RtpParameters VideoChannel::GetRtpSendParameters_w(
   return media_channel()->GetRtpSendParameters(ssrc);
 }
 
-bool VideoChannel::SetRtpSendParameters(
+webrtc::RTCError VideoChannel::SetRtpSendParameters(
     uint32_t ssrc,
     const webrtc::RtpParameters& parameters) {
-  return InvokeOnWorker<bool>(
+  return InvokeOnWorker<webrtc::RTCError>(
       RTC_FROM_HERE,
       Bind(&VideoChannel::SetRtpSendParameters_w, this, ssrc, parameters));
 }
 
-bool VideoChannel::SetRtpSendParameters_w(uint32_t ssrc,
-                                          webrtc::RtpParameters parameters) {
+webrtc::RTCError VideoChannel::SetRtpSendParameters_w(
+    uint32_t ssrc,
+    webrtc::RtpParameters parameters) {
   return media_channel()->SetRtpSendParameters(ssrc, parameters);
 }
 

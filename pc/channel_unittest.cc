@@ -1890,14 +1890,17 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(channel1_->SetLocalContent(&local_media_content1_,
                                            SdpType::kOffer, NULL));
 
-    EXPECT_TRUE(channel1_->SetRtpSendParameters(
-        kSsrc1, BitrateLimitedParameters(1000)));
+    EXPECT_TRUE(
+        channel1_->SetRtpSendParameters(kSsrc1, BitrateLimitedParameters(1000))
+            .ok());
     VerifyMaxBitrate(channel1_->GetRtpSendParameters(kSsrc1), 1000);
     VerifyMaxBitrate(media_channel1_->GetRtpSendParameters(kSsrc1), 1000);
     EXPECT_EQ(-1, media_channel1_->max_bps());
 
-    EXPECT_TRUE(channel1_->SetRtpSendParameters(
-        kSsrc1, BitrateLimitedParameters(rtc::nullopt)));
+    EXPECT_TRUE(channel1_
+                    ->SetRtpSendParameters(
+                        kSsrc1, BitrateLimitedParameters(rtc::nullopt))
+                    .ok());
     VerifyMaxBitrate(channel1_->GetRtpSendParameters(kSsrc1), rtc::nullopt);
     VerifyMaxBitrate(media_channel1_->GetRtpSendParameters(kSsrc1),
                      rtc::nullopt);

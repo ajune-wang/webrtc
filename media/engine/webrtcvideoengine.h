@@ -137,8 +137,9 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   bool SetSendParameters(const VideoSendParameters& params) override;
   bool SetRecvParameters(const VideoRecvParameters& params) override;
   webrtc::RtpParameters GetRtpSendParameters(uint32_t ssrc) const override;
-  bool SetRtpSendParameters(uint32_t ssrc,
-                            const webrtc::RtpParameters& parameters) override;
+  webrtc::RTCError SetRtpSendParameters(
+      uint32_t ssrc,
+      const webrtc::RtpParameters& parameters) override;
   webrtc::RtpParameters GetRtpReceiveParameters(uint32_t ssrc) const override;
   bool SetRtpReceiveParameters(
       uint32_t ssrc,
@@ -264,7 +265,7 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
     virtual ~WebRtcVideoSendStream();
 
     void SetSendParameters(const ChangedSendParameters& send_params);
-    bool SetRtpParameters(const webrtc::RtpParameters& parameters);
+    webrtc::RTCError SetRtpParameters(const webrtc::RtpParameters& parameters);
     webrtc::RtpParameters GetRtpParameters() const;
 
     // Implements rtc::VideoSourceInterface<webrtc::VideoFrame>.

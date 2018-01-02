@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3197843e_33dbd567",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-01-02T12:57:23Z",
+      "side": 1,
+      "message": "This comment is still incorrect, and since the logic is so straight-forward in this case I think we can just remove it all together.",
+      "revId": "7ebf7224523f301f312ad74a28e685c219ee7202",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

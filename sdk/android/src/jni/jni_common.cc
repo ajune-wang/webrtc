@@ -8,9 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/refcount.h"
-#include "sdk/android/generated_base_jni/jni/JniCommon_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "sdk/android/generated_common_jni/jni/JniCommon_jni.h"
 
 namespace webrtc {
 namespace jni {

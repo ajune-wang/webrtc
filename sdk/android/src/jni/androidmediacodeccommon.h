@@ -14,9 +14,9 @@
 #include <android/log.h>
 #include <string>
 
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/thread.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

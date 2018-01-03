@@ -15,7 +15,7 @@
 
 #if defined(WEBRTC_ANDROID)
 #include "modules/video_coding/codecs/test/android_test_initializer.h"
-#include "sdk/android/src/jni/class_loader.h"
+#include "rtc_base/jni/class_loader.h"
 #include "sdk/android/src/jni/videodecoderfactorywrapper.h"
 #include "sdk/android/src/jni/videoencoderfactorywrapper.h"
 #elif defined(WEBRTC_IOS)

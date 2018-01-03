@@ -10,10 +10,10 @@
 
 #include "sdk/android/src/jni/wrappednativecodec.h"
 
+#include "rtc_base/jni/class_loader.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_video_jni/jni/WrappedNativeVideoDecoder_jni.h"
 #include "sdk/android/generated_video_jni/jni/WrappedNativeVideoEncoder_jni.h"
-#include "sdk/android/src/jni/class_loader.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/videodecoderwrapper.h"
 #include "sdk/android/src/jni/videoencoderwrapper.h"
 

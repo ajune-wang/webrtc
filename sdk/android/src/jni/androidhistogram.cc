@@ -11,8 +11,8 @@
 #include <map>
 #include <memory>
 
-#include "sdk/android/generated_base_jni/jni/Histogram_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "rtc_base/jni/jni_helpers.h"
+#include "sdk/android/generated_histogram_jni/jni/Histogram_jni.h"
 #include "system_wrappers/include/metrics.h"
 
 // Enables collection of native histograms and creating them.

@@ -11,8 +11,8 @@
 #include <jni.h>
 
 #include "media/base/h264_profile_level_id.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_video_jni/jni/HardwareVideoEncoderFactory_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

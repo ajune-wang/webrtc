@@ -12,8 +12,8 @@
 
 #include "api/video/video_frame.h"
 #include "media/base/videosinkinterface.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_video_jni/jni/VideoRenderer_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/videoframe.h"
 
 namespace webrtc {

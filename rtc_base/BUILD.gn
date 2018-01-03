@@ -1127,6 +1127,56 @@ if (is_android) {
       "java/src/org/webrtc/Logging.java",
       "java/src/org/webrtc/Size.java",
       "java/src/org/webrtc/ThreadUtils.java",
+      "java/src/org/webrtc/NativeClassQualifiedName.java",
+      "java/src/org/webrtc/CalledByNative.java",
+      "java/src/org/webrtc/JniHelper.java",
+      "java/src/org/webrtc/WebRtcClassLoader.java",
+    ]
+  }
+
+  generate_jni("generated_base_jni") {
+    sources = [
+      "java/src/org/webrtc/JniHelper.java",
+      "java/src/org/webrtc/WebRtcClassLoader.java",
+    ]
+    jni_package = ""
+    jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
+  }
+
+  generate_jar_jni("generated_external_classes_jni") {
+    classes = [
+      "java/lang/Integer.class",
+      "java/lang/Double.class",
+      "java/lang/Long.class",
+      "java/lang/Iterable.class",
+      "java/util/Iterator.class",
+      "java/lang/Boolean.class",
+      "java/util/Map.class",
+      "java/util/LinkedHashMap.class",
+      "java/util/ArrayList.class",
+      "java/lang/Enum.class",
+    ]
+    jni_package = ""
+    jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
+  }
+
+  rtc_source_set("base_jni") {
+    sources = [
+      "jni/class_loader.cc",
+      "jni/class_loader.h",
+      "jni/jni_generator_helper.cc",
+      "jni/jni_generator_helper.h",
+      "jni/jni_helpers.cc",
+      "jni/jni_helpers.h",
+      "jni/scoped_java_ref.h",
+    ]
+
+    deps = [
+      ":checks",
+      ":generated_base_jni",
+      ":generated_external_classes_jni",
+      ":rtc_base_approved",
+      "../api:optional",
     ]
   }
 }

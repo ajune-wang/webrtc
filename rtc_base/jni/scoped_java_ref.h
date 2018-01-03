@@ -11,8 +11,8 @@
 // Originally these classes are from Chromium.
 // https://cs.chromium.org/chromium/src/base/android/scoped_java_ref.h.
 
-#ifndef SDK_ANDROID_SRC_JNI_SCOPED_JAVA_REF_H_
-#define SDK_ANDROID_SRC_JNI_SCOPED_JAVA_REF_H_
+#ifndef RTC_BASE_JNI_SCOPED_JAVA_REF_H_
+#define RTC_BASE_JNI_SCOPED_JAVA_REF_H_
 
 #include <jni.h>
 #include <utility>
@@ -202,4 +202,4 @@ class ScopedJavaGlobalRef : public JavaRef<T> {
 }  // namespace jni
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_SRC_JNI_SCOPED_JAVA_REF_H_
+#endif  // RTC_BASE_JNI_SCOPED_JAVA_REF_H_

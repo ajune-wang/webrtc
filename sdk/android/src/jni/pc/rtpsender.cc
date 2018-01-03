@@ -10,8 +10,8 @@
 
 #include "sdk/android/src/jni/pc/rtpsender.h"
 
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_peerconnection_jni/jni/RtpSender_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/pc/rtpparameters.h"
 
 namespace webrtc {

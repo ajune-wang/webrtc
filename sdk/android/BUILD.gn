@@ -33,57 +33,46 @@ config("libjingle_peerconnection_jni_warnings_config") {
   }
 }
 
-generate_jni("generated_base_jni") {
+generate_jni("generated_histogram_jni") {
   sources = [
     "src/java/org/webrtc/Histogram.java",
-    "src/java/org/webrtc/JniCommon.java",
-    "src/java/org/webrtc/JniHelper.java",
-    "src/java/org/webrtc/WebRtcClassLoader.java",
   ]
   jni_package = ""
-  jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
 }
 
-generate_jar_jni("generated_external_classes_jni") {
-  classes = [
-    "java/lang/Integer.class",
-    "java/lang/Double.class",
-    "java/lang/Long.class",
-    "java/lang/Iterable.class",
-    "java/util/Iterator.class",
-    "java/lang/Boolean.class",
-    "java/math/BigInteger.class",
-    "java/util/Map.class",
-    "java/util/LinkedHashMap.class",
-    "java/util/ArrayList.class",
-    "java/lang/Enum.class",
+generate_jni("generated_common_jni") {
+  sources = [
+    "src/java/org/webrtc/JniCommon.java",
   ]
   jni_package = ""
-  jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
+}
+
+generate_jar_jni("generated_big_integer_jni") {
+  classes = [ "java/math/BigInteger.class" ]
+  jni_package = ""
+  jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
 }
 
 rtc_source_set("base_jni") {
   sources = [
     "src/jni/androidhistogram.cc",
-    "src/jni/class_loader.cc",
     "src/jni/class_loader.h",
     "src/jni/classreferenceholder.h",
     "src/jni/jni_common.cc",
-    "src/jni/jni_generator_helper.cc",
-    "src/jni/jni_generator_helper.h",
-    "src/jni/jni_helpers.cc",
     "src/jni/jni_helpers.h",
     "src/jni/pc/audio.h",
     "src/jni/pc/media.h",
     "src/jni/pc/video.h",
-    "src/jni/scoped_java_ref.h",
   ]
 
   deps = [
-    ":generated_base_jni",
-    ":generated_external_classes_jni",
+    ":generated_common_jni",
+    ":generated_histogram_jni",
     "../../api:libjingle_peerconnection_api",
     "../../api:optional",
+    "../../rtc_base:base_jni",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
@@ -104,7 +93,7 @@ generate_jni("generated_audio_jni") {
     "api/org/webrtc/DefaultAudioProcessingFactory.java",
   ]
   jni_package = ""
-  jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
 }
 
 rtc_static_library("audio_jni") {
@@ -119,6 +108,7 @@ rtc_static_library("audio_jni") {
     "../../api/audio_codecs:builtin_audio_decoder_factory",
     "../../api/audio_codecs:builtin_audio_encoder_factory",
     "../../modules/audio_processing:audio_processing",
+    "../../rtc_base:base_jni",
     "../../rtc_base:rtc_base_approved",
     "../../voice_engine:voice_engine",
   ]
@@ -171,7 +161,7 @@ generate_jni("generated_video_jni") {
     "src/java/org/webrtc/WrappedNativeVideoEncoder.java",
   ]
   jni_package = ""
-  jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
 }
 
 rtc_static_library("video_jni") {
@@ -186,7 +176,6 @@ rtc_static_library("video_jni") {
     "src/jni/encodedimage.cc",
     "src/jni/encodedimage.h",
     "src/jni/hardwarevideoencoderfactory.cc",
-    "src/jni/jni_generator_helper.h",
     "src/jni/nv12buffer.cc",
     "src/jni/nv21buffer.cc",
     "src/jni/pc/video.cc",
@@ -257,6 +246,7 @@ rtc_static_library("video_jni") {
     "../../modules/video_coding:video_coding_utility",
     "../../modules/video_coding:webrtc_vp8",
     "../../modules/video_coding:webrtc_vp9",
+    "../../rtc_base:base_jni",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
@@ -349,7 +339,7 @@ generate_jni("generated_peerconnection_jni") {
     "api/org/webrtc/TurnCustomizer.java",
   ]
   jni_package = ""
-  jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
 }
 
 rtc_static_library("peerconnection_jni") {
@@ -418,7 +408,7 @@ rtc_static_library("peerconnection_jni") {
 
   deps = [
     ":base_jni",
-    ":generated_external_classes_jni",
+    ":generated_big_integer_jni",
     ":generated_peerconnection_jni",
     "../..:webrtc_common",
     "../../api:libjingle_peerconnection_api",
@@ -429,6 +419,7 @@ rtc_static_library("peerconnection_jni") {
     "../../modules/audio_device:audio_device",
     "../../modules/utility:utility",
     "../../pc:peerconnection",
+    "../../rtc_base:base_jni",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
@@ -454,7 +445,7 @@ generate_jni("generated_metrics_jni") {
     "api/org/webrtc/Metrics.java",
   ]
   jni_package = ""
-  jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
+  jni_generator_include = "//rtc_base/jni/jni_generator_helper.h"
 }
 
 rtc_static_library("libjingle_peerconnection_metrics_default_jni") {
@@ -469,6 +460,7 @@ rtc_static_library("libjingle_peerconnection_metrics_default_jni") {
     ":generated_metrics_jni",
     ":peerconnection_jni",
     "../../pc:peerconnection",
+    "../../rtc_base:base_jni",
     "../../system_wrappers:field_trial_default",
     "../../system_wrappers:metrics_api",
     "../../system_wrappers:metrics_default",
@@ -494,6 +486,7 @@ rtc_shared_library("libjingle_peerconnection_datachannelonly_so") {
     ":null_video_jni",
     ":peerconnection_jni",
     "../../pc:peerconnection",
+    "../../rtc_base:base_jni",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
   ]
@@ -512,6 +505,7 @@ rtc_shared_library("libjingle_peerconnection_so") {
     ":libjingle_peerconnection_jni",
     ":libjingle_peerconnection_metrics_default_jni",
     "../../pc:libjingle_peerconnection",
+    "../../rtc_base:base_jni",
     "../../rtc_base:rtc_base",
   ]
   output_extension = "so"
@@ -664,15 +658,12 @@ rtc_android_library("libjingle_peerconnection_java") {
     "src/java/org/webrtc/AndroidVideoTrackSourceObserver.java",
     "src/java/org/webrtc/BaseBitrateAdjuster.java",
     "src/java/org/webrtc/BitrateAdjuster.java",
-    "src/java/org/webrtc/CalledByNative.java",
     "src/java/org/webrtc/CalledByNativeUnchecked.java",
     "src/java/org/webrtc/JNINamespace.java",
     "src/java/org/webrtc/Camera1Session.java",
     "src/java/org/webrtc/Camera2Session.java",
     "src/java/org/webrtc/CameraCapturer.java",
     "src/java/org/webrtc/CameraSession.java",
-    "src/java/org/webrtc/WebRtcClassLoader.java",
-    "src/java/org/webrtc/JniHelper.java",
     "src/java/org/webrtc/DynamicBitrateAdjuster.java",
     "src/java/org/webrtc/EglBase10.java",
     "src/java/org/webrtc/EglBase14.java",
@@ -682,7 +673,6 @@ rtc_android_library("libjingle_peerconnection_java") {
     "src/java/org/webrtc/Histogram.java",
     "src/java/org/webrtc/JniCommon.java",
     "src/java/org/webrtc/MediaCodecUtils.java",
-    "src/java/org/webrtc/NativeClassQualifiedName.java",
     "src/java/org/webrtc/NativeLibrary.java",
     "src/java/org/webrtc/NV12Buffer.java",
     "src/java/org/webrtc/NV21Buffer.java",

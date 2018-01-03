@@ -10,8 +10,8 @@
 
 #include "sdk/android/src/jni/videocodecinfo.h"
 
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_video_jni/jni/VideoCodecInfo_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

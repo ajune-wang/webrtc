@@ -14,7 +14,7 @@
 #include <jni.h>
 
 #include "api/video_codecs/video_decoder_factory.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "rtc_base/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

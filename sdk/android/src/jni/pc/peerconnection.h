@@ -17,7 +17,7 @@
 #include <vector>
 
 #include "api/peerconnectioninterface.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/src/jni/pc/mediaconstraints.h"
 #include "sdk/android/src/jni/pc/mediastream.h"
 #include "sdk/android/src/jni/pc/rtpreceiver.h"

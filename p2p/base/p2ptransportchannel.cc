@@ -145,6 +145,7 @@ P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
 }
 
 P2PTransportChannel::~P2PTransportChannel() {
+  LOG_J(LS_INFO, this) << "Destructor";
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
 }
 
@@ -1650,6 +1651,7 @@ void P2PTransportChannel::OnMessage(rtc::Message *pmsg) {
 
 // Handle queued up check-and-ping request
 void P2PTransportChannel::OnCheckAndPing() {
+  LOG_J(LS_INFO, this) << "OnCheckAndPing";
   // Make sure the states of the connections are up-to-date (since this affects
   // which ones are pingable).
   UpdateConnectionStates();

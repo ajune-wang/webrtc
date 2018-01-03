@@ -11,8 +11,8 @@
 #include <jni.h>
 
 #include "media/engine/videodecodersoftwarefallbackwrapper.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_video_jni/jni/VideoDecoderFallback_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/wrappednativecodec.h"
 
 namespace webrtc {

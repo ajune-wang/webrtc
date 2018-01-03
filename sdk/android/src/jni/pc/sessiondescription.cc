@@ -12,9 +12,9 @@
 
 #include <string>
 
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/logging.h"
 #include "sdk/android/generated_peerconnection_jni/jni/SessionDescription_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

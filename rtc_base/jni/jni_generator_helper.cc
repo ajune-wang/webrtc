@@ -8,10 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/android/src/jni/jni_generator_helper.h"
+#include "rtc_base/jni/jni_generator_helper.h"
 
 #include "rtc_base/atomicops.h"
-#include "sdk/android/src/jni/class_loader.h"
+#include "rtc_base/jni/class_loader.h"
 
 namespace base {
 namespace android {

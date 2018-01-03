@@ -8,9 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/logsinks.h"
 #include "sdk/android/generated_peerconnection_jni/jni/CallSessionFileRotatingLogSink_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

@@ -7,25 +7,26 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "rtc_base/jni/jni_helpers.h"
 
 #include <asm/unistd.h>
 #include <sys/prctl.h>
 #include <sys/syscall.h>
 #include <unistd.h>
+#include <utility>
 #include <vector>
 
-#include "sdk/android/generated_base_jni/jni/JniHelper_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/ArrayList_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/Boolean_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/Double_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/Enum_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/Integer_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/Iterable_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/Iterator_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/LinkedHashMap_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/Long_jni.h"
-#include "sdk/android/generated_external_classes_jni/jni/Map_jni.h"
+#include "rtc_base/generated_base_jni/jni/JniHelper_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/ArrayList_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/Boolean_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/Double_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/Enum_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/Integer_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/Iterable_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/Iterator_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/LinkedHashMap_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/Long_jni.h"
+#include "rtc_base/generated_external_classes_jni/jni/Map_jni.h"
 
 namespace webrtc {
 namespace jni {
@@ -39,7 +40,7 @@ static pthread_once_t g_jni_ptr_once = PTHREAD_ONCE_INIT;
 // were attached by the JVM because of a Java->native call.
 static pthread_key_t g_jni_ptr;
 
-JavaVM *GetJVM() {
+JavaVM* GetJVM() {
   RTC_CHECK(g_jvm) << "JNI_OnLoad failed to run?";
   return g_jvm;
 }
@@ -77,7 +78,7 @@ static void CreateJNIPtrKey() {
       << "pthread_key_create";
 }
 
-jint InitGlobalJniVariables(JavaVM *jvm) {
+jint InitGlobalJniVariables(JavaVM* jvm) {
   RTC_CHECK(!g_jvm) << "InitGlobalJniVariables!";
   g_jvm = jvm;
   RTC_CHECK(g_jvm) << "InitGlobalJniVariables handed NULL?";
@@ -94,9 +95,11 @@ jint InitGlobalJniVariables(JavaVM *jvm) {
 // Return thread ID as a string.
 static std::string GetThreadId() {
   char buf[21];  // Big enough to hold a kuint64max plus terminating NULL.
-  RTC_CHECK_LT(snprintf(buf, sizeof(buf), "%ld",
-                        static_cast<long>(syscall(__NR_gettid))),
-               sizeof(buf))
+  RTC_CHECK_LT(
+      snprintf(buf, sizeof(buf), "%ld",
+               static_cast<long>(syscall(__NR_gettid))),  // NOLINT(runtime/int)
+
+      sizeof(buf))
       << "Thread id is bigger than uint64??";
   return std::string(buf);
 }
@@ -122,7 +125,7 @@ JNIEnv* AttachCurrentThreadIfNeeded() {
   args.version = JNI_VERSION_1_6;
   args.name = &name[0];
   args.group = nullptr;
-  // Deal with difference in signatures between Oracle's jni.h and Android's.
+// Deal with difference in signatures between Oracle's jni.h and Android's.
 #ifdef _JAVASOFT_JNI_H_  // Oracle's jni.h violates the JNI spec!
   void* env = nullptr;
 #else
@@ -305,7 +308,7 @@ Iterable::Iterator::Iterator(Iterator&& other)
     : jni_(std::move(other.jni_)),
       iterator_(std::move(other.iterator_)),
       value_(std::move(other.value_)),
-      thread_checker_(std::move(other.thread_checker_)){};
+      thread_checker_(std::move(other.thread_checker_)) {}
 
 Iterable::Iterator::~Iterator() = default;
 

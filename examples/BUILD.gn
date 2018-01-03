@@ -683,7 +683,10 @@ if (is_win || is_android) {
       "../system_wrappers:metrics_default",
     ]
     if (is_android) {
-      deps += [ "../sdk/android:libjingle_peerconnection_jni" ]
+      deps += [
+        "../rtc_base:base_jni",
+        "../sdk/android:libjingle_peerconnection_jni",
+      ]
     }
   }
 }

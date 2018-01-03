@@ -12,8 +12,8 @@
 
 #include "modules/video_coding/codecs/test/android_test_initializer.h"
 #include "rtc_base/ignore_wundef.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/src/jni/classreferenceholder.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 // Note: this dependency is dangerous since it reaches into Chromium's base.
 // There's a risk of e.g. macro clashes. This file may only be used in tests.

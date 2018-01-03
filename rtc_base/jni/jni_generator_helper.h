@@ -13,13 +13,13 @@
 // the wrapping done by Chromium's JniIntWrapper, JavaRef, and
 // ScopedJavaLocalRef, and use raw jobjects instead.
 
-#ifndef SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_
-#define SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_
+#ifndef RTC_BASE_JNI_JNI_GENERATOR_HELPER_H_
+#define RTC_BASE_JNI_JNI_GENERATOR_HELPER_H_
 
 #include <jni.h>
 
 #include "rtc_base/checks.h"
-#include "sdk/android/src/jni/scoped_java_ref.h"
+#include "rtc_base/jni/scoped_java_ref.h"
 
 #define CHECK_CLAZZ(env, jcaller, clazz, ...) RTC_DCHECK(clazz);
 #define CHECK_NATIVE_PTR(env, jcaller, native_ptr, method_name, ...) \
@@ -94,4 +94,4 @@ class MethodID {
 }  // namespace android
 }  // namespace base
 
-#endif  // SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_
+#endif  // RTC_BASE_JNI_JNI_GENERATOR_HELPER_H_

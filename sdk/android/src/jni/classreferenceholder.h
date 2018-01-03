@@ -13,8 +13,8 @@
 
 // TODO(magjed): Update external clients to call webrtc::jni::InitClassLoader
 // immediately instead.
-#include "sdk/android/src/jni/class_loader.h"
-#include "sdk/android/src/jni/jni_helpers.h"
+#include "rtc_base/jni/class_loader.h"
+#include "rtc_base/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

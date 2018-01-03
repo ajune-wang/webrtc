@@ -13,8 +13,8 @@
 #include <utility>
 
 #include "api/mediaconstraintsinterface.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "sdk/android/generated_peerconnection_jni/jni/SdpObserver_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

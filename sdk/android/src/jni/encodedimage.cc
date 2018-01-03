@@ -11,9 +11,9 @@
 #include "sdk/android/src/jni/encodedimage.h"
 
 #include "common_video/include/video_frame.h"
+#include "rtc_base/jni/jni_helpers.h"
 #include "rtc_base/timeutils.h"
 #include "sdk/android/generated_video_jni/jni/EncodedImage_jni.h"
-#include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {

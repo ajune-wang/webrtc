@@ -175,7 +175,16 @@ generate_jni("generated_video_jni") {
 }
 
 rtc_static_library("video_jni") {
-  sources = [
+  sources = []
+  deps = []
+
+  if (rtc_use_builtin_sw_codecs) {
+    sources += [
+      "src/jni/vp8codec.cc",
+      "src/jni/vp9codec.cc",
+    ]
+  }
+  sources += [
     "src/jni/androidmediacodeccommon.h",
     "src/jni/androidmediadecoder.cc",
     "src/jni/androidmediadecoder_jni.h",
@@ -211,8 +220,6 @@ rtc_static_library("video_jni") {
     "src/jni/videoframe.cc",
     "src/jni/videoframe.h",
     "src/jni/videotrack.cc",
-    "src/jni/vp8codec.cc",
-    "src/jni/vp9codec.cc",
     "src/jni/wrapped_native_i420_buffer.cc",
     "src/jni/wrapped_native_i420_buffer.h",
     "src/jni/wrappednativecodec.cc",
@@ -239,8 +246,14 @@ rtc_static_library("video_jni") {
       "/wd4389",  # signed/unsigned mismatch.
     ]
   }
-
-  deps = [
+  if (rtc_use_builtin_sw_codecs) {
+    deps += [
+      "../../media:rtc_internal_video_codecs",
+      "../../modules/video_coding:webrtc_vp8",
+      "../../modules/video_coding:webrtc_vp9",
+    ]
+  }
+  deps += [
     ":base_jni",
     ":generated_video_jni",
     ":peerconnection_jni",
@@ -250,14 +263,11 @@ rtc_static_library("video_jni") {
     "../../api/video_codecs:video_codecs_api",
     "../../common_video:common_video",
     "../../media:rtc_audio_video",
-    "../../media:rtc_internal_video_codecs",
     "../../media:rtc_media_base",
     "../../modules:module_api",
     "../../modules/utility:utility",
     "../../modules/video_coding:codec_globals_headers",
     "../../modules/video_coding:video_coding_utility",
-    "../../modules/video_coding:webrtc_vp8",
-    "../../modules/video_coding:webrtc_vp9",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",

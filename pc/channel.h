@@ -745,7 +745,6 @@ class RtpDataChannel : public BaseChannel {
                             const DataMediaInfo& info);
   void OnDataReceived(
       const ReceiveDataParams& params, const char* data, size_t len);
-  void OnDataChannelError(uint32_t ssrc, DataMediaChannel::Error error);
   void OnDataChannelReadyToSend(bool writable);
 
   std::unique_ptr<DataMediaMonitor> media_monitor_;

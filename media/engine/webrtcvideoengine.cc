@@ -37,6 +37,10 @@
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
 
+#include <android/log.h>
+#define ALOGE(...) \
+  __android_log_print(ANDROID_LOG_ERROR, "AppRTCMobile", __VA_ARGS__)
+
 using DegradationPreference = webrtc::VideoSendStream::DegradationPreference;
 
 namespace cricket {
@@ -613,6 +617,8 @@ WebRtcVideoChannel::SelectSendVideoCodec(
       AssignPayloadTypesAndDefaultCodecs(encoder_factory_);
   // Select the first remote codec that is supported locally.
   for (const VideoCodecSettings& remote_mapped_codec : remote_mapped_codecs) {
+    if (!CodecNamesEq(remote_mapped_codec.codec.name, kStereoCodecName))
+      continue;
     // For H264, we will limit the encode level to the remote offered level
     // regardless if level asymmetry is allowed or not. This is strictly not
     // following the spec in https://tools.ietf.org/html/rfc6184#section-8.2.2

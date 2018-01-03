@@ -63,6 +63,8 @@ ClassReferenceHolder::ClassReferenceHolder(JNIEnv* jni) {
   LoadClass(jni, "org/webrtc/EglBase14$Context");
   LoadClass(jni, "org/webrtc/EncodedImage");
   LoadClass(jni, "org/webrtc/EncodedImage$FrameType");
+  LoadClass(jni, "org/webrtc/JavaI420ABuffer");
+  LoadClass(jni, "org/webrtc/TextureBufferImpl");
   LoadClass(jni, "org/webrtc/MediaSource$State");
   LoadClass(jni, "org/webrtc/NetworkMonitor");
   LoadClass(jni, "org/webrtc/NetworkMonitorAutoDetect$ConnectionType");

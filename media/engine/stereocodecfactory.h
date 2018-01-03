@@ -21,7 +21,9 @@ namespace webrtc {
 
 class StereoEncoderFactory : public VideoEncoderFactory {
  public:
-  explicit StereoEncoderFactory(std::unique_ptr<VideoEncoderFactory> factory);
+  StereoEncoderFactory(
+      std::unique_ptr<VideoEncoderFactory> external_factory,
+      std::unique_ptr<VideoEncoderFactory> internal_factory);
 
   std::vector<SdpVideoFormat> GetSupportedFormats() const override;
   CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override;
@@ -29,7 +31,8 @@ class StereoEncoderFactory : public VideoEncoderFactory {
       const SdpVideoFormat& format) override;
 
  private:
-  std::unique_ptr<VideoEncoderFactory> factory_;
+  std::unique_ptr<VideoEncoderFactory> external_factory_;
+  std::unique_ptr<VideoEncoderFactory> internal_factory_;
 };
 
 class StereoDecoderFactory : public VideoDecoderFactory {

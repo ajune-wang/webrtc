@@ -31,7 +31,8 @@ enum AlphaCodecStream {
 class StereoEncoderAdapter : public VideoEncoder {
  public:
   // |factory| is not owned and expected to outlive this class' lifetime.
-  explicit StereoEncoderAdapter(VideoEncoderFactory* factory,
+  explicit StereoEncoderAdapter(VideoEncoderFactory* external_factory,
+                                VideoEncoderFactory* internal_factory,
                                 const SdpVideoFormat& associated_format);
   virtual ~StereoEncoderAdapter();
 
@@ -48,6 +49,7 @@ class StereoEncoderAdapter : public VideoEncoder {
                         uint32_t new_framerate) override;
   int Release() override;
   const char* ImplementationName() const override;
+  bool SupportsNativeHandle() const override;
 
   EncodedImageCallback::Result OnEncodedImage(
       AlphaCodecStream stream_idx,
@@ -59,9 +61,11 @@ class StereoEncoderAdapter : public VideoEncoder {
   // Wrapper class that redirects OnEncodedImage() calls.
   class AdapterEncodedImageCallback;
 
-  VideoEncoderFactory* const factory_;
+  VideoEncoderFactory* const external_factory_;
+  VideoEncoderFactory* const internal_factory_;
   const SdpVideoFormat associated_format_;
   std::vector<std::unique_ptr<VideoEncoder>> encoders_;
+  VideoEncoderFactory::CodecInfo associated_codec_info_;
   std::vector<std::unique_ptr<AdapterEncodedImageCallback>> adapter_callbacks_;
   EncodedImageCallback* encoded_complete_callback_;
 
@@ -71,6 +75,10 @@ class StereoEncoderAdapter : public VideoEncoder {
 
   uint16_t picture_index_ = 0;
   std::vector<uint8_t> stereo_dummy_planes_;
+
+  int key_interval_ = 0;
+  int frame_count_ = 0;
+  bool key_requesting_ = true;
 };
 
 }  // namespace webrtc

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab89bc0e_08664b3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-03T07:47:15Z",
+      "side": 1,
+      "message": "Yes, that would fix. It can also be moved inside the previous:\n\nif (rtc_include_tests) {}\n\nblock, since rtc_include_tests is !build_with_chromium.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 63
+      },
+      "revId": "5a25ab298d2305044f2b3c33976a2144446e0d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

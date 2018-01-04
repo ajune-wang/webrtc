@@ -12,7 +12,7 @@
 
 #include <algorithm>
 
-#include "modules/congestion_controller/delay_based_bwe.h"
+#include "modules/congestion_controller/gocc/delay_based_bwe.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
@@ -72,7 +72,7 @@ void SendSideBweSender::GiveFeedback(const FeedbackPacket& feedback) {
 
   int64_t rtt_ms =
       clock_->TimeInMilliseconds() - feedback.latest_send_time_ms();
-  bwe_->OnRttUpdate(rtt_ms, rtt_ms);
+  bwe_->OnRttUpdate(rtt_ms);
   BWE_TEST_LOGGING_PLOT(1, "RTT", clock_->TimeInMilliseconds(), rtt_ms);
 
   std::sort(packet_feedback_vector.begin(), packet_feedback_vector.end(),

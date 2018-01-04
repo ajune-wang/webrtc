@@ -224,6 +224,7 @@ if (!build_with_chromium) {
         "../:webrtc_common",
         "../call:call_interfaces",
         "../call:video_stream_api",
+        "../experiments",
         "../logging:rtc_event_log_api",
         "../logging:rtc_event_log_impl",
         "../logging:rtc_event_log_parser",
@@ -239,6 +240,7 @@ if (!build_with_chromium) {
         # TODO(kwiberg): Remove this dependency.
         "../api/audio_codecs:audio_codecs_api",
         "../modules/congestion_controller",
+        "../modules/congestion_controller/gocc",
         "../modules/pacing",
         "../modules/rtp_rtcp",
         "../system_wrappers:system_wrappers_default",

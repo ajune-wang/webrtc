@@ -15,7 +15,8 @@
 #include "call/rtp_transport_controller_send.h"
 #include "common_video/include/frame_callback.h"
 #include "common_video/include/video_frame.h"
-#include "modules/pacing/alr_detector.h"
+#include "experiments/alr_experiment.h"
+#include "modules/congestion_controller/include/send_side_congestion_controller.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/source/rtcp_sender.h"
@@ -48,6 +49,9 @@
 #include "call/video_send_stream.h"
 
 namespace webrtc {
+namespace {
+const float kDefaultPaceMultiplier = 2.5f;
+}
 
 enum VideoFormat { kGeneric, kVP8, };
 
@@ -877,6 +881,9 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
           test_generic_packetization_(test_generic_packetization),
           use_fec_(use_fec),
           packet_count_(0),
+          packets_lost_(0),
+          last_packet_count_(0),
+          last_packets_lost_(0),
           accumulated_size_(0),
           accumulated_payload_(0),
           fec_packet_received_(false),
@@ -968,11 +975,18 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
     void TriggerLossReport(const RTPHeader& header) {
       // Send lossy receive reports to trigger FEC enabling.
       const int kLossPercent = 5;
-      if (packet_count_++ % (100 / kLossPercent) != 0) {
+      if (++packet_count_ % (100 / kLossPercent) == 0) {
+        packets_lost_++;
+        int loss_delta = packets_lost_ - last_packets_lost_;
+        int packets_delta = packet_count_ - last_packet_count_;
+        last_packet_count_ = packet_count_;
+        last_packets_lost_ = packets_lost_;
+        uint8_t loss_ratio =
+            static_cast<uint8_t>(loss_delta * 255 / packets_delta);
         FakeReceiveStatistics lossy_receive_stats(
             kVideoSendSsrcs[0], header.sequenceNumber,
-            (packet_count_ * (100 - kLossPercent)) / 100,  // Cumulative lost.
-            static_cast<uint8_t>((255 * kLossPercent) / 100));  // Loss percent.
+            packets_lost_,  // Cumulative lost.
+            loss_ratio);    // Loss percent.
         RTCPSender rtcp_sender(false, Clock::GetRealTimeClock(),
                                &lossy_receive_stats, nullptr, nullptr,
                                transport_adapter_.get());
@@ -1069,6 +1083,9 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
     const bool use_fec_;
 
     uint32_t packet_count_;
+    uint32_t packets_lost_;
+    uint32_t last_packet_count_;
+    uint32_t last_packets_lost_;
     size_t accumulated_size_;
     size_t accumulated_payload_;
     bool fec_packet_received_;
@@ -3541,7 +3558,7 @@ TEST_F(VideoSendStreamTest, SendsKeepAlive) {
 
 TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
   const std::string kAlrProbingExperiment =
-      std::string(AlrDetector::kScreenshareProbingBweExperimentName) +
+      std::string(AlrExperimentSettings::kScreenshareProbingBweExperimentName) +
       "/1.0,2875,80,40,-60,3/";
   test::ScopedFieldTrials alr_experiment(kAlrProbingExperiment);
   class PacingFactorObserver : public test::SendTest {
@@ -3550,7 +3567,7 @@ TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
         : test::SendTest(kDefaultTimeoutMs),
           configure_send_side_(configure_send_side),
           expected_pacing_factor_(expected_pacing_factor),
-          paced_sender_(nullptr) {}
+          send_side_cc(nullptr) {}
 
     void ModifyVideoConfigs(
         VideoSendStream::Config* send_config,
@@ -3585,14 +3602,14 @@ TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
     void OnRtpTransportControllerSendCreated(
         RtpTransportControllerSend* controller) override {
       // Grab a reference to the pacer.
-      paced_sender_ = controller->pacer();
+      send_side_cc = controller->send_side_cc();
     }
 
     void OnVideoStreamsCreated(
         VideoSendStream* send_stream,
         const std::vector<VideoReceiveStream*>& receive_streams) override {
       // Video streams created, check that pacer is correctly configured.
-      EXPECT_EQ(expected_pacing_factor_, paced_sender_->GetPacingFactor());
+      EXPECT_EQ(expected_pacing_factor_, send_side_cc->GetPacingFactor());
       observation_complete_.Set();
     }
 
@@ -3603,7 +3620,7 @@ TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
    private:
     const bool configure_send_side_;
     const float expected_pacing_factor_;
-    const PacedSender* paced_sender_;
+    const SendSideCongestionController* send_side_cc;
   };
 
   // Send-side bwe on, use pacing factor from |kAlrProbingExperiment| above.
@@ -3611,8 +3628,7 @@ TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
   RunBaseTest(&test_with_send_side);
 
   // Send-side bwe off, use default pacing factor.
-  PacingFactorObserver test_without_send_side(
-      false, PacedSender::kDefaultPaceMultiplier);
+  PacingFactorObserver test_without_send_side(false, kDefaultPaceMultiplier);
   RunBaseTest(&test_without_send_side);
 }
 

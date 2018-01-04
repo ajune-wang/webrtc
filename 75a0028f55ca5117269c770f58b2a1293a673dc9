@@ -16,6 +16,23 @@
       "revId": "75a0028f55ca5117269c770f58b2a1293a673dc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31f2d817_5b6dc1de",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-04T13:33:58Z",
+      "side": 1,
+      "message": "I know you just copy-pasted this, but why do you \"if stream_\" in this case but not the other? Calling this multiple times result in reusing the same stream, which is not the case for corresponding video functions. The function\u0027s comment also does not say this.\n\nnit: if (stream_)",
+      "revId": "75a0028f55ca5117269c770f58b2a1293a673dc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

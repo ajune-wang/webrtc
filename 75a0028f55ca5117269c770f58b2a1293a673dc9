@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c685f3ec_9b45fde8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-04T14:26:59Z",
+      "side": 1,
+      "message": "agreed that there should be tests. I think these may be easiest to write at the Chrome level (LayoutTests, since we can\u0027t write wpt tests for old stats).\n\nAnyway, not in this CL.",
+      "parentUuid": "d3489fa5_219ee2c9",
+      "revId": "75a0028f55ca5117269c770f58b2a1293a673dc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31f2d817_5b6dc1de",
         "filename": "pc/statscollector_unittest.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-01-04T13:33:58Z",
       "side": 1,
       "message": "I know you just copy-pasted this, but why do you \"if stream_\" in this case but not the other? Calling this multiple times result in reusing the same stream, which is not the case for corresponding video functions. The function\u0027s comment also does not say this.\n\nnit: if (stream_)",
+      "revId": "75a0028f55ca5117269c770f58b2a1293a673dc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9786076_c49f9c6f",
+        "filename": "pc/statscollector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-04T14:26:59Z",
+      "side": 1,
+      "message": "I added this when I added two audio tracks in a test - as long as you have only one track of a type, it doesn\u0027t matter.\nIf not guarded, it will result in losing (and thereby deallocating) the first stream, I think.\nUpdating comment and adding to outgoing video too.",
+      "parentUuid": "31f2d817_5b6dc1de",
       "revId": "75a0028f55ca5117269c770f58b2a1293a673dc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

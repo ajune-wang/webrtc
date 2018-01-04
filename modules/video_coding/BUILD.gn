@@ -36,8 +36,10 @@ rtc_static_library("video_coding") {
     "histogram.cc",
     "histogram.h",
     "include/video_codec_initializer.h",
+
+    # TODO(bugs.webrtc.org/7620: remove this when downstream is updated).
+    "include/video_codec_interface.h",
     "include/video_coding.h",
-    "include/video_coding_defines.h",
     "inter_frame_delay.cc",
     "inter_frame_delay.h",
     "internal_defines.h",
@@ -90,6 +92,7 @@ rtc_static_library("video_coding") {
 
   deps = [
     ":codec_globals_headers",
+    ":video_codec_interface",
     ":video_coding_utility",
     ":webrtc_h264",
     ":webrtc_i420",
@@ -103,6 +106,7 @@ rtc_static_library("video_coding") {
     "../../api:optional",
     "../../api:video_frame_api",
     "../../api:video_frame_api_i420",
+    "../../api/video_codecs:video_codecs_api",
     "../../call:video_stream_api",
     "../../common_video",
     "../../rtc_base:checks",
@@ -120,6 +124,22 @@ rtc_static_library("video_coding") {
   ]
 }
 
+rtc_source_set("video_codec_interface") {
+  sources = [
+    "include/video_codec_interface.h",
+    "include/video_coding_defines.h",
+    "include/video_error_codes.h",
+  ]
+  deps = [
+    "..:module_api",
+    "../..:typedefs",
+    "../..:webrtc_common",
+    "../../api:video_frame_api",
+    "../../api/video_codecs:video_codecs_api",
+    "../../common_video:common_video",
+  ]
+}
+
 rtc_source_set("mock_headers") {
   testonly = true
   sources = [
@@ -127,6 +147,7 @@ rtc_source_set("mock_headers") {
     "include/mock/mock_video_codec_interface.h",
   ]
   deps = [
+    ":video_codec_interface",
     ":video_coding_utility",
     "../..:webrtc_common",
     "../../:typedefs",
@@ -170,6 +191,7 @@ rtc_source_set("video_coding_utility") {
   }
 
   deps = [
+    ":video_codec_interface",
     "..:module_api",
     "../..:webrtc_common",
     "../../:typedefs",
@@ -200,6 +222,7 @@ rtc_static_library("webrtc_h264") {
 
   defines = []
   deps = [
+    ":video_codec_interface",
     ":video_coding_utility",
     "../../api:video_frame_api_i420",
     "../../api/video_codecs:video_codecs_api",
@@ -241,6 +264,7 @@ rtc_static_library("webrtc_i420") {
   }
 
   deps = [
+    ":video_codec_interface",
     ":video_coding_utility",
     "../..:webrtc_common",
     "../../:typedefs",
@@ -267,6 +291,7 @@ rtc_static_library("webrtc_stereo") {
   }
 
   deps = [
+    ":video_codec_interface",
     ":video_coding_utility",
     "..:module_api",
     "../..:webrtc_common",
@@ -304,6 +329,7 @@ rtc_static_library("webrtc_vp8") {
   }
 
   deps = [
+    ":video_codec_interface",
     ":video_coding_utility",
     "..:module_api",
     "../..:webrtc_common",
@@ -349,6 +375,7 @@ rtc_static_library("webrtc_vp9") {
   }
 
   deps = [
+    ":video_codec_interface",
     ":video_coding_utility",
     "..:module_api",
     "../../common_video",
@@ -401,6 +428,7 @@ if (rtc_include_tests) {
 
     deps = [
       ":mock_headers",
+      ":video_codec_interface",
       ":video_coding",
       ":webrtc_vp8",
       "../../api:video_frame_api",
@@ -435,6 +463,7 @@ if (rtc_include_tests) {
 
     deps = [
       ":codec_globals_headers",
+      ":video_codec_interface",
       ":video_coding",
       ":video_coding_utility",
       ":webrtc_vp8",
@@ -488,6 +517,7 @@ if (rtc_include_tests) {
     ]
 
     deps = [
+      ":video_codec_interface",
       ":video_codecs_test_framework",
       ":video_coding",
       ":video_coding_utility",
@@ -601,6 +631,7 @@ if (rtc_include_tests) {
     deps = [
       ":mock_headers",
       ":simulcast_test_utility",
+      ":video_codec_interface",
       ":video_codecs_test_framework",
       ":video_coding",
       ":video_coding_utility",

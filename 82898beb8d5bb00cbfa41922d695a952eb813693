@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ea198214_989018d4",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-04T10:56:46Z",
+      "side": 1,
+      "message": "Moved in a previous CL.",
+      "parentUuid": "fec6fb09_9391330f",
+      "revId": "82898beb8d5bb00cbfa41922d695a952eb813693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69599ea3_d9d132a0",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bef64fcf_2979ff16",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-04T10:56:46Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion about this.\n\nConceptually, we\u0027re creating a list of random events, encoding, then parsing it back to a new list. It makes sense to put the \"pre-encoding\" list in the same place as the \"post-parsing\" list. Since the ParsedLog was in the fixture, I put the history in the same place.\n\nPutting it in the fixture also enables us to simplify event creation in the future using convenience methods AddRandomXEvent().\n\nWdyt?",
+      "parentUuid": "69599ea3_d9d132a0",
+      "revId": "82898beb8d5bb00cbfa41922d695a952eb813693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c0f71ad_c8147e5a",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2017-12-18T19:32:46Z",
       "side": 1,
       "message": "Should we perhaps also introduce unit tests that validate EncodeBatch for batches longer than one element?",
+      "revId": "82898beb8d5bb00cbfa41922d695a952eb813693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cc690a6_330e9586",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-04T10:56:46Z",
+      "side": 1,
+      "message": "Yes, but I was planning it for a separate CL.",
+      "parentUuid": "9c0f71ad_c8147e5a",
       "revId": "82898beb8d5bb00cbfa41922d695a952eb813693",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

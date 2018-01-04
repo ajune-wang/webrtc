@@ -87,6 +87,11 @@ public class VideoFrame {
     @CalledByNative("I420Buffer") int getStrideV();
   }
 
+  public interface I420ABuffer extends I420Buffer {
+    @CalledByNative("I420ABuffer") ByteBuffer getDataA();
+    @CalledByNative("I420ABuffer") int getStrideA();
+  }
+
   /**
    * Interface for buffers that are stored as a single texture, either in OES or RGB format.
    */

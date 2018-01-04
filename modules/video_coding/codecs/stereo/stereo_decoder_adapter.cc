@@ -126,9 +126,25 @@ int32_t StereoDecoderAdapter::Decode(
                           std::forward_as_tuple(input_image._timeStamp),
                           std::forward_as_tuple(kAXXStream));
   }
+  int32_t rv;
+  if (stereo_info.indices.frame_index == kCombinedStream) {
+    EncodedImage yuv_image = input_image;
+    EncodedImage alpha_image = input_image;
+    yuv_image._size = stereo_info.indices.yuv_size;
+    yuv_image._length = stereo_info.indices.yuv_length;
+    alpha_image._buffer = input_image._buffer + yuv_image._size;
+    alpha_image._size = input_image._size - yuv_image._size;
+    alpha_image._length = input_image._length - yuv_image._size;
+    rv = decoders_[kYUVStream]->Decode(
+        yuv_image, missing_frames, nullptr, nullptr, render_time_ms);
 
-  int32_t rv = decoders_[stereo_info.indices.frame_index]->Decode(
-      input_image, missing_frames, nullptr, nullptr, render_time_ms);
+    rv = decoders_[kAXXStream]->Decode(
+        alpha_image, missing_frames, nullptr, nullptr, render_time_ms);
+  }
+  else {
+    rv = decoders_[stereo_info.indices.frame_index]->Decode(
+        input_image, missing_frames, nullptr, nullptr, render_time_ms);
+  }
   return rv;
 }
 

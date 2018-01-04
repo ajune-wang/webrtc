@@ -265,6 +265,18 @@ public class SurfaceTextureHelper {
     return result[0];
   }
 
+  public VideoFrame.I420Buffer textureToYuv(
+      final TextureBuffer textureBuffer, final TextureBuffer maskBuffer) {
+    final VideoFrame.I420Buffer[] result = new VideoFrame.I420Buffer[1];
+    ThreadUtils.invokeAtFrontUninterruptibly(handler, () -> {
+      if (yuvConverter == null) {
+        yuvConverter = new YuvConverter();
+      }
+      result[0] = yuvConverter.convert(textureBuffer, maskBuffer);
+    });
+    return result[0];
+  }
+
   private void updateTexImage() {
     // SurfaceTexture.updateTexImage apparently can compete and deadlock with eglSwapBuffers,
     // as observed on Nexus 5. Therefore, synchronize it with the EGL functions.
@@ -319,6 +331,17 @@ public class SurfaceTextureHelper {
   public TextureBuffer createTextureBuffer(int width, int height, Matrix transformMatrix) {
     return new TextureBufferImpl(
         width, height, TextureBuffer.Type.OES, oesTextureId, transformMatrix, this, new Runnable() {
+          @Override
+          public void run() {
+            returnTextureFrame();
+          }
+        });
+  }
+
+  public TextureBuffer createTextureBuffer(int texture_id, TextureBuffer.Type texture_type,
+      int width, int height, Matrix transformMatrix) {
+    return new TextureBufferImpl(width, height, TextureBuffer.Type.OES, oesTextureId, texture_type,
+        texture_id, transformMatrix, this, new Runnable() {
           @Override
           public void run() {
             returnTextureFrame();

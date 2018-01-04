@@ -105,6 +105,7 @@ rtc_static_library("video_coding") {
     "../../api:video_frame_api_i420",
     "../../call:video_stream_api",
     "../../common_video",
+    "../../experiments",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
@@ -114,7 +115,6 @@ rtc_static_library("video_coding") {
     "../../system_wrappers",
     "../../system_wrappers:field_trial_api",
     "../../system_wrappers:metrics_api",
-    "../pacing",
     "../rtp_rtcp:rtp_rtcp_format",
     "../utility:utility",
   ]

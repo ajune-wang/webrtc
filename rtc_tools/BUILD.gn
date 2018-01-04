@@ -224,6 +224,7 @@ if (!build_with_chromium) {
         "../:webrtc_common",
         "../call:call_interfaces",
         "../call:video_stream_api",
+        "../experiments",
         "../logging:rtc_event_log_api",
         "../logging:rtc_event_log_impl",
         "../logging:rtc_event_log_parser",

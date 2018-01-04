@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3489fa5_219ee2c9",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-04T11:44:48Z",
+      "side": 1,
+      "message": "Currently we always create a remote stream, so we will have track coverage even for remote cases.\n\nBut I suspect we should do stats_-\u003eAddTrack() on remote tracks being added too, or at least have a unittest for it that would start failing when we support remote-track-with-no-stream.\n\nWe should also make sure that stats_-\u003eAddStream() and stats_-\u003eAddTrack() does not create conflicts, if the same track is seen twice. But I suspect that doesn\u0027t matter? (Report overwritten?)",
+      "revId": "75a0028f55ca5117269c770f58b2a1293a673dc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

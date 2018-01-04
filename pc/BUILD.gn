@@ -207,6 +207,12 @@ rtc_static_library("peerconnection") {
 # "peerconnection" build target and other targets specific to their
 # requrements. See comment in peerconnectionfactoryinterface.h.
 rtc_static_library("create_pc_factory") {
+  defines = []
+
+  if (!rtc_use_builtin_sw_codecs) {
+    defines += [ "HAVE_NO_SW_CODECS" ]
+  }
+
   sources = [
     "createpeerconnectionfactory.cc",
   ]

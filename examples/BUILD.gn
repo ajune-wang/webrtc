@@ -67,7 +67,6 @@ if (is_android) {
 
   rtc_android_library("AppRTCMobile_javalib") {
     testonly = true
-    android_manifest = "androidapp/AndroidManifest.xml"
 
     java_files = [
       "androidapp/src/org/appspot/apprtc/AppRTCAudioManager.java",

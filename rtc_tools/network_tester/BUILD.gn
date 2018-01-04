@@ -136,7 +136,6 @@ if (is_android) {
 
   android_library("NetworkTesterMobile_javalib") {
     testonly = true
-    android_manifest = "androidapp/AndroidManifest.xml"
 
     java_files = [
       "androidapp/src/com/google/media/networktester/MainActivity.java",

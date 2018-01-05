@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9d0beb1_0d6b64ce",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "nit: We typically name methods \"OnFoo\" when they\u0027re event handlers/slots, but this is just called by P2PTransportChannel itself. So it could just be called \"LogCandidatePairEvent\" or something similar.",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "773fa943_3ae9f534",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "Don\u0027t we need to check if it\u0027s null?",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c288cf29_fb41f330",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "Why take the hash of the hex representation of the object\u0027s address instead of just using the address directly? Also, this doesn\u0027t seem reliable as an ID for logging purposes. If a Connection is destroyed and another is created, it\u0027s possible they\u0027ll end up using the same address. So we may need to implement IDs in a more proper way, if the logger needs IDs.",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51cb913f_dee72c4e",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "I don\u0027t know if \"pruned\" is the best event type to be using. It\u0027s difficult to define what \"pruned\" means in a way that we can be sure will remain applicable if we change our ICE algorithm in the future. \"Destroyed\" may be reasonable though.",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "271d681c_c71409be",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1480,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "There are times when the local/remote candidate will be updated in response to new connectivity checks, so I don\u0027t think we\u0027ll be able to cache the description like this. Unless we also add logic to reset it when the local/remote candidate has changed.",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4561d82_b6c9aba3",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "We can\u0027t rely on content names being \"audio\"/\"video\"/\"data\"; other browsers will use different names. Can we remove this field from IceCandidatePairDescription? What was it planned to be used for?",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64599746_39821d7d",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "Do these helper methods need to be public, or even part of the class? It looks like they could be in an unnamed namespace in the .cc file.",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3666b921_b5c8fe33",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "nit: Our style guide prefers spelling out variable names",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b128f4c7_bfc743ca",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-05T23:51:06Z",
+      "side": 1,
+      "message": "May want to leave a comment to remind why this is needed",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

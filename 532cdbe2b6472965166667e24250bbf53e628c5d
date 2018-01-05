@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "12d2707a_1695e164",
+        "filename": "modules/audio_device/android/audio_record_jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-01-05T11:31:25Z",
+      "side": 1,
+      "message": "Using RTC_LOG now works. I will fix that on Monday. Thanks for the input Magnus.",
+      "parentUuid": "b0c788c5_827afb2e",
+      "range": {
+        "startLine": 251,
+        "startChar": 2,
+        "endLine": 251,
+        "endChar": 61
+      },
+      "revId": "532cdbe2b6472965166667e24250bbf53e628c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4125c75_56183af7",
         "filename": "modules/audio_device/android/audio_track_jni.cc",
         "patchSetId": 2

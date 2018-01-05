@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21c356f3_95766418",
+        "filename": "sdk/android/src/jni/pc/androidnetworkmonitor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-05T09:28:12Z",
+      "side": 1,
+      "message": "With unified headers (https://android.googlesource.com/platform/ndk/+/ndk-release-r16/docs/UnifiedHeaders.md) RTLD_NOLOAD is already defined.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 19
+      },
+      "revId": "278f8387b19f00de42a850756bf078d972f3ab53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

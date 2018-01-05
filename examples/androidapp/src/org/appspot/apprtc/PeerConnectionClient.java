@@ -431,6 +431,7 @@ public class PeerConnectionClient {
             .setEnableVideoHwAcceleration(peerConnectionParameters.videoCodecHwAcceleration)
             .setEnableInternalTracer(true)
             .createInitializationOptions());
+
     if (peerConnectionParameters.tracing) {
       PeerConnectionFactory.startInternalTracingCapture(
           Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator

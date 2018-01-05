@@ -600,7 +600,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   // TODO(steveanton): Remove default implementation once downstream
   // implementations have been updated.
   virtual RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>
-  AddTrackWithStreamLabels(rtc::scoped_refptr<MediaStreamTrackInterface> track,
+  AddTrack(rtc::scoped_refptr<MediaStreamTrackInterface> track,
                            const std::vector<std::string>& stream_labels) {
     return RTCError(RTCErrorType::UNSUPPORTED_OPERATION, "Not implemented");
   }

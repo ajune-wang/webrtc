@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fdb908f4_69b36549",
+        "filename": "modules/audio_device/android/audio_record_jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-05T10:30:41Z",
+      "side": 1,
+      "message": "Any reason for using these macros on top of __android_log_print in the first place? In the non-audio JNI code, we just use the normal RTC_LOG and it works fine.",
+      "parentUuid": "4a86c2b6_31c2a5a1",
+      "range": {
+        "startLine": 251,
+        "startChar": 2,
+        "endLine": 251,
+        "endChar": 61
+      },
+      "revId": "532cdbe2b6472965166667e24250bbf53e628c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4125c75_56183af7",
         "filename": "modules/audio_device/android/audio_track_jni.cc",
         "patchSetId": 2

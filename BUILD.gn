@@ -329,6 +329,7 @@ if (!build_with_chromium) {
       "call",
       "common_audio",
       "common_video",
+      "experiments",
       "logging",
       "media",
       "modules",

@@ -12,6 +12,7 @@
 #include "rtc_base/criticalsection.h"
 
 #include <stdio.h>
+#include <fstream>
 #include <map>
 #include <sstream>
 #include <vector>
@@ -82,7 +83,7 @@ class PerfResultsLogger {
 
     std::ostringstream json_stream;
     json_stream << '"' << trace_name << R"(":{)";
-    json_stream << R"("type":"list_of_scalars",)";
+    json_stream << R"("type":"list_of_scalar_values",)";
     json_stream << R"("values":[)" << mean << "],";
     json_stream << R"("std":)" << error << ',';
     json_stream << R"("units":")" << units << R"("})";
@@ -104,7 +105,7 @@ class PerfResultsLogger {
 
     std::ostringstream json_stream;
     json_stream << '"' << trace_name << R"(":{)";
-    json_stream << R"("type":"list_of_scalars",)";
+    json_stream << R"("type":"list_of_scalar_values",)";
     json_stream << R"("values":)" << value_stream.str() << ',';
     json_stream << R"("units":")" << units << R"("})";
     rtc::CritScope lock(&crit_);
@@ -152,6 +153,13 @@ void ClearPerfResults() {
 
 std::string GetPerfResultsJSON() {
   return GetPerfResultsLogger().ToJSON();
+}
+
+void WritePerfResults(const std::string& output_path) {
+  std::string json_results = GetPerfResultsJSON();
+  std::fstream json_file(output_path, std::fstream::out);
+  json_file << json_results;
+  json_file.close();
 }
 
 void PrintResult(const std::string& measurement,

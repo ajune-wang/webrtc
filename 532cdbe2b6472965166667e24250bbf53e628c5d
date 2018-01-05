@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "035a4b82_9a327180",
+        "filename": "modules/audio_device/android/audio_record_jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-01-05T10:36:02Z",
+      "side": 1,
+      "message": "Good comment. When I first wrote this class, there was a conflict on Android when using RTC_LOG. It might be resolved by now. Let me check and come back. Think we should land this fix anyhow to avoid further delay.",
+      "parentUuid": "fdb908f4_69b36549",
+      "range": {
+        "startLine": 251,
+        "startChar": 2,
+        "endLine": 251,
+        "endChar": 61
+      },
+      "revId": "532cdbe2b6472965166667e24250bbf53e628c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4125c75_56183af7",
         "filename": "modules/audio_device/android/audio_track_jni.cc",
         "patchSetId": 2

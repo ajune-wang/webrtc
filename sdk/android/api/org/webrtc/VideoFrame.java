@@ -87,6 +87,11 @@ public class VideoFrame {
     @CalledByNative("I420Buffer") int getStrideV();
   }
 
+  public interface I420ABuffer extends I420Buffer {
+    @CalledByNative("I420ABuffer") ByteBuffer getDataA();
+    @CalledByNative("I420ABuffer") int getStrideA();
+  }
+
   /**
    * Interface for buffers that are stored as a single texture, either in OES or RGB format.
    */
@@ -207,8 +212,44 @@ public class VideoFrame {
     return newBuffer;
   }
 
+  public static VideoFrame.Buffer cropAndScaleI420A(final I420ABuffer buffer, int cropX, int cropY,
+      int cropWidth, int cropHeight, int scaleWidth, int scaleHeight) {
+    if (cropWidth == scaleWidth && cropHeight == scaleHeight) {
+      // No scaling.
+      ByteBuffer dataY = buffer.getDataY();
+      ByteBuffer dataU = buffer.getDataU();
+      ByteBuffer dataV = buffer.getDataV();
+      ByteBuffer dataA = buffer.getDataA();
+
+      dataY.position(cropX + cropY * buffer.getStrideY());
+      dataU.position(cropX / 2 + cropY / 2 * buffer.getStrideU());
+      dataV.position(cropX / 2 + cropY / 2 * buffer.getStrideV());
+      dataA.position(cropX + cropY * buffer.getStrideA());
+
+      buffer.retain();
+      return JavaI420ABuffer.wrap(buffer.getWidth(), buffer.getHeight(), dataY.slice(),
+          buffer.getStrideY(), dataU.slice(), buffer.getStrideU(), dataV.slice(),
+          buffer.getStrideV(), dataA.slice(), buffer.getStrideA(), buffer::release);
+    }
+
+    JavaI420ABuffer newBuffer = JavaI420ABuffer.allocate(scaleWidth, scaleHeight);
+    cropAndScaleI420ANative(buffer.getDataY(), buffer.getStrideY(), buffer.getDataU(),
+        buffer.getStrideU(), buffer.getDataV(), buffer.getStrideV(), buffer.getDataA(),
+        buffer.getStrideA(), cropX, cropY, cropWidth, cropHeight, newBuffer.getDataY(),
+        newBuffer.getStrideY(), newBuffer.getDataU(), newBuffer.getStrideU(), newBuffer.getDataV(),
+        newBuffer.getStrideV(), newBuffer.getDataA(), newBuffer.getStrideA(), scaleWidth,
+        scaleHeight);
+    return newBuffer;
+  }
+
   private static native void cropAndScaleI420Native(ByteBuffer srcY, int srcStrideY,
       ByteBuffer srcU, int srcStrideU, ByteBuffer srcV, int srcStrideV, int cropX, int cropY,
       int cropWidth, int cropHeight, ByteBuffer dstY, int dstStrideY, ByteBuffer dstU,
       int dstStrideU, ByteBuffer dstV, int dstStrideV, int scaleWidth, int scaleHeight);
+
+  private static native void cropAndScaleI420ANative(ByteBuffer srcY, int srcStrideY,
+      ByteBuffer srcU, int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer srcA,
+      int srcStrideA, int cropX, int cropY, int cropWidth, int cropHeight, ByteBuffer dstY,
+      int dstStrideY, ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV,
+      ByteBuffer dstA, int dstStrideA, int scaleWidth, int scaleHeight);
 }

@@ -509,6 +509,7 @@ struct SimulcastStream {
   unsigned int targetBitrate;  // kilobits/sec.
   unsigned int minBitrate;     // kilobits/sec.
   unsigned int qpMax;          // minimum quality
+  bool active;                 // encoded and sent.
 };
 
 struct SpatialLayer {
@@ -539,6 +540,12 @@ class VideoCodec {
   unsigned int targetBitrate;  // kilobits/sec.
 
   uint32_t maxFramerate;
+
+  // TODO(shampson): See:
+  // -SimulcastEncoderAdapter::PopulateStreamCodec & also
+  // -DefaultVideoBitrateAllocator::GetAllocation
+  // -VideoCodecInitializer
+  bool active;
 
   unsigned int qpMax;
   unsigned char numberOfSimulcastStreams;

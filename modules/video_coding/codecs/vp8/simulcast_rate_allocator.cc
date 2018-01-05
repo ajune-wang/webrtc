@@ -37,56 +37,89 @@ void SimulcastRateAllocator::OnTemporalLayersCreated(int simulcast_id,
 BitrateAllocation SimulcastRateAllocator::GetAllocation(
     uint32_t total_bitrate_bps,
     uint32_t framerate) {
+  BitrateAllocation allocated_bitrates_bps;
+  GetSimulcastLayerAllocation(total_bitrate_bps, &allocated_bitrates_bps);
+  DistributeAllocationToTemporalLayers(framerate, &allocated_bitrates_bps);
+  return allocated_bitrates_bps;
+}
+
+void SimulcastRateAllocator::GetSimulcastLayerAllocation(
+    uint32_t total_bitrate_bps,
+    BitrateAllocation* allocated_bitrates_bps) {
   uint32_t left_to_allocate = total_bitrate_bps;
   if (codec_.maxBitrate && codec_.maxBitrate * 1000 < left_to_allocate)
     left_to_allocate = codec_.maxBitrate * 1000;
 
-  BitrateAllocation allocated_bitrates_bps;
   if (codec_.numberOfSimulcastStreams == 0) {
     // No simulcast, just set the target as this has been capped already.
-    allocated_bitrates_bps.SetBitrate(
-        0, 0, std::max(codec_.minBitrate * 1000, left_to_allocate));
+    if (codec_.active) {
+      allocated_bitrates_bps->SetBitrate(
+          0, 0, std::max(codec_.minBitrate * 1000, left_to_allocate));
+    }
   } else {
+    // Find the first active layer. We don't allocate to inactive layers.
+    size_t layer = 0;
+    for (; layer < codec_.numberOfSimulcastStreams; ++layer) {
+      if (codec_.simulcastStream[layer].active) {
+        // Found the first active layer.
+        break;
+      }
+    }
+
     // Always allocate enough bitrate for the minimum bitrate of the first
-    // layer. Suspending below min bitrate is controlled outside the codec
-    // implementation and is not overridden by this.
-    left_to_allocate =
-        std::max(codec_.simulcastStream[0].minBitrate * 1000, left_to_allocate);
+    // active layer. Suspending below min bitrate is controlled outside the
+    // codec implementation and is not overridden by this.
+    left_to_allocate = std::max(codec_.simulcastStream[layer].minBitrate * 1000,
+                                left_to_allocate);
 
     // Begin by allocating bitrate to simulcast streams, putting all bitrate in
     // temporal layer 0. We'll then distribute this bitrate, across potential
     // temporal layers, when stream allocation is done.
 
-    // Allocate up to the target bitrate for each simulcast layer.
-    size_t layer = 0;
+    // This is the highest layer that we are actively allocating to.
+    size_t active_layer = layer;
+    // Allocate up to the target bitrate for each active simulcast layer.
     for (; layer < codec_.numberOfSimulcastStreams; ++layer) {
       const SimulcastStream& stream = codec_.simulcastStream[layer];
-      if (left_to_allocate < stream.minBitrate * 1000)
+      if (!stream.active) {
+        continue;
+      }
+      // If we can't allocate to the current stream we can't allocate to higher
+      // streams because they require a higher minimum bitrate.
+      if (left_to_allocate < stream.minBitrate * 1000) {
         break;
+      }
+      // We are allocating to this layer so it is the current active allocation.
+      active_layer = layer;
       uint32_t allocation =
           std::min(left_to_allocate, stream.targetBitrate * 1000);
-      allocated_bitrates_bps.SetBitrate(layer, 0, allocation);
+      allocated_bitrates_bps->SetBitrate(layer, 0, allocation);
       RTC_DCHECK_LE(allocation, left_to_allocate);
       left_to_allocate -= allocation;
     }
 
-    // Next, try allocate remaining bitrate, up to max bitrate, in top stream.
+    // Next, try allocate remaining bitrate, up to max bitrate, in top active
+    // stream.
     // TODO(sprang): Allocate up to max bitrate for all layers once we have a
     //               better idea of possible performance implications.
-    if (left_to_allocate > 0) {
-      size_t active_layer = layer - 1;
+    bool all_streams_inactive = active_layer == codec_.numberOfSimulcastStreams;
+    if (left_to_allocate > 0 || all_streams_inactive) {
       const SimulcastStream& stream = codec_.simulcastStream[active_layer];
       uint32_t bitrate_bps =
-          allocated_bitrates_bps.GetSpatialLayerSum(active_layer);
+          allocated_bitrates_bps->GetSpatialLayerSum(active_layer);
       uint32_t allocation =
           std::min(left_to_allocate, stream.maxBitrate * 1000 - bitrate_bps);
       bitrate_bps += allocation;
       RTC_DCHECK_LE(allocation, left_to_allocate);
       left_to_allocate -= allocation;
-      allocated_bitrates_bps.SetBitrate(active_layer, 0, bitrate_bps);
+      allocated_bitrates_bps->SetBitrate(active_layer, 0, bitrate_bps);
     }
   }
+}
 
+void SimulcastRateAllocator::DistributeAllocationToTemporalLayers(
+    uint32_t framerate,
+    BitrateAllocation* allocated_bitrates_bps) {
   const int num_spatial_streams =
       std::max(1, static_cast<int>(codec_.numberOfSimulcastStreams));
 
@@ -99,11 +132,12 @@ BitrateAllocation SimulcastRateAllocator::GetAllocation(
       continue;  // TODO(sprang): If > 1 SS, assume default TL alloc?
 
     uint32_t target_bitrate_kbps =
-        allocated_bitrates_bps.GetBitrate(simulcast_id, 0) / 1000;
+        allocated_bitrates_bps->GetBitrate(simulcast_id, 0) / 1000;
+
     const uint32_t expected_allocated_bitrate_kbps = target_bitrate_kbps;
     RTC_DCHECK_EQ(
         target_bitrate_kbps,
-        allocated_bitrates_bps.GetSpatialLayerSum(simulcast_id) / 1000);
+        allocated_bitrates_bps->GetSpatialLayerSum(simulcast_id) / 1000);
     const int num_temporal_streams = std::max<uint8_t>(
         1, codec_.numberOfSimulcastStreams == 0
                ? codec_.VP8().numberOfTemporalLayers
@@ -137,14 +171,14 @@ BitrateAllocation SimulcastRateAllocator::GetAllocation(
     uint64_t tl_allocation_sum_kbps = 0;
     for (size_t tl_index = 0; tl_index < tl_allocation.size(); ++tl_index) {
       uint32_t layer_rate_kbps = tl_allocation[tl_index];
-      allocated_bitrates_bps.SetBitrate(simulcast_id, tl_index,
-                                        layer_rate_kbps * 1000);
+      if (layer_rate_kbps > 0) {
+        allocated_bitrates_bps->SetBitrate(simulcast_id, tl_index,
+                                           layer_rate_kbps * 1000);
+      }
       tl_allocation_sum_kbps += layer_rate_kbps;
     }
     RTC_DCHECK_LE(tl_allocation_sum_kbps, expected_allocated_bitrate_kbps);
   }
-
-  return allocated_bitrates_bps;
 }
 
 uint32_t SimulcastRateAllocator::GetPreferredBitrateBps(uint32_t framerate) {

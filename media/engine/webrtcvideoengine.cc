@@ -1863,6 +1863,13 @@ WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
     encoder_config.number_of_streams = 1;
   }
 
+  // TODO(shampson): Actually fill these in properly according to
+  // rtp_parameters_. This is a temporary change here.
+  encoder_config.simulcast_layers.resize(encoder_config.number_of_streams);
+  for (auto& simulcast_layer : encoder_config.simulcast_layers) {
+    simulcast_layer.active = true;
+  }
+
   int stream_max_bitrate = parameters_.max_bitrate_bps;
   if (rtp_parameters_.encodings[0].max_bitrate_bps) {
     stream_max_bitrate =
@@ -2579,7 +2586,8 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
   if (encoder_config.number_of_streams > 1 ||
       (CodecNamesEq(codec_name_, kVp8CodecName) && is_screencast_ &&
        conference_mode_)) {
-    return GetSimulcastConfig(encoder_config.number_of_streams, width, height,
+    return GetSimulcastConfig(encoder_config.simulcast_layers,
+                              encoder_config.number_of_streams, width, height,
                               encoder_config.max_bitrate_bps, max_qp_,
                               max_framerate_, is_screencast_);
   }
@@ -2597,6 +2605,7 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
   stream.min_bitrate_bps = GetMinVideoBitrateBps();
   stream.target_bitrate_bps = stream.max_bitrate_bps = max_bitrate_bps;
   stream.max_qp = max_qp_;
+  stream.active = encoder_config.simulcast_layers[0].active;
 
   if (CodecNamesEq(codec_name_, kVp9CodecName) && !is_screencast_) {
     stream.temporal_layer_thresholds_bps.resize(GetDefaultVp9TemporalLayers() -
@@ -2605,6 +2614,10 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
 
   std::vector<webrtc::VideoStream> streams;
   streams.push_back(stream);
+
+  // TODO(shampson): Consider setting max_bitrate_bps to 0 if a stream is
+  // inactive. This will give the BitrateAllocator the correct value.
+
   return streams;
 }
 

@@ -96,6 +96,35 @@ class SimulcastRateAllocatorTest : public ::testing::TestWithParam<bool> {
     }
   }
 
+  void SetupCodecThreeSimulcastStreams(
+      rtc::ArrayView<const bool> active_streams) {
+    size_t num_streams = 3;
+    RTC_DCHECK_GE(active_streams.size(), num_streams);
+    SetupCodecTwoSimulcastStreams(active_streams);
+    codec_.numberOfSimulcastStreams = num_streams;
+    codec_.simulcastStream[2].minBitrate = 2000;
+    codec_.simulcastStream[2].targetBitrate = 3000;
+    codec_.simulcastStream[2].maxBitrate = 4000;
+    codec_.simulcastStream[2].active = active_streams[2];
+  }
+
+  void SetupCodecTwoSimulcastStreams(
+      rtc::ArrayView<const bool> active_streams) {
+    size_t num_streams = 2;
+    RTC_DCHECK_GE(active_streams.size(), num_streams);
+    codec_.numberOfSimulcastStreams = num_streams;
+    codec_.maxBitrate = 0;
+    codec_.simulcastStream[0].minBitrate = 10;
+    codec_.simulcastStream[0].targetBitrate = 100;
+    codec_.simulcastStream[0].maxBitrate = 500;
+    codec_.simulcastStream[1].minBitrate = 50;
+    codec_.simulcastStream[1].targetBitrate = 500;
+    codec_.simulcastStream[1].maxBitrate = 1000;
+    for (size_t i = 0; i < num_streams; ++i) {
+      codec_.simulcastStream[i].active = active_streams[i];
+    }
+  }
+
   virtual std::unique_ptr<TemporalLayersFactory> GetTlFactory() {
     return std::unique_ptr<TemporalLayersFactory>(new TemporalLayersFactory());
   }
@@ -147,6 +176,7 @@ TEST_F(SimulcastRateAllocatorTest, SingleSimulcastBelowMin) {
   const uint32_t kMin = codec_.minBitrate - 10;
   codec_.simulcastStream[0].minBitrate = kMin;
   codec_.simulcastStream[0].targetBitrate = kTargetBitrateKbps;
+  codec_.simulcastStream[0].active = true;
   CreateAllocator();
 
   uint32_t expected[] = {kMin};
@@ -160,6 +190,7 @@ TEST_F(SimulcastRateAllocatorTest, SingleSimulcastAboveMax) {
   codec_.simulcastStream[0].minBitrate = kMinBitrateKbps;
   const uint32_t kMax = codec_.simulcastStream[0].maxBitrate + 1000;
   codec_.simulcastStream[0].maxBitrate = kMax;
+  codec_.simulcastStream[0].active = true;
   CreateAllocator();
 
   uint32_t expected[] = {kMax};
@@ -173,6 +204,7 @@ TEST_F(SimulcastRateAllocatorTest, SingleSimulcastWithinLimits) {
   codec_.simulcastStream[0].minBitrate = kMinBitrateKbps;
   codec_.simulcastStream[0].targetBitrate = kTargetBitrateKbps;
   codec_.simulcastStream[0].maxBitrate = kMaxBitrateKbps;
+  codec_.simulcastStream[0].active = true;
   CreateAllocator();
 
   for (uint32_t bitrate = kMinBitrateKbps; bitrate <= kMaxBitrateKbps;
@@ -182,18 +214,23 @@ TEST_F(SimulcastRateAllocatorTest, SingleSimulcastWithinLimits) {
   }
 }
 
+TEST_F(SimulcastRateAllocatorTest, SingleSimulcastInactive) {
+  codec_.numberOfSimulcastStreams = 1;
+  codec_.simulcastStream[0].minBitrate = kMinBitrateKbps;
+  codec_.simulcastStream[0].targetBitrate = kTargetBitrateKbps;
+  codec_.simulcastStream[0].maxBitrate = kMaxBitrateKbps;
+  codec_.simulcastStream[0].active = false;
+  CreateAllocator();
+
+  uint32_t expected[] = {0};
+  ExpectEqual(expected, GetAllocation(kMinBitrateKbps - 10));
+  ExpectEqual(expected, GetAllocation(kTargetBitrateKbps));
+  ExpectEqual(expected, GetAllocation(kMaxBitrateKbps + 10));
+}
+
 TEST_F(SimulcastRateAllocatorTest, OneToThreeStreams) {
-  codec_.numberOfSimulcastStreams = 3;
-  codec_.maxBitrate = 0;
-  codec_.simulcastStream[0].minBitrate = 10;
-  codec_.simulcastStream[0].targetBitrate = 100;
-  codec_.simulcastStream[0].maxBitrate = 500;
-  codec_.simulcastStream[1].minBitrate = 50;
-  codec_.simulcastStream[1].targetBitrate = 500;
-  codec_.simulcastStream[1].maxBitrate = 1000;
-  codec_.simulcastStream[2].minBitrate = 2000;
-  codec_.simulcastStream[2].targetBitrate = 3000;
-  codec_.simulcastStream[2].maxBitrate = 4000;
+  std::vector<const bool> active_streams = {true, true, true};
+  SetupCodecThreeSimulcastStreams(active_streams);
   CreateAllocator();
 
   {
@@ -267,6 +304,157 @@ TEST_F(SimulcastRateAllocatorTest, OneToThreeStreams) {
                            codec_.simulcastStream[2].maxBitrate};
     ExpectEqual(expected, GetAllocation(bitrate));
   }
+
+  {
+    // Enough to max out all streams will allocate target amount to lower
+    // streams.
+    const uint32_t bitrate = codec_.simulcastStream[0].maxBitrate +
+                             codec_.simulcastStream[1].maxBitrate +
+                             codec_.simulcastStream[2].maxBitrate;
+    uint32_t expected[] = {codec_.simulcastStream[0].targetBitrate,
+                           codec_.simulcastStream[1].targetBitrate,
+                           codec_.simulcastStream[2].maxBitrate};
+    ExpectEqual(expected, GetAllocation(bitrate));
+  }
+}
+
+TEST_F(SimulcastRateAllocatorTest, ThreeStreamsInactive) {
+  std::vector<const bool> active_streams = {false, false, false};
+  SetupCodecThreeSimulcastStreams(active_streams);
+  CreateAllocator();
+
+  // Just enough to allocate the min.
+  const uint32_t min_bitrate = codec_.simulcastStream[0].minBitrate +
+                               codec_.simulcastStream[1].minBitrate +
+                               codec_.simulcastStream[2].minBitrate;
+  // Enough bitrate to allocate max to all streams.
+  const uint32_t target_bitrate = codec_.simulcastStream[0].targetBitrate +
+                                  codec_.simulcastStream[1].targetBitrate +
+                                  codec_.simulcastStream[2].targetBitrate;
+  // Enough bitrate to allocate max to all streams.
+  const uint32_t max_bitrate = codec_.simulcastStream[0].maxBitrate +
+                               codec_.simulcastStream[1].maxBitrate +
+                               codec_.simulcastStream[2].maxBitrate;
+  uint32_t expected[] = {0, 0, 0};
+  ExpectEqual(expected, GetAllocation(0));
+  ExpectEqual(expected, GetAllocation(min_bitrate));
+  ExpectEqual(expected, GetAllocation(target_bitrate));
+  ExpectEqual(expected, GetAllocation(max_bitrate));
+}
+
+// If there are two simulcast streams, we expect the high active stream to be
+// allocated as if it is a single stream.
+TEST_F(SimulcastRateAllocatorTest, TwoStreamsLowInactive) {
+  std::vector<const bool> active_streams = {false, true};
+  SetupCodecTwoSimulcastStreams(active_streams);
+  CreateAllocator();
+
+  const uint32_t kActiveStreamMinBitrate = codec_.simulcastStream[1].minBitrate;
+  const uint32_t kActiveStreamMaxBitrate = codec_.simulcastStream[1].maxBitrate;
+  {
+    // Expect that the stream is always allocated its min bitrate.
+    uint32_t expected[] = {0, kActiveStreamMinBitrate};
+    ExpectEqual(expected, GetAllocation(0));
+    ExpectEqual(expected, GetAllocation(kActiveStreamMinBitrate - 10));
+    ExpectEqual(expected, GetAllocation(kActiveStreamMinBitrate));
+  }
+
+  {
+    // The stream should be allocated its target bitrate.
+    const uint32_t bitrate = codec_.simulcastStream[1].targetBitrate;
+    uint32_t expected[] = {0, bitrate};
+    ExpectEqual(expected, GetAllocation(bitrate));
+  }
+
+  {
+    // The stream should be allocated its max if the target input is enough.
+    uint32_t expected[] = {0, kActiveStreamMaxBitrate};
+    ExpectEqual(expected, GetAllocation(kActiveStreamMaxBitrate));
+    ExpectEqual(expected, GetAllocation(std::numeric_limits<uint32_t>::max()));
+  }
+}
+
+// If there are two simulcast streams, we expect the low active stream to be
+// allocated as if it is a single stream.
+TEST_F(SimulcastRateAllocatorTest, TwoStreamsHighInactive) {
+  std::vector<const bool> active_streams = {true, false};
+  SetupCodecTwoSimulcastStreams(active_streams);
+  CreateAllocator();
+
+  const uint32_t kActiveStreamMinBitrate = codec_.simulcastStream[0].minBitrate;
+  const uint32_t kActiveStreamMaxBitrate = codec_.simulcastStream[0].maxBitrate;
+  {
+    // Expect that the stream is always allocated its min bitrate.
+    uint32_t expected[] = {kActiveStreamMinBitrate, 0};
+    ExpectEqual(expected, GetAllocation(0));
+    ExpectEqual(expected, GetAllocation(kActiveStreamMinBitrate - 10));
+    ExpectEqual(expected, GetAllocation(kActiveStreamMinBitrate));
+  }
+
+  {
+    // The stream should be allocated its target bitrate.
+    const uint32_t bitrate = codec_.simulcastStream[0].targetBitrate;
+    uint32_t expected[] = {bitrate, 0};
+    ExpectEqual(expected, GetAllocation(bitrate));
+  }
+
+  {
+    // The stream should be allocated its max if the target input is enough.
+    uint32_t expected[] = {kActiveStreamMaxBitrate, 0};
+    ExpectEqual(expected, GetAllocation(kActiveStreamMaxBitrate));
+    ExpectEqual(expected, GetAllocation(std::numeric_limits<uint32_t>::max()));
+  }
+}
+
+TEST_F(SimulcastRateAllocatorTest, ThreeStreamsMiddleInactive) {
+  std::vector<const bool> active_streams = {true, false, true};
+  SetupCodecThreeSimulcastStreams(active_streams);
+  CreateAllocator();
+
+  {
+    const uint32_t kLowStreamMinBitrate = codec_.simulcastStream[0].minBitrate;
+    // The lowest stream should always be allocated its minimum bitrate.
+    uint32_t expected[] = {kLowStreamMinBitrate, 0, 0};
+    ExpectEqual(expected, GetAllocation(0));
+    ExpectEqual(expected, GetAllocation(kLowStreamMinBitrate - 10));
+    ExpectEqual(expected, GetAllocation(kLowStreamMinBitrate));
+  }
+
+  {
+    // The lowest stream gets its target bitrate.
+    uint32_t expected[] = {codec_.simulcastStream[0].targetBitrate, 0, 0};
+    ExpectEqual(expected,
+                GetAllocation(codec_.simulcastStream[0].targetBitrate));
+  }
+
+  {
+    // The lowest stream gets its max bitrate, but not enough for the high
+    // stream.
+    const uint32_t bitrate = codec_.simulcastStream[0].targetBitrate +
+                             codec_.simulcastStream[2].minBitrate - 1;
+    uint32_t expected[] = {codec_.simulcastStream[0].maxBitrate, 0, 0};
+    ExpectEqual(expected, GetAllocation(bitrate));
+  }
+
+  {
+    // Both active streams get allocated target bitrate.
+    const uint32_t bitrate = codec_.simulcastStream[0].targetBitrate +
+                             codec_.simulcastStream[2].targetBitrate;
+    uint32_t expected[] = {codec_.simulcastStream[0].targetBitrate, 0,
+                           codec_.simulcastStream[2].targetBitrate};
+    ExpectEqual(expected, GetAllocation(bitrate));
+  }
+
+  {
+    // Lowest stream gets its target bitrate, high stream gets its max bitrate.
+    uint32_t bitrate = codec_.simulcastStream[0].targetBitrate +
+                       codec_.simulcastStream[2].maxBitrate;
+    uint32_t expected[] = {codec_.simulcastStream[0].targetBitrate, 0,
+                           codec_.simulcastStream[2].maxBitrate};
+    ExpectEqual(expected, GetAllocation(bitrate));
+    ExpectEqual(expected, GetAllocation(bitrate + 10));
+    ExpectEqual(expected, GetAllocation(std::numeric_limits<uint32_t>::max()));
+  }
 }
 
 TEST_F(SimulcastRateAllocatorTest, GetPreferredBitrateBps) {
@@ -283,15 +471,18 @@ TEST_F(SimulcastRateAllocatorTest, GetPreferredBitrateSimulcast) {
   codec_.maxBitrate = 999999;
   codec_.simulcastStream[0].minBitrate = 10;
   codec_.simulcastStream[0].targetBitrate = 100;
+  codec_.simulcastStream[0].active = true;
 
   codec_.simulcastStream[0].maxBitrate = 500;
   codec_.simulcastStream[1].minBitrate = 50;
   codec_.simulcastStream[1].targetBitrate = 500;
   codec_.simulcastStream[1].maxBitrate = 1000;
+  codec_.simulcastStream[1].active = true;
 
   codec_.simulcastStream[2].minBitrate = 2000;
   codec_.simulcastStream[2].targetBitrate = 3000;
   codec_.simulcastStream[2].maxBitrate = 4000;
+  codec_.simulcastStream[2].active = true;
   CreateAllocator();
 
   uint32_t preferred_bitrate_kbps;
@@ -305,7 +496,7 @@ TEST_F(SimulcastRateAllocatorTest, GetPreferredBitrateSimulcast) {
 
 class ScreenshareRateAllocationTest : public SimulcastRateAllocatorTest {
  public:
-  void SetupConferenceScreenshare(bool use_simulcast) {
+  void SetupConferenceScreenshare(bool use_simulcast, bool active = true) {
     codec_.mode = VideoCodecMode::kScreensharing;
     codec_.minBitrate = kMinBitrateKbps;
     codec_.maxBitrate = kMaxBitrateKbps;
@@ -315,10 +506,12 @@ class ScreenshareRateAllocationTest : public SimulcastRateAllocatorTest {
       codec_.simulcastStream[0].targetBitrate = kTargetBitrateKbps;
       codec_.simulcastStream[0].maxBitrate = kMaxBitrateKbps;
       codec_.simulcastStream[0].numberOfTemporalLayers = 2;
+      codec_.simulcastStream[0].active = active;
     } else {
       codec_.numberOfSimulcastStreams = 0;
       codec_.targetBitrate = kTargetBitrateKbps;
       codec_.VP8()->numberOfTemporalLayers = 2;
+      codec_.active = active;
     }
   }
 
@@ -373,4 +566,19 @@ TEST_P(ScreenshareRateAllocationTest, BitrateAboveTl1) {
             allocation.GetBitrate(0, 1) / 1000);
 }
 
+// This tests when the screenshare is allocated 0 bitrate because it is not
+// active.
+TEST_P(ScreenshareRateAllocationTest, InactiveScreenshare) {
+  SetupConferenceScreenshare(GetParam(), false);
+  CreateAllocator();
+
+  // Enough bitrate for TL0 and TL1.
+  uint32_t target_bitrate_kbps = (kTargetBitrateKbps + kMaxBitrateKbps) / 2;
+  BitrateAllocation allocation =
+      allocator_->GetAllocation(target_bitrate_kbps * 1000, kFramerateFps);
+
+  EXPECT_EQ(0U, allocation.get_sum_kbps());
+  EXPECT_EQ(0U, allocation.GetBitrate(0, 0) / 1000);
+  EXPECT_EQ(0U, allocation.GetBitrate(0, 1) / 1000);
+}
 }  // namespace webrtc

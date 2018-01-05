@@ -501,6 +501,7 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
   stream_codec->maxBitrate = inst.simulcastStream[stream_index].maxBitrate;
   stream_codec->minBitrate = inst.simulcastStream[stream_index].minBitrate;
   stream_codec->qpMax = inst.simulcastStream[stream_index].qpMax;
+  stream_codec->active = inst.simulcastStream[stream_index].active;
   // Settings that are based on stream/resolution.
   const bool lowest_resolution_stream = (stream_index == 0);
   if (lowest_resolution_stream) {

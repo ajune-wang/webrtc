@@ -190,6 +190,8 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
   video_codec.numberOfSimulcastStreams =
       static_cast<unsigned char>(streams.size());
   video_codec.minBitrate = streams[0].min_bitrate_bps / 1000;
+  // Set active for the entire video codec for VP9 and H264.
+  video_codec.active = streams[0].active;
   if (video_codec.minBitrate < kEncoderMinBitrateKbps)
     video_codec.minBitrate = kEncoderMinBitrateKbps;
   video_codec.timing_frame_thresholds = {kDefaultTimingFramesDelayMs,
@@ -229,6 +231,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     sim_stream->qpMax = streams[i].max_qp;
     sim_stream->numberOfTemporalLayers = static_cast<unsigned char>(
         streams[i].temporal_layer_thresholds_bps.size() + 1);
+    sim_stream->active = streams[i].active;
 
     video_codec.width =
         std::max(video_codec.width, static_cast<uint16_t>(streams[i].width));

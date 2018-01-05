@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b0c788c5_827afb2e",
+        "filename": "modules/audio_device/android/audio_record_jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-05T10:37:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a86c2b6_31c2a5a1",
+      "range": {
+        "startLine": 251,
+        "startChar": 2,
+        "endLine": 251,
+        "endChar": 61
+      },
+      "revId": "532cdbe2b6472965166667e24250bbf53e628c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4125c75_56183af7",
         "filename": "modules/audio_device/android/audio_track_jni.cc",
         "patchSetId": 2
@@ -87,6 +111,24 @@
       "revId": "532cdbe2b6472965166667e24250bbf53e628c5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70e8b110_c144db5f",
+        "filename": "modules/audio_device/android/audio_track_jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-05T10:37:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4125c75_56183af7",
+      "revId": "532cdbe2b6472965166667e24250bbf53e628c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

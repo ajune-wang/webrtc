@@ -15,7 +15,7 @@
 #include "call/rtp_transport_controller_send.h"
 #include "common_video/include/frame_callback.h"
 #include "common_video/include/video_frame.h"
-#include "modules/pacing/alr_detector.h"
+#include "experiments/alr_experiment.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/source/rtcp_sender.h"
@@ -3541,7 +3541,7 @@ TEST_F(VideoSendStreamTest, SendsKeepAlive) {
 
 TEST_F(VideoSendStreamTest, ConfiguresAlrWhenSendSideOn) {
   const std::string kAlrProbingExperiment =
-      std::string(AlrDetector::kScreenshareProbingBweExperimentName) +
+      std::string(AlrExperimentSettings::kScreenshareProbingBweExperimentName) +
       "/1.0,2875,80,40,-60,3/";
   test::ScopedFieldTrials alr_experiment(kAlrProbingExperiment);
   class PacingFactorObserver : public test::SendTest {

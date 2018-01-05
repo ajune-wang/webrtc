@@ -37,6 +37,7 @@ rtc_static_library("pacing") {
     "../../:typedefs",
     "../../:webrtc_common",
     "../../api:optional",
+    "../../experiments",
     "../../logging:rtc_event_log_api",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
@@ -62,6 +63,7 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":pacing",
+      "../../experiments",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../rtc_base:rtc_base_tests_utils",

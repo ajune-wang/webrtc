@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b7341ec_dc7830a5",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 0,
+      "message": "How do we know how to remove unused channels now?",
+      "revId": "e1838ee1652fc4d5d5071782c1ab0fc726e4c66c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

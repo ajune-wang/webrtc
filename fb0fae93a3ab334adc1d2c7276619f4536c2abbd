@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95c53d8a_3a775efb",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "We should probably comment how the two threads are used.",
+      "range": {
+        "startLine": 56,
+        "startChar": 54,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d0d20a_3960eb24",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "to \u003d\u003e too",
+      "range": {
+        "startLine": 64,
+        "startChar": 42,
+        "endLine": 64,
+        "endChar": 0
+      },
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3267428d_48390b0e",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "I don\u0027t understand what this does.  Is that to make it so that when the RtpTransport changes, the JsepTransportController will call BaseChannel-\u003eSetRtpTransport(new_transport)?\n\nIf so, it would be nice if JsepTransportController didn\u0027t have a dependency on JsepTransportController and, instead, we had something like:\n\nHandleRtpTransportChange(mid, [](RtpTransport* rt) {\n  base_channel-\u003eSetTransport(rt);\n});\n\nThen the JsepTransportController would only have a reference to and dependency on a lambda that takes an RtpTransport.\n\nOr we could signals\n\n\n// (mid, RtpTransport)\nsigslot::signal2\u003cconst std::string\u0026, RtpTransport*\u003e\n\nSimilarly for SctpTransport and DtlsTransport below.",
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9386b2a3_d22d3ee0",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "Could the above two be replaced with a GetIceRestartCount(mid) method?  Then the user of JsepTransport could just remember the number(s) and compare them to know if ICE needs a restart.",
+      "range": {
+        "startLine": 97,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 0
+      },
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51d77aa0_c06c9988",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "The rest of the methods have the name \"ICE\" in them.  Should these also?  (AddRemoteIceCandidates, RemoveRemoteIceCandidates, ReadyForRemoteIceCandidates, etc).",
+      "range": {
+        "startLine": 98,
+        "startChar": 29,
+        "endLine": 98,
+        "endChar": 0
+      },
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a624a9eb_5fa37d44",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "Could we just make it always ready for remote candidates by cacheing them until it is ready?  Or should such logic belong in PC?",
+      "range": {
+        "startLine": 104,
+        "startChar": 62,
+        "endLine": 104,
+        "endChar": 0
+      },
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "508c0f4c_97b1a947",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "When or how often is this called?",
+      "range": {
+        "startLine": 138,
+        "startChar": 41,
+        "endLine": 138,
+        "endChar": 0
+      },
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2128f3c6_cd104492",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "Does this need a mid too?  How do you know which one was removed?",
+      "range": {
+        "startLine": 150,
+        "startChar": 30,
+        "endLine": 150,
+        "endChar": 0
+      },
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "857210da_b0cb1571",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4210,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-06T00:01:05Z",
+      "side": 1,
+      "message": "So this is going to be removed (moved to JsepTransportController)?",
+      "range": {
+        "startLine": 4210,
+        "startChar": 3,
+        "endLine": 4210,
+        "endChar": 0
+      },
+      "revId": "fb0fae93a3ab334adc1d2c7276619f4536c2abbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

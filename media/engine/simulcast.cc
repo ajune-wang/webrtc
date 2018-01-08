@@ -190,6 +190,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(size_t max_streams,
                                                     int max_qp,
                                                     int max_framerate,
                                                     bool is_screencast) {
+  RTC_DCHECK_GT(max_streams, 0);
   size_t num_simulcast_layers;
   if (is_screencast) {
     if (UseSimulcastScreenshare()) {
@@ -206,9 +207,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(size_t max_streams,
     // If the number of SSRCs in the group differs from our target
     // number of simulcast streams for current resolution, switch down
     // to a resolution that matches our number of SSRCs.
-    if (!SlotSimulcastMaxResolution(max_streams, &width, &height)) {
-      return std::vector<webrtc::VideoStream>();
-    }
+    RTC_DCHECK(!SlotSimulcastMaxResolution(max_streams, &width, &height));
     num_simulcast_layers = max_streams;
   }
   std::vector<webrtc::VideoStream> streams;

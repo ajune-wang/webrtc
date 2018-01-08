@@ -55,6 +55,17 @@
 - (instancetype)init {
 #ifdef HAVE_NO_MEDIA
   return [self initWithNoMedia];
+#elif defined(HAVE_NO_SW_CODECS)
+  return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
+                       nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
+                       nativeVideoEncoderFactory:std::unique_ptr<webrtc::VideoEncoderFactory>(
+                                                     new webrtc::ObjCVideoEncoderFactory(
+                                                         [[RTCVideoEncoderFactoryH264 alloc] init]))
+                       nativeVideoDecoderFactory:std::unique_ptr<webrtc::VideoDecoderFactory>(
+                                                     new webrtc::ObjCVideoDecoderFactory(
+                                                         [[RTCVideoDecoderFactoryH264 alloc] init]))
+                               audioDeviceModule:nullptr
+                           audioProcessingModule:nullptr];
 #else
   return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
                        nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
@@ -152,6 +163,7 @@
 #endif
 }
 
+#if !defined(HAVE_NO_SW_CODECS)
 - (instancetype)
     initWithNativeAudioEncoderFactory:
         (rtc::scoped_refptr<webrtc::AudioEncoderFactory>)audioEncoderFactory
@@ -177,6 +189,7 @@
   return self;
 #endif
 }
+#endif
 
 - (RTCAudioSource *)audioSourceWithConstraints:(nullable RTCMediaConstraints *)constraints {
   std::unique_ptr<webrtc::MediaConstraints> nativeConstraints;

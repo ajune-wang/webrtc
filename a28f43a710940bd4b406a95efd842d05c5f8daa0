@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d52de5d_ce79921c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-08T23:43:52Z",
+      "side": 1,
+      "message": "Should format commit message as:\n\n1-line summary\n\u003cblank\u003e\nDetailed description...\n...",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30a46ef2_8706185f",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-08T23:43:52Z",
+      "side": 1,
+      "message": "Should these methods be changed to DCHECK max_layers as well, and do RTC_NOTREACHED above the \"return -1\"? Given that there\u0027s a 0x0 resolution in kSimulcastFormats, it seems like they should never fail, regardless of resolution.",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "586e0fa3_25e2584b",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-08T23:43:52Z",
+      "side": 1,
+      "message": "If this is never supposed to return false, we could make the return value \"void\" and move the DCHECK inside here, instead of in GetSimulcastConfig.",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45cd027b_d9876cc7",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-08T23:43:52Z",
+      "side": 1,
+      "message": "This is in a DCHECK so it won\u0027t be run in release builds.\n\nAlso, don\u0027t you want to be checking that it returns true?",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

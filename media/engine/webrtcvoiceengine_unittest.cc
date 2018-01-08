@@ -20,7 +20,6 @@
 #include "media/base/fakertp.h"
 #include "media/base/mediaconstants.h"
 #include "media/engine/fakewebrtccall.h"
-#include "media/engine/fakewebrtcvoiceengine.h"
 #include "media/engine/webrtcvoiceengine.h"
 #include "modules/audio_device/include/mock_audio_device.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
@@ -132,17 +131,12 @@ TEST(WebRtcVoiceEngineTestStubLibrary, StartupShutdown) {
   EXPECT_CALL(*apm, ApplyConfig(_)).WillRepeatedly(SaveArg<0>(&apm_config));
   EXPECT_CALL(*apm, SetExtraOptions(testing::_));
   EXPECT_CALL(*apm, DetachAecDump());
-  cricket::FakeWebRtcVoiceEngine voe;
-  EXPECT_FALSE(voe.IsInited());
   {
     cricket::WebRtcVoiceEngine engine(
         &adm, webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
-        webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm,
-        new cricket::VoEWrapper(&voe));
+        webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
     engine.Init();
-    EXPECT_TRUE(voe.IsInited());
   }
-  EXPECT_FALSE(voe.IsInited());
 }
 
 class FakeAudioSink : public webrtc::AudioSinkInterface {
@@ -166,7 +160,6 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
         apm_ns_(*apm_->noise_suppression()),
         apm_vd_(*apm_->voice_detection()),
         call_(webrtc::Call::Config(&event_log_)),
-        voe_(),
         override_field_trials_(field_trials) {
     // AudioDeviceModule.
     AdmSetupExpectations(&adm_);
@@ -197,8 +190,7 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
     auto encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
     auto decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
     engine_.reset(new cricket::WebRtcVoiceEngine(
-        &adm_, encoder_factory, decoder_factory, nullptr, apm_,
-        new cricket::VoEWrapper(&voe_)));
+        &adm_, encoder_factory, decoder_factory, nullptr, apm_));
     engine_->Init();
     send_parameters_.codecs.push_back(kPcmuCodec);
     recv_parameters_.codecs.push_back(kPcmuCodec);
@@ -707,7 +699,6 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
   webrtc::test::MockVoiceDetection& apm_vd_;
   webrtc::RtcEventLogNullImpl event_log_;
   cricket::FakeCall call_;
-  cricket::FakeWebRtcVoiceEngine voe_;
   std::unique_ptr<cricket::WebRtcVoiceEngine> engine_;
   cricket::VoiceMediaChannel* channel_ = nullptr;
   cricket::AudioSendParameters send_parameters_;
@@ -2605,26 +2596,10 @@ TEST_F(WebRtcVoiceEngineTestFake, AddRecvStreamAfterUnsignaled_Recreate) {
   EXPECT_NE(audio_receive_stream_id, streams.front()->id());
 }
 
-// Test that we properly handle failures to add a receive stream.
-TEST_F(WebRtcVoiceEngineTestFake, AddRecvStreamFail) {
-  EXPECT_TRUE(SetupChannel());
-  voe_.set_fail_create_channel(true);
-  EXPECT_FALSE(AddRecvStream(2));
-}
-
-// Test that we properly handle failures to add a send stream.
-TEST_F(WebRtcVoiceEngineTestFake, AddSendStreamFail) {
-  EXPECT_TRUE(SetupChannel());
-  voe_.set_fail_create_channel(true);
-  EXPECT_FALSE(channel_->AddSendStream(cricket::StreamParams::CreateLegacy(2)));
-}
-
 // Test that AddRecvStream creates new stream.
 TEST_F(WebRtcVoiceEngineTestFake, AddRecvStream) {
   EXPECT_TRUE(SetupRecvStream());
-  int channel_num = voe_.GetLastChannel();
   EXPECT_TRUE(AddRecvStream(1));
-  EXPECT_NE(channel_num, voe_.GetLastChannel());
 }
 
 // Test that after adding a recv stream, we do not decode more codecs than
@@ -2648,10 +2623,13 @@ TEST_F(WebRtcVoiceEngineTestFake, StreamCleanup) {
   SetSendParameters(send_parameters_);
   EXPECT_TRUE(AddRecvStream(1));
   EXPECT_TRUE(AddRecvStream(2));
-  EXPECT_EQ(3, voe_.GetNumChannels());  // default channel + 2 added
+
+  EXPECT_EQ(1, call_.GetAudioSendStreams().size());
+  EXPECT_EQ(2, call_.GetAudioReceiveStreams().size());
   delete channel_;
   channel_ = NULL;
-  EXPECT_EQ(0, voe_.GetNumChannels());
+  EXPECT_EQ(0, call_.GetAudioSendStreams().size());
+  EXPECT_EQ(0, call_.GetAudioReceiveStreams().size());
 }
 
 TEST_F(WebRtcVoiceEngineTestFake, TestAddRecvStreamFailWithZeroSsrc) {
@@ -2659,18 +2637,10 @@ TEST_F(WebRtcVoiceEngineTestFake, TestAddRecvStreamFailWithZeroSsrc) {
   EXPECT_FALSE(AddRecvStream(0));
 }
 
-TEST_F(WebRtcVoiceEngineTestFake, TestNoLeakingWhenAddRecvStreamFail) {
+TEST_F(WebRtcVoiceEngineTestFake, TestAddRecvStreamFailWithSameSsrc) {
   EXPECT_TRUE(SetupChannel());
   EXPECT_TRUE(AddRecvStream(1));
-  // Manually delete channel to simulate a failure.
-  int channel = voe_.GetLastChannel();
-  EXPECT_EQ(0, voe_.DeleteChannel(channel));
-  // Add recv stream 2 should work.
-  EXPECT_TRUE(AddRecvStream(2));
-  int new_channel = voe_.GetLastChannel();
-  EXPECT_NE(channel, new_channel);
-  // The last created channel is deleted too.
-  EXPECT_EQ(0, voe_.DeleteChannel(new_channel));
+  EXPECT_FALSE(AddRecvStream(1));
 }
 
 // Test the InsertDtmf on default send stream as caller.
@@ -2695,6 +2665,7 @@ TEST_F(WebRtcVoiceEngineTestFake, InsertDtmfOnSendStreamAsCallee) {
 
 TEST_F(WebRtcVoiceEngineTestFake, SetAudioOptions) {
   EXPECT_TRUE(SetupSendStream());
+  EXPECT_TRUE(AddRecvStream(kSsrcY));
   EXPECT_CALL(adm_,
               BuiltInAECIsAvailable()).Times(9).WillRepeatedly(Return(false));
   EXPECT_CALL(adm_,
@@ -2702,15 +2673,15 @@ TEST_F(WebRtcVoiceEngineTestFake, SetAudioOptions) {
   EXPECT_CALL(adm_,
               BuiltInNSIsAvailable()).Times(2).WillRepeatedly(Return(false));
 
-  EXPECT_EQ(50, voe_.GetNetEqCapacity());
-  EXPECT_FALSE(voe_.GetNetEqFastAccelerate());
+  EXPECT_EQ(50, GetRecvStreamConfig(kSsrcY).jitter_buffer_max_packets);
+  EXPECT_FALSE(GetRecvStreamConfig(kSsrcY).jitter_buffer_fast_accelerate);
 
   // Nothing set in AudioOptions, so everything should be as default.
   send_parameters_.options = cricket::AudioOptions();
   SetSendParameters(send_parameters_);
   EXPECT_TRUE(IsHighPassFilterEnabled());
-  EXPECT_EQ(50, voe_.GetNetEqCapacity());
-  EXPECT_FALSE(voe_.GetNetEqFastAccelerate());
+  EXPECT_EQ(50, GetRecvStreamConfig(kSsrcY).jitter_buffer_max_packets);
+  EXPECT_FALSE(GetRecvStreamConfig(kSsrcY).jitter_buffer_fast_accelerate);
 
   // Turn echo cancellation off
   EXPECT_CALL(apm_ec_, Enable(false)).WillOnce(Return(0));
@@ -2951,36 +2922,6 @@ TEST_F(WebRtcVoiceEngineTestFake, TestSetDscpOptions) {
   EXPECT_EQ(rtc::DSCP_DEFAULT, network_interface.dscp());
 
   channel->SetInterface(nullptr);
-}
-
-TEST_F(WebRtcVoiceEngineTestFake, TestGetReceiveChannelId) {
-  EXPECT_TRUE(SetupChannel());
-  cricket::WebRtcVoiceMediaChannel* media_channel =
-        static_cast<cricket::WebRtcVoiceMediaChannel*>(channel_);
-  EXPECT_EQ(-1, media_channel->GetReceiveChannelId(0));
-  EXPECT_TRUE(AddRecvStream(kSsrcX));
-  int channel_id = voe_.GetLastChannel();
-  EXPECT_EQ(channel_id, media_channel->GetReceiveChannelId(kSsrcX));
-  EXPECT_EQ(-1, media_channel->GetReceiveChannelId(kSsrcY));
-  EXPECT_TRUE(AddRecvStream(kSsrcY));
-  int channel_id2 = voe_.GetLastChannel();
-  EXPECT_EQ(channel_id2, media_channel->GetReceiveChannelId(kSsrcY));
-}
-
-TEST_F(WebRtcVoiceEngineTestFake, TestGetSendChannelId) {
-  EXPECT_TRUE(SetupChannel());
-  cricket::WebRtcVoiceMediaChannel* media_channel =
-        static_cast<cricket::WebRtcVoiceMediaChannel*>(channel_);
-  EXPECT_EQ(-1, media_channel->GetSendChannelId(0));
-  EXPECT_TRUE(channel_->AddSendStream(
-      cricket::StreamParams::CreateLegacy(kSsrcX)));
-  int channel_id = voe_.GetLastChannel();
-  EXPECT_EQ(channel_id, media_channel->GetSendChannelId(kSsrcX));
-  EXPECT_EQ(-1, media_channel->GetSendChannelId(kSsrcY));
-  EXPECT_TRUE(channel_->AddSendStream(
-      cricket::StreamParams::CreateLegacy(kSsrcY)));
-  int channel_id2 = voe_.GetLastChannel();
-  EXPECT_EQ(channel_id2, media_channel->GetSendChannelId(kSsrcY));
 }
 
 TEST_F(WebRtcVoiceEngineTestFake, SetOutputVolume) {
@@ -3314,9 +3255,9 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
 // Tests that reference counting on the external ADM is correct.
 TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
   testing::NiceMock<webrtc::test::MockAudioDeviceModule> adm;
-  EXPECT_CALL(adm, AddRef()).Times(5);
+  EXPECT_CALL(adm, AddRef()).Times(3);
   EXPECT_CALL(adm, Release())
-      .Times(5)
+      .Times(3)
       .WillRepeatedly(Return(rtc::RefCountReleaseStatus::kDroppedLastRef));
   {
     rtc::scoped_refptr<webrtc::AudioProcessing> apm =

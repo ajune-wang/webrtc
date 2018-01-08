@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "487eff1a_42511f2f",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-08T09:05:17Z",
+      "side": 1,
+      "message": "It is also possible that some targets that are depending on this target will only need to depend on \":video_codec_interface\" when these will be removed.",
+      "range": {
+        "startLine": 40,
+        "startChar": 33,
+        "endLine": 40,
+        "endChar": 72
+      },
+      "revId": "adb909b9fbe0efba70baeb16648decae4524ba54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

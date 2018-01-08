@@ -22,6 +22,30 @@
       "revId": "adb909b9fbe0efba70baeb16648decae4524ba54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a89ce285_8086576a",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-08T09:13:32Z",
+      "side": 1,
+      "message": "Yes. I know of at least content:renderer and content:content_unittests; I had to add video_codec_interface to video_coding, and make those two depend on video_coding, just in order to land this patch. It only worked before because the file was unlisted. Then I need to switch those two to video_codec_interface and remove them from here.",
+      "parentUuid": "487eff1a_42511f2f",
+      "range": {
+        "startLine": 40,
+        "startChar": 33,
+        "endLine": 40,
+        "endChar": 72
+      },
+      "revId": "adb909b9fbe0efba70baeb16648decae4524ba54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

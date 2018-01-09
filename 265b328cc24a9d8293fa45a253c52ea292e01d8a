@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cfdbc0b_5fce86f1",
+        "filename": "media/engine/webrtcmediaengine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T21:35:48Z",
+      "side": 1,
+      "message": "Changed this back since some compilers fail with AudioDeviceModule forward declared, e.g.:\n\nFAILED: obj/media/rtc_audio_video/webrtcmediaengine.obj \nninja -t msvc -e environment.x86 -- C:\\b\\c\\goma_client/gomacc.exe \"c:\\b\\c\\win_toolchain\\vs_files\\1180cb75833ea365097e279efb2d5d7a42dee4b0\\vc\\tools\\msvc\\14.11.25503\\bin\\hostx64\\x86/cl.exe\" /nologo /showIncludes  @obj/media/rtc_audio_video/webrtcmediaengine.obj.rsp /c ../../media/engine/webrtcmediaengine.cc /Foobj/media/rtc_audio_video/webrtcmediaengine.obj /Fd\"obj/media/rtc_audio_video_cc.pdb\"\n../..\\rtc_base/scoped_ref_ptr.h(99): error C2027: use of undefined type \u0027webrtc::AudioDeviceModule\u0027\n../..\\media/engine/webrtcmediaengine.h(23): note: see declaration of \u0027webrtc::AudioDeviceModule\u0027\n../..\\rtc_base/scoped_ref_ptr.h(97): note: while compiling class template member function \u0027rtc::scoped_refptr\u003cwebrtc::AudioDeviceModule\u003e::~scoped_refptr(void)\u0027\n../../media/engine/webrtcmediaengine.cc(97): note: see reference to function template instantiation \u0027rtc::scoped_refptr\u003cwebrtc::AudioDeviceModule\u003e::~scoped_refptr(void)\u0027 being compiled\n../..\\call/audio_state.h(40): note: see reference to class template instantiation \u0027rtc::scoped_refptr\u003cwebrtc::AudioDeviceModule\u003e\u0027 being compiled\n../..\\rtc_base/scoped_ref_ptr.h(99): error C2227: left of \u0027-\u003eRelease\u0027 must point to class/struct/union/generic type\n\nStyle guide says to not prefer forward declarations as well.",
+      "revId": "265b328cc24a9d8293fa45a253c52ea292e01d8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

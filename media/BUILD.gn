@@ -52,6 +52,7 @@ rtc_source_set("rtc_h264_profile_id") {
 }
 
 rtc_static_library("rtc_media_base") {
+  visibility = [ "*" ]
   defines = []
   libs = []
   deps = [
@@ -373,6 +374,7 @@ rtc_static_library("rtc_data") {
 }
 
 rtc_source_set("rtc_media") {
+  visibility = [ "*" ]
   public_deps = [
     ":rtc_audio_video",
     ":rtc_data",

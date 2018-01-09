@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "9e2e10d4_9186ed11",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-09T23:10:08Z",
+      "side": 1,
+      "message": "Ack; I mixed up VideoCodec (does default to true) and VideoStream",
+      "parentUuid": "ef89f236_e68fe3a7",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53350264_0e747cb5",
         "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
         "patchSetId": 3
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "VP8 uses the SimulcastRateAllocator to compute BitrateAllocation taken from the target bitrate, but VP9 and H264 use the DefaultVideoBitrateAllocator. The DefaultVideoBitrateAllocator uses the video_codec.active to set the entire allocation to 0 if disabled, while the SimulcastRateAllocator uses video_codec.simulcast_stream[i].active to give specific simulcast layers to an allocation of 0 if disabled. \n\nIn order to have the control of allocating 0 in the DefaulVideoBitrateAllocator for disabled video we need to use the video_codec.active, since it isn\u0027t set for a specific stream. I wanted to be clear here that that is being used in the case of VP9 and H264 codecs, and not VP8. \n\nI updated the comment to just say \"...for the non simulcast case.\" I think that\u0027s more accurate.",
       "parentUuid": "30005f38_4cfc683e",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "971c9ab6_b3481567",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-09T23:10:08Z",
+      "side": 1,
+      "message": "In other words: when not using simulcast, and there\u0027s only one \"encoding,\" you need to set \"video_codec.active\" to false to disable it? I think I understand. But doesn\u0027t this code mean that, in the simulcast case, if I have three simulcast streams and disable the first one, video_codec.active will be set to false? Would that potentially be a problem?",
+      "parentUuid": "3e579760_c68808f3",
       "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

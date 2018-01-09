@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0c4639ae_3dc73f85",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "Hm. Good question. I\u0027m not sure receivers can be removed; one would imagine they can change SSRC, but I\u0027m not sure how.",
+      "parentUuid": "9059d14a_788ff2cc",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb9954a2_86ceb334",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a37c72f4_d193a957",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "Good catch. Done.",
+      "parentUuid": "cb9954a2_86ceb334",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7487190d_0f92993f",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6cee0e6_a9ba9987",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8caa8834_4bc9d966",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2018-01-09T16:44:42Z",
       "side": 1,
       "message": "Does removing and adding a new stream with a recycled SSRC cause us to have to have \"AttachmentId\" for RTPStreamStats as well?",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8a7f1e7_88647509",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "If we can remove receivers, it will. There\u0027s no API to do it.",
+      "parentUuid": "8caa8834_4bc9d966",
       "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "af2be2ce_b9ddfe21",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "I thought that was very repetitive....",
+      "parentUuid": "ff0a756e_27aa907c",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6fed35d4_e8b17d05",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "a5f974e8_f0c7f863",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "Can DCHECK(signalling_thread_), but then I have to make it not a static. Win some, lose some.",
+      "parentUuid": "6fed35d4_e8b17d05",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "790bc175_4fc6138e",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 2
@@ -115,6 +223,24 @@
       "writtenOn": "2018-01-09T16:44:42Z",
       "side": 1,
       "message": "Same comment as for RTCStatsCollector::GenerateUniqueId(). Also, do you need two of them? It seems the RTCStatsCollector one isn\u0027t used at the moment.\n\nHow about everyone invokes RTCStatsCollector::GenerateUniqueId()? That means different sender implementations won\u0027t have the problem of generating the same ID as rtpsender implementations.",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d0f536c_563b6ee2",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "This is the one that\u0027s in use. The one in RTCStatsCollector is a leftover.\nReason to not use the StatsCollector one: rtpsender doesn\u0027t know about statscollector.\n\nBut this class doesn\u0027t know about threads, so here we can\u0027t check that it\u0027s on the right thread. Use AtomicInteger?",
+      "parentUuid": "790bc175_4fc6138e",
       "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "e9a54c00_d815654f",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1f7e8fe_75f0c9b5",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bc60eda_43d8f87f",
         "filename": "pc/rtpsender.h",
         "patchSetId": 2
@@ -152,6 +296,24 @@
       "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710a2ab7_cd5eae26",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-09T17:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc60eda_43d8f87f",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

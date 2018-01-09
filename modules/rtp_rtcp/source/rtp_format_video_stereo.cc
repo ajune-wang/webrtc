@@ -32,10 +32,27 @@ namespace {
 //      |  picture_index  | (optional)
 //      |    (16 bits)    |
 //      +-+-+-+-+-+-+-+-+-+
+//      |    yuv_size     | (optional)
+//      |    (32 bits)    |
+//      +-+-+-+-+-+-+-+-+-+
+//      |   yuv_length    | (optional)
+//      |    (32 bits)    |
+//      +-+-+-+-+-+-+-+-+-+
+//      |    yuv_type     | (optional)
+//      +-+-+-+-+-+-+-+-+-+
+//      |   alpha_length  | (optional)
+//      |    (32 bits)    |
+//      +-+-+-+-+-+-+-+-+-+
+//      |   alpha_size    | (optional)
+//      |    (32 bits)    |
+//      +-+-+-+-+-+-+-+-+-+
+//      |   alpha_type    | (optional)
+//      +-+-+-+-+-+-+-+-+-+
 //      |  HeaderMarker   | (mandatory)
 //      +-+-+-+-+-+-+-+-+-+
 constexpr size_t kStereoHeaderLength =
-    sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint16_t);
+    sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint16_t) +
+    2 * (sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint8_t));
 
 constexpr size_t kHeaderMarkerLength = 1;
 constexpr uint8_t kHeaderMarkerBit = 0x02;
@@ -99,6 +116,24 @@ bool RtpPacketizerStereo::NextPacket(RtpPacketToSend* packet) {
     ByteWriter<uint16_t>::WriteBigEndian(padded_payload_ptr,
                                          header_.indices.picture_index);
     padded_payload_ptr += sizeof(uint16_t);
+    ByteWriter<uint32_t>::WriteBigEndian(padded_payload_ptr,
+                                         header_.indices.yuv_size);
+    padded_payload_ptr += sizeof(uint32_t);
+    ByteWriter<uint32_t>::WriteBigEndian(padded_payload_ptr,
+                                         header_.indices.yuv_length);
+    padded_payload_ptr += sizeof(uint32_t);
+    ByteWriter<uint8_t>::WriteBigEndian(padded_payload_ptr,
+                                        header_.indices.yuv_type);
+    padded_payload_ptr += sizeof(uint8_t);
+    ByteWriter<uint32_t>::WriteBigEndian(padded_payload_ptr,
+                                         header_.indices.alpha_size);
+    padded_payload_ptr += sizeof(uint32_t);
+    ByteWriter<uint32_t>::WriteBigEndian(padded_payload_ptr,
+                                         header_.indices.alpha_length);
+    padded_payload_ptr += sizeof(uint32_t);
+    ByteWriter<uint8_t>::WriteBigEndian(padded_payload_ptr,
+                                        header_.indices.alpha_type);
+    padded_payload_ptr += sizeof(uint8_t);
     RTC_DCHECK_EQ(payload_size + kStereoHeaderLength,
                   padded_payload_ptr - payload_ptr);
   }
@@ -153,7 +188,26 @@ bool RtpDepacketizerStereo::Parse(ParsedPayload* parsed_payload,
     offset += sizeof(uint8_t);
     parsed_payload->type.Video.codecHeader.stereo.indices.picture_index =
         ByteReader<uint16_t>::ReadBigEndian(&payload_data[offset]);
-    RTC_DCHECK_EQ(payload_data_length, offset + sizeof(uint16_t));
+    offset += sizeof(uint16_t);
+    parsed_payload->type.Video.codecHeader.stereo.indices.yuv_size =
+        ByteReader<uint32_t>::ReadBigEndian(&payload_data[offset]);
+    offset += sizeof(uint32_t);
+    parsed_payload->type.Video.codecHeader.stereo.indices.yuv_length =
+        ByteReader<uint32_t>::ReadBigEndian(&payload_data[offset]);
+    offset += sizeof(uint32_t);
+    parsed_payload->type.Video.codecHeader.stereo.indices.yuv_type =
+        ByteReader<uint8_t>::ReadBigEndian(&payload_data[offset]);
+    offset += sizeof(uint8_t);
+    parsed_payload->type.Video.codecHeader.stereo.indices.alpha_size =
+        ByteReader<uint32_t>::ReadBigEndian(&payload_data[offset]);
+    offset += sizeof(uint32_t);
+    parsed_payload->type.Video.codecHeader.stereo.indices.alpha_length =
+        ByteReader<uint32_t>::ReadBigEndian(&payload_data[offset]);
+    offset += sizeof(uint32_t);
+    parsed_payload->type.Video.codecHeader.stereo.indices.alpha_type =
+        ByteReader<uint8_t>::ReadBigEndian(&payload_data[offset]);
+    offset += sizeof(uint8_t);
+    RTC_DCHECK_EQ(payload_data_length, offset);
     payload_data_length -= kStereoHeaderLength;
   }
   if (!depacketizer_.Parse(parsed_payload, payload_data, payload_data_length))

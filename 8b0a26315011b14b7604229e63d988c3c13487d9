@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9059d14a_788ff2cc",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "What if they are added, then removed, then added again, re-using an old SSRC? It would be a new receiver - a new \"attachment\". Should we generate an ID for each receiver created?",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb9954a2_86ceb334",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "AttachmentId()?",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6cee0e6_a9ba9987",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "AttachmentId()?",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8caa8834_4bc9d966",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "Does removing and adding a new stream with a recycled SSRC cause us to have to have \"AttachmentId\" for RTPStreamStats as well?",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff0a756e_27aa907c",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "I\u0027d like that comment explaining why SSRC is used as attachment ID in all places we use ssrc(), unless we give receivers AttachmentIDs as well (see other comment).",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fed35d4_e8b17d05",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "Can you double check that we only call this from the webrtc signaling thread or else we\u0027ll need locks? Please add a comment in the header documenting that it is thread-unsafe (which thread doesn\u0027t matter but I think we can say \"must be invoked on the signaling thread\").",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "790bc175_4fc6138e",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "Same comment as for RTCStatsCollector::GenerateUniqueId(). Also, do you need two of them? It seems the RTCStatsCollector one isn\u0027t used at the moment.\n\nHow about everyone invokes RTCStatsCollector::GenerateUniqueId()? That means different sender implementations won\u0027t have the problem of generating the same ID as rtpsender implementations.",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1f7e8fe_75f0c9b5",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "GenerateUniqueId() needs to be invoked in all constructors and for both audio and video impls. Defaulting to 0 should not be OK.",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bc60eda_43d8f87f",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T16:44:42Z",
+      "side": 1,
+      "message": "No implementation should rely on defaulting this to 0 so please remove \"\u003d 0;\"",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

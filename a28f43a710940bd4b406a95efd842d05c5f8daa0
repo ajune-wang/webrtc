@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a7c7c953_af02faa6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T01:29:20Z",
+      "side": 1,
+      "message": "I did not know this, and haven\u0027t been told yet on previous CLs. Thanks for letting me know! Done.",
+      "parentUuid": "9d52de5d_ce79921c",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30a46ef2_8706185f",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-01-08T23:43:52Z",
       "side": 1,
       "message": "Should these methods be changed to DCHECK max_layers as well, and do RTC_NOTREACHED above the \"return -1\"? Given that there\u0027s a 0x0 resolution in kSimulcastFormats, it seems like they should never fail, regardless of resolution.",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90ff5f6d_507c4fa5",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T01:29:20Z",
+      "side": 1,
+      "message": "I\u0027m happy to add a DCHECK for max_layers \u003e 0, but I\u0027d like to get Erik\u0027s opinion here. I don\u0027t believe it should ever be the case. \n\nIt can fail if max_layers is larger than the given width/height. For example if max_layers\u003d4 it would fail, or if max_layers\u003d3, but the input width and height were a value less than an expected for that amount of simulcast layers (like 640x360), according to the expected formats of kSimulcastFormats. Because of this, I\u0027m going to leave the -1.",
+      "parentUuid": "30a46ef2_8706185f",
       "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7620c90f_ebc924ab",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T01:29:20Z",
+      "side": 1,
+      "message": "This can return false if the max_layers is 0, or if it is a higher value than the amount of expected simulcast layers, given a resolution. It should just never return false given the conditions it\u0027s called in GetSimulcastConfig. Leaving for now unless you think otherwise.",
+      "parentUuid": "586e0fa3_25e2584b",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45cd027b_d9876cc7",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f21e9da_6afc966d",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T01:29:20Z",
+      "side": 1,
+      "message": "In the chromium style guide it says \"Use DCHECK() or NOTREACHED() as assertions, e.g. to document pre- and post-conditions,\" and for CHECK it says \"Use CHECK() if the consequence of a failed assertion would be a security vulnerability\":\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md\n\nTo me it seems like a condition that should never be hit, not necessarily a security vulnerability. Does this seem more like a CHECK to you?\n\nAlso good catch. I made a bad mistake of not changing the condition from the if statement. I\u0027m surprised this wasn\u0027t caught by tests...",
+      "parentUuid": "45cd027b_d9876cc7",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

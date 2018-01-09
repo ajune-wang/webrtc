@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "36624096_f97fa5da",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "886e8ec9_faec436b",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "773fa943_3ae9f534",
         "filename": "p2p/base/port.cc",
         "patchSetId": 8
@@ -51,6 +69,24 @@
       "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de097b78_77846b6b",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "773fa943_3ae9f534",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "9b8b511f_4dfecc34",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "ToString() uses time-varying properties like writability, receiving states and ice states, but I guess it is okay since we only set the hash once when creating the candidate pair and it also avoids the issue of address reuse in ToDebugId().",
+      "parentUuid": "ac7db78f_e36266c1",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51cb913f_dee72c4e",
         "filename": "p2p/base/port.cc",
         "patchSetId": 8
@@ -124,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "3e7c1a49_5bfd8f9a",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1229,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdd1d631_402491fe",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "271d681c_c71409be",
         "filename": "p2p/base/port.cc",
         "patchSetId": 8
@@ -153,6 +225,24 @@
       "side": 1,
       "message": "This is probably good enough for logging, I imagine, though.  \n\nI suppose we could have a CandidatePairUpdated event to go along with Added.  But I\u0027m not sure how useful that will be.",
       "parentUuid": "271d681c_c71409be",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49740cd7_0fa262bb",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1480,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "I have refactored the \"Updated\" type to one of the config events. We can add logic to reset the log description when the candidate properties change and log it using this config event.",
+      "parentUuid": "423af7df_0efa0333",
       "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -194,6 +284,24 @@
     },
     {
       "key": {
+        "uuid": "daeb6c46_e4e0a6a5",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caf6e79d_75bab39f",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64599746_39821d7d",
         "filename": "p2p/base/port.h",
         "patchSetId": 8
@@ -229,6 +337,24 @@
     },
     {
       "key": {
+        "uuid": "8ceb6666_cea8e3aa",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75cda2aa_df3ecc6b",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3666b921_b5c8fe33",
         "filename": "p2p/base/port.h",
         "patchSetId": 8
@@ -246,6 +372,24 @@
     },
     {
       "key": {
+        "uuid": "a3e6e8cf_745f589a",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3666b921_b5c8fe33",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b128f4c7_bfc743ca",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 8
@@ -260,6 +404,24 @@
       "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "632493f7_6d4a58d1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-09T19:30:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b128f4c7_bfc743ca",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

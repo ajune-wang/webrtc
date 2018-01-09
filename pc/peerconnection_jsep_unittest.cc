@@ -876,4 +876,40 @@ TEST_F(PeerConnectionJsepTest, CalleeDoesReoffer) {
   EXPECT_EQ(2u, callee->pc()->GetTransceivers().size());
 }
 
+// Tests for MSID properties.
+
+// Test that adding a track with AddTrack results in an offer that signals the
+// track's ID.
+TEST_F(PeerConnectionJsepTest, AddingTrackWithAddTrackSpecifiesTrackId) {
+  const std::string kTrackId = "audio_track";
+
+  auto caller = CreatePeerConnection();
+  caller->AddTrack(caller->CreateAudioTrack(kTrackId));
+
+  auto offer = caller->CreateOffer();
+  auto contents = offer->description()->contents();
+  ASSERT_EQ(1u, contents.size());
+  auto streams = contents[0].media_description()->streams();
+  ASSERT_EQ(1u, streams.size());
+  EXPECT_EQ(kTrackId, streams[0].id);
+}
+
+// Test that adding a track by calling AddTransceiver then SetTrack results in
+// an offer that does not signal the track's ID and signals a random ID.
+TEST_F(PeerConnectionJsepTest,
+       AddingTrackWithAddTransceiverSpecifiesRandomTrackId) {
+  const std::string kTrackId = "audio_track";
+
+  auto caller = CreatePeerConnection();
+  auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  transceiver->sender()->SetTrack(caller->CreateAudioTrack(kTrackId));
+
+  auto offer = caller->CreateOffer();
+  auto contents = offer->description()->contents();
+  ASSERT_EQ(1u, contents.size());
+  auto streams = contents[0].media_description()->streams();
+  ASSERT_EQ(1u, streams.size());
+  EXPECT_NE(kTrackId, streams[0].id);
+}
+
 }  // namespace webrtc

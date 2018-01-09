@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "695ec868_41bcf4bd",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 0,
+      "message": "Hurray! \\o/",
+      "revId": "730add8e2c8b033eae0cf3589be14d0afc4acdd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae318d4d_6fe6dc42",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1942,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 0,
+      "message": "Don\u0027t wanna log the removal at all anymore?",
+      "revId": "730add8e2c8b033eae0cf3589be14d0afc4acdd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714ab67d_611719b4",
+        "filename": "voice_engine/channel_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 0,
+      "message": "Doesn\u0027t look like this one is massively useful, but does it need to be removed in this CL?",
+      "revId": "730add8e2c8b033eae0cf3589be14d0afc4acdd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

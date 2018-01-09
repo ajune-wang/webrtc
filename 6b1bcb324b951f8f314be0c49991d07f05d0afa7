@@ -1,0 +1,265 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84f21354_c4e8a0b9",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "When I first looked at this, it seemed like Channel and ChannelProxy wouldn\u0027t get destroyed.\n\nI now see that ChannelProxy has been updated to uniquely own the Channel, and the ChannelProxy is itself uniquely owned here.\n\nSince we don\u0027t want the Proxy (and thus Channel) to leak, this ought to return a unique_ptr.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc479782_2727601c",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "As ownership is transferred here, this should be a unique_ptr.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72a0ce15_67fc8357",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": ".cc file says it\u0027s for testing, so perhaps call it GetAssociate[d]SendStreamForTesting?",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360d1bc6_635d9a38",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "Indentation looks wrong here. clang-format puts the break after CreateAudioReceiveStream( on the line above.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8a96007_3755b138",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "Why does it need a Config parameter? Looks like it\u0027s only used with stream_config_ anyways.",
+      "range": {
+        "startLine": 126,
+        "startChar": 65,
+        "endLine": 126,
+        "endChar": 71
+      },
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feb591d8_734f8d37",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "std::unique_ptr",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360a1de8_f6a495a2",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "Indentation seems off here as well. It looks like this one might not need a Config parameter either, provided the stream_config variables below are changed to auto\u0026. I won\u0027t necessarily insist, though. :)",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd2a21e5_43bacc74",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "Is this change of the ownership semantics only to make it possible to recreate AudioReceiveStreams without having to recreate the sinks as well?\n\nTo me, it seems reasonable that the Channel doesn\u0027t own the sink - it does nothing to control the sink outside of implicitly destroying it when the Channel is destroyed.\n\nIf you\u0027re making it possible to reconfigure streams, instead of having to recreate them, then perhaps this change isn\u0027t necessary in this CL.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d96f7aa_741f7b7a",
+        "filename": "call/call_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "There\u0027s something funky here: we\u0027re downcasting to access something internal to another class than the one we\u0027re testing. I\u0027d prefer another way of ensuring streams get associated correctly.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a73f1c4f_7e64b808",
+        "filename": "media/engine/webrtcmediaengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "Why is this change necessary?",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c837796_4a13a510",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2629,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "Eww... I\u0027ll go ahead and try to make channel_ a unique_ptr in a separate CL, unless you want to change that right now.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8011a965_43566218",
+        "filename": "voice_engine/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "Since the signature is changing, you might as well take the opportunity to update the name to match the style guide. I suggest:\nAssociateSendChannel or SetAssociatedSendChannel.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28aee140_6d875464",
+        "filename": "voice_engine/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "associated? (If you\u0027re also changing the setter, that is).",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a23cfc19_712c1f91",
+        "filename": "voice_engine/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "I see you\u0027re no longer letting pacing be disabled for a channel. What are the implications of this?",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f75a6eb1_2904ac7d",
+        "filename": "voice_engine/channel_proxy.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T17:18:26Z",
+      "side": 1,
+      "message": "Since this one also transfers ownership, make it a unique_ptr.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -441,6 +441,7 @@ rtc_static_library("peerconnection_jni") {
 }
 
 rtc_static_library("libjingle_peerconnection_jni") {
+  visibility = [ "*" ]
   public_deps = [
     ":audio_jni",
     ":base_jni",

@@ -135,6 +135,10 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   std::unique_ptr<TrackMediaInfoMap> PrepareTrackMediaInfoMap_s() const;
   std::map<MediaStreamTrackInterface*, std::string> PrepareTrackToID_s() const;
 
+  // Generates numbers that are unique to an execution context, and thus
+  // suitable for building identifiers.
+  static int GenerateUniqueId();
+
   // Slots for signals (sigslot) that are wired up to |pc_|.
   void OnDataChannelCreated(DataChannel* channel);
   // Slots for signals (sigslot) that are wired up to |channel|.

@@ -69,31 +69,18 @@ void GetSimulcastSsrcs(const StreamParams& sp, std::vector<uint32_t>* ssrcs) {
   }
 }
 
-void MaybeExchangeWidthHeight(int* width, int* height) {
-  // |kSimulcastFormats| assumes |width| >= |height|. If not, exchange them
-  // before comparing.
-  if (*width < *height) {
-    int temp = *width;
-    *width = *height;
-    *height = temp;
-  }
-}
-
 int FindSimulcastFormatIndex(int width, int height) {
-  MaybeExchangeWidthHeight(&width, &height);
-
   for (uint32_t i = 0; i < arraysize(kSimulcastFormats); ++i) {
     if (width * height >=
         kSimulcastFormats[i].width * kSimulcastFormats[i].height) {
       return i;
     }
   }
-  return -1;
+  RTC_NOTREACHED();
 }
 
 int FindSimulcastFormatIndex(int width, int height, size_t max_layers) {
-  MaybeExchangeWidthHeight(&width, &height);
-
+  RTC_DCHECK_GT(max_layers, 0);
   for (uint32_t i = 0; i < arraysize(kSimulcastFormats); ++i) {
     if (width * height >=
             kSimulcastFormats[i].width * kSimulcastFormats[i].height &&
@@ -101,7 +88,7 @@ int FindSimulcastFormatIndex(int width, int height, size_t max_layers) {
       return i;
     }
   }
-  return -1;
+  RTC_NOTREACHED();
 }
 
 // Simulcast stream width and height must both be dividable by
@@ -146,18 +133,13 @@ int FindSimulcastMinBitrateBps(int width, int height) {
   return kSimulcastFormats[format_index].min_bitrate_kbps * 1000;
 }
 
-bool SlotSimulcastMaxResolution(size_t max_layers, int* width, int* height) {
+void SlotSimulcastMaxResolution(size_t max_layers, int* width, int* height) {
   int index = FindSimulcastFormatIndex(*width, *height, max_layers);
-  if (index == -1) {
-    RTC_LOG(LS_ERROR) << "SlotSimulcastMaxResolution";
-    return false;
-  }
 
   *width = kSimulcastFormats[index].width;
   *height = kSimulcastFormats[index].height;
   RTC_LOG(LS_INFO) << "SlotSimulcastMaxResolution to width:" << *width
                    << " height:" << *height;
-  return true;
 }
 
 int GetTotalMaxBitrateBps(const std::vector<webrtc::VideoStream>& streams) {
@@ -206,9 +188,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(size_t max_streams,
     // If the number of SSRCs in the group differs from our target
     // number of simulcast streams for current resolution, switch down
     // to a resolution that matches our number of SSRCs.
-    if (!SlotSimulcastMaxResolution(max_streams, &width, &height)) {
-      return std::vector<webrtc::VideoStream>();
-    }
+    SlotSimulcastMaxResolution(max_streams, &width, &height);
     num_simulcast_layers = max_streams;
   }
   std::vector<webrtc::VideoStream> streams;

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "59a4c196_d8faa66e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T19:54:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d8d1f5_7512e2f0",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d57a538_8f5e5368",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef89f236_e68fe3a7",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T19:54:07Z",
+      "side": 1,
+      "message": "A couple comments on this.\n-Zach has a separate CL which sets these to true. I added this here as a placeholder to keep things working until he gets that small CL in.\nhttps://webrtc-review.googlesource.com/c/src/+/36000\n-Correct me if this is wrong but I thought that bool isn\u0027t default to true if it\u0027s declared but not defined. I have a CL out for constructing it as true:\nhttps://webrtc-review.googlesource.com/c/src/+/38062",
+      "parentUuid": "3d57a538_8f5e5368",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "55ec81cf_b8c7586a",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T19:54:07Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "53350264_0e747cb5",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30005f38_4cfc683e",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e579760_c68808f3",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T19:54:07Z",
+      "side": 1,
+      "message": "VP8 uses the SimulcastRateAllocator to compute BitrateAllocation taken from the target bitrate, but VP9 and H264 use the DefaultVideoBitrateAllocator. The DefaultVideoBitrateAllocator uses the video_codec.active to set the entire allocation to 0 if disabled, while the SimulcastRateAllocator uses video_codec.simulcast_stream[i].active to give specific simulcast layers to an allocation of 0 if disabled. \n\nIn order to have the control of allocating 0 in the DefaulVideoBitrateAllocator for disabled video we need to use the video_codec.active, since it isn\u0027t set for a specific stream. I wanted to be clear here that that is being used in the case of VP9 and H264 codecs, and not VP8. \n\nI updated the comment to just say \"...for the non simulcast case.\" I think that\u0027s more accurate.",
+      "parentUuid": "30005f38_4cfc683e",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

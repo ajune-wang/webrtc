@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ed4954fa_2188b956",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T17:53:41Z",
+      "side": 1,
+      "message": "My take: Today a receiver can be removed, but per-spec it should just become inactive. Inactive receivers can be recycled, this is based on direction, not SSRC, https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-24#section-5.10. The spec does not mention an \"SSRC\" field of the RtpTransceiver, so if we store such information we would have to make sure it is up to date when recycling a receiver.\n\nI guess it\u0027s debatable whether a recycled receiver warrants a new stats object or not, but I imagine so. If a receiver is used in a completely new context, the fact that it was used previously for something else I view as an implementation detail, it would only occlude the stats of interest.\n\nI think we should move away from SSRCs for unique identifiers. The way I see it, they\u0027re unique amongst current objects, but not across all objects - it\u0027s a bug we don\u0027t return detached objects\u0027 stats.\n\nOne step at a time, TODOs are fine.",
+      "parentUuid": "0c4639ae_3dc73f85",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb9954a2_86ceb334",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2
@@ -177,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "6cfbe4cd_84d5b444",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T17:53:41Z",
+      "side": 1,
+      "message": "Fair enough, then what about at the function\u0027s description instead of one of the calling sites?",
+      "parentUuid": "af2be2ce_b9ddfe21",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6fed35d4_e8b17d05",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2
@@ -244,6 +280,24 @@
       "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78fbc8d2_4fe802f7",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-09T17:53:41Z",
+      "side": 1,
+      "message": "If confined to an anonymous namespace in a single file I think no thread check and no AtomicInteger is fine, just a comment, but if exposed across files I think we should AtomicInteger.",
+      "parentUuid": "9d0f536c_563b6ee2",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

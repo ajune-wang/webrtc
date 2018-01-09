@@ -19,6 +19,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
@@ -26,6 +27,7 @@ enum AlphaCodecStream {
   kYUVStream = 0,
   kAXXStream = 1,
   kAlphaCodecStreams = 2,
+  kCombinedStream = 3,
 };
 
 class StereoEncoderAdapter : public VideoEncoder {
@@ -71,6 +73,11 @@ class StereoEncoderAdapter : public VideoEncoder {
 
   uint16_t picture_index_ = 0;
   std::vector<uint8_t> stereo_dummy_planes_;
+
+  Clock* clock_;
+  int key_frame_interval_;
+  int64_t last_key_frame_ms_;
+  EncodedImage combined_image_;
 };
 
 }  // namespace webrtc

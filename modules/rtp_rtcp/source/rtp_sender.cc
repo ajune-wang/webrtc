@@ -606,6 +606,7 @@ bool RTPSender::StorePackets() const {
 }
 
 int32_t RTPSender::ReSendPacket(uint16_t packet_id, int64_t min_resend_time) {
+  RTC_LOG(LS_ERROR) << "### ReSendPacket: " << packet_id;
   std::unique_ptr<RtpPacketToSend> packet =
       packet_history_.GetPacketAndSetSendTime(packet_id, min_resend_time, true);
   if (!packet) {
@@ -624,6 +625,10 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id, int64_t min_resend_time) {
     // TickTime.
     int64_t corrected_capture_tims_ms =
         packet->capture_time_ms() + clock_delta_ms_;
+    RTC_LOG(LS_ERROR) << "### Re-sending packet: "
+                      << packet->Timestamp() << " "
+                      << packet->SequenceNumber() << " "
+                      << packet->Marker();
     paced_sender_->InsertPacket(RtpPacketSender::kNormalPriority,
                                 packet->Ssrc(), packet->SequenceNumber(),
                                 corrected_capture_tims_ms,
@@ -850,6 +855,9 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
                               RtpPacketSender::Priority priority) {
   RTC_DCHECK(packet);
   int64_t now_ms = clock_->TimeInMilliseconds();
+
+  RTC_LOG(LS_ERROR) << "### SendToNetwork: " << packet->Timestamp() << " "
+                    << packet->SequenceNumber() << " " << packet->Marker();
 
   // |capture_time_ms| <= 0 is considered invalid.
   // TODO(holmer): This should be changed all over Video Engine so that negative
@@ -1311,6 +1319,7 @@ void RTPSender::SendKeepAlive(uint8_t payload_type) {
     packet->set_capture_time_ms(capture_time_ms_);
   }
   AssignSequenceNumber(packet.get());
+  RTC_LOG(LS_ERROR) << "### SendKeepAlive";
   SendToNetwork(std::move(packet), StorageType::kDontRetransmit,
                 RtpPacketSender::Priority::kLowPriority);
 }

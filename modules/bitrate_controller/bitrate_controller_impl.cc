@@ -201,6 +201,8 @@ void BitrateControllerImpl::OnReceivedRtcpReceiverReport(
             report_block.extended_highest_sequence_number - seq_num_it->second;
       }
 
+      RTC_LOG(LS_ERROR) << "### report_block: " << number_of_packets << " "
+                        << int(report_block.fraction_lost);
       fraction_lost_aggregate += number_of_packets * report_block.fraction_lost;
       total_number_of_packets += number_of_packets;
 

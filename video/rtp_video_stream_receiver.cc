@@ -382,6 +382,10 @@ int32_t RtpVideoStreamReceiver::ResendPackets(const uint16_t* sequence_numbers,
 
 void RtpVideoStreamReceiver::OnReceivedFrame(
     std::unique_ptr<video_coding::RtpFrameObject> frame) {
+  RTC_LOG(LS_ERROR) << "### OnReceivedFrame: " << frame->timestamp
+      << " " << frame->first_seq_num()
+      << "-" << frame->last_seq_num()
+      << " " << (frame->frame_type() == webrtc::kVideoFrameKey ? "KEY" : "");
   if (!has_received_frame_) {
     has_received_frame_ = true;
     if (frame->FrameType() != kVideoFrameKey)
@@ -395,6 +399,8 @@ void RtpVideoStreamReceiver::OnReceivedFrame(
 
 void RtpVideoStreamReceiver::OnCompleteFrame(
     std::unique_ptr<video_coding::FrameObject> frame) {
+  RTC_LOG(LS_ERROR) << "### OnCompleteFrame: " << frame->timestamp
+                    << " " << (frame->is_keyframe() ? "KEY" : "");
   {
     rtc::CritScope lock(&last_seq_num_cs_);
     video_coding::RtpFrameObject* rtp_frame =
@@ -469,6 +475,11 @@ void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
       // packets.
       NotifyReceiverOfFecPacket(header);
     }
+    RTC_LOG(LS_ERROR) << "### Packet: "
+                      << header.timestamp << " "
+                      << header.sequenceNumber << " "
+                      << header.markerBit << " "
+                      << header.ssrc;
     if (ulpfec_receiver_->AddReceivedRedPacket(header, packet, packet_length,
                                                ulpfec_pt) != 0) {
       return;

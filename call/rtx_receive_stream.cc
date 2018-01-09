@@ -71,6 +71,12 @@ void RtxReceiveStream::OnRtpPacket(const RtpPacketReceived& rtx_packet) {
 
   memcpy(media_payload, rtx_payload.data(), rtx_payload.size());
 
+  RTC_LOG(LS_ERROR) << "### RTX packet: "
+                    << media_packet.Timestamp() << " "
+                    << media_packet.SequenceNumber() << " "
+                    << media_packet.Marker() << " "
+                    << media_packet.Ssrc();
+
   media_sink_->OnRtpPacket(media_packet);
 }
 

@@ -278,6 +278,8 @@ int32_t VideoReceiver::Decode(uint16_t maxWaitTimeMs) {
 // TODO(philipel): Clean up among the Decode functions as we replace
 //                 VCMEncodedFrame with FrameObject.
 int32_t VideoReceiver::Decode(const webrtc::VCMEncodedFrame* frame) {
+  RTC_LOG(LS_ERROR) << "### Decoding frame: " << frame->TimeStamp();
+
   rtc::CritScope lock(&receive_crit_);
   if (pre_decode_image_callback_) {
     EncodedImage encoded_image(frame->EncodedImage());

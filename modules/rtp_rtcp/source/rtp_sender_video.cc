@@ -105,6 +105,7 @@ void RTPSenderVideo::SendVideoPacket(std::unique_ptr<RtpPacketToSend> packet,
   size_t packet_size = packet->size();
   uint16_t seq_num = packet->SequenceNumber();
   uint32_t rtp_timestamp = packet->Timestamp();
+  RTC_LOG(LS_ERROR) << "### SendVideoPacket";
   if (!rtp_sender_->SendToNetwork(std::move(packet), storage,
                                   RtpPacketSender::kLowPriority)) {
     RTC_LOG(LS_WARNING) << "Failed to send video packet " << seq_num;
@@ -155,6 +156,7 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
   }
   // Send |red_packet| instead of |packet| for allocated sequence number.
   size_t red_packet_size = red_packet->size();
+  RTC_LOG(LS_ERROR) << "### RED packet";
   if (rtp_sender_->SendToNetwork(std::move(red_packet), media_packet_storage,
                                  RtpPacketSender::kLowPriority)) {
     rtc::CritScope cs(&stats_crit_);
@@ -164,6 +166,9 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
                          "seqnum", media_seq_num);
   } else {
     RTC_LOG(LS_WARNING) << "Failed to send RED packet " << media_seq_num;
+  }
+  if (!fec_packets.empty()) {
+    RTC_LOG(LS_ERROR) << "### ULPFEC packets: " << fec_packets.size();
   }
   for (const auto& fec_packet : fec_packets) {
     // TODO(danilchap): Make ulpfec_generator_ generate RtpPacketToSend to avoid
@@ -205,6 +210,7 @@ void RTPSenderVideo::SendVideoPacketWithFlexfec(
       size_t packet_length = fec_packet->size();
       uint32_t timestamp = fec_packet->Timestamp();
       uint16_t seq_num = fec_packet->SequenceNumber();
+      RTC_LOG(LS_ERROR) << "### Flexfec packet";
       if (rtp_sender_->SendToNetwork(std::move(fec_packet), kDontRetransmit,
                                      RtpPacketSender::kLowPriority)) {
         rtc::CritScope cs(&stats_crit_);

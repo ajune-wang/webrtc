@@ -723,6 +723,10 @@ int32_t ModuleRtpRtcpImpl::SendNACK(const uint16_t* nack_list,
 
 void ModuleRtpRtcpImpl::SendNack(
     const std::vector<uint16_t>& sequence_numbers) {
+  RTC_LOG(LS_ERROR) << "### Sending NACK size: " << sequence_numbers.size();
+  for (uint16_t sequence_number : sequence_numbers) {
+    RTC_LOG(LS_ERROR) << "###   NACK seqNum: " << sequence_number;
+  }
   rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpNack, sequence_numbers.size(),
                         sequence_numbers.data());
 }
@@ -791,6 +795,7 @@ int32_t ModuleRtpRtcpImpl::SetKeyFrameRequestMethod(
 }
 
 int32_t ModuleRtpRtcpImpl::RequestKeyFrame() {
+  RTC_LOG(LS_ERROR) << "### RequestKeyFrame";
   switch (key_frame_req_method_) {
     case kKeyFrameReqPliRtcp:
       return SendRTCP(kRtcpPli);
@@ -836,7 +841,9 @@ void ModuleRtpRtcpImpl::OnReceivedNack(
   if (!rtp_sender_)
     return;
 
+  RTC_LOG(LS_ERROR) << "### NACK size: " << nack_sequence_numbers.size();
   for (uint16_t nack_sequence_number : nack_sequence_numbers) {
+    RTC_LOG(LS_ERROR) << "### Got NACK for seqNum " << nack_sequence_number;
     send_loss_stats_.AddLostPacket(nack_sequence_number);
   }
   if (!rtp_sender_->StorePackets() ||

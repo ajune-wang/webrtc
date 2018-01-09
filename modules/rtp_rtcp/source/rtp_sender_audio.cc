@@ -237,6 +237,7 @@ bool RTPSenderAudio::SendAudio(FrameType frame_type,
   TRACE_EVENT_ASYNC_END2("webrtc", "Audio", rtp_timestamp, "timestamp",
                          packet->Timestamp(), "seqnum",
                          packet->SequenceNumber());
+  RTC_LOG(LS_ERROR) << "### SendAudio";
   bool send_result = rtp_sender_->SendToNetwork(
       std::move(packet), kAllowRetransmission, RtpPacketSender::kHighPriority);
   if (first_packet_sent_()) {
@@ -324,6 +325,7 @@ bool RTPSenderAudio::SendTelephoneEventPacket(bool ended,
     TRACE_EVENT_INSTANT2(
         TRACE_DISABLED_BY_DEFAULT("webrtc_rtp"), "Audio::SendTelephoneEvent",
         "timestamp", packet->Timestamp(), "seqnum", packet->SequenceNumber());
+    RTC_LOG(LS_ERROR) << "### SendTelephoneEventPacket";
     result = rtp_sender_->SendToNetwork(std::move(packet), kAllowRetransmission,
                                         RtpPacketSender::kHighPriority);
     send_count--;

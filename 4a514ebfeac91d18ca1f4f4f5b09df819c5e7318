@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "272adfd4_698015de",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-09T09:10:09Z",
+      "side": 1,
+      "message": "For clarity now that the clue on the line below is gone, use .has_value() here?\n\n(There are a couple more cases below, if you find this suggestion useful.)",
+      "range": {
+        "startLine": 884,
+        "startChar": 8,
+        "endLine": 884,
+        "endChar": 22
+      },
+      "revId": "4a514ebfeac91d18ca1f4f4f5b09df819c5e7318",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

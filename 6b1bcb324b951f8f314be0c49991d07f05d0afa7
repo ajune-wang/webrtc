@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da879eb9_716ec024",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84f21354_c4e8a0b9",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc479782_2727601c",
         "filename": "audio/audio_receive_stream.h",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1e3803bc_af6647bc",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc479782_2727601c",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72a0ce15_67fc8357",
         "filename": "audio/audio_receive_stream.h",
         "patchSetId": 6
@@ -50,6 +86,24 @@
       "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a3ee956_f00d29f9",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a0ce15_67fc8357",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +147,48 @@
     },
     {
       "key": {
+        "uuid": "7081c27d_8d7db08e",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Left overs.",
+      "parentUuid": "c8a96007_3755b138",
+      "range": {
+        "startLine": 126,
+        "startChar": 65,
+        "endLine": 126,
+        "endChar": 71
+      },
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5a169cb_78264513",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "360d1bc6_635d9a38",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "feb591d8_734f8d37",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 6
@@ -107,6 +203,24 @@
       "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a34aaa1_ec0f705c",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb591d8_734f8d37",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "d8623bf6_1dd691bc",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "360a1de8_f6a495a2",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd2a21e5_43bacc74",
         "filename": "call/audio_receive_stream.h",
         "patchSetId": 6
@@ -138,6 +270,24 @@
       "writtenOn": "2018-01-09T17:18:26Z",
       "side": 1,
       "message": "Is this change of the ownership semantics only to make it possible to recreate AudioReceiveStreams without having to recreate the sinks as well?\n\nTo me, it seems reasonable that the Channel doesn\u0027t own the sink - it does nothing to control the sink outside of implicitly destroying it when the Channel is destroyed.\n\nIf you\u0027re making it possible to reconfigure streams, instead of having to recreate them, then perhaps this change isn\u0027t necessary in this CL.",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f032deba_b9aa4af1",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Good point. I\u0027ll land that CL first and re-evaluate.",
+      "parentUuid": "bd2a21e5_43bacc74",
       "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "a9e7e954_dd64fd42",
+        "filename": "call/call_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Here, we want to test the logic in the internal::Call implementation. One way to do that would be to introduce injectable stream factories so that mock streams could be created for this test, that we could set expectations on. Another way would be to change Call so that streams are created by simply constructing them (giving them a reference to a Call to register themselves on). Yet another way is what is presented here, which is significantly less work.",
+      "parentUuid": "7d96f7aa_741f7b7a",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a73f1c4f_7e64b808",
         "filename": "media/engine/webrtcmediaengine.h",
         "patchSetId": 6
@@ -175,6 +343,24 @@
       "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a28690aa_abe5e0a0",
+        "filename": "media/engine/webrtcmediaengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Looks like it wasn\u0027t.",
+      "parentUuid": "a73f1c4f_7e64b808",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "3eac6635_c05ef8a9",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2629,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "No, I think I\u0027m touching enough code as it is. Knock yourself out.. :)",
+      "parentUuid": "1c837796_4a13a510",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8011a965_43566218",
         "filename": "voice_engine/channel.h",
         "patchSetId": 6
@@ -209,6 +413,24 @@
       "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "764ae367_9acb61fa",
+        "filename": "voice_engine/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8011a965_43566218",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -229,6 +451,24 @@
     },
     {
       "key": {
+        "uuid": "e2652141_5cfb479b",
+        "filename": "voice_engine/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28aee140_6d875464",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a23cfc19_712c1f91",
         "filename": "voice_engine/channel.h",
         "patchSetId": 6
@@ -246,6 +486,24 @@
     },
     {
       "key": {
+        "uuid": "017c486d_9cfe2100",
+        "filename": "voice_engine/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "It was previously always enabled too, via voe::ChannelConfig (see: https://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/webrtcvoiceengine.cc?type\u003dcs\u0026l\u003d274). So the implications should be none. I\u0027d remove the pacing_enabled_ flag except I don\u0027t want to mess with more logic in this CL.",
+      "parentUuid": "a23cfc19_712c1f91",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f75a6eb1_2904ac7d",
         "filename": "voice_engine/channel_proxy.h",
         "patchSetId": 6
@@ -260,6 +518,24 @@
       "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbccfee5_1dcd5d9b",
+        "filename": "voice_engine/channel_proxy.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-09T20:53:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f75a6eb1_2904ac7d",
+      "revId": "6b1bcb324b951f8f314be0c49991d07f05d0afa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -57,6 +57,10 @@ deps = {
     Var('chromium_git') + '/chromium/src/testing' + '@' + 'b6c17cda4a27d25e75202c12a83c37d70ba44180',
   'src/third_party':
     Var('chromium_git') + '/chromium/src/third_party' + '@' + '614d49844f77a7c014694f9483585e5a9b77e7e1',
+  'src/third_party/android_ndk/public': {
+    'url': Var('chromium_git') + '/android_ndk.git' + '@' + 'e951c37287c7d8cd915bf8d4149fd4a06d808b55',
+    'condition': 'checkout_android',
+  },
   'src/third_party/android_tools': {
     'url': Var('chromium_git') + '/android_tools.git' + '@' + '7d781b3544ef67dfa8c7c0c1a347b818c49c42bc',
     'condition': 'checkout_android',
@@ -463,8 +467,6 @@ hooks = [
 recursedeps = [
   # buildtools provides clang_format, libc++, and libc++abi.
   'src/buildtools',
-  # android_tools manages the NDK.
-  'src/third_party/android_tools',
 ]
 
 # Define rules for which include paths are allowed in our source.

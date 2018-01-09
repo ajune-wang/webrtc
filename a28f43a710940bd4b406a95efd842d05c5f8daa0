@@ -72,6 +72,47 @@
     },
     {
       "key": {
+        "uuid": "5267ad35_ba1e5b28",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-09T10:40:33Z",
+      "side": 1,
+      "message": "Let\u0027s see if I read the code correctly...\nThis function is only called from SlotSimulcastMaxResoltion(), which is only called from GetSimulcastConfig().\nIn GetSimulcastConfig(), we first call FindSimulcastMaxLayers() to find the maximum number of simulcast streams for this resolution as specified by |kSimulcastFormats[]|. It is then only if the user request number of streams is _lower_ than what the table specifies that we call this code. So I agree this should never return -1; we could make it void and add an RTC_NOTREACHED() instead.\n\nThere seem to be several implicit preconditions like this in this file, that makes the code very hard to follow :/",
+      "parentUuid": "90ff5f6d_507c4fa5",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2a60da_651b15bd",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-09T10:40:33Z",
+      "side": 1,
+      "message": "I think we can also nuke this method, as we always check the product nowadays?",
+      "range": {
+        "startLine": 95,
+        "startChar": 44,
+        "endLine": 95,
+        "endChar": 0
+      },
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "586e0fa3_25e2584b",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -139,6 +180,24 @@
       "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "294b6b7f_bb83c0ca",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-09T10:40:33Z",
+      "side": 1,
+      "message": "I think what Taylor means is that if this is run in a release build (unlike tests), then the SlotSimulcastMaxResolution(max_streams, \u0026width, \u0026height) call will never be run and |width| and |height| might not be properly updated.\nYou need to store the return value in a temp and then DCHECK on that, or make it void and infallible :)",
+      "parentUuid": "6f21e9da_6afc966d",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

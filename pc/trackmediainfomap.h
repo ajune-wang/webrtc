@@ -74,6 +74,9 @@ class TrackMediaInfoMap {
   rtc::scoped_refptr<VideoTrackInterface> GetVideoTrack(
       const cricket::VideoReceiverInfo& video_receiver_info) const;
 
+  rtc::scoped_refptr<RtpSenderInterface> GetSenderByTrack(
+      const MediaStreamTrackInterface* track) const;
+
  private:
   std::unique_ptr<cricket::VoiceMediaInfo> voice_media_info_;
   std::unique_ptr<cricket::VideoMediaInfo> video_media_info_;
@@ -102,6 +105,10 @@ class TrackMediaInfoMap {
   std::map<const cricket::VideoReceiverInfo*,
            rtc::scoped_refptr<VideoTrackInterface>>
       video_track_by_receiver_info_;
+  // Map of tracks to sender objects.
+  std::map<const MediaStreamTrackInterface*,
+           rtc::scoped_refptr<RtpSenderInterface>>
+      sender_by_track_;
   // These maps map SSRCs to the corresponding voice or video info objects.
   std::map<uint32_t, cricket::VoiceSenderInfo*> voice_info_by_sender_ssrc_;
   std::map<uint32_t, cricket::VoiceReceiverInfo*> voice_info_by_receiver_ssrc_;

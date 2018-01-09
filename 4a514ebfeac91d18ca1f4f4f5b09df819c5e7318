@@ -22,6 +22,30 @@
       "revId": "4a514ebfeac91d18ca1f4f4f5b09df819c5e7318",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01a2aa1e_1a80bc2b",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-09T14:23:13Z",
+      "side": 1,
+      "message": "Thats\u0027s a good suggestion!\n\nI started changing this for the places where integer Optionals are used (which is the confusing case). Combing through video/ for places I might\u0027ve missed, it turns out they\u0027re already doing these checks without has_value() in enough places that I consider it an established pattern.\n\nSo I won\u0027t change mine either. :/",
+      "parentUuid": "272adfd4_698015de",
+      "range": {
+        "startLine": 884,
+        "startChar": 8,
+        "endLine": 884,
+        "endChar": 22
+      },
+      "revId": "4a514ebfeac91d18ca1f4f4f5b09df819c5e7318",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

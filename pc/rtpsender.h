@@ -82,21 +82,9 @@ class AudioRtpSender : public DtmfProviderInterface,
  public:
   // StatsCollector provided so that Add/RemoveLocalAudioTrack can be called
   // at the appropriate times.
-  // |channel| can be null if one does not exist yet.
   AudioRtpSender(rtc::scoped_refptr<AudioTrackInterface> track,
-                 const std::vector<std::string>& stream_id,
-                 cricket::VoiceChannel* channel,
+                 const std::vector<std::string>& stream_labels,
                  StatsCollector* stats);
-
-  // Randomly generates stream_id.
-  // |channel| can be null if one does not exist yet.
-  AudioRtpSender(rtc::scoped_refptr<AudioTrackInterface> track,
-                 cricket::VoiceChannel* channel,
-                 StatsCollector* stats);
-
-  // Randomly generates id and stream_id.
-  // |channel| can be null if one does not exist yet.
-  AudioRtpSender(cricket::VoiceChannel* channel, StatsCollector* stats);
 
   virtual ~AudioRtpSender();
 
@@ -156,11 +144,9 @@ class AudioRtpSender : public DtmfProviderInterface,
   // Helper function to call SetAudioSend with "stop sending" parameters.
   void ClearAudioSend();
 
-  void CreateDtmfSender();
-
   sigslot::signal0<> SignalDestroyed;
 
-  std::string id_;
+  const std::string id_;
   // TODO(steveanton): Until more Unified Plan work is done, this can only have
   // exactly one element.
   std::vector<std::string> stream_ids_;
@@ -180,19 +166,8 @@ class AudioRtpSender : public DtmfProviderInterface,
 class VideoRtpSender : public ObserverInterface,
                        public rtc::RefCountedObject<RtpSenderInternal> {
  public:
-  // |channel| can be null if one does not exist yet.
   VideoRtpSender(rtc::scoped_refptr<VideoTrackInterface> track,
-                 const std::vector<std::string>& stream_id,
-                 cricket::VideoChannel* channel);
-
-  // Randomly generates stream_id.
-  // |channel| can be null if one does not exist yet.
-  VideoRtpSender(rtc::scoped_refptr<VideoTrackInterface> track,
-                 cricket::VideoChannel* channel);
-
-  // Randomly generates id and stream_id.
-  // |channel| can be null if one does not exist yet.
-  explicit VideoRtpSender(cricket::VideoChannel* channel);
+                 const std::vector<std::string>& stream_labels);
 
   virtual ~VideoRtpSender();
 

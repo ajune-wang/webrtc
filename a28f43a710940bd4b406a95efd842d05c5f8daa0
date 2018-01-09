@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "a5871339_2b605114",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T18:10:13Z",
+      "side": 1,
+      "message": "Yes Erik, that\u0027s correct. Due to this, the only way it could return -1 is if we gave GetSimulcastConfig() a negative width or height (should never happen), or a max_streams \u003d 0 (should also never happen and I added a DCHECK for this). I agree that these preconditions make it hard to follow. Especially in this case where the code is never hit.\n\nAdded RTC_NOTREACHED(), took out the return -1 in both FindSimulcastFormatIndex() functions, and I changed SlotSimulcastMaxResolution() to void.",
+      "parentUuid": "5267ad35_ba1e5b28",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de2a60da_651b15bd",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -110,6 +128,30 @@
       "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af01f135_eff14ecd",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T18:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de2a60da_651b15bd",
+      "range": {
+        "startLine": 95,
+        "startChar": 44,
+        "endLine": 95,
+        "endChar": 0
+      },
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +184,24 @@
       "side": 1,
       "message": "This can return false if the max_layers is 0, or if it is a higher value than the amount of expected simulcast layers, given a resolution. It should just never return false given the conditions it\u0027s called in GetSimulcastConfig. Leaving for now unless you think otherwise.",
       "parentUuid": "586e0fa3_25e2584b",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c58f1027_74b1d1a8",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T18:10:13Z",
+      "side": 1,
+      "message": "After seeing Erik\u0027s comments I think you\u0027re right here. Since it is only called given the conditions inside GetSimulcastConfig, which will never return false, I updated this to void and added RTC_NOTREACHED. Also put the DCHECK inside FindSimulcastFormatIndex.",
+      "parentUuid": "7620c90f_ebc924ab",
       "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -198,6 +258,24 @@
       "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02102b1a_399c0be6",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-09T18:10:13Z",
+      "side": 1,
+      "message": "Good point about the DCHECK Taylor, thanks for making me aware.\n\nUpdated to void.",
+      "parentUuid": "294b6b7f_bb83c0ca",
+      "revId": "a28f43a710940bd4b406a95efd842d05c5f8daa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

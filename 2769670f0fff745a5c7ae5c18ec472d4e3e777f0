@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96d8d1f5_7512e2f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-09T02:15:59Z",
+      "side": 1,
+      "message": "Should split into 1-line summary and multiline description below",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d57a538_8f5e5368",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-09T02:15:59Z",
+      "side": 1,
+      "message": "nit: If it defaults to active, is this necessary?",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53350264_0e747cb5",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-09T02:15:59Z",
+      "side": 1,
+      "message": "Can\u0027t you return early in this case?",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30005f38_4cfc683e",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-09T02:15:59Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand this, can you explain?",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

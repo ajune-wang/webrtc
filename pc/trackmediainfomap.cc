@@ -125,6 +125,11 @@ TrackMediaInfoMap::TrackMediaInfoMap(
       &local_video_track_by_ssrc, &remote_audio_track_by_ssrc,
       &remote_video_track_by_ssrc, &unsignaled_audio_track,
       &unsignaled_video_track);
+
+  for (auto& sender : rtp_senders) {
+    sender_by_track_[sender->track()] = sender;
+  }
+
   if (voice_media_info_) {
     for (auto& sender_info : voice_media_info_->senders) {
       AudioTrackInterface* associated_track =
@@ -256,6 +261,11 @@ rtc::scoped_refptr<VideoTrackInterface> TrackMediaInfoMap::GetVideoTrack(
 rtc::scoped_refptr<VideoTrackInterface> TrackMediaInfoMap::GetVideoTrack(
     const cricket::VideoReceiverInfo& video_receiver_info) const {
   return FindValueOrNull(video_track_by_receiver_info_, &video_receiver_info);
+}
+
+rtc::scoped_refptr<RtpSenderInterface> TrackMediaInfoMap::GetSenderByTrack(
+    const MediaStreamTrackInterface* track) const {
+  return FindValueOrNull(sender_by_track_, track);
 }
 
 }  // namespace webrtc

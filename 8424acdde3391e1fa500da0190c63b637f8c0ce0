@@ -46,6 +46,30 @@
       "revId": "8424acdde3391e1fa500da0190c63b637f8c0ce0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "747550d6_11132601",
+        "filename": "modules/video_capture/device_info_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-09T08:44:14Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "42de28c1_db06c4fe",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "8424acdde3391e1fa500da0190c63b637f8c0ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

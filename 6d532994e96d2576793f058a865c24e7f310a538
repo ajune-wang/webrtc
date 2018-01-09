@@ -140,6 +140,30 @@
       "revId": "6d532994e96d2576793f058a865c24e7f310a538",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "486387f6_3ff5cf49",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-09T08:44:14Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with StringPiece. My gut reaction after a quick look is that it seems a bit overkill for our needs.\n\nI\u0027d prefer if we can stick to standard C or C++ library functions, with very thin wrappers for things like strcasecmp which are in the posix spec rather than any language standard.\n\nI think I\u0027d prefer to just delete asccmp and other wrappers which become trivial, but I\u0027m also ok with postponing that for some later cl.",
+      "parentUuid": "7761b368_3c56a739",
+      "range": {
+        "startLine": 172,
+        "startChar": 11,
+        "endLine": 172,
+        "endChar": 17
+      },
+      "revId": "6d532994e96d2576793f058a865c24e7f310a538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

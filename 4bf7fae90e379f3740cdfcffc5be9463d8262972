@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02b6da04_cc78a2b5",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-10T11:48:57Z",
+      "side": 1,
+      "message": "Maybe do en early check and continue if !codec_.simulcastStream[simulcast_id].active",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a628c1a0_4f1b4ff6",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-10T11:48:57Z",
+      "side": 1,
+      "message": "nit: The last two checks seem redundant",
+      "range": {
+        "startLine": 609,
+        "startChar": 52,
+        "endLine": 609,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bc46c94_e9a2863d",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-10T11:48:57Z",
+      "side": 1,
+      "message": "nit: I usually prefer the explicit type to auto when the type is not too verbose, since it makes the code more readable.",
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cd223bb_eea9f763",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-10T11:48:57Z",
+      "side": 1,
+      "message": "nit: maybe even \nif (stream.active) {\n  codec_active \u003d true;\n  break;\n}",
+      "range": {
+        "startLine": 198,
+        "startChar": 26,
+        "endLine": 198,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

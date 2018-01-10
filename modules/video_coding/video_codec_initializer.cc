@@ -192,6 +192,13 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
   video_codec.numberOfSimulcastStreams =
       static_cast<unsigned char>(streams.size());
   video_codec.minBitrate = streams[0].min_bitrate_bps / 1000;
+  bool codec_active = false;
+  for (const auto& stream : streams) {
+    if (stream.active)
+      codec_active = true;
+  }
+  // Set active for the entire video codec for the non simulcast case.
+  video_codec.active = codec_active;
   if (video_codec.minBitrate < kEncoderMinBitrateKbps)
     video_codec.minBitrate = kEncoderMinBitrateKbps;
   video_codec.timing_frame_thresholds = {kDefaultTimingFramesDelayMs,
@@ -231,6 +238,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     sim_stream->qpMax = streams[i].max_qp;
     sim_stream->numberOfTemporalLayers = static_cast<unsigned char>(
         streams[i].temporal_layer_thresholds_bps.size() + 1);
+    sim_stream->active = streams[i].active;
 
     video_codec.width =
         std::max(video_codec.width, static_cast<uint16_t>(streams[i].width));

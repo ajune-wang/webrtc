@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "847cf135_29b83ee8",
+        "filename": "modules/pacing/alr_detector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-10T19:29:14Z",
+      "side": 1,
+      "message": "Don\u0027t line 33 and 34 do the same thing? (This was the case before your change too, but you may want to fix it anyway.)",
+      "revId": "68f037250626dc128cbc2d5521a0d94e6c68ffbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

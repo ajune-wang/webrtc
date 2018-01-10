@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "52211d8d_bd9e9d52",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:27:35Z",
+      "side": 1,
+      "message": "I don\u0027t see the advantage over picking a random number; is it just that a random number would require storing an rtc::Random at a higher level object? I guess at that point, we\u0027d be able to just use sequential IDs that are guaranteed unique.",
+      "parentUuid": "9b8b511f_4dfecc34",
+      "revId": "0e059dd13c298ed742905548d81a7f2712c95924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51cb913f_dee72c4e",
         "filename": "p2p/base/port.cc",
         "patchSetId": 8

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a24fef9_e8a478c7",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:27:35Z",
+      "side": 1,
+      "message": "nit: It\u0027s not done here because this code is old, but we generally prefer initializing variables in the header file:\n\n    IceEventLog* ice_event_log_ \u003d nullptr;",
+      "revId": "f69de916bc98bbbc1e11210dce94719f1ce2a6eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e73451_d7bfa5fc",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:27:35Z",
+      "side": 1,
+      "message": "Do these need to be public? (I see Port uses them for convenience, but it\u0027s a friend class)",
+      "revId": "f69de916bc98bbbc1e11210dce94719f1ce2a6eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "264af3ea_fbbfb643",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:27:35Z",
+      "side": 1,
+      "message": "nit: \"controlller\" has 3 ls",
+      "revId": "f69de916bc98bbbc1e11210dce94719f1ce2a6eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

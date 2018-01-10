@@ -207,6 +207,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(size_t max_streams,
     // number of simulcast streams for current resolution, switch down
     // to a resolution that matches our number of SSRCs.
     if (!SlotSimulcastMaxResolution(max_streams, &width, &height)) {
+      // TODO(bugs.webrtc.org/8648): We should never hit this case.
       return std::vector<webrtc::VideoStream>();
     }
     num_simulcast_layers = max_streams;
@@ -229,6 +230,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(size_t max_streams,
     streams[0].temporal_layer_thresholds_bps.clear();
     streams[0].temporal_layer_thresholds_bps.push_back(config.tl0_bitrate_kbps *
                                                        1000);
+    streams[0].active = true;
 
     // With simulcast enabled, add another spatial layer. This one will have a
     // more normal layout, with the regular 3 temporal layer pattern and no fps
@@ -254,6 +256,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(size_t max_streams,
       streams[1].min_bitrate_bps = streams[0].target_bitrate_bps * 2;
       streams[1].target_bitrate_bps = max_bitrate_bps;
       streams[1].max_bitrate_bps = max_bitrate_bps;
+      streams[1].active = true;
     }
   } else {
     // Format width and height has to be divisible by |2 ^ number_streams - 1|.
@@ -275,6 +278,7 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(size_t max_streams,
           FindSimulcastTargetBitrateBps(width, height);
       streams[s].min_bitrate_bps = FindSimulcastMinBitrateBps(width, height);
       streams[s].max_framerate = max_framerate;
+      streams[s].active = true;
 
       width /= 2;
       height /= 2;

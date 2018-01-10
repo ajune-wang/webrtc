@@ -203,6 +203,7 @@ class TestVp8Simulcast : public ::testing::Test {
     settings->width = kDefaultWidth;
     settings->height = kDefaultHeight;
     settings->numberOfSimulcastStreams = kNumberOfSimulcastStreams;
+    settings->active = true;
     ASSERT_EQ(3, kNumberOfSimulcastStreams);
     settings->timing_frame_thresholds = {kDefaultTimingFramesDelayMs,
                                          kDefaultOutlierFrameSizePercent};
@@ -238,6 +239,7 @@ class TestVp8Simulcast : public ::testing::Test {
     stream->targetBitrate = target_bitrate;
     stream->numberOfTemporalLayers = num_temporal_layers;
     stream->qpMax = 45;
+    stream->active = true;
   }
 
  protected:

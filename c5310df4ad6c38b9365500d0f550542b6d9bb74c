@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "994c4993_591aab0a",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-10T15:23:58Z",
+      "side": 1,
+      "message": "No. There\u0027s no track attached, so 0 is deliberate.",
+      "parentUuid": "b786f30c_08e81f87",
+      "revId": "c5310df4ad6c38b9365500d0f550542b6d9bb74c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c133a44_994f252a",
         "filename": "pc/trackmediainfomap.cc",
         "patchSetId": 8
@@ -47,6 +65,24 @@
       "writtenOn": "2018-01-10T15:14:28Z",
       "side": 1,
       "message": "There\u0027s an implicit assumption here that we don\u0027t have a sender that sends a receiver\u0027s track or else we\u0027re overwriting the sender attachment ID.\n\nI think the correct approach is to have two maps and getters, [sender/receiver]_attachment_id_by_track_ and Get[Sebder/Receiver]AttachmentIdByTrack().\nIf we support this we should have a unittest for it.",
+      "revId": "c5310df4ad6c38b9365500d0f550542b6d9bb74c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f707728c_65547f21",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-10T15:23:58Z",
+      "side": 1,
+      "message": "TODO?\nThere\u0027s also an implicit assumption that we don\u0027t send the same track twice.\n\nThe correct solution is to not need to map in this direction, which says that we have to generate stream stats based on iterating senders, not based on iterating streams.",
+      "parentUuid": "5c133a44_994f252a",
       "revId": "c5310df4ad6c38b9365500d0f550542b6d9bb74c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -81,6 +117,24 @@
       "writtenOn": "2018-01-10T15:14:28Z",
       "side": 1,
       "message": "For sent tracks, the same track may be sent multiple times, so this should map to a value that is std::vector\u003cint\u003e (or \u003csize_t\u003e or \u003cuint32_t\u003e?).\nNeed unittest coverage.",
+      "revId": "c5310df4ad6c38b9365500d0f550542b6d9bb74c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "427f075e_157b1d91",
+        "filename": "pc/trackmediainfomap.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-10T15:23:58Z",
+      "side": 1,
+      "message": "TODO?\nIt\u0027s the wrong way to jump through this hoop, but requires (more) restructuring of how we generate these.",
+      "parentUuid": "be8725df_0213e2e3",
       "revId": "c5310df4ad6c38b9365500d0f550542b6d9bb74c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

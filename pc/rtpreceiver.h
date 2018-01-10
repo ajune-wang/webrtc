@@ -95,6 +95,7 @@ class AudioRtpReceiver : public ObserverInterface,
   void SetChannel(cricket::VoiceChannel* channel);
 
   std::vector<RtpSource> GetSources() const override;
+  int AttachmentId() const override { return attachment_id_; }
 
  private:
   void Reconfigure();
@@ -110,6 +111,7 @@ class AudioRtpReceiver : public ObserverInterface,
   bool stopped_ = false;
   RtpReceiverObserverInterface* observer_ = nullptr;
   bool received_first_packet_ = false;
+  int attachment_id_;
 };
 
 class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
@@ -157,6 +159,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
   // Does not take ownership.
   // Should call SetChannel(nullptr) before |channel| is destroyed.
   void SetChannel(cricket::VideoChannel* channel);
+  int AttachmentId() const override { return attachment_id_; }
 
  private:
   void OnFirstPacketReceived(cricket::BaseChannel* channel);
@@ -176,6 +179,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
   bool stopped_ = false;
   RtpReceiverObserverInterface* observer_ = nullptr;
   bool received_first_packet_ = false;
+  int attachment_id_;
 };
 
 }  // namespace webrtc

@@ -77,6 +77,7 @@ rtc_static_library("video_quality_analysis") {
 }
 
 rtc_executable("frame_analyzer") {
+  visibility = [ "*" ]
   sources = [
     "frame_analyzer/frame_analyzer.cc",
   ]
@@ -127,6 +128,7 @@ if (!build_with_chromium) {
   }
 
   rtc_executable("rgba_to_i420_converter") {
+    visibility = [ "*" ]
     sources = [
       "converter/converter.cc",
       "converter/converter.h",

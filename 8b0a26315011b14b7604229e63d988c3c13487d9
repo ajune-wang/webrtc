@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "a5fe194b_0b6edf7b",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-10T09:58:22Z",
+      "side": 1,
+      "message": "When we add receiver stats (Jan-Ivar\u0027s CL), receivers need a stats ID based on their ID. As you say,the spec says the track can be ended and then a new track begin; that argues for doing attachment IDs here too. Now that we\u0027ve done them for senders, it\u0027s easy to add them for receivers.\n\nAdded.",
+      "parentUuid": "ed4954fa_2188b956",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb9954a2_86ceb334",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2
@@ -160,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "7c598fa1_0e3cd6d3",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-10T09:58:22Z",
+      "side": 1,
+      "message": "I checked - there\u0027s no API in C++ to change the track on a receiver.",
+      "parentUuid": "a8a7f1e7_88647509",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff0a756e_27aa907c",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 2
@@ -210,6 +246,24 @@
       "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d8325a_09d74e36",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-10T09:58:22Z",
+      "side": 1,
+      "message": "OBE, I hope :-)",
+      "parentUuid": "6cfbe4cd_84d5b444",
+      "revId": "8b0a26315011b14b7604229e63d988c3c13487d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

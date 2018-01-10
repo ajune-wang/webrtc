@@ -20,6 +20,16 @@
 
 namespace webrtc {
 
+namespace {
+
+static int g_unique_id = 0;
+
+int GenerateUniqueId() {
+  return ++g_unique_id;
+}
+
+}  // namespace
+
 LocalAudioSinkAdapter::LocalAudioSinkAdapter() : sink_(nullptr) {}
 
 LocalAudioSinkAdapter::~LocalAudioSinkAdapter() {
@@ -56,7 +66,8 @@ AudioRtpSender::AudioRtpSender(rtc::scoped_refptr<AudioTrackInterface> track,
       stats_(stats),
       track_(track),
       cached_track_enabled_(track->enabled()),
-      sink_adapter_(new LocalAudioSinkAdapter()) {
+      sink_adapter_(new LocalAudioSinkAdapter()),
+      attachment_id_(GenerateUniqueId()) {
   // TODO(steveanton): Relax this constraint once more Unified Plan work is
   // done.
   RTC_CHECK(stream_ids_.size() == 1U);
@@ -75,7 +86,8 @@ AudioRtpSender::AudioRtpSender(rtc::scoped_refptr<AudioTrackInterface> track,
       stats_(stats),
       track_(track),
       cached_track_enabled_(track->enabled()),
-      sink_adapter_(new LocalAudioSinkAdapter()) {
+      sink_adapter_(new LocalAudioSinkAdapter()),
+      attachment_id_(GenerateUniqueId()) {
   track_->RegisterObserver(this);
   track_->AddSink(sink_adapter_.get());
   CreateDtmfSender();
@@ -88,7 +100,8 @@ AudioRtpSender::AudioRtpSender(cricket::VoiceChannel* channel,
       stream_ids_({rtc::CreateRandomUuid()}),
       channel_(channel),
       stats_(stats),
-      sink_adapter_(new LocalAudioSinkAdapter()) {
+      sink_adapter_(new LocalAudioSinkAdapter()),
+      attachment_id_(0) {
   CreateDtmfSender();
 }
 
@@ -187,6 +200,7 @@ bool AudioRtpSender::SetTrack(MediaStreamTrackInterface* track) {
   } else if (prev_can_send_track) {
     ClearAudioSend();
   }
+  attachment_id_ = GenerateUniqueId();
   return true;
 }
 
@@ -311,7 +325,8 @@ VideoRtpSender::VideoRtpSender(rtc::scoped_refptr<VideoTrackInterface> track,
       channel_(channel),
       track_(track),
       cached_track_enabled_(track->enabled()),
-      cached_track_content_hint_(track->content_hint()) {
+      cached_track_content_hint_(track->content_hint()),
+      attachment_id_(GenerateUniqueId()) {
   // TODO(steveanton): Relax this constraint once more Unified Plan work is
   // done.
   RTC_CHECK(stream_ids_.size() == 1U);
@@ -326,7 +341,8 @@ VideoRtpSender::VideoRtpSender(rtc::scoped_refptr<VideoTrackInterface> track,
       channel_(channel),
       track_(track),
       cached_track_enabled_(track->enabled()),
-      cached_track_content_hint_(track->content_hint()) {
+      cached_track_content_hint_(track->content_hint()),
+      attachment_id_(GenerateUniqueId()) {
   track_->RegisterObserver(this);
 }
 
@@ -334,7 +350,8 @@ VideoRtpSender::VideoRtpSender(cricket::VideoChannel* channel)
     : id_(rtc::CreateRandomUuid()),
       // TODO(steveanton): With Unified Plan this should be empty.
       stream_ids_({rtc::CreateRandomUuid()}),
-      channel_(channel) {}
+      channel_(channel),
+      attachment_id_(0) {}
 
 VideoRtpSender::~VideoRtpSender() {
   Stop();
@@ -389,6 +406,7 @@ bool VideoRtpSender::SetTrack(MediaStreamTrackInterface* track) {
   } else if (prev_can_send_track) {
     ClearVideoSend();
   }
+  attachment_id_ = GenerateUniqueId();
   return true;
 }
 

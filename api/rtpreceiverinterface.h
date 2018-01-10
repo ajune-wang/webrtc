@@ -127,6 +127,7 @@ class RtpReceiverInterface : public rtc::RefCountInterface {
   virtual std::vector<RtpSource> GetSources() const {
     return std::vector<RtpSource>();
   }
+  virtual int AttachmentId() const = 0;
 
  protected:
   virtual ~RtpReceiverInterface() {}
@@ -146,6 +147,7 @@ BEGIN_SIGNALING_PROXY_MAP(RtpReceiver)
   PROXY_METHOD1(bool, SetParameters, const RtpParameters&)
   PROXY_METHOD1(void, SetObserver, RtpReceiverObserverInterface*);
   PROXY_CONSTMETHOD0(std::vector<RtpSource>, GetSources);
+  PROXY_CONSTMETHOD0(int, AttachmentId);
   END_PROXY_MAP()
 
 }  // namespace webrtc

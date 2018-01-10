@@ -21,6 +21,16 @@
 
 namespace webrtc {
 
+namespace {
+
+static int g_unique_id = 0;
+
+int GenerateUniqueId() {
+  return ++g_unique_id;
+}
+
+}  // namespace
+
 AudioRtpReceiver::AudioRtpReceiver(
     const std::string& receiver_id,
     std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams,
@@ -34,7 +44,8 @@ AudioRtpReceiver::AudioRtpReceiver(
           AudioTrack::Create(receiver_id,
                              RemoteAudioSource::Create(ssrc, channel)))),
       streams_(std::move(streams)),
-      cached_track_enabled_(track_->enabled()) {
+      cached_track_enabled_(track_->enabled()),
+      attachment_id_(GenerateUniqueId()) {
   RTC_DCHECK(track_->GetSource()->remote());
   track_->RegisterObserver(this);
   track_->GetSource()->RegisterAudioObserver(this);
@@ -168,7 +179,8 @@ VideoRtpReceiver::VideoRtpReceiver(
                                             worker_thread,
                                             source_),
               worker_thread))),
-      streams_(std::move(streams)) {
+      streams_(std::move(streams)),
+      attachment_id_(GenerateUniqueId()) {
   source_->SetState(MediaSourceInterface::kLive);
   if (!channel_) {
     RTC_LOG(LS_ERROR)

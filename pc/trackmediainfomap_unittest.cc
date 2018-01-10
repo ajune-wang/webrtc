@@ -400,6 +400,20 @@ TEST_F(TrackMediaInfoMapTest, SsrcLookupFunction) {
   EXPECT_FALSE(map_->GetVoiceSenderInfoBySsrc(1024));
 }
 
+TEST_F(TrackMediaInfoMapTest, GetSenderByTrack) {
+  AddRtpSenderWithSsrcs({1}, local_audio_track_);
+  CreateMap();
+  EXPECT_TRUE(map_->GetSenderByTrack(local_audio_track_));
+  EXPECT_FALSE(map_->GetSenderByTrack(local_video_track_));
+}
+
+TEST_F(TrackMediaInfoMapTest, GetReceiverByTrack) {
+  AddRtpReceiverWithSsrcs({1}, local_audio_track_);
+  CreateMap();
+  EXPECT_TRUE(map_->GetReceiverByTrack(local_audio_track_));
+  EXPECT_FALSE(map_->GetReceiverByTrack(local_video_track_));
+}
+
 // Death tests.
 // Disabled on Android because death tests misbehave on Android, see
 // base/test/gtest_util.h.

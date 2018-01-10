@@ -74,7 +74,6 @@ class DelayBasedBwe {
   const Clock* const clock_;
   std::unique_ptr<InterArrival> inter_arrival_;
   std::unique_ptr<TrendlineEstimator> trendline_estimator_;
-  OveruseDetector detector_;
   int64_t last_seen_packet_ms_;
   bool uma_recorded_;
   AimdRateControl rate_control_;

@@ -88,7 +88,6 @@ DelayBasedBwe::DelayBasedBwe(RtcEventLog* event_log, const Clock* clock)
       clock_(clock),
       inter_arrival_(),
       trendline_estimator_(),
-      detector_(),
       last_seen_packet_ms_(-1),
       uma_recorded_(false),
       probe_bitrate_estimator_(event_log),
@@ -104,6 +103,9 @@ DelayBasedBwe::DelayBasedBwe(RtcEventLog* event_log, const Clock* clock)
   RTC_LOG(LS_INFO)
       << "Using Trendline filter for delay change estimation with window size "
       << trendline_window_size_;
+  trendline_estimator_.reset(new TrendlineEstimator(trendline_window_size_,
+                                                    trendline_smoothing_coeff_,
+                                                    trendline_threshold_gain_));
 }
 
 DelayBasedBwe::~DelayBasedBwe() {}
@@ -132,17 +134,17 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
   }
   bool delayed_feedback = true;
   bool recovered_from_overuse = false;
-  BandwidthUsage prev_detector_state = detector_.State();
+  BandwidthUsage prev_detector_state = trendline_estimator_->State();
   for (const auto& packet_feedback : packet_feedback_vector) {
     if (packet_feedback.send_time_ms < 0)
       continue;
     delayed_feedback = false;
     IncomingPacketFeedback(packet_feedback);
     if (prev_detector_state == BandwidthUsage::kBwUnderusing &&
-        detector_.State() == BandwidthUsage::kBwNormal) {
+        trendline_estimator_->State() == BandwidthUsage::kBwNormal) {
       recovered_from_overuse = true;
     }
-    prev_detector_state = detector_.State();
+    prev_detector_state = trendline_estimator_->State();
   }
 
   if (delayed_feedback) {
@@ -210,9 +212,6 @@ void DelayBasedBwe::IncomingPacketFeedback(
     double ts_delta_ms = (1000.0 * ts_delta) / (1 << kInterArrivalShift);
     trendline_estimator_->Update(t_delta, ts_delta_ms,
                                  packet_feedback.arrival_time_ms);
-    detector_.Detect(trendline_estimator_->trendline_slope(), ts_delta_ms,
-                     trendline_estimator_->num_of_deltas(),
-                     packet_feedback.arrival_time_ms);
   }
   if (packet_feedback.pacing_info.probe_cluster_id !=
       PacedPacketInfo::kNotAProbe) {
@@ -229,7 +228,7 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
   rtc::Optional<int> probe_bitrate_bps =
       probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps();
   // Currently overusing the bandwidth.
-  if (detector_.State() == BandwidthUsage::kBwOverusing) {
+  if (trendline_estimator_->State() == BandwidthUsage::kBwOverusing) {
     if (acked_bitrate_bps &&
         rate_control_.TimeToReduceFurther(now_ms, *acked_bitrate_bps)) {
       result.updated =
@@ -259,8 +258,9 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
       result.recovered_from_overuse = recovered_from_overuse;
     }
   }
+  BandwidthUsage detector_state = trendline_estimator_->State();
   if ((result.updated && prev_bitrate_ != result.target_bitrate_bps) ||
-      detector_.State() != prev_state_) {
+      detector_state != prev_state_) {
     uint32_t bitrate_bps =
         result.updated ? result.target_bitrate_bps : prev_bitrate_;
 
@@ -268,11 +268,11 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
 
     if (event_log_) {
       event_log_->Log(rtc::MakeUnique<RtcEventBweUpdateDelayBased>(
-          bitrate_bps, detector_.State()));
+          bitrate_bps, detector_state));
     }
 
     prev_bitrate_ = bitrate_bps;
-    prev_state_ = detector_.State();
+    prev_state_ = detector_state;
   }
   return result;
 }
@@ -282,7 +282,8 @@ bool DelayBasedBwe::UpdateEstimate(int64_t now_ms,
                                    uint32_t* target_bitrate_bps) {
   // TODO(terelius): RateControlInput::noise_var is deprecated and will be
   // removed. In the meantime, we set it to zero.
-  const RateControlInput input(detector_.State(), acked_bitrate_bps, 0);
+  const RateControlInput input(trendline_estimator_->State(), acked_bitrate_bps,
+                               0);
   *target_bitrate_bps = rate_control_.Update(&input, now_ms);
   return rate_control_.ValidEstimate();
 }

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "35b738d5_5cc3385d",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-10T21:03:18Z",
+      "side": 1,
+      "message": "nit: Maybe not part of this change, but perhaps you could add\n\u003c\u003c \", but was \" \u003c\u003c rtp_parameters.encodings[0].bitrate_priority; ?",
+      "range": {
+        "startLine": 1825,
+        "startChar": 76,
+        "endLine": 1825,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02b6da04_cc78a2b5",
         "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
         "patchSetId": 7
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "I was thinking about this, but I was hesitant to do so because when the TemporalLayer calls OnRatesUpdated() below it updates the state of the TemporalLayer. For DefaultTemporalLayer this means updating the value new_bitrates_kbps_, and in ScreenshareLayers bitrate_updated_, capture_framerate_ and target_framerate_ are udpated. So if a stream changed from active to inactive, I was thinking that OnRatesUpdated should still be called. Is this the correct assumption or is it okay to skip these updates for an inactive stream?",
       "parentUuid": "02b6da04_cc78a2b5",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "229c6956_8afaee8f",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-10T21:03:18Z",
+      "side": 1,
+      "message": "I don\u0027t think it does matter right, but it\u0027s a fair point. Let\u0027s keep it like this for now. I\u0027m hoping we can give the temporal layers a big overhaul later, can revisit in that case. But maybe add a todo?",
+      "parentUuid": "e30bc8a5_46507a0c",
       "range": {
         "startLine": 132,
         "startChar": 24,

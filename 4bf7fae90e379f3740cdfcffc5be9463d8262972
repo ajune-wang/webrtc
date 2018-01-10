@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e30bc8a5_46507a0c",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-10T19:58:26Z",
+      "side": 1,
+      "message": "I was thinking about this, but I was hesitant to do so because when the TemporalLayer calls OnRatesUpdated() below it updates the state of the TemporalLayer. For DefaultTemporalLayer this means updating the value new_bitrates_kbps_, and in ScreenshareLayers bitrate_updated_, capture_framerate_ and target_framerate_ are udpated. So if a stream changed from active to inactive, I was thinking that OnRatesUpdated should still be called. Is this the correct assumption or is it okay to skip these updates for an inactive stream?",
+      "parentUuid": "02b6da04_cc78a2b5",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a628c1a0_4f1b4ff6",
         "filename": "modules/video_coding/utility/simulcast_rate_allocator_unittest.cc",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0be0194a_1c4e8edb",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-10T19:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a628c1a0_4f1b4ff6",
+      "range": {
+        "startLine": 609,
+        "startChar": 52,
+        "endLine": 609,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bc46c94_e9a2863d",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 7
@@ -62,6 +110,24 @@
       "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f011b488_4dfcc546",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-10T19:58:26Z",
+      "side": 1,
+      "message": "Makes sense. Done.",
+      "parentUuid": "7bc46c94_e9a2863d",
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +151,30 @@
       "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d721f95_23259daa",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-10T19:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cd223bb_eea9f763",
+      "range": {
+        "startLine": 198,
+        "startChar": 26,
+        "endLine": 198,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

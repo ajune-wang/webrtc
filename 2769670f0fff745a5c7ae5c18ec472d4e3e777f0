@@ -175,6 +175,24 @@
       "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c73788d3_dcd327b1",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-10T02:18:15Z",
+      "side": 1,
+      "message": "Yeah that\u0027s correct about how it\u0027s used. You can look inside the DefaultVideoBitrate allocator or the SimulcastRateAllocator when codec_.numberOfSimulcastStreams\u003d\u003d0 to see it being used.\n\nI thought about this case for the first stream being disabled, but left it as is because the video_codec.active isn\u0027t used at all in the simulcast case. Giving it further thought, I wouldn\u0027t ever want these fields to store contradictory information, even if it isn\u0027t being used. I updated the video_codec.active to reflect that and updated the test.",
+      "parentUuid": "971c9ab6_b3481567",
+      "revId": "2769670f0fff745a5c7ae5c18ec472d4e3e777f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

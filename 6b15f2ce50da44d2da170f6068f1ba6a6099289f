@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66e4e46a_1406e1c1",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:07:25Z",
+      "side": 0,
+      "message": "Will no longer get this error, but it looks like it was impossible in the first place, so this seems fine.",
+      "revId": "6b15f2ce50da44d2da170f6068f1ba6a6099289f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

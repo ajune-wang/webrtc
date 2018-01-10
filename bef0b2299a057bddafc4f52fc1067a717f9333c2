@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc5d3e46_adae2e89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:07:25Z",
+      "side": 1,
+      "message": "May want to briefly mention changes to RtpSender constructors",
+      "revId": "bef0b2299a057bddafc4f52fc1067a717f9333c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98041e75_e72fc8cc",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5340,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:07:25Z",
+      "side": 1,
+      "message": "Probably want to say \"track\", since that\u0027s the term someone using the PeerConnection API would recognize.",
+      "revId": "bef0b2299a057bddafc4f52fc1067a717f9333c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a364d632_f6321926",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5344,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:07:25Z",
+      "side": 1,
+      "message": "Would be good to have a unit test for this validation if one doesn\u0027t exist.",
+      "revId": "bef0b2299a057bddafc4f52fc1067a717f9333c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a85890c6_66efcc59",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-10T23:07:25Z",
+      "side": 1,
+      "message": "Just for my own knowledge: how do you decide whether to put a test in PeerConnectionJsepTest or PeerConnectionRtpUnifiedPlanTest?",
+      "revId": "bef0b2299a057bddafc4f52fc1067a717f9333c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

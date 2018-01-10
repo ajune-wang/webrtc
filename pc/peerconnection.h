@@ -347,28 +347,29 @@ class PeerConnection : public PeerConnectionInterface,
 
   // AddTrack implementation when Unified Plan is specified.
   RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackUnifiedPlan(
-      rtc::scoped_refptr<MediaStreamTrackInterface> track,
+      const rtc::scoped_refptr<MediaStreamTrackInterface>& track,
       const std::vector<std::string>& stream_labels);
   // AddTrack implementation when Plan B is specified.
   RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackPlanB(
-      rtc::scoped_refptr<MediaStreamTrackInterface> track,
+      const rtc::scoped_refptr<MediaStreamTrackInterface>& track,
       const std::vector<std::string>& stream_labels);
 
   // Returns the first RtpTransceiver suitable for a newly added track, if such
   // transceiver is available.
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
   FindFirstTransceiverForAddedTrack(
-      rtc::scoped_refptr<MediaStreamTrackInterface> track);
+      const rtc::scoped_refptr<MediaStreamTrackInterface>& track);
 
   // RemoveTrack that returns an RTCError.
-  RTCError RemoveTrackInternal(rtc::scoped_refptr<RtpSenderInterface> sender);
+  RTCError RemoveTrackInternal(
+      const rtc::scoped_refptr<RtpSenderInterface>& sender);
 
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
-  FindTransceiverBySender(rtc::scoped_refptr<RtpSenderInterface> sender);
+  FindTransceiverBySender(const rtc::scoped_refptr<RtpSenderInterface>& sender);
 
   RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>> AddTransceiver(
       cricket::MediaType media_type,
-      rtc::scoped_refptr<MediaStreamTrackInterface> track,
+      const rtc::scoped_refptr<MediaStreamTrackInterface>& track,
       const RtpTransceiverInit& init);
 
   // Create a new RtpTransceiver of the given type and add it to the list of
@@ -423,7 +424,7 @@ class PeerConnection : public PeerConnectionInterface,
   // Either creates or destroys the transceiver's BaseChannel according to the
   // given media section.
   RTCError UpdateTransceiverChannel(
-      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+      const rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>&
           transceiver,
       const cricket::ContentInfo& content,
       const cricket::ContentGroup* bundle_group);
@@ -461,7 +462,7 @@ class PeerConnection : public PeerConnectionInterface,
   // RtpTransceiver is not associated. Logic varies depending on the
   // SdpSemantics specified in the configuration.
   const cricket::ContentInfo* FindMediaSectionForTransceiver(
-      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+      const rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>&
           transceiver,
       const SessionDescriptionInterface* sdesc) const;
 
@@ -634,7 +635,7 @@ class PeerConnection : public PeerConnectionInterface,
       cricket::MediaType media_type);
   const RtpSenderInfo* FindSenderInfo(const std::vector<RtpSenderInfo>& infos,
                                       const std::string& stream_label,
-                                      const std::string sender_id) const;
+                                      const std::string& sender_id) const;
 
   // Returns the specified SCTP DataChannel in sctp_data_channels_,
   // or nullptr if not found.
@@ -880,7 +881,7 @@ class PeerConnection : public PeerConnectionInterface,
   // Destroys and clears the BaseChannel associated with the given transceiver,
   // if such channel is set.
   void DestroyTransceiverChannel(
-      rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+      const rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>&
           transceiver);
 
   // Destroys the RTP data channel and/or the SCTP data channel and clears it.

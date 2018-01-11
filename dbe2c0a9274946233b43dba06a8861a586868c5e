@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e58f6ab4_e9f2ebd7",
+        "filename": "api/rtpreceiverinterface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T08:27:32Z",
+      "side": 1,
+      "message": "No, the reason is that I didn\u0027t think of it. There\u0027s plenty of exposed-to-Chrome stuff that uses rtc::optional.",
+      "parentUuid": "1fd523f9_219fc2d9",
+      "revId": "dbe2c0a9274946233b43dba06a8861a586868c5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f41ee75e_93ed2e00",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 9
@@ -30,6 +48,30 @@
       "writtenOn": "2018-01-11T08:14:09Z",
       "side": 1,
       "message": "So, in this context it is ok if the mapping does not exist and GetAttachmentIdByTrack() returns -1?",
+      "range": {
+        "startLine": 1076,
+        "startChar": 16,
+        "endLine": 1076,
+        "endChar": 37
+      },
+      "revId": "dbe2c0a9274946233b43dba06a8861a586868c5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71afee09_a2233fd1",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T08:27:32Z",
+      "side": 1,
+      "message": "This function should really DCHECK on nonexistence, because that would mean that a track thinks it\u0027s connected to the sender, but the sender doesn\u0027t think it\u0027s connected to any track, which indicates that there\u0027s a bug. Using rtc::optional::value() will check() out by default, I think.",
+      "parentUuid": "f41ee75e_93ed2e00",
       "range": {
         "startLine": 1076,
         "startChar": 16,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "55ab39fb_afaf2b29",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T08:27:32Z",
+      "side": 1,
+      "message": "The idea is to generate IDs that can be matched by the predefined IDs in the tests. The idea that the tests should know what the IDs are going to be is bogus and should be abandoned, but I\u0027m not doing that in this CL.",
+      "parentUuid": "68583bc1_e151226f",
+      "range": {
+        "startLine": 442,
+        "startChar": 20,
+        "endLine": 442,
+        "endChar": 23
+      },
+      "revId": "dbe2c0a9274946233b43dba06a8861a586868c5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ee1ee51_8d470f4e",
         "filename": "pc/rtpreceiver.cc",
         "patchSetId": 9
@@ -76,6 +142,30 @@
       "writtenOn": "2018-01-11T08:14:09Z",
       "side": 1,
       "message": "This is always called on the signaling thread?\n\nnit: I\u0027d prefer to declare the static inside the function but maybe there are subtleties with that which elude me...",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "dbe2c0a9274946233b43dba06a8861a586868c5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64855b78_e04c6063",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T08:27:32Z",
+      "side": 1,
+      "message": "Rather the other way around, that I was afraid there would be subtleties that eluded me with placing it inside :-) will move it inside.",
+      "parentUuid": "4ee1ee51_8d470f4e",
       "range": {
         "startLine": 29,
         "startChar": 11,

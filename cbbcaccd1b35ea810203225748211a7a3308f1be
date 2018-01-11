@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "54376cff_2f0b4534",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T12:20:56Z",
+      "side": 1,
+      "message": "The return value \u003d\u003d 0 means that no track is attached. Added API comment to reflect that.",
+      "parentUuid": "9f4ebfa2_b8fbb351",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1738cd6_6513d7bd",
         "filename": "pc/rtpreceiver.h",
         "patchSetId": 11
@@ -33,6 +51,24 @@
       "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e24281e2_6ad7e9d3",
+        "filename": "pc/rtpreceiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T12:20:56Z",
+      "side": 1,
+      "message": "I\u0027ve had arguments at other times that we shouldn\u0027t both have initializer list initialization and \"\u003d value\" initialization. But doing both makes it stable against constructor munging, so why not :-)",
+      "parentUuid": "c1738cd6_6513d7bd",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3674da16_17a77feb",
+        "filename": "pc/rtpreceiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T12:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3a2aca7_5c1e7bc2",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14c17be8_81c3a4fa",
         "filename": "pc/rtpsender.cc",
         "patchSetId": 11
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "692f0d87_a39e532c",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T12:20:56Z",
+      "side": 1,
+      "message": "Copied the comment over. If the function had been in an object that knows about threads, I\u0027d have added a check - but the senders and receivers currently don\u0027t know about threads directly, they only call rtc::Thread::Current() in a couple of places.",
+      "parentUuid": "14c17be8_81c3a4fa",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a536c378_e872b745",
         "filename": "pc/rtpsender.h",
         "patchSetId": 11
@@ -84,6 +156,24 @@
       "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d24c08_e2c9048e",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-11T12:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a536c378_e872b745",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

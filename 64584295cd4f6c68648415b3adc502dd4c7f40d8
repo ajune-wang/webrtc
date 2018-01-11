@@ -69,6 +69,30 @@
       "revId": "64584295cd4f6c68648415b3adc502dd4c7f40d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa51c13_c3fdc6ab",
+        "filename": "experiments/alr_experiment.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-11T09:22:24Z",
+      "side": 1,
+      "message": "IIRC the procedure we follow is to write the current year when we create a new file, and then never change it. It makes no sense to me, but I\u0027ve decided I\u0027m happier if I don\u0027t try to make sense of copyright law.",
+      "parentUuid": "4cbbfdce_28379151",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "64584295cd4f6c68648415b3adc502dd4c7f40d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

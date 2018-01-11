@@ -17,6 +17,14 @@ struct StereoIndices {
   uint8_t frame_index;
   uint8_t frame_count;
   uint16_t picture_index;
+
+  uint32_t yuv_size;
+  uint32_t yuv_length;
+  uint8_t yuv_type;
+
+  uint32_t alpha_size;
+  uint32_t alpha_length;
+  uint8_t alpha_type;
 };
 
 }  // namespace webrtc

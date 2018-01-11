@@ -77,6 +77,10 @@ TEST_F(TestSimulcastEncoderAdapter, TestActiveStreams) {
   TestVp8Simulcast::TestActiveStreams();
 }
 
+TEST_F(TestSimulcastEncoderAdapter, TestActiveStreamsKeyFrames) {
+  TestVp8Simulcast::TestActiveStreamsKeyFrames();
+}
+
 TEST_F(TestSimulcastEncoderAdapter, TestSwitchingToOneStream) {
   TestVp8Simulcast::TestSwitchingToOneStream();
 }

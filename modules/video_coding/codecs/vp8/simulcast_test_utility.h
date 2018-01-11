@@ -570,6 +570,44 @@ class TestVp8Simulcast : public ::testing::Test {
     EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
   }
 
+  // This test demonstrates how the Vp8 encoder sends kVideoFrameKey when
+  // the expected behavior is to send kVideoFrameDeltas.
+  void TestActiveStreamsKeyFrames() {
+    const int kEnoughBitrateAllStreams =
+        kMaxBitrates[0] + kMaxBitrates[1] + kMaxBitrates[2];
+    SetRates(kEnoughBitrateAllStreams, 30);
+    std::vector<FrameType> frame_types(kNumberOfSimulcastStreams,
+                                       kVideoFrameDelta);
+    ExpectStreams(kVideoFrameKey, 3);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // Only keep the low stream on. This stream will stay on even when there
+    // isn't sufficient bitrate.
+    settings_.simulcastStream[0].active = false;
+    settings_.simulcastStream[1].active = false;
+    SetUpRateAllocator();
+    SetRates(kMinBitrates[0] - 1, 30);
+
+    // Vp8Impl emits key frames here.
+    // To pass TestVp8Impl.TestActiveStreamsKeyFrames:
+    ExpectStreams(kVideoFrameKey, {false, false, true});
+    // SimulcastEncoderAdapter emits frame deltas here.
+    // To pass TestSimulcastEncoderAdapter.TestActiveStreamsKeyFrames:
+    // ExpectStreams(kVideoFrameDelta, {false, false, true});
+
+    input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // Vp8Impl emits key frames if we encode again here.
+    // To pass TestVp8Impl.TestActiveStreamsKeyFrames:
+    ExpectStreams(kVideoFrameKey, {false, false, true});
+    // To pass TestSimulcastEncoderAdapter.TestActiveStreamsKeyFrames:
+    // ExpectStreams(kVideoFrameDelta, {false, false, true});
+
+    input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+  }
+
   void SwitchingToOneStream(int width, int height) {
     // Disable all streams except the last and set the bitrate of the last to
     // 100 kbps. This verifies the way GTP switches to screenshare mode.

@@ -104,6 +104,24 @@
       "revId": "730add8e2c8b033eae0cf3589be14d0afc4acdd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65eda022_8540f459",
+        "filename": "voice_engine/channel_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-01-11T12:39:50Z",
+      "side": 0,
+      "message": "Oh, alright! :)",
+      "parentUuid": "3d57f147_1484eeb9",
+      "revId": "730add8e2c8b033eae0cf3589be14d0afc4acdd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

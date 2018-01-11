@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "565023f6_f91edd55",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-11T13:46:25Z",
+      "side": 1,
+      "message": "This should always happen, right? Should we DCHECK instead?",
+      "range": {
+        "startLine": 445,
+        "startChar": 6,
+        "endLine": 445,
+        "endChar": 45
+      },
+      "revId": "6bec17829d559ef6c551c4c9661ba481cb6f843b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 include_rules = [
   "+call",
   "+common_video",
+  "+experiments",
   "+logging/rtc_event_log",
   "+media/base",
   "+media/engine",

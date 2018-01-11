@@ -106,13 +106,9 @@ class BaseChannel
   bool enabled() const { return enabled_; }
 
   // This function returns true if we are using SDES.
-  bool sdes_active() const {
-    return sdes_transport_ && sdes_negotiator_.IsActive();
-  }
+  bool sdes_active() const { return false; }
   // The following function returns true if we are using DTLS-based keying.
-  bool dtls_active() const {
-    return dtls_srtp_transport_ && dtls_srtp_transport_->IsActive();
-  }
+  bool dtls_active() const { return false; }
   // This function returns true if using SRTP (DTLS-based keying or SDES).
   bool srtp_active() const { return sdes_active() || dtls_active(); }
 

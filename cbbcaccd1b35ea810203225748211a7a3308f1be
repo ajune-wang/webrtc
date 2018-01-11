@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f4ebfa2_b8fbb351",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-11T11:59:10Z",
+      "side": 1,
+      "message": "Does the return value\u003d\u003d0 mean that the attachment ID is unset, or is this expectation simply an assumption on the implementation, made to verify it is actually being called?",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1738cd6_6513d7bd",
+        "filename": "pc/rtpreceiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-11T11:59:10Z",
+      "side": 1,
+      "message": "nit: init to 0 by default - it will help tests if someone moves the code around",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3a2aca7_5c1e7bc2",
+        "filename": "pc/rtpreceiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-11T11:59:10Z",
+      "side": 1,
+      "message": "and here",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c17be8_81c3a4fa",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-11T11:59:10Z",
+      "side": 1,
+      "message": "nit: this one as well\n\nand we have the same thread assumption - is it a good idea to document with e.g. a thread checker?",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a536c378_e872b745",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-11T11:59:10Z",
+      "side": 1,
+      "message": "init to zero",
+      "revId": "cbbcaccd1b35ea810203225748211a7a3308f1be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

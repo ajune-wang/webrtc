@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31bd7e13_116893a5",
+        "filename": "pc/trackmediainfomap.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-11T11:59:10Z",
+      "side": 1,
+      "message": "nit: use rtc::nullopt",
+      "range": {
+        "startLine": 273,
+        "startChar": 52,
+        "endLine": 273,
+        "endChar": 60
+      },
+      "revId": "d62c0fc3978c6d9f68838b31e9d413e4cedab7dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

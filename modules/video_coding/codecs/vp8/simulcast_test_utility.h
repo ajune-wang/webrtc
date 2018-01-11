@@ -203,6 +203,7 @@ class TestVp8Simulcast : public ::testing::Test {
     settings->width = kDefaultWidth;
     settings->height = kDefaultHeight;
     settings->numberOfSimulcastStreams = kNumberOfSimulcastStreams;
+    settings->active = true;
     ASSERT_EQ(3, kNumberOfSimulcastStreams);
     settings->timing_frame_thresholds = {kDefaultTimingFramesDelayMs,
                                          kDefaultOutlierFrameSizePercent};
@@ -238,6 +239,7 @@ class TestVp8Simulcast : public ::testing::Test {
     stream->targetBitrate = target_bitrate;
     stream->numberOfTemporalLayers = num_temporal_layers;
     stream->qpMax = 45;
+    stream->active = true;
   }
 
  protected:
@@ -282,10 +284,11 @@ class TestVp8Simulcast : public ::testing::Test {
         rate_allocator_->GetAllocation(bitrate_kbps * 1000, fps), fps);
   }
 
-  void ExpectStreams(FrameType frame_type, int expected_video_streams) {
-    ASSERT_GE(expected_video_streams, 0);
-    ASSERT_LE(expected_video_streams, kNumberOfSimulcastStreams);
-    if (expected_video_streams >= 1) {
+  void ExpectStreams(FrameType frame_type,
+                     const std::vector<bool> expected_streams_active) {
+    ASSERT_EQ(static_cast<int>(expected_streams_active.size()),
+              kNumberOfSimulcastStreams);
+    if (expected_streams_active[0]) {
       EXPECT_CALL(
           encoder_callback_,
           OnEncodedImage(
@@ -297,7 +300,7 @@ class TestVp8Simulcast : public ::testing::Test {
           .WillRepeatedly(Return(EncodedImageCallback::Result(
               EncodedImageCallback::Result::OK, 0)));
     }
-    if (expected_video_streams >= 2) {
+    if (expected_streams_active[1]) {
       EXPECT_CALL(
           encoder_callback_,
           OnEncodedImage(
@@ -309,7 +312,7 @@ class TestVp8Simulcast : public ::testing::Test {
           .WillRepeatedly(Return(EncodedImageCallback::Result(
               EncodedImageCallback::Result::OK, 0)));
     }
-    if (expected_video_streams >= 3) {
+    if (expected_streams_active[2]) {
       EXPECT_CALL(
           encoder_callback_,
           OnEncodedImage(
@@ -321,6 +324,16 @@ class TestVp8Simulcast : public ::testing::Test {
           .WillRepeatedly(Return(EncodedImageCallback::Result(
               EncodedImageCallback::Result::OK, 0)));
     }
+  }
+
+  void ExpectStreams(FrameType frame_type, int expected_video_streams) {
+    ASSERT_GE(expected_video_streams, 0);
+    ASSERT_LE(expected_video_streams, kNumberOfSimulcastStreams);
+    std::vector<bool> expected_streams_active(kNumberOfSimulcastStreams, false);
+    for (int i = 0; i < expected_video_streams; ++i) {
+      expected_streams_active[i] = true;
+    }
+    ExpectStreams(frame_type, expected_streams_active);
   }
 
   void VerifyTemporalIdxAndSyncForAllSpatialLayers(
@@ -497,6 +510,62 @@ class TestVp8Simulcast : public ::testing::Test {
     SetRates(kTargetBitrates[0] + kTargetBitrates[1] + kTargetBitrates[2], 30);
     // We get a key frame because a new stream is being enabled.
     ExpectStreams(kVideoFrameKey, 3);
+    input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+  }
+
+  void TestActiveStreams() {
+    const int kEnoughBitrateAllStreams =
+        kMaxBitrates[0] + kMaxBitrates[1] + kMaxBitrates[2];
+    SetRates(kEnoughBitrateAllStreams, 30);
+    std::vector<FrameType> frame_types(kNumberOfSimulcastStreams,
+                                       kVideoFrameDelta);
+    ExpectStreams(kVideoFrameKey, 3);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    ExpectStreams(kVideoFrameDelta, 3);
+    input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // Turn off the low stream.
+    settings_.simulcastStream[0].active = false;
+    SetUpRateAllocator();
+    SetRates(kEnoughBitrateAllStreams, 30);
+    ExpectStreams(kVideoFrameDelta, {false, true, true});
+    input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // Turn low stream back on triggers key frames.
+    settings_.simulcastStream[0].active = true;
+    SetUpRateAllocator();
+    SetRates(kEnoughBitrateAllStreams, 30);
+    ExpectStreams(kVideoFrameKey, {true, true, true});
+    input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // Turn off the middle stream.
+    settings_.simulcastStream[1].active = false;
+    SetUpRateAllocator();
+    SetRates(kEnoughBitrateAllStreams, 30);
+    ExpectStreams(kVideoFrameDelta, {true, false, true});
+    input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // Turn middle stream back on triggers key frames.
+    settings_.simulcastStream[1].active = true;
+    SetUpRateAllocator();
+    SetRates(kEnoughBitrateAllStreams, 30);
+    ExpectStreams(kVideoFrameKey, {true, true, true});
+    input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // Only keep the low stream on. This stream will stay on even when there
+    // isn't sufficient bitrate.
+    settings_.simulcastStream[1].active = false;
+    settings_.simulcastStream[2].active = false;
+    SetUpRateAllocator();
+    SetRates(kMinBitrates[0] - 1, 30);
+    ExpectStreams(kVideoFrameDelta, {true, false, false});
     input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
     EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
   }

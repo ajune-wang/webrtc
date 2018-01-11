@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6453e34_272fd49e",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-11T13:57:14Z",
+      "side": 1,
+      "message": "Is this intentionally left here? Seems redundant with the reset below.",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 29
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26b60e74_30b371fe",
+        "filename": "modules/congestion_controller/delay_based_bwe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-11T13:57:14Z",
+      "side": 1,
+      "message": "Should the name reflect that it\u0027s specifically a trendline estimator, or should it reflect the interface it fulfils?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 54
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028ccbf7_7cb782af",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-11T13:57:14Z",
+      "side": 1,
+      "message": "Just looking at the interface, it seems like such a class detects bandwidth usage (or more specifically, usage state in the set of underuse, normal, overuse) _based_ on delay, rather than detecting delay itself.\n\nMaybe naming it BandwidthUsageClassifier[Interface] or something in that spirit would make it clearer for the reader what it actually does?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "652fa8ba_166c1262",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-11T13:57:14Z",
+      "side": 1,
+      "message": "Would be nice if the definition was repeated here, saving some indirection for the reader, also, keeping it persistent if, by chance, the InterArrival class is refactored later end the definition is removed.",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 67
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c5bd356_74b337a0",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-11T13:57:14Z",
+      "side": 1,
+      "message": "Some verbosity wouldn\u0027t hurt here, how about [Get][Current]BandwidthUsage[State]?",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec58840c_e6d9d0e3",
+        "filename": "modules/congestion_controller/trendline_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-11T13:57:14Z",
+      "side": 1,
+      "message": "The return value doesn\u0027t seem to be used?",
+      "range": {
+        "startLine": 120,
+        "startChar": 35,
+        "endLine": 120,
+        "endChar": 41
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

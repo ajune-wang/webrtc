@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8bd60ec_510b8600",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-11T19:09:14Z",
+      "side": 1,
+      "message": "Does packet.time_ms start from 0 or can it start at an arbitrary offset?",
+      "range": {
+        "startLine": 305,
+        "startChar": 46,
+        "endLine": 305,
+        "endChar": 60
+      },
+      "revId": "c8374430e989c24545a649f0af44cde566aa3581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

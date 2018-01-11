@@ -20,6 +20,16 @@
 
 namespace webrtc {
 
+namespace {
+
+static int g_unique_id = 0;
+
+int GenerateUniqueId() {
+  return ++g_unique_id;
+}
+
+}  // namespace
+
 LocalAudioSinkAdapter::LocalAudioSinkAdapter() : sink_(nullptr) {}
 
 LocalAudioSinkAdapter::~LocalAudioSinkAdapter() {
@@ -165,6 +175,7 @@ bool AudioRtpSender::SetTrack(MediaStreamTrackInterface* track) {
   } else if (prev_can_send_track) {
     ClearAudioSend();
   }
+  attachment_id_ = GenerateUniqueId();
   return true;
 }
 
@@ -340,6 +351,7 @@ bool VideoRtpSender::SetTrack(MediaStreamTrackInterface* track) {
   } else if (prev_can_send_track) {
     ClearVideoSend();
   }
+  attachment_id_ = GenerateUniqueId();
   return true;
 }
 

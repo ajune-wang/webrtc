@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8bbaf5_a6c0ee68",
+        "filename": "api/rtpsenderinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-11T18:57:42Z",
+      "side": 1,
+      "message": "Was there a reason we didn\u0027t use rtc::Optional?",
+      "revId": "c72af93cff8e79e97987c3bee1493668b7826e37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

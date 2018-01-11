@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "77922612_e3558c27",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-11T01:19:59Z",
+      "side": 1,
+      "message": "I\u0027m taking this change out the CL now that I\u0027ve rebased and the default VideoStream constructor sets active to true. Thanks for the suggestion, I\u0027ll add it to a future CL when I edit this file next.",
+      "parentUuid": "35b738d5_5cc3385d",
+      "range": {
+        "startLine": 1825,
+        "startChar": 76,
+        "endLine": 1825,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02b6da04_cc78a2b5",
         "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
         "patchSetId": 7
@@ -93,6 +117,30 @@
       "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "815e23ec_d66cd586",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_rate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-11T01:19:59Z",
+      "side": 1,
+      "message": "Sounds good. I added a TODO for now.",
+      "parentUuid": "229c6956_8afaee8f",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "4bf7fae90e379f3740cdfcffc5be9463d8262972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

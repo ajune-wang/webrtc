@@ -20,6 +20,17 @@
 
 namespace webrtc {
 
+namespace {
+
+// This function is only expected to be called on the signalling thread.
+int GenerateUniqueId() {
+  static int g_unique_id = 0;
+
+  return ++g_unique_id;
+}
+
+}  // namespace
+
 LocalAudioSinkAdapter::LocalAudioSinkAdapter() : sink_(nullptr) {}
 
 LocalAudioSinkAdapter::~LocalAudioSinkAdapter() {
@@ -165,6 +176,7 @@ bool AudioRtpSender::SetTrack(MediaStreamTrackInterface* track) {
   } else if (prev_can_send_track) {
     ClearAudioSend();
   }
+  attachment_id_ = GenerateUniqueId();
   return true;
 }
 
@@ -340,6 +352,7 @@ bool VideoRtpSender::SetTrack(MediaStreamTrackInterface* track) {
   } else if (prev_can_send_track) {
     ClearVideoSend();
   }
+  attachment_id_ = GenerateUniqueId();
   return true;
 }
 

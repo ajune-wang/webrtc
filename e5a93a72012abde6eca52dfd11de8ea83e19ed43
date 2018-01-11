@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00fe65fa_fcc95fb7",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-11T12:08:16Z",
+      "side": 0,
+      "message": "I can find nothing ever connecting to this signal.",
+      "range": {
+        "startLine": 511,
+        "startChar": 52,
+        "endLine": 511,
+        "endChar": 70
+      },
+      "revId": "e5a93a72012abde6eca52dfd11de8ea83e19ed43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

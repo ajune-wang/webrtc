@@ -46,6 +46,30 @@
       "revId": "c8374430e989c24545a649f0af44cde566aa3581",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24bbf08c_fa448c1b",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-12T10:29:30Z",
+      "side": 1,
+      "message": "Ok. lgtm",
+      "parentUuid": "f79d8aa5_1994f368",
+      "range": {
+        "startLine": 305,
+        "startChar": 46,
+        "endLine": 305,
+        "endChar": 60
+      },
+      "revId": "c8374430e989c24545a649f0af44cde566aa3581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

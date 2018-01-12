@@ -16,6 +16,24 @@
       "revId": "46b3480bbd4a043ecd876c0bfab59c803d3045ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c27739a_c888f744",
+        "filename": "modules/video_coding/codecs/vp8/simulcast_test_utility.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-12T19:34:22Z",
+      "side": 1,
+      "message": "Thanks for the catch here, and yes just turning off the middle stream is a good corner case to test because it\u0027s another case that wasn\u0027t necessarily planned for with the libvpx encoder. I\u0027m planning on adding *just* turning off the low stream as well, once the fix is in to libvpx.",
+      "parentUuid": "a0895d08_964e0a17",
+      "revId": "46b3480bbd4a043ecd876c0bfab59c803d3045ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

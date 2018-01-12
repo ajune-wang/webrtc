@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f37bdfc_b5ad75c5",
+        "filename": "ortc/ortcrtpsenderadapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-12T18:35:57Z",
+      "side": 1,
+      "message": "Should be able to DCHECK that the channel isn\u0027t null. Same in OrtcRtpReceiverAdapter. This class assumes that by the time \"Send\" is called, a media channel has been created for it. This happens in RtpTransportControllerAdapter::CreateProxiedRtpSender when it calls AttachRtpSender.",
+      "revId": "70c782d4562746fceb35c48c43cf9e77d7f6cac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ec83b2_fc16539e",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-12T18:35:57Z",
+      "side": 1,
+      "message": "nit: Why does track_enabled need to be stored in a variable? If there\u0027s a reason, may want to leave a comment explaining.",
+      "revId": "70c782d4562746fceb35c48c43cf9e77d7f6cac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66d9c939_a544dc4d",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-12T18:35:57Z",
+      "side": 1,
+      "message": "nit: \"worker_thread_\" here?",
+      "revId": "70c782d4562746fceb35c48c43cf9e77d7f6cac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

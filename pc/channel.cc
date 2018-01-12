@@ -221,11 +221,17 @@ void BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
   }
 
   RTC_DCHECK(rtp_transport);
+  RTC_DCHECK(rtp_transport->rtp_packet_transport());
+  transport_name_ = rtp_transport->rtp_packet_transport()->transport_name();
 
   if (rtp_transport_) {
     DisconnectFromRtpTransport();
   }
   rtp_transport_ = rtp_transport;
+  // TODO(zhihuang): We don't need this once switching to MID based demuxing.
+  for (int type : payload_types_) {
+    AddHandledPayloadType(type);
+  }
   RTC_LOG(LS_INFO) << "Setting the RtpTransport for " << content_name();
   ConnectToRtpTransport();
 
@@ -567,7 +573,7 @@ bool BaseChannel::SendPacket(bool rtcp,
     return false;
   }
 
-  if (!srtp_active()) {
+  if (!rtp_transport_->IsSrtpActive()) {
     if (srtp_required_) {
       // The audio/video engines may attempt to send RTCP packets as soon as the
       // streams are created, so don't treat this as an error for RTCP.
@@ -587,10 +593,6 @@ bool BaseChannel::SendPacket(bool rtcp,
     std::string packet_type = rtcp ? "RTCP" : "RTP";
     RTC_LOG(LS_WARNING) << "Sending an " << packet_type
                         << " packet without encryption.";
-  } else {
-    // Make sure we didn't accidentally send any packets without encryption.
-    RTC_DCHECK(rtp_transport_ == sdes_transport_.get() ||
-               rtp_transport_ == dtls_srtp_transport_.get());
   }
   // Bon voyage.
   return rtcp ? rtp_transport_->SendRtcpPacket(packet, options, PF_SRTP_BYPASS)
@@ -609,7 +611,7 @@ void BaseChannel::OnPacketReceived(bool rtcp,
     signaling_thread()->Post(RTC_FROM_HERE, this, MSG_FIRSTPACKETRECEIVED);
   }
 
-  if (!srtp_active() && srtp_required_) {
+  if (!rtp_transport_->IsSrtpActive() && srtp_required_) {
     // Our session description indicates that SRTP is required, but we got a
     // packet before our SRTP filter is active. This means either that
     // a) we got SRTP packets before we received the SDES keys, in which case
@@ -1093,6 +1095,7 @@ void BaseChannel::OnMessage(rtc::Message *pmsg) {
 }
 
 void BaseChannel::AddHandledPayloadType(int payload_type) {
+  RTC_DCHECK(rtp_transport_);
   rtp_transport_->AddHandledPayloadType(payload_type);
 }
 
@@ -1321,6 +1324,7 @@ void VoiceChannel::UpdateMediaSendRecvState_w() {
   // Render incoming data if we're the active call, and we have the local
   // content. We receive data on the default channel and multiplexed streams.
   bool recv = IsReadyToReceiveMedia_w();
+  RTC_LOG(INFO) << "Setting playout:" << recv;
   media_channel()->SetPlayout(recv);
 
   // Send outgoing data if we're the active call, we have the remote content,
@@ -1349,10 +1353,11 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(audio->rtp_header_extensions());
 
-  if (!SetRtpTransportParameters(content, type, CS_LOCAL, rtp_header_extensions,
-                                 error_desc)) {
-    return false;
-  }
+  // if (!SetRtpTransportParameters(content, type, CS_LOCAL,
+  // rtp_header_extensions,
+  //                                error_desc)) {
+  //   return false;
+  // }
 
   AudioRecvParameters recv_params = last_recv_params_;
   RtpParametersFromMediaDescription(audio, rtp_header_extensions, &recv_params);
@@ -1362,6 +1367,7 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
     return false;
   }
   for (const AudioCodec& codec : audio->codecs()) {
+    payload_types_.push_back(codec.id);
     AddHandledPayloadType(codec.id);
   }
   last_recv_params_ = recv_params;
@@ -1398,10 +1404,10 @@ bool VoiceChannel::SetRemoteContent_w(const MediaContentDescription* content,
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(audio->rtp_header_extensions());
 
-  if (!SetRtpTransportParameters(content, type, CS_REMOTE,
-                                 rtp_header_extensions, error_desc)) {
-    return false;
-  }
+  // if (!SetRtpTransportParameters(content, type, CS_REMOTE,
+  //                                rtp_header_extensions, error_desc)) {
+  //   return false;
+  // }
 
   AudioSendParameters send_params = last_send_params_;
   RtpSendParametersFromMediaDescription(audio, rtp_header_extensions,
@@ -1589,10 +1595,11 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(video->rtp_header_extensions());
 
-  if (!SetRtpTransportParameters(content, type, CS_LOCAL, rtp_header_extensions,
-                                 error_desc)) {
-    return false;
-  }
+  // if (!SetRtpTransportParameters(content, type, CS_LOCAL,
+  // rtp_header_extensions,
+  //                                error_desc)) {
+  //   return false;
+  // }
 
   VideoRecvParameters recv_params = last_recv_params_;
   RtpParametersFromMediaDescription(video, rtp_header_extensions, &recv_params);
@@ -1602,6 +1609,7 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
     return false;
   }
   for (const VideoCodec& codec : video->codecs()) {
+    payload_types_.push_back(codec.id);
     AddHandledPayloadType(codec.id);
   }
   last_recv_params_ = recv_params;
@@ -1638,10 +1646,10 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(video->rtp_header_extensions());
 
-  if (!SetRtpTransportParameters(content, type, CS_REMOTE,
-                                 rtp_header_extensions, error_desc)) {
-    return false;
-  }
+  // if (!SetRtpTransportParameters(content, type, CS_REMOTE,
+  //                                rtp_header_extensions, error_desc)) {
+  //   return false;
+  // }
 
   VideoSendParameters send_params = last_send_params_;
   RtpSendParametersFromMediaDescription(video, rtp_header_extensions,
@@ -1780,10 +1788,11 @@ bool RtpDataChannel::SetLocalContent_w(const MediaContentDescription* content,
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(data->rtp_header_extensions());
 
-  if (!SetRtpTransportParameters(content, type, CS_LOCAL, rtp_header_extensions,
-                                 error_desc)) {
-    return false;
-  }
+  // if (!SetRtpTransportParameters(content, type, CS_LOCAL,
+  // rtp_header_extensions,
+  //                                error_desc)) {
+  //   return false;
+  // }
 
   DataRecvParameters recv_params = last_recv_params_;
   RtpParametersFromMediaDescription(data, rtp_header_extensions, &recv_params);
@@ -1793,6 +1802,7 @@ bool RtpDataChannel::SetLocalContent_w(const MediaContentDescription* content,
     return false;
   }
   for (const DataCodec& codec : data->codecs()) {
+    payload_types_.push_back(codec.id);
     AddHandledPayloadType(codec.id);
   }
   last_recv_params_ = recv_params;
@@ -1838,11 +1848,11 @@ bool RtpDataChannel::SetRemoteContent_w(const MediaContentDescription* content,
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(data->rtp_header_extensions());
 
-  RTC_LOG(LS_INFO) << "Setting remote data description";
-  if (!SetRtpTransportParameters(content, type, CS_REMOTE,
-                                 rtp_header_extensions, error_desc)) {
-    return false;
-  }
+  // RTC_LOG(LS_INFO) << "Setting remote data description";
+  // if (!SetRtpTransportParameters(content, type, CS_REMOTE,
+  //                                rtp_header_extensions, error_desc)) {
+  //   return false;
+  // }
 
   DataSendParameters send_params = last_send_params_;
   RtpSendParametersFromMediaDescription<DataCodec>(data, rtp_header_extensions,

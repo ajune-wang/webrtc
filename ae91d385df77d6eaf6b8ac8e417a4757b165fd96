@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "55918e5c_d511b434",
+        "filename": "modules/pacing/alr_detector.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-12T14:32:51Z",
+      "side": 1,
+      "message": "Yes, probably. Brace initializing integers like this is a good idea.",
+      "parentUuid": "aef8fc93_729415a9",
+      "range": {
+        "startLine": 76,
+        "startChar": 32,
+        "endLine": 76,
+        "endChar": 43
+      },
+      "revId": "ae91d385df77d6eaf6b8ac8e417a4757b165fd96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "322a4929_b9b3246c",
         "filename": "rtc_base/experiments/BUILD.gn",
         "patchSetId": 9

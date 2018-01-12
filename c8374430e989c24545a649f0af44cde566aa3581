@@ -22,6 +22,30 @@
       "revId": "c8374430e989c24545a649f0af44cde566aa3581",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f79d8aa5_1994f368",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-01-12T10:27:48Z",
+      "side": 1,
+      "message": "It starts at 0.",
+      "parentUuid": "a8bd60ec_510b8600",
+      "range": {
+        "startLine": 305,
+        "startChar": 46,
+        "endLine": 305,
+        "endChar": 60
+      },
+      "revId": "c8374430e989c24545a649f0af44cde566aa3581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

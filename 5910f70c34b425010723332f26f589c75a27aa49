@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b12bca80_b8bcfe04",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-12T14:02:16Z",
+      "side": 1,
+      "message": "nit: track_ids_by_stream_ids",
+      "revId": "5910f70c34b425010723332f26f589c75a27aa49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53cf614_c28f8cd1",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-12T14:02:16Z",
+      "side": 1,
+      "message": "This assumes that there is a attachment for this sender, which shouldn\u0027t be if it doesn\u0027t have a track at the moment.\nWith optional, you should skip this sender if attachment id is missing.\nOtherwise you can check if track is not null.",
+      "revId": "5910f70c34b425010723332f26f589c75a27aa49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cfeb2eb_4b161721",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-12T14:02:16Z",
+      "side": 1,
+      "message": ":)\n\nHow about \"Type not found\"?",
+      "revId": "5910f70c34b425010723332f26f589c75a27aa49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bda350c_63fa0d91",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-01-12T14:02:16Z",
+      "side": 1,
+      "message": "nit: Is std::vector type qualifier necessary or is {} enough?",
+      "revId": "5910f70c34b425010723332f26f589c75a27aa49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

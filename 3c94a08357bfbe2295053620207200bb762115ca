@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f910480a_c0fcfd13",
+        "filename": "tools_webrtc/android/profiling/perf_setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-01-12T11:51:18Z",
+      "side": 1,
+      "message": "nit: If this is not needed, maybe it should be removed completely instead of commented out? Even if you plan to add it back later, it stays in git history.",
+      "range": {
+        "startLine": 347,
+        "startChar": 2,
+        "endLine": 347,
+        "endChar": 45
+      },
+      "revId": "3c94a08357bfbe2295053620207200bb762115ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

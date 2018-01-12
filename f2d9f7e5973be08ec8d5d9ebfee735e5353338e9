@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36600673_108e39e6",
+        "filename": "BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "I liked the rtc_use_builtin_sw_codecs name more, maybe rename this to something similar? E.g. USE_BUILTIN_SW_CODECS.",
+      "range": {
+        "startLine": 211,
+        "startChar": 19,
+        "endLine": 211,
+        "endChar": 35
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35c26f1e_038372b1",
+        "filename": "api/video_codecs/video_decoder_factory.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "I\u0027m not sure why we now need this include, but remove forward declaration in that case.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48c3cdaf_999e92ca",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "If we name the variable USE_BUILTIN_SW_CODECS we can avoid the double negation and it reads easier.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c217933_a6c69aa2",
+        "filename": "modules/video_coding/codec_database.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "Hmm, why do we need this?",
+      "range": {
+        "startLine": 467,
+        "startChar": 0,
+        "endLine": 470,
+        "endChar": 5
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34c5c5ca_a78bad7f",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "What\u0027s the dependency on libvpx here and is it safe to remove? It looks generic.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 31
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07124776_edf12af7",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "This also looks generic.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 31
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daad4285_2b76b4cc",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "Same here, it would be nice if we could put VP8 and VP9 into separate targets since the long term goal is to make it modular on a target level.",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 70
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa55ee89_e86d88c6",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "Can we move VP8 and VP9 into separate targets?",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 44
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abfbc587_29b11aa8",
+        "filename": "sdk/android/src/jni/pc/video.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-12T13:35:25Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 3
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

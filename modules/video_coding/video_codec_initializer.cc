@@ -10,11 +10,14 @@
 
 #include "modules/video_coding/include/video_codec_initializer.h"
 
+#include "api/video_codecs/video_encoder.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
-#include "modules/video_coding/codecs/vp8/screenshare_layers.h"
-#include "modules/video_coding/codecs/vp8/simulcast_rate_allocator.h"
-#include "modules/video_coding/codecs/vp8/temporal_layers.h"
+#if !defined(HAVE_NO_SW_CODECS)
+#include "modules/video_coding/codecs/vp8/screenshare_layers.h"  // nogncheck
+#include "modules/video_coding/codecs/vp8/simulcast_rate_allocator.h"  // nogncheck
+#include "modules/video_coding/codecs/vp8/temporal_layers.h"  // nogncheck
+#endif
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "rtc_base/basictypes.h"
@@ -59,6 +62,7 @@ bool VideoCodecInitializer::SetupCodec(
       VideoEncoderConfigToVideoCodec(config, streams, settings.payload_name,
                                      settings.payload_type, nack_enabled);
 
+#if !defined(HAVE_NO_SW_CODECS)
   std::unique_ptr<TemporalLayersFactory> tl_factory;
   switch (codec->codecType) {
     case kVideoCodecVP8: {
@@ -84,6 +88,7 @@ bool VideoCodecInitializer::SetupCodec(
     }
   }
   *bitrate_allocator = CreateBitrateAllocator(*codec, std::move(tl_factory));
+#endif
 
   return true;
 }
@@ -95,11 +100,13 @@ VideoCodecInitializer::CreateBitrateAllocator(
   std::unique_ptr<VideoBitrateAllocator> rate_allocator;
 
   switch (codec.codecType) {
+#if !defined(HAVE_NO_SW_CODECS)
     case kVideoCodecVP8: {
       // Set up default VP8 temporal layer factory, if not provided.
       rate_allocator.reset(
           new SimulcastRateAllocator(codec, std::move(tl_factory)));
     } break;
+#endif
     default:
       rate_allocator.reset(new DefaultVideoBitrateAllocator(codec));
   }

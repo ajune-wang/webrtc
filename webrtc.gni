@@ -179,6 +179,9 @@ declare_args() {
   # Build sources requiring GTK. NOTICE: This is not present in Chrome OS
   # build environments, even if available for Chromium builds.
   rtc_use_gtk = !build_with_chromium
+
+  # Disable this to build without support for built-in software codecs.
+  rtc_use_builtin_sw_codecs = true
 }
 
 # A second declare_args block, so that declarations within it can

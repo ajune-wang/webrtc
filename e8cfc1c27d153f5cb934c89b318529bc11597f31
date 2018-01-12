@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55d04069_52f1d74d",
+        "filename": "modules/rtp_rtcp/source/rtp_format_video_stereo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-12T17:54:58Z",
+      "side": 1,
+      "message": "Since we are modifying bitstream at this point, we can just inject this header in the beginning of concetanated bitstreams: header+bitstream1+bitstream2+... This makes sure that stereo codec is contained within its folder and there isn\u0027t any codec specific code in RTP level. I think you can remove all your changes in this file. I will make a follow-up patch to yours that cleans up the stereo related RTP code.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "e8cfc1c27d153f5cb934c89b318529bc11597f31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "755015fa_100d8ebe",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-12T17:54:58Z",
+      "side": 1,
+      "message": "Instead of this, lets add structs that contains all the header info. The reason why I am heading all offset info is in case we modify these structs, we want to still keep it working between versions.\nstruct MultiplexOffsetsHeader {\n   uint8_t frame_count;\n   uint32_t first_frame_header_offset;\n};\nstruct MultiplexFrameHeader {\n   uint32_t next_frame_index_header_offset;\n   uint32_t bitstream_offset;\n   uint32_t bitstream_length;\n   VideoCodecType codec_type;\n   uint8_t keyframe;\n};\n\nSo, we can make the bitstream consist of:\nMultiplexOffsetsHeader\nMultiplexFrameHeader#1\n...\nMultiplexFrameHeader#N\nBitstream#1\n...\nBitstream#N",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "e8cfc1c27d153f5cb934c89b318529bc11597f31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "654680df_453c82cb",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-12T17:54:58Z",
+      "side": 1,
+      "message": "I think you should only focus on getting the stereo unittest running in this patch. Don\u0027t worry about RTP code, it will be removed and this won\u0027t be necessary.",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "e8cfc1c27d153f5cb934c89b318529bc11597f31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2d298c7_9098c84b",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-12T17:54:58Z",
+      "side": 1,
+      "message": "Clock* const clock_;",
+      "range": {
+        "startLine": 77,
+        "startChar": 2,
+        "endLine": 77,
+        "endChar": 16
+      },
+      "revId": "e8cfc1c27d153f5cb934c89b318529bc11597f31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

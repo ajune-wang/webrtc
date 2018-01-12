@@ -46,6 +46,8 @@ const int kMaxBitrates[kNumberOfSimulcastStreams] = {150, 600, 1200};
 const int kMinBitrates[kNumberOfSimulcastStreams] = {50, 150, 600};
 const int kTargetBitrates[kNumberOfSimulcastStreams] = {100, 450, 1000};
 const int kDefaultTemporalLayerProfile[3] = {3, 3, 3};
+const int kEnoughBitrateAllStreams =
+    kMaxBitrates[0] + kMaxBitrates[1] + kMaxBitrates[2];
 
 template <typename T>
 void SetExpectedValues3(T value0, T value1, T value2, T* expected_values) {
@@ -273,6 +275,13 @@ class TestVp8Simulcast : public ::testing::Test {
   }
 
   void SetUpRateAllocator() {
+    TemporalLayersFactory* tl_factory = new TemporalLayersFactory();
+    rate_allocator_.reset(new SimulcastRateAllocator(
+        settings_, std::unique_ptr<TemporalLayersFactory>(tl_factory)));
+    settings_.VP8()->tl_factory = tl_factory;
+  }
+
+  void UpdateSimulcastAllocatorAndEncoder() {
     TemporalLayersFactory* tl_factory = new TemporalLayersFactory();
     rate_allocator_.reset(new SimulcastRateAllocator(
         settings_, std::unique_ptr<TemporalLayersFactory>(tl_factory)));
@@ -567,6 +576,58 @@ class TestVp8Simulcast : public ::testing::Test {
     SetRates(kMinBitrates[0] - 1, 30);
     ExpectStreams(kVideoFrameDelta, {true, false, false});
     input_frame_->set_timestamp(input_frame_->timestamp() + 3000);
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+  }
+
+  // This demonstrates how the Vp8 encoder normal behavior when encoding video
+  // frames. First a key frame is sent for all active streams, and then delta
+  // frames follow. This normal behavior only occurs when the lowest quality
+  // stream is active.
+  void TestLowStreamActive() {
+    settings_.simulcastStream[0].active = true;
+    settings_.simulcastStream[1].active = false;
+    settings_.simulcastStream[2].active = true;
+    SetUpRateAllocator();
+    EXPECT_EQ(0, encoder_->InitEncode(&settings_, 1, 1200));
+    SetRates(kEnoughBitrateAllStreams, 30);
+    std::vector<FrameType> frame_types(kNumberOfSimulcastStreams,
+                                       kVideoFrameDelta);
+
+    // First we get key frames for the expected streams.
+    ExpectStreams(kVideoFrameKey, {true, false, true});
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // Next we get delta frames on the expected streams.
+    ExpectStreams(kVideoFrameDelta, {true, false, true});
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+    ExpectStreams(kVideoFrameDelta, {true, false, true});
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+  }
+
+  // This test demonstrates that when the lowest quality stream is turned off
+  // (meaning that it is allocated 0 bitrate), the encoder only sends key
+  // frames for the other active streams.
+  // Note: This wrapper, Vp8Impl, does not set the force key frame flag for the
+  // encoder, PX_EFLAG_FORCE_KF. The key frames are labeled this way based upon
+  // the packet received from the libvpx encoder.
+  void TestLowStreamInactiveOnlyKeyFrames() {
+    settings_.simulcastStream[0].active = false;
+    settings_.simulcastStream[1].active = true;
+    settings_.simulcastStream[2].active = true;
+
+    SetUpRateAllocator();
+    EXPECT_EQ(0, encoder_->InitEncode(&settings_, 1, 1200));
+    SetRates(kEnoughBitrateAllStreams, 30);
+    std::vector<FrameType> frame_types(kNumberOfSimulcastStreams,
+                                       kVideoFrameDelta);
+
+    ExpectStreams(kVideoFrameKey, {false, true, true});
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+
+    // These next encodings should contain kVideoFrameDelta for the frame type.
+    ExpectStreams(kVideoFrameKey, {false, true, true});
+    EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
+    ExpectStreams(kVideoFrameKey, {false, true, true});
     EXPECT_EQ(0, encoder_->Encode(*input_frame_, NULL, &frame_types));
   }
 

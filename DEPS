@@ -55,8 +55,6 @@ deps = {
   },
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '334e82becd4f378502061f310b8d09af13a80e67',
-  'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '514268994c0db1ca767dd36b4fc21eb7c5886109',
   'src/third_party/android_tools': {
     'url': Var('chromium_git') + '/android_tools.git' + '@' + '7d781b3544ef67dfa8c7c0c1a347b818c49c42bc',
     'condition': 'checkout_android',

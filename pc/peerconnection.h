@@ -634,7 +634,8 @@ class PeerConnection : public PeerConnectionInterface,
   // TODO(bugs.webrtc.org/8530): Flip the default to be Unified Plan once
   // sufficient time has passed.
   bool IsUnifiedPlan() const {
-    return configuration_.sdp_semantics == SdpSemantics::kUnifiedPlan;
+    return true;
+    // return configuration_.sdp_semantics == SdpSemantics::kUnifiedPlan;
   }
 
   // Is there an RtpSender of the given type?

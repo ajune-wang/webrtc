@@ -34,6 +34,12 @@ class RtpReceiverInternal : public RtpReceiverInterface {
  public:
   virtual void Stop() = 0;
 
+  // Used to set the SSRC of the receiver, once a remote description has been
+  // set. If |ssrc| is 0, this indicates that the receiver should disconnect
+  // from the underlying transport (this occurs if the receiver isn't seen in a
+  // remote description).
+  virtual void SetSsrc(uint32_t ssrc) = 0;
+
   // This SSRC is used as an identifier for the receiver between the API layer
   // and the WebRtcVideoEngine, WebRtcVoiceEngine layer.
   virtual uint32_t ssrc() const = 0;
@@ -53,16 +59,10 @@ class AudioRtpReceiver : public ObserverInterface,
                          public AudioSourceInterface::AudioObserver,
                          public rtc::RefCountedObject<RtpReceiverInternal> {
  public:
-  // An SSRC of 0 will create a receiver that will match the first SSRC it
-  // sees.
-  // TODO(deadbeef): Use rtc::Optional, or have another constructor that
-  // doesn't take an SSRC, and make this one DCHECK(ssrc != 0).
   AudioRtpReceiver(
       rtc::Thread* worker_thread,
       const std::string& receiver_id,
-      const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams,
-      uint32_t ssrc,
-      cricket::VoiceMediaChannel* media_channel);
+      const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams);
   virtual ~AudioRtpReceiver();
 
   // ObserverInterface implementation
@@ -95,6 +95,7 @@ class AudioRtpReceiver : public ObserverInterface,
 
   // RtpReceiverInternal implementation.
   void Stop() override;
+  void SetSsrc(uint32_t ssrc) override;
   uint32_t ssrc() const override { return ssrc_; }
   void NotifyFirstPacketReceived() override;
   void SetStreams(const std::vector<rtc::scoped_refptr<MediaStreamInterface>>&
@@ -115,9 +116,10 @@ class AudioRtpReceiver : public ObserverInterface,
 
   rtc::Thread* const worker_thread_;
   const std::string id_;
-  const uint32_t ssrc_;
-  cricket::VoiceMediaChannel* media_channel_ = nullptr;
+  const rtc::scoped_refptr<RemoteAudioSource> source_;
   const rtc::scoped_refptr<AudioTrackInterface> track_;
+  cricket::VoiceMediaChannel* media_channel_ = nullptr;
+  uint32_t ssrc_ = 0;
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams_;
   bool cached_track_enabled_;
   double cached_volume_ = 1;
@@ -134,9 +136,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal> {
   VideoRtpReceiver(
       rtc::Thread* worker_thread,
       const std::string& receiver_id,
-      const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams,
-      uint32_t ssrc,
-      cricket::VideoMediaChannel* media_channel);
+      const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams);
 
   virtual ~VideoRtpReceiver();
 
@@ -164,6 +164,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal> {
 
   // RtpReceiverInternal implementation.
   void Stop() override;
+  void SetSsrc(uint32_t ssrc) override;
   uint32_t ssrc() const override { return ssrc_; }
   void NotifyFirstPacketReceived() override;
   void SetStreams(const std::vector<rtc::scoped_refptr<MediaStreamInterface>>&
@@ -180,7 +181,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal> {
 
   rtc::Thread* const worker_thread_;
   const std::string id_;
-  uint32_t ssrc_;
+  uint32_t ssrc_ = 0;
   cricket::VideoMediaChannel* media_channel_ = nullptr;
   // |broadcaster_| is needed since the decoder can only handle one sink.
   // It might be better if the decoder can handle multiple sinks and consider

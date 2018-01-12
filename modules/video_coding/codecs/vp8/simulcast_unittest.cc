@@ -59,6 +59,14 @@ TEST_F(TestVp8Impl, TestActiveStreams) {
   TestVp8Simulcast::TestActiveStreams();
 }
 
+TEST_F(TestVp8Impl, TestLowStreamActive) {
+  TestVp8Simulcast::TestLowStreamActive();
+}
+
+TEST_F(TestVp8Impl, TestLowStreamInactiveOnlyKeyFrames) {
+  TestVp8Simulcast::TestLowStreamInactiveOnlyKeyFrames();
+}
+
 TEST_F(TestVp8Impl, TestSwitchingToOneStream) {
   TestVp8Simulcast::TestSwitchingToOneStream();
 }

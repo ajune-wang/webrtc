@@ -15,6 +15,7 @@
 #include "p2p/base/fakeportallocator.h"
 #include "p2p/base/p2ptransportchannel.h"
 #include "p2p/base/portallocator.h"
+#include "pc/rtptransportinternaladapter.h"
 #include "pc/test/faketransportcontroller.h"
 #include "pc/transportcontroller.h"
 #include "rtc_base/fakesslidentity.h"
@@ -43,6 +44,12 @@ namespace cricket {
 // TODO(deadbeef): Pass a "TransportFactory" or something similar into
 // TransportController, instead of using inheritance in this way for testing.
 typedef FakeTransportController TransportControllerForTest;
+
+class PeekingRtpTransportInternalAdapter
+    : public webrtc::RtpTransportInternalAdapter {
+ public:
+  webrtc::RtpTransportInternal* transport() { return transport_; }
+};
 
 class TransportControllerTest : public testing::Test,
                                 public sigslot::has_slots<> {
@@ -1004,6 +1011,13 @@ TEST_P(TransportControllerRTPTransportTest, DestroyTransportWithNoReference) {
   transport_controller_->DestroyTransport(transport_name);
   transport_controller_->DestroyTransport(transport_name);
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+  RTC_LOG(LS_ERROR) << "DEBUG: transport1 is " << transport1;
+  // This test only makes sense if the transport is an
+  // RtpTransportInternalAdapter, so cast and look.
+  RTC_LOG(LS_ERROR) << "DEBUG: transport1->transport_ is "
+                    << static_cast<PeekingRtpTransportInternalAdapter*>(
+                           transport1)
+                           ->transport();
   EXPECT_DEATH(transport1->IsWritable(false), /*error_message=*/"");
 #endif
 }

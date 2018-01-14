@@ -42,7 +42,7 @@ class SrtpTransport : public RtpTransportInternalAdapter {
 
   // The transport becomes active if the send_session_ and recv_session_ are
   // created.
-  bool IsActive() const;
+  bool IsSrtpActive() const override;
 
   // TODO(zstein): Remove this when we remove RtpTransportAdapter.
   RtpTransportAdapter* GetInternal() override { return nullptr; }

@@ -51,7 +51,7 @@ void DtlsSrtpTransport::SetDtlsTransports(
   // When using DTLS-SRTP, we must reset the SrtpTransport every time the
   // DtlsTransport changes and wait until the DTLS handshake is complete to set
   // the newly negotiated parameters.
-  if (IsActive()) {
+  if (IsSrtpActive()) {
     srtp_transport_->ResetParams();
   }
 
@@ -60,7 +60,7 @@ void DtlsSrtpTransport::SetDtlsTransports(
 
   // This would only be possible if using BUNDLE but not rtcp-mux, which isn't
   // allowed according to the BUNDLE spec.
-  RTC_CHECK(!(IsActive()))
+  RTC_CHECK(!(IsSrtpActive()))
       << "Setting RTCP for DTLS/SRTP after the DTLS is active "
       << "should never happen.";
 
@@ -138,7 +138,7 @@ bool DtlsSrtpTransport::DtlsHandshakeCompleted() {
 }
 
 void DtlsSrtpTransport::MaybeSetupDtlsSrtp() {
-  if (IsActive() || !DtlsHandshakeCompleted()) {
+  if (IsSrtpActive() || !DtlsHandshakeCompleted()) {
     return;
   }
 
@@ -182,7 +182,7 @@ void DtlsSrtpTransport::SetupRtcpDtlsSrtp() {
   // Return if the DTLS-SRTP is active because the encrypted header extension
   // IDs don't need to be updated for RTCP and the crypto params don't need to
   // be reset.
-  if (IsActive()) {
+  if (IsSrtpActive()) {
     return;
   }
 

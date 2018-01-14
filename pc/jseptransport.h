@@ -22,7 +22,12 @@
 #include "p2p/base/dtlstransport.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/transportinfo.h"
+#include "pc/dtlssrtptransport.h"
+#include "pc/rtcpmuxfilter.h"
+#include "pc/rtptransport.h"
 #include "pc/sessiondescription.h"
+#include "pc/srtpfilter.h"
+#include "pc/srtptransport.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/messagequeue.h"
 #include "rtc_base/rtccertificate.h"
@@ -60,6 +65,13 @@ struct TransportStats {
 
 bool BadTransportDescription(const std::string& desc, std::string* err_desc);
 
+enum class SrtpType {
+  kUnset,
+  kUnencrypted,
+  kSdes,
+  kDtlsSrtp,
+};
+
 // Helper class used by TransportController that processes
 // TransportDescriptions. A TransportDescription represents the
 // transport-specific properties of an SDP m= section, processed according to
@@ -87,6 +99,9 @@ class JsepTransport : public sigslot::has_slots<> {
   bool RemoveChannel(int component);
   bool HasChannels() const;
 
+  void SetRtpTransport(SrtpType srtp_type,
+                       webrtc::RtpTransportInternal* rtp_transport);
+
   bool ready_for_remote_candidates() const {
     return local_description_set_ && remote_description_set_;
   }
@@ -102,15 +117,35 @@ class JsepTransport : public sigslot::has_slots<> {
 
   // Set the local TransportDescription to be used by DTLS and ICE channels
   // that are part of this Transport.
+  bool SetLocalTransportDescription(
+      const TransportDescription& description,
+      bool enable_rtcp,
+      const std::vector<CryptoParams>& cryptos,
+      const std::vector<int>& encrypted_extension_ids,
+      webrtc::SdpType type,
+      std::string* error_desc);
+
   bool SetLocalTransportDescription(const TransportDescription& description,
                                     webrtc::SdpType type,
-                                    std::string* error_desc);
+                                    std::string* error_desc) {
+    return false;
+  }
 
   // Set the remote TransportDescription to be used by DTLS and ICE channels
   // that are part of this Transport.
+  bool SetRemoteTransportDescription(
+      const TransportDescription& description,
+      bool enable_rtcp,
+      const std::vector<CryptoParams>& cryptos,
+      const std::vector<int>& encrypted_extension_ids,
+      webrtc::SdpType type,
+      std::string* error_desc);
+
   bool SetRemoteTransportDescription(const TransportDescription& description,
                                      webrtc::SdpType type,
-                                     std::string* error_desc);
+                                     std::string* error_desc) {
+    return false;
+  }
 
   // Set the "needs-ice-restart" flag as described in JSEP. After the flag is
   // set, offers should generate new ufrags/passwords until an ICE restart
@@ -153,7 +188,24 @@ class JsepTransport : public sigslot::has_slots<> {
                                     const rtc::SSLFingerprint* fingerprint,
                                     std::string* error_desc) const;
 
+  webrtc::RtpTransportInternal* GetRtpTransport();
+
+  DtlsTransportInternal* GetDtlsTransport(int component);
+
+  sigslot::signal1<const std::string&>& SignalRtcpMuxFullyActive() {
+    return SignalRtcpMuxFullyActive_;
+  }
+
  private:
+  bool SetRtcpMux(bool enable, webrtc::SdpType type, ContentSource source);
+
+  void ActivateRtcpMux();
+
+  bool SetSdes(const std::vector<CryptoParams>& cryptos,
+               const std::vector<int>& encrypted_extension_ids,
+               webrtc::SdpType type,
+               ContentSource source);
+
   // Negotiates the transport parameters based on the current local and remote
   // transport description, such as the ICE role to use, and whether DTLS
   // should be activated.
@@ -183,6 +235,8 @@ class JsepTransport : public sigslot::has_slots<> {
       DtlsTransportInternal* dtls_transport,
       std::string* error_desc);
 
+  sigslot::signal1<const std::string&> SignalRtcpMuxFullyActive_;
+
   const std::string mid_;
   // needs-ice-restart bit as described in JSEP.
   bool needs_ice_restart_ = false;
@@ -196,6 +250,13 @@ class JsepTransport : public sigslot::has_slots<> {
 
   // Candidate component => DTLS channel
   std::map<int, DtlsTransportInternal*> channels_;
+
+  SrtpType srtp_type_ = SrtpType::kUnset;
+  webrtc::RtpTransportInternal* unencrypted_rtp_transport_ = nullptr;
+  webrtc::SrtpTransport* sdes_transport_ = nullptr;
+  webrtc::DtlsSrtpTransport* dtls_srtp_transport_ = nullptr;
+  SrtpFilter sdes_negotiator_;
+  RtcpMuxFilter rtcp_mux_negotiator_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransport);
 };

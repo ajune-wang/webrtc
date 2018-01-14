@@ -87,9 +87,9 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   bool StartAecDump(rtc::PlatformFile file, int64_t max_size_bytes) override;
   void StopAecDump() override;
 
-  virtual cricket::TransportController* CreateTransportController(
-      cricket::PortAllocator* port_allocator,
-      bool redetermine_role_on_ice_restart);
+  // virtual cricket::TransportController* CreateTransportController(
+  //     cricket::PortAllocator* port_allocator,
+  //     bool redetermine_role_on_ice_restart);
 
   virtual std::unique_ptr<cricket::SctpTransportInternalFactory>
   CreateSctpTransportInternalFactory();

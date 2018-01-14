@@ -33,6 +33,8 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     transport_->SetRtcpMuxEnabled(enable);
   }
 
+  // void ActivateRtcpMux() override { transport_->ActivateRtcpMux(); }
+
   bool rtcp_mux_enabled() const override {
     return transport_->rtcp_mux_enabled();
   }

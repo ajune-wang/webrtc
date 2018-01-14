@@ -106,13 +106,9 @@ class BaseChannel
   bool enabled() const { return enabled_; }
 
   // This function returns true if we are using SDES.
-  bool sdes_active() const {
-    return sdes_transport_ && sdes_negotiator_.IsActive();
-  }
+  bool sdes_active() const { return false; }
   // The following function returns true if we are using DTLS-based keying.
-  bool dtls_active() const {
-    return dtls_srtp_transport_ && dtls_srtp_transport_->IsActive();
-  }
+  bool dtls_active() const { return false; }
   // This function returns true if using SRTP (DTLS-based keying or SDES).
   bool srtp_active() const { return sdes_active() || dtls_active(); }
 
@@ -319,17 +315,17 @@ class BaseChannel
   virtual bool SetRemoteContent_w(const MediaContentDescription* content,
                                   webrtc::SdpType type,
                                   std::string* error_desc) = 0;
-  bool SetRtpTransportParameters(const MediaContentDescription* content,
-                                 webrtc::SdpType type,
-                                 ContentSource src,
-                                 const RtpHeaderExtensions& extensions,
-                                 std::string* error_desc);
-  bool SetRtpTransportParameters_n(
-      const MediaContentDescription* content,
-      webrtc::SdpType type,
-      ContentSource src,
-      const std::vector<int>& encrypted_extension_ids,
-      std::string* error_desc);
+  // bool SetRtpTransportParameters(const MediaContentDescription* content,
+  //                                webrtc::SdpType type,
+  //                                ContentSource src,
+  //                                const RtpHeaderExtensions& extensions,
+  //                                std::string* error_desc);
+  // bool SetRtpTransportParameters_n(
+  //     const MediaContentDescription* content,
+  //     webrtc::SdpType type,
+  //     ContentSource src,
+  //     const std::vector<int>& encrypted_extension_ids,
+  //     std::string* error_desc);
 
   // Return a list of RTP header extensions with the non-encrypted extensions
   // removed depending on the current crypto_options_ and only if both the
@@ -342,18 +338,18 @@ class BaseChannel
   void MaybeCacheRtpAbsSendTimeHeaderExtension_w(
       const std::vector<webrtc::RtpExtension>& extensions);
 
-  bool CheckSrtpConfig_n(const std::vector<CryptoParams>& cryptos,
-                         bool* dtls,
-                         std::string* error_desc);
-  bool SetSrtp_n(const std::vector<CryptoParams>& params,
-                 webrtc::SdpType type,
-                 ContentSource src,
-                 const std::vector<int>& encrypted_extension_ids,
-                 std::string* error_desc);
-  bool SetRtcpMux_n(bool enable,
-                    webrtc::SdpType type,
-                    ContentSource src,
-                    std::string* error_desc);
+  // bool CheckSrtpConfig_n(const std::vector<CryptoParams>& cryptos,
+  //                        bool* dtls,
+  //                        std::string* error_desc);
+  // bool SetSrtp_n(const std::vector<CryptoParams>& params,
+  //                webrtc::SdpType type,
+  //                ContentSource src,
+  //                const std::vector<int>& encrypted_extension_ids,
+  //                std::string* error_desc);
+  // bool SetRtcpMux_n(bool enable,
+  //                   webrtc::SdpType type,
+  //                   ContentSource src,
+  //                   std::string* error_desc);
 
   // From MessageHandler
   void OnMessage(rtc::Message* pmsg) override;
@@ -370,26 +366,30 @@ class BaseChannel
 
   void AddHandledPayloadType(int payload_type);
 
+  std::vector<int> payload_types_;
+
  private:
   void ConnectToRtpTransport();
   void DisconnectFromRtpTransport();
   void SignalSentPacket_n(const rtc::SentPacket& sent_packet);
   void SignalSentPacket_w(const rtc::SentPacket& sent_packet);
   bool IsReadyToSendMedia_n() const;
-  void CacheRtpAbsSendTimeHeaderExtension_n(int rtp_abs_sendtime_extn_id);
-  // Wraps the existing RtpTransport in an SrtpTransport.
-  void EnableSdes_n();
+  // void CacheRtpAbsSendTimeHeaderExtension_n(int rtp_abs_sendtime_extn_id);
+  // // Wraps the existing RtpTransport in an SrtpTransport.
+  // void EnableSdes_n();
 
-  // Wraps the existing RtpTransport in a new SrtpTransport and wraps that in a
-  // new DtlsSrtpTransport.
-  void EnableDtlsSrtp_n();
+  // // Wraps the existing RtpTransport in a new SrtpTransport and wraps that in
+  // a
+  // // new DtlsSrtpTransport.
+  // void EnableDtlsSrtp_n();
 
   // Update the encrypted header extension IDs when setting the local/remote
   // description and use them later together with other crypto parameters from
   // DtlsTransport. If DTLS-SRTP is enabled, it also update the encrypted header
   // extension IDs for DtlsSrtpTransport.
-  void UpdateEncryptedHeaderExtensionIds(cricket::ContentSource source,
-                                         const std::vector<int>& extension_ids);
+  // void UpdateEncryptedHeaderExtensionIds(cricket::ContentSource source,
+  //                                        const std::vector<int>&
+  //                                        extension_ids);
 
   // Permanently enable RTCP muxing. Set null RTCP PacketTransport for
   // BaseChannel and RtpTransport. If using DTLS-SRTP, set null DtlsTransport
@@ -424,7 +424,7 @@ class BaseChannel
 
   std::vector<std::pair<rtc::Socket::Option, int> > socket_options_;
   std::vector<std::pair<rtc::Socket::Option, int> > rtcp_socket_options_;
-  SrtpFilter sdes_negotiator_;
+  // SrtpFilter sdes_negotiator_;
   RtcpMuxFilter rtcp_mux_filter_;
   bool writable_ = false;
   bool was_ever_writable_ = false;
@@ -448,6 +448,8 @@ class BaseChannel
   // The cached encrypted header extension IDs.
   rtc::Optional<std::vector<int>> cached_send_extension_ids_;
   rtc::Optional<std::vector<int>> cached_recv_extension_ids_;
+
+  BundleFilter bundle_filter_;
 };
 
 // VoiceChannel is a specialization that adds support for early media, DTMF,

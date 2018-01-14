@@ -749,6 +749,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     SdpType type = desc->GetType();
     std::string sdp;
     EXPECT_TRUE(desc->ToString(&sdp));
+    RTC_LOG(INFO) << "Local description:" << sdp;
     pc()->SetLocalDescription(observer, desc.release());
     // As mentioned above, we need to send the message immediately after
     // SetLocalDescription.

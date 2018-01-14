@@ -88,7 +88,7 @@ const char kDtlsSrtpSetupFailureRtp[] =
     "Couldn't set up DTLS-SRTP on RTP channel.";
 const char kDtlsSrtpSetupFailureRtcp[] =
     "Couldn't set up DTLS-SRTP on RTCP channel.";
-const char kEnableBundleFailed[] = "Failed to enable BUNDLE.";
+// const char kEnableBundleFailed[] = "Failed to enable BUNDLE.";
 
 namespace {
 
@@ -805,14 +805,20 @@ bool PeerConnection::Initialize(
     return false;
   }
 
+  const PeerConnectionFactoryInterface::Options& options = factory_->options();
+
   // RFC 3264: The numeric value of the session id and version in the
   // o line MUST be representable with a "64 bit signed integer".
   // Due to this constraint session id |session_id_| is max limited to
   // LLONG_MAX.
   session_id_ = rtc::ToString(rtc::CreateRandomId64() & LLONG_MAX);
-  transport_controller_.reset(factory_->CreateTransportController(
-      port_allocator_.get(), configuration.redetermine_role_on_ice_restart));
-  transport_controller_->SetIceRole(cricket::ICEROLE_CONTROLLED);
+  JsepTransportController::Config config;
+  config.redetermine_role_on_ice_restart =
+      configuration.redetermine_role_on_ice_restart;
+  config.ssl_max_version = factory_->options().ssl_max_version;
+  config.disable_encryption = options.disable_encryption;
+  transport_controller_.reset(new JsepTransportController(
+      signaling_thread(), network_thread(), port_allocator_.get(), config));
   transport_controller_->SignalConnectionState.connect(
       this, &PeerConnection::OnTransportControllerConnectionState);
   transport_controller_->SignalGatheringState.connect(
@@ -830,10 +836,6 @@ bool PeerConnection::Initialize(
   stats_collector_ = RTCStatsCollector::Create(this);
 
   configuration_ = configuration;
-
-  const PeerConnectionFactoryInterface::Options& options = factory_->options();
-
-  transport_controller_->SetSslMaxProtocolVersion(options.ssl_max_version);
 
   // Obtain a certificate from RTCConfiguration if any were provided (optional).
   rtc::scoped_refptr<rtc::RTCCertificate> certificate;
@@ -1672,16 +1674,8 @@ RTCError PeerConnection::ApplyLocalDescription(
   // streams that might be removed by updating the session description.
   stats_->UpdateStats(kStatsOutputLevelStandard);
 
-  // Update the initial_offerer flag if this session is the initial_offerer.
-  SdpType type = desc->GetType();
-  if (!initial_offerer_.has_value()) {
-    initial_offerer_.emplace(type == SdpType::kOffer);
-    if (*initial_offerer_) {
-      transport_controller_->SetIceRole(cricket::ICEROLE_CONTROLLING);
-    } else {
-      transport_controller_->SetIceRole(cricket::ICEROLE_CONTROLLED);
-    }
-  }
+  // TODO: Set ICE role based on who's the initial offerer, but in
+  // JsepTransportController.
 
   // Take a reference to the old local description since it's used below to
   // compare against the new local description. When setting the new local
@@ -1691,6 +1685,7 @@ RTCError PeerConnection::ApplyLocalDescription(
   const SessionDescriptionInterface* old_local_description =
       local_description();
   std::unique_ptr<SessionDescriptionInterface> replaced_local_description;
+  SdpType type = desc->GetType();
   if (type == SdpType::kAnswer) {
     replaced_local_description = pending_local_description_
                                      ? std::move(pending_local_description_)
@@ -1726,22 +1721,10 @@ RTCError PeerConnection::ApplyLocalDescription(
         transceiver->Stop();
       }
     }
-  } else {
-    // Transport and Media channels will be created only when offer is set.
-    if (type == SdpType::kOffer) {
-      // TODO(bugs.webrtc.org/4676) - Handle CreateChannel failure, as new local
-      // description is applied. Restore back to old description.
-      RTCError error = CreateChannels(*local_description()->description());
-      if (!error.ok()) {
-        return error;
-      }
-    }
-
-    // Remove unused channels if MediaContentDescription is rejected.
-    RemoveUnusedChannels(local_description()->description());
   }
 
-  error = UpdateSessionState(type, cricket::CS_LOCAL);
+  error = UpdateSessionState(type, cricket::CS_LOCAL,
+                             local_description()->description());
   if (!error.ok()) {
     return error;
   }
@@ -1902,23 +1885,12 @@ RTCError PeerConnection::ApplyRemoteDescription(
     if (!error.ok()) {
       return error;
     }
-  } else {
-    if (type == SdpType::kOffer) {
-      // TODO(bugs.webrtc.org/4676) - Handle CreateChannel failure, as new local
-      // description is applied. Restore back to old description.
-      RTCError error = CreateChannels(*remote_description()->description());
-      if (!error.ok()) {
-        return error;
-      }
-    }
-
-    // Remove unused channels if MediaContentDescription is rejected.
-    RemoveUnusedChannels(remote_description()->description());
   }
 
   // NOTE: Candidates allocation will be initiated only when SetLocalDescription
   // is called.
-  error = UpdateSessionState(type, cricket::CS_REMOTE);
+  error = UpdateSessionState(type, cricket::CS_REMOTE,
+                             remote_description()->description());
   if (!error.ok()) {
     return error;
   }
@@ -1975,6 +1947,7 @@ RTCError PeerConnection::ApplyRemoteDescription(
   // If setting the description decided our SSL role, allocate any necessary
   // SCTP sids.
   rtc::SSLRole role;
+  GetSctpSslRole(&role);
   if (data_channel_type() == cricket::DCT_SCTP && GetSctpSslRole(&role)) {
     AllocateSctpSids(role);
   }
@@ -2188,15 +2161,11 @@ RTCError PeerConnection::UpdateTransceiverChannel(
   } else {
     if (!channel) {
       if (transceiver->internal()->media_type() == cricket::MEDIA_TYPE_AUDIO) {
-        channel = CreateVoiceChannel(
-            content.name,
-            GetTransportNameForMediaSection(content.name, bundle_group));
+        channel = CreateVoiceChannel(content.name);
       } else {
         RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO,
                       transceiver->internal()->media_type());
-        channel = CreateVideoChannel(
-            content.name,
-            GetTransportNameForMediaSection(content.name, bundle_group));
+        channel = CreateVideoChannel(content.name);
       }
       if (!channel) {
         LOG_AND_RETURN_ERROR(
@@ -2221,8 +2190,7 @@ RTCError PeerConnection::UpdateDataChannel(
     DestroyDataChannel();
   } else {
     if (!rtp_data_channel_ && !sctp_transport_) {
-      if (!CreateDataChannel(content.name, GetTransportNameForMediaSection(
-                                               content.name, bundle_group))) {
+      if (!CreateDataChannel(content.name)) {
         LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                              "Failed to create data channel.");
       }
@@ -4155,7 +4123,7 @@ bool PeerConnection::GetSctpSslRole(rtc::SSLRole* role) {
     return false;
   }
 
-  return transport_controller_->GetSslRole(*sctp_transport_name_, role);
+  return transport_controller_->GetSslRole(*sctp_content_name_, role);
 }
 
 bool PeerConnection::GetSslRole(const std::string& content_name,
@@ -4197,41 +4165,34 @@ void PeerConnection::SetSessionError(SessionError error,
   }
 }
 
-RTCError PeerConnection::UpdateSessionState(SdpType type,
-                                            cricket::ContentSource source) {
+RTCError PeerConnection::UpdateSessionState(
+    SdpType type,
+    cricket::ContentSource source,
+    const cricket::SessionDescription* description) {
   RTC_DCHECK_RUN_ON(signaling_thread());
 
   // If there's already a pending error then no state transition should happen.
   // But all call-sites should be verifying this before calling us!
   RTC_DCHECK(session_error() == SessionError::kNone);
 
-  // If this is an answer then we know whether to BUNDLE or not. If both the
-  // local and remote side have agreed to BUNDLE, go ahead and enable it.
-  if (type == SdpType::kAnswer) {
-    const cricket::ContentGroup* local_bundle =
-        local_description()->description()->GetGroupByName(
-            cricket::GROUP_TYPE_BUNDLE);
-    const cricket::ContentGroup* remote_bundle =
-        remote_description()->description()->GetGroupByName(
-            cricket::GROUP_TYPE_BUNDLE);
-    if (local_bundle && remote_bundle) {
-      // The answerer decides the transport to bundle on.
-      const cricket::ContentGroup* answer_bundle =
-          (source == cricket::CS_LOCAL ? local_bundle : remote_bundle);
-      if (!EnableBundle(*answer_bundle)) {
-        LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
-                             kEnableBundleFailed);
-      }
-    }
-  }
-
-  // Only push down the transport description after potentially enabling BUNDLE;
-  // we don't want to push down a description on a transport about to be
-  // destroyed.
   RTCError error = PushdownTransportDescription(source, type);
   if (!error.ok()) {
     return error;
   }
+
+  // Media channels will be created only when offer is set. These may use new
+  // transports just created by PushdownTransportDescription.
+  if (type == SdpType::kOffer) {
+    // TODO(mallinath) - Handle CreateChannel failure, as new local description
+    // is applied. Restore back to old description.
+    RTCError error = CreateChannels(*description);
+    if (!error.ok()) {
+      return error;
+    }
+  }
+
+  // Remove unused channels if MediaContentDescription is rejected.
+  RemoveUnusedChannels(description);
 
   // If this is answer-ish we're ready to let media flow.
   if (type == SdpType::kPrAnswer || type == SdpType::kAnswer) {
@@ -4356,25 +4317,8 @@ RTCError PeerConnection::PushdownTransportDescription(
       (source == cricket::CS_LOCAL ? local_description()
                                    : remote_description());
   RTC_DCHECK(sdesc);
-  for (const cricket::TransportInfo& tinfo :
-       sdesc->description()->transport_infos()) {
-    std::string error;
-    bool success;
-    if (source == cricket::CS_LOCAL) {
-      success = transport_controller_->SetLocalTransportDescription(
-          tinfo.content_name, tinfo.description, type, &error);
-    } else {
-      success = transport_controller_->SetRemoteTransportDescription(
-          tinfo.content_name, tinfo.description, type, &error);
-    }
-    if (!success) {
-      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
-                           "Failed to push down transport description for " +
-                               tinfo.content_name + ": " + error);
-    }
-  }
-
-  return RTCError::OK();
+  return transport_controller_->ApplyDescription(source, type,
+                                                 sdesc->description());
 }
 
 bool PeerConnection::GetTransportDescription(
@@ -4390,71 +4334,6 @@ bool PeerConnection::GetTransportDescription(
     return false;
   }
   *tdesc = transport_info->description;
-  return true;
-}
-
-bool PeerConnection::EnableBundle(const cricket::ContentGroup& bundle) {
-  const std::string* first_content_name = bundle.FirstContentName();
-  if (!first_content_name) {
-    RTC_LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
-    return false;
-  }
-  const std::string& transport_name = *first_content_name;
-
-  auto maybe_set_transport = [this, bundle,
-                              transport_name](cricket::BaseChannel* ch) {
-    if (!ch || !bundle.HasContentName(ch->content_name())) {
-      return;
-    }
-
-    std::string old_transport_name = ch->transport_name();
-    if (old_transport_name == transport_name) {
-      RTC_LOG(LS_INFO) << "BUNDLE already enabled for " << ch->content_name()
-                       << " on " << transport_name << ".";
-      return;
-    }
-
-    cricket::DtlsTransportInternal* rtp_dtls_transport =
-        transport_controller_->CreateDtlsTransport(
-            transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-    bool need_rtcp = (ch->rtcp_dtls_transport() != nullptr);
-    cricket::DtlsTransportInternal* rtcp_dtls_transport = nullptr;
-    if (need_rtcp) {
-      rtcp_dtls_transport = transport_controller_->CreateDtlsTransport(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
-    }
-
-    ch->SetTransports(rtp_dtls_transport, rtcp_dtls_transport);
-    RTC_LOG(LS_INFO) << "Enabled BUNDLE for " << ch->content_name() << " on "
-                     << transport_name << ".";
-    transport_controller_->DestroyDtlsTransport(
-        old_transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-    // If the channel needs rtcp, it means that the channel used to have a
-    // rtcp transport which needs to be deleted now.
-    if (need_rtcp) {
-      transport_controller_->DestroyDtlsTransport(
-          old_transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
-    }
-  };
-
-  for (auto transceiver : transceivers_) {
-    maybe_set_transport(transceiver->internal()->channel());
-  }
-  maybe_set_transport(rtp_data_channel_);
-
-  // For SCTP, transport creation/deletion happens here instead of in the
-  // object itself.
-  if (sctp_transport_) {
-    RTC_DCHECK(sctp_transport_name_);
-    RTC_DCHECK(sctp_content_name_);
-    if (transport_name != *sctp_transport_name_ &&
-        bundle.HasContentName(*sctp_content_name_)) {
-      network_thread()->Invoke<void>(
-          RTC_FROM_HERE, rtc::Bind(&PeerConnection::ChangeSctpTransport_n, this,
-                                   transport_name));
-    }
-  }
-
   return true;
 }
 
@@ -4608,9 +4487,8 @@ std::unique_ptr<SessionStats> PeerConnection::GetSessionStats_s() {
   }
   if (sctp_transport_) {
     RTC_DCHECK(sctp_content_name_);
-    RTC_DCHECK(sctp_transport_name_);
     channel_name_pairs.data =
-        ChannelNamePair(*sctp_content_name_, *sctp_transport_name_);
+        ChannelNamePair(*sctp_content_name_, *sctp_transport_name());
   }
   return GetSessionStats(channel_name_pairs);
 }
@@ -4878,25 +4756,6 @@ void PeerConnection::RemoveUnusedChannels(const SessionDescription* desc) {
   }
 }
 
-std::string PeerConnection::GetTransportNameForMediaSection(
-    const std::string& mid,
-    const cricket::ContentGroup* bundle_group) const {
-  if (!bundle_group) {
-    return mid;
-  }
-  const std::string* first_content_name = bundle_group->FirstContentName();
-  if (!first_content_name) {
-    RTC_LOG(LS_WARNING) << "Tried to BUNDLE with no contents.";
-    return mid;
-  }
-  if (!bundle_group->HasContentName(mid)) {
-    RTC_LOG(LS_WARNING) << mid << " is not part of any bundle group";
-    return mid;
-  }
-  RTC_LOG(LS_INFO) << "Bundling " << mid << " on " << *first_content_name;
-  return *first_content_name;
-}
-
 RTCErrorOr<const cricket::ContentGroup*> PeerConnection::GetEarlyBundleGroup(
     const SessionDescription& desc) const {
   const cricket::ContentGroup* bundle_group = nullptr;
@@ -4913,19 +4772,12 @@ RTCErrorOr<const cricket::ContentGroup*> PeerConnection::GetEarlyBundleGroup(
 }
 
 RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
-  auto bundle_group_or_error = GetEarlyBundleGroup(desc);
-  if (!bundle_group_or_error.ok()) {
-    return bundle_group_or_error.MoveError();
-  }
-  const cricket::ContentGroup* bundle_group = bundle_group_or_error.MoveValue();
-
-  // Creating the media channels and transport proxies.
+  // Creating the media channels. Transports should already have been created
+  // at this point.
   const cricket::ContentInfo* voice = cricket::GetFirstAudioContent(&desc);
   if (voice && !voice->rejected &&
       !GetAudioTransceiver()->internal()->channel()) {
-    cricket::VoiceChannel* voice_channel = CreateVoiceChannel(
-        voice->name,
-        GetTransportNameForMediaSection(voice->name, bundle_group));
+    cricket::VoiceChannel* voice_channel = CreateVoiceChannel(voice->name);
     if (!voice_channel) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create voice channel.");
@@ -4936,9 +4788,7 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
   const cricket::ContentInfo* video = cricket::GetFirstVideoContent(&desc);
   if (video && !video->rejected &&
       !GetVideoTransceiver()->internal()->channel()) {
-    cricket::VideoChannel* video_channel = CreateVideoChannel(
-        video->name,
-        GetTransportNameForMediaSection(video->name, bundle_group));
+    cricket::VideoChannel* video_channel = CreateVideoChannel(video->name);
     if (!video_channel) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create video channel.");
@@ -4949,8 +4799,7 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
   const cricket::ContentInfo* data = cricket::GetFirstDataContent(&desc);
   if (data_channel_type_ != cricket::DCT_NONE && data && !data->rejected &&
       !rtp_data_channel_ && !sctp_transport_) {
-    if (!CreateDataChannel(data->name, GetTransportNameForMediaSection(
-                                           data->name, bundle_group))) {
+    if (!CreateDataChannel(data->name)) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create data channel.");
     }
@@ -4961,81 +4810,47 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
 
 // TODO(steveanton): Perhaps this should be managed by the RtpTransceiver.
 cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
-    const std::string& mid,
-    const std::string& transport_name) {
-  cricket::DtlsTransportInternal* rtp_dtls_transport =
-      transport_controller_->CreateDtlsTransport(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-  cricket::DtlsTransportInternal* rtcp_dtls_transport = nullptr;
-  if (configuration_.rtcp_mux_policy !=
-      PeerConnectionInterface::kRtcpMuxPolicyRequire) {
-    rtcp_dtls_transport = transport_controller_->CreateDtlsTransport(
-        transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
-  }
-
+    const std::string& mid) {
+  RtpTransportInternal* rtp_transport =
+      transport_controller_->GetRtpTransport(mid);
   cricket::VoiceChannel* voice_channel = channel_manager()->CreateVoiceChannel(
-      call_.get(), configuration_.media_config, rtp_dtls_transport,
-      rtcp_dtls_transport, signaling_thread(), mid, SrtpRequired(),
-      audio_options_);
+      call_.get(), configuration_.media_config, rtp_transport,
+      signaling_thread(), mid, SrtpRequired(), audio_options_);
   if (!voice_channel) {
-    transport_controller_->DestroyDtlsTransport(
-        transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-    if (rtcp_dtls_transport) {
-      transport_controller_->DestroyDtlsTransport(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
-    }
     return nullptr;
   }
-  voice_channel->SignalRtcpMuxFullyActive.connect(
-      this, &PeerConnection::DestroyRtcpTransport_n);
   voice_channel->SignalDtlsSrtpSetupFailure.connect(
       this, &PeerConnection::OnDtlsSrtpSetupFailure);
   voice_channel->SignalSentPacket.connect(this,
                                           &PeerConnection::OnSentPacket_w);
-
+  // So that transport can be changed if necessary in response to BUNDLE
+  // negotiation.
+  transport_controller_->AddChannel(mid, voice_channel);
   return voice_channel;
 }
 
 // TODO(steveanton): Perhaps this should be managed by the RtpTransceiver.
 cricket::VideoChannel* PeerConnection::CreateVideoChannel(
-    const std::string& mid,
-    const std::string& transport_name) {
-  cricket::DtlsTransportInternal* rtp_dtls_transport =
-      transport_controller_->CreateDtlsTransport(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-  cricket::DtlsTransportInternal* rtcp_dtls_transport = nullptr;
-  if (configuration_.rtcp_mux_policy !=
-      PeerConnectionInterface::kRtcpMuxPolicyRequire) {
-    rtcp_dtls_transport = transport_controller_->CreateDtlsTransport(
-        transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
-  }
-
+    const std::string& mid) {
+  RtpTransportInternal* rtp_transport =
+      transport_controller_->GetRtpTransport(mid);
   cricket::VideoChannel* video_channel = channel_manager()->CreateVideoChannel(
-      call_.get(), configuration_.media_config, rtp_dtls_transport,
-      rtcp_dtls_transport, signaling_thread(), mid, SrtpRequired(),
-      video_options_);
-
+      call_.get(), configuration_.media_config, rtp_transport,
+      signaling_thread(), mid, SrtpRequired(), video_options_);
   if (!video_channel) {
-    transport_controller_->DestroyDtlsTransport(
-        transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-    if (rtcp_dtls_transport) {
-      transport_controller_->DestroyDtlsTransport(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
-    }
     return nullptr;
   }
-  video_channel->SignalRtcpMuxFullyActive.connect(
-      this, &PeerConnection::DestroyRtcpTransport_n);
   video_channel->SignalDtlsSrtpSetupFailure.connect(
       this, &PeerConnection::OnDtlsSrtpSetupFailure);
   video_channel->SignalSentPacket.connect(this,
                                           &PeerConnection::OnSentPacket_w);
-
+  // So that transport can be changed if necessary in response to BUNDLE
+  // negotiation.
+  transport_controller_->AddChannel(mid, video_channel);
   return video_channel;
 }
 
-bool PeerConnection::CreateDataChannel(const std::string& mid,
-                                       const std::string& transport_name) {
+bool PeerConnection::CreateDataChannel(const std::string& mid) {
   bool sctp = (data_channel_type_ == cricket::DCT_SCTP);
   if (sctp) {
     if (!sctp_factory_) {
@@ -5045,44 +4860,29 @@ bool PeerConnection::CreateDataChannel(const std::string& mid,
       return false;
     }
     if (!network_thread()->Invoke<bool>(
-            RTC_FROM_HERE, rtc::Bind(&PeerConnection::CreateSctpTransport_n,
-                                     this, mid, transport_name))) {
+            RTC_FROM_HERE,
+            rtc::Bind(&PeerConnection::CreateSctpTransport_n, this, mid))) {
       return false;
     }
     for (const auto& channel : sctp_data_channels_) {
       channel->OnTransportChannelCreated();
     }
   } else {
-    cricket::DtlsTransportInternal* rtp_dtls_transport =
-        transport_controller_->CreateDtlsTransport(
-            transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-    cricket::DtlsTransportInternal* rtcp_dtls_transport = nullptr;
-    if (configuration_.rtcp_mux_policy !=
-        PeerConnectionInterface::kRtcpMuxPolicyRequire) {
-      rtcp_dtls_transport = transport_controller_->CreateDtlsTransport(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
-    }
-
+    RtpTransportInternal* rtp_transport =
+        transport_controller_->GetRtpTransport(mid);
     rtp_data_channel_ = channel_manager()->CreateRtpDataChannel(
-        configuration_.media_config, rtp_dtls_transport, rtcp_dtls_transport,
-        signaling_thread(), mid, SrtpRequired());
-
+        configuration_.media_config, rtp_transport, signaling_thread(), mid,
+        SrtpRequired());
     if (!rtp_data_channel_) {
-      transport_controller_->DestroyDtlsTransport(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-      if (rtcp_dtls_transport) {
-        transport_controller_->DestroyDtlsTransport(
-            transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
-      }
       return false;
     }
-
-    rtp_data_channel_->SignalRtcpMuxFullyActive.connect(
-        this, &PeerConnection::DestroyRtcpTransport_n);
     rtp_data_channel_->SignalDtlsSrtpSetupFailure.connect(
         this, &PeerConnection::OnDtlsSrtpSetupFailure);
     rtp_data_channel_->SignalSentPacket.connect(
         this, &PeerConnection::OnSentPacket_w);
+    // So that transport can be changed if necessary in response to BUNDLE
+    // negotiation.
+    transport_controller_->AddChannel(mid, rtp_data_channel_);
   }
 
   return true;
@@ -5120,13 +4920,12 @@ std::unique_ptr<SessionStats> PeerConnection::GetSessionStats_n(
   return session_stats;
 }
 
-bool PeerConnection::CreateSctpTransport_n(const std::string& content_name,
-                                           const std::string& transport_name) {
+bool PeerConnection::CreateSctpTransport_n(const std::string& mid) {
   RTC_DCHECK(network_thread()->IsCurrent());
   RTC_DCHECK(sctp_factory_);
   cricket::DtlsTransportInternal* tc =
-      transport_controller_->CreateDtlsTransport_n(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
+      transport_controller_->GetDtlsTransport(mid);
+  RTC_DCHECK(tc);
   sctp_transport_ = sctp_factory_->CreateSctpTransport(tc);
   RTC_DCHECK(sctp_transport_);
   sctp_invoker_.reset(new rtc::AsyncInvoker());
@@ -5136,23 +4935,12 @@ bool PeerConnection::CreateSctpTransport_n(const std::string& content_name,
       this, &PeerConnection::OnSctpTransportDataReceived_n);
   sctp_transport_->SignalStreamClosedRemotely.connect(
       this, &PeerConnection::OnSctpStreamClosedRemotely_n);
-  sctp_transport_name_ = transport_name;
-  sctp_content_name_ = content_name;
+  sctp_content_name_ = mid;
+  sctp_transport_name_ = mid;
+  // So that transport can be changed if necessary in response to BUNDLE
+  // negotiation.
+  transport_controller_->AddSctpTransport(mid, sctp_transport_.get());
   return true;
-}
-
-void PeerConnection::ChangeSctpTransport_n(const std::string& transport_name) {
-  RTC_DCHECK(network_thread()->IsCurrent());
-  RTC_DCHECK(sctp_transport_);
-  RTC_DCHECK(sctp_transport_name_);
-  std::string old_sctp_transport_name = *sctp_transport_name_;
-  sctp_transport_name_ = transport_name;
-  cricket::DtlsTransportInternal* tc =
-      transport_controller_->CreateDtlsTransport_n(
-          transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-  sctp_transport_->SetTransportChannel(tc);
-  transport_controller_->DestroyDtlsTransport_n(
-      old_sctp_transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
 }
 
 void PeerConnection::DestroySctpTransport_n() {
@@ -5161,7 +4949,6 @@ void PeerConnection::DestroySctpTransport_n() {
   transport_controller_->DestroyDtlsTransport_n(
       *sctp_transport_name_, cricket::ICE_CANDIDATE_COMPONENT_RTP);
   sctp_content_name_.reset();
-  sctp_transport_name_.reset();
   sctp_invoker_.reset(nullptr);
   sctp_ready_to_send_data_ = false;
 }
@@ -5470,8 +5257,8 @@ void PeerConnection::ReportTransportStats() {
   if (rtp_data_channel()) {
     transport_names.insert(rtp_data_channel()->transport_name());
   }
-  if (sctp_transport_name_) {
-    transport_names.insert(*sctp_transport_name_);
+  if (sctp_content_name_) {
+    transport_names.insert(*sctp_transport_name());
   }
   for (const auto& name : transport_names) {
     cricket::TransportStats stats;
@@ -5583,7 +5370,7 @@ const std::string PeerConnection::GetTransportName(
     const std::string& content_name) {
   cricket::BaseChannel* channel = GetChannel(content_name);
   if (channel) {
-    return channel->transport_name();
+    return channel->content_name();
   }
   if (sctp_transport_) {
     RTC_DCHECK(sctp_content_name_);
@@ -5594,12 +5381,6 @@ const std::string PeerConnection::GetTransportName(
   }
   // Return an empty string if failed to retrieve the transport name.
   return "";
-}
-
-void PeerConnection::DestroyRtcpTransport_n(const std::string& transport_name) {
-  RTC_DCHECK(network_thread()->IsCurrent());
-  transport_controller_->DestroyDtlsTransport_n(
-      transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
 }
 
 void PeerConnection::DestroyTransceiverChannel(
@@ -5636,14 +5417,6 @@ void PeerConnection::DestroyDataChannel() {
 
 void PeerConnection::DestroyBaseChannel(cricket::BaseChannel* channel) {
   RTC_DCHECK(channel);
-  RTC_DCHECK(channel->rtp_dtls_transport());
-
-  // Need to cache these before destroying the base channel so that we do not
-  // access uninitialized memory.
-  const std::string transport_name =
-      channel->rtp_dtls_transport()->transport_name();
-  const bool need_to_delete_rtcp = (channel->rtcp_dtls_transport() != nullptr);
-
   switch (channel->media_type()) {
     case cricket::MEDIA_TYPE_AUDIO:
       channel_manager()->DestroyVoiceChannel(
@@ -5660,15 +5433,6 @@ void PeerConnection::DestroyBaseChannel(cricket::BaseChannel* channel) {
     default:
       RTC_NOTREACHED() << "Unknown media type: " << channel->media_type();
       break;
-  }
-
-  // |channel| can no longer be used.
-
-  transport_controller_->DestroyDtlsTransport(
-      transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);
-  if (need_to_delete_rtcp) {
-    transport_controller_->DestroyDtlsTransport(
-        transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTCP);
   }
 }
 

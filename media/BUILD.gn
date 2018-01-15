@@ -217,6 +217,7 @@ rtc_static_library("rtc_audio_video") {
   defines = []
   libs = []
   deps = [
+    "../modules/audio_processing/aec_dump:aec_dump",
     "../modules/video_coding:video_coding",
     "../rtc_base:checks",
   ]

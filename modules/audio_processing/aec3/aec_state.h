@@ -103,7 +103,7 @@ class AecState {
     return filter_has_had_time_to_converge_;
   }
 
-  // Returns whether the filter adaptation is still in the inital state.
+  // Returns whether the filter adaptation is still in the initial state.
   bool InitialState() const { return initial_state_; }
 
   // Updates the aec state.

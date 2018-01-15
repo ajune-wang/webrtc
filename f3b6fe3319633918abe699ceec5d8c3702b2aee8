@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85533d30_1f8cdf44",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-15T18:05:28Z",
+      "side": 1,
+      "message": "Was this a change you made, or how did it end up here? Seems like something that should probably be done separately.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 41
+      },
+      "revId": "f3b6fe3319633918abe699ceec5d8c3702b2aee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "440cf473_f3f6b01c",
+        "filename": "modules/video_coding/protection_bitrate_calculator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-15T18:05:28Z",
+      "side": 1,
+      "message": "We should rename this interface and file to FecController and move it to webrtc/api. I\u0027m happy to do it in a later CL if you prefer, or a separate CL before this one.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "f3b6fe3319633918abe699ceec5d8c3702b2aee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97fe90c6_70f71b6e",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-15T18:05:28Z",
+      "side": 1,
+      "message": "Switch this if statement so you can remove !\n\nI.e.,\nif (...UseLossMaskVector()) {\n    encoder_target_rate_bps_ \u003d protection_bitrate_calculator_-\u003eSetTargetRates(\n        payload_bitrate_bps, stats_proxy_-\u003eGetSendFrameRate(),\n        loss_mask_vector_, rtt);\n    loss_mask_vector_.clear();\n} else {\n  ...\n}",
+      "range": {
+        "startLine": 1259,
+        "startChar": 6,
+        "endLine": 1259,
+        "endChar": 58
+      },
+      "revId": "f3b6fe3319633918abe699ceec5d8c3702b2aee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f255509e_37f57c02",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1377,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-15T18:05:28Z",
+      "side": 1,
+      "message": "LOG a warning here?",
+      "range": {
+        "startLine": 1377,
+        "startChar": 6,
+        "endLine": 1377,
+        "endChar": 43
+      },
+      "revId": "f3b6fe3319633918abe699ceec5d8c3702b2aee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

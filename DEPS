@@ -49,8 +49,8 @@ deps = {
   },
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '83f9e922364d2bc5eedf0e060eb278ea3d71c04a',
-  'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '94c2582bc92734c6d8134f5aadc6fd854e355f0d',
+#  'src/third_party':
+#    Var('chromium_git') + '/chromium/src/third_party' + '@' + '94c2582bc92734c6d8134f5aadc6fd854e355f0d',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + 'e951c37287c7d8cd915bf8d4149fd4a06d808b55',
       'condition': 'checkout_android',

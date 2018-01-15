@@ -152,6 +152,7 @@ TEST(MessageQueueManager, Clear) {
 // all registered message queues.
 TEST(MessageQueueManager, ProcessAllMessageQueues) {
   Event entered_process_all_message_queues(true, false);
+  AutoThread main;
   auto a = Thread::CreateWithSocketServer();
   auto b = Thread::CreateWithSocketServer();
   a->Start();
@@ -185,6 +186,7 @@ TEST(MessageQueueManager, ProcessAllMessageQueues) {
 
 // Test that ProcessAllMessageQueues doesn't hang if a thread is quitting.
 TEST(MessageQueueManager, ProcessAllMessageQueuesWithQuittingThread) {
+  AutoThread main;
   auto t = Thread::CreateWithSocketServer();
   t->Start();
   t->Quit();
@@ -195,6 +197,7 @@ TEST(MessageQueueManager, ProcessAllMessageQueuesWithQuittingThread) {
 // messages.
 TEST(MessageQueueManager, ProcessAllMessageQueuesWithClearedQueue) {
   Event entered_process_all_message_queues(true, false);
+  AutoThread main;
   auto t = Thread::CreateWithSocketServer();
   t->Start();
 

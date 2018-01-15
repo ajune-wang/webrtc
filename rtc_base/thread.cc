@@ -43,20 +43,12 @@ Thread* Thread::Current() {
   ThreadManager* manager = ThreadManager::Instance();
   Thread* thread = manager->CurrentThread();
 
-#ifndef NO_MAIN_THREAD_WRAPPING
-  // Only autowrap the thread which instantiated the ThreadManager.
-  if (!thread && manager->IsMainThread()) {
-    thread = new Thread(SocketServer::CreateDefault());
-    thread->WrapCurrentWithThreadManager(manager, true);
-  }
-#endif
-
   return thread;
 }
 
 #if defined(WEBRTC_POSIX)
 #if !defined(WEBRTC_MAC)
-ThreadManager::ThreadManager() : main_thread_ref_(CurrentThreadRef()) {
+ThreadManager::ThreadManager() {
   pthread_key_create(&key_, nullptr);
 }
 #endif
@@ -77,7 +69,7 @@ void ThreadManager::SetCurrentThread(Thread* thread) {
 
 #if defined(WEBRTC_WIN)
 ThreadManager::ThreadManager()
-    : key_(TlsAlloc()), main_thread_ref_(CurrentThreadRef()) {
+    : key_(TlsAlloc()) {
 }
 
 Thread *ThreadManager::CurrentThread() {
@@ -105,10 +97,6 @@ void ThreadManager::UnwrapCurrentThread() {
     t->UnwrapCurrent();
     delete t;
   }
-}
-
-bool ThreadManager::IsMainThread() {
-  return IsThreadRefEqual(CurrentThreadRef(), main_thread_ref_);
 }
 
 Thread::ScopedDisallowBlockingCalls::ScopedDisallowBlockingCalls()

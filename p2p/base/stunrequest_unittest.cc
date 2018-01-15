@@ -62,6 +62,7 @@ class StunRequestTest : public testing::Test,
     return delays[sends];
   }
 
+  rtc::AutoThread main_;
   StunRequestManager manager_;
   int request_count_;
   StunMessage* response_;

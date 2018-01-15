@@ -349,6 +349,7 @@ TEST(FakeClock, SettingTimeWakesThreads) {
   FakeClock clock;
   SetClockForTesting(&clock);
 
+  AutoThread main;
   std::unique_ptr<Thread> worker(Thread::CreateWithSocketServer());
   worker->Start();
 

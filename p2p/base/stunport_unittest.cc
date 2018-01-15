@@ -153,6 +153,7 @@ class StunPortTestBase : public testing::Test, public sigslot::has_slots<> {
   }
 
  private:
+  rtc::AutoThread main_;
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   rtc::AutoSocketServerThread thread_;
   rtc::Network network_;

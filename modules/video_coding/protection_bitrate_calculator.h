@@ -13,6 +13,7 @@
 
 #include <list>
 #include <memory>
+#include <vector>
 
 #include "modules/include/module_common_types.h"
 #include "modules/video_coding/include/video_coding.h"
@@ -36,42 +37,37 @@ namespace webrtc {
 // arbitrary thread.
 class ProtectionBitrateCalculator {
  public:
-  ProtectionBitrateCalculator(Clock* clock,
-                              VCMProtectionCallback* protection_callback);
-  ~ProtectionBitrateCalculator();
+  virtual ~ProtectionBitrateCalculator() {}
 
-  void SetProtectionMethod(bool enable_fec, bool enable_nack);
+  virtual void SetProtectionCallback(
+      VCMProtectionCallback* protection_callback) = 0;
+  virtual void SetProtectionMethod(bool enable_fec, bool enable_nack) = 0;
 
   // Informs media optimization of initial encoding state.
-  void SetEncodingData(size_t width,
-                       size_t height,
-                       size_t num_temporal_layers,
-                       size_t max_payload_size);
+  virtual void SetEncodingData(size_t width,
+                               size_t height,
+                               size_t num_temporal_layers,
+                               size_t max_payload_size) = 0;
 
   // Returns target rate for the encoder given the channel parameters.
   // Inputs:  estimated_bitrate_bps - the estimated network bitrate in bits/s.
   //          actual_framerate - encoder frame rate.
   //          fraction_lost - packet loss rate in % in the network.
   //          round_trip_time_ms - round trip time in milliseconds.
-  uint32_t SetTargetRates(uint32_t estimated_bitrate_bps,
-                          int actual_framerate,
-                          uint8_t fraction_lost,
-                          int64_t round_trip_time_ms);
+  virtual uint32_t SetTargetRates(uint32_t estimated_bitrate_bps,
+                                  int actual_framerate,
+                                  uint8_t fraction_lost,
+                                  int64_t round_trip_time_ms) = 0;
+
+  virtual uint32_t SetTargetRates(uint32_t estimated_bitrate_bps,
+                                  int actual_framerate,
+                                  std::vector<bool> loss_mask_vector,
+                                  int64_t round_trip_time_ms) = 0;
+
+  virtual bool UseLossMaskVector() = 0;
+
   // Informs of encoded output.
-  void UpdateWithEncodedData(const EncodedImage& encoded_image);
-
- private:
-  enum { kBitrateAverageWinMs = 1000 };
-
-  Clock* const clock_;
-  VCMProtectionCallback* const protection_callback_;
-
-  rtc::CriticalSection crit_sect_;
-  std::unique_ptr<media_optimization::VCMLossProtectionLogic> loss_prot_logic_
-      RTC_GUARDED_BY(crit_sect_);
-  size_t max_payload_size_ RTC_GUARDED_BY(crit_sect_);
-
-  RTC_DISALLOW_COPY_AND_ASSIGN(ProtectionBitrateCalculator);
+  virtual void UpdateWithEncodedData(const EncodedImage& encoded_image) = 0;
 };
 
 }  // namespace webrtc

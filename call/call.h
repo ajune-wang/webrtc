@@ -24,6 +24,7 @@
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
+#include "modules/video_coding/protection_bitrate_calculator.h"
 #include "rtc_base/bitrateallocationstrategy.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/networkroute.h"
@@ -144,6 +145,11 @@ class Call {
   virtual VideoSendStream* CreateVideoSendStream(
       VideoSendStream::Config config,
       VideoEncoderConfig encoder_config) = 0;
+  virtual VideoSendStream* CreateVideoSendStream(
+      VideoSendStream::Config config,
+      VideoEncoderConfig encoder_config,
+      std::unique_ptr<ProtectionBitrateCalculator>
+          protection_bitrate_calculator);
   virtual void DestroyVideoSendStream(VideoSendStream* send_stream) = 0;
 
   virtual VideoReceiveStream* CreateVideoReceiveStream(

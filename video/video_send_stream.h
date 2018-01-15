@@ -60,7 +60,9 @@ class VideoSendStream : public webrtc::VideoSendStream {
       VideoSendStream::Config config,
       VideoEncoderConfig encoder_config,
       const std::map<uint32_t, RtpState>& suspended_ssrcs,
-      const std::map<uint32_t, RtpPayloadState>& suspended_payload_states);
+      const std::map<uint32_t, RtpPayloadState>& suspended_payload_states,
+      std::unique_ptr<ProtectionBitrateCalculator>
+          protection_bitrate_calculator);
 
   ~VideoSendStream() override;
 

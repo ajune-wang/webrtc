@@ -1113,36 +1113,20 @@ int Channel::GetRemoteSSRC(unsigned int& ssrc) {
   return 0;
 }
 
+void Channel::SetRtpReceiveHeaderExtensions(
+    const std::vector<RtpExtension>& extensions) {
+  rtp_receive_header_extensions_ = RtpHeaderExtensionMap(extensions);
+}
+
 int Channel::SetSendAudioLevelIndicationStatus(bool enable, unsigned char id) {
   _includeAudioLevelIndication = enable;
   return SetSendRtpHeaderExtension(enable, kRtpExtensionAudioLevel, id);
-}
-
-int Channel::SetReceiveAudioLevelIndicationStatus(bool enable,
-                                                  unsigned char id) {
-  rtp_header_parser_->DeregisterRtpHeaderExtension(kRtpExtensionAudioLevel);
-  if (enable &&
-      !rtp_header_parser_->RegisterRtpHeaderExtension(kRtpExtensionAudioLevel,
-                                                      id)) {
-    return -1;
-  }
-  return 0;
 }
 
 void Channel::EnableSendTransportSequenceNumber(int id) {
   int ret =
       SetSendRtpHeaderExtension(true, kRtpExtensionTransportSequenceNumber, id);
   RTC_DCHECK_EQ(0, ret);
-}
-
-void Channel::EnableReceiveTransportSequenceNumber(int id) {
-  rtp_header_parser_->DeregisterRtpHeaderExtension(
-      kRtpExtensionTransportSequenceNumber);
-  if (id != 0) {
-    bool ret = rtp_header_parser_->RegisterRtpHeaderExtension(
-        kRtpExtensionTransportSequenceNumber, id);
-    RTC_DCHECK(ret);
-  }
 }
 
 void Channel::RegisterSenderCongestionControlObjects(

@@ -212,9 +212,11 @@ class Channel
   // RTP+RTCP
   int SetLocalSSRC(unsigned int ssrc);
   int SetSendAudioLevelIndicationStatus(bool enable, unsigned char id);
-  int SetReceiveAudioLevelIndicationStatus(bool enable, unsigned char id);
+  // TODO(nisse): channel_proxy methos is named
+  // SetRtpHeaderExtensions. Rename one or the other for consistency.
+  void SetRtpReceiveHeaderExtensions(
+      const std::vector<RtpExtension>& extensions);
   void EnableSendTransportSequenceNumber(int id);
-  void EnableReceiveTransportSequenceNumber(int id);
 
   void RegisterSenderCongestionControlObjects(
       RtpTransportControllerSendInterface* transport,
@@ -343,6 +345,8 @@ class Channel
   std::unique_ptr<voe::RtcEventLogProxy> event_log_proxy_;
   std::unique_ptr<voe::RtcpRttStatsProxy> rtcp_rtt_stats_proxy_;
 
+  RtpHeaderExtensionMap rtp_receive_header_extensions_;
+  // TODO(nisse): Delete?
   std::unique_ptr<RtpHeaderParser> rtp_header_parser_;
   std::unique_ptr<RTPPayloadRegistry> rtp_payload_registry_;
   std::unique_ptr<ReceiveStatistics> rtp_receive_statistics_;

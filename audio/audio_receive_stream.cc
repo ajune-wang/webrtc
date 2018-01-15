@@ -390,17 +390,7 @@ void AudioReceiveStream::ConfigureStream(AudioReceiveStream* stream,
   }
 
   // RTP Header Extensions.
-  const ExtensionIds old_ids = FindExtensionIds(old_config.rtp.extensions);
-  const ExtensionIds new_ids = FindExtensionIds(new_config.rtp.extensions);
-  if (first_time || new_ids.audio_level != old_ids.audio_level) {
-    channel_proxy->SetReceiveAudioLevelIndicationStatus(
-        new_ids.audio_level != 0, new_ids.audio_level);
-  }
-  if (first_time || new_ids.transport_sequence_number !=
-                        old_ids.transport_sequence_number) {
-    channel_proxy->EnableReceiveTransportSequenceNumber(
-        new_ids.transport_sequence_number);
-  }
+  channel_proxy->SetRtpReceiveHeaderExtensions(new_config.rtp.extensions);
 
   stream->config_ = new_config;
 }

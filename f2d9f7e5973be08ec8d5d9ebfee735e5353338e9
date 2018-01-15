@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb80f02a_b0f1943c",
+        "filename": "BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36600673_108e39e6",
+      "range": {
+        "startLine": 211,
+        "startChar": 19,
+        "endLine": 211,
+        "endChar": 35
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35c26f1e_038372b1",
         "filename": "api/video_codecs/video_decoder_factory.h",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60f18642_b71deeed",
+        "filename": "api/video_codecs/video_decoder_factory.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "I got a warning to add these at some point, but now it seems it works to remove them. Removed.",
+      "parentUuid": "35c26f1e_038372b1",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "77807ff7_3d22b3ab",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48c3cdaf_999e92ca",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c217933_a6c69aa2",
         "filename": "modules/video_coding/codec_database.cc",
         "patchSetId": 11
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "15590801_5de23bbc",
+        "filename": "modules/video_coding/codec_database.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "Not sure actually. I inherited it from https://webrtc-review.googlesource.com/c/src/+/29203/2/modules/video_coding/codec_database.cc :) I guess it could be nice to raise an exception here instead of later in the code if there is no external codec available and we\u0027re building without SW codecs, but seems unnecessary to add an extra ifdef section for this. I\u0027ll remove it.",
+      "parentUuid": "1c217933_a6c69aa2",
+      "range": {
+        "startLine": 467,
+        "startChar": 0,
+        "endLine": 470,
+        "endChar": 5
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34c5c5ca_a78bad7f",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 11
@@ -105,6 +201,30 @@
       "writtenOn": "2018-01-12T13:35:25Z",
       "side": 1,
       "message": "What\u0027s the dependency on libvpx here and is it safe to remove? It looks generic.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 31
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d48a0d69_84784121",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "The issue is that ScreenshareTemporalLayersFactory (screenshare_layers.cc) and TemporalLayersFactory (default_temporal_layers.cc) are in the webrtc_vp8 target, because they use the vpx_codec_enc_cfg_t struct from libvpx.\n\nAnother possibility is to do the #ifdefs in those files instead and move them to some other target, like the webrtc_vp8_helpers target we had before.",
+      "parentUuid": "34c5c5ca_a78bad7f",
       "range": {
         "startLine": 65,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "b9144568_0d83bb53",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "Same as above: SimulcastRateAllocator uses the TemporalLayersFactory, and therefore has to be in the webrtc_vp8 target.",
+      "parentUuid": "07124776_edf12af7",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 31
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "daad4285_2b76b4cc",
         "filename": "sdk/BUILD.gn",
         "patchSetId": 11
@@ -151,6 +295,30 @@
       "writtenOn": "2018-01-12T13:35:25Z",
       "side": 1,
       "message": "Same here, it would be nice if we could put VP8 and VP9 into separate targets since the long term goal is to make it modular on a target level.",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 70
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e581eca_5fa34617",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "Yes that sounds doable. The question is what to do with the RTCDefaultVideoEncoderFactory. If those classes exist in this target, and the codecs are in separate targets, I guess we would need some kind of run time check what codecs are available in the factory?",
+      "parentUuid": "daad4285_2b76b4cc",
       "range": {
         "startLine": 344,
         "startChar": 0,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "c55195ab_bdbcf38c",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "Yes, but same question as for iOS. I suppose there is some runtime reflection available in Java to check which codec classes are available in the SoftwareVideoEncoderFactory etc., or are there any better methods?",
+      "parentUuid": "fa55ee89_e86d88c6",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 44
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abfbc587_29b11aa8",
         "filename": "sdk/android/src/jni/pc/video.cc",
         "patchSetId": 11
@@ -197,6 +389,30 @@
       "writtenOn": "2018-01-12T13:35:25Z",
       "side": 1,
       "message": "Is this needed?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 3
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e949a5d7_6b358626",
+        "filename": "sdk/android/src/jni/pc/video.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-15T15:32:02Z",
+      "side": 1,
+      "message": "The only reason I put this here is because I got an error about Java_Context_isEgl14Context being an unused function otherwise. I believe that function is generated, so I don\u0027t know if it\u0027s possible to #ifdef that out?",
+      "parentUuid": "abfbc587_29b11aa8",
       "range": {
         "startLine": 60,
         "startChar": 0,

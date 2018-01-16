@@ -118,17 +118,21 @@ int32_t StereoDecoderAdapter::Decode(
       codec_specific_info->codecSpecific.stereo;
   RTC_DCHECK_LT(static_cast<size_t>(stereo_info.indices.frame_index),
                 decoders_.size());
-  if (stereo_info.indices.frame_count == 1) {
-    RTC_DCHECK_EQ(static_cast<int>(stereo_info.indices.frame_index), 0);
+  MultiplexImage image = MultiplexEncodedImagePacker::Depack(input_image);
+
+  if (image.frame_count == 1) {
     RTC_DCHECK(decoded_data_.find(input_image._timeStamp) ==
                decoded_data_.end());
     decoded_data_.emplace(std::piecewise_construct,
                           std::forward_as_tuple(input_image._timeStamp),
                           std::forward_as_tuple(kAXXStream));
   }
-
-  int32_t rv = decoders_[stereo_info.indices.frame_index]->Decode(
-      input_image, missing_frames, nullptr, nullptr, render_time_ms);
+  int32_t rv = 0;
+  for (size_t i = 0; i < image.image_components.size(); i++) {
+    decoders_[image.image_components[i].frame_index]->Decode(
+        image.image_components[i].encoded_image, missing_frames, nullptr,
+        nullptr, render_time_ms);
+  }
   return rv;
 }
 

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3799fad8_4c38243f",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-01-16T10:08:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3048f475_4bbb9c99",
+      "range": {
+        "startLine": 490,
+        "startChar": 7,
+        "endLine": 490,
+        "endChar": 14
+      },
+      "revId": "6137a8b1ef8afbe0e83e6fe0e3f8adf51a346cda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbfa104a_b9d77dd8",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d2fd7adc_11b3464e",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-01-16T10:08:25Z",
+      "side": 1,
+      "message": "Ack,\nanother CL",
+      "parentUuid": "dbfa104a_b9d77dd8",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "6137a8b1ef8afbe0e83e6fe0e3f8adf51a346cda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28bdccda_6f3f8b23",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "6137a8b1ef8afbe0e83e6fe0e3f8adf51a346cda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02687495_3bd22529",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-01-16T10:08:25Z",
+      "side": 1,
+      "message": "That is my \u0027best practice\u0027, but can\u0027t find any strong rule about it. Best I found is\n\"When definitions in a .cc file do not need to be referenced outside that file, place them in an unnamed namespace\"\n\nnew helper function definitely should be in unnamed namespace, old constants better be there too.\nRest of the file doesn\u0027t hurt to hide.\nDouble different definition of same name produce very weird errors, so prefer to put as much as I can into unnamed namespace.\nIt is also easier to follow when namespace boundaries are closer to source file boundaries.",
+      "parentUuid": "28bdccda_6f3f8b23",
+      "range": {
+        "startLine": 423,
+        "startChar": 0,
+        "endLine": 423,
+        "endChar": 15
+      },
+      "revId": "6137a8b1ef8afbe0e83e6fe0e3f8adf51a346cda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

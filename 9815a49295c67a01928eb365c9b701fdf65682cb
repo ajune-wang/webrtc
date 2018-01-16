@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "429eabca_e8bb0b35",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "Is the intention to update the legacy classes and eventually remove this file?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4745208b_763cb843",
+        "filename": "modules/congestion_controller/pacer_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "TODO?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af64ac6d_1a35f26b",
+        "filename": "network_control/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "Since this is only used in congestion_controller/, how about placing it in e.g. congestion_controller/network_interface/",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 39
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2926e10_750eca76",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "nit: count",
+      "range": {
+        "startLine": 91,
+        "startChar": 55,
+        "endLine": 91,
+        "endChar": 60
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b34e56c_03ee242f",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "nit: able",
+      "range": {
+        "startLine": 91,
+        "startChar": 74,
+        "endLine": 91,
+        "endChar": 78
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014a0bad_d4817787",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "nit: count",
+      "range": {
+        "startLine": 93,
+        "startChar": 13,
+        "endLine": 93,
+        "endChar": 18
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91bf27ee_5b4da776",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "nit: endpoint",
+      "range": {
+        "startLine": 141,
+        "startChar": 31,
+        "endLine": 141,
+        "endChar": 38
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44179350_6aa8082c",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "nit: These",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 11
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b5958b9_e19488f4",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "nit: changes.",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff98320b_247ace5f",
+        "filename": "system_wrappers/source/field_trial_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-16T13:52:29Z",
+      "side": 1,
+      "message": "Is there any reason for not using the critical section implementation in rtc_base?",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

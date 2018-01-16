@@ -389,19 +389,6 @@ void AudioReceiveStream::ConfigureStream(AudioReceiveStream* stream,
     channel_proxy->SetReceiveCodecs(new_config.decoder_map);
   }
 
-  // RTP Header Extensions.
-  const ExtensionIds old_ids = FindExtensionIds(old_config.rtp.extensions);
-  const ExtensionIds new_ids = FindExtensionIds(new_config.rtp.extensions);
-  if (first_time || new_ids.audio_level != old_ids.audio_level) {
-    channel_proxy->SetReceiveAudioLevelIndicationStatus(
-        new_ids.audio_level != 0, new_ids.audio_level);
-  }
-  if (first_time || new_ids.transport_sequence_number !=
-                        old_ids.transport_sequence_number) {
-    channel_proxy->EnableReceiveTransportSequenceNumber(
-        new_ids.transport_sequence_number);
-  }
-
   stream->config_ = new_config;
 }
 }  // namespace internal

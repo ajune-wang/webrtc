@@ -16,10 +16,10 @@
 #include <memory>
 
 #include "common_types.h"  // NOLINT(build/include)
+#include "modules/video_coding/codecs/vp8/temporal_layers.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "system_wrappers/include/sleep.h"
-#include "test/gtest.h"
 
 namespace webrtc {
 namespace test {
@@ -37,6 +37,7 @@ FakeEncoder::FakeEncoder(Clock* clock)
   for (size_t i = 0; i < sizeof(encoded_buffer_); ++i) {
     encoded_buffer_[i] = static_cast<uint8_t>(i);
   }
+  memset(used_layers_, 0, sizeof(used_layers_));
 }
 
 void FakeEncoder::SetMaxBitrate(int max_kbps) {
@@ -53,116 +54,110 @@ int32_t FakeEncoder::InitEncode(const VideoCodec* config,
   target_bitrate_.SetBitrate(0, 0, config_.startBitrate * 1000);
   configured_input_framerate_ = config_.maxFramerate;
   pending_keyframe_ = true;
+  last_allocation_ = Allocation();
   return 0;
 }
 
 int32_t FakeEncoder::Encode(const VideoFrame& input_image,
                             const CodecSpecificInfo* codec_specific_info,
                             const std::vector<FrameType>* frame_types) {
-  unsigned char max_framerate;
-  unsigned char num_simulcast_streams;
-  SimulcastStream simulcast_streams[kMaxSimulcastStreams];
-  EncodedImageCallback* callback;
-  uint32_t target_bitrate_sum_kbps;
-  int max_target_bitrate_kbps;
-  size_t num_encoded_bytes;
-  int framerate;
-  VideoCodecMode mode;
-  bool keyframe;
-  {
-    rtc::CritScope cs(&crit_sect_);
-    max_framerate = config_.maxFramerate;
-    num_simulcast_streams = config_.numberOfSimulcastStreams;
-    for (int i = 0; i < num_simulcast_streams; ++i) {
-      simulcast_streams[i] = config_.simulcastStream[i];
+  Allocation allocation = NextFrame(frame_types);
+  for (uint8_t i = 0; i < allocation.frame_info.size(); ++i) {
+    if (allocation.frame_info[i].size == 0) {
+      // Drop this temporal layer.
+      continue;
     }
-    callback = callback_;
-    target_bitrate_sum_kbps = target_bitrate_.get_sum_kbps();
-    max_target_bitrate_kbps = max_target_bitrate_kbps_;
-    num_encoded_bytes = sizeof(encoded_buffer_);
-    mode = config_.mode;
-    if (configured_input_framerate_ > 0) {
-      framerate = configured_input_framerate_;
-    } else {
-      framerate = max_framerate;
-    }
-    keyframe = pending_keyframe_;
-    pending_keyframe_ = false;
-  }
 
-  for (FrameType frame_type : *frame_types) {
-    if (frame_type == kVideoFrameKey) {
-      keyframe = true;
-      break;
-    }
-  }
-
-  RTC_DCHECK_GT(max_framerate, 0);
-
-  size_t bitrate =
-      std::max(target_bitrate_sum_kbps, simulcast_streams[0].minBitrate);
-  if (max_target_bitrate_kbps > 0)
-    bitrate = std::min(bitrate, static_cast<size_t>(max_target_bitrate_kbps));
-
-  size_t bits_available = bitrate * 1000 / framerate;
-
-  RTC_DCHECK_GT(num_simulcast_streams, 0);
-  for (unsigned char i = 0; i < num_simulcast_streams; ++i) {
     CodecSpecificInfo specifics;
     memset(&specifics, 0, sizeof(specifics));
     specifics.codecType = kVideoCodecGeneric;
     specifics.codecSpecific.generic.simulcast_idx = i;
-    size_t min_stream_bits = static_cast<size_t>(
-        (simulcast_streams[i].minBitrate * 1000) / framerate);
-    size_t max_stream_bits = static_cast<size_t>(
-        (simulcast_streams[i].maxBitrate * 1000) / framerate);
-    size_t stream_bits = (bits_available > max_stream_bits) ? max_stream_bits :
-        bits_available;
-    size_t stream_bytes = (stream_bits + 7) / 8;
-    if (keyframe) {
-      // The first frame is a key frame and should be larger.
-      // Store the overshoot bytes and distribute them over the coming frames,
-      // so that we on average meet the bitrate target.
-      debt_bytes_ += (kKeyframeSizeFactor - 1) * stream_bytes;
-      stream_bytes *= kKeyframeSizeFactor;
-    } else {
-      if (debt_bytes_ > 0) {
-        // Pay at most half of the frame size for old debts.
-        size_t payment_size = std::min(stream_bytes / 2, debt_bytes_);
-        debt_bytes_ -= payment_size;
-        stream_bytes -= payment_size;
-      }
-    }
 
-    if (stream_bytes > num_encoded_bytes)
-      stream_bytes = num_encoded_bytes;
-
-    // Always encode something on the first frame.
-    if (min_stream_bits > bits_available && i > 0)
-      continue;
-
-    std::unique_ptr<uint8_t[]> encoded_buffer(new uint8_t[num_encoded_bytes]);
-    memcpy(encoded_buffer.get(), encoded_buffer_, num_encoded_bytes);
-    EncodedImage encoded(encoded_buffer.get(), stream_bytes, num_encoded_bytes);
+    std::unique_ptr<uint8_t[]> encoded_buffer(
+        new uint8_t[allocation.frame_info[i].size]);
+    memcpy(encoded_buffer.get(), encoded_buffer_,
+           allocation.frame_info[i].size);
+    EncodedImage encoded(encoded_buffer.get(), allocation.frame_info[i].size,
+                         sizeof(encoded_buffer_));
     encoded._timeStamp = input_image.timestamp();
     encoded.capture_time_ms_ = input_image.render_time_ms();
-    encoded._frameType = (*frame_types)[i];
-    encoded._encodedWidth = simulcast_streams[i].width;
-    encoded._encodedHeight = simulcast_streams[i].height;
+    encoded._frameType =
+        allocation.keyframe ? kVideoFrameKey : kVideoFrameDelta;
+    encoded._encodedWidth = config_.simulcastStream[i].width;
+    encoded._encodedHeight = config_.simulcastStream[i].height;
     encoded.rotation_ = input_image.rotation();
-    encoded.content_type_ = (mode == kScreensharing)
+    encoded.content_type_ = (config_.mode == kScreensharing)
                                 ? VideoContentType::SCREENSHARE
                                 : VideoContentType::UNSPECIFIED;
     specifics.codec_name = ImplementationName();
-    specifics.codecSpecific.generic.simulcast_idx = i;
-    RTC_DCHECK(callback);
-    if (callback->OnEncodedImage(encoded, &specifics, nullptr).error !=
+    if (callback_->OnEncodedImage(encoded, &specifics, nullptr).error !=
         EncodedImageCallback::Result::OK) {
       return -1;
     }
-    bits_available -= std::min(encoded._length * 8, bits_available);
   }
   return 0;
+}
+
+FakeEncoder::Allocation FakeEncoder::NextFrame(
+    const std::vector<FrameType>* frame_types) {
+  Allocation allocation;
+  allocation.keyframe = pending_keyframe_;
+  pending_keyframe_ = false;
+
+  if (frame_types) {
+    for (FrameType frame_type : *frame_types) {
+      if (frame_type == kVideoFrameKey) {
+        allocation.keyframe = true;
+        break;
+      }
+    }
+  }
+
+  for (uint8_t i = 0; i < config_.numberOfSimulcastStreams; ++i) {
+    if (target_bitrate_.GetBitrate(i, 0) > 0) {
+      int temporal_id =
+          last_allocation_.frame_info.size() > i
+              ? ++last_allocation_.frame_info[i].temporal_id %
+                    config_.simulcastStream[i].numberOfTemporalLayers
+              : 0;
+      allocation.frame_info.emplace_back(0, temporal_id);
+    }
+  }
+
+  if (last_allocation_.frame_info.size() < allocation.frame_info.size()) {
+    // A new keyframe is needed since a new layer will be added.
+    allocation.keyframe = true;
+  }
+
+  int framerate = configured_input_framerate_ > 0 ? configured_input_framerate_
+                                                  : config_.maxFramerate;
+  for (uint8_t i = 0; i < allocation.frame_info.size(); ++i) {
+    Allocation::FrameInfo& frame_info = allocation.frame_info[i];
+    if (allocation.keyframe) {
+      frame_info.temporal_id = 0;
+      size_t avg_frame_size =
+          (target_bitrate_.GetBitrate(i, 0) + 7) / (8 * framerate);
+
+      // The first frame is a key frame and should be larger.
+      // Store the overshoot bytes and distribute them over the coming frames,
+      // so that we on average meet the bitrate target.
+      debt_bytes_ += (kKeyframeSizeFactor - 1) * avg_frame_size;
+      frame_info.size = kKeyframeSizeFactor * avg_frame_size;
+    } else {
+      size_t avg_frame_size =
+          (target_bitrate_.GetBitrate(i, frame_info.temporal_id) + 7) /
+          (8 * framerate);
+      frame_info.size = avg_frame_size;
+      if (debt_bytes_ > 0) {
+        // Pay at most half of the frame size for old debts.
+        size_t payment_size = std::min(avg_frame_size / 2, debt_bytes_);
+        debt_bytes_ -= payment_size;
+        frame_info.size -= payment_size;
+      }
+    }
+  }
+  last_allocation_ = allocation;
+  return allocation;
 }
 
 int32_t FakeEncoder::RegisterEncodeCompleteCallback(

@@ -332,7 +332,11 @@ class VideoStreamEncoderTest : public ::testing::Test {
 
     VideoEncoderConfig video_encoder_config;
     video_encoder_config.number_of_streams = num_streams;
-    video_encoder_config.max_bitrate_bps = kTargetBitrateBps;
+    video_encoder_config.max_bitrate_bps =
+        kTargetBitrateBps;  // 2 * kTargetBitrateBps;  // To Allow screenshare
+                            // two have two temporal layers.... ??? Otherwise a
+                            // layer will be dropped. But then this hits a
+                            // CHECK....
     video_encoder_config.video_stream_factory =
         new rtc::RefCountedObject<VideoStreamFactory>(num_temporal_layers,
                                                       kDefaultFramerate);
@@ -2730,7 +2734,7 @@ TEST_F(VideoStreamEncoderTest, DoesntAdaptDownPastMinFramerate) {
 
   // Reconfigure encoder with two temporal layers and screensharing, which will
   // disable frame dropping and make testing easier.
-  ResetEncoder("VP8", 1, 2, 1, true, true);
+  ResetEncoder("VP8", 1, 1, 1, true, true);
 
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
   video_stream_encoder_->SetSource(

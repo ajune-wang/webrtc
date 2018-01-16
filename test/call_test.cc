@@ -11,7 +11,6 @@
 #include "test/call_test.h"
 
 #include <algorithm>
-
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "call/rtp_transport_controller_send.h"
@@ -38,7 +37,7 @@ CallTest::CallTest()
       video_send_stream_(nullptr),
       audio_send_config_(nullptr),
       audio_send_stream_(nullptr),
-      fake_encoder_(clock_),
+      // fake_encoder_(clock_),
       num_video_streams_(1),
       num_audio_streams_(0),
       num_flexfec_streams_(0),
@@ -196,10 +195,17 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
                                      size_t num_video_streams,
                                      size_t num_used_ssrcs,
                                      Transport* send_transport) {
+  if (num_video_streams > 1) {
+    fake_encoder_ = rtc::MakeUnique<FakeVP8Encoder>(clock_);
+  } else {
+    fake_encoder_ = rtc::MakeUnique<FakeEncoder>(clock_);
+  }
+
   RTC_DCHECK_LE(num_video_streams + num_used_ssrcs, kNumSsrcs);
   *video_config = VideoSendStream::Config(send_transport);
-  video_config->encoder_settings.encoder = &fake_encoder_;
-  video_config->encoder_settings.payload_name = "FAKE";
+  video_config->encoder_settings.encoder = fake_encoder_.get();
+  video_config->encoder_settings.payload_name =
+      num_video_streams > 1 ? "VP8" : "FAKE";
   video_config->encoder_settings.payload_type = kFakeVideoSendPayloadType;
   video_config->rtp.extensions.push_back(
       RtpExtension(RtpExtension::kTransportSequenceNumberUri,

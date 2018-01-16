@@ -21,6 +21,7 @@
 #include "test/fake_decoder.h"
 #include "test/fake_encoder.h"
 #include "test/fake_videorenderer.h"
+#include "test/fake_vp8_encoder.h"
 #include "test/frame_generator_capturer.h"
 #include "test/rtp_rtcp_observer.h"
 #include "test/single_threaded_task_queue.h"
@@ -140,7 +141,8 @@ class CallTest : public ::testing::Test {
   std::vector<FlexfecReceiveStream*> flexfec_receive_streams_;
 
   std::unique_ptr<test::FrameGeneratorCapturer> frame_generator_capturer_;
-  test::FakeEncoder fake_encoder_;
+  std::unique_ptr<VideoEncoder> fake_encoder_;
+  // test::FakeEncoder fake_encoder_;
   std::vector<std::unique_ptr<VideoDecoder>> allocated_decoders_;
   size_t num_video_streams_;
   size_t num_audio_streams_;

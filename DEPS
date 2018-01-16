@@ -456,6 +456,56 @@ hooks = [
                'download'
     ],
   },
+  {
+    # Remove unnecessary dependencies from third_party on linux
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': 'checkout_linux',
+    'action': ['src/deps_clear_hook.py',
+               '--platform', 'linux',
+	       '--dir', 'src/third_party',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on android
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': 'checkout_android',
+    'action': ['src/deps_clear_hook.py',
+               '--platform', 'android',
+	       '--dir', 'src/third_party',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on mac
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': 'checkout_mac',
+    'action': ['src/deps_clear_hook.py',
+               '--platform', 'mac',
+	       '--dir', 'src/third_party',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on ios
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': 'checkout_ios',
+    'action': ['src/deps_clear_hook.py',
+               '--platform', 'ios',
+	       '--dir', 'src/third_party',
+    ],
+  },
+  {
+    # Remove unnecessary dependencies from third_party on win
+    'name': 'Third party cleanup',
+    'pattern': '.',
+    'condition': 'checkout_win',
+    'action': ['src/deps_clear_hook.py',
+               '--platform', 'win',
+	       '--dir', 'src/third_party',
+    ],
+  },
 ]
 
 recursedeps = [

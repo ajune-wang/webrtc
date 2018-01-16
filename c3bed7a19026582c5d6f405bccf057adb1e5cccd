@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e29dc186_3f800925",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-16T15:19:10Z",
+      "side": 1,
+      "message": "The surrounding settings are documented...",
+      "revId": "c3bed7a19026582c5d6f405bccf057adb1e5cccd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70a5fdf_b365405f",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-16T15:19:10Z",
+      "side": 1,
+      "message": "The comment doesn\u0027t explain what the setting does.",
+      "revId": "c3bed7a19026582c5d6f405bccf057adb1e5cccd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

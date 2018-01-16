@@ -131,6 +131,8 @@ class VideoSendStream {
       // 30fps (for example) exactly.
       bool full_overuse_time = false;
 
+      bool enable_cpu_load_estimator_experiment = false;
+
       // Uninitialized VideoEncoder instance to be used for encoding. Will be
       // initialized from inside the VideoSendStream.
       VideoEncoder* encoder = nullptr;

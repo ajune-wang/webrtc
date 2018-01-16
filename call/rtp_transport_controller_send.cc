@@ -43,12 +43,6 @@ const RtpKeepAliveConfig& RtpTransportControllerSend::keepalive_config() const {
   return keepalive_;
 }
 
-void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
-    int min_send_bitrate_bps,
-    int max_padding_bitrate_bps) {
-  pacer_.SetSendBitrateLimits(min_send_bitrate_bps, max_padding_bitrate_bps);
-}
-
 void RtpTransportControllerSend::SetKeepAliveConfig(
     const RtpKeepAliveConfig& config) {
   keepalive_ = config;

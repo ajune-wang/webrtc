@@ -162,6 +162,8 @@ rtc_source_set("audio_device_generic") {
     ]
     if (is_android) {
       sources += [
+        "android/aaudio_player.cc",
+        "android/aaudio_player.h",
         "android/audio_common.h",
         "android/audio_device_template.h",
         "android/audio_manager.cc",

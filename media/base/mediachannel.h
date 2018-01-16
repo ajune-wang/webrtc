@@ -126,6 +126,9 @@ struct MediaConfig {
 
     // Enables periodic bandwidth probing in application-limited region.
     bool periodic_alr_bandwidth_probing = false;
+
+    // Intended to be controlled primarily by a Chrome origin-trial.
+    bool experiment_cpu_load_estimator = false;
   } video;
 
   bool operator==(const MediaConfig& o) const {

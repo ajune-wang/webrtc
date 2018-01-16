@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "fa6e14d0_8c403749",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-16T19:25:49Z",
+      "side": 1,
+      "message": "Just a sentence or two would be enough. `full_overuse_time` above is at just the right level, I think. (Just from the name, I was guessing that this is the on/off switch for an experiment that estimates the CPU load and uses it to make video encoding decisions. Sounds like I was only half right.)",
+      "parentUuid": "3dd91068_56628ae8",
+      "revId": "c3bed7a19026582c5d6f405bccf057adb1e5cccd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a70a5fdf_b365405f",
         "filename": "media/base/mediachannel.h",
         "patchSetId": 3

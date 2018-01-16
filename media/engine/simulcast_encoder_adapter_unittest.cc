@@ -30,10 +30,10 @@ class TestSimulcastEncoderAdapter : public TestVp8Simulcast {
   TestSimulcastEncoderAdapter() : factory_(new InternalEncoderFactory()) {}
 
  protected:
-  std::unique_ptr<VP8Encoder> CreateEncoder() override {
+  std::unique_ptr<VideoEncoder> CreateEncoder() override {
     return rtc::MakeUnique<SimulcastEncoderAdapter>(factory_.get());
   }
-  std::unique_ptr<VP8Decoder> CreateDecoder() override {
+  std::unique_ptr<VideoDecoder> CreateDecoder() override {
     return VP8Decoder::Create();
   }
 

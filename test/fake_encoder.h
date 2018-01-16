@@ -50,16 +50,33 @@ class FakeEncoder : public VideoEncoder {
   static const char* kImplementationName;
 
  protected:
+  struct Allocation {  // Rename FrameINfo
+    bool keyframe;
+    struct FrameInfo {  // Rename SpatialLayer
+      FrameInfo() = default;
+      FrameInfo(int size, int temporal_id)
+          : size(size), temporal_id(temporal_id) {}
+      int size = 0;
+      int temporal_id = 0;
+    };
+    std::vector<FrameInfo> frame_info;
+
+    //    std::vector<int> frame_size;
+  };
+  Allocation NextFrame(const std::vector<FrameType>* frame_types);
+
+  Allocation last_allocation_;
   Clock* const clock_;
-  VideoCodec config_ RTC_GUARDED_BY(crit_sect_);
-  EncodedImageCallback* callback_ RTC_GUARDED_BY(crit_sect_);
-  BitrateAllocation target_bitrate_ RTC_GUARDED_BY(crit_sect_);
-  int configured_input_framerate_ RTC_GUARDED_BY(crit_sect_);
-  int max_target_bitrate_kbps_ RTC_GUARDED_BY(crit_sect_);
-  bool pending_keyframe_ RTC_GUARDED_BY(crit_sect_);
+  VideoCodec config_;                 //  RTC_GUARDED_BY(crit_sect_);
+  EncodedImageCallback* callback_;    //  RTC_GUARDED_BY(crit_sect_);
+  BitrateAllocation target_bitrate_;  // RTC_GUARDED_BY(crit_sect_);
+  int configured_input_framerate_;    // RTC_GUARDED_BY(crit_sect_);
+  int max_target_bitrate_kbps_;       //  RTC_GUARDED_BY(crit_sect_);
+  bool pending_keyframe_;             // RTC_GUARDED_BY(crit_sect_);
   rtc::CriticalSection crit_sect_;
 
   uint8_t encoded_buffer_[100000];
+  bool used_layers_[kMaxSimulcastStreams];
 
   // Current byte debt to be payed over a number of frames.
   // The debt is acquired by keyframes overshooting the bitrate target.

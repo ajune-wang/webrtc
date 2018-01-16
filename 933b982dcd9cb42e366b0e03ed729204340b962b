@@ -16,6 +16,24 @@
       "revId": "933b982dcd9cb42e366b0e03ed729204340b962b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a34dffcc_be3d87c1",
+        "filename": "video/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T10:54:31Z",
+      "side": 1,
+      "message": "I agree, but as the value is set within VideoSendStreamImpl declared in the video_send_stream.cc source file. There is currently not any way to get this value from VideoSendStreamPeer.  I don\u0027t think it\u0027s worth it at this stage to extract the VideoSendStreamImpl declaration to a separate header file.",
+      "parentUuid": "7bd55b26_a2e911fd",
+      "revId": "933b982dcd9cb42e366b0e03ed729204340b962b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

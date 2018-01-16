@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3dd91068_56628ae8",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-16T15:30:22Z",
+      "side": 1,
+      "message": "What level of documentation do you think would be helpful here? The flag switches between two different ways of doing it, and details or ultimate purpose is a bit complicated.\n\nOn a practical level, it\u0027s used in VideoStreamEncoder when it fills out CpuOveruseOptions, same place where full_overuse_time above is applied.\n\nAnd it\u0027s intended to be temporary, if no serious obstacles are discuvered, both flag and the old estimator should be deleted in a few months.",
+      "parentUuid": "e29dc186_3f800925",
+      "revId": "c3bed7a19026582c5d6f405bccf057adb1e5cccd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a70a5fdf_b365405f",
         "filename": "media/base/mediachannel.h",
         "patchSetId": 3

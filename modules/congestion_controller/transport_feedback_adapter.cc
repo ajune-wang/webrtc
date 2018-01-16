@@ -12,7 +12,7 @@
 
 #include <algorithm>
 
-#include "modules/congestion_controller/delay_based_bwe.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -87,6 +87,12 @@ void TransportFeedbackAdapter::OnSentPacket(uint16_t sequence_number,
                                             int64_t send_time_ms) {
   rtc::CritScope cs(&lock_);
   send_time_history_.OnSentPacket(sequence_number, send_time_ms);
+}
+
+rtc::Optional<PacketFeedback> TransportFeedbackAdapter::GetPacket(
+    uint16_t sequence_number) const {
+  rtc::CritScope cs(&lock_);
+  return send_time_history_.GetPacket(sequence_number);
 }
 
 void TransportFeedbackAdapter::SetTransportOverhead(

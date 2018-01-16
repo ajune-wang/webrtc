@@ -42,6 +42,7 @@
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/utility/include/process_thread.h"
+#include "modules/video_coding/protection_bitrate_calculator_default.h"
 #include "rtc_base/basictypes.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
@@ -184,6 +185,11 @@ class Call : public webrtc::Call,
   webrtc::VideoSendStream* CreateVideoSendStream(
       webrtc::VideoSendStream::Config config,
       VideoEncoderConfig encoder_config) override;
+  webrtc::VideoSendStream* CreateVideoSendStream(
+      webrtc::VideoSendStream::Config config,
+      VideoEncoderConfig encoder_config,
+      std::unique_ptr<ProtectionBitrateCalculator>
+          protection_bitrate_calculator) override;
   void DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) override;
 
   webrtc::VideoReceiveStream* CreateVideoReceiveStream(
@@ -400,6 +406,14 @@ Call* Call::Create(
     const Call::Config& config,
     std::unique_ptr<RtpTransportControllerSendInterface> transport_send) {
   return new internal::Call(config, std::move(transport_send));
+}
+
+VideoSendStream* Call::CreateVideoSendStream(
+    VideoSendStream::Config config,
+    VideoEncoderConfig encoder_config,
+    std::unique_ptr<ProtectionBitrateCalculator>
+        protection_bitrate_calculator) {
+  return nullptr;
 }
 
 namespace internal {
@@ -714,6 +728,17 @@ void Call::DestroyAudioReceiveStream(
 webrtc::VideoSendStream* Call::CreateVideoSendStream(
     webrtc::VideoSendStream::Config config,
     VideoEncoderConfig encoder_config) {
+  return this->CreateVideoSendStream(
+      std::move(config), std::move(encoder_config),
+      rtc::MakeUnique<ProtectionBitrateCalculatorDefault>(
+          Clock::GetRealTimeClock()));
+}
+
+webrtc::VideoSendStream* Call::CreateVideoSendStream(
+    webrtc::VideoSendStream::Config config,
+    VideoEncoderConfig encoder_config,
+    std::unique_ptr<ProtectionBitrateCalculator>
+        protection_bitrate_calculator) {
   TRACE_EVENT0("webrtc", "Call::CreateVideoSendStream");
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
 
@@ -733,7 +758,8 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
       call_stats_.get(), transport_send_.get(), bitrate_allocator_.get(),
       video_send_delay_stats_.get(), event_log_, std::move(config),
       std::move(encoder_config), suspended_video_send_ssrcs_,
-      suspended_video_payload_states_);
+      suspended_video_payload_states_,
+      std::move(protection_bitrate_calculator));
 
   {
     WriteLockScoped write_lock(*send_crit_);

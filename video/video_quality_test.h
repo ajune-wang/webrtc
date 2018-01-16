@@ -96,6 +96,8 @@ class VideoQualityTest : public test::CallTest {
   };
 
   VideoQualityTest();
+  VideoQualityTest(std::unique_ptr<ProtectionBitrateCalculator>
+                       protection_bitrate_calculator);
   void RunWithAnalyzer(const Params& params);
   void RunWithRenderers(const Params& params);
 
@@ -111,6 +113,7 @@ class VideoQualityTest : public test::CallTest {
 
  protected:
   std::map<uint8_t, webrtc::MediaType> payload_type_map_;
+  std::unique_ptr<ProtectionBitrateCalculator> protection_bitrate_calculator_;
 
   // No-op implementation to be able to instantiate this class from non-TEST_F
   // locations.
@@ -127,6 +130,9 @@ class VideoQualityTest : public test::CallTest {
 
   // Helper methods for setting up the call.
   void CreateVideoStreams();
+  void CreateVideoStreamsWithProtectionBitrateCalculator(
+      std::unique_ptr<ProtectionBitrateCalculator>
+          protection_bitrate_calculator);
   void DestroyStreams();
   void CreateCapturers();
   std::unique_ptr<test::FrameGenerator> CreateFrameGenerator(size_t video_idx);

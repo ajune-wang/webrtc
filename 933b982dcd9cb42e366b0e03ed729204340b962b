@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bd55b26_a2e911fd",
+        "filename": "video/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-01-16T10:41:22Z",
+      "side": 1,
+      "message": "Is this function really necessary? I feel like it should be implemented in VideoSendStreamPeer instead to keep this class as clean as possible.",
+      "revId": "933b982dcd9cb42e366b0e03ed729204340b962b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

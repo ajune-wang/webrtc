@@ -91,6 +91,10 @@ public class PeerConnectionClient {
   private static final String VIDEO_FLEXFEC_FIELDTRIAL =
       "WebRTC-FlexFEC-03-Advertised/Enabled/WebRTC-FlexFEC-03/Enabled/";
   private static final String VIDEO_VP8_INTEL_HW_ENCODER_FIELDTRIAL = "WebRTC-IntelVP8/Enabled/";
+  private static final String VIDEO_VP8_MEDIATEK_HW_DECODER_FIELDTRIAL =
+      "WebRTC-MediaTekVP8/Enabled/";
+  private static final String VIDEO_H264_MEDIATEK_HW_CODEC_FIELDTRIAL =
+      "WebRTC-MediaTekH264/Enabled/";
   private static final String VIDEO_H264_HIGH_PROFILE_FIELDTRIAL =
       "WebRTC-H264HighProfile/Enabled/";
   private static final String DISABLE_WEBRTC_AGC_FIELDTRIAL =
@@ -391,6 +395,8 @@ public class PeerConnectionClient {
       Log.d(TAG, "Enable FlexFEC field trial.");
     }
     fieldTrials += VIDEO_VP8_INTEL_HW_ENCODER_FIELDTRIAL;
+    fieldTrials += VIDEO_VP8_MEDIATEK_HW_DECODER_FIELDTRIAL;
+    fieldTrials += VIDEO_H264_MEDIATEK_HW_CODEC_FIELDTRIAL;
     if (peerConnectionParameters.disableWebRtcAGCAndHPF) {
       fieldTrials += DISABLE_WEBRTC_AGC_FIELDTRIAL;
       Log.d(TAG, "Disable WebRTC AGC field trial.");
@@ -527,9 +533,11 @@ public class PeerConnectionClient {
     final VideoDecoderFactory decoderFactory;
 
     if (peerConnectionParameters.videoCodecHwAcceleration) {
-      encoderFactory = new DefaultVideoEncoderFactory(
-          rootEglBase.getEglBaseContext(), true /* enableIntelVp8Encoder */, enableH264HighProfile);
-      decoderFactory = new DefaultVideoDecoderFactory(rootEglBase.getEglBaseContext());
+      encoderFactory = new DefaultVideoEncoderFactory(rootEglBase.getEglBaseContext(),
+          true /* enableIntelVp8Encoder */, true /* enableMediaTekH264Encoder */,
+          enableH264HighProfile);
+      decoderFactory = new DefaultVideoDecoderFactory(rootEglBase.getEglBaseContext(),
+          true /* enableMediaTekH264Decoder */, true /* enableMediaTekVp8Decoder */);
     } else {
       encoderFactory = new SoftwareVideoEncoderFactory();
       decoderFactory = new SoftwareVideoDecoderFactory();

@@ -241,8 +241,8 @@ class TestVp8Simulcast : public ::testing::Test {
   }
 
  protected:
-  virtual std::unique_ptr<VP8Encoder> CreateEncoder() = 0;
-  virtual std::unique_ptr<VP8Decoder> CreateDecoder() = 0;
+  virtual std::unique_ptr<VideoEncoder> CreateEncoder() = 0;
+  virtual std::unique_ptr<VideoDecoder> CreateDecoder() = 0;
 
   void SetUp() override {
     encoder_ = CreateEncoder();
@@ -739,9 +739,9 @@ class TestVp8Simulcast : public ::testing::Test {
     EXPECT_EQ(2, decoder_callback.DecodedFrames());
   }
 
-  std::unique_ptr<VP8Encoder> encoder_;
+  std::unique_ptr<VideoEncoder> encoder_;
   MockEncodedImageCallback encoder_callback_;
-  std::unique_ptr<VP8Decoder> decoder_;
+  std::unique_ptr<VideoDecoder> decoder_;
   MockDecodedImageCallback decoder_callback_;
   VideoCodec settings_;
   rtc::scoped_refptr<I420Buffer> input_buffer_;

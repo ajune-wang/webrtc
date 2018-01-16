@@ -294,6 +294,7 @@ if (rtc_include_tests) {
   rtc_test("test_support_unittests") {
     deps = [
       ":fake_audio_device",
+      ":fake_video_codecs",
       ":rtp_test_utils",
       "../api:video_frame_api",
       "../api:video_frame_api_i420",
@@ -306,6 +307,7 @@ if (rtc_include_tests) {
     sources = [
       "fake_audio_device_unittest.cc",
       "fake_network_pipe_unittest.cc",
+      "fake_vp8_encoder_unittest.cc",
       "frame_generator_unittest.cc",
       "rtp_file_reader_unittest.cc",
       "rtp_file_writer_unittest.cc",
@@ -352,6 +354,7 @@ if (rtc_include_tests) {
       ":video_test_common",
       ":video_test_support",
       "../modules/video_capture",
+      "../modules/video_coding:simulcast_test_utility",
       "../rtc_base:rtc_base_approved",
       "//testing/gmock",
       "//testing/gtest",
@@ -524,23 +527,51 @@ rtc_source_set("fake_audio_device") {
   ]
 }
 
+rtc_source_set("fake_video_codecs") {
+  testonly = true
+  sources = [
+    "configurable_frame_size_encoder.cc",
+    "configurable_frame_size_encoder.h",
+    "fake_decoder.cc",
+    "fake_decoder.h",
+    "fake_encoder.cc",
+    "fake_encoder.h",
+    "fake_vp8_encoder.cc",
+    "fake_vp8_encoder.h",
+  ]
+  if (!build_with_chromium && is_clang) {
+    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
+  deps = [
+    "..:webrtc_common",
+    "../:typedefs",
+    "../api:video_frame_api_i420",
+    "../api/video_codecs:video_codecs_api",
+    "../common_video:common_video",
+    #"../modules/video_coding:video_coding_utility",
+    "../modules/video_coding:webrtc_h264",
+    "../modules/video_coding:webrtc_vp8",
+    "../modules/video_coding:webrtc_vp9",
+    "../rtc_base:checks",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_task_queue",    
+    "../rtc_base:sequenced_task_checker",    
+    "../system_wrappers",
+  ]
+}
+
 rtc_source_set("test_common") {
   testonly = true
   sources = [
     "call_test.cc",
     "call_test.h",
-    "configurable_frame_size_encoder.cc",
-    "configurable_frame_size_encoder.h",
     "constants.cc",
     "constants.h",
     "drifting_clock.cc",
     "drifting_clock.h",
     "encoder_settings.cc",
     "encoder_settings.h",
-    "fake_decoder.cc",
-    "fake_decoder.h",
-    "fake_encoder.cc",
-    "fake_encoder.h",
     "fake_videorenderer.h",
     "layer_filtering_transport.cc",
     "layer_filtering_transport.h",
@@ -564,14 +595,15 @@ rtc_source_set("test_common") {
   if (!build_with_chromium && is_clang) {
     # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
     suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
-  }
+  }  
 
   deps = [
     ":direct_transport",
     ":fake_audio_device",
+    ":fake_video_codecs",    
     ":rtp_test_utils",
     ":test_support",
-    ":video_test_common",
+    ":video_test_common",    
     "..:webrtc_common",
     "../:typedefs",
     "../api:libjingle_peerconnection_api",
@@ -580,7 +612,6 @@ rtc_source_set("test_common") {
     "../api:video_frame_api_i420",
     "../api/audio_codecs:builtin_audio_decoder_factory",
     "../api/audio_codecs:builtin_audio_encoder_factory",
-    "../api/video_codecs:video_codecs_api",
     "../audio",
     "../call",
     "../call:call_interfaces",
@@ -595,10 +626,6 @@ rtc_source_set("test_common") {
     "../modules/rtp_rtcp",
     "../modules/rtp_rtcp:mock_rtp_rtcp",
     "../modules/rtp_rtcp:rtp_rtcp_format",
-    "../modules/video_coding:video_coding_utility",
-    "../modules/video_coding:webrtc_h264",
-    "../modules/video_coding:webrtc_vp8",
-    "../modules/video_coding:webrtc_vp9",
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",

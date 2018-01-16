@@ -61,8 +61,12 @@ public final class HardwareVideoDecoderTest {
   private static final int TEST_FRAME_HEIGHT = 360;
   private static final VideoFrame.I420Buffer[] TEST_FRAMES = generateTestFrames();
 
+  private static final boolean ENABLE_MEDIATEK_H264_DECODER = true;
+  private static final boolean ENABLE_MEDIATEK_VP8_DECODER = true;
   private static final boolean ENABLE_INTEL_VP8_ENCODER = true;
   private static final boolean ENABLE_H264_HIGH_PROFILE = true;
+  private static final boolean ENABLE_MEDIATEK_H264_ENCODER = true;
+
   private static final VideoEncoder.Settings ENCODER_SETTINGS =
       new VideoEncoder.Settings(1 /* core */, 640 /* width */, 480 /* height */, 300 /* kbps */,
           30 /* fps */, true /* automaticResizeOn */);
@@ -115,7 +119,8 @@ public final class HardwareVideoDecoderTest {
   private EglBase14 eglBase;
 
   private VideoDecoderFactory createDecoderFactory(EglBase.Context eglContext) {
-    return new HardwareVideoDecoderFactory(eglContext);
+    return new HardwareVideoDecoderFactory(
+        eglContext, ENABLE_MEDIATEK_H264_DECODER, ENABLE_MEDIATEK_VP8_DECODER);
   }
 
   private VideoDecoder createDecoder() {
@@ -125,8 +130,9 @@ public final class HardwareVideoDecoderTest {
   }
 
   private void encodeTestFrames() {
-    VideoEncoderFactory encoderFactory = new HardwareVideoEncoderFactory(
-        eglBase.getEglBaseContext(), ENABLE_INTEL_VP8_ENCODER, ENABLE_H264_HIGH_PROFILE);
+    VideoEncoderFactory encoderFactory =
+        new HardwareVideoEncoderFactory(eglBase.getEglBaseContext(), ENABLE_INTEL_VP8_ENCODER,
+            ENABLE_MEDIATEK_H264_ENCODER, ENABLE_H264_HIGH_PROFILE);
     VideoEncoder encoder =
         encoderFactory.createEncoder(new VideoCodecInfo(codecType, new HashMap<>()));
     HardwareVideoEncoderTest.MockEncoderCallback encodeCallback =

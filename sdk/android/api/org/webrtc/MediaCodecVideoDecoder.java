@@ -20,6 +20,7 @@ import android.os.SystemClock;
 import android.view.Surface;
 import java.nio.ByteBuffer;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -82,13 +83,31 @@ public class MediaCodecVideoDecoder {
   private static final String VP9_MIME_TYPE = "video/x-vnd.on2.vp9";
   private static final String H264_MIME_TYPE = "video/avc";
   // List of supported HW VP8 decoders.
-  private static final String[] supportedVp8HwCodecPrefixes = {
-      "OMX.qcom.", "OMX.Nvidia.", "OMX.Exynos.", "OMX.Intel."};
+  private static final String[] supportedVp8HwCodecPrefixes() {
+    ArrayList<String> supportedPrefixes = new ArrayList<String>();
+    supportedPrefixes.add("OMX.qcom.");
+    supportedPrefixes.add("OMX.Nvidia.");
+    supportedPrefixes.add("OMX.Exynos.");
+    supportedPrefixes.add("OMX.Intel.");
+    if (PeerConnectionFactory.fieldTrialsFindFullName("WebRTC-MediaTekVP8").equals("Enabled")) {
+      supportedPrefixes.add("OMX.MTK.");
+    }
+    return supportedPrefixes.toArray(new String[supportedPrefixes.size()]);
+  }
   // List of supported HW VP9 decoders.
   private static final String[] supportedVp9HwCodecPrefixes = {"OMX.qcom.", "OMX.Exynos."};
   // List of supported HW H.264 decoders.
-  private static final String[] supportedH264HwCodecPrefixes = {
-      "OMX.qcom.", "OMX.Intel.", "OMX.Exynos."};
+  private static final String[] supportedH264HwCodecPrefixes() {
+    ArrayList<String> supportedPrefixes = new ArrayList<String>();
+    supportedPrefixes.add("OMX.qcom.");
+    supportedPrefixes.add("OMX.Intel.");
+    supportedPrefixes.add("OMX.Exynos.");
+    if (PeerConnectionFactory.fieldTrialsFindFullName("WebRTC-MediaTekH264").equals("Enabled")) {
+      supportedPrefixes.add("OMX.MTK.");
+    }
+    return supportedPrefixes.toArray(new String[supportedPrefixes.size()]);
+  }
+
   // List of supported HW H.264 high profile decoders.
   private static final String supportedQcomH264HighProfileHwCodecPrefix = "OMX.qcom.";
   private static final String supportedExynosH264HighProfileHwCodecPrefix = "OMX.Exynos.";
@@ -156,7 +175,7 @@ public class MediaCodecVideoDecoder {
   @CalledByNativeUnchecked
   public static boolean isVp8HwSupported() {
     return !hwDecoderDisabledTypes.contains(VP8_MIME_TYPE)
-        && (findDecoder(VP8_MIME_TYPE, supportedVp8HwCodecPrefixes) != null);
+        && (findDecoder(VP8_MIME_TYPE, supportedVp8HwCodecPrefixes()) != null);
   }
 
   @CalledByNativeUnchecked
@@ -168,7 +187,7 @@ public class MediaCodecVideoDecoder {
   @CalledByNativeUnchecked
   public static boolean isH264HwSupported() {
     return !hwDecoderDisabledTypes.contains(H264_MIME_TYPE)
-        && (findDecoder(H264_MIME_TYPE, supportedH264HwCodecPrefixes) != null);
+        && (findDecoder(H264_MIME_TYPE, supportedH264HwCodecPrefixes()) != null);
   }
 
   @CalledByNative
@@ -301,13 +320,13 @@ public class MediaCodecVideoDecoder {
     String[] supportedCodecPrefixes = null;
     if (type == VideoCodecType.VIDEO_CODEC_VP8) {
       mime = VP8_MIME_TYPE;
-      supportedCodecPrefixes = supportedVp8HwCodecPrefixes;
+      supportedCodecPrefixes = supportedVp8HwCodecPrefixes();
     } else if (type == VideoCodecType.VIDEO_CODEC_VP9) {
       mime = VP9_MIME_TYPE;
       supportedCodecPrefixes = supportedVp9HwCodecPrefixes;
     } else if (type == VideoCodecType.VIDEO_CODEC_H264) {
       mime = H264_MIME_TYPE;
-      supportedCodecPrefixes = supportedH264HwCodecPrefixes;
+      supportedCodecPrefixes = supportedH264HwCodecPrefixes();
     } else {
       throw new RuntimeException("initDecode: Non-supported codec " + type);
     }

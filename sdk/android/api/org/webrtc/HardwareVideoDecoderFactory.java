@@ -12,6 +12,7 @@ package org.webrtc;
 
 import static org.webrtc.MediaCodecUtils.EXYNOS_PREFIX;
 import static org.webrtc.MediaCodecUtils.INTEL_PREFIX;
+import static org.webrtc.MediaCodecUtils.MEDIATEK_PREFIX;
 import static org.webrtc.MediaCodecUtils.NVIDIA_PREFIX;
 import static org.webrtc.MediaCodecUtils.QCOM_PREFIX;
 
@@ -26,25 +27,33 @@ public class HardwareVideoDecoderFactory implements VideoDecoderFactory {
   private static final String TAG = "HardwareVideoDecoderFactory";
 
   private final EglBase.Context sharedContext;
+  private final boolean enableMediaTekH264Decoder;
+  private final boolean enableMediaTekVp8Decoder;
   private final boolean fallbackToSoftware;
 
   /** Creates a HardwareVideoDecoderFactory that does not use surface textures. */
   @Deprecated // Not removed yet to avoid breaking callers.
-  public HardwareVideoDecoderFactory() {
-    this(null);
+  public HardwareVideoDecoderFactory(
+      boolean enableMediaTekH264Decoder, boolean enableMediaTekVp8Decoder) {
+    this(null, enableMediaTekH264Decoder, enableMediaTekVp8Decoder);
   }
 
   /**
    * Creates a HardwareVideoDecoderFactory that supports surface texture rendering using the given
    * shared context.  The context may be null.  If it is null, then surface support is disabled.
    */
-  public HardwareVideoDecoderFactory(EglBase.Context sharedContext) {
-    this(sharedContext, true /* fallbackToSoftware */);
+  public HardwareVideoDecoderFactory(EglBase.Context sharedContext,
+      boolean enableMediaTekH264Decoder, boolean enableMediaTekVp8Decoder) {
+    this(sharedContext, enableMediaTekH264Decoder, enableMediaTekVp8Decoder,
+        true /* fallbackToSoftware */);
   }
 
-  HardwareVideoDecoderFactory(EglBase.Context sharedContext, boolean fallbackToSoftware) {
+  HardwareVideoDecoderFactory(EglBase.Context sharedContext, boolean enableMediaTekH264Decoder,
+      boolean enableMediaTekVp8Decoder, boolean fallbackToSoftware) {
     this.sharedContext = sharedContext;
     this.fallbackToSoftware = fallbackToSoftware;
+    this.enableMediaTekH264Decoder = enableMediaTekH264Decoder;
+    this.enableMediaTekVp8Decoder = enableMediaTekVp8Decoder;
   }
 
   @Override
@@ -111,18 +120,23 @@ public class HardwareVideoDecoderFactory implements VideoDecoderFactory {
 
   private boolean isHardwareSupported(MediaCodecInfo info, VideoCodecType type) {
     String name = info.getName();
+
     switch (type) {
       case VP8:
         // QCOM, Intel, Exynos, and Nvidia all supported for VP8.
         return name.startsWith(QCOM_PREFIX) || name.startsWith(INTEL_PREFIX)
-            || name.startsWith(EXYNOS_PREFIX) || name.startsWith(NVIDIA_PREFIX);
+            || name.startsWith(EXYNOS_PREFIX) || name.startsWith(NVIDIA_PREFIX)
+            || (name.startsWith(MEDIATEK_PREFIX) && enableMediaTekVp8Decoder);
       case VP9:
         // QCOM and Exynos supported for VP9.
         return name.startsWith(QCOM_PREFIX) || name.startsWith(EXYNOS_PREFIX);
       case H264:
         // QCOM, Intel, and Exynos supported for H264.
         return name.startsWith(QCOM_PREFIX) || name.startsWith(INTEL_PREFIX)
-            || name.startsWith(EXYNOS_PREFIX);
+            || name.startsWith(EXYNOS_PREFIX)
+            // MediaTek H264 decoder is supported in O or later.
+            || (name.startsWith(MEDIATEK_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                   && enableMediaTekH264Decoder);
       default:
         return false;
     }

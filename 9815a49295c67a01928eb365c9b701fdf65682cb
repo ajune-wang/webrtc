@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3c608ac3_afa888dd",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "429eabca_e8bb0b35",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4745208b_763cb843",
         "filename": "modules/congestion_controller/pacer_controller.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7712fffa_0f7bcc1f",
+        "filename": "modules/congestion_controller/pacer_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4745208b_763cb843",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af64ac6d_1a35f26b",
         "filename": "network_control/BUILD.gn",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec13b94f_7fbe7f09",
+        "filename": "network_control/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "The plan is to propagate the messages to more places in the code further on, for instance moving the PacerController functionality directly into PacedSender",
+      "parentUuid": "af64ac6d_1a35f26b",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 39
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,54 @@
     },
     {
       "key": {
+        "uuid": "6cb12ff1_0c65c1c2",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b34e56c_03ee242f",
+      "range": {
+        "startLine": 91,
+        "startChar": 74,
+        "endLine": 91,
+        "endChar": 78
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6f25396_20284e12",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2926e10_750eca76",
+      "range": {
+        "startLine": 91,
+        "startChar": 55,
+        "endLine": 91,
+        "endChar": 60
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "014a0bad_d4817787",
         "filename": "network_control/include/network_message.h",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb7c48b_2101ca79",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "014a0bad_d4817787",
+      "range": {
+        "startLine": 93,
+        "startChar": 13,
+        "endLine": 93,
+        "endChar": 18
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "4661ada5_995ca011",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "91bf27ee_5b4da776",
+      "range": {
+        "startLine": 141,
+        "startChar": 31,
+        "endLine": 141,
+        "endChar": 38
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44179350_6aa8082c",
         "filename": "network_control/include/network_types.h",
         "patchSetId": 1
@@ -183,6 +351,30 @@
       "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a604e65a_fd71bd9a",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "44179350_6aa8082c",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 11
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "f16efd09_9d1cee6e",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8b5958b9_e19488f4",
+      "range": {
+        "startLine": 53,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff98320b_247ace5f",
         "filename": "system_wrappers/source/field_trial_default.cc",
         "patchSetId": 1
@@ -220,6 +436,30 @@
       "writtenOn": "2018-01-16T13:52:29Z",
       "side": 1,
       "message": "Is there any reason for not using the critical section implementation in rtc_base?",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "9815a49295c67a01928eb365c9b701fdf65682cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "804554f1_def94fc5",
+        "filename": "system_wrappers/source/field_trial_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-16T14:38:55Z",
+      "side": 1,
+      "message": "Might have been related to dependency checks, I don\u0027t remember. These were to fix issues with unrelated code though, will try just removing the mutex and see if the issues have been fixed.",
+      "parentUuid": "ff98320b_247ace5f",
       "range": {
         "startLine": 13,
         "startChar": 10,

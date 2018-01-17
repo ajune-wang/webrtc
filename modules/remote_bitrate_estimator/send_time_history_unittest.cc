@@ -82,6 +82,26 @@ TEST_F(SendTimeHistoryTest, AddRemoveOne) {
   EXPECT_FALSE(history_.GetFeedback(&received_packet3, true));
 }
 
+TEST_F(SendTimeHistoryTest, GetPacketReturnsSentPacket) {
+  const uint16_t kSeqNo = 10;
+  const PacedPacketInfo kPacingInfo(0, 5, 1200);
+  const PacketFeedback kSentPacket(0, -1, 1, kSeqNo, 123, 0, 0, kPacingInfo);
+  AddPacketWithSendTime(kSeqNo, 123, 1, kPacingInfo);
+  auto sent_packet = history_.GetPacket(kSeqNo);
+  EXPECT_EQ(kSentPacket, *sent_packet);
+}
+
+TEST_F(SendTimeHistoryTest, GetPacketEmptyForRemovedPacket) {
+  const uint16_t kSeqNo = 10;
+  const PacedPacketInfo kPacingInfo(0, 5, 1200);
+  AddPacketWithSendTime(kSeqNo, 123, 1, kPacingInfo);
+  auto sent_packet = history_.GetPacket(kSeqNo);
+  PacketFeedback received_packet(0, 0, kSeqNo, 0, kPacingInfo);
+  EXPECT_TRUE(history_.GetFeedback(&received_packet, true));
+  sent_packet = history_.GetPacket(kSeqNo);
+  EXPECT_FALSE(sent_packet.has_value());
+}
+
 TEST_F(SendTimeHistoryTest, PopulatesExpectedFields) {
   const uint16_t kSeqNo = 10;
   const int64_t kSendTime = 1000;

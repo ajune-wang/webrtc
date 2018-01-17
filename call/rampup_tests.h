@@ -80,7 +80,7 @@ class RampUpTester : public test::EndToEndTest {
   typedef std::map<uint32_t, uint32_t> SsrcMap;
   class VideoStreamFactory;
 
-  Call::Config GetSenderCallConfig() override;
+  CallConfig GetSenderCallConfig() override;
   void OnVideoStreamsCreated(
       VideoSendStream* send_stream,
       const std::vector<VideoReceiveStream*>& receive_streams) override;
@@ -139,7 +139,7 @@ class RampUpDownUpTester : public RampUpTester {
     kTransitionToNextState,
   };
 
-  Call::Config GetReceiverCallConfig() override;
+  CallConfig GetReceiverCallConfig() override;
 
   std::string GetModifierString() const;
   int GetExpectedHighBitrate() const;

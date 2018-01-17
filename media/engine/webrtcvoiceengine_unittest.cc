@@ -160,7 +160,7 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
         apm_ec_(*apm_->echo_cancellation()),
         apm_ns_(*apm_->noise_suppression()),
         apm_vd_(*apm_->voice_detection()),
-        call_(webrtc::Call::Config(&event_log_)),
+        call_(webrtc::CallConfig(&event_log_)),
         override_field_trials_(field_trials) {
     // AudioDeviceModule.
     AdmSetupExpectations(&adm_);
@@ -3284,7 +3284,7 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
   engine.Init();
   webrtc::RtcEventLogNullImpl event_log;
   std::unique_ptr<webrtc::Call> call(
-      webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+      webrtc::Call::Create(webrtc::CallConfig(&event_log)));
   cricket::VoiceMediaChannel* channel = engine.CreateChannel(
       call.get(), cricket::MediaConfig(), cricket::AudioOptions());
   EXPECT_TRUE(channel != nullptr);
@@ -3307,7 +3307,7 @@ TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
     engine.Init();
     webrtc::RtcEventLogNullImpl event_log;
     std::unique_ptr<webrtc::Call> call(
-        webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+        webrtc::Call::Create(webrtc::CallConfig(&event_log)));
     cricket::VoiceMediaChannel* channel = engine.CreateChannel(
         call.get(), cricket::MediaConfig(), cricket::AudioOptions());
     EXPECT_TRUE(channel != nullptr);
@@ -3373,7 +3373,7 @@ TEST(WebRtcVoiceEngineTest, Has32Channels) {
   engine.Init();
   webrtc::RtcEventLogNullImpl event_log;
   std::unique_ptr<webrtc::Call> call(
-      webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+      webrtc::Call::Create(webrtc::CallConfig(&event_log)));
 
   cricket::VoiceMediaChannel* channels[32];
   int num_channels = 0;
@@ -3411,7 +3411,7 @@ TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
   engine.Init();
   webrtc::RtcEventLogNullImpl event_log;
   std::unique_ptr<webrtc::Call> call(
-      webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+      webrtc::Call::Create(webrtc::CallConfig(&event_log)));
   cricket::WebRtcVoiceMediaChannel channel(&engine, cricket::MediaConfig(),
                                            cricket::AudioOptions(), call.get());
   cricket::AudioRecvParameters parameters;

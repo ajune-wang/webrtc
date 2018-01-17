@@ -1061,7 +1061,7 @@ VideoQualityTest::VideoQualityTest()
 }
 
 VideoQualityTest::Params::Params()
-    : call({false, Call::Config::BitrateConfig(), 0}),
+    : call({false, ::webrtc::CallConfig::BitrateConfig(), 0}),
       video{{false, 640, 480, 30, 50, 800, 800, false, "VP8", 1, -1, 0, false,
              false, ""},
             {false, 640, 480, 30, 50, 800, 800, false, "VP8", 1, -1, 0, false,
@@ -1855,8 +1855,8 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
     recv_event_log_ = RtcEventLog::CreateNull();
   }
 
-  Call::Config send_call_config(send_event_log_.get());
-  Call::Config recv_call_config(recv_event_log_.get());
+  CallConfig send_call_config(send_event_log_.get());
+  CallConfig recv_call_config(recv_event_log_.get());
   send_call_config.bitrate_config = params.call.call_bitrate_config;
   recv_call_config.bitrate_config = params.call.call_bitrate_config;
 
@@ -2031,9 +2031,9 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
     params_ = params;
     CheckParams();
 
-    // TODO(ivica): Remove bitrate_config and use the default Call::Config(), to
+    // TODO(ivica): Remove bitrate_config and use the default CallConfig(), to
     // match the full stack tests.
-    Call::Config call_config(event_log_.get());
+    CallConfig call_config(event_log_.get());
     call_config.bitrate_config = params_.call.call_bitrate_config;
 
     rtc::scoped_refptr<test::FakeAudioDevice> fake_audio_device =

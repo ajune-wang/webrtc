@@ -14,7 +14,7 @@
 
 namespace webrtc {
 
-Call* CallFactory::CreateCall(const Call::Config& config) {
+Call* CallFactory::CreateCall(const CallConfig& config) {
   return Call::Create(config);
 }
 

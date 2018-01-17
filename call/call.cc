@@ -165,7 +165,7 @@ class Call : public webrtc::Call,
              public SendSideCongestionController::Observer,
              public BitrateAllocator::LimitObserver {
  public:
-  Call(const Call::Config& config,
+  Call(const CallConfig& config,
        std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
   virtual ~Call();
 
@@ -207,10 +207,10 @@ class Call : public webrtc::Call,
   void OnRecoveredPacket(const uint8_t* packet, size_t length) override;
 
   void SetBitrateConfig(
-      const webrtc::Call::Config::BitrateConfig& bitrate_config) override;
+      const webrtc::CallConfig::BitrateConfig& bitrate_config) override;
 
   void SetBitrateConfigMask(
-      const webrtc::Call::Config::BitrateConfigMask& bitrate_config) override;
+      const webrtc::CallConfig::BitrateConfigMask& bitrate_config) override;
 
   void SetBitrateAllocationStrategy(
       std::unique_ptr<rtc::BitrateAllocationStrategy>
@@ -266,7 +266,7 @@ class Call : public webrtc::Call,
   const std::unique_ptr<ProcessThread> pacer_thread_;
   const std::unique_ptr<CallStats> call_stats_;
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
-  Call::Config config_;
+  CallConfig config_;
   rtc::SequencedTaskChecker configuration_sequence_checker_;
 
   NetworkState audio_network_state_;
@@ -368,11 +368,11 @@ class Call : public webrtc::Call,
 
   // The config mask set by SetBitrateConfigMask.
   // 0 <= min <= start <= max
-  Config::BitrateConfigMask bitrate_config_mask_;
+  CallConfig::BitrateConfigMask bitrate_config_mask_;
 
   // The config set by SetBitrateConfig.
   // min >= 0, start != 0, max == -1 || max > 0
-  Config::BitrateConfig base_bitrate_config_;
+  CallConfig::BitrateConfig base_bitrate_config_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(Call);
 };
@@ -390,21 +390,21 @@ std::string Call::Stats::ToString(int64_t time_ms) const {
   return ss.str();
 }
 
-Call* Call::Create(const Call::Config& config) {
+Call* Call::Create(const CallConfig& config) {
   return new internal::Call(config,
                             rtc::MakeUnique<RtpTransportControllerSend>(
                                 Clock::GetRealTimeClock(), config.event_log));
 }
 
 Call* Call::Create(
-    const Call::Config& config,
+    const CallConfig& config,
     std::unique_ptr<RtpTransportControllerSendInterface> transport_send) {
   return new internal::Call(config, std::move(transport_send));
 }
 
 namespace internal {
 
-Call::Call(const Call::Config& config,
+Call::Call(const CallConfig& config,
            std::unique_ptr<RtpTransportControllerSendInterface> transport_send)
     : clock_(Clock::GetRealTimeClock()),
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
@@ -927,7 +927,7 @@ Call::Stats Call::GetStats() const {
 }
 
 void Call::SetBitrateConfig(
-    const webrtc::Call::Config::BitrateConfig& bitrate_config) {
+    const webrtc::CallConfig::BitrateConfig& bitrate_config) {
   TRACE_EVENT0("webrtc", "Call::SetBitrateConfig");
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
   RTC_DCHECK_GE(bitrate_config.min_bitrate_bps, 0);
@@ -951,7 +951,7 @@ void Call::SetBitrateConfig(
 }
 
 void Call::SetBitrateConfigMask(
-    const webrtc::Call::Config::BitrateConfigMask& mask) {
+    const webrtc::CallConfig::BitrateConfigMask& mask) {
   TRACE_EVENT0("webrtc", "Call::SetBitrateConfigMask");
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
 
@@ -960,7 +960,7 @@ void Call::SetBitrateConfigMask(
 }
 
 void Call::UpdateCurrentBitrateConfig(const rtc::Optional<int>& new_start) {
-  Config::BitrateConfig updated;
+  CallConfig::BitrateConfig updated;
   updated.min_bitrate_bps =
       std::max(bitrate_config_mask_.min_bitrate_bps.value_or(0),
                base_bitrate_config_.min_bitrate_bps);

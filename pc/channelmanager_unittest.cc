@@ -48,7 +48,7 @@ class ChannelManagerTest : public testing::Test {
             std::unique_ptr<DataEngineInterface>(fdme_),
             rtc::Thread::Current(),
             rtc::Thread::Current())),
-        fake_call_(webrtc::Call::Config(&event_log_)),
+        fake_call_(webrtc::CallConfig(&event_log_)),
         transport_controller_(
             new cricket::FakeTransportController(ICEROLE_CONTROLLING)) {
     fme_->SetAudioCodecs(MAKE_VECTOR(kAudioCodecs));

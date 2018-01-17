@@ -234,10 +234,10 @@ class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
 
 class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
  public:
-  explicit FakeCall(const webrtc::Call::Config& config);
+  explicit FakeCall(const webrtc::CallConfig& config);
   ~FakeCall() override;
 
-  webrtc::Call::Config GetConfig() const;
+  webrtc::CallConfig GetConfig() const;
   const std::vector<FakeVideoSendStream*>& GetVideoSendStreams();
   const std::vector<FakeVideoReceiveStream*>& GetVideoReceiveStreams();
 
@@ -295,9 +295,9 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   webrtc::Call::Stats GetStats() const override;
 
   void SetBitrateConfig(
-      const webrtc::Call::Config::BitrateConfig& bitrate_config) override;
+      const webrtc::CallConfig::BitrateConfig& bitrate_config) override;
   void SetBitrateConfigMask(
-      const webrtc::Call::Config::BitrateConfigMask& mask) override;
+      const webrtc::CallConfig::BitrateConfigMask& mask) override;
   void SetBitrateAllocationStrategy(
       std::unique_ptr<rtc::BitrateAllocationStrategy>
           bitrate_allocation_strategy) override;
@@ -309,7 +309,7 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
                                   int transport_overhead_per_packet) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
-  webrtc::Call::Config config_;
+  webrtc::CallConfig config_;
   webrtc::NetworkState audio_network_state_;
   webrtc::NetworkState video_network_state_;
   rtc::SentPacket last_sent_packet_;

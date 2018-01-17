@@ -181,12 +181,12 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
     send_audio_state_config.audio_processing =
         AudioProcessingBuilder().Create();
     send_audio_state_config.audio_device_module = fake_audio_device;
-    Call::Config sender_config(event_log_.get());
+    CallConfig sender_config(event_log_.get());
 
     auto audio_state = AudioState::Create(send_audio_state_config);
     fake_audio_device->RegisterAudioCallback(audio_state->audio_transport());
     sender_config.audio_state = audio_state;
-    Call::Config receiver_config(event_log_.get());
+    CallConfig receiver_config(event_log_.get());
     receiver_config.audio_state = audio_state;
     CreateCalls(sender_config, receiver_config);
 
@@ -719,8 +719,8 @@ TEST_F(CallPerfTest, KeepsHighBitrateWhenReconfiguringSender) {
       return FakeEncoder::SetRateAllocation(rate_allocation, framerate);
     }
 
-    Call::Config GetSenderCallConfig() override {
-      Call::Config config = EndToEndTest::GetSenderCallConfig();
+    CallConfig GetSenderCallConfig() override {
+      CallConfig config = EndToEndTest::GetSenderCallConfig();
       config.event_log = event_log_.get();
       config.bitrate_config.start_bitrate_bps = kInitialBitrateKbps * 1000;
       return config;
@@ -880,7 +880,7 @@ void CallPerfTest::TestMinAudioVideoBitrate(
 
     void OnCallsCreated(Call* sender_call, Call* receiver_call) override {
       sender_call_ = sender_call;
-      Call::Config::BitrateConfig bitrate_config;
+      CallConfig::BitrateConfig bitrate_config;
       bitrate_config.min_bitrate_bps = min_bwe_;
       bitrate_config.start_bitrate_bps = start_bwe_;
       bitrate_config.max_bitrate_bps = max_bwe_;

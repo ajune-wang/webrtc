@@ -71,50 +71,50 @@ class PacketReceiver {
   virtual ~PacketReceiver() {}
 };
 
+struct CallConfig {
+  explicit CallConfig(RtcEventLog* event_log) : event_log(event_log) {
+    RTC_DCHECK(event_log);
+  }
+
+  static constexpr int kDefaultStartBitrateBps = 300000;
+
+  // Bitrate config used until valid bitrate estimates are calculated. Also
+  // used to cap total bitrate used. This comes from the remote connection.
+  struct BitrateConfig {
+    int min_bitrate_bps = 0;
+    int start_bitrate_bps = kDefaultStartBitrateBps;
+    int max_bitrate_bps = -1;
+  } bitrate_config;
+
+  // The local client's bitrate preferences. The actual configuration used
+  // is a combination of this and |bitrate_config|. The combination is
+  // currently more complicated than a simple mask operation (see
+  // SetBitrateConfig and SetBitrateConfigMask). Assumes that 0 <= min <=
+  // start <= max holds for set parameters.
+  struct BitrateConfigMask {
+    rtc::Optional<int> min_bitrate_bps;
+    rtc::Optional<int> start_bitrate_bps;
+    rtc::Optional<int> max_bitrate_bps;
+  };
+
+  // AudioState which is possibly shared between multiple calls.
+  // TODO(solenberg): Change this to a shared_ptr once we can use C++11.
+  rtc::scoped_refptr<AudioState> audio_state;
+
+  // Audio Processing Module to be used in this call.
+  // TODO(solenberg): Change this to a shared_ptr once we can use C++11.
+  AudioProcessing* audio_processing = nullptr;
+
+  // RtcEventLog to use for this call. Required.
+  // Use webrtc::RtcEventLog::CreateNull() for a null implementation.
+  RtcEventLog* event_log = nullptr;
+};
+
 // A Call instance can contain several send and/or receive streams. All streams
 // are assumed to have the same remote endpoint and will share bitrate estimates
 // etc.
 class Call {
  public:
-  struct Config {
-    explicit Config(RtcEventLog* event_log) : event_log(event_log) {
-      RTC_DCHECK(event_log);
-    }
-
-    static constexpr int kDefaultStartBitrateBps = 300000;
-
-    // Bitrate config used until valid bitrate estimates are calculated. Also
-    // used to cap total bitrate used. This comes from the remote connection.
-    struct BitrateConfig {
-      int min_bitrate_bps = 0;
-      int start_bitrate_bps = kDefaultStartBitrateBps;
-      int max_bitrate_bps = -1;
-    } bitrate_config;
-
-    // The local client's bitrate preferences. The actual configuration used
-    // is a combination of this and |bitrate_config|. The combination is
-    // currently more complicated than a simple mask operation (see
-    // SetBitrateConfig and SetBitrateConfigMask). Assumes that 0 <= min <=
-    // start <= max holds for set parameters.
-    struct BitrateConfigMask {
-      rtc::Optional<int> min_bitrate_bps;
-      rtc::Optional<int> start_bitrate_bps;
-      rtc::Optional<int> max_bitrate_bps;
-    };
-
-    // AudioState which is possibly shared between multiple calls.
-    // TODO(solenberg): Change this to a shared_ptr once we can use C++11.
-    rtc::scoped_refptr<AudioState> audio_state;
-
-    // Audio Processing Module to be used in this call.
-    // TODO(solenberg): Change this to a shared_ptr once we can use C++11.
-    AudioProcessing* audio_processing = nullptr;
-
-    // RtcEventLog to use for this call. Required.
-    // Use webrtc::RtcEventLog::CreateNull() for a null implementation.
-    RtcEventLog* event_log = nullptr;
-  };
-
   struct Stats {
     std::string ToString(int64_t time_ms) const;
 
@@ -125,11 +125,11 @@ class Call {
     int64_t rtt_ms = -1;
   };
 
-  static Call* Create(const Call::Config& config);
+  static Call* Create(const CallConfig& config);
 
   // Allows mocking |transport_send| for testing.
   static Call* Create(
-      const Call::Config& config,
+      const CallConfig& config,
       std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
 
   virtual AudioSendStream* CreateAudioSendStream(
@@ -175,14 +175,14 @@ class Call {
   // implemented. Passing -1 leaves the start bitrate unchanged. Behavior is not
   // guaranteed for other negative values or 0.
   virtual void SetBitrateConfig(
-      const Config::BitrateConfig& bitrate_config) = 0;
+      const CallConfig::BitrateConfig& bitrate_config) = 0;
 
   // The greater min and smaller max set by this and SetBitrateConfig will be
   // used. The latest non-negative start value form either call will be used.
   // Specifying a start bitrate will reset the current bitrate estimate.
   // Assumes 0 <= min <= start <= max holds for set parameters.
   virtual void SetBitrateConfigMask(
-      const Config::BitrateConfigMask& bitrate_mask) = 0;
+      const CallConfig::BitrateConfigMask& bitrate_mask) = 0;
 
   virtual void SetBitrateAllocationStrategy(
       std::unique_ptr<rtc::BitrateAllocationStrategy>

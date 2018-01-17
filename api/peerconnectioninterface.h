@@ -97,7 +97,9 @@
 #include "media/base/mediachannel.h"
 #include "media/base/videocapturer.h"
 #include "p2p/base/portallocator.h"
+#include "rtc_base/bitrateallocationstrategy.h"  // Should be in api/ ?
 #include "rtc_base/network.h"
+#include "rtc_base/platform_file.h"
 #include "rtc_base/rtccertificate.h"
 #include "rtc_base/rtccertificategenerator.h"
 #include "rtc_base/socketaddress.h"
@@ -117,7 +119,7 @@ class WebRtcVideoEncoderFactory;
 namespace webrtc {
 class AudioDeviceModule;
 class AudioMixer;
-class CallFactoryInterface;
+class AudioProcessing;
 class MediaConstraintsInterface;
 class VideoDecoderFactory;
 class VideoEncoderFactory;

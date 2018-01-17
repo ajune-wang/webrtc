@@ -645,7 +645,7 @@ void RtpTransportControllerAdapter::Init_w() {
   const int kStartBandwidthBps = 300000;
   const int kMaxBandwidthBps = 2000000;
 
-  webrtc::Call::Config call_config(event_log_);
+  webrtc::CallConfig call_config(event_log_);
   call_config.audio_state = channel_manager_->media_engine()->GetAudioState();
   call_config.bitrate_config.min_bitrate_bps = kMinBandwidthBps;
   call_config.bitrate_config.start_bitrate_bps = kStartBandwidthBps;

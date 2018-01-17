@@ -59,7 +59,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
     num_audio_streams_ = test->GetNumAudioStreams();
     num_flexfec_streams_ = test->GetNumFlexfecStreams();
     RTC_DCHECK(num_video_streams_ > 0 || num_audio_streams_ > 0);
-    Call::Config send_config(test->GetSenderCallConfig());
+    CallConfig send_config(test->GetSenderCallConfig());
     if (num_audio_streams_ > 0) {
       CreateFakeAudioDevices(test->CreateCapturer(), test->CreateRenderer());
       test->OnFakeAudioDevicesCreated(fake_send_audio_device_.get(),
@@ -82,7 +82,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
           sender_call_transport_controller_);
     }
     if (test->ShouldCreateReceivers()) {
-      Call::Config recv_config(test->GetReceiverCallConfig());
+      CallConfig recv_config(test->GetReceiverCallConfig());
       if (num_audio_streams_ > 0) {
         AudioState::Config audio_state_config;
         audio_state_config.audio_mixer = AudioMixerImpl::Create();
@@ -164,13 +164,13 @@ void CallTest::RunBaseTest(BaseTest* test) {
   });
 }
 
-void CallTest::CreateCalls(const Call::Config& sender_config,
-                           const Call::Config& receiver_config) {
+void CallTest::CreateCalls(const CallConfig& sender_config,
+                           const CallConfig& receiver_config) {
   CreateSenderCall(sender_config);
   CreateReceiverCall(receiver_config);
 }
 
-void CallTest::CreateSenderCall(const Call::Config& config) {
+void CallTest::CreateSenderCall(const CallConfig& config) {
   sender_call_transport_controller_ = new RtpTransportControllerSend(
       Clock::GetRealTimeClock(), config.event_log);
 
@@ -179,7 +179,7 @@ void CallTest::CreateSenderCall(const Call::Config& config) {
                                sender_call_transport_controller_)));
 }
 
-void CallTest::CreateReceiverCall(const Call::Config& config) {
+void CallTest::CreateReceiverCall(const CallConfig& config) {
   receiver_call_.reset(Call::Create(config));
 }
 
@@ -509,12 +509,12 @@ void BaseTest::OnFakeAudioDevicesCreated(FakeAudioDevice* send_audio_device,
                                          FakeAudioDevice* recv_audio_device) {
 }
 
-Call::Config BaseTest::GetSenderCallConfig() {
-  return Call::Config(event_log_.get());
+CallConfig BaseTest::GetSenderCallConfig() {
+  return CallConfig(event_log_.get());
 }
 
-Call::Config BaseTest::GetReceiverCallConfig() {
-  return Call::Config(event_log_.get());
+CallConfig BaseTest::GetReceiverCallConfig() {
+  return CallConfig(event_log_.get());
 }
 
 void BaseTest::OnRtpTransportControllerSendCreated(

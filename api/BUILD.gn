@@ -37,6 +37,13 @@ rtc_source_set("call_api") {
   ]
 }
 
+rtc_source_set("callfactory_api") {
+  visibility = [ "*" ]
+  sources = [
+    "call/callfactoryinterface.h",
+  ]
+}
+
 rtc_static_library("libjingle_peerconnection_api") {
   visibility = [ "*" ]
   cflags = []
@@ -60,6 +67,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     "mediatypes.h",
     "notifier.h",
     "peerconnectionfactoryproxy.h",
+    "peerconnectioninterface.h",
     "peerconnectionproxy.h",
     "proxy.cc",
     "proxy.h",
@@ -91,8 +99,9 @@ rtc_static_library("libjingle_peerconnection_api") {
 
   deps = [
     ":array_view",
+    ":callfactory_api",
+    ":libjingle_logging_api",
     ":optional",
-    ":peerconnection_and_implicit_call_api",
     ":rtc_stats_api",
     ":video_frame_api",
     "audio_codecs:audio_codecs_api",
@@ -109,24 +118,11 @@ rtc_static_library("libjingle_peerconnection_api") {
     "../rtc_base:rtc_base_approved",
     "../rtc_base:stringutils",
   ]
+
   if (is_nacl) {
     # This is needed by .h files included from rtc_base.
     deps += [ "//native_client_sdk/src/libraries/nacl_io" ]
   }
-}
-
-rtc_source_set("peerconnection_and_implicit_call_api") {
-  visibility = [ "*" ]
-
-  # The peerconnectioninterface.h file pulls in call/callfactoryinterface.h
-  # and the entire call module with it. We need to either get rid of this
-  # dependency or pull most of call/ into the API. For now, silence the warnings
-  # this creates since it creates a circular dependency (call very much depends
-  # on API). See bugs.webrtc.org/8667.
-  check_includes = false
-  sources = [
-    "peerconnectioninterface.h",
-  ]
 }
 
 rtc_source_set("libjingle_logging_api") {
@@ -335,7 +331,6 @@ if (rtc_include_tests) {
       "fakemetricsobserver.h",
     ]
     deps = [
-      "../api:peerconnection_and_implicit_call_api",
       "../media:rtc_media_base",
       "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",

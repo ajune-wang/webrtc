@@ -25,10 +25,6 @@
 namespace webrtc {
 namespace test {
 
-namespace {
-const int kVideoRotationRtpExtensionId = 4;
-}
-
 CallTest::CallTest()
     : clock_(Clock::GetRealTimeClock()),
       event_log_(RtcEventLog::CreateNull()),
@@ -200,14 +196,19 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
   video_config->rtp.extensions.push_back(
       RtpExtension(RtpExtension::kTransportSequenceNumberUri,
                    kTransportSequenceNumberExtensionId));
+  video_config->rtp.extensions.push_back(
+      RtpExtension(RtpExtension::kVideoRotationUri, kVideoRotationExtensionId));
   video_config->rtp.extensions.push_back(RtpExtension(
       RtpExtension::kVideoContentTypeUri, kVideoContentTypeExtensionId));
-  FillEncoderConfiguration(num_video_streams, &video_encoder_config_);
+  video_config->rtp.extensions.push_back(
+      RtpExtension(RtpExtension::kVideoTimingUri, kVideoTimingExtensionId));
+  video_config->rtp.extensions.push_back(
+      RtpExtension(RtpExtension::kPlayoutDelayUri, kVideoTimingExtensionId));
 
   for (size_t i = 0; i < num_video_streams; ++i)
     video_config->rtp.ssrcs.push_back(kVideoSendSsrcs[num_used_ssrcs + i]);
-  video_config->rtp.extensions.push_back(RtpExtension(
-      RtpExtension::kVideoRotationUri, kVideoRotationRtpExtensionId));
+
+  FillEncoderConfiguration(num_video_streams, &video_encoder_config_);
 }
 
 void CallTest::CreateAudioAndFecSendConfigs(size_t num_audio_streams,

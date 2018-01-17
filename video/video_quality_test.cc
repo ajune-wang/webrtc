@@ -1385,11 +1385,6 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       video_send_configs_[video_idx].rtp.extensions.push_back(RtpExtension(
           RtpExtension::kAbsSendTimeUri, test::kAbsSendTimeExtensionId));
     }
-    video_send_configs_[video_idx].rtp.extensions.push_back(
-        RtpExtension(RtpExtension::kVideoContentTypeUri,
-                     test::kVideoContentTypeExtensionId));
-    video_send_configs_[video_idx].rtp.extensions.push_back(RtpExtension(
-        RtpExtension::kVideoTimingUri, test::kVideoTimingExtensionId));
 
     video_encoder_configs_[video_idx].min_transmit_bitrate_bps =
         params_.video[video_idx].min_transmit_bps;

@@ -12,6 +12,7 @@ package org.webrtc;
 
 import static org.webrtc.MediaCodecUtils.EXYNOS_PREFIX;
 import static org.webrtc.MediaCodecUtils.INTEL_PREFIX;
+import static org.webrtc.MediaCodecUtils.MEDIATEK_PREFIX;
 import static org.webrtc.MediaCodecUtils.QCOM_PREFIX;
 
 import android.media.MediaCodecInfo;
@@ -42,17 +43,19 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
 
   private final EglBase14.Context sharedContext;
   private final boolean enableIntelVp8Encoder;
+  private final boolean enableMediaTekH264Encoder;
   private final boolean enableH264HighProfile;
   private final boolean fallbackToSoftware;
 
-  public HardwareVideoEncoderFactory(
-      EglBase.Context sharedContext, boolean enableIntelVp8Encoder, boolean enableH264HighProfile) {
-    this(
-        sharedContext, enableIntelVp8Encoder, enableH264HighProfile, true /* fallbackToSoftware */);
+  public HardwareVideoEncoderFactory(EglBase.Context sharedContext, boolean enableIntelVp8Encoder,
+      boolean enableMediaTekH264Encoder, boolean enableH264HighProfile) {
+    this(sharedContext, enableIntelVp8Encoder, enableMediaTekH264Encoder, enableH264HighProfile,
+        true /* fallbackToSoftware */);
   }
 
   HardwareVideoEncoderFactory(EglBase.Context sharedContext, boolean enableIntelVp8Encoder,
-      boolean enableH264HighProfile, boolean fallbackToSoftware) {
+      boolean enableMediaTekH264Encoder, boolean enableH264HighProfile,
+      boolean fallbackToSoftware) {
     // Texture mode requires EglBase14.
     if (sharedContext instanceof EglBase14.Context) {
       this.sharedContext = (EglBase14.Context) sharedContext;
@@ -61,13 +64,15 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
       this.sharedContext = null;
     }
     this.enableIntelVp8Encoder = enableIntelVp8Encoder;
+    this.enableMediaTekH264Encoder = enableMediaTekH264Encoder;
     this.enableH264HighProfile = enableH264HighProfile;
     this.fallbackToSoftware = fallbackToSoftware;
   }
 
   @Deprecated
-  public HardwareVideoEncoderFactory(boolean enableIntelVp8Encoder, boolean enableH264HighProfile) {
-    this(null, enableIntelVp8Encoder, enableH264HighProfile);
+  public HardwareVideoEncoderFactory(boolean enableIntelVp8Encoder,
+      boolean enableMediaTekH264Encoder, boolean enableH264HighProfile) {
+    this(null, enableIntelVp8Encoder, enableH264HighProfile, enableMediaTekH264Encoder);
   }
 
   @Override
@@ -216,8 +221,10 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     // QCOM H264 encoder is supported in KITKAT or later.
     return (name.startsWith(QCOM_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         // Exynos H264 encoder is supported in LOLLIPOP or later.
-        || (name.startsWith(EXYNOS_PREFIX)
-               && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+        || (name.startsWith(EXYNOS_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        // MediaTek H264 encoder is supported in O or later.
+        || (name.startsWith(MEDIATEK_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+               && enableMediaTekH264Encoder);
   }
 
   private int getKeyFrameIntervalSec(VideoCodecType type) {

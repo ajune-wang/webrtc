@@ -67,6 +67,7 @@ public class HardwareVideoEncoderTest {
 
   private static final boolean ENABLE_INTEL_VP8_ENCODER = true;
   private static final boolean ENABLE_H264_HIGH_PROFILE = true;
+  private static final boolean ENABLE_MEDIATEK_VP8_ENCODER = true;
   private static final VideoEncoder.Settings SETTINGS =
       new VideoEncoder.Settings(1 /* core */, 640 /* width */, 480 /* height */, 300 /* kbps */,
           30 /* fps */, true /* automaticResizeOn */);
@@ -261,8 +262,8 @@ public class HardwareVideoEncoderTest {
 
   // # Helper methods
   private VideoEncoderFactory createEncoderFactory(EglBase.Context eglContext) {
-    return new HardwareVideoEncoderFactory(
-        eglContext, ENABLE_INTEL_VP8_ENCODER, ENABLE_H264_HIGH_PROFILE);
+    return new HardwareVideoEncoderFactory(eglContext, ENABLE_INTEL_VP8_ENCODER,
+        ENABLE_MEDIATEK_VP8_ENCODER, ENABLE_H264_HIGH_PROFILE);
   }
 
   private VideoEncoder createEncoder() {

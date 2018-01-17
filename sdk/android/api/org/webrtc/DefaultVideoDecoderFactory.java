@@ -14,9 +14,10 @@ public class DefaultVideoDecoderFactory implements VideoDecoderFactory {
   private final HardwareVideoDecoderFactory hardwareVideoDecoderFactory;
   private final SoftwareVideoDecoderFactory softwareVideoDecoderFactory;
 
-  public DefaultVideoDecoderFactory(EglBase.Context eglContext) {
-    hardwareVideoDecoderFactory =
-        new HardwareVideoDecoderFactory(eglContext, false /* fallbackToSoftware */);
+  public DefaultVideoDecoderFactory(EglBase.Context eglContext, boolean enableMediaTekH264Decoder,
+      boolean enableMediaTekVp8Decoder) {
+    hardwareVideoDecoderFactory = new HardwareVideoDecoderFactory(eglContext,
+        enableMediaTekH264Decoder, enableMediaTekVp8Decoder, false /* fallbackToSoftware */);
     softwareVideoDecoderFactory = new SoftwareVideoDecoderFactory();
   }
 

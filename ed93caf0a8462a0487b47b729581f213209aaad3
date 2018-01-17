@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5775c54_d2a042ae",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-17T14:05:12Z",
+      "side": 1,
+      "message": "I just noticed that I forgot to add the new flag here.\n\nIs it possible to somehow use a default equality operator, to avoid comparing each member explicitly?\n\nCould also add a test in peerconnectioninterface_unittests.",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 47
+      },
+      "revId": "ed93caf0a8462a0487b47b729581f213209aaad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

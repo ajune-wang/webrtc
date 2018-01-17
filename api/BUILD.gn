@@ -202,6 +202,18 @@ rtc_source_set("transport_api") {
   ]
 }
 
+rtc_source_set("fec_controller_api") {
+  visibility = [ "*" ]
+  sources = [
+    "fec_controller.h",
+  ]
+
+  deps = [
+    "../common_video:common_video",
+    "../modules/video_coding:video_codec_interface",
+  ]
+}
+
 rtc_source_set("video_frame_api") {
   visibility = [ "*" ]
   sources = [

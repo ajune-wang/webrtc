@@ -126,6 +126,13 @@ struct MediaConfig {
 
     // Enables periodic bandwidth probing in application-limited region.
     bool periodic_alr_bandwidth_probing = false;
+
+    // Enables the new method to estimate the cpu load from encoding, used for
+    // cpu adaptation. This flag is intended to be controlled primarily by a
+    // Chrome origin-trial.
+    // TODO(bugs.webrtc.org/8504): If all goes well, the flag will be removed
+    // together with the old method of estimation.
+    bool experiment_cpu_load_estimator = false;
   } video;
 
   bool operator==(const MediaConfig& o) const {

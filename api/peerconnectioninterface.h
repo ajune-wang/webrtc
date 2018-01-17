@@ -330,6 +330,12 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
       media_config.video.disable_prerenderer_smoothing = !enable;
     }
 
+    bool experiment_cpu_load_estimator() {
+      return media_config.video.experiment_cpu_load_estimator;
+    }
+    void set_experiment_cpu_load_estimator(bool enable) {
+      media_config.video.experiment_cpu_load_estimator = enable;
+    }
     static const int kUndefined = -1;
     // Default maximum number of packets in the audio jitter buffer.
     static const int kAudioJitterBufferMaxPackets = 50;

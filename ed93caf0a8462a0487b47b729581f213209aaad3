@@ -22,6 +22,30 @@
       "revId": "ed93caf0a8462a0487b47b729581f213209aaad3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e2711ab_4e0d1ad2",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-17T14:13:14Z",
+      "side": 1,
+      "message": "And the reviewer failed to spot it. :-(\n\nAs of C++17, there\u0027s no such thing as a default equality operator, but it\u0027s being discussed.",
+      "parentUuid": "f5775c54_d2a042ae",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 47
+      },
+      "revId": "ed93caf0a8462a0487b47b729581f213209aaad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

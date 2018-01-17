@@ -15,6 +15,7 @@
 
 #include "common_video/h264/h264_common.h"
 #include "rtc_base/bitbuffer.h"
+#include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/logging.h"
 
 typedef rtc::Optional<webrtc::SpsParser::SpsState> OptionalSps;
@@ -104,7 +105,7 @@ rtc::Optional<SpsParser::SpsState> SpsParser::ParseSpsUpToVui(
         RETURN_EMPTY_ON_FAIL(
             buffer->ReadBits(&seq_scaling_list_present_flags, 1));
         if (seq_scaling_list_present_flags != 0) {
-          int last_scale = 8;
+          int64_t last_scale = 8;
           int next_scale = 8;
           int size_of_scaling_list = i < 6 ? 16 : 64;
           for (int j = 0; j < size_of_scaling_list; j++) {
@@ -113,7 +114,8 @@ rtc::Optional<SpsParser::SpsState> SpsParser::ParseSpsUpToVui(
               // delta_scale: se(v)
               RETURN_EMPTY_ON_FAIL(
                   buffer->ReadSignedExponentialGolomb(&delta_scale));
-              next_scale = (last_scale + delta_scale + 256) % 256;
+              next_scale = rtc::checked_cast<int>(
+                  (last_scale + delta_scale + 256) % 256);
             }
             if (next_scale != 0)
               last_scale = next_scale;

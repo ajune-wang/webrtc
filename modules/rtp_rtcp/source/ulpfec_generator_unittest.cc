@@ -95,8 +95,8 @@ TEST_F(UlpfecGeneratorTest, NoEmptyFecWithSeqNumGaps) {
     size_t num_fec_packets = ulpfec_generator_.NumAvailableFecPackets();
     if (num_fec_packets > 0) {
       std::vector<std::unique_ptr<RedPacket>> fec_packets =
-          ulpfec_generator_.GetUlpfecPacketsAsRed(
-              kRedPayloadType, kFecPayloadType, 100, p.header_size);
+          ulpfec_generator_.GetUlpfecPacketsAsRed(kRedPayloadType,
+                                                  kFecPayloadType, 100);
       EXPECT_EQ(num_fec_packets, fec_packets.size());
     }
   }
@@ -125,7 +125,7 @@ TEST_F(UlpfecGeneratorTest, OneFrameFec) {
   uint16_t seq_num = packet_generator_.NextPacketSeqNum();
   std::vector<std::unique_ptr<RedPacket>> red_packets =
       ulpfec_generator_.GetUlpfecPacketsAsRed(kRedPayloadType, kFecPayloadType,
-                                              seq_num, kRtpHeaderSize);
+                                              seq_num);
   EXPECT_FALSE(ulpfec_generator_.FecAvailable());
   ASSERT_EQ(1u, red_packets.size());
   VerifyHeader(seq_num, last_timestamp, kRedPayloadType, kFecPayloadType,
@@ -160,7 +160,7 @@ TEST_F(UlpfecGeneratorTest, TwoFrameFec) {
   uint16_t seq_num = packet_generator_.NextPacketSeqNum();
   std::vector<std::unique_ptr<RedPacket>> red_packets =
       ulpfec_generator_.GetUlpfecPacketsAsRed(kRedPayloadType, kFecPayloadType,
-                                              seq_num, kRtpHeaderSize);
+                                              seq_num);
   EXPECT_FALSE(ulpfec_generator_.FecAvailable());
   ASSERT_EQ(1u, red_packets.size());
   VerifyHeader(seq_num, last_timestamp, kRedPayloadType, kFecPayloadType,

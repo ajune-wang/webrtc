@@ -1101,7 +1101,7 @@ bool WebRtcVideoChannel::AddSendStream(const StreamParams& sp) {
       video_config_.periodic_alr_bandwidth_probing;
   WebRtcVideoSendStream* stream = new WebRtcVideoSendStream(
       call_, sp, std::move(config), default_send_options_, encoder_factory_,
-      video_config_.enable_cpu_overuse_detection,
+      video_config_.enable_cpu_adaptation,
       bitrate_config_.max_bitrate_bps, send_codec_, send_rtp_extensions_,
       send_params_);
 
@@ -1208,8 +1208,9 @@ bool WebRtcVideoChannel::AddRecvStream(const StreamParams& sp,
   webrtc::FlexfecReceiveStream::Config flexfec_config(this);
   ConfigureReceiverRtp(&config, &flexfec_config, sp);
 
+  // TODO(nisse): Rename config variable to avoid negation.
   config.disable_prerenderer_smoothing =
-      video_config_.disable_prerenderer_smoothing;
+      !video_config_.enable_prerenderer_smoothing;
   config.sync_group = sp.sync_label;
 
   receive_streams_[ssrc] = new WebRtcVideoReceiveStream(

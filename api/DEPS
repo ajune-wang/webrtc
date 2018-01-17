@@ -43,4 +43,9 @@ specific_include_rules = {
   "mediastreaminterface.h": [
     "+modules/audio_processing/include/audio_processing_statistics.h",
   ],
+
+  # Needed to use the VCMProtectionCallback.
+  "fec_controller.h": [
+    "+modules/video_coding/include/video_coding_defines.h",
+  ],
 }

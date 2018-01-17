@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9973a151_e2ac3090",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-01-17T00:13:05Z",
+      "side": 1,
+      "message": "Enable vp8 hw decoder on Android N and above only",
+      "range": {
+        "startLine": 129,
+        "startChar": 52,
+        "endLine": 129,
+        "endChar": 76
+      },
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b032f1c_185b9fb0",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-01-17T00:13:05Z",
+      "side": 1,
+      "message": "Suggest to limit to Android N and above only",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ca224c4_3c40f142",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-01-17T00:13:05Z",
+      "side": 1,
+      "message": "Limit to Android O and above",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 29
+      },
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3975785d_2ca6aa7c",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-01-17T00:13:05Z",
+      "side": 1,
+      "message": "Please add H.264 high profile decoder support for Mediatek decoder on Android O and above",
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9e2017_df56285d",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-01-17T00:13:05Z",
+      "side": 1,
+      "message": "This should be BitrateAdjustmentType.FRAMERATE_ADJUSTMENT?",
+      "range": {
+        "startLine": 180,
+        "startChar": 41,
+        "endLine": 180,
+        "endChar": 62
+      },
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

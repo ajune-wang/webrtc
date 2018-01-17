@@ -1,0 +1,453 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbe3a7b2_8cd6d569",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "We\u0027ll always need to support payload type based demuxing; the issue now is that the demuxer (RtpDemuxer) exists in a layer of code below this class. Maybe a more accurate comment would be \"We don\u0027t need this once RtpTransport becomes responsible for demuxing.\"",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77c3472c_9f155edb",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Is this still needed?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1e35b55_fb5bd8e7",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Use an std::set so that payload types aren\u0027t added twice?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a125e21_ad10e096",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "I think we also need to do some SDP validation here, like how channel.cc does with the \"Cryptos must be empty when DTLS is active\" error.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac68a597_1314fa2f",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "What if SetAnswer didn\u0027t activate muxing?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a0701d_598b48df",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Is the plan for both JsepTransportController and TransportController to share the same JsepTransport class while the transition is made? I think it would be easier (and more design improvements could be made) if JsepTransport were forked as well.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c5e34b8_5cb0d77f",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "This will go to \"false\" if applying an offer, even if bundle is currently enabled. Won\u0027t that cause problems on subsequent offers? And does this even need to be a member variable, or would it be sufficient to check if \"bundle_group_\" is null?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8c9cb45_2cb309e6",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Why is bundling on the SCTP section a problem?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77cdf494_62113ab1",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Couldn\u0027t this just be:\n\nif (content_info.name \u003d\u003d sctp_mid_) {\n  sctp_transport_-\u003eSetTransportChannel(transports_[bundled_mid_]-\u003eGetDtlsTransport());\n}",
+      "range": {
+        "startLine": 186,
+        "startChar": 6,
+        "endLine": 186,
+        "endChar": 36
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10fdec24_ab681a3a",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "This method covers ICE/DTLS as well, so I suggest removing \"Rtp\"",
+      "range": {
+        "startLine": 199,
+        "startChar": 24,
+        "endLine": 199,
+        "endChar": 27
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f489fce_f56dc346",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "nit: Bit of duplication here. Could have a helper function that returns transport name given MID, or JsepTransport pointer given MID.",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 1
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649bfa6f_76d67f07",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "nit: This could be a good time to get rid of the separate \"_n\" methods, and do the \"if (!network_thread_-\u003eIsCurrent())\" thing instead.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6731cb07_718f4dd1",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "If this is only called internally, it should be able to assume it\u0027s on the network thread.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeb4c63a_9aae75aa",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "This should be impossible, since this method is only called when the JsepTransport is created, right?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f32e44fe_8fd7cabb",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Where is this called? I imagine it should be called in ApplyDescription, for any transports that are now obsolete due to BUNDLE negotiation.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7878aaf3_9e5294b9",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "nit: Could simplify this by using AsyncInvoker instead of using MessageHandler/Message directly.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f1e2c31_74934df9",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Is this necessary? It would only be possible if content_desc-\u003ertp_header_extensions() had two extensions with the same ID, which is an error that I hope would be caught at SDP parsing.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f2b82eb_3ba4ac8b",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "I think we should create one anyway, since other media may be bundled on it later. It doesn\u0027t really hurt, and makes things much simpler. There should be a test case for this, if there isn\u0027t (bundling on SCTP section in subsequent offer/answer).",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62c83e1d_9a4d0fac",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "I think the transport creation code could be simplified now. It\u0027s somewhat confusing that CreateJsepTransport calls CreateDtlsSrtpTransport, which calls CreateDtlsTransport, which in turn calls GetJsepTransport and calls AddChannel on it.\n\nThis method could do this instead:\n\n1. Create RTP DtlsTransport.\n2. Create RTCP DtlsTransport, if needed.\n3. Create RtpTransport of appropriate type, given DtlsTransport(s).\n4. Create JsepTransport, given the DtlsTransport(s) and RtpTransport. Instead of \"AddChannel\" and \"SetRtpTransport\" methods, it could just take them in its constructor; they\u0027ll never change afterwards.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a69ab437_20d90c27",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "I\u0027d use the BundlePolicy and RtcpMuxPolicy types directly, and give these default values for good measure.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a39c50a_d8e097bb",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Do we need equivalent \"remove\" methods? I hadn\u0027t thought enough about the destruction order when an m\u003d section is rejected; maybe this API needs some tweaks",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2403e9fa_9690b644",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Things may be simpler if JsepTransport was made the owner of all these objects. We should also be able to get rid of all this reference counting. It was needed with the old model where \"Create\" adds a reference and \"Destroy\" removes one, but now we can just use unique_ptrs owned by JsepTransport. This would also negate the need for \"SignalRtcpMuxFullyActive\".\n\nThe only difficulty is that we\u0027d need some other way of iterating all channels (for things like SetIceConfig and getting aggregate ICE state). But that\u0027s not so bad; we could just add a helper method to collect all of them. I\u0027m not worried about the performance since most of the time there will only be one, and at most 5.",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "759f3988_d5e74910",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Can get rid of this TODO",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bead25a6_de2b4f25",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "Why is this called twice?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2318cb54_f9e10898",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-17T23:00:17Z",
+      "side": 1,
+      "message": "I think this should be removed, such that only JsepTransportController keeps track of the MID -\u003e transport mapping.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

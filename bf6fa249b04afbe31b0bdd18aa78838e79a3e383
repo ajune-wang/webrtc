@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "07f20fb9_c661e003",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-01-17T01:17:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9973a151_e2ac3090",
+      "range": {
+        "startLine": 129,
+        "startChar": 52,
+        "endLine": 129,
+        "endChar": 76
+      },
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b032f1c_185b9fb0",
         "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8806fbd0_6f8f2354",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-01-17T01:17:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b032f1c_185b9fb0",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "539f2682_b480373e",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-01-17T01:17:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ca224c4_3c40f142",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 29
+      },
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3975785d_2ca6aa7c",
         "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
         "patchSetId": 2
@@ -85,6 +157,24 @@
       "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bb69b3d_893b166e",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoDecoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-01-17T01:17:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3975785d_2ca6aa7c",
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -108,6 +198,30 @@
       "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13b2a730_5d88eec5",
+        "filename": "sdk/android/api/org/webrtc/MediaCodecVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-01-17T01:17:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f9e2017_df56285d",
+      "range": {
+        "startLine": 180,
+        "startChar": 41,
+        "endLine": 180,
+        "endChar": 62
+      },
+      "revId": "bf6fa249b04afbe31b0bdd18aa78838e79a3e383",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

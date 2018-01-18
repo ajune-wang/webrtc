@@ -31,6 +31,7 @@
 // is not smart enough to take the #ifdef into account.
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"     // nogncheck
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"     // nogncheck
+#include "media/engine/convert_legacy_video_factory.h"          // nogncheck
 #include "modules/audio_device/include/audio_device.h"          // nogncheck
 #include "modules/audio_processing/include/audio_processing.h"  // nogncheck
 #endif
@@ -77,9 +78,23 @@
   std::unique_ptr<webrtc::VideoDecoderFactory> native_decoder_factory;
   if (encoderFactory) {
     native_encoder_factory.reset(new webrtc::ObjCVideoEncoderFactory(encoderFactory));
+  } else {
+    cricket::WebRtcVideoEncoderFactory *legacy_video_encoder_factory =
+        new webrtc::ObjCVideoEncoderFactory([[RTCVideoEncoderFactoryH264 alloc] init]);
+    native_encoder_factory.reset(
+        ConvertVideoEncoderFactory(
+            std::unique_ptr<cricket::WebRtcVideoEncoderFactory>(legacy_video_encoder_factory))
+            .release());
   }
   if (decoderFactory) {
     native_decoder_factory.reset(new webrtc::ObjCVideoDecoderFactory(decoderFactory));
+  } else {
+    cricket::WebRtcVideoDecoderFactory *legacy_video_decoder_factory =
+        new webrtc::ObjCVideoDecoderFactory([[RTCVideoDecoderFactoryH264 alloc] init]);
+    native_decoder_factory.reset(
+        ConvertVideoDecoderFactory(
+            std::unique_ptr<cricket::WebRtcVideoDecoderFactory>(legacy_video_decoder_factory))
+            .release());
   }
   return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
                        nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()

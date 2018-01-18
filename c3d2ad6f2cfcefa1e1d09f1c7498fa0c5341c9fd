@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "6c182945_f80a8f9b",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "I\u0027m assuming this will be removed later.",
+      "range": {
+        "startLine": 2075,
+        "startChar": 43,
+        "endLine": 2075,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "233db470_50f2b5a2",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Why do we need to set this when we can just do rtp_transport-\u003ertp_packet_transport()-\u003etransport_name() any time we need the value?",
+      "range": {
+        "startLine": 225,
+        "startChar": 76,
+        "endLine": 225,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbe3a7b2_8cd6d569",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -13,6 +59,29 @@
       "writtenOn": "2018-01-17T23:00:17Z",
       "side": 1,
       "message": "We\u0027ll always need to support payload type based demuxing; the issue now is that the demuxer (RtpDemuxer) exists in a layer of code below this class. Maybe a more accurate comment would be \"We don\u0027t need this once RtpTransport becomes responsible for demuxing.\"",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31126381_76fac24b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "We could add the BaseChannel as an RtpDemuxer sink and just dump the packet into an RtpDemuxer owned by the BaseChannel.  Then later move to a shared RtpDemxuer.\n\nCouldn\u0027t we?",
+      "range": {
+        "startLine": 634,
+        "startChar": 3,
+        "endLine": 634,
+        "endChar": 0
+      },
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -36,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "92d6290e_b6e3faca",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "77c3472c_9f155edb",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1e35b55_fb5bd8e7",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -47,6 +134,116 @@
       "writtenOn": "2018-01-17T23:00:17Z",
       "side": 1,
       "message": "Use an std::set so that payload types aren\u0027t added twice?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e736cb2_94f05415",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "d1e35b55_fb5bd8e7",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd638f0e_0bdb9074",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Are these going to be removed, then?",
+      "range": {
+        "startLine": 111,
+        "startChar": 44,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "769f1c64_cdb7c4e7",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Why not all this handled_payload_types_ and add to it whenever we call AddHandledPayloadType and then have a protected getter of handled_payload_types()?  Then you can put this in the private thing next to bundle_filter_.",
+      "range": {
+        "startLine": 369,
+        "startChar": 34,
+        "endLine": 369,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a83cae3_0d4d46ac",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Why can\u0027t we use an RtpDemxuer and delete the BundleFilter?",
+      "range": {
+        "startLine": 452,
+        "startChar": 30,
+        "endLine": 452,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21183b90_457e88a2",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "It feels like these args should be swapped.  Also the rtp_transport argument should probably be made clear to be unencrypted_rtp_transport.",
+      "range": {
+        "startLine": 118,
+        "startChar": 50,
+        "endLine": 118,
+        "endChar": 0
+      },
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +267,52 @@
     },
     {
       "key": {
+        "uuid": "949f4961_4eb57a07",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Why do we need to store the mode?  Can\u0027t we tell from which pointers are non-null?",
+      "range": {
+        "startLine": 388,
+        "startChar": 23,
+        "endLine": 388,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a57a849_474e3c04",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "It would be so much simpler to have two known things rather than a map of things since there will only ever be at most 2.",
+      "range": {
+        "startLine": 402,
+        "startChar": 38,
+        "endLine": 402,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac68a597_1314fa2f",
         "filename": "pc/jseptransport.cc",
         "patchSetId": 4
@@ -87,6 +330,98 @@
     },
     {
       "key": {
+        "uuid": "67a92d99_543a755a",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Why is that on two lines?",
+      "range": {
+        "startLine": 461,
+        "startChar": 79,
+        "endLine": 461,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc1d8ff7_0cd61c78",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "It feels like some early returns would make this more clear.",
+      "range": {
+        "startLine": 491,
+        "startChar": 3,
+        "endLine": 491,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "722c01a6_e2771c01",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "This is more like SrtpMode",
+      "range": {
+        "startLine": 68,
+        "startChar": 21,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "321ccf40_f464c5f9",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Would it make more sense to use an optional\u003cSrtpMode\u003e for unset?",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4a0701d_598b48df",
         "filename": "pc/jseptransport.h",
         "patchSetId": 4
@@ -98,6 +433,87 @@
       "writtenOn": "2018-01-17T23:00:17Z",
       "side": 1,
       "message": "Is the plan for both JsepTransportController and TransportController to share the same JsepTransport class while the transition is made? I think it would be easier (and more design improvements could be made) if JsepTransport were forked as well.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f07755a_f191ba1b",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "What\u0027s the advantage of forking it?  And what would we call it?",
+      "parentUuid": "e4a0701d_598b48df",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f601d060_ee216ecb",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "What does enable_rtcp mean?  Don\u0027t we always enable RTCP?  Did you mean enable_rtcp_mux?",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dece363_9bf66788",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Rathering than passing a component, I think it would be better to say GetDtlsTransport() and GetRtcpDtlsTransport (since that\u0027s the only thing component \u003d 2 is used for).",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0802934_28e40345",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "This isn\u0027t how we usually do signals.  We usually just make them public.",
+      "range": {
+        "startLine": 195,
+        "startChar": 68,
+        "endLine": 195,
+        "endChar": 0
+      },
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -354,6 +770,64 @@
       "writtenOn": "2018-01-17T23:00:17Z",
       "side": 1,
       "message": "I\u0027d use the BundlePolicy and RtcpMuxPolicy types directly, and give these default values for good measure.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c44a4158_12485c6a",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a69ab437_20d90c27",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "003eb8a6_a3f33460",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "If a JsepTransport has an RtpTransport and DtlsTransport, why not just have GetTransport that returns a JsepTransport?",
+      "range": {
+        "startLine": 102,
+        "startChar": 75,
+        "endLine": 102,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a662639e_719265cf",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T01:55:39Z",
+      "side": 1,
+      "message": "Can we instead have some kind of callback that doesn\u0027t require a dependency on BaseChannel or SctpTransport?  For example, the could implement a BundleObserver or JsepTransportUser that gets a callback that basically says \"hey, the transport you want for mid X just changed\".  And then BaseChannel and SctpTransport could implement those and we wouldn\u0027t need this dependency.",
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

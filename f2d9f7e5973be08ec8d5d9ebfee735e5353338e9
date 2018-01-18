@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "4f0e4f43_fd2f5dcc",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-18T15:20:05Z",
+      "side": 1,
+      "message": "I see, it\u0027s the thing you have showed me before. The temporal layer thing looks generic and usable from a VP8 HW codec. It feels like the straight forward approach for breaking this dependency would be to make these changes (preferable in a separate CL):\n\nIn modules/video_coding/codecs/vp8/temporal_layers.h:\n\nadd this:\nstruct Vp8EncoderConfig {\n  unsigned int ts_target_bitrate[5];\n  unsigned int ts_rate_decimator[5];\n  unsigned int ts_number_layers;\n  unsigned int ts_periodicity;\n  unsigned int ts_layer_id[16];\n  unsigned int rc_target_bitrate;\n  unsigned int rc_min_quantizer;\n  unsigned int rc_max_quantizer;\n};\n\nand change\nvirtual bool UpdateConfiguration(vpx_codec_enc_cfg_t* cfg) \u003d 0;\nto\nvirtual bool UpdateConfiguration(Vp8EncoderConfig* cfg) \u003d 0;\n\nIn some helper file for modules/video_coding/codecs/ vp8_impl.h/vp9_impl.h:\n\nadd this helper function for constructing a Vp8EncoderConfig from the vpx config:\nstatic Vp8EncoderConfig GetEncoderConfig(const vpx_codec_enc_cfg\u0026 vpx_config) {\n  Vp8EncoderConfig config;\n  config.ts_number_layers \u003d vpx_config.ts_number_layers;\n  ...\n  return config;\n}\n\nand this for filling it in:\nstatic void FillInEncoderConfig(vpx_codec_enc_cfg* vpx_config, const Vp8EncoderConfig\u0026 config) {\n  vpx_config-\u003ets_number_layers \u003d config.ts_number_layers;\n  ...\n}\n\nthen we should be able to make a function like this that is identical to the old behavior: \nstatic bool UpdateVpxConfiguration(TemporalLayers* temporal_layers, vpx_codec_enc_cfg_t* cfg) {\n  Vp8EncoderConfig config \u003d GetEncoderConfig(cfg);\n  const bool res \u003d temporal_layers-\u003eUpdateConfiguration(config);\n  FillInEncoderConfig(cfg, config);\n  return res;\n}\n\nand in vp8_impl and vp9_impl we can change the call sites from\ntemporal_layers-\u003eUpdateConfiguration(cfg)\nto\nUpdateVpxConfiguration(temporal_layers, cfg);\n\nMaybe make a CL like that and throw it to sprang@.",
+      "parentUuid": "d48a0d69_84784121",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 31
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07124776_edf12af7",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 11
@@ -331,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "d479323e_9e0cc25f",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-18T15:20:05Z",
+      "side": 1,
+      "message": "I see. I think the easiest solution is to just let RTCDefaultVideoEncoderFactory depend on VP8 and VP9 always. So if a client wants to reduce binary size, they have to implement their own factory. The default factory is to simplify for clients that don\u0027t care, like AppRTCMobile.",
+      "parentUuid": "5e581eca_5fa34617",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 70
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa55ee89_e86d88c6",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 11
@@ -366,6 +414,30 @@
       "side": 1,
       "message": "Yes, but same question as for iOS. I suppose there is some runtime reflection available in Java to check which codec classes are available in the SoftwareVideoEncoderFactory etc., or are there any better methods?",
       "parentUuid": "fa55ee89_e86d88c6",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 44
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59af424d_c3594cdd",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-18T15:20:05Z",
+      "side": 1,
+      "message": "I don\u0027t mean to change any real code, just making the targets in this build file more fine grained and modular. Would it be possible to do something like this:\n\ngenerate_jni(\"generated_vp8_jni\") {\n  sources \u003d [VP8Encoder.java, VP8Decoder.java]\n}\n\nrtc_static_library(\"vp8_jni\") {\n  sources \u003d [\"src/jni/vp8codec.cc\"]\n  deps \u003d [ \":generated_vp8_jni\",\n           \"../../modules/video_coding:webrtc_vp8\"]\n}\n\nrtc_static_library(\"libjingle_peerconnection_jni\") {\n  visibility \u003d [ \"*\" ]\n  public_deps \u003d [\n    \":audio_jni\",\n    \":base_jni\",\n    \":media_jni\",\n    \":peerconnection_jni\",\n    \":video_jni\",\n    \"../../pc:create_pc_factory\",\n  ]\n\n  if (rtc_use_builtin_sw_codecs) {\n    public_deps +\u003d [\":vp8_jni\",\n                    \":vp9_jni\",\n                    \":software_video_factory\",\n                    \":default_video_factory\",\n    ]\n  }\n}\n\nThe end goal would be to have modular targets so that a client can compose its own libjingle_peerconnection_jni without flags and remove targets such as libjingle_peerconnection_datachannelonly_so.",
+      "parentUuid": "c55195ab_bdbcf38c",
       "range": {
         "startLine": 170,
         "startChar": 0,
@@ -422,6 +494,30 @@
       "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78333d3c_a52bcc60",
+        "filename": "sdk/android/src/jni/pc/video.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-18T15:20:05Z",
+      "side": 1,
+      "message": "Aaah, right. Ok, let\u0027s keep it.",
+      "parentUuid": "e949a5d7_6b358626",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 3
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

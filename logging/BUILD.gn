@@ -96,6 +96,8 @@ rtc_static_library("rtc_event_log_impl") {
     "rtc_event_log/encoder/rtc_event_log_encoder.h",
     "rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
     "rtc_event_log/encoder/rtc_event_log_encoder_legacy.h",
+    "rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+    "rtc_event_log/encoder/rtc_event_log_encoder_new_format.h",
     "rtc_event_log/rtc_event_log.cc",
     "rtc_event_log/rtc_event_log_factory.cc",
     "rtc_event_log/rtc_event_log_factory.h",

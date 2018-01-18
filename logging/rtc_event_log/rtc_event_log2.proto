@@ -32,6 +32,7 @@ message EventStream {
   repeated BweProbeCluster probe_clusters = 21;
   repeated BweProbeResultSuccess probe_success = 22;
   repeated BweProbeResultFailure probe_failure = 23;
+  repeated AlrState alr_states = 24;
 
   repeated AudioRecvStreamConfig audio_recv_stream_configs = 101;
   repeated AudioSendStreamConfig audio_send_stream_configs = 102;
@@ -45,6 +46,7 @@ message Event {
 }
 
 message IncomingRtpPackets {
+  // required
   optional int64 timestamp_ms = 1;
 
   // RTP marker bit, used to label boundaries within e.g. video frames.
@@ -89,6 +91,7 @@ message IncomingRtpPackets {
 }
 
 message OutgoingRtpPackets {
+  // required
   optional int64 timestamp_ms = 1;
 
   // RTP marker bit, used to label boundaries within e.g. video frames.
@@ -132,6 +135,7 @@ message OutgoingRtpPackets {
 }
 
 message IncomingRtcpPackets {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - The whole packet including both payload and header.
@@ -144,6 +148,7 @@ message IncomingRtcpPackets {
 }
 
 message OutgoingRtcpPackets {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - The whole packet including both payload and header.
@@ -156,6 +161,7 @@ message OutgoingRtcpPackets {
 }
 
 message AudioPlayoutEvents {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - The SSRC of the audio stream associated with the playout event.
@@ -167,14 +173,17 @@ message AudioPlayoutEvents {
 }
 
 message BeginLogEvent {
+  // required
   optional int64 timestamp_ms = 1;
 }
 
 message EndLogEvent {
+  // required
   optional int64 timestamp_ms = 1;
 }
 
 message LossBasedBweUpdates {
+  // required
   optional int64 timestamp_ms = 1;
 
   // TODO(terelius): Update log interface to unsigned.
@@ -199,6 +208,7 @@ message LossBasedBweUpdates {
 }
 
 message DelayBasedBweUpdates {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - Bandwidth estimate (in bps) after the update.
@@ -230,6 +240,7 @@ message RtpHeaderExtensionConfig {
 }
 
 message VideoRecvStreamConfig {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - Synchronization source (stream identifier) to be received.
@@ -253,6 +264,7 @@ message VideoRecvStreamConfig {
 }
 
 message VideoSendStreamConfig {
+  // required
   optional int64 timestamp_ms = 1;
 
   // Synchronization source (stream identifier) for outgoing stream.
@@ -274,6 +286,7 @@ message VideoSendStreamConfig {
 }
 
 message AudioRecvStreamConfig {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - Synchronization source (stream identifier) to be received.
@@ -296,6 +309,7 @@ message AudioRecvStreamConfig {
 }
 
 message AudioSendStreamConfig {
+  // required
   optional int64 timestamp_ms = 1;
 
   // Synchronization source (stream identifier) for outgoing stream.
@@ -316,6 +330,7 @@ message AudioSendStreamConfig {
 }
 
 message AudioNetworkAdaptations {
+  // required
   optional int64 timestamp_ms = 1;
 
   // Bit rate that the audio encoder is operating at.
@@ -350,6 +365,7 @@ message AudioNetworkAdaptations {
 }
 
 message BweProbeCluster {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - The id of this probe cluster.
@@ -366,6 +382,7 @@ message BweProbeCluster {
 }
 
 message BweProbeResultSuccess {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - The id of this probe cluster.
@@ -376,6 +393,7 @@ message BweProbeResultSuccess {
 }
 
 message BweProbeResultFailure {
+  // required
   optional int64 timestamp_ms = 1;
 
   // required - The id of this probe cluster.
@@ -390,4 +408,12 @@ message BweProbeResultFailure {
 
   // required
   optional FailureReason failure = 3;
+}
+
+message AlrState {
+  // required
+  optional int64 timestamp_ms = 1;
+
+  // required - True if the send rate is application limited.
+  optional bool in_alr = 2;
 }

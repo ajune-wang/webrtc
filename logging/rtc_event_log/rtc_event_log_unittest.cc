@@ -421,7 +421,7 @@ void RtcEventLogSession::WriteSession() {
   // When log_dumper goes out of scope, it causes the log file to be flushed
   // to disk.
   std::unique_ptr<RtcEventLog> log_dumper(
-      RtcEventLog::Create(RtcEventLog::EncodingType::Legacy));
+      RtcEventLog::Create(RtcEventLog::EncodingType::NewFormat));
 
   size_t incoming_rtp_written = 0;
   size_t outgoing_rtp_written = 0;
@@ -719,7 +719,7 @@ TEST(RtcEventLogTest, CircularBufferKeepsMostRecentEvents) {
   // When log_dumper goes out of scope, it causes the log file to be flushed
   // to disk.
   std::unique_ptr<RtcEventLog> log_dumper(
-      RtcEventLog::Create(RtcEventLog::EncodingType::Legacy));
+      RtcEventLog::Create(RtcEventLog::EncodingType::NewFormat));
 
   for (size_t i = 0; i < kNumEvents; i++) {
     // The purpose of the test is to verify that the log can handle

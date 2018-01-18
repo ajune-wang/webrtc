@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.h"
+#include "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.h"
 #include "logging/rtc_event_log/events/rtc_event_logging_started.h"
 #include "logging/rtc_event_log/events/rtc_event_logging_stopped.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
@@ -73,12 +74,13 @@ std::unique_ptr<RtcEventLogEncoder> CreateEncoder(
   switch (type) {
     case RtcEventLog::EncodingType::Legacy:
       return rtc::MakeUnique<RtcEventLogEncoderLegacy>();
-    default:
-      RTC_LOG(LS_ERROR) << "Unknown RtcEventLog encoder type (" << int(type)
-                        << ")";
-      RTC_NOTREACHED();
-      return std::unique_ptr<RtcEventLogEncoder>(nullptr);
+    case RtcEventLog::EncodingType::NewFormat:
+      return rtc::MakeUnique<RtcEventLogEncoderNewFormat>();
   }
+  RTC_LOG(LS_ERROR) << "Unknown RtcEventLog encoder type (" << int(type)
+                    << ")";
+  RTC_NOTREACHED();
+  return std::unique_ptr<RtcEventLogEncoder>(nullptr);
 }
 
 class RtcEventLogImpl final : public RtcEventLog {

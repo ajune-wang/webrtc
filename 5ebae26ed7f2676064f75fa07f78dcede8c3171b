@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0aef256_a1472fa2",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnectionFactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-01-18T08:03:03Z",
+      "side": 1,
+      "message": "I don\u0027t want to add another class to the public interface. We can achieve the same thing by adding a convenience initializer that also takes the bool option.",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 42
+      },
+      "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

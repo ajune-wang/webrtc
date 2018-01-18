@@ -154,7 +154,7 @@ void AecState::Update(
 
   // TODO(peah): Move?
   filter_has_had_time_to_converge_ =
-      blocks_with_proper_filter_adaptation_ >= 2.5 * kNumBlocksPerSecond;
+      blocks_with_proper_filter_adaptation_ >= 0.5 * kNumBlocksPerSecond;
 
   initial_state_ =
       blocks_with_proper_filter_adaptation_ < 5 * kNumBlocksPerSecond;

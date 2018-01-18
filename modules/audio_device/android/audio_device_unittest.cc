@@ -33,6 +33,8 @@
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 
+#include "system_wrappers/include/sleep.h"
+
 using std::cout;
 using std::endl;
 using ::testing::_;
@@ -817,9 +819,10 @@ TEST_F(AudioDeviceTest, SetSpeakerVolumeActuallySetsVolume) {
 // is registered in this test.
 TEST_F(AudioDeviceTest, StartStopPlayout) {
   StartPlayout();
+  SleepMs(2000);
   StopPlayout();
-  StartPlayout();
-  StopPlayout();
+  // StartPlayout();
+  // StopPlayout();
 }
 
 // Tests that recording can be initiated, started and stopped. No audio callback

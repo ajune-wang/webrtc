@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d73f2be9_9174194b",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-01-18T15:24:30Z",
+      "side": 1,
+      "message": "Hmm, what\u0027s the range for these scale values? It looks like they will always be between 0 and 256. Can they be negative even? Can we change the checked_cast and variables to uint8_t?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "073f4de5b6b265b6144b8c23d7cac67ecf787bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

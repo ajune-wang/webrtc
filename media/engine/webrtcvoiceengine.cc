@@ -957,9 +957,9 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     return true;
   }
 
-  bool SetRtpParameters(const webrtc::RtpParameters& parameters) {
+  webrtc::RTCError SetRtpParameters(const webrtc::RtpParameters& parameters) {
     if (!ValidateRtpParameters(parameters)) {
-      return false;
+      return webrtc::RTCError(webrtc::RTCErrorType::INTERNAL_ERROR);
     }
 
     rtc::Optional<int> send_rate;
@@ -968,7 +968,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
                                      parameters.encodings[0].max_bitrate_bps,
                                      *audio_codec_spec_);
       if (!send_rate) {
-        return false;
+        return webrtc::RTCError(webrtc::RTCErrorType::INTERNAL_ERROR);
       }
     }
 
@@ -993,7 +993,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     }
     // parameters.encodings[0].active could have changed.
     UpdateSendState();
-    return true;
+    return webrtc::RTCError::OK();
   }
 
  private:
@@ -1363,7 +1363,7 @@ webrtc::RtpParameters WebRtcVoiceMediaChannel::GetRtpSendParameters(
   return rtp_params;
 }
 
-bool WebRtcVoiceMediaChannel::SetRtpSendParameters(
+webrtc::RTCError WebRtcVoiceMediaChannel::SetRtpSendParameters(
     uint32_t ssrc,
     const webrtc::RtpParameters& parameters) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
@@ -1371,7 +1371,7 @@ bool WebRtcVoiceMediaChannel::SetRtpSendParameters(
   if (it == send_streams_.end()) {
     RTC_LOG(LS_WARNING) << "Attempting to set RTP send parameters for stream "
                         << "with ssrc " << ssrc << " which doesn't exist.";
-    return false;
+    return webrtc::RTCError(webrtc::RTCErrorType::INTERNAL_ERROR);
   }
 
   // TODO(deadbeef): Handle setting parameters with a list of codecs in a
@@ -1380,7 +1380,7 @@ bool WebRtcVoiceMediaChannel::SetRtpSendParameters(
   if (current_parameters.codecs != parameters.codecs) {
     RTC_LOG(LS_ERROR) << "Using SetParameters to change the set of codecs "
                       << "is not currently supported.";
-    return false;
+    return webrtc::RTCError(webrtc::RTCErrorType::UNSUPPORTED_PARAMETER);
   }
 
   // TODO(minyue): The following legacy actions go into

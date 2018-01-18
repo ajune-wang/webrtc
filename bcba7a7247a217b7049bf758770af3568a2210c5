@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b2fdf75_3acd2851",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-18T11:16:10Z",
+      "side": 1,
+      "message": "Nit: end comment with .\n\nNot sure if the comment is that useful, is it?",
+      "range": {
+        "startLine": 374,
+        "startChar": 2,
+        "endLine": 374,
+        "endChar": 28
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd0c2aad_44ba36b4",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-18T11:16:10Z",
+      "side": 1,
+      "message": "Nit: comments always end with . (apply throughout)",
+      "range": {
+        "startLine": 386,
+        "startChar": 69,
+        "endLine": 386,
+        "endChar": 83
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "436cfc56_a066e322",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-18T11:16:10Z",
+      "side": 1,
+      "message": "Perhaps call inputMock expectedDeviceMock to make clear it\u0027s the expected device.",
+      "range": {
+        "startLine": 387,
+        "startChar": 33,
+        "endLine": 387,
+        "endChar": 54
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a0678fd_d8d8f993",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-18T11:16:10Z",
+      "side": 1,
+      "message": "This looks like something that could go flaky. 0.1 (seconds, I assume?) is nothing. What guarantees do we have that the worker thread finishes its work this quickly?",
+      "range": {
+        "startLine": 396,
+        "startChar": 2,
+        "endLine": 396,
+        "endChar": 50
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba0e721_764b4b0c",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-18T11:16:10Z",
+      "side": 1,
+      "message": "What should happen if that fails? This test exercises the code path but doesn\u0027t verify anything as far I can see. That could be acceptable, but is there a return value we can verify? If not, we can perhaps verify a mock doesn\u0027t get called.",
+      "range": {
+        "startLine": 400,
+        "startChar": 2,
+        "endLine": 400,
+        "endChar": 85
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db019a5c_ce7b9b87",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-18T11:16:10Z",
+      "side": 1,
+      "message": "This is nice, however the test will pass if the completionHandler is not called at all (for instance because of a bug). Do you verify the completionHandler is actually called elsewhere? Otherwise do a check like you do for the the stop completion handler.",
+      "range": {
+        "startLine": 432,
+        "startChar": 24,
+        "endLine": 432,
+        "endChar": 46
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a2b64e8_f3e57c5e",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-18T11:16:10Z",
+      "side": 1,
+      "message": "This is a recipe for flakiness, at least if this is a hard one-second wait. I don\u0027t know how to do this in objc, but in Java you would do something like\n\nCountdownLatch latch \u003d new CountdownLatch(1);\n\n...\n   callback() {\n     latch.countDown();\n   }\n...\nlatch.await();\n\nWith your current implementation, the test passes equally well if the completion handler is never called, right?",
+      "range": {
+        "startLine": 469,
+        "startChar": 2,
+        "endLine": 469,
+        "endChar": 16
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

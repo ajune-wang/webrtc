@@ -49,8 +49,6 @@ rtc_static_library("audio_processing") {
     "aec3/block_processor.h",
     "aec3/block_processor_metrics.cc",
     "aec3/block_processor_metrics.h",
-    "aec3/cascaded_biquad_filter.cc",
-    "aec3/cascaded_biquad_filter.h",
     "aec3/comfort_noise_generator.cc",
     "aec3/comfort_noise_generator.h",
     "aec3/decimator.cc",
@@ -236,6 +234,7 @@ rtc_static_library("audio_processing") {
     ":apm_logging",
     ":audio_processing_c",
     ":audio_processing_statistics",
+    ":cascaded_biquad",
     "..:module_api",
     "../..:webrtc_common",
     "../../:typedefs",
@@ -311,6 +310,19 @@ rtc_source_set("aec_dump_interface") {
 
   deps = [
     "../../api:array_view",
+    "../../rtc_base:rtc_base_approved",
+  ]
+}
+
+rtc_source_set("cascaded_biquad") {
+  sources = [
+    "utility/cascaded_biquad_filter.cc",
+    "utility/cascaded_biquad_filter.h",
+  ]
+
+  deps = [
+    "../../api:array_view",
+    "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
   ]
 }
@@ -635,6 +647,7 @@ if (rtc_include_tests) {
         ":audioproc_protobuf_utils",
         ":audioproc_test_utils",
         ":audioproc_unittest_proto",
+        ":cascaded_biquad",
         "../../rtc_base:rtc_task_queue",
         "aec_dump",
         "aec_dump:aec_dump_unittests",
@@ -646,7 +659,6 @@ if (rtc_include_tests) {
         "aec3/block_framer_unittest.cc",
         "aec3/block_processor_metrics_unittest.cc",
         "aec3/block_processor_unittest.cc",
-        "aec3/cascaded_biquad_filter_unittest.cc",
         "aec3/comfort_noise_generator_unittest.cc",
         "aec3/decimator_unittest.cc",
         "aec3/echo_canceller3_unittest.cc",
@@ -698,6 +710,7 @@ if (rtc_include_tests) {
         "test/echo_canceller_test_tools.h",
         "test/echo_canceller_test_tools_unittest.cc",
         "test/test_utils.h",
+        "utility/cascaded_biquad_filter_unittest.cc",
         "voice_detection_unittest.cc",
       ]
     }

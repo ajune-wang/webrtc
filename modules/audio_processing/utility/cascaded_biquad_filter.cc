@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "modules/audio_processing/aec3/cascaded_biquad_filter.h"
+#include "modules/audio_processing/utility/cascaded_biquad_filter.h"
 
 #include "rtc_base/checks.h"
 

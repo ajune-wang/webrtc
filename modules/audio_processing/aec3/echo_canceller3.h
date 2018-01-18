@@ -13,11 +13,11 @@
 
 #include "modules/audio_processing/aec3/block_framer.h"
 #include "modules/audio_processing/aec3/block_processor.h"
-#include "modules/audio_processing/aec3/cascaded_biquad_filter.h"
 #include "modules/audio_processing/aec3/frame_blocker.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "modules/audio_processing/utility/cascaded_biquad_filter.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/swap_queue.h"

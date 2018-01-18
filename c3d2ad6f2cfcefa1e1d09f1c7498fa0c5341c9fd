@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a4a8e25_affbf606",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2075,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Yeah, this is a proof of concept CL and it\u0027s not polished.",
+      "parentUuid": "6c182945_f80a8f9b",
+      "range": {
+        "startLine": 2075,
+        "startChar": 43,
+        "endLine": 2075,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "233db470_50f2b5a2",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8ef86894_e5b6e3ce",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "233db470_50f2b5a2",
+      "range": {
+        "startLine": 225,
+        "startChar": 76,
+        "endLine": 225,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbe3a7b2_8cd6d569",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "ee695f3b_c560805e",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fbe3a7b2_8cd6d569",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31126381_76fac24b",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -76,6 +142,30 @@
       "writtenOn": "2018-01-18T01:55:39Z",
       "side": 1,
       "message": "We could add the BaseChannel as an RtpDemuxer sink and just dump the packet into an RtpDemuxer owned by the BaseChannel.  Then later move to a shared RtpDemxuer.\n\nCouldn\u0027t we?",
+      "range": {
+        "startLine": 634,
+        "startChar": 3,
+        "endLine": 634,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18384030_43d4510c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Yeah, I think we can do that.",
+      "parentUuid": "31126381_76fac24b",
       "range": {
         "startLine": 634,
         "startChar": 3,
@@ -123,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "46e29b6c_8854cd38",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "No, we don\u0027t need it.",
+      "parentUuid": "92d6290e_b6e3faca",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1e35b55_fb5bd8e7",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -158,6 +266,24 @@
     },
     {
       "key": {
+        "uuid": "c609c457_46e14a40",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0e736cb2_94f05415",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd638f0e_0bdb9074",
         "filename": "pc/channel.h",
         "patchSetId": 4
@@ -169,6 +295,30 @@
       "writtenOn": "2018-01-18T01:55:39Z",
       "side": 1,
       "message": "Are these going to be removed, then?",
+      "range": {
+        "startLine": 111,
+        "startChar": 44,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b85ffe8_97ae61f1",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Yeah, a lot of code from BaseChannel could be removed.",
+      "parentUuid": "fd638f0e_0bdb9074",
       "range": {
         "startLine": 111,
         "startChar": 44,
@@ -227,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "7b537e47_1e121fc7",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s the plan for next step. Do you want it to happen in this proof of concept CL too?",
+      "parentUuid": "9a83cae3_0d4d46ac",
+      "range": {
+        "startLine": 452,
+        "startChar": 30,
+        "endLine": 452,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21183b90_457e88a2",
         "filename": "pc/jseptransport.cc",
         "patchSetId": 4
@@ -250,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "410b712a_1e62fd08",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "21183b90_457e88a2",
+      "range": {
+        "startLine": 118,
+        "startChar": 50,
+        "endLine": 118,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a125e21_ad10e096",
         "filename": "pc/jseptransport.cc",
         "patchSetId": 4
@@ -264,6 +462,24 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "677714b0_54338561",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7a125e21_ad10e096",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -290,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "8f5c5f8a_4af00f72",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "949f4961_4eb57a07",
+      "range": {
+        "startLine": 388,
+        "startChar": 23,
+        "endLine": 388,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a57a849_474e3c04",
         "filename": "pc/jseptransport.cc",
         "patchSetId": 4
@@ -313,6 +553,30 @@
     },
     {
       "key": {
+        "uuid": "d1aa2d17_5129f0cb",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a57a849_474e3c04",
+      "range": {
+        "startLine": 402,
+        "startChar": 38,
+        "endLine": 402,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac68a597_1314fa2f",
         "filename": "pc/jseptransport.cc",
         "patchSetId": 4
@@ -327,6 +591,24 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60732fea_8f75fb40",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Yeah. Should have an if condition here.\nI have a separate CL for which is more polished and fixing these things https://webrtc-review.googlesource.com/c/src/+/40000.",
+      "parentUuid": "ac68a597_1314fa2f",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -353,6 +635,30 @@
     },
     {
       "key": {
+        "uuid": "cf547774_5f7378f9",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "\"git cl format\" did this.:)",
+      "parentUuid": "67a92d99_543a755a",
+      "range": {
+        "startLine": 461,
+        "startChar": 79,
+        "endLine": 461,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1d8ff7_0cd61c78",
         "filename": "pc/jseptransport.cc",
         "patchSetId": 4
@@ -373,6 +679,30 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8545dba9_b558ed97",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fc1d8ff7_0cd61c78",
+      "range": {
+        "startLine": 491,
+        "startChar": 3,
+        "endLine": 491,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -399,6 +729,30 @@
     },
     {
       "key": {
+        "uuid": "24cdbef2_f406cc73",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "722c01a6_e2771c01",
+      "range": {
+        "startLine": 68,
+        "startChar": 21,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "321ccf40_f464c5f9",
         "filename": "pc/jseptransport.h",
         "patchSetId": 4
@@ -410,6 +764,30 @@
       "writtenOn": "2018-01-18T01:55:39Z",
       "side": 1,
       "message": "Would it make more sense to use an optional\u003cSrtpMode\u003e for unset?",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfd12a1c_871f143a",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Originally I added this unset for SCTP which don\u0027t need an RtpTransport.\nBut as Taylor suggested, we could always create one to simply the logic and we won\u0027t need kUnset anymore.",
+      "parentUuid": "321ccf40_f464c5f9",
       "range": {
         "startLine": 69,
         "startChar": 9,
@@ -457,6 +835,24 @@
     },
     {
       "key": {
+        "uuid": "9a602f38_0e030484",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "I think it would make it easier to change the ownership model here. We can remove the ref-count objects to simply the code.",
+      "parentUuid": "7f07755a_f191ba1b",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f601d060_ee216ecb",
         "filename": "pc/jseptransport.h",
         "patchSetId": 4
@@ -468,6 +864,30 @@
       "writtenOn": "2018-01-18T01:55:39Z",
       "side": 1,
       "message": "What does enable_rtcp mean?  Don\u0027t we always enable RTCP?  Did you mean enable_rtcp_mux?",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2ce364_b2293ec8",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Yes, I\u0027ll rename it.",
+      "parentUuid": "f601d060_ee216ecb",
       "range": {
         "startLine": 122,
         "startChar": 23,
@@ -497,6 +917,24 @@
     },
     {
       "key": {
+        "uuid": "fb8fdcf8_fa29a8d1",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8dece363_9bf66788",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0802934_28e40345",
         "filename": "pc/jseptransport.h",
         "patchSetId": 4
@@ -517,6 +955,30 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9196974_f6a82aee",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "We recently changed the style guide of using Signals.\nhttps://webrtc-review.googlesource.com/c/src/+/8140",
+      "parentUuid": "c0802934_28e40345",
+      "range": {
+        "startLine": 195,
+        "startChar": 68,
+        "endLine": 195,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -577,6 +1039,30 @@
     },
     {
       "key": {
+        "uuid": "04271706_6aaa722b",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "77cdf494_62113ab1",
+      "range": {
+        "startLine": 186,
+        "startChar": 6,
+        "endLine": 186,
+        "endChar": 36
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10fdec24_ab681a3a",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 4
@@ -597,6 +1083,30 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4090c0c_ffeafb38",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "10fdec24_ab681a3a",
+      "range": {
+        "startLine": 199,
+        "startChar": 24,
+        "endLine": 199,
+        "endChar": 27
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -623,6 +1133,30 @@
     },
     {
       "key": {
+        "uuid": "bc2ec01e_dc9452b7",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8f489fce_f56dc346",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 1
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "649bfa6f_76d67f07",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 4
@@ -637,6 +1171,24 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94ee0d30_0d4195dd",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "649bfa6f_76d67f07",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -657,6 +1209,24 @@
     },
     {
       "key": {
+        "uuid": "75d0283b_abf939cf",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6731cb07_718f4dd1",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aeb4c63a_9aae75aa",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 4
@@ -674,6 +1244,24 @@
     },
     {
       "key": {
+        "uuid": "82b954c1_92331b95",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aeb4c63a_9aae75aa",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f32e44fe_8fd7cabb",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 4
@@ -685,6 +1273,24 @@
       "writtenOn": "2018-01-17T23:00:17Z",
       "side": 1,
       "message": "Where is this called? I imagine it should be called in ApplyDescription, for any transports that are now obsolete due to BUNDLE negotiation.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d4afd97_ea54d859",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Right. It should be called by ApplyDescription.",
+      "parentUuid": "f32e44fe_8fd7cabb",
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -708,6 +1314,24 @@
     },
     {
       "key": {
+        "uuid": "094bdf4e_ea5cf9b5",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7878aaf3_9e5294b9",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f1e2c31_74934df9",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 4
@@ -722,6 +1346,24 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c294feca_fa69cd61",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4f1e2c31_74934df9",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -742,6 +1384,24 @@
     },
     {
       "key": {
+        "uuid": "93646336_f28f4534",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9f2b82eb_3ba4ac8b",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62c83e1d_9a4d0fac",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 4
@@ -753,6 +1413,24 @@
       "writtenOn": "2018-01-17T23:00:17Z",
       "side": 1,
       "message": "I think the transport creation code could be simplified now. It\u0027s somewhat confusing that CreateJsepTransport calls CreateDtlsSrtpTransport, which calls CreateDtlsTransport, which in turn calls GetJsepTransport and calls AddChannel on it.\n\nThis method could do this instead:\n\n1. Create RTP DtlsTransport.\n2. Create RTCP DtlsTransport, if needed.\n3. Create RtpTransport of appropriate type, given DtlsTransport(s).\n4. Create JsepTransport, given the DtlsTransport(s) and RtpTransport. Instead of \"AddChannel\" and \"SetRtpTransport\" methods, it could just take them in its constructor; they\u0027ll never change afterwards.",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f95cb5_0d689a8b",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Yeah.\nIf we want to change the ownership model, then it will probably be easier to fork the jseptransport.",
+      "parentUuid": "62c83e1d_9a4d0fac",
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -794,6 +1472,24 @@
     },
     {
       "key": {
+        "uuid": "f5bc36b1_9ad64e57",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c44a4158_12485c6a",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "003eb8a6_a3f33460",
         "filename": "pc/jseptransportcontroller.h",
         "patchSetId": 4
@@ -817,6 +1513,30 @@
     },
     {
       "key": {
+        "uuid": "3586d814_98b5ee9c",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "003eb8a6_a3f33460",
+      "range": {
+        "startLine": 102,
+        "startChar": 75,
+        "endLine": 102,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a662639e_719265cf",
         "filename": "pc/jseptransportcontroller.h",
         "patchSetId": 4
@@ -831,6 +1551,24 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "409e9277_542df2a3",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a662639e_719265cf",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -851,6 +1589,24 @@
     },
     {
       "key": {
+        "uuid": "364d2cf5_a40e834e",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8a39c50a_d8e097bb",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2403e9fa_9690b644",
         "filename": "pc/jseptransportcontroller.h",
         "patchSetId": 4
@@ -862,6 +1618,30 @@
       "writtenOn": "2018-01-17T23:00:17Z",
       "side": 1,
       "message": "Things may be simpler if JsepTransport was made the owner of all these objects. We should also be able to get rid of all this reference counting. It was needed with the old model where \"Create\" adds a reference and \"Destroy\" removes one, but now we can just use unique_ptrs owned by JsepTransport. This would also negate the need for \"SignalRtcpMuxFullyActive\".\n\nThe only difficulty is that we\u0027d need some other way of iterating all channels (for things like SetIceConfig and getting aggregate ICE state). But that\u0027s not so bad; we could just add a helper method to collect all of them. I\u0027m not worried about the performance since most of the time there will only be one, and at most 5.",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50b74b1c_8e57408c",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Yeah, I agree. It would be much better to get rid of the ref-count objects.",
+      "parentUuid": "2403e9fa_9690b644",
       "range": {
         "startLine": 202,
         "startChar": 0,
@@ -891,6 +1671,24 @@
     },
     {
       "key": {
+        "uuid": "42e6e16a_495f6efc",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "759f3988_d5e74910",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bead25a6_de2b4f25",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -902,6 +1700,24 @@
       "writtenOn": "2018-01-17T23:00:17Z",
       "side": 1,
       "message": "Why is this called twice?",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "125c7d34_c6200027",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "This is a merge error I guess. I\u0027ll remove it.",
+      "parentUuid": "bead25a6_de2b4f25",
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -922,6 +1738,24 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9594bf_9b5b86c3",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-18T03:11:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2318cb54_f9e10898",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "3c08a3e2a8a4dd62997c052fc0aae4604440af22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "301bfb74_7010f55e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-01-18T16:26:28Z",
+      "side": 1,
+      "message": "I referred to WebRTC codecs. Stated this clearly.",
+      "parentUuid": "fdb783a4_b14714bf",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "3c08a3e2a8a4dd62997c052fc0aae4604440af22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

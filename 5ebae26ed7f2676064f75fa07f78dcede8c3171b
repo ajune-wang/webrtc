@@ -46,6 +46,30 @@
       "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0faaf267_08e0cd94",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnectionFactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-01-18T10:40:32Z",
+      "side": 1,
+      "message": "Sure, In general I want to keep the interface as small as possible, and I think we should design for the current requirements, not possible future ones.\n\nThis parameter is no less an orphan in this configuration object than it is as a parameter to an initializer, so I don\u0027t think that\u0027s a valid argument.\n\nAnother option is to add disableLinkLocalNetworks as a property on RTCPeerConnectionFactory with a custom setter that calls out to the native factory.",
+      "parentUuid": "7328821f_f58238ff",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 42
+      },
+      "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

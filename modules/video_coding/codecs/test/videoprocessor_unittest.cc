@@ -12,7 +12,6 @@
 
 #include "api/video/i420_buffer.h"
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/video_coding/codecs/test/mock/mock_packet_manipulator.h"
 #include "modules/video_coding/codecs/test/videoprocessor.h"
 #include "modules/video_coding/include/mock/mock_video_codec_interface.h"
 #include "modules/video_coding/include/video_coding.h"
@@ -53,8 +52,7 @@ class VideoProcessorTest : public testing::Test {
     EXPECT_CALL(frame_reader_mock_, FrameLength())
         .WillRepeatedly(Return(kFrameSize));
     video_processor_ = rtc::MakeUnique<VideoProcessor>(
-        &encoder_mock_, &decoder_mock_, &frame_reader_mock_,
-        &packet_manipulator_mock_, config_, &stats_,
+        &encoder_mock_, &decoder_mock_, &frame_reader_mock_, config_, &stats_,
         nullptr /* encoded_frame_writer */, nullptr /* decoded_frame_writer */);
   }
 
@@ -77,7 +75,6 @@ class VideoProcessorTest : public testing::Test {
   MockVideoEncoder encoder_mock_;
   MockVideoDecoder decoder_mock_;
   MockFrameReader frame_reader_mock_;
-  MockPacketManipulator packet_manipulator_mock_;
   Stats stats_;
   std::unique_ptr<VideoProcessor> video_processor_;
 };

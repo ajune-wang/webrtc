@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "006ba98a_71788635",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-01-18T12:54:49Z",
+      "side": 1,
+      "message": "Again, one second is way too short, make it 15 and you will save yourself grief down the line.",
+      "range": {
+        "startLine": 446,
+        "startChar": 59,
+        "endLine": 446,
+        "endChar": 62
+      },
+      "revId": "079291eb9c159210b71bc0c51d622ce00e644ae1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

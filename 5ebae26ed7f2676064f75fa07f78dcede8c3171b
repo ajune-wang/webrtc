@@ -22,6 +22,30 @@
       "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7328821f_f58238ff",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnectionFactory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5846
+      },
+      "writtenOn": "2018-01-18T10:07:11Z",
+      "side": 1,
+      "message": "Hello. Could you please give some rationale for not having this class?\n\nMy reasoning to add this class was that:\n1) the 3rd parameter I add is really one of many possible parameters that could be used to configure the port allocator, networking, and other global things about the factory. So it makes future extension easier.\n2) Having 3 parameters on a function makes a lot of sense if they are connected. Having \"decoder\" and \"encoder\" parameters makes sense as they are related, but having \"disableLinkLocalNetworks\" on a side feels like it is an orphan.\n3) This approach with configuration objects is used across the project and the platform. For example, RTCPeerConnection has RTCConfiguration, RTCAudioSession has RTCAudioSessionConfiguration, NSURLSession has NSURLSessionConfiguration.",
+      "parentUuid": "c0aef256_a1472fa2",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 42
+      },
+      "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

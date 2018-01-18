@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "e7d70d49_d6027a7a",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-18T18:59:57Z",
+      "side": 1,
+      "message": "I\u0027d suggest moving this to RTCConfiguration. That would allow it to be per-PeerConnection, and would also negate the need to add RTCPeerConnectionFactoryOptions",
+      "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a2ffd5a_ee360e58",
+        "filename": "examples/objc/AppRTCMobile/ARDAppClient.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-18T18:59:57Z",
+      "side": 1,
+      "message": "Can you leave a comment mentioning why this is changed from the default, linking to the bug (crbug.com/webrtc/8432)?",
+      "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2734818f_4bff7e6a",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-18T18:59:57Z",
+      "side": 1,
+      "message": "This comment should be moved or updated.",
+      "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d20f56_bb52a491",
+        "filename": "rtc_base/ipaddress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-18T18:59:57Z",
+      "side": 1,
+      "message": "Can you leave some comments describing the difference between IPIsPrivateNetwork and IPIsPrivate?",
+      "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0aef256_a1472fa2",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnectionFactory.h",
         "patchSetId": 1

@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af3345f1_90f07b46",
+        "filename": "modules/video_coding/codecs/test/test_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-18T14:46:46Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 64
+      },
+      "revId": "fc834652ac2bae74ba2dd7d04efaf0979fa4c813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aba18c4_104fc0d5",
+        "filename": "modules/video_coding/codecs/test/test_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-18T14:46:46Z",
+      "side": 1,
+      "message": "Can enum be removed?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 2
+      },
+      "revId": "fc834652ac2bae74ba2dd7d04efaf0979fa4c813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99b12c20_52f9fbcd",
+        "filename": "modules/video_coding/codecs/test/test_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-18T14:46:46Z",
+      "side": 1,
+      "message": "Ok to change default from 1440 to 0?",
+      "range": {
+        "startLine": 77,
+        "startChar": 34,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "fc834652ac2bae74ba2dd7d04efaf0979fa4c813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "249b256f_9686620e",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-18T14:46:46Z",
+      "side": 1,
+      "message": "Looks like this always will be true.",
+      "range": {
+        "startLine": 221,
+        "startChar": 51,
+        "endLine": 221,
+        "endChar": 74
+      },
+      "revId": "fc834652ac2bae74ba2dd7d04efaf0979fa4c813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a5135ff_2a1a5679",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-18T14:46:46Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 64
+      },
+      "revId": "fc834652ac2bae74ba2dd7d04efaf0979fa4c813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64d4ad9b_65849266",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-18T14:46:46Z",
+      "side": 1,
+      "message": "update comment",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "fc834652ac2bae74ba2dd7d04efaf0979fa4c813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6176e69a_f77a7831",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-18T14:46:46Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 64
+      },
+      "revId": "fc834652ac2bae74ba2dd7d04efaf0979fa4c813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98e000f5_72d81001",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-18T14:46:46Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "fc834652ac2bae74ba2dd7d04efaf0979fa4c813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

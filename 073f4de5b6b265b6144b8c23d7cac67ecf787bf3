@@ -22,6 +22,30 @@
       "revId": "073f4de5b6b265b6144b8c23d7cac67ecf787bf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc8b345c_2dd29ecd",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-18T20:46:20Z",
+      "side": 1,
+      "message": "The values are stored as signed integers in the bitstream, but I\u0027m not entirely sure of valid ranges. I\u0027ll loop in ssilkin@ as well.",
+      "parentUuid": "d73f2be9_9174194b",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "073f4de5b6b265b6144b8c23d7cac67ecf787bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -145,8 +145,6 @@ class VideoProcessorIntegrationTest : public testing::Test {
   std::unique_ptr<FrameWriter> analysis_frame_writer_;
   std::unique_ptr<IvfFileWriter> encoded_frame_writer_;
   std::unique_ptr<FrameWriter> decoded_frame_writer_;
-  PacketReader packet_reader_;
-  std::unique_ptr<PacketManipulator> packet_manipulator_;
   Stats stats_;
   std::unique_ptr<VideoProcessor> processor_;
   std::unique_ptr<CpuProcessTime> cpu_process_time_;

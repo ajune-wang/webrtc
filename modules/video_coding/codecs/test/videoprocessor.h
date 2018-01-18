@@ -62,7 +62,6 @@ class VideoProcessor {
   VideoProcessor(webrtc::VideoEncoder* encoder,
                  webrtc::VideoDecoder* decoder,
                  FrameReader* analysis_frame_reader,
-                 PacketManipulator* packet_manipulator,
                  const TestConfig& config,
                  Stats* stats,
                  IvfFileWriter* encoded_frame_writer,
@@ -177,7 +176,6 @@ class VideoProcessor {
   void FrameDecoded(const webrtc::VideoFrame& image);
 
   void WriteDecodedFrameToFile(rtc::Buffer* buffer);
-  bool ExcludeFrame(const EncodedImage& encoded_image);
 
   TestConfig config_ RTC_GUARDED_BY(sequence_checker_);
 
@@ -189,9 +187,6 @@ class VideoProcessor {
   // Adapters for the codec callbacks.
   VideoProcessorEncodeCompleteCallback encode_callback_;
   VideoProcessorDecodeCompleteCallback decode_callback_;
-
-  // Fake network.
-  PacketManipulator* const packet_manipulator_;
 
   // Input frames. Used as reference at frame quality evaluation.
   // Async codecs might queue frames. To handle that we keep input frame
@@ -222,9 +217,6 @@ class VideoProcessor {
   // based off of the frame rate, which can change mid-test.
   std::map<size_t, size_t> rtp_timestamp_to_frame_num_
       RTC_GUARDED_BY(sequence_checker_);
-
-  // Keep track of if we have excluded the first key frame from packet loss.
-  bool first_key_frame_has_been_excluded_ RTC_GUARDED_BY(sequence_checker_);
 
   // Keep track of the last successfully decoded frame, since we write that
   // frame to disk when decoding fails.

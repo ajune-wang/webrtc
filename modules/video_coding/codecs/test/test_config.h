@@ -73,12 +73,8 @@ struct TestConfig {
   // Number of frames to process.
   size_t num_frames = 0;
 
-  // Configurations related to networking.
-  NetworkingConfig networking_config;
-
-  // Decides how the packet loss simulations shall exclude certain frames from
-  // packet loss.
-  ExcludeFrameTypes exclude_frame_types = kExcludeOnlyFirstKeyFrame;
+  // Bitstream constraints.
+  size_t max_payload_size_bytes = 0;
 
   // Force the encoder and decoder to use a single core for processing.
   // Using a single core is necessary to get a deterministic behavior for the

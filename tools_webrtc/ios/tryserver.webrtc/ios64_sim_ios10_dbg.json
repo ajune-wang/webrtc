@@ -19,7 +19,7 @@
     {
       "include": "common_tests.json",
       "device type": "iPhone 6s",
-      "os": "10.0"
+      "os": "10.3"
     }
   ]
 }

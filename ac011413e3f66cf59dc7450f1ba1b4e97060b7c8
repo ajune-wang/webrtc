@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46362d6a_714b9e1a",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-01-18T14:47:03Z",
+      "side": 1,
+      "message": "Why this change? Do we want to report invalid formats?",
+      "range": {
+        "startLine": 169,
+        "startChar": 15,
+        "endLine": 169,
+        "endChar": 31
+      },
+      "revId": "ac011413e3f66cf59dc7450f1ba1b4e97060b7c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5071123_dacabbc5",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-01-18T14:47:03Z",
+      "side": 1,
+      "message": "Assert that this returns 0.",
+      "range": {
+        "startLine": 478,
+        "startChar": 2,
+        "endLine": 478,
+        "endChar": 25
+      },
+      "revId": "ac011413e3f66cf59dc7450f1ba1b4e97060b7c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "a1282be9_88052c34",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCCameraVideoCapturer.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-01-18T14:47:03Z",
+      "side": 1,
+      "message": "Maybe add a comment that this is not part of the public interface and used for testing.",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 53,
+        "endChar": 32
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1006a34_38659bf5",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCCameraVideoCapturer.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-01-18T14:47:03Z",
+      "side": 1,
+      "message": "this is a functional change, right? Was this caught by the tests or just careful observation?",
+      "range": {
+        "startLine": 154,
+        "startChar": 24,
+        "endLine": 154,
+        "endChar": 38
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b2fdf75_3acd2851",
         "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
         "patchSetId": 2

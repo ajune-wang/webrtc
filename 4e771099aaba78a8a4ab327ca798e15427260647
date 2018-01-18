@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "91b44bb7_7bca2024",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-18T01:41:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd258b87_c6ce10a5",
+      "range": {
+        "startLine": 1789,
+        "startChar": 25,
+        "endLine": 1789,
+        "endChar": 0
+      },
+      "revId": "4e771099aaba78a8a4ab327ca798e15427260647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "558607f5_873a53ab",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2018-01-18T00:22:19Z",
       "side": 1,
       "message": "Did we break anything in PlanB code that required this to be re-added?",
+      "revId": "4e771099aaba78a8a4ab327ca798e15427260647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03c4b2b4_62bbdbc1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2055,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-18T01:41:16Z",
+      "side": 1,
+      "message": "This isn\u0027t in the Plan B code, it\u0027s for Unified Plan SetRemoteDescription.",
+      "parentUuid": "558607f5_873a53ab",
       "revId": "4e771099aaba78a8a4ab327ca798e15427260647",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

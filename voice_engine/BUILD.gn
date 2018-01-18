@@ -23,13 +23,6 @@ rtc_static_library("voice_engine") {
     "utility.h",
   ]
 
-  if (is_win) {
-    cflags = [
-      # TODO(kjellander): Bug 261: fix this warning.
-      "/wd4373",  # Virtual function override.
-    ]
-  }
-
   if (!build_with_chromium && is_clang) {
     # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
     suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
@@ -132,13 +125,6 @@ if (rtc_include_tests) {
       "../resources/utility/encapsulated_pcm16b_8khz.wav",
       "../resources/utility/encapsulated_pcmu_8khz.wav",
     ]
-
-    if (is_win) {
-      cflags = [
-        # TODO(kjellander): Bug 261: fix this warning.
-        "/wd4373",  # Virtual function override.
-      ]
-    }
 
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).

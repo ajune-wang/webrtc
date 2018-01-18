@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdb783a4_b14714bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-18T15:58:18Z",
+      "side": 1,
+      "message": "Is this a general comment (What about error concealment?), or specifically about WebRTC video codecs?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 37
+      },
+      "revId": "3c08a3e2a8a4dd62997c052fc0aae4604440af22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

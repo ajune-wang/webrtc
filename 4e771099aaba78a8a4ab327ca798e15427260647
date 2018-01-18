@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd258b87_c6ce10a5",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T00:22:19Z",
+      "side": 1,
+      "message": "This could just be \"} else {\"",
+      "range": {
+        "startLine": 1789,
+        "startChar": 25,
+        "endLine": 1789,
+        "endChar": 0
+      },
+      "revId": "4e771099aaba78a8a4ab327ca798e15427260647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558607f5_873a53ab",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2055,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T00:22:19Z",
+      "side": 1,
+      "message": "Did we break anything in PlanB code that required this to be re-added?",
+      "revId": "4e771099aaba78a8a4ab327ca798e15427260647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

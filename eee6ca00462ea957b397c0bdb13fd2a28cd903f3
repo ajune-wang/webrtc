@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "745ce40b_4dec39da",
+        "filename": "pc/rtpreceiver.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-18T00:22:19Z",
+      "side": 1,
+      "message": "Can we rename this to SetupMediaChannel or something similar to that, since that\u0027s what it\u0027s really doing?",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "eee6ca00462ea957b397c0bdb13fd2a28cd903f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

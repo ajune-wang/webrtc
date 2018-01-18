@@ -40,7 +40,6 @@ rtc_static_library("utility") {
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:rtc_task_queue",
     "../../system_wrappers",
-    "../media_file",
   ]
 }
 

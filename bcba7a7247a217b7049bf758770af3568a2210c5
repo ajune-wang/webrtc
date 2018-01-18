@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dabfff0a_60c42335",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-18T12:27:09Z",
+      "side": 1,
+      "message": "Yeah maybe not that useful, removed it.",
+      "parentUuid": "6b2fdf75_3acd2851",
+      "range": {
+        "startLine": 374,
+        "startChar": 2,
+        "endLine": 374,
+        "endChar": 28
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd0c2aad_44ba36b4",
         "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4df7e82_ac4f792a",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-18T12:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd0c2aad_44ba36b4",
+      "range": {
+        "startLine": 386,
+        "startChar": 69,
+        "endLine": 386,
+        "endChar": 83
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d3f99b9b_d9fef879",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-18T12:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "436cfc56_a066e322",
+      "range": {
+        "startLine": 387,
+        "startChar": 33,
+        "endLine": 387,
+        "endChar": 54
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a0678fd_d8d8f993",
         "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6339b74f_3e0a8b77",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-18T12:27:09Z",
+      "side": 1,
+      "message": "I just tried something small to see if it worked, but of course it could turn flaky. The WAIT() calls in existing tests in this file looks like they use one second, so I switch to 1. Sounds good?",
+      "parentUuid": "9a0678fd_d8d8f993",
+      "range": {
+        "startLine": 396,
+        "startChar": 2,
+        "endLine": 396,
+        "endChar": 50
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7fb751ab_378c7587",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-18T12:27:09Z",
+      "side": 1,
+      "message": "The captureSessionMock is a strict mock, so if the code does not return when it fails to lock the test will crash with `Terminating app due to uncaught exception \u0027NSInternalInconsistencyException\u0027, reason: \u0027OCMockObject(AVCaptureSession): unexpected method invoked: startRunning\u0027`\nI don\u0027t know of a better way with this framework to make sure something is not called. Maybe there is one? I\u0027ll add a comment to make this clear.",
+      "parentUuid": "dba0e721_764b4b0c",
+      "range": {
+        "startLine": 400,
+        "startChar": 2,
+        "endLine": 400,
+        "endChar": 85
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db019a5c_ce7b9b87",
         "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "d9839e44_84417394",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-18T12:27:09Z",
+      "side": 1,
+      "message": "Yes, good catch.",
+      "parentUuid": "db019a5c_ce7b9b87",
+      "range": {
+        "startLine": 432,
+        "startChar": 24,
+        "endLine": 432,
+        "endChar": 46
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a2b64e8_f3e57c5e",
         "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
         "patchSetId": 2
@@ -160,6 +304,30 @@
       "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33541557_eaa4dc93",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-18T12:27:09Z",
+      "side": 1,
+      "message": "I used WAIT() to copy the style from existing tests but I agree it feels primitive. I replaced it with dispatch_semaphore when using the methods with callbacks. I used 1 second as timeout in case the semaphore is never signalled, maybe this should be higher?",
+      "parentUuid": "7a2b64e8_f3e57c5e",
+      "range": {
+        "startLine": 469,
+        "startChar": 2,
+        "endLine": 469,
+        "endChar": 16
+      },
+      "revId": "bcba7a7247a217b7049bf758770af3568a2210c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

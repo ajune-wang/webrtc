@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ced45a07_fe9d85e4",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-01-18T10:10:41Z",
+      "side": 0,
+      "message": "You can\u0027t delete these lines here, because at line 1379 extensions list is cleared.",
+      "range": {
+        "startLine": 1388,
+        "startChar": 4,
+        "endLine": 1392,
+        "endChar": 71
+      },
+      "revId": "77d3711f08282d8b424ce2e613cc6d4cf5c6fdbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

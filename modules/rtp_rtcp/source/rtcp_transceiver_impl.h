@@ -25,6 +25,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/target_bitrate.h"
 #include "modules/rtp_rtcp/source/rtcp_transceiver_config.h"
 #include "rtc_base/constructormagic.h"
+#include "rtc_base/random.h"
 #include "rtc_base/weak_ptr.h"
 #include "system_wrappers/include/ntp_time.h"
 
@@ -75,6 +76,7 @@ class RtcpTransceiverImpl {
   void HandleTargetBitrate(const rtcp::TargetBitrate& target_bitrate,
                            uint32_t remote_ssrc);
 
+  int64_t ReportPeriodMs();
   void ReschedulePeriodicCompoundPackets();
   void SchedulePeriodicCompoundPackets(int64_t delay_ms);
   // Creates compound RTCP packet, as defined in
@@ -87,6 +89,7 @@ class RtcpTransceiverImpl {
   std::vector<rtcp::ReportBlock> CreateReportBlocks(int64_t now_us);
 
   const RtcpTransceiverConfig config_;
+  Random random_;
 
   rtc::Optional<rtcp::Remb> remb_;
   // TODO(danilchap): Remove entries from remote_senders_ that are no longer

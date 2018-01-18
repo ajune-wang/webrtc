@@ -86,7 +86,9 @@ class RtcpTransceiverImpl::PacketSender {
 };
 
 RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
-    : config_(config), ptr_factory_(this) {
+    : config_(config),
+      random_(rtc::TimeMicros() + reinterpret_cast<uintptr_t>(&config)),
+      ptr_factory_(this) {
   RTC_CHECK(config_.Validate());
   if (config_.schedule_periodic_compound_packets)
     SchedulePeriodicCompoundPackets(config_.initial_report_delay_ms);
@@ -291,12 +293,20 @@ void RtcpTransceiverImpl::HandleTargetBitrate(
     observer->OnBitrateAllocation(remote_ssrc, bitrate_allocation);
 }
 
+int64_t RtcpTransceiverImpl::ReportPeriodMs() {
+  // The interval between RTCP packets is varied randomly over the
+  // range [0.5,1.5] times the calculated interval.
+  // As described in https://tools.ietf.org/html/rfc3550#section-6.2
+  return random_.Rand(config_.report_period_ms * 1 / 2,
+                      config_.report_period_ms * 3 / 2);
+}
+
 void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets() {
   if (!config_.schedule_periodic_compound_packets)
     return;
   // Stop existent send task.
   ptr_factory_.InvalidateWeakPtrs();
-  SchedulePeriodicCompoundPackets(config_.report_period_ms);
+  SchedulePeriodicCompoundPackets(ReportPeriodMs());
 }
 
 void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
@@ -311,7 +321,7 @@ void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
         return true;
       ptr_->SendPeriodicCompoundPacket();
       task_queue_->PostDelayedTask(rtc::WrapUnique(this),
-                                   ptr_->config_.report_period_ms);
+                                   ptr_->ReportPeriodMs());
       return false;
     }
 

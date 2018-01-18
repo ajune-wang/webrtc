@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "6b06891e_47162ea1",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-18T16:06:21Z",
+      "side": 0,
+      "message": "https://cs.chromium.org/chromium/src/third_party/webrtc/video/full_stack_tests.cc?l\u003d318\u0026rcl\u003d4aa8ab5d568d562aa1a28829bedce902429916d8\n\nholmer: Is this test still relevant, or are we sufficiently covered by the RampUpTests? If not, we could get rid of this if clause, and use the same RtpExtensions in VideoQualityTest as in the functional E2E tests.",
+      "range": {
+        "startLine": 1380,
+        "startChar": 8,
+        "endLine": 1380,
+        "endChar": 34
+      },
+      "revId": "77d3711f08282d8b424ce2e613cc6d4cf5c6fdbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ced45a07_fe9d85e4",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2018-01-18T10:10:41Z",
       "side": 0,
       "message": "You can\u0027t delete these lines here, because at line 1379 extensions list is cleared.",
+      "range": {
+        "startLine": 1388,
+        "startChar": 4,
+        "endLine": 1392,
+        "endChar": 71
+      },
+      "revId": "77d3711f08282d8b424ce2e613cc6d4cf5c6fdbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1875d1a_74ea61a5",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-18T16:06:21Z",
+      "side": 0,
+      "message": "Oops, I missed that.",
+      "parentUuid": "ced45a07_fe9d85e4",
       "range": {
         "startLine": 1388,
         "startChar": 4,

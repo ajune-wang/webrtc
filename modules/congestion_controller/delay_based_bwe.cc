@@ -16,6 +16,9 @@
 
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_delay_based.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
+#include "modules/congestion_controller/delay_detector.h"
+#include "modules/congestion_controller/spike_detector.h"
+#include "modules/congestion_controller/trendline_estimator.h"
 #include "modules/pacing/paced_sender.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
@@ -45,10 +48,16 @@ constexpr size_t kDefaultTrendlineWindowSize = 20;
 constexpr double kDefaultTrendlineSmoothingCoeff = 0.9;
 constexpr double kDefaultTrendlineThresholdGain = 4.0;
 
+// Parameters for the spike detector.
+constexpr size_t kDefaultSpikeDetectorWindowSize = 25;
+constexpr size_t kDefaultSpikeDetectorMinWindowSlice = 10;
+constexpr double kDefaultSpikeDetectorMinThreshold = 0.025;
+
 constexpr int kMaxConsecutiveFailedLookups = 5;
 
 const char kBweWindowSizeInPacketsExperiment[] =
     "WebRTC-BweWindowSizeInPackets";
+const char kBweSpikeDetectorExperiment[] = "WebRTC-BweSpikeDetector";
 
 size_t ReadTrendlineFilterWindowSize() {
   std::string experiment_string =
@@ -64,6 +73,59 @@ size_t ReadTrendlineFilterWindowSize() {
   RTC_LOG(LS_WARNING) << "Failed to parse parameters for BweTrendlineFilter "
                          "experiment from field trial string. Using default.";
   return kDefaultTrendlineWindowSize;
+}
+
+void ReadSpikeDetectorParameters(size_t* window_size,
+                                 size_t* min_window_slice,
+                                 double* min_threshold) {
+  std::string experiment_string =
+      webrtc::field_trial::FindFullName(kBweSpikeDetectorExperiment);
+  int parsed_values = sscanf(experiment_string.c_str(), "Enabled-%zu,%lf",
+                             window_size, min_threshold);
+  if (parsed_values == 2) {
+    if (*window_size >= 4 && 2 <= *min_window_slice &&
+        *min_window_slice <= *window_size / 2 && 0.0 < *min_threshold &&
+        *min_threshold < 1.0)
+      return;
+    if (*window_size < 4)
+      RTC_LOG(WARNING) << "Window size must be at least 4.";
+    if (*min_threshold <= 0.0 || 1.0 <= *min_threshold)
+      RTC_LOG(WARNING) << "Threshold must be between 0 and 1.";
+    if (*min_window_slice < 2 || *window_size / 2 < *min_window_slice)
+      RTC_LOG(WARNING) << "Min number of points to fit a line each line must "
+                          "be between 2 and window_size/2.";
+  }
+  RTC_LOG(LS_WARNING) << "Failed to parse parameters for BweSpikeDetector "
+                         "experiment from field trial string. Using default.";
+  *window_size = kDefaultSpikeDetectorWindowSize;
+  *min_window_slice = kDefaultSpikeDetectorMinWindowSlice;
+  *min_threshold = kDefaultSpikeDetectorMinThreshold;
+}
+
+std::unique_ptr<webrtc::DelayDetector> CreateTrendlineEstimator() {
+  if (webrtc::field_trial::IsEnabled(kBweSpikeDetectorExperiment)) {
+    size_t window_size;
+    size_t min_window_slice;
+    double min_threshold;
+    ReadSpikeDetectorParameters(&window_size, &min_window_slice,
+                                &min_threshold);
+    RTC_LOG(LS_INFO) << "Creating SpikeDetector filter for delay change "
+                        "estimation with window size "
+                     << window_size << ", min_slice " << min_window_slice
+                     << " and threshold " << min_threshold;
+    return rtc::MakeUnique<webrtc::SpikeDetector>(window_size, min_window_slice,
+                                                  min_threshold);
+  }
+  size_t trendline_window_size = kDefaultTrendlineWindowSize;
+  if (webrtc::field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)) {
+    trendline_window_size = ReadTrendlineFilterWindowSize();
+  }
+  RTC_LOG(LS_INFO) << "Creating Trendline filter for delay change estimation "
+                      "with window size "
+                   << trendline_window_size;
+  return rtc::MakeUnique<webrtc::TrendlineEstimator>(
+      trendline_window_size, kDefaultTrendlineSmoothingCoeff,
+      kDefaultTrendlineThresholdGain);
 }
 }  // namespace
 
@@ -88,22 +150,19 @@ DelayBasedBwe::DelayBasedBwe(RtcEventLog* event_log, const Clock* clock)
       clock_(clock),
       inter_arrival_(),
       trendline_estimator_(),
-      detector_(),
       last_seen_packet_ms_(-1),
       uma_recorded_(false),
       probe_bitrate_estimator_(event_log),
-      trendline_window_size_(
-          webrtc::field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)
-              ? ReadTrendlineFilterWindowSize()
-              : kDefaultTrendlineWindowSize),
-      trendline_smoothing_coeff_(kDefaultTrendlineSmoothingCoeff),
-      trendline_threshold_gain_(kDefaultTrendlineThresholdGain),
+      // trendline_window_size_(
+      //     webrtc::field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)
+      //         ? ReadTrendlineFilterWindowSize()
+      //         : kDefaultTrendlineWindowSize),
+      // trendline_smoothing_coeff_(kDefaultTrendlineSmoothingCoeff),
+      // trendline_threshold_gain_(kDefaultTrendlineThresholdGain),
       consecutive_delayed_feedbacks_(0),
       prev_bitrate_(0),
       prev_state_(BandwidthUsage::kBwNormal) {
-  RTC_LOG(LS_INFO)
-      << "Using Trendline filter for delay change estimation with window size "
-      << trendline_window_size_;
+  trendline_estimator_ = CreateTrendlineEstimator();
 }
 
 DelayBasedBwe::~DelayBasedBwe() {}
@@ -132,17 +191,17 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
   }
   bool delayed_feedback = true;
   bool recovered_from_overuse = false;
-  BandwidthUsage prev_detector_state = detector_.State();
+  BandwidthUsage prev_detector_state = trendline_estimator_->State();
   for (const auto& packet_feedback : packet_feedback_vector) {
     if (packet_feedback.send_time_ms < 0)
       continue;
     delayed_feedback = false;
     IncomingPacketFeedback(packet_feedback);
     if (prev_detector_state == BandwidthUsage::kBwUnderusing &&
-        detector_.State() == BandwidthUsage::kBwNormal) {
+        trendline_estimator_->State() == BandwidthUsage::kBwNormal) {
       recovered_from_overuse = true;
     }
-    prev_detector_state = detector_.State();
+    prev_detector_state = trendline_estimator_->State();
   }
 
   if (delayed_feedback) {
@@ -184,9 +243,10 @@ void DelayBasedBwe::IncomingPacketFeedback(
     inter_arrival_.reset(
         new InterArrival((kTimestampGroupLengthMs << kInterArrivalShift) / 1000,
                          kTimestampToMs, true));
-    trendline_estimator_.reset(new TrendlineEstimator(
-        trendline_window_size_, trendline_smoothing_coeff_,
-        trendline_threshold_gain_));
+    trendline_estimator_ = CreateTrendlineEstimator();
+    // trendline_estimator_.reset(new TrendlineEstimator(
+    //     trendline_window_size_, trendline_smoothing_coeff_,
+    //     trendline_threshold_gain_));
   }
   last_seen_packet_ms_ = now_ms;
 
@@ -210,9 +270,6 @@ void DelayBasedBwe::IncomingPacketFeedback(
     double ts_delta_ms = (1000.0 * ts_delta) / (1 << kInterArrivalShift);
     trendline_estimator_->Update(t_delta, ts_delta_ms,
                                  packet_feedback.arrival_time_ms);
-    detector_.Detect(trendline_estimator_->trendline_slope(), ts_delta_ms,
-                     trendline_estimator_->num_of_deltas(),
-                     packet_feedback.arrival_time_ms);
   }
   if (packet_feedback.pacing_info.probe_cluster_id !=
       PacedPacketInfo::kNotAProbe) {
@@ -229,7 +286,7 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
   rtc::Optional<int> probe_bitrate_bps =
       probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps();
   // Currently overusing the bandwidth.
-  if (detector_.State() == BandwidthUsage::kBwOverusing) {
+  if (trendline_estimator_->State() == BandwidthUsage::kBwOverusing) {
     if (acked_bitrate_bps &&
         rate_control_.TimeToReduceFurther(now_ms, *acked_bitrate_bps)) {
       result.updated =
@@ -259,8 +316,9 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
       result.recovered_from_overuse = recovered_from_overuse;
     }
   }
+  BandwidthUsage detector_state = trendline_estimator_->State();
   if ((result.updated && prev_bitrate_ != result.target_bitrate_bps) ||
-      detector_.State() != prev_state_) {
+      detector_state != prev_state_) {
     uint32_t bitrate_bps =
         result.updated ? result.target_bitrate_bps : prev_bitrate_;
 
@@ -268,11 +326,11 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
 
     if (event_log_) {
       event_log_->Log(rtc::MakeUnique<RtcEventBweUpdateDelayBased>(
-          bitrate_bps, detector_.State()));
+          bitrate_bps, detector_state));
     }
 
     prev_bitrate_ = bitrate_bps;
-    prev_state_ = detector_.State();
+    prev_state_ = detector_state;
   }
   return result;
 }
@@ -282,7 +340,8 @@ bool DelayBasedBwe::UpdateEstimate(int64_t now_ms,
                                    uint32_t* target_bitrate_bps) {
   // TODO(terelius): RateControlInput::noise_var is deprecated and will be
   // removed. In the meantime, we set it to zero.
-  const RateControlInput input(detector_.State(), acked_bitrate_bps, 0);
+  const RateControlInput input(trendline_estimator_->State(), acked_bitrate_bps,
+                               0);
   *target_bitrate_bps = rate_control_.Update(&input, now_ms);
   return rate_control_.ValidEstimate();
 }

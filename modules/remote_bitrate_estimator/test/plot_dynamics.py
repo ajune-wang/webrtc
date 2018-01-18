@@ -143,7 +143,7 @@ def main():
   trendline_state = Figure("TrendlineState")
   trendline_state.AddSubplot(["accumulated_delay_ms", "smoothed_delay_ms"],
                              "Time (s)", "Delay (ms)")
-  trendline_state.AddSubplot(["trendline_slope"], "Time (s)", "Slope")
+  trendline_state.AddSubplot(["trendline_slope", "first_trendline_slope", "second_trendline_slope"], "Time (s)", "Slope")
 
   target_bitrate = Figure("TargetBitrate")
   target_bitrate.AddSubplot(['target_bitrate_bps', 'acknowledged_bitrate'],

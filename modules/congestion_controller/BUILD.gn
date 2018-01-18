@@ -62,10 +62,13 @@ rtc_source_set("estimators") {
     "acknowledged_bitrate_estimator.h",
     "bitrate_estimator.cc",
     "bitrate_estimator.h",
+    "delay_detector.h",
     "median_slope_estimator.cc",
     "median_slope_estimator.h",
     "probe_bitrate_estimator.cc",
     "probe_bitrate_estimator.h",
+    "spike_detector.cc",
+    "spike_detector.h",
     "trendline_estimator.cc",
     "trendline_estimator.h",
   ]

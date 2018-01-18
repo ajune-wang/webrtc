@@ -15,13 +15,11 @@
 #include <utility>
 #include <vector>
 
-#include "modules/congestion_controller/median_slope_estimator.h"
+#include "modules/congestion_controller/delay_detector.h"
 #include "modules/congestion_controller/probe_bitrate_estimator.h"
-#include "modules/congestion_controller/trendline_estimator.h"
 #include "modules/remote_bitrate_estimator/aimd_rate_control.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "modules/remote_bitrate_estimator/inter_arrival.h"
-#include "modules/remote_bitrate_estimator/overuse_detector.h"
 #include "modules/remote_bitrate_estimator/overuse_estimator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
@@ -73,15 +71,14 @@ class DelayBasedBwe {
   RtcEventLog* const event_log_;
   const Clock* const clock_;
   std::unique_ptr<InterArrival> inter_arrival_;
-  std::unique_ptr<TrendlineEstimator> trendline_estimator_;
-  OveruseDetector detector_;
+  std::unique_ptr<DelayDetector> trendline_estimator_;
   int64_t last_seen_packet_ms_;
   bool uma_recorded_;
   AimdRateControl rate_control_;
   ProbeBitrateEstimator probe_bitrate_estimator_;
-  size_t trendline_window_size_;
-  double trendline_smoothing_coeff_;
-  double trendline_threshold_gain_;
+  // size_t trendline_window_size_;
+  // double trendline_smoothing_coeff_;
+  // double trendline_threshold_gain_;
   int consecutive_delayed_feedbacks_;
   uint32_t prev_bitrate_;
   BandwidthUsage prev_state_;

@@ -346,6 +346,7 @@ class ForwardErrorCorrection {
   uint8_t packet_masks_[kUlpfecMaxMediaPackets * kUlpfecMaxPacketMaskSize];
   uint8_t tmp_packet_masks_[kUlpfecMaxMediaPackets * kUlpfecMaxPacketMaskSize];
   size_t packet_mask_size_;
+  uint16_t last_media_sequence_number_;
 };
 
 // Classes derived from FecHeader{Reader,Writer} encapsulate the

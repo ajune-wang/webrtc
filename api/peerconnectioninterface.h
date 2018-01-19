@@ -94,6 +94,7 @@
 #include "api/umametrics.h"
 #include "call/callfactoryinterface.h"
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
+#include "media/base/mediaconfig.h"
 #include "media/base/mediachannel.h"
 #include "media/base/videocapturer.h"
 #include "p2p/base/portallocator.h"

@@ -16,6 +16,24 @@
       "revId": "76cfdebbade3be2f5781edb4ce50e3f72132a9d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee2acaf2_9790518d",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-01-19T22:43:53Z",
+      "side": 1,
+      "message": "The comment on the definition of RTCErrorType says that INVALID_MODIFICATION maps to InvalidModificationError DOMException and INVALID_RANGE maps to RangeError DOMException (https://cs.chromium.org/chromium/src/third_party/webrtc/api/rtcerror.h?type\u003dcs\u0026sq\u003dpackage:chromium\u0026l\u003d27). If I am reading the spec correctly, I think we want an OperationError (DOMException) in these cases, which is why I used INTERNAL_ERROR.\n\nIf we want to use a different RTCErrorType for these cases, I think we should change the comment on the definition of RTCErrorType. Or we could provide more information about the error by passing a string message to RTCError. What do you think?",
+      "parentUuid": "79b09413_f217bee9",
+      "revId": "76cfdebbade3be2f5781edb4ce50e3f72132a9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

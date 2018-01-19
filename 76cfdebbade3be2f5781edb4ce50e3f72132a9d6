@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b09413_f217bee9",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-19T18:25:26Z",
+      "side": 1,
+      "message": "It would probably make sense to make ValidateRtpParameters return an error. I see two different types of errors in it: \"invalid modification\" (changing the number of encodings or changing the SSRC) and \"invalid range\" (setting bitrate priority to invalid value). There\u0027s a similar ValidateRtpParameters method in webrtcvoiceengine.cc.",
+      "revId": "76cfdebbade3be2f5781edb4ce50e3f72132a9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

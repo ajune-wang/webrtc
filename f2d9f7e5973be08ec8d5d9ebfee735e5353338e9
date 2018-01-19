@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "275bf353_36f233ff",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-19T14:37:06Z",
+      "side": 1,
+      "message": "I have sent a preparing CL at https://webrtc-review.googlesource.com/c/src/+/41280",
+      "parentUuid": "4f0e4f43_fd2f5dcc",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 31
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07124776_edf12af7",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 11
@@ -379,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "3d2bb77e_b4f0a688",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-19T14:37:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d479323e_9e0cc25f",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 70
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa55ee89_e86d88c6",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 11
@@ -447,6 +495,30 @@
       "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb712296_c1d95854",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-19T14:37:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59af424d_c3594cdd",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 44
+      },
+      "revId": "f2d9f7e5973be08ec8d5d9ebfee735e5353338e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

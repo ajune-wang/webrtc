@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "62308b6b_64bc0900",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-01-19T16:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa1b8994_75b617e2",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 65
+      },
+      "revId": "8d2cea7af13930d412888dab7bcb4194ae4c33d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de918025_e3470ddf",
         "filename": "call/call.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "8d2cea7af13930d412888dab7bcb4194ae4c33d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "027bf96a_6a9638bf",
+        "filename": "call/call.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-01-19T16:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de918025_e3470ddf",
+      "range": {
+        "startLine": 729,
+        "startChar": 9,
+        "endLine": 729,
+        "endChar": 15
+      },
+      "revId": "8d2cea7af13930d412888dab7bcb4194ae4c33d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

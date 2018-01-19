@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b05083fc_52151408",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-19T12:54:38Z",
+      "side": 1,
+      "message": "By moving the callback from this file into here you can get rid of this dependency I think. That\u0027s be good.",
+      "revId": "2148d68e427caa0aa71975b5f1976d4a07539c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "562a9b7b_a8ec1976",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-19T12:54:38Z",
+      "side": 1,
+      "message": "Perhaps add a comment saying that this file is undergoing some changes and shouldn\u0027t be used by users until the comment is removed (make it a TODO).",
+      "revId": "2148d68e427caa0aa71975b5f1976d4a07539c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb644a31_3fdc4c31",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-19T12:54:38Z",
+      "side": 1,
+      "message": "Media optimization is an old and no longer used term. Good to make this more accurate",
+      "revId": "2148d68e427caa0aa71975b5f1976d4a07539c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0929726_6d3f6978",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-19T12:54:38Z",
+      "side": 1,
+      "message": "Comment on what this should be called with. Important since it\u0027s an API.",
+      "revId": "2148d68e427caa0aa71975b5f1976d4a07539c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "852e9414_77c4e05e",
+        "filename": "modules/video_coding/fec_controller_default.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-19T12:54:38Z",
+      "side": 1,
+      "message": "Empty line above",
+      "revId": "2148d68e427caa0aa71975b5f1976d4a07539c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

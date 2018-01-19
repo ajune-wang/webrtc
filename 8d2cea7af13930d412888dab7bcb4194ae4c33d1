@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa1b8994_75b617e2",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-19T12:54:38Z",
+      "side": 1,
+      "message": "I think we should rename these methods as they set a lot more than target rates... Might as well do that now since we\u0027re moving the file to api/, if it\u0027s not too many changes needed?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 65
+      },
+      "revId": "8d2cea7af13930d412888dab7bcb4194ae4c33d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de918025_e3470ddf",
+        "filename": "call/call.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-19T12:54:38Z",
+      "side": 1,
+      "message": "Is this-\u003e actually needed?",
+      "range": {
+        "startLine": 729,
+        "startChar": 9,
+        "endLine": 729,
+        "endChar": 15
+      },
+      "revId": "8d2cea7af13930d412888dab7bcb4194ae4c33d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c2327d4_9ebf9489",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1266,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-19T12:54:38Z",
+      "side": 1,
+      "message": "An alternative we may want to consider would be to only have one SetTargetRates() method (or some other name?) and have different implementations only care about the things they need. That way we would also not need UseLossMaskVector(). WDYT?",
+      "range": {
+        "startLine": 1256,
+        "startChar": 0,
+        "endLine": 1266,
+        "endChar": 0
+      },
+      "revId": "8d2cea7af13930d412888dab7bcb4194ae4c33d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

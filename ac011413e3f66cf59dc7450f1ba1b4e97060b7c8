@@ -93,6 +93,30 @@
       "revId": "ac011413e3f66cf59dc7450f1ba1b4e97060b7c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a272c56_5e99f0b2",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-01-19T09:08:27Z",
+      "side": 1,
+      "message": "That\u0027s true. I still think it\u0027s a little clearer what went wrong if this could fail as well, otherwise the assertion below failing could mean the block ran but with the wrong error, or that the block did not run at all.",
+      "parentUuid": "504000d3_e183996e",
+      "range": {
+        "startLine": 478,
+        "startChar": 2,
+        "endLine": 478,
+        "endChar": 25
+      },
+      "revId": "ac011413e3f66cf59dc7450f1ba1b4e97060b7c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

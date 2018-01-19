@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4e7692b_fc00c819",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-19T23:59:16Z",
+      "side": 1,
+      "message": "This feels a little weird and difficult to read.  Perhaps breaking HandleLegacyOfferToReceiveOption into methods that make their action more clear would make more sense.  For example:\n\nif (options.offer_to_receive_audio \u003d\u003d 0) {\n  RemoveRecvDirectionFromRecevingTransceivers(cricket::MEDIA_TYPE_AUDIO);\n} else if (options.offer_to_receive_audio \u003d\u003d 1) {\n  AddUpToOneReceivingTransceiver(cricket::MEDIA_TYPE_AUDIO);\n}\nif (options.offer_to_receive_video \u003d\u003d 0) {\n  RemoveRecvDirectionFromRecevingTransceivers(cricket::MEDIA_TYPE_VIDEO);\n} else if (options.offer_to_receive_video \u003d\u003d 1) {\n  AddUpToOneReceivingTransceiver(cricket::MEDIA_TYPE_VIDEO);\n}\n\n\nAnd should we just fail for anything not 0 or 1?  I don\u0027t see how anything else make sense.",
+      "range": {
+        "startLine": 1586,
+        "startChar": 77,
+        "endLine": 1586,
+        "endChar": 0
+      },
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8e80c89_4ba5d61f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-19T23:59:16Z",
+      "side": 1,
+      "message": "Seems like a FindReceivingTransceivers(media_type) would be nice to have.  Then it would be something like:\n\nauto transceivers \u003d FindReceivingTransceivers(media_type);\nif (offer_to_receive) {\n  if (transceivers.empty()) {\n    ... add one ...\n  }\n} else {\n  for (auto transceiver : transceivers) {\n    ...\n  }   \n}",
+      "range": {
+        "startLine": 1604,
+        "startChar": 5,
+        "endLine": 1604,
+        "endChar": 0
+      },
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dec3191_8d0b7dc2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-19T23:59:16Z",
+      "side": 1,
+      "message": "It seems like a RemoveRecvFromDirection method would be nice to have.  Then this would be:\n\ntransceiver-\u003einternal()-\u003eset_direction(RemoveRecvFromDirection(transceiver-\u003edirection());",
+      "range": {
+        "startLine": 1622,
+        "startChar": 48,
+        "endLine": 1622,
+        "endChar": 0
+      },
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

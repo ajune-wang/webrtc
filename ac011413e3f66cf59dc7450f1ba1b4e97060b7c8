@@ -117,6 +117,30 @@
       "revId": "ac011413e3f66cf59dc7450f1ba1b4e97060b7c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "701fe4ea_7ce284f7",
+        "filename": "sdk/objc/Framework/UnitTests/RTCCameraVideoCapturerTests.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-01-19T10:29:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a272c56_5e99f0b2",
+      "range": {
+        "startLine": 478,
+        "startChar": 2,
+        "endLine": 478,
+        "endChar": 25
+      },
+      "revId": "ac011413e3f66cf59dc7450f1ba1b4e97060b7c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

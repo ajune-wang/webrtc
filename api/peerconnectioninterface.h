@@ -95,6 +95,7 @@
 #include "api/umametrics.h"
 #include "call/callfactoryinterface.h"
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
+#include "media/base/mediaconfig.h"
 #include "media/base/mediachannel.h"
 #include "media/base/videocapturer.h"
 #include "p2p/base/portallocator.h"
@@ -451,6 +452,10 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // standard priority order.
     bool prioritize_most_likely_ice_candidate_pairs = false;
 
+    // Implementation defined settings. A public member only for the
+    // benefit of the implementation. Applications must not access it
+    // directly, but use provided accessor methods, e.g.,
+    // set_cpu_adaptation.
     struct cricket::MediaConfig media_config;
 
     // If set to true, only one preferred TURN allocation will be used per

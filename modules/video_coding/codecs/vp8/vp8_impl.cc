@@ -19,6 +19,7 @@
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "modules/include/module_common_types.h"
+#include "modules/video_coding/codecs/vp8/encoder_config.h"
 #include "modules/video_coding/codecs/vp8/include/vp8_common_types.h"
 #include "modules/video_coding/codecs/vp8/screenshare_layers.h"
 #include "modules/video_coding/codecs/vp8/simulcast_rate_allocator.h"
@@ -298,7 +299,9 @@ int VP8EncoderImpl::SetRateAllocation(const BitrateAllocation& bitrate,
       SetStreamState(send_stream, stream_idx);
 
     configurations_[i].rc_target_bitrate = target_bitrate_kbps;
-    temporal_layers_[stream_idx]->UpdateConfiguration(&configurations_[i]);
+
+    UpdateVpxConfiguration(temporal_layers_[stream_idx].get(),
+                           &configurations_[i]);
 
     if (vpx_codec_enc_config_set(&encoders_[i], &configurations_[i])) {
       return WEBRTC_VIDEO_CODEC_ERROR;
@@ -530,7 +533,9 @@ int VP8EncoderImpl::InitEncode(const VideoCodec* inst,
   configurations_[0].rc_target_bitrate = stream_bitrates[stream_idx];
   temporal_layers_[stream_idx]->OnRatesUpdated(
       stream_bitrates[stream_idx], inst->maxBitrate, inst->maxFramerate);
-  temporal_layers_[stream_idx]->UpdateConfiguration(&configurations_[0]);
+  UpdateVpxConfiguration(temporal_layers_[stream_idx].get(),
+                         &configurations_[0]);
+
   --stream_idx;
   for (size_t i = 1; i < encoders_.size(); ++i, --stream_idx) {
     memcpy(&configurations_[i], &configurations_[0],
@@ -552,7 +557,8 @@ int VP8EncoderImpl::InitEncode(const VideoCodec* inst,
     configurations_[i].rc_target_bitrate = stream_bitrates[stream_idx];
     temporal_layers_[stream_idx]->OnRatesUpdated(
         stream_bitrates[stream_idx], inst->maxBitrate, inst->maxFramerate);
-    temporal_layers_[stream_idx]->UpdateConfiguration(&configurations_[i]);
+    UpdateVpxConfiguration(temporal_layers_[stream_idx].get(),
+                           &configurations_[i]);
   }
 
   return InitAndSetControlSettings();
@@ -797,7 +803,8 @@ int VP8EncoderImpl::Encode(const VideoFrame& frame,
     // the next update.
     vpx_codec_enc_cfg_t temp_config;
     memcpy(&temp_config, &configurations_[i], sizeof(vpx_codec_enc_cfg_t));
-    if (temporal_layers_[stream_idx]->UpdateConfiguration(&temp_config)) {
+    if (UpdateVpxConfiguration(temporal_layers_[stream_idx].get(),
+                               &temp_config)) {
       if (vpx_codec_enc_config_set(&encoders_[i], &temp_config))
         return WEBRTC_VIDEO_CODEC_ERROR;
     }

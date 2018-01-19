@@ -345,6 +345,8 @@ rtc_static_library("webrtc_vp8") {
   sources = [
     "codecs/vp8/default_temporal_layers.cc",
     "codecs/vp8/default_temporal_layers.h",
+    "codecs/vp8/encoder_config.cc",
+    "codecs/vp8/encoder_config.h",
     "codecs/vp8/include/vp8.h",
     "codecs/vp8/include/vp8_common_types.h",
     "codecs/vp8/screenshare_layers.cc",

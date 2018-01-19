@@ -9,6 +9,7 @@
  */
 
 #include "modules/video_coding/codecs/vp8/default_temporal_layers.h"
+#include "modules/video_coding/codecs/vp8/encoder_config.h"
 #include "modules/video_coding/codecs/vp8/vp8_impl.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "test/field_trial.h"
@@ -57,7 +58,7 @@ TEST(TemporalLayersTest, 2Layers) {
   vpx_codec_enc_cfg_t cfg;
   CodecSpecificInfoVP8 vp8_info;
   tl.OnRatesUpdated(500, 500, 30);
-  tl.UpdateConfiguration(&cfg);
+  UpdateVpxConfiguration(&tl, &cfg);
 
   int expected_flags[16] = {
       kTemporalUpdateLastRefAltRef,
@@ -105,7 +106,7 @@ TEST(TemporalLayersTest, 3Layers) {
   vpx_codec_enc_cfg_t cfg;
   CodecSpecificInfoVP8 vp8_info;
   tl.OnRatesUpdated(500, 500, 30);
-  tl.UpdateConfiguration(&cfg);
+  UpdateVpxConfiguration(&tl, &cfg);
 
   int expected_flags[16] = {
       kTemporalUpdateLastRefAltRef,
@@ -154,7 +155,7 @@ TEST(TemporalLayersTest, Alternative3Layers) {
   vpx_codec_enc_cfg_t cfg;
   CodecSpecificInfoVP8 vp8_info;
   tl.OnRatesUpdated(500, 500, 30);
-  tl.UpdateConfiguration(&cfg);
+  UpdateVpxConfiguration(&tl, &cfg);
 
   int expected_flags[8] = {kTemporalUpdateLast,
                            kTemporalUpdateAltrefWithoutDependency,
@@ -190,7 +191,7 @@ TEST(TemporalLayersTest, 4Layers) {
   vpx_codec_enc_cfg_t cfg;
   CodecSpecificInfoVP8 vp8_info;
   tl.OnRatesUpdated(500, 500, 30);
-  tl.UpdateConfiguration(&cfg);
+  UpdateVpxConfiguration(&tl, &cfg);
   int expected_flags[16] = {
       kTemporalUpdateLast,
       kTemporalUpdateNoneNoRefGoldenAltRef,
@@ -237,7 +238,7 @@ TEST(TemporalLayersTest, KeyFrame) {
   vpx_codec_enc_cfg_t cfg;
   CodecSpecificInfoVP8 vp8_info;
   tl.OnRatesUpdated(500, 500, 30);
-  tl.UpdateConfiguration(&cfg);
+  UpdateVpxConfiguration(&tl, &cfg);
 
   int expected_flags[8] = {
       kTemporalUpdateLastRefAltRef,
@@ -350,7 +351,7 @@ TEST_P(TemporalLayersReferenceTest, ValidFrameConfigs) {
   DefaultTemporalLayers tl(num_layers, 0);
   vpx_codec_enc_cfg_t cfg;
   tl.OnRatesUpdated(500, 500, 30);
-  tl.UpdateConfiguration(&cfg);
+  UpdateVpxConfiguration(&tl, &cfg);
 
   // Run through the pattern and store the frame dependencies, plus keep track
   // of the buffer state; which buffers references which temporal layers (if

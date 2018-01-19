@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aeaaf0de_e749366f",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnectionFactory.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-01-19T09:05:07Z",
+      "side": 1,
+      "message": "another way to write this:\n\nauto legacy_video_encoder_factory \u003d rtc::MakeUnique\u003cwebrtc::ObjCVideoEncoderFactory\u003e\n    ([[RTCVideoEncoderFactoryH264 alloc] init]);\nnative_encoder_factory \u003d ConvertVideoEncoderFactory(std::move(legacy_video_encoder_factory));\n\nIt\u0027s a little less messy, but still not great.",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 43
+      },
+      "revId": "84abdf41a6e16b80b8b7207e0e2430b635655868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

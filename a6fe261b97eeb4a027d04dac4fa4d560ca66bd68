@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75f057f8_d7894063",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-19T13:09:48Z",
+      "side": 0,
+      "message": "Appears no longer needed.",
+      "range": {
+        "startLine": 28,
+        "startChar": 40,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "a6fe261b97eeb4a027d04dac4fa4d560ca66bd68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

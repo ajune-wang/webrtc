@@ -1,0 +1,596 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55d8aa2f_ec0b22e8",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Add newline before.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91900972_f7e4d2d7",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Add comment:\n\nContainer for describing the multiple frame components of an image. This struct is expected to be the set in the beginning of a picture\u0027s bitstream data.\n- |component_count| identifies how many frame components make up the picture data, i.e. 2 for YUV and AXX frames. \n- |image_index| represents the increasing image id given by the encoder.\n- |first_component_header_offset| shows where the first MultiplexFrameHeader instance starts in the bitstream data, in terms of bytes from the beginning of bitstream.",
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57ebe9ad_40e0be21",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "I like how you called \"MultiplexImage\" and \"MultiplexImageComponent\" which matches with EncodedImage so let\u0027s go with that and rename this to MultiplexImageHeader.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 31
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17e2a0a_a02fc965",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Rename to MultiplexImageComponentHeader and rename the vars like below.\n\nAdd comment:\nContainer for describing the individual image component\u0027s content.\n- |next_component_header_offset| shows where the next MultiplexImageComponentHeader instance starts in the bitstream data, in terms of bytes from the beginning of bitstream. If and only if there isn\u0027t any other component, this is set to 0.\n- |component_index| identifies the index of the frame component in the image, relative to the |component_count|.\n- |bitstream_offset| shows where the actual bitstream data of the frame component starts, in terms of bytes from the beginning of image\u0027s bitstream.\n- |bitstream_length| shows the length of the actual bitstream data of the frame component, in terms of bytes.\n- |codec_type| defines the underlying VideoCodecType of the frame, i.e. VP9.\n- |frame_type| contains the keyframe information.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e7dac2_26887d4d",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "next_component_header_offset. Just to be in line with other name.",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1012f3c3_8c307daf",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Add comment:\nHolds the encoded image component info.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 32
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faf83882_7a7fe367",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Rename to |component_index| to match the naming.",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17dac475_bbaeba36",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Add comment:\nHolds all information about the multiple frame components of an image.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddaf77b2_bd20442b",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "image_index",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53e0ec68_e724c0e2",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "component_count. Actually is this even necessary? We can infer it from image_components.size().",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 17
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cea5f14_79ccc1b3",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Add comment.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96bf6b09_008678b6",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "const MultiplexImage\u0026 to avoid a copy.",
+      "range": {
+        "startLine": 52,
+        "startChar": 37,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb17958_6d813828",
+        "filename": "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Unpack",
+      "range": {
+        "startLine": 55,
+        "startChar": 24,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "147cf2ea_be2ae884",
+        "filename": "modules/video_coding/codecs/stereo/include/stereo_encoder_adapter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Clock* const clock_;",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 16
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13b157b4_649c1118",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Make this return int, which is offset. Using that, we can DCHECK_EQ(return_val, header.first_frame_header_offset);",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 4
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854c6c91_80958286",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "DCHECK_EQ(offset, sizeof(MultiplexOffsetsHeader));",
+      "range": {
+        "startLine": 26,
+        "startChar": 29,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4888baa8_e61be5c4",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Again we can return offset for DCHECKs.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 4
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74a1d6ac_c9a73b16",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "DCHECK_EQ(offset, sizeof(MultiplexFrameHeader));",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 1
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc82b17_78493b4a",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Lets set this to 0 since we use uint.",
+      "range": {
+        "startLine": 127,
+        "startChar": 35,
+        "endLine": 127,
+        "endChar": 37
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b745ccd_0fdb851a",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Add comment about why we do this.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 65
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad803f20_e4e8b52d",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "const \u0026 to avoid copy",
+      "range": {
+        "startLine": 169,
+        "startChar": 2,
+        "endLine": 169,
+        "endChar": 24
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7209e2_52f64afa",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "DCHECK_EQ(header.frame_count, frame_headers.size());",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 5
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d7b7c83_aa45247c",
+        "filename": "modules/video_coding/codecs/stereo/stereo_decoder_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "const \u0026 to avoid copy.",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 16
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "733e1ba9_71d5c73e",
+        "filename": "modules/video_coding/codecs/stereo/stereo_encoder_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "Remove extra space above.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 41
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "855c22f1_669a3de2",
+        "filename": "modules/video_coding/codecs/stereo/stereo_encoder_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "adjusted_frame_types",
+      "range": {
+        "startLine": 116,
+        "startChar": 25,
+        "endLine": 116,
+        "endChar": 37
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9682267_da664322",
+        "filename": "modules/video_coding/codecs/stereo/stereo_encoder_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-19T19:42:08Z",
+      "side": 1,
+      "message": "for (auto\u0026 stashed_image : stashed_images_)\n   for (auto\u0026 image_component : stashed_image.second.image_components)\n      delete[] image_component.encoded_image._buffer;\nstashed_images_.clear();",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 38
+      },
+      "revId": "8b5180d4b070398d91a370f79f69c49fe5bea7a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

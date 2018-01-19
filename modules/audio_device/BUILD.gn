@@ -169,6 +169,10 @@ rtc_source_set("audio_device_generic") {
     ]
     if (is_android) {
       sources += [
+        "android/aaudio_player.cc",
+        "android/aaudio_player.h",
+        "android/aaudio_wrapper.cc",
+        "android/aaudio_wrapper.h",
         "android/audio_common.h",
         "android/audio_device_template.h",
         "android/audio_manager.cc",
@@ -189,6 +193,7 @@ rtc_source_set("audio_device_generic") {
       libs = [
         "log",
         "OpenSLES",
+        "aaudio",
       ]
 
       if (build_with_mozilla) {

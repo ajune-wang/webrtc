@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/protection_bitrate_calculator.h"
+#include "modules/video_coding/fec_controller_default.h"
 #include "system_wrappers/include/clock.h"
 #include "test/gtest.h"
 
@@ -46,7 +46,7 @@ class ProtectionBitrateCalculatorTest : public ::testing::Test {
 
   SimulatedClock clock_;
   ProtectionCallback protection_callback_;
-  ProtectionBitrateCalculator media_opt_;
+  FecControllerDefault media_opt_;
 };
 
 TEST_F(ProtectionBitrateCalculatorTest, ProtectsUsingFecBitrate) {
@@ -57,7 +57,8 @@ TEST_F(ProtectionBitrateCalculatorTest, ProtectsUsingFecBitrate) {
 
   // Using 10% of codec bitrate for FEC.
   protection_callback_.fec_rate_bps_ = kCodecBitrateBps / 10;
-  uint32_t target_bitrate = media_opt_.SetTargetRates(kMaxBitrateBps, 30, 0, 0);
+  uint32_t target_bitrate = media_opt_.UpdateFecRates(
+      kMaxBitrateBps, 30, 0, std::vector<bool>(1, false), 0);
 
   EXPECT_GT(target_bitrate, 0u);
   EXPECT_GT(kMaxBitrateBps, target_bitrate);
@@ -65,7 +66,8 @@ TEST_F(ProtectionBitrateCalculatorTest, ProtectsUsingFecBitrate) {
   // Using as much for codec bitrate as fec rate, new target rate should share
   // both equally, but only be half of max (since that ceiling should be hit).
   protection_callback_.fec_rate_bps_ = kCodecBitrateBps;
-  target_bitrate = media_opt_.SetTargetRates(kMaxBitrateBps, 30, 128, 100);
+  target_bitrate = media_opt_.UpdateFecRates(kMaxBitrateBps, 30, 128,
+                                             std::vector<bool>(1, false), 100);
   EXPECT_EQ(kMaxBitrateBps / 2, target_bitrate);
 }
 
@@ -75,14 +77,16 @@ TEST_F(ProtectionBitrateCalculatorTest, ProtectsUsingNackBitrate) {
   media_opt_.SetProtectionMethod(false /*enable_fec*/, true /* enable_nack */);
   media_opt_.SetEncodingData(640, 480, 1, 1000);
 
-  uint32_t target_bitrate = media_opt_.SetTargetRates(kMaxBitrateBps, 30, 0, 0);
+  uint32_t target_bitrate = media_opt_.UpdateFecRates(
+      kMaxBitrateBps, 30, 0, std::vector<bool>(1, false), 0);
 
   EXPECT_EQ(kMaxBitrateBps, target_bitrate);
 
   // Using as much for codec bitrate as nack rate, new target rate should share
   // both equally, but only be half of max (since that ceiling should be hit).
   protection_callback_.nack_rate_bps_ = kMaxBitrateBps;
-  target_bitrate = media_opt_.SetTargetRates(kMaxBitrateBps, 30, 128, 100);
+  target_bitrate = media_opt_.UpdateFecRates(kMaxBitrateBps, 30, 128,
+                                             std::vector<bool>(1, false), 100);
   EXPECT_EQ(kMaxBitrateBps / 2, target_bitrate);
 }
 
@@ -92,8 +96,8 @@ TEST_F(ProtectionBitrateCalculatorTest, NoProtection) {
   media_opt_.SetProtectionMethod(false /*enable_fec*/, false /* enable_nack */);
   media_opt_.SetEncodingData(640, 480, 1, 1000);
 
-  uint32_t target_bitrate =
-      media_opt_.SetTargetRates(kMaxBitrateBps, 30, 128, 100);
+  uint32_t target_bitrate = media_opt_.UpdateFecRates(
+      kMaxBitrateBps, 30, 128, std::vector<bool>(1, false), 100);
   EXPECT_EQ(kMaxBitrateBps, target_bitrate);
 }
 

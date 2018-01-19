@@ -514,6 +514,16 @@ void ForwardErrorCorrection::InsertPacket(
         break;
       }
     }
+  } else if (!received_fec_packets_.empty() &&
+             received_packet.ssrc != received_fec_packets_.front()->ssrc) {
+    // This happens when |received_packet| is a media packet and
+    // FlexFEC is used.
+    uint16_t seq_num_diff =
+        MinDiff(received_packet.seq_num, last_media_sequence_number_);
+    if (seq_num_diff > 0x3fff) {
+      received_fec_packets_.clear();
+    }
+    last_media_sequence_number_ = received_packet.seq_num;
   }
 
   if (received_packet.is_fec) {

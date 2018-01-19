@@ -87,6 +87,18 @@ enum {
   // the application to work in a wider variety of environments, at the expense
   // of having to allocate additional candidates.
   PORTALLOCATOR_ENABLE_ANY_ADDRESS_PORTS = 0x8000,
+
+  // Used with the PORTALLOCATOR_DISABLE_COSTLY_NETWORKS flag. When specified,
+  // networks with a link-local IP address will not be used to determine the
+  // lowest cost. Say if there is only a link-local Ethernet network and a
+  // cellular network, then the cellular network will not be removed just
+  // because the Ethernet network costs less.
+  // On iOS, a device connected to the computer will get a link-local network
+  // for communicating with the computer, however this network can't be used
+  // to connect to a peer outside the network.
+  // Note that this only affects networks more costly than the link-local
+  // network. The link-local network itself won't be removed.
+  PORTALLOCATOR_IGNORE_LINK_LOCAL_NETWORK_COST = 0x10000,
 };
 
 // Defines various reasons that have caused ICE regathering.

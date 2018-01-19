@@ -644,6 +644,10 @@ std::vector<rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
   if (flags() & PORTALLOCATOR_DISABLE_COSTLY_NETWORKS) {
     uint16_t lowest_cost = rtc::kNetworkCostMax;
     for (rtc::Network* network : networks) {
+      if ((flags() & PORTALLOCATOR_IGNORE_LINK_LOCAL_NETWORK_COST) &&
+          rtc::IPIsLinkLocal(network->GetBestIP())) {
+        continue;
+      }
       lowest_cost = std::min<uint16_t>(lowest_cost, network->GetCost());
     }
     networks.erase(std::remove_if(networks.begin(), networks.end(),

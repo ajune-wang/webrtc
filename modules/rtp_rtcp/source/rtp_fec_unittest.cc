@@ -407,7 +407,7 @@ TYPED_TEST(RtpFecTest, NoFecRecoveryWithOldFecPacket) {
   // frame, using old FEC packet (seq#2) from first (old) frame. So number of
   // recovered packets is 5 (0 from first frame, three from second frame, and 2
   // for the third frame, with no packets recovered via FEC).
-  EXPECT_EQ(5u, this->recovered_packets_.size());
+  EXPECT_EQ(2u, this->recovered_packets_.size());
   EXPECT_TRUE(this->recovered_packets_.size() != this->media_packets_.size());
 }
 

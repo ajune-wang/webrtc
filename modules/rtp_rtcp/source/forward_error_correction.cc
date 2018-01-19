@@ -717,7 +717,7 @@ void ForwardErrorCorrection::DecodeFec(const ReceivedPacket& received_packet,
   RTC_DCHECK(recovered_packets);
 
   const size_t max_media_packets = fec_header_reader_->MaxMediaPackets();
-  if (recovered_packets->size() == max_media_packets) {
+  if (!recovered_packets->empty()) {
     const RecoveredPacket* back_recovered_packet =
         recovered_packets->back().get();
 

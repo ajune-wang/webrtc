@@ -46,6 +46,30 @@
       "revId": "073f4de5b6b265b6144b8c23d7cac67ecf787bf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bcc1262_c1d7ead0",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-01-19T09:09:00Z",
+      "side": 1,
+      "message": "Bitstream is broken (fuzz testing). We need to detect this asap and stop parsing. I would suggest to add check for range of delta_scale similar to https://cs.chromium.org/chromium/src/third_party/webrtc/common_video/h264/pps_parser.cc?rcl\u003d4aa8ab5d568d562aa1a28829bedce902429916d8\u0026l\u003d171. Valid range for delta_scale is [-128..+127]. No need to change dtype.",
+      "parentUuid": "bc8b345c_2dd29ecd",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "073f4de5b6b265b6144b8c23d7cac67ecf787bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

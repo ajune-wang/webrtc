@@ -22,6 +22,30 @@
       "revId": "1ec72aa09da5c93e4269d2c04466cb64d4b051a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc227f3a_f1aef8eb",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-01-19T13:10:22Z",
+      "side": 1,
+      "message": "I don\u0027t think that rule apply since I can\u0027t really replace my current comments with something of equal clarity, having multi line comments in this case just makes it harder to understand which bytes represent which segment.",
+      "parentUuid": "8f837784_fd24f2f6",
+      "range": {
+        "startLine": 227,
+        "startChar": 59,
+        "endLine": 227,
+        "endChar": 70
+      },
+      "revId": "1ec72aa09da5c93e4269d2c04466cb64d4b051a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

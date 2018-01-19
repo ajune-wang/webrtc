@@ -178,6 +178,7 @@ public class WebRtcAudioRecord {
       reportWebRtcAudioRecordInitError("InitRecording called twice without StopRecording.");
       return -1;
     }
+    WebRtcAudioUtils.logAudioState(TAG);
     final int bytesPerFrame = channels * (BITS_PER_SAMPLE / 8);
     final int framesPerBuffer = sampleRate / BUFFERS_PER_SECOND;
     byteBuffer = ByteBuffer.allocateDirect(bytesPerFrame * framesPerBuffer);

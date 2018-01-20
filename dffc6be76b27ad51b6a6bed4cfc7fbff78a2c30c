@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "126deadf_9baf64ec",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-20T10:56:19Z",
+      "side": 1,
+      "message": "and should instead",
+      "range": {
+        "startLine": 456,
+        "startChar": 17,
+        "endLine": 456,
+        "endChar": 20
+      },
+      "revId": "dffc6be76b27ad51b6a6bed4cfc7fbff78a2c30c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

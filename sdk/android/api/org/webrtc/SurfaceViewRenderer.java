@@ -69,7 +69,10 @@ public class SurfaceViewRenderer extends SurfaceView implements SurfaceHolder.Ca
    * reinitialize the renderer after a previous init()/release() cycle.
    */
   public void init(EglBase.Context sharedContext, RendererCommon.RendererEvents rendererEvents) {
-    init(sharedContext, rendererEvents, EglBase.CONFIG_PLAIN, new GlRectDrawer());
+    init(sharedContext, rendererEvents, EglBase.CONFIG_PLAIN,
+        getResourceName().equals("fullscreen_video_view")
+            ? new GlCompositeDrawer(new GlBlurDrawer(), new GlRectDrawer())
+            : new GlRectDrawer());
   }
 
   /**
@@ -183,12 +186,20 @@ public class SurfaceViewRenderer extends SurfaceView implements SurfaceHolder.Ca
   // VideoRenderer.Callbacks interface.
   @Override
   public void renderFrame(VideoRenderer.I420Frame frame) {
+    if (getResourceName().equals("fullscreen_video_view")) {
+      // frame.rotationDegree += 90;
+    }
     eglRenderer.renderFrame(frame);
   }
 
   // VideoSink interface.
   @Override
   public void onFrame(VideoFrame frame) {
+    if (getResourceName().equals("fullscreen_video_view")) {
+      // VideoFrame frame2 =
+      //     new VideoFrame(frame.getBuffer(), frame.getRotation() + 90, frame.getTimestampNs());
+      // frame = frame2;
+    }
     eglRenderer.onFrame(frame);
   }
 
@@ -205,7 +216,7 @@ public class SurfaceViewRenderer extends SurfaceView implements SurfaceHolder.Ca
   @Override
   protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
     ThreadUtils.checkIsOnMainThread();
-    eglRenderer.setLayoutAspectRatio((right - left) / (float) (bottom - top));
+    // eglRenderer.setLayoutAspectRatio((right - left) / (float) (bottom - top));
     updateSurfaceSize();
   }
 

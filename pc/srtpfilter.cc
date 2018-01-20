@@ -22,6 +22,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/timeutils.h"
+#include "rtc_base/zero_memory.h"
 
 namespace cricket {
 
@@ -29,6 +30,8 @@ SrtpFilter::SrtpFilter() {
 }
 
 SrtpFilter::~SrtpFilter() {
+  rtc::ExplicitZeroMemory(send_key_.data(), send_key_.size());
+  rtc::ExplicitZeroMemory(recv_key_.data(), recv_key_.size());
 }
 
 bool SrtpFilter::IsActive() const {
@@ -166,7 +169,9 @@ bool SrtpFilter::ResetParams() {
   applied_recv_params_ = CryptoParams();
   send_cipher_suite_ = rtc::nullopt;
   recv_cipher_suite_ = rtc::nullopt;
+  rtc::ExplicitZeroMemory(send_key_.data(), send_key_.size());
   send_key_.Clear();
+  rtc::ExplicitZeroMemory(recv_key_.data(), recv_key_.size());
   recv_key_.Clear();
   state_ = ST_INIT;
   return true;
@@ -249,6 +254,7 @@ bool SrtpFilter::ParseKeyParams(const std::string& key_params,
   }
 
   memcpy(key, key_str.c_str(), len);
+  rtc::ExplicitZeroMemory(const_cast<char*>(key_str.data()), key_str.size());
   return true;
 }
 

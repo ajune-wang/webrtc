@@ -34,6 +34,24 @@
       "revId": "76cfdebbade3be2f5781edb4ce50e3f72132a9d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b525139_0e91cf35",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-20T00:31:39Z",
+      "side": 1,
+      "message": "The spec says:\n\n  Let N be the number of RTCRtpEncodingParameters stored in sender\u0027s internal [[SendEncodings]] slot...\n\n  If parameters.encodings.length is different from N, or if any parameter in parameters, is marked as a Read-only parameter, has a value that is different from the corresponding parameter value in sender\u0027s [[LastReturnedParameters]] internal slot, return a promise rejected with a newly created InvalidModificationError. Note that this also applies to transactionId.\n\nSo InvalidModificationError is appropriate for anything the application isn\u0027t allowed to modify.\n\nAnd I believe RangeError would normally be thrown at the IDL layer, which is why the spec doesn\u0027t reference it directly. But it still would be appropriate in this case, for the native API.\n\nMy interpretation is that OperationError should only be the catch-all for situations where no other errors are applicable.\n\nAs for passing a string message along too, that\u0027s always a plus. Otherwise it may be frustrating for someone to track down what parameter is causing an error.",
+      "parentUuid": "ee2acaf2_9790518d",
+      "revId": "76cfdebbade3be2f5781edb4ce50e3f72132a9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

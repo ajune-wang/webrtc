@@ -16,6 +16,7 @@
 
 #include "media/base/rtputils.h"
 #include "rtc_base/sslstreamadapter.h"
+#include "rtc_base/zero_memory.h"
 
 namespace {
 // Value specified in RFC 5764.
@@ -176,6 +177,8 @@ void DtlsSrtpTransport::SetupRtpDtlsSrtp() {
     SignalDtlsSrtpSetupFailure(this, /*rtcp=*/false);
     RTC_LOG(LS_WARNING) << "DTLS-SRTP key installation for RTP failed";
   }
+  rtc::ExplicitZeroMemory<unsigned char>(send_key);
+  rtc::ExplicitZeroMemory<unsigned char>(recv_key);
 }
 
 void DtlsSrtpTransport::SetupRtcpDtlsSrtp() {
@@ -208,6 +211,8 @@ void DtlsSrtpTransport::SetupRtcpDtlsSrtp() {
     SignalDtlsSrtpSetupFailure(this, /*rtcp=*/true);
     RTC_LOG(LS_WARNING) << "DTLS-SRTP key installation for RTCP failed";
   }
+  rtc::ExplicitZeroMemory<unsigned char>(rtcp_send_key);
+  rtc::ExplicitZeroMemory<unsigned char>(rtcp_recv_key);
 }
 
 bool DtlsSrtpTransport::ExtractParams(
@@ -259,9 +264,12 @@ bool DtlsSrtpTransport::ExtractParams(
   memcpy(&client_write_key[key_len], &dtls_buffer[offset], salt_len);
   offset += salt_len;
   memcpy(&server_write_key[key_len], &dtls_buffer[offset], salt_len);
+  rtc::ExplicitZeroMemory<unsigned char>(dtls_buffer);
 
   rtc::SSLRole role;
   if (!dtls_transport->GetSslRole(&role)) {
+    rtc::ExplicitZeroMemory<unsigned char>(client_write_key);
+    rtc::ExplicitZeroMemory<unsigned char>(server_write_key);
     RTC_LOG(LS_WARNING) << "GetSslRole failed";
     return false;
   }
@@ -273,7 +281,8 @@ bool DtlsSrtpTransport::ExtractParams(
     *send_key = client_write_key;
     *recv_key = server_write_key;
   }
-
+  rtc::ExplicitZeroMemory<unsigned char>(client_write_key);
+  rtc::ExplicitZeroMemory<unsigned char>(server_write_key);
   return true;
 }
 

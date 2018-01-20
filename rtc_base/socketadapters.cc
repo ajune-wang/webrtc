@@ -33,6 +33,7 @@
 #include "rtc_base/socketadapters.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/stringutils.h"
+#include "rtc_base/zero_memory.h"
 
 namespace rtc {
 
@@ -673,10 +674,14 @@ void AsyncSocksProxySocket::SendAuth() {
   size_t len = pass_.GetLength() + 1;
   char * sensitive = new char[len];
   pass_.CopyTo(sensitive, true);
-  request.WriteString(sensitive);  // Password
-  memset(sensitive, 0, len);
+  // Don't write anything to |request| afterwards to avoid potential
+  // reallocations where the old memory (containing the password) will not
+  // be cleared securely.
+  request.WriteBytes(sensitive, pass_.GetLength());  // Password
+  ExplicitZeroMemory(sensitive, len);
   delete [] sensitive;
   DirectSend(request.Data(), request.Length());
+  ExplicitZeroMemory(const_cast<char*>(request.Data()), request.Length());
   state_ = SS_AUTH;
 }
 

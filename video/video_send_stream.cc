@@ -279,6 +279,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
 
   void SignalNetworkState(NetworkState state);
   bool DeliverRtcp(const uint8_t* packet, size_t length);
+  void UpdateActiveStreams(const VideoEncoderConfig& encoder_config);
   void Start();
   void Stop();
 
@@ -330,6 +331,12 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
 
   // Implements VideoBitrateAllocationObserver.
   void OnBitrateAllocationUpdated(const BitrateAllocation& allocation) override;
+
+  // Starts monitoring and sends a keyframe.
+  void StartupVideoSendStream();
+  // Removes the bitrate observer, stops monitoring and notifies the video
+  // encoder of the bitrate update.
+  void StopVideoSendStream();
 
   void ConfigureProtection();
   void ConfigureSsrcs();
@@ -621,6 +628,19 @@ VideoSendStream::~VideoSendStream() {
   RTC_DCHECK(!send_stream_);
 }
 
+void VideoSendStream::UpdateActiveStreams(
+    const VideoEncoderConfig& encoder_config) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveStreams";
+  VideoSendStreamImpl* send_stream = send_stream_.get();
+  worker_queue_->PostTask([this, send_stream, &encoder_config] {
+    send_stream->UpdateActiveStreams(encoder_config);
+    thread_sync_event_.Set();
+  });
+
+  thread_sync_event_.Wait(rtc::Event::kForever);
+}
+
 void VideoSendStream::Start() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
@@ -905,6 +925,49 @@ bool VideoSendStreamImpl::DeliverRtcp(const uint8_t* packet, size_t length) {
   return true;
 }
 
+void VideoSendStreamImpl::UpdateActiveStreams(
+    const VideoEncoderConfig& encoder_config) {
+  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK_EQ(rtp_rtcp_modules_.size(), encoder_config.number_of_streams);
+  RTC_DCHECK_EQ(rtp_rtcp_modules_.size(),
+                encoder_config.simulcast_layers.size());
+  RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveStreams";
+  std::vector<bool> active_streams;
+  for (const VideoStream& simulcast_stream : encoder_config.simulcast_layers) {
+    active_streams.push_back(simulcast_stream.active);
+  }
+  bool previously_active = payload_router_.IsActive();
+  bool sending_status_updated =
+      payload_router_.SetActiveStreams(active_streams);
+  // TODO(bugs.webrtc.org/8653): Currently the only way that the video bitrate
+  // allocator updates which streams are active/inactive is by the video stream
+  // encoder being reconfigured, which re-intializes the allocator and the
+  // encoder, although this really isn't necessary to update the allocator.
+  // To avoid this, add a function to the VideoStreamEncoder that updates the
+  // active streams in the video bitrate allocator. This should be called before
+  // the bitrate allocator is updated.
+
+  if (!payload_router_.IsActive()) {
+    if (previously_active) {
+      // Payload router switched from active to inactive.
+      StopVideoSendStream();
+    }
+    return;
+  }
+  // Updating the bitrate allocator updates the video sender and video encoder
+  // of bitrate allocation changes due to enabling/disabling simulcast streams.
+  if (sending_status_updated) {
+    bitrate_allocator_->AddObserver(
+        this, encoder_min_bitrate_bps_, encoder_max_bitrate_bps_,
+        max_padding_bitrate_, !config_->suspend_below_min_bitrate,
+        config_->track_id, encoder_bitrate_priority_);
+  }
+  if (!previously_active) {
+    // Payload router switched from inactive to active.
+    StartupVideoSendStream();
+  }
+}
+
 void VideoSendStreamImpl::Start() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
@@ -912,12 +975,15 @@ void VideoSendStreamImpl::Start() {
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Start");
   payload_router_.SetActive(true);
-
   bitrate_allocator_->AddObserver(
       this, encoder_min_bitrate_bps_, encoder_max_bitrate_bps_,
       max_padding_bitrate_, !config_->suspend_below_min_bitrate,
       config_->track_id, encoder_bitrate_priority_);
+  StartupVideoSendStream();
+}
 
+void VideoSendStreamImpl::StartupVideoSendStream() {
+  RTC_DCHECK_RUN_ON(worker_queue_);
   // Start monitoring encoder activity.
   {
     rtc::CritScope lock(&encoder_activity_crit_sect_);
@@ -938,6 +1004,10 @@ void VideoSendStreamImpl::Stop() {
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Stop");
   payload_router_.SetActive(false);
+  StopVideoSendStream();
+}
+
+void VideoSendStreamImpl::StopVideoSendStream() {
   bitrate_allocator_->RemoveObserver(this);
   {
     rtc::CritScope lock(&encoder_activity_crit_sect_);

@@ -70,6 +70,30 @@
       "revId": "073f4de5b6b265b6144b8c23d7cac67ecf787bf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b4ef972_cef838fd",
+        "filename": "common_video/h264/sps_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-22T23:19:03Z",
+      "side": 1,
+      "message": "Added check for range. ptal",
+      "parentUuid": "8bcc1262_c1d7ead0",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "073f4de5b6b265b6144b8c23d7cac67ecf787bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

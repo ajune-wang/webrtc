@@ -249,6 +249,18 @@ void FakeVideoSendStream::ReconfigureVideoEncoder(
   ++num_encoder_reconfigurations_;
 }
 
+void FakeVideoSendStream::UpdateActiveStreams(
+    const webrtc::VideoEncoderConfig& encoder_config) {
+  bool sending = false;
+  for (const webrtc::VideoStream& stream : encoder_config.simulcast_layers) {
+    if (stream.active) {
+      sending = true;
+      break;
+    }
+  }
+  sending_ = sending;
+}
+
 void FakeVideoSendStream::Start() {
   sending_ = true;
 }

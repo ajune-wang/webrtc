@@ -1791,6 +1791,10 @@ bool WebRtcVideoChannel::WebRtcVideoSendStream::SetRtpParameters(
     return false;
   }
 
+  // TODO(bugs.webrtc.org/8630): The bitrate priority really doesn't require an
+  // entire encoder reconfiguration, it just needs to update the bitrate
+  // allocator. Consider creating a new function in the VideoSendStream that
+  // simply updates the bitrate allocator, and using this instead.
   bool reconfigure_encoder = (new_parameters.encodings[0].max_bitrate_bps !=
                               rtp_parameters_.encodings[0].max_bitrate_bps) ||
                              (new_parameters.encodings[0].bitrate_priority !=
@@ -1834,7 +1838,9 @@ bool WebRtcVideoChannel::WebRtcVideoSendStream::ValidateRtpParameters(
 
 void WebRtcVideoChannel::WebRtcVideoSendStream::UpdateSendState() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  // TODO(zstein): Handle multiple encodings.
+  // TODO(bugs.webrtc.org/8653): Handle multiple encodings. When the layer below
+  // is implemented, create a VideoEncoderConfig with the appropriate active
+  // streams, and call stream_->UpdateActiveStreams().
   if (sending_ && rtp_parameters_.encodings[0].active) {
     RTC_DCHECK(stream_ != nullptr);
     stream_->Start();

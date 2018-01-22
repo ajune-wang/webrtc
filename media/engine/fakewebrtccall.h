@@ -159,6 +159,8 @@ class FakeVideoSendStream final
   void OnFrame(const webrtc::VideoFrame& frame) override;
 
   // webrtc::VideoSendStream implementation.
+  void UpdateActiveStreams(
+      const webrtc::VideoEncoderConfig& encoder_config) override;
   void Start() override;
   void Stop() override;
   void SetSource(rtc::VideoSourceInterface<webrtc::VideoFrame>* source,

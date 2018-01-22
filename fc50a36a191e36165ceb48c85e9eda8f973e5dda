@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39f7c530_e913400e",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-22T09:48:12Z",
+      "side": 1,
+      "message": "It doesn\u0027t *look* like there\u0027s a problem in this code, but it\u0027s not a good idea to store sensitive data in a std::vector---as I said in the other CL, one little mistake and you\u0027ve asked the vector to reallocate its heap storage, which will cause a leak of the sensitive data.\n\nThat said, if the contents are sensitive, this CL is an improvement over the status quo. But please file a bug about using another data type, and point to it in a comment here.",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0606d77e_f87065d7",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-22T09:48:12Z",
+      "side": 1,
+      "message": "Same here. (And I guess it can even be the same bug?)",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e991af54_b4fd55e5",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-22T09:48:12Z",
+      "side": 1,
+      "message": "Same here. Except here, it looks easy to replace the vector with an array.",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08c35859_10988423",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-22T09:48:12Z",
+      "side": 1,
+      "message": "These two also look easy to replace with plain arrays. But. Having to remember to zero them at each exit point is error prone. It would be much better to make a class for storing sensitive data.",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b36d029c_dda413a3",
+        "filename": "pc/srtpfilter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-22T09:48:12Z",
+      "side": 1,
+      "message": "Here we have the std::vector problem *and* the remember-to-guard-all-exits problem.",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57438aa5_f0be489b",
+        "filename": "pc/srtpfilter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-22T09:48:12Z",
+      "side": 1,
+      "message": "std::string has the same problems as std::vector.",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59abd738_f0cbd750",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-22T09:48:12Z",
+      "side": 1,
+      "message": "The usage in this class looks good.",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

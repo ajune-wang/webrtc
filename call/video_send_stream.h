@@ -240,6 +240,13 @@ class VideoSendStream {
     Config(const Config&);
   };
 
+  // Updates the stream activity for all spatial layers that the video send
+  // stream manages. With simulcast this means updating the activity for
+  // multiple layers. This function can start or stop stream activity, depending
+  // on the input of the VideoEncoderConfig, which specifies active streams.
+  virtual void UpdateActiveStreams(
+      const VideoEncoderConfig& encoder_config) = 0;
+
   // Starts stream activity.
   // When a stream is active, it can receive, process and deliver packets.
   virtual void Start() = 0;

@@ -170,12 +170,29 @@ void PayloadRouter::SetActive(bool active) {
   rtc::CritScope lock(&crit_);
   if (active_ == active)
     return;
-  active_ = active;
+  const std::vector<bool> active_streams(rtp_modules_.size(), active);
+  SetActiveStreams(active_streams);
+}
 
-  for (auto& module : rtp_modules_) {
-    module->SetSendingStatus(active_);
-    module->SetSendingMediaStatus(active_);
+bool PayloadRouter::SetActiveStreams(const std::vector<bool> active_streams) {
+  rtc::CritScope lock(&crit_);
+  RTC_DCHECK_EQ(rtp_modules_.size(), active_streams.size());
+  bool active = false;
+  bool sending_status_updated = false;
+  for (size_t i = 0; i < active_streams.size(); ++i) {
+    if (rtp_modules_[i]->Sending() != active_streams[i]) {
+      sending_status_updated = true;
+    }
+    if (active_streams[i]) {
+      active = true;
+    }
+    // Sends a bykRtcpByeCode when going from true to false.
+    rtp_modules_[i]->SetSendingStatus(active_streams[i]);
+    // If set to false this module won't send media.
+    rtp_modules_[i]->SetSendingMediaStatus(active_streams[i]);
   }
+  active_ = active;
+  return sending_status_updated;
 }
 
 bool PayloadRouter::IsActive() {
@@ -236,6 +253,10 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
     params_[stream_index].Set(&rtp_video_header);
   }
   uint32_t frame_id;
+  if (!rtp_modules_[stream_index]->Sending()) {
+    // The payload router could be active but this module isn't sending.
+    return Result(Result::ERROR_SEND_FAILED);
+  }
   bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
       encoded_image._frameType, payload_type_, encoded_image._timeStamp,
       encoded_image.capture_time_ms_, encoded_image._buffer,

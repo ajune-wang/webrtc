@@ -78,6 +78,7 @@ void FillEncoderConfiguration(size_t num_streams,
   configuration->video_stream_factory =
       new rtc::RefCountedObject<DefaultVideoStreamFactory>();
   configuration->max_bitrate_bps = 0;
+  configuration->simulcast_layers = std::vector<VideoStream>(num_streams);
   for (size_t i = 0; i < num_streams; ++i) {
     configuration->max_bitrate_bps +=
         DefaultVideoStreamFactory::kMaxBitratePerStream[i];

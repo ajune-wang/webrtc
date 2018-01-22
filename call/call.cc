@@ -447,7 +447,6 @@ Call::Call(const Call::Config& config,
       config_.bitrate_config.start_bitrate_bps,
       config_.bitrate_config.max_bitrate_bps);
   call_stats_->RegisterStatsObserver(&receive_side_cc_);
-  call_stats_->RegisterStatsObserver(transport_send_->send_side_cc());
 
   // We have to attach the pacer to the pacer thread before starting the
   // module process thread to avoid a race accessing the process thread
@@ -486,7 +485,6 @@ Call::~Call() {
   module_process_thread_->DeRegisterModule(call_stats_.get());
   module_process_thread_->Stop();
   call_stats_->DeregisterStatsObserver(&receive_side_cc_);
-  call_stats_->DeregisterStatsObserver(transport_send_->send_side_cc());
 
   int64_t first_sent_packet_ms =
       transport_send_->send_side_cc()->GetFirstPacketTimeMs();
@@ -1212,8 +1210,8 @@ void Call::OnNetworkChanged(uint32_t target_bitrate_bps,
 
 void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                      uint32_t max_padding_bitrate_bps) {
-  transport_send_->SetAllocatedSendBitrateLimits(min_send_bitrate_bps,
-                                                 max_padding_bitrate_bps);
+  transport_send_->send_side_cc()->SetSendBitrateLimits(
+      min_send_bitrate_bps, max_padding_bitrate_bps);
   rtc::CritScope lock(&bitrate_crit_);
   min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;
   configured_max_padding_bitrate_bps_ = max_padding_bitrate_bps;

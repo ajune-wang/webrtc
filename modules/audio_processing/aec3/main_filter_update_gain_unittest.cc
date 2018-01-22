@@ -321,10 +321,10 @@ TEST(MainFilterUpdateGain, EchoPathChangeBehavior) {
     std::array<float, kFftLengthBy2Plus1> G_a_power;
     std::array<float, kFftLengthBy2Plus1> G_b_power;
 
-    RunFilterUpdateTest(100, 65, filter_length_blocks,
+    RunFilterUpdateTest(200, 65, filter_length_blocks,
                         blocks_with_echo_path_changes, blocks_with_saturation,
                         false, &e, &y, &G_a);
-    RunFilterUpdateTest(101, 65, filter_length_blocks,
+    RunFilterUpdateTest(201, 65, filter_length_blocks,
                         blocks_with_echo_path_changes, blocks_with_saturation,
                         false, &e, &y, &G_b);
 

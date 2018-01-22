@@ -1237,10 +1237,10 @@ struct EchoCanceller3Config {
     size_t down_sampling_factor = 4;
     size_t num_filters = 4;
     size_t api_call_jitter_blocks = 26;
-    size_t min_echo_path_delay_blocks = 5;
-    size_t delay_headroom_blocks = 1;
-    size_t hysteresis_limit_1_blocks = 1;
-    size_t hysteresis_limit_2_blocks = 0;
+    size_t min_echo_path_delay_blocks = 0;
+    size_t delay_headroom_blocks = 5;
+    size_t hysteresis_limit_1_blocks = 5;
+    size_t hysteresis_limit_2_blocks = 5;
   } delay;
 
   struct Filter {
@@ -1258,8 +1258,8 @@ struct EchoCanceller3Config {
       float noise_gate;
     };
 
-    MainConfiguration main = {12, 0.005f, 0.05f, 0.001f, 20075344.f};
-    ShadowConfiguration shadow = {12, 0.1f, 20075344.f};
+    MainConfiguration main = {20, 0.05f, 0.9f, 0.001f, 20075344.f};
+    ShadowConfiguration shadow = {20, 0.6f, 20075344.f};
 
     MainConfiguration main_initial = {12, 0.01f, 0.1f, 0.001f, 20075344.f};
     ShadowConfiguration shadow_initial = {12, 0.7f, 20075344.f};
@@ -1313,7 +1313,7 @@ struct EchoCanceller3Config {
     };
 
     GainChanges low_noise = {3.f, 3.f, 1.5f, 1.5f, 1.5f, 1.5f};
-    GainChanges initial = {2.f, 2.f, 1.5f, 1.5f, 1.2f, 1.2f};
+    GainChanges initial = {1.5f, 2.f, 1.5f, 1.5f, 1.2f, 1.2f};
     GainChanges normal = {2.f, 2.f, 1.5f, 1.5f, 1.2f, 1.2f};
     GainChanges saturation = {1.2f, 1.2f, 1.5f, 1.5f, 1.f, 1.f};
     GainChanges nonlinear = {1.5f, 1.5f, 1.2f, 1.2f, 1.1f, 1.1f};

@@ -16,13 +16,19 @@
 #include "common_video/h264/h264_common.h"
 #include "rtc_base/bitbuffer.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/numerics/safe_conversions.h"
 
+namespace {
 typedef rtc::Optional<webrtc::SpsParser::SpsState> OptionalSps;
 
 #define RETURN_EMPTY_ON_FAIL(x) \
   if (!(x)) {                   \
     return OptionalSps();       \
   }
+
+constexpr int kScalingDeltaMin = -128;
+constexpr int kScaldingDeltaMax = 127;
+}  // namespace
 
 namespace webrtc {
 
@@ -113,6 +119,8 @@ rtc::Optional<SpsParser::SpsState> SpsParser::ParseSpsUpToVui(
               // delta_scale: se(v)
               RETURN_EMPTY_ON_FAIL(
                   buffer->ReadSignedExponentialGolomb(&delta_scale));
+              RETURN_EMPTY_ON_FAIL(delta_scale >= kScalingDeltaMin &&
+                                   delta_scale <= kScaldingDeltaMax);
               next_scale = (last_scale + delta_scale + 256) % 256;
             }
             if (next_scale != 0)

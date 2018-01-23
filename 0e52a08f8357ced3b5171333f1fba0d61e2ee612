@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ed5fa33_4da1618f",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T00:14:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure if a flag is necessary; I don\u0027t expect any harm in enabling this behavior by default. But on the other hand, a new flag doesn\u0027t really hurt either, so you can decide.",
+      "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ea6bc47_84691255",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T00:14:50Z",
+      "side": 1,
+      "message": "Fix comment",
+      "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d971ac76_65b7bb2a",
+        "filename": "rtc_base/ipaddress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T00:14:50Z",
+      "side": 1,
+      "message": "Wait, this doesn\u0027t look correct... Shouldn\u0027t it be \"(addr.s6_addr[1] \u0026 0xc) \u003d\u003d 0x80\", to mask out only the high order bits?",
+      "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "cf2f11ec_d4d2892f",
+        "filename": "modules/video_coding/codecs/stereo/stereo_encoder_adapter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-23T21:36:21Z",
+      "side": 1,
+      "message": "combined_image_._buffer \u003d nullptr;\n\nRelease() can be called multiple times and we should be safe about it.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 37
+      },
+      "revId": "1add2898ab92838fe97d0643ba8096148c1d6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e897318b_ad255ea6",
         "filename": "modules/video_coding/codecs/stereo/stereo_encoder_adapter.cc",
         "patchSetId": 13

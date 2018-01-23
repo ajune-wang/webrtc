@@ -69,7 +69,7 @@ class VideoMediaChannelTest : public testing::Test,
                               public sigslot::has_slots<> {
  protected:
   VideoMediaChannelTest<E, C>()
-      : call_(webrtc::Call::Create(webrtc::Call::Config(&event_log_))),
+      : call_(webrtc::Call::Create(webrtc::CallConfig(&event_log_))),
         engine_(std::unique_ptr<cricket::WebRtcVideoEncoderFactory>(),
                 std::unique_ptr<cricket::WebRtcVideoDecoderFactory>()) {}
 

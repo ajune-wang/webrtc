@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36578c00_95bf1b73",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T02:13:04Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be possible for ReconfigureVideoEncoder to do this? In other words, make it a little smarter, and instead of always doing a \"hard\" reconfiguration, have it only do the \"update active streams\" part if that\u0027s all that changed?\n\nIf not, then I\u0027d at least suggest changing the argument to an \"std::vector\u003cbool\u003e\u0026\" or \"std::vector\u003cVideoStream\u003e\u0026\". The \"VideoEncoderConfig\u0026\" could mislead someone to think this method allows updating other parts of the config.",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63113093_ee382f78",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T02:13:04Z",
+      "side": 1,
+      "message": "We now have two APIs that try to affect the sending state (SetActiveStreams and Start/Stop). Would be nice to document how they\u0027re expected to interact. If I call Stop then SetActiveStreams(low_only), does that mean I\u0027m currently stopped, and will resume sending a low quality stream once Start is called? One might expect that, but it\u0027s not how it currently works.\n\nOr, would the plan be to deprecate Start/Stop in favor of UpdateActiveStreams?",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9aab61f3_b846ec56",
+        "filename": "media/engine/fakewebrtccall.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T02:13:04Z",
+      "side": 1,
+      "message": "nit: Don\u0027t really need the temp variable",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6329b768_a7e7a96b",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1797,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T02:13:04Z",
+      "side": 1,
+      "message": "Here\u0027s a second place where we need an \"update\" method. A third is for max bitrate (crbug.com/webrtc/6449). I imagine as we implement more RTCRtpEncodingParameters, the number will continue to increase, so we should probably decide on how to handle this. The options I can think of are:\n\n1. Continue to add one-off \"update\" methods\n2. Add a general \"update\" method that can update multiple parameters\n3. Make ReconfigureEncoder smarter, such that it will only react to properties that have been changed and do the minimal amount of work",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d3bdf3d_79968e11",
+        "filename": "video/payload_router_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T02:13:04Z",
+      "side": 1,
+      "message": "These \"EXPECT\"s are pretty tied to the implementation. Would it be possible to rewrite them so they aren\u0027t? For example:\n\nbool active \u003d false;\nEXPECT_CALL(rtp_1, Sending()).WillRepeatedly(ReturnPointee(\u0026active));\npayload_router.SetActive(true);\nactive \u003d true;\n...\n\nI guess that will only make the other tests below more verbose, though. Hmm.",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

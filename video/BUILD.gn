@@ -145,12 +145,9 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":video_quality_test",
-      "../modules/pacing:pacing",
       "../rtc_base/experiments:alr_experiment",
       "../test:field_trial",
-      "../test:test_common",
       "../test:test_support",
-      "//testing/gtest",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).

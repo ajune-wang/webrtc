@@ -453,7 +453,7 @@ void Loopback() {
   pipe_config.delay_standard_deviation_ms = flags::StdPropagationDelayMs();
   pipe_config.allow_reordering = flags::FLAG_allow_reordering;
 
-  Call::Config::BitrateConfig call_bitrate_config;
+  CallConfig::BitrateConfig call_bitrate_config;
   call_bitrate_config.min_bitrate_bps =
       (flags::ScreenshareMinBitrateKbps() + flags::VideoMinBitrateKbps()) *
       1000;

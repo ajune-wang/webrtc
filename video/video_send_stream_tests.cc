@@ -84,7 +84,7 @@ class VideoSendStreamTest : public test::CallTest {
 
 TEST_F(VideoSendStreamTest, CanStartStartedStream) {
   task_queue_.SendTask([this]() {
-    CreateSenderCall(Call::Config(event_log_.get()));
+    CreateSenderCall(CallConfig(event_log_.get()));
 
     test::NullTransport transport;
     CreateSendConfig(1, 0, 0, &transport);
@@ -98,7 +98,7 @@ TEST_F(VideoSendStreamTest, CanStartStartedStream) {
 
 TEST_F(VideoSendStreamTest, CanStopStoppedStream) {
   task_queue_.SendTask([this]() {
-    CreateSenderCall(Call::Config(event_log_.get()));
+    CreateSenderCall(CallConfig(event_log_.get()));
 
     test::NullTransport transport;
     CreateSendConfig(1, 0, 0, &transport);
@@ -1011,8 +1011,8 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
       encoder_.SetFrameSize(static_cast<size_t>(current_size_frame_));
     }
 
-    Call::Config GetSenderCallConfig() override {
-      Call::Config config(event_log_.get());
+    CallConfig GetSenderCallConfig() override {
+      CallConfig config(event_log_.get());
       const int kMinBitrateBps = 30000;
       config.bitrate_config.min_bitrate_bps = kMinBitrateBps;
       return config;
@@ -1563,7 +1563,7 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
 
     void PerformTest() override {
       rtc::NetworkRoute new_route(true, 10, 20, -1);
-      Call::Config::BitrateConfig bitrate_config;
+      CallConfig::BitrateConfig bitrate_config;
 
       task_queue_->SendTask([this, &new_route, &bitrate_config]() {
         call_->OnNetworkRouteChanged("transport", new_route);
@@ -1860,7 +1860,7 @@ TEST_F(VideoSendStreamTest,
   EncoderObserver encoder;
 
   task_queue_.SendTask([this, &transport, &encoder]() {
-    CreateSenderCall(Call::Config(event_log_.get()));
+    CreateSenderCall(CallConfig(event_log_.get()));
     CreateSendConfig(1, 0, 0, &transport);
     video_send_config_.encoder_settings.encoder = &encoder;
     CreateVideoStreams();
@@ -1923,12 +1923,12 @@ TEST_F(VideoSendStreamTest, CanReconfigureToUseStartBitrateAbovePreviousMax) {
     int start_bitrate_kbps_ RTC_GUARDED_BY(crit_);
   };
 
-  CreateSenderCall(Call::Config(event_log_.get()));
+  CreateSenderCall(CallConfig(event_log_.get()));
 
   test::NullTransport transport;
   CreateSendConfig(1, 0, 0, &transport);
 
-  Call::Config::BitrateConfig bitrate_config;
+  CallConfig::BitrateConfig bitrate_config;
   bitrate_config.start_bitrate_bps = 2 * video_encoder_config_.max_bitrate_bps;
   sender_call_->SetBitrateConfig(bitrate_config);
 
@@ -2017,7 +2017,7 @@ TEST_F(VideoSendStreamTest, VideoSendStreamStopSetEncoderRateToZero) {
   StartStopBitrateObserver encoder;
 
   task_queue_.SendTask([this, &transport, &encoder]() {
-    CreateSenderCall(Call::Config(event_log_.get()));
+    CreateSenderCall(CallConfig(event_log_.get()));
     CreateSendConfig(1, 0, 0, &transport);
 
     sender_call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
@@ -2085,7 +2085,7 @@ TEST_F(VideoSendStreamTest, CapturesTextureAndVideoFrames) {
 
   task_queue_.SendTask([this, &transport, &observer, &input_frames]() {
     // Initialize send stream.
-    CreateSenderCall(Call::Config(event_log_.get()));
+    CreateSenderCall(CallConfig(event_log_.get()));
 
     CreateSendConfig(1, 0, 0, &transport);
     video_send_config_.pre_encode_callback = &observer;
@@ -2721,8 +2721,8 @@ TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
       EXPECT_EQ(expected_bitrate, target_bitrate_);
     }
 
-    Call::Config GetSenderCallConfig() override {
-      Call::Config config(event_log_.get());
+    CallConfig GetSenderCallConfig() override {
+      CallConfig config(event_log_.get());
       config.bitrate_config.min_bitrate_bps = kMinBitrateKbps * 1000;
       config.bitrate_config.start_bitrate_bps = kStartBitrateKbps * 1000;
       config.bitrate_config.max_bitrate_bps = kMaxBitrateKbps * 1000;
@@ -2779,7 +2779,7 @@ TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
           init_encode_event_.Wait(VideoSendStreamTest::kDefaultTimeoutMs))
           << "Timed out while waiting for encoder to be configured.";
       WaitForSetRates(kStartBitrateKbps);
-      Call::Config::BitrateConfig bitrate_config;
+      CallConfig::BitrateConfig bitrate_config;
       bitrate_config.start_bitrate_bps = kIncreasedStartBitrateKbps * 1000;
       bitrate_config.max_bitrate_bps = kIncreasedMaxBitrateKbps * 1000;
       task_queue_->SendTask([this, &bitrate_config]() {
@@ -3393,7 +3393,7 @@ TEST_F(VideoSendStreamTest, MAYBE_Vp9FlexModeRefCount) {
 
 void VideoSendStreamTest::TestRequestSourceRotateVideo(
     bool support_orientation_ext) {
-  CreateSenderCall(Call::Config(event_log_.get()));
+  CreateSenderCall(CallConfig(event_log_.get()));
 
   test::NullTransport transport;
   CreateSendConfig(1, 0, 0, &transport);
@@ -3475,7 +3475,7 @@ TEST_F(VideoSendStreamTest, RemoveOverheadFromBandwidth) {
     }
 
     void PerformTest() override {
-      Call::Config::BitrateConfig bitrate_config;
+      CallConfig::BitrateConfig bitrate_config;
       constexpr int kStartBitrateBps = 60000;
       constexpr int kMaxBitrateBps = 60000;
       constexpr int kMinBitrateBps = 10000;

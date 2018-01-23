@@ -119,7 +119,7 @@ class AudioRtpSender : public DtmfProviderInterface,
   std::vector<std::string> stream_ids() const override { return stream_ids_; }
 
   RtpParameters GetParameters() const override;
-  bool SetParameters(const RtpParameters& parameters) override;
+  RTCError SetParameters(const RtpParameters& parameters) override;
 
   rtc::scoped_refptr<DtmfSenderInterface> GetDtmfSender() const override;
 
@@ -210,7 +210,7 @@ class VideoRtpSender : public ObserverInterface,
   std::vector<std::string> stream_ids() const override { return stream_ids_; }
 
   RtpParameters GetParameters() const override;
-  bool SetParameters(const RtpParameters& parameters) override;
+  RTCError SetParameters(const RtpParameters& parameters) override;
 
   rtc::scoped_refptr<DtmfSenderInterface> GetDtmfSender() const override;
 

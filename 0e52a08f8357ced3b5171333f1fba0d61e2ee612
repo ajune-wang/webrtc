@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8f3b3a60_81aefd53",
+        "filename": "p2p/base/portallocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5061
+      },
+      "writtenOn": "2018-01-23T01:20:33Z",
+      "side": 1,
+      "message": "That\u0027s what I\u0027m thinking about too. I think it\u0027s better to get rid of this flag...",
+      "parentUuid": "6ed5fa33_4da1618f",
+      "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ea6bc47_84691255",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d999f46d_7dc90617",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 5061
+      },
+      "writtenOn": "2018-01-23T01:20:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ea6bc47_84691255",
+      "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d971ac76_65b7bb2a",
         "filename": "rtc_base/ipaddress.cc",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-01-23T00:14:50Z",
       "side": 1,
       "message": "Wait, this doesn\u0027t look correct... Shouldn\u0027t it be \"(addr.s6_addr[1] \u0026 0xc) \u003d\u003d 0x80\", to mask out only the high order bits?",
+      "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b1976df_ee218638",
+        "filename": "rtc_base/ipaddress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5061
+      },
+      "writtenOn": "2018-01-23T01:20:33Z",
+      "side": 1,
+      "message": "Well I haven\u0027t changed the code here :)\n\nAccording to the spec, link-local addresses are consist of 10 prefix bits followed by 54 zeros.\nhttps://en.wikipedia.org/wiki/IPv6_address#Unicast_and_anycast_address_format\n\n\"addr.s6_addr[1] \u003d\u003d 0x80\" just takes 6 zeros from the 54 zeros into account, which doesn\u0027t seem to be problematic?\n\nMaybe we should update the comment though...",
+      "parentUuid": "d971ac76_65b7bb2a",
       "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

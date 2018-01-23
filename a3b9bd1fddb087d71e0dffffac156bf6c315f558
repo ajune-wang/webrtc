@@ -68,6 +68,40 @@
       "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b09df39_80b4ec99",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T01:01:56Z",
+      "side": 1,
+      "message": "nit: Wouldn\u0027t it be slightly simpler to just have one method with \"bool fire_callback\"?",
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1139bf87_be088ae3",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T01:01:56Z",
+      "side": 1,
+      "message": "This is not really testing the same thing any more. Previously it was testing adding more \"a\u003dssrc\"s to an existing m\u003d section, to add a new track. But with unified plan, a new track requires a new m\u003d section. Which is why we only see one send stream; the new tracks aren\u0027t actually negotiated yet.\n\nSo the closest unified plan analog of this test would require the caller to \"AddTransceiver\" before creating the offer, to give the callee m\u003d sections for its \"AddTrack\"s to latch onto.",
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

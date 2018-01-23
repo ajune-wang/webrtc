@@ -94,6 +94,8 @@ rtc_static_library("rtc_event_log_impl") {
     "rtc_event_log/encoder/rtc_event_log_encoder.h",
     "rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
     "rtc_event_log/encoder/rtc_event_log_encoder_legacy.h",
+    "rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+    "rtc_event_log/encoder/rtc_event_log_encoder_new_format.h",
     "rtc_event_log/rtc_event_log.cc",
     "rtc_event_log/rtc_event_log_factory.cc",
     "rtc_event_log/rtc_event_log_factory.h",
@@ -104,6 +106,7 @@ rtc_static_library("rtc_event_log_impl") {
   deps = [
     ":rtc_event_log_api",
     "..:webrtc_common",
+    "../api:array_view",
     "../modules/audio_coding:audio_network_adaptor",
     "../modules/remote_bitrate_estimator:remote_bitrate_estimator",
     "../modules/rtp_rtcp:rtp_rtcp_format",
@@ -116,7 +119,10 @@ rtc_static_library("rtc_event_log_impl") {
 
   if (rtc_enable_protobuf) {
     defines += [ "ENABLE_RTC_EVENT_LOG" ]
-    deps += [ ":rtc_event_log_proto" ]
+    deps += [
+      ":rtc_event_log2_proto",
+      ":rtc_event_log_proto",
+    ]
   }
 
   # TODO(eladalon): Remove this.

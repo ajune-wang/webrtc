@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe81f303_2336d126",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-01-23T11:21:18Z",
+      "side": 1,
+      "message": "sent *to*",
+      "range": {
+        "startLine": 12,
+        "startChar": 44,
+        "endLine": 12,
+        "endChar": 48
+      },
+      "revId": "b23a2ed77442bacae6c917773507f744f46d76a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c989545c_c31715ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-01-23T11:21:18Z",
+      "side": 1,
+      "message": "Do you mean that the samples are all zero?",
+      "range": {
+        "startLine": 19,
+        "startChar": 16,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "b23a2ed77442bacae6c917773507f744f46d76a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35fe9cdb_edecbeb1",
+        "filename": "modules/audio_processing/ns/ns_core.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-01-23T11:21:18Z",
+      "side": 1,
+      "message": "Can the magnitude be negative? If not, I\u0027d recommend RTC_DCHECK_GT.",
+      "range": {
+        "startLine": 1383,
+        "startChar": 4,
+        "endLine": 1383,
+        "endChar": 17
+      },
+      "revId": "b23a2ed77442bacae6c917773507f744f46d76a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

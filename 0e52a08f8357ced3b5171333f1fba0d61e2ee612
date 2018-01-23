@@ -104,6 +104,24 @@
       "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd4bc9ba_77fa47ba",
+        "filename": "rtc_base/ipaddress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T23:55:11Z",
+      "side": 1,
+      "message": "My bad; nevermind.",
+      "parentUuid": "9b1976df_ee218638",
+      "revId": "0e52a08f8357ced3b5171333f1fba0d61e2ee612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

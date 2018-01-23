@@ -200,9 +200,9 @@ std::vector<webrtc::RtpExtension> FilterRtpExtensions(
   return result;
 }
 
-webrtc::Call::Config::BitrateConfig GetBitrateConfigForCodec(
+webrtc::CallConfig::BitrateConfig GetBitrateConfigForCodec(
     const Codec& codec) {
-  webrtc::Call::Config::BitrateConfig config;
+  webrtc::CallConfig::BitrateConfig config;
   int bitrate_kbps = 0;
   if (codec.GetParam(kCodecParamMinBitrate, &bitrate_kbps) &&
       bitrate_kbps > 0) {

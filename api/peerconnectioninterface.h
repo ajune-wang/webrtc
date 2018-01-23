@@ -79,6 +79,7 @@
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
 #include "api/audio_options.h"
+#include "api/call/callfactoryinterface.h"
 #include "api/datachannelinterface.h"
 #include "api/dtmfsenderinterface.h"
 #include "api/jsep.h"
@@ -93,12 +94,13 @@
 #include "api/statstypes.h"
 #include "api/turncustomizer.h"
 #include "api/umametrics.h"
-#include "call/callfactoryinterface.h"
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
 #include "media/base/mediaconfig.h"
 #include "media/base/videocapturer.h"
 #include "p2p/base/portallocator.h"
+#include "rtc_base/bitrateallocationstrategy.h"  // Should be in api/ ?
 #include "rtc_base/network.h"
+#include "rtc_base/platform_file.h"
 #include "rtc_base/rtccertificate.h"
 #include "rtc_base/rtccertificategenerator.h"
 #include "rtc_base/socketaddress.h"
@@ -118,8 +120,11 @@ class WebRtcVideoEncoderFactory;
 namespace webrtc {
 class AudioDeviceModule;
 class AudioMixer;
-class CallFactoryInterface;
+class AudioProcessing;
 class MediaConstraintsInterface;
+// TODO(nisse): Find a way to include RtcEventLogFactoryInterface in
+// the api, without introducing circular dependency.
+class RtcEventLogFactoryInterface;
 class VideoDecoderFactory;
 class VideoEncoderFactory;
 

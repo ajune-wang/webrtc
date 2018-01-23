@@ -1600,7 +1600,7 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
 
   // Scan through the list to figure out the codec to use for sending.
   rtc::Optional<webrtc::AudioSendStream::Config::SendCodecSpec> send_codec_spec;
-  webrtc::Call::Config::BitrateConfig bitrate_config;
+  webrtc::CallConfig::BitrateConfig bitrate_config;
   rtc::Optional<webrtc::AudioCodecInfo> voice_codec_info;
   for (const AudioCodec& voice_codec : codecs) {
     if (!(IsCodec(voice_codec, kCnCodecName) ||

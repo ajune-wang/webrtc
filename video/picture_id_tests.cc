@@ -309,7 +309,7 @@ void PictureIdTest::SetupEncoder(VideoEncoder* encoder,
       new PictureIdObserver(PayloadNameToRtpVideoCodecType(payload_name)));
 
   task_queue_.SendTask([this, &encoder, payload_name]() {
-    Call::Config config(event_log_.get());
+    CallConfig config(event_log_.get());
     CreateCalls(config, config);
 
     send_transport_.reset(new test::PacketTransport(

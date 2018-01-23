@@ -68,10 +68,10 @@ class CallTest : public ::testing::Test {
   // to simplify test code.
   void RunBaseTest(BaseTest* test);
 
-  void CreateCalls(const Call::Config& sender_config,
-                   const Call::Config& receiver_config);
-  void CreateSenderCall(const Call::Config& config);
-  void CreateReceiverCall(const Call::Config& config);
+  void CreateCalls(const CallConfig& sender_config,
+                   const CallConfig& receiver_config);
+  void CreateSenderCall(const CallConfig& config);
+  void CreateReceiverCall(const CallConfig& config);
   void DestroyCalls();
 
   void CreateVideoSendConfig(VideoSendStream::Config* video_config,
@@ -172,8 +172,8 @@ class BaseTest : public RtpRtcpObserver {
   virtual void OnFakeAudioDevicesCreated(FakeAudioDevice* send_audio_device,
                                          FakeAudioDevice* recv_audio_device);
 
-  virtual Call::Config GetSenderCallConfig();
-  virtual Call::Config GetReceiverCallConfig();
+  virtual CallConfig GetSenderCallConfig();
+  virtual CallConfig GetReceiverCallConfig();
   virtual void OnRtpTransportControllerSendCreated(
       RtpTransportControllerSend* controller);
   virtual void OnCallsCreated(Call* sender_call, Call* receiver_call);

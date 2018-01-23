@@ -144,7 +144,7 @@ class EndToEndTest : public test::CallTest,
 };
 
 TEST_P(EndToEndTest, ReceiverCanBeStartedTwice) {
-  CreateCalls(Call::Config(event_log_.get()), Call::Config(event_log_.get()));
+  CreateCalls(CallConfig(event_log_.get()), CallConfig(event_log_.get()));
 
   test::NullTransport transport;
   CreateSendConfig(1, 0, 0, &transport);
@@ -159,7 +159,7 @@ TEST_P(EndToEndTest, ReceiverCanBeStartedTwice) {
 }
 
 TEST_P(EndToEndTest, ReceiverCanBeStoppedTwice) {
-  CreateCalls(Call::Config(event_log_.get()), Call::Config(event_log_.get()));
+  CreateCalls(CallConfig(event_log_.get()), CallConfig(event_log_.get()));
 
   test::NullTransport transport;
   CreateSendConfig(1, 0, 0, &transport);
@@ -174,7 +174,7 @@ TEST_P(EndToEndTest, ReceiverCanBeStoppedTwice) {
 }
 
 TEST_P(EndToEndTest, ReceiverCanBeStoppedAndRestarted) {
-  CreateCalls(Call::Config(event_log_.get()), Call::Config(event_log_.get()));
+  CreateCalls(CallConfig(event_log_.get()), CallConfig(event_log_.get()));
 
   test::NullTransport transport;
   CreateSendConfig(1, 0, 0, &transport);
@@ -217,7 +217,7 @@ TEST_P(EndToEndTest, RendersSingleDelayedFrame) {
 
   task_queue_.SendTask([this, &renderer, &frame_forwarder, &sender_transport,
                         &receiver_transport]() {
-    CreateCalls(Call::Config(event_log_.get()), Call::Config(event_log_.get()));
+    CreateCalls(CallConfig(event_log_.get()), CallConfig(event_log_.get()));
 
     sender_transport = rtc::MakeUnique<test::DirectTransport>(
         &task_queue_, sender_call_.get(), payload_type_map_);
@@ -277,7 +277,7 @@ TEST_P(EndToEndTest, TransmitsFirstFrame) {
 
   task_queue_.SendTask([this, &renderer, &frame_generator, &frame_forwarder,
                         &sender_transport, &receiver_transport]() {
-    CreateCalls(Call::Config(event_log_.get()), Call::Config(event_log_.get()));
+    CreateCalls(CallConfig(event_log_.get()), CallConfig(event_log_.get()));
 
     sender_transport = rtc::MakeUnique<test::DirectTransport>(
         &task_queue_, sender_call_.get(), payload_type_map_);
@@ -1019,8 +1019,8 @@ TEST_P(EndToEndTest, ReceivedUlpfecPacketsNotNacked) {
 
     // TODO(holmer): Investigate why we don't send FEC packets when the bitrate
     // is 10 kbps.
-    Call::Config GetSenderCallConfig() override {
-      Call::Config config(event_log_.get());
+    CallConfig GetSenderCallConfig() override {
+      CallConfig config(event_log_.get());
       const int kMinBitrateBps = 30000;
       config.bitrate_config.min_bitrate_bps = kMinBitrateBps;
       return config;
@@ -1366,7 +1366,7 @@ TEST_P(EndToEndTest, UnknownRtpPacketGivesUnknownSsrcReturnCode) {
 
   task_queue_.SendTask([this, &send_transport, &receive_transport,
                         &input_observer]() {
-    CreateCalls(Call::Config(event_log_.get()), Call::Config(event_log_.get()));
+    CreateCalls(CallConfig(event_log_.get()), CallConfig(event_log_.get()));
 
     send_transport = rtc::MakeUnique<test::DirectTransport>(
         &task_queue_, sender_call_.get(), payload_type_map_);
@@ -1517,7 +1517,7 @@ class MultiStreamTest {
 
   void RunTest() {
     webrtc::RtcEventLogNullImpl event_log;
-    Call::Config config(&event_log);
+    CallConfig config(&event_log);
     std::unique_ptr<Call> sender_call;
     std::unique_ptr<Call> receiver_call;
     std::unique_ptr<test::DirectTransport> sender_transport;
@@ -2051,8 +2051,8 @@ TEST_P(EndToEndTest, StopsSendingMediaWithoutFeedback) {
       return parser.transport_feedback()->num_packets() > 0;
     }
 
-    Call::Config GetSenderCallConfig() override {
-      Call::Config config = EndToEndTest::GetSenderCallConfig();
+    CallConfig GetSenderCallConfig() override {
+      CallConfig config = EndToEndTest::GetSenderCallConfig();
       config.bitrate_config.max_bitrate_bps = 300000;
       return config;
     }
@@ -2119,7 +2119,7 @@ TEST_P(EndToEndTest, ObserversEncodedFrames) {
   std::unique_ptr<test::DirectTransport> receiver_transport;
 
   task_queue_.SendTask([&]() {
-    CreateCalls(Call::Config(event_log_.get()), Call::Config(event_log_.get()));
+    CreateCalls(CallConfig(event_log_.get()), CallConfig(event_log_.get()));
 
     sender_transport = rtc::MakeUnique<test::DirectTransport>(
         &task_queue_, sender_call_.get(), payload_type_map_);
@@ -2293,8 +2293,8 @@ TEST_P(EndToEndTest, RembWithSendSideBwe) {
       return receive_transport_;
     }
 
-    Call::Config GetSenderCallConfig() override {
-      Call::Config config(event_log_.get());
+    CallConfig GetSenderCallConfig() override {
+      CallConfig config(event_log_.get());
       // Set a high start bitrate to reduce the test completion time.
       config.bitrate_config.start_bitrate_bps = remb_bitrate_bps_;
       return config;
@@ -2444,8 +2444,8 @@ class ProbingTest : public test::EndToEndTest {
 
   ~ProbingTest() {}
 
-  Call::Config GetSenderCallConfig() override {
-    Call::Config config(event_log_.get());
+  CallConfig GetSenderCallConfig() override {
+    CallConfig config(event_log_.get());
     config.bitrate_config.start_bitrate_bps = start_bitrate_bps_;
     return config;
   }
@@ -2539,7 +2539,7 @@ TEST_P(EndToEndTest, TriggerMidCallProbing) {
         switch (state_) {
           case 0:
             if (stats.send_bandwidth_bps > 5 * 300000) {
-              Call::Config::BitrateConfig bitrate_config;
+              CallConfig::BitrateConfig bitrate_config;
               bitrate_config.max_bitrate_bps = 100000;
               task_queue_->SendTask([this, &bitrate_config]() {
                 sender_call_->SetBitrateConfig(bitrate_config);
@@ -2549,7 +2549,7 @@ TEST_P(EndToEndTest, TriggerMidCallProbing) {
             break;
           case 1:
             if (stats.send_bandwidth_bps < 110000) {
-              Call::Config::BitrateConfig bitrate_config;
+              CallConfig::BitrateConfig bitrate_config;
               bitrate_config.max_bitrate_bps = 2500000;
               task_queue_->SendTask([this, &bitrate_config]() {
                 sender_call_->SetBitrateConfig(bitrate_config);
@@ -2986,8 +2986,8 @@ TEST_P(EndToEndTest, MAYBE_ContentTypeSwitches) {
 
   metrics::Reset();
 
-  Call::Config send_config(test.GetSenderCallConfig());
-  Call::Config recv_config(test.GetReceiverCallConfig());
+  CallConfig send_config(test.GetSenderCallConfig());
+  CallConfig recv_config(test.GetReceiverCallConfig());
   VideoEncoderConfig encoder_config_with_screenshare;
 
   task_queue_.SendTask([this, &test, &send_config,
@@ -3504,8 +3504,8 @@ TEST_P(EndToEndTest, GetStats) {
                                        payload_type_map_, network_config);
     }
 
-    Call::Config GetSenderCallConfig() override {
-      Call::Config config = EndToEndTest::GetSenderCallConfig();
+    CallConfig GetSenderCallConfig() override {
+      CallConfig config = EndToEndTest::GetSenderCallConfig();
       config.bitrate_config.start_bitrate_bps = kStartBitrateBps;
       return config;
     }
@@ -4168,7 +4168,7 @@ void EndToEndTest::TestRtpStatePreservation(bool use_rtx,
   std::unique_ptr<test::PacketTransport> send_transport;
   std::unique_ptr<test::PacketTransport> receive_transport;
 
-  Call::Config config(event_log_.get());
+  CallConfig config(event_log_.get());
   VideoEncoderConfig one_stream;
 
   task_queue_.SendTask([this, &observer, &send_transport, &receive_transport,
@@ -4363,7 +4363,7 @@ TEST_P(EndToEndTest, TestFlexfecRtpStatePreservation) {
   static constexpr int kFrameMaxHeight = 180;
   static constexpr int kFrameRate = 15;
 
-  Call::Config config(event_log_.get());
+  CallConfig config(event_log_.get());
 
   std::unique_ptr<test::PacketTransport> send_transport;
   std::unique_ptr<test::PacketTransport> receive_transport;
@@ -4693,7 +4693,7 @@ TEST_P(EndToEndTest, CallReportsRttForSender) {
   task_queue_.SendTask([this, &sender_transport, &receiver_transport]() {
     FakeNetworkPipe::Config config;
     config.queue_delay_ms = kSendDelayMs;
-    CreateCalls(Call::Config(event_log_.get()), Call::Config(event_log_.get()));
+    CreateCalls(CallConfig(event_log_.get()), CallConfig(event_log_.get()));
     sender_transport = rtc::MakeUnique<test::DirectTransport>(
         &task_queue_, config, sender_call_.get(), payload_type_map_);
     config.queue_delay_ms = kReceiveDelayMs;
@@ -4741,7 +4741,7 @@ void EndToEndTest::VerifyNewVideoSendStreamsRespectNetworkState(
     VideoEncoder* encoder,
     Transport* transport) {
   task_queue_.SendTask([this, network_to_bring_up, encoder, transport]() {
-    CreateSenderCall(Call::Config(event_log_.get()));
+    CreateSenderCall(CallConfig(event_log_.get()));
     sender_call_->SignalChannelNetworkState(network_to_bring_up, kNetworkUp);
 
     CreateSendConfig(1, 0, 0, transport);
@@ -4769,7 +4769,7 @@ void EndToEndTest::VerifyNewVideoReceiveStreamsRespectNetworkState(
 
   task_queue_.SendTask([this, &sender_transport, network_to_bring_up,
                         transport]() {
-    Call::Config config(event_log_.get());
+    CallConfig config(event_log_.get());
     CreateCalls(config, config);
     receiver_call_->SignalChannelNetworkState(network_to_bring_up, kNetworkUp);
     sender_transport = rtc::MakeUnique<test::DirectTransport>(

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0019ba81_5495a638",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-23T14:29:05Z",
+      "side": 1,
+      "message": "Tempted to do CHECK(connected()), but that would break more code than I want to fix today.",
+      "parentUuid": "f784f8b1_4ff84fd5",
+      "revId": "f728126f176a6824b6349164976e0d9880d09587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9828f4c5_1bf37e38",
         "filename": "media/base/mediachannel.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "f728126f176a6824b6349164976e0d9880d09587",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a6cca66_711d221b",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-23T14:29:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9828f4c5_1bf37e38",
+      "revId": "f728126f176a6824b6349164976e0d9880d09587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "8921e3ef_58b02c89",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-23T14:29:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e5601d_028866e6",
+      "range": {
+        "startLine": 520,
+        "startChar": 43,
+        "endLine": 520,
+        "endChar": 44
+      },
+      "revId": "f728126f176a6824b6349164976e0d9880d09587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45901124_2106aa9c",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2018-01-23T13:16:01Z",
       "side": 1,
       "message": "(RTCMediaStreamTrackStats does not contain any \"id\" members now, but we\u0027ll have to be careful in the future if we add any references to other stats dictionaries so that we don\u0027t get invalid \"default\" references or multiple tracks referencing the same streams or something.)",
+      "revId": "f728126f176a6824b6349164976e0d9880d09587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff63c78e_2174e47b",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-23T14:29:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "45901124_2106aa9c",
       "revId": "f728126f176a6824b6349164976e0d9880d09587",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -90,6 +168,24 @@
       "revId": "f728126f176a6824b6349164976e0d9880d09587",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55cfabd2_f5bca97c",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-23T14:29:05Z",
+      "side": 1,
+      "message": "Done. It wasn\u0027t multiple lines before git cl format :-)",
+      "parentUuid": "23d121e7_e7040515",
+      "revId": "f728126f176a6824b6349164976e0d9880d09587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

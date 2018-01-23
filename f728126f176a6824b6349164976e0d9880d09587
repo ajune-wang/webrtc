@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86e5601d_028866e6",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-01-23T11:43:21Z",
+      "side": 1,
+      "message": "Please clarify - this is hard to parse.",
+      "range": {
+        "startLine": 520,
+        "startChar": 43,
+        "endLine": 520,
+        "endChar": 44
+      },
+      "revId": "f728126f176a6824b6349164976e0d9880d09587",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

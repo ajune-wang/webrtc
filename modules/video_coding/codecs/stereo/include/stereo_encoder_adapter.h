@@ -28,12 +28,12 @@ enum AlphaCodecStream {
   kAlphaCodecStreams = 2,
 };
 
-class StereoEncoderAdapter : public VideoEncoder {
+class MultiplexEncoderAdapter : public VideoEncoder {
  public:
   // |factory| is not owned and expected to outlive this class' lifetime.
-  explicit StereoEncoderAdapter(VideoEncoderFactory* factory,
+  explicit MultiplexEncoderAdapter(VideoEncoderFactory* factory,
                                 const SdpVideoFormat& associated_format);
-  virtual ~StereoEncoderAdapter();
+  virtual ~MultiplexEncoderAdapter();
 
   // Implements VideoEncoder
   int InitEncode(const VideoCodec* inst,

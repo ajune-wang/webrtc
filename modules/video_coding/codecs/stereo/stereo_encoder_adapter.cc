@@ -21,10 +21,10 @@ namespace webrtc {
 
 // Callback wrapper that helps distinguish returned results from |encoders_|
 // instances.
-class StereoEncoderAdapter::AdapterEncodedImageCallback
+class MultiplexEncoderAdapter::AdapterEncodedImageCallback
     : public webrtc::EncodedImageCallback {
  public:
-  AdapterEncodedImageCallback(webrtc::StereoEncoderAdapter* adapter,
+  AdapterEncodedImageCallback(webrtc::MultiplexEncoderAdapter* adapter,
                               AlphaCodecStream stream_idx)
       : adapter_(adapter), stream_idx_(stream_idx) {}
 
@@ -39,12 +39,12 @@ class StereoEncoderAdapter::AdapterEncodedImageCallback
   }
 
  private:
-  StereoEncoderAdapter* adapter_;
+  MultiplexEncoderAdapter* adapter_;
   const AlphaCodecStream stream_idx_;
 };
 
 // Holds the encoded image info.
-struct StereoEncoderAdapter::ImageStereoInfo {
+struct MultiplexEncoderAdapter::ImageStereoInfo {
   ImageStereoInfo(uint16_t picture_index, uint8_t frame_count)
       : picture_index(picture_index),
         frame_count(frame_count),
@@ -57,18 +57,18 @@ struct StereoEncoderAdapter::ImageStereoInfo {
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(ImageStereoInfo);
 };
 
-StereoEncoderAdapter::StereoEncoderAdapter(
+MultiplexEncoderAdapter::MultiplexEncoderAdapter(
     VideoEncoderFactory* factory,
     const SdpVideoFormat& associated_format)
     : factory_(factory),
       associated_format_(associated_format),
       encoded_complete_callback_(nullptr) {}
 
-StereoEncoderAdapter::~StereoEncoderAdapter() {
+MultiplexEncoderAdapter::~MultiplexEncoderAdapter() {
   Release();
 }
 
-int StereoEncoderAdapter::InitEncode(const VideoCodec* inst,
+int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
                                      int number_of_cores,
                                      size_t max_payload_size) {
   const size_t buffer_size =
@@ -97,7 +97,7 @@ int StereoEncoderAdapter::InitEncode(const VideoCodec* inst,
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-int StereoEncoderAdapter::Encode(const VideoFrame& input_image,
+int MultiplexEncoderAdapter::Encode(const VideoFrame& input_image,
                                  const CodecSpecificInfo* codec_specific_info,
                                  const std::vector<FrameType>* frame_types) {
   if (!encoded_complete_callback_) {
@@ -136,13 +136,13 @@ int StereoEncoderAdapter::Encode(const VideoFrame& input_image,
   return rv;
 }
 
-int StereoEncoderAdapter::RegisterEncodeCompleteCallback(
+int MultiplexEncoderAdapter::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   encoded_complete_callback_ = callback;
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-int StereoEncoderAdapter::SetChannelParameters(uint32_t packet_loss,
+int MultiplexEncoderAdapter::SetChannelParameters(uint32_t packet_loss,
                                                int64_t rtt) {
   for (auto& encoder : encoders_) {
     const int rv = encoder->SetChannelParameters(packet_loss, rtt);
@@ -152,7 +152,7 @@ int StereoEncoderAdapter::SetChannelParameters(uint32_t packet_loss,
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-int StereoEncoderAdapter::SetRateAllocation(const BitrateAllocation& bitrate,
+int MultiplexEncoderAdapter::SetRateAllocation(const BitrateAllocation& bitrate,
                                             uint32_t framerate) {
   for (auto& encoder : encoders_) {
     // TODO(emircan): |framerate| is used to calculate duration in encoder
@@ -166,7 +166,7 @@ int StereoEncoderAdapter::SetRateAllocation(const BitrateAllocation& bitrate,
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-int StereoEncoderAdapter::Release() {
+int MultiplexEncoderAdapter::Release() {
   for (auto& encoder : encoders_) {
     const int rv = encoder->Release();
     if (rv)
@@ -177,11 +177,11 @@ int StereoEncoderAdapter::Release() {
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-const char* StereoEncoderAdapter::ImplementationName() const {
-  return "StereoEncoderAdapter";
+const char* MultiplexEncoderAdapter::ImplementationName() const {
+  return "MultiplexEncoderAdapter";
 }
 
-EncodedImageCallback::Result StereoEncoderAdapter::OnEncodedImage(
+EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(
     AlphaCodecStream stream_idx,
     const EncodedImage& encodedImage,
     const CodecSpecificInfo* codecSpecificInfo,

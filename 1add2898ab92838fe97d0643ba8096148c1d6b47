@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97dadba4_75dec4cf",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-23T00:58:48Z",
+      "side": 1,
+      "message": "UnpackHeader",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 33
+      },
+      "revId": "1add2898ab92838fe97d0643ba8096148c1d6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2616f56_7a021609",
+        "filename": "modules/video_coding/codecs/stereo/multiplex_encoded_image_packer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-23T00:58:48Z",
+      "side": 1,
+      "message": "UnpackFrameHeader",
+      "range": {
+        "startLine": 78,
+        "startChar": 30,
+        "endLine": 78,
+        "endChar": 47
+      },
+      "revId": "1add2898ab92838fe97d0643ba8096148c1d6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "959835d7_d218fdf2",
+        "filename": "modules/video_coding/codecs/stereo/stereo_encoder_adapter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-23T00:58:48Z",
+      "side": 1,
+      "message": "AFAICT key_frame_interval is in terms of number of frames, see below. \n- It says \"A value of 0 implies all frames will be keyframes.\" We definitely dont want that. We should leave the default value as it is. \n- Then we should change the logic so that we count the number of frames instead of timer. We can use the existing |picture_index_| for that.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp8/vp8_impl.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026l\u003d476\nhttps://www.webmproject.org/docs/webm-sdk/structvpx__codec__enc__cfg.html#ae018440136e271743376730413d25a9b",
+      "range": {
+        "startLine": 118,
+        "startChar": 33,
+        "endLine": 118,
+        "endChar": 52
+      },
+      "revId": "1add2898ab92838fe97d0643ba8096148c1d6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e897318b_ad255ea6",
+        "filename": "modules/video_coding/codecs/stereo/stereo_encoder_adapter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-23T00:58:48Z",
+      "side": 1,
+      "message": "l.237 while (iter !\u003d stashed_images_.end() \u0026\u0026 iter !\u003d image_stereo_info_itr)",
+      "range": {
+        "startLine": 251,
+        "startChar": 10,
+        "endLine": 251,
+        "endChar": 39
+      },
+      "revId": "1add2898ab92838fe97d0643ba8096148c1d6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cce33f05_7e2404a8",
+        "filename": "modules/video_coding/codecs/stereo/test/stereo_adapter_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-01-23T00:58:48Z",
+      "side": 1,
+      "message": "You can remove this and call WaitForEncodedFrame() like in l.112. Then, you can get rid of unnecessary vectors too.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 47
+      },
+      "revId": "1add2898ab92838fe97d0643ba8096148c1d6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

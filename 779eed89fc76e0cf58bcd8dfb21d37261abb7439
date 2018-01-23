@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5dbcd794_845298cc",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-23T22:42:52Z",
+      "side": 1,
+      "message": "I agree that making ReconfigureEncoder smarter would be a cleaner way to do this.",
+      "parentUuid": "36578c00_95bf1b73",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63113093_ee382f78",
         "filename": "call/video_send_stream.h",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-01-23T02:13:04Z",
       "side": 1,
       "message": "We now have two APIs that try to affect the sending state (SetActiveStreams and Start/Stop). Would be nice to document how they\u0027re expected to interact. If I call Stop then SetActiveStreams(low_only), does that mean I\u0027m currently stopped, and will resume sending a low quality stream once Start is called? One might expect that, but it\u0027s not how it currently works.\n\nOr, would the plan be to deprecate Start/Stop in favor of UpdateActiveStreams?",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb0428a_3dbbf4e1",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-01-23T22:42:52Z",
+      "side": 1,
+      "message": "Historically I think Start()/Stop() was only called just after construction and before destruction, respectively. That changed recently though. I\u0027m not sure that would even be necessary if we can do this in reconfigureEncoder",
+      "parentUuid": "63113093_ee382f78",
       "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

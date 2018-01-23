@@ -982,6 +982,30 @@
     },
     {
       "key": {
+        "uuid": "131ae384_ebe1c083",
+        "filename": "pc/jseptransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T00:38:33Z",
+      "side": 1,
+      "message": "That was just intended for pure interfaces; in this case, it\u0027s a helper class that\u0027s not expected to have subclasses, so just having a public member is fine.",
+      "parentUuid": "e9196974_f6a82aee",
+      "range": {
+        "startLine": 195,
+        "startChar": 68,
+        "endLine": 195,
+        "endChar": 0
+      },
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c5e34b8_5cb0d77f",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 4
@@ -1569,6 +1593,24 @@
       "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a070fd1_6b54e8b3",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-23T00:38:33Z",
+      "side": 1,
+      "message": "In my CL, you pointed out that we could have a signal like this:\n\n// MID, RtpTransport, DtlsTransport\nsigslot::signal2\u003cconst std::string\u0026, RtpTransport*, DtlsTransport*\u003e SignalTransportChanged;\n\n... Then let PeerConnection handle calling SetTransport. I actually like that a lot more; I\u0027m not sure why I didn\u0027t think of it initially.",
+      "parentUuid": "409e9277_542df2a3",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

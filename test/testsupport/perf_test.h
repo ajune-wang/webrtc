@@ -61,11 +61,18 @@ void PrintResultList(const std::string& measurement,
                      const std::string& units,
                      bool important);
 
-// Write  all perf results to date to a JSON file formatted as described in
-// https://github.com/catapult-project/catapult/blob/master/dashboard/docs/data-format.md
-void WritePerfResults(const std::string& output_path);
-
+// Returns all perf results to date in a JSON string formatted as described in
+// https://github.com/catapult-project/catapult/blob/master/
+//   dashboard/docs/data-format.md
 std::string GetPerfResultsJSON();
+
+// Writes the JSON representation of the perf results returned by
+// GetPerfResultsJSON() to the file in output_path.
+void WritePerfResultsToFile(const std::string& output_path);
+
+// By default, perf results are printed to stdout. Set the FILE* to where they
+// should be printing instead.
+void SetPerfResultsOutput(const FILE* output);
 
 // You shouldn't use this function. It's only used to test the functions above.
 void ClearPerfResults();

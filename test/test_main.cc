@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 
   std::string chartjson_result_file = FLAG_chartjson_result_file;
   if (!chartjson_result_file.empty()) {
-    webrtc::test::WritePerfResults(chartjson_result_file);
+    webrtc::test::WritePerfResultsToFile(chartjson_result_file);
   }
 
   return exit_code;

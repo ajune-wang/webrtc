@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class RTCMediaConstraints;
 @class RTCMediaStream;
 @class RTCPeerConnection;
+@class RTCPeerConnectionFactoryOptions;
 @class RTCVideoSource;
 @class RTCVideoTrack;
 @class RTCPeerConnectionFactoryOptions;
@@ -37,6 +38,9 @@ RTC_EXPORT
 /* Initialize object with injectable video encoder/decoder factories */
 - (instancetype)initWithEncoderFactory:(nullable id<RTCVideoEncoderFactory>)encoderFactory
                         decoderFactory:(nullable id<RTCVideoDecoderFactory>)decoderFactory;
+
+/** Initialize factory with options. */
+- (instancetype)initWithOptions:(RTCPeerConnectionFactoryOptions *)options;
 
 /** Initialize an RTCAudioSource with constraints. */
 - (RTCAudioSource *)audioSourceWithConstraints:(nullable RTCMediaConstraints *)constraints;
@@ -87,5 +91,23 @@ RTC_EXPORT
 - (void)stopAecDump;
 
 @end
+
+
+RTC_EXPORT
+@interface RTCPeerConnectionFactoryOptions : NSObject
+
+/** Injectable video encoder factory. */
+@property (nonatomic, strong, nullable) id<RTCVideoEncoderFactory> videoEncoderFactory;
+
+/** Injectable video decoder factory. */
+@property (nonatomic, strong, nullable) id<RTCVideoDecoderFactory> videoDecoderFactory;
+
+/** Exclude link-local network interfaces
+ *  from considertaion for gathering ICE candidates.
+ */
+@property (nonatomic, assign) BOOL disableLinkLocalNetworks;
+
+@end
+
 
 NS_ASSUME_NONNULL_END

@@ -4106,6 +4106,11 @@ bool PeerConnection::InitializePortAllocator_n(
     RTC_LOG(LS_INFO) << "Do not gather candidates on high-cost networks";
   }
 
+  if (factory_->options().disable_link_local_networks) {
+    portallocator_flags |= cricket::PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS;
+    RTC_LOG(LS_INFO) << "Disable candidates on link-local network interfaces.";
+  }
+
   port_allocator_->set_flags(portallocator_flags);
   // No step delay is used while allocating ports.
   port_allocator_->set_step_delay(cricket::kMinimumStepDelay);

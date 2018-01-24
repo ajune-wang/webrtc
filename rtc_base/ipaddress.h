@@ -155,6 +155,7 @@ bool IPFromString(const std::string& str, int flags,
 bool IPIsAny(const IPAddress& ip);
 bool IPIsLoopback(const IPAddress& ip);
 bool IPIsLinkLocal(const IPAddress& ip);
+bool IPIsPrivateNetwork(const IPAddress& ip);
 bool IPIsPrivate(const IPAddress& ip);
 bool IPIsUnspec(const IPAddress& ip);
 size_t HashIP(const IPAddress& ip);

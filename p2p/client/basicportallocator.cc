@@ -635,6 +635,13 @@ std::vector<rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
   }
   // Do some more filtering, depending on the network ignore mask and "disable
   // costly networks" flag.
+  if (flags() & PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS) {
+    networks.erase(std::remove_if(networks.begin(), networks.end(),
+                                  [](rtc::Network* network) {
+                                    return IPIsLinkLocal(network->prefix());
+                                  }),
+                   networks.end());
+  }
   networks.erase(std::remove_if(networks.begin(), networks.end(),
                                 [this](rtc::Network* network) {
                                   return allocator_->network_ignore_mask() &

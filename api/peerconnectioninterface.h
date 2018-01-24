@@ -1097,6 +1097,10 @@ class PeerConnectionFactoryInterface : public rtc::RefCountInterface {
     // loopback interfaces.
     int network_ignore_mask = rtc::kDefaultNetworkIgnoreMask;
 
+    // Exclude link-local network interfaces
+    // from considertaion for gathering ICE candidates.
+    bool disable_link_local_networks = false;
+
     // Sets the maximum supported protocol version. The highest version
     // supported by both ends will be used for the connection, i.e. if one
     // party supports DTLS 1.0 and the other DTLS 1.2, DTLS 1.0 will be used.

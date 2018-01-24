@@ -92,6 +92,16 @@
 #endif
 }
 
+- (instancetype)initWithOptions:(RTCPeerConnectionFactoryOptions *)options {
+  if (self = [self initWithEncoderFactory:options.videoEncoderFactory
+                           decoderFactory:options.videoDecoderFactory]) {
+    webrtc::PeerConnectionFactoryInterface::Options native_options;
+    native_options.disable_link_local_networks = options.disableLinkLocalNetworks;
+    _nativeFactory->SetOptions(native_options);
+  }
+  return self;
+}
+
 - (instancetype)initNative {
   if (self = [super init]) {
     _networkThread = rtc::Thread::CreateWithSocketServer();
@@ -282,5 +292,14 @@
   _nativeFactory->StopAecDump();
   _hasStartedAecDump = NO;
 }
+
+@end
+
+
+@implementation RTCPeerConnectionFactoryOptions
+
+@synthesize videoEncoderFactory = _videoEncoderFactory;
+@synthesize videoDecoderFactory = _videoDecoderFactory;
+@synthesize disableLinkLocalNetworks = _disableLinkLocalNetworks;
 
 @end

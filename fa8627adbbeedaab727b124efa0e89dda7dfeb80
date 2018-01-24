@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "923a2137_3a62f23e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1771,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-24T13:42:31Z",
+      "side": 1,
+      "message": "not in this CL, I know, but ... the name \"content\" is highly ambiguous. I\u0027d suggest calling this variable \"media_section\", since that\u0027s what we\u0027re dealing with.",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8aec7bf8_73f1821b",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-24T13:42:31Z",
+      "side": 1,
+      "message": "The English here isn\u0027t quite parseable.\n\nSuggest:\n\nThis file contains tests that verify the behavior of connections between PeerConnections\nwith different sdpSemantics settings.\n\nNote:\nThe first thing I thought when seeing this was \"why don\u0027t you parametrize peerconnection_integrationtest\", but these tests are shorter and easier to read, which is good.\n\nYou should add a test to peeerconnection_integrationtest too - that test framework has tooling to measure that media is in fact flowing.",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33708b42_d1abdf48",
         "filename": "pc/peerconnection_interop_unittest.cc",
         "patchSetId": 2
@@ -53,6 +87,23 @@
     },
     {
       "key": {
+        "uuid": "39c7b1d0_4b5e24e5",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-24T13:42:31Z",
+      "side": 1,
+      "message": "Would be nice to check a few properties after the exchange:\n- That callee.audioTracks() returns 1 track\n- that callee.videoTracks() returns 0 tracks\n- that caller.audioTracks()[0].id \u003d\u003d callee.audioTracks()[0].id\n\nSimilar checks for the other cases.",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06c7e4cb_fb1131ca",
         "filename": "pc/peerconnection_interop_unittest.cc",
         "patchSetId": 2
@@ -70,6 +121,24 @@
     },
     {
       "key": {
+        "uuid": "6e66c530_7f3a7a30",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-24T13:42:31Z",
+      "side": 1,
+      "message": "in that case, we should check that callee.negotiationRequired is set.",
+      "parentUuid": "06c7e4cb_fb1131ca",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83fa5afb_a6457d4c",
         "filename": "pc/peerconnection_interop_unittest.cc",
         "patchSetId": 2
@@ -81,6 +150,24 @@
       "writtenOn": "2018-01-24T01:33:58Z",
       "side": 1,
       "message": "It would also be beneficial to have a couple tests for more than one track of a given media type, to at least ensures it fails gracefully. It looks like the SDP will be accepted, but only the first track will work?",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f28b9269_43d82459",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-24T13:42:31Z",
+      "side": 1,
+      "message": "For those cases, we expect things to be different based on the semantics selected (B-\u003eB gives multiple tracks, U-\u003eB gives one track), so the testing becomes more complex.\nBut yes, we need to know how that is supposed to behave, and tests is a good way to do so.",
+      "parentUuid": "83fa5afb_a6457d4c",
       "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

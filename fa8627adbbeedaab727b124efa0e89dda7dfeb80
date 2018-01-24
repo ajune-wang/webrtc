@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33708b42_d1abdf48",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T01:33:58Z",
+      "side": 1,
+      "message": "What does \"Bi\" mean here?",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8babb201_45cc9bbf",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T01:33:58Z",
+      "side": 1,
+      "message": "nit: EXPECT_TRUE?",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1e2cee2_5e619d89",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T01:33:58Z",
+      "side": 1,
+      "message": "Do you think it would be worthwhile to also verify that media is received end-to-end? SDP being exchanged successfully doesn\u0027t fully guarantee things will work.",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06c7e4cb_fb1131ca",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T01:33:58Z",
+      "side": 1,
+      "message": "Since the offer will be audio-only, there won\u0027t be any m\u003d section to put the video track in and this will essentially be the same as OneAudioLocalToNoMediaRemote. Is that intentional?",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83fa5afb_a6457d4c",
+        "filename": "pc/peerconnection_interop_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T01:33:58Z",
+      "side": 1,
+      "message": "It would also be beneficial to have a couple tests for more than one track of a given media type, to at least ensures it fails gracefully. It looks like the SDP will be accepted, but only the first track will work?",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

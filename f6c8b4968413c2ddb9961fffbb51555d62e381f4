@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87503098_51a52f9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T21:59:36Z",
+      "side": 1,
+      "message": "Can you try to fit the summary on one line? Maybe something like:\n\n\"Break up rtc_event_log_api to solve circular dependencies.\"",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd1fb880_03aadda4",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T21:59:36Z",
+      "side": 1,
+      "message": "nit: This naming could possibly be misleading; previously \"rtc_event_log_impl\" only referred to the implementation of the logger, not the event subclasses.\n\nCould say \"rtc_event_log_events_audio\" or just \"rtc_events_audio\" instead? I dunno, it\u0027s probably not worth fretting over.",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b10d56_dfd7bdc0",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T21:59:36Z",
+      "side": 1,
+      "message": "nit: \"alr\" seems a bit specific; since this is used in the \"pacing\" module, maybe use \"_pacing\" instead.",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24c640ab_08b35222",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T21:59:36Z",
+      "side": 1,
+      "message": "nit: Could just be \"rtc_event_log_encoder\"?",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4467251e_f544e8cc",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T21:59:36Z",
+      "side": 1,
+      "message": "nit: Could just be rtc_event_log_output?",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

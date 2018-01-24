@@ -45,7 +45,6 @@ using testing::_;
 using testing::Invoke;
 using testing::Return;
 using testing::ReturnNull;
-using testing::ReturnRef;
 using testing::SetArgPointee;
 
 namespace webrtc {
@@ -319,8 +318,8 @@ class RTCStatsCollectorTestHelper : public SetSessionDescriptionObserver {
         std::vector<rtc::scoped_refptr<RtpSenderInterface>>()));
     EXPECT_CALL(pc_, GetReceivers()).WillRepeatedly(Return(
         std::vector<rtc::scoped_refptr<RtpReceiverInterface>>()));
-    EXPECT_CALL(pc_, sctp_data_channels()).WillRepeatedly(
-        ReturnRef(data_channels_));
+    EXPECT_CALL(pc_, sctp_data_channels())
+        .WillRepeatedly(Return(data_channels_));
     EXPECT_CALL(pc_, video_channel()).WillRepeatedly(ReturnNull());
     EXPECT_CALL(pc_, voice_channel()).WillRepeatedly(ReturnNull());
     EXPECT_CALL(pc_, GetSessionStats(_)).WillRepeatedly(ReturnNull());

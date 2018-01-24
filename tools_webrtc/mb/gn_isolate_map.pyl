@@ -126,7 +126,6 @@
     "label": "//examples:AppRTCMobileTestStubbedVideoIO",
     "type": "script",
     "script": "//examples/androidtests/video_quality_loopback_test.py",
-    "args": ["."],
   },
   "webrtc_nonparallel_tests": {
     "label": "//:webrtc_nonparallel_tests",

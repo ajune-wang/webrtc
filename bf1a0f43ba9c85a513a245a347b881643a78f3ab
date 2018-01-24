@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb95a6b9_32bbe67d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T00:06:49Z",
+      "side": 1,
+      "message": "Is this only being done so that CallConfig can be forward declared? If so, can you explain that, and give some explanation for why? I assume it\u0027s to remove the implicit dependency and enable check_includes.",
+      "revId": "bf1a0f43ba9c85a513a245a347b881643a78f3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13818ae3_a645b44b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T00:06:49Z",
+      "side": 1,
+      "message": "Is there a master bug this could be linked to?",
+      "revId": "bf1a0f43ba9c85a513a245a347b881643a78f3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95c2bd1_724ab9a2",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T00:06:49Z",
+      "side": 1,
+      "message": "FYI, qingsi@ is working on restructuring the rtc_event_log_api target which may make this possible.",
+      "revId": "bf1a0f43ba9c85a513a245a347b881643a78f3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

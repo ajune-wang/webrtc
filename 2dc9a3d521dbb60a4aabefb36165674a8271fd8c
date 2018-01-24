@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a63016c_99f01d0b",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-24T15:57:51Z",
+      "side": 1,
+      "message": "For me, it would be more natural to reverse the order of the assignments here:\n\nsize_t rtp_timestamp \u003d (frame_number \u003e 0) ? input_frames_[frame_number - 1]-\u003etimestamp() : 0;\nrtp_timestamp +\u003d kVideoPayloadTypeFrequency / config_.codec_settings.maxFramerate;\n\nNot sure if this way is any cleaner though, so feel free to keep the existing order if you prefer that.",
+      "range": {
+        "startLine": 161,
+        "startChar": 2,
+        "endLine": 164,
+        "endChar": 66
+      },
+      "revId": "2dc9a3d521dbb60a4aabefb36165674a8271fd8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c46c82f_3d9fc3a4",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-24T15:57:51Z",
+      "side": 1,
+      "message": "Maybe reuse |kVideoPayloadTypeFrequency|? Or define |kMsToRtpTimestamp| in terms of |kVideoPayloadTypeFrequency|?",
+      "range": {
+        "startLine": 168,
+        "startChar": 43,
+        "endLine": 168,
+        "endChar": 60
+      },
+      "revId": "2dc9a3d521dbb60a4aabefb36165674a8271fd8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5832ee27_6f4601db",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-24T15:57:51Z",
+      "side": 1,
+      "message": "Here I would also change the order of the terms.",
+      "range": {
+        "startLine": 132,
+        "startChar": 30,
+        "endLine": 132,
+        "endChar": 72
+      },
+      "revId": "2dc9a3d521dbb60a4aabefb36165674a8271fd8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

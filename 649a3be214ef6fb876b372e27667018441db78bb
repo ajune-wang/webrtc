@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "485987c1_04a57836",
+        "filename": "pc/test/fakepeerconnectionbase.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T21:38:24Z",
+      "side": 1,
+      "message": "nit: might as well use UNSUPPORTED_OPERATION for consistency, like AddTrack does",
+      "revId": "649a3be214ef6fb876b372e27667018441db78bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "649a3be214ef6fb876b372e27667018441db78bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3d01b3_a47fc558",
+        "filename": "pc/test/fakepeerconnectionbase.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-24T23:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "485987c1_04a57836",
+      "revId": "649a3be214ef6fb876b372e27667018441db78bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

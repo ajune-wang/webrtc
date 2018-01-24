@@ -16,6 +16,24 @@
       "revId": "d7cfdaad59522d6365bf3c93e7d0dbfa8ce0edd8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "480d91f7_b8ca1ada",
+        "filename": "modules/video_coding/codecs/stereo/stereo_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-01-24T21:38:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41a6624a_9d3853f5",
+      "revId": "d7cfdaad59522d6365bf3c93e7d0dbfa8ce0edd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

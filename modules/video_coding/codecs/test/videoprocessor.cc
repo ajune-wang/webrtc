@@ -95,57 +95,70 @@ void ExtractBufferWithSize(const VideoFrame& image,
 }  // namespace
 
 VideoProcessor::VideoProcessor(webrtc::VideoEncoder* encoder,
-                               webrtc::VideoDecoder* decoder,
-                               FrameReader* analysis_frame_reader,
+                               VideoDecoderList* decoders,
+                               FrameReader* input_frame_reader,
                                const TestConfig& config,
-                               Stats* stats,
-                               IvfFileWriter* encoded_frame_writer,
-                               FrameWriter* decoded_frame_writer)
+                               std::vector<Stats>* stats,
+                               IvfFileWriterList* encoded_frame_writers,
+                               FrameWriterList* decoded_frame_writers)
     : config_(config),
+      num_simulcast_or_spatial_layers(
+          std::max(config_.NumberOfSimulcastStreams(),
+                   config_.NumberOfSpatialLayers())),
       encoder_(encoder),
-      decoder_(decoder),
+      decoders_(decoders),
       bitrate_allocator_(CreateBitrateAllocator(&config_)),
       encode_callback_(this),
       decode_callback_(this),
-      analysis_frame_reader_(analysis_frame_reader),
-      encoded_frame_writer_(encoded_frame_writer),
-      decoded_frame_writer_(decoded_frame_writer),
+      input_frame_reader_(input_frame_reader),
+      encoded_frame_writers_(encoded_frame_writers),
+      decoded_frame_writers_(decoded_frame_writers),
       last_inputed_frame_num_(0),
       last_encoded_frame_num_(0),
+      last_encoded_simulcast_svc_idx_(0),
       last_decoded_frame_num_(0),
       num_encoded_frames_(0),
       num_decoded_frames_(0),
-      last_decoded_frame_buffer_(analysis_frame_reader->FrameLength()),
       stats_(stats) {
   RTC_DCHECK(encoder);
-  RTC_DCHECK(decoder);
-  RTC_DCHECK(analysis_frame_reader);
+  RTC_DCHECK(decoders && decoders->size() == num_simulcast_or_spatial_layers);
+  RTC_DCHECK(input_frame_reader);
   RTC_DCHECK(stats);
+  RTC_DCHECK(!encoded_frame_writers ||
+             encoded_frame_writers->size() == num_simulcast_or_spatial_layers);
+  RTC_DCHECK(!decoded_frame_writers ||
+             decoded_frame_writers->size() == num_simulcast_or_spatial_layers);
 
-  // Setup required callbacks for the encoder and decoder.
+  // Setup required callbacks for the encoder and decoder and initialize them.
   RTC_CHECK_EQ(encoder_->RegisterEncodeCompleteCallback(&encode_callback_),
                WEBRTC_VIDEO_CODEC_OK);
-  RTC_CHECK_EQ(decoder_->RegisterDecodeCompleteCallback(&decode_callback_),
-               WEBRTC_VIDEO_CODEC_OK);
 
-  // Initialize the encoder and decoder.
   RTC_CHECK_EQ(encoder_->InitEncode(&config_.codec_settings,
                                     static_cast<int>(config_.NumberOfCores()),
                                     config_.max_payload_size_bytes),
                WEBRTC_VIDEO_CODEC_OK);
-  RTC_CHECK_EQ(decoder_->InitDecode(&config_.codec_settings,
-                                    static_cast<int>(config_.NumberOfCores())),
-               WEBRTC_VIDEO_CODEC_OK);
+
+  for (auto& decoder : *decoders_) {
+    RTC_CHECK_EQ(decoder->InitDecode(&config_.codec_settings,
+                                     static_cast<int>(config_.NumberOfCores())),
+                 WEBRTC_VIDEO_CODEC_OK);
+    RTC_CHECK_EQ(decoder->RegisterDecodeCompleteCallback(&decode_callback_),
+                 WEBRTC_VIDEO_CODEC_OK);
+  }
 }
 
 VideoProcessor::~VideoProcessor() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
 
   RTC_CHECK_EQ(encoder_->Release(), WEBRTC_VIDEO_CODEC_OK);
-  RTC_CHECK_EQ(decoder_->Release(), WEBRTC_VIDEO_CODEC_OK);
-
   encoder_->RegisterEncodeCompleteCallback(nullptr);
-  decoder_->RegisterDecodeCompleteCallback(nullptr);
+
+  for (auto& decoder : *decoders_) {
+    RTC_CHECK_EQ(decoder->Release(), WEBRTC_VIDEO_CODEC_OK);
+    decoder->RegisterDecodeCompleteCallback(nullptr);
+  }
+
+  RTC_CHECK(last_encoded_frames_.empty());
 }
 
 void VideoProcessor::ProcessFrame() {
@@ -154,7 +167,7 @@ void VideoProcessor::ProcessFrame() {
 
   // Get frame from file.
   rtc::scoped_refptr<I420BufferInterface> buffer(
-      analysis_frame_reader_->ReadFrame());
+      input_frame_reader_->ReadFrame());
   RTC_CHECK(buffer) << "Tried to read too many frames from the file.";
   // Use the frame number as the basis for timestamp to identify frames. Let the
   // first timestamp be non-zero, to not make the IvfFileWriter believe that we
@@ -170,14 +183,66 @@ void VideoProcessor::ProcessFrame() {
 
   std::vector<FrameType> frame_types = config_.FrameTypeForFrame(frame_number);
 
-  // Create frame statistics object used for aggregation at end of test run.
-  FrameStatistic* frame_stat = stats_->AddFrame(rtp_timestamp);
+  // Create frame statistics object for all simulcast /spatial layers.
+  for (size_t simulcast_svc_idx = 0;
+       simulcast_svc_idx < num_simulcast_or_spatial_layers;
+       ++simulcast_svc_idx) {
+    stats_->at(simulcast_svc_idx).AddFrame(rtp_timestamp);
+  }
 
   // For the highest measurement accuracy of the encode time, the start/stop
   // time recordings should wrap the Encode call as tightly as possible.
-  frame_stat->encode_start_ns = rtc::TimeNanos();
-  frame_stat->encode_return_code =
+  const int64_t encode_start_ns = rtc::TimeNanos();
+  for (size_t simulcast_svc_idx = 0;
+       simulcast_svc_idx < num_simulcast_or_spatial_layers;
+       ++simulcast_svc_idx) {
+    FrameStatistic* frame_stat =
+        stats_->at(simulcast_svc_idx).GetFrame(frame_number);
+    frame_stat->encode_start_ns = encode_start_ns;
+  }
+
+  const int encode_return_code =
       encoder_->Encode(*input_frames_[frame_number], nullptr, &frame_types);
+
+  for (size_t simulcast_svc_idx = 0;
+       simulcast_svc_idx < num_simulcast_or_spatial_layers;
+       ++simulcast_svc_idx) {
+    FrameStatistic* frame_stat =
+        stats_->at(simulcast_svc_idx).GetFrame(frame_number);
+    frame_stat->encode_return_code = encode_return_code;
+  }
+
+  // Decode frames.
+  for (size_t simulcast_svc_idx = 0;
+       simulcast_svc_idx < num_simulcast_or_spatial_layers;
+       ++simulcast_svc_idx) {
+    if (last_encoded_frames_.find(simulcast_svc_idx) !=
+        last_encoded_frames_.end()) {
+      EncodedImage& encoded_image = last_encoded_frames_[simulcast_svc_idx];
+
+      FrameStatistic* frame_stat =
+          stats_->at(simulcast_svc_idx).GetFrame(frame_number);
+
+      if (encoded_frame_writers_) {
+        RTC_CHECK(
+            encoded_frame_writers_->at(simulcast_svc_idx)
+                ->WriteFrame(encoded_image, config_.codec_settings.codecType));
+      }
+
+      // For the highest measurement accuracy of the decode time, the start/stop
+      // time recordings should wrap the Decode call as tightly as possible.
+      frame_stat->decode_start_ns = rtc::TimeNanos();
+      frame_stat->decode_return_code =
+          decoders_->at(simulcast_svc_idx)
+              ->Decode(encoded_image, false, nullptr);
+
+      RTC_CHECK(encoded_image._buffer);
+      delete[] encoded_image._buffer;
+      encoded_image._buffer = nullptr;
+
+      last_encoded_frames_.erase(simulcast_svc_idx);
+    }
+  }
 }
 
 void VideoProcessor::SetRates(size_t bitrate_kbps, size_t framerate_fps) {
@@ -192,50 +257,78 @@ void VideoProcessor::SetRates(size_t bitrate_kbps, size_t framerate_fps) {
       << "Failed to update encoder with new rate " << bitrate_kbps << ".";
 }
 
-void VideoProcessor::FrameEncoded(webrtc::VideoCodecType codec,
-                                  const EncodedImage& encoded_image) {
+void VideoProcessor::FrameEncoded(
+    const webrtc::EncodedImage& encoded_image,
+    const webrtc::CodecSpecificInfo& codec_specific) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
 
   // For the highest measurement accuracy of the encode time, the start/stop
   // time recordings should wrap the Encode call as tightly as possible.
   int64_t encode_stop_ns = rtc::TimeNanos();
 
+  const VideoCodecType codec = codec_specific.codecType;
   if (config_.encoded_frame_checker) {
     config_.encoded_frame_checker->CheckEncodedFrame(codec, encoded_image);
   }
 
-  FrameStatistic* frame_stat =
-      stats_->GetFrameWithTimestamp(encoded_image._timeStamp);
+  size_t simulcast_svc_idx = 0;
+  size_t temporal_idx = 0;
 
-  // Ensure strict monotonicity.
+  if (codec == kVideoCodecVP8) {
+    simulcast_svc_idx = codec_specific.codecSpecific.VP8.simulcastIdx;
+    temporal_idx = codec_specific.codecSpecific.VP8.temporalIdx;
+  } else if (codec == kVideoCodecVP9) {
+    simulcast_svc_idx = codec_specific.codecSpecific.VP9.spatial_idx;
+    temporal_idx = codec_specific.codecSpecific.VP9.temporal_idx;
+  }
+
+  if (simulcast_svc_idx == kNoSpatialIdx) {
+    simulcast_svc_idx = 0;
+  }
+
+  if (temporal_idx == kNoTemporalIdx) {
+    temporal_idx = 0;
+  }
+
+  const size_t frame_wxh =
+      encoded_image._encodedWidth * encoded_image._encodedHeight;
+  frame_wxh_to_simulcast_svc_idx_[frame_wxh] = simulcast_svc_idx;
+
+  FrameStatistic* frame_stat =
+      stats_->at(simulcast_svc_idx)
+          .GetFrameWithTimestamp(encoded_image._timeStamp);
   const size_t frame_number = frame_stat->frame_number;
-  if (num_encoded_frames_ > 0) {
-    RTC_CHECK_GT(frame_number, last_encoded_frame_num_);
+
+  // Reordering is unexpected. Frames of different layers have the same value
+  // of frame_number. VP8 multi-res delivers frames starting from hires layer.
+  RTC_CHECK_GE(frame_number, last_encoded_frame_num_);
+
+  // Ensure SVC spatial layers are delivered in ascending order.
+  if (config_.NumberOfSpatialLayers() > 1) {
+    RTC_CHECK(simulcast_svc_idx > last_encoded_simulcast_svc_idx_ ||
+              frame_number != last_encoded_frame_num_ ||
+              num_encoded_frames_ == 0);
   }
 
   last_encoded_frame_num_ = frame_number;
+  last_encoded_simulcast_svc_idx_ = simulcast_svc_idx;
 
   // Update frame statistics.
+  frame_stat->encoding_successful = true;
   frame_stat->encode_time_us =
       GetElapsedTimeMicroseconds(frame_stat->encode_start_ns, encode_stop_ns);
-  frame_stat->encoding_successful = true;
+  frame_stat->target_bitrate_kbps =
+      bitrate_allocation_.GetSpatialLayerSum(simulcast_svc_idx) / 1000;
   frame_stat->encoded_frame_size_bytes = encoded_image._length;
   frame_stat->frame_type = encoded_image._frameType;
   frame_stat->temporal_layer_idx = config_.TemporalLayerForFrame(frame_number);
-  frame_stat->qp = encoded_image.qp_;
-  frame_stat->target_bitrate_kbps =
-      bitrate_allocation_.GetSpatialLayerSum(0) / 1000;
+  frame_stat->temporal_layer_idx = temporal_idx;
+  frame_stat->simulcast_svc_idx = simulcast_svc_idx;
   frame_stat->max_nalu_size_bytes = GetMaxNaluSizeBytes(encoded_image, config_);
+  frame_stat->qp = encoded_image.qp_;
 
-  // For the highest measurement accuracy of the decode time, the start/stop
-  // time recordings should wrap the Decode call as tightly as possible.
-  frame_stat->decode_start_ns = rtc::TimeNanos();
-  frame_stat->decode_return_code =
-      decoder_->Decode(encoded_image, false, nullptr);
-
-  if (encoded_frame_writer_) {
-    RTC_CHECK(encoded_frame_writer_->WriteFrame(encoded_image, codec));
-  }
+  // Store encoded frame. It will be decoded after all layers are encoded.
+  CopyEncodedImage(encoded_image, codec, frame_number, simulcast_svc_idx);
 
   ++num_encoded_frames_;
 }
@@ -247,34 +340,44 @@ void VideoProcessor::FrameDecoded(const VideoFrame& decoded_frame) {
   // time recordings should wrap the Decode call as tightly as possible.
   int64_t decode_stop_ns = rtc::TimeNanos();
 
-  // Update frame statistics.
+  RTC_CHECK(frame_wxh_to_simulcast_svc_idx_.find(decoded_frame.size()) !=
+            frame_wxh_to_simulcast_svc_idx_.end());
+  const size_t simulcast_svc_idx =
+      frame_wxh_to_simulcast_svc_idx_[decoded_frame.size()];
+
   FrameStatistic* frame_stat =
-      stats_->GetFrameWithTimestamp(decoded_frame.timestamp());
-  frame_stat->decoded_width = decoded_frame.width();
-  frame_stat->decoded_height = decoded_frame.height();
-  frame_stat->decode_time_us =
-      GetElapsedTimeMicroseconds(frame_stat->decode_start_ns, decode_stop_ns);
-  frame_stat->decoding_successful = true;
-
-  // Ensure strict monotonicity.
+      stats_->at(simulcast_svc_idx)
+          .GetFrameWithTimestamp(decoded_frame.timestamp());
   const size_t frame_number = frame_stat->frame_number;
-  if (num_decoded_frames_ > 0) {
-    RTC_CHECK_GT(frame_number, last_decoded_frame_num_);
-  }
 
-  // Check if the codecs have resized the frame since previously decoded frame.
-  if (frame_number > 0) {
-    if (decoded_frame_writer_ && num_decoded_frames_ > 0) {
-      // For dropped/lost frames, write out the last decoded frame to make it
-      // look like a freeze at playback.
-      const size_t num_dropped_frames =
-          frame_number - last_decoded_frame_num_ - 1;
-      for (size_t i = 0; i < num_dropped_frames; i++) {
-        WriteDecodedFrameToFile(&last_decoded_frame_buffer_);
+  // Reordering is unexpected. Frames of different layers have the same value
+  // of frame_number.
+  RTC_CHECK_GE(frame_number, last_decoded_frame_num_);
+
+  if (decoded_frame_writers_ && num_decoded_frames_ > 0) {
+    // For dropped frames, write out the last decoded frame to make it look like
+    // a freeze at playback.
+    for (size_t num_dropped_frames = 0; num_dropped_frames < frame_number;
+         ++num_dropped_frames) {
+      const FrameStatistic* prev_frame_stat =
+          stats_->at(simulcast_svc_idx)
+              .GetFrame(frame_number - num_dropped_frames - 1);
+      if (prev_frame_stat->decoding_successful) {
+        break;
       }
+      WriteDecodedFrameToFile(&last_decoded_frame_buffers_[simulcast_svc_idx],
+                              simulcast_svc_idx);
     }
   }
+
   last_decoded_frame_num_ = frame_number;
+
+  // Update frame statistics.
+  frame_stat->decoding_successful = true;
+  frame_stat->decode_time_us =
+      GetElapsedTimeMicroseconds(frame_stat->decode_start_ns, decode_stop_ns);
+  frame_stat->decoded_width = decoded_frame.width();
+  frame_stat->decoded_height = decoded_frame.height();
 
   // Skip quality metrics calculation to not affect CPU usage.
   if (!config_.measure_cpu) {
@@ -291,19 +394,61 @@ void VideoProcessor::FrameDecoded(const VideoFrame& decoded_frame) {
     input_frames_.erase(input_frames_.begin(), input_frame_erase_to);
   }
 
-  if (decoded_frame_writer_) {
+  if (decoded_frame_writers_) {
     ExtractBufferWithSize(decoded_frame, config_.codec_settings.width,
                           config_.codec_settings.height,
-                          &last_decoded_frame_buffer_);
-    WriteDecodedFrameToFile(&last_decoded_frame_buffer_);
+                          &last_decoded_frame_buffers_[simulcast_svc_idx]);
+    WriteDecodedFrameToFile(&last_decoded_frame_buffers_[simulcast_svc_idx],
+                            simulcast_svc_idx);
   }
 
   ++num_decoded_frames_;
 }
 
-void VideoProcessor::WriteDecodedFrameToFile(rtc::Buffer* buffer) {
-  RTC_DCHECK_EQ(buffer->size(), decoded_frame_writer_->FrameLength());
-  RTC_CHECK(decoded_frame_writer_->WriteFrame(buffer->data()));
+void VideoProcessor::CopyEncodedImage(const EncodedImage& encoded_image,
+                                      const VideoCodecType codec,
+                                      size_t frame_number,
+                                      size_t simulcast_svc_idx) {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
+
+  EncodedImage base_image;
+  RTC_CHECK_EQ(base_image._length, 0);
+
+  if (config_.NumberOfSpatialLayers() > 1 && simulcast_svc_idx > 0) {
+    RTC_CHECK(last_encoded_frames_.find(simulcast_svc_idx - 1) !=
+              last_encoded_frames_.end());
+    base_image = last_encoded_frames_[simulcast_svc_idx - 1];
+  }
+
+  size_t copied_buffer_size = base_image._length + encoded_image._length +
+                              EncodedImage::GetBufferPaddingBytes(codec);
+
+  uint8_t* copied_buffer = new uint8_t[copied_buffer_size];
+  RTC_CHECK(copied_buffer);
+
+  if (base_image._length) {
+    memcpy(copied_buffer, base_image._buffer, base_image._length);
+  }
+
+  memcpy(copied_buffer + base_image._length, encoded_image._buffer,
+         encoded_image._length);
+
+  EncodedImage copied_image = encoded_image;
+  copied_image = encoded_image;
+  copied_image._buffer = copied_buffer;
+  copied_image._length = copied_buffer_size;
+  copied_image._size = copied_buffer_size;
+
+  last_encoded_frames_[simulcast_svc_idx] = copied_image;
+}
+
+void VideoProcessor::WriteDecodedFrameToFile(rtc::Buffer* buffer,
+                                             size_t simulcast_svc_idx) {
+  RTC_CHECK(simulcast_svc_idx < decoded_frame_writers_->size());
+  RTC_DCHECK_EQ(buffer->size(),
+                decoded_frame_writers_->at(simulcast_svc_idx)->FrameLength());
+  RTC_CHECK(decoded_frame_writers_->at(simulcast_svc_idx)
+                ->WriteFrame(buffer->data()));
 }
 
 }  // namespace test

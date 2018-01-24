@@ -59,6 +59,7 @@ rtc_static_library("audio") {
     "../call:rtp_interfaces",
     "../common_audio",
     "../logging:rtc_event_log_api",
+    "../logging:rtc_event_log_impl_audio",
     "../modules:module_api",
     "../modules/audio_coding",
     "../modules/audio_coding:audio_format_conversion",

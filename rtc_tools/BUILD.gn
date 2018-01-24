@@ -60,17 +60,20 @@ rtc_static_library("command_line_parser") {
 }
 
 rtc_static_library("video_quality_analysis") {
+  testonly = true
   sources = [
     "frame_analyzer/video_quality_analysis.cc",
     "frame_analyzer/video_quality_analysis.h",
   ]
   deps = [
     "../common_video",
+    "../test:perf_test",
     "//third_party/libyuv",
   ]
 }
 
 rtc_executable("frame_analyzer") {
+  testonly = true
   visibility = [ "*" ]
   sources = [
     "frame_analyzer/frame_analyzer.cc",
@@ -79,6 +82,7 @@ rtc_executable("frame_analyzer") {
   deps = [
     ":command_line_parser",
     ":video_quality_analysis",
+    "../test:perf_test",
     "//build/win:default_exe_manifest",
   ]
 }
@@ -87,6 +91,7 @@ rtc_executable("frame_analyzer") {
 # building a lot of redundant code as part of Chromium builds.
 if (!build_with_chromium) {
   rtc_executable("psnr_ssim_analyzer") {
+    testonly = true
     sources = [
       "psnr_ssim_analyzer/psnr_ssim_analyzer.cc",
     ]
@@ -99,6 +104,7 @@ if (!build_with_chromium) {
   }
 
   rtc_static_library("reference_less_video_analysis_lib") {
+    testonly = true
     sources = [
       "frame_analyzer/reference_less_video_analysis_lib.cc",
       "frame_analyzer/reference_less_video_analysis_lib.h",
@@ -110,6 +116,7 @@ if (!build_with_chromium) {
   }
 
   rtc_executable("reference_less_video_analysis") {
+    testonly = true
     sources = [
       "frame_analyzer/reference_less_video_analysis.cc",
     ]

@@ -22,6 +22,30 @@
       "revId": "788ac70c1f8a34bf375b09dee69a4e7d547dc4f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1194fc2_932a495d",
+        "filename": "tools_webrtc/mb/gn_isolate_map.pyl",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2018-01-24T22:08:23Z",
+      "side": 0,
+      "message": "This script executes its commands from // instead of //out/whatever.\nI could modify the script, or remove the arg and pass the output directory in the recipe (what I was trying to do here.)\nBut yeah, this doesn\u0027t belong to this CL.",
+      "parentUuid": "9f6ee654_72bb6484",
+      "range": {
+        "startLine": 129,
+        "startChar": 14,
+        "endLine": 129,
+        "endChar": 15
+      },
+      "revId": "788ac70c1f8a34bf375b09dee69a4e7d547dc4f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

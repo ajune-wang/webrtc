@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dc3a309e_e0bf1656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-24T08:01:04Z",
+      "side": 1,
+      "message": "I think there are two reasons:\n\n1. We prefer to not expose Call in our api at all.\n\n2. If we let api/ headers include call/call.h, and properly declare that dependency in BUILD.gn, we get cyclic dependencies, which we are trying to eliminate for various reasons.\n\nFor CallFactory, I think what\u0027s needed in the api is a fairly opaque class with some public function(s) to create instances, for injection into PeerConnection. Now, it gets tricky, since we use std::unique_ptr. There\u0027s no real need for the application to be able to destroy CallFactory objects, since all the application is supposed to do is to pass ownership into PeerConnection (which will know how to destroy). But we can\u0027t tell the compiler about those assumptions, and therefore, a forward declaration of CallFactory won\u0027t work. \n\nA complete declaration of the CallFactory interface in api/ is appropriate, but then we need to forward declare Call and Call:Config, and we can\u0027t forward declare the latter when it\u0027s an inner class.",
+      "parentUuid": "eb95a6b9_32bbe67d",
+      "revId": "bf1a0f43ba9c85a513a245a347b881643a78f3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13818ae3_a645b44b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bdfccd53_4dbb5561",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-24T08:01:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13818ae3_a645b44b",
+      "revId": "bf1a0f43ba9c85a513a245a347b881643a78f3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e95c2bd1_724ab9a2",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "bf1a0f43ba9c85a513a245a347b881643a78f3ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb50bace_f91b5a9e",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-01-24T08:01:04Z",
+      "side": 1,
+      "message": "\u003e FYI, qingsi@ is working on restructuring the rtc_event_log_api target which may make this possible.\n\nI think phoglund@ (who is driving the effort to get an acyclic dependency graph) is aware of that work.",
+      "parentUuid": "e95c2bd1_724ab9a2",
+      "revId": "bf1a0f43ba9c85a513a245a347b881643a78f3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

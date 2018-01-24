@@ -22,6 +22,30 @@
       "revId": "726df30f22691e38d70de6c14f2acc3cc70767b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb182991_dc3f7ba1",
+        "filename": "rtc_tools/frame_analyzer/frame_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2018-01-24T15:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a287b912_b3619b11",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "726df30f22691e38d70de6c14f2acc3cc70767b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8e922fc_43f72802",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCConfiguration.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-24T21:36:24Z",
+      "side": 1,
+      "message": "I don\u0027t think this should be the default setting; there\u0027s a slight risk that there are existing applications that do want to use link local networks.",
+      "revId": "401d2f62d087af0557eabfc41a1fccc91a782de5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

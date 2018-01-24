@@ -112,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "e5c471a8_af5f42ce",
+        "filename": "rtc_base/ipaddress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5846
+      },
+      "writtenOn": "2018-01-24T17:34:35Z",
+      "side": 1,
+      "message": "Added a unit test for IPIsLinkLocal in the ipaddress_unittest.cc suite.",
+      "parentUuid": "378a9b7e_24a638ac",
+      "range": {
+        "startLine": 482,
+        "startChar": 1,
+        "endLine": 482,
+        "endChar": 0
+      },
+      "revId": "5ebae26ed7f2676064f75fa07f78dcede8c3171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95d20f56_bb52a491",
         "filename": "rtc_base/ipaddress.h",
         "patchSetId": 1

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e321c5d8_63cec701",
+        "filename": "test/testsupport/perf_test.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-01-24T22:29:50Z",
+      "side": 1,
+      "message": "Nit: having long URLs is fine, no need to split",
+      "range": {
+        "startLine": 66,
+        "startChar": 3,
+        "endLine": 66,
+        "endChar": 4
+      },
+      "revId": "7bea1dd275729abfa471d4bd6ca44a248cb7cecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

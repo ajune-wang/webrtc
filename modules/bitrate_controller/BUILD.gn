@@ -35,6 +35,7 @@ rtc_static_library("bitrate_controller") {
   deps = [
     "..:module_api",
     "../../logging:rtc_event_log_api",
+    "../../logging:rtc_event_log_impl_bwe",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
@@ -71,6 +72,7 @@ if (rtc_include_tests) {
       ":bitrate_controller",
       "../../logging:mocks",
       "../../logging:rtc_event_log_api",
+      "../../logging:rtc_event_log_impl_bwe",
       "../../test:field_trial",
       "../../test:test_support",
       "../pacing:mock_paced_sender",

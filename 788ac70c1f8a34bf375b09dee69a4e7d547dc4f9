@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f6ee654_72bb6484",
+        "filename": "tools_webrtc/mb/gn_isolate_map.pyl",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-01-24T19:04:46Z",
+      "side": 0,
+      "message": "I don\u0027t think this (build_dir_android) should be removed",
+      "range": {
+        "startLine": 129,
+        "startChar": 14,
+        "endLine": 129,
+        "endChar": 15
+      },
+      "revId": "788ac70c1f8a34bf375b09dee69a4e7d547dc4f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

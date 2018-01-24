@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26abf607_ec86e065",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-01-24T19:04:46Z",
+      "side": 1,
+      "message": "This is unused",
+      "range": {
+        "startLine": 474,
+        "startChar": 32,
+        "endLine": 474,
+        "endChar": 38
+      },
+      "revId": "456cff0f11b40a3024306d3601c61bb8806873bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

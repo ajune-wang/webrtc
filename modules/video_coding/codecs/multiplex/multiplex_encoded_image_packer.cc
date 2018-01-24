@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/codecs/stereo/include/multiplex_encoded_image_packer.h"
+#include "modules/video_coding/codecs/multiplex/include/multiplex_encoded_image_packer.h"
 
 #include "modules/rtp_rtcp/source/byte_io.h"
 
@@ -137,8 +137,8 @@ EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
     frame_header.component_index = images[i].component_index;
 
     frame_header.bitstream_offset = bitstream_offset;
-    frame_header.bitstream_length = static_cast<uint32_t>(
-        images[i].encoded_image._length);
+    frame_header.bitstream_length =
+        static_cast<uint32_t>(images[i].encoded_image._length);
     bitstream_offset += frame_header.bitstream_length;
 
     frame_header.codec_type = images[i].codec_type;

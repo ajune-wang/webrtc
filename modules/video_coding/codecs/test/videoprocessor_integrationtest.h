@@ -136,14 +136,13 @@ class VideoProcessorIntegrationTest : public testing::Test {
 
   // Codecs.
   std::unique_ptr<VideoEncoder> encoder_;
-  std::unique_ptr<VideoDecoder> decoder_;
+  std::vector<std::unique_ptr<VideoDecoder>> decoder_list_;
 
   // Helper objects.
   std::unique_ptr<FrameReader> analysis_frame_reader_;
-  std::unique_ptr<FrameWriter> analysis_frame_writer_;
-  std::unique_ptr<IvfFileWriter> encoded_frame_writer_;
-  std::unique_ptr<FrameWriter> decoded_frame_writer_;
-  Stats stats_;
+  std::vector<std::unique_ptr<IvfFileWriter>> encoded_frame_writer_;
+  std::vector<std::unique_ptr<FrameWriter>> decoded_frame_writer_;
+  std::vector<Stats> stats_;
   std::unique_ptr<VideoProcessor> processor_;
   std::unique_ptr<CpuProcessTime> cpu_process_time_;
 };

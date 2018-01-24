@@ -395,7 +395,7 @@ OSStatus AudioDeviceIOS::OnDeliverRecordedData(AudioUnitRenderActionFlags* flags
   // Use the FineAudioBuffer instance to convert between native buffer size
   // and the 10ms buffer size used by WebRTC.
   fine_audio_buffer_->DeliverRecordedData(
-      record_audio_buffer_, kFixedPlayoutDelayEstimate, kFixedRecordDelayEstimate);
+      record_audio_buffer_, kFixedRecordDelayEstimate);
   return noErr;
 }
 
@@ -455,7 +455,9 @@ OSStatus AudioDeviceIOS::OnGetPlayoutData(AudioUnitRenderActionFlags* flags,
   // Read decoded 16-bit PCM samples from WebRTC (using a size that matches
   // the native I/O audio unit) and copy the result to the audio buffer in the
   // |io_data| destination.
-  fine_audio_buffer_->GetPlayoutData(rtc::ArrayView<int8_t>(destination, size_in_bytes));
+  fine_audio_buffer_->GetPlayoutData(
+      rtc::ArrayView<int8_t>(destination, size_in_bytes),
+      kFixedPlayoutDelayEstimate);
   return noErr;
 }
 

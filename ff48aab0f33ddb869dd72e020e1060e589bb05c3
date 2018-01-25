@@ -16,6 +16,24 @@
       "revId": "ff48aab0f33ddb869dd72e020e1060e589bb05c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f0f4bac_f0a4edd8",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-25T03:32:28Z",
+      "side": 0,
+      "message": "OK, I merged these two tests since they\u0027re both basically testing the same thing now.",
+      "parentUuid": "8af20555_bca531b6",
+      "revId": "ff48aab0f33ddb869dd72e020e1060e589bb05c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

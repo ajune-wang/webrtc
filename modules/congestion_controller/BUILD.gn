@@ -54,6 +54,7 @@ rtc_static_library("congestion_controller") {
     "../pacing",
     "../remote_bitrate_estimator",
     "../rtp_rtcp:rtp_rtcp_format",
+    "./bbr",
     "./goog_cc",
   ]
 

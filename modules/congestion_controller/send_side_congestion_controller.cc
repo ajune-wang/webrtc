@@ -14,6 +14,7 @@
 #include <functional>
 #include <memory>
 #include <vector>
+#include "modules/congestion_controller/bbr/include/bbr_factory.h"
 #include "modules/congestion_controller/encoding_rate_controller.h"
 #include "modules/congestion_controller/goog_cc/include/goog_cc_factory.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
@@ -41,9 +42,16 @@ std::unique_ptr<typename MSG_T::Junction> CreateJunction(
   return rtc::MakeUnique<typename MSG_T::TaskQueueJunction>(queue);
 }
 
-NetworkControllerFactoryInterface::sptr ControllerFactory(
+NetworkControllerFactoryInterface::sptr ControllerFactoryByExperiment(
     RtcEventLog* event_log) {
-  return std::make_shared<GoogCCNetworkControllerFactory>(event_log);
+  const char kNetworkControlExperiment[] = "WebRTC-NetworkController";
+
+  std::string experiment_string =
+      webrtc::field_trial::FindFullName(kNetworkControlExperiment);
+  if (experiment_string.find("BBR") == 0)
+    return std::make_shared<BbrNetworkControllerFactory>();
+  else
+    return std::make_shared<GoogCCNetworkControllerFactory>(event_log);
 }
 
 void SortPacketFeedbackVector(std::vector<webrtc::PacketFeedback>* input) {
@@ -60,7 +68,7 @@ SendSideCongestionController::SendSideCongestionController(
     : SendSideCongestionController(clock,
                                    event_log,
                                    pacer,
-                                   ControllerFactory(event_log)) {
+                                   ControllerFactoryByExperiment(event_log)) {
   if (observer != nullptr)
     encoding_rate_controller_->RegisterNetworkObserver(observer);
 }

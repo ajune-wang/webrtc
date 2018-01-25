@@ -1,0 +1,613 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddd2a441_7bf5697c",
+        "filename": "modules/congestion_controller/delay_based_bwe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "We\u0027ve typically used now_ms in this part of the code for the current timestamp. May want to be consistent with that.",
+      "range": {
+        "startLine": 54,
+        "startChar": 14,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d00ead27_c9bd4114",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "326924c3_b2ca719e",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 39,
+        "endChar": 7
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b786f57d_cf2a204a",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Name the inputs.",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 48
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fafca4e0_6aa16e89",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "I\u0027d prefer to init all in the initializer list.",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7047887_06a07463",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "I\u0027d prefer to have this code in Impl::RegisterNetworkObserver. Perhaps inheritance is better here?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 30
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c93423a_f0dcabef",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "I think this looks a bit strange. Should current_target_rate_ be called something else, like current_target_rate_msg_?",
+      "range": {
+        "startLine": 130,
+        "startChar": 23,
+        "endLine": 130,
+        "endChar": 56
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4435a4f4_7abb5683",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Prefer {} since it\u0027s a multiline if statement.",
+      "range": {
+        "startLine": 133,
+        "startChar": 25,
+        "endLine": 133,
+        "endChar": 0
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b92d5f2c_23198569",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "What\u0027s the unit here?",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 20
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eb2ffe2_49e1fd66",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9caaee5a_5d194e4a",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Empty line above",
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac03e728_88c58920",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "I prefer to have a single public block, move these to the first instead.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 8
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99254548_2180604c",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Why are these members camel-cased? And why do they have to be public?",
+      "range": {
+        "startLine": 39,
+        "startChar": 38,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49fa1dfe_86a27bea",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "target",
+      "range": {
+        "startLine": 393,
+        "startChar": 28,
+        "endLine": 393,
+        "endChar": 29
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "300c4305_12e9a036",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Should probably be GoogCcNetworkController",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26baa02c_c5ce05ac",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 9
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffbfb8a1_4c3a8d18",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "I think it\u0027s pretty hard to follow how these different producers, receivers and controllers interact from reading the code. There is a need for a description of that somewhere.",
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77335ff_ab2e83a6",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "I have never seen this type of multi-inheritance structure in webrtc before. Can we find some other way of achieving this that has precedence in the code?",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd15ddab_5015674d",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "We don\u0027t allow shared_ptr in webrtc.",
+      "range": {
+        "startLine": 50,
+        "startChar": 20,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a563223d_79762da8",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "I think Elad has done something similar. I\u0027d prefer if there was only one way of doing this in WebRTC. Talk to him or possibly Nisse.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e042a36_f56d9983",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "What\u0027s the point of inheriting from an empty class? In my eyes this inheritance just adds additional complexity. I may be missing the point.",
+      "range": {
+        "startLine": 65,
+        "startChar": 22,
+        "endLine": 65,
+        "endChar": 41
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557db069_79888f71",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Should be marked override I think?",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "879ecb0e_ea3a2a3a",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "If I follow this correctly it looks like we\u0027re introducing a new signaling system in this CL? What\u0027s different compared to sigslot (https://webrtc.googlesource.com/src/+/HEAD/style-guide.md#sigslot) that requires that we introduce a new system for this?",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19d16fe2_8794364b",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "TransportFeedback? Or how does it differ from TransportFeedback?",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 102,
+        "endChar": 31
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34d79fcd_e8aed402",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Constructors/methods should be placed first.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 30
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4d83ddd_962e3028",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "Do we think this pulls its own weight? IMO we\u0027ve been able to get around pretty well with using millis for time in the BWE code, but I can see that this could be useful too.\n\nHowever, if we do introduce this I believe we should submit it with a separate CL and make it generic enough so that it can go in webrtc/base or similar, as this is not something BWE or network related. Primitives/interfaces like these might set a standard for the code base, and it\u0027s better to have agreement on how it should look like early on, which is why I think it should land in webrtc/base.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e1540cf_659207eb",
+        "filename": "network_control/network_types.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-01-25T15:10:25Z",
+      "side": 1,
+      "message": "This is beyond the C++ I know. What does these lines do?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

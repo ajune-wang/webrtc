@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/pacing/alr_detector.h"
+#include "modules/congestion_controller/alr_detector.h"
 
 #include <algorithm>
 #include <string>
@@ -51,7 +51,16 @@ AlrDetector::AlrDetector(RtcEventLog* event_log)
 
 AlrDetector::~AlrDetector() {}
 
-void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t delta_time_ms) {
+void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t send_time_ms) {
+  if (!last_send_time_ms_.has_value()) {
+    last_send_time_ms_ = send_time_ms;
+    // Since the duration for sending the bytes is unknwon, return without
+    // updating alr state.
+    return;
+  }
+  int64_t delta_time_ms = send_time_ms - *last_send_time_ms_;
+  last_send_time_ms_ = send_time_ms;
+
   alr_budget_.UseBudget(bytes_sent);
   alr_budget_.IncreaseBudget(delta_time_ms);
   bool state_changed = false;

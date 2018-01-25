@@ -9,7 +9,7 @@
  */
 #include <memory>
 
-#include "modules/congestion_controller/probe_controller.h"
+#include "modules/congestion_controller/goog_cc/probe_controller.h"
 #include "network_control/include/network_types.h"
 #include "network_control/include/test/network_message_test.h"
 #include "rtc_base/logging.h"

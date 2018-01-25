@@ -113,7 +113,7 @@ void PackBitstream(uint8_t* buffer, MultiplexImageComponent image) {
   memcpy(buffer, image.encoded_image._buffer, image.encoded_image._length);
 }
 
-MultiplexImage::MultiplexImage(int picture_index, int frame_count)
+MultiplexImage::MultiplexImage(uint16_t picture_index, uint8_t frame_count)
     : image_index(picture_index), component_count(frame_count) {}
 
 EncodedImage MultiplexEncodedImagePacker::PackAndRelease(

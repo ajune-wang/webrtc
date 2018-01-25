@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "241eb8d7_d481675a",
+        "filename": "modules/congestion_controller/delay_based_bwe.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "I\u0027m thinking that it\u0027s the timestamp of when the packet feedback vector was received, rather than when the call is made. Most notable situation when it matters is when playing back logs. But any delays in processing would also imply that tit\u0027s not the same thing. Maybe changing the other uses would make sense as well. Or should I use now_ms for legacy reasons? (fine by me)",
+      "parentUuid": "ddd2a441_7bf5697c",
+      "range": {
+        "startLine": 54,
+        "startChar": 14,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d00ead27_c9bd4114",
         "filename": "modules/congestion_controller/encoding_rate_controller.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e2d9424_d2805ec8",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d00ead27_c9bd4114",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a1cd3c49_1338b237",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "326924c3_b2ca719e",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 39,
+        "endChar": 7
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b786f57d_cf2a204a",
         "filename": "modules/congestion_controller/encoding_rate_controller.cc",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-01-25T15:10:25Z",
       "side": 1,
       "message": "Name the inputs.",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 48
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d41831f6_ea6b333d",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "To me it seems a bit redundant, and not make things clearer. What do you figure would be the added value?",
+      "parentUuid": "b786f57d_cf2a204a",
       "range": {
         "startLine": 40,
         "startChar": 29,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "918748b8_1f6ebc40",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Please elaborate, for this specific situation, where there\u0027s a guard, or in general? One advantage of initializing in the class is that it makes it easier to spot when some value goes uninitialized. Is there drawbacks as well?",
+      "parentUuid": "fafca4e0_6aa16e89",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b7047887_06a07463",
         "filename": "modules/congestion_controller/encoding_rate_controller.cc",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77d78194_bf794995",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7047887_06a07463",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 30
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "8bb2d80c_51aa05bd",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7c93423a_f0dcabef",
+      "range": {
+        "startLine": 130,
+        "startChar": 23,
+        "endLine": 130,
+        "endChar": 56
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4435a4f4_7abb5683",
         "filename": "modules/congestion_controller/encoding_rate_controller.cc",
         "patchSetId": 2
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "b9200a74_05f49299",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4435a4f4_7abb5683",
+      "range": {
+        "startLine": 133,
+        "startChar": 25,
+        "endLine": 133,
+        "endChar": 0
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b92d5f2c_23198569",
         "filename": "modules/congestion_controller/encoding_rate_controller.cc",
         "patchSetId": 2
@@ -197,6 +389,30 @@
       "writtenOn": "2018-01-25T15:10:25Z",
       "side": 1,
       "message": "What\u0027s the unit here?",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 20
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7064547_6bdd853f",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "It\u0027s unit less since it\u0027s a ratio. Should I rename to encoding_rate_multiplier_ or encoding_rate_ratio_ for clarity?",
+      "parentUuid": "b92d5f2c_23198569",
       "range": {
         "startLine": 152,
         "startChar": 6,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "55a9d772_77c05982",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Wrote it in 2017, but sure. I\u0027ll update the years.",
+      "parentUuid": "3eb2ffe2_49e1fd66",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9caaee5a_5d194e4a",
         "filename": "modules/congestion_controller/encoding_rate_controller.h",
         "patchSetId": 2
@@ -246,6 +486,24 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ca2b2a2_16afba14",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9caaee5a_5d194e4a",
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "4774f5e5_2a9f2105",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Was for safety reasons (making sure the destruction order was such that mistakes would yield guard check errors, since I\u0027m removing the task queue thingys I\u0027ll change this as well)",
+      "parentUuid": "ac03e728_88c58920",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 8
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99254548_2180604c",
         "filename": "modules/congestion_controller/encoding_rate_controller.h",
         "patchSetId": 2
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "438010d6_d818ba4f",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "1. laziness in case I\u0027d have to redo things anyways, as I did... They are public so the can be used by externa code. The alternative would have to add getters for them.",
+      "parentUuid": "99254548_2180604c",
+      "range": {
+        "startLine": 39,
+        "startChar": 38,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49fa1dfe_86a27bea",
         "filename": "modules/congestion_controller/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -306,6 +612,30 @@
       "writtenOn": "2018-01-25T15:10:25Z",
       "side": 1,
       "message": "target",
+      "range": {
+        "startLine": 393,
+        "startChar": 28,
+        "endLine": 393,
+        "endChar": 29
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f7a9f36_adeee2f9",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "This is actually as it\u0027s written in BitrateControllerImpl, from where these lines are taken. should I still change the string? I\u0027m thinking that it might risk breaking tools.",
+      "parentUuid": "49fa1dfe_86a27bea",
       "range": {
         "startLine": 393,
         "startChar": 28,
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "b65c39d7_f0d6b0cc",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "300c4305_12e9a036",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26baa02c_c5ce05ac",
         "filename": "modules/congestion_controller/goog_cc_network_control.h",
         "patchSetId": 2
@@ -364,6 +718,30 @@
     },
     {
       "key": {
+        "uuid": "4ad4eb76_1ebc1bb9",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26baa02c_c5ce05ac",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 9
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffbfb8a1_4c3a8d18",
         "filename": "network_control/include/network_control.h",
         "patchSetId": 2
@@ -378,6 +756,24 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a36fddba_4432df71",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ffbfb8a1_4c3a8d18",
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -404,6 +800,30 @@
     },
     {
       "key": {
+        "uuid": "e13f3eb1_5803f690",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "This was the most concise way of doing it, it\u0027s possible to do it longer with the cost of more code doing nothing. Will add that note for potential future implementation of this concept.",
+      "parentUuid": "b77335ff_ab2e83a6",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd15ddab_5015674d",
         "filename": "network_control/include/network_control.h",
         "patchSetId": 2
@@ -424,6 +844,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56bbc741_6397416a",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "We should change that! :)\n\nBut for now I\u0027ll change it to unique_ptr to be compliant.",
+      "parentUuid": "bd15ddab_5015674d",
+      "range": {
+        "startLine": 50,
+        "startChar": 20,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -450,6 +894,30 @@
     },
     {
       "key": {
+        "uuid": "b3b50a93_8cd6f298",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a563223d_79762da8",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e042a36_f56d9983",
         "filename": "network_control/include/network_message.h",
         "patchSetId": 2
@@ -470,6 +938,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dd1717d_996ec309",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "I guess a comment or two might have been warranted. The InvokeResult acts as a virtual interface that is not really empty, it contains the destructor, which is supposed to guarantee that any invoked functions has returned. This structure allows invoking several targets in concurrently if they are running on different task queues.\n\n(note that I\u0027ll remove this file from this cl, just answering for the general discussion and potential future work)",
+      "parentUuid": "3e042a36_f56d9983",
+      "range": {
+        "startLine": 65,
+        "startChar": 22,
+        "endLine": 65,
+        "endChar": 41
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -496,6 +988,30 @@
     },
     {
       "key": {
+        "uuid": "a81ed80d_ff75f4c3",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Final is an override that also protects against further overrides, shows that no further inheritance is expected.",
+      "parentUuid": "557db069_79888f71",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "879ecb0e_ea3a2a3a",
         "filename": "network_control/include/network_message.h",
         "patchSetId": 2
@@ -516,6 +1032,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "757fde3b_a70e2794",
+        "filename": "network_control/include/network_message.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Per our discussion, I\u0027ll skip this functionality for this CL.",
+      "parentUuid": "879ecb0e_ea3a2a3a",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -542,6 +1082,30 @@
     },
     {
       "key": {
+        "uuid": "f417ec75_01d9a80f",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "It\u0027s not conceptually the same as the rtp message. So to separate them the name is chosen to be different. (also to avoid name collisions)\n\nA good path forward after this might be to rename all RTP specific structs and classes by adding Rtp to the name.",
+      "parentUuid": "19d16fe2_8794364b",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 102,
+        "endChar": 31
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34d79fcd_e8aed402",
         "filename": "network_control/include/network_types.h",
         "patchSetId": 2
@@ -565,6 +1129,30 @@
     },
     {
       "key": {
+        "uuid": "1efafd3d_3334a155",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34d79fcd_e8aed402",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 30
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d83ddd_962e3028",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 2
@@ -576,6 +1164,30 @@
       "writtenOn": "2018-01-25T15:10:25Z",
       "side": 1,
       "message": "Do we think this pulls its own weight? IMO we\u0027ve been able to get around pretty well with using millis for time in the BWE code, but I can see that this could be useful too.\n\nHowever, if we do introduce this I believe we should submit it with a separate CL and make it generic enough so that it can go in webrtc/base or similar, as this is not something BWE or network related. Primitives/interfaces like these might set a standard for the code base, and it\u0027s better to have agreement on how it should look like early on, which is why I think it should land in webrtc/base.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef1b976a_2dc86576",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "I think it definitely pulls it\u0027s own weight, I\u0027ve seen at least one bug in landed code due to mixup of kbps and bps. I\u0027ve added a few bugs relating to incorrect units usage myself in uncommited code that caused extra work (also, the Uma Stats mixup would not have occurred with these units). It really simplifies code that manages units of different kinds. Also the BBR code had similar types that I could just drop in replace with these.\n\nYou might be right that they could be useful generally. Not guaranteed though. different problem domains have different needs, audio might want time classes based on sample rate for instance.\n\nI\u0027ll ask around to see what other people think.",
+      "parentUuid": "a4d83ddd_962e3028",
       "range": {
         "startLine": 26,
         "startChar": 0,
@@ -608,6 +1220,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76bbf96e_9223e455",
+        "filename": "network_control/network_types.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-25T19:50:32Z",
+      "side": 1,
+      "message": "they instantiate the templates, this way the templates doesn\u0027t have to be rebuild at every usage, but can be linked from network_types.cc. Can save some build time, otherwise each compilation unit will have to create their own instantiation of the templates.\n\nFor a primitive compiler it\u0027ll also mean that they\u0027ll be linked rather than inlined, potentially saving binary size, but I think modern compiler/linker combos will optimize this away anyways.",
+      "parentUuid": "4e1540cf_659207eb",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

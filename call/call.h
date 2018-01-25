@@ -24,6 +24,7 @@
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"  // nogncheck
 #include "rtc_base/bitrateallocationstrategy.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/networkroute.h"
@@ -66,6 +67,13 @@ class PacketReceiver {
   virtual DeliveryStatus DeliverPacket(MediaType media_type,
                                        rtc::CopyOnWriteBuffer packet,
                                        const PacketTime& packet_time) = 0;
+
+  virtual DeliveryStatus DeliverParsedPacket(MediaType media_type,
+                                             RtpPacketReceived parsed_packet) {
+    // TODO(zhihuang): Update the fake subclass and remove the default
+    // implementation.
+    return DELIVERY_OK;
+  }
 
  protected:
   virtual ~PacketReceiver() {}

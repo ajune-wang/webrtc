@@ -70,6 +70,8 @@ class RtpTransport : public RtpTransportInternal {
 
   void AddHandledPayloadType(int payload_type) override;
 
+  bool IsSrtpActive() const override { return false; }
+
  protected:
   // TODO(zstein): Remove this when we remove RtpTransportAdapter.
   RtpTransportAdapter* GetInternal() override;
@@ -114,6 +116,8 @@ class RtpTransport : public RtpTransportInternal {
 
   RtpTransportParameters parameters_;
 
+  // TODO(zhihuang): |bundle_filter_| and its related methods can be removed
+  // once switching to the RtpDemuxer.
   cricket::BundleFilter bundle_filter_;
 };
 

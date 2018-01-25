@@ -40,6 +40,10 @@ class RtpTransportInternal : public RtpTransportInterface,
   // of updating them.
   virtual bool rtcp_mux_enabled() const = 0;
 
+  // Permanently enable RTCP muxing and destroy the P2P level transport for
+  // RTCP.
+  // virtual void ActivateRtcpMux() = 0;
+
   virtual rtc::PacketTransportInternal* rtp_packet_transport() const = 0;
   virtual void SetRtpPacketTransport(rtc::PacketTransportInternal* rtp) = 0;
 
@@ -82,6 +86,8 @@ class RtpTransportInternal : public RtpTransportInterface,
   virtual bool HandlesPayloadType(int payload_type) const = 0;
 
   virtual void AddHandledPayloadType(int payload_type) = 0;
+
+  virtual bool IsSrtpActive() const = 0;
 };
 
 }  // namespace webrtc

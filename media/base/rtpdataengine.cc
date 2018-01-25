@@ -198,10 +198,14 @@ bool RtpDataMediaChannel::RemoveRecvStream(uint32_t ssrc) {
   return true;
 }
 
+void RtpDataMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
+                                           const rtc::PacketTime& packet_time) {
+}
+
 void RtpDataMediaChannel::OnPacketReceived(
-    rtc::CopyOnWriteBuffer* packet, const rtc::PacketTime& packet_time) {
+    webrtc::RtpPacketReceived parsed_packet) {
   RtpHeader header;
-  if (!GetRtpHeader(packet->cdata(), packet->size(), &header)) {
+  if (!GetRtpHeader(parsed_packet.data(), parsed_packet.size(), &header)) {
     // Don't want to log for every corrupt packet.
     // RTC_LOG(LS_WARNING) << "Could not read rtp header from packet of length "
     //                 << packet->length() << ".";
@@ -209,16 +213,18 @@ void RtpDataMediaChannel::OnPacketReceived(
   }
 
   size_t header_length;
-  if (!GetRtpHeaderLen(packet->cdata(), packet->size(), &header_length)) {
+  if (!GetRtpHeaderLen(parsed_packet.data(), parsed_packet.size(),
+                       &header_length)) {
     // Don't want to log for every corrupt packet.
     // RTC_LOG(LS_WARNING) << "Could not read rtp header"
     //                 << length from packet of length "
     //                 << packet->length() << ".";
     return;
   }
-  const char* data =
-      packet->cdata<char>() + header_length + sizeof(kReservedSpace);
-  size_t data_len = packet->size() - header_length - sizeof(kReservedSpace);
+  const char* data = parsed_packet.Buffer().cdata<char>() + header_length +
+                     sizeof(kReservedSpace);
+  size_t data_len =
+      parsed_packet.size() - header_length - sizeof(kReservedSpace);
 
   if (!receiving_) {
     RTC_LOG(LS_WARNING) << "Not receiving packet " << header.ssrc << ":"

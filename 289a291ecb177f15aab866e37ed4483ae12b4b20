@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0dad4c12_26ccd9f0",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-25T20:29:00Z",
+      "side": 1,
+      "message": "Mmmh, I am not sure about making these targets testonly because //test:perf_test is testonly. Looking at the code in //test:perf_test it looks like it is just a utility library used by tests (to print stuff).\n\nI see it has been introduced here: https://webrtc-review.googlesource.com/c/src/+/37643 with testonly\u003d1.\n\nWhat about removing the testonly\u003d1 from //test:perf_test and allow these tools to depend on it without being declared testonly too?",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 17
+      },
+      "revId": "289a291ecb177f15aab866e37ed4483ae12b4b20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8edb8869_684c54f5",
         "filename": "rtc_tools/frame_analyzer/video_quality_analysis_unittest.cc",
         "patchSetId": 6

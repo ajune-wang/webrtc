@@ -16,7 +16,9 @@
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "api/videosourceproxy.h"
-#include "media/engine/convert_legacy_video_factory.h"
+#if defined(USE_BUILTIN_SW_CODECS)
+#include "media/engine/convert_legacy_video_factory.h"  // nogncheck
+#endif
 #include "media/engine/webrtcvideodecoderfactory.h"
 #include "media/engine/webrtcvideoencoderfactory.h"
 #include "rtc_base/logging.h"
@@ -47,6 +49,7 @@ VideoDecoderFactory* CreateVideoDecoderFactory(
 void SetEglContext(JNIEnv* env,
                    cricket::WebRtcVideoEncoderFactory* encoder_factory,
                    const JavaRef<jobject>& egl_context) {
+#if defined(USE_BUILTIN_SW_CODECS)
   if (encoder_factory) {
     MediaCodecVideoEncoderFactory* media_codec_factory =
         static_cast<MediaCodecVideoEncoderFactory*>(encoder_factory);
@@ -55,8 +58,14 @@ void SetEglContext(JNIEnv* env,
       media_codec_factory->SetEGLContext(env, egl_context.obj());
     }
   }
+#else
+  if (Java_Context_isEgl14Context(env, egl_context)) {
+    RTC_LOG(LS_INFO) << "Set EGL context for HW encoding.";
+  }
+#endif
 }
 
+#if defined(USE_BUILTIN_SW_CODECS)
 void SetEglContext(JNIEnv* env,
                    cricket::WebRtcVideoDecoderFactory* decoder_factory,
                    const JavaRef<jobject>& egl_context) {
@@ -69,6 +78,7 @@ void SetEglContext(JNIEnv* env,
     }
   }
 }
+#endif
 
 void* CreateVideoSource(JNIEnv* env,
                         rtc::Thread* signaling_thread,
@@ -82,6 +92,7 @@ void* CreateVideoSource(JNIEnv* env,
       .release();
 }
 
+#if defined(USE_BUILTIN_SW_CODECS)
 cricket::WebRtcVideoEncoderFactory* CreateLegacyVideoEncoderFactory() {
   return new MediaCodecVideoEncoderFactory();
 }
@@ -105,6 +116,7 @@ VideoDecoderFactory* WrapLegacyVideoDecoderFactory(
                  legacy_decoder_factory))
       .release();
 }
+#endif
 
 }  // namespace jni
 }  // namespace webrtc

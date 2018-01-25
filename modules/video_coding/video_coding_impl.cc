@@ -16,7 +16,9 @@
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
-#include "modules/video_coding/codecs/vp8/temporal_layers.h"
+#if defined(USE_BUILTIN_SW_CODECS)
+#include "modules/video_coding/codecs/vp8/temporal_layers.h"  // nogncheck
+#endif
 #include "modules/video_coding/encoded_frame.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/include/video_codec_interface.h"
@@ -107,6 +109,7 @@ class VideoCodingModuleImpl : public VideoCodingModule {
   int32_t RegisterSendCodec(const VideoCodec* sendCodec,
                             uint32_t numberOfCores,
                             uint32_t maxPayloadSize) override {
+#if defined(USE_BUILTIN_SW_CODECS)
     if (sendCodec != nullptr && sendCodec->codecType == kVideoCodecVP8) {
       // Set up a rate allocator and temporal layers factory for this vp8
       // instance. The codec impl will have a raw pointer to the TL factory,
@@ -122,6 +125,7 @@ class VideoCodingModuleImpl : public VideoCodingModule {
       return sender_.RegisterSendCodec(&vp8_codec, numberOfCores,
                                        maxPayloadSize);
     }
+#endif
     return sender_.RegisterSendCodec(sendCodec, numberOfCores, maxPayloadSize);
   }
 

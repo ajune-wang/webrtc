@@ -15,7 +15,6 @@
 #include <string>
 #include <vector>
 
-#include "api/fec_controller.h"
 #include "api/rtcerror.h"
 #include "call/audio_receive_stream.h"
 #include "call/audio_send_stream.h"
@@ -145,10 +144,6 @@ class Call {
   virtual VideoSendStream* CreateVideoSendStream(
       VideoSendStream::Config config,
       VideoEncoderConfig encoder_config) = 0;
-  virtual VideoSendStream* CreateVideoSendStream(
-      VideoSendStream::Config config,
-      VideoEncoderConfig encoder_config,
-      std::unique_ptr<FecController> fec_controller);
   virtual void DestroyVideoSendStream(VideoSendStream* send_stream) = 0;
 
   virtual VideoReceiveStream* CreateVideoReceiveStream(

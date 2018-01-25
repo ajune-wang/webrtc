@@ -135,18 +135,6 @@ class PeerConnectionMediaTest
   PeerConnectionMediaTest() : PeerConnectionMediaBaseTest(GetParam()) {}
 };
 
-class PeerConnectionMediaTestUnifiedPlan : public PeerConnectionMediaBaseTest {
- protected:
-  PeerConnectionMediaTestUnifiedPlan()
-      : PeerConnectionMediaBaseTest(SdpSemantics::kUnifiedPlan) {}
-};
-
-class PeerConnectionMediaTestPlanB : public PeerConnectionMediaBaseTest {
- protected:
-  PeerConnectionMediaTestPlanB()
-      : PeerConnectionMediaBaseTest(SdpSemantics::kPlanB) {}
-};
-
 TEST_P(PeerConnectionMediaTest,
        FailToSetRemoteDescriptionIfCreateMediaChannelFails) {
   auto caller = CreatePeerConnectionWithAudioVideo();
@@ -225,33 +213,9 @@ TEST_P(PeerConnectionMediaTest, AudioVideoOfferAnswerCreateSendRecvStreams) {
               ElementsAre(kCalleeVideoId));
 }
 
-// Test that stopping the caller transceivers causes the media channels on the
-// callee to be destroyed after calling SetRemoteDescription on the generated
-// offer.
-// See next test for equivalent behavior with Plan B semantics.
-TEST_F(PeerConnectionMediaTestUnifiedPlan,
-       StoppedRemoteTransceiversRemovesMediaChannels) {
-  auto caller = CreatePeerConnectionWithAudioVideo();
-  auto callee = CreatePeerConnection();
-
-  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-
-  // Stop both audio and video transceivers on the caller.
-  auto transceivers = caller->pc()->GetTransceivers();
-  ASSERT_EQ(2u, transceivers.size());
-  transceivers[0]->Stop();
-  transceivers[1]->Stop();
-
-  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-
-  ASSERT_FALSE(callee->media_engine()->GetVoiceChannel(0));
-  ASSERT_FALSE(callee->media_engine()->GetVideoChannel(0));
-}
-
 // Test that removing streams from a subsequent offer causes the receive streams
 // on the callee to be removed.
-// See previous test for equivalent behavior with Unified Plan semantics.
-TEST_F(PeerConnectionMediaTestPlanB, EmptyRemoteOfferRemovesRecvStreams) {
+TEST_P(PeerConnectionMediaTest, EmptyRemoteOfferRemovesRecvStreams) {
   auto caller = CreatePeerConnection();
   auto caller_audio_track = caller->AddAudioTrack("a");
   auto caller_video_track = caller->AddVideoTrack("v");
@@ -260,46 +224,34 @@ TEST_F(PeerConnectionMediaTestPlanB, EmptyRemoteOfferRemovesRecvStreams) {
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   // Remove both tracks from caller.
-  caller->pc()->RemoveTrack(caller_audio_track);
-  caller->pc()->RemoveTrack(caller_video_track);
+  if (IsUnifiedPlan()) {
+    caller->pc()->GetTransceivers()[0]->Stop();
+    caller->pc()->GetTransceivers()[1]->Stop();
+  } else {
+    caller->pc()->RemoveTrack(caller_audio_track);
+    caller->pc()->RemoveTrack(caller_video_track);
+  }
 
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   auto callee_voice = callee->media_engine()->GetVoiceChannel(0);
   auto callee_video = callee->media_engine()->GetVideoChannel(0);
-  EXPECT_EQ(1u, callee_voice->send_streams().size());
-  EXPECT_EQ(0u, callee_voice->recv_streams().size());
-  EXPECT_EQ(1u, callee_video->send_streams().size());
-  EXPECT_EQ(0u, callee_video->recv_streams().size());
-}
-
-// Test that stopping the callee transceivers causes the media channels to be
-// destroyed on the callee after calling SetLocalDescription on the local
-// answer.
-// See next test for equivalent behavior with Plan B semantics.
-TEST_F(PeerConnectionMediaTestUnifiedPlan,
-       StoppedLocalTransceiversRemovesMediaChannels) {
-  auto caller = CreatePeerConnectionWithAudioVideo();
-  auto callee = CreatePeerConnectionWithAudioVideo();
-
-  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-
-  // Stop both audio and video transceivers on the callee.
-  auto transceivers = callee->pc()->GetTransceivers();
-  ASSERT_EQ(2u, transceivers.size());
-  transceivers[0]->Stop();
-  transceivers[1]->Stop();
-
-  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-
-  EXPECT_FALSE(callee->media_engine()->GetVoiceChannel(0));
-  EXPECT_FALSE(callee->media_engine()->GetVideoChannel(0));
+  if (IsUnifiedPlan()) {
+    EXPECT_FALSE(callee_voice);
+    EXPECT_FALSE(callee_video);
+  } else {
+    ASSERT_TRUE(callee_voice);
+    EXPECT_EQ(1u, callee_voice->send_streams().size());
+    EXPECT_EQ(0u, callee_voice->recv_streams().size());
+    ASSERT_TRUE(callee_video);
+    EXPECT_EQ(1u, callee_video->send_streams().size());
+    EXPECT_EQ(0u, callee_video->recv_streams().size());
+  }
 }
 
 // Test that removing streams from a subsequent answer causes the send streams
 // on the callee to be removed when applied locally.
-// See previous test for equivalent behavior with Unified Plan semantics.
-TEST_F(PeerConnectionMediaTestPlanB, EmptyLocalAnswerRemovesSendStreams) {
+TEST_P(PeerConnectionMediaTest, EmptyLocalAnswerRemovesSendStreams) {
   auto caller = CreatePeerConnectionWithAudioVideo();
   auto callee = CreatePeerConnection();
   auto callee_audio_track = callee->AddAudioTrack("a");
@@ -308,17 +260,29 @@ TEST_F(PeerConnectionMediaTestPlanB, EmptyLocalAnswerRemovesSendStreams) {
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   // Remove both tracks from callee.
-  callee->pc()->RemoveTrack(callee_audio_track);
-  callee->pc()->RemoveTrack(callee_video_track);
+  if (IsUnifiedPlan()) {
+    callee->pc()->GetTransceivers()[0]->Stop();
+    callee->pc()->GetTransceivers()[1]->Stop();
+  } else {
+    callee->pc()->RemoveTrack(callee_audio_track);
+    callee->pc()->RemoveTrack(callee_video_track);
+  }
 
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   auto callee_voice = callee->media_engine()->GetVoiceChannel(0);
   auto callee_video = callee->media_engine()->GetVideoChannel(0);
-  EXPECT_EQ(0u, callee_voice->send_streams().size());
-  EXPECT_EQ(1u, callee_voice->recv_streams().size());
-  EXPECT_EQ(0u, callee_video->send_streams().size());
-  EXPECT_EQ(1u, callee_video->recv_streams().size());
+  if (IsUnifiedPlan()) {
+    EXPECT_FALSE(callee_voice);
+    EXPECT_FALSE(callee_video);
+  } else {
+    ASSERT_TRUE(callee_voice);
+    EXPECT_EQ(0u, callee_voice->send_streams().size());
+    EXPECT_EQ(1u, callee_voice->recv_streams().size());
+    ASSERT_TRUE(callee_video);
+    EXPECT_EQ(0u, callee_video->send_streams().size());
+    EXPECT_EQ(1u, callee_video->recv_streams().size());
+  }
 }
 
 // Test that a new stream in a subsequent offer causes a new receive stream to

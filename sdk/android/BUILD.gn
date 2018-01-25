@@ -139,6 +139,7 @@ generate_jni("generated_video_jni") {
     "api/org/webrtc/VideoEncoder.java",
     "api/org/webrtc/VideoEncoderFactory.java",
     "api/org/webrtc/VideoEncoderFallback.java",
+    "api/org/webrtc/VideoFileRenderer.java",
     "api/org/webrtc/VideoFrame.java",
     "api/org/webrtc/VideoRenderer.java",
     "api/org/webrtc/VideoSink.java",
@@ -196,6 +197,7 @@ rtc_static_library("video_jni") {
     "src/jni/videoencoderfallback.cc",
     "src/jni/videoencoderwrapper.cc",
     "src/jni/videoencoderwrapper.h",
+    "src/jni/videofilerenderer.cc",
     "src/jni/videoframe.cc",
     "src/jni/videoframe.h",
     "src/jni/videotrack.cc",
@@ -515,12 +517,61 @@ rtc_shared_library("libjingle_peerconnection_so") {
   output_extension = "so"
 }
 
-dist_jar("libwebrtc") {
+template("java8_dist_jar") {
+  _deps = []
+  _output_jars = []
+  foreach(dep, invoker.deps) {
+    _dep_name = get_label_info(dep, "name")
+    _source_jar =
+        get_label_info(dep, "target_gen_dir") + "/" + _dep_name + ".javac.jar"
+    _output_jar = "$target_gen_dir/" + _dep_name + ".jar"
+
+    _copy_target_name = "${target_name}_${_dep_name}_copy"
+
+    copy(_copy_target_name) {
+      sources = [
+        _source_jar,
+      ]
+      outputs = [
+        _output_jar,
+      ]
+      deps = [
+        dep,
+      ]
+    }
+    _deps += [ ":" + _copy_target_name ]
+    _output_jars += [ _output_jar ]
+  }
+
+  action(target_name) {
+    forward_variables_from(invoker, [ "data" ])
+    script = "//build/android/gyp/create_dist_jar.py"
+    depfile = "$target_gen_dir/$target_name.d"
+    deps = _deps
+
+    outputs = [
+      invoker.output,
+    ]
+
+    args = [
+      "--depfile",
+      rebase_path(depfile, root_build_dir),
+      "--output",
+      rebase_path(invoker.output, root_build_dir),
+    ]
+
+    foreach(output_jar, _output_jars) {
+      args += [
+        "--jars",
+        rebase_path(output_jar, root_build_dir),
+      ]
+    }
+  }
+}
+
+java8_dist_jar("libwebrtc") {
   _target_dir_name = get_label_info(":$target_name", "dir")
   output = "${root_out_dir}/lib.java${_target_dir_name}/${target_name}.jar"
-  direct_deps_only = true
-  use_unprocessed_jars = true
-  requires_android = true
 
   deps = [
     ":libjingle_peerconnection_java",

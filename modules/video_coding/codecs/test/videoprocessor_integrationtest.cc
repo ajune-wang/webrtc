@@ -489,12 +489,15 @@ void VideoProcessorIntegrationTest::SetUpAndInitObjects(
   }
 
   cpu_process_time_.reset(new CpuProcessTime(config_));
+  packet_manipulator_.reset(new PacketManipulatorImpl(
+      &packet_reader_, config_.networking_config, false));
 
   rtc::Event sync_event(false, false);
   task_queue->PostTask([this, &sync_event]() {
     processor_ = rtc::MakeUnique<VideoProcessor>(
-        encoder_.get(), decoder_.get(), analysis_frame_reader_.get(), config_,
-        &stats_, encoded_frame_writer_.get(), decoded_frame_writer_.get());
+        encoder_.get(), decoder_.get(), analysis_frame_reader_.get(),
+        packet_manipulator_.get(), config_, &stats_,
+        encoded_frame_writer_.get(), decoded_frame_writer_.get());
     sync_event.Set();
   });
   sync_event.Wait(rtc::Event::kForever);
@@ -571,7 +574,7 @@ void VideoProcessorIntegrationTest::AnalyzeAndPrintStats(
 
   Statistics qp;
 
-  FrameStatistic last_successfully_decoded_frame(0, 0);
+  FrameStatistic last_successfully_decoded_frame(0);
   for (size_t frame_idx = 0; frame_idx < stats.size(); ++frame_idx) {
     const FrameStatistic& frame_stat = stats[frame_idx];
 

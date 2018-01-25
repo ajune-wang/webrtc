@@ -36,19 +36,23 @@ CORES = ('# CPU cores used', 'CPU cores used')
 DENOISING = ('Denoising', 'denoising')
 RESILIENCE = ('Resilience', 'resilience')
 ERROR_CONCEALMENT = ('Error concealment', 'error concealment')
-QP = ('Avg QP', 'QP avg')
+QP = ('QP', 'QP avg')
 CPU_USAGE = ('CPU usage %', 'CPU usage (%)')
-PSNR = ('Avg PSNR', 'PSNR (dB)')
-SSIM = ('Avg SSIM', 'SSIM')
+PSNR = ('PSNR', 'PSNR (dB)')
+SSIM = ('SSIM', 'SSIM')
 ENC_BITRATE = ('Encoded bitrate', 'encoded bitrate (kbps)')
 NUM_FRAMES = ('# input frames', 'num frames')
 NUM_DROPPED_FRAMES = ('# dropped frames', 'num dropped frames')
 TIME_TO_TARGET = ('Time to reach target bitrate',
-                  'time to reach target rate (sec)')
-ENCODE_TIME = ('Frame encoding time', 'encode time (us)')
-DECODE_TIME = ('Frame decoding time', 'decode time (us)')
+                        'time to reach target rate (sec)')
+ENCODE_TIME = ('Encoding time', 'encode time (us)')
+ENCODE_TIME_AVG = ('Frame encoding time', 'encode time (us) avg')
+DECODE_TIME = ('Decoding time', 'decode time (us)')
+DECODE_TIME_AVG = ('Frame decoding time', 'decode time (us) avg')
+FRAME_SIZE = ('Frame size', 'frame size (bytes)')
 AVG_KEY_FRAME_SIZE = ('Avg key frame size', 'avg key frame size (bytes)')
-AVG_DELTA_FRAME_SIZE = ('Avg delta frame size', 'avg delta frame size (bytes)')
+AVG_NON_KEY_FRAME_SIZE = ('Avg delta frame size',
+                          'avg non-key frame size (bytes)')
 
 # Settings.
 SETTINGS = [
@@ -56,6 +60,9 @@ SETTINGS = [
   HEIGHT,
   FILENAME,
   NUM_FRAMES,
+  ENCODE_TIME,
+  DECODE_TIME,
+  FRAME_SIZE,
 ]
 
 # Settings, options for x-axis.
@@ -83,12 +90,12 @@ RESULTS = [
   ENC_BITRATE,
   NUM_DROPPED_FRAMES,
   TIME_TO_TARGET,
-  ENCODE_TIME,
-  DECODE_TIME,
+  ENCODE_TIME_AVG,
+  DECODE_TIME_AVG,
   QP,
   CPU_USAGE,
   AVG_KEY_FRAME_SIZE,
-  AVG_DELTA_FRAME_SIZE,
+  AVG_NON_KEY_FRAME_SIZE,
 ]
 
 METRICS_TO_PARSE = SETTINGS + SUBPLOT_SETTINGS + RESULTS
@@ -133,7 +140,7 @@ def ParseSetting(filename, setting):
               settings.append(s)
           break
 
-        TryFindMetric(parsed, line)
+        TryFindMetric(parsed, line, settings_file)
 
   settings_file.close()
   return settings
@@ -206,20 +213,36 @@ def ParseMetrics(filename, setting1, setting2):
 
           break
 
-        TryFindMetric(parsed, line)
+        TryFindMetric(parsed, line, settings_file)
 
   settings_file.close()
   return metrics
 
 
-def TryFindMetric(parsed, line):
+def TryFindMetric(parsed, line, settings_file):
   for metric in METRICS_TO_PARSE:
     name = metric[0]
     label = metric[1]
     if re.search(r'%s' % name, line):
       found, value = GetMetric(name, line)
-      if found:
-        parsed[label] = value
+      if not found:
+        # TODO(asapersson): Change format.
+        # Try find min, max, average stats.
+        found, minimum = GetMetric("Min", settings_file.readline())
+        if not found:
+          return
+        found, maximum = GetMetric("Max", settings_file.readline())
+        if not found:
+          return
+        found, average = GetMetric("Avg", settings_file.readline())
+        if not found:
+          return
+
+        parsed[label + ' min'] = minimum
+        parsed[label + ' max'] = maximum
+        parsed[label + ' avg'] = average
+
+      parsed[label] = value
       return
 
 

@@ -60,44 +60,25 @@ CMSampleBufferRef createTestSampleBufferRef() {
 }
 #endif
 @interface RTCCameraVideoCapturer (Tests)<AVCaptureVideoDataOutputSampleBufferDelegate>
-- (instancetype)initWithDelegate:(__weak id<RTCVideoCapturerDelegate>)delegate
-                  captureSession:(AVCaptureSession *)captureSession;
 @end
 
 @interface RTCCameraVideoCapturerTests : NSObject
 @property(nonatomic, strong) id delegateMock;
 @property(nonatomic, strong) id deviceMock;
 @property(nonatomic, strong) id captureConnectionMock;
-@property(nonatomic, strong) id captureSessionMock;
 @property(nonatomic, strong) RTCCameraVideoCapturer *capturer;
 @end
 
 @implementation RTCCameraVideoCapturerTests
 @synthesize delegateMock = _delegateMock;
-@synthesize deviceMock = _deviceMock;
 @synthesize captureConnectionMock = _captureConnectionMock;
-@synthesize captureSessionMock = _captureSessionMock;
 @synthesize capturer = _capturer;
+@synthesize deviceMock = _deviceMock;
 
 - (void)setup {
   self.delegateMock = OCMProtocolMock(@protocol(RTCVideoCapturerDelegate));
   self.captureConnectionMock = OCMClassMock([AVCaptureConnection class]);
   self.capturer = [[RTCCameraVideoCapturer alloc] initWithDelegate:self.delegateMock];
-  self.deviceMock = [self createDeviceMock];
-}
-
-- (void)setupWithMockedCaptureSession {
-  self.captureSessionMock = OCMStrictClassMock([AVCaptureSession class]);
-  OCMStub([self.captureSessionMock setSessionPreset:[OCMArg any]]);
-  OCMStub([self.captureSessionMock setUsesApplicationAudioSession:NO]);
-  OCMStub([self.captureSessionMock canAddOutput:[OCMArg any]]).andReturn(YES);
-  OCMStub([self.captureSessionMock addOutput:[OCMArg any]]);
-  OCMStub([self.captureSessionMock beginConfiguration]);
-  OCMStub([self.captureSessionMock commitConfiguration]);
-  self.delegateMock = OCMProtocolMock(@protocol(RTCVideoCapturerDelegate));
-  self.captureConnectionMock = OCMClassMock([AVCaptureConnection class]);
-  self.capturer = [[RTCCameraVideoCapturer alloc] initWithDelegate:self.delegateMock
-                                                    captureSession:self.captureSessionMock];
   self.deviceMock = [self createDeviceMock];
 }
 
@@ -163,11 +144,9 @@ CMSampleBufferRef createTestSampleBufferRef() {
   NSArray *supportedFormats = [RTCCameraVideoCapturer supportedFormatsForDevice:self.deviceMock];
 
   // then
-  EXPECT_EQ(supportedFormats.count, 3u);
+  EXPECT_EQ(supportedFormats.count, 2u);
   EXPECT_TRUE([supportedFormats containsObject:validFormat1]);
   EXPECT_TRUE([supportedFormats containsObject:validFormat2]);
-  EXPECT_TRUE([supportedFormats containsObject:invalidFormat]);
-
   // cleanup
   [validFormat1 stopMocking];
   [validFormat2 stopMocking];
@@ -370,162 +349,59 @@ CMSampleBufferRef createTestSampleBufferRef() {
 #endif
 }
 
-- (void)testStartingAndStoppingCapture {
-  id expectedDeviceInputMock = OCMClassMock([AVCaptureDeviceInput class]);
-  id captureDeviceInputMock = OCMClassMock([AVCaptureDeviceInput class]);
-  OCMStub([captureDeviceInputMock deviceInputWithDevice:self.deviceMock error:[OCMArg setTo:nil]])
-      .andReturn(expectedDeviceInputMock);
-
-  OCMStub([self.deviceMock lockForConfiguration:[OCMArg setTo:nil]]).andReturn(YES);
-  OCMStub([self.deviceMock unlockForConfiguration]);
-  OCMStub([_captureSessionMock canAddInput:expectedDeviceInputMock]).andReturn(YES);
-  OCMStub([_captureSessionMock inputs]).andReturn(@[ expectedDeviceInputMock ]);
-  OCMStub([_captureSessionMock removeInput:expectedDeviceInputMock]);
-
-  // Set expectation that the capture session should be started with correct device.
-  OCMExpect([_captureSessionMock addInput:expectedDeviceInputMock]);
-  OCMExpect([_captureSessionMock startRunning]);
-  OCMExpect([_captureSessionMock stopRunning]);
-
-  id format = OCMClassMock([AVCaptureDeviceFormat class]);
-  [self.capturer startCaptureWithDevice:self.deviceMock format:format fps:30];
-  [self.capturer stopCapture];
-
-  // Start capture code is dispatched async.
-  OCMVerifyAllWithDelay(_captureSessionMock, 15);
-}
-
-- (void)testStartCaptureFailingToLockForConfiguration {
-  // The captureSessionMock is a strict mock, so this test will crash if the startCapture
-  // method does not return when failing to lock for configuration.
-  OCMExpect([self.deviceMock lockForConfiguration:[OCMArg setTo:nil]]).andReturn(NO);
-
-  id format = OCMClassMock([AVCaptureDeviceFormat class]);
-  [self.capturer startCaptureWithDevice:self.deviceMock format:format fps:30];
-
-  // Start capture code is dispatched async.
-  OCMVerifyAllWithDelay(self.deviceMock, 15);
-}
-
-- (void)testStartingAndStoppingCaptureWithCallbacks {
-  id expectedDeviceInputMock = OCMClassMock([AVCaptureDeviceInput class]);
-  id captureDeviceInputMock = OCMClassMock([AVCaptureDeviceInput class]);
-  OCMStub([captureDeviceInputMock deviceInputWithDevice:self.deviceMock error:[OCMArg setTo:nil]])
-      .andReturn(expectedDeviceInputMock);
-
-  OCMStub([self.deviceMock lockForConfiguration:[OCMArg setTo:nil]]).andReturn(YES);
-  OCMStub([self.deviceMock unlockForConfiguration]);
-  OCMStub([_captureSessionMock canAddInput:expectedDeviceInputMock]).andReturn(YES);
-  OCMStub([_captureSessionMock inputs]).andReturn(@[ expectedDeviceInputMock ]);
-  OCMStub([_captureSessionMock removeInput:expectedDeviceInputMock]);
-
-  // Set expectation that the capture session should be started with correct device.
-  OCMExpect([_captureSessionMock addInput:expectedDeviceInputMock]);
-  OCMExpect([_captureSessionMock startRunning]);
-  OCMExpect([_captureSessionMock stopRunning]);
-
-  dispatch_semaphore_t completedStopSemaphore = dispatch_semaphore_create(0);
-
-  __block BOOL completedStart = NO;
-  id format = OCMClassMock([AVCaptureDeviceFormat class]);
-  [self.capturer startCaptureWithDevice:self.deviceMock
-                                 format:format
-                                    fps:30
-                      completionHandler:^(NSError *error) {
-                        EXPECT_EQ(error, nil);
-                        completedStart = YES;
-                      }];
-
-  __block BOOL completedStop = NO;
-  [self.capturer stopCaptureWithCompletionHandler:^{
-    completedStop = YES;
-    dispatch_semaphore_signal(completedStopSemaphore);
-  }];
-
-  dispatch_semaphore_wait(completedStopSemaphore,
-                          dispatch_time(DISPATCH_TIME_NOW, 15.0 * NSEC_PER_SEC));
-  OCMVerifyAllWithDelay(_captureSessionMock, 15);
-  EXPECT_TRUE(completedStart);
-  EXPECT_TRUE(completedStop);
-}
-
-- (void)testStartCaptureFailingToLockForConfigurationWithCallback {
-  id expectedDeviceInputMock = OCMClassMock([AVCaptureDeviceInput class]);
-  id captureDeviceInputMock = OCMClassMock([AVCaptureDeviceInput class]);
-  OCMStub([captureDeviceInputMock deviceInputWithDevice:self.deviceMock error:[OCMArg setTo:nil]])
-      .andReturn(expectedDeviceInputMock);
-
-  id errorMock = OCMClassMock([NSError class]);
-
-  OCMStub([self.deviceMock lockForConfiguration:[OCMArg setTo:errorMock]]).andReturn(NO);
-  OCMStub([_captureSessionMock canAddInput:expectedDeviceInputMock]).andReturn(YES);
-  OCMStub([self.deviceMock unlockForConfiguration]);
-
-  OCMExpect([_captureSessionMock addInput:expectedDeviceInputMock]);
-
-  dispatch_semaphore_t completedStartSemaphore = dispatch_semaphore_create(0);
-  __block NSError *callbackError = nil;
-
-  id format = OCMClassMock([AVCaptureDeviceFormat class]);
-  [self.capturer startCaptureWithDevice:self.deviceMock
-                                 format:format
-                                    fps:30
-                      completionHandler:^(NSError *error) {
-                        callbackError = error;
-                        dispatch_semaphore_signal(completedStartSemaphore);
-                      }];
-
-  long ret = dispatch_semaphore_wait(completedStartSemaphore,
-                                     dispatch_time(DISPATCH_TIME_NOW, 15.0 * NSEC_PER_SEC));
-  EXPECT_EQ(ret, 0);
-  EXPECT_EQ(callbackError, errorMock);
-}
-
 @end
 
-TEST(RTCCameraVideoCapturerTests, SetupSession) {
+// TODO(kthelgason): Reenable these tests on simulator.
+// See bugs.webrtc.org/7813
+#if TARGET_IPHONE_SIMULATOR
+#define MAYBE_TEST(f, name) TEST(f, DISABLED_##name)
+#else
+#define MAYBE_TEST TEST
+#endif
+
+MAYBE_TEST(RTCCameraVideoCapturerTests, SetupSession) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testSetupSession];
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, SetupSessionOutput) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, SetupSessionOutput) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testSetupSessionOutput];
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, SupportedFormatsForDevice) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, SupportedFormatsForDevice) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testSupportedFormatsForDevice];
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, CaptureDevices) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, CaptureDevices) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testCaptureDevices];
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, DelegateCallbackNotCalledWhenInvalidBuffer) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, DelegateCallbackNotCalledWhenInvalidBuffer) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testDelegateCallbackNotCalledWhenInvalidBuffer];
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, DelegateCallbackWithValidBufferAndOrientationUpdate) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, DelegateCallbackWithValidBufferAndOrientationUpdate) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testDelegateCallbackWithValidBufferAndOrientationUpdate];
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, RotationCameraBackLandscapeLeft) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, RotationCameraBackLandscapeLeft) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testRotationCamera:AVCaptureDevicePositionBack
@@ -533,7 +409,7 @@ TEST(RTCCameraVideoCapturerTests, RotationCameraBackLandscapeLeft) {
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, RotationCameraFrontLandscapeLeft) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, RotationCameraFrontLandscapeLeft) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testRotationCamera:AVCaptureDevicePositionFront
@@ -541,7 +417,7 @@ TEST(RTCCameraVideoCapturerTests, RotationCameraFrontLandscapeLeft) {
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, RotationCameraBackLandscapeRight) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, RotationCameraBackLandscapeRight) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testRotationCamera:AVCaptureDevicePositionBack
@@ -549,7 +425,7 @@ TEST(RTCCameraVideoCapturerTests, RotationCameraBackLandscapeRight) {
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, RotationCameraFrontLandscapeRight) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, RotationCameraFrontLandscapeRight) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testRotationCamera:AVCaptureDevicePositionFront
@@ -557,44 +433,16 @@ TEST(RTCCameraVideoCapturerTests, RotationCameraFrontLandscapeRight) {
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, RotationCameraFrame) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, RotationCameraFrame) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testRotationFrame];
   [test tearDown];
 }
 
-TEST(RTCCameraVideoCapturerTests, ImageExif) {
+MAYBE_TEST(RTCCameraVideoCapturerTests, ImageExif) {
   RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
   [test setup];
   [test testImageExif];
-  [test tearDown];
-}
-
-TEST(RTCCameraVideoCapturerTests, StartAndStopCapture) {
-  RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
-  [test setupWithMockedCaptureSession];
-  [test testStartingAndStoppingCapture];
-  [test tearDown];
-}
-
-TEST(RTCCameraVideoCapturerTests, StartCaptureFailingToLockForConfiguration) {
-  RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
-  [test setupWithMockedCaptureSession];
-  [test testStartCaptureFailingToLockForConfiguration];
-  [test tearDown];
-}
-
-TEST(RTCCameraVideoCapturerTests, StartAndStopCaptureWithCallbacks) {
-  RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
-  [test setupWithMockedCaptureSession];
-  [test testStartingAndStoppingCaptureWithCallbacks];
-  [test tearDown];
-}
-
-TEST(RTCCameraVideoCapturerTests, StartCaptureFailingToLockForConfigurationWithCallback) {
-  RTCCameraVideoCapturerTests *test = [[RTCCameraVideoCapturerTests alloc] init];
-  [test setupWithMockedCaptureSession];
-  [test testStartCaptureFailingToLockForConfigurationWithCallback];
   [test tearDown];
 }

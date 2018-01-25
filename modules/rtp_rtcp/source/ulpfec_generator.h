@@ -69,7 +69,8 @@ class UlpfecGenerator {
   std::vector<std::unique_ptr<RedPacket>> GetUlpfecPacketsAsRed(
       int red_payload_type,
       int ulpfec_payload_type,
-      uint16_t first_seq_num);
+      uint16_t first_seq_num,
+      size_t rtp_header_length);
 
  private:
   explicit UlpfecGenerator(std::unique_ptr<ForwardErrorCorrection> fec);
@@ -97,7 +98,6 @@ class UlpfecGenerator {
 
   std::unique_ptr<ForwardErrorCorrection> fec_;
   ForwardErrorCorrection::PacketList media_packets_;
-  size_t last_media_packet_rtp_header_length_;
   std::list<ForwardErrorCorrection::Packet*> generated_fec_packets_;
   int num_protected_frames_;
   int min_num_media_packets_;

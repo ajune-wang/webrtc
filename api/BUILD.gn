@@ -91,7 +91,6 @@ rtc_static_library("libjingle_peerconnection_api") {
 
   deps = [
     ":array_view",
-    ":audio_options_api",
     ":optional",
     ":peerconnection_and_implicit_call_api",
     ":rtc_stats_api",
@@ -198,34 +197,10 @@ rtc_source_set("audio_mixer_api") {
   ]
 }
 
-rtc_source_set("audio_options_api") {
-  visibility = [ "*" ]
-  sources = [
-    "audio_options.h",
-  ]
-
-  deps = [
-    ":optional",
-    "../rtc_base:rtc_base_approved",
-  ]
-}
-
 rtc_source_set("transport_api") {
   visibility = [ "*" ]
   sources = [
     "call/transport.h",
-  ]
-}
-
-rtc_source_set("fec_controller_api") {
-  visibility = [ "*" ]
-  sources = [
-    "fec_controller.h",
-  ]
-
-  deps = [
-    "../common_video:common_video",
-    "../modules:module_api",
   ]
 }
 

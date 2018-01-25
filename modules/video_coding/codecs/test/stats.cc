@@ -32,24 +32,14 @@ std::string FrameStatistic::ToString() const {
   return ss.str();
 }
 
-FrameStatistic* Stats::AddFrame(size_t timestamp) {
-  RTC_DCHECK(rtp_timestamp_to_frame_num_.find(timestamp) ==
-             rtp_timestamp_to_frame_num_.end());
-  const size_t frame_number = stats_.size();
-  rtp_timestamp_to_frame_num_[timestamp] = frame_number;
-  stats_.emplace_back(frame_number, timestamp);
+FrameStatistic* Stats::AddFrame() {
+  stats_.emplace_back(stats_.size());
   return &stats_.back();
 }
 
 FrameStatistic* Stats::GetFrame(size_t frame_number) {
   RTC_CHECK_LT(frame_number, stats_.size());
   return &stats_[frame_number];
-}
-
-FrameStatistic* Stats::GetFrameWithTimestamp(size_t timestamp) {
-  RTC_DCHECK(rtp_timestamp_to_frame_num_.find(timestamp) !=
-             rtp_timestamp_to_frame_num_.end());
-  return GetFrame(rtp_timestamp_to_frame_num_[timestamp]);
 }
 
 size_t Stats::size() const {

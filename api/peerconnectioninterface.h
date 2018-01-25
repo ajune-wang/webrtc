@@ -78,7 +78,6 @@
 
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
-#include "api/audio_options.h"
 #include "api/datachannelinterface.h"
 #include "api/dtmfsenderinterface.h"
 #include "api/jsep.h"
@@ -305,11 +304,13 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     bool dscp() const { return media_config.enable_dscp; }
     void set_dscp(bool enable) { media_config.enable_dscp = enable; }
 
+    // TODO(nisse): The corresponding flag in MediaConfig and
+    // elsewhere should be renamed enable_cpu_adaptation.
     bool cpu_adaptation() const {
-      return media_config.video.enable_cpu_adaptation;
+      return media_config.video.enable_cpu_overuse_detection;
     }
     void set_cpu_adaptation(bool enable) {
-      media_config.video.enable_cpu_adaptation = enable;
+      media_config.video.enable_cpu_overuse_detection = enable;
     }
 
     bool suspend_below_min_bitrate() const {
@@ -319,11 +320,14 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
       media_config.video.suspend_below_min_bitrate = enable;
     }
 
+    // TODO(nisse): The negation in the corresponding MediaConfig
+    // attribute is inconsistent, and it should be renamed at some
+    // point.
     bool prerenderer_smoothing() const {
-      return media_config.video.enable_prerenderer_smoothing;
+      return !media_config.video.disable_prerenderer_smoothing;
     }
     void set_prerenderer_smoothing(bool enable) {
-      media_config.video.enable_prerenderer_smoothing = enable;
+      media_config.video.disable_prerenderer_smoothing = !enable;
     }
 
     bool experiment_cpu_load_estimator() const {
@@ -882,10 +886,10 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     return false;
   }
 
-  // Register a metric observer (used by chromium). It's reference counted, and
-  // this method takes a reference. RegisterUMAObserver(nullptr) will release
-  // the reference.
-  // TODO(deadbeef): Take argument as scoped_refptr?
+  // Register a metric observer (used by chromium).
+  //
+  // There can only be one observer at a time. Before the observer is
+  // destroyed, RegisterUMAOberver(nullptr) should be called.
   virtual void RegisterUMAObserver(UMAObserver* observer) = 0;
 
   // 0 <= min <= current <= max should hold for set parameters.

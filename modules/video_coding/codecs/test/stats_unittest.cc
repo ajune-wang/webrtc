@@ -14,40 +14,22 @@
 
 namespace webrtc {
 namespace test {
-namespace {
-const size_t kTimestamp = 12345;
-}  // namespace
 
-TEST(StatsTest, AddFrame) {
+TEST(StatsTest, AddSingleFrame) {
   Stats stats;
-  FrameStatistic* frame_stat = stats.AddFrame(kTimestamp);
+  FrameStatistic* frame_stat = stats.AddFrame();
   EXPECT_EQ(0ull, frame_stat->frame_number);
-  EXPECT_EQ(kTimestamp, frame_stat->rtp_timestamp);
   EXPECT_EQ(1u, stats.size());
 }
 
-TEST(StatsTest, GetFrame) {
-  Stats stats;
-  stats.AddFrame(kTimestamp);
-  FrameStatistic* frame_stat = stats.GetFrame(0u);
-  EXPECT_EQ(0u, frame_stat->frame_number);
-  EXPECT_EQ(kTimestamp, frame_stat->rtp_timestamp);
-}
-
-TEST(StatsTest, AddFrames) {
+TEST(StatsTest, AddMultipleFrames) {
   Stats stats;
   const size_t kNumFrames = 1000;
   for (size_t i = 0; i < kNumFrames; ++i) {
-    FrameStatistic* frame_stat = stats.AddFrame(kTimestamp + i);
+    FrameStatistic* frame_stat = stats.AddFrame();
     EXPECT_EQ(i, frame_stat->frame_number);
-    EXPECT_EQ(kTimestamp + i, frame_stat->rtp_timestamp);
   }
   EXPECT_EQ(kNumFrames, stats.size());
-  // Get frame.
-  size_t i = 22;
-  FrameStatistic* frame_stat = stats.GetFrameWithTimestamp(kTimestamp + i);
-  EXPECT_EQ(i, frame_stat->frame_number);
-  EXPECT_EQ(kTimestamp + i, frame_stat->rtp_timestamp);
 }
 
 }  // namespace test

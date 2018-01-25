@@ -292,7 +292,7 @@ class PeerConnection : public PeerConnectionInterface,
   // Exposed for tests.
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
-  GetTransceiversForTesting() const {
+  GetTransceiversInternal() const {
     return transceivers_;
   }
 
@@ -929,7 +929,7 @@ class PeerConnection : public PeerConnectionInterface,
   // will refer to the same reference count.
   rtc::scoped_refptr<PeerConnectionFactory> factory_;
   PeerConnectionObserver* observer_ = nullptr;
-  rtc::scoped_refptr<UMAObserver> uma_observer_ = nullptr;
+  UMAObserver* uma_observer_ = nullptr;
 
   // The EventLog needs to outlive |call_| (and any other object that uses it).
   std::unique_ptr<RtcEventLog> event_log_;

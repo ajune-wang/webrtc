@@ -46,7 +46,6 @@ constexpr int kDefaultTimeout = 10000;
 // RtpSenderInterface/DtlsTransportInterface objects once they're available in
 // the API. The RtpSender can be used to determine which transport a given media
 // will use: https://www.w3.org/TR/webrtc/#dom-rtcrtpsender-transport
-// Should also be able to remove GetTransceiversForTesting at that point.
 
 class PeerConnectionWrapperForBundleTest : public PeerConnectionWrapper {
  public:
@@ -76,8 +75,7 @@ class PeerConnectionWrapperForBundleTest : public PeerConnectionWrapper {
   }
 
   cricket::VoiceChannel* voice_channel() {
-    auto transceivers =
-        GetInternalPeerConnection()->GetTransceiversForTesting();
+    auto transceivers = GetInternalPeerConnection()->GetTransceiversInternal();
     for (auto transceiver : transceivers) {
       if (transceiver->internal()->media_type() == cricket::MEDIA_TYPE_AUDIO) {
         return static_cast<cricket::VoiceChannel*>(
@@ -96,8 +94,7 @@ class PeerConnectionWrapperForBundleTest : public PeerConnectionWrapper {
   }
 
   cricket::VideoChannel* video_channel() {
-    auto transceivers =
-        GetInternalPeerConnection()->GetTransceiversForTesting();
+    auto transceivers = GetInternalPeerConnection()->GetTransceiversInternal();
     for (auto transceiver : transceivers) {
       if (transceiver->internal()->media_type() == cricket::MEDIA_TYPE_VIDEO) {
         return static_cast<cricket::VideoChannel*>(

@@ -11,7 +11,6 @@
 #ifndef MODULES_VIDEO_CODING_CODECS_TEST_STATS_H_
 #define MODULES_VIDEO_CODING_CODECS_TEST_STATS_H_
 
-#include <map>
 #include <string>
 #include <vector>
 
@@ -22,8 +21,7 @@ namespace test {
 
 // Statistics for one processed frame.
 struct FrameStatistic {
-  FrameStatistic(size_t frame_number, size_t rtp_timestamp)
-      : frame_number(frame_number), rtp_timestamp(rtp_timestamp) {}
+  explicit FrameStatistic(size_t frame_number) : frame_number(frame_number) {}
 
   std::string ToString() const;
 
@@ -57,6 +55,11 @@ struct FrameStatistic {
   // Quantization.
   int qp = -1;
 
+  // How many packets were discarded of the encoded frame data (if any).
+  size_t packets_dropped = 0;
+  size_t total_packets = 0;
+  size_t manipulated_length = 0;
+
   // Quality.
   float psnr = 0.0;
   float ssim = 0.0;
@@ -69,17 +72,15 @@ class Stats {
   ~Stats() = default;
 
   // Creates a FrameStatistic for the next frame to be processed.
-  FrameStatistic* AddFrame(size_t timestamp);
+  FrameStatistic* AddFrame();
 
-  // Returns the FrameStatistic corresponding to |frame_number| or |timestamp|.
+  // Returns the FrameStatistic corresponding to |frame_number|.
   FrameStatistic* GetFrame(size_t frame_number);
-  FrameStatistic* GetFrameWithTimestamp(size_t timestamp);
 
   size_t size() const;
 
  private:
   std::vector<FrameStatistic> stats_;
-  std::map<size_t, size_t> rtp_timestamp_to_frame_num_;
 };
 
 }  // namespace test

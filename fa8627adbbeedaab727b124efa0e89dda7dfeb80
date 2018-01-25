@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f1f2cdd2_4e20bfe4",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1771,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-25T02:36:17Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s a holdover from legacy code. Unfortunately, to change this we have to update downstream code or settle with having both concepts of \u0027content\u0027 and \u0027media_section\u0027 (even though they mean the same thing).",
+      "parentUuid": "923a2137_3a62f23e",
+      "revId": "fa8627adbbeedaab727b124efa0e89dda7dfeb80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8aec7bf8_73f1821b",
         "filename": "pc/peerconnection_interop_unittest.cc",
         "patchSetId": 2

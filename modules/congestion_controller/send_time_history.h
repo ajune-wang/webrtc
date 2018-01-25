@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_INCLUDE_SEND_TIME_HISTORY_H_
-#define MODULES_REMOTE_BITRATE_ESTIMATOR_INCLUDE_SEND_TIME_HISTORY_H_
+#ifndef MODULES_CONGESTION_CONTROLLER_SEND_TIME_HISTORY_H_
+#define MODULES_CONGESTION_CONTROLLER_SEND_TIME_HISTORY_H_
 
 #include <map>
 
@@ -33,6 +33,9 @@ class SendTimeHistory {
   // Return false if not found.
   bool OnSentPacket(uint16_t sequence_number, int64_t send_time_ms);
 
+  // Retrieves packet info identified by |sequence_number|
+  rtc::Optional<PacketFeedback> GetPacket(uint16_t sequence_number) const;
+
   // Look up PacketFeedback for a sent packet, based on the sequence number, and
   // populate all fields except for arrival_time. The packet parameter must
   // thus be non-null and have the sequence_number field set.
@@ -52,4 +55,4 @@ class SendTimeHistory {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_REMOTE_BITRATE_ESTIMATOR_INCLUDE_SEND_TIME_HISTORY_H_
+#endif  // MODULES_CONGESTION_CONTROLLER_SEND_TIME_HISTORY_H_

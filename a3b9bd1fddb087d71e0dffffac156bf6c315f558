@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5b404796_b987f533",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-25T21:58:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4e7692b_fc00c819",
+      "range": {
+        "startLine": 1586,
+        "startChar": 77,
+        "endLine": 1586,
+        "endChar": 0
+      },
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8e80c89_4ba5d61f",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6999d684_079963bb",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1604,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-25T21:58:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8e80c89_4ba5d61f",
+      "range": {
+        "startLine": 1604,
+        "startChar": 5,
+        "endLine": 1604,
+        "endChar": 0
+      },
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "19cbee35_e37190e6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-25T21:58:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dec3191_8d0b7dc2",
+      "range": {
+        "startLine": 1622,
+        "startChar": 48,
+        "endLine": 1622,
+        "endChar": 0
+      },
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b09df39_80b4ec99",
         "filename": "pc/peerconnection.h",
         "patchSetId": 1
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "b09daf1a_10c66f39",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-25T21:58:23Z",
+      "side": 1,
+      "message": "Yeah, I think in this case it works out better.",
+      "parentUuid": "6b09df39_80b4ec99",
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1139bf87_be088ae3",
         "filename": "pc/peerconnection_media_unittest.cc",
         "patchSetId": 1
@@ -99,6 +189,24 @@
       "writtenOn": "2018-01-23T01:01:56Z",
       "side": 1,
       "message": "This is not really testing the same thing any more. Previously it was testing adding more \"a\u003dssrc\"s to an existing m\u003d section, to add a new track. But with unified plan, a new track requires a new m\u003d section. Which is why we only see one send stream; the new tracks aren\u0027t actually negotiated yet.\n\nSo the closest unified plan analog of this test would require the caller to \"AddTransceiver\" before creating the offer, to give the callee m\u003d sections for its \"AddTrack\"s to latch onto.",
+      "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd01bb5c_c2280de6",
+        "filename": "pc/peerconnection_media_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-25T21:58:23Z",
+      "side": 1,
+      "message": "Maybe we can leave these tests as Plan B only? I think the multi track case is already covered elsewhere.",
+      "parentUuid": "1139bf87_be088ae3",
       "revId": "a3b9bd1fddb087d71e0dffffac156bf6c315f558",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

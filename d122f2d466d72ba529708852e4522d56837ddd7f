@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcb4b8de_d498300f",
+        "filename": "AUTHORS",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-25T23:13:52Z",
+      "side": 1,
+      "message": "Did you sign the Contributor Agreement, as specified here?\n\nhttps://webrtc.org/contributing/",
+      "range": {
+        "startLine": 81,
+        "startChar": 26,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "d122f2d466d72ba529708852e4522d56837ddd7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

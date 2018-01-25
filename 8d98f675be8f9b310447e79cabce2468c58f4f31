@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ba20e93_2927cdfe",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-25T01:39:36Z",
+      "side": 1,
+      "message": "The only change in this method is adding \"tun\", \"utun\" and \"tap\", and moving the \"if (network_monitor_)\" part into ConvertIfAddrs.",
+      "revId": "8d98f675be8f9b310447e79cabce2468c58f4f31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

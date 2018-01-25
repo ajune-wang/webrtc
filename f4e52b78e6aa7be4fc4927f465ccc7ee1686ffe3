@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d80d795_b789536b",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "Might as well make all of these RTC_CHECKs, since in this testing code we are very liberal with crashing when something is not right. Wdyt?",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 12
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98ff1774_e1e3602f",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "Potential idea to solve the problems below:\n\nIf we know the layer frame output order from the SVC encoder, maybe we could have a counter in ::FrameEncoded, keep a queue of EncodedImage\u0027s, and then call the decoder whenever we have received all the layer frames for a particular superframe?",
+      "range": {
+        "startLine": 216,
+        "startChar": 2,
+        "endLine": 216,
+        "endChar": 19
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa62bab_a681b86a",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "I\u0027m not sure this will work with async encoders, which return the ::Encode call before the encoding is done. Can you test if the _mediacodec.cc tests pass on Android after this change?",
+      "range": {
+        "startLine": 238,
+        "startChar": 14,
+        "endLine": 238,
+        "endChar": 22
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88aed022_39f76d07",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "I also have a feeling this will not work with async decoders.",
+      "range": {
+        "startLine": 241,
+        "startChar": 6,
+        "endLine": 241,
+        "endChar": 37
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29324e3e_8135d60d",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "const size_t",
+      "range": {
+        "startLine": 424,
+        "startChar": 2,
+        "endLine": 424,
+        "endChar": 8
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e0c5be9_bfc0d270",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "In I420{PSNR,SSIM} we do the opposite: upscale the decoded frame. If this is a bad idea to begin with, maybe we should change the behaviour there, and then you wouldn\u0027t have to need the scaling logic here.\n\nIf we want to do that change, that could be done later to not block this CL, however.",
+      "range": {
+        "startLine": 456,
+        "startChar": 7,
+        "endLine": 456,
+        "endChar": 32
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5552024e_be2a5823",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "Should these go in the explicitly public section below?",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 7
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec4fd52_ef212794",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "remove or replace with \"input\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 28,
+        "endLine": 66,
+        "endChar": 36
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "681d3d13_8c18fa70",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "Calculate ?",
+      "range": {
+        "startLine": 177,
+        "startChar": 7,
+        "endLine": 177,
+        "endChar": 15
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18e46fd2_189e48bf",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "Can this be const?\n\nAdd underscore to name: |num_simulcast_or_spatial_layers_|. https://google.github.io/styleguide/cppguide.html#Variable_Names",
+      "range": {
+        "startLine": 185,
+        "startChar": 9,
+        "endLine": 185,
+        "endChar": 40
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52ae3f71_1816df4b",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "Good to get this fixed :)",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 30
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2592e0a6_00870537",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "Should this be 50? When playing back the clip with 30 fps, the motion is a bit slow.",
+      "range": {
+        "startLine": 326,
+        "startChar": 51,
+        "endLine": 326,
+        "endChar": 53
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2408557_39bfe4f1",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "And here.",
+      "range": {
+        "startLine": 350,
+        "startChar": 51,
+        "endLine": 350,
+        "endChar": 53
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b23ea759_500a9ed2",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_parameterized.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "const size_t",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 10
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eada1ef_8bc7cb9e",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_parameterized.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "const size_t",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 10
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69d4aec5_0249c196",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-25T10:37:54Z",
+      "side": 1,
+      "message": "After the change in how we call ::Decode, could we check more things on the decoder mocks?\n\nPrior to this change, we couldn\u0027t do that because ::Decode was called by ::FrameEncoded, and we never bothered to let the encoder mocks do callbacks.",
+      "range": {
+        "startLine": 89,
+        "startChar": 27,
+        "endLine": 89,
+        "endChar": 55
+      },
+      "revId": "f4e52b78e6aa7be4fc4927f465ccc7ee1686ffe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

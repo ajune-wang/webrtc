@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2d61b62b_8addd66b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-25T00:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87503098_51a52f9c",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1fb880_03aadda4",
         "filename": "logging/BUILD.gn",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "44bfb2b5_2af4c674",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-25T00:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1fb880_03aadda4",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61b10d56_dfd7bdc0",
         "filename": "logging/BUILD.gn",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9fd92b3_d0a6f990",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-25T00:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61b10d56_dfd7bdc0",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "770cf388_41bcf51c",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-25T00:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faa01e5c_2235b2b5",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24c640ab_08b35222",
         "filename": "logging/BUILD.gn",
         "patchSetId": 2
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "5f89ec7f_6e82938b",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-25T00:25:58Z",
+      "side": 1,
+      "message": "rtc_event_log_api contains an interface rtc_event_log_encoder.h and I remember there is going to be different implementations of the encoder soon in addition to this legacy one. Bjorn may comment more on this.",
+      "parentUuid": "24c640ab_08b35222",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4467251e_f544e8cc",
         "filename": "logging/BUILD.gn",
         "patchSetId": 2
@@ -104,6 +200,24 @@
       "writtenOn": "2018-01-24T21:59:36Z",
       "side": 1,
       "message": "nit: Could just be rtc_event_log_output?",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eb9c8a6_d0e2b955",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-01-25T00:25:58Z",
+      "side": 1,
+      "message": "api/ has rtceventlogoutput.h for Chromium to override, and this target so far contains a file-based implementation used by WebRTC. I am not sure about the naming convention we should use in this case.",
+      "parentUuid": "4467251e_f544e8cc",
       "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

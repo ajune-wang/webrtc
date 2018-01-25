@@ -81,6 +81,7 @@ class RtpDataMediaChannel : public DataMediaChannel {
   }
   virtual void OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
                                 const rtc::PacketTime& packet_time);
+  virtual void OnPacketReceived(webrtc::RtpPacketReceived parsed_packet);
   virtual void OnRtcpReceived(rtc::CopyOnWriteBuffer* packet,
                               const rtc::PacketTime& packet_time) {}
   virtual void OnReadyToSend(bool ready) {}
@@ -95,6 +96,7 @@ class RtpDataMediaChannel : public DataMediaChannel {
   bool SetMaxSendBandwidth(int bps);
   bool SetSendCodecs(const std::vector<DataCodec>& codecs);
   bool SetRecvCodecs(const std::vector<DataCodec>& codecs);
+  void ProcessReceivedPacket(const uint8_t* data, size_t size);
 
   bool sending_;
   bool receiving_;

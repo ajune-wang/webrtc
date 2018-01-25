@@ -378,6 +378,7 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
   if (state_ == kOpen && observer_) {
     ++messages_received_;
     bytes_received_ += buffer->size();
+    RTC_LOG(INFO) << "here";
     observer_->OnMessage(*buffer.get());
   } else {
     if (queued_received_data_.byte_count() + payload.size() >
@@ -512,6 +513,7 @@ void DataChannel::DeliverQueuedReceivedData() {
     std::unique_ptr<DataBuffer> buffer(queued_received_data_.Front());
     ++messages_received_;
     bytes_received_ += buffer->size();
+    RTC_LOG(INFO) << "here";
     observer_->OnMessage(*buffer);
     queued_received_data_.Pop();
   }

@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 
+#include "p2p/base/dtlstransportinternal.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/copyonwritebuffer.h"

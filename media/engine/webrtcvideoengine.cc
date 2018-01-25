@@ -1393,11 +1393,16 @@ void WebRtcVideoChannel::FillSendAndReceiveCodecStats(
 void WebRtcVideoChannel::OnPacketReceived(
     rtc::CopyOnWriteBuffer* packet,
     const rtc::PacketTime& packet_time) {
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
+  RTC_NOTREACHED();
+}
+
+void WebRtcVideoChannel::OnPacketReceived(
+    webrtc::RtpPacketReceived parsed_packet) {
+  // const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
+  //                                              packet_time.not_before);
   const webrtc::PacketReceiver::DeliveryStatus delivery_result =
-      call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, *packet,
-                                       webrtc_packet_time);
+      call_->Receiver()->DeliverParsedPacket(webrtc::MediaType::VIDEO,
+                                             parsed_packet);
   switch (delivery_result) {
     case webrtc::PacketReceiver::DELIVERY_OK:
       return;
@@ -1408,12 +1413,13 @@ void WebRtcVideoChannel::OnPacketReceived(
   }
 
   uint32_t ssrc = 0;
-  if (!GetRtpSsrc(packet->cdata(), packet->size(), &ssrc)) {
+  if (!GetRtpSsrc(parsed_packet.data(), parsed_packet.size(), &ssrc)) {
     return;
   }
 
   int payload_type = 0;
-  if (!GetRtpPayloadType(packet->cdata(), packet->size(), &payload_type)) {
+  if (!GetRtpPayloadType(parsed_packet.data(), parsed_packet.size(),
+                         &payload_type)) {
     return;
   }
 
@@ -1440,8 +1446,8 @@ void WebRtcVideoChannel::OnPacketReceived(
       break;
   }
 
-  if (call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, *packet,
-                                       webrtc_packet_time) !=
+  if (call_->Receiver()->DeliverParsedPacket(webrtc::MediaType::VIDEO,
+                                             parsed_packet) !=
       webrtc::PacketReceiver::DELIVERY_OK) {
     RTC_LOG(LS_WARNING) << "Failed to deliver RTP packet on re-delivery.";
     return;

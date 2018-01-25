@@ -272,10 +272,12 @@ bool RtpTransport::WantsPacket(bool rtcp,
                       << " packet: wrong size=" << packet->size();
     return false;
   }
+
   if (rtcp) {
     // Permit all (seemingly valid) RTCP packets.
     return true;
   }
+
   // Check whether we handle this payload.
   return HandlesPacket(packet->data(), packet->size());
 }

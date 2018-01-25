@@ -1,5 +1,5 @@
 /*
- *  Copyright 2004 The WebRTC Project Authors. All rights reserved.
+ *  Copyright 2018 The WebRTC Project Authors. All rights reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_JSEPTRANSPORT_H_
-#define PC_JSEPTRANSPORT_H_
+#ifndef PC_JSEPTRANSPORT2_H_
+#define PC_JSEPTRANSPORT2_H_
 
 #include <map>
 #include <memory>
@@ -22,7 +22,12 @@
 #include "p2p/base/dtlstransport.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/transportinfo.h"
+#include "pc/dtlssrtptransport.h"
+#include "pc/rtcpmuxfilter.h"
+#include "pc/rtptransport.h"
 #include "pc/sessiondescription.h"
+#include "pc/srtpfilter.h"
+#include "pc/srtptransport.h"
 #include "pc/transportstats.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/messagequeue.h"
@@ -34,7 +39,11 @@ namespace cricket {
 
 class DtlsTransportInternal;
 
-// bool BadTransportDescription(const std::string& desc, std::string* err_desc);
+enum class SrtpMode {
+  kUnencrypted,
+  kSdes,
+  kDtlsSrtp,
+};
 
 // Helper class used by TransportController that processes
 // TransportDescriptions. A TransportDescription represents the
@@ -44,14 +53,19 @@ class DtlsTransportInternal;
 //
 // On Threading:  Transport performs work solely on the network thread, and so
 // its methods should only be called on the network thread.
-class JsepTransport : public sigslot::has_slots<> {
+class JsepTransport2 : public sigslot::has_slots<> {
  public:
   // |mid| is just used for log statements in order to identify the Transport.
   // Note that |certificate| is allowed to be null since a remote description
   // may be set before a local certificate is generated.
-  JsepTransport(const std::string& mid,
-                const rtc::scoped_refptr<rtc::RTCCertificate>& certificate);
-  ~JsepTransport() override;
+  JsepTransport2(const std::string& mid,
+                 const rtc::scoped_refptr<rtc::RTCCertificate>& certificate,
+                 SrtpMode srtp_mode,
+                 std::unique_ptr<webrtc::RtpTransportInternal> rtp_transport,
+                 std::unique_ptr<DtlsTransportInternal> rtp_dtls_transport,
+                 std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport);
+
+  ~JsepTransport2() override;
 
   // Returns the MID of this transport.
   const std::string& mid() const { return mid_; }
@@ -78,15 +92,23 @@ class JsepTransport : public sigslot::has_slots<> {
 
   // Set the local TransportDescription to be used by DTLS and ICE channels
   // that are part of this Transport.
-  bool SetLocalTransportDescription(const TransportDescription& description,
-                                    webrtc::SdpType type,
-                                    std::string* error_desc);
+  bool SetLocalTransportDescription(
+      const TransportDescription& description,
+      bool enable_rtcp_mux,
+      const std::vector<CryptoParams>& cryptos,
+      const std::vector<int>& encrypted_extension_ids,
+      webrtc::SdpType type,
+      std::string* error_desc);
 
   // Set the remote TransportDescription to be used by DTLS and ICE channels
   // that are part of this Transport.
-  bool SetRemoteTransportDescription(const TransportDescription& description,
-                                     webrtc::SdpType type,
-                                     std::string* error_desc);
+  bool SetRemoteTransportDescription(
+      const TransportDescription& description,
+      bool enable_rtcp_mux,
+      const std::vector<CryptoParams>& cryptos,
+      const std::vector<int>& encrypted_extension_ids,
+      webrtc::SdpType type,
+      std::string* error_desc);
 
   // Set the "needs-ice-restart" flag as described in JSEP. After the flag is
   // set, offers should generate new ufrags/passwords until an ICE restart
@@ -129,7 +151,30 @@ class JsepTransport : public sigslot::has_slots<> {
                                     const rtc::SSLFingerprint* fingerprint,
                                     std::string* error_desc) const;
 
+  webrtc::RtpTransportInternal* GetRtpTransport() const {
+    return rtp_transport_.get();
+  }
+
+  DtlsTransportInternal* GetRtpDtlsTransport() const {
+    return rtp_dtls_transport_.get();
+  }
+
+  DtlsTransportInternal* GetRtcpDtlsTransport() const {
+    return rtcp_dtls_transport_.get();
+  }
+
+  sigslot::signal<> SignalRtcpMuxFullyActive;
+
  private:
+  bool SetRtcpMux(bool enable, webrtc::SdpType type, ContentSource source);
+
+  void ActivateRtcpMux();
+
+  bool SetSdes(const std::vector<CryptoParams>& cryptos,
+               const std::vector<int>& encrypted_extension_ids,
+               webrtc::SdpType type,
+               ContentSource source);
+
   // Negotiates the transport parameters based on the current local and remote
   // transport description, such as the ICE role to use, and whether DTLS
   // should be activated.
@@ -159,6 +204,8 @@ class JsepTransport : public sigslot::has_slots<> {
       DtlsTransportInternal* dtls_transport,
       std::string* error_desc);
 
+  bool GetTransportStats(int component, TransportStats* stats);
+
   const std::string mid_;
   // needs-ice-restart bit as described in JSEP.
   bool needs_ice_restart_ = false;
@@ -170,12 +217,20 @@ class JsepTransport : public sigslot::has_slots<> {
   bool local_description_set_ = false;
   bool remote_description_set_ = false;
 
-  // Candidate component => DTLS channel
-  std::map<int, DtlsTransportInternal*> channels_;
+  std::unique_ptr<webrtc::RtpTransportInternal> rtp_transport_;
+  webrtc::RtpTransportInternal* unencrypted_rtp_transport_ = nullptr;
+  webrtc::SrtpTransport* sdes_transport_ = nullptr;
+  webrtc::DtlsSrtpTransport* dtls_srtp_transport_ = nullptr;
 
-  RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransport);
+  std::unique_ptr<DtlsTransportInternal> rtp_dtls_transport_;
+  std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport_;
+
+  SrtpFilter sdes_negotiator_;
+  RtcpMuxFilter rtcp_mux_negotiator_;
+
+  RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransport2);
 };
 
 }  // namespace cricket
 
-#endif  // PC_JSEPTRANSPORT_H_
+#endif  // PC_JSEPTRANSPORT2_H_

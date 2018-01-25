@@ -1383,6 +1383,66 @@ TEST_F(PeerConnectionIntegrationTest,
             callee_remote_cert->ToPEMString());
 }
 
+// Tests that the GetRemoteAudioSSLCertChain method returns the remote DTLS
+// certificate chain once the DTLS handshake has finished.
+TEST_F(PeerConnectionIntegrationTest,
+       GetRemoteAudioSSLCertChainReturnsExchangedCertificateChain) {
+  auto GetRemoteAudioSSLCertChain = [](PeerConnectionWrapper* wrapper) {
+    auto pci = reinterpret_cast<PeerConnectionProxy*>(wrapper->pc());
+    auto pc = reinterpret_cast<PeerConnection*>(pci->internal());
+    return pc->GetRemoteAudioSSLCertChain();
+  };
+
+  auto caller_cert = rtc::RTCCertificate::FromPEM(kRsaPems[0]);
+  auto callee_cert = rtc::RTCCertificate::FromPEM(kRsaPems[1]);
+
+  // Configure each side with a known certificate so they can be compared later.
+  PeerConnectionInterface::RTCConfiguration caller_config;
+  caller_config.enable_dtls_srtp.emplace(true);
+  caller_config.certificates.push_back(caller_cert);
+  PeerConnectionInterface::RTCConfiguration callee_config;
+  callee_config.enable_dtls_srtp.emplace(true);
+  callee_config.certificates.push_back(callee_cert);
+  ASSERT_TRUE(
+      CreatePeerConnectionWrappersWithConfig(caller_config, callee_config));
+  ConnectFakeSignaling();
+
+  // When first initialized, there should not be a remote SSL certificate (and
+  // calling this method should not crash).
+  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertChain(caller()));
+  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertChain(callee()));
+
+  caller()->AddAudioTrack();
+  callee()->AddAudioTrack();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
+
+  // Once DTLS has been connected, each side should return the other's SSL
+  // certificate when calling GetRemoteAudioSSLCertChain.
+  auto caller_remote_cert_chain = GetRemoteAudioSSLCertChain(caller());
+  ASSERT_TRUE(caller_remote_cert_chain);
+  ASSERT_EQ(callee_config.certificates.size(),
+            caller_remote_cert_chain->GetSize());
+  for (size_t i = 0; i < caller_remote_cert_chain->GetSize(); ++i) {
+    auto caller_remote_cert = &caller_remote_cert_chain->Get(i);
+    auto callee_cert = callee_config.certificates[i];
+    EXPECT_EQ(callee_cert->ssl_certificate().ToPEMString(),
+              caller_remote_cert->ToPEMString());
+  }
+
+  auto callee_remote_cert_chain = GetRemoteAudioSSLCertChain(callee());
+  ASSERT_TRUE(callee_remote_cert_chain);
+  ASSERT_EQ(caller_config.certificates.size(),
+            callee_remote_cert_chain->GetSize());
+  for (size_t i = 0; i < callee_remote_cert_chain->GetSize(); ++i) {
+    auto callee_remote_cert = &callee_remote_cert_chain->Get(i);
+    auto caller_cert = caller_config.certificates[i];
+    EXPECT_EQ(caller_cert->ssl_certificate().ToPEMString(),
+              callee_remote_cert->ToPEMString());
+  }
+}
+
 // This test sets up a call between two parties (using DTLS) and tests that we
 // can get a video aspect ratio of 16:9.
 TEST_F(PeerConnectionIntegrationTest, SendAndReceive16To9AspectRatio) {

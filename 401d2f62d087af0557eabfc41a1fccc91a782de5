@@ -16,6 +16,24 @@
       "revId": "401d2f62d087af0557eabfc41a1fccc91a782de5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c74835a2_c9cf0e4d",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCConfiguration.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5846
+      },
+      "writtenOn": "2018-01-25T09:31:25Z",
+      "side": 1,
+      "message": "I agree with your concernt, I\u0027ve removed this.",
+      "parentUuid": "d8e922fc_43f72802",
+      "revId": "401d2f62d087af0557eabfc41a1fccc91a782de5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

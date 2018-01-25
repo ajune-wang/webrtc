@@ -11,6 +11,8 @@
 #ifndef CALL_CALLFACTORY_H_
 #define CALL_CALLFACTORY_H_
 
+#include <memory>
+
 #include "call/callfactoryinterface.h"
 
 namespace webrtc {
@@ -18,7 +20,9 @@ namespace webrtc {
 class CallFactory : public CallFactoryInterface {
   ~CallFactory() override {}
 
-  Call* CreateCall(const Call::Config& config) override;
+  Call* CreateCall(const Call::Config& config,
+                   std::unique_ptr<FecControllerFactoryInterface>
+                       fec_controller_factory) override;
 };
 
 }  // namespace webrtc

@@ -182,6 +182,7 @@ rtc_static_library("peerconnection") {
     ":rtc_pc_base",
     "..:webrtc_common",
     "../api:call_api",
+    "../api:fec_controller_api",
     "../api:libjingle_peerconnection_api",
     "../api:optional",
     "../api:peerconnection_and_implicit_call_api",

@@ -11,11 +11,14 @@
 #include "call/callfactory.h"
 
 #include <memory>
+#include <utility>
 
 namespace webrtc {
 
-Call* CallFactory::CreateCall(const Call::Config& config) {
-  return Call::Create(config);
+Call* CallFactory::CreateCall(
+    const Call::Config& config,
+    std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory) {
+  return Call::Create(config, std::move(fec_controller_factory));
 }
 
 std::unique_ptr<CallFactoryInterface> CreateCallFactory() {

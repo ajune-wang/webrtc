@@ -11,6 +11,7 @@
 #ifndef API_FEC_CONTROLLER_H_
 #define API_FEC_CONTROLLER_H_
 
+#include <memory>
 #include <vector>
 
 #include "common_video/include/video_frame.h"
@@ -78,6 +79,15 @@ class FecController {
   // Returns whether this FEC Controller needs Loss Vector Mask as input.
   virtual bool UseLossVectorMask() = 0;
 };
+
+class FecControllerFactoryInterface {
+ public:
+  virtual std::unique_ptr<FecController> CreateFecController() = 0;
+  FecControllerFactoryInterface() {}
+  virtual ~FecControllerFactoryInterface() {}  // NOLINT
+};
+
+std::unique_ptr<FecControllerFactoryInterface> CreateFecControllerFactory();
 
 }  // namespace webrtc
 #endif  // API_FEC_CONTROLLER_H_

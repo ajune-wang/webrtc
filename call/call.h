@@ -127,6 +127,9 @@ class Call {
   };
 
   static Call* Create(const Call::Config& config);
+  static Call* Create(
+      const Call::Config& config,
+      std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory);
 
   // Allows mocking |transport_send| for testing.
   static Call* Create(
@@ -148,7 +151,7 @@ class Call {
   virtual VideoSendStream* CreateVideoSendStream(
       VideoSendStream::Config config,
       VideoEncoderConfig encoder_config,
-      std::unique_ptr<FecController> fec_controller);
+      std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory);
   virtual void DestroyVideoSendStream(VideoSendStream* send_stream) = 0;
 
   virtual VideoReceiveStream* CreateVideoReceiveStream(

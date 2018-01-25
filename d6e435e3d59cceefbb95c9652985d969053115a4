@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaebed9e_def3181a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-25T01:55:37Z",
+      "side": 1,
+      "message": "Should mention in the description how this slightly changes CreateAnswer\u0027s behavior, just in case it does break someone.",
+      "revId": "d6e435e3d59cceefbb95c9652985d969053115a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11512654_64b0a2ff",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1594,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-25T01:55:37Z",
+      "side": 1,
+      "message": "nit: \"is in a wrong state\"? (or \"invalid state\")",
+      "revId": "d6e435e3d59cceefbb95c9652985d969053115a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29e95c09_b10d58e7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-25T01:55:37Z",
+      "side": 1,
+      "message": "Does it need to be a CHECK, or is DCHECK safe enough?",
+      "revId": "d6e435e3d59cceefbb95c9652985d969053115a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fac4b4ce_6db911f6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3337,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-25T01:55:37Z",
+      "side": 1,
+      "message": "RTC_DCHECK(remote_description()) here too?",
+      "revId": "d6e435e3d59cceefbb95c9652985d969053115a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

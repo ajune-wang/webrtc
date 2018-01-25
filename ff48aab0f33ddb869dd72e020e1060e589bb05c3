@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8af20555_bca531b6",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-25T01:55:37Z",
+      "side": 0,
+      "message": "Oh, this is what I was trying to think of earlier; I requested you add these tests to specifically ensure CreateAnswer in a stable state works, back when you were rewriting all the WebRtcSession tests. At that time, I don\u0027t think I had a strong opinion about whether it *should* work this way, I was just wanted to ensure it had test coverage either way.\n\nIn that spirit, we might as well keep these tests around, and just change \"Succeeds\" to \"Fails\". That way we\u0027d notice if we unintentionally reintroduced the old behavior.",
+      "revId": "ff48aab0f33ddb869dd72e020e1060e589bb05c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

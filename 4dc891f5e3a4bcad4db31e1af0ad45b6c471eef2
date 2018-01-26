@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4569da06_11168bc6",
+        "filename": "modules/audio_processing/test/conversational_speech/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-01-26T12:38:09Z",
+      "side": 0,
+      "message": "I was confused for a bit why something that uses gmock shouldn\u0027t depend on gmock.\n\nThe dependency goes through the header that is defined in test_support https://cs.chromium.org/chromium/src/third_party/webrtc/test/BUILD.gn?q\u003d%5C\"test_support%5C\"",
+      "range": {
+        "startLine": 62,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "4dc891f5e3a4bcad4db31e1af0ad45b6c471eef2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

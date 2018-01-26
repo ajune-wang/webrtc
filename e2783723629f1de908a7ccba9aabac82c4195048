@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "90dfb610_68789159",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T15:21:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "18519cc2_fb16d4bb",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 0
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cfa3659_ade50860",
         "filename": "modules/bitrate_controller/bitrate_controller_unittest.cc",
         "patchSetId": 4
@@ -283,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a2c01125_3728232f",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T15:21:02Z",
+      "side": 1,
+      "message": "The idea was to minimize the activity done on the task queue in SendSideCongestionController. In the previous version with the signalling system, SSCC didn\u0027t even have handler methods for the controller callbacks. Since we backed on that it might not make as much sense anymore.\n\nIt still makes some sense in that it is within the problem domain of the encoding rate controller to decide the target transfer rate and related parameters, where the retransmission rate would be one. WDYT? Should I move it back to SSCC?",
+      "parentUuid": "ec5b8768_946a60da",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d6bbc2a_91e972bb",
         "filename": "modules/congestion_controller/encoding_rate_controller.cc",
         "patchSetId": 4
@@ -306,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "34cbb1e4_f4b8d6ef",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T15:21:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d6bbc2a_91e972bb",
+      "range": {
+        "startLine": 96,
+        "startChar": 21,
+        "endLine": 96,
+        "endChar": 29
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08888fd8_3e53f7d4",
         "filename": "modules/congestion_controller/encoding_rate_controller.h",
         "patchSetId": 4
@@ -326,6 +398,30 @@
       "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b806a94_17c44385",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T15:21:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "08888fd8_3e53f7d4",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 19
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -513,6 +609,30 @@
       "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64099f55_99d55126",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T15:21:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e06455ee_fa105175",
+      "range": {
+        "startLine": 282,
+        "startChar": 2,
+        "endLine": 282,
+        "endChar": 6
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

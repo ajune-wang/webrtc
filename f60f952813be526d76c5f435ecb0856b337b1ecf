@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9bf7e35a_b17dc2a1",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:15:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "60f04308_8397cf57",
+      "range": {
+        "startLine": 1234,
+        "startChar": 19,
+        "endLine": 1234,
+        "endChar": 31
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cafb8da_7d6a7c7d",
         "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7179ea2b_fc1a2786",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:15:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cafb8da_7d6a7c7d",
+      "range": {
+        "startLine": 55,
+        "startChar": 38,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64f25a9e_7a7ae236",
         "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.h",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77ee4bf1_de3097e5",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:15:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "64f25a9e_7a7ae236",
+      "range": {
+        "startLine": 69,
+        "startChar": 7,
+        "endLine": 69,
+        "endChar": 21
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -283,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "4836cdc6_4fa5e87e",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:15:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9d96fac5_a6c65ac8",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 48
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafca4e0_6aa16e89",
         "filename": "modules/congestion_controller/encoding_rate_controller.cc",
         "patchSetId": 2
@@ -351,6 +447,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bf81167_8b7d4332",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:15:20Z",
+      "side": 1,
+      "message": "I agree, so I added moved the constant initializers in the list as well.",
+      "parentUuid": "8e6523d2_d54b4c69",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -563,6 +683,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f4e122_81c398c7",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:15:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eb3e7114_2df61850",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 20
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

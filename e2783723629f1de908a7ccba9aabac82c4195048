@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4cfa3659_ade50860",
+        "filename": "modules/bitrate_controller/bitrate_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-26T13:17:12Z",
+      "side": 1,
+      "message": "I don\u0027t understand what these changes mean. Could you clarify?",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 74
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ec0feee_a3a75571",
         "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.cc",
         "patchSetId": 4
@@ -93,6 +116,52 @@
       "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f54a48d3_55168b1f",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-26T13:17:12Z",
+      "side": 1,
+      "message": "Is this function deprecated? If so, please mark it as deprecated using annotation and/or comment. Otherwise, could the two functions below be made private?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 61
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14723216_81366c92",
+        "filename": "modules/congestion_controller/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-26T13:17:12Z",
+      "side": 1,
+      "message": "Do we really need to depend on this? I thought we only wanted to use rtc_base_approved from the modules/ folder.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 30
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

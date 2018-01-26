@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d2c1bbc_eff30f8f",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-26T11:16:08Z",
+      "side": 1,
+      "message": "This is what propagates the -I compiler flag.\n\nPlease note that gtest is already using all_dependent_configs (https://cs.chromium.org/chromium/src/third_party/googletest/BUILD.gn?l\u003d81\u0026rcl\u003d9f851ee53ab096846bf3e9ff223ee216d39ed645) so this is redundant. But I prefer to keep it because I don\u0027t know what will be the outcome of the discussion about gmock (which is using public_configs: https://cs.chromium.org/chromium/src/third_party/googletest/BUILD.gn?rcl\u003d9f851ee53ab096846bf3e9ff223ee216d39ed645\u0026l\u003d128).",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 44
+      },
+      "revId": "169c72f18aeec65c96a9a008668ed85d6ff905cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

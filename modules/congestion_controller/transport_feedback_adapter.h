@@ -14,7 +14,7 @@
 #include <deque>
 #include <vector>
 
-#include "modules/remote_bitrate_estimator/include/send_time_history.h"
+#include "modules/congestion_controller/send_time_history.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
@@ -47,7 +47,10 @@ class TransportFeedbackAdapter {
   // to the CongestionController interface.
   void OnTransportFeedback(const rtcp::TransportFeedback& feedback);
   std::vector<PacketFeedback> GetTransportFeedbackVector() const;
-  rtc::Optional<int64_t> GetMinFeedbackLoopRtt() const;
+  rtc::Optional<PacketFeedback> GetPacket(uint16_t sequence_number) const;
+
+  // Deprecated, this can and should be calculated elsewhere.
+  RTC_DEPRECATED rtc::Optional<int64_t> GetMinFeedbackLoopRtt() const;
 
   void SetTransportOverhead(int transport_overhead_bytes_per_packet);
 

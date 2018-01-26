@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ec0feee_a3a75571",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "nit: lost_q8",
+      "range": {
+        "startLine": 240,
+        "startChar": 40,
+        "endLine": 240,
+        "endChar": 47
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee16030_66bb1433",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Perhaps we can merge these two methods into one?",
+      "range": {
+        "startLine": 288,
+        "startChar": 2,
+        "endLine": 288,
+        "endChar": 19
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c169cebb_8106eb7f",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "I\u0027d pass a bool directly.",
+      "range": {
+        "startLine": 162,
+        "startChar": 45,
+        "endLine": 162,
+        "endChar": 57
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1c52ad7_72788ffd",
+        "filename": "modules/congestion_controller/pacer_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "To me this class seems to add very little value over PacedSender. Should we change the interface of PacedSender instead to avoid another level of indirection?",
+      "range": {
+        "startLine": 26,
+        "startChar": 23,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec508ecb_6015d33c",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Why don\u0027t we do this on the task queue to avoid the lock? I think that deserves a comment as it\u0027s confusing that it doesn\u0027t follow the pattern.",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 42
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "624ac71b_00e004b6",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Same here regarding the task queue.",
+      "range": {
+        "startLine": 167,
+        "startChar": 2,
+        "endLine": 167,
+        "endChar": 43
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

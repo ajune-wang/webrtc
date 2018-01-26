@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "60f04308_8397cf57",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Nisse\u0027s and my plan around the RtpTransportControllerSend was that it should own the CC and therefore we were planning on not exposing it. Maybe keep that method?",
+      "range": {
+        "startLine": 1234,
+        "startChar": 19,
+        "endLine": 1234,
+        "endChar": 31
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cafb8da_7d6a7c7d",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "rtt_ms, UpdateRtt simply perhaps?",
+      "range": {
+        "startLine": 55,
+        "startChar": 38,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64f25a9e_7a7ae236",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Seems like this should be named UpdateUmaLostPackets, and below UpdateUmaRtt",
+      "range": {
+        "startLine": 69,
+        "startChar": 7,
+        "endLine": 69,
+        "endChar": 21
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddd2a441_7bf5697c",
         "filename": "modules/congestion_controller/delay_based_bwe.h",
         "patchSetId": 2
@@ -190,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "9d96fac5_a6c65ac8",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "To me it\u0027s mostly about consistency, when I read this code I react to this thing and have to think twice.",
+      "parentUuid": "d41831f6_ea6b333d",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 48
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fafca4e0_6aa16e89",
         "filename": "modules/congestion_controller/encoding_rate_controller.cc",
         "patchSetId": 2
@@ -225,6 +318,30 @@
       "side": 1,
       "message": "Please elaborate, for this specific situation, where there\u0027s a guard, or in general? One advantage of initializing in the class is that it makes it easier to spot when some value goes uninitialized. Is there drawbacks as well?",
       "parentUuid": "fafca4e0_6aa16e89",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e6523d2_d54b4c69",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "I think it\u0027s better to be consistent. Either initialize all here or all in the initializer list. WDYT?",
+      "parentUuid": "918748b8_1f6ebc40",
       "range": {
         "startLine": 55,
         "startChar": 36,
@@ -425,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "eb3e7114_2df61850",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "I see, ratio is probably better to avoid confusion with rate in terms of bits...",
+      "parentUuid": "f7064547_6bdd853f",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 20
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3eb2ffe2_49e1fd66",
         "filename": "modules/congestion_controller/encoding_rate_controller.h",
         "patchSetId": 2
@@ -460,6 +601,30 @@
       "side": 1,
       "message": "Wrote it in 2017, but sure. I\u0027ll update the years.",
       "parentUuid": "3eb2ffe2_49e1fd66",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b707ad85_11b70fc7",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "55a9d772_77c05982",
       "range": {
         "startLine": 2,
         "startChar": 18,
@@ -601,6 +766,30 @@
     },
     {
       "key": {
+        "uuid": "202b4853_3fc85d16",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "438010d6_d818ba4f",
+      "range": {
+        "startLine": 39,
+        "startChar": 38,
+        "endLine": 39,
+        "endChar": 65
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49fa1dfe_86a27bea",
         "filename": "modules/congestion_controller/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -645,6 +834,30 @@
       "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e263942_36679de0",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2f7a9f36_adeee2f9",
+      "range": {
+        "startLine": 393,
+        "startChar": 28,
+        "endLine": 393,
+        "endChar": 29
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1094,6 +1307,30 @@
       "side": 1,
       "message": "It\u0027s not conceptually the same as the rtp message. So to separate them the name is chosen to be different. (also to avoid name collisions)\n\nA good path forward after this might be to rename all RTP specific structs and classes by adding Rtp to the name.",
       "parentUuid": "19d16fe2_8794364b",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 102,
+        "endChar": 31
+      },
+      "revId": "f60f952813be526d76c5f435ecb0856b337b1ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "403612ab_c276bf4e",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-26T11:51:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f417ec75_01d9a80f",
       "range": {
         "startLine": 102,
         "startChar": 7,

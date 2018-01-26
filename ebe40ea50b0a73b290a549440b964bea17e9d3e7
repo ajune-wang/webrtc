@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "f8a956c6_79d56014",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1425,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "Why do we need two methods, where one uses RTC_DCHECK_CALLED_SEQUENTIALLY and one doesn\u0027t?",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2fa7b858_8f198a1d",
         "filename": "call/call.h",
         "patchSetId": 6
@@ -246,6 +263,40 @@
       "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5469e6a_6e12258f",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "Could this constructor invoke the other one (or would the other one go away in the final version of the CL)?",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71048740_7a7bcabb",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "I was imagining that JsepTransport would own the RtpTransport, DtlsTransport *and* IceTransport. This is probably worth the inconsistency though; it does simplify the JsepTransport code.",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -484,6 +535,142 @@
     },
     {
       "key": {
+        "uuid": "8b8ed804_cb729722",
+        "filename": "pc/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "It seems like it won\u0027t be too hard at this point to move the demux responsibility to RtpTransportInternal. I\u0027m thinking we\u0027d either add the \"AddSink\"/\"RemoveSink\" methods to it directly, or add a method that returns an RtpDemuxer*. The former seems cleaner, since it would only expose the minimal necessary API surface.",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ecadb48e_786e65b5",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "Something I was wondering about: previously this code was in BaseChannel, which meant that if an error occurs, it\u0027s trickled up to PeerConnection as \"ERROR_CONTENT\". Which puts the PeerConnection in an unusable state, where you can\u0027t call any other methods on it.\n\nBut now, that won\u0027t happen. So if one of these methods fails, we\u0027ll be left in a \"description partially applied\" state, and weird/untested things may happen if you try to apply another description afterwards.\n\nDo you think that\u0027s a problem? It was already somewhat possible before, so I\u0027m not too worried, but it\u0027s something we may want to be cautious of and/or cover with some tests.",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5811be53_e1e68a98",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "Is this needed any more?",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab6188a9_b4d11ba7",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "nit: Isn\u0027t this variable redundant, since we\u0027ll always have rtp_transport_?",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2928d11_20e01896",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "\"rejected\"",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f7429f_14a277fd",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "\"dtls_transports\", plural?",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f46699e_27ba74f1",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "Should add some comments describing when these signals are fired and what they\u0027re intended to be used for.",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "336f62f2_0d76f0af",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "nit: bundled_mid_ seems redundant, since it will always be bundle_group_-\u003eFirstContentName(); Could remove it and add a bundled_mid() helper function instead.",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04d48427_8c1453c1",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 6
@@ -495,6 +682,30 @@
       "writtenOn": "2018-01-26T00:11:05Z",
       "side": 1,
       "message": "Doesn\u0027t that need to be done in this CL?",
+      "range": {
+        "startLine": 1678,
+        "startChar": 29,
+        "endLine": 1678,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c549e23c_a229aa75",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "It is done, this TODO just needs to be deleted",
+      "parentUuid": "04d48427_8c1453c1",
       "range": {
         "startLine": 1678,
         "startChar": 29,
@@ -524,6 +735,24 @@
     },
     {
       "key": {
+        "uuid": "b2508468_b7a6d1ef",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2192,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "It could create an RtpDataChannel (subclass of BaseChannel) though. :)",
+      "parentUuid": "63cf3a5c_d681ff1d",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d471fee_8747d43c",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 6
@@ -541,6 +770,47 @@
         "endLine": 4775,
         "endChar": 0
       },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af273b5_d25eb0c0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4775,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "Yeah, we should probably have an \"RTC_DCHECK(rtp_transport)\" in CreateVoiceChannel, for example.",
+      "parentUuid": "3d471fee_8747d43c",
+      "range": {
+        "startLine": 4775,
+        "startChar": 19,
+        "endLine": 4775,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01db9033_b9db4f9d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4828,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "Signal doesn\u0027t need to be connected every time a channel is created; only needs to be connected once.",
       "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1305,6 +1305,24 @@
     },
     {
       "key": {
+        "uuid": "5fb031bc_59f1a61c",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T01:23:34Z",
+      "side": 1,
+      "message": "The existing m\u003d sections would remain bundled, but unless the max-bundle policy is used, it\u0027s possible for the answerer to decide not to bundle additional m\u003d sections. Sorry if that doesn\u0027t answer your question",
+      "parentUuid": "b7d0f4c2_fa9de489",
+      "revId": "c3d2ad6f2cfcefa1e1d09f1c7498fa0c5341c9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8c9cb45_2cb309e6",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 4

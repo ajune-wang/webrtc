@@ -82,6 +82,12 @@ void TransportFeedbackAdapter::OnSentPacket(uint16_t sequence_number,
   send_time_history_.OnSentPacket(sequence_number, send_time_ms);
 }
 
+rtc::Optional<PacketFeedback> TransportFeedbackAdapter::GetPacket(
+    uint16_t sequence_number) const {
+  rtc::CritScope cs(&lock_);
+  return send_time_history_.GetPacket(sequence_number);
+}
+
 void TransportFeedbackAdapter::SetNetworkIds(uint16_t local_id,
                                              uint16_t remote_id) {
   rtc::CritScope cs(&lock_);

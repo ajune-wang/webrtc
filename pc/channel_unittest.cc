@@ -1937,6 +1937,8 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     // Worker thread = current Thread process received messages.
     ProcessThreadQueue(rtc::Thread::Current());
   }
+
+  rtc::AutoThread main_thread_;
   // TODO(pbos): Remove playout from all media channels and let renderers mute
   // themselves.
   const bool verify_playout_;
@@ -3397,6 +3399,7 @@ class BaseChannelDeathTest : public testing::Test {
                        true) {}
 
  protected:
+  rtc::AutoThread main_thread_;
   cricket::FakeMediaEngine fake_media_engine_;
   cricket::FakeDtlsTransport fake_rtp_dtls_transport_;
   cricket::FakeDtlsTransport fake_rtcp_dtls_transport_;

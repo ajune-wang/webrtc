@@ -197,6 +197,7 @@ class WebRtcVideoEngineTest : public ::testing::Test {
 
   void TestExtendedEncoderOveruse(bool use_external_encoder);
 
+  rtc::AutoThread main_thread_;
   webrtc::test::ScopedFieldTrials override_field_trials_;
   webrtc::RtcEventLogNullImpl event_log_;
   // Used in WebRtcVideoEngineVoiceTest, but defined here so it's properly

@@ -55,6 +55,7 @@ class ChannelManagerTest : public testing::Test {
     fme_->SetVideoCodecs(MAKE_VECTOR(kVideoCodecs));
   }
 
+  rtc::AutoThread main_thread_;
   webrtc::RtcEventLogNullImpl event_log_;
   std::unique_ptr<rtc::Thread> network_;
   std::unique_ptr<rtc::Thread> worker_;

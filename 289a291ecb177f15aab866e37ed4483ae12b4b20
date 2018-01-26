@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "76ae6182_f211c9b7",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2018-01-26T01:04:52Z",
+      "side": 1,
+      "message": "I was considering these tools testonly, but you\u0027re right, it\u0027s not good to make these targets testonly only because //test:perf_test is testonly.",
+      "parentUuid": "0dad4c12_26ccd9f0",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 17
+      },
+      "revId": "289a291ecb177f15aab866e37ed4483ae12b4b20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8edb8869_684c54f5",
         "filename": "rtc_tools/frame_analyzer/video_quality_analysis_unittest.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "83436685_428e6bef",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2018-01-26T01:04:52Z",
+      "side": 1,
+      "message": "Because PrintAnalysisResults printed Unique_frames_count even when there were no frames.\nI removed it based on https://webrtc.googlesource.com/src/+/master/rtc_tools/frame_analyzer/video_quality_analysis.h#78",
+      "parentUuid": "8edb8869_684c54f5",
+      "range": {
+        "startLine": 225,
+        "startChar": 31,
+        "endLine": 225,
+        "endChar": 50
+      },
+      "revId": "289a291ecb177f15aab866e37ed4483ae12b4b20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54c3ddaa_e2e013bb",
         "filename": "rtc_tools/frame_analyzer/video_quality_analysis_unittest.cc",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2018-01-25T19:02:42Z",
       "side": 1,
       "message": "I\u0027m pretty sure downstream tools rely on this format so changing it is dangerous",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 226,
+        "endChar": 49
+      },
+      "revId": "289a291ecb177f15aab866e37ed4483ae12b4b20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5d23603_754777e9",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2018-01-26T01:04:52Z",
+      "side": 1,
+      "message": "Yeah, was confused, sorry.",
+      "parentUuid": "54c3ddaa_e2e013bb",
       "range": {
         "startLine": 226,
         "startChar": 0,

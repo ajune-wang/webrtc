@@ -363,6 +363,11 @@ const ContentInfo* FindContentInfoByName(const ContentInfos& contents,
 const ContentInfo* FindContentInfoByType(const ContentInfos& contents,
                                          const std::string& type);
 
+enum MsidSignaling {
+  kMsidSignalingMediaSection = 0x1,
+  kMsidSignalingSsrcAttribute = 0x2
+};
+
 // Describes a collection of contents, each with its own name and
 // type.  Analogous to a <jingle> or <session> stanza.  Assumes that
 // contents are unique be name, but doesn't enforce that.
@@ -439,6 +444,11 @@ class SessionDescription {
   void set_msid_supported(bool supported) { msid_supported_ = supported; }
   bool msid_supported() const { return msid_supported_; }
 
+  void set_msid_signaling(int msid_signaling) {
+    msid_signaling_ = msid_signaling;
+  }
+  int msid_signaling() const { return msid_signaling_; }
+
  private:
   SessionDescription(const SessionDescription&);
 
@@ -446,6 +456,8 @@ class SessionDescription {
   TransportInfos transport_infos_;
   ContentGroups content_groups_;
   bool msid_supported_ = true;
+  // Default to what Plan B would do.
+  int msid_signaling_ = kMsidSignalingSsrcAttribute;
 };
 
 // Indicates whether a session description was sent by the local client or

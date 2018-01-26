@@ -3316,6 +3316,7 @@ void PeerConnection::GetOptionsForUnifiedPlanOffer(
     session_options->media_description_options.push_back(
         GetMediaDescriptionOptionsForActiveData(AllocateMid(&used_mids)));
   }
+  session_options->is_unified_plan = true;
 }
 
 void PeerConnection::GetOptionsForAnswer(
@@ -3427,6 +3428,7 @@ void PeerConnection::GetOptionsForUnifiedPlanAnswer(
       }
     }
   }
+  session_options->is_unified_plan = true;
 }
 
 void PeerConnection::GenerateMediaDescriptionOptions(

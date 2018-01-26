@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "721d41be_a4efd4dc",
+        "filename": "modules/bitrate_controller/bitrate_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:52:52Z",
+      "side": 1,
+      "message": "The previous version had an incorrect number there, all packets lost would indicate a loss rate of 0/255 rather than 1/255.",
+      "parentUuid": "4cfa3659_ade50860",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 74
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ec0feee_a3a75571",
         "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.cc",
         "patchSetId": 4
@@ -142,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "f62ef199_e74006d6",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:52:52Z",
+      "side": 1,
+      "message": "It\u0027s still used by the BitrateControllerImpl, which in turn is used by code in remote_bitrate_estimator/test. Deprecating this interface might make sense, I think it\u0027s outside the scope of this CL though as it would impact even more code.",
+      "parentUuid": "f54a48d3_55168b1f",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 61
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14723216_81366c92",
         "filename": "modules/congestion_controller/BUILD.gn",
         "patchSetId": 4
@@ -162,6 +210,30 @@
       "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb03f85c_a02e9923",
+        "filename": "modules/congestion_controller/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T13:52:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "14723216_81366c92",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 30
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

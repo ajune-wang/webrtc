@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "057a6074_937de526",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T16:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4872c86_3890f100",
+      "revId": "336d36bb258e1c8cc35eac31193715cb440bfb98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0490560_d19023e8",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "0eb0d055_0e3b0dcc",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T16:26:35Z",
+      "side": 1,
+      "message": "Seems a bit verbose, not sure if it adds much value in the contexts where this is used. But if you think it improves readability I can change it.",
+      "parentUuid": "b0490560_d19023e8",
+      "revId": "336d36bb258e1c8cc35eac31193715cb440bfb98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6a6610f_1cdd9a30",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 5
@@ -47,6 +83,24 @@
       "writtenOn": "2018-01-26T15:33:38Z",
       "side": 1,
       "message": "This looks like a functional change not really necessary for this CL, please remove changes related to the congestion window.",
+      "revId": "336d36bb258e1c8cc35eac31193715cb440bfb98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d26cff29_6e4edbce",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-26T16:26:35Z",
+      "side": 1,
+      "message": "The new design of the send side congestion controller requires this functionality. If you don\u0027t think congestion window functionality belongs here I think we will have to look at another design concept for this. Do you not think that application congestion window should be within the responsibility of the PacedSender? How do you suggest doing it in a way that does not require time-sensitive Pausing and Resuming of the pacer? (Note that using congestion windows is a feature already available via an experiment in SSCC)",
+      "parentUuid": "a6a6610f_1cdd9a30",
       "revId": "336d36bb258e1c8cc35eac31193715cb440bfb98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

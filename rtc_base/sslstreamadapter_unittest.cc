@@ -642,6 +642,7 @@ class SSLStreamAdapterTestBase : public testing::Test,
   virtual void TestTransfer(int size) = 0;
 
  protected:
+  rtc::AutoThread main_thread_;
   std::string client_cert_pem_;
   std::string client_private_key_pem_;
   rtc::KeyParams client_key_type_;

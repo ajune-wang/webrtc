@@ -1,0 +1,733 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7521d865_21c9f62c",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Is this just an optimization to avoid parsing twice?  If so, I think it would be a good idea to make it a follow-up CL just to minimize the size of this one and the number of reviewers you need.",
+      "range": {
+        "startLine": 207,
+        "startChar": 79,
+        "endLine": 207,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b85c783_eda51f47",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1349,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Where does this logic come from?  Seems so hacky.",
+      "range": {
+        "startLine": 1349,
+        "startChar": 46,
+        "endLine": 1349,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fa7b858_8f198a1d",
+        "filename": "call/call.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Should we fix this?",
+      "range": {
+        "startLine": 27,
+        "startChar": 70,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6270f55_245daf61",
+        "filename": "media/base/rtpdataengine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "I think we can just not use \"RtpHeader header\" here and use packet.Ssrc(), packet.Timestamp(), etc.",
+      "range": {
+        "startLine": 223,
+        "startChar": 3,
+        "endLine": 223,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8f5361_13867f19",
+        "filename": "media/base/rtpdataengine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "I think we can just use packet.payload().",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69b11789_ed62b097",
+        "filename": "media/base/rtpdataengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Why do we need both?",
+      "range": {
+        "startLine": 84,
+        "startChar": 73,
+        "endLine": 84,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dddbea7_36210f6e",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1416,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "We can just use parsed_packet.Ssrc()",
+      "range": {
+        "startLine": 1416,
+        "startChar": 3,
+        "endLine": 1416,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f91bedb_5674d886",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1422,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "We can just use parsed_packet.PayloadType()",
+      "range": {
+        "startLine": 1422,
+        "startChar": 3,
+        "endLine": 1422,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "367e1798_3b2d4412",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Same here: why both?",
+      "range": {
+        "startLine": 165,
+        "startChar": 74,
+        "endLine": 165,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50f7982b_263a42bd",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2082,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "again",
+      "range": {
+        "startLine": 2082,
+        "startChar": 3,
+        "endLine": 2082,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90438ef4_050e4aee",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Can you move this duplicated code into a \"ConnectToIceTransport\" or something like that?",
+      "range": {
+        "startLine": 163,
+        "startChar": 51,
+        "endLine": 163,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31cdc2ae_312e113d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Don\u0027t you need to change this call to srtp_active()?",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c091d4_b3a6b8a3",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Remove this too?",
+      "range": {
+        "startLine": 508,
+        "startChar": 8,
+        "endLine": 508,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c95de7d_24c03321",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we log something if it failed to parse?",
+      "range": {
+        "startLine": 647,
+        "startChar": 61,
+        "endLine": 647,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db5bde03_4cb83b89",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Then why not change this method to be ProcessRtcpPacket?",
+      "range": {
+        "startLine": 660,
+        "startChar": 19,
+        "endLine": 660,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4baf8b2_3ff4dd12",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "It seems like the logging belongs more at the point where we call ParseRtpPacket.",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "703c612c_a5285409",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Where does this logic come from?",
+      "range": {
+        "startLine": 878,
+        "startChar": 43,
+        "endLine": 878,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa7a50ef_4f4bb7a1",
+        "filename": "pc/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "You removed just about all of the calls to srtp_active().  It seems like we should just remove them all and then remove dtls_active() and sdes_active().",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80ed815d_3f1ac6f1",
+        "filename": "pc/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Why is this public?",
+      "range": {
+        "startLine": 212,
+        "startChar": 32,
+        "endLine": 212,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a36b7ff_e5c7521b",
+        "filename": "pc/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "I assume you\u0027ll remove this.",
+      "range": {
+        "startLine": 223,
+        "startChar": 78,
+        "endLine": 223,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e1adca2_05acaa90",
+        "filename": "pc/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "And this",
+      "range": {
+        "startLine": 395,
+        "startChar": 33,
+        "endLine": 395,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21ed782a_7f635079",
+        "filename": "pc/channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "And this",
+      "range": {
+        "startLine": 420,
+        "startChar": 42,
+        "endLine": 420,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04d48427_8c1453c1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Doesn\u0027t that need to be done in this CL?",
+      "range": {
+        "startLine": 1678,
+        "startChar": 29,
+        "endLine": 1678,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63cf3a5c_d681ff1d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2192,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "We should really rename this method!  Maybe call it CreateDataTransport.",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d471fee_8747d43c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4775,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Should we have a check on that return an error if it\u0027s not true?",
+      "range": {
+        "startLine": 4775,
+        "startChar": 19,
+        "endLine": 4775,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb21d776_f5cedf34",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4953,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "This isn\u0027t needed anymore, right?",
+      "range": {
+        "startLine": 4953,
+        "startChar": 70,
+        "endLine": 4953,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5019719_5a17ac41",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 5263,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Would it be more natural to check sctp_transport_?",
+      "range": {
+        "startLine": 5263,
+        "startChar": 27,
+        "endLine": 5263,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44f33b48_797e38d9",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 5445,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "base_channel or channel or bc",
+      "range": {
+        "startLine": 5445,
+        "startChar": 37,
+        "endLine": 5445,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10aedaa8_ca40e36e",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Should we call this a mid as well?",
+      "range": {
+        "startLine": 817,
+        "startChar": 62,
+        "endLine": 817,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "124cf601_90d697ca",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Why don\u0027t we just call this sctp_mid_?",
+      "range": {
+        "startLine": 976,
+        "startChar": 48,
+        "endLine": 976,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "837130ec_6466bb3a",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "We should probably put a comment about how it\u0027s going to go through the RtpDemuxer.\n\nActually... why not just remove this method?",
+      "range": {
+        "startLine": 276,
+        "startChar": 14,
+        "endLine": 276,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a92cea_13256f62",
+        "filename": "pc/rtptransport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "Can we do so in this CL?",
+      "range": {
+        "startLine": 120,
+        "startChar": 38,
+        "endLine": 120,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c83d623_912544d4",
+        "filename": "pc/srtpfilter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-01-26T00:11:05Z",
+      "side": 1,
+      "message": "You might as well call this ApplyDescription like in the other place.",
+      "range": {
+        "startLine": 41,
+        "startChar": 48,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

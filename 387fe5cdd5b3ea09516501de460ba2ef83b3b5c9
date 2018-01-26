@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4db6fca_2cc78130",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T23:40:55Z",
+      "side": 1,
+      "message": "nit: It would be nice if we could just remove all the SSLCertificate versions of these methods, and replace them with the SSLCertChain versions. The only one that would need to be left (to not break downstream code) is the one in PeerConnection, which could be implemented in terms of the chain version.\n\nThis could be left as a TODO, but I don\u0027t think there\u0027s anything preventing us doing it now.",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55beb17f_26713e52",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T23:40:55Z",
+      "side": 1,
+      "message": "nit: Could just say \"version of the above method that returns the full certificate chain\" instead of duplicating the comment.",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68f9c29c_34fe51a0",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T23:40:55Z",
+      "side": 1,
+      "message": "As with the other comment, I think this could just say \"version of the above method that returns the full certificate chain\"",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cadf75d6_cc6ce7ad",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1391,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T23:40:55Z",
+      "side": 1,
+      "message": "nit: Could be combined with the above test, since they\u0027re effectively testing the same thing, just through different APIs.",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4234c578_b8bb739b",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-26T23:40:55Z",
+      "side": 1,
+      "message": "Should be ASSERT_EQ(1u, caller_remote_cert_chain-\u003eGetSize()). The list of certificates in the RTCConfiguration doesn\u0027t represent a certificate chain, it\u0027s more \"different options for certificates that may be used\" (we always just pick the first). So even if the size were 2, the chain would only have one certificate.",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

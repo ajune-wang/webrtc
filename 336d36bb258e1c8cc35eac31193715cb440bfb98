@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4872c86_3890f100",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-01-26T15:33:38Z",
+      "side": 1,
+      "message": "Please add a comment as to why we need to protect the |process_thread_| with a lock.",
+      "revId": "336d36bb258e1c8cc35eac31193715cb440bfb98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0490560_d19023e8",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-01-26T15:33:38Z",
+      "side": 1,
+      "message": "SetPacingAndPaddingRate, WDYT?",
+      "revId": "336d36bb258e1c8cc35eac31193715cb440bfb98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6a6610f_1cdd9a30",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-01-26T15:33:38Z",
+      "side": 1,
+      "message": "This looks like a functional change not really necessary for this CL, please remove changes related to the congestion window.",
+      "revId": "336d36bb258e1c8cc35eac31193715cb440bfb98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

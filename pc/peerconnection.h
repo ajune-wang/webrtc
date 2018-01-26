@@ -96,6 +96,12 @@ class PeerConnection : public PeerConnectionInternal,
   // See https://www.w3.org/TR/webrtc/#rtcdtlstransport-interface
   std::unique_ptr<rtc::SSLCertificate> GetRemoteAudioSSLCertificate();
 
+  // Gets the DTLS SSL certificate chain associated with the audio transport on
+  // the remote side. This will become populated once the DTLS connection with
+  // the peer has been completed, as indicated by the ICE connection state
+  // transitioning to kIceConnectionCompleted.
+  std::unique_ptr<rtc::SSLCertChain> GetRemoteAudioSSLCertChain();
+
   rtc::scoped_refptr<DtmfSenderInterface> CreateDtmfSender(
       AudioTrackInterface* track) override;
 

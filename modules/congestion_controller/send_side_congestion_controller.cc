@@ -15,7 +15,7 @@
 #include <memory>
 #include <vector>
 #include "modules/congestion_controller/encoding_rate_controller.h"
-#include "modules/congestion_controller/include/goog_cc_factory.h"
+#include "modules/congestion_controller/goog_cc/include/goog_cc_factory.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "network_control/include/network_rtp.h"
 #include "network_control/include/network_types.h"

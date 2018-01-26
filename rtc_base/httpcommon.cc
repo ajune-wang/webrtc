@@ -29,6 +29,7 @@
 #include "rtc_base/httpcommon.h"
 #include "rtc_base/messagedigest.h"
 #include "rtc_base/socketaddress.h"
+#include "rtc_base/zero_memory.h"
 
 namespace rtc {
 
@@ -718,7 +719,7 @@ HttpAuthResult HttpAuthenticate(
     response.append(" ");
     // TODO: create a sensitive-source version of Base64::encode
     response.append(Base64::Encode(sensitive));
-    memset(sensitive, 0, len);
+    rtc::ExplicitZeroMemory(sensitive, len * sizeof(*sensitive));
     delete [] sensitive;
     return HAR_RESPONSE;
   }
@@ -763,7 +764,7 @@ HttpAuthResult HttpAuthenticate(
       middle = nonce;
     }
     std::string HA1 = MD5(sensitive);
-    memset(sensitive, 0, len);
+    rtc::ExplicitZeroMemory(sensitive, len * sizeof(*sensitive));
     delete [] sensitive;
     std::string HA2 = MD5(A2);
     std::string dig_response = MD5(HA1 + ":" + middle + ":" + HA2);
@@ -914,7 +915,7 @@ HttpAuthResult HttpAuthenticate(
           memcpy(passbuf, sensitive, auth_id.PasswordLength);
           passbuf[auth_id.PasswordLength] = 0;
         }
-        memset(sensitive, 0, len);
+        rtc::ExplicitZeroMemory(sensitive, len * sizeof(*sensitive));
         delete [] sensitive;
         auth_id.User = userbuf;
         auth_id.Domain = domainbuf;

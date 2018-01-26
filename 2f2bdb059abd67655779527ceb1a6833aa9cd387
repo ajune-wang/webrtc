@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1dacda7e_c2638a5f",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-26T11:59:13Z",
+      "side": 1,
+      "message": "No, an Unified Plan endpoint will not include MSID when there\u0027s no track to be sent in the offer.\n\nThe reference implementation of Unified Plan is Firefox.\n\nType the following into the Firefox console (menu -\u003e Web Developer -\u003e Web Console):\n\nx \u003d new RTCPeerConnection()\nx.createOffer({offerToReceiveAudio: true}).then(desc \u003d\u003e console.log(desc.sdp))\n\nThe result is:\n\nv\u003d0\no\u003dmozilla...THIS_IS_SDPARTA-58.0 4258892801437732033 0 IN IP4 0.0.0.0\ns\u003d-\nt\u003d0 0\na\u003dfingerprint:sha-256 37:DE:66:98:6D:65:D4:B4:4F:68:E0:A2:A4:A1:46:11:4A:50:FF:CA:82:1D:B4:49:73:14:CB:AC:AC:D6:91:9C\na\u003dgroup:BUNDLE sdparta_0\na\u003dice-options:trickle\na\u003dmsid-semantic:WMS *\nm\u003daudio 9 UDP/TLS/RTP/SAVPF 109 9 0 8 101\nc\u003dIN IP4 0.0.0.0\na\u003drecvonly\na\u003dextmap:1/sendonly urn:ietf:params:rtp-hdrext:ssrc-audio-level\na\u003dextmap:2 urn:ietf:params:rtp-hdrext:sdes:mid\na\u003dfmtp:109 maxplaybackrate\u003d48000;stereo\u003d1;useinbandfec\u003d1\na\u003dfmtp:101 0-15\na\u003dice-pwd:caebf687c123588b9e46d186ec22d709\na\u003dice-ufrag:89b91a45\na\u003dmid:sdparta_0\na\u003drtcp-mux\na\u003drtpmap:109 opus/48000/2\na\u003drtpmap:9 G722/8000/1\na\u003drtpmap:0 PCMU/8000\na\u003drtpmap:8 PCMA/8000\na\u003drtpmap:101 telephone-event/8000/1\na\u003dsetup:actpass\na\u003dssrc:558325802 cname:{3ccb27d6-9734-4a82-9b33-2be24818fbce}\n\nThe same code in current Chrome (Plan B) will also give an offer without any msid at all.\n\nI *think* we can answer this one safely in Unified Plan mode. The only case where it will misbehave is if the other party later adds two outgoing tracks of the same type, and we\u0027ve already said that we don\u0027t expect apps with two outgoing tracks of the same type to survive the transition.",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86756824_e15b2ac1",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-26T11:59:13Z",
+      "side": 1,
+      "message": "can you add a TODO to switch this to Unified Plan once we\u0027re in the \"switch the default\" stage, with a reference to the UP bug?",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c54f98d1_d6b5c240",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-26T11:59:13Z",
+      "side": 1,
+      "message": "This code should be together with the code that emits a\u003dssrc: msid for ease of reading.\n(This function is far too long for easy comprehension, and should probably be subdivided according to function. That\u0027s another TODO - not now - but don\u0027t make that job harder when it eventually happens.)\n\nAlso update draft number - it\u0027s now 16.",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edea09bb_dc53e2b4",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-26T11:59:13Z",
+      "side": 1,
+      "message": "I think this should be a CHECK. If we get there, someone\u0027s doing something wrong, and we need to crash (if it\u0027s our code) or return an error (if it\u0027s an user error).",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f245dd61_ffe70a52",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-01-26T11:59:13Z",
+      "side": 1,
+      "message": "Good that we get rid of this old junk!",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

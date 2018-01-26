@@ -459,7 +459,6 @@ Call::Call(const Call::Config& config,
       config_.bitrate_config.start_bitrate_bps,
       config_.bitrate_config.max_bitrate_bps);
   call_stats_->RegisterStatsObserver(&receive_side_cc_);
-  call_stats_->RegisterStatsObserver(transport_send_->send_side_cc());
 
   // We have to attach the pacer to the pacer thread before starting the
   // module process thread to avoid a race accessing the process thread
@@ -498,7 +497,6 @@ Call::~Call() {
   module_process_thread_->DeRegisterModule(call_stats_.get());
   module_process_thread_->Stop();
   call_stats_->DeregisterStatsObserver(&receive_side_cc_);
-  call_stats_->DeregisterStatsObserver(transport_send_->send_side_cc());
 
   int64_t first_sent_packet_ms =
       transport_send_->send_side_cc()->GetFirstPacketTimeMs();

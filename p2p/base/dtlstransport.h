@@ -143,6 +143,10 @@ class DtlsTransport : public DtlsTransportInternal {
   // use by the remote peer, for use in external identity verification.
   std::unique_ptr<rtc::SSLCertificate> GetRemoteSSLCertificate() const override;
 
+  // Once DTLS has been established, this method retrieves the certificate chain
+  // in use by the remote peer, for use in external identity verification.
+  std::unique_ptr<rtc::SSLCertChain> GetRemoteSSLCertChain() const override;
+
   // Once DTLS has established (i.e., this ice_transport is writable), this
   // method extracts the keys negotiated during the DTLS handshake, for use in
   // external encryption. DTLS-SRTP uses this to extract the needed SRTP keys.

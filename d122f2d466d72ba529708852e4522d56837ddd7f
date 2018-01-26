@@ -22,6 +22,30 @@
       "revId": "d122f2d466d72ba529708852e4522d56837ddd7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2e9023f_adb90304",
+        "filename": "AUTHORS",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5846
+      },
+      "writtenOn": "2018-01-26T12:15:40Z",
+      "side": 1,
+      "message": "Yes, I have filed the \"Corporate Contributors License\" form on behalf of Videxio AS (it was several months ago, probably around Oct 23, 2017), the \"Authorized Signer\" was Thomas Berger, and the \"Authorized Contributors Group\" is called opensource@videxio.com . Please check that everything is good on your side.",
+      "parentUuid": "dcb4b8de_d498300f",
+      "range": {
+        "startLine": 81,
+        "startChar": 26,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "d122f2d466d72ba529708852e4522d56837ddd7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

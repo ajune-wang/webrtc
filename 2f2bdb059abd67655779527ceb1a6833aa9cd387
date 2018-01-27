@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "994df9ce_e6b1226a",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-27T01:00:35Z",
+      "side": 1,
+      "message": "Since we\u0027re in the same situation as the initial offer where we don\u0027t know what kind of MSID signaling the remote wants should we just send both along?",
+      "parentUuid": "1dacda7e_c2638a5f",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86756824_e15b2ac1",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 3

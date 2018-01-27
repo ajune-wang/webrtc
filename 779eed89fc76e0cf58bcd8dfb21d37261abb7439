@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "51d52814_5d3986f6",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-27T01:00:16Z",
+      "side": 1,
+      "message": "Making VideoSendStream::ReconfigureVideoEncoder smarter is tough because VideoSendStream doesn\u0027t store state of what\u0027s being changed for the reconfiguration, it just passes the VideoEncoderConfig down to the VideoStreamEncoder for reconfiguration.\n\nI updated the input here to be a vector of VideoStreams. Unfortunately I don\u0027t think this function can be called as part of a \"soft\" encoder reconfiguration because it starts/stops the VideoSendStream purely based upon the active fields of the VideoStreams, but we really only want to do this if the WebRtcVideoSendStream.sending_ is true. This is why I think it\u0027s best to call this function still from WebRtcVideoSendStream::UpdateSendState(). I addressed this in the doc I sent you.\n\nI originally included the VideoEncoderConfig input here with the intention of creating a function in the VideoStreamEncoder that updates its VideoBitrateAllocator with the new active fields. This is no longer necessary if we update the VideoBitrateAllocator inside the VideoStreamEncoder::ReconfigureEncoder with a \"soft\" reconfiguration.",
+      "parentUuid": "36578c00_95bf1b73",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63113093_ee382f78",
         "filename": "call/video_send_stream.h",
         "patchSetId": 4
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "cab69711_0598d112",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-27T01:00:16Z",
+      "side": 1,
+      "message": "The idea is that if the client has knowledge of the state of the different streams then they can call UpdateActiveStreams(), and the sending state will be updated appropriately. But, if the client has no knowledge of the state of different streams they can call start/stop which will start or stop the sending state of all streams. The problem is that Start()/Stop() do 2 things - 1) Update the rtp modules sending state (in PayloadRouter), 2) Start/Stop the VideoSendStream (updating bitrate allocator, start/stop monitoring \u0026 updating the video stream encoder). Due to this, you can\u0027t really call UpdateActiveStreams() and then Start(). I updated the function comment to reflect how it can start/stop the VideoSendStream.\n\nI think we will need to keep Start/Stop because clients are using it that don\u0027t have the state of individual streams.\n\nI addressed this in the doc I sent you and the above comment, but I don\u0027t think we will be able to update the rtp modules in ReconfigureEncoder. The problem is that Start() is only called if the WebRtcVideoSendStream.sending_ is true. I think the best way to do this is still call UpdateActiveStreams from WebRtcSendStream::UpdateSendState, and then update the VideoBitrateAllocator inside ReconfigureEncoder. I made the changes with a TODO for the soft reconfiguration of the encoder. Let me know what you think.",
+      "parentUuid": "bdb0428a_3dbbf4e1",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9aab61f3_b846ec56",
         "filename": "media/engine/fakewebrtccall.cc",
         "patchSetId": 4
@@ -86,6 +122,24 @@
       "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ae594a_8df2be79",
+        "filename": "media/engine/fakewebrtccall.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-27T01:00:16Z",
+      "side": 1,
+      "message": "Done, also in PayloadRouter::SetActiveModules.",
+      "parentUuid": "9aab61f3_b846ec56",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "4e2cda00_0f85e246",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1797,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-27T01:00:16Z",
+      "side": 1,
+      "message": "I addressed these in the doc I sent you, but I think that making the reconfiguration smarter is the best thing to do here. I added a bug: crbug.com/webrtc/8807. I think it would be best to do this as a future task, and for now do the full hard reconfiguration so that active is at least working and can be played around with.",
+      "parentUuid": "6329b768_a7e7a96b",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d3bdf3d_79968e11",
         "filename": "video/payload_router_unittest.cc",
         "patchSetId": 4
@@ -120,6 +192,24 @@
       "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "995508aa_7d3c3882",
+        "filename": "video/payload_router_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-27T01:00:16Z",
+      "side": 1,
+      "message": "With the updated code I was able to pull a lot of these EXPECTs out.",
+      "parentUuid": "9d3bdf3d_79968e11",
+      "revId": "779eed89fc76e0cf58bcd8dfb21d37261abb7439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

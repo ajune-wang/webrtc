@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "97a9e43a_1ed09db4",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-27T22:16:29Z",
+      "side": 1,
+      "message": "I tried that but I didn\u0027t found a clean way to convert std::unqiue_ptr\u003cSSLCertChain\u003e to std::unique_ptr\u003cSSLCertificate\u003e.\n\nThe |SSLCertChain::Get()| returns a temporary const reference of SSLCertificate which is an interface(https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sslidentity.h?type\u003dcs\u0026q\u003dSSLCertChain\u0026l\u003d107)\n\nI prefer leaving a TODO here and landing this to unblock others.",
+      "parentUuid": "b4db6fca_2cc78130",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55beb17f_26713e52",
         "filename": "p2p/base/dtlstransport.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ed393c5_90bb21eb",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-27T22:16:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55beb17f_26713e52",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bc662d67_ffba5e5e",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-27T22:16:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68f9c29c_34fe51a0",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cadf75d6_cc6ce7ad",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "80f71eaa_ee199ed9",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1391,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-27T22:16:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cadf75d6_cc6ce7ad",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4234c578_b8bb739b",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 3
@@ -84,6 +156,24 @@
       "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b98a5a16_ab22f832",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-01-27T22:16:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4234c578_b8bb739b",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1792,10 +1792,14 @@ webrtc::RTCError WebRtcVideoChannel::WebRtcVideoSendStream::SetRtpParameters(
     return error;
   }
 
+  // TODO(bugs.webrtc.org/8807): The bitrate priority really doesn't require an
+  // entire encoder reconfiguration, it just needs to update the bitrate
+  // allocator.
   bool reconfigure_encoder = (new_parameters.encodings[0].max_bitrate_bps !=
                               rtp_parameters_.encodings[0].max_bitrate_bps) ||
                              (new_parameters.encodings[0].bitrate_priority !=
                               rtp_parameters_.encodings[0].bitrate_priority);
+
   rtp_parameters_ = new_parameters;
   // Codecs are currently handled at the WebRtcVideoChannel level.
   rtp_parameters_.codecs.clear();
@@ -1837,7 +1841,9 @@ WebRtcVideoChannel::WebRtcVideoSendStream::ValidateRtpParameters(
 
 void WebRtcVideoChannel::WebRtcVideoSendStream::UpdateSendState() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  // TODO(zstein): Handle multiple encodings.
+  // TODO(bugs.webrtc.org/8653): Handle multiple encodings. When the layer below
+  // is fully implemented, create a VideoEncoderConfig with the appropriate
+  // active streams, and call stream_->UpdateActiveSpatialLayers().
   if (sending_ && rtp_parameters_.encodings[0].active) {
     RTC_DCHECK(stream_ != nullptr);
     stream_->Start();

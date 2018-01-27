@@ -72,6 +72,8 @@ class VideoSendStream : public webrtc::VideoSendStream {
   bool DeliverRtcp(const uint8_t* packet, size_t length);
 
   // webrtc::VideoSendStream implementation.
+  void UpdateActiveSpatialLayers(
+      const rtc::ArrayView<const VideoStream> layers) override;
   void Start() override;
   void Stop() override;
 

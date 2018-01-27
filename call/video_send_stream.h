@@ -240,6 +240,15 @@ class VideoSendStream {
     Config(const Config&);
   };
 
+  // Updates the sending state for all spatial layers that the video send
+  // stream owns. With simulcast this means updating the activity for
+  // multiple layers.
+  // Note: This starts stream activity if it is inactive and one of the layers
+  // is active. This stops stream activity if it is active and all layers are
+  // inactive.
+  virtual void UpdateActiveSpatialLayers(
+      const rtc::ArrayView<const VideoStream> layers) = 0;
+
   // Starts stream activity.
   // When a stream is active, it can receive, process and deliver packets.
   virtual void Start() = 0;

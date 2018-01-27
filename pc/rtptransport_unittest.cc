@@ -263,7 +263,6 @@ TEST(RtpTransportTest, SignalHandledRtpPayloadType) {
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetDestination(&fake_rtp, true);
   transport.SetRtpPacketTransport(&fake_rtp);
-  transport.AddHandledPayloadType(0x11);
 
   // An rtp packet.
   const rtc::PacketOptions options;

@@ -57,12 +57,6 @@ class SrtpTransportTest : public testing::Test, public sigslot::has_slots<> {
     rtp_transport1->SetRtpPacketTransport(rtp_packet_transport1_.get());
     rtp_transport2->SetRtpPacketTransport(rtp_packet_transport2_.get());
 
-    // Add payload type for RTP packet and RTCP packet.
-    rtp_transport1->AddHandledPayloadType(0x00);
-    rtp_transport2->AddHandledPayloadType(0x00);
-    rtp_transport1->AddHandledPayloadType(0xc9);
-    rtp_transport2->AddHandledPayloadType(0xc9);
-
     srtp_transport1_ =
         rtc::MakeUnique<SrtpTransport>(std::move(rtp_transport1));
     srtp_transport2_ =
@@ -170,12 +164,12 @@ class SrtpTransportTest : public testing::Test, public sigslot::has_slots<> {
   }
 
   void TestSendRecvRtcpPacket(const std::string& cipher_suite_name) {
-    size_t rtcp_len = sizeof(kRtcpReport);
+    size_t rtcp_len = sizeof(::kRtcpReport);
     size_t packet_size =
         rtcp_len + 4 + rtc::rtcp_auth_tag_len(cipher_suite_name);
     rtc::Buffer rtcp_packet_buffer(packet_size);
     char* rtcp_packet_data = rtcp_packet_buffer.data<char>();
-    memcpy(rtcp_packet_data, kRtcpReport, rtcp_len);
+    memcpy(rtcp_packet_data, ::kRtcpReport, rtcp_len);
 
     rtc::CopyOnWriteBuffer rtcp_packet1to2(rtcp_packet_data, rtcp_len,
                                            packet_size);
@@ -229,8 +223,8 @@ class SrtpTransportTest : public testing::Test, public sigslot::has_slots<> {
         cs, key1, key1_len, extension_ids, cs, key2, key2_len, extension_ids));
     EXPECT_TRUE(srtp_transport2_->SetRtcpParams(
         cs, key2, key2_len, extension_ids, cs, key1, key1_len, extension_ids));
-    EXPECT_TRUE(srtp_transport1_->IsActive());
-    EXPECT_TRUE(srtp_transport2_->IsActive());
+    EXPECT_TRUE(srtp_transport1_->IsSrtpActive());
+    EXPECT_TRUE(srtp_transport2_->IsSrtpActive());
     if (rtc::IsGcmCryptoSuite(cs)) {
       EXPECT_FALSE(srtp_transport1_->IsExternalAuthActive());
       EXPECT_FALSE(srtp_transport2_->IsExternalAuthActive());
@@ -315,8 +309,8 @@ class SrtpTransportTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(srtp_transport2_->SetRtpParams(cs, key2, key2_len,
                                                encrypted_headers, cs, key1,
                                                key1_len, encrypted_headers));
-    EXPECT_TRUE(srtp_transport1_->IsActive());
-    EXPECT_TRUE(srtp_transport2_->IsActive());
+    EXPECT_TRUE(srtp_transport1_->IsSrtpActive());
+    EXPECT_TRUE(srtp_transport2_->IsSrtpActive());
     EXPECT_FALSE(srtp_transport1_->IsExternalAuthActive());
     EXPECT_FALSE(srtp_transport2_->IsExternalAuthActive());
     TestSendRecvPacketWithEncryptedHeaderExtension(cs_name, encrypted_headers);

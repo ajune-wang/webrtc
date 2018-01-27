@@ -125,6 +125,9 @@ class FakeDtlsTransport : public DtlsTransportInternal {
     dtls_fingerprint_ = rtc::SSLFingerprint(alg, digest, digest_len);
     return true;
   }
+  bool SetSslMaxProtocolVersion(rtc::SSLProtocolVersion version) override {
+    return true;
+  }
   bool SetSslRole(rtc::SSLRole role) override {
     ssl_role_ = role;
     return true;

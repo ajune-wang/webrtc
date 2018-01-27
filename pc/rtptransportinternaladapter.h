@@ -67,14 +67,6 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     return transport_->SendRtcpPacket(packet, options, flags);
   }
 
-  bool HandlesPayloadType(int payload_type) const override {
-    return transport_->HandlesPayloadType(payload_type);
-  }
-
-  void AddHandledPayloadType(int payload_type) override {
-    return transport_->AddHandledPayloadType(payload_type);
-  }
-
   // RtpTransportInterface overrides.
   PacketTransportInterface* GetRtpPacketTransport() const override {
     return transport_->GetRtpPacketTransport();

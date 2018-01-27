@@ -79,9 +79,11 @@ class RtpTransportInternal : public RtpTransportInterface,
                               const rtc::PacketOptions& options,
                               int flags) = 0;
 
-  virtual bool HandlesPayloadType(int payload_type) const = 0;
+  // virtual bool HandlesPayloadType(int payload_type) const = 0;
 
-  virtual void AddHandledPayloadType(int payload_type) = 0;
+  // virtual void AddHandledPayloadType(int payload_type) = 0;
+
+  virtual bool IsSrtpActive() const = 0;
 };
 
 }  // namespace webrtc

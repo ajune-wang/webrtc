@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "578d9e77_f46e8980",
+        "filename": "p2p/base/dtlstransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-29T18:38:49Z",
+      "side": 1,
+      "message": "Can\u0027t you call GetUniqueReference on the returned SSLCertificate?",
+      "parentUuid": "97a9e43a_1ed09db4",
+      "revId": "387fe5cdd5b3ea09516501de460ba2ef83b3b5c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55beb17f_26713e52",
         "filename": "p2p/base/dtlstransport.h",
         "patchSetId": 3

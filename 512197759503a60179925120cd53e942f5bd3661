@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd0d34d3_5abd5225",
+        "filename": "modules/congestion_controller/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eae9bab4_0470c4b0",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 25
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c4c0b33_c1bd655d",
         "filename": "modules/congestion_controller/encoding_rate_controller.h",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a68b2356_9750512e",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c4c0b33_c1bd655d",
+      "range": {
+        "startLine": 24,
+        "startChar": 53,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "388c637c_aef83a91",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "I added a comment describing that this class is only to be used from a single thread, and made the observer protected by running register and unregister on the task queue instead.",
+      "parentUuid": "2f4f05a2_3fee57f6",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ced3633_3af02e6b",
         "filename": "modules/congestion_controller/encoding_rate_controller.h",
         "patchSetId": 9
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "f025dd40_d05ad275",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3ced3633_3af02e6b",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de67f89c_819a0e2b",
         "filename": "modules/congestion_controller/goog_cc_network_control.cc",
         "patchSetId": 9
@@ -105,6 +201,30 @@
       "writtenOn": "2018-01-29T09:58:12Z",
       "side": 1,
       "message": "I\u0027m not convinced that a struct for ProcessInterval makes it easier to read this code. It doesn\u0027t seem to only contain the ProcessInterval, but also some timestamp?\n\nI mostly wonder, is it easier to read this code if we just don\u0027t use the struct? I guess similar arguments are valid for other methods.",
+      "range": {
+        "startLine": 218,
+        "startChar": 48,
+        "endLine": 218,
+        "endChar": 67
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc12625_e8fb197a",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "The advantage that I see is that it better indicates the intent of the interface. Rather than saying that OnProcessInterval is an interface that receives a timestamp that indicates the interval time, it\u0027s an interface that handles an interval, whatever that means. Currently it means that it has a timestamp, a future version might have a timedelta, a enum cause, or some other things related to the process interval, the interface itself doesn\u0027t care.\n\nThis also makes it easier to skip reading code that does not actually use the member but only copies it forward from code that actually use the value somehow. Something that often requires spending extra time when investigating and refactoring when specifying all the arguments.\n\nFor en example on how complicated it can get when writing out all arguments all the time, see how the OnNetworkChanged event is used and forwarded in the current code base.\n\nSo even if the current situation might make it seem redundant with the struct, I think it makes it easier to reason about and change the code in the future. \n\nWDYT?",
+      "parentUuid": "de67f89c_819a0e2b",
       "range": {
         "startLine": 218,
         "startChar": 48,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "54ec0a5a_2ef1e49d",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f12a418e_0f469283",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 314,
+        "endChar": 33
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f7f92f7_d76d8816",
         "filename": "modules/congestion_controller/goog_cc_network_control.cc",
         "patchSetId": 9
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "7a7e7d41_6c195da0",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Good catch, updated this placeholder comment to something more useful.",
+      "parentUuid": "0f7f92f7_d76d8816",
+      "range": {
+        "startLine": 337,
+        "startChar": 2,
+        "endLine": 337,
+        "endChar": 48
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc5dbc15_2f6f07a6",
         "filename": "modules/congestion_controller/goog_cc_network_control.h",
         "patchSetId": 9
@@ -174,6 +342,30 @@
       "writtenOn": "2018-01-29T09:58:12Z",
       "side": 1,
       "message": "I\u0027m not sure what this is? Is it loss computed based on transport feedback?",
+      "range": {
+        "startLine": 48,
+        "startChar": 29,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1c36feb_7baf9802",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "It\u0027s the loss rates calculated in OnReceivedRtcpReceiverReportBlocks, so it\u0027s a legacy API, but made generic so it can be calculated even if RTCP is not used.",
+      "parentUuid": "dc5dbc15_2f6f07a6",
       "range": {
         "startLine": 48,
         "startChar": 29,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "cb17dc4c_948c55be",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7447dfd4_8c2b7b49",
+      "range": {
+        "startLine": 49,
+        "startChar": 34,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a97dc319_fb82e917",
         "filename": "modules/congestion_controller/goog_cc_network_control.h",
         "patchSetId": 9
@@ -229,6 +445,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac277239_c5a14d3b",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a97dc319_fb82e917",
+      "range": {
+        "startLine": 55,
+        "startChar": 25,
+        "endLine": 55,
+        "endChar": 40
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "1ccca642_01978172",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa843519_e32cd848",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69455213_20856c4e",
         "filename": "modules/congestion_controller/goog_cc_network_control.h",
         "patchSetId": 9
@@ -275,6 +539,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18cea802_b24a49c5",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Yes, they are reset in OnNetworkRouteChange",
+      "parentUuid": "69455213_20856c4e",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 80
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "19e98c8b_f707098f",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "To make sure there can\u0027t be no race. It is set in SetTransportOverhead and used in AddPacket. Atomicity is not guaranteed in the general case for an int64_t.",
+      "parentUuid": "0acd5a63_a1e87b79",
+      "range": {
+        "startLine": 182,
+        "startChar": 7,
+        "endLine": 182,
+        "endChar": 13
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "971b2895_906cf51e",
         "filename": "modules/congestion_controller/pacer_controller.h",
         "patchSetId": 9
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "87cf4aea_d69e1622",
+        "filename": "modules/congestion_controller/pacer_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Yes, added a todo comment indicating this.",
+      "parentUuid": "971b2895_906cf51e",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3d0e970_7fe87495",
         "filename": "modules/congestion_controller/probe_controller_unittest.cc",
         "patchSetId": 9
@@ -344,6 +680,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8437c23_be2be23b",
+        "filename": "modules/congestion_controller/probe_controller_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3d0e970_7fe87495",
+      "range": {
+        "startLine": 280,
+        "startChar": 62,
+        "endLine": 280,
+        "endChar": 69
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +753,54 @@
     },
     {
       "key": {
+        "uuid": "d9062f88_b233eb93",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "150184d1_59081fc8",
+      "range": {
+        "startLine": 80,
+        "startChar": 51,
+        "endLine": 80,
+        "endChar": 58
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c527d8df_beb0f28b",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59f54844_945ae631",
+      "range": {
+        "startLine": 80,
+        "startChar": 41,
+        "endLine": 80,
+        "endChar": 50
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a6531f9_7f0d21a8",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 9
@@ -404,6 +812,30 @@
       "writtenOn": "2018-01-29T12:06:12Z",
       "side": 1,
       "message": "Don\u0027t know what the recommended style is, but I\u0027d prefer explicit capture. Discuss with core team? Same below.",
+      "range": {
+        "startLine": 338,
+        "startChar": 14,
+        "endLine": 338,
+        "endChar": 15
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0bd218a_afe36f01",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Generally I agree that you should specify what you actually use. In this case it actually uses everything in the scope and the arguments were a bit verbose. Do you think readability is improved by adding explicit capture even considering this?",
+      "parentUuid": "5a6531f9_7f0d21a8",
       "range": {
         "startLine": 338,
         "startChar": 14,
@@ -439,6 +871,30 @@
     },
     {
       "key": {
+        "uuid": "68ddafc4_65fa4c38",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Internally the loss based estimation still uses an uint8_t to track the loss. The aggregation of loss per stream should be consistent with previous behavior, just moved. The functional difference is that this code uses the packets lost value rather than fraction loss, which would in most cases be equivalent (if the packet delta covered is \u003c255). I\u0027m not sure I see how this should be more noisy. Do you think this will be a problem in practice. Should we add a test for the expected (previous?) behavior?",
+      "parentUuid": "d8583394_cc3c0265",
+      "range": {
+        "startLine": 434,
+        "startChar": 35,
+        "endLine": 434,
+        "endChar": 56
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d6bc706_fd20bdc6",
         "filename": "modules/congestion_controller/send_side_congestion_controller_unittest.cc",
         "patchSetId": 9
@@ -459,6 +915,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a432dc8_3197d3ef",
+        "filename": "modules/congestion_controller/send_side_congestion_controller_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d6bc706_fd20bdc6",
+      "range": {
+        "startLine": 302,
+        "startChar": 19,
+        "endLine": 302,
+        "endChar": 23
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -485,6 +965,30 @@
     },
     {
       "key": {
+        "uuid": "69be0ed4_509b2c8f",
+        "filename": "modules/congestion_controller/send_time_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcd07773_7423c2d6",
+      "range": {
+        "startLine": 36,
+        "startChar": 41,
+        "endLine": 36,
+        "endChar": 58
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c38c73ec_7a9d0198",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 9
@@ -505,6 +1009,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66dc9056_5f299cdd",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c38c73ec_7a9d0198",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 20
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -531,6 +1059,30 @@
     },
     {
       "key": {
+        "uuid": "1dfc8955_71aa49c2",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Yes apparently we do, adding a comment explaining why.\n\n// Sending padding even if congestion window is full, to be able to recover\n// from a situation where all packets have been dropped. This padding packet\n// allows the drop to be detected is the connection is yet again open for\n// traffic and the feedback for the padding packet is received.",
+      "parentUuid": "ab0bf23a_fec53be9",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 32
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b0802bb_1423b2cd",
         "filename": "modules/pacing/paced_sender.h",
         "patchSetId": 9
@@ -551,6 +1103,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e1c495f_57b29b0a",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b0802bb_1423b2cd",
+      "range": {
+        "startLine": 85,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -577,6 +1153,30 @@
     },
     {
       "key": {
+        "uuid": "c34faa22_bf52c7d9",
+        "filename": "network_control/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f792e40a_d7ff3409",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c61dd930_8984f604",
         "filename": "network_control/include/network_types.h",
         "patchSetId": 9
@@ -597,6 +1197,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13a6315e_b84bef34",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c61dd930_8984f604",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -623,6 +1247,30 @@
     },
     {
       "key": {
+        "uuid": "eb0363bc_585ff5e2",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800efbff_5296f54e",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 10
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeae1554_538e361e",
         "filename": "network_control/include/network_types.h",
         "patchSetId": 9
@@ -643,6 +1291,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91667c6f_bca86f8c",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeae1554_538e361e",
+      "range": {
+        "startLine": 135,
+        "startChar": 65,
+        "endLine": 135,
+        "endChar": 73
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -669,6 +1341,30 @@
     },
     {
       "key": {
+        "uuid": "728836a7_e969a3bd",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50575376_15ebeb25",
+      "range": {
+        "startLine": 138,
+        "startChar": 65,
+        "endLine": 138,
+        "endChar": 73
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4648b0d8_edd120d1",
         "filename": "network_control/include/network_types.h",
         "patchSetId": 9
@@ -689,6 +1385,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ca4556_229893e2",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "I did, but probably not particular enough to trump consistency, so changing it to at_time.",
+      "parentUuid": "4648b0d8_edd120d1",
+      "range": {
+        "startLine": 144,
+        "startChar": 12,
+        "endLine": 144,
+        "endChar": 24
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -715,6 +1435,30 @@
     },
     {
       "key": {
+        "uuid": "cf900dbb_eaf49891",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Tried to express \"the estimate on which the target rate is based upon\". I\u0027ll name it network_estimate and add a comment.",
+      "parentUuid": "48a23a18_f93739e9",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 33
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2e02e01_e98e5a39",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 9
@@ -729,6 +1473,24 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a303c12_500ad046",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Agreed, that would make sense if people agree that they can be justified. (Which seems to be the case)",
+      "parentUuid": "a2e02e01_e98e5a39",
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -755,6 +1517,30 @@
     },
     {
       "key": {
+        "uuid": "fde6603b_eb389415",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "57cd9c85_e1c52029",
+      "range": {
+        "startLine": 20,
+        "startChar": 18,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6f11a4b_15aede33",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 9
@@ -775,6 +1561,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3514af8_5ee29133",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f6f11a4b_15aede33",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 24
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -801,6 +1611,30 @@
     },
     {
       "key": {
+        "uuid": "f131274c_96ddd34b",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7084a63f_e038fc01",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ba83874_d75d55ba",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 9
@@ -821,6 +1655,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b0c057b_ff742cb2",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7ba83874_d75d55ba",
+      "range": {
+        "startLine": 127,
+        "startChar": 44,
+        "endLine": 127,
+        "endChar": 50
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -847,6 +1705,30 @@
     },
     {
       "key": {
+        "uuid": "32f45ed4_faaf35e8",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "I agree, changing!",
+      "parentUuid": "97f3a6fd_fde67524",
+      "range": {
+        "startLine": 145,
+        "startChar": 11,
+        "endLine": 145,
+        "endChar": 13
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56610ccc_f2aea616",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 9
@@ -867,6 +1749,30 @@
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6359cb2_5879e8bd",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56610ccc_f2aea616",
+      "range": {
+        "startLine": 321,
+        "startChar": 26,
+        "endLine": 321,
+        "endChar": 51
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -893,6 +1799,30 @@
     },
     {
       "key": {
+        "uuid": "2349c662_9adedbab",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b81412fe_7a49f8db",
+      "range": {
+        "startLine": 322,
+        "startChar": 27,
+        "endLine": 322,
+        "endChar": 39
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4646db39_ecd909ba",
         "filename": "video/end_to_end_tests.cc",
         "patchSetId": 9
@@ -904,6 +1834,30 @@
       "writtenOn": "2018-01-29T09:58:12Z",
       "side": 1,
       "message": "What triggered this change?",
+      "range": {
+        "startLine": 2049,
+        "startChar": 30,
+        "endLine": 2052,
+        "endChar": 28
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a60370f2_d999e394",
+        "filename": "video/end_to_end_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2052,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T14:12:55Z",
+      "side": 1,
+      "message": "Since the test now properly tests that it will recover after loss of connection (previously tested only by checking that padding_sent \u003e 0), it now therefore resumes the connection after having received two padding packets and the test checks that media is received after this.",
+      "parentUuid": "4646db39_ecd909ba",
       "range": {
         "startLine": 2049,
         "startChar": 30,

@@ -66,6 +66,7 @@ rtc_static_library("common_video") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_task_queue",
+    "../rtc_base:rtc_task_queue_api",
     "../system_wrappers",
     "//third_party/libyuv",
   ]

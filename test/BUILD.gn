@@ -74,6 +74,7 @@ rtc_source_set("video_test_common") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_task_queue",
+    "../rtc_base:rtc_task_queue_api",
     "../system_wrappers",
   ]
 }
@@ -629,6 +630,7 @@ rtc_source_set("test_common") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
+    "../rtc_base:rtc_task_queue_api",
     "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",

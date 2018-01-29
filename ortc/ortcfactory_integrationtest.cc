@@ -94,6 +94,7 @@ class OrtcFactoryIntegrationTest : public testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;  // Used as signaling_thread
   typedef std::pair<std::unique_ptr<UdpTransportInterface>,
                     std::unique_ptr<UdpTransportInterface>>
       UdpTransportPair;

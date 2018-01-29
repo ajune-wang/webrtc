@@ -179,6 +179,7 @@ class TransportControllerTest : public testing::Test,
     ++candidates_signal_count_;
   }
 
+  rtc::AutoThread main_thread_;
   std::unique_ptr<rtc::Thread> network_thread_;  // Not used for most tests.
   std::unique_ptr<TransportControllerForTest> transport_controller_;
 

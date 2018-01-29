@@ -928,6 +928,7 @@ class VideoMediaChannelTest : public testing::Test,
     EXPECT_EQ(1, renderer2_.num_rendered_frames());
   }
 
+  rtc::AutoThread main_thread_;
   webrtc::RtcEventLogNullImpl event_log_;
   const std::unique_ptr<webrtc::Call> call_;
   E engine_;

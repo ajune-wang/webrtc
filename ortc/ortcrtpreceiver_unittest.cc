@@ -47,6 +47,7 @@ class OrtcRtpReceiverTest : public testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   // Owned by |ortc_factory_|.
   cricket::FakeMediaEngine* fake_media_engine_;
   rtc::FakePacketTransport fake_packet_transport_;

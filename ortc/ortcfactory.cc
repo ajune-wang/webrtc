@@ -204,6 +204,10 @@ OrtcFactory::OrtcFactory(
     if (!signaling_thread_) {
       // If this thread isn't already wrapped by an rtc::Thread, create a
       // wrapper and own it in this class.
+
+      // TODO(nisse): Can we delete this hack, and require that the caller calls
+      // this on an rtc::Thread? Note that we used to have rtc::Thread::Current
+      // do automatic wrapping (unless NO_MAIN_THREAD_WRAPPING was defined).
       signaling_thread_ = rtc::ThreadManager::Instance()->WrapCurrentThread();
       wraps_signaling_thread_ = true;
     }

@@ -188,6 +188,7 @@ class PseudoTcpTestBase : public testing::Test,
     delete message->pdata;
   }
 
+  rtc::AutoThread main_thread_;
   PseudoTcpForTest local_;
   PseudoTcpForTest remote_;
   rtc::MemoryStream send_stream_;

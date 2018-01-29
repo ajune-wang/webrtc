@@ -14,7 +14,9 @@
 #include <initializer_list>
 
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/pacing/paced_sender.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "network_control/include/network_control.h"
+
 #include "rtc_base/criticalsection.h"
 
 namespace webrtc {
@@ -26,27 +28,30 @@ class Clock;
 // bitrate is adjusted by an application.
 class ProbeController {
  public:
-  ProbeController(PacedSender* pacer, const Clock* clock);
+  explicit ProbeController(NetworkControllerObserver* observer);
+  ~ProbeController();
 
   void SetBitrates(int64_t min_bitrate_bps,
                    int64_t start_bitrate_bps,
-                   int64_t max_bitrate_bps);
+                   int64_t max_bitrate_bps,
+                   int64_t at_time_ms);
 
-  void OnNetworkStateChanged(NetworkState state);
+  void OnNetworkAvailability(NetworkAvailability msg);
 
-  void SetEstimatedBitrate(int64_t bitrate_bps);
+  void SetEstimatedBitrate(int64_t bitrate_bps, int64_t at_time_ms);
 
   void EnablePeriodicAlrProbing(bool enable);
 
+  void SetAlrStartTimeMs(rtc::Optional<int64_t> alr_start_time);
   void SetAlrEndedTimeMs(int64_t alr_end_time);
 
-  void RequestProbe();
+  void RequestProbe(int64_t at_time_ms);
 
   // Resets the ProbeController to a state equivalent to as if it was just
   // created EXCEPT for |enable_periodic_alr_probing_|.
-  void Reset();
+  void Reset(int64_t at_time_ms);
 
-  void Process();
+  void Process(int64_t at_time_ms);
 
  private:
   enum class State {
@@ -58,16 +63,17 @@ class ProbeController {
     kProbingComplete,
   };
 
-  void InitiateExponentialProbing() RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
+  void InitiateExponentialProbing(int64_t at_time_ms)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   void InitiateProbing(int64_t now_ms,
                        std::initializer_list<int64_t> bitrates_to_probe,
                        bool probe_further)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
   rtc::CriticalSection critsect_;
-  PacedSender* const pacer_;
-  const Clock* const clock_;
-  NetworkState network_state_ RTC_GUARDED_BY(critsect_);
+  NetworkControllerObserver* observer_;
+
+  bool network_available_ RTC_GUARDED_BY(critsect_);
   State state_ RTC_GUARDED_BY(critsect_);
   int64_t min_bitrate_to_probe_further_bps_ RTC_GUARDED_BY(critsect_);
   int64_t time_last_probing_initiated_ms_ RTC_GUARDED_BY(critsect_);
@@ -75,6 +81,7 @@ class ProbeController {
   int64_t start_bitrate_bps_ RTC_GUARDED_BY(critsect_);
   int64_t max_bitrate_bps_ RTC_GUARDED_BY(critsect_);
   int64_t last_bwe_drop_probing_time_ms_ RTC_GUARDED_BY(critsect_);
+  rtc::Optional<int64_t> alr_start_time_ms_ RTC_GUARDED_BY(critsect_);
   rtc::Optional<int64_t> alr_end_time_ms_ RTC_GUARDED_BY(critsect_);
   bool enable_periodic_alr_probing_ RTC_GUARDED_BY(critsect_);
   int64_t time_of_last_large_drop_ms_ RTC_GUARDED_BY(critsect_);

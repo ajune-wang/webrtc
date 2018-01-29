@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2eba792_0ae26ab5",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-29T15:23:43Z",
+      "side": 0,
+      "message": "It seems like we are relying on public_deps here. And :rtc_task_queue_api is also private.\n\nI think we should make :rtc_task_queue_api public (I think it is part of the API) and document that in order to use the default implementation a target should depend on :rtc_task_queue which, if rtc_link_task_queue_impl \u003d\u003d True, will compile and link the default implementation.\n\nWhat do you think?",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 1
+      },
+      "revId": "e48c61fca7f3c8020210ff1a19537ce746a1a1fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

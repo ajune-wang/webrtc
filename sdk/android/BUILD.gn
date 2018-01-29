@@ -252,6 +252,7 @@ rtc_static_library("video_jni") {
     "../../rtc_base:rtc_base",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:rtc_task_queue",
+    "../../rtc_base:rtc_task_queue_api",
     "../../rtc_base:sequenced_task_checker",
     "../../rtc_base:weak_ptr",
     "../../system_wrappers",

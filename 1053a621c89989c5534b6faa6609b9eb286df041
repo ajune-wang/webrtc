@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76bb87ec_ee5fe78c",
+        "filename": "common_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-01-29T13:36:03Z",
+      "side": 1,
+      "message": "In code, we generally do not capitalize the FEC part, so I think |kPayloadNameFlexfec| would fit better. Cf. the line above.\n\n(|kPayloadNemaRED| and |kPayloadNameULPFEC| are legacy, and should be renamed.)",
+      "range": {
+        "startLine": 103,
+        "startChar": 25,
+        "endLine": 103,
+        "endChar": 32
+      },
+      "revId": "1053a621c89989c5534b6faa6609b9eb286df041",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

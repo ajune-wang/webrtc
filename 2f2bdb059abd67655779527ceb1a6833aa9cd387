@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "40779bc1_9ffb29b6",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-29T23:00:56Z",
+      "side": 1,
+      "message": "nit: \"how to signal\"",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1dacda7e_c2638a5f",
         "filename": "pc/mediasession.cc",
         "patchSetId": 3
@@ -49,6 +66,23 @@
       "side": 1,
       "message": "Sending both (if we have a track) makes sense. The Bad Thing about sending both here is that we\u0027ll keep on doing it even when the offerer understands Unified Plan - but I think that\u0027s acceptable damage; we\u0027ll rip it out when we remove support for Plan B altogether.",
       "parentUuid": "994df9ce_e6b1226a",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0a2d68a_0b2d7084",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-29T23:00:56Z",
+      "side": 1,
+      "message": "Can you expand on this comment a bit, explaining how Unified Plan endpoints are expected to use both \"a\u003dmsid\" and \"a\u003dssrc\" in offers for compatibility with Plan B endpoints, but should answer with the same format as in the offer?",
       "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -106,6 +140,24 @@
     },
     {
       "key": {
+        "uuid": "bed928aa_d97c57d9",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-29T23:00:56Z",
+      "side": 1,
+      "message": "That might be possible if we process a description that for some reason has two \"a\u003dssrc\" signaled tracks in addition to an \"a\u003dmsid\", and then try to re-serialize it later. So I guess we should catch that at parse time and return an error. Or just leave this as a warning.",
+      "parentUuid": "edea09bb_dc53e2b4",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f245dd61_ffe70a52",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 3
@@ -117,6 +169,23 @@
       "writtenOn": "2018-01-26T11:59:13Z",
       "side": 1,
       "message": "Good that we get rid of this old junk!",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0da59631_2d17b4bb",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3341,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-29T23:00:56Z",
+      "side": 1,
+      "message": "Couldn\u0027t these just be constants? It\u0027s not likely that kStreamLabel1/kAudioTrackId1 will change if that\u0027s what you were concerned about; they\u0027re already embedded in many other strings.",
       "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

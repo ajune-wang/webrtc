@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f660a98_492cfe69",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-29T12:06:12Z",
+      "side": 1,
+      "message": "Is this only a hack to make the new data types work with the old pacer? If so, please document.",
+      "range": {
+        "startLine": 382,
+        "startChar": 20,
+        "endLine": 382,
+        "endChar": 29
+      },
+      "revId": "d4c1a6aff4f6cda24a14a8275b7aa6f0b2950fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cff7827_8b8677cd",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-29T12:06:12Z",
+      "side": 1,
+      "message": "If?",
+      "range": {
+        "startLine": 180,
+        "startChar": 27,
+        "endLine": 180,
+        "endChar": 29
+      },
+      "revId": "d4c1a6aff4f6cda24a14a8275b7aa6f0b2950fcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

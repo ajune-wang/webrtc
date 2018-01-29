@@ -872,6 +872,30 @@
     },
     {
       "key": {
+        "uuid": "f60bf979_a5b11123",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T18:58:16Z",
+      "side": 1,
+      "message": "Well, in this case it isn\u0027t much effort adding them I guess, and since I do agree in general about not using implicit capture I\u0027ll follow your suggestion here.",
+      "parentUuid": "adc3a6b4_378afc39",
+      "range": {
+        "startLine": 338,
+        "startChar": 14,
+        "endLine": 338,
+        "endChar": 15
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8583394_cc3c0265",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 9
@@ -1119,6 +1143,30 @@
       "side": 1,
       "message": "I would expect a difference between paused and congested states. Paused should mean that the network is \"down\". In this case I think it makes sense to periodically try to send something to see if the network is working again. Also note that TimeUntilNextProcess limits the send rate to 2 packets per second.\n\nThere are a couple of reasons that might cause the congestion window to be full, but one of the more likely ones is that we\u0027ve generated a large keyframe and paced it at a rate faster than the network capacity. In cases like this, where we have already sent too much data, it seems bad to try to recover by sending even more. I\u0027m also worried about the data rate for the padding packets. As far as I understand, we\u0027d try to send 200 packets per second. If each has a 20 byte RTP header, that would cause us to send 32 kbps worth of headers which would in itself prevent us from ever recovering on low capacity links.\n\nCouldn\u0027t we prune old packets instead so that if we haven\u0027t received any feedback about a packet for more than x RTTs or y seconds, then we just assume that the feedback has been lost and decrease the outstanding bytes?\n\nStefan might want to weigh in on this too.",
       "parentUuid": "1dfc8955_71aa49c2",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 32
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d72de2_b0c53a27",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T18:58:16Z",
+      "side": 1,
+      "message": "Good point. The previous behavior was to pause the pacer when congested which also would have send pacer packets (although possibly only after a wait of 500 ms?) I also think a better version would be to timeout the feedback locally. This was just a quick fix. I talked about with Stefan before, but did not think of your point. Worth to take it up again! Maybe a quick fix for your immediate concern would be to make sure that the padding packet is not sent until at least 500 ms after the last sent packet?",
+      "parentUuid": "9936a720_ef1af92f",
       "range": {
         "startLine": 243,
         "startChar": 0,

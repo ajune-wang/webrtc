@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba77d016_6c284ab2",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T18:58:16Z",
+      "side": 1,
+      "message": "Isn\u0027t there plenty of objects that doesn\u0027t guarantee thread safety? (For instance all builtin of POD types) Seems excessive to have checkers on all of them? Seems like this would be the responsibility of the caller, right? For an object used by multiple threads where some parts are allowed to be called concurrently I\u0027d say it makes sense.\n\nalso I don\u0027t think the SequencedTaskChecker actually guarantees that it will find race errors. If we really think this will be a concern, it\u0027d make more sense to check that it\u0027s running on a given task queue.",
+      "parentUuid": "0db40b57_62763ff3",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 44
+      },
+      "revId": "957fe87881ad00d9eaab92853e519a218a772885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4c05cc6_736f5ed9",
         "filename": "modules/congestion_controller/pacer_controller.h",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-29T16:26:53Z",
       "side": 1,
       "message": "Would it make sense to verify this with a SequencedTaskChecker?",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 52
+      },
+      "revId": "957fe87881ad00d9eaab92853e519a218a772885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a034910_b44d6fff",
+        "filename": "modules/congestion_controller/pacer_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T18:58:16Z",
+      "side": 1,
+      "message": "Same comment as for encoding rate controller.",
+      "parentUuid": "f4c05cc6_736f5ed9",
       "range": {
         "startLine": 23,
         "startChar": 3,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b2ae35d0_83c82104",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T18:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0f6fd31_7a287bfc",
+      "range": {
+        "startLine": 141,
+        "startChar": 23,
+        "endLine": 141,
+        "endChar": 30
+      },
+      "revId": "957fe87881ad00d9eaab92853e519a218a772885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "726faa7f_f5adef33",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 10
@@ -82,6 +154,30 @@
       "writtenOn": "2018-01-29T16:26:53Z",
       "side": 1,
       "message": "This function seems a bit redundant, given that TimeDelta::s(seconds) does the same thing. Remove?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "957fe87881ad00d9eaab92853e519a218a772885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd980f21_3c093439",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-29T18:58:16Z",
+      "side": 1,
+      "message": "It looks nicer in some contexts. Maybe skip the s, and only have seconds, ms and us? I could only find on instance of using _s in variable names to indicate seconds, and a few usages of _seconds.",
+      "parentUuid": "726faa7f_f5adef33",
       "range": {
         "startLine": 39,
         "startChar": 0,

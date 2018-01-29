@@ -848,6 +848,30 @@
     },
     {
       "key": {
+        "uuid": "adc3a6b4_378afc39",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-29T16:26:53Z",
+      "side": 1,
+      "message": "I\u0027d prefer it, but I won\u0027t insist on it. There is some precedent for [\u003d]-capture in similar situations. Maybe get a second opinion from someone?",
+      "parentUuid": "a0bd218a_afe36f01",
+      "range": {
+        "startLine": 338,
+        "startChar": 14,
+        "endLine": 338,
+        "endChar": 15
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8583394_cc3c0265",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 9
@@ -1083,6 +1107,30 @@
     },
     {
       "key": {
+        "uuid": "9936a720_ef1af92f",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-29T16:26:53Z",
+      "side": 1,
+      "message": "I would expect a difference between paused and congested states. Paused should mean that the network is \"down\". In this case I think it makes sense to periodically try to send something to see if the network is working again. Also note that TimeUntilNextProcess limits the send rate to 2 packets per second.\n\nThere are a couple of reasons that might cause the congestion window to be full, but one of the more likely ones is that we\u0027ve generated a large keyframe and paced it at a rate faster than the network capacity. In cases like this, where we have already sent too much data, it seems bad to try to recover by sending even more. I\u0027m also worried about the data rate for the padding packets. As far as I understand, we\u0027d try to send 200 packets per second. If each has a 20 byte RTP header, that would cause us to send 32 kbps worth of headers which would in itself prevent us from ever recovering on low capacity links.\n\nCouldn\u0027t we prune old packets instead so that if we haven\u0027t received any feedback about a packet for more than x RTTs or y seconds, then we just assume that the feedback has been lost and decrease the outstanding bytes?\n\nStefan might want to weigh in on this too.",
+      "parentUuid": "1dfc8955_71aa49c2",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 32
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b0802bb_1423b2cd",
         "filename": "modules/pacing/paced_sender.h",
         "patchSetId": 9
@@ -1118,6 +1166,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "4b0802bb_1423b2cd",
+      "range": {
+        "startLine": 85,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78c2ac94_adbca676",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-29T16:26:53Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "0e1c495f_57b29b0a",
       "range": {
         "startLine": 85,
         "startChar": 6,
@@ -1488,6 +1560,24 @@
       "side": 1,
       "message": "Agreed, that would make sense if people agree that they can be justified. (Which seems to be the case)",
       "parentUuid": "a2e02e01_e98e5a39",
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985a6a2c_39b29849",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-29T16:26:53Z",
+      "side": 1,
+      "message": "Fwiw, I like them. Unittests would be good though.",
+      "parentUuid": "1a303c12_500ad046",
       "revId": "512197759503a60179925120cd53e942f5bd3661",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

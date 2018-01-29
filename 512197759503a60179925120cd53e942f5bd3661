@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eae9bab4_0470c4b0",
+        "filename": "modules/congestion_controller/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "I think it can be argued that probing could be made agnostic of goog_cc or bbr. I\u0027m OK putting it here to start with though, as we don\u0027t know if it provides value for bbr.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 25
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c4c0b33_c1bd655d",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "End with period.",
+      "range": {
+        "startLine": 24,
+        "startChar": 53,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f4f05a2_3fee57f6",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "Should we add thread checkers or similar to this class to make it more clear how it should be called? It\u0027s not obvious to me why we need the observer lock but nothing else.",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ced3633_3af02e6b",
+        "filename": "modules/congestion_controller/encoding_rate_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "I believe this should be possible to make const if we only initialize in the init list.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de67f89c_819a0e2b",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "I\u0027m not convinced that a struct for ProcessInterval makes it easier to read this code. It doesn\u0027t seem to only contain the ProcessInterval, but also some timestamp?\n\nI mostly wonder, is it easier to read this code if we just don\u0027t use the struct? I guess similar arguments are valid for other methods.",
+      "range": {
+        "startLine": 218,
+        "startChar": 48,
+        "endLine": 218,
+        "endChar": 67
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f12a418e_0f469283",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "Here I tend to agree that this makes the code a bit nicer.",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 314,
+        "endChar": 33
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc5dbc15_2f6f07a6",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "I\u0027m not sure what this is? Is it loss computed based on transport feedback?",
+      "range": {
+        "startLine": 48,
+        "startChar": 29,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7447dfd4_8c2b7b49",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "Add names to these params.",
+      "range": {
+        "startLine": 49,
+        "startChar": 34,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a97dc319_fb82e917",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "Name",
+      "range": {
+        "startLine": 55,
+        "startChar": 25,
+        "endLine": 55,
+        "endChar": 40
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa843519_e32cd848",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69455213_20856c4e",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "Do these have to be dynamically allocated?",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 80
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c61dd930_8984f604",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "Move the comment about the struct to the line above.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4648b0d8_edd120d1",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "at_time? Or did you use time_created for a particular reason?",
+      "range": {
+        "startLine": 144,
+        "startChar": 12,
+        "endLine": 144,
+        "endChar": 24
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a23a18_f93739e9",
+        "filename": "network_control/include/network_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "It\u0027s not clear to me what basis_estimate is.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 33
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2e02e01_e98e5a39",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "We should have unittests for all methods in this file I think.",
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4646db39_ecd909ba",
+        "filename": "video/end_to_end_tests.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2052,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-29T09:58:12Z",
+      "side": 1,
+      "message": "What triggered this change?",
+      "range": {
+        "startLine": 2049,
+        "startChar": 30,
+        "endLine": 2052,
+        "endChar": 28
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

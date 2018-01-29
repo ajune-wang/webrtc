@@ -189,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "2a3ef60e_48ee8270",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-29T12:21:55Z",
+      "side": 1,
+      "message": "Yes. I\u0027 have a local CL that adds a different encoder, which should be built by the same target as the legacy one. I don\u0027t have any opinion on the name of the target though. I\u0027m fine with keeping the _impl part.",
+      "parentUuid": "5f89ec7f_6e82938b",
+      "revId": "f6c8b4968413c2ddb9961fffbb51555d62e381f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4467251e_f544e8cc",
         "filename": "logging/BUILD.gn",
         "patchSetId": 2

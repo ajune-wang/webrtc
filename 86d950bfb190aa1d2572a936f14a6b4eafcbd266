@@ -22,6 +22,30 @@
       "revId": "86d950bfb190aa1d2572a936f14a6b4eafcbd266",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf612c86_407e9055",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-01-30T16:02:54Z",
+      "side": 1,
+      "message": "Stats collection/reporting needs to be updated for SVC. For single layer encoding no changes are needed. Since we don\u0027t use SVC yet we can land this without updating stats part.\n\nI added corresponding TODO to send_statistics_proxy.cc.",
+      "parentUuid": "2ea21602_865c2d3e",
+      "range": {
+        "startLine": 722,
+        "startChar": 57,
+        "endLine": 722,
+        "endChar": 0
+      },
+      "revId": "86d950bfb190aa1d2572a936f14a6b4eafcbd266",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

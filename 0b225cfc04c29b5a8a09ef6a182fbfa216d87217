@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "23a7e944_9dc6fba2",
+        "filename": "modules/congestion_controller/include/goog_cc_factory.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Not against it, but could you elaborate on the reasoning behind why that would improve things?",
+      "parentUuid": "6496baef_3b9abc93",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "afc35969_da1df03c",
         "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a1d72f_b47190bf",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afc35969_da1df03c",
+      "range": {
+        "startLine": 155,
+        "startChar": 33,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dd4b4d55_99ff1e50",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ca2d790_58470f04",
+      "range": {
+        "startLine": 193,
+        "startChar": 10,
+        "endLine": 193,
+        "endChar": 18
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bb8bb5b_167b9b08",
         "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
         "patchSetId": 13
@@ -91,6 +163,30 @@
       "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecaff964_55be3bb0",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bb8bb5b_167b9b08",
+      "range": {
+        "startLine": 194,
+        "startChar": 31,
+        "endLine": 194,
+        "endChar": 38
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "542fb4ca_58ca8a81",
+        "filename": "modules/congestion_controller/probe_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Tried to keep the changes to a minimum, but yes, this doesn\u0027t need locks any more, will remove them.",
+      "parentUuid": "95e0d35a_d3529cb5",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d28545c_bec6ae41",
         "filename": "modules/congestion_controller/probe_controller.h",
         "patchSetId": 13
@@ -137,6 +257,30 @@
       "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0cb11d2_7a7bce1a",
+        "filename": "modules/congestion_controller/probe_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3d28545c_bec6ae41",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a8b321ac_3a73870d",
+        "filename": "modules/congestion_controller/probe_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68525d49_3687a3e6",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e92e1fe8_d08ba024",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 13
@@ -183,6 +351,30 @@
       "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f34ee454_57d58431",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e92e1fe8_d08ba024",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 5
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "53de4013_ad7ac461",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7260def_f103e80e",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 28
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e28c70f_8ee42138",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 13
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "6ca9a35f_74346b77",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e28c70f_8ee42138",
+      "range": {
+        "startLine": 243,
+        "startChar": 2,
+        "endLine": 243,
+        "endChar": 42
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd77f4cd_3803acf0",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 13
@@ -243,6 +483,30 @@
       "writtenOn": "2018-01-30T11:18:08Z",
       "side": 1,
       "message": "Looking at how this and SendSideCongestionController::AvailableBandwidth() are used, I wonder if this is the right choice. Should we instead merge these methods into a GetStats() method or similar and run it on the worker thread so that we can get rid of the lock?\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/call/call.cc?sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026l\u003d926\n\nOr perhaps we should make it a push thingie instead as you wrote somewhere.",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 18
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df455a30_dc9166a1",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Replaced with atomic and added a todo about making this less synchronous. Doe that seem fine for now? Removing this interface would involve deprecation first since send side congestion controller is part of the public api.",
+      "parentUuid": "dd77f4cd_3803acf0",
       "range": {
         "startLine": 274,
         "startChar": 0,
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "9cb8208e_70a08c14",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "The information previously gathered there is now received via OnReceivedRtcpReceiverReport only. I could not figure out any reason why we got the information via two paths other than possibly some slight differences in the calculation of the value. (which I handled via a change in rtcp_receiver.cc)\n\nI removed the comment.",
+      "parentUuid": "14715d0f_8eba5da7",
+      "range": {
+        "startLine": 331,
+        "startChar": 2,
+        "endLine": 331,
+        "endChar": 21
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1426d4d_bcc95051",
         "filename": "modules/congestion_controller/transport_feedback_adapter.h",
         "patchSetId": 13
@@ -298,6 +586,30 @@
       "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d72da26_807b7efa",
+        "filename": "modules/congestion_controller/transport_feedback_adapter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Seems like we should be able to, maybe it was exposed in some API before? I\u0027ll remove it.",
+      "parentUuid": "f1426d4d_bcc95051",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 70
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "85514078_e5bb64e3",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "I think moving the pacer to a task queue in the plan for future work. I started such a port, but it was not trivial, so while I got it working I think there was some issue with  so it will have to wait until later moment.",
+      "parentUuid": "aca7217b_181332c5",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 69
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6fb130a_89fdb6c4",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 13
@@ -335,6 +671,30 @@
       "writtenOn": "2018-01-30T11:18:08Z",
       "side": 1,
       "message": "Why was this changed?",
+      "range": {
+        "startLine": 973,
+        "startChar": 0,
+        "endLine": 976,
+        "endChar": 7
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51e2d2cc_09493bb9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "To make sure that ending usage of the CallStatsObserver callback, where the rtt was calculated in a slightly different way to here, does not significantly change the rtt estimation. This code was previously odd in that it only considered the rtt of the last ssrc processed. It\u0027s possible it shouldn\u0027t be fixed here, if there\u0027s a better place I can move it, or we don\u0027t think it matters we can skip this.",
+      "parentUuid": "d6fb130a_89fdb6c4",
       "range": {
         "startLine": 973,
         "startChar": 0,
@@ -370,6 +730,30 @@
     },
     {
       "key": {
+        "uuid": "60c0e7b8_cb78a464",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "12b1f164_f3a07c24",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 2
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b467135b_04ba1374",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 13
@@ -390,6 +774,30 @@
       "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4660b472_12bedfcf",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b467135b_04ba1374",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -416,6 +824,30 @@
     },
     {
       "key": {
+        "uuid": "f2dae3bc_8cdf7f40",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97337902_17c745c7",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 3
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3640e9ac_57badf43",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 13
@@ -439,6 +871,30 @@
     },
     {
       "key": {
+        "uuid": "a5921b77_1f875bc5",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3640e9ac_57badf43",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 3
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51550a8b_4dee6766",
         "filename": "network_control/include/network_units.h",
         "patchSetId": 13
@@ -450,6 +906,30 @@
       "writtenOn": "2018-01-30T11:18:08Z",
       "side": 1,
       "message": "There are discussions about our use of ostream, stringstream, etc and how to get rid of them because it\u0027s a very heavy dependency. Do we really need this?",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 71
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cf5cedc_10d4451c",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "They are needed for nice output by test macros and handy for log output. I don\u0027t think we have a full replacement yet, but as soon we get one these could be updated to use that, right?",
+      "parentUuid": "51550a8b_4dee6766",
       "range": {
         "startLine": 349,
         "startChar": 0,

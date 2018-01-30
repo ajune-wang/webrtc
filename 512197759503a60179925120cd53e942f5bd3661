@@ -1179,6 +1179,30 @@
     },
     {
       "key": {
+        "uuid": "9e163c56_07ec11f3",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-01-30T12:36:27Z",
+      "side": 1,
+      "message": "I moved congestion window functionality to pacer controller for now, and postpone the fix for the BBR CL.",
+      "parentUuid": "c0d72de2_b0c53a27",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 32
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b0802bb_1423b2cd",
         "filename": "modules/pacing/paced_sender.h",
         "patchSetId": 9

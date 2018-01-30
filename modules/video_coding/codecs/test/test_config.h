@@ -63,6 +63,8 @@ struct TestConfig {
 
   std::string FilenameWithParams() const;
 
+  bool IsAsyncCodec() const;
+
   // Plain name of YUV file to process without file extension.
   std::string filename;
 

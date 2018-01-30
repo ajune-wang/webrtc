@@ -350,15 +350,10 @@ std::vector<FrameStatistic> VideoProcessorIntegrationTest::ExtractLayerStats(
         }
       }
 
+      // Target bitrate of extracted interval is bitrate of the highest
+      // spatial and temporal layer.
       target_bitrate_kbps =
           std::max(target_bitrate_kbps, superframe_stat.target_bitrate_kbps);
-
-      if (superframe_stat.encoding_successful) {
-        RTC_CHECK(superframe_stat.target_bitrate_kbps <= target_bitrate_kbps ||
-                  tl_idx == target_temporal_layer_number);
-        RTC_CHECK(superframe_stat.target_bitrate_kbps == target_bitrate_kbps ||
-                  tl_idx < target_temporal_layer_number);
-      }
 
       layer_stats.push_back(superframe_stat);
     }
@@ -424,8 +419,14 @@ void VideoProcessorIntegrationTest::CreateEncoderAndDecoder() {
 
   const SdpVideoFormat format = CreateSdpVideoFormat(config_);
   encoder_ = encoder_factory->CreateVideoEncoder(format);
-  decoders_.push_back(std::unique_ptr<VideoDecoder>(
-      decoder_factory->CreateVideoDecoder(format)));
+
+  const size_t num_simulcast_or_spatial_layers = std::max(
+      config_.NumberOfSimulcastStreams(), config_.NumberOfSpatialLayers());
+
+  for (size_t i = 0; i < num_simulcast_or_spatial_layers; ++i) {
+    decoders_.push_back(std::unique_ptr<VideoDecoder>(
+        decoder_factory->CreateVideoDecoder(format)));
+  }
 
   if (config_.sw_fallback_encoder) {
     encoder_ = rtc::MakeUnique<VideoEncoderSoftwareFallbackWrapper>(
@@ -505,12 +506,10 @@ void VideoProcessorIntegrationTest::SetUpAndInitObjects(
   rtc::Event sync_event(false, false);
   task_queue->PostTask([this, &sync_event]() {
     processor_ = rtc::MakeUnique<VideoProcessor>(
-        encoder_.get(), decoders_.at(0).get(), source_frame_reader_.get(),
-        config_, &stats_.at(0),
-        encoded_frame_writers_.empty() ? nullptr
-                                       : encoded_frame_writers_.at(0).get(),
-        decoded_frame_writers_.empty() ? nullptr
-                                       : decoded_frame_writers_.at(0).get());
+        encoder_.get(), &decoders_, source_frame_reader_.get(), config_,
+        &stats_,
+        encoded_frame_writers_.empty() ? nullptr : &encoded_frame_writers_,
+        decoded_frame_writers_.empty() ? nullptr : &decoded_frame_writers_);
     sync_event.Set();
   });
   sync_event.Wait(rtc::Event::kForever);

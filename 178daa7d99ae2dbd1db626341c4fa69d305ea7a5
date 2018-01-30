@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e13f92d_f8bb8f44",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-01-30T20:05:10Z",
+      "side": 1,
+      "message": "This isn\u0027t necessary since we deref ptr anyway and will crash the same way if it ever is null.",
+      "revId": "178daa7d99ae2dbd1db626341c4fa69d305ea7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0df6111f_252bc576",
+        "filename": "rtc_base/opensslstreamadapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-01-30T20:05:10Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 235,
+        "startChar": 6,
+        "endLine": 235,
+        "endChar": 15
+      },
+      "revId": "178daa7d99ae2dbd1db626341c4fa69d305ea7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -58,6 +58,8 @@ class RtpTransport : public RtpTransportInternal {
 
   bool IsWritable(bool rtcp) const override;
 
+  bool IsReadyToSend() const override { return ready_to_send_; }
+
   bool SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
                      const rtc::PacketOptions& options,
                      int flags) override;
@@ -66,9 +68,11 @@ class RtpTransport : public RtpTransportInternal {
                       const rtc::PacketOptions& options,
                       int flags) override;
 
-  bool HandlesPayloadType(int payload_type) const override;
+  // bool HandlesPayloadType(int payload_type) const override;
 
-  void AddHandledPayloadType(int payload_type) override;
+  // void AddHandledPayloadType(int payload_type) override;
+
+  bool IsSrtpActive() const override { return false; }
 
  protected:
   // TODO(zstein): Remove this when we remove RtpTransportAdapter.
@@ -76,7 +80,6 @@ class RtpTransport : public RtpTransportInternal {
 
  private:
   bool IsRtpTransportWritable();
-  bool HandlesPacket(const uint8_t* data, size_t len);
 
   void OnReadyToSend(rtc::PacketTransportInternal* transport);
   void OnNetworkRouteChange(rtc::Optional<rtc::NetworkRoute> network_route);
@@ -101,8 +104,6 @@ class RtpTransport : public RtpTransportInternal {
                     const rtc::PacketTime& packet_time,
                     int flags);
 
-  bool WantsPacket(bool rtcp, const rtc::CopyOnWriteBuffer* packet);
-
   bool rtcp_mux_enabled_;
 
   rtc::PacketTransportInternal* rtp_packet_transport_ = nullptr;
@@ -113,8 +114,6 @@ class RtpTransport : public RtpTransportInternal {
   bool rtcp_ready_to_send_ = false;
 
   RtpTransportParameters parameters_;
-
-  cricket::BundleFilter bundle_filter_;
 };
 
 }  // namespace webrtc

@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "api/cryptoparams.h"
+#include "api/jsep.h"
 #include "api/optional.h"
 #include "pc/sessiondescription.h"
 #include "rtc_base/basictypes.h"
@@ -54,6 +55,11 @@ class SrtpFilter {
   // Whether the filter is active (i.e. crypto has been properly negotiated).
   bool IsActive() const;
 
+  bool Process(const std::vector<CryptoParams>& cryptos,
+               const std::vector<int> extension_ids,
+               webrtc::SdpType type,
+               ContentSource source);
+
   // Indicates which crypto algorithms and keys were contained in the offer.
   // offer_params should contain a list of available parameters to use, or none,
   // if crypto is not desired. This must be called before SetAnswer.
@@ -75,6 +81,14 @@ class SrtpFilter {
 
   rtc::Optional<int> send_cipher_suite() { return send_cipher_suite_; }
   rtc::Optional<int> recv_cipher_suite() { return recv_cipher_suite_; }
+
+  rtc::Optional<std::vector<int>> send_extension_ids() {
+    return send_extension_ids_;
+  }
+
+  rtc::Optional<std::vector<int>> recv_extension_ids() {
+    return recv_extension_ids_;
+  }
 
   const rtc::Buffer& send_key() { return send_key_; }
   const rtc::Buffer& recv_key() { return recv_key_; }
@@ -134,6 +148,9 @@ class SrtpFilter {
   rtc::Optional<int> recv_cipher_suite_;
   rtc::Buffer send_key_;
   rtc::Buffer recv_key_;
+
+  rtc::Optional<std::vector<int>> send_extension_ids_;
+  rtc::Optional<std::vector<int>> recv_extension_ids_;
 };
 
 }  // namespace cricket

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "407af380_daaf5100",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-30T11:18:08Z",
+      "side": 0,
+      "message": "Are we intentionally no longer doing these min/max operations, or has the code moved? I can\u0027t seem to find where.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 21
+      },
+      "revId": "49456a5b332741e0130884fdbc14676ba5695fde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

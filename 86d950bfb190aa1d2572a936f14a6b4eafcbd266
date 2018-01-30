@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ea21602_865c2d3e",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2018-01-30T14:51:33Z",
+      "side": 1,
+      "message": "Does SendStatisticsProxy::OnSendEncodedImage need to be updated to report max encoded width/height (see https://webrtc-review.googlesource.com/c/src/+/21323)?",
+      "range": {
+        "startLine": 722,
+        "startChar": 57,
+        "endLine": 722,
+        "endChar": 0
+      },
+      "revId": "86d950bfb190aa1d2572a936f14a6b4eafcbd266",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

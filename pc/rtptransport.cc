@@ -134,18 +134,6 @@ bool RtpTransport::SendPacket(bool rtcp,
   return true;
 }
 
-bool RtpTransport::HandlesPacket(const uint8_t* data, size_t len) {
-  return bundle_filter_.DemuxPacket(data, len);
-}
-
-bool RtpTransport::HandlesPayloadType(int payload_type) const {
-  return bundle_filter_.FindPayloadType(payload_type);
-}
-
-void RtpTransport::AddHandledPayloadType(int payload_type) {
-  bundle_filter_.AddPayloadType(payload_type);
-}
-
 PacketTransportInterface* RtpTransport::GetRtpPacketTransport() const {
   return rtp_packet_transport_;
 }
@@ -256,28 +244,14 @@ void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
               IsRtcp(data, static_cast<int>(len));
   rtc::CopyOnWriteBuffer packet(data, len);
 
-  if (!WantsPacket(rtcp, &packet)) {
+  if (!cricket::IsValidRtpRtcpPacketSize(rtcp, packet.size())) {
+    RTC_LOG(LS_ERROR) << "Dropping incoming "
+                      << cricket::RtpRtcpStringLiteral(rtcp)
+                      << " packet: wrong size=" << packet.size();
     return;
   }
   // This mutates |packet| if it is protected.
   SignalPacketReceived(rtcp, &packet, packet_time);
-}
-
-bool RtpTransport::WantsPacket(bool rtcp,
-                               const rtc::CopyOnWriteBuffer* packet) {
-  // Protect ourselves against crazy data.
-  if (!packet || !cricket::IsValidRtpRtcpPacketSize(rtcp, packet->size())) {
-    RTC_LOG(LS_ERROR) << "Dropping incoming "
-                      << cricket::RtpRtcpStringLiteral(rtcp)
-                      << " packet: wrong size=" << packet->size();
-    return false;
-  }
-  if (rtcp) {
-    // Permit all (seemingly valid) RTCP packets.
-    return true;
-  }
-  // Check whether we handle this payload.
-  return HandlesPacket(packet->data(), packet->size());
 }
 
 }  // namespace webrtc

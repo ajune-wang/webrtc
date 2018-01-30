@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "db9690f6_bb409319",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-01-30T20:14:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e13f92d_f8bb8f44",
+      "revId": "178daa7d99ae2dbd1db626341c4fa69d305ea7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df6111f_252bc576",
         "filename": "rtc_base/opensslstreamadapter.cc",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "178daa7d99ae2dbd1db626341c4fa69d305ea7a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15fa7b1_84e60e9c",
+        "filename": "rtc_base/opensslstreamadapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-01-30T20:14:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0df6111f_252bc576",
+      "range": {
+        "startLine": 235,
+        "startChar": 6,
+        "endLine": 235,
+        "endChar": 15
+      },
+      "revId": "178daa7d99ae2dbd1db626341c4fa69d305ea7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

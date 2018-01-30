@@ -33,6 +33,8 @@
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 
+#include "system_wrappers/include/sleep.h"
+
 using std::cout;
 using std::endl;
 using ::testing::_;
@@ -66,7 +68,7 @@ static const size_t kBitsPerSample = 16;
 static const size_t kBytesPerSample = kBitsPerSample / 8;
 // Run the full-duplex test during this time (unit is in seconds).
 // Note that first |kNumIgnoreFirstCallbacks| are ignored.
-static const int kFullDuplexTimeInSec = 5;
+static const int kFullDuplexTimeInSec = 15;
 // Wait for the callback sequence to stabilize by ignoring this amount of the
 // initial callbacks (avoids initial FIFO access).
 // Only used in the RunPlayoutAndRecordingInFullDuplex test.
@@ -817,18 +819,20 @@ TEST_F(AudioDeviceTest, SetSpeakerVolumeActuallySetsVolume) {
 // is registered in this test.
 TEST_F(AudioDeviceTest, StartStopPlayout) {
   StartPlayout();
+  SleepMs(200);
   StopPlayout();
-  StartPlayout();
-  StopPlayout();
+  // StartPlayout();
+  // StopPlayout();
 }
 
 // Tests that recording can be initiated, started and stopped. No audio callback
 // is registered in this test.
 TEST_F(AudioDeviceTest, StartStopRecording) {
   StartRecording();
+  SleepMs(200);
   StopRecording();
-  StartRecording();
-  StopRecording();
+  // StartRecording();
+  // StopRecording();
 }
 
 // Verify that calling StopPlayout() will leave us in an uninitialized state
@@ -966,7 +970,7 @@ TEST_F(AudioDeviceTest, RunPlayoutWithFileAsSource) {
 // starts at different times. Hence, the test can fail even if audio works
 // as intended. Keeping the test so it can be enabled manually.
 // http://bugs.webrtc.org/7744
-TEST_F(AudioDeviceTest, DISABLED_RunPlayoutAndRecordingInFullDuplex) {
+TEST_F(AudioDeviceTest, RunPlayoutAndRecordingInFullDuplex) {
   EXPECT_EQ(record_channels(), playout_channels());
   EXPECT_EQ(record_sample_rate(), playout_sample_rate());
   NiceMock<MockAudioTransportAndroid> mock(kPlayout | kRecording);
@@ -1000,7 +1004,7 @@ TEST_F(AudioDeviceTest, DISABLED_RunPlayoutAndRecordingInFullDuplex) {
 // - Store time differences in a vector and calculate min, max and average.
 // This test requires a special hardware called Audio Loopback Dongle.
 // See http://source.android.com/devices/audio/loopback.html for details.
-TEST_F(AudioDeviceTest, DISABLED_MeasureLoopbackLatency) {
+TEST_F(AudioDeviceTest, MeasureLoopbackLatency) {
   EXPECT_EQ(record_channels(), playout_channels());
   EXPECT_EQ(record_sample_rate(), playout_sample_rate());
   NiceMock<MockAudioTransportAndroid> mock(kPlayout | kRecording);

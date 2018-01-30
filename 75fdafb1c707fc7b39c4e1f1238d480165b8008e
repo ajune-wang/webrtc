@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2abbf09b_c57457f9",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-01-30T17:15:34Z",
+      "side": 1,
+      "message": "I think this line is unnecessary, as the previous line (shallow) copied everything from combined_image to encoded_image.",
+      "range": {
+        "startLine": 214,
+        "startChar": 46,
+        "endLine": 214,
+        "endChar": 56
+      },
+      "revId": "75fdafb1c707fc7b39c4e1f1238d480165b8008e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

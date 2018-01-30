@@ -74,6 +74,7 @@ void PrintError(const char* format, ...) {
 // advanced stace trace system; also more difficult to copy.
 void DumpBacktrace() {
 #if defined(__GLIBCXX__) && !defined(__UCLIBC__)
+#error Do we ever try to compile this?
   void* trace[100];
   int size = backtrace(trace, sizeof(trace) / sizeof(*trace));
   char** symbols = backtrace_symbols(trace, size);

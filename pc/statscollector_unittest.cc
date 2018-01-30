@@ -56,14 +56,6 @@ class FakeAudioProcessor : public AudioProcessorInterface {
   ~FakeAudioProcessor() {}
 
  private:
-  void GetStats(AudioProcessorInterface::AudioProcessorStats* stats) override {
-    stats->typing_noise_detected = true;
-    stats->echo_return_loss = 2;
-    stats->echo_return_loss_enhancement = 3;
-    stats->echo_delay_median_ms = 4;
-    stats->echo_delay_std_ms = 6;
-  }
-
   AudioProcessorInterface::AudioProcessorStatistics GetStats(
       bool has_recv_streams) override {
     AudioProcessorStatistics stats;
@@ -107,14 +99,6 @@ class FakeAudioProcessorWithInitValue : public AudioProcessorInterface {
   ~FakeAudioProcessorWithInitValue() {}
 
  private:
-  void GetStats(AudioProcessorInterface::AudioProcessorStats* stats) override {
-    stats->typing_noise_detected = false;
-    stats->echo_return_loss = -100;
-    stats->echo_return_loss_enhancement = -100;
-    stats->echo_delay_median_ms = -1;
-    stats->echo_delay_std_ms = -1;
-  }
-
   AudioProcessorInterface::AudioProcessorStatistics GetStats(
       bool /*has_recv_streams*/) override {
     AudioProcessorStatistics stats;
@@ -512,10 +496,10 @@ void InitVoiceSenderInfo(cricket::VoiceSenderInfo* voice_sender_info) {
   voice_sender_info->packets_lost = 105;
   voice_sender_info->ext_seqnum = 106;
   voice_sender_info->audio_level = 107;
-  voice_sender_info->echo_return_loss = 108;
-  voice_sender_info->echo_return_loss_enhancement = 109;
-  voice_sender_info->echo_delay_median_ms = 110;
-  voice_sender_info->echo_delay_std_ms = 111;
+  voice_sender_info->apm_statistics.echo_return_loss = 108;
+  voice_sender_info->apm_statistics.echo_return_loss_enhancement = 109;
+  voice_sender_info->apm_statistics.delay_median_ms = 110;
+  voice_sender_info->apm_statistics.delay_standard_deviation_ms = 111;
   voice_sender_info->typing_noise_detected = false;
   voice_sender_info->ana_statistics.bitrate_action_counter = 112;
   voice_sender_info->ana_statistics.channel_action_counter = 113;

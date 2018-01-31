@@ -16,6 +16,24 @@
       "revId": "452a880d2ace47321cc67569cb96db2c530972aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73690b31_a44a3e94",
+        "filename": "rtc_base/win32.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-01-31T10:39:43Z",
+      "side": 1,
+      "message": "Good idea. :)\nDone.",
+      "parentUuid": "ee4f65a2_9fc6b370",
+      "revId": "452a880d2ace47321cc67569cb96db2c530972aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

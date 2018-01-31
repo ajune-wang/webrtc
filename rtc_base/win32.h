@@ -11,6 +11,10 @@
 #ifndef RTC_BASE_WIN32_H_
 #define RTC_BASE_WIN32_H_
 
+#ifndef WEBRTC_WIN
+#error "Only #include this header in Windows builds"
+#endif
+
 #if defined(WEBRTC_WIN)
 
 #ifndef WIN32_LEAN_AND_MEAN

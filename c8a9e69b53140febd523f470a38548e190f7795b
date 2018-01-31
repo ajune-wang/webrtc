@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1b9a1c67_4dcfcb34",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-01-31T09:07:13Z",
+      "side": 1,
+      "message": "The call to Error below already logs the error, I didn\u0027t think we needed to do it twice.",
+      "parentUuid": "3946f4e1_2decf545",
+      "revId": "c8a9e69b53140febd523f470a38548e190f7795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "858289ae_4b29480c",
         "filename": "rtc_base/openssladapter.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "acd1762e_aa0157b3",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-01-31T09:07:13Z",
+      "side": 1,
+      "message": "My thinking here was that we should default to DLOG in the cases where it doesn\u0027t matter.",
+      "parentUuid": "858289ae_4b29480c",
+      "revId": "c8a9e69b53140febd523f470a38548e190f7795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a96c5fc3_e4944c46",
         "filename": "rtc_base/opensslstreamadapter.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2018-01-31T00:48:51Z",
       "side": 1,
       "message": "This seems like a potentially valuable log message",
+      "revId": "c8a9e69b53140febd523f470a38548e190f7795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42dd8104_92541c00",
+        "filename": "rtc_base/opensslstreamadapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-01-31T09:07:13Z",
+      "side": 1,
+      "message": "This is also logged by the call to Error()",
+      "parentUuid": "a96c5fc3_e4944c46",
       "revId": "c8a9e69b53140febd523f470a38548e190f7795b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee4f65a2_9fc6b370",
+        "filename": "rtc_base/win32.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-01-31T09:59:02Z",
+      "side": 1,
+      "message": "Instead of the current WEBRTC_WIN #if block that covers the whole file, maybe something simple like this in the beginning:\n\n  #ifndef WEBRTC_WIN\n  #error \"Only #include this header in Windows builds\"\n  #endif",
+      "revId": "452a880d2ace47321cc67569cb96db2c530972aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

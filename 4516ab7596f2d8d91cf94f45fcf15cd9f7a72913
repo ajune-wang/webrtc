@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aa7ece54_a67ec1e9",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T19:54:27Z",
+      "side": 1,
+      "message": "It is intentional in the sense that we\u0027ve previously initialized all members explicitly in this file, even if they are default constructed. I\u0027m keeping with this pattern.\n\nYou\u0027re right that it is redundant to initialize it to a nullptr since we immediately reset it anyway. However, we haven\u0027t yet read the trendline parameters,  so we can\u0027t construct it here. We could reorder the members, but the next CL will remove the trendline_xxx parameters anyway so it didn\u0027t seem worth the effort.",
+      "parentUuid": "d6453e34_272fd49e",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 29
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26b60e74_30b371fe",
         "filename": "modules/congestion_controller/delay_based_bwe.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fba9ce91_10aedad1",
+        "filename": "modules/congestion_controller/delay_based_bwe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T19:54:27Z",
+      "side": 1,
+      "message": "Done. However, for now it looks a bit strange since the parameters below still talk about a trendline.",
+      "parentUuid": "26b60e74_30b371fe",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 54
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "028ccbf7_7cb782af",
         "filename": "modules/congestion_controller/delay_detector.h",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-01-11T13:57:14Z",
       "side": 1,
       "message": "Just looking at the interface, it seems like such a class detects bandwidth usage (or more specifically, usage state in the set of underuse, normal, overuse) _based_ on delay, rather than detecting delay itself.\n\nMaybe naming it BandwidthUsageClassifier[Interface] or something in that spirit would make it clearer for the reader what it actually does?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ba6a96_0106d5d4",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T19:54:27Z",
+      "side": 1,
+      "message": "I think DelayDetector is clearer in the sense that it detects (congestion-related) delay increases. To me, it feels like almost any part of the congestion controller could be called a BandwidthUsageClassifier. I also find the BandwidthUsage enum itself a bit confusing, since kBwUnderusing doesn\u0027t mean that we should increase the bitrate. Better names might be IncreasingQueues, StableQueues, DrainingQueues.\n\nI agree with adding the -Interface though.",
+      "parentUuid": "028ccbf7_7cb782af",
       "range": {
         "startLine": 20,
         "startChar": 6,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "bb07b8b6_3c38bb1f",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T19:54:27Z",
+      "side": 1,
+      "message": "The comment (along with the rest of this class) is copied from the OveruseEstimator and OveruseDetector. I don\u0027t even know what the current definition is. Also, I intend to create an experiment for removing the InterArrival class since I\u0027m not convinced that the grouping is necessary.",
+      "parentUuid": "652fa8ba_166c1262",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 67
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c5bd356_74b337a0",
         "filename": "modules/congestion_controller/delay_detector.h",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2018-01-11T13:57:14Z",
       "side": 1,
       "message": "Some verbosity wouldn\u0027t hurt here, how about [Get][Current]BandwidthUsage[State]?",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b90da23_c063316f",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T19:54:27Z",
+      "side": 1,
+      "message": "This is preserved from the old OveruseDetector.",
+      "parentUuid": "9c5bd356_74b337a0",
       "range": {
         "startLine": 31,
         "startChar": 25,
@@ -137,6 +257,30 @@
       "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a83ea154_0f4031eb",
+        "filename": "modules/congestion_controller/trendline_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T19:54:27Z",
+      "side": 1,
+      "message": "Done. Thanks.",
+      "parentUuid": "ec58840c_e6d9d0e3",
+      "range": {
+        "startLine": 120,
+        "startChar": 35,
+        "endLine": 120,
+        "endChar": 41
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

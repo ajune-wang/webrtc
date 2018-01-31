@@ -44,7 +44,7 @@ class DtlsSrtpTransport : public RtpTransportInternalAdapter {
   void UpdateRecvEncryptedHeaderExtensionIds(
       const std::vector<int>& recv_extension_ids);
 
-  bool IsActive() { return srtp_transport_->IsActive(); }
+  bool IsSrtpActive() const override { return srtp_transport_->IsSrtpActive(); }
 
   // Cache RTP Absoulute SendTime extension header ID. This is only used when
   // external authentication is enabled.

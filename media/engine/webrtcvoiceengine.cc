@@ -2061,25 +2061,22 @@ bool WebRtcVoiceMediaChannel::InsertDtmf(uint32_t ssrc, int event,
 }
 
 void WebRtcVoiceMediaChannel::OnPacketReceived(
-    rtc::CopyOnWriteBuffer* packet, const rtc::PacketTime& packet_time) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+    rtc::CopyOnWriteBuffer* packet,
+    const rtc::PacketTime& packet_time) {}
 
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
+void WebRtcVoiceMediaChannel::OnPacketReceived(
+    webrtc::RtpPacketReceived parsed_packet) {
+  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   webrtc::PacketReceiver::DeliveryStatus delivery_result =
-      call_->Receiver()->DeliverPacket(webrtc::MediaType::AUDIO, *packet,
-                                       webrtc_packet_time);
+      call_->Receiver()->DeliverParsedPacket(webrtc::MediaType::AUDIO,
+                                             parsed_packet);
   if (delivery_result != webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC) {
     return;
   }
-
   // Create an unsignaled receive stream for this previously not received ssrc.
   // If there already is N unsignaled receive streams, delete the oldest.
   // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=5208
-  uint32_t ssrc = 0;
-  if (!GetRtpSsrc(packet->cdata(), packet->size(), &ssrc)) {
-    return;
-  }
+  uint32_t ssrc = parsed_packet.Ssrc();
   RTC_DCHECK(std::find(unsignaled_recv_ssrcs_.begin(),
       unsignaled_recv_ssrcs_.end(), ssrc) == unsignaled_recv_ssrcs_.end());
 
@@ -2120,8 +2117,8 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
     SetRawAudioSink(ssrc, std::move(proxy_sink));
   }
 
-  delivery_result = call_->Receiver()->DeliverPacket(
-      webrtc::MediaType::AUDIO, *packet, webrtc_packet_time);
+  delivery_result = call_->Receiver()->DeliverParsedPacket(
+      webrtc::MediaType::AUDIO, parsed_packet);
   RTC_DCHECK_NE(webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC, delivery_result);
 }
 

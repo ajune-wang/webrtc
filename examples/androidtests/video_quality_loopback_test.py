@@ -89,6 +89,14 @@ def _ParseArgs():
   parser.add_argument('--chartjson-result-file',
       help='Where to store perf results in chartjson format.', default=None)
 
+  # Ignore Chromium-specific flags
+  parser.add_argument('--isolated-script-test-output',
+                      type=str, default=None)
+  parser.add_argument('--isolated-script-test-perf-output',
+                      type=str, default=None)
+  parser.add_argument('--test-launcher-summary-output',
+                      type=str, default=None)
+
   args = parser.parse_args()
   return args
 

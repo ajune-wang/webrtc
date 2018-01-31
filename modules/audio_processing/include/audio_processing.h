@@ -551,44 +551,6 @@ class AudioProcessing : public rtc::RefCountInterface {
     float minimum_ = 0.0f;  // Long-term minimum.
   };
 
-  struct AudioProcessingStatistics {
-    AudioProcessingStatistics();
-    AudioProcessingStatistics(const AudioProcessingStatistics& other);
-    ~AudioProcessingStatistics();
-
-    // AEC Statistics.
-    // RERL = ERL + ERLE
-    Stat residual_echo_return_loss;
-    // ERL = 10log_10(P_far / P_echo)
-    Stat echo_return_loss;
-    // ERLE = 10log_10(P_echo / P_out)
-    Stat echo_return_loss_enhancement;
-    // (Pre non-linear processing suppression) A_NLP = 10log_10(P_echo / P_a)
-    Stat a_nlp;
-    // Fraction of time that the AEC linear filter is divergent, in a 1-second
-    // non-overlapped aggregation window.
-    float divergent_filter_fraction = -1.0f;
-
-    // The delay metrics consists of the delay median and standard deviation. It
-    // also consists of the fraction of delay estimates that can make the echo
-    // cancellation perform poorly. The values are aggregated until the first
-    // call to |GetStatistics()| and afterwards aggregated and updated every
-    // second. Note that if there are several clients pulling metrics from
-    // |GetStatistics()| during a session the first call from any of them will
-    // change to one second aggregation window for all.
-    int delay_median = -1;
-    int delay_standard_deviation = -1;
-    float fraction_poor_delays = -1.0f;
-
-    // Residual echo detector likelihood.
-    float residual_echo_likelihood = -1.0f;
-    // Maximum residual echo likelihood from the last time period.
-    float residual_echo_likelihood_recent_max = -1.0f;
-  };
-
-  // TODO(ivoc): Make this pure virtual when all subclasses have been updated.
-  virtual AudioProcessingStatistics GetStatistics() const;
-
   // This returns the stats as optionals and it will replace the regular
   // GetStatistics.
   virtual AudioProcessingStats GetStatistics(bool has_remote_tracks) const;

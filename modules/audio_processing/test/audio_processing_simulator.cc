@@ -171,9 +171,11 @@ void AudioProcessingSimulator::ProcessStream(bool fixed_interface) {
   }
 
   if (residual_echo_likelihood_graph_writer_.is_open()) {
-    auto stats = ap_->GetStatistics();
-    residual_echo_likelihood_graph_writer_ << stats.residual_echo_likelihood
-                                           << ", ";
+    auto stats = ap_->GetStatistics(true);
+    if (stats.residual_echo_likelihood) {
+      residual_echo_likelihood_graph_writer_ << *stats.residual_echo_likelihood
+                                             << ", ";
+    }
   }
 
   ++num_process_stream_calls_;

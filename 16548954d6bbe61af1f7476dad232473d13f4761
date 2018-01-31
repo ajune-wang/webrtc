@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "162dd162_3ee7db3a",
+        "filename": "examples/androidtests/video_quality_loopback_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-01-31T12:34:42Z",
+      "side": 1,
+      "message": "Please don\u0027t add these ignored flags to \"--help\".\nDo it like https://cs.chromium.org/ignore_parser",
+      "range": {
+        "startLine": 92,
+        "startChar": 1,
+        "endLine": 92,
+        "endChar": 2
+      },
+      "revId": "16548954d6bbe61af1f7476dad232473d13f4761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

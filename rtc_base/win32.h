@@ -83,5 +83,7 @@ inline bool IsCurrentProcessLowIntegrity() {
 
 }  // namespace rtc
 
+#else
+#error "Don't #include this header on non-Windows"
 #endif  // WEBRTC_WIN
 #endif  // RTC_BASE_WIN32_H_

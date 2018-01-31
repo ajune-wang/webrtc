@@ -33,6 +33,24 @@
       "revId": "db1c84102d0d15e70270214a45dc3c497d80e141",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fff9dc4_8a9a8f1c",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-01-31T02:54:54Z",
+      "side": 1,
+      "message": "Updated the comment. Thanks for the insight in to how that can happen. In the WebRtc 1.0 spec ptime is part of the RtpEncodingParameters, but in the ORTC spec it\u0027s a field in the RtpCodecParameters. But it isn\u0027t include in both for either of those. From what you\u0027re saying it sounds like we\u0027ll be implementing it in both and possibly setting it to the RtpCodecParameters with SDP negotiation.",
+      "parentUuid": "31a36110_ad286a0c",
+      "revId": "db1c84102d0d15e70270214a45dc3c497d80e141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

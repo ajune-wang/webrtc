@@ -943,6 +943,30 @@
     },
     {
       "key": {
+        "uuid": "c1f47e36_692cbb2b",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T18:18:06Z",
+      "side": 1,
+      "message": "But the previous code computed the fraction_lost on the receiver side and then sent it in a receiver report RTCP, right?. The new code computes the fraction lost on the send side based on a different set of RTCP messages. The messages are not sent equally often, so they might be averaged over different windows and the effects of losing an RTCP might be different.\n\nI\u0027m not saying there is a problem, just that I\u0027m not convinced there won\u0027t be any functional differences. We should discuss how to monitor stats with Stefan.",
+      "parentUuid": "68ddafc4_65fa4c38",
+      "range": {
+        "startLine": 434,
+        "startChar": 35,
+        "endLine": 434,
+        "endChar": 56
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d6bc706_fd20bdc6",
         "filename": "modules/congestion_controller/send_side_congestion_controller_unittest.cc",
         "patchSetId": 9

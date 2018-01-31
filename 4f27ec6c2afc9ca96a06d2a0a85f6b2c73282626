@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "6d83b3a1_eecddc84",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T18:18:06Z",
+      "side": 1,
+      "message": "Do we or do we not need locks?",
+      "range": {
+        "startLine": 247,
+        "startChar": 5,
+        "endLine": 248,
+        "endChar": 17
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c29303f_17f2565e",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 15
@@ -133,6 +156,75 @@
         "startChar": 6,
         "endLine": 387,
         "endChar": 32
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f7b6c91_6b914e58",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T18:18:06Z",
+      "side": 1,
+      "message": "class?",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "632b29b5_127cface",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T18:18:06Z",
+      "side": 1,
+      "message": "resolution",
+      "range": {
+        "startLine": 173,
+        "startChar": 67,
+        "endLine": 173,
+        "endChar": 76
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8159ec1e_573db0ce",
+        "filename": "network_control/network_units.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-01-31T18:18:06Z",
+      "side": 1,
+      "message": "I\u0027m not sure we want to use non-ascii characters? What if the terminal doesn\u0027t support UTF-8? Or maybe I\u0027m old fashioned?",
+      "range": {
+        "startLine": 65,
+        "startChar": 18,
+        "endLine": 65,
+        "endChar": 19
       },
       "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

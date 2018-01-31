@@ -107,7 +107,6 @@ class AudioProcessingImpl : public AudioProcessing {
   bool was_stream_delay_set() const override
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
-  AudioProcessingStatistics GetStatistics() const override;
   AudioProcessingStats GetStatistics(bool has_remote_tracks) const override;
 
   // Methods returning pointers to APM submodules.

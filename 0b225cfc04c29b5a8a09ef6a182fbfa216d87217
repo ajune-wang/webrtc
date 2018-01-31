@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "43f2cf10_6dae7fd5",
+        "filename": "modules/congestion_controller/include/goog_cc_factory.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-31T16:47:54Z",
+      "side": 1,
+      "message": "I think it makes it more clear that it will last for the lifetime of the object.",
+      "parentUuid": "23a7e944_9dc6fba2",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "afc35969_da1df03c",
         "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
         "patchSetId": 13
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "ccdb60fa_fd42aaf5",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-31T16:47:54Z",
+      "side": 1,
+      "message": "guaranteed and not guranteed :)",
+      "parentUuid": "dd4b4d55_99ff1e50",
+      "range": {
+        "startLine": 193,
+        "startChar": 10,
+        "endLine": 193,
+        "endChar": 18
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bb8bb5b_167b9b08",
         "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
         "patchSetId": 13
@@ -225,6 +273,30 @@
       "side": 1,
       "message": "Tried to keep the changes to a minimum, but yes, this doesn\u0027t need locks any more, will remove them.",
       "parentUuid": "95e0d35a_d3529cb5",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc71c20e_5cf1f1a4",
+        "filename": "modules/congestion_controller/probe_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-31T16:47:54Z",
+      "side": 1,
+      "message": "Yes, I understand, and appreciate it, but I think these changes makes sense to do if possible.",
+      "parentUuid": "542fb4ca_58ca8a81",
       "range": {
         "startLine": 91,
         "startChar": 0,
@@ -519,6 +591,30 @@
     },
     {
       "key": {
+        "uuid": "9ca3af07_536feb97",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-31T16:47:54Z",
+      "side": 1,
+      "message": "Sure that\u0027s fine for now. I don\u0027t think SendSideCongestionController is currently an official part of the API though?",
+      "parentUuid": "df455a30_dc9166a1",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 18
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14715d0f_8eba5da7",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 13
@@ -566,6 +662,30 @@
     },
     {
       "key": {
+        "uuid": "a503d590_0017ec50",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-31T16:47:54Z",
+      "side": 1,
+      "message": "Ok, I\u0027m not sure we want to add averaging to OnReceivedRtcpReceiverReport though as the result of that might be used by other components that don\u0027t want it to be averaged?",
+      "parentUuid": "9cb8208e_70a08c14",
+      "range": {
+        "startLine": 331,
+        "startChar": 2,
+        "endLine": 331,
+        "endChar": 21
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1426d4d_bcc95051",
         "filename": "modules/congestion_controller/transport_feedback_adapter.h",
         "patchSetId": 13
@@ -601,6 +721,30 @@
       "side": 1,
       "message": "Seems like we should be able to, maybe it was exposed in some API before? I\u0027ll remove it.",
       "parentUuid": "f1426d4d_bcc95051",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 70
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8a63339_beafefd1",
+        "filename": "modules/congestion_controller/transport_feedback_adapter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-31T16:47:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d72da26_807b7efa",
       "range": {
         "startLine": 52,
         "startChar": 0,
@@ -695,6 +839,30 @@
       "side": 1,
       "message": "To make sure that ending usage of the CallStatsObserver callback, where the rtt was calculated in a slightly different way to here, does not significantly change the rtt estimation. This code was previously odd in that it only considered the rtt of the last ssrc processed. It\u0027s possible it shouldn\u0027t be fixed here, if there\u0027s a better place I can move it, or we don\u0027t think it matters we can skip this.",
       "parentUuid": "d6fb130a_89fdb6c4",
+      "range": {
+        "startLine": 973,
+        "startChar": 0,
+        "endLine": 976,
+        "endChar": 7
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2134baa7_55eb65d1",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-31T16:47:54Z",
+      "side": 1,
+      "message": "I see. It might make sense to do separately as you say. That way we could get indications from perf bots if it has implications.",
+      "parentUuid": "51e2d2cc_09493bb9",
       "range": {
         "startLine": 973,
         "startChar": 0,
@@ -930,6 +1098,30 @@
       "side": 1,
       "message": "They are needed for nice output by test macros and handy for log output. I don\u0027t think we have a full replacement yet, but as soon we get one these could be updated to use that, right?",
       "parentUuid": "51550a8b_4dee6766",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 71
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f0b352_1a79692a",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-01-31T16:47:54Z",
+      "side": 1,
+      "message": "Maybe, but isn\u0027t it quite easy to do the formatting in place instead of having these operators?",
+      "parentUuid": "3cf5cedc_10d4451c",
       "range": {
         "startLine": 349,
         "startChar": 0,

@@ -1393,11 +1393,14 @@ void WebRtcVideoChannel::FillSendAndReceiveCodecStats(
 void WebRtcVideoChannel::OnPacketReceived(
     rtc::CopyOnWriteBuffer* packet,
     const rtc::PacketTime& packet_time) {
-  const webrtc::PacketTime webrtc_packet_time(packet_time.timestamp,
-                                              packet_time.not_before);
+  RTC_NOTREACHED();
+}
+
+void WebRtcVideoChannel::OnPacketReceived(
+    webrtc::RtpPacketReceived parsed_packet) {
   const webrtc::PacketReceiver::DeliveryStatus delivery_result =
-      call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, *packet,
-                                       webrtc_packet_time);
+      call_->Receiver()->DeliverParsedPacket(webrtc::MediaType::VIDEO,
+                                             parsed_packet);
   switch (delivery_result) {
     case webrtc::PacketReceiver::DELIVERY_OK:
       return;
@@ -1407,41 +1410,32 @@ void WebRtcVideoChannel::OnPacketReceived(
       break;
   }
 
-  uint32_t ssrc = 0;
-  if (!GetRtpSsrc(packet->cdata(), packet->size(), &ssrc)) {
-    return;
-  }
-
-  int payload_type = 0;
-  if (!GetRtpPayloadType(packet->cdata(), packet->size(), &payload_type)) {
-    return;
-  }
-
   // See if this payload_type is registered as one that usually gets its own
   // SSRC (RTX) or at least is safe to drop either way (FEC). If it is, and
   // it wasn't handled above by DeliverPacket, that means we don't know what
   // stream it associates with, and we shouldn't ever create an implicit channel
   // for these.
   for (auto& codec : recv_codecs_) {
-    if (payload_type == codec.rtx_payload_type ||
-        payload_type == codec.ulpfec.red_rtx_payload_type ||
-        payload_type == codec.ulpfec.ulpfec_payload_type) {
+    if (parsed_packet.PayloadType() == codec.rtx_payload_type ||
+        parsed_packet.PayloadType() == codec.ulpfec.red_rtx_payload_type ||
+        parsed_packet.PayloadType() == codec.ulpfec.ulpfec_payload_type) {
       return;
     }
   }
-  if (payload_type == recv_flexfec_payload_type_) {
+  if (parsed_packet.PayloadType() == recv_flexfec_payload_type_) {
     return;
   }
 
-  switch (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this, ssrc)) {
+  switch (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this,
+                                                       parsed_packet.Ssrc())) {
     case UnsignalledSsrcHandler::kDropPacket:
       return;
     case UnsignalledSsrcHandler::kDeliverPacket:
       break;
   }
 
-  if (call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, *packet,
-                                       webrtc_packet_time) !=
+  if (call_->Receiver()->DeliverParsedPacket(webrtc::MediaType::VIDEO,
+                                             parsed_packet) !=
       webrtc::PacketReceiver::DELIVERY_OK) {
     RTC_LOG(LS_WARNING) << "Failed to deliver RTP packet on re-delivery.";
     return;

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "fd0b72df_657d55f0",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-31T18:09:13Z",
+      "side": 1,
+      "message": "Ah; let\u0027s just delete this then if it doesn\u0027t add anything.",
+      "parentUuid": "1b9a1c67_4dcfcb34",
+      "revId": "c8a9e69b53140febd523f470a38548e190f7795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "858289ae_4b29480c",
         "filename": "rtc_base/openssladapter.cc",
         "patchSetId": 1
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "9be0465d_e0d61bc4",
+        "filename": "rtc_base/openssladapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-31T18:09:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "acd1762e_aa0157b3",
+      "revId": "c8a9e69b53140febd523f470a38548e190f7795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a96c5fc3_e4944c46",
         "filename": "rtc_base/opensslstreamadapter.cc",
         "patchSetId": 1
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "This is also logged by the call to Error()",
       "parentUuid": "a96c5fc3_e4944c46",
+      "revId": "c8a9e69b53140febd523f470a38548e190f7795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e39f4f13_372d1d09",
+        "filename": "rtc_base/opensslstreamadapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-01-31T18:09:13Z",
+      "side": 1,
+      "message": "Again, let\u0027s delete this if it\u0027s redundant.",
+      "parentUuid": "42dd8104_92541c00",
       "revId": "c8a9e69b53140febd523f470a38548e190f7795b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "883cc4b7_35fe9791",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-31T00:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40779bc1_9ffb29b6",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dacda7e_c2638a5f",
         "filename": "pc/mediasession.cc",
         "patchSetId": 3
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "48c6c2b2_54031a5d",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-31T00:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5275b0b9_1154941a",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0a2d68a_0b2d7084",
         "filename": "pc/peerconnection_rtp_unittest.cc",
         "patchSetId": 3
@@ -86,6 +122,24 @@
       "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4886965_9c23d7a4",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-31T00:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0a2d68a_0b2d7084",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "270a9747_516c5a73",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-31T00:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86756824_e15b2ac1",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c54f98d1_d6b5c240",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 3
@@ -117,6 +189,24 @@
       "writtenOn": "2018-01-26T11:59:13Z",
       "side": 1,
       "message": "This code should be together with the code that emits a\u003dssrc: msid for ease of reading.\n(This function is far too long for easy comprehension, and should probably be subdivided according to function. That\u0027s another TODO - not now - but don\u0027t make that job harder when it eventually happens.)\n\nAlso update draft number - it\u0027s now 16.",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a53a0d_2460fb39",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-31T00:50:49Z",
+      "side": 1,
+      "message": "Updated the draft number (also changed to a full URL).\n\nI think moving this code around is outside the scope of this CL. Also, the code is organized by \"SDP container\", so since this is at the media section level it makes sense that it\u0027s separate from the ssrc level. Of course, once Plan B support is removed it\u0027ll be simpler since a\u003dssrc will only be a simple attribute of the media section.",
+      "parentUuid": "c54f98d1_d6b5c240",
       "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -158,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "27ff9529_807abb60",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-31T00:50:49Z",
+      "side": 1,
+      "message": "I\u0027m going to leave this as a warning since we don\u0027t have a good mechanism for signaling serialization errors back to the user.",
+      "parentUuid": "bed928aa_d97c57d9",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f245dd61_ffe70a52",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 3
@@ -175,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "82399465_a467f1d0",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-31T00:50:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f245dd61_ffe70a52",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0da59631_2d17b4bb",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 3
@@ -189,6 +315,24 @@
       "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08867366_addb6962",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3341,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-01-31T00:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0da59631_2d17b4bb",
+      "revId": "2f2bdb059abd67655779527ceb1a6833aa9cd387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

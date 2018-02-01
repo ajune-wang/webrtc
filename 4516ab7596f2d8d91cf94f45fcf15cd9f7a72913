@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "fc13a0b1_9b15a272",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-01T14:57:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72c15f3a_f8c24fe9",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "652fa8ba_166c1262",
         "filename": "modules/congestion_controller/delay_detector.h",
         "patchSetId": 3
@@ -345,6 +369,30 @@
       "side": 1,
       "message": "Maybe just adding the enum fix you suggested would make this less confusing?",
       "parentUuid": "7b90da23_c063316f",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c711ee66_e507b8aa",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-01T14:57:35Z",
+      "side": 1,
+      "message": "I\u0027d prefer doing that in a separate CL since that would propagate changes to the remote bitrate estimator and the event log. Also we\u0027d need consensus on the new name first.",
+      "parentUuid": "a5b2c0c6_06d95a6c",
       "range": {
         "startLine": 31,
         "startChar": 25,

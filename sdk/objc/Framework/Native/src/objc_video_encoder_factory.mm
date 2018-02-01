@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/objc/Framework/Classes/VideoToolbox/objc_video_encoder_factory.h"
+#include "sdk/objc/Framework/Native/src/objc_video_encoder_factory.h"
 
 #include <string>
 
@@ -31,7 +31,6 @@
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/logging.h"
 #include "sdk/objc/Framework/Classes/Common/helpers.h"
-#include "sdk/objc/Framework/Classes/Video/objc_frame_buffer.h"
 
 namespace webrtc {
 
@@ -107,7 +106,7 @@ class ObjCVideoEncoder : public VideoEncoder {
   bool SupportsNativeHandle() const { return true; }
 
   VideoEncoder::ScalingSettings GetScalingSettings() const {
-    RTCVideoEncoderQpThresholds* qp_thresholds = [encoder_ scalingSettings];
+    RTCVideoEncoderQpThresholds *qp_thresholds = [encoder_ scalingSettings];
     return qp_thresholds ?
         ScalingSettings(true /* enabled */, qp_thresholds.low, qp_thresholds.high) :
         ScalingSettings(false /* enabled */);

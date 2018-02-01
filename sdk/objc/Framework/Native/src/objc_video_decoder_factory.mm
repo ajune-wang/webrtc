@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/objc/Framework/Classes/VideoToolbox/objc_video_decoder_factory.h"
+#include "sdk/objc/Framework/Native/src/objc_video_decoder_factory.h"
 
 #import "NSString+StdString.h"
 #import "RTCVideoCodec+Private.h"
@@ -26,7 +26,7 @@
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/timeutils.h"
-#include "sdk/objc/Framework/Classes/Video/objc_frame_buffer.h"
+#include "sdk/objc/Framework/Native/src/objc_frame_buffer.h"
 
 namespace webrtc {
 

@@ -17,6 +17,7 @@
 
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_delay_based.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
+#include "modules/congestion_controller/spike_detector.h"
 #include "modules/congestion_controller/trendline_estimator.h"
 #include "modules/pacing/paced_sender.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
@@ -47,10 +48,16 @@ constexpr size_t kDefaultTrendlineWindowSize = 20;
 constexpr double kDefaultTrendlineSmoothingCoeff = 0.9;
 constexpr double kDefaultTrendlineThresholdGain = 4.0;
 
+// Parameters for the spike detector.
+constexpr size_t kDefaultSpikeDetectorWindowSize = 25;
+constexpr size_t kDefaultSpikeDetectorMinWindowSlice = 10;
+constexpr double kDefaultSpikeDetectorMinThreshold = 0.025;
+
 constexpr int kMaxConsecutiveFailedLookups = 5;
 
 const char kBweWindowSizeInPacketsExperiment[] =
     "WebRTC-BweWindowSizeInPackets";
+const char kBweSpikeDetectorExperiment[] = "WebRTC-BweSpikeDetector";
 
 size_t ReadTrendlineFilterWindowSize() {
   std::string experiment_string =
@@ -66,6 +73,60 @@ size_t ReadTrendlineFilterWindowSize() {
   RTC_LOG(LS_WARNING) << "Failed to parse parameters for BweTrendlineFilter "
                          "experiment from field trial string. Using default.";
   return kDefaultTrendlineWindowSize;
+}
+
+void ReadSpikeDetectorParameters(size_t* window_size,
+                                 size_t* min_window_slice,
+                                 double* min_threshold) {
+  std::string experiment_string =
+      webrtc::field_trial::FindFullName(kBweSpikeDetectorExperiment);
+  int parsed_values = sscanf(experiment_string.c_str(), "Enabled-%zu,%lf",
+                             window_size, min_threshold);
+  if (parsed_values == 2) {
+    if (*window_size >= 4 && 2 <= *min_window_slice &&
+        *min_window_slice <= *window_size / 2 && 0.0 < *min_threshold &&
+        *min_threshold < 1.0)
+      return;
+    if (*window_size < 4)
+      RTC_LOG(WARNING) << "Window size must be at least 4.";
+    if (*min_threshold <= 0.0 || 1.0 <= *min_threshold)
+      RTC_LOG(WARNING) << "Threshold must be between 0 and 1.";
+    if (*min_window_slice < 2 || *window_size / 2 < *min_window_slice)
+      RTC_LOG(WARNING) << "Min number of points to fit a line each line must "
+                          "be between 2 and window_size/2.";
+  }
+  RTC_LOG(LS_WARNING) << "Failed to parse parameters for BweSpikeDetector "
+                         "experiment from field trial string. Using default.";
+  *window_size = kDefaultSpikeDetectorWindowSize;
+  *min_window_slice = kDefaultSpikeDetectorMinWindowSlice;
+  *min_threshold = kDefaultSpikeDetectorMinThreshold;
+}
+
+std::unique_ptr<webrtc::DelayIncreaseDetectorInterface>
+CreateTrendlineEstimator() {
+  if (webrtc::field_trial::IsEnabled(kBweSpikeDetectorExperiment)) {
+    size_t window_size;
+    size_t min_window_slice;
+    double min_threshold;
+    ReadSpikeDetectorParameters(&window_size, &min_window_slice,
+                                &min_threshold);
+    RTC_LOG(LS_INFO) << "Creating SpikeDetector filter for delay change "
+                        "estimation with window size "
+                     << window_size << ", min_slice " << min_window_slice
+                     << " and threshold " << min_threshold;
+    return rtc::MakeUnique<webrtc::SpikeDetector>(window_size, min_window_slice,
+                                                  min_threshold);
+  }
+  size_t trendline_window_size = kDefaultTrendlineWindowSize;
+  if (webrtc::field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)) {
+    trendline_window_size = ReadTrendlineFilterWindowSize();
+  }
+  RTC_LOG(LS_INFO) << "Creating Trendline filter for delay change estimation "
+                      "with window size "
+                   << trendline_window_size;
+  return rtc::MakeUnique<webrtc::TrendlineEstimator>(
+      trendline_window_size, kDefaultTrendlineSmoothingCoeff,
+      kDefaultTrendlineThresholdGain);
 }
 }  // namespace
 
@@ -93,21 +154,16 @@ DelayBasedBwe::DelayBasedBwe(RtcEventLog* event_log, const Clock* clock)
       last_seen_packet_ms_(-1),
       uma_recorded_(false),
       probe_bitrate_estimator_(event_log),
-      trendline_window_size_(
-          webrtc::field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)
-              ? ReadTrendlineFilterWindowSize()
-              : kDefaultTrendlineWindowSize),
-      trendline_smoothing_coeff_(kDefaultTrendlineSmoothingCoeff),
-      trendline_threshold_gain_(kDefaultTrendlineThresholdGain),
+      // trendline_window_size_(
+      //     webrtc::field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)
+      //         ? ReadTrendlineFilterWindowSize()
+      //         : kDefaultTrendlineWindowSize),
+      // trendline_smoothing_coeff_(kDefaultTrendlineSmoothingCoeff),
+      // trendline_threshold_gain_(kDefaultTrendlineThresholdGain),
       consecutive_delayed_feedbacks_(0),
       prev_bitrate_(0),
       prev_state_(BandwidthUsage::kBwNormal) {
-  RTC_LOG(LS_INFO)
-      << "Using Trendline filter for delay change estimation with window size "
-      << trendline_window_size_;
-  delay_detector_.reset(new TrendlineEstimator(trendline_window_size_,
-                                               trendline_smoothing_coeff_,
-                                               trendline_threshold_gain_));
+  delay_detector_ = CreateTrendlineEstimator();
 }
 
 DelayBasedBwe::~DelayBasedBwe() {}
@@ -188,9 +244,10 @@ void DelayBasedBwe::IncomingPacketFeedback(
     inter_arrival_.reset(
         new InterArrival((kTimestampGroupLengthMs << kInterArrivalShift) / 1000,
                          kTimestampToMs, true));
-    delay_detector_.reset(new TrendlineEstimator(trendline_window_size_,
-                                                 trendline_smoothing_coeff_,
-                                                 trendline_threshold_gain_));
+    delay_detector_ = CreateTrendlineEstimator();
+    // delay_detector_.reset(new TrendlineEstimator(trendline_window_size_,
+    //                                              trendline_smoothing_coeff_,
+    //                                              trendline_threshold_gain_));
   }
   last_seen_packet_ms_ = now_ms;
 

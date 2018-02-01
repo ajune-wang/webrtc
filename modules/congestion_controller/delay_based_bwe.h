@@ -75,9 +75,9 @@ class DelayBasedBwe {
   bool uma_recorded_;
   AimdRateControl rate_control_;
   ProbeBitrateEstimator probe_bitrate_estimator_;
-  size_t trendline_window_size_;
-  double trendline_smoothing_coeff_;
-  double trendline_threshold_gain_;
+  // size_t trendline_window_size_;
+  // double trendline_smoothing_coeff_;
+  // double trendline_threshold_gain_;
   int consecutive_delayed_feedbacks_;
   uint32_t prev_bitrate_;
   BandwidthUsage prev_state_;

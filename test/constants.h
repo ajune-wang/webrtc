@@ -18,5 +18,7 @@ extern const int kTransportSequenceNumberExtensionId;
 extern const int kVideoRotationExtensionId;
 extern const int kVideoContentTypeExtensionId;
 extern const int kVideoTimingExtensionId;
+extern const int kPlayoutDelayExtensionId;
+
 }  // namespace test
 }  // namespace webrtc

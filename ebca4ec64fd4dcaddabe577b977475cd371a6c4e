@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b952f5c_a7a39866",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-02-01T12:35:30Z",
+      "side": 1,
+      "message": "Add RTC_DCHECK(overall_call_lifetime_); in the ctor instead, and avoid the check here.",
+      "revId": "ebca4ec64fd4dcaddabe577b977475cd371a6c4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

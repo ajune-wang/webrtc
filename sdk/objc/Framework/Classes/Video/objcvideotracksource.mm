@@ -42,7 +42,7 @@ void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame* frame) {
   }
 
   rtc::scoped_refptr<VideoFrameBuffer> buffer;
-  if (adapted_width == frame.width && adapted_height == frame.height) {
+  /*if (adapted_width == frame.width && adapted_height == frame.height) {
     // No adaption - optimized path.
     buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
   } else if ([frame.buffer isKindOfClass:[RTCCVPixelBuffer class]]) {
@@ -63,15 +63,27 @@ void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame* frame) {
     buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
     i420_buffer->CropAndScaleFrom(*buffer->ToI420(), crop_x, crop_y, crop_width, crop_height);
     buffer = i420_buffer;
-  }
+  }*/
+    rtc::scoped_refptr<I420ABuffer> i420a_buffer = I420ABuffer::Create(adapted_width, adapted_height);
+    buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
+    i420a_buffer->CropAndScaleFrom(*buffer->ToI420(), crop_x, crop_y, crop_width, crop_height);
+    uint8_t* data_a = i420a_buffer->MutableDataA();
+    
+    // Fake alpha data
+    for (int y = 0; y<adapted_height;y ++){
+        for (int x = 0; x<adapted_width; x++){
+            data_a[y*i420a_buffer->StrideA()+x]=(x+y)%50>25?255:0;
+        }
+    }
+    buffer = i420a_buffer;
 
   // Applying rotation is only supported for legacy reasons and performance is
   // not critical here.
   webrtc::VideoRotation rotation = static_cast<webrtc::VideoRotation>(frame.rotation);
-  if (apply_rotation() && rotation != kVideoRotation_0) {
+  /*if (apply_rotation() && rotation != kVideoRotation_0) {
     buffer = I420Buffer::Rotate(*buffer->ToI420(), rotation);
     rotation = kVideoRotation_0;
-  }
+  }*/
 
   OnFrame(webrtc::VideoFrame(buffer, rotation, translated_timestamp_us));
 }

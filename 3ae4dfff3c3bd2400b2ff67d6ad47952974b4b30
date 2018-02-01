@@ -22,6 +22,30 @@
       "revId": "3ae4dfff3c3bd2400b2ff67d6ad47952974b4b30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8b3c8f9_1c750344",
+        "filename": "modules/video_coding/codecs/test/objc_codec_h264_test.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-02-01T13:19:13Z",
+      "side": 1,
+      "message": "Yeah, I believe this file exists only to hide the Obj-C++ from the rest of the test code. We have discussed putting pure C++ functions in the native API to create some default factories (like the RTCVideoEncoderFactoryH264 here) without the user having to create the Obj-C objects, but initially I\u0027d like to just expose the general wrapping functions.\n\nIf we do decide to add those functions in the future, this file would basically be moved into the native API folder.",
+      "parentUuid": "7838ba74_33905722",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "3ae4dfff3c3bd2400b2ff67d6ad47952974b4b30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

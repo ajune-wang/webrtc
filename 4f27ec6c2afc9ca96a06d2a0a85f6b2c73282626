@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7504cdfe_af972490",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-01T10:58:57Z",
+      "side": 1,
+      "message": "Ok, but what if this file start growing in the future? Are we suggesting that tests should be written in SendSideCongestionController? I think at least basic tests are recommended.",
+      "parentUuid": "5843f8f7_2ff58739",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cec65f30_3d25fe76",
         "filename": "modules/congestion_controller/goog_cc_network_control.cc",
         "patchSetId": 15
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "It\u0027s tested via the tests on SSCC. Unit tests on this directly would basically mean mocking up most of SSCC. Not sure if this adds any value at this point, maybe it would make sense if changing the default congestion control method as part of removing the tests on SSCC? I could do this change now if you think it makes sense, but that would also imply less strict guarantees on SSCC. (The current behavior is quite limited due to the tests, but since it\u0027s part of the API I figured that it is by design)\n\nWDYT?",
       "parentUuid": "cec65f30_3d25fe76",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd32191a_923d40ae",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-01T10:58:57Z",
+      "side": 1,
+      "message": "I wonder if some tests on SSCC would make more sense here? Or if we should have a few basic tests for this class?\n\nWill SSCC stay around in the long run? Tests which are goog_cc specific should probably be moved  to cover this class, right?\n\nI can agree on doing some of this in a separate CL.",
+      "parentUuid": "9f1664b2_136c2cd2",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Sorted them.\n\nI don\u0027t think we generally try to forward declare things by default. There was a discussion about it in the core group. Note that this header file should not be included by anything but the implementation and unittests.",
       "parentUuid": "4d53b432_64e24251",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e565114_1e0548cb",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-01T10:58:57Z",
+      "side": 1,
+      "message": "Historically we\u0027ve tried to forward declare as much as possible (which I suspect you\u0027ll notice when you look around the code). It could be that this guideline has changed, is it documented somewhere?",
+      "parentUuid": "6ab894cf_51e6c6c7",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -460,6 +532,30 @@
       "side": 1,
       "message": "Not sure why it wouldn\u0027t? This is to be used for logging/debugging/tests only Worst case they\u0027ll get some weird chars instead, right? Won\u0027t insist on keeping it though. Can change to inf if you like that better?",
       "parentUuid": "8159ec1e_573db0ce",
+      "range": {
+        "startLine": 65,
+        "startChar": 18,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b4ccfd_0f17b19c",
+        "filename": "network_control/network_units.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-01T10:58:57Z",
+      "side": 1,
+      "message": "Better write inf.",
+      "parentUuid": "e35fd75e_f3c283c9",
       "range": {
         "startLine": 65,
         "startChar": 18,

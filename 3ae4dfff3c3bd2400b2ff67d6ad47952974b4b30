@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7838ba74_33905722",
+        "filename": "modules/video_coding/codecs/test/objc_codec_h264_test.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-02-01T13:11:47Z",
+      "side": 1,
+      "message": "Would it make sense for the Objective-C++ API itself to expose these functions, thus returning a \"regular C++\" Video{En,De}coderFactory? Then the codec test (regular C++) wouldn\u0027t have to know anything about Objective-C++, and we could get rid of this .mm file?",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "3ae4dfff3c3bd2400b2ff67d6ad47952974b4b30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

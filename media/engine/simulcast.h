@@ -41,6 +41,23 @@ struct ScreenshareLayerConfig {
 // TODO(pthatcher): Write unit tests just for these functions,
 // independent of WebrtcVideoEngine.
 
+int NormalizeSimulcastSize(int size, size_t simulcast_layers);
+
+size_t FindSimulcastMaxLayers(int width, int height);
+
+int FindSimulcastMaxBitrateBps(int width, int height);
+
+int FindSimulcastTargetBitrateBps(int width, int height);
+
+int FindSimulcastMinBitrateBps(int width, int height);
+
+int FindSimulcastMinBitrateBps(int width, int height);
+
+void SlotSimulcastMaxResolution(size_t max_layers, int* width, int* height);
+
+void BoostMaxStream(int max_bitrate_bps,
+                    std::vector<webrtc::VideoStream>* streams);
+
 int GetTotalMaxBitrateBps(const std::vector<webrtc::VideoStream>& streams);
 
 // Get the ssrcs of the SIM group from the stream params.
@@ -56,6 +73,15 @@ std::vector<webrtc::VideoStream> GetSimulcastConfig(size_t max_streams,
                                                     int max_qp,
                                                     int max_framerate,
                                                     bool is_screencast = false);
+
+// Get screencast VideoStream settings.
+std::vector<webrtc::VideoStream> GetScreencastConfig(size_t max_streams,
+                                                     int width,
+                                                     int height,
+                                                     int max_bitrate_bps,
+                                                     double bitrate_priority,
+                                                     int max_qp,
+                                                     int max_framerate);
 
 bool UseSimulcastScreenshare();
 

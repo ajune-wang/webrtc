@@ -88,9 +88,7 @@ class FakeAudioReceiveStream final : public webrtc::AudioReceiveStream {
   bool VerifyLastPacket(const uint8_t* data, size_t length) const;
   const webrtc::AudioSinkInterface* sink() const { return sink_; }
   float gain() const { return gain_; }
-  bool DeliverRtp(const uint8_t* packet,
-                  size_t length,
-                  const webrtc::PacketTime& packet_time);
+  bool DeliverRtp(const uint8_t* packet, size_t length);
   bool started() const { return started_; }
 
  private:
@@ -290,7 +288,9 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   DeliveryStatus DeliverPacket(webrtc::MediaType media_type,
                                rtc::CopyOnWriteBuffer packet,
                                const webrtc::PacketTime& packet_time) override;
-
+  DeliveryStatus DeliverParsedPacket(
+      webrtc::MediaType media_type,
+      webrtc::RtpPacketReceived parsed_packet) override;
   webrtc::Call::Stats GetStats() const override;
 
   void SetBitrateConfig(

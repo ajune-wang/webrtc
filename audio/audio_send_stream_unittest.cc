@@ -168,15 +168,9 @@ struct ConfigHelper {
   std::unique_ptr<internal::AudioSendStream> CreateAudioSendStream() {
     return std::unique_ptr<internal::AudioSendStream>(
         new internal::AudioSendStream(
-            stream_config_,
-            audio_state_,
-            &worker_queue_,
-            &fake_transport_,
-            &bitrate_allocator_,
-            &event_log_,
-            &rtcp_rtt_stats_,
-            rtc::nullopt,
-            std::unique_ptr<voe::ChannelProxy>(channel_proxy_)));
+            stream_config_, audio_state_, &worker_queue_, &fake_transport_,
+            &bitrate_allocator_, &event_log_, &rtcp_rtt_stats_, rtc::nullopt,
+            nullptr, std::unique_ptr<voe::ChannelProxy>(channel_proxy_)));
   }
 
   AudioSendStream::Config& config() { return stream_config_; }

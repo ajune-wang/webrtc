@@ -26,6 +26,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/system/fallthrough.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 #include "video/overuse_frame_detector.h"
@@ -987,7 +988,7 @@ void VideoStreamEncoder::AdaptDown(AdaptReason reason) {
         break;
       }
       // Scale down resolution.
-      FALLTHROUGH();
+      RTC_FALLTHROUGH();
     }
     case VideoSendStream::DegradationPreference::kMaintainFramerate: {
       // Scale down resolution.
@@ -1070,7 +1071,7 @@ void VideoStreamEncoder::AdaptUp(AdaptReason reason) {
         break;
       }
       // Scale up resolution.
-      FALLTHROUGH();
+      RTC_FALLTHROUGH();
     }
     case VideoSendStream::DegradationPreference::kMaintainFramerate: {
       // Scale up resolution.

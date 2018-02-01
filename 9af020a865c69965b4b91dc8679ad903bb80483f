@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b59bf00_7f143261",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/kenny.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-02-01T15:41:25Z",
+      "side": 1,
+      "message": "It\u0027s strange to limit the size of this argument, and even stranger to make it smaller than what other variables have.",
+      "range": {
+        "startLine": 109,
+        "startChar": 29,
+        "endLine": 109,
+        "endChar": 31
+      },
+      "revId": "9af020a865c69965b4b91dc8679ad903bb80483f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5e3d75a7_dd1d5b07",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-01T19:48:09Z",
+      "side": 1,
+      "message": "Yeah, I agree. This is also not a good name either. Let\u0027s just get rid of it.",
+      "parentUuid": "e31d5c80_ef45cc80",
+      "revId": "3b83db76262c823ce3135ccd950dfbdb2436d0d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7692c4a0_4ecf6154",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 11
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "dfa0e869_7551b5ac",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4826,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-01T19:48:09Z",
+      "side": 1,
+      "message": "Oh, we don\u0027t need to call this at all. Looks like I only updated the video and data and forgot this one. They all have same pattern. :)",
+      "parentUuid": "7692c4a0_4ecf6154",
+      "revId": "3b83db76262c823ce3135ccd950dfbdb2436d0d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bea23171_0295ee81",
         "filename": "pc/peerconnection.h",
         "patchSetId": 11
@@ -50,6 +86,24 @@
       "revId": "3b83db76262c823ce3135ccd950dfbdb2436d0d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "989c3d14_696e3b8d",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-01T19:48:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bea23171_0295ee81",
+      "revId": "3b83db76262c823ce3135ccd950dfbdb2436d0d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

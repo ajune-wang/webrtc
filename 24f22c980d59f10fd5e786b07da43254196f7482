@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4236d294_ebd1b353",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "Can you add some {}s?",
+      "range": {
+        "startLine": 199,
+        "startChar": 15,
+        "endLine": 199,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd0ef65e_ec56245d",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "It would be nice to have consistent terminology for streams/layers/config and screencast/screenshare.\n\nFor example:\n\nGetScreenshareLayers\nmax_layer",
+      "range": {
+        "startLine": 210,
+        "startChar": 72,
+        "endLine": 210,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41686fc9_f9c385d9",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "This could be simplified and renamed to: \n\nauto max_screenshare_layers \u003d UseSimulcastScreenshare() ? kMaxScreenshareSimulcastStreams : 1;\nsize_t num_layers \u003d std::min\u003cint\u003e(max_streams, max_simulcast_layers);",
+      "range": {
+        "startLine": 223,
+        "startChar": 3,
+        "endLine": 223,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f22c6e0_cb7c73af",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "In fact calling these layers would be nice, despite the type name.",
+      "range": {
+        "startLine": 224,
+        "startChar": 65,
+        "endLine": 224,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e922446_9134811c",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "Perhaps BoostMaxSimulcastLayer",
+      "range": {
+        "startLine": 266,
+        "startChar": 44,
+        "endLine": 266,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "538628f6_36b5b1c2",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "Application-controlled",
+      "range": {
+        "startLine": 1918,
+        "startChar": 65,
+        "endLine": 1918,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95808095_cfbe9167",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2629,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "Can you please rename conference_mode_ to screenshare_simulcast_explicitly_enabled_ and rename cricket::UseSimulcastScreenshare to cricket::ScreenshareSimulcastFieldTrialEnabled()?\n\nThat would make reading what is going on a lot more clear.\n\nAlso, then you could have:\n\nbool screenshare_simulcast_enabled \u003d screenshare_simulcast_explicitly_enabled_ \u0026\u0026 cricket::ScreenshareSimulcastFieldTrialEnabled();\nif (is_screencast_ \u0026\u0026 !screenshare_simulcast_enabled) {\n  RTC_DCHECK_EQ(1, encoder_config.number_of_streams);\n}",
+      "range": {
+        "startLine": 2629,
+        "startChar": 23,
+        "endLine": 2629,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "413d6f52_35f4b9b6",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2635,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "layers or simulcast_layers would be nice name here despite the type name.",
+      "range": {
+        "startLine": 2635,
+        "startChar": 43,
+        "endLine": 2635,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b253b15_515f8ae8",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "I think it would be more clear to pass in screenshare_simulcast_enabled into GetScreencastConfig  than to have both places call cricket::UseSimulcastScreenshare().  It\u0027s confusing enough having to flags, but having two places is even more confusing.",
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8363c951_4a00440b",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "Did you intentionally drop the VP8 codec name check?",
+      "range": {
+        "startLine": 2638,
+        "startChar": 43,
+        "endLine": 2638,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c8ea97_1e7b4e87",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2683,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-01T23:40:28Z",
+      "side": 1,
+      "message": "Why don\u0027t you do the same thing you did with GetScreencastConfig and have a common chunk that does GetNormalSimulcastConfig (normal as in not Screenshare) and then do the .active update in a for loop?",
+      "range": {
+        "startLine": 2683,
+        "startChar": 68,
+        "endLine": 2683,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

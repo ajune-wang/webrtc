@@ -2003,7 +2003,7 @@ TEST_P(EndToEndTest, AudioVideoReceivesTransportFeedback) {
   RunBaseTest(&test);
 }
 
-TEST_P(EndToEndTest, StopsSendingMediaWithoutFeedback) {
+TEST_P(EndToEndTest, StopsAndResumesMediaWhenCongestionWindowFull) {
   test::ScopedFieldTrials override_field_trials(
       "WebRTC-CwndExperiment/Enabled-250/");
 
@@ -2014,6 +2014,7 @@ TEST_P(EndToEndTest, StopsSendingMediaWithoutFeedback) {
           num_video_streams_(num_video_streams),
           num_audio_streams_(num_audio_streams),
           media_sent_(0),
+          media_sent_before_(0),
           padding_sent_(0) {
       // Only one stream of each supported for now.
       EXPECT_LE(num_video_streams, 1u);
@@ -2027,19 +2028,28 @@ TEST_P(EndToEndTest, StopsSendingMediaWithoutFeedback) {
       const bool only_padding =
           header.headerLength + header.paddingLength == length;
       rtc::CritScope lock(&crit_);
+      // Padding is expected in congested state to probe for connectivity when
+      // packets has been dropped.
       if (only_padding) {
+        media_sent_before_ = media_sent_;
         ++padding_sent_;
       } else {
         ++media_sent_;
-        EXPECT_LT(media_sent_, 40) << "Media sent without feedback.";
+        if (padding_sent_ == 0) {
+          ++media_sent_before_;
+          EXPECT_LT(media_sent_, 40)
+              << "Media sent without feedback whne congestion window is full.";
+        }
       }
-
       return SEND_PACKET;
     }
 
     Action OnReceiveRtcp(const uint8_t* data, size_t length) override {
       rtc::CritScope lock(&crit_);
-      if (media_sent_ > 20 && HasTransportFeedback(data, length)) {
+      // Act like all packets after 20 are dropped, until two padding packets
+      // has been recieved, then act like all packets are received.
+      if (media_sent_ > 20 && HasTransportFeedback(data, length) &&
+          padding_sent_ <= 2) {
         return DROP_PACKET;
       }
       return SEND_PACKET;
@@ -2058,10 +2068,13 @@ TEST_P(EndToEndTest, StopsSendingMediaWithoutFeedback) {
     }
 
     void PerformTest() override {
-      const int64_t kDisabledFeedbackTimeoutMs = 10000;
+      const int64_t kDisabledFeedbackTimeoutMs = 3000;
       observation_complete_.Wait(kDisabledFeedbackTimeoutMs);
-      rtc::CritScope lock(&crit_);
-      EXPECT_GT(padding_sent_, 0);
+      {
+        rtc::CritScope lock(&crit_);
+        EXPECT_GT(media_sent_, media_sent_before_)
+            << "Stream not continued after congestion window full.";
+      }
     }
 
     size_t GetNumVideoStreams() const override { return num_video_streams_; }
@@ -2072,6 +2085,7 @@ TEST_P(EndToEndTest, StopsSendingMediaWithoutFeedback) {
     const size_t num_audio_streams_;
     rtc::CriticalSection crit_;
     int media_sent_ RTC_GUARDED_BY(crit_);
+    int media_sent_before_ RTC_GUARDED_BY(crit_);
     int padding_sent_ RTC_GUARDED_BY(crit_);
   } test(1, 0);
   RunBaseTest(&test);

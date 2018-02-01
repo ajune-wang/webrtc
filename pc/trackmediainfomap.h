@@ -13,6 +13,7 @@
 
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "api/mediastreaminterface.h"
@@ -36,11 +37,17 @@ namespace webrtc {
 class TrackMediaInfoMap {
  public:
   TrackMediaInfoMap(
+      const rtc::Optional<std::string>& voice_mid,
+      const rtc::Optional<std::string>& video_mid,
       std::unique_ptr<cricket::VoiceMediaInfo> voice_media_info,
       std::unique_ptr<cricket::VideoMediaInfo> video_media_info,
       const std::vector<rtc::scoped_refptr<RtpSenderInterface>>& rtp_senders,
       const std::vector<rtc::scoped_refptr<RtpReceiverInterface>>&
           rtp_receivers);
+
+  rtc::Optional<std::string> voice_mid() const { return voice_mid_; }
+
+  rtc::Optional<std::string> video_mid() const { return video_mid_; }
 
   const cricket::VoiceMediaInfo* voice_media_info() const {
     return voice_media_info_.get();
@@ -82,6 +89,8 @@ class TrackMediaInfoMap {
       const MediaStreamTrackInterface* track) const;
 
  private:
+  rtc::Optional<std::string> voice_mid_;
+  rtc::Optional<std::string> video_mid_;
   std::unique_ptr<cricket::VoiceMediaInfo> voice_media_info_;
   std::unique_ptr<cricket::VideoMediaInfo> video_media_info_;
   // These maps map tracks (identified by a pointer) to their corresponding info

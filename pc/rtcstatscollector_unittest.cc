@@ -997,8 +997,6 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidatePairStats) {
       "42.42.42.42", 42, "protocol", rtc::ADAPTER_TYPE_UNKNOWN,
       cricket::LOCAL_PORT_TYPE, 42);
 
-  SessionStats session_stats;
-
   cricket::ConnectionInfo connection_info;
   connection_info.best_connection = false;
   connection_info.local_candidate = *local_candidate.get();

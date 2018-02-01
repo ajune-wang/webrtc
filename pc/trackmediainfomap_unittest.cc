@@ -12,6 +12,7 @@
 
 #include <initializer_list>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -164,6 +165,7 @@ class TrackMediaInfoMapTest : public testing::Test {
   void CreateMap() {
     RTC_DCHECK(!map_);
     map_.reset(new TrackMediaInfoMap(
+        std::string("dummy_voice"), std::string("dummy_video"),
         std::unique_ptr<cricket::VoiceMediaInfo>(voice_media_info_),
         std::unique_ptr<cricket::VideoMediaInfo>(video_media_info_),
         rtp_senders_, rtp_receivers_));

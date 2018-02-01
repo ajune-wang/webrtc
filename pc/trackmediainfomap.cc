@@ -10,6 +10,7 @@
 
 #include "pc/trackmediainfomap.h"
 
+#include <string>
 #include <utility>
 
 namespace webrtc {
@@ -108,11 +109,15 @@ void GetAudioAndVideoTrackBySsrc(
 }  // namespace
 
 TrackMediaInfoMap::TrackMediaInfoMap(
+    const rtc::Optional<std::string>& voice_mid,
+    const rtc::Optional<std::string>& video_mid,
     std::unique_ptr<cricket::VoiceMediaInfo> voice_media_info,
     std::unique_ptr<cricket::VideoMediaInfo> video_media_info,
     const std::vector<rtc::scoped_refptr<RtpSenderInterface>>& rtp_senders,
     const std::vector<rtc::scoped_refptr<RtpReceiverInterface>>& rtp_receivers)
-    : voice_media_info_(std::move(voice_media_info)),
+    : voice_mid_(voice_mid),
+      video_mid_(video_mid),
+      voice_media_info_(std::move(voice_media_info)),
       video_media_info_(std::move(video_media_info)) {
   std::map<uint32_t, AudioTrackInterface*> local_audio_track_by_ssrc;
   std::map<uint32_t, VideoTrackInterface*> local_video_track_by_ssrc;

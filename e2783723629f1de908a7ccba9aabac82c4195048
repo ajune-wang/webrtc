@@ -567,6 +567,30 @@
     },
     {
       "key": {
+        "uuid": "b3f526ac_565dfd6d",
+        "filename": "modules/congestion_controller/pacer_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T14:46:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7acb7134_f37c3e73",
+      "range": {
+        "startLine": 26,
+        "startChar": 23,
+        "endLine": 26,
+        "endChar": 0
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec508ecb_6015d33c",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 4
@@ -611,6 +635,30 @@
       "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f19f240b_df8fa0d6",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T14:46:51Z",
+      "side": 1,
+      "message": "This lock was removed",
+      "parentUuid": "4280983b_7c255731",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 42
+      },
+      "revId": "e2783723629f1de908a7ccba9aabac82c4195048",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -16,6 +16,24 @@
       "revId": "0d86c940183713ee614d1139586f0eb72bbeee1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c23970_332a61fe",
+        "filename": "sdk/android/native_api/jni/java_types.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-01T12:47:54Z",
+      "side": 1,
+      "message": "Yes, I didn\u0027t want to add it in the same CL as moving code around for easier reviewing.",
+      "parentUuid": "6d9226e2_7aa9078b",
+      "revId": "0d86c940183713ee614d1139586f0eb72bbeee1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

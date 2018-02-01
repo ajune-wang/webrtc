@@ -1799,14 +1799,26 @@ webrtc::RTCError WebRtcVideoChannel::WebRtcVideoSendStream::SetRtpParameters(
                               rtp_parameters_.encodings[0].max_bitrate_bps) ||
                              (new_parameters.encodings[0].bitrate_priority !=
                               rtp_parameters_.encodings[0].bitrate_priority);
+  // TODO(bugs.webrtc.org/8807): The active field as well should not require
+  // a full encoder reconfiguration, but it needs to update both the bitrate
+  // allocator and the video bitrate allocator.
+  bool new_send_state = false;
+  for (size_t i = 0; i < rtp_parameters_.encodings.size(); ++i) {
+    if (new_parameters.encodings[i].active !=
+        rtp_parameters_.encodings[i].active) {
+      new_send_state = true;
+    }
+  }
   rtp_parameters_ = new_parameters;
   // Codecs are currently handled at the WebRtcVideoChannel level.
   rtp_parameters_.codecs.clear();
-  if (reconfigure_encoder) {
+  if (reconfigure_encoder || new_send_state) {
     ReconfigureEncoder();
   }
-  // Encoding may have been activated/deactivated.
-  UpdateSendState();
+  if (new_send_state) {
+    // Encoding may have been activated/deactivated.
+    UpdateSendState();
+  }
   return webrtc::RTCError::OK();
 }
 
@@ -1840,12 +1852,13 @@ WebRtcVideoChannel::WebRtcVideoSendStream::ValidateRtpParameters(
 
 void WebRtcVideoChannel::WebRtcVideoSendStream::UpdateSendState() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  // TODO(bugs.webrtc.org/8653): Handle multiple encodings by creating a
-  // vector of bools corresponding to the appropriate active streams, and call
-  // stream_->UpdateActiveSimulcastLayers().
-  if (sending_ && rtp_parameters_.encodings[0].active) {
+  if (sending_) {
     RTC_DCHECK(stream_ != nullptr);
-    stream_->Start();
+    std::vector<bool> active_layers(rtp_parameters_.encodings.size());
+    for (size_t i = 0; i < active_layers.size(); ++i) {
+      active_layers[i] = rtp_parameters_.encodings[i].active;
+    }
+    stream_->UpdateActiveSimulcastLayers(active_layers);
   } else {
     if (stream_ != nullptr) {
       stream_->Stop();
@@ -1900,6 +1913,19 @@ WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
   // on a per sender basis, so we use the first encoding's value.
   encoder_config.bitrate_priority =
       rtp_parameters_.encodings[0].bitrate_priority;
+
+  // The encoder_config holds application controlled state in simulcast_layers.
+  // Currently this is used to control which simulcast layers are active, but
+  // will also be used for max bitrate, relative bitrate, scaled resolution, and
+  // possibly other values as well.
+  RTC_DCHECK_GE(rtp_parameters_.encodings.size(),
+                encoder_config.number_of_streams);
+  RTC_DCHECK_GT(encoder_config.number_of_streams, 0);
+  encoder_config.simulcast_layers.resize(encoder_config.number_of_streams);
+  for (size_t i = 0; i < encoder_config.simulcast_layers.size(); ++i) {
+    encoder_config.simulcast_layers[i].active =
+        rtp_parameters_.encodings[i].active;
+  }
 
   int max_qp = kDefaultQpMax;
   codec.GetParam(kCodecParamMaxQuantization, &max_qp);
@@ -2582,6 +2608,9 @@ WebRtcVideoChannel::MapCodecs(const std::vector<VideoCodec>& codecs) {
   return video_codecs;
 }
 
+// TODO(bug.webrtc.org/8785): Consider removing max_qp and max_framerate
+// as members of EncoderStreamFactory and instead set these values individually
+// for each stream in the VideoEncoderConfig.simulcast_layers.
 EncoderStreamFactory::EncoderStreamFactory(std::string codec_name,
                                            int max_qp,
                                            int max_framerate,
@@ -2601,13 +2630,80 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
       (!conference_mode_ || !cricket::UseSimulcastScreenshare())) {
     RTC_DCHECK_EQ(1, encoder_config.number_of_streams);
   }
-  if (encoder_config.number_of_streams > 1 ||
-      (CodecNamesEq(codec_name_, kVp8CodecName) && is_screencast_ &&
-       conference_mode_)) {
-    return GetSimulcastConfig(encoder_config.number_of_streams, width, height,
-                              encoder_config.max_bitrate_bps,
-                              encoder_config.bitrate_priority, max_qp_,
-                              max_framerate_, is_screencast_);
+  RTC_DCHECK_EQ(encoder_config.simulcast_layers.size(),
+                encoder_config.number_of_streams);
+  std::vector<webrtc::VideoStream> streams;
+
+  // Conference mode has to be turned on to get screenscast specific configs.
+  if (is_screencast_ && conference_mode_) {
+    streams = GetScreencastConfig(encoder_config.number_of_streams, width,
+                                  height, encoder_config.max_bitrate_bps,
+                                  encoder_config.bitrate_priority, max_qp_,
+                                  max_framerate_);
+    // Update the active streams.
+    for (size_t i = 0; i < streams.size(); ++i) {
+      streams[i].active = encoder_config.simulcast_layers[i].active;
+    }
+    return streams;
+  }
+
+  if (encoder_config.number_of_streams > 1) {
+    // TODO(bug.webrtc.org/8785): Currently if the resolution isn't large enough
+    // (defined in kSimulcastFormats) we scale down the number of streams.
+    // Consider changing this so that the application can have more control over
+    // exactly how many simulcast streams are used.
+    size_t num_simulcast_layers = FindSimulcastMaxLayers(width, height);
+    if (num_simulcast_layers > encoder_config.number_of_streams) {
+      // TODO(bug.webrtc.org/8486): This scales down the resolution if the
+      // number of simulcast streams created by the application isn't sufficient
+      // (defined in kSimulcastFormats). For example if the input frame's
+      // resolution is HD, but there are only 2 simulcast streams, the
+      // resolution gets scaled down to VGA. Consider taking this logic out to
+      // allow the application more control over the resolutions.
+      SlotSimulcastMaxResolution(encoder_config.number_of_streams, &width,
+                                 &height);
+      num_simulcast_layers = encoder_config.number_of_streams;
+    }
+    streams.resize(num_simulcast_layers);
+    width = NormalizeSimulcastSize(width, num_simulcast_layers);
+    height = NormalizeSimulcastSize(height, num_simulcast_layers);
+    for (size_t i = num_simulcast_layers - 1;; --i) {
+      streams[i].width = width;
+      streams[i].height = height;
+      streams[i].max_qp = max_qp_;
+      // Three temporal layers means two thresholds.
+      streams[i].temporal_layer_thresholds_bps.resize(2);
+      // TODO(bugs.webrtc.org/8655): Use values passed down by the application
+      // to set the max bitrate appropriately for each simulcast layer.
+      streams[i].max_bitrate_bps = FindSimulcastMaxBitrateBps(width, height);
+      streams[i].target_bitrate_bps =
+          FindSimulcastTargetBitrateBps(width, height);
+      streams[i].min_bitrate_bps = FindSimulcastMinBitrateBps(width, height);
+      streams[i].max_framerate = max_framerate_;
+      streams[i].active = encoder_config.simulcast_layers[i].active;
+
+      // We scale each lower stream down by 2.0 of the last.
+      // TODO(bugs.webrtc.org/8654): Use values passed down by the application
+      // to scale the resolution. This could currently cause lower layers
+      // to break due to assumptions being made about the simulcast stream
+      // resolutions and ordering of the streams from lowest quality to highest.
+      width /= 2;
+      height /= 2;
+
+      if (i == 0) {
+        break;
+      }
+    }
+
+    // If there is bitrate leftover, give it to the largest stream.
+    BoostMaxStream(encoder_config.max_bitrate_bps, &streams);
+    // Currently the relative bitrate priority of the sender is controlled by
+    // the value of the lowest VideoStream.
+    // TODO(bugs.webrtc.org/8630): The web specification describes being able to
+    // control relative bitrate for each individual simulcast stream, but this
+    // is currently just implemented per rtp sender.
+    streams[0].bitrate_priority = encoder_config.bitrate_priority;
+    return streams;
   }
 
   // For unset max bitrates set default bitrate for non-simulcast.
@@ -2624,13 +2720,13 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
   stream.target_bitrate_bps = stream.max_bitrate_bps = max_bitrate_bps;
   stream.max_qp = max_qp_;
   stream.bitrate_priority = encoder_config.bitrate_priority;
+  stream.active = encoder_config.simulcast_layers[0].active;
 
   if (CodecNamesEq(codec_name_, kVp9CodecName) && !is_screencast_) {
     stream.temporal_layer_thresholds_bps.resize(GetDefaultVp9TemporalLayers() -
                                                 1);
   }
 
-  std::vector<webrtc::VideoStream> streams;
   streams.push_back(stream);
   return streams;
 }

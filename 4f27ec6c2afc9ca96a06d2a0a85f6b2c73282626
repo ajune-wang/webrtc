@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5843f8f7_2ff58739",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Most of it is simple plumbing,and it is currently indirectly tested by the unit tests of send side congestion controller. Maybe it would make sense to break out the pacer pushback algorithm and unit test that?",
+      "parentUuid": "5b5ca592_5adfa236",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cec65f30_3d25fe76",
         "filename": "modules/congestion_controller/goog_cc_network_control.cc",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-31T16:47:54Z",
       "side": 1,
       "message": "This file should have unittests, right?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1664b2_136c2cd2",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "It\u0027s tested via the tests on SSCC. Unit tests on this directly would basically mean mocking up most of SSCC. Not sure if this adds any value at this point, maybe it would make sense if changing the default congestion control method as part of removing the tests on SSCC? I could do this change now if you think it makes sense, but that would also imply less strict guarantees on SSCC. (The current behavior is quite limited due to the tests, but since it\u0027s part of the API I figured that it is by design)\n\nWDYT?",
+      "parentUuid": "cec65f30_3d25fe76",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cf94330a_d9090bdf",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c972f37f_00dcdf53",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 49
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d53b432_64e24251",
         "filename": "modules/congestion_controller/goog_cc_network_control.h",
         "patchSetId": 15
@@ -82,6 +154,30 @@
       "writtenOn": "2018-01-31T16:47:54Z",
       "side": 1,
       "message": "These should be ordered in alphabetical order.\n\nConsider forward declaring what can be forward declared.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab894cf_51e6c6c7",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Sorted them.\n\nI don\u0027t think we generally try to forward declare things by default. There was a discussion about it in the core group. Note that this header file should not be included by anything but the implementation and unittests.",
+      "parentUuid": "4d53b432_64e24251",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3b43d6ec_43725a27",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "My mistake, the comment was supposed to be removed.",
+      "parentUuid": "6d83b3a1_eecddc84",
+      "range": {
+        "startLine": 247,
+        "startChar": 5,
+        "endLine": 248,
+        "endChar": 17
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c29303f_17f2565e",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 15
@@ -137,6 +257,30 @@
       "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08a78794_24e3626e",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c29303f_17f2565e",
+      "range": {
+        "startLine": 300,
+        "startChar": 2,
+        "endLine": 300,
+        "endChar": 49
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a8c188f3_7ebeab89",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "664a1af5_bc3ea430",
+      "range": {
+        "startLine": 387,
+        "startChar": 6,
+        "endLine": 387,
+        "endChar": 32
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f7b6c91_6b914e58",
         "filename": "network_control/include/network_control.h",
         "patchSetId": 15
@@ -183,6 +351,30 @@
       "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28745a70_54a244d5",
+        "filename": "network_control/include/network_control.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f7b6c91_6b914e58",
+      "range": {
+        "startLine": 41,
+        "startChar": 19,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "7ada647c_b4b23cd2",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "632b29b5_127cface",
+      "range": {
+        "startLine": 173,
+        "startChar": 67,
+        "endLine": 173,
+        "endChar": 76
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8159ec1e_573db0ce",
         "filename": "network_control/network_units.cc",
         "patchSetId": 15
@@ -220,6 +436,30 @@
       "writtenOn": "2018-01-31T18:18:06Z",
       "side": 1,
       "message": "I\u0027m not sure we want to use non-ascii characters? What if the terminal doesn\u0027t support UTF-8? Or maybe I\u0027m old fashioned?",
+      "range": {
+        "startLine": 65,
+        "startChar": 18,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e35fd75e_f3c283c9",
+        "filename": "network_control/network_units.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Not sure why it wouldn\u0027t? This is to be used for logging/debugging/tests only Worst case they\u0027ll get some weird chars instead, right? Won\u0027t insist on keeping it though. Can change to inf if you like that better?",
+      "parentUuid": "8159ec1e_573db0ce",
       "range": {
         "startLine": 65,
         "startChar": 18,

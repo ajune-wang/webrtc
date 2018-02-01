@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "661d5b1a_a9c054dc",
+        "filename": "modules/congestion_controller/include/goog_cc_factory.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "43f2cf10_6dae7fd5",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afc35969_da1df03c",
         "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
         "patchSetId": 13
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "Yes, I understand, and appreciate it, but I think these changes makes sense to do if possible.",
       "parentUuid": "542fb4ca_58ca8a81",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3ff25d7_0edd99a2",
+        "filename": "modules/congestion_controller/probe_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc71c20e_5cf1f1a4",
       "range": {
         "startLine": 91,
         "startChar": 0,
@@ -615,6 +663,30 @@
     },
     {
       "key": {
+        "uuid": "f12ef84a_fa982cd9",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "It is: https://webrtc.googlesource.com/src/+/HEAD/native-api.md",
+      "parentUuid": "9ca3af07_536feb97",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 18
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14715d0f_8eba5da7",
         "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
         "patchSetId": 13
@@ -674,6 +746,30 @@
       "side": 1,
       "message": "Ok, I\u0027m not sure we want to add averaging to OnReceivedRtcpReceiverReport though as the result of that might be used by other components that don\u0027t want it to be averaged?",
       "parentUuid": "9cb8208e_70a08c14",
+      "range": {
+        "startLine": 331,
+        "startChar": 2,
+        "endLine": 331,
+        "endChar": 21
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f0948b8_a6d521a5",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "The previous behavior is kind of arbitrary, as it does not specify which SSRC that should be used but only uses the last one of the report blocks in a single RTCP packet. I don\u0027t think it\u0027s feasible that this is some intended behavior, if it makes something work it really is by pure accident and should not be relied upon (another remote client might use a different order of the blocks etc.)",
+      "parentUuid": "a503d590_0017ec50",
       "range": {
         "startLine": 331,
         "startChar": 2,
@@ -872,6 +968,30 @@
       "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47cb14ab_888d45ed",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "Moved this change to a separate CL, and will use both rtt values to make sure behavior is not changed.",
+      "parentUuid": "2134baa7_55eb65d1",
+      "range": {
+        "startLine": 973,
+        "startChar": 0,
+        "endLine": 976,
+        "endChar": 7
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1122,6 +1242,30 @@
       "side": 1,
       "message": "Maybe, but isn\u0027t it quite easy to do the formatting in place instead of having these operators?",
       "parentUuid": "3cf5cedc_10d4451c",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 71
+      },
+      "revId": "0b225cfc04c29b5a8a09ef6a182fbfa216d87217",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "356a8298_8a4f49a7",
+        "filename": "network_control/include/network_units.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "There are some checks for infinity etc that would be annoying to reproduce every time. For the tests it is not easy due to how they work. Would have to make a special test-header for just those, and as long as we still are using streams it seems to add quite little value. Maybe add a note about why they exist would help?",
+      "parentUuid": "a5f0b352_1a79692a",
       "range": {
         "startLine": 349,
         "startChar": 0,

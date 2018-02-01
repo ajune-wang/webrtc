@@ -22,6 +22,30 @@
       "revId": "49456a5b332741e0130884fdbc14676ba5695fde",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f560d80d_f2eb10ad",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 0,
+      "message": "It has been moved to the network controller to allow other ways of calculating this value for other methods, such as BBR.",
+      "parentUuid": "407af380_daaf5100",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 21
+      },
+      "revId": "49456a5b332741e0130884fdbc14676ba5695fde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

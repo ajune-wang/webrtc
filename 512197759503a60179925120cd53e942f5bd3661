@@ -967,6 +967,30 @@
     },
     {
       "key": {
+        "uuid": "e0399c91_88fa38e0",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T10:36:46Z",
+      "side": 1,
+      "message": "The fraction lost value and the packets lost value comes in the same report packet, both values computed on the remote end, so unless the remote calculation is broken they should be equivalent from what I\u0027ve gathered by reading the specification. I\u0027m not sore why they both exist. Maybe for legacy reasons?",
+      "parentUuid": "c1f47e36_692cbb2b",
+      "range": {
+        "startLine": 434,
+        "startChar": 35,
+        "endLine": 434,
+        "endChar": 56
+      },
+      "revId": "512197759503a60179925120cd53e942f5bd3661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d6bc706_fd20bdc6",
         "filename": "modules/congestion_controller/send_side_congestion_controller_unittest.cc",
         "patchSetId": 9

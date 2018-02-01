@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7ace64_bb6d83ab",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-01T23:45:21Z",
+      "side": 1,
+      "message": "nit: I don\u0027t see any test that calls CreateStatsCollector (or CreatePeerConnection) multiple times, so it may be simpler to just construct them by default in the RTCStatsCollectorTest constructor.",
+      "revId": "e298c0d673c9dd9e528842f533ce980a402f2bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -89,13 +89,13 @@ bool H264Encoder::IsSupported() {
 }
 
 std::unique_ptr<H264Decoder> H264Decoder::Create() {
-  RTC_DCHECK(H264Decoder::IsSupported());
+// RTC_DCHECK(H264Decoder::IsSupported());
 #if defined(WEBRTC_USE_H264)
   RTC_CHECK(g_rtc_use_h264);
   RTC_LOG(LS_INFO) << "Creating H264DecoderImpl.";
   return rtc::MakeUnique<H264DecoderImpl>();
 #else
-  RTC_NOTREACHED();
+  // RTC_NOTREACHED();
   return nullptr;
 #endif
 }

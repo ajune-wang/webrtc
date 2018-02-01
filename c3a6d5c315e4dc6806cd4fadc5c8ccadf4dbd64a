@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0b9f575_9a59bfc9",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-01T18:48:13Z",
+      "side": 1,
+      "message": "I don\u0027t understand the purpose of the granularity of 10s, could you explain?",
+      "revId": "c3a6d5c315e4dc6806cd4fadc5c8ccadf4dbd64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ee960ed7_a5ae2ca6",
+        "filename": "rtc_base/system/fallthrough.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-01T14:30:16Z",
+      "side": 1,
+      "message": "Yes. I\u0027ll dig up the rationale from that bug I was pointed to.",
+      "parentUuid": "d94f6449_6846d7a3",
+      "revId": "36afbd9e5ecc3fa053bce4ae6a7f0e7a0bdbf029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9732e2f2_63deeb25",
         "filename": "rtc_base/system/fallthrough.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-01T14:00:13Z",
       "side": 1,
       "message": "don\u0027t need the do-while here either",
+      "revId": "36afbd9e5ecc3fa053bce4ae6a7f0e7a0bdbf029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b4a7b9b_a3481bb1",
+        "filename": "rtc_base/system/fallthrough.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-01T14:30:16Z",
+      "side": 1,
+      "message": "As I said in the other CL, the empty do-while forces call sites to put a semicolon after the macro call.",
+      "parentUuid": "9732e2f2_63deeb25",
       "revId": "36afbd9e5ecc3fa053bce4ae6a7f0e7a0bdbf029",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

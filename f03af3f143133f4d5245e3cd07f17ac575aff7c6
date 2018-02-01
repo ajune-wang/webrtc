@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c116fd80_c3bbdd76",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2237,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-02-01T16:37:27Z",
+      "side": 1,
+      "message": "This looks like it was a bug, since the log message talks about local_ssrc remaining unchanged while checking against remote_ssrc. But the comment about preventing us from using the same ssrc as a sender and receiver makes me think that maybe the check is fine and the log message is wrong?",
+      "range": {
+        "startLine": 2228,
+        "startChar": 2,
+        "endLine": 2237,
+        "endChar": 3
+      },
+      "revId": "f03af3f143133f4d5245e3cd07f17ac575aff7c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

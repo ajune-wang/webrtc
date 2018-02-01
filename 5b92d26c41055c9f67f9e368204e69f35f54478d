@@ -22,6 +22,30 @@
       "revId": "5b92d26c41055c9f67f9e368204e69f35f54478d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41c1231a_dfc245a0",
+        "filename": "tools_webrtc/PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5028
+      },
+      "writtenOn": "2018-02-01T14:24:35Z",
+      "side": 1,
+      "message": "This path is relative to the current directory, so no.",
+      "parentUuid": "ec398a80_6375c0eb",
+      "range": {
+        "startLine": 36,
+        "startChar": 25,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "5b92d26c41055c9f67f9e368204e69f35f54478d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

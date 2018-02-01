@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "702a18da_dbec7a60",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4826,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-01T23:49:28Z",
+      "side": 1,
+      "message": "Sorry for not clarifying, what I meant is \"why does SetRtpTransport need to be called\"? I\u0027d expect that CreateVoiceChannel would already hook up the VoiceChannel and the RtpTransport it takes as an argument.",
+      "parentUuid": "dfa0e869_7551b5ac",
+      "revId": "3b83db76262c823ce3135ccd950dfbdb2436d0d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bea23171_0295ee81",
         "filename": "pc/peerconnection.h",
         "patchSetId": 11

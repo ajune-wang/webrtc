@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "20a227a7_1d74e422",
+        "filename": "modules/congestion_controller/encoding_rate_controller.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T12:03:16Z",
+      "side": 1,
+      "message": "I see it as a helper class for and part of send side congestion controller, would it make it clearer if it was implemented in send_side_congestion_controller.cc? I could move the functionality to the router class now that it exists.",
+      "parentUuid": "7504cdfe_af972490",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cec65f30_3d25fe76",
         "filename": "modules/congestion_controller/goog_cc_network_control.cc",
         "patchSetId": 15
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I wonder if some tests on SSCC would make more sense here? Or if we should have a few basic tests for this class?\n\nWill SSCC stay around in the long run? Tests which are goog_cc specific should probably be moved  to cover this class, right?\n\nI can agree on doing some of this in a separate CL.",
       "parentUuid": "9f1664b2_136c2cd2",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afb0f16f_375d0beb",
+        "filename": "modules/congestion_controller/goog_cc_network_control.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T12:03:16Z",
+      "side": 1,
+      "message": "The future of SSCC depends a bit on how we will want to progress with the API, my thinking is that it should be merged into RtpTransportControllerSend in the future and RtpTransportControllerSend be made part of the public api. At that point the tests will have to move.\n\nIf we decide that we will want to keep the current bwe method and drops plans for replacements it makes sense to keep the method specific tests but apply them to RtpTransportControllerSend instead.\n\nHowever, if we want to inject the bandwidth estimation it would make sense to create new more abstract tests of RtpTransportControllerSend that can be used with any bandwidth estimation method. And then do the method specific tests directly on, or via some kind of integration test of, GoogCc.\n\nThat will be a bigger effort though (testing abstract functionality is harder than testing details), and questionable utility at this stage. I think it makes some sense to wait with this until we have a better picture of what path forward we want to take. Or at least until we actually have more than one implementation available, so maybe as a step towards introducing BBR?",
+      "parentUuid": "cd32191a_923d40ae",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -250,6 +298,30 @@
       "side": 1,
       "message": "Historically we\u0027ve tried to forward declare as much as possible (which I suspect you\u0027ll notice when you look around the code). It could be that this guideline has changed, is it documented somewhere?",
       "parentUuid": "6ab894cf_51e6c6c7",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f70b65_26624340",
+        "filename": "modules/congestion_controller/goog_cc_network_control.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T12:03:16Z",
+      "side": 1,
+      "message": "Seems like it haven\u0027t yet made it into the docs (forgotten maybe) but here\u0027s the cl:\nhttps://webrtc-review.googlesource.com/c/src/+/8800",
+      "parentUuid": "1e565114_1e0548cb",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -565,6 +637,30 @@
       "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f97ef0_f20f2770",
+        "filename": "network_control/network_units.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T12:03:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b4ccfd_0f17b19c",
+      "range": {
+        "startLine": 65,
+        "startChar": 18,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "4f27ec6c2afc9ca96a06d2a0a85f6b2c73282626",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

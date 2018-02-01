@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d9226e2_7aa9078b",
+        "filename": "sdk/android/native_api/jni/java_types.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-02-01T12:43:52Z",
+      "side": 1,
+      "message": "Should we have a generic JavaToNativeMap if this is being deprecated?",
+      "revId": "0d86c940183713ee614d1139586f0eb72bbeee1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

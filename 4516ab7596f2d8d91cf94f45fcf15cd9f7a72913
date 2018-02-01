@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f11f3493_ac168f63",
+        "filename": "modules/congestion_controller/delay_based_bwe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T13:14:48Z",
+      "side": 1,
+      "message": "Ok, makes sense from the perspective that it\u0027s done for the other members as well, although it\u0027s a new pattern to me. unique_ptr is always default initialized to nullptr.",
+      "parentUuid": "aa7ece54_a67ec1e9",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 29
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26b60e74_30b371fe",
         "filename": "modules/congestion_controller/delay_based_bwe.h",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Done. However, for now it looks a bit strange since the parameters below still talk about a trendline.",
       "parentUuid": "26b60e74_30b371fe",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 54
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2469dbf_86c38bc6",
+        "filename": "modules/congestion_controller/delay_based_bwe.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T13:14:48Z",
+      "side": 1,
+      "message": "I think this is fine., The parameters below reflect what the TrendlineEstimator implementation of DelayDetectorInterface is initialized with, they do that even if another implementation is used based on some configuration.",
+      "parentUuid": "fba9ce91_10aedad1",
       "range": {
         "startLine": 74,
         "startChar": 0,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "72c15f3a_f8c24fe9",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T13:14:48Z",
+      "side": 1,
+      "message": "Ok i see, good suggestion to fix the enum, I think that would make it much clearer.\n\nMaybe Delay[Behaviour|Trend|Increase][Detector|Classifier] then? Would make it much quicker to understand for me.",
+      "parentUuid": "d8ba6a96_0106d5d4",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "652fa8ba_166c1262",
         "filename": "modules/congestion_controller/delay_detector.h",
         "patchSetId": 3
@@ -190,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "8ea36531_e282b5f5",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T13:14:48Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll ignore it then.",
+      "parentUuid": "bb07b8b6_3c38bb1f",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 67
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c5bd356_74b337a0",
         "filename": "modules/congestion_controller/delay_detector.h",
         "patchSetId": 3
@@ -225,6 +321,30 @@
       "side": 1,
       "message": "This is preserved from the old OveruseDetector.",
       "parentUuid": "9c5bd356_74b337a0",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "4516ab7596f2d8d91cf94f45fcf15cd9f7a72913",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5b2c0c6_06d95a6c",
+        "filename": "modules/congestion_controller/delay_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-01T13:14:48Z",
+      "side": 1,
+      "message": "Maybe just adding the enum fix you suggested would make this less confusing?",
+      "parentUuid": "7b90da23_c063316f",
       "range": {
         "startLine": 31,
         "startChar": 25,

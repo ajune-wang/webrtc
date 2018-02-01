@@ -30,6 +30,7 @@
 #include "media/base/streamparams.h"
 #include "media/base/videosourceinterface.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/basictypes.h"
 #include "rtc_base/buffer.h"
@@ -414,6 +415,8 @@ class MediaChannel : public sigslot::has_slots<> {
   // Called when a RTP packet is received.
   virtual void OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
                                 const rtc::PacketTime& packet_time) = 0;
+  virtual void OnPacketReceived(webrtc::RtpPacketReceived parsed_packet) {}
+
   // Called when a RTCP packet is received.
   virtual void OnRtcpReceived(rtc::CopyOnWriteBuffer* packet,
                               const rtc::PacketTime& packet_time) = 0;

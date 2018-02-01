@@ -1179,6 +1179,24 @@
     },
     {
       "key": {
+        "uuid": "63a2681c_e7956ce0",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-01T05:14:35Z",
+      "side": 1,
+      "message": "You have a good point, go ahead and leave it then.",
+      "parentUuid": "be9961e7_c96c4d84",
+      "revId": "ebe40ea50b0a73b290a549440b964bea17e9d3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2928d11_20e01896",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 6

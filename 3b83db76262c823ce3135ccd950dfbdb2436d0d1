@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e31d5c80_ef45cc80",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-01T05:14:35Z",
+      "side": 1,
+      "message": "nit: This is a little confusing, since it assumes the m\u003d section is either rejected or bundled. I think the version from patchset 6 where this method was inlined was preferable; not a big deal though.",
+      "revId": "3b83db76262c823ce3135ccd950dfbdb2436d0d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7692c4a0_4ecf6154",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 4826,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-01T05:14:35Z",
+      "side": 1,
+      "message": "Why does this need to be called even though rtp_transport is passed into CreateVoiceChannel?",
+      "revId": "3b83db76262c823ce3135ccd950dfbdb2436d0d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bea23171_0295ee81",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-01T05:14:35Z",
+      "side": 1,
+      "message": "Did you mean sctp_mid_?",
+      "revId": "3b83db76262c823ce3135ccd950dfbdb2436d0d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

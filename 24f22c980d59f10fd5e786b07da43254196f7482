@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "856ee3e6_afc80432",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4236d294_ebd1b353",
+      "range": {
+        "startLine": 199,
+        "startChar": 15,
+        "endLine": 199,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd0ef65e_ec56245d",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7802b1ed_71d32a31",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "I changed stream to layer in most places. I also changed screencast to screenshare within simulcast.cc \u0026 within the EncoderStreamFactory in webrtcvideoengine.cc to be consistent. It looks like screencast is the naming convention higher up, but it probably was changed to screenshare in simulcast.cc because it became awkward to say \"simulcast screencast\" 10 times fast. I\u0027m happy to change everything to screencast as well, but I think you\u0027re right that consistency is the key here so I stuck with screenshare.",
+      "parentUuid": "cd0ef65e_ec56245d",
+      "range": {
+        "startLine": 210,
+        "startChar": 72,
+        "endLine": 210,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fbf18184_a59a0b3f",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "Thanks, this makes the logic is easier to read too.",
+      "parentUuid": "41686fc9_f9c385d9",
+      "range": {
+        "startLine": 223,
+        "startChar": 3,
+        "endLine": 223,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f22c6e0_cb7c73af",
         "filename": "media/engine/simulcast.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afb39a38_0a9147d4",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f22c6e0_cb7c73af",
+      "range": {
+        "startLine": 224,
+        "startChar": 65,
+        "endLine": 224,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "91425730_2398b49e",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e922446_9134811c",
+      "range": {
+        "startLine": 266,
+        "startChar": 44,
+        "endLine": 266,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "538628f6_36b5b1c2",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fa4bd21_ea209bf9",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "538628f6_36b5b1c2",
+      "range": {
+        "startLine": 1918,
+        "startChar": 65,
+        "endLine": 1918,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "7f5e6c3d_8d71eb99",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2629,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "It\u0027s definitely valuable to make this more clear.",
+      "parentUuid": "95808095_cfbe9167",
+      "range": {
+        "startLine": 2629,
+        "startChar": 23,
+        "endLine": 2629,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "413d6f52_35f4b9b6",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 2
@@ -183,6 +351,30 @@
       "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13e5ac24_219691cd",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2635,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "413d6f52_35f4b9b6",
+      "range": {
+        "startLine": 2635,
+        "startChar": 43,
+        "endLine": 2635,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +418,48 @@
     },
     {
       "key": {
+        "uuid": "47f4bf90_2b54ed09",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "I made this change for GetScreencastConfig. Although it\u0027s still called in GetSimulcastConfig(). If it were to be passed in there, all test code that calls GetSimulcastConfig would need to call this function. I could do this, but it would require overloading the function to fix downstream clients before the change is rolled in.",
+      "parentUuid": "2b253b15_515f8ae8",
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abd4e0c0_491f05c3",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "Thanks for this catch. The logic for the VP8 check was based upon CreateVideoEncoderStreams. It looked to me that because it always created encoder_config.number_of_streams correctly than the check wasn\u0027t needed. Although, there could be a case where a screenshare VideoEncoderConfig is created with one simulcast layer and a different codec. It would call GetScreenshareConfig which isn\u0027t the previous behavior. I don\u0027t know if this would be bad necessarily, but I\u0027ll put the check back in to keep things consistent with previous behavior.",
+      "parentUuid": "8363c951_4a00440b",
+      "range": {
+        "startLine": 2638,
+        "startChar": 43,
+        "endLine": 2638,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0c8ea97_1e7b4e87",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 2
@@ -246,6 +480,30 @@
       "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f97ab22_0ccef43e",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2683,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T19:00:53Z",
+      "side": 1,
+      "message": "The thought was that the separation allows for us to put more application control in here, while GetSimulcastConfig still does things like scaling down resolution or the number of simulcast layers. I refactored as you suggested, and moved the TODO\u0027s over there. In the case that the tests still want this logic, but we don\u0027t want it here, we can move that out of GetNormalSimulcastLayers and into GetSimulcastConfig, and not call GetSimulcastConfig in CreateEncoderStreams.\n\nI moved back to calling GetSimulcastConfig in CreateEncoderStreams because of this change.",
+      "parentUuid": "d0c8ea97_1e7b4e87",
+      "range": {
+        "startLine": 2683,
+        "startChar": 68,
+        "endLine": 2683,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

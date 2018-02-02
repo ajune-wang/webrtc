@@ -22,6 +22,30 @@
       "revId": "ade6e465381353e5787c41eb6d8143dff0862ac1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c65d2e57_a21cbe7f",
+        "filename": "media/engine/simulcast.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T23:26:48Z",
+      "side": 1,
+      "message": "Done, but in other refactor CL.",
+      "parentUuid": "8d8c6461_fda5eb2b",
+      "range": {
+        "startLine": 78,
+        "startChar": 65,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "ade6e465381353e5787c41eb6d8143dff0862ac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

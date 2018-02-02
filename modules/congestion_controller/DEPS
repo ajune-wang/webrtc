@@ -1,5 +1,8 @@
 include_rules = [
+  "+experiments",
   "+logging/rtc_event_log",
+  "+network_control/include",
+  "+network_control",
   "+system_wrappers",
   "+video",
 ]

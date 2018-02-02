@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "347018b8_c76626d1",
+        "filename": "test/encoder_settings.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T16:47:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "456f8f7f_d5fc9315",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 50
+      },
+      "revId": "c7ba2875e417059abdd5230431bd9d50e8bfcf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42768193_58b7b43f",
         "filename": "video/payload_router.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "c7ba2875e417059abdd5230431bd9d50e8bfcf27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34a9dd6e_9a123393",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-02T16:47:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42768193_58b7b43f",
+      "range": {
+        "startLine": 166,
+        "startChar": 15,
+        "endLine": 166,
+        "endChar": 17
+      },
+      "revId": "c7ba2875e417059abdd5230431bd9d50e8bfcf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

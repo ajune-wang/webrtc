@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be2e2f0b_a95d6d68",
+        "filename": "video/end_to_end_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2041,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-02T13:03:49Z",
+      "side": 1,
+      "message": "when",
+      "range": {
+        "startLine": 2041,
+        "startChar": 46,
+        "endLine": 2041,
+        "endChar": 50
+      },
+      "revId": "c22c231ee13307a53a074ad94fd2c5f1a0566199",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0e8164a_7aae9c8a",
+        "filename": "video/end_to_end_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-02T13:03:49Z",
+      "side": 1,
+      "message": "Why do we act like this? I think the comment should make this more clear, rather than say the same thing as the if statement does.",
+      "range": {
+        "startLine": 2049,
+        "startChar": 0,
+        "endLine": 2049,
+        "endChar": 77
+      },
+      "revId": "c22c231ee13307a53a074ad94fd2c5f1a0566199",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ab538c6_8763f9b0",
+        "filename": "video/end_to_end_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2050,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-02T13:03:49Z",
+      "side": 1,
+      "message": "have been received",
+      "range": {
+        "startLine": 2050,
+        "startChar": 9,
+        "endLine": 2050,
+        "endChar": 12
+      },
+      "revId": "c22c231ee13307a53a074ad94fd2c5f1a0566199",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

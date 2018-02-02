@@ -1,0 +1,883 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4de763b4_1514f924",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Can you call it local_certificate?",
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e113cc84_c7389b83",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "MSG_ICERECEIVING",
+      "range": {
+        "startLine": 29,
+        "startChar": 16,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3f7503e_f7449fbf",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "MSG_ICECANDIDATESGATHERED",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dea3336_67b8b3f7",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "This could be updated to use RtcError",
+      "range": {
+        "startLine": 43,
+        "startChar": 74,
+        "endLine": 43,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08a222cf_f71358ce",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "It seems like it would be nicer to have the public method be SetLocalDescription and SetRemoteDescription and then let each of those call ApplyDescription.  In fact, then you could switch to \"bool local\" and wouldn\u0027t need the cricket::ContentSource type at all, which would be nice.",
+      "range": {
+        "startLine": 109,
+        "startChar": 34,
+        "endLine": 109,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd3a62db_c87e5aa9",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Why don\u0027t we do this for all of the thread hops instead of using rtc::Bind?",
+      "range": {
+        "startLine": 115,
+        "startChar": 7,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "302d0e3d_62e0602d",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "An assignment in a ternary operator?  That\u0027s bit surprising.  A normal if/else would be more readable.",
+      "range": {
+        "startLine": 120,
+        "startChar": 59,
+        "endLine": 120,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8d86baa_2b37bef9",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Can\u0027t you just use description-\u003eGetGroupByName here?   You just set it a few lines up.",
+      "range": {
+        "startLine": 127,
+        "startChar": 73,
+        "endLine": 127,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd5a7df2_8433208f",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "This could use a comment like \"Don\u0027t create transports for rejected m-lines and bundled m-lines.\"",
+      "range": {
+        "startLine": 135,
+        "startChar": 61,
+        "endLine": 135,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e2561a2_9f94ded0",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "to change \u003d\u003e change",
+      "range": {
+        "startLine": 151,
+        "startChar": 42,
+        "endLine": 151,
+        "endChar": 43
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a51b93d7_57bd6759",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Now I\u0027m doubly convinced that it should be \"bool rtcp\"\n\nOr, better yet, just make two methods on the TransportController:\n\nGetDtlsTransport\nGetRtcpDtlsTransport",
+      "range": {
+        "startLine": 219,
+        "startChar": 58,
+        "endLine": 219,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54896ab6_d901d79d",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Can we put this in the JsepTransportController::Config and move this ifdef to the caller rather than down here?  Then we can actually test both cases.",
+      "range": {
+        "startLine": 399,
+        "startChar": 33,
+        "endLine": 399,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3794142b_d4b62079",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Source isn\u0027t even being used in this method.",
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1f1d7f6_321eca05",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "An early return would be nicer:\n\n...\nif (type !\u003d SdpType::kAnswer) {\n  return false;\n}\n\nRTC_DCHECK(local_desc_ \u0026\u0026 remote_desc_);\n...\nreturn local_bundle \u0026\u0026 remote_bundle;",
+      "range": {
+        "startLine": 503,
+        "startChar": 3,
+        "endLine": 503,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb7fb2b1_99abb1e5",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "I\u0027ve seen this line enough that I think it could use it\u0027s own method, something like IsBundled(transport_name);",
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "872cfe14_7961c373",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "This feels like it should be moved up into ApplyDescription, not down in here.  For example, if your first offer was all rejected m\u003dsections in the offer, wouldn\u0027t that still drive the role?",
+      "range": {
+        "startLine": 734,
+        "startChar": 54,
+        "endLine": 734,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb390437_67672727",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "It seems like we should have separate DetermineIceRole method and then just call SetIceRole_n method once with the result of that method.",
+      "range": {
+        "startLine": 774,
+        "startChar": 3,
+        "endLine": 774,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "346ae8bc_79fa76cd",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "This could use a comment about threading",
+      "range": {
+        "startLine": 68,
+        "startChar": 60,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c3b559_1e85c366",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Can you comment that the reason this is public is to allow PeerConnection to update it from SetConfiguration?",
+      "range": {
+        "startLine": 108,
+        "startChar": 54,
+        "endLine": 108,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4176230_9d1ba92e",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Who calls this?  I don\u0027t see it used by PC.",
+      "range": {
+        "startLine": 117,
+        "startChar": 53,
+        "endLine": 117,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25ad0905_30fc9c86",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Can we switch to RtcErrorOr instead of err our variables?",
+      "range": {
+        "startLine": 125,
+        "startChar": 48,
+        "endLine": 125,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ed5b489_ffc096e1",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this is useful at all.  The only thing the PC seems to do with this is drop candidates and log the fact that it dropped them.  You might as well just call AddRemoteCandidates all of the time and just have this code return an error.",
+      "range": {
+        "startLine": 126,
+        "startChar": 62,
+        "endLine": 126,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a227f29_60e78771",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Would an optional return value be better?",
+      "range": {
+        "startLine": 143,
+        "startChar": 68,
+        "endLine": 143,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ea5adb6_d0b425e0",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Here to: an optional return value.",
+      "range": {
+        "startLine": 151,
+        "startChar": 35,
+        "endLine": 151,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed02dd77_ece645c6",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "What if there\u0027s more than one bundle group?  Do we just not support that?",
+      "range": {
+        "startLine": 152,
+        "startChar": 69,
+        "endLine": 152,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fde8937b_07375cee",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "SignalIceConnectionState?",
+      "range": {
+        "startLine": 166,
+        "startChar": 70,
+        "endLine": 166,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03e1b603_9be20757",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Isn\u0027t this SignalIceReceiving?",
+      "range": {
+        "startLine": 169,
+        "startChar": 41,
+        "endLine": 169,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00106b5e_caaba8ce",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "SignalIceGatheringState?",
+      "range": {
+        "startLine": 174,
+        "startChar": 68,
+        "endLine": 174,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1b8fbbe_ed8dda47",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Same here with Ice in the name.",
+      "range": {
+        "startLine": 181,
+        "startChar": 30,
+        "endLine": 181,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add08243_f4a13608",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Comment should say that the first arg is the mid.",
+      "range": {
+        "startLine": 186,
+        "startChar": 60,
+        "endLine": 186,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bc2caa8_2fbcae60",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we make it clear that any previous RtpTransportInternal objects must no longer be referenced?  Otherwise things would explode, right?",
+      "range": {
+        "startLine": 188,
+        "startChar": 32,
+        "endLine": 188,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d2955ae_c1d53a72",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Be consistent with either \"JsepTransport\" or \"Transport\" (DestroyAllJsepTransports_n or MaybeCreateTransport).",
+      "range": {
+        "startLine": 217,
+        "startChar": 32,
+        "endLine": 217,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82e4c828_e377ff03",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "We might as well call it the DtlsRole instead of the SslRole, despite the type name.",
+      "range": {
+        "startLine": 222,
+        "startChar": 46,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64e2c109_6ddbc2b8",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Can you please make this \"bool rtcp\"?  It\u0027s so much more clear than \"int component\".",
+      "range": {
+        "startLine": 257,
+        "startChar": 21,
+        "endLine": 257,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fbb9292_5edc1d6f",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Can you infer rtcp_mux_enabled by the value of the rtcp_packet_transport?",
+      "range": {
+        "startLine": 261,
+        "startChar": 28,
+        "endLine": 261,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b44b48_c41d59b9",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "Should comment that the key is MID.\n\nIn fact, you might call this jsep_transport_by_mid_",
+      "range": {
+        "startLine": 300,
+        "startChar": 69,
+        "endLine": 300,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a759d00_f3339baf",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "ice_receiving_",
+      "range": {
+        "startLine": 305,
+        "startChar": 26,
+        "endLine": 305,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c4115b3_88f91818",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "ice_gathering_state_",
+      "range": {
+        "startLine": 306,
+        "startChar": 74,
+        "endLine": 306,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86223264_fa49f1bb",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-02T00:39:09Z",
+      "side": 1,
+      "message": "\u003d false?",
+      "range": {
+        "startLine": 317,
+        "startChar": 40,
+        "endLine": 317,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

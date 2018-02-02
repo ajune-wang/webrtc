@@ -16,6 +16,24 @@
       "revId": "e298c0d673c9dd9e528842f533ce980a402f2bdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c200a8a0_3ca3605a",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-02T02:30:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c7ace64_bb6d83ab",
+      "revId": "e298c0d673c9dd9e528842f533ce980a402f2bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed11dd3e_fbddb2a1",
+        "filename": "pc/trackmediainfomap.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-02T00:02:19Z",
+      "side": 1,
+      "message": "nit: Seems a little odd to pass voice_mid and video_mid into TrackMediaInfoMap, since they\u0027re only referenced by the getter methods below. Would it make more sense to store them in RTCStatsCollector?",
+      "revId": "ab9544f0825178055877f61c311cc3804c495fba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -516,8 +516,8 @@ class EncoderStreamFactory
   EncoderStreamFactory(std::string codec_name,
                        int max_qp,
                        int max_framerate,
-                       bool is_screencast,
-                       bool conference_mode);
+                       bool is_screenshare,
+                       bool screenshare_simulcast_explicitly_enabled);
 
  private:
   std::vector<webrtc::VideoStream> CreateEncoderStreams(
@@ -528,8 +528,8 @@ class EncoderStreamFactory
   const std::string codec_name_;
   const int max_qp_;
   const int max_framerate_;
-  const bool is_screencast_;
-  const bool conference_mode_;
+  const bool is_screenshare_;
+  const bool screenshare_simulcast_explicitly_enabled_;
 };
 
 }  // namespace cricket

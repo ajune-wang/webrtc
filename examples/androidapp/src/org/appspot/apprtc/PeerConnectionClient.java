@@ -535,7 +535,7 @@ public class PeerConnectionClient {
       decoderFactory = new SoftwareVideoDecoderFactory();
     }
 
-    factory = new PeerConnectionFactory(options, encoderFactory, decoderFactory);
+    factory = new PeerConnectionFactory(options, null, decoderFactory);
     Log.d(TAG, "Peer connection factory created.");
   }
 

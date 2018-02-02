@@ -134,6 +134,30 @@
     },
     {
       "key": {
+        "uuid": "a45762a8_6931c71a",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-02T18:25:16Z",
+      "side": 1,
+      "message": "Our style guide actually says to use Bind instead of capturing lambdas, but I haven\u0027t been picky about this in the case of synchronous Invokes since it shouldn\u0027t matter.",
+      "parentUuid": "fd3a62db_c87e5aa9",
+      "range": {
+        "startLine": 115,
+        "startChar": 7,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "302d0e3d_62e0602d",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 12
@@ -547,6 +571,30 @@
       "writtenOn": "2018-02-02T00:39:09Z",
       "side": 1,
       "message": "What if there\u0027s more than one bundle group?  Do we just not support that?",
+      "range": {
+        "startLine": 152,
+        "startChar": 69,
+        "endLine": 152,
+        "endChar": 0
+      },
+      "revId": "b6836b066f7a54b913b88107b725199ecd5d1931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e32b61c_5df8cbc0",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-02T18:25:16Z",
+      "side": 1,
+      "message": "We\u0027ve never supported that as far as I know.",
+      "parentUuid": "ed02dd77_ece645c6",
       "range": {
         "startLine": 152,
         "startChar": 69,

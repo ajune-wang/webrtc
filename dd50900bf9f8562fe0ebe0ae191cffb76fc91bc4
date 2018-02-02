@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c183820_c5d24d87",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-02T18:59:20Z",
+      "side": 1,
+      "message": "nit: Putting this calculation in an \"else\" may make it more clear that it\u0027s only used if lifetime \u003e 120.",
+      "revId": "dd50900bf9f8562fe0ebe0ae191cffb76fc91bc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a94dc4_483ecefe",
+        "filename": "p2p/base/turnport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-02T18:59:20Z",
+      "side": 1,
+      "message": "nit: The actual \"TURN lifetime\" attribute is a uint32, so negative values would actually mean it\u0027s greater than 2^31. Maybe the argument of ScheduleRefresh should be changed to a uint32_t, and we could introduce a cutoff for long lifetimes. One hour would be reasonable since that\u0027s the recommended default max lifetime.\n\nI know this is an existing problem, but as long as you\u0027re fixing short lifetimes, it somewhat makes sense to fix long lifetimes as well...",
+      "revId": "dd50900bf9f8562fe0ebe0ae191cffb76fc91bc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

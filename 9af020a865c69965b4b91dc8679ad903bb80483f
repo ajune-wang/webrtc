@@ -22,6 +22,52 @@
       "revId": "9af020a865c69965b4b91dc8679ad903bb80483f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b43ea39d_31f73c63",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/kenny.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-02-02T09:05:54Z",
+      "side": 1,
+      "message": "I think the indexing is confusing. I suggest you do like this instead:\n\n i \u003d 1;\n if (!strcmp (\"-I\", argv[1])) {\n   ...\n   ++i;\n }\n\n /* Get Input and Output files */\n sscanf(argv[i++], \"%s\", inname);\n sscanf(argv[i++], \"%s\", outname);\n\n for (; i + 1 \u003c static_cast\u003csize_t\u003e(argc); ++i) {\n   ...\n }\n\nOr am I missing something?",
+      "range": {
+        "startLine": 251,
+        "startChar": 2,
+        "endLine": 251,
+        "endChar": 8
+      },
+      "revId": "9af020a865c69965b4b91dc8679ad903bb80483f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d263dad0_d44c35d2",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/kenny.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-02-02T09:05:54Z",
+      "side": 1,
+      "message": "i+1 ?",
+      "range": {
+        "startLine": 263,
+        "startChar": 9,
+        "endLine": 263,
+        "endChar": 14
+      },
+      "revId": "9af020a865c69965b4b91dc8679ad903bb80483f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

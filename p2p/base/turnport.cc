@@ -978,13 +978,22 @@ void TurnPort::DispatchPacket(const char* data, size_t size,
 
 bool TurnPort::ScheduleRefresh(int lifetime) {
   // Lifetime is in seconds; we schedule a refresh for one minute less.
-  if (lifetime < 2 * 60) {
+  int delay = (lifetime - 60) * 1000;
+
+  RTC_DCHECK(lifetime >= 0);
+  if (lifetime < 0) {
+    LOG_J(LS_WARNING, this) << "Received response with negative lifetime";
+    delay = 1000;
+  } else if (lifetime < 2 * 60) {
     LOG_J(LS_WARNING, this) << "Received response with lifetime that was "
-                            << "too short, lifetime=" << lifetime;
-    return false;
+                            << "short, lifetime=" << lifetime;
+
+    // The RFC does not mention a lower limit on lifetime.
+    // So if server sends a value less than 2 minutes, we schedule a refresh
+    // for half lifetime.
+    delay = (lifetime * 1000) / 2;
   }
 
-  int delay = (lifetime - 60) * 1000;
   SendRequest(new TurnRefreshRequest(this), delay);
   LOG_J(LS_INFO, this) << "Scheduled refresh in " << delay << "ms.";
   return true;

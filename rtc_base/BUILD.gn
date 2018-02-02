@@ -356,7 +356,7 @@ rtc_source_set("rtc_base_approved_generic") {
     }
   }
   if (is_nacl) {
-    deps += [ "//native_client_sdk/src/libraries/nacl_io" ]
+    # deps += [ "//native_client_sdk/src/libraries/nacl_io" ]
   }
 }
 
@@ -792,7 +792,7 @@ rtc_static_library("rtc_base_generic") {
   }
 
   if (is_nacl) {
-    deps += [ "//native_client_sdk/src/libraries/nacl_io" ]
+    # deps += [ "//native_client_sdk/src/libraries/nacl_io" ]
     defines += [ "timezone=_timezone" ]
     sources -= [ "ifaddrs_converter.cc" ]
   }

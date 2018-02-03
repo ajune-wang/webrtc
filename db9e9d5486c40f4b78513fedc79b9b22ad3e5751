@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3befc4f9_45ff80d0",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-02-03T21:34:31Z",
+      "side": 1,
+      "message": "Should also update the comment.",
+      "revId": "db9e9d5486c40f4b78513fedc79b9b22ad3e5751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4693352_c1199453",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-02-03T21:34:31Z",
+      "side": 1,
+      "message": "Should also update the comment to 85%.",
+      "revId": "db9e9d5486c40f4b78513fedc79b9b22ad3e5751",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

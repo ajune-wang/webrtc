@@ -42,16 +42,19 @@ void VideoBroadcaster::RemoveSink(
 }
 
 bool VideoBroadcaster::frame_wanted() const {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   rtc::CritScope cs(&sinks_and_wants_lock_);
   return !sink_pairs().empty();
 }
 
 VideoSinkWants VideoBroadcaster::wants() const {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   rtc::CritScope cs(&sinks_and_wants_lock_);
   return current_wants_;
 }
 
 void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   rtc::CritScope cs(&sinks_and_wants_lock_);
   for (auto& sink_pair : sink_pairs()) {
     if (sink_pair.wants.rotation_applied &&
@@ -74,6 +77,7 @@ void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
 }
 
 void VideoBroadcaster::OnDiscardedFrame() {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   for (auto& sink_pair : sink_pairs()) {
     sink_pair.sink->OnDiscardedFrame();
   }

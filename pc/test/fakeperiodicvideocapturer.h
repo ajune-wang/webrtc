@@ -14,17 +14,20 @@
 #ifndef PC_TEST_FAKEPERIODICVIDEOCAPTURER_H_
 #define PC_TEST_FAKEPERIODICVIDEOCAPTURER_H_
 
+#include <memory>
 #include <vector>
 
 #include "media/base/fakevideocapturer.h"
-#include "rtc_base/thread.h"
+#include "rtc_base/bind.h"
+#include "rtc_base/task_queue.h"
+#include "rtc_base/thread_checker.h"
 
 namespace webrtc {
 
-class FakePeriodicVideoCapturer : public cricket::FakeVideoCapturer,
-                                  public rtc::MessageHandler {
+class FakePeriodicVideoCapturer : public cricket::FakeVideoCapturer {
  public:
   FakePeriodicVideoCapturer() {
+    worker_thread_checker_.DetachFromThread();
     std::vector<cricket::VideoFormat> formats;
     formats.push_back(cricket::VideoFormat(1280, 720,
             cricket::VideoFormat::FpsToInterval(30), cricket::FOURCC_I420));
@@ -39,34 +42,68 @@ class FakePeriodicVideoCapturer : public cricket::FakeVideoCapturer,
     ResetSupportedFormats(formats);
   }
 
-  virtual cricket::CaptureState Start(const cricket::VideoFormat& format) {
-    cricket::CaptureState state = FakeVideoCapturer::Start(format);
-    if (state != cricket::CS_FAILED) {
-      rtc::Thread::Current()->Post(RTC_FROM_HERE, this, MSG_CREATEFRAME);
-    }
-    return state;
+  ~FakePeriodicVideoCapturer() override {
+    RTC_DCHECK(main_thread_checker_.CalledOnValidThread());
+    RTC_DCHECK(!task_queue_) << "Stop hasn't been called.";
   }
-  virtual void Stop() {
-    rtc::Thread::Current()->Clear(this);
-  }
-  // Inherited from MesageHandler.
-  virtual void OnMessage(rtc::Message* msg) {
-    if (msg->message_id == MSG_CREATEFRAME) {
-      if (IsRunning()) {
-        CaptureFrame();
-        rtc::Thread::Current()->PostDelayed(
-            RTC_FROM_HERE, static_cast<int>(GetCaptureFormat()->interval /
-                                            rtc::kNumNanosecsPerMillisec),
-            this, MSG_CREATEFRAME);
-        }
-    }
+
+  // Workaround method for tests to allow stopping frame delivery directly.
+  // The worker thread thread, on which Start() is called, is not accessible via
+  // OrtcFactoryInterface, nor is it injectable.
+  //
+  // WARNING: It is assumed that the caller has a way of knowing that Start()
+  // has successfully been called before calling this method and furthermore
+  // guarantees that Stop() will not be called via other means while this method
+  // is being called.
+  void StopFrameDeliveryForTesting() {
+    RTC_DCHECK(main_thread_checker_.CalledOnValidThread());
+    RTC_DCHECK(worker_thread_);
+    worker_thread_->Invoke<void>(
+        RTC_FROM_HERE, rtc::Bind(&cricket::VideoCapturer::Stop,
+                                 static_cast<cricket::VideoCapturer*>(this)));
+    RTC_DCHECK(!task_queue_) << "task_queue_ expected to have been deleted";
+    RTC_DCHECK(!worker_thread_);
   }
 
  private:
-  enum {
-    // Offset  0xFF to make sure this don't collide with base class messages.
-    MSG_CREATEFRAME = 0xFF
-  };
+  cricket::CaptureState Start(const cricket::VideoFormat& format) override {
+    RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+    RTC_DCHECK(!worker_thread_);
+    RTC_DCHECK(!task_queue_);
+    task_queue_.reset(new rtc::TaskQueue("FakePeriodicVideoCapturer"));
+    worker_thread_ = rtc::Thread::Current();
+    cricket::CaptureState state = FakeVideoCapturer::Start(format);
+    if (state != cricket::CS_FAILED) {
+      task_queue_->PostTask([this]() { DeliverFrame(); });
+    }
+    return state;
+  }
+
+  void Stop() override {
+    RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+    if (!worker_thread_)
+      return;
+
+    RTC_DCHECK_EQ(worker_thread_, rtc::Thread::Current());
+    worker_thread_ = nullptr;
+    task_queue_ = nullptr;
+  }
+
+  void DeliverFrame() {
+    RTC_DCHECK(task_queue_->IsCurrent());
+    if (IsRunning()) {
+      CaptureFrame();
+      task_queue_->PostDelayedTask(
+          [this]() { DeliverFrame(); },
+          static_cast<int>(GetCaptureFormat()->interval /
+                           rtc::kNumNanosecsPerMillisec));
+    }
+  }
+
+  rtc::ThreadChecker main_thread_checker_;
+  rtc::ThreadChecker worker_thread_checker_;
+  rtc::Thread* worker_thread_ = nullptr;
+  std::unique_ptr<rtc::TaskQueue> task_queue_;
 };
 
 }  // namespace webrtc

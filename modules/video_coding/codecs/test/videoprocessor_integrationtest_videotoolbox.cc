@@ -46,7 +46,7 @@ class VideoProcessorIntegrationTestVideoToolbox
 TEST_F(VideoProcessorIntegrationTestVideoToolbox,
        DISABLED_ForemanCif500kbpsH264CBP) {
   config_.SetCodecSettings(kVideoCodecH264, 1, 1, 1, false, false, false, false,
-                           false, 352, 288);
+                           352, 288);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kForemanNumFrames}};
 
@@ -66,7 +66,7 @@ TEST_F(VideoProcessorIntegrationTestVideoToolbox,
 
   config_.h264_codec_settings.profile = H264::kProfileConstrainedHigh;
   config_.SetCodecSettings(kVideoCodecH264, 1, 1, 1, false, false, false, false,
-                           false, 352, 288);
+                           352, 288);
 
   std::vector<RateProfile> rate_profiles = {{500, 30, kForemanNumFrames}};
 

@@ -11,6 +11,7 @@
 #include "media/base/adaptedvideotracksource.h"
 
 #include "api/video/i420_buffer.h"
+#include "rtc_base/event.h"
 
 namespace rtc {
 
@@ -21,6 +22,10 @@ AdaptedVideoTrackSource::AdaptedVideoTrackSource() {
 AdaptedVideoTrackSource::AdaptedVideoTrackSource(int required_alignment)
     : video_adapter_(required_alignment) {
   thread_checker_.DetachFromThread();
+}
+
+AdaptedVideoTrackSource::~AdaptedVideoTrackSource() {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
 }
 
 bool AdaptedVideoTrackSource::GetStats(Stats* stats) {
@@ -45,21 +50,36 @@ void AdaptedVideoTrackSource::OnFrame(const webrtc::VideoFrame& frame) {
      true was just added. The VideoBroadcaster enforces
      synchronization for us in this case, by not passing the frame on
      to sinks which don't want it. */
+  // TODO: This is just a hack for testing.
+  RTC_DCHECK(task_queue_);
+  rtc::Event done(false, false);
   if (apply_rotation() && frame.rotation() != webrtc::kVideoRotation_0 &&
       buffer->type() == webrtc::VideoFrameBuffer::Type::kI420) {
     /* Apply pending rotation. */
-    broadcaster_.OnFrame(webrtc::VideoFrame(
+    webrtc::VideoFrame rotated(
         webrtc::I420Buffer::Rotate(*buffer->GetI420(), frame.rotation()),
-        webrtc::kVideoRotation_0, frame.timestamp_us()));
+        webrtc::kVideoRotation_0, frame.timestamp_us());
+    task_queue_->PostTask([&rotated, &done, this]() {
+      broadcaster_.OnFrame(rotated);
+      done.Set();
+    });
   } else {
-    broadcaster_.OnFrame(frame);
+    task_queue_->PostTask([&frame, &done, this]() {
+      broadcaster_.OnFrame(frame);
+      done.Set();
+    });
   }
+  done.Wait(rtc::Event::kForever);
 }
 
 void AdaptedVideoTrackSource::AddOrUpdateSink(
     rtc::VideoSinkInterface<webrtc::VideoFrame>* sink,
     const rtc::VideoSinkWants& wants) {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
+
+  if (!task_queue_) {
+    task_queue_.reset(new rtc::TaskQueue("AdaptedVideoTrackSource"));
+  }
 
   broadcaster_.AddOrUpdateSink(sink, wants);
   OnSinkWantsChanged(broadcaster_.wants());

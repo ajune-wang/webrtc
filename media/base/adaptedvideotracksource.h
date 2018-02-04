@@ -11,10 +11,13 @@
 #ifndef MEDIA_BASE_ADAPTEDVIDEOTRACKSOURCE_H_
 #define MEDIA_BASE_ADAPTEDVIDEOTRACKSOURCE_H_
 
+#include <memory>
+
 #include "api/mediastreaminterface.h"
 #include "api/notifier.h"
 #include "media/base/videoadapter.h"
 #include "media/base/videobroadcaster.h"
+#include "rtc_base/task_queue.h"
 
 namespace rtc {
 
@@ -26,6 +29,7 @@ class AdaptedVideoTrackSource
     : public webrtc::Notifier<webrtc::VideoTrackSourceInterface> {
  public:
   AdaptedVideoTrackSource();
+  ~AdaptedVideoTrackSource() override;
 
  protected:
   // Allows derived classes to initialize |video_adapter_| with a custom
@@ -76,6 +80,7 @@ class AdaptedVideoTrackSource
   rtc::CriticalSection stats_crit_;
   rtc::Optional<Stats> stats_ RTC_GUARDED_BY(stats_crit_);
 
+  std::unique_ptr<rtc::TaskQueue> task_queue_;
   VideoBroadcaster broadcaster_;
 };
 

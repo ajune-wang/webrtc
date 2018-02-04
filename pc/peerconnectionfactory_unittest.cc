@@ -20,7 +20,9 @@
 #include "p2p/base/fakeportallocator.h"
 #include "pc/peerconnectionfactory.h"
 #include "pc/test/fakeaudiocapturemodule.h"
+#include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/task_queue.h"
 
 #ifdef WEBRTC_ANDROID
 #include "pc/test/androidtestinitializer.h"
@@ -126,6 +128,16 @@ class PeerConnectionFactoryTest : public testing::Test {
     }
   }
 
+  void CaptureSingleFrameOnTaskQueue(cricket::FakeVideoCapturer* capturer) {
+    rtc::Event event(false, false);
+    task_queue_.PostTask([capturer, &event]() {
+      capturer->CaptureFrame();
+      event.Set();
+    });
+    event.Wait(rtc::Event::kForever);
+  }
+
+  rtc::TaskQueue task_queue_{"PeerConnectionFactoryTest"};
   rtc::scoped_refptr<PeerConnectionFactoryInterface> factory_;
   NullPeerConnectionObserver observer_;
   std::unique_ptr<cricket::FakePortAllocator> port_allocator_;
@@ -354,17 +366,17 @@ TEST_F(PeerConnectionFactoryTest, LocalRendering) {
   FakeVideoTrackRenderer local_renderer(track);
 
   EXPECT_EQ(0, local_renderer.num_rendered_frames());
-  EXPECT_TRUE(capturer->CaptureFrame());
+  CaptureSingleFrameOnTaskQueue(capturer);
   EXPECT_EQ(1, local_renderer.num_rendered_frames());
   EXPECT_FALSE(local_renderer.black_frame());
 
   track->set_enabled(false);
-  EXPECT_TRUE(capturer->CaptureFrame());
+  CaptureSingleFrameOnTaskQueue(capturer);
   EXPECT_EQ(2, local_renderer.num_rendered_frames());
   EXPECT_TRUE(local_renderer.black_frame());
 
   track->set_enabled(true);
-  EXPECT_TRUE(capturer->CaptureFrame());
+  CaptureSingleFrameOnTaskQueue(capturer);
   EXPECT_EQ(3, local_renderer.num_rendered_frames());
   EXPECT_FALSE(local_renderer.black_frame());
 }

@@ -16,7 +16,9 @@
 #include "pc/test/fakevideotrackrenderer.h"
 #include "pc/videocapturertracksource.h"
 #include "pc/videotrack.h"
+#include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/task_queue.h"
 
 using webrtc::FakeVideoTrackRenderer;
 using webrtc::MediaSourceInterface;
@@ -39,6 +41,16 @@ class VideoTrackTest : public testing::Test {
   }
 
  protected:
+  void CaptureSingleFrame() {
+    rtc::Event event(false, false);
+    task_queue_.PostTask([this, &event]() {
+      capturer_.CaptureFrame();
+      event.Set();
+    });
+    event.Wait(rtc::Event::kForever);
+  }
+
+  rtc::TaskQueue task_queue_{"VideoTrackTest"};
   cricket::FakeVideoCapturer capturer_;
   rtc::scoped_refptr<VideoTrackSource> video_track_source_;
   rtc::scoped_refptr<VideoTrackInterface> video_track_;
@@ -58,18 +70,18 @@ TEST_F(VideoTrackTest, RenderVideo) {
   std::unique_ptr<FakeVideoTrackRenderer> renderer_1(
       new FakeVideoTrackRenderer(video_track_.get()));
 
-  capturer_.CaptureFrame();
+  CaptureSingleFrame();
   EXPECT_EQ(1, renderer_1->num_rendered_frames());
 
   // FakeVideoTrackRenderer register itself to |video_track_|
   std::unique_ptr<FakeVideoTrackRenderer> renderer_2(
       new FakeVideoTrackRenderer(video_track_.get()));
-  capturer_.CaptureFrame();
+  CaptureSingleFrame();
   EXPECT_EQ(2, renderer_1->num_rendered_frames());
   EXPECT_EQ(1, renderer_2->num_rendered_frames());
 
   renderer_1.reset(nullptr);
-  capturer_.CaptureFrame();
+  CaptureSingleFrame();
   EXPECT_EQ(2, renderer_2->num_rendered_frames());
 }
 
@@ -78,17 +90,17 @@ TEST_F(VideoTrackTest, DisableTrackBlackout) {
   std::unique_ptr<FakeVideoTrackRenderer> renderer(
       new FakeVideoTrackRenderer(video_track_.get()));
 
-  capturer_.CaptureFrame();
+  CaptureSingleFrame();
   EXPECT_EQ(1, renderer->num_rendered_frames());
   EXPECT_FALSE(renderer->black_frame());
 
   video_track_->set_enabled(false);
-  capturer_.CaptureFrame();
+  CaptureSingleFrame();
   EXPECT_EQ(2, renderer->num_rendered_frames());
   EXPECT_TRUE(renderer->black_frame());
 
   video_track_->set_enabled(true);
-  capturer_.CaptureFrame();
+  CaptureSingleFrame();
   EXPECT_EQ(3, renderer->num_rendered_frames());
   EXPECT_FALSE(renderer->black_frame());
 }

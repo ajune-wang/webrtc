@@ -15,6 +15,7 @@
 #include "api/notifier.h"
 #include "media/base/videoadapter.h"
 #include "media/base/videobroadcaster.h"
+#include "rtc_base/task_queue.h"
 
 namespace rtc {
 
@@ -76,6 +77,7 @@ class AdaptedVideoTrackSource
   rtc::CriticalSection stats_crit_;
   rtc::Optional<Stats> stats_ RTC_GUARDED_BY(stats_crit_);
 
+  rtc::TaskQueue task_queue_{"AdaptedVideoTrackSource"};
   VideoBroadcaster broadcaster_;
 };
 

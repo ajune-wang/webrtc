@@ -11,6 +11,7 @@
 #include "media/base/adaptedvideotracksource.h"
 
 #include "api/video/i420_buffer.h"
+#include "rtc_base/event.h"
 
 namespace rtc {
 
@@ -45,15 +46,25 @@ void AdaptedVideoTrackSource::OnFrame(const webrtc::VideoFrame& frame) {
      true was just added. The VideoBroadcaster enforces
      synchronization for us in this case, by not passing the frame on
      to sinks which don't want it. */
+  //TODO: This is just a hack for testing.
+  rtc::Event done(false, false);
   if (apply_rotation() && frame.rotation() != webrtc::kVideoRotation_0 &&
       buffer->type() == webrtc::VideoFrameBuffer::Type::kI420) {
     /* Apply pending rotation. */
-    broadcaster_.OnFrame(webrtc::VideoFrame(
+    webrtc::VideoFrame rotated(
         webrtc::I420Buffer::Rotate(*buffer->GetI420(), frame.rotation()),
-        webrtc::kVideoRotation_0, frame.timestamp_us()));
+        webrtc::kVideoRotation_0, frame.timestamp_us());
+    task_queue_.PostTask([&rotated, &done, this]() {
+      broadcaster_.OnFrame(rotated);
+      done.Set();
+    });
   } else {
-    broadcaster_.OnFrame(frame);
+    task_queue_.PostTask([&frame, &done, this]() {
+      broadcaster_.OnFrame(frame);
+      done.Set();
+    });
   }
+  done.Wait(rtc::Event::kForever);
 }
 
 void AdaptedVideoTrackSource::AddOrUpdateSink(

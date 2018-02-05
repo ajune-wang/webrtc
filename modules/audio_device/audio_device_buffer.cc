@@ -25,6 +25,8 @@
 
 namespace webrtc {
 
+#define AUDIO_DEVICE_PLAYS_SINUS_TONE
+
 static const char kTimerQueueName[] = "AudioDeviceBufferTimer";
 
 // Time between two sucessive calls to LogStats().
@@ -234,9 +236,13 @@ int32_t AudioDeviceBuffer::SetTypingStatus(bool typing_status) {
   return 0;
 }
 
-void AudioDeviceBuffer::NativeAudioInterrupted() {
+void AudioDeviceBuffer::NativeAudioPlayoutInterrupted() {
   RTC_DCHECK(main_thread_checker_.CalledOnValidThread());
   playout_thread_checker_.DetachFromThread();
+}
+
+void AudioDeviceBuffer::NativeAudioRecordingInterrupted() {
+  RTC_DCHECK(main_thread_checker_.CalledOnValidThread());
   recording_thread_checker_.DetachFromThread();
 }
 

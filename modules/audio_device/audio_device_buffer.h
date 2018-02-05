@@ -22,6 +22,8 @@
 
 namespace webrtc {
 
+#define AUDIO_DEVICE_PLAYS_SINUS_TONE
+
 // Delta times between two successive playout callbacks are limited to this
 // value before added to an internal array.
 const size_t kMaxDeltaTimeInMs = 500;
@@ -104,11 +106,12 @@ class AudioDeviceBuffer {
 
   int32_t SetTypingStatus(bool typing_status);
 
-  // Called on iOS where the native audio layer can be interrupted by other
-  // audio applications. This method can then be used to reset internal
-  // states and detach thread checkers to allow for a new audio session where
-  // native callbacks may come from a new set of I/O threads.
-  void NativeAudioInterrupted();
+  // Called on iOS and Android where the native audio layer can be interrupted
+  // by other audio applications. These methods can then be used to reset
+  // internal states and detach thread checkers to allow for new audio sessions
+  // where native callbacks may come from a new set of I/O threads.
+  void NativeAudioPlayoutInterrupted();
+  void NativeAudioRecordingInterrupted();
 
  private:
   // Starts/stops periodic logging of audio stats.

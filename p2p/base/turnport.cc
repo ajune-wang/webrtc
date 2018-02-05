@@ -976,15 +976,28 @@ void TurnPort::DispatchPacket(const char* data, size_t size,
   }
 }
 
-bool TurnPort::ScheduleRefresh(int lifetime) {
-  // Lifetime is in seconds; we schedule a refresh for one minute less.
+bool TurnPort::ScheduleRefresh(uint32_t lifetime) {
+  // Lifetime is in seconds, delay is in milliseconds.
+  int delay = 1 * 60 * 1000;
+
   if (lifetime < 2 * 60) {
-    LOG_J(LS_WARNING, this) << "Received response with lifetime that was "
-                            << "too short, lifetime=" << lifetime;
-    return false;
+    // The RFC does not mention a lower limit on lifetime.
+    // So if server sends a value less than 2 minutes, we schedule a refresh
+    // for half lifetime.
+    delay = (lifetime * 1000) / 2;
+    LOG_J(LS_WARNING, this) << "Received response with short lifetime="
+                            << lifetime << " seconds.";
+  } else if (lifetime > 60*60) {
+    // Make 1 hour largest delay.
+    LOG_J(LS_WARNING, this) << "Received response with long lifetime="
+                            << lifetime << " seconds.";
+    delay = 60*60 * 1000;
+  } else {
+    // Normal case,
+    // we schedule a refresh for one minute less than requested lifetime.
+    delay = (lifetime - 60) * 1000;
   }
 
-  int delay = (lifetime - 60) * 1000;
   SendRequest(new TurnRefreshRequest(this), delay);
   LOG_J(LS_INFO, this) << "Scheduled refresh in " << delay << "ms.";
   return true;

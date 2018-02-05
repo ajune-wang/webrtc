@@ -19,7 +19,7 @@ if (is_win) {
 }
 
 group("base") {
-  public_deps = [
+  deps = [
     ":rtc_base",
     ":rtc_base_approved",
     ":rtc_task_queue",
@@ -27,7 +27,7 @@ group("base") {
     ":weak_ptr",
   ]
   if (is_android) {
-    public_deps += [ ":base_java" ]
+    deps += [ ":base_java" ]
   }
 }
 
@@ -498,7 +498,7 @@ rtc_source_set("rtc_json") {
   ]
   all_dependent_configs = [ "//third_party/jsoncpp:jsoncpp_config" ]
   if (rtc_build_json) {
-    public_deps = [
+    deps = [
       "//third_party/jsoncpp",
     ]
   } else {
@@ -881,9 +881,6 @@ rtc_source_set("rtc_base_tests_utils") {
     "../test:test_support",
     "system:fallthrough",
   ]
-  public_deps = [
-    "//testing/gtest",
-  ]
 }
 
 if (rtc_include_tests) {
@@ -900,10 +897,6 @@ if (rtc_include_tests) {
       "../system_wrappers:field_trial_default",
       "../test:field_trial",
       "../test:test_support",
-    ]
-
-    public_deps = [
-      "//testing/gtest",
     ]
   }
 
@@ -1113,15 +1106,13 @@ if (rtc_include_tests) {
     }
     deps = [
       ":checks",
+      ":rtc_base",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
       ":stringutils",
       "../api:array_view",
       "../api:optional",
       "../test:test_support",
-    ]
-    public_deps = [
-      ":rtc_base",
     ]
     configs += [ ":rtc_base_unittests_config" ]
     if (build_with_chromium) {

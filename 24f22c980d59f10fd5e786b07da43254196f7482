@@ -260,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "c06c48c4_66dcfe67",
+        "filename": "media/engine/simulcast.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-05T17:36:08Z",
+      "side": 1,
+      "message": "Thanks for the catch. These are all taken out in the newest patch.",
+      "parentUuid": "df305abf_6fa1579a",
+      "range": {
+        "startLine": 54,
+        "startChar": 54,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "538628f6_36b5b1c2",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 2
@@ -375,6 +399,30 @@
       "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c302238_2a6bb283",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2629,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-05T17:36:08Z",
+      "side": 1,
+      "message": "Yes it includes temporal layering. Essentially it allows the call to GetSimulcastConfig, which sets up the screenshare specific configuration. This configuration includes temporal layering, and simulcast if the field trial is enabled and the max streams are specified to be \u003e 1.\n\nI followed how temporal layers are setup and it looks like they\u0027re always enabled in GetSimulcastConfig():\nIt looks like VP8EncoderImpl sets up temporal layers based upon VideoCodec.simulcastStream.numberOfTemporalLayers, which comes from VideoStream.temporal_layer_thresholds_bps.size() + 1. GetSimulcastConfig() always creates temporal_layer_thresholds_bps for each VideoStream it creates.\n\nIf you think this variable could use a better name let me know. I CC\u0027d you in the CL that refactors this stuff a bit:\nhttps://webrtc-review.googlesource.com/c/src/+/47580",
+      "parentUuid": "d3994a1c_3f011051",
+      "range": {
+        "startLine": 2629,
+        "startChar": 23,
+        "endLine": 2629,
+        "endChar": 0
+      },
+      "revId": "24f22c980d59f10fd5e786b07da43254196f7482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

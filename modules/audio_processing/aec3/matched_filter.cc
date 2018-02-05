@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <numeric>
 
-#include "modules/audio_processing/include/audio_processing.h"
+#include "modules/audio_processing/aec3/aec3.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/logging.h"
 

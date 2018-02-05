@@ -37,6 +37,7 @@ rtc_static_library("audio_processing") {
     "aec/echo_cancellation.h",
     "aec3/adaptive_fir_filter.cc",
     "aec3/adaptive_fir_filter.h",
+    "aec3/aec3.h",
     "aec3/aec3_common.cc",
     "aec3/aec3_common.h",
     "aec3/aec3_fft.cc",

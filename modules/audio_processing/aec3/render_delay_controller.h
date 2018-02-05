@@ -13,10 +13,10 @@
 
 #include "api/array_view.h"
 #include "api/optional.h"
+#include "modules/audio_processing/aec3/aec3.h"
 #include "modules/audio_processing/aec3/delay_estimate.h"
 #include "modules/audio_processing/aec3/downsampled_render_buffer.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
-#include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 
 namespace webrtc {

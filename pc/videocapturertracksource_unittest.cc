@@ -18,7 +18,9 @@
 #include "media/base/fakevideocapturer.h"
 #include "media/base/fakevideorenderer.h"
 #include "pc/videocapturertracksource.h"
+#include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/task_queue.h"
 
 using webrtc::FakeConstraints;
 using webrtc::VideoCapturerTrackSource;
@@ -131,6 +133,16 @@ class VideoCapturerTrackSourceTest : public testing::Test {
     source_->AddOrUpdateSink(&renderer_, rtc::VideoSinkWants());
   }
 
+  void CaptureSingleFrame() {
+    rtc::Event event(false, false);
+    task_queue_.PostTask([this, &event]() {
+      ASSERT_TRUE(capturer_->CaptureFrame());
+      event.Set();
+    });
+    event.Wait(rtc::Event::kForever);
+  }
+
+  rtc::TaskQueue task_queue_{"VideoCapturerTrackSourceTest"};
   std::unique_ptr<cricket::VideoCapturer> capturer_cleanup_;
   TestVideoCapturer* capturer_;
   cricket::FakeVideoRenderer renderer_;
@@ -147,7 +159,7 @@ TEST_F(VideoCapturerTrackSourceTest, CapturerStartStop) {
   EXPECT_EQ_WAIT(MediaSourceInterface::kLive, state_observer_->state(),
                  kMaxWaitMs);
 
-  ASSERT_TRUE(capturer_->CaptureFrame());
+  CaptureSingleFrame();
   EXPECT_EQ(1, renderer_.num_rendered_frames());
 
   capturer_->Stop();

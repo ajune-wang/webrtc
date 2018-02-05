@@ -21,7 +21,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/thread.h"
 
-using cricket::FakeVideoCapturer;
+using cricket::FakeVideoCapturerWithTaskQueue;
 
 namespace {
 
@@ -42,8 +42,8 @@ class VideoCapturerTest
 
  protected:
   void InitCapturer(bool is_screencast) {
-    capturer_ = std::unique_ptr<FakeVideoCapturer>(
-        new FakeVideoCapturer(is_screencast));
+    capturer_ = std::unique_ptr<FakeVideoCapturerWithTaskQueue>(
+        new FakeVideoCapturerWithTaskQueue(is_screencast));
     capturer_->SignalStateChange.connect(this,
                                          &VideoCapturerTest::OnStateChange);
     capturer_->AddOrUpdateSink(&renderer_, rtc::VideoSinkWants());
@@ -58,7 +58,7 @@ class VideoCapturerTest
   cricket::CaptureState capture_state() { return capture_state_; }
   int num_state_changes() { return num_state_changes_; }
 
-  std::unique_ptr<cricket::FakeVideoCapturer> capturer_;
+  std::unique_ptr<FakeVideoCapturerWithTaskQueue> capturer_;
   cricket::CaptureState capture_state_;
   int num_state_changes_;
   cricket::FakeVideoRenderer renderer_;
@@ -101,7 +101,7 @@ TEST_F(VideoCapturerTest, ScreencastScaledOddWidth) {
                 cricket::FOURCC_I420)));
   EXPECT_TRUE(capturer_->IsRunning());
   EXPECT_EQ(0, renderer_.num_rendered_frames());
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(1, renderer_.num_rendered_frames());
   EXPECT_EQ(kWidth, renderer_.width());
   EXPECT_EQ(kHeight, renderer_.height());
@@ -136,7 +136,7 @@ TEST_F(VideoCapturerTest, TestRotationAppliedBySource) {
   // such that the frame could be rendered.
 
   capturer_->SetRotation(webrtc::kVideoRotation_90);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   // Swapped width and height
   EXPECT_EQ(kWidth, renderer_.height());
@@ -144,7 +144,7 @@ TEST_F(VideoCapturerTest, TestRotationAppliedBySource) {
   EXPECT_EQ(webrtc::kVideoRotation_0, renderer_.rotation());
 
   capturer_->SetRotation(webrtc::kVideoRotation_270);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   // Swapped width and height
   EXPECT_EQ(kWidth, renderer_.height());
@@ -152,7 +152,7 @@ TEST_F(VideoCapturerTest, TestRotationAppliedBySource) {
   EXPECT_EQ(webrtc::kVideoRotation_0, renderer_.rotation());
 
   capturer_->SetRotation(webrtc::kVideoRotation_180);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   // Back to normal width and height
   EXPECT_EQ(kWidth, renderer_.width());
@@ -185,22 +185,22 @@ TEST_F(VideoCapturerTest, TestRotationAppliedBySinkByDefault) {
 
   int frame_count = 0;
   capturer_->SetRotation(webrtc::kVideoRotation_0);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   EXPECT_EQ(capturer_->GetRotation(), renderer_.rotation());
 
   capturer_->SetRotation(webrtc::kVideoRotation_90);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   EXPECT_EQ(capturer_->GetRotation(), renderer_.rotation());
 
   capturer_->SetRotation(webrtc::kVideoRotation_180);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   EXPECT_EQ(capturer_->GetRotation(), renderer_.rotation());
 
   capturer_->SetRotation(webrtc::kVideoRotation_270);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   EXPECT_EQ(capturer_->GetRotation(), renderer_.rotation());
 }
@@ -229,7 +229,7 @@ TEST_F(VideoCapturerTest, TestRotationAppliedBySourceWhenDifferentWants) {
 
   int frame_count = 0;
   capturer_->SetRotation(webrtc::kVideoRotation_90);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   EXPECT_EQ(capturer_->GetRotation(), renderer_.rotation());
 
@@ -238,7 +238,7 @@ TEST_F(VideoCapturerTest, TestRotationAppliedBySourceWhenDifferentWants) {
   wants.rotation_applied = true;
   capturer_->AddOrUpdateSink(&renderer2, wants);
 
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(++frame_count, renderer_.num_rendered_frames());
   EXPECT_EQ(1, renderer2.num_rendered_frames());
   EXPECT_EQ(webrtc::kVideoRotation_0, renderer_.rotation());
@@ -257,7 +257,7 @@ TEST_F(VideoCapturerTest, SinkWantsMaxPixelAndMaxPixelCountStepUp) {
   EXPECT_TRUE(capturer_->IsRunning());
 
   EXPECT_EQ(0, renderer_.num_rendered_frames());
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(1, renderer_.num_rendered_frames());
   EXPECT_EQ(1280, renderer_.width());
   EXPECT_EQ(720, renderer_.height());
@@ -268,7 +268,7 @@ TEST_F(VideoCapturerTest, SinkWantsMaxPixelAndMaxPixelCountStepUp) {
   rtc::VideoSinkWants wants;
   wants.max_pixel_count = 1280 * 720 * 3 / 5;
   capturer_->AddOrUpdateSink(&renderer_, wants);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(2, renderer_.num_rendered_frames());
   EXPECT_EQ(960, renderer_.width());
   EXPECT_EQ(540, renderer_.height());
@@ -276,7 +276,7 @@ TEST_F(VideoCapturerTest, SinkWantsMaxPixelAndMaxPixelCountStepUp) {
   // Request a lower resolution.
   wants.max_pixel_count = (renderer_.width() * renderer_.height() * 3) / 5;
   capturer_->AddOrUpdateSink(&renderer_, wants);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(3, renderer_.num_rendered_frames());
   EXPECT_EQ(640, renderer_.width());
   EXPECT_EQ(360, renderer_.height());
@@ -284,7 +284,7 @@ TEST_F(VideoCapturerTest, SinkWantsMaxPixelAndMaxPixelCountStepUp) {
   // Adding a new renderer should not affect resolution.
   cricket::FakeVideoRenderer renderer2;
   capturer_->AddOrUpdateSink(&renderer2, rtc::VideoSinkWants());
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(4, renderer_.num_rendered_frames());
   EXPECT_EQ(640, renderer_.width());
   EXPECT_EQ(360, renderer_.height());
@@ -296,7 +296,7 @@ TEST_F(VideoCapturerTest, SinkWantsMaxPixelAndMaxPixelCountStepUp) {
   wants.target_pixel_count.emplace((wants.max_pixel_count * 5) / 3);
   wants.max_pixel_count = wants.max_pixel_count * 4;
   capturer_->AddOrUpdateSink(&renderer_, wants);
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(5, renderer_.num_rendered_frames());
   EXPECT_EQ(960, renderer_.width());
   EXPECT_EQ(540, renderer_.height());
@@ -306,7 +306,7 @@ TEST_F(VideoCapturerTest, SinkWantsMaxPixelAndMaxPixelCountStepUp) {
 
   // Updating with no wants should not affect resolution.
   capturer_->AddOrUpdateSink(&renderer2, rtc::VideoSinkWants());
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(6, renderer_.num_rendered_frames());
   EXPECT_EQ(960, renderer_.width());
   EXPECT_EQ(540, renderer_.height());
@@ -317,7 +317,7 @@ TEST_F(VideoCapturerTest, SinkWantsMaxPixelAndMaxPixelCountStepUp) {
   // But resetting the wants should reset the resolution to what the camera is
   // opened with.
   capturer_->AddOrUpdateSink(&renderer_, rtc::VideoSinkWants());
-  EXPECT_TRUE(capturer_->CaptureFrame());
+  EXPECT_TRUE(capturer_->CaptureSingleFrame());
   EXPECT_EQ(7, renderer_.num_rendered_frames());
   EXPECT_EQ(1280, renderer_.width());
   EXPECT_EQ(720, renderer_.height());

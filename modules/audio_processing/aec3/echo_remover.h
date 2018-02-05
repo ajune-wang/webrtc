@@ -15,8 +15,8 @@
 
 #include "api/optional.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
+#include "modules/audio_processing/aec3/include/aec3.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
-#include "modules/audio_processing/include/audio_processing.h"
 
 namespace webrtc {
 

@@ -12,8 +12,8 @@
 
 #include "modules/audio_processing/aec3/aec3_fft.h"
 #include "modules/audio_processing/aec3/aec_state.h"
+#include "modules/audio_processing/aec3/include/aec3.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
-#include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"
 #include "rtc_base/random.h"
 #include "test/gtest.h"

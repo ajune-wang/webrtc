@@ -77,6 +77,7 @@ rtc_static_library("audio_processing") {
     "aec3/fft_data.h",
     "aec3/frame_blocker.cc",
     "aec3/frame_blocker.h",
+    "aec3/include/aec3.h",
     "aec3/main_filter_update_gain.cc",
     "aec3/main_filter_update_gain.h",
     "aec3/matched_filter.cc",

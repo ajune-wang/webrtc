@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "api/videosourceproxy.h"
+#include "rtc_base/event.h"
 #include "rtc_base/logging.h"
 #include "sdk/android/generated_video_jni/jni/AndroidVideoTrackSourceObserver_jni.h"
 #include "sdk/android/generated_video_jni/jni/VideoSource_jni.h"
@@ -58,6 +59,13 @@ void AndroidVideoTrackSource::SetState(SourceState state) {
         RTC_FROM_HERE, signaling_thread_,
         rtc::Bind(&AndroidVideoTrackSource::SetState, this, state));
     return;
+  }
+
+  if (state == AndroidVideoTrackSource::SourceState::kLive) {
+    if (!task_queue_)
+      task_queue_.reset(new rtc::TaskQueue("AndroidVideoTrackSource"));
+  } else if (state == AndroidVideoTrackSource::SourceState::kEnded) {
+    task_queue_.reset();
   }
 
   if (state_ != state) {
@@ -211,6 +219,18 @@ void AndroidVideoTrackSource::OnOutputFormatRequest(int width,
   cricket::VideoFormat format(width, height,
                               cricket::VideoFormat::FpsToInterval(fps), 0);
   video_adapter()->OnOutputFormatRequest(format);
+}
+
+void AndroidVideoTrackSource::OnFrame(const webrtc::VideoFrame& frame) {
+  if (!task_queue_)
+    return;
+
+  rtc::Event done(false, false);
+  task_queue_->PostTask([&frame, &done, this]() {
+    rtc::AdaptedVideoTrackSource::OnFrame(frame);
+    done.Set();
+  });
+  done.Wait(rtc::Event::kForever);
 }
 
 static void JNI_AndroidVideoTrackSourceObserver_OnByteBufferFrameCaptured(

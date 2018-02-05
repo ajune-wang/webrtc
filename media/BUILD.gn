@@ -127,6 +127,7 @@ rtc_static_library("rtc_media_base") {
     "../modules/audio_processing:audio_processing_statistics",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_task_queue_api",
     "../system_wrappers:field_trial_api",
   ]
 

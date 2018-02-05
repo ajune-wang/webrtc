@@ -15,6 +15,7 @@
 #include "api/video/i420_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/task_queue.h"
 
 namespace rtc {
 
@@ -52,6 +53,8 @@ VideoSinkWants VideoBroadcaster::wants() const {
 }
 
 void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
+  RTC_DCHECK(!rtc::TaskQueue::Current());
+
   rtc::CritScope cs(&sinks_and_wants_lock_);
   for (auto& sink_pair : sink_pairs()) {
     if (sink_pair.wants.rotation_applied &&

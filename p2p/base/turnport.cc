@@ -10,6 +10,10 @@
 
 #include "p2p/base/turnport.h"
 
+#if defined(WEBRTC_POSIX)
+#include <string.h>
+#endif
+
 #include <algorithm>
 #include <functional>
 #include <utility>
@@ -592,6 +596,13 @@ int TurnPort::SendTo(const void* data, size_t size,
   // Send the actual contents to the server using the usual mechanism.
   int sent = entry->Send(data, size, payload, options);
   if (sent <= 0) {
+    error_ = socket_->GetError();
+    LOG_J(LS_ERROR, this) << "Send of " << size << " bytes failed with error "
+                          << error_
+#ifdef WEBRTC_POSIX
+                          << " (" << strerror(error_) << ")";
+#endif
+    ;
     return SOCKET_ERROR;
   }
 

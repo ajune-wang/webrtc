@@ -66,6 +66,10 @@
 
 #include "p2p/base/tcpport.h"
 
+#if defined(WEBRTC_POSIX)
+#include <string.h>
+#endif
+
 #include <vector>
 
 #include "p2p/base/common.h"
@@ -223,7 +227,11 @@ int TCPPort::SendTo(const void* data, size_t size,
     // socket) will not trigger reconnecting. In theory, this shouldn't matter
     // as OnClose should always be called and set connected to false.
     LOG_J(LS_ERROR, this) << "TCP send of " << size
-                          << " bytes failed with error " << error_;
+                          << " bytes failed with error " << error_
+#ifdef WEBRTC_POSIX
+                          << " (" << strerror(error_) << ")";
+#endif
+    ;
   }
   return sent;
 }

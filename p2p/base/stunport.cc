@@ -10,6 +10,10 @@
 
 #include "p2p/base/stunport.h"
 
+#if defined(WEBRTC_POSIX)
+#include <string.h>
+#endif
+
 #include <utility>
 #include <vector>
 
@@ -277,7 +281,11 @@ int UDPPort::SendTo(const void* data, size_t size,
   if (sent < 0) {
     error_ = socket_->GetError();
     LOG_J(LS_ERROR, this) << "UDP send of " << size
-                          << " bytes failed with error " << error_;
+                          << " bytes failed with error " << error_
+#ifdef WEBRTC_POSIX
+                          << " (" << strerror(error_) << ")";
+#endif
+    ;
   }
   return sent;
 }

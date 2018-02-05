@@ -77,6 +77,7 @@ class OrtcFactoryIntegrationTest : public testing::Test {
     // Sockets are bound to the ANY address, so this is needed to tell the
     // virtual network which address to use in this case.
     virtual_socket_server_.SetDefaultRoute(kIPv4LocalHostAddress);
+    network_thread_.SetName("TestNetworkThread", this);
     network_thread_.Start();
     // Need to create after network thread is started.
     ortc_factory1_ =
@@ -228,6 +229,11 @@ class OrtcFactoryIntegrationTest : public testing::Test {
             std::unique_ptr<cricket::VideoCapturer>(fake_capturer));
     return rtc::scoped_refptr<webrtc::VideoTrackInterface>(
         ortc_factory->CreateVideoTrack(id, source));
+  }
+
+  // Synchronously stops a video capturer from the worker thread.
+  void StopFakeCapturer(FakePeriodicVideoCapturer* capturer) {
+    capturer->StopFrameDeliveryForTesting();
   }
 
   // Helper function used to test two way RTP senders and receivers with basic
@@ -462,7 +468,8 @@ TEST_F(OrtcFactoryIntegrationTest, SetTrackWhileSending) {
   // Stop the old capturer, set a new track, and verify new frames are received
   // from the new track. Stopping the old capturer ensures that we aren't
   // actually still getting frames from it.
-  fake_video_capturers_[0]->Stop();
+  StopFakeCapturer(
+      static_cast<FakePeriodicVideoCapturer*>(fake_video_capturers_[0]));
   int prev_num_frames = fake_renderer.num_rendered_frames();
   error = sender->SetTrack(
       CreateLocalVideoTrackAndFakeCapturer("video_2", ortc_factory1_.get()));

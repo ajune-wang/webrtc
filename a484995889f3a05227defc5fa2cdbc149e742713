@@ -1,0 +1,878 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c677b62_8d7791d9",
+        "filename": "modules/congestion_controller/bbr/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "003c303a_cbd859ba",
+        "filename": "modules/congestion_controller/bbr/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7308d7fd_68c09444",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "If they have different headers, maybe they should have different .cc files too?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 66
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d5105f0_01eb99d1",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of the FLAGS prefix? This makes me think of the FLAG_ which is automatically added to command line flags.",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2897a6bd_55e21e57",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Remove if not used?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b16facd3_6b13d915",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Remove if you are using the _ms version below?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 60
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4926009_b15f937c",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "I don\u0027t understand these.",
+      "range": {
+        "startLine": 111,
+        "startChar": 48,
+        "endLine": 111,
+        "endChar": 61
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d64ef68a_29fc4179",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "If you want to list other good values, please give some indication of when they are good.",
+      "range": {
+        "startLine": 113,
+        "startChar": 48,
+        "endLine": 113,
+        "endChar": 58
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c623214_c94648a0",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Do you use comma or semicolon to separate alternate value?",
+      "range": {
+        "startLine": 119,
+        "startChar": 51,
+        "endLine": 119,
+        "endChar": 54
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3078c6dd_0224292f",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t make it clearer to me.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 59
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "668d074f_46f40cc3",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Are we using the TimeDelta version or the int64_t version?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 66
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b687d6f_a8517e95",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "This CL is still based on your sigslot-like framework? Will this be rebased, or will the framewrk land first?",
+      "range": {
+        "startLine": 254,
+        "startChar": 2,
+        "endLine": 254,
+        "endChar": 26
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c275cfe2_9140672b",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Why is this line commented out? If we\u0027re given a starting rate, shouldn\u0027t we use it?",
+      "range": {
+        "startLine": 271,
+        "startChar": 7,
+        "endLine": 271,
+        "endChar": 25
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f90cef_3f0f12c3",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "I\u0027d prefer explicit types.",
+      "range": {
+        "startLine": 273,
+        "startChar": 2,
+        "endLine": 273,
+        "endChar": 6
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cea001b7_8671adbe",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Is this ever used for anything? It seems like it is never printed.",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 44
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e26c9776_56e6ffeb",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 310,
+        "startChar": 50,
+        "endLine": 310,
+        "endChar": 56
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe07a135_f0d40aad",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 319,
+        "startChar": 48,
+        "endLine": 319,
+        "endChar": 52
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc0e231_a8053c05",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with the exiting_quiescence_ state. Is this something we want?",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 4
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd0aa50_3f84772e",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "I\u0027d prefer explicit types in most cases unless there is a lot of boilerplate in the typename.",
+      "range": {
+        "startLine": 428,
+        "startChar": 2,
+        "endLine": 428,
+        "endChar": 6
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c8f5a8_fe151f8a",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "nit: Start with capital letter unless variable name.\nnit: We usually capitalize RTT in comments (but not in variable names).",
+      "range": {
+        "startLine": 458,
+        "startChar": 7,
+        "endLine": 458,
+        "endChar": 10
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "711d95d0_a1514a83",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 459,
+        "startChar": 19,
+        "endLine": 459,
+        "endChar": 23
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "741c0ade_9a2b56a3",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "You can use random_.Rand(t) to get an uniformly selected number in the range [0,t].",
+      "range": {
+        "startLine": 543,
+        "startChar": 26,
+        "endLine": 543,
+        "endChar": 75
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16412261_68d136be",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "This",
+      "range": {
+        "startLine": 565,
+        "startChar": 11,
+        "endLine": 565,
+        "endChar": 15
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "987c5010_0da03fe9",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Could you clarify please.",
+      "range": {
+        "startLine": 601,
+        "startChar": 48,
+        "endLine": 602,
+        "endChar": 75
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75dd0183_edc8255c",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "less than 1.125 * current min_rtt?",
+      "range": {
+        "startLine": 635,
+        "startChar": 45,
+        "endLine": 635,
+        "endChar": 65
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5e6e86c_b1812e3b",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "I\u0027d prefer an explicit type. Also, should it be named _ms?",
+      "range": {
+        "startLine": 701,
+        "startChar": 2,
+        "endLine": 701,
+        "endChar": 6
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f621710a_748a23f3",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Remove/reassign TODO?",
+      "range": {
+        "startLine": 804,
+        "startChar": 0,
+        "endLine": 804,
+        "endChar": 57
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "146267bb_5df4f320",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 115,
+        "startChar": 75,
+        "endLine": 115,
+        "endChar": 78
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "472287ac_a1314c31",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "I don\u0027t understand this comment.",
+      "range": {
+        "startLine": 137,
+        "startChar": 5,
+        "endLine": 137,
+        "endChar": 30
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68b4dd3f_22f70b4a",
+        "filename": "modules/congestion_controller/bbr/data_rate_calculator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Could the names bemade more clear? window_start/window_end? Maybe a comment in the header file?",
+      "range": {
+        "startLine": 43,
+        "startChar": 14,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b816c7a_62d8493e",
+        "filename": "modules/congestion_controller/bbr/data_rate_calculator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "Is this supposed to be the last packet in the window?",
+      "range": {
+        "startLine": 47,
+        "startChar": 16,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bf9d9c3_38d97719",
+        "filename": "modules/congestion_controller/bbr/data_rate_calculator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "In the typical case where all samples are ordered and the window is non-empty, won\u0027t this always increment to the last sample in samples_?",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 45
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e11f3bf4_67360737",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "2018? If file borrowed from Chromium, please add a comment to that effect.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e705c9f_9426be20",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "2018? If file borrowed from Chromium, please add a comment to that effect.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaaaed3b_3d1946a0",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "RTT",
+      "range": {
+        "startLine": 10,
+        "startChar": 32,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56bab474_9e890f2b",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "RTT",
+      "range": {
+        "startLine": 38,
+        "startChar": 41,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b361a937_5316a430",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "RTT",
+      "range": {
+        "startLine": 59,
+        "startChar": 21,
+        "endLine": 59,
+        "endChar": 24
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f83a69e2_7a80e881",
+        "filename": "modules/congestion_controller/bbr/windowed_filter.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-06T16:10:36Z",
+      "side": 1,
+      "message": "2018? If file borrowed from Chromium, please add a comment to that effect.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -12,6 +12,7 @@
 
 #include <utility>
 
+#include "api/fec_controller.h"
 #include "api/mediaconstraintsinterface.h"
 #include "api/mediastreamproxy.h"
 #include "api/mediastreamtrackproxy.h"
@@ -52,11 +53,25 @@ CreateModularPeerConnectionFactory(
     std::unique_ptr<cricket::MediaEngineInterface> media_engine,
     std::unique_ptr<CallFactoryInterface> call_factory,
     std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory) {
+  return CreateModularPeerConnectionFactory(
+      network_thread, worker_thread, signaling_thread, std::move(media_engine),
+      std::move(call_factory), std::move(event_log_factory), nullptr);
+}
+
+rtc::scoped_refptr<PeerConnectionFactoryInterface>
+CreateModularPeerConnectionFactory(
+    rtc::Thread* network_thread,
+    rtc::Thread* worker_thread,
+    rtc::Thread* signaling_thread,
+    std::unique_ptr<cricket::MediaEngineInterface> media_engine,
+    std::unique_ptr<CallFactoryInterface> call_factory,
+    std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
+    std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory) {
   rtc::scoped_refptr<PeerConnectionFactory> pc_factory(
       new rtc::RefCountedObject<PeerConnectionFactory>(
           network_thread, worker_thread, signaling_thread,
           std::move(media_engine), std::move(call_factory),
-          std::move(event_log_factory)));
+          std::move(event_log_factory), std::move(fec_controller_factory)));
 
   // Call Initialize synchronously but make sure it is executed on
   // |signaling_thread|.
@@ -85,6 +100,51 @@ PeerConnectionFactory::PeerConnectionFactory(
       media_engine_(std::move(media_engine)),
       call_factory_(std::move(call_factory)),
       event_log_factory_(std::move(event_log_factory)) {
+  if (!network_thread_) {
+    owned_network_thread_ = rtc::Thread::CreateWithSocketServer();
+    owned_network_thread_->SetName("pc_network_thread", nullptr);
+    owned_network_thread_->Start();
+    network_thread_ = owned_network_thread_.get();
+  }
+
+  if (!worker_thread_) {
+    owned_worker_thread_ = rtc::Thread::Create();
+    owned_worker_thread_->SetName("pc_worker_thread", nullptr);
+    owned_worker_thread_->Start();
+    worker_thread_ = owned_worker_thread_.get();
+  }
+
+  if (!signaling_thread_) {
+    signaling_thread_ = rtc::Thread::Current();
+    if (!signaling_thread_) {
+      // If this thread isn't already wrapped by an rtc::Thread, create a
+      // wrapper and own it in this class.
+      signaling_thread_ = rtc::ThreadManager::Instance()->WrapCurrentThread();
+      wraps_current_thread_ = true;
+    }
+  }
+
+  // TODO(deadbeef): Currently there is no way to create an external adm in
+  // libjingle source tree. So we can 't currently assert if this is NULL.
+  // RTC_DCHECK(default_adm != NULL);
+}
+
+PeerConnectionFactory::PeerConnectionFactory(
+    rtc::Thread* network_thread,
+    rtc::Thread* worker_thread,
+    rtc::Thread* signaling_thread,
+    std::unique_ptr<cricket::MediaEngineInterface> media_engine,
+    std::unique_ptr<webrtc::CallFactoryInterface> call_factory,
+    std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
+    std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory)
+    : wraps_current_thread_(false),
+      network_thread_(network_thread),
+      worker_thread_(worker_thread),
+      signaling_thread_(signaling_thread),
+      media_engine_(std::move(media_engine)),
+      call_factory_(std::move(call_factory)),
+      event_log_factory_(std::move(event_log_factory)),
+      fec_controller_factory_(std::move(fec_controller_factory)) {
   if (!network_thread_) {
     owned_network_thread_ = rtc::Thread::CreateWithSocketServer();
     owned_network_thread_->SetName("pc_network_thread", nullptr);
@@ -355,7 +415,8 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   call_config.bitrate_config.start_bitrate_bps = kStartBandwidthBps;
   call_config.bitrate_config.max_bitrate_bps = kMaxBandwidthBps;
 
-  return std::unique_ptr<Call>(call_factory_->CreateCall(call_config));
+  return std::unique_ptr<Call>(
+      call_factory_->CreateCall(call_config, fec_controller_factory_.get()));
 }
 
 }  // namespace webrtc

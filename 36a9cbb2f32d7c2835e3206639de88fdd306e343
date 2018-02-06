@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c68c940_d79cc56f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-06T10:34:49Z",
+      "side": 1,
+      "message": "isn\u0027t it overkill for a local variable with short live time?\nfor local consistency (almost none local variables in this function have const, even though none of them are mutated) prefer not to add const here.",
+      "parentUuid": "b4c7311c_c32a5260",
+      "range": {
+        "startLine": 502,
+        "startChar": 8,
+        "endLine": 502,
+        "endChar": 14
+      },
+      "revId": "36a9cbb2f32d7c2835e3206639de88fdd306e343",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7640b93_6d1d3615",
         "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "36a9cbb2f32d7c2835e3206639de88fdd306e343",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a31961ba_a4beec7d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-06T10:34:49Z",
+      "side": 1,
+      "message": "a bit unrelated to main change, but I noticed that both length and extension_entries_[idx].length are uint8_t\ncasting to uint16_t then back doesn\u0027t make sense.",
+      "parentUuid": "e7640b93_6d1d3615",
+      "range": {
+        "startLine": 509,
+        "startChar": 41,
+        "endLine": 509,
+        "endChar": 47
+      },
+      "revId": "36a9cbb2f32d7c2835e3206639de88fdd306e343",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

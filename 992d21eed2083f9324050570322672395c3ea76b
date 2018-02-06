@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "516b477e_4a306eca",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2018-02-06T21:39:05Z",
+      "side": 1,
+      "message": "Aha, that\u0027s unfortunate, though it seems that in principle we should fix both of those platforms not to define it?",
+      "parentUuid": "60271777_247adf11",
+      "range": {
+        "startLine": 300,
+        "startChar": 36,
+        "endLine": 300,
+        "endChar": 59
+      },
+      "revId": "992d21eed2083f9324050570322672395c3ea76b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85d4718e_b2a2d6b4",
         "filename": "rtc_base/stream.cc",
         "patchSetId": 2
@@ -69,6 +93,30 @@
       "revId": "992d21eed2083f9324050570322672395c3ea76b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55cbe3c6_f15ab7c6",
+        "filename": "rtc_base/stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2018-02-06T21:39:05Z",
+      "side": 1,
+      "message": "Well spotted; will give that a try.",
+      "parentUuid": "85d4718e_b2a2d6b4",
+      "range": {
+        "startLine": 486,
+        "startChar": 17,
+        "endLine": 486,
+        "endChar": 26
+      },
+      "revId": "992d21eed2083f9324050570322672395c3ea76b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

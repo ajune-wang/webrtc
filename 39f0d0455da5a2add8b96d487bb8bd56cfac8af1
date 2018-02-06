@@ -16,6 +16,24 @@
       "revId": "39f0d0455da5a2add8b96d487bb8bd56cfac8af1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb54d88_7c00f853",
+        "filename": "ortc/ortcfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-06T07:49:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf3253b8_b9855cac",
+      "revId": "39f0d0455da5a2add8b96d487bb8bd56cfac8af1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

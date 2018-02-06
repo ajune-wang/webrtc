@@ -45,7 +45,11 @@ import org.appspot.apprtc.PeerConnectionClient.PeerConnectionParameters;
 import org.webrtc.Camera1Enumerator;
 import org.webrtc.Camera2Enumerator;
 import org.webrtc.CameraEnumerator;
+import org.webrtc.EglBase;
 import org.webrtc.FileVideoCapturer;
+import org.webrtc.GlBlurDrawer;
+import org.webrtc.GlCompositeDrawer;
+import org.webrtc.GlRectDrawer;
 import org.webrtc.IceCandidate;
 import org.webrtc.Logging;
 import org.webrtc.PeerConnectionFactory;
@@ -262,12 +266,13 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
             "Failed to open video file for output: " + saveRemoteVideoToFile, e);
       }
     }
-    fullscreenRenderer.init(peerConnectionClient.getRenderContext(), null);
+    fullscreenRenderer.init(peerConnectionClient.getRenderContext(), null, EglBase.CONFIG_PLAIN,
+            new GlCompositeDrawer(new GlBlurDrawer(), new GlRectDrawer()), true);
     fullscreenRenderer.setScalingType(ScalingType.SCALE_ASPECT_FILL);
 
     pipRenderer.setZOrderMediaOverlay(true);
     pipRenderer.setEnableHardwareScaler(true /* enabled */);
-    fullscreenRenderer.setEnableHardwareScaler(true /* enabled */);
+    fullscreenRenderer.setEnableHardwareScaler(false /* enabled */);
     // Start with local feed in fullscreen and swap it to the pip when the call is connected.
     setSwappedFeeds(true /* isSwappedFeeds */);
 

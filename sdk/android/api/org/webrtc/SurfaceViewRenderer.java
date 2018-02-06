@@ -36,6 +36,7 @@ public class SurfaceViewRenderer extends SurfaceView implements SurfaceHolder.Ca
   private RendererCommon.RendererEvents rendererEvents;
 
   // Accessed only on the main thread.
+  private boolean alwaysFullscreen;
   private int rotatedFrameWidth;
   private int rotatedFrameHeight;
   private boolean enableFixedSize;
@@ -81,8 +82,21 @@ public class SurfaceViewRenderer extends SurfaceView implements SurfaceHolder.Ca
   public void init(final EglBase.Context sharedContext,
       RendererCommon.RendererEvents rendererEvents, final int[] configAttributes,
       RendererCommon.GlDrawer drawer) {
+    init(sharedContext, rendererEvents, configAttributes, drawer, false);
+  }
+
+  /**
+   * Initialize this class, sharing resources with |sharedContext|. The custom |drawer| will be used
+   * for drawing frames on the EGLSurface. This class is responsible for calling release() on
+   * |drawer|. It is allowed to call init() to reinitialize the renderer after a previous
+   * init()/release() cycle.
+   */
+  public void init(final EglBase.Context sharedContext,
+      RendererCommon.RendererEvents rendererEvents, final int[] configAttributes,
+      RendererCommon.GlDrawer drawer, boolean alwaysFullscreen) {
     ThreadUtils.checkIsOnMainThread();
     this.rendererEvents = rendererEvents;
+    this.alwaysFullscreen = alwaysFullscreen;
     rotatedFrameWidth = 0;
     rotatedFrameHeight = 0;
     eglRenderer.init(sharedContext, this /* rendererEvents */, configAttributes, drawer);
@@ -205,7 +219,9 @@ public class SurfaceViewRenderer extends SurfaceView implements SurfaceHolder.Ca
   @Override
   protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
     ThreadUtils.checkIsOnMainThread();
-    eglRenderer.setLayoutAspectRatio((right - left) / (float) (bottom - top));
+    if (!alwaysFullscreen) {
+      eglRenderer.setLayoutAspectRatio((right - left) / (float) (bottom - top));
+    }
     updateSurfaceSize();
   }
 

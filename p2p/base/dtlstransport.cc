@@ -137,6 +137,32 @@ DtlsTransport::DtlsTransport(IceTransportInternal* ice_transport,
       this, &DtlsTransport::OnNetworkRouteChanged);
 }
 
+DtlsTransport::DtlsTransport(
+    std::unique_ptr<IceTransportInternal> ice_transport,
+    const rtc::CryptoOptions& crypto_options)
+    : transport_name_(ice_transport->transport_name()),
+      component_(ice_transport->component()),
+      network_thread_(rtc::Thread::Current()),
+      ice_transport_(ice_transport.get()),
+      owned_ice_transport_(std::move(ice_transport)),
+      downward_(NULL),
+      srtp_ciphers_(GetSupportedDtlsSrtpCryptoSuites(crypto_options)),
+      ssl_role_(rtc::SSL_CLIENT),
+      ssl_max_version_(rtc::SSL_PROTOCOL_DTLS_12),
+      crypto_options_(crypto_options) {
+  RTC_DCHECK(owned_ice_transport_);
+  ice_transport_->SignalWritableState.connect(this,
+                                              &DtlsTransport::OnWritableState);
+  ice_transport_->SignalReadPacket.connect(this, &DtlsTransport::OnReadPacket);
+  ice_transport_->SignalSentPacket.connect(this, &DtlsTransport::OnSentPacket);
+  ice_transport_->SignalReadyToSend.connect(this,
+                                            &DtlsTransport::OnReadyToSend);
+  ice_transport_->SignalReceivingState.connect(
+      this, &DtlsTransport::OnReceivingState);
+  ice_transport_->SignalNetworkRouteChanged.connect(
+      this, &DtlsTransport::OnNetworkRouteChanged);
+}
+
 DtlsTransport::~DtlsTransport() = default;
 
 const rtc::CryptoOptions& DtlsTransport::crypto_options() const {

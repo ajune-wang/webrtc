@@ -55,6 +55,8 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     return transport_->IsWritable(rtcp);
   }
 
+  bool IsReadyToSend() const override { return transport_->IsReadyToSend(); }
+
   bool SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
                      const rtc::PacketOptions& options,
                      int flags) override {
@@ -65,14 +67,6 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
                       const rtc::PacketOptions& options,
                       int flags) override {
     return transport_->SendRtcpPacket(packet, options, flags);
-  }
-
-  bool HandlesPayloadType(int payload_type) const override {
-    return transport_->HandlesPayloadType(payload_type);
-  }
-
-  void AddHandledPayloadType(int payload_type) override {
-    return transport_->AddHandledPayloadType(payload_type);
   }
 
   // RtpTransportInterface overrides.

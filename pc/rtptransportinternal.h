@@ -69,6 +69,8 @@ class RtpTransportInternal : public RtpTransportInterface,
 
   virtual bool IsWritable(bool rtcp) const = 0;
 
+  virtual bool IsReadyToSend() const = 0;
+
   // TODO(zhihuang): Pass the |packet| by copy so that the original data
   // wouldn't be modified.
   virtual bool SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
@@ -79,9 +81,7 @@ class RtpTransportInternal : public RtpTransportInterface,
                               const rtc::PacketOptions& options,
                               int flags) = 0;
 
-  virtual bool HandlesPayloadType(int payload_type) const = 0;
-
-  virtual void AddHandledPayloadType(int payload_type) = 0;
+  virtual bool IsSrtpActive() const = 0;
 };
 
 }  // namespace webrtc

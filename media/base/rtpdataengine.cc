@@ -198,35 +198,20 @@ bool RtpDataMediaChannel::RemoveRecvStream(uint32_t ssrc) {
   return true;
 }
 
+void RtpDataMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer* packet,
+                                           const rtc::PacketTime& packet_time) {
+}
+
 void RtpDataMediaChannel::OnPacketReceived(
-    rtc::CopyOnWriteBuffer* packet, const rtc::PacketTime& packet_time) {
-  RtpHeader header;
-  if (!GetRtpHeader(packet->cdata(), packet->size(), &header)) {
-    // Don't want to log for every corrupt packet.
-    // RTC_LOG(LS_WARNING) << "Could not read rtp header from packet of length "
-    //                 << packet->length() << ".";
-    return;
-  }
-
-  size_t header_length;
-  if (!GetRtpHeaderLen(packet->cdata(), packet->size(), &header_length)) {
-    // Don't want to log for every corrupt packet.
-    // RTC_LOG(LS_WARNING) << "Could not read rtp header"
-    //                 << length from packet of length "
-    //                 << packet->length() << ".";
-    return;
-  }
-  const char* data =
-      packet->cdata<char>() + header_length + sizeof(kReservedSpace);
-  size_t data_len = packet->size() - header_length - sizeof(kReservedSpace);
-
+    webrtc::RtpPacketReceived parsed_packet) {
   if (!receiving_) {
-    RTC_LOG(LS_WARNING) << "Not receiving packet " << header.ssrc << ":"
-                        << header.seq_num << " before SetReceive(true) called.";
+    RTC_LOG(LS_WARNING) << "Not receiving packet " << parsed_packet.Ssrc()
+                        << ":" << parsed_packet.SequenceNumber()
+                        << " before SetReceive(true) called.";
     return;
   }
 
-  if (!FindCodecById(recv_codecs_, header.payload_type)) {
+  if (!FindCodecById(recv_codecs_, parsed_packet.PayloadType())) {
     // For bundling, this will be logged for every message.
     // So disable this logging.
     // RTC_LOG(LS_WARNING) << "Not receiving packet "
@@ -236,8 +221,9 @@ void RtpDataMediaChannel::OnPacketReceived(
     return;
   }
 
-  if (!GetStreamBySsrc(recv_streams_, header.ssrc)) {
-    RTC_LOG(LS_WARNING) << "Received packet for unknown ssrc: " << header.ssrc;
+  if (!GetStreamBySsrc(recv_streams_, parsed_packet.Ssrc())) {
+    RTC_LOG(LS_WARNING) << "Received packet for unknown ssrc: "
+                        << parsed_packet.Ssrc();
     return;
   }
 
@@ -251,9 +237,12 @@ void RtpDataMediaChannel::OnPacketReceived(
   //              << ", len=" << data_len;
 
   ReceiveDataParams params;
-  params.ssrc = header.ssrc;
-  params.seq_num = header.seq_num;
-  params.timestamp = header.timestamp;
+  params.ssrc = parsed_packet.Ssrc();
+  params.seq_num = parsed_packet.SequenceNumber();
+  params.timestamp = parsed_packet.Timestamp();
+  const char* data =
+      parsed_packet.Buffer().cdata<char>() + parsed_packet.headers_size() + 4;
+  size_t data_len = parsed_packet.payload_size() - sizeof(kReservedSpace);
   SignalDataReceived(params, data, data_len);
 }
 

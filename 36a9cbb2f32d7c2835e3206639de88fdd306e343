@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4c7311c_c32a5260",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-06T09:32:17Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 502,
+        "startChar": 8,
+        "endLine": 502,
+        "endChar": 14
+      },
+      "revId": "36a9cbb2f32d7c2835e3206639de88fdd306e343",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7640b93_6d1d3615",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-06T09:32:17Z",
+      "side": 1,
+      "message": "Why is the dchecked_cast removed here?",
+      "range": {
+        "startLine": 509,
+        "startChar": 41,
+        "endLine": 509,
+        "endChar": 47
+      },
+      "revId": "36a9cbb2f32d7c2835e3206639de88fdd306e343",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

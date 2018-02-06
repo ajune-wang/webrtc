@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7674318_b98b8195",
+        "filename": "rtc_base/thread_checker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-06T08:57:32Z",
+      "side": 1,
+      "message": "Should we replace this one too? It\u0027s equivalent to RTC_EXCLUSIVE_LOCKS_REQUIRED.\nWhich might be a misleading name.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 84
+      },
+      "revId": "8e87005161a93b673ded2b4c35456645e1b45615",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

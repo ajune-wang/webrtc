@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d372b3ae_8c674401",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2018-02-06T19:42:50Z",
+      "side": 1,
+      "message": "According to the POSIX docs, pthread_get/setschedparam returns ENOSYS if:\n\n\"The option _POSIX_THREAD_PRIORITY_SCHEDULING is not defined and the implementation does not support the function.\"\n\nCould we replace the platform-specific define checks with a check for _POSIX_THREAD_PRIORITY_SCHEDULING here?",
+      "range": {
+        "startLine": 300,
+        "startChar": 36,
+        "endLine": 300,
+        "endChar": 59
+      },
+      "revId": "992d21eed2083f9324050570322672395c3ea76b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

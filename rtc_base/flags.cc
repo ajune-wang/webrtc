@@ -22,6 +22,17 @@
 #include <shellapi.h>
 #endif
 
+
+namespace {
+bool FlagCmp(const char* arg, const char* flag) {
+  while (*arg && (*arg == *flag || (*arg == '-' && *flag == '_'))) {
+    ++arg;
+    ++flag;
+  }
+  return *arg;
+}
+}  // namespace
+
 namespace rtc {
 // -----------------------------------------------------------------------------
 // Implementation of Flag
@@ -131,7 +142,7 @@ void FlagList::Print(const char* file, bool print_current_value) {
 
 Flag* FlagList::Lookup(const char* name) {
   Flag* f = list_;
-  while (f != nullptr && strcmp(name, f->name()) != 0)
+  while (f != nullptr && FlagCmp(name, f->name()) != 0)
     f = f->next();
   return f;
 }

@@ -1104,6 +1104,8 @@ class MetaBuildWrapper(object):
             '--timeout=%s' % timeout,
             '--retry_failed=3',
         ]
+        if test_type == 'raw':
+          gtest_parallel_wrapper.append('--raw')
 
       asan = 'is_asan=true' in vals['gn_args']
       lsan = 'is_lsan=true' in vals['gn_args']

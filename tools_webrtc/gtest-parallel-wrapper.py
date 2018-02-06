@@ -116,6 +116,8 @@ def _ParseArgs():
   # TODO(oprypin): Remove (bugs.webrtc.org/8115)
   parser.add_argument('--no-sandbox', action='store_true', default=False)
 
+  parser.add_argument('--raw', action='store_true', default=False)
+
   # We have to do this, since --isolated-script-test-output is passed as an
   # argument to the executable by the swarming scripts, and we want to pass it
   # to gtest-parallel instead.

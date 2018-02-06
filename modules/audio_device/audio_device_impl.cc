@@ -24,6 +24,8 @@
 #endif
 #elif defined(WEBRTC_ANDROID)
 #include <stdlib.h>
+#include "modules/audio_device/android/aaudio_player.h"
+#include "modules/audio_device/android/aaudio_recorder.h"
 #include "modules/audio_device/android/audio_device_template.h"
 #include "modules/audio_device/android/audio_manager.h"
 #include "modules/audio_device/android/audio_record_jni.h"
@@ -188,13 +190,13 @@ int32_t AudioDeviceModuleImpl::CreatePlatformSpecificObjects() {
   AudioManager* audio_manager = audio_manager_android_.get();
   if (audio_layer == kAndroidJavaAudio) {
     // Java audio for both input and output audio.
-    audio_device_.reset(new AudioDeviceTemplate<AudioRecordJni, AudioTrackJni>(
+    audio_device_.reset(new AudioDeviceTemplate<AAudioRecorder, AAudioPlayer>(
         audio_layer, audio_manager));
   } else if (audio_layer == kAndroidOpenSLESAudio) {
     // OpenSL ES based audio for both input and output audio.
-    audio_device_.reset(
-        new AudioDeviceTemplate<OpenSLESRecorder, OpenSLESPlayer>(
-            audio_layer, audio_manager));
+    // TODO(henrika): fix this!!
+    audio_device_.reset(new AudioDeviceTemplate<AAudioRecorder, AAudioPlayer>(
+        audio_layer, audio_manager));
   } else if (audio_layer == kAndroidJavaInputAndOpenSLESOutputAudio) {
     // Java audio for input and OpenSL ES for output audio (i.e. mixed APIs).
     // This combination provides low-latency output audio and at the same

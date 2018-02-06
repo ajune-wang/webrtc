@@ -22,6 +22,30 @@
       "revId": "13b3d6a82766e023a5c8b80cd6f2d858aa47edc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52e0a617_1041eaef",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-02-06T15:57:09Z",
+      "side": 1,
+      "message": "Yes, without this change the test was flaky. I believe it has something to do with removing the videoTracks at the end of the test. Not sure why it didn\u0027t always fail.",
+      "parentUuid": "66a9decc_f0d5f22c",
+      "range": {
+        "startLine": 252,
+        "startChar": 6,
+        "endLine": 256,
+        "endChar": 7
+      },
+      "revId": "13b3d6a82766e023a5c8b80cd6f2d858aa47edc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

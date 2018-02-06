@@ -218,6 +218,26 @@ public class PeerConnectionFactory {
     }
   }
 
+  public PeerConnectionFactory(Options options, VideoEncoderFactory encoderFactory,
+      VideoDecoderFactory decoderFactory, AudioProcessingFactory audioProcessingFactory,
+      FecControllerFactoryFactoryInterface fecControllerFactoryFactory) {
+    checkInitializeHasBeenCalled();
+    if (audioProcessingFactory == null) {
+      throw new NullPointerException(
+          "PeerConnectionFactory constructor does not accept a null AudioProcessingFactory.");
+    }
+    if (fecControllerFactoryFactory == null) {
+      throw new NullPointerException(
+          "PeerConnectionFactory constructor does not accept a null FecControllerFactoryFactory.");
+    }
+    nativeFactory = nativeCreatePeerConnectionFactoryWithAudioProcessingAndFecController(options,
+        encoderFactory, decoderFactory, audioProcessingFactory.createNative(),
+        fecControllerFactoryFactory.createNative());
+    if (nativeFactory == 0) {
+      throw new RuntimeException("Failed to initialize PeerConnectionFactory!");
+    }
+  }
+
   /**
    * Deprecated. PeerConnection constraints are deprecated. Supply values in rtcConfig struct
    * instead and use the method without constraints in the signature.
@@ -410,6 +430,9 @@ public class PeerConnectionFactory {
   private static native long nativeCreatePeerConnectionFactoryWithAudioProcessing(Options options,
       VideoEncoderFactory encoderFactory, VideoDecoderFactory decoderFactory,
       long nativeAudioProcessor);
+  private static native long nativeCreatePeerConnectionFactoryWithAudioProcessingAndFecController(
+      Options options, VideoEncoderFactory encoderFactory, VideoDecoderFactory decoderFactory,
+      long nativeAudioProcessor, long nativeFecControllerFactory);
   private static native long nativeCreatePeerConnection(long factory,
       PeerConnection.RTCConfiguration rtcConfig, MediaConstraints constraints, long nativeObserver);
   private static native long nativeCreateLocalMediaStream(long factory, String label);

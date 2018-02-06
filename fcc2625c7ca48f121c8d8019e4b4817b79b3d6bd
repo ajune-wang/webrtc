@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b989917d_4c160c8e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-06T17:09:44Z",
+      "side": 1,
+      "message": "update packet_to_send (as it is not same as packet in rtx case)",
+      "range": {
+        "startLine": 774,
+        "startChar": 6,
+        "endLine": 774,
+        "endChar": 13
+      },
+      "revId": "fcc2625c7ca48f121c8d8019e4b4817b79b3d6bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab5907a3_24a63dba",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-06T17:09:44Z",
+      "side": 1,
+      "message": "may be set pacer timestamp to non-zero and then validate it is not overwritten.",
+      "range": {
+        "startLine": 541,
+        "startChar": 70,
+        "endLine": 541,
+        "endChar": 0
+      },
+      "revId": "fcc2625c7ca48f121c8d8019e4b4817b79b3d6bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

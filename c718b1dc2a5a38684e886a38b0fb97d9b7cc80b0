@@ -22,6 +22,30 @@
       "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecbe7074_e0906807",
+        "filename": "media/base/fakevideocapturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-06T17:37:29Z",
+      "side": 1,
+      "message": "Because I\u0027m in a way retrofitting a task queue on top of a synchronous and single threaded API, I basically had to do this. As you guessed, I don\u0027t want to encourage this and the same question came up when I initially introduced the task queue - and we don\u0027t seem to have had a huge demand for it.",
+      "parentUuid": "3159003e_76cbf780",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -481,7 +481,7 @@ bool FileStream::Flush() {
   return false;
 }
 
-#if defined(WEBRTC_POSIX) && !defined(__native_client__)
+#if defined(WEBRTC_POSIX) && !defined(__native_client__) && !defined(WEBRTC_FUCHSIA)
 
 bool FileStream::TryLock() {
   if (file_ == nullptr) {
@@ -503,7 +503,7 @@ bool FileStream::Unlock() {
   return flock(fileno(file_), LOCK_UN) == 0;
 }
 
-#endif
+#endif //  defined(WEBRTC_POSIX) && !defined(__native_client__) && !defined(WEBRTC_FUCHSIA)
 
 void FileStream::DoClose() {
   fclose(file_);

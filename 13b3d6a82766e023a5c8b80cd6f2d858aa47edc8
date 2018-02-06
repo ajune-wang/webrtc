@@ -46,6 +46,30 @@
       "revId": "13b3d6a82766e023a5c8b80cd6f2d858aa47edc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1c860e5_bc4a0a8d",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-06T18:47:55Z",
+      "side": 1,
+      "message": "It would be nice if we could learn what was happening and document it before landing this CL. Was the \"assertNotNull\" failing? Or \"assertEquals(1, stream.videoTracks.size())\"?",
+      "parentUuid": "52e0a617_1041eaef",
+      "range": {
+        "startLine": 252,
+        "startChar": 6,
+        "endLine": 256,
+        "endChar": 7
+      },
+      "revId": "13b3d6a82766e023a5c8b80cd6f2d858aa47edc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

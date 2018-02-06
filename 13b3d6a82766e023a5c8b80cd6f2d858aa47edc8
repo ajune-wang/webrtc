@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66a9decc_f0d5f22c",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-06T15:36:24Z",
+      "side": 1,
+      "message": "Is this change related? Could you add comment why we remove renderers from the video tracks when a stream is removed?\n\nCan renderer be null now?",
+      "range": {
+        "startLine": 252,
+        "startChar": 6,
+        "endLine": 256,
+        "endChar": 7
+      },
+      "revId": "13b3d6a82766e023a5c8b80cd6f2d858aa47edc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

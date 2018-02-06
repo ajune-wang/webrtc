@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92e817b7_85f76a99",
+        "filename": "api/rtpreceiverinterface.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-06T22:11:17Z",
+      "side": 1,
+      "message": "Consider just\n\n  return {};",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 65
+      },
+      "revId": "928ebb287e289e2d8a88d097cdb021393952efeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3efc39f_6b34762f",
+        "filename": "api/rtpreceiverinterface.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-06T22:11:17Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "928ebb287e289e2d8a88d097cdb021393952efeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70274f14_1513094f",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/sender_report.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-06T22:11:17Z",
+      "side": 1,
+      "message": "This class contain an std::vector. Consider giving it a move constructor as well.",
+      "revId": "928ebb287e289e2d8a88d097cdb021393952efeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

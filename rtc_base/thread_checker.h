@@ -162,10 +162,6 @@ class RTC_SCOPED_LOCKABLE AnnounceOnThread {
 //   rtc::scoped_ref_ptr<Encoder> encoder_;
 // }
 
-// Document if a variable/field is not shared and should be accessed from
-// same thread/task queue.
-#define RTC_ACCESS_ON(x) RTC_THREAD_ANNOTATION_ATTRIBUTE__(guarded_by(x))
-
 // Document if a function expected to be called from same thread/task queue.
 #define RTC_RUN_ON(x) RTC_THREAD_ANNOTATION_ATTRIBUTE__(exclusive_locks_required(x))
 

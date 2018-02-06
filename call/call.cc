@@ -41,7 +41,6 @@
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
-#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/basictypes.h"
 #include "rtc_base/checks.h"
@@ -204,6 +203,9 @@ class Call : public webrtc::Call,
                                rtc::CopyOnWriteBuffer packet,
                                const PacketTime& packet_time) override;
 
+  DeliveryStatus DeliverParsedPacket(MediaType media_type,
+                                     RtpPacketReceived parsed_packet) override;
+
   // Implements RecoveredPacketReceiver.
   void OnRecoveredPacket(const uint8_t* packet, size_t length) override;
 
@@ -243,6 +245,9 @@ class Call : public webrtc::Call,
   DeliveryStatus DeliverRtp(MediaType media_type,
                             rtc::CopyOnWriteBuffer packet,
                             const PacketTime& packet_time);
+  DeliveryStatus DeliverParsedRtp(MediaType media_type,
+                                  RtpPacketReceived rtp_packet);
+
   void ConfigureSync(const std::string& sync_group)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(receive_crit_);
 
@@ -1335,6 +1340,16 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
     parsed_packet.set_arrival_time_ms(clock_->TimeInMilliseconds());
   }
 
+  return DeliverParsedRtp(media_type, parsed_packet);
+}
+
+PacketReceiver::DeliveryStatus Call::DeliverParsedRtp(
+    MediaType media_type,
+    RtpPacketReceived parsed_packet) {
+  if (parsed_packet.arrival_time_ms() == -1) {
+    parsed_packet.set_arrival_time_ms(clock_->TimeInMilliseconds());
+  }
+
   // We might get RTP keep-alive packets in accordance with RFC6263 section 4.6.
   // These are empty (zero length payload) RTP packets with an unsignaled
   // payload type.
@@ -1402,6 +1417,13 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     return DeliverRtcp(media_type, packet.cdata(), packet.size());
 
   return DeliverRtp(media_type, std::move(packet), packet_time);
+}
+
+PacketReceiver::DeliveryStatus Call::DeliverParsedPacket(
+    MediaType media_type,
+    RtpPacketReceived parsed_packet) {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  return DeliverParsedRtp(media_type, parsed_packet);
 }
 
 void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {

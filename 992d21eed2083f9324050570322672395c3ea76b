@@ -22,6 +22,53 @@
       "revId": "992d21eed2083f9324050570322672395c3ea76b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60271777_247adf11",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2018-02-06T21:20:56Z",
+      "side": 1,
+      "message": "The problem is that _POSIX_THREAD_PRIORITY_SCHEDULING is defined both in NaCl and Fuchsia :-(, so we need explicit check here.",
+      "parentUuid": "d372b3ae_8c674401",
+      "range": {
+        "startLine": 300,
+        "startChar": 36,
+        "endLine": 300,
+        "endChar": 59
+      },
+      "revId": "992d21eed2083f9324050570322672395c3ea76b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85d4718e_b2a2d6b4",
+        "filename": "rtc_base/stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2018-02-06T21:20:56Z",
+      "side": 1,
+      "message": "These methods are not used on any platform. Maybe just remove them completely?",
+      "range": {
+        "startLine": 486,
+        "startChar": 17,
+        "endLine": 486,
+        "endChar": 26
+      },
+      "revId": "992d21eed2083f9324050570322672395c3ea76b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

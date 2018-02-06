@@ -106,6 +106,72 @@ class I420Buffer : public I420BufferInterface {
   const std::unique_ptr<uint8_t, AlignedFreeDeleter> data_;
 };
 
+// Plain I420 buffer in standard memory.
+class I420ABuffer : public I420ABufferInterface {
+ public:
+  static rtc::scoped_refptr<I420ABuffer> Create(int width, int height);
+
+  // Returns a rotated copy of |src|.
+  static rtc::scoped_refptr<I420ABuffer> Rotate(const I420ABufferInterface& src,
+                                                VideoRotation rotation);
+
+  int width() const override;
+  int height() const override;
+  const uint8_t* DataY() const override;
+  const uint8_t* DataU() const override;
+  const uint8_t* DataV() const override;
+  const uint8_t* DataA() const override;
+
+  int StrideY() const override;
+  int StrideU() const override;
+  int StrideV() const override;
+  int StrideA() const override;
+
+  uint8_t* MutableDataY();
+  uint8_t* MutableDataU();
+  uint8_t* MutableDataV();
+  uint8_t* MutableDataA();
+
+  // Scale the cropped area of |src| to the size of |this| buffer, and
+  // write the result into |this|.
+  void CropAndScaleFrom(const I420ABufferInterface& src,
+                        int offset_x,
+                        int offset_y,
+                        int crop_width,
+                        int crop_height);
+
+  void CropAndScaleFrom(const I420BufferInterface& src,
+                        int offset_x,
+                        int offset_y,
+                        int crop_width,
+                        int crop_height);
+  void CropAndScaleFromYAsA(const I420BufferInterface& src,
+                            int offset_x,
+                            int offset_y,
+                            int crop_width,
+                            int crop_height);
+
+ protected:
+  I420ABuffer(int width, int height);
+  I420ABuffer(int width,
+              int height,
+              int stride_y,
+              int stride_u,
+              int stride_v,
+              int stride_a);
+
+  ~I420ABuffer() override;
+
+ private:
+  const int width_;
+  const int height_;
+  const int stride_y_;
+  const int stride_u_;
+  const int stride_v_;
+  const int stride_a_;
+  const std::unique_ptr<uint8_t, AlignedFreeDeleter> data_;
+};
+
 }  // namespace webrtc
 
 #endif  // API_VIDEO_I420_BUFFER_H_

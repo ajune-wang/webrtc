@@ -94,6 +94,30 @@
       "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "742f2e0d_548c0549",
+        "filename": "media/base/fakevideocapturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-07T14:51:57Z",
+      "side": 1,
+      "message": "The six real use cases I found:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/audio/audio_send_stream.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d697\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/audio/audio_send_stream.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d714\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/logging/rtc_event_log/rtc_event_log_impl.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d202\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec_dump/aec_dump_impl.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d67\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtcp_transceiver.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d41\n\n23 test cases:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_mixer/audio_mixer_impl_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d378\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_mixer/audio_mixer_impl_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d391\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d153\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d186\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d231\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/test/videoprocessor_integrationtest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d231\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/test/videoprocessor_integrationtest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d485\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/test/videoprocessor_integrationtest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d499\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/utility/quality_scaler_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d31\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sequenced_task_checker_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d103\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sequenced_task_checker_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d121\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sequenced_task_checker_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d130\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sequenced_task_checker_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d178\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sequenced_task_checker_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d188\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sequenced_task_checker_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d256\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/weak_ptr_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d206\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/weak_ptr_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d233\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/test/single_threaded_task_queue.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d86\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/test/single_threaded_task_queue_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d42\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/video/overuse_frame_detector_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d383\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/video/overuse_frame_detector_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d820\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/video/video_stream_encoder_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d111\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/video/video_stream_encoder_unittest.cc?rcl\u003d63a4d99c40ef0757450a08e52513a59c1520db58\u0026l\u003d122",
+      "parentUuid": "285cc209_0dd8fc10",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

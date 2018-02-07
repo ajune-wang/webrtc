@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc68f315_7beeb190",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T17:29:45Z",
+      "side": 1,
+      "message": "Hmm, I guess not calling setAudioProcessingFactory should result in the default audioprocessing to be created. I don\u0027t see a way to do that right now so I think we have to create one. i.e. make a class DefaultAudioProcessingFactory that just calls CreateAudioProcessing.",
+      "range": {
+        "startLine": 131,
+        "startChar": 35,
+        "endLine": 131,
+        "endChar": 57
+      },
+      "revId": "faeec5c110e1a1119f3a055625a38c8f7ea18749",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

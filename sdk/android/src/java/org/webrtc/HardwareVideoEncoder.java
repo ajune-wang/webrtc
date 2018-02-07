@@ -415,6 +415,8 @@ class HardwareVideoEncoder implements VideoEncoder {
   @Override
   public ScalingSettings getScalingSettings() {
     encodeThreadChecker.checkIsOnValidThread();
+    // TODO(bugs.webrtc.org/8830): We need to provide thresholds. Can
+    // we do that here, or should we delegate to subclasses?
     return new ScalingSettings(automaticResizeOn);
   }
 

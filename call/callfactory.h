@@ -18,7 +18,9 @@ namespace webrtc {
 class CallFactory : public CallFactoryInterface {
   ~CallFactory() override {}
 
-  Call* CreateCall(const Call::Config& config) override;
+  Call* CreateCall(
+      const Call::Config& config,
+      FecControllerFactoryInterface* fec_controller_factory) override;
 };
 
 }  // namespace webrtc

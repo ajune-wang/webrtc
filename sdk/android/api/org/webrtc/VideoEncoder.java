@@ -97,10 +97,35 @@ public interface VideoEncoder {
     public final Integer high;
 
     /**
+     * Settings to disable quality based scaling.
+     */
+    public final ScalingSettings kOff = new ScalingSettings();
+
+    /**
+     * Creates settings to enable quality based scaling.
+     *
+     * @param low Average QP at which to scale up the resolution.
+     * @param high Average QP at which to scale down the resolution.
+     */
+    public ScalingSettings(int low, int high) {
+      this.on = true;
+      this.low = low;
+      this.high = high;
+    }
+
+    private ScalingSettings() {
+      this.on = false;
+      this.low = null;
+      this.high = null;
+    }
+
+    /**
      * Creates quality based scaling setting.
      *
      * @param on True if quality scaling is turned on.
      */
+    // TODO(bugs.webrtc.org/8830): Deprecated, default thresholds are
+    // going away.
     public ScalingSettings(boolean on) {
       this.on = on;
       this.low = null;
@@ -114,6 +139,8 @@ public interface VideoEncoder {
      * @param low Average QP at which to scale up the resolution.
      * @param high Average QP at which to scale down the resolution.
      */
+    // TODO(bugs.webrtc.org/8830): Deprecated, default thresholds are
+    // going away. Setting thresholds always implies scaling is on.
     public ScalingSettings(boolean on, int low, int high) {
       this.on = on;
       this.low = low;

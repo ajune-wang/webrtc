@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a6ebe1b_db9aacb2",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Yeah, I thought about that actually. I didn\u0027t end up doing that because that means we need to explicitly reset the local/remote description for every single early return. In this case, we need to reset it three times. I feel it\u0027s easier to introduce bugs.\n\nBut it\u0027s not a big deal. I\u0027m OK with either way though.",
+      "parentUuid": "66faef60_0789fced",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5600843_b9eeca04",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c15754_4d2a5f07",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Yes, good catch! This wouldn\u0027t happen if we have more low level tests.",
+      "parentUuid": "f5600843_b9eeca04",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7b48d344_cc8fc96d",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "651f723f_2876350d",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "293324e6_3564f9ca",
         "filename": "pc/jseptransport2.h",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec3a6b2c_ca9655ce",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "293324e6_3564f9ca",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "d4121cea_cbbbf604",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36ab9556_bbe6d273",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dc51b22_af690d61",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f359c496_fb81a491",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Aha, this is because I used the \"replace all\".",
+      "parentUuid": "3dc51b22_af690d61",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "2bacbdd2_2fb40d52",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f7bb_09ef0fe7",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b271cb7_2ab498e6",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d39a6099_97145583",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "8b271cb7_2ab498e6",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "b59be3c0_30ab3208",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Good catch!\n\nThen I think maybe rename ShouldEnableBundle to ShouldUpdateBundleGroup makes more sense here.",
+      "parentUuid": "d485995a_3b01391c",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc4fd5b7_13acff01",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 2
@@ -169,6 +331,24 @@
       "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f205cb2_60207519",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc4fd5b7_13acff01",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "bca26250_12d147b8",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aefe6390_458a226f",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3bf53b2_121fb0dd",
         "filename": "pc/jseptransportcontroller.h",
         "patchSetId": 2
@@ -203,6 +401,24 @@
       "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e352aa60_7a498c4b",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Yeah, it would make the JsepTransportController unit tests eaiser as well.",
+      "parentUuid": "e3bf53b2_121fb0dd",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "f820099f_6ef9f9e6",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebbe207a_d24b955c",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20033768_e2391384",
         "filename": "pc/jseptransportcontroller.h",
         "patchSetId": 2
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "cc39b29e_f2b2f9a5",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Removed most of them, only left those used internally.",
+      "parentUuid": "20033768_e2391384",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d895ef59_f0ad5fd7",
         "filename": "pc/srtpfilter.h",
         "patchSetId": 2
@@ -254,6 +506,24 @@
       "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "861e095c_045d626e",
+        "filename": "pc/srtpfilter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-07T20:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d895ef59_f0ad5fd7",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

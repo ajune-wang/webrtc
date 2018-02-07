@@ -17,6 +17,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/audio/aec3.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/include/audio_processing.h"

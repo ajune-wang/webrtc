@@ -188,6 +188,24 @@ rtc_source_set("rtc_stats_api") {
   ]
 }
 
+rtc_source_set("audio_processing_api") {
+  visibility = [ "*" ]
+  sources = [
+    "audio/echo_control.h",
+  ]
+}
+
+rtc_source_set("aec3_api") {
+  visibility = [ "*" ]
+  sources = [
+    "audio/aec3.h",
+  ]
+
+  deps = [
+    ":audio_processing_api",
+  ]
+}
+
 rtc_source_set("audio_mixer_api") {
   visibility = [ "*" ]
   sources = [

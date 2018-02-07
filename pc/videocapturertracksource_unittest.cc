@@ -125,7 +125,7 @@ class VideoCapturerTrackSourceTest : public testing::Test {
     source_->AddOrUpdateSink(&renderer_, rtc::VideoSinkWants());
   }
 
-  void CaptureSingleFrame() {
+  void CaptureFrame() {
     rtc::Event event(false, false);
     task_queue_.PostTask([this, &event]() {
       ASSERT_TRUE(capturer_->CaptureFrame());
@@ -151,7 +151,7 @@ TEST_F(VideoCapturerTrackSourceTest, CapturerStartStop) {
   EXPECT_EQ_WAIT(MediaSourceInterface::kLive, state_observer_->state(),
                  kMaxWaitMs);
 
-  CaptureSingleFrame();
+  CaptureFrame();
   EXPECT_EQ(1, renderer_.num_rendered_frames());
 
   capturer_->Stop();

@@ -31,6 +31,7 @@ class MediaReceiverRtcpObserver {
   virtual void OnSenderReport(uint32_t sender_ssrc,
                               NtpTime ntp_time,
                               uint32_t rtp_time) {}
+  virtual void OnCname(uint32_t ssrc, const std::string& cname) {}
   virtual void OnBye(uint32_t sender_ssrc) {}
   virtual void OnBitrateAllocation(uint32_t sender_ssrc,
                                    const BitrateAllocation& allocation) {}

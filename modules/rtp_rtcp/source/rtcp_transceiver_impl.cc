@@ -86,7 +86,7 @@ class RtcpTransceiverImpl::PacketSender {
 };
 
 RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
-    : config_(config), ptr_factory_(this) {
+    : config_(config), network_up_(true), ptr_factory_(this) {
   RTC_CHECK(config_.Validate());
   if (config_.schedule_periodic_compound_packets)
     SchedulePeriodicCompoundPackets(config_.initial_report_delay_ms);
@@ -115,6 +115,12 @@ void RtcpTransceiverImpl::RemoveMediaReceiverRtcpObserver(
   stored.erase(it);
 }
 
+void RtcpTransceiverImpl::SignalNetworkState(bool state) {
+  network_up_ = state;
+  // TODO(danilchap): Stop periodic report if true -> false;
+  // Reschedule periodic report if false -> true.
+}
+
 void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet,
                                         int64_t now_us) {
   while (!packet.empty()) {
@@ -130,6 +136,8 @@ void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet,
 }
 
 void RtcpTransceiverImpl::SendCompoundPacket() {
+  if (!network_up_)
+    return;
   SendPeriodicCompoundPacket();
   ReschedulePeriodicCompoundPackets();
 }
@@ -160,6 +168,8 @@ void RtcpTransceiverImpl::SendRawPacket(rtc::ArrayView<const uint8_t> packet) {
 void RtcpTransceiverImpl::SendNack(uint32_t ssrc,
                                    std::vector<uint16_t> sequence_numbers) {
   RTC_DCHECK(!sequence_numbers.empty());
+  if (!network_up_)
+    return;
   rtcp::Nack nack;
   nack.SetSenderSsrc(config_.feedback_ssrc);
   nack.SetMediaSsrc(ssrc);
@@ -168,6 +178,8 @@ void RtcpTransceiverImpl::SendNack(uint32_t ssrc,
 }
 
 void RtcpTransceiverImpl::SendPictureLossIndication(uint32_t ssrc) {
+  if (!network_up_)
+    return;
   rtcp::Pli pli;
   pli.SetSenderSsrc(config_.feedback_ssrc);
   pli.SetMediaSsrc(ssrc);
@@ -177,6 +189,8 @@ void RtcpTransceiverImpl::SendPictureLossIndication(uint32_t ssrc) {
 void RtcpTransceiverImpl::SendFullIntraRequest(
     rtc::ArrayView<const uint32_t> ssrcs) {
   RTC_DCHECK(!ssrcs.empty());
+  if (!network_up_)
+    return;
   rtcp::Fir fir;
   fir.SetSenderSsrc(config_.feedback_ssrc);
   for (uint32_t media_ssrc : ssrcs)
@@ -194,6 +208,9 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
       break;
     case rtcp::SenderReport::kPacketType:
       HandleSenderReport(rtcp_packet_header, now_us);
+      break;
+    case rtcp::Sdes::kPacketType:
+      HandleSdes(rtcp_packet_header);
       break;
     case rtcp::ExtendedReports::kPacketType:
       HandleExtendedReports(rtcp_packet_header, now_us);
@@ -230,6 +247,20 @@ void RtcpTransceiverImpl::HandleSenderReport(
   for (MediaReceiverRtcpObserver* observer : remote_sender.observers)
     observer->OnSenderReport(sender_report.sender_ssrc(), sender_report.ntp(),
                              sender_report.rtp_timestamp());
+}
+
+void RtcpTransceiverImpl::HandleSdes(
+    const rtcp::CommonHeader& rtcp_packet_header) {
+  rtcp::Sdes sdes;
+  if (!sdes.Parse(rtcp_packet_header))
+    return;
+  for (const rtcp::Sdes::Chunk& chunk : sdes.chunks()) {
+    auto it = remote_senders_.find(chunk.ssrc);
+    if (it == remote_senders_.end())
+      continue;
+    for (MediaReceiverRtcpObserver* observer : it->second.observers)
+      observer->OnCname(chunk.ssrc, chunk.cname);
+  }
 }
 
 void RtcpTransceiverImpl::HandleExtendedReports(

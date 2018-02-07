@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2f2d046b_7db361d3",
+        "filename": "sdk/android/native_api/jni/java_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:00:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1166ec4b_9846016b",
+      "range": {
+        "startLine": 158,
+        "startChar": 2,
+        "endLine": 158,
+        "endChar": 6
+      },
+      "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96ae8979_47dd85ef",
         "filename": "sdk/android/native_api/jni/java_types.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c3c45e8_95d08425",
+        "filename": "sdk/android/native_api/jni/java_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:00:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96ae8979_47dd85ef",
+      "range": {
+        "startLine": 160,
+        "startChar": 7,
+        "endLine": 160,
+        "endChar": 30
+      },
+      "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ebaf53f9_3f6d2805",
+        "filename": "sdk/android/native_api/jni/java_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:00:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01400e52_5110131e",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 52
+      },
+      "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "428fb66b_47d47eff",
         "filename": "sdk/android/native_api/jni/scoped_java_ref.h",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-02-07T15:06:58Z",
       "side": 1,
       "message": "I don\u0027t really like this. Is there any way to cast the reference directly instead? Will this problem occur for anything other than jstring?",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 1
+      },
+      "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebbcb808_69cc1276",
+        "filename": "sdk/android/native_api/jni/scoped_java_ref.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:00:10Z",
+      "side": 1,
+      "message": "It might be possible to return some kind of temporary reference from here that is only valid while the original reference is. However, I think it requires extra care from the caller. I am not sure this would be valid with that approach:\n\nFoo(static_java_ref_cast\u003cjstring\u003e(NewStringMethod()))\n\nThe inspiration behind this method is static_pointer_cast: http://en.cppreference.com/w/cpp/memory/shared_ptr/pointer_cast",
+      "parentUuid": "428fb66b_47d47eff",
       "range": {
         "startLine": 200,
         "startChar": 0,

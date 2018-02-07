@@ -46,6 +46,30 @@
       "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a9efbaa_8aa2126a",
+        "filename": "media/base/fakevideocapturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-07T12:46:32Z",
+      "side": 1,
+      "message": "I searched for this pattern and I could find 20 re-implementations in different test related files, and 6 re-implementations in production code. It feels like a valid pattern, though it should be used with care.\n\nOne of the re-implementation of RunSynchronouslyOnTaskQueue is in SingleThreadedTaskQueueForTesting::SendTask(). Is SingleThreadedTaskQueueForTesting (https://cs.chromium.org/chromium/src/third_party/webrtc/test/single_threaded_task_queue.h) something you could use here?",
+      "parentUuid": "ecbe7074_e0906807",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -42,7 +42,8 @@ void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame* frame) {
   }
 
   rtc::scoped_refptr<VideoFrameBuffer> buffer;
-  if (adapted_width == frame.width && adapted_height == frame.height) {
+  rtc::scoped_refptr<VideoFrameBuffer> depth_buffer;
+  /*if (adapted_width == frame.width && adapted_height == frame.height) {
     // No adaption - optimized path.
     buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
   } else if ([frame.buffer isKindOfClass:[RTCCVPixelBuffer class]]) {
@@ -63,15 +64,29 @@ void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame* frame) {
     buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
     i420_buffer->CropAndScaleFrom(*buffer->ToI420(), crop_x, crop_y, crop_width, crop_height);
     buffer = i420_buffer;
-  }
+  }*/
+  adapted_width /= 2;
+  adapted_height /= 2;
+  rtc::scoped_refptr<I420ABuffer> i420a_buffer = I420ABuffer::Create(adapted_width, adapted_height);
+  buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.buffer);
+  depth_buffer = new rtc::RefCountedObject<ObjCFrameBuffer>(frame.depth_buffer);
+  i420a_buffer->CropAndScaleFrom(*buffer->ToI420(), crop_x, crop_y, crop_width, crop_height);
+  crop_x = crop_x * depth_buffer->width() / frame.width;
+  crop_y = crop_y * depth_buffer->height() / frame.height;
+  crop_width = crop_width * depth_buffer->width() / frame.width;
+  crop_height = crop_height * depth_buffer->height() / frame.height;
+  i420a_buffer->CropAndScaleFromYAsA(
+      *depth_buffer->ToI420(), crop_x, crop_y, crop_width, crop_height);
+
+  buffer = i420a_buffer;
 
   // Applying rotation is only supported for legacy reasons and performance is
   // not critical here.
   webrtc::VideoRotation rotation = static_cast<webrtc::VideoRotation>(frame.rotation);
-  if (apply_rotation() && rotation != kVideoRotation_0) {
+  /*if (apply_rotation() && rotation != kVideoRotation_0) {
     buffer = I420Buffer::Rotate(*buffer->ToI420(), rotation);
     rotation = kVideoRotation_0;
-  }
+  }*/
 
   OnFrame(webrtc::VideoFrame(buffer, rotation, translated_timestamp_us));
 }

@@ -211,6 +211,30 @@
       "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fbc77c6_4fe3ec7e",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:37:51Z",
+      "side": 1,
+      "message": "I agree the end goal should be having them in the encoder. Maybe for the deprecation period we could place them in the ScalingSettings(bool) constructor? I think it would actually be better than placing them in the C++.",
+      "parentUuid": "dc5df5b2_1b7d6f44",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 60
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

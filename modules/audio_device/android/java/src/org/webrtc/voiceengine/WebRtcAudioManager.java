@@ -177,6 +177,7 @@ public class WebRtcAudioManager {
     nativeCacheAudioParameters(sampleRate, outputChannels, inputChannels, hardwareAEC, hardwareAGC,
         hardwareNS, lowLatencyOutput, lowLatencyInput, proAudio, outputBufferSize, inputBufferSize,
         nativeAudioManager);
+    WebRtcAudioUtils.logAudioState(TAG);
   }
 
   private boolean init() {

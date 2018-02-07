@@ -96,6 +96,29 @@
     },
     {
       "key": {
+        "uuid": "a2f6f56c_b352c660",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:36:17Z",
+      "side": 1,
+      "message": "Can this delegate to the other constructor to avoid duplicating the code?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 44
+      },
+      "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "259728c8_0d113bee",
         "filename": "pc/peerconnectionfactory.cc",
         "patchSetId": 6
@@ -304,6 +327,30 @@
       "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90dd4414_23c97077",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:36:17Z",
+      "side": 1,
+      "message": "Can we land in another CL then?",
+      "parentUuid": "0e566043_64a7fc02",
+      "range": {
+        "startLine": 46,
+        "startChar": 50,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

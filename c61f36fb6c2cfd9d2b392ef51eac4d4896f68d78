@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56ac24f0_8b3dceab",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:36:17Z",
+      "side": 1,
+      "message": "nit: \u003d null is not necessary.",
+      "range": {
+        "startLine": 129,
+        "startChar": 46,
+        "endLine": 129,
+        "endChar": 53
+      },
+      "revId": "c61f36fb6c2cfd9d2b392ef51eac4d4896f68d78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f84e69af_fab17921",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:36:17Z",
+      "side": 1,
+      "message": "This can be private",
+      "range": {
+        "startLine": 269,
+        "startChar": 2,
+        "endLine": 269,
+        "endChar": 8
+      },
+      "revId": "c61f36fb6c2cfd9d2b392ef51eac4d4896f68d78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22262fe7_1287497c",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:36:17Z",
+      "side": 1,
+      "message": "I guess this should be allowed? Or how should the user create a PeerConnectionFactory with the default FecControllerFactory?",
+      "range": {
+        "startLine": 277,
+        "startChar": 8,
+        "endLine": 277,
+        "endChar": 43
+      },
+      "revId": "c61f36fb6c2cfd9d2b392ef51eac4d4896f68d78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f07df2ac_84e4a4c9",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T16:36:17Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed anymore, we can call\n\nJNI_PeerConnectionFactory_CreatePeerConnectionFactoryWithAudioProcessingAndFecController for both cases if we allow native_fec_controller_factory to be null.",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 72
+      },
+      "revId": "c61f36fb6c2cfd9d2b392ef51eac4d4896f68d78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

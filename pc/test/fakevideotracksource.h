@@ -12,7 +12,7 @@
 #define PC_TEST_FAKEVIDEOTRACKSOURCE_H_
 
 #include "api/mediastreaminterface.h"
-#include "media/base/fakevideocapturer.h"
+#include "api/videosourceinterface.h"
 #include "pc/videotracksource.h"
 
 namespace webrtc {
@@ -27,20 +27,23 @@ class FakeVideoTrackSource : public VideoTrackSource {
     return Create(false);
   }
 
-  cricket::FakeVideoCapturer* fake_video_capturer() {
-    return &fake_video_capturer_;
-  }
-
   bool is_screencast() const override { return is_screencast_; }
 
  protected:
   explicit FakeVideoTrackSource(bool is_screencast)
-      : VideoTrackSource(&fake_video_capturer_, false /* remote */),
+      : VideoTrackSource(&source_, false /* remote */),
         is_screencast_(is_screencast) {}
   virtual ~FakeVideoTrackSource() {}
 
  private:
-  cricket::FakeVideoCapturer fake_video_capturer_;
+  class Source : public rtc::VideoSourceInterface<VideoFrame> {
+    void AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
+                         const rtc::VideoSinkWants& wants) override {}
+
+    void RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) override {}
+  };
+
+  Source source_;
   const bool is_screencast_;
 };
 

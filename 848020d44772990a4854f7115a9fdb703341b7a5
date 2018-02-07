@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d17dfc4c_bf51fd15",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-07T12:19:47Z",
+      "side": 1,
+      "message": "This seems to not be the right way to do it, logcat is filled with errors\n\nDevice(00cd1004f9623d61) 02-07 11:02:52.601  6568  6624 W System.err: \tat org.webrtc.VideoEncoder$ScalingSettings.\u003cinit\u003e(VideoEncoder.java:102)\n\nHow should I write this?",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

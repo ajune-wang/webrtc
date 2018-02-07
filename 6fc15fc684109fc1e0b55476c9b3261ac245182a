@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66faef60_0789fced",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "nit: Could \"local_description_set_\" be replaced by just \"local_description_ !\u003d nullptr\"? The only thing preventing that is the early returns for errors which don\u0027t set it back to null.",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5600843_b9eeca04",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this only be called if |ret| is true, and RTCP muxing was actually negotiated?",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "651f723f_2876350d",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "nit: \"Transport\" -\u003e \"JsepTransport\"",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293324e6_3564f9ca",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "nit: \"local_certificate\" to match naming below",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ab9556_bbe6d273",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "Can you leave a TODO to change the methods that currently use a bool return and |error_desc| out parameter to use RTCError instead?",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dc51b22_af690d61",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "nit: Can remove \"cricket::\"",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad0f7bb_09ef0fe7",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "nit: This comment is out of date",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b271cb7_2ab498e6",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "nit: This DCHECK is redundant now, since rtcp_mux_enabled is determined inside this method.",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d485995a_3b01391c",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "This will produce slightly incorrect behavior. It will cause |bundle_group_| to be changed prematurely when applying a re-offer; it should only be changed when applying an answer. Take this example:\n\nOffer: a\u003dgroup:BUNDLE audio video (not yet bundled)\nAnswer: a\u003dgroup:BUNDLE audio video (now bundled)\nRe-offer: a\u003dgroup:BUNDLE audio video data (audio and video remain bundled, data isn\u0027t and gathers its own ICE candidates just in case)\nAnswer: a\u003dgroup:BUNDLE audio video data (now everything is bundled\n\nSo I think you want to remove this \"return true\", and back in ApplyDescription, do something like:\n\n  if (ShouldEnableBundle(type, description)) {\n    bundle_group_ \u003d description-\u003eGetGroupByName(cricket::GROUP_TYPE_BUNDLE);\n  }\n  if (bundle_group_) {\n    merged_encrypted_extension_ids \u003d\n        MergeEncryptedHeaderExtensionIdsForBundle(description);\n  }",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc4fd5b7_13acff01",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "Should rename transport_name to mid here.",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aefe6390_458a226f",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "nit: Remove \"transport channel\" terminology",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3bf53b2_121fb0dd",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "Thanks for doing this! Fixes what\u0027s probably one of my oldest TODOs.",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebbe207a_d24b955c",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "Can delete this",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20033768_e2391384",
+        "filename": "pc/jseptransportcontroller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "nit: Would be nice to get rid of the \"_n\" methods by doing \"if (!network_thread_-\u003eIsCurrent()) ...\"",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d895ef59_f0ad5fd7",
+        "filename": "pc/srtpfilter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-07T01:51:06Z",
+      "side": 1,
+      "message": "This method could use a comment. Also, it looks like |send_extension_ids_|/|recv_extension_ids_| aren\u0027t used in this class aside from being stored. Could they just be stored in JsepTransport?",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

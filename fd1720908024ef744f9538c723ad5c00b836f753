@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1166ec4b_9846016b",
+        "filename": "sdk/android/native_api/jni/java_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-07T15:06:58Z",
+      "side": 1,
+      "message": "Please use Iterable instead of auto (or inline into the for-loop).",
+      "range": {
+        "startLine": 158,
+        "startChar": 2,
+        "endLine": 158,
+        "endChar": 6
+      },
+      "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96ae8979_47dd85ef",
+        "filename": "sdk/android/native_api/jni/java_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-07T15:06:58Z",
+      "side": 1,
+      "message": "It\u0027s allowed to use auto here though",
+      "range": {
+        "startLine": 160,
+        "startChar": 7,
+        "endLine": 160,
+        "endChar": 30
+      },
+      "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01400e52_5110131e",
+        "filename": "sdk/android/native_api/jni/java_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-07T15:06:58Z",
+      "side": 1,
+      "message": "Maybe inline j_key and j_value here?",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 52
+      },
+      "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "428fb66b_47d47eff",
+        "filename": "sdk/android/native_api/jni/scoped_java_ref.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-07T15:06:58Z",
+      "side": 1,
+      "message": "I don\u0027t really like this. Is there any way to cast the reference directly instead? Will this problem occur for anything other than jstring?",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 1
+      },
+      "revId": "fd1720908024ef744f9538c723ad5c00b836f753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

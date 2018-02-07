@@ -118,6 +118,30 @@
       "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e03e042c_cecbebe3",
+        "filename": "media/base/fakevideocapturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-07T15:50:45Z",
+      "side": 1,
+      "message": "Thanks. I took a look at a few of those and think that we could get rid of some of that synchronization. In some cases it looks like it\u0027s a simple matter of removing the event object, in others we might need to change the design and use a PostTaskAndReply pattern for teardown/unsubscribe.\n\nThanks for digging into this.",
+      "parentUuid": "742f2e0d_548c0549",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

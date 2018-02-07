@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fb428618_27683f84",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-07T14:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51fa054a_3fba8c25",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc8c7991_0e3367f7",
         "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14ea5e2a_b63bfa8e",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-07T14:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc8c7991_0e3367f7",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 69
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "76cfea55_cf844da3",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-07T14:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "678d8e80_3a997295",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 40
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ba649cc_fa38a8ca",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 1
@@ -106,6 +178,30 @@
       "writtenOn": "2018-02-07T14:01:36Z",
       "side": 1,
       "message": "It is not required to subclass this class. If we want to provide defaults for all Java implementations, it would have to be in videoencoderwrapper.cc",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 60
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc5df5b2_1b7d6f44",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-07T14:25:28Z",
+      "side": 1,
+      "message": "Hmm. I was thinking thresholds should move closer to the encoder. \n\nBut I could add vp8 and h.264 defaults to videoencoderwrapper.cc in cl https://webrtc-review.googlesource.com/c/src/+/46622 (based on codec_settings_.codecType), and then we can leave the java api unchanged and abandon this cl?\n\nWhat do you think?",
+      "parentUuid": "2ba649cc_fa38a8ca",
       "range": {
         "startLine": 418,
         "startChar": 4,

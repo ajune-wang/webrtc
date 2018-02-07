@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82df6691_aa8d7ebc",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-07T15:07:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fbf021f_91310de9",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 36
+      },
+      "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b502cd9_57c7619c",
         "filename": "api/fec_controller.h",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cd43fd8a_7723a4d5",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-07T15:07:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b502cd9_57c7619c",
+      "range": {
+        "startLine": 87,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 56
+      },
+      "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "259728c8_0d113bee",
         "filename": "pc/peerconnectionfactory.cc",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2018-02-06T16:03:45Z",
       "side": 1,
       "message": "I am not sure but I don\u0027t think this needs to be duplicated? Is this constructor part of the public API?",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 45
+      },
+      "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "319dd3c0_a5d92f5a",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-07T15:07:54Z",
+      "side": 1,
+      "message": "I was trying to avoid some unittest failure.",
+      "parentUuid": "259728c8_0d113bee",
       "range": {
         "startLine": 131,
         "startChar": 0,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "7934caac_b6ab82b2",
+        "filename": "sdk/android/api/org/webrtc/FecControllerFactoryFactoryInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-07T15:07:54Z",
+      "side": 1,
+      "message": "Would FactoryCreator sound better?",
+      "parentUuid": "8469f96d_02a5d579",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce05f361_abb3d08b",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 6
@@ -128,6 +224,30 @@
       "writtenOn": "2018-02-06T16:03:45Z",
       "side": 1,
       "message": "I think we are reaching a point where a builder pattern would be nice.",
+      "range": {
+        "startLine": 221,
+        "startChar": 9,
+        "endLine": 221,
+        "endChar": 30
+      },
+      "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d59a885d_eee01bd4",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-07T15:07:54Z",
+      "side": 1,
+      "message": "added a builder class in PeerConnectionFactory, please let me if I got your idea correct",
+      "parentUuid": "ce05f361_abb3d08b",
       "range": {
         "startLine": 221,
         "startChar": 9,
@@ -160,6 +280,30 @@
       "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e566043_64a7fc02",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-07T15:07:54Z",
+      "side": 1,
+      "message": "yes, this aims for improving some performance.",
+      "parentUuid": "9981b4be_c09a143e",
+      "range": {
+        "startLine": 46,
+        "startChar": 50,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "ea076de3d91f16c0037e831ebfc3bf1b9b672f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

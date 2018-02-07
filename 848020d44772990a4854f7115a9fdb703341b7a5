@@ -22,6 +22,99 @@
       "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51fa054a_3fba8c25",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T14:01:36Z",
+      "side": 1,
+      "message": "It needs to be static. Otherwise you are going to have an instance for every instance leading to an infinite recursion. Java constants all named all caps so this should be OFF.",
+      "parentUuid": "d17dfc4c_bf51fd15",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8c7991_0e3367f7",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T14:01:36Z",
+      "side": 1,
+      "message": "nit: I think it might be better to have this above the JavaDoc to not confuse tooling.",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 69
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678d8e80_3a997295",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T14:01:36Z",
+      "side": 1,
+      "message": "Mark with @Deprecated.",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 40
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ba649cc_fa38a8ca",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-07T14:01:36Z",
+      "side": 1,
+      "message": "It is not required to subclass this class. If we want to provide defaults for all Java implementations, it would have to be in videoencoderwrapper.cc",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 60
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

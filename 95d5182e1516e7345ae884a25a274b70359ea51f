@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "412804d7_f70b759d",
+        "filename": "api/audio/aec3.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-07T12:30:43Z",
+      "side": 1,
+      "message": "The definitions of these member functions should be in the same build target. IOW, in api/audio/aec3.cc. (Otherwise, you either have a situation where someone can use the header but forget to link with the .cc file because no one told the build system about the dependency, or a circular dependency between the build targets that contain the .h and the .cc file.)",
+      "revId": "95d5182e1516e7345ae884a25a274b70359ea51f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

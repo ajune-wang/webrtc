@@ -70,6 +70,30 @@
       "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "285cc209_0dd8fc10",
+        "filename": "media/base/fakevideocapturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-07T13:25:59Z",
+      "side": 1,
+      "message": "The SingleThreadedTaskQueueForTesting sounds like the perfect fit at first glance. But there are some downsides:\n\n* It\u0027s not a TaskQueue.  (e.g. calling TaskQueue::Current() from inside a task, will return nullptr).\n* It\u0027s single threaded and not actually backed by any of the TaskQueue implementations.\n* It doesn\u0027t support some design basics from TaskQueue\n  - IO support\n  - Reusing of tasks\n* Since it\u0027s not a TaskQueue, it also uses its own type of task, which is not the same as QueuedTask in TaskQueue.\n\nSo, while there is a SendTask method there, I don\u0027t want to use it here, nor can I. I also have some reservations about spreading use of that class since the name is a little misleading.\n\nAs for the 20 and 6 other places, can you point me to them? It could be good to see if we can avoid those 6 places (we might get in trouble there once we switch over to using Chromium task schedulers), and I can take a look at what the 20 places have in common.",
+      "parentUuid": "8a9efbaa_8aa2126a",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "c718b1dc2a5a38684e886a38b0fb97d9b7cc80b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

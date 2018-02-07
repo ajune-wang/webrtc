@@ -13,11 +13,13 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "p2p/base/dtlstransportinternal.h"
 #include "p2p/base/fakeicetransport.h"
 #include "rtc_base/fakesslidentity.h"
+#include "rtc_base/ptr_util.h"
 
 namespace cricket {
 
@@ -38,19 +40,22 @@ class FakeDtlsTransport : public DtlsTransportInternal {
         this, &FakeDtlsTransport::OnNetworkRouteChanged);
   }
 
-  // If this constructor is called, a new fake ICE transport will be created,
-  // and this FakeDtlsTransport will take the ownership.
-  explicit FakeDtlsTransport(const std::string& name, int component)
-      : owned_ice_transport_(new FakeIceTransport(name, component)),
+  explicit FakeDtlsTransport(std::unique_ptr<IceTransportInternal> ice)
+      : owned_ice_transport_(std::move(ice)),
         transport_name_(owned_ice_transport_->transport_name()),
         component_(owned_ice_transport_->component()),
         dtls_fingerprint_("", nullptr, 0) {
-    ice_transport_ = owned_ice_transport_.get();
+    ice_transport_ = static_cast<FakeIceTransport*>(owned_ice_transport_.get());
     ice_transport_->SignalReadPacket.connect(
         this, &FakeDtlsTransport::OnIceTransportReadPacket);
     ice_transport_->SignalNetworkRouteChanged.connect(
         this, &FakeDtlsTransport::OnNetworkRouteChanged);
   }
+
+  // If this constructor is called, a new fake ICE transport will be created,
+  // and this FakeDtlsTransport will take the ownership.
+  explicit FakeDtlsTransport(const std::string& name, int component)
+      : FakeDtlsTransport(rtc::MakeUnique<FakeIceTransport>(name, component)) {}
 
   ~FakeDtlsTransport() override {
     if (dest_ && dest_->dest_ == this) {
@@ -123,6 +128,9 @@ class FakeDtlsTransport : public DtlsTransportInternal {
                             const uint8_t* digest,
                             size_t digest_len) override {
     dtls_fingerprint_ = rtc::SSLFingerprint(alg, digest, digest_len);
+    return true;
+  }
+  bool SetSslMaxProtocolVersion(rtc::SSLProtocolVersion version) override {
     return true;
   }
   bool SetSslRole(rtc::SSLRole role) override {
@@ -252,7 +260,7 @@ class FakeDtlsTransport : public DtlsTransportInternal {
   }
 
   FakeIceTransport* ice_transport_;
-  std::unique_ptr<FakeIceTransport> owned_ice_transport_;
+  std::unique_ptr<IceTransportInternal> owned_ice_transport_;
   std::string transport_name_;
   int component_;
   FakeDtlsTransport* dest_ = nullptr;

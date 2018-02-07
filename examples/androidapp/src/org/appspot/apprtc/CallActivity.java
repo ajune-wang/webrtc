@@ -242,7 +242,7 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
     final Intent intent = getIntent();
 
     // Create peer connection client.
-    peerConnectionClient = new PeerConnectionClient();
+    peerConnectionClient = new PeerConnectionClient(this);
 
     // Create video renderers.
     pipRenderer.init(peerConnectionClient.getRenderContext(), null);

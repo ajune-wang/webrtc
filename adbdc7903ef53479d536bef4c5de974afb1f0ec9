@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fa75b012_cf41a86b",
+        "filename": "pc/test/fakevideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-08T08:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bc17ce6_2f1456eb",
+      "revId": "adbdc7903ef53479d536bef4c5de974afb1f0ec9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b8d898c_315908f6",
         "filename": "pc/test/fakevideotracksource.h",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "adbdc7903ef53479d536bef4c5de974afb1f0ec9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59252fb7_49708c6d",
+        "filename": "pc/test/fakevideotracksource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-08T08:46:09Z",
+      "side": 1,
+      "message": "That was accidental. Adding public:.",
+      "parentUuid": "8b8d898c_315908f6",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "adbdc7903ef53479d536bef4c5de974afb1f0ec9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

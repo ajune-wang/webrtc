@@ -211,6 +211,30 @@
       "revId": "c61f36fb6c2cfd9d2b392ef51eac4d4896f68d78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1c52c37_411a1c5e",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-08T12:03:41Z",
+      "side": 1,
+      "message": "I see, the others are in generated jni code. I removed this method in the latest patch.",
+      "parentUuid": "efb09e57_66b6ad99",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 72
+      },
+      "revId": "c61f36fb6c2cfd9d2b392ef51eac4d4896f68d78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

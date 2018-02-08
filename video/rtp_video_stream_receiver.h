@@ -26,6 +26,8 @@
 #include "modules/rtp_rtcp/include/rtp_payload_registry.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_transceiver.h"
+#include "modules/rtp_rtcp/source/rtcp_transceiver_config.h"
 #include "modules/video_coding/h264_sps_pps_tracker.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/packet_buffer.h"
@@ -34,6 +36,7 @@
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/sequenced_task_checker.h"
+#include "rtc_base/thread_annotations.h"
 #include "typedefs.h"  // NOLINT(build/include)
 
 namespace webrtc {
@@ -72,6 +75,7 @@ class RtpVideoStreamReceiver : public RtpData,
       ReceiveStatistics* rtp_receive_statistics,
       ReceiveStatisticsProxy* receive_stats_proxy,
       ProcessThread* process_thread,
+      rtc::TaskQueue* task_queue,
       NackSender* nack_sender,
       KeyFrameRequestSender* keyframe_request_sender,
       video_coding::OnCompleteFrameCallback* complete_frame_callback,
@@ -84,7 +88,7 @@ class RtpVideoStreamReceiver : public RtpData,
   int GetCsrcs(uint32_t* csrcs) const;
 
   RtpReceiver* GetRtpReceiver() const;
-  RtpRtcp* rtp_rtcp() const { return rtp_rtcp_.get(); }
+  const RtcpTransceiver* rtcp() const { return &rtcp_transceiver_; }
 
   void StartReceive();
   void StopReceive();
@@ -120,7 +124,7 @@ class RtpVideoStreamReceiver : public RtpData,
   bool IsUlpfecEnabled() const;
   bool IsRetransmissionsEnabled() const;
   // Don't use, still experimental.
-  void RequestPacketRetransmit(const std::vector<uint16_t>& sequence_numbers);
+  void RequestPacketRetransmit(std::vector<uint16_t> sequence_numbers);
 
   // Implements VCMPacketRequestCallback.
   int32_t ResendPackets(const uint16_t* sequenceNumbers,
@@ -146,7 +150,11 @@ class RtpVideoStreamReceiver : public RtpData,
   void AddSecondarySink(RtpPacketSinkInterface* sink);
   void RemoveSecondarySink(const RtpPacketSinkInterface* sink);
 
+  bool GetRemoteNtpRtpTimes(NtpTime* ntp_time, uint32_t* rtp_time) const;
+
  private:
+  class RtcpObserver;
+  void SetRemoteNtpRtpTimes(NtpTime ntp_time, uint32_t rtp_time);
   bool AddReceiveCodec(const VideoCodec& video_codec);
   void ReceivePacket(const uint8_t* packet,
                      size_t packet_length,
@@ -168,8 +176,10 @@ class RtpVideoStreamReceiver : public RtpData,
   const VideoReceiveStream::Config& config_;
   PacketRouter* const packet_router_;
   ProcessThread* const process_thread_;
+  RtcpRttStats* const rtt_stats_;
 
-  RemoteNtpTimeEstimator ntp_estimator_;
+  mutable rtc::CriticalSection remote_time_cs_;
+  RemoteNtpTimeEstimator ntp_estimator_ RTC_GUARDED_BY(remote_time_cs_);
   RTPPayloadRegistry rtp_payload_registry_;
 
   RtpHeaderExtensionMap rtp_header_extensions_;
@@ -181,7 +191,10 @@ class RtpVideoStreamReceiver : public RtpData,
   bool receiving_ RTC_GUARDED_BY(worker_task_checker_);
   int64_t last_packet_log_ms_ RTC_GUARDED_BY(worker_task_checker_);
 
-  const std::unique_ptr<RtpRtcp> rtp_rtcp_;
+  NtpTime last_remote_ntp_time_ RTC_GUARDED_BY(remote_time_cs_);
+  uint32_t last_remote_rtp_time_ RTC_GUARDED_BY(remote_time_cs_);
+  const std::unique_ptr<RtcpObserver> rtcp_observer_;
+  RtcpTransceiver rtcp_transceiver_;
 
   // Members for the new jitter buffer experiment.
   video_coding::OnCompleteFrameCallback* complete_frame_callback_;

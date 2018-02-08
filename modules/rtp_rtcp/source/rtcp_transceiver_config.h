@@ -31,6 +31,7 @@ class MediaReceiverRtcpObserver {
   virtual void OnSenderReport(uint32_t sender_ssrc,
                               NtpTime ntp_time,
                               uint32_t rtp_time) {}
+  virtual void OnCname(uint32_t ssrc, const std::string& cname) {}
   virtual void OnBye(uint32_t sender_ssrc) {}
   virtual void OnBitrateAllocation(uint32_t sender_ssrc,
                                    const BitrateAllocation& allocation) {}
@@ -72,6 +73,8 @@ struct RtcpTransceiverConfig {
   // Callbacks will be invoked on the task_queue.
   RtcpRttStats* rtt_observer = nullptr;
 
+  RtcpPacketTypeCounterObserver* sent_packet_type_counter_observer = nullptr;
+
   // Configures if sending should
   //  enforce compound packets: https://tools.ietf.org/html/rfc4585#section-3.1
   //  or allow reduced size packets: https://tools.ietf.org/html/rfc5506
@@ -80,6 +83,8 @@ struct RtcpTransceiverConfig {
   //
   // Tuning parameters.
   //
+  // Initial state if |outgoing_transport| ready to accept packets.
+  bool initial_network_up = true;
   // Delay before 1st periodic compound packet.
   int initial_report_delay_ms = 500;
 

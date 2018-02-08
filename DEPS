@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '3d230c052f55e89a768c81cb3cf0be1fef9e9266',
+  'chromium_revision': '2eb679d7bc65500f212012af95e70cf2333def0c',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -38,7 +38,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '05346abed5a8c08aeac171fbf426350c2a90d335',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '893f1327af53d806c2e9953292665185511c7928',
   'src/build':
     Var('chromium_git') + '/chromium/src/build' + '@' + '3ba6ca6d32a1be57156b541ea4163ee9dbd26794',
   'src/buildtools':
@@ -54,9 +54,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '96fadc248d1ac799e34705b7e0f804f9f1a6015c',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '5eaf83146928bea34d2fb29fdd671b04dc322efa',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'cb732ebd070d66e23a8c302a5a597981f5423a98',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '9f21a4defd1ae698724eb47176af41a086e4eb31',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + 'e951c37287c7d8cd915bf8d4149fd4a06d808b55',
       'condition': 'checkout_android',
@@ -159,7 +159,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + 'b98114e18d8b9b84586b10d24353ab8616d4c5fc',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + '93539cf31ff3f76bebffce693e440275a45695d6',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '098f9931a9381a39d06b04f01eb141cf8b7a419a',
   'src/tools/gyp':
     Var('chromium_git') + '/external/gyp.git' + '@' + 'd61a9397e668fa9843c4aa7da9e79460fe590bfb',
   'src/tools/swarming_client':

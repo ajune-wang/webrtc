@@ -424,15 +424,9 @@ bool MediaCodecVideoEncoder::EncodeTask::Run() {
   // delivered.
   encoder_->LogStatistics(false);
 
-  // If there aren't more frames to deliver, we can start polling at lower rate.
-  if (encoder_->input_frame_infos_.empty()) {
-    rtc::TaskQueue::Current()->PostDelayedTask(
-        std::unique_ptr<rtc::QueuedTask>(this), kMediaCodecPollNoFramesMs);
-  } else {
-    rtc::TaskQueue::Current()->PostDelayedTask(
-        std::unique_ptr<rtc::QueuedTask>(this), kMediaCodecPollMs);
-  }
-
+  // Reschedule task.
+  rtc::TaskQueue::Current()->PostDelayedTask(
+      std::unique_ptr<rtc::QueuedTask>(this), kMediaCodecPollMs);
   return false;
 }
 

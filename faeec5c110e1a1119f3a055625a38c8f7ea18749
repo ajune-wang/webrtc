@@ -118,6 +118,30 @@
       "revId": "faeec5c110e1a1119f3a055625a38c8f7ea18749",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1941db1_74dc25c2",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T14:35:21Z",
+      "side": 1,
+      "message": "Previously, to use the default audio processing, you used the constructor without AudioProcessingFactory parameter. Now it is deprecated, so we should provide some non-deprecated way to get this behavior.\n\nRight now with the builder, there will be a NullPointerException because of the check at line 273. Perhaps we can move that check to setAudioProcessingFactory?",
+      "parentUuid": "51940c31_3a74e14d",
+      "range": {
+        "startLine": 131,
+        "startChar": 35,
+        "endLine": 131,
+        "endChar": 57
+      },
+      "revId": "faeec5c110e1a1119f3a055625a38c8f7ea18749",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

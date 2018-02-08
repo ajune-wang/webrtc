@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b7cf60b_315b29a2",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T01:35:55Z",
+      "side": 1,
+      "message": "Just to double check:  The proper way to use this is to detachFd() and then close()?  And then the real FD live on in C++ land?",
+      "range": {
+        "startLine": 75,
+        "startChar": 29,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "0dbfeb845eb82606be9af7bbed5d534cbb337d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -47,27 +47,26 @@ bool FakeVideoCapturer::CaptureFrame() {
   if (!GetCaptureFormat()) {
     return false;
   }
+  RTC_CHECK_EQ(GetCaptureFormat()->fourcc, FOURCC_I420);
   return CaptureCustomFrame(
       GetCaptureFormat()->width, GetCaptureFormat()->height,
-      GetCaptureFormat()->interval, GetCaptureFormat()->fourcc);
+      GetCaptureFormat()->interval);
 }
 
 bool FakeVideoCapturer::CaptureCustomFrame(int width,
-                                           int height,
-                                           uint32_t fourcc) {
+                                           int height) {
   // Default to 30fps.
-  return CaptureCustomFrame(width, height, rtc::kNumNanosecsPerSec / 30,
-                            fourcc);
+  // TODO(nisse): Would anything break if we always stick to
+  // GetCaptureFormat()->interval?
+  return CaptureCustomFrame(width, height, rtc::kNumNanosecsPerSec / 30);
 }
 
 bool FakeVideoCapturer::CaptureCustomFrame(int width,
                                            int height,
-                                           int64_t timestamp_interval,
-                                           uint32_t fourcc) {
+                                           int64_t timestamp_interval) {
   if (!running_) {
     return false;
   }
-  RTC_CHECK(fourcc == FOURCC_I420);
   RTC_CHECK(width > 0);
   RTC_CHECK(height > 0);
 
@@ -150,26 +149,11 @@ bool FakeVideoCapturerWithTaskQueue::CaptureFrame() {
 }
 
 bool FakeVideoCapturerWithTaskQueue::CaptureCustomFrame(int width,
-                                                        int height,
-                                                        uint32_t fourcc) {
+                                                        int height) {
   bool ret = false;
-  RunSynchronouslyOnTaskQueue([this, &ret, width, height, fourcc]() {
-    ret = FakeVideoCapturer::CaptureCustomFrame(width, height, fourcc);
+  RunSynchronouslyOnTaskQueue([this, &ret, width, height]() {
+    ret = FakeVideoCapturer::CaptureCustomFrame(width, height);
   });
-  return ret;
-}
-
-bool FakeVideoCapturerWithTaskQueue::CaptureCustomFrame(
-    int width,
-    int height,
-    int64_t timestamp_interval,
-    uint32_t fourcc) {
-  bool ret = false;
-  RunSynchronouslyOnTaskQueue(
-      [this, &ret, width, height, timestamp_interval, fourcc]() {
-        ret = FakeVideoCapturer::CaptureCustomFrame(width, height,
-                                                    timestamp_interval, fourcc);
-      });
   return ret;
 }
 

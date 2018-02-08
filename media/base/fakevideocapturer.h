@@ -36,11 +36,7 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
 
   void ResetSupportedFormats(const std::vector<cricket::VideoFormat>& formats);
   virtual bool CaptureFrame();
-  virtual bool CaptureCustomFrame(int width, int height, uint32_t fourcc);
-  virtual bool CaptureCustomFrame(int width,
-                                  int height,
-                                  int64_t timestamp_interval,
-                                  uint32_t fourcc);
+  virtual bool CaptureCustomFrame(int width, int height);
 
   sigslot::signal1<FakeVideoCapturer*> SignalDestroyed;
 
@@ -55,6 +51,10 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
   webrtc::VideoRotation GetRotation();
 
  private:
+  bool CaptureCustomFrame(int width,
+                          int height,
+                          int64_t timestamp_interval);
+
   bool running_;
   int64_t initial_timestamp_;
   int64_t next_timestamp_;
@@ -70,11 +70,7 @@ class FakeVideoCapturerWithTaskQueue : public FakeVideoCapturer {
   FakeVideoCapturerWithTaskQueue();
 
   bool CaptureFrame() override;
-  bool CaptureCustomFrame(int width, int height, uint32_t fourcc) override;
-  bool CaptureCustomFrame(int width,
-                          int height,
-                          int64_t timestamp_interval,
-                          uint32_t fourcc) override;
+  bool CaptureCustomFrame(int width, int height) override;
 
  protected:
   template <class Closure>

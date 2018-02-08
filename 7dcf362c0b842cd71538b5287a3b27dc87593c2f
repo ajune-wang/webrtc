@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac7df85f_7f68476b",
+        "filename": "examples/androidapp/res/xml/preferences.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "Are we planning on adding more settings in this category? Maybe just place it under misc?",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 63
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d36fed_fa051f30",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "Can you follow the existing pattern of passing parameters in PeerConnectionParameters?",
+      "range": {
+        "startLine": 685,
+        "startChar": 0,
+        "endLine": 687,
+        "endChar": 88
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4233b74_10822ee7",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we stop the log at some point?",
+      "range": {
+        "startLine": 694,
+        "startChar": 4,
+        "endLine": 694,
+        "endChar": 34
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "891cc98d_1c3cbf13",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "nit: 2018?",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe06b82b_bb6ef3f6",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "not a constant, please follow regular naming convention.",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d23bb736_cbfdcb97",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f40dbc5f_342e32ab",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "nit: Looks a bit strange to me. Why are the seconds separated by an additional _",
+      "range": {
+        "startLine": 39,
+        "startChar": 59,
+        "endLine": 39,
+        "endChar": 66
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b96145d0_6e22ea22",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "I think passing in the file name from outside would be better.",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 44
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d94271b_807a9ea4",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "Check state here as well?",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bca8e40_b93c6ab9",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "Default value is never used. Please remove and declare final.",
+      "range": {
+        "startLine": 61,
+        "startChar": 39,
+        "endLine": 61,
+        "endChar": 47
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e3d3a0_541a6a7d",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "? Why do we try to close the file? The object shouldn\u0027t have any pointer attached to it anyway since we called detachFd.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8228079_29c45272",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T09:00:18Z",
+      "side": 1,
+      "message": "Can you match the order here with the order in the settings menu?",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 65
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

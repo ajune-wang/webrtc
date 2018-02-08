@@ -1,0 +1,615 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "678b879b_d428c463",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please move the declaration and initialization of n and nz closer to where they are used (to line 238 within the if-statement I believe). I think this is particularly important as the variable names are not descriptive.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb99415_4bbbef9e",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please add DCHECKS for start_index and start_index + kFftLengthBy2 as\nRTC_DCHECK_GT(matching_data.size(), start_index); \nRTC_DCHECK_GT(matching_data.size(), start_index + kFftLengthBy2);\n\n(the first one is probably reduntant though)",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53c73fe_4a25cbc8",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please change 1/kFftLengthBy2 to a multiplication.\n\ne.g.,\nconstexpr float kOneByFftLengthBy2 \u003d 1.f / kFftLengthBy2;\nand replace 1/kFftLengthBy2  with * kOneByFftLengthBy2",
+      "range": {
+        "startLine": 215,
+        "startChar": 10,
+        "endLine": 215,
+        "endChar": 23
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b4db87_a26fa142",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Does probably not matter that much but a max operation would achieve the same thing without a bias in all cases where section_energy is above 0.\n\ne.g.,\nsection_energy \u003d std::max(section_energy, 1e-32);",
+      "range": {
+        "startLine": 217,
+        "startChar": 27,
+        "endLine": 217,
+        "endChar": 28
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1876b5da_985e09b2",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the correctness of using |\u003d\n|\u003d is a bitwise or operation which is a applied on a logical operation\n\nIt is probably fine but I\u0027d prefer\nmain_filter_is_adapting_ \u003d main_filter_is_adapting_ || (energy_ratio \u003e 1.1f || energy_ratio \u003c 0.9f);\nsince that is cheaper (as it includes short-circuit)",
+      "range": {
+        "startLine": 221,
+        "startChar": 30,
+        "endLine": 221,
+        "endChar": 31
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a78d61_30c983ce",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "It would with some DCHECK that checks that num_reverb_decay_sections_next_ does not exceed the maximum number of sections (-1 as it is used as an index).",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c47831e9_853ebb94",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "I don\u0027t see the point of taking the extra route of using a union here. \nSince the float in is stored in x, as a float, and then extracted into out which is a float the value of x is just a temporary value which is discarded, right?\n\nOr does this usage cast the variable in to a uint32_t and then convert it to a float?\n\nPlease add a comment to explain why this construct is needed.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84a27766_182a31e6",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "I think both of these constants are rounded in the conversion to float. Is that expected in the design of the method?",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dc8b47b_83d17bd7",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Since start_index is initialized a bit away from this section, it is not immediately obvious that the index is guaranteed to remain within matching_data. \n\nPlease add a DCHECK for that:\nRTC_DCHECK_GT(matching_data.size(), start_index+i);",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5f2f594_eae438aa",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "As far as I can see nz and n are only temporary values for accumulated_nz_ and accumulated_count_\n\nUsing accumulated_nz_ and accumulated_count_ instead of nz and n would shorten and simplify the code without adding any complexity penalty.",
+      "range": {
+        "startLine": 252,
+        "startChar": 6,
+        "endLine": 252,
+        "endChar": 21
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b82ee46_3d7d22eb",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "The style guide says that comments need to end with a period.",
+      "range": {
+        "startLine": 264,
+        "startChar": 40,
+        "endLine": 264,
+        "endChar": 45
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1241311_532867d7",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "In this place, and also in other places: The style guide says that comments need to end with a period.",
+      "range": {
+        "startLine": 266,
+        "startChar": 17,
+        "endLine": 266,
+        "endChar": 22
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b6c82a_6e26300c",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please use -accumulated_nz_ and accumulated_nn_ directly instead of den and nom on lines 273 and 274.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8d68077_7ecd9e0e",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please use std::min() instead of fminf",
+      "range": {
+        "startLine": 276,
+        "startChar": 14,
+        "endLine": 276,
+        "endChar": 19
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a85c705_65eabd8d",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please replace kFftLengthBy2 * 2 with kFftLength (which is a predefined constant)",
+      "range": {
+        "startLine": 282,
+        "startChar": 35,
+        "endLine": 282,
+        "endChar": 52
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe3baf0d_371222d9",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "It would probably make sense with a\nDCHECK_GT(matching_data.size(), tail_index);",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c98ba328_3de46f07",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please replace the division with the constant with a multiplication.",
+      "range": {
+        "startLine": 287,
+        "startChar": 63,
+        "endLine": 287,
+        "endChar": 74
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1abed86b_2ff1257c",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Since that is shorter, consider changing to\ncurrent_reverb_decay_section_ \u003d std::min(current_reverb_decay_section_, config_.filter.main.length_blocks);\n\nThe if-statement is a bit strange:\nif  current_reverb_decay_section_ \u003d config_.filter.main.length_blocks -1\ncurrent_reverb_decay_section_ will be set to config_.filter.main.length_blocks\n\nis that intended? It does not match the comment that the check is to make sure that current_reverb_decay_section_ is not out of bounds.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c7fac90_bb087352",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please add DCHECKS for start_index and start_index + kFftLengthBy2 as\nRTC_DCHECK_GT(matching_data.size(), start_index); \nRTC_DCHECK_GT(matching_data.size(), start_index + kFftLengthBy2);\n\n(the first one is probably reduntant though)",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30899c80_e8bb172c",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please replace the division with a multiply by a predefined constant of 1.f/kFftLengthBy2",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739b39ba_aaaf1e68",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Would it make sense to replace with\n\nbool main_filter_is_sane \u003d first_section_energy \u003e 2.f * tail_energy_ \u0026\u0026 matching_data[peak_index] \u003c 100.f\n\n(it is a bit shorter and more explicit.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d095404_37618afa",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please use std::max instead of fmaxf",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b8b414b_4cb755a7",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "A suggestion is to change this to\nreverb_decay_ -\u003d .1f * (reverb_decay_ - decay);\n\nThe advantage with that variant is that only one constant is needed (0.1f) and there is no need to match the other two constants to add up to 1.\n\nFurthermore, that requires only one multiplication.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5bfcf71_6c953efe",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please add some comment or equations to describe what this code does as I think it is not self-descriptive.\n\nIn particular the line\naccumulated_nn_ \u003d nn * (nn * nn - 1.0f) / 12.0f; \nis not at all clear to me.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81390246_baa99a8f",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please change to C++ cast style (static_cast\u003cfloat(...))",
+      "range": {
+        "startLine": 339,
+        "startChar": 22,
+        "endLine": 339,
+        "endChar": 27
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73ece039_05a8bf40",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "accumulated_nn_ is only used on lines 341, and 271, right?\nAnd it is only updated here. Would it be possible to compute it closer to line 271 to make that computation more contained?",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ccd7324_d46e9028",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Typo: Caluclated -\u003eCalculated\n\nAccording to the style guide, line comments need to be separated by 2 spaces from the code and end by a period:\n;  // Calculated directly.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afdefff3_370504b9",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please change to multiply by a constant equal to 1/12.0f",
+      "range": {
+        "startLine": 341,
+        "startChar": 48,
+        "endLine": 341,
+        "endChar": 49
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d24fa15_6d45089a",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please change to * 0.5f",
+      "range": {
+        "startLine": 342,
+        "startChar": 31,
+        "endLine": 342,
+        "endChar": 32
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be457a6b_c7bc3a06",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "+\u003d",
+      "range": {
+        "startLine": 344,
+        "startChar": 25,
+        "endLine": 344,
+        "endChar": 43
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61eb47bc_a2ff5f58",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T09:34:05Z",
+      "side": 1,
+      "message": "Please add this to the end of the first block of the if-statement instead. That will avoid using the decreement on 349 to negate this increement (and be slightly cheaper).",
+      "range": {
+        "startLine": 351,
+        "startChar": 2,
+        "endLine": 351,
+        "endChar": 34
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

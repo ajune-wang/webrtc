@@ -53,11 +53,10 @@ bool FakeVideoCapturer::CaptureFrame() {
 }
 
 bool FakeVideoCapturer::CaptureCustomFrame(int width,
-                                           int height,
-                                           uint32_t fourcc) {
+                                           int height) {
   // Default to 30fps.
   return CaptureCustomFrame(width, height, rtc::kNumNanosecsPerSec / 30,
-                            fourcc);
+                            FOURCC_I420);
 }
 
 bool FakeVideoCapturer::CaptureCustomFrame(int width,
@@ -150,11 +149,10 @@ bool FakeVideoCapturerWithTaskQueue::CaptureFrame() {
 }
 
 bool FakeVideoCapturerWithTaskQueue::CaptureCustomFrame(int width,
-                                                        int height,
-                                                        uint32_t fourcc) {
+                                                        int height) {
   bool ret = false;
-  RunSynchronouslyOnTaskQueue([this, &ret, width, height, fourcc]() {
-    ret = FakeVideoCapturer::CaptureCustomFrame(width, height, fourcc);
+  RunSynchronouslyOnTaskQueue([this, &ret, width, height]() {
+    ret = FakeVideoCapturer::CaptureCustomFrame(width, height);
   });
   return ret;
 }

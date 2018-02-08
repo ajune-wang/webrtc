@@ -36,7 +36,7 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
 
   void ResetSupportedFormats(const std::vector<cricket::VideoFormat>& formats);
   virtual bool CaptureFrame();
-  virtual bool CaptureCustomFrame(int width, int height, uint32_t fourcc);
+  virtual bool CaptureCustomFrame(int width, int height);
   virtual bool CaptureCustomFrame(int width,
                                   int height,
                                   int64_t timestamp_interval,
@@ -70,7 +70,7 @@ class FakeVideoCapturerWithTaskQueue : public FakeVideoCapturer {
   FakeVideoCapturerWithTaskQueue();
 
   bool CaptureFrame() override;
-  bool CaptureCustomFrame(int width, int height, uint32_t fourcc) override;
+  bool CaptureCustomFrame(int width, int height) override;
   bool CaptureCustomFrame(int width,
                           int height,
                           int64_t timestamp_interval,

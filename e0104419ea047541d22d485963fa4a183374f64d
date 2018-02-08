@@ -22,6 +22,30 @@
       "revId": "e0104419ea047541d22d485963fa4a183374f64d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907ba988_d60661d3",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-08T09:25:19Z",
+      "side": 1,
+      "message": "Ok, looks like I can do that, based on codecType.",
+      "parentUuid": "c08f2f44_80c8deea",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 420,
+        "endChar": 50
+      },
+      "revId": "e0104419ea047541d22d485963fa4a183374f64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

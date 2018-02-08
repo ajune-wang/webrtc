@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c08f2f44_80c8deea",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-08T08:27:03Z",
+      "side": 1,
+      "message": "I think we should place the scaling settings here in the same CL to not use a deprecated method ourselves.",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 420,
+        "endChar": 50
+      },
+      "revId": "e0104419ea047541d22d485963fa4a183374f64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -94,6 +94,30 @@
       "revId": "faeec5c110e1a1119f3a055625a38c8f7ea18749",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51940c31_3a74e14d",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-08T14:24:23Z",
+      "side": 1,
+      "message": "If we pass in null audioProcessingFactory here, inside JNI_PeerConnectionFactory_CreatePeerConnectionFactoryWithAudioProcessingAndFecController(), we will handel it in this way:\nreturn CreatePeerConnectionFactoryForJava(\n      jni, joptions, jencoder_factory, jdecoder_factory,\n      audio_processor ? audio_processor : CreateAudioProcessing(),\n      std::move(fec_controller_factory));\n\nWhich I think would be identical to the current behavior. If we want tot allow passing in null for no audio processing, I think it might be better to have another cl addressing that?",
+      "parentUuid": "f8560b76_73ddf543",
+      "range": {
+        "startLine": 131,
+        "startChar": 35,
+        "endLine": 131,
+        "endChar": 57
+      },
+      "revId": "faeec5c110e1a1119f3a055625a38c8f7ea18749",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

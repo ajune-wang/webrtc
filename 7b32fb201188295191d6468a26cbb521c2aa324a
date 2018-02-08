@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae69d7a6_755d2782",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-02-08T14:39:37Z",
+      "side": 1,
+      "message": "const int64_t",
+      "range": {
+        "startLine": 832,
+        "startChar": 6,
+        "endLine": 832,
+        "endChar": 13
+      },
+      "revId": "7b32fb201188295191d6468a26cbb521c2aa324a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -24,24 +24,21 @@
 
 namespace cricket {
 namespace {
+const int kWidth = 1280;
+const int kHeight = 720;
 const int kDefaultFps = 30;
 }  // namespace
 
 class VideoAdapterTest : public testing::Test {
  public:
   void SetUp() override {
-    capturer_.reset(new FakeVideoCapturerWithTaskQueue());
-    capture_format_ = capturer_->GetSupportedFormats()->at(0);
-    capture_format_.interval = VideoFormat::FpsToInterval(kDefaultFps);
+    capture_format_ = {kWidth, kHeight, VideoFormat::FpsToInterval(kDefaultFps),
+                       cricket::FOURCC_I420};
+    frame_source_ = rtc::MakeUnique<FakeFrameSource>(
+        kWidth, kHeight,
+        VideoFormat::FpsToInterval(kDefaultFps) / rtc::kNumNanosecsPerMicrosec);
 
-    listener_.reset(new VideoCapturerListener(&adapter_));
-    capturer_->AddOrUpdateSink(listener_.get(), rtc::VideoSinkWants());
-  }
-
-  void TearDown() override {
-    // Explicitly disconnect the VideoCapturer before to avoid data races
-    // (frames delivered to VideoCapturerListener while it's being destructed).
-    capturer_->RemoveSink(listener_.get());
+    listener_ = rtc::MakeUnique<VideoCapturerListener>(&adapter_);
   }
 
  protected:
@@ -70,7 +67,6 @@ class VideoAdapterTest : public testing::Test {
           last_adapt_was_no_op_(false) {}
 
     void OnFrame(const webrtc::VideoFrame& frame) override {
-      rtc::CritScope lock(&crit_);
       const int in_width = frame.width();
       const int in_height = frame.height();
       int cropped_width;
@@ -95,7 +91,6 @@ class VideoAdapterTest : public testing::Test {
     }
 
     Stats GetStats() {
-      rtc::CritScope lock(&crit_);
       Stats stats;
       stats.captured_frames = captured_frames_;
       stats.dropped_frames = dropped_frames_;
@@ -108,7 +103,6 @@ class VideoAdapterTest : public testing::Test {
     }
 
    private:
-    rtc::CriticalSection crit_;
     VideoAdapter* video_adapter_;
     int cropped_width_;
     int cropped_height_;
@@ -131,7 +125,7 @@ class VideoAdapterTest : public testing::Test {
     EXPECT_EQ(out_height, stats.out_height);
   }
 
-  std::unique_ptr<FakeVideoCapturerWithTaskQueue> capturer_;
+  std::unique_ptr<FakeFrameSource> frame_source_;
   VideoAdapter adapter_;
   int cropped_width_;
   int cropped_height_;
@@ -144,9 +138,8 @@ class VideoAdapterTest : public testing::Test {
 // Do not adapt the frame rate or the resolution. Expect no frame drop, no
 // cropping, and no resolution change.
 TEST_F(VideoAdapterTest, AdaptNothing) {
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no frame drop and no resolution change.
   VideoCapturerListener::Stats stats = listener_->GetStats();
@@ -158,12 +151,11 @@ TEST_F(VideoAdapterTest, AdaptNothing) {
 }
 
 TEST_F(VideoAdapterTest, AdaptZeroInterval) {
-  VideoFormat format = capturer_->GetSupportedFormats()->at(0);
+  VideoFormat format = capture_format_;
   format.interval = 0;
   adapter_.OnOutputFormatRequest(format);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no crash and that frames aren't dropped.
   VideoCapturerListener::Stats stats = listener_->GetStats();
@@ -179,47 +171,46 @@ TEST_F(VideoAdapterTest, AdaptFramerateToHalf) {
   VideoFormat request_format = capture_format_;
   request_format.interval *= 2;
   adapter_.OnOutputFormatRequest(request_format);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
 
   // Capture 10 frames and verify that every other frame is dropped. The first
   // frame should not be dropped.
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 1);
   EXPECT_EQ(0, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 2);
   EXPECT_EQ(1, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 3);
   EXPECT_EQ(1, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 4);
   EXPECT_EQ(2, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 5);
   EXPECT_EQ(2, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 6);
   EXPECT_EQ(3, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 7);
   EXPECT_EQ(3, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 8);
   EXPECT_EQ(4, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 9);
   EXPECT_EQ(4, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 10);
   EXPECT_EQ(5, listener_->GetStats().dropped_frames);
 }
@@ -231,47 +222,46 @@ TEST_F(VideoAdapterTest, AdaptFramerateToTwoThirds) {
   VideoFormat request_format = capture_format_;
   request_format.interval = request_format.interval * 3 / 2;
   adapter_.OnOutputFormatRequest(request_format);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
 
   // Capture 10 frames and verify that every third frame is dropped. The first
   // frame should not be dropped.
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 1);
   EXPECT_EQ(0, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 2);
   EXPECT_EQ(0, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 3);
   EXPECT_EQ(1, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 4);
   EXPECT_EQ(1, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 5);
   EXPECT_EQ(1, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 6);
   EXPECT_EQ(2, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 7);
   EXPECT_EQ(2, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 8);
   EXPECT_EQ(2, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 9);
   EXPECT_EQ(3, listener_->GetStats().dropped_frames);
 
-  capturer_->CaptureFrame();
+  listener_->OnFrame(frame_source_->GetFrame());
   EXPECT_GE(listener_->GetStats().captured_frames, 10);
   EXPECT_EQ(3, listener_->GetStats().dropped_frames);
 }
@@ -282,9 +272,8 @@ TEST_F(VideoAdapterTest, AdaptFramerateHighLimit) {
   VideoFormat request_format = capture_format_;
   request_format.interval /= 2;
   adapter_.OnOutputFormatRequest(request_format);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no frame drop.
   EXPECT_EQ(0, listener_->GetStats().dropped_frames);
@@ -370,9 +359,8 @@ TEST_F(VideoAdapterTest, AdaptFramerateTimestampJitter) {
 TEST_F(VideoAdapterTest, AdaptFramerateOntheFly) {
   VideoFormat request_format = capture_format_;
   adapter_.OnOutputFormatRequest(request_format);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no frame drop before adaptation.
   EXPECT_EQ(0, listener_->GetStats().dropped_frames);
@@ -382,7 +370,7 @@ TEST_F(VideoAdapterTest, AdaptFramerateOntheFly) {
   adapter_.OnOutputFormatRequest(request_format);
 
   for (int i = 0; i < 20; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify frame drop after adaptation.
   EXPECT_GT(listener_->GetStats().dropped_frames, 0);
@@ -395,9 +383,8 @@ TEST_F(VideoAdapterTest, OnFramerateRequestMax) {
                                         std::numeric_limits<int>::max(),
                                         std::numeric_limits<int>::max());
 
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no frame drop and no resolution change.
   VideoCapturerListener::Stats stats = listener_->GetStats();
@@ -411,9 +398,8 @@ TEST_F(VideoAdapterTest, OnFramerateRequestMax) {
 TEST_F(VideoAdapterTest, OnFramerateRequestZero) {
   adapter_.OnResolutionFramerateRequest(rtc::nullopt,
                                         std::numeric_limits<int>::max(), 0);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no crash and that frames aren't dropped.
   VideoCapturerListener::Stats stats = listener_->GetStats();
@@ -426,9 +412,8 @@ TEST_F(VideoAdapterTest, OnFramerateRequestZero) {
 TEST_F(VideoAdapterTest, OnFramerateRequestHalf) {
   adapter_.OnResolutionFramerateRequest(
       rtc::nullopt, std::numeric_limits<int>::max(), kDefaultFps / 2);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no crash and that frames aren't dropped.
   VideoCapturerListener::Stats stats = listener_->GetStats();
@@ -505,9 +490,8 @@ TEST_F(VideoAdapterTest, AdaptResolution) {
   request_format.width /= 2;
   request_format.height /= 2;
   adapter_.OnOutputFormatRequest(request_format);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no frame drop, no cropping, and resolution change.
   VideoCapturerListener::Stats stats = listener_->GetStats();
@@ -522,9 +506,8 @@ TEST_F(VideoAdapterTest, AdaptResolution) {
 TEST_F(VideoAdapterTest, AdaptResolutionOnTheFly) {
   VideoFormat request_format = capture_format_;
   adapter_.OnOutputFormatRequest(request_format);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify no resolution change before adaptation.
   VerifyAdaptedResolution(listener_->GetStats(),
@@ -536,7 +519,7 @@ TEST_F(VideoAdapterTest, AdaptResolutionOnTheFly) {
   request_format.height /= 2;
   adapter_.OnOutputFormatRequest(request_format);
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify resolution change after adaptation.
   VerifyAdaptedResolution(listener_->GetStats(),
@@ -548,9 +531,8 @@ TEST_F(VideoAdapterTest, AdaptResolutionOnTheFly) {
 TEST_F(VideoAdapterTest, DropAllFrames) {
   VideoFormat format;  // with resolution 0x0.
   adapter_.OnOutputFormatRequest(format);
-  EXPECT_EQ(CS_RUNNING, capturer_->Start(capture_format_));
   for (int i = 0; i < 10; ++i)
-    capturer_->CaptureFrame();
+    listener_->OnFrame(frame_source_->GetFrame());
 
   // Verify all frames are dropped.
   VideoCapturerListener::Stats stats = listener_->GetStats();

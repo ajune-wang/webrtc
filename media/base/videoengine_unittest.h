@@ -218,7 +218,7 @@ class VideoMediaChannelTest : public testing::Test,
   }
   bool SendCustomVideoFrame(int w, int h) {
     if (!video_capturer_.get()) return false;
-    return video_capturer_->CaptureCustomFrame(w, h, cricket::FOURCC_I420);
+    return video_capturer_->CaptureCustomFrame(w, h);
   }
   int NumRtpBytes() {
     return network_interface_.NumRtpBytes();
@@ -556,8 +556,7 @@ class VideoMediaChannelTest : public testing::Test,
     EXPECT_TRUE(channel_->AddRecvStream(
         cricket::StreamParams::CreateLegacy(5678)));
     EXPECT_TRUE(channel_->SetSink(5678, &renderer2));
-    EXPECT_TRUE(capturer->CaptureCustomFrame(kTestWidth, kTestHeight,
-                                             cricket::FOURCC_I420));
+    EXPECT_TRUE(capturer->CaptureCustomFrame(kTestWidth, kTestHeight));
     EXPECT_FRAME_ON_RENDERER_WAIT(
         renderer2, 1, kTestWidth, kTestHeight, kTimeout);
 
@@ -772,15 +771,13 @@ class VideoMediaChannelTest : public testing::Test,
     // All capturers start generating frames with the same timestamp. ViE does
     // not allow the same timestamp to be used. Capture one frame before
     // associating the capturer with the channel.
-    EXPECT_TRUE(
-        capturer->CaptureCustomFrame(format.width, format.height, FOURCC_I420));
+    EXPECT_TRUE(capturer->CaptureCustomFrame(format.width, format.height));
 
     int captured_frames = 1;
     for (int iterations = 0; iterations < 2; ++iterations) {
       EXPECT_TRUE(channel_->SetVideoSend(kSsrc, true, nullptr, capturer.get()));
       rtc::Thread::Current()->ProcessMessages(time_between_send_ms);
-      EXPECT_TRUE(capturer->CaptureCustomFrame(format.width, format.height,
-                                               FOURCC_I420));
+      EXPECT_TRUE(capturer->CaptureCustomFrame(format.width, format.height));
       ++captured_frames;
       // Wait until frame of right size is captured.
       EXPECT_TRUE_WAIT(renderer_.num_rendered_frames() >= captured_frames &&
@@ -809,8 +806,7 @@ class VideoMediaChannelTest : public testing::Test,
       // timestamp is set to the last frame's timestamp + interval. WebRTC will
       // not render a frame with the same timestamp so capture another frame
       // with the frame capturer to increment the next frame's timestamp.
-      EXPECT_TRUE(capturer->CaptureCustomFrame(format.width, format.height,
-                                               FOURCC_I420));
+      EXPECT_TRUE(capturer->CaptureCustomFrame(format.width, format.height));
     }
   }
 
@@ -882,13 +878,11 @@ class VideoMediaChannelTest : public testing::Test,
     // Test capturer associated with engine.
     const int kTestWidth = 160;
     const int kTestHeight = 120;
-    EXPECT_TRUE(capturer1->CaptureCustomFrame(kTestWidth, kTestHeight,
-                                              cricket::FOURCC_I420));
+    EXPECT_TRUE(capturer1->CaptureCustomFrame(kTestWidth, kTestHeight));
     EXPECT_FRAME_ON_RENDERER_WAIT(
         renderer1, 1, kTestWidth, kTestHeight, kTimeout);
     // Capture a frame with additional capturer2, frames should be received
-    EXPECT_TRUE(capturer2->CaptureCustomFrame(kTestWidth, kTestHeight,
-                                              cricket::FOURCC_I420));
+    EXPECT_TRUE(capturer2->CaptureCustomFrame(kTestWidth, kTestHeight));
     EXPECT_FRAME_ON_RENDERER_WAIT(
         renderer2, 1, kTestWidth, kTestHeight, kTimeout);
     // Successfully remove the capturer.

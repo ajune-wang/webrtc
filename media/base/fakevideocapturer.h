@@ -26,6 +26,27 @@
 
 namespace cricket {
 
+// TODO(nisse): Move to separate file.
+class FakeFrameSource {
+ public:
+  FakeFrameSource(int width, int height, int interval_us);
+
+  webrtc::VideoRotation GetRotation();
+  void SetRotation(webrtc::VideoRotation rotation);
+
+  webrtc::VideoFrame GetFrame();
+  // Override default size and interval.
+  webrtc::VideoFrame GetFrame(int width, int height, int interval_us);
+
+ private:
+  const int width_;
+  const int height_;
+  const int interval_us_;
+
+  webrtc::VideoRotation rotation_ = webrtc::kVideoRotation_0;
+  int64_t next_timestamp_us_ = rtc::kNumMicrosecsPerMillisec;
+};
+
 // Fake video capturer that allows the test to manually pump in frames.
 class FakeVideoCapturer : public cricket::VideoCapturer {
  public:
@@ -36,11 +57,7 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
 
   void ResetSupportedFormats(const std::vector<cricket::VideoFormat>& formats);
   virtual bool CaptureFrame();
-  virtual bool CaptureCustomFrame(int width, int height, uint32_t fourcc);
-  virtual bool CaptureCustomFrame(int width,
-                                  int height,
-                                  int64_t timestamp_interval,
-                                  uint32_t fourcc);
+  virtual bool CaptureCustomFrame(int width, int height);
 
   sigslot::signal1<FakeVideoCapturer*> SignalDestroyed;
 
@@ -55,11 +72,11 @@ class FakeVideoCapturer : public cricket::VideoCapturer {
   webrtc::VideoRotation GetRotation();
 
  private:
+  bool CaptureFrame(const webrtc::VideoFrame& frame);
+
   bool running_;
-  int64_t initial_timestamp_;
-  int64_t next_timestamp_;
   const bool is_screencast_;
-  webrtc::VideoRotation rotation_;
+  std::unique_ptr<FakeFrameSource> frame_source_;
 };
 
 // Inherits from FakeVideoCapturer but adds a TaskQueue so that frames can be
@@ -70,11 +87,7 @@ class FakeVideoCapturerWithTaskQueue : public FakeVideoCapturer {
   FakeVideoCapturerWithTaskQueue();
 
   bool CaptureFrame() override;
-  bool CaptureCustomFrame(int width, int height, uint32_t fourcc) override;
-  bool CaptureCustomFrame(int width,
-                          int height,
-                          int64_t timestamp_interval,
-                          uint32_t fourcc) override;
+  bool CaptureCustomFrame(int width, int height) override;
 
  protected:
   template <class Closure>

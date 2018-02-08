@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bdbc71b_5f656917",
+        "filename": "sdk/android/src/jni/androidmediaencoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-02-08T18:24:03Z",
+      "side": 1,
+      "message": "Instead of fully removing this logic may be consider decreasing no poll frame interval to 20 ms? To reduce risks of potential CPU/battery usage increase?",
+      "range": {
+        "startLine": 429,
+        "startChar": 10,
+        "endLine": 429,
+        "endChar": 11
+      },
+      "revId": "04be387e77337a2d91c6c043ed6eb7fb23fb16e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,751 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b1d5a2a_5ec64583",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "current \u003d\u003e \"the current\"",
+      "range": {
+        "startLine": 10,
+        "startChar": 70,
+        "endLine": 10,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bd8e6df_ab462503",
+        "filename": "p2p/base/fakedtlstransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Why not take a std::unique_ptr\u003cFakeIceTranpsort\u003e?",
+      "range": {
+        "startLine": 43,
+        "startChar": 71,
+        "endLine": 43,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "483a5ed0_b60a95ad",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "We should replace all uses of this with RTCError",
+      "range": {
+        "startLine": 29,
+        "startChar": 60,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52b60b30_6cb0e9db",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "{}s please  \n\nAnd also a TODO to remove it.",
+      "range": {
+        "startLine": 39,
+        "startChar": 53,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b9388e5_31435b50",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Hmm.... passing in an enum to dictate how a value should be cast.   That seems a bit ugly.  Could we instead just pass in a set of pointers to assign directly?  Then JsepTransportController::MaybeCreateJsepTransport can handle it an it can be more type safe.",
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c1c8fab_13be1765",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Why not return an Optional?",
+      "range": {
+        "startLine": 93,
+        "startChar": 71,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14ce586d_f0b49a75",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Shouldn\u0027t all the verification be done before we start changing things (at the top of the method)?",
+      "range": {
+        "startLine": 138,
+        "startChar": 3,
+        "endLine": 138,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f78c78c9_1a644a0e",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 222,
+        "startChar": 68,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40e6e147_7eb4b908",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "If this failed, why don\u0027t we just return now?  Why wait until down below?",
+      "range": {
+        "startLine": 230,
+        "startChar": 56,
+        "endLine": 230,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0785762f_91dee4e3",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "needs_ice_restart()\n?",
+      "range": {
+        "startLine": 252,
+        "startChar": 46,
+        "endLine": 252,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b102c58_76b1994b",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "dtls_role()\n\n?",
+      "range": {
+        "startLine": 256,
+        "startChar": 64,
+        "endLine": 256,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c04f04_5384561d",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "This is a weird method name.  If it sets the DTLS role and the DTLS remote fingerprint, it should be called ApplyDtlsParameters.\n\nAnd ideally it would take the role and fingerprint as parameters instead of taking them from the member variables (let the caller do that).",
+      "range": {
+        "startLine": 314,
+        "startChar": 57,
+        "endLine": 314,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d82d738_5279f9ad",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "If the Signal is \"FullActive\", the method should be \"FullyActivate\". Or \"Active\" and \"Activate\"",
+      "range": {
+        "startLine": 383,
+        "startChar": 29,
+        "endLine": 383,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45472359_af78ef17",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "I think NegotiateAndSetDtlsParameters would be a better name.\n\nEven better would be to have a NegotiateDtlsParameters which returns the parameters and a SetDtlsParameters that sets them and let the caller pass the result of one into the other.",
+      "range": {
+        "startLine": 430,
+        "startChar": 51,
+        "endLine": 430,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13e4f089_c02341a1",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "This should be called NegotiateDtlsRole, and ideally it should take as arguments the local and remote descriptions (let the caller get them from the member variables).  In fact, it looks like it just needs the roles from the descriptions.",
+      "range": {
+        "startLine": 471,
+        "startChar": 61,
+        "endLine": 471,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a8044e_ee827023",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "The current role should be passed in rather than obtained from the member variable.",
+      "range": {
+        "startLine": 536,
+        "startChar": 43,
+        "endLine": 536,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76ec18c7_c4d1f238",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Instead of setting it, I think this method should just return it and let the caller set the member variable.",
+      "range": {
+        "startLine": 558,
+        "startChar": 74,
+        "endLine": 558,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714f0217_bf24915a",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Please emphasis that this is just for logging.",
+      "range": {
+        "startLine": 71,
+        "startChar": 39,
+        "endLine": 71,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "113bdecd_106fad2f",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "I don\u0027t know what \"possibly used by the TransportController\" means.",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 125,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f3eb8ad_cfcdb0c7",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Why not just rtp_transport(), and same for the 2 next ones below.",
+      "range": {
+        "startLine": 136,
+        "startChar": 57,
+        "endLine": 136,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a32defe5_6bcd6865",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "the RTCP-mux \u003d\u003e RTCP-mux",
+      "range": {
+        "startLine": 148,
+        "startChar": 64,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d24e614_a7f7d29c",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "This method doesn\u0027t change the ICE role, though.  It\u0027s only DTLS.",
+      "range": {
+        "startLine": 177,
+        "startChar": 25,
+        "endLine": 177,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0578e0b4_d02ba47b",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "This is only applying ICE parameters, so it should probably be called SetLocalIceParameters or SetIceLocalParameters and take an IceTransportInternal.",
+      "range": {
+        "startLine": 192,
+        "startChar": 63,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a40b3530_57d78fb4",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Same here, but with remote instead of local.",
+      "range": {
+        "startLine": 197,
+        "startChar": 64,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "658193b0_c1f6877f",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "And these should take RTCError instead of bool+std::string*",
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "158e5a92_167d8ce0",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Please call it dtls_role_.\n\nAnd why do we even need it?  Isn\u0027t it a part of the DtlsTransport?",
+      "range": {
+        "startLine": 210,
+        "startChar": 40,
+        "endLine": 210,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44950794_253d402d",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Same here with needing it or not.",
+      "range": {
+        "startLine": 211,
+        "startChar": 59,
+        "endLine": 211,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a8b45b2_85588e26",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "If they aren\u0027t set, won\u0027t they be nullptr?  So why do we need a bool as well?  \n\nIf we do need a bool, an rtc::Optional would probably be more appropriate.",
+      "range": {
+        "startLine": 215,
+        "startChar": 39,
+        "endLine": 215,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e341ee17_1b19d4b3",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "This could use a comment about why we have them and what they are.",
+      "range": {
+        "startLine": 229,
+        "startChar": 54,
+        "endLine": 229,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64a3c21d_0bcbadd8",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "This is the only place where ReadyForRemoteCandidates_n is called, and all it does is call GetJsepTransport and call ready_for_remote_candidates() on it.  But you\u0027re calling GetJsepTransport a few lines below.  So why not just use that one and remove ReadyForRemoteCandidates_n?",
+      "range": {
+        "startLine": 297,
+        "startChar": 52,
+        "endLine": 297,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19ba9f4a_9b8ebd4c",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Instead of getting the DtlsTransport from the JsepTransport, I think it would be cleaner to jave JsepTransport::AddRemoteCandidates and let it look into the candidates and which DtlsTransport to use.\n\nThen you would\u0027t need ready_for_remote_candidates, which would be nice, and you\u0027d have just one place that gave errors around remote candidates.",
+      "range": {
+        "startLine": 320,
+        "startChar": 57,
+        "endLine": 320,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31ed2043_f188b732",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "It seems like it would make sense to create a JsepTransportDescription that contains all of this information (ICE, DTLS, RTCP_MUX, and SRTP).  The old/current TransportDescription only contains ICE and DTLS and we should probably break it up or get rid of it entirely eventually.",
+      "range": {
+        "startLine": 827,
+        "startChar": 37,
+        "endLine": 827,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a63663b9_9e825b2b",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-08T02:27:11Z",
+      "side": 1,
+      "message": "Set SetLocalTransportDescription_n and SetRemoteTransportDescription_n are practically the same.  It seems like their code should be moved to that common array in ApplyDescription_n in the while loop.  Then you wouldn\u0027t need these methods.\n\nOr move the whole chunk in the while loop to a method called ApplyDescription_n that applies to one transport.",
+      "range": {
+        "startLine": 855,
+        "startChar": 37,
+        "endLine": 855,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

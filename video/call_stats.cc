@@ -73,16 +73,14 @@ void UpdateAvgRttMs(std::list<CallStats::RttTime>* reports, int64_t* avg_rtt) {
 class RtcpObserver : public RtcpRttStats {
  public:
   explicit RtcpObserver(CallStats* owner) : owner_(owner) {}
-  virtual ~RtcpObserver() {}
+  ~RtcpObserver() override = default;
 
-  virtual void OnRttUpdate(int64_t rtt) {
-    owner_->OnRttUpdate(rtt);
-  }
+  void OnRttUpdate(int64_t rtt) override { owner_->OnRttUpdate(rtt); }
 
   // Returns the average RTT.
-  virtual int64_t LastProcessedRtt() const {
-    return owner_->avg_rtt_ms();
-  }
+  int64_t LastProcessedRtt() const override { return owner_->avg_rtt_ms(); }
+
+  int64_t MinRttMs() const override { return owner_->min_rtt_ms(); }
 
  private:
   CallStats* owner_;
@@ -118,6 +116,14 @@ void CallStats::Process() {
   last_process_time_ = now;
 
   RemoveOldReports(now, &reports_);
+  if (reports_.empty()) {
+    min_rtt_ms_ = -1;
+  } else {
+    min_rtt_ms_ = reports_.front().rtt;
+    for (const CallStats::RttTime& rtt_time : reports_)
+      min_rtt_ms_ = std::min(rtt_time.rtt, min_rtt_ms_);
+  }
+
   max_rtt_ms_ = GetMaxRttMs(&reports_);
   UpdateAvgRttMs(&reports_, &avg_rtt_ms_);
 
@@ -137,6 +143,11 @@ void CallStats::Process() {
 int64_t CallStats::avg_rtt_ms() const {
   rtc::CritScope cs(&crit_);
   return avg_rtt_ms_;
+}
+
+int64_t CallStats::min_rtt_ms() const {
+  rtc::CritScope cs(&crit_);
+  return min_rtt_ms_;
 }
 
 RtcpRttStats* CallStats::rtcp_rtt_stats() const {

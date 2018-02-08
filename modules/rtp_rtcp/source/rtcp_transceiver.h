@@ -43,6 +43,8 @@ class RtcpTransceiver : public RtcpFeedbackSenderInterface {
       MediaReceiverRtcpObserver* observer,
       std::unique_ptr<rtc::QueuedTask> on_removed);
 
+  void SetNetworkState(bool up);
+
   // Handles incoming rtcp packets.
   void ReceivePacket(rtc::CopyOnWriteBuffer packet);
 

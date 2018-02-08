@@ -267,6 +267,7 @@ class Call : public webrtc::Call,
   Clock* const clock_;
 
   const int num_cpu_cores_;
+  rtc::TaskQueue rtcp_task_queue_;
   const std::unique_ptr<ProcessThread> module_process_thread_;
   const std::unique_ptr<ProcessThread> pacer_thread_;
   const std::unique_ptr<CallStats> call_stats_;
@@ -420,6 +421,7 @@ Call::Call(const Call::Config& config,
            std::unique_ptr<RtpTransportControllerSendInterface> transport_send)
     : clock_(Clock::GetRealTimeClock()),
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
+      rtcp_task_queue_("RtcpQueue"),
       module_process_thread_(ProcessThread::Create("ModuleProcessThread")),
       pacer_thread_(ProcessThread::Create("PacerThread")),
       call_stats_(new CallStats(clock_)),
@@ -816,7 +818,7 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
   VideoReceiveStream* receive_stream = new VideoReceiveStream(
       &video_receiver_controller_, num_cpu_cores_,
       transport_send_->packet_router(), std::move(configuration),
-      module_process_thread_.get(), call_stats_.get());
+      module_process_thread_.get(), &rtcp_task_queue_, call_stats_.get());
 
   const webrtc::VideoReceiveStream::Config& config = receive_stream->config();
   ReceiveRtpConfig receive_config(config.rtp.extensions,

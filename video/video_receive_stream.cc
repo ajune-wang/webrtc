@@ -88,6 +88,7 @@ VideoReceiveStream::VideoReceiveStream(
     PacketRouter* packet_router,
     VideoReceiveStream::Config config,
     ProcessThread* process_thread,
+    rtc::TaskQueue* task_queue,
     CallStats* call_stats)
     : transport_adapter_(config.rtcp_send_transport),
       config_(std::move(config)),
@@ -110,6 +111,7 @@ VideoReceiveStream::VideoReceiveStream(
                                  rtp_receive_statistics_.get(),
                                  &stats_proxy_,
                                  process_thread_,
+                                 task_queue,
                                  this,  // NackSender
                                  this,  // KeyFrameRequestSender
                                  this,  // OnCompleteFrameCallback
@@ -378,16 +380,12 @@ rtc::Optional<Syncable::Info> VideoReceiveStream::GetInfo() const {
           &info.latest_receive_time_ms))
     return rtc::nullopt;
 
-  RtpRtcp* rtp_rtcp = rtp_video_stream_receiver_.rtp_rtcp();
-  RTC_DCHECK(rtp_rtcp);
-  if (rtp_rtcp->RemoteNTP(&info.capture_time_ntp_secs,
-                          &info.capture_time_ntp_frac,
-                          nullptr,
-                          nullptr,
-                          &info.capture_time_source_clock) != 0) {
+  NtpTime ntp_time;
+  if (!rtp_video_stream_receiver_.GetRemoteNtpRtpTimes(
+          &ntp_time, &info.capture_time_source_clock))
     return rtc::nullopt;
-  }
-
+  info.capture_time_ntp_secs = ntp_time.seconds();
+  info.capture_time_ntp_frac = ntp_time.fractions();
   info.current_delay_ms = video_receiver_.Delay();
   return info;
 }

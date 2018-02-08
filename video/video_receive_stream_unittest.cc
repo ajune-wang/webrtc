@@ -70,6 +70,7 @@ class VideoReceiveStreamTest : public testing::Test {
       : override_field_trials_(kNewJitterBufferFieldTrialEnabled),
         config_(&mock_transport_),
         call_stats_(Clock::GetRealTimeClock()),
+        task_queue_("TestQueue"),
         process_thread_(ProcessThread::Create("TestThread")) {}
 
   void SetUp() {
@@ -91,8 +92,8 @@ class VideoReceiveStreamTest : public testing::Test {
     config_.decoders.push_back(null_decoder);
 
     video_receive_stream_.reset(new webrtc::internal::VideoReceiveStream(
-        &rtp_stream_receiver_controller_, kDefaultNumCpuCores,
-        &packet_router_, config_.Copy(), process_thread_.get(), &call_stats_));
+        &rtp_stream_receiver_controller_, kDefaultNumCpuCores, &packet_router_,
+        config_.Copy(), process_thread_.get(), &task_queue_, &call_stats_));
   }
 
  protected:
@@ -104,6 +105,7 @@ class VideoReceiveStreamTest : public testing::Test {
   cricket::FakeVideoRenderer fake_renderer_;
   MockTransport mock_transport_;
   PacketRouter packet_router_;
+  rtc::TaskQueue task_queue_;
   std::unique_ptr<ProcessThread> process_thread_;
   RtpStreamReceiverController rtp_stream_receiver_controller_;
   std::unique_ptr<webrtc::internal::VideoReceiveStream> video_receive_stream_;

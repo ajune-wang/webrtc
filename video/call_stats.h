@@ -56,6 +56,7 @@ class CallStats : public Module {
   void OnRttUpdate(int64_t rtt);
 
   int64_t avg_rtt_ms() const;
+  int64_t min_rtt_ms() const;
 
  private:
   void UpdateHistograms();
@@ -69,6 +70,7 @@ class CallStats : public Module {
   int64_t last_process_time_;
   // The last RTT in the statistics update (zero if there is no valid estimate).
   int64_t max_rtt_ms_;
+  int64_t min_rtt_ms_;
   int64_t avg_rtt_ms_;
   int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY(crit_);
   int64_t num_avg_rtt_ RTC_GUARDED_BY(crit_);

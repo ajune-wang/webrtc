@@ -43,6 +43,8 @@ class RtcpTransceiverImpl {
   void RemoveMediaReceiverRtcpObserver(uint32_t remote_ssrc,
                                        MediaReceiverRtcpObserver* observer);
 
+  void SetNetworkState(bool up);
+
   void ReceivePacket(rtc::ArrayView<const uint8_t> packet, int64_t now_us);
 
   void SendCompoundPacket();
@@ -68,6 +70,7 @@ class RtcpTransceiverImpl {
   void HandleBye(const rtcp::CommonHeader& rtcp_packet_header);
   void HandleSenderReport(const rtcp::CommonHeader& rtcp_packet_header,
                           int64_t now_us);
+  void HandleSdes(const rtcp::CommonHeader& rtcp_packet_header);
   void HandleExtendedReports(const rtcp::CommonHeader& rtcp_packet_header,
                              int64_t now_us);
   // Extended Reports blocks handlers.
@@ -88,6 +91,7 @@ class RtcpTransceiverImpl {
 
   const RtcpTransceiverConfig config_;
 
+  bool network_up_;
   rtc::Optional<rtcp::Remb> remb_;
   // TODO(danilchap): Remove entries from remote_senders_ that are no longer
   // needed.

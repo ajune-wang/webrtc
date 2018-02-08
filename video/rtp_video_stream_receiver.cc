@@ -34,6 +34,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/system/fallthrough.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
@@ -47,39 +48,30 @@ namespace {
 //                 crbug.com/752886
 constexpr int kPacketBufferStartSize = 512;
 constexpr int kPacketBufferMaxSixe = 2048;
-}
 
-std::unique_ptr<RtpRtcp> CreateRtpRtcpModule(
-    ReceiveStatistics* receive_statistics,
-    Transport* outgoing_transport,
-    RtcpRttStats* rtt_stats,
-    RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer,
-    TransportSequenceNumberAllocator* transport_sequence_number_allocator) {
-  RtpRtcp::Configuration configuration;
-  configuration.audio = false;
-  configuration.receiver_only = true;
-  configuration.receive_statistics = receive_statistics;
-  configuration.outgoing_transport = outgoing_transport;
-  configuration.intra_frame_callback = nullptr;
-  configuration.rtt_stats = rtt_stats;
-  configuration.rtcp_packet_type_counter_observer =
-      rtcp_packet_type_counter_observer;
-  configuration.transport_sequence_number_allocator =
-      transport_sequence_number_allocator;
-  configuration.send_bitrate_observer = nullptr;
-  configuration.send_frame_count_observer = nullptr;
-  configuration.send_side_delay_observer = nullptr;
-  configuration.send_packet_observer = nullptr;
-  configuration.bandwidth_callback = nullptr;
-  configuration.transport_feedback_callback = nullptr;
-
-  std::unique_ptr<RtpRtcp> rtp_rtcp(RtpRtcp::CreateRtpRtcp(configuration));
-  rtp_rtcp->SetRTCPStatus(RtcpMode::kCompound);
-
-  return rtp_rtcp;
 }
 
 static const int kPacketLogIntervalMs = 10000;
+
+class RtpVideoStreamReceiver::RtcpObserver : public MediaReceiverRtcpObserver {
+ public:
+  RtcpObserver(RtpVideoStreamReceiver* rtp_video_stream_receiver,
+               ReceiveStatisticsProxy* receive_stats_proxy)
+      : rtp_video_stream_receiver_(rtp_video_stream_receiver),
+        receive_stats_proxy_(receive_stats_proxy) {}
+  void OnSenderReport(uint32_t sender_ssrc,
+                      NtpTime ntp_time,
+                      uint32_t rtp_time) override {
+    rtp_video_stream_receiver_->SetRemoteNtpRtpTimes(ntp_time, rtp_time);
+  }
+  void OnCname(uint32_t ssrc, const std::string& cname) override {
+    receive_stats_proxy_->CNameChanged(cname.c_str(), ssrc);
+  }
+
+ private:
+  RtpVideoStreamReceiver* const rtp_video_stream_receiver_;
+  ReceiveStatisticsProxy* const receive_stats_proxy_;
+};
 
 RtpVideoStreamReceiver::RtpVideoStreamReceiver(
     Transport* transport,
@@ -89,6 +81,7 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
     ReceiveStatistics* rtp_receive_statistics,
     ReceiveStatisticsProxy* receive_stats_proxy,
     ProcessThread* process_thread,
+    rtc::TaskQueue* task_queue,
     NackSender* nack_sender,
     KeyFrameRequestSender* keyframe_request_sender,
     video_coding::OnCompleteFrameCallback* complete_frame_callback,
@@ -97,6 +90,7 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
       config_(*config),
       packet_router_(packet_router),
       process_thread_(process_thread),
+      rtt_stats_(rtt_stats),
       ntp_estimator_(clock_),
       rtp_header_extensions_(config_.rtp.extensions),
       rtp_receiver_(RtpReceiver::CreateVideoReceiver(clock_,
@@ -107,17 +101,28 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
       ulpfec_receiver_(UlpfecReceiver::Create(config->rtp.remote_ssrc, this)),
       receiving_(false),
       last_packet_log_ms_(-1),
-      rtp_rtcp_(CreateRtpRtcpModule(rtp_receive_statistics_,
-                                    transport,
-                                    rtt_stats,
-                                    receive_stats_proxy,
-                                    packet_router)),
+      last_remote_rtp_time_(0),
+      rtcp_observer_(rtc::MakeUnique<RtcpObserver>(this, receive_stats_proxy)),
+      rtcp_transceiver_([&] {
+        RtcpTransceiverConfig rtcp_config;
+        rtcp_config.outgoing_transport = transport;
+        rtcp_config.task_queue = task_queue;
+        rtcp_config.feedback_ssrc = config_.rtp.local_ssrc;
+        rtcp_config.receive_statistics = rtp_receive_statistics_;
+        rtcp_config.rtt_observer = rtt_stats;
+        rtcp_config.sent_packet_type_counter_observer = receive_stats_proxy;
+        rtcp_config.non_sender_rtt_measurement =
+            config_.rtp.rtcp_xr.receiver_reference_time_report;
+        rtcp_config.rtcp_mode = config_.rtp.rtcp_mode;
+        rtcp_config.initial_network_up = false;
+        return rtcp_config;
+      }()),
       complete_frame_callback_(complete_frame_callback),
       keyframe_request_sender_(keyframe_request_sender),
       timing_(timing),
       has_received_frame_(false) {
   constexpr bool remb_candidate = true;
-  packet_router_->AddReceiveRtpModule(rtp_rtcp_.get(), remb_candidate);
+  packet_router_->AddReceiveRtpModule(&rtcp_transceiver_, remb_candidate);
   rtp_receive_statistics_->RegisterRtpStatisticsCallback(receive_stats_proxy);
   rtp_receive_statistics_->RegisterRtcpStatisticsCallback(receive_stats_proxy);
 
@@ -129,10 +134,8 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
   RTC_DCHECK(config_.rtp.local_ssrc != 0);
   RTC_DCHECK(config_.rtp.remote_ssrc != config_.rtp.local_ssrc);
 
-  rtp_rtcp_->SetRTCPStatus(config_.rtp.rtcp_mode);
-  rtp_rtcp_->SetSSRC(config_.rtp.local_ssrc);
-  rtp_rtcp_->SetRemoteSSRC(config_.rtp.remote_ssrc);
-  rtp_rtcp_->SetKeyFrameRequestMethod(kKeyFrameReqPliRtcp);
+  rtcp_transceiver_.AddMediaReceiverRtcpObserver(config_.rtp.remote_ssrc,
+                                                 rtcp_observer_.get());
 
   static const int kMaxPacketAgeToNack = 450;
   const int max_reordering_threshold = (config_.rtp.nack.rtp_history_ms > 0)
@@ -161,14 +164,6 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
     RTC_CHECK(AddReceiveCodec(red_codec));
   }
 
-  if (config_.rtp.rtcp_xr.receiver_reference_time_report)
-    rtp_rtcp_->SetRtcpXrRrtrStatus(true);
-
-  // Stats callback for CNAME changes.
-  rtp_rtcp_->RegisterRtcpStatisticsCallback(receive_stats_proxy);
-
-  process_thread_->RegisterModule(rtp_rtcp_.get(), RTC_FROM_HERE);
-
   if (config_.rtp.nack.rtp_history_ms != 0) {
     nack_module_.reset(
         new NackModule(clock_, nack_sender, keyframe_request_sender));
@@ -187,9 +182,7 @@ RtpVideoStreamReceiver::~RtpVideoStreamReceiver() {
     process_thread_->DeRegisterModule(nack_module_.get());
   }
 
-  process_thread_->DeRegisterModule(rtp_rtcp_.get());
-
-  packet_router_->RemoveReceiveRtpModule(rtp_rtcp_.get());
+  packet_router_->RemoveReceiveRtpModule(&rtcp_transceiver_);
   UpdateHistograms();
 }
 
@@ -226,8 +219,11 @@ int32_t RtpVideoStreamReceiver::OnReceivedPayloadData(
     size_t payload_size,
     const WebRtcRTPHeader* rtp_header) {
   WebRtcRTPHeader rtp_header_with_ntp = *rtp_header;
-  rtp_header_with_ntp.ntp_time_ms =
-      ntp_estimator_.Estimate(rtp_header->header.timestamp);
+  {
+    rtc::CritScope lock(&remote_time_cs_);
+    rtp_header_with_ntp.ntp_time_ms =
+        ntp_estimator_.Estimate(rtp_header->header.timestamp);
+  }
   VCMPacket packet(payload_data, payload_size, rtp_header_with_ntp);
   packet.timesNacked =
       nack_module_ ? nack_module_->OnReceivedPacket(packet) : -1;
@@ -356,7 +352,8 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
 }
 
 int32_t RtpVideoStreamReceiver::RequestKeyFrame() {
-  return rtp_rtcp_->RequestKeyFrame();
+  rtcp_transceiver_.SendPictureLossIndication(config_.rtp.remote_ssrc);
+  return 0;
 }
 
 bool RtpVideoStreamReceiver::IsUlpfecEnabled() const {
@@ -372,13 +369,18 @@ bool RtpVideoStreamReceiver::IsRetransmissionsEnabled() const {
 }
 
 void RtpVideoStreamReceiver::RequestPacketRetransmit(
-    const std::vector<uint16_t>& sequence_numbers) {
-  rtp_rtcp_->SendNack(sequence_numbers);
+    std::vector<uint16_t> sequence_numbers) {
+  rtcp_transceiver_.SendNack(config_.rtp.remote_ssrc,
+                             std::move(sequence_numbers));
 }
 
 int32_t RtpVideoStreamReceiver::ResendPackets(const uint16_t* sequence_numbers,
                                               uint16_t length) {
-  return rtp_rtcp_->SendNACK(sequence_numbers, length);
+  // TODO(danilchap): Throttle nack.
+  rtcp_transceiver_.SendNack(
+      config_.rtp.remote_ssrc,
+      std::vector<uint16_t>(sequence_numbers, sequence_numbers + length));
+  return 0;
 }
 
 void RtpVideoStreamReceiver::OnReceivedFrame(
@@ -418,6 +420,27 @@ rtc::Optional<int64_t> RtpVideoStreamReceiver::LastReceivedPacketMs() const {
 rtc::Optional<int64_t> RtpVideoStreamReceiver::LastReceivedKeyframePacketMs()
     const {
   return packet_buffer_->LastReceivedKeyframePacketMs();
+}
+
+bool RtpVideoStreamReceiver::GetRemoteNtpRtpTimes(NtpTime* ntp_time,
+                                                  uint32_t* rtp_time) const {
+  rtc::CritScope lock(&remote_time_cs_);
+  if (!last_remote_ntp_time_.Valid())
+    return false;
+  *ntp_time = last_remote_ntp_time_;
+  *rtp_time = last_remote_rtp_time_;
+  return true;
+}
+
+void RtpVideoStreamReceiver::SetRemoteNtpRtpTimes(NtpTime ntp_time,
+                                                  uint32_t rtp_time) {
+  int64_t rtt_ms = rtt_stats_->LastProcessedRtt();
+  rtc::CritScope lock(&remote_time_cs_);
+  last_remote_ntp_time_ = ntp_time;
+  last_remote_rtp_time_ = rtp_time;
+  if (rtt_ms > 0)
+    ntp_estimator_.UpdateRtcpTimestamp(rtt_ms, ntp_time.seconds(),
+                                       ntp_time.fractions(), rtp_time);
 }
 
 void RtpVideoStreamReceiver::AddSecondarySink(RtpPacketSinkInterface* sink) {
@@ -523,32 +546,8 @@ bool RtpVideoStreamReceiver::DeliverRtcp(const uint8_t* rtcp_packet,
     return false;
   }
 
-  rtp_rtcp_->IncomingRtcpPacket(rtcp_packet, rtcp_packet_length);
-
-  int64_t rtt = 0;
-  rtp_rtcp_->RTT(rtp_receiver_->SSRC(), &rtt, nullptr, nullptr, nullptr);
-  if (rtt == 0) {
-    // Waiting for valid rtt.
-    return true;
-  }
-  uint32_t ntp_secs = 0;
-  uint32_t ntp_frac = 0;
-  uint32_t rtp_timestamp = 0;
-  uint32_t recieved_ntp_secs = 0;
-  uint32_t recieved_ntp_frac = 0;
-  if (rtp_rtcp_->RemoteNTP(&ntp_secs, &ntp_frac, &recieved_ntp_secs,
-                           &recieved_ntp_frac, &rtp_timestamp) != 0) {
-    // Waiting for RTCP.
-    return true;
-  }
-  NtpTime recieved_ntp(recieved_ntp_secs, recieved_ntp_frac);
-  int64_t time_since_recieved =
-      clock_->CurrentNtpInMilliseconds() - recieved_ntp.ToMs();
-  // Don't use old SRs to estimate time.
-  if (time_since_recieved <= 1) {
-    ntp_estimator_.UpdateRtcpTimestamp(rtt, ntp_secs, ntp_frac, rtp_timestamp);
-  }
-
+  rtcp_transceiver_.ReceivePacket(
+      rtc::CopyOnWriteBuffer(rtcp_packet, rtcp_packet_length));
   return true;
 }
 
@@ -585,8 +584,7 @@ void RtpVideoStreamReceiver::FrameDecoded(int64_t picture_id) {
 }
 
 void RtpVideoStreamReceiver::SignalNetworkState(NetworkState state) {
-  rtp_rtcp_->SetRTCPStatus(state == kNetworkUp ? config_.rtp.rtcp_mode
-                                               : RtcpMode::kOff);
+  rtcp_transceiver_.SetNetworkState(state == kNetworkUp);
 }
 
 void RtpVideoStreamReceiver::StartReceive() {
@@ -617,10 +615,8 @@ bool RtpVideoStreamReceiver::IsPacketRetransmitted(const RTPHeader& header,
   if (!statistician)
     return false;
   // Check if this is a retransmission.
-  int64_t min_rtt = 0;
-  rtp_rtcp_->RTT(config_.rtp.remote_ssrc, nullptr, nullptr, &min_rtt, nullptr);
   return !in_order &&
-      statistician->IsRetransmitOfOldPacket(header, min_rtt);
+         statistician->IsRetransmitOfOldPacket(header, rtt_stats_->MinRttMs());
 }
 
 void RtpVideoStreamReceiver::UpdateHistograms() {

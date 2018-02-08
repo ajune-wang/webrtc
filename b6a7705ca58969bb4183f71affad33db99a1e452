@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "214ccc61_a8da1cf9",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T20:58:22Z",
+      "side": 1,
+      "message": "Thanks!!!\nDone",
+      "parentUuid": "4bea2764_607b1bd2",
+      "revId": "b6a7705ca58969bb4183f71affad33db99a1e452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bb52214_b5c54dfc",
         "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-08T20:52:41Z",
       "side": 1,
       "message": "The 20 here is probably better as a constant. Though, it may also be worth exposing as tunable?",
+      "revId": "b6a7705ca58969bb4183f71affad33db99a1e452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8912fc64_10dab881",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-08T20:58:22Z",
+      "side": 1,
+      "message": "That is a good point. Let\u0027s discuss that further once the performance is further tested.",
+      "parentUuid": "2bb52214_b5c54dfc",
       "revId": "b6a7705ca58969bb4183f71affad33db99a1e452",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

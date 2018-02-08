@@ -235,6 +235,30 @@
       "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d070a3c_9d32a88f",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-08T07:43:42Z",
+      "side": 1,
+      "message": "I\u0027m afraid it won\u0027t work to add defaults to ScalingSettings(bool). The defaults are codec dependent. Is there any way for ScalingSettings to know if it\u0027s used for vp8 or h.264?\n\nAlso it looks like videoencoderwrapper is also responsible for getting the qp values out of the bitstream. It\u0027s somewhat logical to have default codec-dependent thresholds close to that. Or is there any plan to move bitstream parsing from C++ over to java?",
+      "parentUuid": "7fbc77c6_4fe3ec7e",
+      "range": {
+        "startLine": 418,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 60
+      },
+      "revId": "848020d44772990a4854f7115a9fdb703341b7a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

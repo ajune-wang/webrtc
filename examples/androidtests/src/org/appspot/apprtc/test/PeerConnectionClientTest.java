@@ -315,7 +315,7 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
             null, null, null, // clientId, wssUrl, wssPostUrl.
             null, null); // offerSdp, iceCandidates.
 
-    PeerConnectionClient client = new PeerConnectionClient();
+    PeerConnectionClient client = new PeerConnectionClient(null);
     PeerConnectionFactory.Options options = new PeerConnectionFactory.Options();
     options.networkIgnoreMask = 0;
     options.disableNetworkMonitor = true;

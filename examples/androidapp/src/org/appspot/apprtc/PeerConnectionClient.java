@@ -11,8 +11,10 @@
 package org.appspot.apprtc;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import java.io.File;
 import java.io.IOException;
@@ -115,6 +117,7 @@ public class PeerConnectionClient {
   private final SDPObserver sdpObserver = new SDPObserver();
 
   private final EglBase rootEglBase;
+  private Context appContext = null;
   private PeerConnectionFactory factory;
   private PeerConnection peerConnection;
   PeerConnectionFactory.Options options = null;
@@ -154,6 +157,11 @@ public class PeerConnectionClient {
   private AudioTrack localAudioTrack;
   private DataChannel dataChannel;
   private boolean dataChannelEnabled;
+
+  // Enable RtcEventLog.
+  private RtcEventLog rtcEventLog;
+
+  private SharedPreferences sharedPref;
 
   /**
    * Peer connection parameters.
@@ -293,8 +301,13 @@ public class PeerConnectionClient {
     void onPeerConnectionError(final String description);
   }
 
-  public PeerConnectionClient() {
+  public PeerConnectionClient(Context context) {
     rootEglBase = EglBase.create();
+    if (context == null) {
+      return;
+    }
+    appContext = context.getApplicationContext();
+    sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
   }
 
   public void setPeerConnectionFactoryOptions(PeerConnectionFactory.Options options) {
@@ -357,6 +370,7 @@ public class PeerConnectionClient {
         try {
           createMediaConstraintsInternal();
           createPeerConnectionInternal();
+          maybeCreateAndStartRtcEventLog();
         } catch (Exception e) {
           reportError("Failed to create peer connection: " + e.getMessage());
           throw e;
@@ -662,6 +676,22 @@ public class PeerConnectionClient {
     }
 
     Log.d(TAG, "Peer connection created.");
+  }
+
+  private void maybeCreateAndStartRtcEventLog() {
+    if (appContext == null || peerConnection == null) {
+      return;
+    }
+    String attributeName = appContext.getString(R.string.pref_enable_rtceventlog_key);
+    boolean defaultValue =
+        Boolean.valueOf(appContext.getString(R.string.pref_enable_rtceventlog_default));
+    boolean enabled = sharedPref.getBoolean(attributeName, defaultValue);
+    if (!enabled) {
+      Log.d(TAG, "RtcEventLog is disabled.");
+      return;
+    }
+    rtcEventLog = new RtcEventLog(peerConnection);
+    rtcEventLog.start(appContext);
   }
 
   private void closeInternal() {

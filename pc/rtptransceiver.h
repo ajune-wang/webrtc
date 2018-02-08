@@ -89,8 +89,15 @@ class RtpTransceiver final
 
   // Returns a vector of the senders owned by this transceiver.
   std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
-  senders() const {
+  senders_internal() const {
     return senders_;
+  }
+  std::vector<rtc::scoped_refptr<RtpSenderInterface>> senders() const {
+    std::vector<rtc::scoped_refptr<RtpSenderInterface>> senders;
+    for (auto sender : senders_) {
+      senders.push_back(sender);
+    }
+    return senders;
   }
 
   // Adds an RtpReceiver of the appropriate type to be owned by this
@@ -106,8 +113,15 @@ class RtpTransceiver final
   // Returns a vector of the receivers owned by this transceiver.
   std::vector<
       rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
-  receivers() const {
+  receivers_internal() const {
     return receivers_;
+  }
+  std::vector<rtc::scoped_refptr<RtpReceiverInterface>> receivers() const {
+    std::vector<rtc::scoped_refptr<RtpReceiverInterface>> receivers;
+    for (auto receiver : receivers_) {
+      receivers.push_back(receiver);
+    }
+    return receivers;
   }
 
   // Returns the backing object for the transceiver's Unified Plan sender.

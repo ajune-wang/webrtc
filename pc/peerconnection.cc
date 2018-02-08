@@ -1427,7 +1427,7 @@ PeerConnection::GetSendersInternal() const {
   std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
       all_senders;
   for (auto transceiver : transceivers_) {
-    auto senders = transceiver->internal()->senders();
+    auto senders = transceiver->internal()->senders_internal();
     all_senders.insert(all_senders.end(), senders.begin(), senders.end());
   }
   return all_senders;
@@ -1449,7 +1449,7 @@ PeerConnection::GetReceiversInternal() const {
       rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
       all_receivers;
   for (auto transceiver : transceivers_) {
-    auto receivers = transceiver->internal()->receivers();
+    auto receivers = transceiver->internal()->receivers_internal();
     all_receivers.insert(all_receivers.end(), receivers.begin(),
                          receivers.end());
   }
@@ -4123,7 +4123,7 @@ bool PeerConnection::HasRtpSender(cricket::MediaType type) const {
 rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
 PeerConnection::FindSenderForTrack(MediaStreamTrackInterface* track) const {
   for (auto transceiver : transceivers_) {
-    for (auto sender : transceiver->internal()->senders()) {
+    for (auto sender : transceiver->internal()->senders_internal()) {
       if (sender->track() == track) {
         return sender;
       }
@@ -4135,7 +4135,7 @@ PeerConnection::FindSenderForTrack(MediaStreamTrackInterface* track) const {
 rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
 PeerConnection::FindSenderById(const std::string& sender_id) const {
   for (auto transceiver : transceivers_) {
-    for (auto sender : transceiver->internal()->senders()) {
+    for (auto sender : transceiver->internal()->senders_internal()) {
       if (sender->id() == sender_id) {
         return sender;
       }
@@ -4147,7 +4147,7 @@ PeerConnection::FindSenderById(const std::string& sender_id) const {
 rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
 PeerConnection::FindReceiverById(const std::string& receiver_id) const {
   for (auto transceiver : transceivers_) {
-    for (auto receiver : transceiver->internal()->receivers()) {
+    for (auto receiver : transceiver->internal()->receivers_internal()) {
       if (receiver->id() == receiver_id) {
         return receiver;
       }

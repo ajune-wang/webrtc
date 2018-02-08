@@ -78,6 +78,15 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
     std::unique_ptr<rtc::SSLCertificateStats> remote;
   };
 
+  struct RtpTransceiverStatsInfo {
+    rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
+        transceiver;
+    cricket::MediaType media_type;
+    std::string mid;
+    std::string transport_name;
+    std::unique_ptr<TrackMediaInfoMap> track_media_info_map;
+  };
+
   void AddPartialResults_s(rtc::scoped_refptr<RTCStatsReport> partial_report);
   void DeliverCachedReport();
 
@@ -88,7 +97,8 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
       RTCStatsReport* report) const;
   // Produces |RTCCodecStats|.
   void ProduceCodecStats_n(
-      int64_t timestamp_us, const TrackMediaInfoMap& track_media_info_map,
+      int64_t timestamp_us,
+      const std::vector<RtpTransceiverStatsInfo>& transceiver_stats_infos,
       RTCStatsReport* report) const;
   // Produces |RTCDataChannelStats|.
   void ProduceDataChannelStats_s(
@@ -98,7 +108,6 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
       int64_t timestamp_us,
       const std::map<std::string, cricket::TransportStats>&
           transport_stats_by_name,
-      const cricket::VideoMediaInfo* video_media_info,
       const Call::Stats& call_stats,
       RTCStatsReport* report) const;
   // Produces |RTCMediaStreamStats| and |RTCMediaStreamTrackStats|.
@@ -110,9 +119,14 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   // Produces |RTCInboundRTPStreamStats| and |RTCOutboundRTPStreamStats|.
   void ProduceRTPStreamStats_n(
       int64_t timestamp_us,
-      const std::map<std::string, std::string>& transport_names_by_mid,
-      const TrackMediaInfoMap& track_media_info_map,
+      const std::vector<RtpTransceiverStatsInfo>& transceiver_stats_infos,
       RTCStatsReport* report) const;
+  void ProduceAudioRTPStreamStats_n(int64_t timestamp_us,
+                                    const RtpTransceiverStatsInfo& stats,
+                                    RTCStatsReport* report) const;
+  void ProduceVideoRTPStreamStats_n(int64_t timestamp_us,
+                                    const RtpTransceiverStatsInfo& stats,
+                                    RTCStatsReport* report) const;
   // Produces |RTCTransportStats|.
   void ProduceTransportStats_n(
       int64_t timestamp_us,
@@ -126,8 +140,7 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   PrepareTransportCertificateStats_n(
       const std::map<std::string, cricket::TransportStats>&
           transport_stats_by_name) const;
-  std::unique_ptr<TrackMediaInfoMap> PrepareTrackMediaInfoMap_s() const;
-  std::map<MediaStreamTrackInterface*, std::string> PrepareTrackToID_s() const;
+  std::vector<RtpTransceiverStatsInfo> PrepareTransceiverStatsInfos_s() const;
 
   // Slots for signals (sigslot) that are wired up to |pc_|.
   void OnDataChannelCreated(DataChannel* channel);
@@ -151,8 +164,7 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
   // passed as arguments to avoid copies. This is thread safe - when we
   // set/reset we know there are no pending stats requests in progress.
   std::map<std::string, std::string> transport_names_by_mid_;
-  std::unique_ptr<TrackMediaInfoMap> track_media_info_map_;
-  std::map<MediaStreamTrackInterface*, std::string> track_to_id_;
+  std::vector<RtpTransceiverStatsInfo> transceiver_stats_infos_;
 
   rtc::Optional<std::string> voice_mid_;
   rtc::Optional<std::string> video_mid_;

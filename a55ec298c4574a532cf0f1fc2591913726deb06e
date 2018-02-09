@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "60f2e333_0bf5e0a2",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/ConnectActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bb78572_bad0bf64",
+      "range": {
+        "startLine": 452,
+        "startChar": 4,
+        "endLine": 452,
+        "endChar": 32
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1d2c096_63a38b27",
         "filename": "examples/androidapp/src/org/appspot/apprtc/ConnectActivity.java",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d683fa5_7cede60b",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/ConnectActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1d2c096_63a38b27",
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9353c970_a9e06047",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "478c2eee_3e606d30",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 36
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc4a227e_4fa69025",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 5
@@ -85,6 +151,30 @@
       "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "681b39e8_c8a64acd",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done. I have removed the application context argument from createPeerConnectionFactory, making it a bit cleaner, and the constructor is called with the application context from the call site now.",
+      "parentUuid": "cc4a227e_4fa69025",
+      "range": {
+        "startLine": 311,
+        "startChar": 30,
+        "endLine": 311,
+        "endChar": 45
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "199027f5_ea9aec2c",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9b3db1a_58a1d652",
+      "range": {
+        "startLine": 313,
+        "startChar": 4,
+        "endLine": 315,
+        "endChar": 5
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00f7caeb_0f64b81e",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 5
@@ -131,6 +245,30 @@
       "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2285545_6e45bed7",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00f7caeb_0f64b81e",
+      "range": {
+        "startLine": 317,
+        "startChar": 4,
+        "endLine": 317,
+        "endChar": 72
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "61324ad4_741ce1d1",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "852c09d9_a8ca0400",
+      "range": {
+        "startLine": 719,
+        "startChar": 6,
+        "endLine": 719,
+        "endChar": 32
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41f7da7f_69986893",
         "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
         "patchSetId": 5
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "03e55d8c_e5ce5093",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Ack. It was my mistake. Thanks!",
+      "parentUuid": "41f7da7f_69986893",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea7195d9_4450cff3",
         "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
         "patchSetId": 5
@@ -197,6 +383,24 @@
     },
     {
       "key": {
+        "uuid": "63a24818_4bb1707d",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea7195d9_4450cff3",
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f93e8e4_53b01975",
         "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
         "patchSetId": 5
@@ -211,6 +415,24 @@
       "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16cd07a_a24b07b2",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f93e8e4_53b01975",
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -234,6 +456,30 @@
       "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37dffa6_7b8319ad",
+        "filename": "examples/androidtests/src/org/appspot/apprtc/test/PeerConnectionClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T21:00:18Z",
+      "side": 1,
+      "message": "Done. This also enables the throw of NullPointerException in the constructor.",
+      "parentUuid": "cdc65911_73308cd2",
+      "range": {
+        "startLine": 318,
+        "startChar": 59,
+        "endLine": 318,
+        "endChar": 63
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

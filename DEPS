@@ -9,6 +9,11 @@ vars = {
   'webrtc_git': 'https://webrtc.googlesource.com',
   'chromium_revision': '6fcad09d4a17b65c16ac2c0b71b3b0b29132935f',
   'boringssl_git': 'https://boringssl.googlesource.com',
+  'absl_git': 'https://github.com/abseil/abseil-cpp.git',
+  # Three lines of non-changing comments so that
+  # the commit queue can handle CLs rolling swarming_client
+  # and whatever else without interference from each other.
+  'absl_revision': '8311b41974e50f2753921ba986bbd188f9bc28a0',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
   # and whatever else without interference from each other.
@@ -71,6 +76,7 @@ deps = {
   },
   'src/third_party/boringssl/src':
     Var('boringssl_git') + '/boringssl.git' + '@' +  Var('boringssl_revision'),
+  'src/third_party/abseil_cpp/third_party': Var('absl_git') + '@' + Var('absl_revision'),
   'src/third_party/catapult':
     Var('chromium_git') + '/catapult.git' + '@' + Var('catapult_revision'),
   'src/third_party/ced/src': {
@@ -462,6 +468,16 @@ hooks = [
                'download'
     ],
   },
+  {
+    'name': 'absl_generate_gn',
+    'pattern': '.',
+    'action': ['python',
+               'src/tools_webrtc/absl_bazel_to_gn.py',
+               '--library_root', 'src/third_party/abseil_cpp/third_party/absl',
+               '--include_dirs', '//third_party/abseil_cpp',
+               '--include_dirs', '//third_party/abseil_cpp/third_party'
+    ],
+  },
 ]
 
 recursedeps = [
@@ -491,6 +507,7 @@ include_rules = [
   "+rtc_base",
   "+test",
   "+rtc_tools",
+  "+third_party/absl",
 ]
 
 # The below rules will be removed when webrtc:4243 is fixed.

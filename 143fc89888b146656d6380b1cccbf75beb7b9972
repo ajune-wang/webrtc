@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddf2fedb_93a4b25a",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-02-09T10:01:21Z",
+      "side": 1,
+      "message": "I think you will miss essential information here (sample rate is required, right?). getAudioFormat only gives you ENCODING_PCM_16BIT. I think what you need is audioRecord.getFormat() which returns and AudioFormat.",
+      "revId": "143fc89888b146656d6380b1cccbf75beb7b9972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

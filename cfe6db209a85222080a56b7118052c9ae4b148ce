@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55a995a3_2e325878",
+        "filename": "common_audio/rnn_vad/rnn_vad.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-09T13:18:26Z",
+      "side": 1,
+      "message": "Replace with:\n\n#include \"rtc_base/ignore_wundef.h\"\nRTC_PUSH_IGNORING_WUNDEF()\n#include \"common_audio/rnn_vad/rnn_data.pb.h\"\nRTC_POP_IGNORING_WUNDEF()",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 45
+      },
+      "revId": "cfe6db209a85222080a56b7118052c9ae4b148ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7d2c93d_1953a55a",
+        "filename": "common_audio/rnn_vad/rnn_vad_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-09T13:18:26Z",
+      "side": 1,
+      "message": "Replace with:\n\n#include \"rtc_base/ignore_wundef.h\"\nRTC_PUSH_IGNORING_WUNDEF()\n#include \"common_audio/rnn_vad/rnn_data.pb.h\"\nRTC_POP_IGNORING_WUNDEF()",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 45
+      },
+      "revId": "cfe6db209a85222080a56b7118052c9ae4b148ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

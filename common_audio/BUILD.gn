@@ -457,6 +457,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_tests_utils",
       "../system_wrappers:cpu_features_api",
       "../test:test_main",
+      "rnn_vad:unittest",
       "//testing/gtest",
     ]
 

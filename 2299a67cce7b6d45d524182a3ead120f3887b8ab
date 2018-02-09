@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "202bc56c_18b83a83",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-02-09T07:06:41Z",
+      "side": 1,
+      "message": "Maybe add a comment why this line is important.",
+      "revId": "2299a67cce7b6d45d524182a3ead120f3887b8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cf5dc6a_7bec1bfc",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-02-09T07:06:41Z",
+      "side": 1,
+      "message": "Maybe call this |last_unfreeze_time_ms_|.",
+      "range": {
+        "startLine": 841,
+        "startChar": 40,
+        "endLine": 841,
+        "endChar": 60
+      },
+      "revId": "2299a67cce7b6d45d524182a3ead120f3887b8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

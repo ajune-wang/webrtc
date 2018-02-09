@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "a403d3b8_60e6d4fa",
+        "filename": ".gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-09T10:09:18Z",
+      "side": 1,
+      "message": "Can you also remove this comment and the previous newline?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 71
+      },
+      "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7d32c85_ca768dfd",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-09T10:09:18Z",
+      "side": 1,
+      "message": "For consistency, these should be relative to this BUILD.gn file.\n\n//api/video_codecs:video_codecs_api --\u003e ../api/video_codecs:video_codecs_api.",
+      "range": {
+        "startLine": 362,
+        "startChar": 9,
+        "endLine": 362,
+        "endChar": 11
+      },
+      "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18653a89_ebc40420",
         "filename": "sdk/BUILD.gn",
         "patchSetId": 6
@@ -13,6 +59,30 @@
       "writtenOn": "2018-02-09T09:57:29Z",
       "side": 1,
       "message": "I think we can safely delete this target and the peerconnectionfactory_no_media_objc as they don\u0027t contain any sources, only different deps. Since public_deps are disallowed I don\u0027t see their purpose.",
+      "range": {
+        "startLine": 371,
+        "startChar": 24,
+        "endLine": 371,
+        "endChar": 50
+      },
+      "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18d737d9_217057a9",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-09T10:09:18Z",
+      "side": 1,
+      "message": "Yes, I think we can remove peerconnectionfactory_objc. It seems useless at this point.\nRegarding peerconnectionfactory_no_media_objc the situation is different because it defines HAVE_NO_MEDIA, which is used to ifdef out some code. I think we should keep peerconnectionfactory_no_media_objc around (maybe remove it later after looking carefully into it).",
+      "parentUuid": "18653a89_ebc40420",
       "range": {
         "startLine": 371,
         "startChar": 24,

@@ -449,6 +449,11 @@ public class ConnectActivity extends Activity {
     String protocol = sharedPrefGetString(R.string.pref_data_protocol_key,
         CallActivity.EXTRA_PROTOCOL, R.string.pref_data_protocol_default, useValuesFromIntent);
 
+    // Check Enable RtcEventLog.
+    boolean rtcEventLogEnabled = sharedPrefGetBoolean(R.string.pref_enable_rtceventlog_key,
+        CallActivity.EXTRA_ENABLE_RTCEVENTLOG, R.string.pref_enable_rtceventlog_default,
+        useValuesFromIntent);
+
     // Start AppRTCMobile activity.
     Log.d(TAG, "Connecting to room " + roomId + " at URL " + roomUrl);
     if (validateUrl(roomUrl)) {
@@ -485,6 +490,8 @@ public class ConnectActivity extends Activity {
       intent.putExtra(CallActivity.EXTRA_RUNTIME, runTimeMs);
 
       intent.putExtra(CallActivity.EXTRA_DATA_CHANNEL_ENABLED, dataChannelEnabled);
+
+      intent.putExtra(CallActivity.EXTRA_ENABLE_RTCEVENTLOG, rtcEventLogEnabled);
 
       if (dataChannelEnabled) {
         intent.putExtra(CallActivity.EXTRA_ORDERED, ordered);

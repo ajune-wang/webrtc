@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16a3cf0a_e7fbe559",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-09T23:54:17Z",
+      "side": 1,
+      "message": "Do you need to pass along \"RtpSenderProxyWithInternal\u003cRtpSenderInternal\u003e\"s around everywhere, or could you just use the RtpSenderInternal directly?",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

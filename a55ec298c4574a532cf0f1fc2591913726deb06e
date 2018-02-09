@@ -1,0 +1,216 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bb78572_bad0bf64",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/ConnectActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "nit: Place after tracing.",
+      "range": {
+        "startLine": 452,
+        "startChar": 4,
+        "endLine": 452,
+        "endChar": 32
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d2c096_63a38b27",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/ConnectActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "nit: it is a bit strange to place this in between data channel parameters, place directly below EXTRA_TRACING",
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "478c2eee_3e606d30",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "Can be final.",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 36
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc4a227e_4fa69025",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "Application context is now passed twice to the class. Once in the constructor and once in createPeerConnectionFactory. Please remove one of them. Also, I think it would be better to call getApplicationContext() on the call site and pass it in directly.",
+      "range": {
+        "startLine": 311,
+        "startChar": 30,
+        "endLine": 311,
+        "endChar": 45
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9b3db1a_58a1d652",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "Move to the beginning and throw NullPointerException.",
+      "range": {
+        "startLine": 313,
+        "startChar": 4,
+        "endLine": 315,
+        "endChar": 5
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00f7caeb_0f64b81e",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "Unused, please remove.",
+      "range": {
+        "startLine": 317,
+        "startChar": 4,
+        "endLine": 317,
+        "endChar": 72
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "852c09d9_a8ca0400",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "nit: Move outside the if and set rtcEventLog to null.",
+      "range": {
+        "startLine": 719,
+        "startChar": 6,
+        "endLine": 719,
+        "endChar": 32
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea7195d9_4450cff3",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "nit: Place directly below tracing.",
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f93e8e4_53b01975",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "nit: no need for an empty line.",
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc65911_73308cd2",
+        "filename": "examples/androidtests/src/org/appspot/apprtc/test/PeerConnectionClientTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-09T08:50:25Z",
+      "side": 1,
+      "message": "InstrumentationRegistry.getTargetContext()",
+      "range": {
+        "startLine": 318,
+        "startChar": 59,
+        "endLine": 318,
+        "endChar": 63
+      },
+      "revId": "a55ec298c4574a532cf0f1fc2591913726deb06e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

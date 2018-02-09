@@ -30,8 +30,11 @@ const V* FindAddressOrNull(const std::map<K, V>& map, const K& key) {
 }
 
 void GetAudioAndVideoTrackBySsrc(
-    const std::vector<rtc::scoped_refptr<RtpSenderInterface>>& rtp_senders,
-    const std::vector<rtc::scoped_refptr<RtpReceiverInterface>>& rtp_receivers,
+    const std::vector<rtc::scoped_refptr<
+        RtpSenderProxyWithInternal<RtpSenderInternal>>>& rtp_senders,
+    const std::vector<
+        rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>&
+        rtp_receivers,
     std::map<uint32_t, AudioTrackInterface*>* local_audio_track_by_ssrc,
     std::map<uint32_t, VideoTrackInterface*>* local_video_track_by_ssrc,
     std::map<uint32_t, AudioTrackInterface*>* remote_audio_track_by_ssrc,
@@ -111,8 +114,12 @@ void GetAudioAndVideoTrackBySsrc(
 TrackMediaInfoMap::TrackMediaInfoMap(
     std::unique_ptr<cricket::VoiceMediaInfo> voice_media_info,
     std::unique_ptr<cricket::VideoMediaInfo> video_media_info,
-    const std::vector<rtc::scoped_refptr<RtpSenderInterface>>& rtp_senders,
-    const std::vector<rtc::scoped_refptr<RtpReceiverInterface>>& rtp_receivers)
+    const std::vector<
+        rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>&
+        rtp_senders,
+    const std::vector<
+        rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>&
+        rtp_receivers)
     : voice_media_info_(std::move(voice_media_info)),
       video_media_info_(std::move(video_media_info)) {
   std::map<uint32_t, AudioTrackInterface*> local_audio_track_by_ssrc;
@@ -128,10 +135,12 @@ TrackMediaInfoMap::TrackMediaInfoMap(
       &unsignaled_video_track);
 
   for (auto& sender : rtp_senders) {
-    attachment_id_by_track_[sender->track()] = sender->AttachmentId();
+    attachment_id_by_track_[sender->track()] =
+        sender->internal()->AttachmentId();
   }
   for (auto& receiver : rtp_receivers) {
-    attachment_id_by_track_[receiver->track()] = receiver->AttachmentId();
+    attachment_id_by_track_[receiver->track()] =
+        receiver->internal()->AttachmentId();
   }
 
   if (voice_media_info_) {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18653a89_ebc40420",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-09T09:57:29Z",
+      "side": 1,
+      "message": "I think we can safely delete this target and the peerconnectionfactory_no_media_objc as they don\u0027t contain any sources, only different deps. Since public_deps are disallowed I don\u0027t see their purpose.",
+      "range": {
+        "startLine": 371,
+        "startChar": 24,
+        "endLine": 371,
+        "endChar": 50
+      },
+      "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

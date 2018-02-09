@@ -331,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "ac656c33_133c555b",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6425
+      },
+      "writtenOn": "2018-02-09T08:56:26Z",
+      "side": 1,
+      "message": "I don\u0027t really mind either way.",
+      "parentUuid": "a6bcd310_91f2d237",
+      "range": {
+        "startLine": 39,
+        "startChar": 59,
+        "endLine": 39,
+        "endChar": 66
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b96145d0_6e22ea22",
         "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
         "patchSetId": 4

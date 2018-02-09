@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "97dc6daf_598cd4ed",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-09T19:31:01Z",
+      "side": 1,
+      "message": "Ack; go ahead and leave it.\n\nThough I think early returns may be a deeper problem. It\u0027s dangerous to leave the PeerConnection in a \"description half-applied\" state; this could lead to untested/undefined behavior (for example, https://bugs.chromium.org/p/chromium/issues/detail?id\u003d800775).\n\nSo I think that, until we implement proper logic to roll back to a stable state when something fails, we should probably set \"ERROR_TRANSPORT\" if ApplyDescription fails.",
+      "parentUuid": "1a6ebe1b_db9aacb2",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5600843_b9eeca04",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 2
@@ -69,6 +87,24 @@
       "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8934130_4b9c8164",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-09T19:31:01Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it still be \"if (ret \u0026\u0026 rtcp_mux_negotiator_.IsActive())\" like before?",
+      "parentUuid": "42c15754_4d2a5f07",
+      "revId": "6fc15fc684109fc1e0b55476c9b3261ac245182a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

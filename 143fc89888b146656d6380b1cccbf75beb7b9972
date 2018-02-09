@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0cad6f0d_34618f44",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-02-09T19:03:29Z",
+      "side": 1,
+      "message": "Added for completeness.",
+      "parentUuid": "7cb28a98_eaf654a2",
+      "revId": "143fc89888b146656d6380b1cccbf75beb7b9972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d303581c_7fe4c66c",
         "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
         "patchSetId": 4
@@ -48,6 +66,24 @@
       "writtenOn": "2018-02-09T10:02:05Z",
       "side": 1,
       "message": "Just checking. Is the copy step really needed?",
+      "revId": "143fc89888b146656d6380b1cccbf75beb7b9972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86ac7990_e746dfa6",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-02-09T19:03:29Z",
+      "side": 1,
+      "message": "It\u0027s not really needed. I chose to add this to prevent modification of the byte buffer.",
+      "parentUuid": "d303581c_7fe4c66c",
       "revId": "143fc89888b146656d6380b1cccbf75beb7b9972",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -22,6 +22,30 @@
       "revId": "0dbfeb845eb82606be9af7bbed5d534cbb337d69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9928cb3b_d68c631d",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "The real fd lives in C++ after detachFd() and closed there. close() here after detachFd() is a no-op and I should remove it. Thanks for pointing this out.",
+      "parentUuid": "0b7cf60b_315b29a2",
+      "range": {
+        "startLine": 75,
+        "startChar": 29,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "0dbfeb845eb82606be9af7bbed5d534cbb337d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

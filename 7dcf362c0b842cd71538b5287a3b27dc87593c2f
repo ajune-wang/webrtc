@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "18722378_90a79202",
+        "filename": "examples/androidapp/res/xml/preferences.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Sure, I was thinking about adding file size limit and etc as an option later. I will move it to misc in the current form.",
+      "parentUuid": "ac7df85f_7f68476b",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 63
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3d36fed_fa051f30",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a3c932a_58458133",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Sure, thanks for pointing out this pattern. This also simplifies part of this CL.",
+      "parentUuid": "e3d36fed_fa051f30",
+      "range": {
+        "startLine": 685,
+        "startChar": 0,
+        "endLine": 687,
+        "endChar": 88
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1d60c47c_87008596",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "It was a mistake I didn\u0027t stop the log. Thanks for pointing this out.",
+      "parentUuid": "a4233b74_10822ee7",
+      "range": {
+        "startLine": 694,
+        "startChar": 4,
+        "endLine": 694,
+        "endChar": 34
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "891cc98d_1c3cbf13",
         "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0703f947_9eb5d2cf",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "891cc98d_1c3cbf13",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9805e02b_13a29fa0",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe06b82b_bb6ef3f6",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d23bb736_cbfdcb97",
         "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
         "patchSetId": 4
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "0e40492b_82ed3a56",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d23bb736_cbfdcb97",
+      "range": {
+        "startLine": 29,
+        "startChar": 25,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f40dbc5f_342e32ab",
         "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
         "patchSetId": 4
@@ -151,6 +295,30 @@
       "writtenOn": "2018-02-08T09:00:18Z",
       "side": 1,
       "message": "nit: Looks a bit strange to me. Why are the seconds separated by an additional _",
+      "range": {
+        "startLine": 39,
+        "startChar": 59,
+        "endLine": 39,
+        "endChar": 66
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6bcd310_91f2d237",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "I was trying to make the log file name similar to what Chromium used. In the case of Chromium, the later chunks after \"hhmm\" are the render process id and peer connection/logger instance id. I was using \"ss\" as a surrogate of this kind of instance ids. Sure, I will fix it if the alternative format fits better here.",
+      "parentUuid": "f40dbc5f_342e32ab",
       "range": {
         "startLine": 39,
         "startChar": 59,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "dba10efc_d8e0ee89",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "I have changed the interface by passing the file object instead, and let the caller handle the creation of the output file and have the freedom of choosing the file location.",
+      "parentUuid": "b96145d0_6e22ea22",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 44
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d94271b_807a9ea4",
         "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
         "patchSetId": 4
@@ -206,6 +398,30 @@
       "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbcb04f4_7fa6887f",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1d94271b_807a9ea4",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "5f5a2e27_4d0598d1",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bca8e40_b93c6ab9",
+      "range": {
+        "startLine": 61,
+        "startChar": 39,
+        "endLine": 61,
+        "endChar": 47
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5e3d3a0_541a6a7d",
         "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
         "patchSetId": 4
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "d71e0ea7_7cddd5ac",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. close() is a no-op after detachFd().",
+      "parentUuid": "b5e3d3a0_541a6a7d",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8228079_29c45272",
         "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
         "patchSetId": 4
@@ -275,6 +539,30 @@
       "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e9674c_eeb96965",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-09T01:55:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8228079_29c45272",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 65
+      },
+      "revId": "7dcf362c0b842cd71538b5287a3b27dc87593c2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

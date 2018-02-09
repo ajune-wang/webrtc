@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de4148dc_6b1c9485",
+        "filename": "media/base/fakevideocapturer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-09T21:10:28Z",
+      "side": 1,
+      "message": "Why start the timestamp at 1ms instead of just 0?",
+      "revId": "cc16d0af90d1bcd76c541807ce520f93bdaa080b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7b4d887_5c291447",
+        "filename": "media/base/videoadapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-09T21:10:28Z",
+      "side": 1,
+      "message": "nit: It doesn\u0027t make sense for this to use VideoSinkInterface any more. Now, rather than being a \"listener,\" this class really just wraps a VideoAdapter and stores stats. So it could be renamed \"VideoAdapterWrapper\" (for example), and OnFrame could be renamed to \"AdaptFrame\".\n\nOr this class could just be folded into VideoAdapterTest itself.",
+      "revId": "cc16d0af90d1bcd76c541807ce520f93bdaa080b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

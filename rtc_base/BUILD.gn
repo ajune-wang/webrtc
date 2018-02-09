@@ -229,6 +229,8 @@ rtc_source_set("rtc_base_approved_generic") {
     "refcount.h",
     "refcountedobject.h",
     "refcounter.h",
+    "safe_strerror.cc",
+    "safe_strerror.h",
     "scoped_ref_ptr.h",
     "string_to_number.cc",
     "string_to_number.h",

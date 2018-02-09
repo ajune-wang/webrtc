@@ -1,0 +1,46 @@
+# Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../../webrtc.gni")  # Is this needed?
+
+rtc_source_set("agc2") {
+  sources = [
+    "agc2_common.h",
+    "fixed_gain_controller.cc",
+    "fixed_gain_controller.h",
+  ]
+
+  configs += [ "..:apm_debug_dump" ]
+
+  deps = [
+    # TODO(aleloi): is all needed?
+    "..:apm_logging",
+    "..:float_audio_frame",
+    "../../../api:array_view",
+    "../../../rtc_base:checks",
+    "../../../rtc_base:rtc_base_approved",
+  ]
+}
+
+rtc_source_set("limiter_unittests") {
+  testonly = true
+  configs += [ "..:apm_debug_dump" ]
+
+  sources = [
+    "fixed_gain_controller_unittest.cc",
+    "vector_float_frame.cc",
+    "vector_float_frame.h",
+  ]
+  deps = [
+    ":agc2",
+    "..:apm_logging",
+    "..:float_audio_frame",
+    "../../../api:array_view",
+    "../../../rtc_base:rtc_base_tests_utils",
+  ]
+}

@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "8d75a363_3fb540ad",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-02-09T19:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cad6f0d_34618f44",
+      "revId": "143fc89888b146656d6380b1cccbf75beb7b9972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d303581c_7fe4c66c",
         "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
         "patchSetId": 4
@@ -87,6 +105,24 @@
       "revId": "143fc89888b146656d6380b1cccbf75beb7b9972",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c34f4ff6_3f4131dd",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 6486
+      },
+      "writtenOn": "2018-02-09T19:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86ac7990_e746dfa6",
+      "revId": "143fc89888b146656d6380b1cccbf75beb7b9972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7cb28a98_eaf654a2",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-02-09T10:11:43Z",
+      "side": 1,
+      "message": "Although I think sample rate is not strictly necessary (it can be calculated from the other parameters), I agree that it would be nice to add it for completeness.",
+      "parentUuid": "ddf2fedb_93a4b25a",
+      "revId": "143fc89888b146656d6380b1cccbf75beb7b9972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d303581c_7fe4c66c",
         "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioRecord.java",
         "patchSetId": 4

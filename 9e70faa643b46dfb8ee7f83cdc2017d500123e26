@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "30d26331_127b0b5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-02-09T14:50:23Z",
+      "side": 1,
+      "message": "You will have to add a line with \"Bug: webrtc:xxxxx\" to make the presubmit bot happy.",
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "377f98d3_6574a554",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-02-09T14:50:23Z",
+      "side": 1,
+      "message": "Please, document the new interpretation of default_len where this config is declared.",
+      "range": {
+        "startLine": 188,
+        "startChar": 26,
+        "endLine": 188,
+        "endChar": 37
+      },
+      "revId": "9e70faa643b46dfb8ee7f83cdc2017d500123e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "678b879b_d428c463",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 1

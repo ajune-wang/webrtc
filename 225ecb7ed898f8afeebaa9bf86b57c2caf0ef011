@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e471751_7b38f20e",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-09T09:52:59Z",
+      "side": 1,
+      "message": "Instead of 150, can we say something like max(150, 2 * 1000 / fps) ? Otherwise, if the fps \u003c 7 every frame will be classified as a frame...\n\nMaybe also use a named constant",
+      "range": {
+        "startLine": 842,
+        "startChar": 56,
+        "endLine": 842,
+        "endChar": 57
+      },
+      "revId": "225ecb7ed898f8afeebaa9bf86b57c2caf0ef011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

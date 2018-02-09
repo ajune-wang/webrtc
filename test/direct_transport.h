@@ -16,6 +16,7 @@
 
 #include "api/call/transport.h"
 #include "call/call.h"
+#include "rtc_base/criticalsection.h"
 #include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/thread_annotations.h"
 #include "test/fake_network_pipe.h"
@@ -53,8 +54,6 @@ class DirectTransport : public Transport {
 
   void SetConfig(const FakeNetworkPipe::Config& config);
 
-  RTC_DEPRECATED void StopSending();
-
   // TODO(holmer): Look into moving this to the constructor.
   virtual void SetReceiver(PacketReceiver* receiver);
 
@@ -69,13 +68,55 @@ class DirectTransport : public Transport {
   void SendPackets();
   void Start();
 
+  class SendPacketsTask : public rtc::QueuedTask {
+   public:
+    SendPacketsTask(DirectTransport* transport) : transport_(transport) {}
+
+    void set_should_run(bool should_run) {
+      RTC_DCHECK_CALLED_SEQUENTIALLY(&main_sequence_);
+      rtc::CritScope lock(&lock_);
+      should_run_ = should_run;
+    }
+
+    bool SelfDestructIfQueued() {
+      RTC_DCHECK_CALLED_SEQUENTIALLY(&main_sequence_);
+      rtc::CritScope lock(&lock_);
+      RTC_DCHECK(!self_destruct_);
+      self_destruct_ = is_queued_;
+      return is_queued_;
+    }
+
+    void raise_is_queued() {
+      RTC_DCHECK_CALLED_SEQUENTIALLY(&main_sequence_);
+      rtc::CritScope lock(&lock_);
+      RTC_DCHECK(!is_queued_);
+      is_queued_ = true;
+    }
+
+   private:
+    bool Run() override {
+      rtc::CritScope lock(&lock_);
+      if (should_run_ && !self_destruct_)
+        transport_->SendPackets();
+      is_queued_ = false;
+      return self_destruct_;
+    }
+
+    rtc::SequencedTaskChecker main_sequence_;
+    DirectTransport* const transport_;
+    rtc::CriticalSection lock_;
+    bool self_destruct_ = false;
+    bool should_run_ = true;
+    bool is_queued_ = false;
+  };
+
   Call* const send_call_;
   Clock* const clock_;
 
   SingleThreadedTaskQueueForTesting* const task_queue_;
-  SingleThreadedTaskQueueForTesting::TaskId next_scheduled_task_
-      RTC_GUARDED_BY(&sequence_checker_);
 
+  std::unique_ptr<SendPacketsTask> send_packets_
+      RTC_GUARDED_BY(&sequence_checker_);
   std::unique_ptr<FakeNetworkPipe> fake_network_;
 
   rtc::SequencedTaskChecker sequence_checker_;

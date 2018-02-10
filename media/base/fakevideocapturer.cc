@@ -143,8 +143,10 @@ FakeVideoCapturerWithTaskQueue::FakeVideoCapturerWithTaskQueue(
 FakeVideoCapturerWithTaskQueue::FakeVideoCapturerWithTaskQueue() {}
 
 bool FakeVideoCapturerWithTaskQueue::CaptureFrame() {
+  if (task_queue_.IsCurrent())
+    return FakeVideoCapturer::CaptureFrame();
   bool ret = false;
-  RunSynchronouslyOnTaskQueue(
+  task_queue_.SendTask(
       [this, &ret]() { ret = FakeVideoCapturer::CaptureFrame(); });
   return ret;
 }
@@ -152,8 +154,10 @@ bool FakeVideoCapturerWithTaskQueue::CaptureFrame() {
 bool FakeVideoCapturerWithTaskQueue::CaptureCustomFrame(int width,
                                                         int height,
                                                         uint32_t fourcc) {
+  if (task_queue_.IsCurrent())
+    return FakeVideoCapturer::CaptureCustomFrame(width, height, fourcc);
   bool ret = false;
-  RunSynchronouslyOnTaskQueue([this, &ret, width, height, fourcc]() {
+  task_queue_.SendTask([this, &ret, width, height, fourcc]() {
     ret = FakeVideoCapturer::CaptureCustomFrame(width, height, fourcc);
   });
   return ret;
@@ -164,8 +168,12 @@ bool FakeVideoCapturerWithTaskQueue::CaptureCustomFrame(
     int height,
     int64_t timestamp_interval,
     uint32_t fourcc) {
+  if (task_queue_.IsCurrent()) {
+    return FakeVideoCapturer::CaptureCustomFrame(width, height,
+                                                 timestamp_interval, fourcc);
+  }
   bool ret = false;
-  RunSynchronouslyOnTaskQueue(
+  task_queue_.SendTask(
       [this, &ret, width, height, timestamp_interval, fourcc]() {
         ret = FakeVideoCapturer::CaptureCustomFrame(width, height,
                                                     timestamp_interval, fourcc);

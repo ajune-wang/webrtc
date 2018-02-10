@@ -16,6 +16,24 @@
       "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a72e6250_002a69cb",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-10T00:07:17Z",
+      "side": 1,
+      "message": "I think it\u0027s probably good to standardize on one or the other. RtpSenderProxyWithInternal seems to be the precedence. It has one benefit of always working correctly for looking up senders by pointer value, since sender.get() isn\u0027t necessarily the same as sender-\u003einternal() (right?)",
+      "parentUuid": "16a3cf0a_e7fbe559",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

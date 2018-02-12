@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "889a7b88_7da560b2",
+        "filename": "media/base/fakevideocapturer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-12T08:54:03Z",
+      "side": 1,
+      "message": "Unclear, it\u0027s just what the old code did. Do you want me to change to zero, and see if tests still pass?",
+      "parentUuid": "de4148dc_6b1c9485",
+      "revId": "cc16d0af90d1bcd76c541807ce520f93bdaa080b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7b4d887_5c291447",
         "filename": "media/base/videoadapter_unittest.cc",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-09T21:10:28Z",
       "side": 1,
       "message": "nit: It doesn\u0027t make sense for this to use VideoSinkInterface any more. Now, rather than being a \"listener,\" this class really just wraps a VideoAdapter and stores stats. So it could be renamed \"VideoAdapterWrapper\" (for example), and OnFrame could be renamed to \"AdaptFrame\".\n\nOr this class could just be folded into VideoAdapterTest itself.",
+      "revId": "cc16d0af90d1bcd76c541807ce520f93bdaa080b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ba3c907_0d2f1bba",
+        "filename": "media/base/videoadapter_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-12T08:54:03Z",
+      "side": 1,
+      "message": "I\u0027d like to avoid too large structural changes in this cl.\n\nBut I can rename and drop the inherit (even if I think it\u0027s nice to stick to the same signature as OnFrame in that interface).",
+      "parentUuid": "f7b4d887_5c291447",
       "revId": "cc16d0af90d1bcd76c541807ce520f93bdaa080b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

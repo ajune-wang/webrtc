@@ -34,6 +34,24 @@
       "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cfc4241_cbb4c353",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-12T18:12:50Z",
+      "side": 1,
+      "message": "Right; the reason I originally introduced this class was for RemoveTrack. We were originally just storing pointers to the inner/\"internal\" object, but for RemoveTrack, the caller passes in a pointer to a proxy object it got, which needs to be matched with an inner object. So I wanted a class that gave me both without having to \"static_cast.\" Maybe in this case static_casting would have been the lesser of two evils...\n\nBut anyway, the stats collector doesn\u0027t need to do that. And using the proxy pointers has a potential disadvantage; it would be easy to introduce an extra thread hop without realizing, by calling a method from the \"wrong\" thread. If doing this with the internal object, a DCHECK would be hit, forcing it to be called from the appropriate \"ProducePartialResultsOnFooThread\".",
+      "parentUuid": "a72e6250_002a69cb",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

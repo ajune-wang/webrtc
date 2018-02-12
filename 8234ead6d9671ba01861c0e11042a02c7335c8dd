@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99684c7d_4b597d0f",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-12T19:18:44Z",
+      "side": 1,
+      "message": "We now have a somewhat strange API, in that the \"active\" field is supported per simulcast layer, but max_bitrate_bps and bitrate_priority are not. It would be ideal if this was documented in rtpparameters.h with a link to a bug; otherwise I can imagine someone setting different max_bitrate_bps values for different encodings and getting pretty confused by the results (namely, the entire set of streams sharing the max bitrate specified on the first).",
+      "revId": "8234ead6d9671ba01861c0e11042a02c7335c8dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

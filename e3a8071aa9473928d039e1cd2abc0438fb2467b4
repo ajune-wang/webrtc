@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fc854266_bef61707",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T14:58:18Z",
+      "side": 1,
+      "message": "Close, but no cigar! Now you\u0027re _only_ processing it if it doesn\u0027t do anything. :)",
+      "parentUuid": "c574edf8_4109d8c3",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 30
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d17336e1_a76a45d4",
         "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
         "patchSetId": 5
@@ -140,6 +164,30 @@
       "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b4877f0_66b7d0ce",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T14:58:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "530de616_da7e0a68",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -401,6 +449,30 @@
       "side": 1,
       "message": "I think I was worried about doing something like this with copying:\n\nconst MFAF x(...);\nMFAF y \u003d x;\n\nBut having two identical FAFs with a const cast and an implicit constructor is not a good solution.",
       "parentUuid": "66306c90_0d33eb34",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30759eb7_df496239",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T14:58:18Z",
+      "side": 1,
+      "message": "Do you want y, in this case, to be a copy of the data, or to reference the same data? Also, what are the problems involved in using ArrayViews of ArrayViews that you want to avoid?\n\nI guess ArrayViews of ArrayViews don\u0027t really make sense. What about a vector of ArrayViews?",
+      "parentUuid": "61e136f1_778a41c0",
       "range": {
         "startLine": 56,
         "startChar": 6,

@@ -873,6 +873,8 @@ TEST_F(AudioDeviceTest, StartPlayoutVerifyCallbacks) {
 
 // Start recording and verify that the native audio layer starts feeding real
 // audio samples via the RecordedDataIsAvailable callback.
+// TODO(henrika): investigate if it is possible to perform a sanity check of
+// delay estimats as well (argumnent #6).
 TEST_F(AudioDeviceTest, StartRecordingVerifyCallbacks) {
   MockAudioTransportAndroid mock(kRecording);
   mock.HandleCallbacks(test_is_done_.get(), nullptr, kNumCallbacks);
@@ -881,7 +883,7 @@ TEST_F(AudioDeviceTest, StartRecordingVerifyCallbacks) {
                                             kBytesPerSample,
                                             record_channels(),
                                             record_sample_rate(),
-                                            total_delay_ms(),
+                                            _,
                                             0,
                                             0,
                                             false,
@@ -912,7 +914,7 @@ TEST_F(AudioDeviceTest, StartPlayoutAndRecordingVerifyCallbacks) {
                                             kBytesPerSample,
                                             record_channels(),
                                             record_sample_rate(),
-                                            total_delay_ms(),
+                                            _,
                                             0,
                                             0,
                                             false,

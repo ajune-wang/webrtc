@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b291b968_6e781b38",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-12T11:59:11Z",
+      "side": 1,
+      "message": "nit: looks like we could delegate to reduce code duplication.\n\nthis(options, encoderFactory, decoderFactory, null /* audioProcessingFactory */, null /* fecControllerFactoryFactory */);",
+      "revId": "0221ecbc200783477e86a6eb13b4d07a759b45e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f00e10ce_7a179395",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-12T11:59:11Z",
+      "side": 1,
+      "message": "nit: looks like we could delegate to reduce code duplication.\n\nthis(options, encoderFactory, decoderFactory, audioProcessingFactory, null /* fecControllerFactoryFactory */);",
+      "revId": "0221ecbc200783477e86a6eb13b4d07a759b45e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab4da874_d1ccddcc",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-12T11:59:11Z",
+      "side": 1,
+      "message": "Since we don\u0027t DCHECK for native_audio_processor anymore, we could remove this method and always call CreatePeerConnectionFactoryWithAudioProcessingAndFecController. Then we can just change it be called CreatePeerConnectionFactory.",
+      "range": {
+        "startLine": 289,
+        "startChar": 13,
+        "endLine": 289,
+        "endChar": 66
+      },
+      "revId": "0221ecbc200783477e86a6eb13b4d07a759b45e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

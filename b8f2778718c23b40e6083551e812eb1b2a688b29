@@ -52,6 +52,92 @@
       "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5186abe_5d12c959",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-02-12T20:00:41Z",
+      "side": 1,
+      "message": "Not only can the thread hop impact performance, but it has lead to deadlocks in the past. Internal directly sgtm.",
+      "parentUuid": "1cfc4241_cbb4c353",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "431eb190_8ca88882",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-02-12T20:00:41Z",
+      "side": 1,
+      "message": "nit: Instead of copying senders and receivers, can you pass transceiver_stats_infos_?",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd670f6_2dea838d",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-02-12T20:00:41Z",
+      "side": 1,
+      "message": "nit: How about (and same for video)?\nDCHECK(voice_stats.find(voice_channel-\u003emedia_channel() \u003d\u003d voice_stats.end());",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93a5f25c_fdb4158d",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-02-12T20:00:41Z",
+      "side": 1,
+      "message": "voice_stats and video_stats elements are moved while the maps are still in use. As-is this should be safe, but what if the following happens as a bug or as a future code change?\n- What if multiple channels reference the same VoiceChannel*, this would trigger explicit std::move() of already moved channels.\n- What if code is updated to modify the contents of voice_stats after this line, internally std::map might move objects around triggering moving already moved objects.\n\nWhile sensible implementations of moving unique_ptr is the same as release() we should not assume so.\n\nCan you DCHECK element has value and use release() instead?\n\n  DCHECK(voice_stats[voice_channel-\u003emedia_channel()]);\n  voice_media_info.reset(voice_stats[voice_channel-\u003emedia_channel()].release());\n\nAnd same for video.",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48d055d1_37979fa8",
+        "filename": "pc/trackmediainfomap.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-02-12T20:00:41Z",
+      "side": 1,
+      "message": "Like previously discussed, using internals directly would be good so that we don\u0027t accidentally thread jump. We can do that here too.",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

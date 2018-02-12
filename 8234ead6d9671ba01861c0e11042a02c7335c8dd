@@ -16,6 +16,24 @@
       "revId": "8234ead6d9671ba01861c0e11042a02c7335c8dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0689a9c1_29a23a36",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-12T22:19:58Z",
+      "side": 1,
+      "message": "Agreed, thanks for keeping this in mind and looking back on it. I made a CL that updated the comments in rtpparameters.h:\nhttps://webrtc-review.googlesource.com/c/src/+/52141",
+      "parentUuid": "99684c7d_4b597d0f",
+      "revId": "8234ead6d9671ba01861c0e11042a02c7335c8dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

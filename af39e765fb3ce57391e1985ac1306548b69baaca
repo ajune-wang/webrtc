@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "574d007c_e85189d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b1d5a2a_5ec64583",
+      "range": {
+        "startLine": 10,
+        "startChar": 70,
+        "endLine": 10,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bd8e6df_ab462503",
         "filename": "p2p/base/fakedtlstransport.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d172dabc_cec09eca",
+        "filename": "p2p/base/fakedtlstransport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bd8e6df_ab462503",
+      "range": {
+        "startLine": 43,
+        "startChar": 71,
+        "endLine": 43,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "70fad422_794a62b2",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "We don\u0027t need this anymore.",
+      "parentUuid": "483a5ed0_b60a95ad",
+      "range": {
+        "startLine": 29,
+        "startChar": 60,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52b60b30_6cb0e9db",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "dc143251_ec4b54f0",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52b60b30_6cb0e9db",
+      "range": {
+        "startLine": 39,
+        "startChar": 53,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b9388e5_31435b50",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "0f3f1045_4af8ccf5",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "I agree that these downcasting is hacky. \nTo avoid downcasting, one thing we can do is passing three unique_ptr to the ctor and only one of them is non-null.",
+      "parentUuid": "3b9388e5_31435b50",
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c1c8fab_13be1765",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -122,6 +236,30 @@
       "writtenOn": "2018-02-08T02:27:11Z",
       "side": 1,
       "message": "Why not return an Optional?",
+      "range": {
+        "startLine": 93,
+        "startChar": 71,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5d4f34_04c30769",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Actually I think we can return the pointer directly. Moved it inline.",
+      "parentUuid": "5c1c8fab_13be1765",
       "range": {
         "startLine": 93,
         "startChar": 71,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "ed96036f_2745a28a",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Yeah, this is a good point! Done.",
+      "parentUuid": "14ce586d_f0b49a75",
+      "range": {
+        "startLine": 138,
+        "startChar": 3,
+        "endLine": 138,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f78c78c9_1a644a0e",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -177,6 +339,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e36edbc_c1d354f6",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f78c78c9_1a644a0e",
+      "range": {
+        "startLine": 222,
+        "startChar": 68,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "dca6528d_4178a13e",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Ah, the funny thing is that the ApplyRemoteTransportDescription will always return true. :) \nI\u0027ll change it.",
+      "parentUuid": "40e6e147_7eb4b908",
+      "range": {
+        "startLine": 230,
+        "startChar": 56,
+        "endLine": 230,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0785762f_91dee4e3",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -223,6 +433,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be424bd4_0dacbdb9",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done.  Move it inline.",
+      "parentUuid": "0785762f_91dee4e3",
+      "range": {
+        "startLine": 252,
+        "startChar": 46,
+        "endLine": 252,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "95d2efdb_f20b8587",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b102c58_76b1994b",
+      "range": {
+        "startLine": 256,
+        "startChar": 64,
+        "endLine": 256,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96c04f04_5384561d",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -269,6 +527,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "350ee250_b7fb6d4a",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "To match the method name NegotiateAndSetDtlsParameter, shall we name it SetDtlsParameter?",
+      "parentUuid": "96c04f04_5384561d",
+      "range": {
+        "startLine": 314,
+        "startChar": 57,
+        "endLine": 314,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "7aa54171_5690ab06",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Let\u0027s go with simple \"Active\" and \"Activate\".",
+      "parentUuid": "4d82d738_5279f9ad",
+      "range": {
+        "startLine": 383,
+        "startChar": 29,
+        "endLine": 383,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45472359_af78ef17",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -315,6 +621,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e25484_e19686ab",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Yeah, I agree. If we do this, the global variables are no longer needed.\nIt feels easier to make one NegotiateAndApplyDtlsParameters method here.",
+      "parentUuid": "45472359_af78ef17",
+      "range": {
+        "startLine": 430,
+        "startChar": 51,
+        "endLine": 430,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "e557fd0e_b359013b",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13e4f089_c02341a1",
+      "range": {
+        "startLine": 471,
+        "startChar": 61,
+        "endLine": 471,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35a8044e_ee827023",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -352,6 +706,30 @@
       "writtenOn": "2018-02-08T02:27:11Z",
       "side": 1,
       "message": "The current role should be passed in rather than obtained from the member variable.",
+      "range": {
+        "startLine": 536,
+        "startChar": 43,
+        "endLine": 536,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c013df5_584544ef",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Can we just call GetDtlsRole here?",
+      "parentUuid": "35a8044e_ee827023",
       "range": {
         "startLine": 536,
         "startChar": 43,
@@ -387,6 +765,30 @@
     },
     {
       "key": {
+        "uuid": "655f04dc_80f369c3",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "What about returning RTCError with an output parameter?",
+      "parentUuid": "76ec18c7_c4d1f238",
+      "range": {
+        "startLine": 558,
+        "startChar": 74,
+        "endLine": 558,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "714f0217_bf24915a",
         "filename": "pc/jseptransport2.h",
         "patchSetId": 3
@@ -407,6 +809,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b591099a_5f7b7964",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "714f0217_bf24915a",
+      "range": {
+        "startLine": 71,
+        "startChar": 39,
+        "endLine": 71,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -433,6 +859,30 @@
     },
     {
       "key": {
+        "uuid": "31fbef76_b59aea5f",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Emmm, let me just remove it.The JsepTransportController does use it.",
+      "parentUuid": "113bdecd_106fad2f",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 125,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f3eb8ad_cfcdb0c7",
         "filename": "pc/jseptransport2.h",
         "patchSetId": 3
@@ -453,6 +903,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a483a66_63bf22ba",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f3eb8ad_cfcdb0c7",
+      "range": {
+        "startLine": 136,
+        "startChar": 57,
+        "endLine": 136,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -479,6 +953,30 @@
     },
     {
       "key": {
+        "uuid": "0375fb78_bc282d60",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a32defe5_6bcd6865",
+      "range": {
+        "startLine": 148,
+        "startChar": 64,
+        "endLine": 148,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d24e614_a7f7d29c",
         "filename": "pc/jseptransport2.h",
         "patchSetId": 3
@@ -499,6 +997,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb13fb12_90a8fdc3",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d24e614_a7f7d29c",
+      "range": {
+        "startLine": 177,
+        "startChar": 25,
+        "endLine": 177,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -525,6 +1047,30 @@
     },
     {
       "key": {
+        "uuid": "c8520ec1_2fb830a5",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0578e0b4_d02ba47b",
+      "range": {
+        "startLine": 192,
+        "startChar": 63,
+        "endLine": 192,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a40b3530_57d78fb4",
         "filename": "pc/jseptransport2.h",
         "patchSetId": 3
@@ -548,6 +1094,30 @@
     },
     {
       "key": {
+        "uuid": "44e56d37_65eb28c2",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a40b3530_57d78fb4",
+      "range": {
+        "startLine": 197,
+        "startChar": 64,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "658193b0_c1f6877f",
         "filename": "pc/jseptransport2.h",
         "patchSetId": 3
@@ -562,6 +1132,24 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0283a73_1102437f",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "658193b0_c1f6877f",
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -588,6 +1176,30 @@
     },
     {
       "key": {
+        "uuid": "36d84a98_79cae9fd",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "158e5a92_167d8ce0",
+      "range": {
+        "startLine": 210,
+        "startChar": 40,
+        "endLine": 210,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44950794_253d402d",
         "filename": "pc/jseptransport2.h",
         "patchSetId": 3
@@ -608,6 +1220,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f8733ef_13eedd6b",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "44950794_253d402d",
+      "range": {
+        "startLine": 211,
+        "startChar": 59,
+        "endLine": 211,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -634,6 +1270,30 @@
     },
     {
       "key": {
+        "uuid": "9b66fa0b_7d4d42f2",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Yeah, I thought about moving this and using local_description_ \u003d\u003d nullptr. Only thing I don\u0027t like that is that the local description is set before negotiation and we need to reset the local_description for each early return. \n\nBut it\u0027s not a big deal, we\u0027ll remove these two.",
+      "parentUuid": "0a8b45b2_85588e26",
+      "range": {
+        "startLine": 215,
+        "startChar": 39,
+        "endLine": 215,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e341ee17_1b19d4b3",
         "filename": "pc/jseptransport2.h",
         "patchSetId": 3
@@ -654,6 +1314,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd794a4_43e3e09f",
+        "filename": "pc/jseptransport2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e341ee17_1b19d4b3",
+      "range": {
+        "startLine": 229,
+        "startChar": 54,
+        "endLine": 229,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -680,6 +1364,30 @@
     },
     {
       "key": {
+        "uuid": "51817197_8329d035",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "64a3c21d_0bcbadd8",
+      "range": {
+        "startLine": 297,
+        "startChar": 52,
+        "endLine": 297,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19ba9f4a_9b8ebd4c",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 3
@@ -703,6 +1411,53 @@
     },
     {
       "key": {
+        "uuid": "601a2628_f5d081e9",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Yeah, I like this idea! Done.",
+      "parentUuid": "19ba9f4a_9b8ebd4c",
+      "range": {
+        "startLine": 320,
+        "startChar": 57,
+        "endLine": 320,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1aedb4e_6f643709",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "No one is listening to it. Deleted.",
+      "range": {
+        "startLine": 533,
+        "startChar": 6,
+        "endLine": 533,
+        "endChar": 24
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31ed2043_f188b732",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 3
@@ -714,6 +1469,30 @@
       "writtenOn": "2018-02-08T02:27:11Z",
       "side": 1,
       "message": "It seems like it would make sense to create a JsepTransportDescription that contains all of this information (ICE, DTLS, RTCP_MUX, and SRTP).  The old/current TransportDescription only contains ICE and DTLS and we should probably break it up or get rid of it entirely eventually.",
+      "range": {
+        "startLine": 827,
+        "startChar": 37,
+        "endLine": 827,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3785c8_0474ef43",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "I see two options here:\n1. Merge TransportDescription to JsepTransportDescription but there would be some duplicated code (ICE related member variables and helper methods) before we can remove the TransportDescription.\n\n2. Make TransportDescription part of JsepTransportDescription. This would introduce an extra layer of abstraction but we can fix it by removing the TransportDescription later.\n\nI kind of lean towards 2. What do you think?",
+      "parentUuid": "31ed2043_f188b732",
       "range": {
         "startLine": 827,
         "startChar": 37,
@@ -746,6 +1525,30 @@
       "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18da2d32_690cc29f",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-12T22:27:26Z",
+      "side": 1,
+      "message": "Yeah, I should have noticed the duplication here.",
+      "parentUuid": "a63663b9_9e825b2b",
+      "range": {
+        "startLine": 855,
+        "startChar": 37,
+        "endLine": 855,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

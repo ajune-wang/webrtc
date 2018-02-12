@@ -530,6 +530,30 @@
       "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83310266_b7b17cf0",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T15:30:13Z",
+      "side": 1,
+      "message": "Hmm, yes, you\u0027re right. If there\u0027s already an immutable FloatAudioFrame, it\u0027s possibly unwise to change those semantics. Let me have a little think about this...",
+      "parentUuid": "86fae3c6_bea63fff",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

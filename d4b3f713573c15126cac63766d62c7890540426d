@@ -164,6 +164,30 @@
       "revId": "d4b3f713573c15126cac63766d62c7890540426d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da17f82c_631b3990",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-12T15:40:11Z",
+      "side": 1,
+      "message": "Tried deleting it now. Gives lot of breakage, including audio/remix_resample.cc, audio/utility/audio_frame_operations.cc, audio/audio_level.cc, modules/audio_coding/test/opus_test.cc, ... And there\u0027s also some risk of downstream breakage.\n\nI can add a TODO, but fixing all users should be one or more later cls.",
+      "parentUuid": "9495b820_93d51c82",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "d4b3f713573c15126cac63766d62c7890540426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

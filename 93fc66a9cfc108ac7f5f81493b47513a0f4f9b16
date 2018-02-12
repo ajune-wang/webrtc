@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7731c1ea_e6807538",
+        "filename": ".gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-12T08:59:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a403d3b8_60e6d4fa",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 71
+      },
+      "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7d32c85_ca768dfd",
         "filename": "sdk/BUILD.gn",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "889dda60_996d6fb1",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-12T08:59:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7d32c85_ca768dfd",
+      "range": {
+        "startLine": 362,
+        "startChar": 9,
+        "endLine": 362,
+        "endChar": 11
+      },
+      "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +131,30 @@
       "side": 1,
       "message": "Yes, I think we can remove peerconnectionfactory_objc. It seems useless at this point.\nRegarding peerconnectionfactory_no_media_objc the situation is different because it defines HAVE_NO_MEDIA, which is used to ifdef out some code. I think we should keep peerconnectionfactory_no_media_objc around (maybe remove it later after looking carefully into it).",
       "parentUuid": "18653a89_ebc40420",
+      "range": {
+        "startLine": 371,
+        "startChar": 24,
+        "endLine": 371,
+        "endChar": 50
+      },
+      "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eab649b0_bcc27389",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-12T08:59:10Z",
+      "side": 1,
+      "message": "Could we turn the no_media target into a config? That is, if you want no media you add a specific config. Or does that interact awkwardly with the internal build?",
+      "parentUuid": "18d737d9_217057a9",
       "range": {
         "startLine": 371,
         "startChar": 24,

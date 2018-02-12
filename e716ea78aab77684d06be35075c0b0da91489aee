@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0e41216_7dbbbc47",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-12T22:32:40Z",
+      "side": 1,
+      "message": "nit: Can make this a const reference and remove the null check below.",
+      "range": {
+        "startLine": 332,
+        "startChar": 30,
+        "endLine": 332,
+        "endChar": 64
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c31c1cce_650abd81",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-12T22:32:40Z",
+      "side": 1,
+      "message": "Hmm... maybe this should be factored out into a helper method IsMediaSectionBeingRecycled() so we can share logic with AssociateTransceiver. What do you think?",
+      "range": {
+        "startLine": 343,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 56
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dd30122_0fe23366",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-12T22:32:40Z",
+      "side": 1,
+      "message": "nit: I would move this to the beginning of the comment. Something like: If this is an offer then the m\u003d section could be recycled. If it is being recycled (defined as: rejected in the current local or remote description and not rejected in the new description), dissociate the currently...",
+      "range": {
+        "startLine": 2406,
+        "startChar": 67,
+        "endLine": 2406,
+        "endChar": 13
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012e4e2b_860dcf9a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5523,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-12T22:32:40Z",
+      "side": 1,
+      "message": "Clarify that this is important for knowing if a m\u003d section is being recycled.",
+      "range": {
+        "startLine": 5522,
+        "startChar": 71,
+        "endLine": 5523,
+        "endChar": 26
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f85ec7b_e3442733",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-12T22:32:40Z",
+      "side": 1,
+      "message": "nit: Test name suggestion: RecycleMediaSectionWhenStoppingTransceiverOnAnswerer",
+      "range": {
+        "startLine": 598,
+        "startChar": 7,
+        "endLine": 598,
+        "endChar": 59
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a976c28d_ff6873e7",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-12T22:32:40Z",
+      "side": 1,
+      "message": "Comment suggestion:\n\n// Test that creating/setting a local offer that recycles an m\u003d section is idempotent.",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 42
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d7126b6_f829bfb5",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-12T22:32:40Z",
+      "side": 1,
+      "message": "This isn\u0027t used in the test.",
+      "range": {
+        "startLine": 667,
+        "startChar": 2,
+        "endLine": 667,
+        "endChar": 34
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3c043a7_14f8efdc",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-12T22:32:40Z",
+      "side": 1,
+      "message": "nit: std::move(offer) since it\u0027s not used again (same for second_offer below).",
+      "range": {
+        "startLine": 676,
+        "startChar": 34,
+        "endLine": 676,
+        "endChar": 70
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

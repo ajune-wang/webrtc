@@ -36,7 +36,8 @@ TransportStats::TransportStats() = default;
 
 TransportStats::~TransportStats() = default;
 
-bool BadTransportDescription(const std::string& desc, std::string* err_desc) {
+static bool BadTransportDescription(const std::string& desc,
+                                    std::string* err_desc) {
   if (err_desc) {
     *err_desc = desc;
   }

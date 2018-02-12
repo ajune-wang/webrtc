@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b98961b_69b28ed0",
+        "filename": "api/audio/audio_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-12T12:28:33Z",
+      "side": 1,
+      "message": "Does violation of these checks imply writing beyond the end of the data_ buffer? If not, one or both could be changed to RTC_DCHECK.",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "d4b3f713573c15126cac63766d62c7890540426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

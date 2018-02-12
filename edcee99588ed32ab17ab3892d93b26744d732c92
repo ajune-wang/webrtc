@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf857f00_0147a6b0",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-12T08:33:21Z",
+      "side": 1,
+      "message": "This ends up pulling a lot of dependencies though :video_jni target. These dependencies might not be needed by applications that don\u0027t use video. I think having separate \"native_api_video\" and \"native_api_audio\" targets would be better.",
+      "range": {
+        "startLine": 901,
+        "startChar": 20,
+        "endLine": 901,
+        "endChar": 42
+      },
+      "revId": "edcee99588ed32ab17ab3892d93b26744d732c92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

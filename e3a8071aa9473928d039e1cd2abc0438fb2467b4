@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18d1609f_2626e6cc",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t gain changes like these always be ramped? Or is the expectation that you set this up once when initializing the controller and then don\u0027t touch it?",
+      "range": {
+        "startLine": 40,
+        "startChar": 39,
+        "endLine": 40,
+        "endChar": 52
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bc2d09_80151cd9",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "I _think_ this is probably always a safe comparison, but perhaps you should use some sort of epsilon for testing gain_to_apply_. Perhaps something based on the range of samples (16 bit), since changes smaller than that would not change anything anyways.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 30
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17336e1_a76a45d4",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "Are these TODOs to remain in the CL, or reminders for you to do it before submitting?",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "046431ed_a568a903",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "Is rtc::SafeClamp something you could use here? Best double-check it doesn\u0027t add any overhead.",
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed77e239_b966e3df",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "No values are passed to the constructor, are they?",
+      "range": {
+        "startLine": 27,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b973ea55_2c4b2713",
+        "filename": "modules/audio_processing/agc2/vector_float_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "Why a pointer?",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb04fb7_f53494ae",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "Why is this brace-initialized when data_dumper_ isn\u0027t? Don\u0027t think brace initialization in initializer lists are common in WebRTC.",
+      "range": {
+        "startLine": 29,
+        "startChar": 23,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc642773_bdae8285",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "Are there non-Mutable FloatAudioFrames? Why are they of a different type?",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66306c90_0d33eb34",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-12T13:59:45Z",
+      "side": 1,
+      "message": "So there is! Why?\nWhy not just chuck around FloatAudioFrames (that are mutable) and const FloatAudioFrames (that aren\u0027t)?",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

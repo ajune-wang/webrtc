@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "fc2281b4_0cb5a65e",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-12T13:38:03Z",
+      "side": 1,
+      "message": "It\u0027s needed, in the sense that a definition of AudioMixer is required to be able to call CreatePeerConnectionFactory (and construct a scoped_refptr\u003cAudioMixer\u003e, even with a nullptr).\n\nIt\u0027s unneeded, in the sense that it is included indirectly anyway, via the call-related includes.\n\nSo I think having the include here is right.",
+      "parentUuid": "5a448aed_8207da76",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "d4b3f713573c15126cac63766d62c7890540426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1cddccc_89d64180",
         "filename": "modules/include/module_common_types.h",
         "patchSetId": 2
@@ -59,6 +83,30 @@
       "writtenOn": "2018-02-12T13:20:09Z",
       "side": 1,
       "message": "Is this really needed? It looks like we are not using AudioFrame here.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "d4b3f713573c15126cac63766d62c7890540426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "816106aa_fdebff9e",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-12T13:38:03Z",
+      "side": 1,
+      "message": "I would expect users of this header file wants it to declare AudioFrame, and I don\u0027t want to update them all at in this cl.\n\nBut I haven\u0027t really tested if anything breaks be removing this include.",
+      "parentUuid": "c1cddccc_89d64180",
       "range": {
         "startLine": 21,
         "startChar": 0,

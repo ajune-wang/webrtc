@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "93053902_dd361875",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-12T15:22:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fc854266_bef61707",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 30
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d17336e1_a76a45d4",
         "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
         "patchSetId": 5
@@ -473,6 +497,30 @@
       "side": 1,
       "message": "Do you want y, in this case, to be a copy of the data, or to reference the same data? Also, what are the problems involved in using ArrayViews of ArrayViews that you want to avoid?\n\nI guess ArrayViews of ArrayViews don\u0027t really make sense. What about a vector of ArrayViews?",
       "parentUuid": "61e136f1_778a41c0",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86fae3c6_bea63fff",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-12T15:22:54Z",
+      "side": 1,
+      "message": "\u0027y\u0027 would be a reference to the same data. You couldn\u0027t change the data through \u0027x\u0027, but you can change it through \u0027y\u0027.\n\nI think vector\u003cArrayView\u003e would work. But this is for processing audio every 10 ms. And then maybe dynamic memory allocation is suboptimal. Or so the experts say.\n\nWe\u0027ve already had the (immutable) FloadAudioFrame in our code for half a year. It was used with the ApmDebugDump. What I\u0027ve done is I\u0027ve moved it from modules/audio_processing/include/apm_dump.h. And now removed a \u0027const\u0027 from the constructor.",
+      "parentUuid": "30759eb7_df496239",
       "range": {
         "startLine": 56,
         "startChar": 6,

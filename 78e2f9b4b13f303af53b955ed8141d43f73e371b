@@ -79,6 +79,29 @@
       "revId": "78e2f9b4b13f303af53b955ed8141d43f73e371b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dfa488c_5df85466",
+        "filename": "examples/androidtests/src/org/appspot/apprtc/test/PeerConnectionClientTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-12T09:06:46Z",
+      "side": 1,
+      "message": "This is actually enableRtcEventLog same below.",
+      "range": {
+        "startLine": 349,
+        "startChar": 17,
+        "endLine": 349,
+        "endChar": 35
+      },
+      "revId": "78e2f9b4b13f303af53b955ed8141d43f73e371b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

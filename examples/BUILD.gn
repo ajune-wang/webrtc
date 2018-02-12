@@ -376,8 +376,10 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       deps = [
         ":apprtc_common",
         ":apprtc_signaling",
+        "../sdk:default_codec_factory_objc",
         "../sdk:metal_objc",
         "../sdk:ui_objc",
+        "../sdk:videotoolbox_objc",
       ]
     }
 

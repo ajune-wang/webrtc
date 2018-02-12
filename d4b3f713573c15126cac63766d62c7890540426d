@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8c18122e_6206fc0d",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-12T14:25:41Z",
+      "side": 1,
+      "message": "Oh right. I misread \"audio_frame.h\u0027, \u0027audio_mixer.h\u0027 is needed and I agree with you have having the include here is the right thing to do.",
+      "parentUuid": "fc2281b4_0cb5a65e",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "d4b3f713573c15126cac63766d62c7890540426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1cddccc_89d64180",
         "filename": "modules/include/module_common_types.h",
         "patchSetId": 2
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "I would expect users of this header file wants it to declare AudioFrame, and I don\u0027t want to update them all at in this cl.\n\nBut I haven\u0027t really tested if anything breaks be removing this include.",
       "parentUuid": "c1cddccc_89d64180",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "d4b3f713573c15126cac63766d62c7890540426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9495b820_93d51c82",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-12T14:25:41Z",
+      "side": 1,
+      "message": "I see your point. It would be nice to try to remove it and see if something breaks. In that case we can just land this CL and add a TODO (long term I think it would be nice to avoid this kind of implicit inclusions).",
+      "parentUuid": "816106aa_fdebff9e",
       "range": {
         "startLine": 21,
         "startChar": 0,

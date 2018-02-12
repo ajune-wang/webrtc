@@ -164,6 +164,30 @@
       "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b01f0e6e_f5df03c7",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-12T09:08:15Z",
+      "side": 1,
+      "message": "Yes, at the moment it is not possible to do that. I tried a couple of months ago but I hit weird problems (propagation of macro definitions up the build graph, etc...).\n\nMaybe, the right solutions would be to use polymorphism instead of ifdefs to change the behaviour but this is not a quick fix for sure. I think we can live with this, at least for now. :)",
+      "parentUuid": "eab649b0_bcc27389",
+      "range": {
+        "startLine": 371,
+        "startChar": 24,
+        "endLine": 371,
+        "endChar": 50
+      },
+      "revId": "93fc66a9cfc108ac7f5f81493b47513a0f4f9b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

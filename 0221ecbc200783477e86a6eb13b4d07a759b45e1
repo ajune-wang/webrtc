@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7e4f5c24_43f40243",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-12T12:25:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b291b968_6e781b38",
+      "revId": "0221ecbc200783477e86a6eb13b4d07a759b45e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f00e10ce_7a179395",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 15
@@ -33,6 +51,24 @@
       "revId": "0221ecbc200783477e86a6eb13b4d07a759b45e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88ffc150_e2785d1f",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-12T12:25:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f00e10ce_7a179395",
+      "revId": "0221ecbc200783477e86a6eb13b4d07a759b45e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "0221ecbc200783477e86a6eb13b4d07a759b45e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa30d2e_7497f767",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-12T12:25:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab4da874_d1ccddcc",
+      "range": {
+        "startLine": 289,
+        "startChar": 13,
+        "endLine": 289,
+        "endChar": 66
+      },
+      "revId": "0221ecbc200783477e86a6eb13b4d07a759b45e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

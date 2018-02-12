@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "be4fcf21_1cd98d2c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-12T23:46:21Z",
+      "side": 1,
+      "message": "nit: \"current_desc\" and \"secondary_current_desc\" is a little head scratching. Wouldn\u0027t it work to just have \"last_desc\", which would be the previously applied offer or answer, local or remote? I guess it may not be trivial to figure that out though.",
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0e41216_7dbbbc47",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2

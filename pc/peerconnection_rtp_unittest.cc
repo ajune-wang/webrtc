@@ -218,6 +218,42 @@ TEST_F(PeerConnectionRtpCallbacksTest,
             callee->observer()->remove_track_events_);
 }
 
+// Tests that setting a remote description with sending transceivers will fire
+// the OnTrack callback for each transceiver and setting a remote description
+// with receive only transceivers will not call OnTrack.
+TEST_F(PeerConnectionRtpCallbacksTest, UnifiedPlanAddTransceiverCallsOnTrack) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+  auto callee = CreatePeerConnectionWithUnifiedPlan();
+
+  auto audio_transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  auto video_transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+
+  caller->observer()->on_track_handler_ =
+      [](rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {
+        EXPECT_TRUE(false) << "No OnTrack callback expected on caller.";
+      };
+
+  bool callee_on_track_audio = false;
+  bool callee_on_track_video = false;
+  callee->observer()->on_track_handler_ =
+      [&](rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {
+        if (transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
+          EXPECT_EQ(audio_transceiver->mid(), transceiver->mid());
+          EXPECT_FALSE(callee_on_track_audio);
+          callee_on_track_audio = true;
+        } else {
+          EXPECT_EQ(video_transceiver->mid(), transceiver->mid());
+          EXPECT_FALSE(callee_on_track_video);
+          callee_on_track_video = true;
+        }
+      };
+
+  ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+
+  EXPECT_TRUE(callee_on_track_audio);
+  EXPECT_TRUE(callee_on_track_video);
+}
+
 // These tests examine the state of the peer connection as a result of
 // performing SetRemoteDescription().
 class PeerConnectionRtpObserverTest : public PeerConnectionRtpTest {};

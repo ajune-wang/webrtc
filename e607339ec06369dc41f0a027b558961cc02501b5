@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de045436_8f659d85",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-13T11:13:42Z",
+      "side": 1,
+      "message": "Do you need this C version? Otherwise, create just the C++ version below; the C version can easily be added later if we need it.",
+      "revId": "e607339ec06369dc41f0a027b558961cc02501b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e31952_aab6a3c9",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-13T11:13:42Z",
+      "side": 1,
+      "message": "Please static_assert that std::is_trivial\u003cT\u003e. I think this code may be unsafe and/or not compile otherwise.\n\nAlso, I wonder if an API like this may be better:\n\n  template \u003ctypename T\u003e\n  T MsanUninitialized(T t) {...}\n\nCalled like this:\n\n  int x \u003d MsanUninitialized\u003cint\u003e(0);\n  auto foo \u003d MsanUninitialized\u003cSomeStruct\u003e({0});\n\nThe advantage is that the function now just marks the value uninitialized, which makes it simpler to understand. The caller is also free to initialize with a non-zero value, but I don\u0027t suppose that feature will see much use.",
+      "revId": "e607339ec06369dc41f0a027b558961cc02501b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc0036d9_708bd04e",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-13T11:13:42Z",
+      "side": 1,
+      "message": "The EXPECT_EQs above should also fall afoul of MSan, since they branch based on the contents of uninitialized memory. Have you tried running this under MSan?\n\nIt looks like __msan_set_expect_umr() is the tool to use for testing this sort of thing.",
+      "revId": "e607339ec06369dc41f0a027b558961cc02501b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

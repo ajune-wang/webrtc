@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8d24cf_f917b13c",
+        "filename": "test/encoder_settings.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-02-13T09:51:13Z",
+      "side": 1,
+      "message": "Move this to another file? \nDoes quality test use real codecs?",
+      "range": {
+        "startLine": 85,
+        "startChar": 28,
+        "endLine": 85,
+        "endChar": 49
+      },
+      "revId": "888575782e9c5d4024b94b0e7225d2df71e01265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

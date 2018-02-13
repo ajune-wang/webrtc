@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88fcd1b7_66ce358b",
+        "filename": "test/fake_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-02-13T09:51:13Z",
+      "side": 1,
+      "message": "How does this work? FakeEncoder::Encode may already have dropped a frame due too low bitrate.",
+      "range": {
+        "startLine": 134,
+        "startChar": 32,
+        "endLine": 134,
+        "endChar": 53
+      },
+      "revId": "0f71a4122d9df187e2cbefd719f64acdf774a6f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -252,6 +252,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     deps = [
       ":apprtc_common",
       ":socketrocket",
+      "../sdk:default_codec_factory_objc",
     ]
     if (is_ios) {
       deps += [
@@ -259,7 +260,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         "../sdk:framework_objc",
       ]
     } else {
-      deps += [ "../sdk:peerconnection_objc" ]
+      deps += [ "../sdk:peerconnectionfactory_base_objc" ]
     }
     libs = [ "QuartzCore.framework" ]
   }
@@ -376,8 +377,10 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       deps = [
         ":apprtc_common",
         ":apprtc_signaling",
+        "../sdk:default_codec_factory_objc",
         "../sdk:metal_objc",
         "../sdk:ui_objc",
+        "../sdk:videotoolbox_objc",
       ]
     }
 

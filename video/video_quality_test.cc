@@ -24,6 +24,7 @@
 #include "modules/rtp_rtcp/source/rtp_format.h"
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "modules/video_coding/codecs/h264/include/h264.h"
+#include "modules/video_coding/codecs/multiplex/include/multiplex_encoder_adapter.h"
 #include "modules/video_coding/codecs/vp8/include/vp8_common_types.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "rtc_base/cpu_time.h"
@@ -1394,6 +1395,10 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       payload_type = kPayloadTypeVP8;
     } else if (params_.video[video_idx].codec == "VP9") {
       video_encoders_[video_idx] = VP9Encoder::Create();
+      payload_type = kPayloadTypeVP9;
+    } else if (params_.video[video_idx].codec == "multiplex") {
+      video_encoders_[video_idx] = rtc::MakeUnique<MultiplexEncoderAdapter>(
+          new InternalEncoderFactory(), SdpVideoFormat(cricket::kVp9CodecName));
       payload_type = kPayloadTypeVP9;
     } else {
       RTC_NOTREACHED() << "Codec not supported!";

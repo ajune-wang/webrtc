@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "945fb86e_90cacc6a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-13T19:46:45Z",
+      "side": 1,
+      "message": "I agree that last_desc_ would add complexity; \"pending\" and \"current\" have already caused bugs in the past. However, a last_description() helper function that switches on the signaling state seems reasonable.\n\nFeel free to leave this as-is though; it was just an idea.",
+      "parentUuid": "87e0e019_f06855d0",
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0e41216_7dbbbc47",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2

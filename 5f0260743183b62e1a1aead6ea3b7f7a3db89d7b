@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a50b5660_b2b3561b",
+        "filename": "modules/congestion_controller/pacer_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-13T10:37:29Z",
+      "side": 1,
+      "message": "SetPacerState is not a good name since I can\u0027t determine if this code does the right thing without looking at what SetPacerState actually does. Can we rename it OnNetworkAvailable or something instead? Or do as before:\n\nbool paused \u003d ...;\nSetPacerState(pause);",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "5f0260743183b62e1a1aead6ea3b7f7a3db89d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -132,6 +132,13 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
     add_track_events_.push_back(AddTrackEvent(receiver, streams));
   }
 
+  void OnTrack(
+      rtc::scoped_refptr<RtpTransceiverInterface> transceiver) override {
+    if (on_track_handler_) {
+      on_track_handler_(transceiver);
+    }
+  }
+
   void OnRemoveTrack(
       rtc::scoped_refptr<RtpReceiverInterface> receiver) override {
     remove_track_events_.push_back(receiver);
@@ -193,6 +200,8 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
   std::vector<AddTrackEvent> add_track_events_;
   std::vector<rtc::scoped_refptr<RtpReceiverInterface>> remove_track_events_;
   int num_candidates_removed_ = 0;
+  std::function<void(rtc::scoped_refptr<RtpTransceiverInterface>)>
+      on_track_handler_;
 
  private:
   rtc::scoped_refptr<MediaStreamInterface> last_added_stream_;

@@ -999,7 +999,7 @@ class PeerConnectionObserver {
 
   // Triggered when media is received on a new stream from remote peer.
   // Deprecated: This callback will no longer be fired with Unified Plan
-  // semantics. Consider switching to OnAddTrack.
+  // semantics. Unified Plan users should use OnTrack.
   virtual void OnAddStream(rtc::scoped_refptr<MediaStreamInterface> stream) {}
 
   // Triggered when a remote peer close a stream.
@@ -1043,9 +1043,21 @@ class PeerConnectionObserver {
 
   // This is called when a receiver and its track is created.
   // TODO(zhihuang): Make this pure virtual when all subclasses implement it.
+  // Note: This is called with both Plan B and Unified Plan semantics. Unified
+  // Plan users should prefer OnTrack, OnAddTrack is only called as backwards
+  // compatibility (and is called in the exact same situations as OnTrack).
   virtual void OnAddTrack(
       rtc::scoped_refptr<RtpReceiverInterface> receiver,
       const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams) {}
+
+  // This is called when signaling indicates a transceiver will be receiving
+  // media from the remote endpoint. This is fired during a call to
+  // SetRemoteDescription. The receiving track can be accessed by:
+  // |transceiver->receiver()->track()| and its associated streams by
+  // |transceiver->receiver()->streams()|.
+  // Note: This will only be called if Unified Plan semantics are specified.
+  virtual void OnTrack(
+      rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {}
 
   // TODO(hbos,deadbeef): Add |OnAssociatedStreamsUpdated| with |receiver| and
   // |streams| as arguments. This should be called when an existing receiver its
@@ -1063,6 +1075,7 @@ class PeerConnectionObserver {
   // TODO(hbos,deadbeef): When Unified Plan SDP is supported and receivers are
   // no longer removed, deprecate and remove this callback.
   // TODO(hbos,deadbeef): Make pure virtual when all subclasses implement it.
+  // Note: This is not called if Unified Plan semantics are specified.
   virtual void OnRemoveTrack(
       rtc::scoped_refptr<RtpReceiverInterface> receiver) {}
 };

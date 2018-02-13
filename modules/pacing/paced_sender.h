@@ -118,8 +118,6 @@ class PacedSender : public Pacer {
   // Process any pending packets in the queue(s).
   void Process() override;
 
-  // Called when the prober is associated with a process thread.
-  void ProcessThreadAttached(ProcessThread* process_thread) override;
   void SetQueueTimeLimit(int limit_ms);
 
  private:
@@ -156,20 +154,13 @@ class PacedSender : public Pacer {
   // order to meet pace time constraint).
   uint32_t pacing_bitrate_kbps_ RTC_GUARDED_BY(critsect_);
 
-  int64_t time_last_update_us_ RTC_GUARDED_BY(critsect_);
+  int64_t time_last_process_us_ RTC_GUARDED_BY(critsect_);
+  int64_t last_send_time_us_ RTC_GUARDED_BY(critsect_);
   int64_t first_sent_packet_ms_ RTC_GUARDED_BY(critsect_);
 
   const std::unique_ptr<PacketQueueInterface> packets_
       RTC_PT_GUARDED_BY(critsect_);
   uint64_t packet_counter_ RTC_GUARDED_BY(critsect_);
-
-  // Lock to avoid race when attaching process thread. This can happen due to
-  // the Call class setting network state on SendSideCongestionController, which
-  // in turn calls Pause/Resume on Pacedsender, before actually starting the
-  // pacer process thread. If SendSideCongestionController is running on a task
-  // queue separate from the thread used by Call, this causes a race.
-  rtc::CriticalSection process_thread_lock_;
-  ProcessThread* process_thread_ RTC_GUARDED_BY(process_thread_lock_) = nullptr;
 
   int64_t queue_time_limit RTC_GUARDED_BY(critsect_);
   bool account_for_audio_ RTC_GUARDED_BY(critsect_);

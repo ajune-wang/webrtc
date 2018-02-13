@@ -114,6 +114,29 @@
       "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c982f07_0cb8357a",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-13T14:25:44Z",
+      "side": 1,
+      "message": "Ying, is there a reason why we pass the FEC controller to the PeerConnectionFactory constructor and not to createPeerConnection method? I don\u0027t see why it\u0027s needed already at construction time?",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 5
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

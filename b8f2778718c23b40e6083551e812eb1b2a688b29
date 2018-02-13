@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "f2e8ba07_bdcf0c6f",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-13T01:31:06Z",
+      "side": 1,
+      "message": "OK, I\u0027ll change internal references here to bypass the proxy. I would not be opposed to getting rid of proxies entirely, but I think that\u0027s a longer conversation :)",
+      "parentUuid": "b5186abe_5d12c959",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "431eb190_8ca88882",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 3
@@ -87,6 +105,24 @@
       "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d79e4e5_535ce40d",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-13T01:31:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "431eb190_8ca88882",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "ab6b882d_fe72a154",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-13T01:31:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcd670f6_2dea838d",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93a5f25c_fdb4158d",
         "filename": "pc/rtcstatscollector.cc",
         "patchSetId": 3
@@ -118,6 +172,24 @@
       "writtenOn": "2018-02-12T20:00:41Z",
       "side": 1,
       "message": "voice_stats and video_stats elements are moved while the maps are still in use. As-is this should be safe, but what if the following happens as a bug or as a future code change?\n- What if multiple channels reference the same VoiceChannel*, this would trigger explicit std::move() of already moved channels.\n- What if code is updated to modify the contents of voice_stats after this line, internally std::map might move objects around triggering moving already moved objects.\n\nWhile sensible implementations of moving unique_ptr is the same as release() we should not assume so.\n\nCan you DCHECK element has value and use release() instead?\n\n  DCHECK(voice_stats[voice_channel-\u003emedia_channel()]);\n  voice_media_info.reset(voice_stats[voice_channel-\u003emedia_channel()].release());\n\nAnd same for video.",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaba7f76_60d294cf",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1318,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-13T01:31:06Z",
+      "side": 1,
+      "message": "Added a DCHECK to ensure that the unique ptr has not already been moved.\n\nI think the general convention for assigning unique_ptr is to use the move assignment operator rather than explicit .reset(...release()).\n\nAccording to http://en.cppreference.com/w/cpp/memory/unique_ptr/operator%3D the move operator is expected to do the equivalent (plus it does additional things which don\u0027t really matter in this case).",
+      "parentUuid": "93a5f25c_fdb4158d",
       "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -138,6 +210,24 @@
       "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8dc9c7b_6c70574d",
+        "filename": "pc/trackmediainfomap.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-13T01:31:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48d055d1_37979fa8",
+      "revId": "b8f2778718c23b40e6083551e812eb1b2a688b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c935d205_fc755396",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-02-13T09:58:42Z",
+      "side": 1,
+      "message": "I think logging in this class should be removed, and a single line added in WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(), when a NullVideoDecoder is created.",
+      "revId": "cd97124e223f7a371feb3e80f3ebde726de38a06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d0c9df_3963161c",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2187,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-02-13T09:58:42Z",
+      "side": 1,
+      "message": "1. \":\" after codec\n2. Drop the trailing \", using...\" string",
+      "revId": "cd97124e223f7a371feb3e80f3ebde726de38a06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f13fecf_cb85a825",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2232,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-02-13T09:58:42Z",
+      "side": 1,
+      "message": "Well spotted!\n\nSince this isn\u0027t just a logging change, please pull it into a separate CL so it is more easily traceable, and assign to Stefan Holmer for review.\n\nLooks like the below log statement is unnecessary.",
+      "revId": "cd97124e223f7a371feb3e80f3ebde726de38a06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

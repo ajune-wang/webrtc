@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0a97021_aa0ba8f0",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-13T16:04:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "635060e5_ad8cce27",
+      "range": {
+        "startLine": 1292,
+        "startChar": 4,
+        "endLine": 1292,
+        "endChar": 73
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b002ff2_88232200",
         "filename": "call/call.cc",
         "patchSetId": 16
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "58b4a1a8_75a21865",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-13T16:04:42Z",
+      "side": 1,
+      "message": "For the VideoQualityTest(which inherites test::CallTest and test::CallTest owns a sender_call_), we pass the fec_controller_factory to the VideoQualityTest ctor, and we later call sender_call_.CreateVideoSendStream() with injected FecController.",
+      "parentUuid": "7b002ff2_88232200",
+      "range": {
+        "startLine": 422,
+        "startChar": 0,
+        "endLine": 424,
+        "endChar": 33
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddced114_a5142e96",
         "filename": "call/call.cc",
         "patchSetId": 16
@@ -59,6 +107,30 @@
       "writtenOn": "2018-02-13T12:02:22Z",
       "side": 1,
       "message": "I\u0027ma also a little confused about ownership. The FecControllerFActory passed to the Call constructor is a raw pointer, and I\u0027m assuming ownership belongs to PeerConnectionFactory?\n\nHere\u0027 we get another FecControllerFactory, including ownership. Where will that ownership belong?",
+      "range": {
+        "startLine": 428,
+        "startChar": 4,
+        "endLine": 428,
+        "endChar": 51
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1295833a_3cb8c19f",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-13T16:04:42Z",
+      "side": 1,
+      "message": "Yes, the ownership belongs to PeerConnectionFactory when the the FecControllerFactory passed to Call ctor.\nWhen in the perf tests case, we pass in a unique_ptr\u003cFecControllerFactory\u003e, the ownership belongs to the Call. Shall we also pass in a raw pointer for this case too?",
+      "parentUuid": "ddced114_a5142e96",
       "range": {
         "startLine": 428,
         "startChar": 4,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e55a4290_9530a587",
+        "filename": "call/call.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-13T16:04:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54c6e2ff_0e8e24d4",
+      "range": {
+        "startLine": 131,
+        "startChar": 22,
+        "endLine": 131,
+        "endChar": 51
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4010771b_5ad5776f",
         "filename": "sdk/android/api/org/webrtc/FecControllerFactoryFactoryInterface.java",
         "patchSetId": 16
@@ -114,6 +210,30 @@
       "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b6abbbe_e8f65a95",
+        "filename": "sdk/android/api/org/webrtc/FecControllerFactoryFactoryInterface.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-13T16:04:42Z",
+      "side": 1,
+      "message": "There is a FecControllerFactoryFactory that implements this class. Which resides in another commit.",
+      "parentUuid": "4010771b_5ad5776f",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

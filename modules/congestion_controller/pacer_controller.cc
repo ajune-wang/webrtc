@@ -25,25 +25,28 @@ PacerController::~PacerController() = default;
 void PacerController::OnCongestionWindow(CongestionWindow congestion_window) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   if (congestion_window.enabled) {
-    congestion_window_ = congestion_window;
+    pacer_->SetCongestionWindow(congestion_window.data_window.bytes());
   } else {
-    congestion_window_ = rtc::nullopt;
-    congested_ = false;
-    UpdatePacerState();
+    pacer_->SetCongestionWindow(PacedSender::kNoCongestionWindow);
   }
 }
 
 void PacerController::OnNetworkAvailability(NetworkAvailability msg) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  network_available_ = msg.network_available;
-  congested_ = false;
-  UpdatePacerState();
+  pacer_->UpdateOutstandingData(0);
+  if (network_available_ != msg.network_available) {
+    if (msg.network_available) {
+      pacer_->Resume();
+    } else {
+      pacer_->Pause();
+    }
+    network_available_ = msg.network_available;
+  }
 }
 
 void PacerController::OnNetworkRouteChange(NetworkRouteChange) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  congested_ = false;
-  UpdatePacerState();
+  pacer_->UpdateOutstandingData(0);
 }
 
 void PacerController::OnPacerConfig(PacerConfig msg) {
@@ -61,23 +64,7 @@ void PacerController::OnProbeClusterConfig(ProbeClusterConfig config) {
 
 void PacerController::OnOutstandingData(OutstandingData msg) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  if (congestion_window_.has_value()) {
-    congested_ = msg.in_flight_data > congestion_window_->data_window;
-  }
-  UpdatePacerState();
-}
-
-void PacerController::UpdatePacerState() {
-  bool pause = congested_ || !network_available_;
-  SetPacerState(pause);
-}
-
-void PacerController::SetPacerState(bool paused) {
-  if (paused && !pacer_paused_)
-    pacer_->Pause();
-  else if (!paused && pacer_paused_)
-    pacer_->Resume();
-  pacer_paused_ = paused;
+  pacer_->UpdateOutstandingData(msg.in_flight_data.bytes());
 }
 
 }  // namespace webrtc

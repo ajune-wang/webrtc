@@ -33,7 +33,8 @@
 namespace {
 // Time limit in milliseconds between packet bursts.
 const int64_t kMinPacketLimitMs = 5;
-const int64_t kPausedPacketIntervalMs = 500;
+const int64_t kCongestedPacketIntervalMs = 500;
+const int64_t kPausedIntervalMs = 5000;
 
 // Upper cap on process interval, in case process has not been called in a long
 // time.
@@ -132,6 +133,22 @@ void PacedSender::Resume() {
     process_thread_->WakeUp(this);
 }
 
+void PacedSender::SetCongestionWindow(int64_t congestion_window_bytes) {
+  rtc::CritScope cs(&critsect_);
+  congestion_window_bytes_ = congestion_window_bytes;
+}
+
+void PacedSender::UpdateOutstandingData(int64_t outstanding_bytes) {
+  rtc::CritScope cs(&critsect_);
+  outstanding_bytes_ = outstanding_bytes;
+}
+
+bool PacedSender::Congested() const {
+  if (congestion_window_bytes_ == kNoCongestionWindow)
+    return false;
+  return outstanding_bytes_ >= congestion_window_bytes_;
+}
+
 void PacedSender::SetProbingEnabled(bool enabled) {
   rtc::CritScope cs(&critsect_);
   RTC_CHECK_EQ(0, packet_counter_);
@@ -201,19 +218,18 @@ int64_t PacedSender::QueueInMs() const {
 
 int64_t PacedSender::TimeUntilNextProcess() {
   rtc::CritScope cs(&critsect_);
-  int64_t elapsed_time_us =
-      clock_->TimeInMicroseconds() - time_last_process_us_;
-  int64_t elapsed_time_ms = (elapsed_time_us + 500) / 1000;
-  // When paused we wake up every 500 ms to send a padding packet to ensure
-  // we won't get stuck in the paused state due to no feedback being received.
   if (paused_)
-    return std::max<int64_t>(kPausedPacketIntervalMs - elapsed_time_ms, 0);
+    return kPausedIntervalMs;
 
   if (prober_->IsProbing()) {
     int64_t ret = prober_->TimeUntilNextProbe(clock_->TimeInMilliseconds());
     if (ret > 0 || (ret == 0 && !probing_send_failure_))
       return ret;
   }
+
+  int64_t elapsed_time_us =
+      clock_->TimeInMicroseconds() - time_last_process_us_;
+  int64_t elapsed_time_ms = (elapsed_time_us + 500) / 1000;
   return std::max<int64_t>(kMinPacketLimitMs - elapsed_time_ms, 0);
 }
 
@@ -221,14 +237,18 @@ void PacedSender::Process() {
   int64_t now_us = clock_->TimeInMicroseconds();
   rtc::CritScope cs(&critsect_);
   time_last_process_us_ = now_us;
+
+  if (paused_)
+    return;
+
   int64_t elapsed_time_ms = (now_us - last_send_time_us_ + 500) / 1000;
 
-  // When paused we send a padding packet every 500 ms to ensure we won't get
-  // stuck in the paused state due to no feedback being received.
-  if (paused_) {
+  // When congested we send a padding packet every 500 ms to ensure we won't get
+  // stuck in the congested state due to no feedback being received.
+  if (Congested()) {
     // We can not send padding unless a normal packet has first been sent. If we
     // do, timestamps get messed up.
-    if (elapsed_time_ms >= kPausedPacketIntervalMs && packet_counter_ > 0) {
+    if (elapsed_time_ms >= kCongestedPacketIntervalMs && packet_counter_ > 0) {
       PacedPacketInfo pacing_info;
       SendPadding(1, pacing_info);
       last_send_time_us_ = clock_->TimeInMicroseconds();
@@ -253,7 +273,7 @@ void PacedSender::Process() {
     }
 
     media_budget_->set_target_rate_kbps(target_bitrate_kbps);
-    UpdateBudgetWithElapsedTime(elapsed_time_ms);
+    UpdateBudgetWithElapsedTime(std::min(kMaxIntervalTimeMs, elapsed_time_ms));
   }
 
   last_send_time_us_ = clock_->TimeInMicroseconds();
@@ -268,7 +288,7 @@ void PacedSender::Process() {
   }
   // The paused state is checked in the loop since SendPacket leaves the
   // critical section allowing the paused state to be changed from other code.
-  while (!packets_->Empty() && !paused_) {
+  while (!packets_->Empty() && !paused_ && !Congested()) {
     // Since we need to release the lock in order to send, we first pop the
     // element from the priority queue but keep it in storage, so that we can
     // reinsert it if send fails.
@@ -287,7 +307,7 @@ void PacedSender::Process() {
     }
   }
 
-  if (packets_->Empty()) {
+  if (packets_->Empty() && !Congested()) {
     // We can not send padding unless a normal packet has first been sent. If we
     // do, timestamps get messed up.
     if (packet_counter_ > 0) {
@@ -363,6 +383,7 @@ void PacedSender::UpdateBudgetWithElapsedTime(int64_t delta_time_ms) {
 }
 
 void PacedSender::UpdateBudgetWithBytesSent(size_t bytes_sent) {
+  outstanding_bytes_ += bytes_sent;
   media_budget_->UseBudget(bytes_sent);
   padding_budget_->UseBudget(bytes_sent);
 }

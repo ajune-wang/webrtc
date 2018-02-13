@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b4d82c7_ad596ebe",
+        "filename": "modules/congestion_controller/bbr/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c677b62_8d7791d9",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "003c303a_cbd859ba",
         "filename": "modules/congestion_controller/bbr/BUILD.gn",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb5853f0_64213fd6",
+        "filename": "modules/congestion_controller/bbr/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "003c303a_cbd859ba",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b5d9df42_0aa02613",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7308d7fd_68c09444",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 66
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d5105f0_01eb99d1",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28d16a35_f6b2bfae",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d5105f0_01eb99d1",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7341399a_54c79070",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2897a6bd_55e21e57",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b16facd3_6b13d915",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -137,6 +257,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68260672_1ad3c7de",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b16facd3_6b13d915",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 60
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "abe808ee_5cd520cf",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d4926009_b15f937c",
+      "range": {
+        "startLine": 111,
+        "startChar": 48,
+        "endLine": 111,
+        "endChar": 61
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d64ef68a_29fc4179",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -183,6 +351,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f09abb9c_ae5f54a2",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d64ef68a_29fc4179",
+      "range": {
+        "startLine": 113,
+        "startChar": 48,
+        "endLine": 113,
+        "endChar": 58
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "f0885ffe_10ea815d",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5c623214_c94648a0",
+      "range": {
+        "startLine": 119,
+        "startChar": 51,
+        "endLine": 119,
+        "endChar": 54
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3078c6dd_0224292f",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -229,6 +445,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b63f3a18_283071dc",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3078c6dd_0224292f",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 59
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "7da12a6e_20692d1d",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "668d074f_46f40cc3",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 66
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b687d6f_a8517e95",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -275,6 +539,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a48dd4_f0dd3774",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b687d6f_a8517e95",
+      "range": {
+        "startLine": 254,
+        "startChar": 2,
+        "endLine": 254,
+        "endChar": 26
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "fbbec7ac_3591b270",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c275cfe2_9140672b",
+      "range": {
+        "startLine": 271,
+        "startChar": 7,
+        "endLine": 271,
+        "endChar": 25
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9f90cef_3f0f12c3",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "69e9b3fa_31de210d",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9f90cef_3f0f12c3",
+      "range": {
+        "startLine": 273,
+        "startChar": 2,
+        "endLine": 273,
+        "endChar": 6
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cea001b7_8671adbe",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -335,6 +671,30 @@
       "writtenOn": "2018-02-06T16:10:36Z",
       "side": 1,
       "message": "Is this ever used for anything? It seems like it is never printed.",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 44
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddf9b58_aac93f28",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "It\u0027s a quick way to avoid updates when state is unchanged.",
+      "parentUuid": "cea001b7_8671adbe",
       "range": {
         "startLine": 290,
         "startChar": 0,
@@ -370,6 +730,30 @@
     },
     {
       "key": {
+        "uuid": "a631bf58_a76d493a",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e26c9776_56e6ffeb",
+      "range": {
+        "startLine": 310,
+        "startChar": 50,
+        "endLine": 310,
+        "endChar": 56
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe07a135_f0d40aad",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -390,6 +774,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc72c405_e96d7572",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe07a135_f0d40aad",
+      "range": {
+        "startLine": 319,
+        "startChar": 48,
+        "endLine": 319,
+        "endChar": 52
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -416,6 +824,30 @@
     },
     {
       "key": {
+        "uuid": "920de03a_dcce8cf6",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Removed this.",
+      "parentUuid": "fbc0e231_a8053c05",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 4
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecd0aa50_3f84772e",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -436,6 +868,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d183c2a0_3878f50a",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecd0aa50_3f84772e",
+      "range": {
+        "startLine": 428,
+        "startChar": 2,
+        "endLine": 428,
+        "endChar": 6
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -462,6 +918,30 @@
     },
     {
       "key": {
+        "uuid": "009b1734_c7642b6d",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5c8f5a8_fe151f8a",
+      "range": {
+        "startLine": 458,
+        "startChar": 7,
+        "endLine": 458,
+        "endChar": 10
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "711d95d0_a1514a83",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -482,6 +962,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bbec057_a7017f19",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "711d95d0_a1514a83",
+      "range": {
+        "startLine": 459,
+        "startChar": 19,
+        "endLine": 459,
+        "endChar": 23
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -508,6 +1012,30 @@
     },
     {
       "key": {
+        "uuid": "6648e992_db1e4c87",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "741c0ade_9a2b56a3",
+      "range": {
+        "startLine": 543,
+        "startChar": 26,
+        "endLine": 543,
+        "endChar": 75
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16412261_68d136be",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -528,6 +1056,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa459419_ad7b15fa",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16412261_68d136be",
+      "range": {
+        "startLine": 565,
+        "startChar": 11,
+        "endLine": 565,
+        "endChar": 15
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -554,6 +1106,30 @@
     },
     {
       "key": {
+        "uuid": "8a96acbc_8a7bee71",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "987c5010_0da03fe9",
+      "range": {
+        "startLine": 601,
+        "startChar": 48,
+        "endLine": 602,
+        "endChar": 75
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75dd0183_edc8255c",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -565,6 +1141,30 @@
       "writtenOn": "2018-02-06T16:10:36Z",
       "side": 1,
       "message": "less than 1.125 * current min_rtt?",
+      "range": {
+        "startLine": 635,
+        "startChar": 45,
+        "endLine": 635,
+        "endChar": 65
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a66753e_242c8543",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Don\u0027t think I wrote that, but that is what it says, so guess so? You want that formulation instead?",
+      "parentUuid": "75dd0183_edc8255c",
       "range": {
         "startLine": 635,
         "startChar": 45,
@@ -600,6 +1200,30 @@
     },
     {
       "key": {
+        "uuid": "ce363866_15fcbf63",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5e6e86c_b1812e3b",
+      "range": {
+        "startLine": 701,
+        "startChar": 2,
+        "endLine": 701,
+        "endChar": 6
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f621710a_748a23f3",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -620,6 +1244,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58a98b0_9c86e7e8",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f621710a_748a23f3",
+      "range": {
+        "startLine": 804,
+        "startChar": 0,
+        "endLine": 804,
+        "endChar": 57
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -646,6 +1294,30 @@
     },
     {
       "key": {
+        "uuid": "26869d97_ac4e3e54",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "146267bb_5df4f320",
+      "range": {
+        "startLine": 115,
+        "startChar": 75,
+        "endLine": 115,
+        "endChar": 78
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "472287ac_a1314c31",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
         "patchSetId": 9
@@ -666,6 +1338,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5596b02a_37e66829",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "472287ac_a1314c31",
+      "range": {
+        "startLine": 137,
+        "startChar": 5,
+        "endLine": 137,
+        "endChar": 30
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -692,6 +1388,30 @@
     },
     {
       "key": {
+        "uuid": "902cab7d_31b6aec5",
+        "filename": "modules/congestion_controller/bbr/data_rate_calculator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Added comment in header file. The semantics are kind of fickle, as what you want is the time period from the last ack before the covered start, that is, you can\u0027t start counting at covered start, since then you would not know the transfer time for the packet acked at that time.",
+      "parentUuid": "68b4dd3f_22f70b4a",
+      "range": {
+        "startLine": 43,
+        "startChar": 14,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b816c7a_62d8493e",
         "filename": "modules/congestion_controller/bbr/data_rate_calculator.cc",
         "patchSetId": 9
@@ -712,6 +1432,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9803c58_72ba4df5",
+        "filename": "modules/congestion_controller/bbr/data_rate_calculator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Yes, renamed and added comment instead.",
+      "parentUuid": "3b816c7a_62d8493e",
+      "range": {
+        "startLine": 47,
+        "startChar": 16,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -738,6 +1482,30 @@
     },
     {
       "key": {
+        "uuid": "8fd65393_a3c83da4",
+        "filename": "modules/congestion_controller/bbr/data_rate_calculator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Seems like a bug, in practice I guess it will often be called when this is true. But not always, good catch.",
+      "parentUuid": "3bf9d9c3_38d97719",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 45
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e11f3bf4_67360737",
         "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
         "patchSetId": 9
@@ -758,6 +1526,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a4e5f4d_7aabdb36",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e11f3bf4_67360737",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -784,6 +1576,30 @@
     },
     {
       "key": {
+        "uuid": "c297c736_66eb0516",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e705c9f_9426be20",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eaaaed3b_3d1946a0",
         "filename": "modules/congestion_controller/bbr/rtt_stats.h",
         "patchSetId": 9
@@ -804,6 +1620,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fedd7c47_c214f8f9",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaaaed3b_3d1946a0",
+      "range": {
+        "startLine": 10,
+        "startChar": 32,
+        "endLine": 10,
+        "endChar": 35
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -830,6 +1670,30 @@
     },
     {
       "key": {
+        "uuid": "f1831700_c3a28852",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56bab474_9e890f2b",
+      "range": {
+        "startLine": 38,
+        "startChar": 41,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b361a937_5316a430",
         "filename": "modules/congestion_controller/bbr/rtt_stats.h",
         "patchSetId": 9
@@ -853,6 +1717,30 @@
     },
     {
       "key": {
+        "uuid": "7829468b_f77e204e",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b361a937_5316a430",
+      "range": {
+        "startLine": 59,
+        "startChar": 21,
+        "endLine": 59,
+        "endChar": 24
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f83a69e2_7a80e881",
         "filename": "modules/congestion_controller/bbr/windowed_filter.h",
         "patchSetId": 9
@@ -873,6 +1761,30 @@
       "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "754baa52_68dc7d00",
+        "filename": "modules/congestion_controller/bbr/windowed_filter.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-13T17:09:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f83a69e2_7a80e881",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

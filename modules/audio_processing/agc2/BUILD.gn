@@ -10,9 +10,12 @@ import("../../../webrtc.gni")
 
 rtc_source_set("agc2") {
   sources = [
+    "agc2_common.cc",
     "agc2_common.h",
     "fixed_gain_controller.cc",
     "fixed_gain_controller.h",
+    "level_estimator.cc",
+    "level_estimator.h",
   ]
 
   configs += [ "..:apm_debug_dump" ]
@@ -32,6 +35,7 @@ rtc_source_set("fixed_digital_unittests") {
 
   sources = [
     "fixed_gain_controller_unittest.cc",
+    "level_estimator_unittest.cc",
     "vector_float_frame.cc",
     "vector_float_frame.h",
   ]

@@ -16,6 +16,24 @@
       "revId": "6f7bc08457fd89868c3bd14335905d4b195065e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58be7757_cba1fd43",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-02-13T09:40:49Z",
+      "side": 0,
+      "message": "Good point. How should we time the changes to ensure that no build ends up with the updated overrides and the current webrtc?",
+      "parentUuid": "4c852f7d_7a4fdf9d",
+      "revId": "6f7bc08457fd89868c3bd14335905d4b195065e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "87e0e019_f06855d0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "I agree, it is head scratching. I tried to clarify these parameters in the function header, but they are a bit wonky. I think last_desc could be nice here, but I wanna hear your thoughts. I think it would mean setting the state of last_desc_ (maybe use cricket::CS_LOCAL/CS_REMOTE) when ApplyLocalDescription/ApplyRemoteDescription are called. The downside to doing this is:\n-It\u0027s already a bit confusing with current_remote/pending_remote \u0026 current_local/pending_local, and it would add some complexity there.\n-It could introduce some bugs. I would have to think about this more.\n\nWDYT?",
+      "parentUuid": "be4fcf21_1cd98d2c",
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0e41216_7dbbbc47",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e1a7a31_5fe98421",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "Done. Also updated MediaSectionsHaveSameCount because of the same case.",
+      "parentUuid": "f0e41216_7dbbbc47",
+      "range": {
+        "startLine": 332,
+        "startChar": 30,
+        "endLine": 332,
+        "endChar": 64
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "5fd560c8_e8415276",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "Went ahead and did this.",
+      "parentUuid": "c31c1cce_650abd81",
+      "range": {
+        "startLine": 343,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 56
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6dd30122_0fe23366",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2
@@ -85,6 +151,30 @@
       "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f84aa5e6_4ca10458",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dd30122_0fe23366",
+      "range": {
+        "startLine": 2406,
+        "startChar": 67,
+        "endLine": 2406,
+        "endChar": 13
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "ce7d1df0_194fe926",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5523,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "012e4e2b_860dcf9a",
+      "range": {
+        "startLine": 5522,
+        "startChar": 71,
+        "endLine": 5523,
+        "endChar": 26
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f85ec7b_e3442733",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 2
@@ -131,6 +245,30 @@
       "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b49cb27_61fc4c88",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f85ec7b_e3442733",
+      "range": {
+        "startLine": 598,
+        "startChar": 7,
+        "endLine": 598,
+        "endChar": 59
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "1400ef7e_eaa981ff",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a976c28d_ff6873e7",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 657,
+        "endChar": 42
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d7126b6_f829bfb5",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 2
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "94860fb3_f9578c12",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "4d7126b6_f829bfb5",
+      "range": {
+        "startLine": 667,
+        "startChar": 2,
+        "endLine": 667,
+        "endChar": 34
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3c043a7_14f8efdc",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 2
@@ -200,6 +386,30 @@
       "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a2afe85_ffc50c9a",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T01:10:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3c043a7_14f8efdc",
+      "range": {
+        "startLine": 676,
+        "startChar": 34,
+        "endLine": 676,
+        "endChar": 70
+      },
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

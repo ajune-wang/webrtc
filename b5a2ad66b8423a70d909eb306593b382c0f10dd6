@@ -70,6 +70,30 @@
       "revId": "b5a2ad66b8423a70d909eb306593b382c0f10dd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50dfdb21_61cccb95",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-02-13T13:43:43Z",
+      "side": 1,
+      "message": "Actually, right, checkout_win just means that target_os is win, which it can be on a Linux checkout.",
+      "parentUuid": "46fcfbd5_c3fa220c",
+      "range": {
+        "startLine": 252,
+        "startChar": 64,
+        "endLine": 252,
+        "endChar": 73
+      },
+      "revId": "b5a2ad66b8423a70d909eb306593b382c0f10dd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

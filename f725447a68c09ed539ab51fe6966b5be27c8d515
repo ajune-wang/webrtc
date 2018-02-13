@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ee27745b_0f29dff1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-13T09:42:01Z",
+      "side": 1,
+      "message": "To guard against buffer overruns. If sizes passed in exceed buffer size, due to some bug elsewhere, it\u0027s important to crash in a controlled way, to not introduce a possibly exploitable overwrite of innocent memory.\n\nMaybe not all the RTC_CHECK are of this class, but I\u0027m not really familiar with this code. If you tell me which of them are safe to replace with RTC_DCHECK, I\u0027m happy to do that.",
+      "parentUuid": "64af7471_7f556ea0",
+      "range": {
+        "startLine": 14,
+        "startChar": 23,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "f725447a68c09ed539ab51fe6966b5be27c8d515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1b45edb_9126e93b",
         "filename": "api/audio/audio_frame.h",
         "patchSetId": 4
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "I wouldn\u0027t mind a few words about the fact that things might change here. (We know that this is a design that is well overdue for a revamp.)",
       "parentUuid": "d1b45edb_9126e93b",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "f725447a68c09ed539ab51fe6966b5be27c8d515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10b43b41_d4018f4c",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-13T09:42:01Z",
+      "side": 1,
+      "message": "That\u0027s true for quite a lot of the interfaces under api/, I\u0027m afraid. \"Things might change\" is always implied. \n\nCan you suggest concise and concrete wording for this file? Are we planning any refactoring this year?",
+      "parentUuid": "1286344f_6edba66f",
       "range": {
         "startLine": 28,
         "startChar": 1,

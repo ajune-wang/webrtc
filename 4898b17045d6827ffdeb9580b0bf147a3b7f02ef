@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d07d9a32_b56d6659",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/nalu_rewriter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-13T12:41:08Z",
+      "side": 1,
+      "message": "Please don\u0027t change this. It should be RTC_LOG here and elsewhere.",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 7
+      },
+      "revId": "4898b17045d6827ffdeb9580b0bf147a3b7f02ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e3c5cd2_f526c93d",
+        "filename": "sdk/objc/Framework/Classes/VideoToolbox/nalu_rewriter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-13T12:41:08Z",
+      "side": 1,
+      "message": "This name is not intuitive to me. The method seeks the cursor to the start of the next NALU of the given type, or to the end. What about naming it SeekToNextNaluOfType, and adding a comment clarifying what it does?",
+      "range": {
+        "startLine": 316,
+        "startChar": 25,
+        "endLine": 316,
+        "endChar": 43
+      },
+      "revId": "4898b17045d6827ffdeb9580b0bf147a3b7f02ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

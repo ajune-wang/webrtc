@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb79f3d9_bfb6196c",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-13T11:18:49Z",
+      "side": 1,
+      "message": "This is needed to download the VS toolchain on Linux. The problem was the missing \u0027condition\u0027 above.",
+      "range": {
+        "startLine": 252,
+        "startChar": 64,
+        "endLine": 252,
+        "endChar": 73
+      },
+      "revId": "b5a2ad66b8423a70d909eb306593b382c0f10dd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

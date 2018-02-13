@@ -114,6 +114,9 @@ class Call {
     // RtcEventLog to use for this call. Required.
     // Use webrtc::RtcEventLog::CreateNull() for a null implementation.
     RtcEventLog* event_log = nullptr;
+
+    // FecController to use for this call.
+    FecControllerFactoryInterface* fec_controller_factory = nullptr;
   };
 
   struct Stats {
@@ -148,7 +151,7 @@ class Call {
   virtual VideoSendStream* CreateVideoSendStream(
       VideoSendStream::Config config,
       VideoEncoderConfig encoder_config,
-      std::unique_ptr<FecController> fec_controller);
+      std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory);
   virtual void DestroyVideoSendStream(VideoSendStream* send_stream) = 0;
 
   virtual VideoReceiveStream* CreateVideoReceiveStream(

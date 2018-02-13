@@ -1,0 +1,32 @@
+# Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../../webrtc.gni")
+
+rtc_static_library("bbr") {
+  sources = [
+    "bbr_factory.cc",
+    "bbr_network_controller.cc",
+    "bbr_network_controller.h",
+    "data_rate_calculator.cc",
+    "data_rate_calculator.h",
+    "include/bbr_factory.h",
+    "rtt_stats.cc",
+    "rtt_stats.h",
+    "windowed_filter.h",
+  ]
+
+  deps = [
+    "../../../api:optional",
+    "../../../rtc_base:checks",
+    "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base/system:fallthrough",
+    "../../../system_wrappers:field_trial_api",
+    "../network_control",
+  ]
+}

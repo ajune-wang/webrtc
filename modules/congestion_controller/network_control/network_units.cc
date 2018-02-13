@@ -25,6 +25,7 @@ const TimeDelta TimeDelta::kNotInitialized =
 
 const Timestamp Timestamp::kPlusInfinity = Timestamp(kPlusInfinityVal);
 const Timestamp Timestamp::kNotInitialized = Timestamp(kNotInitializedVal);
+const Timestamp Timestamp::kEpoch = Timestamp(0);
 
 const DataRate DataRate::kZero = DataRate(0);
 const DataRate DataRate::kPlusInfinity = DataRate(kPlusInfinityVal);

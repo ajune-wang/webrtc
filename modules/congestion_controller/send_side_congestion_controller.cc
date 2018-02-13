@@ -14,6 +14,7 @@
 #include <functional>
 #include <memory>
 #include <vector>
+#include "modules/congestion_controller/bbr/include/bbr_factory.h"
 #include "modules/congestion_controller/goog_cc/include/goog_cc_factory.h"
 #include "modules/congestion_controller/network_control/include/network_types.h"
 #include "modules/congestion_controller/network_control/include/network_units.h"
@@ -47,9 +48,16 @@ bool IsPacerPushbackExperimentEnabled() {
               webrtc::runtime_enabled_features::kDualStreamModeFeatureName));
 }
 
-NetworkControllerFactoryInterface::uptr ControllerFactory(
+NetworkControllerFactoryInterface::uptr ControllerFactoryByExperiment(
     RtcEventLog* event_log) {
-  return rtc::MakeUnique<GoogCcNetworkControllerFactory>(event_log);
+  const char kNetworkControlExperiment[] = "WebRTC-NetworkController";
+
+  std::string experiment_string =
+      webrtc::field_trial::FindFullName(kNetworkControlExperiment);
+  if (experiment_string.find("BBR") == 0)
+    return rtc::MakeUnique<BbrNetworkControllerFactory>();
+  else
+    return rtc::MakeUnique<GoogCcNetworkControllerFactory>(event_log);
 }
 
 void SortPacketFeedbackVector(std::vector<webrtc::PacketFeedback>* input) {
@@ -306,7 +314,7 @@ SendSideCongestionController::SendSideCongestionController(
     : SendSideCongestionController(clock,
                                    event_log,
                                    pacer,
-                                   ControllerFactory(event_log)) {
+                                   ControllerFactoryByExperiment(event_log)) {
   if (observer != nullptr)
     RegisterNetworkObserver(observer);
 }

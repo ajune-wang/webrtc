@@ -126,6 +126,7 @@ class Timestamp {
  public:
   static const Timestamp kPlusInfinity;
   static const Timestamp kNotInitialized;
+  static const Timestamp kEpoch;
   Timestamp() : Timestamp(kNotInitialized) {}
   static Timestamp Infinity() { return kPlusInfinity; }
   static Timestamp s(int64_t seconds) { return Timestamp(seconds * 1000000); }

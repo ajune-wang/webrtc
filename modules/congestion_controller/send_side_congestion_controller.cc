@@ -14,6 +14,7 @@
 #include <functional>
 #include <memory>
 #include <vector>
+#include "modules/congestion_controller/bbr/include/bbr_factory.h"
 #include "modules/congestion_controller/goog_cc/include/goog_cc_factory.h"
 #include "modules/congestion_controller/network_control/include/network_types.h"
 #include "modules/congestion_controller/network_control/include/network_units.h"
@@ -47,9 +48,14 @@ bool IsPacerPushbackExperimentEnabled() {
               webrtc::runtime_enabled_features::kDualStreamModeFeatureName));
 }
 
-NetworkControllerFactoryInterface::uptr ControllerFactory(
-    RtcEventLog* event_log) {
-  return rtc::MakeUnique<GoogCcNetworkControllerFactory>(event_log);
+FeedbackBasedNetworkControllerFactoryInterface::uptr
+ControllerFactoryByExperiment(RtcEventLog* event_log) {
+  const char kNetworkControlExperiment[] = "WebRTC-NetworkController";
+  std::string experiment_string =
+      webrtc::field_trial::FindFullName(kNetworkControlExperiment);
+  if (experiment_string.find("BBR") == 0)
+    return rtc::MakeUnique<BbrNetworkControllerFactory>();
+  return nullptr;
 }
 
 void SortPacketFeedbackVector(std::vector<webrtc::PacketFeedback>* input) {
@@ -306,7 +312,7 @@ SendSideCongestionController::SendSideCongestionController(
     : SendSideCongestionController(clock,
                                    event_log,
                                    pacer,
-                                   ControllerFactory(event_log)) {
+                                   ControllerFactoryByExperiment(event_log)) {
   if (observer != nullptr)
     RegisterNetworkObserver(observer);
 }
@@ -315,7 +321,7 @@ SendSideCongestionController::SendSideCongestionController(
     const Clock* clock,
     RtcEventLog* event_log,
     PacedSender* pacer,
-    NetworkControllerFactoryInterface::uptr controller_factory)
+    FeedbackBasedNetworkControllerFactoryInterface::uptr controller_factory)
     : clock_(clock),
       pacer_(pacer),
       transport_feedback_adapter_(clock_),
@@ -323,13 +329,17 @@ SendSideCongestionController::SendSideCongestionController(
       control_handler(MakeUnique<send_side_cc_internal::ControlHandler>(
           pacer_controller_.get(),
           clock_)),
-      controller_(controller_factory->Create(control_handler.get())),
+      combined_controller_factory_(
+          MakeUnique<GoogCcNetworkControllerFactory>(event_log)),
+      feedback_controller_factory_(std::move(controller_factory)),
       process_interval_(controller_factory->GetProcessInterval()),
       send_side_bwe_with_overhead_(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
       transport_overhead_bytes_per_packet_(0),
       network_available_(true),
-      task_queue_(MakeUnique<rtc::TaskQueue>("SendSideCCQueue")) {}
+      task_queue_(MakeUnique<rtc::TaskQueue>("SendSideCCQueue")) {
+  RecreateNetworkControllers();
+}
 
 SendSideCongestionController::~SendSideCongestionController() {
   // Must be destructed before any objects used by calls on the task queue.
@@ -414,6 +424,36 @@ void SendSideCongestionController::EnablePeriodicAlrProbing(bool enable) {
   });
 }
 
+void SendSideCongestionController::SetPerPacketFeedbackAvailable(
+    bool packet_feedback_available) {
+  if (packet_feedback_available_ != packet_feedback_available) {
+    packet_feedback_available_ = packet_feedback_available;
+    RecreateNetworkControllers();
+  }
+}
+
+void SendSideCongestionController::RecreateNetworkControllers() {
+  WaitOnTask([this]() {
+    simple_controller_ = nullptr;
+    feedback_controller_ = nullptr;
+    controller_ = nullptr;
+    owned_feedback_controller_.reset();
+    owned_combined_controller_.reset();
+    if (packet_feedback_available_ && feedback_controller_factory_) {
+      owned_feedback_controller_ =
+          feedback_controller_factory_->Create(control_handler.get());
+      controller_ = owned_feedback_controller_.get();
+      feedback_controller_ = owned_feedback_controller_.get();
+    } else {
+      owned_combined_controller_ =
+          combined_controller_factory_->Create(control_handler.get());
+      controller_ = owned_combined_controller_.get();
+      simple_controller_ = owned_combined_controller_.get();
+      feedback_controller_ = owned_combined_controller_.get();
+    }
+  });
+}
+
 void SendSideCongestionController::UpdateStreamsConfig() {
   RTC_DCHECK(task_queue_->IsCurrent());
   streams_config_.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
@@ -475,13 +515,15 @@ void SendSideCongestionController::OnSentPacket(
 
 void SendSideCongestionController::OnRttUpdate(int64_t avg_rtt_ms,
                                                int64_t max_rtt_ms) {
+  if (!simple_controller_)
+    return;
   int64_t now_ms = clock_->TimeInMilliseconds();
   RoundTripTimeUpdate report;
   report.receive_time = Timestamp::ms(now_ms);
   report.round_trip_time = TimeDelta::ms(avg_rtt_ms);
   report.smoothed = true;
   task_queue_->PostTask(
-      [this, report]() { controller_->OnRoundTripTimeUpdate(report); });
+      [this, report]() { simple_controller_->OnRoundTripTimeUpdate(report); });
 }
 
 int64_t SendSideCongestionController::TimeUntilNextProcess() {
@@ -544,8 +586,9 @@ void SendSideCongestionController::OnTransportFeedback(
     msg.prior_in_flight = prior_in_flight;
     msg.data_in_flight =
         DataSize::bytes(transport_feedback_adapter_.GetOutstandingBytes());
-    task_queue_->PostTask(
-        [this, msg]() { controller_->OnTransportPacketsFeedback(msg); });
+    task_queue_->PostTask([this, msg]() {
+      feedback_controller_->OnTransportPacketsFeedback(msg);
+    });
   }
 }
 
@@ -594,17 +637,21 @@ void SendSideCongestionController::SetPacingFactor(float pacing_factor) {
 
 void SendSideCongestionController::OnReceivedEstimatedBitrate(
     uint32_t bitrate) {
+  if (!simple_controller_)
+    return;
   RemoteBitrateReport msg;
   msg.receive_time = Timestamp::ms(clock_->TimeInMilliseconds());
   msg.bandwidth = DataRate::bps(bitrate);
   task_queue_->PostTask(
-      [this, msg]() { controller_->OnRemoteBitrateReport(msg); });
+      [this, msg]() { simple_controller_->OnRemoteBitrateReport(msg); });
 }
 
 void SendSideCongestionController::OnReceivedRtcpReceiverReport(
     const webrtc::ReportBlockList& report_blocks,
     int64_t rtt_ms,
     int64_t now_ms) {
+  if (!simple_controller_)
+    return;
   OnReceivedRtcpReceiverReportBlocks(report_blocks, now_ms);
 
   RoundTripTimeUpdate report;
@@ -612,12 +659,14 @@ void SendSideCongestionController::OnReceivedRtcpReceiverReport(
   report.round_trip_time = TimeDelta::ms(rtt_ms);
   report.smoothed = false;
   task_queue_->PostTask(
-      [this, report]() { controller_->OnRoundTripTimeUpdate(report); });
+      [this, report]() { simple_controller_->OnRoundTripTimeUpdate(report); });
 }
 
 void SendSideCongestionController::OnReceivedRtcpReceiverReportBlocks(
     const ReportBlockList& report_blocks,
     int64_t now_ms) {
+  if (!simple_controller_)
+    return;
   if (report_blocks.empty())
     return;
 
@@ -655,7 +704,7 @@ void SendSideCongestionController::OnReceivedRtcpReceiverReportBlocks(
   msg.start_time = last_report_block_time_;
   msg.end_time = now;
   task_queue_->PostTask(
-      [this, msg]() { controller_->OnTransportLossReport(msg); });
+      [this, msg]() { simple_controller_->OnTransportLossReport(msg); });
   last_report_block_time_ = now;
 }
 }  // namespace webrtc

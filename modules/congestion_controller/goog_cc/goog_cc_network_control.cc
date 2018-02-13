@@ -106,7 +106,7 @@ GoogCcNetworkControllerFactory::GoogCcNetworkControllerFactory(
     RtcEventLog* event_log)
     : event_log_(event_log) {}
 
-NetworkControllerInterface::uptr GoogCcNetworkControllerFactory::Create(
+CombinedNetworkControllerInterface::uptr GoogCcNetworkControllerFactory::Create(
     NetworkControllerObserver* observer) {
   return rtc::MakeUnique<GoogCcNetworkController>(event_log_, observer);
 }

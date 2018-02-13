@@ -809,6 +809,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
   // If send-side BWE is enabled, check if we should apply updated probing and
   // pacing settings.
   if (TransportSeqNumExtensionConfigured(*config_)) {
+    transport->send_side_cc()->SetPerPacketFeedbackAvailable(true);
     rtc::Optional<AlrExperimentSettings> alr_settings;
     if (content_type == VideoEncoderConfig::ContentType::kScreen) {
       alr_settings = AlrExperimentSettings::CreateFromFieldTrial(

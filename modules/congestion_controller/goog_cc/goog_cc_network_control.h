@@ -28,7 +28,7 @@
 
 namespace webrtc {
 
-class GoogCcNetworkController : public NetworkControllerInterface {
+class GoogCcNetworkController : public CombinedNetworkControllerInterface {
  public:
   GoogCcNetworkController(RtcEventLog* event_log,
                           NetworkControllerObserver* observer);

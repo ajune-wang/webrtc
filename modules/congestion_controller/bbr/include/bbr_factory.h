@@ -8,25 +8,20 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_CONGESTION_CONTROLLER_GOOG_CC_INCLUDE_GOOG_CC_FACTORY_H_
-#define MODULES_CONGESTION_CONTROLLER_GOOG_CC_INCLUDE_GOOG_CC_FACTORY_H_
+#ifndef MODULES_CONGESTION_CONTROLLER_BBR_INCLUDE_BBR_FACTORY_H_
+#define MODULES_CONGESTION_CONTROLLER_BBR_INCLUDE_BBR_FACTORY_H_
 #include "modules/congestion_controller/network_control/include/network_control.h"
 
 namespace webrtc {
-class Clock;
-class RtcEventLog;
 
-class GoogCcNetworkControllerFactory
-    : public CombinedNetworkControllerFactoryInterface {
+class BbrNetworkControllerFactory
+    : public FeedbackBasedNetworkControllerFactoryInterface {
  public:
-  explicit GoogCcNetworkControllerFactory(RtcEventLog*);
-  CombinedNetworkControllerInterface::uptr Create(
+  BbrNetworkControllerFactory();
+  FeedbackBasedNetworkControllerInterface::uptr Create(
       NetworkControllerObserver* observer) override;
   TimeDelta GetProcessInterval() const override;
-
- private:
-  RtcEventLog* const event_log_;
 };
 }  // namespace webrtc
 
-#endif  // MODULES_CONGESTION_CONTROLLER_GOOG_CC_INCLUDE_GOOG_CC_FACTORY_H_
+#endif  // MODULES_CONGESTION_CONTROLLER_BBR_INCLUDE_BBR_FACTORY_H_

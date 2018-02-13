@@ -110,6 +110,7 @@ class SendSideCongestionController : public CallStatsObserver,
 
   RateLimiter* GetRetransmissionRateLimiter();
   void EnablePeriodicAlrProbing(bool enable);
+  void SetPerPacketFeedbackAvailable(bool packet_feedback_available);
 
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet);
 
@@ -153,8 +154,9 @@ class SendSideCongestionController : public CallStatsObserver,
       const Clock* clock,
       RtcEventLog* event_log,
       PacedSender* pacer,
-      NetworkControllerFactoryInterface::uptr controller_factory);
+      FeedbackBasedNetworkControllerFactoryInterface::uptr controller_factory);
 
+  void RecreateNetworkControllers();
   void UpdateStreamsConfig();
   void WaitOnTask(std::function<void()> closure);
   void MaybeUpdateOutstandingData();
@@ -167,7 +169,18 @@ class SendSideCongestionController : public CallStatsObserver,
 
   const std::unique_ptr<PacerController> pacer_controller_;
   const std::unique_ptr<send_side_cc_internal::ControlHandler> control_handler;
-  const std::unique_ptr<NetworkControllerInterface> controller_;
+
+  const CombinedNetworkControllerFactoryInterface::uptr
+      combined_controller_factory_;
+  const FeedbackBasedNetworkControllerFactoryInterface::uptr
+      feedback_controller_factory_;
+
+  FeedbackBasedNetworkControllerInterface::uptr owned_feedback_controller_;
+  CombinedNetworkControllerInterface::uptr owned_combined_controller_;
+
+  GenericNetworkControllerInterface* controller_ = nullptr;
+  SimplifiedNetworkControllerInterface* simple_controller_ = nullptr;
+  FeedbackBasedNetworkControllerInterface* feedback_controller_ = nullptr;
 
   TimeDelta process_interval_;
   int64_t last_process_update_ms_ = 0;
@@ -176,6 +189,7 @@ class SendSideCongestionController : public CallStatsObserver,
   Timestamp last_report_block_time_;
 
   StreamsConfig streams_config_;
+  bool packet_feedback_available_ = false;
   const bool send_side_bwe_with_overhead_;
   std::atomic<size_t> transport_overhead_bytes_per_packet_;
   std::atomic<bool> network_available_;

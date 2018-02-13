@@ -16,6 +16,24 @@
       "revId": "8ec931afc47073074eaa3769c3c291fe66119bfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb672368_aa9fb5d0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T23:34:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21304161_a1108135",
+      "revId": "8ec931afc47073074eaa3769c3c291fe66119bfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

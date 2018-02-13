@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "bb819553_87f65b65",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-13T23:34:29Z",
+      "side": 1,
+      "message": "The issue with a last_description() helper function is that after negotiation is done the signalling state is kStable. kStable gives us no indication if the remote or local description is the most recent, so we\u0027d still have to store some extra state here (last_desc_). I don\u0027t think the trade off of potential bugs \u0026 extra complexity is worth helping the readability of this function. I can add a TODO to consider doing this if you think this could potentially be beneficial for reducing logic complexity.",
+      "parentUuid": "945fb86e_90cacc6a",
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0e41216_7dbbbc47",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2

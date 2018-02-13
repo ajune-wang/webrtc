@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c854dc07_97880cc3",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-13T11:52:30Z",
+      "side": 1,
+      "message": "1 \u003c\u003c kSkewHistorySizeLog2 ?",
+      "revId": "86a1c7c6eae5c8382c74d11ed44a1919427b0a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "294b7136_10bddb7f",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-13T11:52:30Z",
+      "side": 1,
+      "message": "Replace \"abs(offset_blocks) \u003e 1\" with \"offset_blocks\" as you set it to 0 if not abs(offset_blocks) is greater than 1 (on line 217).\n\nOr maybe even better:\n} else if(soft_reset_counter_ \u003e 10 * kNumBlocksPerSecond) {",
+      "revId": "86a1c7c6eae5c8382c74d11ed44a1919427b0a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

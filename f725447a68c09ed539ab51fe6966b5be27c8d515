@@ -117,6 +117,30 @@
       "revId": "f725447a68c09ed539ab51fe6966b5be27c8d515",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5ce5350_80294aeb",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-02-13T09:43:44Z",
+      "side": 1,
+      "message": "+1\n\nAlso, sorry about being unclear in my previous comment. I don\u0027t think a client would necessarily know what we mean with \"de facto API\", so it is better to phrase some other way, perhaps by focusing on the need to overhaul.",
+      "parentUuid": "1286344f_6edba66f",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "f725447a68c09ed539ab51fe6966b5be27c8d515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

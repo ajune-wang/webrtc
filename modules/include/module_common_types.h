@@ -333,16 +333,16 @@ class AudioFrame {
   // ResetWithoutMuting() to skip this wasteful zeroing.
   void ResetWithoutMuting();
 
-  // TODO(solenberg): Remove once downstream users of AudioFrame have updated.
-  RTC_DEPRECATED
-      void UpdateFrame(int id, uint32_t timestamp, const int16_t* data,
-                       size_t samples_per_channel, int sample_rate_hz,
-                       SpeechType speech_type, VADActivity vad_activity,
-                       size_t num_channels = 1) {
-    RTC_UNUSED(id);
-    UpdateFrame(timestamp, data, samples_per_channel, sample_rate_hz,
-                speech_type, vad_activity, num_channels);
-  }
+  // // TODO(solenberg): Remove once downstream users of AudioFrame have updated.
+  // RTC_DEPRECATED
+  //     void UpdateFrame(int id, uint32_t timestamp, const int16_t* data,
+  //                      size_t samples_per_channel, int sample_rate_hz,
+  //                      SpeechType speech_type, VADActivity vad_activity,
+  //                      size_t num_channels = 1) {
+  //   RTC_UNUSED(id);
+  //   UpdateFrame(timestamp, data, samples_per_channel, sample_rate_hz,
+  //               speech_type, vad_activity, num_channels);
+  // }
 
   void UpdateFrame(uint32_t timestamp, const int16_t* data,
                    size_t samples_per_channel, int sample_rate_hz,
@@ -377,8 +377,8 @@ class AudioFrame {
   // webrtc/audio/utility instead. These methods will exists for a
   // short period of time until webrtc clients have updated. See
   // webrtc:6548 for details.
-  RTC_DEPRECATED AudioFrame& operator>>=(const int rhs);
-  RTC_DEPRECATED AudioFrame& operator+=(const AudioFrame& rhs);
+  // RTC_DEPRECATED AudioFrame& operator>>=(const int rhs);
+  // RTC_DEPRECATED AudioFrame& operator+=(const AudioFrame& rhs);
 
   // RTP timestamp of the first sample in the AudioFrame.
   uint32_t timestamp_ = 0;
@@ -517,59 +517,59 @@ inline void AudioFrame::Mute() {
 
 inline bool AudioFrame::muted() const { return muted_; }
 
-inline AudioFrame& AudioFrame::operator>>=(const int rhs) {
-  assert((num_channels_ > 0) && (num_channels_ < 3));
-  if ((num_channels_ > 2) || (num_channels_ < 1)) return *this;
-  if (muted_) return *this;
+// inline AudioFrame& AudioFrame::operator>>=(const int rhs) {
+//   assert((num_channels_ > 0) && (num_channels_ < 3));
+//   if ((num_channels_ > 2) || (num_channels_ < 1)) return *this;
+//   if (muted_) return *this;
 
-  for (size_t i = 0; i < samples_per_channel_ * num_channels_; i++) {
-    data_[i] = static_cast<int16_t>(data_[i] >> rhs);
-  }
-  return *this;
-}
+//   for (size_t i = 0; i < samples_per_channel_ * num_channels_; i++) {
+//     data_[i] = static_cast<int16_t>(data_[i] >> rhs);
+//   }
+//   return *this;
+// }
 
-inline AudioFrame& AudioFrame::operator+=(const AudioFrame& rhs) {
-  // Sanity check
-  assert((num_channels_ > 0) && (num_channels_ < 3));
-  if ((num_channels_ > 2) || (num_channels_ < 1)) return *this;
-  if (num_channels_ != rhs.num_channels_) return *this;
+// inline AudioFrame& AudioFrame::operator+=(const AudioFrame& rhs) {
+//   // Sanity check
+//   assert((num_channels_ > 0) && (num_channels_ < 3));
+//   if ((num_channels_ > 2) || (num_channels_ < 1)) return *this;
+//   if (num_channels_ != rhs.num_channels_) return *this;
 
-  bool noPrevData = muted_;
-  if (samples_per_channel_ != rhs.samples_per_channel_) {
-    if (samples_per_channel_ == 0) {
-      // special case we have no data to start with
-      samples_per_channel_ = rhs.samples_per_channel_;
-      noPrevData = true;
-    } else {
-      return *this;
-    }
-  }
+//   bool noPrevData = muted_;
+//   if (samples_per_channel_ != rhs.samples_per_channel_) {
+//     if (samples_per_channel_ == 0) {
+//       // special case we have no data to start with
+//       samples_per_channel_ = rhs.samples_per_channel_;
+//       noPrevData = true;
+//     } else {
+//       return *this;
+//     }
+//   }
 
-  if ((vad_activity_ == kVadActive) || rhs.vad_activity_ == kVadActive) {
-    vad_activity_ = kVadActive;
-  } else if (vad_activity_ == kVadUnknown || rhs.vad_activity_ == kVadUnknown) {
-    vad_activity_ = kVadUnknown;
-  }
+//   if ((vad_activity_ == kVadActive) || rhs.vad_activity_ == kVadActive) {
+//     vad_activity_ = kVadActive;
+//   } else if (vad_activity_ == kVadUnknown || rhs.vad_activity_ == kVadUnknown) {
+//     vad_activity_ = kVadUnknown;
+//   }
 
-  if (speech_type_ != rhs.speech_type_) speech_type_ = kUndefined;
+//   if (speech_type_ != rhs.speech_type_) speech_type_ = kUndefined;
 
-  if (!rhs.muted()) {
-    muted_ = false;
-    if (noPrevData) {
-      memcpy(data_, rhs.data(),
-             sizeof(int16_t) * rhs.samples_per_channel_ * num_channels_);
-    } else {
-      // IMPROVEMENT this can be done very fast in assembly
-      for (size_t i = 0; i < samples_per_channel_ * num_channels_; i++) {
-        int32_t wrap_guard =
-            static_cast<int32_t>(data_[i]) + static_cast<int32_t>(rhs.data_[i]);
-        data_[i] = rtc::saturated_cast<int16_t>(wrap_guard);
-      }
-    }
-  }
+//   if (!rhs.muted()) {
+//     muted_ = false;
+//     if (noPrevData) {
+//       memcpy(data_, rhs.data(),
+//              sizeof(int16_t) * rhs.samples_per_channel_ * num_channels_);
+//     } else {
+//       // IMPROVEMENT this can be done very fast in assembly
+//       for (size_t i = 0; i < samples_per_channel_ * num_channels_; i++) {
+//         int32_t wrap_guard =
+//             static_cast<int32_t>(data_[i]) + static_cast<int32_t>(rhs.data_[i]);
+//         data_[i] = rtc::saturated_cast<int16_t>(wrap_guard);
+//       }
+//     }
+//   }
 
-  return *this;
-}
+//   return *this;
+// }
 
 struct PacedPacketInfo {
   PacedPacketInfo() {}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fa48152_1035549d",
+        "filename": "media/base/fakevideocapturer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-13T14:17:21Z",
+      "side": 1,
+      "message": "Is it possible to move this logic into SendTask()? I.e. execute the task immediately if we are on the current TaskQueue?",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 45
+      },
+      "revId": "8c5f7cc4eca78d5d71283bfe91342e8964621585",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e816cc27_906d3e2f",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-13T14:17:21Z",
+      "side": 1,
+      "message": "What about executing the task immediately instead of posting and waiting if this is the case? I.e. what you are doing in FakeVideoCapturer.",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "8c5f7cc4eca78d5d71283bfe91342e8964621585",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

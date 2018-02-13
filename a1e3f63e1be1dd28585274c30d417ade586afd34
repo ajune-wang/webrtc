@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "635060e5_ad8cce27",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-13T12:02:22Z",
+      "side": 1,
+      "message": "Using unique_ptr for injection, like this, is the recommended way to do it. Refactoring to avoid the very long argument list (maybe builder-pattern?) is desirable, but out of scope for this cl.",
+      "range": {
+        "startLine": 1292,
+        "startChar": 4,
+        "endLine": 1292,
+        "endChar": 73
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b002ff2_88232200",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-13T12:02:22Z",
+      "side": 1,
+      "message": "I don\u0027t follow here. Why can\u0027t we use the fec_controller_factory passed to the Call constructor?",
+      "range": {
+        "startLine": 422,
+        "startChar": 0,
+        "endLine": 424,
+        "endChar": 33
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddced114_a5142e96",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-13T12:02:22Z",
+      "side": 1,
+      "message": "I\u0027ma also a little confused about ownership. The FecControllerFActory passed to the Call constructor is a raw pointer, and I\u0027m assuming ownership belongs to PeerConnectionFactory?\n\nHere\u0027 we get another FecControllerFactory, including ownership. Where will that ownership belong?",
+      "range": {
+        "startLine": 428,
+        "startChar": 4,
+        "endLine": 428,
+        "endChar": 51
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c6e2ff_0e8e24d4",
+        "filename": "call/call.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-13T12:02:22Z",
+      "side": 1,
+      "message": "I\u0027d prefer a new member in Call::Config instead. Any good reason that can\u0027t work?",
+      "range": {
+        "startLine": 131,
+        "startChar": 22,
+        "endLine": 131,
+        "endChar": 51
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4010771b_5ad5776f",
+        "filename": "sdk/android/api/org/webrtc/FecControllerFactoryFactoryInterface.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-13T12:02:22Z",
+      "side": 1,
+      "message": "I\u0027m getting confused when we get to FactoryFactories... (but I\u0027m not so used to java).\n\nThe returned native factory will only be used for injection into PeerConnectionFactory, no methods on the java side?",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c18e285a_b97942a7",
+        "filename": "media/base/fakevideocapturer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-13T14:38:35Z",
+      "side": 1,
+      "message": "I considered that but decided not to do it since it can mask an actual bug depending on what the test calling SendTask wants to achieve. Instead, I\u0027d prefer to move that responsibility up one level.",
+      "parentUuid": "2fa48152_1035549d",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 45
+      },
+      "revId": "8c5f7cc4eca78d5d71283bfe91342e8964621585",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e816cc27_906d3e2f",
         "filename": "rtc_base/task_queue_for_test.h",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-13T14:17:21Z",
       "side": 1,
       "message": "What about executing the task immediately instead of posting and waiting if this is the case? I.e. what you are doing in FakeVideoCapturer.",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "8c5f7cc4eca78d5d71283bfe91342e8964621585",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f362a5_0556d353",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-13T14:38:35Z",
+      "side": 1,
+      "message": "see other reply (I\u0027m assuming it\u0027s the same core question, let me know if I misunderstood)\n\nThe basic premise is that I don\u0027t want to introduce a \"rug\" here, under which things could be automatically swept :)",
+      "parentUuid": "e816cc27_906d3e2f",
       "range": {
         "startLine": 35,
         "startChar": 4,

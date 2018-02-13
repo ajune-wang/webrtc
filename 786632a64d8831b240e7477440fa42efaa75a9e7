@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ec8e59e_e6375225",
+        "filename": "modules/audio_processing/agc2/agc2_common.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-13T16:26:22Z",
+      "side": 1,
+      "message": "Previous comment doesn\u0027t apply to definitions, we can keep these.",
+      "range": {
+        "startLine": 19,
+        "startChar": 20,
+        "endLine": 19,
+        "endChar": 26
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed643f58_9c8b4365",
+        "filename": "modules/audio_processing/agc2/agc2_common.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-13T16:26:22Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 23,
+        "startChar": 20,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "849360e5_9b55571e",
+        "filename": "modules/audio_processing/agc2/agc2_common.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-13T16:26:22Z",
+      "side": 1,
+      "message": "May level be negative? Document and { DCHECK or use absolute value }.",
+      "range": {
+        "startLine": 27,
+        "startChar": 27,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "788907f2_61d3a0de",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-13T16:26:22Z",
+      "side": 1,
+      "message": "Nit: The way this variable is used, kMaximumInputLevel or some such is more descriptive.",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e3ee3e_fe967f91",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-13T16:26:22Z",
+      "side": 1,
+      "message": "Drop top-level \u0027const\u0027 in function declarations, since they are ignored.",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e99d3de0_65543878",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-13T16:26:22Z",
+      "side": 1,
+      "message": "Is \u0027linear\u0027 well established to imply data ranged [-32768, 32767]? Document it, if not.",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 19
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "155e6e8c_5429720b",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-13T16:26:22Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 41,
+        "startChar": 20,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

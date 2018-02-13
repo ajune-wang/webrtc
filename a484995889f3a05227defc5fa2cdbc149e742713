@@ -707,6 +707,30 @@
     },
     {
       "key": {
+        "uuid": "4daae7d2_b99c4714",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-13T17:32:16Z",
+      "side": 1,
+      "message": "I meant that current_update_state isn\u0027t used at all. If the string isn\u0027t used, it seems the rest of the code can be removed too. Do I miss something?",
+      "parentUuid": "fddf9b58_aac93f28",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 44
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e26c9776_56e6ffeb",
         "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
         "patchSetId": 9
@@ -1165,6 +1189,30 @@
       "side": 1,
       "message": "Don\u0027t think I wrote that, but that is what it says, so guess so? You want that formulation instead?",
       "parentUuid": "75dd0183_edc8255c",
+      "range": {
+        "startLine": 635,
+        "startChar": 45,
+        "endLine": 635,
+        "endChar": 65
+      },
+      "revId": "a484995889f3a05227defc5fa2cdbc149e742713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76b7e359_acb4e57f",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-13T17:32:16Z",
+      "side": 1,
+      "message": "Yes please.",
+      "parentUuid": "6a66753e_242c8543",
       "range": {
         "startLine": 635,
         "startChar": 45,

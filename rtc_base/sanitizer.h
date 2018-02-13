@@ -12,6 +12,7 @@
 #define RTC_BASE_SANITIZER_H_
 
 #include <stddef.h>  // for size_t
+#include <string.h>  // for memset
 
 #if defined(__has_feature)
 #if __has_feature(address_sanitizer)
@@ -76,6 +77,13 @@ static inline void rtc_MsanMarkUninitialized(const volatile void* ptr,
 #endif
 }
 
+// Ask MSan to set to zero the memory range [ptr, ptr + size) and mark the same
+// range as being uninitialized.
+static inline void rtc_MsanZeroedUninitialized(void* ptr, size_t size) {
+  memset(ptr, 0, size);
+  rtc_MsanMarkUninitialized(ptr, size, 1);
+}
+
 // Force an MSan check (if any bits in the memory range [ptr, ptr +
 // element_size * num_elements) are uninitialized the call will crash with an
 // MSan report).
@@ -104,6 +112,13 @@ inline void AsanUnpoison(const T& mem) {
 template <typename T>
 inline void MsanMarkUninitialized(const T& mem) {
   rtc_MsanMarkUninitialized(mem.data(), sizeof(mem.data()[0]), mem.size());
+}
+
+template <typename T>
+inline T MsanZeroedUninitialized() {
+  T t;
+  rtc_MsanZeroedUninitialized(&t, sizeof(T));
+  return t;
 }
 
 template <typename T>

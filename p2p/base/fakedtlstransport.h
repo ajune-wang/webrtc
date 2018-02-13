@@ -13,11 +13,13 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "p2p/base/dtlstransportinternal.h"
 #include "p2p/base/fakeicetransport.h"
 #include "rtc_base/fakesslidentity.h"
+#include "rtc_base/ptr_util.h"
 
 namespace cricket {
 
@@ -38,10 +40,8 @@ class FakeDtlsTransport : public DtlsTransportInternal {
         this, &FakeDtlsTransport::OnNetworkRouteChanged);
   }
 
-  // If this constructor is called, a new fake ICE transport will be created,
-  // and this FakeDtlsTransport will take the ownership.
-  explicit FakeDtlsTransport(const std::string& name, int component)
-      : owned_ice_transport_(new FakeIceTransport(name, component)),
+  explicit FakeDtlsTransport(std::unique_ptr<FakeIceTransport> ice)
+      : owned_ice_transport_(std::move(ice)),
         transport_name_(owned_ice_transport_->transport_name()),
         component_(owned_ice_transport_->component()),
         dtls_fingerprint_("", nullptr, 0) {
@@ -51,6 +51,11 @@ class FakeDtlsTransport : public DtlsTransportInternal {
     ice_transport_->SignalNetworkRouteChanged.connect(
         this, &FakeDtlsTransport::OnNetworkRouteChanged);
   }
+
+  // If this constructor is called, a new fake ICE transport will be created,
+  // and this FakeDtlsTransport will take the ownership.
+  explicit FakeDtlsTransport(const std::string& name, int component)
+      : FakeDtlsTransport(rtc::MakeUnique<FakeIceTransport>(name, component)) {}
 
   ~FakeDtlsTransport() override {
     if (dest_ && dest_->dest_ == this) {
@@ -125,11 +130,14 @@ class FakeDtlsTransport : public DtlsTransportInternal {
     dtls_fingerprint_ = rtc::SSLFingerprint(alg, digest, digest_len);
     return true;
   }
-  bool SetSslRole(rtc::SSLRole role) override {
+  bool SetSslMaxProtocolVersion(rtc::SSLProtocolVersion version) override {
+    return true;
+  }
+  bool SetDtlsRole(rtc::SSLRole role) override {
     ssl_role_ = role;
     return true;
   }
-  bool GetSslRole(rtc::SSLRole* role) const override {
+  bool GetDtlsRole(rtc::SSLRole* role) const override {
     *role = ssl_role_;
     return true;
   }

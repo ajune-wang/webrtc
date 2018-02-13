@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8eed361b_55ef6abd",
+        "filename": "media/base/fakevideocapturer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-13T15:20:06Z",
+      "side": 1,
+      "message": "I understand.\n\nOne final question, is the FakeVideoCapturerWithTaskQueue used in both these different ways? I.e. do we have a test where we call it on the current task queue? And if we have such a test, couldn\u0027t that test use the ordinary FakeVideoCapturer instead because the behavior will be the same? Or are the calls mixed, some of them on the task queue and some of them outside the task queue?",
+      "parentUuid": "c18e285a_b97942a7",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 45
+      },
+      "revId": "8c5f7cc4eca78d5d71283bfe91342e8964621585",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e816cc27_906d3e2f",
         "filename": "rtc_base/task_queue_for_test.h",
         "patchSetId": 7
@@ -93,6 +117,30 @@
       "revId": "8c5f7cc4eca78d5d71283bfe91342e8964621585",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7c9dcc_cba4c623",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-13T15:20:06Z",
+      "side": 1,
+      "message": "Yes, I understand. I also thought such an implicit behavior might be unwanted but I wanted to hear your thoughts about it.",
+      "parentUuid": "02f362a5_0556d353",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "8c5f7cc4eca78d5d71283bfe91342e8964621585",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -49,6 +49,11 @@ class RtpSenderInternal : public RtpSenderInterface {
   virtual void set_stream_ids(const std::vector<std::string>& stream_ids) = 0;
 
   virtual void Stop() = 0;
+
+  // Returns an ID that changes every time SetTrack() is called, but
+  // otherwise remains constant. Used to generate IDs for stats.
+  // The special value zero means that no track is attached.
+  virtual int AttachmentId() const = 0;
 };
 
 // LocalAudioSinkAdapter receives data callback as a sink to the local

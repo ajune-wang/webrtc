@@ -52,6 +52,11 @@ class RtpReceiverInternal : public RtpReceiverInterface {
   // any new streams.
   virtual void SetStreams(
       const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams) = 0;
+
+  // Returns an ID that changes if the attached track changes, but
+  // otherwise remains constant. Used to generate IDs for stats.
+  // The special value zero means that no track is attached.
+  virtual int AttachmentId() const = 0;
 };
 
 class AudioRtpReceiver : public ObserverInterface,
@@ -174,6 +179,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal> {
   // Does not take ownership.
   // Should call SetMediaChannel(nullptr) before |media_channel| is destroyed.
   void SetMediaChannel(cricket::VideoMediaChannel* media_channel);
+  int AttachmentId() const override { return attachment_id_; }
 
  private:
   bool SetSink(rtc::VideoSinkInterface<VideoFrame>* sink);

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe663567_22fa6650",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-02-13T09:01:06Z",
+      "side": 1,
+      "message": "Looks like LOG_J can easily be removed too, but do it in a separate CL.",
+      "revId": "a8cce7b500d3c6f5c77aff62604fc0de52d970d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01aef8d0_21c094e8",
+        "filename": "pc/srtpsession.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-02-13T09:01:06Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED",
+      "revId": "a8cce7b500d3c6f5c77aff62604fc0de52d970d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

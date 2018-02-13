@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c852f7d_7a4fdf9d",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-02-13T09:01:06Z",
+      "side": 0,
+      "message": "You\u0027ll need to make corresponding changes in the Chromium tree (it has a separate copy of logging.h: https://chromium.googlesource.com/chromium/src/+/master/third_party/webrtc_overrides/rtc_base/logging.h)",
+      "revId": "6f7bc08457fd89868c3bd14335905d4b195065e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

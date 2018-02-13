@@ -494,8 +494,20 @@ if (is_android) {
                                "visibility",
                              ])
 
+      if (!defined(deps)) {
+        deps = []
+      }
+      deps += [ "//third_party/jsr-305:jsr_305_javalib" ]
+
+      javac_args = []
+
       # Treat warnings as errors.
-      javac_args = [ "-Werror" ]
+      javac_args += [ "-Werror" ]
+
+      # Add any arguments defined by the invoker.
+      if (defined(invoker.javac_args)) {
+        javac_args += invoker.javac_args
+      }
 
       # TODO(sakal): Fix build hooks crbug.com/webrtc/8168
       no_build_hooks = true

@@ -22,6 +22,52 @@
       "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ac5b84_21f51820",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-13T11:52:49Z",
+      "side": 1,
+      "message": "I don\u0027t think I420ABuffer should extend I420Buffer.",
+      "range": {
+        "startLine": 91,
+        "startChar": 30,
+        "endLine": 91,
+        "endChar": 49
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3b9a9bf_a810e798",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-13T11:52:49Z",
+      "side": 1,
+      "message": "I think this could be be in I420A buffer implementation.",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 71
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fca94ae_f8520fc7",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-02-13T10:47:31Z",
+      "side": 1,
+      "message": "I think we would be able to reuse more code in e.g. JavaI420Buffer.wrap and cropAndScaleI420A and write this with a net reduction in code if you did not inherit from JavaI420Buffer and instead held an instance to a JavaI420Buffer that you delegate to.",
+      "range": {
+        "startLine": 18,
+        "startChar": 14,
+        "endLine": 18,
+        "endChar": 85
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

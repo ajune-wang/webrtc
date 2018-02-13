@@ -46,6 +46,30 @@
       "revId": "b5a2ad66b8423a70d909eb306593b382c0f10dd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46fcfbd5_c3fa220c",
+        "filename": "DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-13T12:11:14Z",
+      "side": 1,
+      "message": "If I understand correctly, it means that target_os is \"win\". But it is confusing... Before this CL we were always running vs_toolchain.py but it wasn\u0027t doing anything because without --force it checks again if it is on windows or not.",
+      "parentUuid": "6cde9563_63da3a86",
+      "range": {
+        "startLine": 252,
+        "startChar": 64,
+        "endLine": 252,
+        "endChar": 73
+      },
+      "revId": "b5a2ad66b8423a70d909eb306593b382c0f10dd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

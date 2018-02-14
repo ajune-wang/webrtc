@@ -578,6 +578,30 @@
       "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7940f65_1d90fbd8",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-14T14:00:42Z",
+      "side": 1,
+      "message": "Let\u0027s!\n\nI see now that FloatAudioFrame is only a view of the data. It doesn\u0027t own it. I think that should be reflected in its name; call it something like AudioFrameView, for example. You could get around the mutable-immutable aspect of this by templatizing (like ArrayView does). AudioFrameView\u003cfloat\u003e vs. AudioFrameView\u003cconst float\u003e, for example. The code overhead in release builds should be zero - after optimization, lookups would translate directly into data[x][y], I believe.\n\nOr you could just implement AudioFrameView and MutableAudioFrameView without the const cast. The implementation is tiny and simple enough you could just copy it. Code duplication isn\u0027t always _the_ worst thing. :)",
+      "parentUuid": "83310266_b7b17cf0",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

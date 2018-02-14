@@ -134,7 +134,7 @@ class NullVideoDecoder : public webrtc::VideoDecoder {
  public:
   int32_t InitDecode(const webrtc::VideoCodec* codec_settings,
                      int32_t number_of_cores) override {
-    RTC_LOG(LS_ERROR) << "Can't initialize NullVideoDecoder.";
+    RTC_DLOG(LS_ERROR) << "Can't initialize NullVideoDecoder.";
     return WEBRTC_VIDEO_CODEC_OK;
   }
 
@@ -143,13 +143,13 @@ class NullVideoDecoder : public webrtc::VideoDecoder {
                  const webrtc::RTPFragmentationHeader* fragmentation,
                  const webrtc::CodecSpecificInfo* codec_specific_info,
                  int64_t render_time_ms) override {
-    RTC_LOG(LS_ERROR) << "The NullVideoDecoder doesn't support decoding.";
+    RTC_DLOG(LS_ERROR) << "The NullVideoDecoder doesn't support decoding.";
     return WEBRTC_VIDEO_CODEC_OK;
   }
 
   int32_t RegisterDecodeCompleteCallback(
       webrtc::DecodedImageCallback* callback) override {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Can't register decode complete callback on NullVideoDecoder.";
     return WEBRTC_VIDEO_CODEC_OK;
   }
@@ -838,8 +838,8 @@ webrtc::RTCError WebRtcVideoChannel::SetRtpSendParameters(
   // different order (which should change the send codec).
   webrtc::RtpParameters current_parameters = GetRtpSendParameters(ssrc);
   if (current_parameters.codecs != parameters.codecs) {
-    RTC_LOG(LS_ERROR) << "Using SetParameters to change the set of codecs "
-                      << "is not currently supported.";
+    RTC_DLOG(LS_ERROR) << "Using SetParameters to change the set of codecs "
+                       << "is not currently supported.";
     return webrtc::RTCError(webrtc::RTCErrorType::INTERNAL_ERROR);
   }
 
@@ -907,8 +907,8 @@ bool WebRtcVideoChannel::SetRtpReceiveParameters(
 
   webrtc::RtpParameters current_parameters = GetRtpReceiveParameters(ssrc);
   if (current_parameters != parameters) {
-    RTC_LOG(LS_ERROR) << "Changing the RTP receive parameters is currently "
-                      << "unsupported.";
+    RTC_DLOG(LS_ERROR) << "Changing the RTP receive parameters is currently "
+                       << "unsupported.";
     return false;
   }
   return true;
@@ -1024,7 +1024,7 @@ bool WebRtcVideoChannel::SetSend(bool send) {
   TRACE_EVENT0("webrtc", "WebRtcVideoChannel::SetSend");
   RTC_LOG(LS_VERBOSE) << "SetSend: " << (send ? "true" : "false");
   if (send && !send_codec_) {
-    RTC_LOG(LS_ERROR) << "SetSend(true) called before setting codec.";
+    RTC_DLOG(LS_ERROR) << "SetSend(true) called before setting codec.";
     return false;
   }
   {
@@ -1284,7 +1284,7 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
 bool WebRtcVideoChannel::RemoveRecvStream(uint32_t ssrc) {
   RTC_LOG(LS_INFO) << "RemoveRecvStream: " << ssrc;
   if (ssrc == 0) {
-    RTC_LOG(LS_ERROR) << "RemoveRecvStream with 0 ssrc is not supported.";
+    RTC_DLOG(LS_ERROR) << "RemoveRecvStream with 0 ssrc is not supported.";
     return false;
   }
 
@@ -2220,8 +2220,11 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
     // that ignores all calls. The reason we can get into this state is that
     // the old decoder factory interface doesn't have a way to query supported
     // codecs.
-    if (!new_decoder)
+    if (!new_decoder) {
+      RTC_LOG(LS_ERROR) << "No valid decoder for codec: "
+                        << recv_codec.codec.ToString();
       new_decoder.reset(new NullVideoDecoder());
+    }
 
     webrtc::VideoReceiveStream::Decoder decoder;
     decoder.decoder = new_decoder.get();
@@ -2263,9 +2266,9 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetLocalSsrc(
   // right now this can't be done due to unittests depending on receiving what
   // they are sending from the same MediaChannel.
   if (local_ssrc == config_.rtp.remote_ssrc) {
-    RTC_LOG(LS_INFO) << "Ignoring call to SetLocalSsrc because parameters are "
-                        "unchanged; local_ssrc="
-                     << local_ssrc;
+    RTC_DLOG(LS_INFO) << "Ignoring call to SetLocalSsrc because parameters are "
+                         "unchanged; local_ssrc="
+                      << local_ssrc;
     return;
   }
 

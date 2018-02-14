@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "34f1e39c_7259bfa5",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-14T14:34:48Z",
+      "side": 1,
+      "message": "Good idea! I will discuss it with Per.",
+      "parentUuid": "01e87b8c_09f31e65",
+      "revId": "f3e9a43499a1270a9bbcf81e4be4875bcc875da3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0abbe66e_8f2eee25",
         "filename": "api/audio/echo_canceller3_config.h",
         "patchSetId": 2
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "7efce190_eddf50db",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-14T14:34:48Z",
+      "side": 1,
+      "message": "Well spotted! I actually have another CL (53065) lined up that will fix this. I will land it right after this one.",
+      "parentUuid": "0abbe66e_8f2eee25",
+      "revId": "f3e9a43499a1270a9bbcf81e4be4875bcc875da3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d29f639_3b824fea",
         "filename": "api/audio/echo_canceller3_config.h",
         "patchSetId": 2
@@ -67,6 +103,24 @@
       "revId": "f3e9a43499a1270a9bbcf81e4be4875bcc875da3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f05e7181_96a91bfc",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-14T14:34:48Z",
+      "side": 1,
+      "message": "That would make the structs look nicer, but it is too ugly with the clang-format lines :).",
+      "parentUuid": "1d29f639_3b824fea",
+      "revId": "f3e9a43499a1270a9bbcf81e4be4875bcc875da3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

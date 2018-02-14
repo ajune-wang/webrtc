@@ -572,6 +572,7 @@ if (rtc_include_tests) {
       "../../:typedefs",
       "../../api:array_view",
       "../../api:optional",
+      "../../api/audio:aec3_config",
       "../../common_audio:common_audio",
       "../../common_audio:common_audio_c",
       "../../rtc_base:checks",

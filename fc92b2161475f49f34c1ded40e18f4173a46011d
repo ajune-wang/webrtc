@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b05dd9a_fba4bca4",
+        "filename": "call/call.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-14T12:52:15Z",
+      "side": 1,
+      "message": "I think this member can be deleted now, with all use replaced by config_.fec_controller_factory.",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 57
+      },
+      "revId": "fc92b2161475f49f34c1ded40e18f4173a46011d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64f9a98d_cc97181a",
+        "filename": "call/call.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-14T12:52:15Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing with both webrtc::Call and webrtc::Internal::Call, but this method belongs to webrtc::Call, right?\n\nIt\u0027s not clear to me from the comment why this dummy implementation is needed. What breaks if you delete the implementation and make the method pure virtual in this class?",
+      "range": {
+        "startLine": 411,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 0
+      },
+      "revId": "fc92b2161475f49f34c1ded40e18f4173a46011d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa30cb5_a2eb8f78",
+        "filename": "call/call.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-14T12:52:15Z",
+      "side": 1,
+      "message": "Looks nice and clean. I would be tempted to use a conditional expression, something like\n\nstd::unique_ptr\u003cFecController\u003e fec_controller \u003d \n    config_.fec_controller_factory \n        ? config_.fec_controller_factory_-\u003eCreateFecController()\n        : rtc::MakeUnique\u003c...\u003e(...);\n\nBut that\u0027s a question of taste, write it however you find most readable in this context.",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 3
+      },
+      "revId": "fc92b2161475f49f34c1ded40e18f4173a46011d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

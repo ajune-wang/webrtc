@@ -143,6 +143,29 @@
     },
     {
       "key": {
+        "uuid": "87c00650_850d237e",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-14T08:28:10Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right. We get ownership of the factory, save a raw pointer to it, and then the factory will be destroyed as the \n\n  std::unique_ptr\u003cFecControllerFactoryInterface\u003e fec_controller_factory\n\ngoes out of scope. Also it\u0027s a bit subtle that the member fec_controller_factory_ is used inside the below call to CreateVideoSendStream (and at that time, factory is still alive).\n\nIt would be somehow correct if you add a \n\n  fec_controller_factory \u003d nullptr;\n\nat the end of the method, to not leave it pointing to a destroyed object, but I don\u0027t think it is appropriate for CreateVideoSendStream to make state changes affecting unrelated streams.\n\nI would suggest one of these alternatives:\n\n1. Reorganize the tests so that the appropriate factory can be passed with Call::Config to the Call constructor (and then fec_controller_factory_ member isn\u0027t needed, it can be accessed via config_ instead), or\n\n2. Keep the old method with a std::unique_ptr\u003cFecController\u003e as argument, use that from the tests (the test may have its own factory, unrelated to Call\u0027s), and let the CreateVideoStream method without FecController argument create one using config_.fec_controller_factory (if that is non-null).\n\n3. Add a method SetFecControllerFactory to explicitly change the fec_controller_factory_ pointer, if you really need to be able to change it after construction.",
+      "range": {
+        "startLine": 752,
+        "startChar": 2,
+        "endLine": 752,
+        "endChar": 57
+      },
+      "revId": "a1e3f63e1be1dd28585274c30d417ade586afd34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54c6e2ff_0e8e24d4",
         "filename": "call/call.h",
         "patchSetId": 16

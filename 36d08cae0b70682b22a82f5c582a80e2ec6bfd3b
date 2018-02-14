@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8205c984_50861b46",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-14T01:51:10Z",
+      "side": 1,
+      "message": "Why not fire OnAddStream? I don\u0027t remember if this has come up before. But I\u0027m just thinking, if we don\u0027t continue supporting OnAddStream it may be more of a hassle for existing native apps to flip the unified plan switch.",
+      "revId": "36d08cae0b70682b22a82f5c582a80e2ec6bfd3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3c4192a_fb3306ed",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-14T01:51:10Z",
+      "side": 1,
+      "message": "nit: Would make sense to gather the AddStream-dependent tests together?",
+      "revId": "36d08cae0b70682b22a82f5c582a80e2ec6bfd3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ac08a85_844aae49",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2718,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-14T01:51:10Z",
+      "side": 1,
+      "message": "Even without OnAddStream, aren\u0027t remote streams exposed via OnAddTrack, making this test and the one below still applicable?",
+      "revId": "36d08cae0b70682b22a82f5c582a80e2ec6bfd3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

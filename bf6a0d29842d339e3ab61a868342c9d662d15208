@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c9ea743_eca2c4fa",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-14T10:17:00Z",
+      "side": 1,
+      "message": "I asked peah@. He says the configs from which we read \u0027size\u0027 can be overridden. He agreed with the proposed change.",
+      "range": {
+        "startLine": 469,
+        "startChar": 44,
+        "endLine": 469,
+        "endChar": 0
+      },
+      "revId": "bf6a0d29842d339e3ab61a868342c9d662d15208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd5bef48_d4681dc2",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-14T10:17:00Z",
+      "side": 1,
+      "message": "I\u0027m unsure about this change. On one hand, it\u0027s good to reduce the number of production logs. On the other, I\u0027m used to seeing these AGC logs\n\n(agc_manager_direct.cc:355): [agc] Initial GetMicVolume()\u003d0\n(agc_manager_direct.cc:360): [agc] Initial volume too low, raising to 128\n(agc_manager_direct.cc:412): [agc] rms_error\u003d32, target_compression\u003d9, residual_gain\u003d15\n\nI haven\u0027t had any real use of them though. I don\u0027t know if anybody else has.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 64
+      },
+      "revId": "bf6a0d29842d339e3ab61a868342c9d662d15208",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

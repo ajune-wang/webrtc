@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17dea943_a2a53261",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-14T14:25:54Z",
+      "side": 1,
+      "message": "You can remove this.",
+      "revId": "f3e9a43499a1270a9bbcf81e4be4875bcc875da3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01e87b8c_09f31e65",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-14T14:25:54Z",
+      "side": 1,
+      "message": "Would it be a good idea to add a note saying that the exact values of the default values aren\u0027t part of the API, and may change without notice?",
+      "revId": "f3e9a43499a1270a9bbcf81e4be4875bcc875da3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0abbe66e_8f2eee25",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-14T14:25:54Z",
+      "side": 1,
+      "message": "#include \u003cstddef.h\u003e to get size_t.",
+      "revId": "f3e9a43499a1270a9bbcf81e4be4875bcc875da3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d29f639_3b824fea",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-14T14:25:54Z",
+      "side": 1,
+      "message": "If you want to align these (which would seem to be good for readability), you can surround them with\n\n  // clang-format off\n  ...code here...\n  // clang-format on",
+      "revId": "f3e9a43499a1270a9bbcf81e4be4875bcc875da3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

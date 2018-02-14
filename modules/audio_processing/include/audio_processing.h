@@ -1206,6 +1206,7 @@ struct EchoCanceller3Config {
     float lf = 10.f;
     float mf = 10.f;
     float hf = 10.f;
+    // Enable echo tail estimation if the below variable is set as negative
     float default_len = 0.f;
     bool echo_can_saturate = true;
     bool bounded_erl = false;

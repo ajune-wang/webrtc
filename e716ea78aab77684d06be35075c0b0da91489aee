@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "6957c828_b171c062",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-14T00:21:00Z",
+      "side": 1,
+      "message": "Well, in the stable state you could use SessionDescriptionInterface::GetType to tell which was the answer. But don\u0027t worry about it, really; I\u0027m not sure it would make things that better anyway.",
+      "parentUuid": "bb819553_87f65b65",
+      "revId": "e716ea78aab77684d06be35075c0b0da91489aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0e41216_7dbbbc47",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2

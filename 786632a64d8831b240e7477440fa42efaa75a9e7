@@ -278,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "987264f3_396a757c",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T15:57:34Z",
+      "side": 1,
+      "message": "On the other hand: class usage examples are already found in the unit tests.",
+      "parentUuid": "ab525f09_10ee4f56",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4cd4d32_ffdb59ec",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
         "patchSetId": 5

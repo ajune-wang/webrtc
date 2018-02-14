@@ -223,6 +223,7 @@ rtc_static_library("audio_processing") {
     "../../:typedefs",
     "../../api:array_view",
     "../../api:optional",
+    "../../api/audio:aec3_config",
     "../../audio/utility:audio_frame_operations",
     "../../common_audio:common_audio_c",
     "../../rtc_base:checks",

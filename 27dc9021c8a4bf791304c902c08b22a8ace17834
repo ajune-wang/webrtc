@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27adfe7b_8b26d95e",
+        "filename": "call/call.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-14T14:19:56Z",
+      "side": 1,
+      "message": "nit: Merge declaration and assignment.",
+      "range": {
+        "startLine": 773,
+        "startChar": 0,
+        "endLine": 774,
+        "endChar": 18
+      },
+      "revId": "27dc9021c8a4bf791304c902c08b22a8ace17834",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

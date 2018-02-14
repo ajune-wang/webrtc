@@ -554,6 +554,30 @@
       "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a118f001_7892129d",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-14T13:11:07Z",
+      "side": 1,
+      "message": "FloatAudioFrame is also used in the ApmDump. It\u0027s not used anywhere else. I wrote that half a year ago.\n\nI\u0027m fine with whatever. Both solutions (2 kinds of FloatFrames and const FAF) have pros and cons. Let\u0027s decide on one of them!",
+      "parentUuid": "83310266_b7b17cf0",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "e3a8071aa9473928d039e1cd2abc0438fb2467b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

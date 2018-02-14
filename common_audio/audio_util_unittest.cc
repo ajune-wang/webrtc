@@ -86,21 +86,33 @@ TEST(AudioUtilTest, FloatToFloatS16) {
   ExpectArraysEq(kReference, output, kSize);
 }
 
-TEST(AudioUtilTest, FloatS16ToFloat) {
+TEST(AudioUtilTest, DbfsToFloatS16) {
   const size_t kSize = 9;
-  const float kInput[kSize] = {0.f,     0.4f,     0.6f,     -0.4f,    -0.6f,
-                               32767.f, -32768.f, 36043.7f, -36044.8f};
-  const float kReference[kSize] = {0.f,
-                                   0.4f / 32767.f,
-                                   0.6f / 32767.f,
-                                   -0.4f / 32768.f,
-                                   -0.6f / 32768.f,
-                                   1.f,
-                                   -1.f,
-                                   1.1f,
-                                   -1.1f};
+  const float kInput[kSize] = {-90.f, -70.f, -30.f, -20.f, -10.f,
+                               -5.f,  -1.f,  0.f,   1.f};
+  const float kReference[kSize] = {1.036215143f, 10.36215143f,  1036.215143f,
+                                   3276.8,       10362.151436f, 18426.800543f,
+                                   29204.51074f, 32768.0,       36766.3007105f};
   float output[kSize];
-  FloatS16ToFloat(kInput, kSize, output);
+  for (size_t i = 0; i < kSize; ++i) {
+    output[i] = DbfsToFloatS16(kInput[i]);
+  }
+  ExpectArraysEq(kReference, output, kSize);
+}
+
+TEST(AudioUtilTest, FloatS16ToDbfs) {
+  const size_t kSize = 9;
+  const float kInput[kSize] = {1.036215143f, 10.36215143f,  1036.215143f,
+                               3276.8,       10362.151436f, 18426.800543f,
+                               29204.51074f, 32768.0,       36766.3007105f};
+
+  const float kReference[kSize] = {-90.f, -70.f, -30.f, -20.f, -10.f,
+                                   -5.f,  -1.f,  0.f,   1.f};
+
+  float output[kSize];
+  for (size_t i = 0; i < kSize; ++i) {
+    output[i] = FloatS16ToDbfs(kInput[i]);
+  }
   ExpectArraysEq(kReference, output, kSize);
 }
 

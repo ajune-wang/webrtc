@@ -160,6 +160,397 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0e10d41_14e12a40",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "This computation is duplicated in SetSampleRate. Consider calling SetSampleRate in constructor body instead.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 70
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faea097e_836e9395",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "Why can\u0027t there be one sample per subframe?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b0e95b5_cd3d06f7",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "This doesn\u0027t independently verify that the internal parameters are correct:\nIt will pass if samples_in_frame_ \u003d\u003d 0 while samples_in_sub_frame_ \u003e 1.\n\nIf samples_in_frame_ !\u003d 0, then the first check is covered by the second check.\n\nHence we can replace first check with RTC_CHECK_GT(samples_in_frame_, 0) to get better coverage.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d174939e_cbe4f358",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "This tests that the implementation of FloatAudioFrame satisfies its contract, it should already be covered by the DCHECK on line 45 and whatever unit tests exist for FloatAudioFrame.",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 78
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab525f09_10ee4f56",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "Add a short description of what it does and a quick example of setting up and using the class.\n\nDocument somewhere what values of sample_rate_hz are supported.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4cd4d32_ffdb59ec",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "Add a sentence about what ComputeLevel does.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 2
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd9f4d1e_f4165187",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "Is this function safe to call concurrently with ComputeLevel? Document.",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46243807_fafff780",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "Will these be made configurable later? Otherwise, mark const, static, or use agc2_common values directly.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9351b2a_bf66af49",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "Is this class intended to be copy-/assignable? If not, delete corresponding member functions.\n\nAlso \"...document that your class is copyable and/or cheaply movable if that\u0027s an API guarantee.\"\nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 2
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f911f7f3_115ef70c",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "estimator?",
+      "range": {
+        "startLine": 26,
+        "startChar": 51,
+        "endLine": 26,
+        "endChar": 61
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48680c5a_da5dcf6c",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "Can this class be merged with the FloatAudioFrame?",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b7db69_527acc56",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "const float",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 7
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8c3ca7c_dbe0396f",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "Why are these different from the .99, 1.01 in the above test? Shouldn\u0027t it be independent of channel count?",
+      "range": {
+        "startLine": 117,
+        "startChar": 69,
+        "endLine": 118,
+        "endChar": 38
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcd85627_b355e36c",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "const float",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 7
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "511c76d3_d6e4bcdb",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "const float",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 7
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6571e3be_18d30aa0",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "These tests are identical apart from sampling rate.",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 1
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18c54462_30eafbb5",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-14T11:56:13Z",
+      "side": 1,
+      "message": "const float",
+      "range": {
+        "startLine": 149,
+        "startChar": 2,
+        "endLine": 149,
+        "endChar": 7
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

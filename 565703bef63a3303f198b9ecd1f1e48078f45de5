@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7db3a358_4f4660f7",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-14T10:09:23Z",
+      "side": 1,
+      "message": "Suggestion: I usually use an empty message in static_assert, because almost always the expression is self explanatory---as it is in this case.\n\n(Also, in C++17 the message becomes optional, so we\u0027ll eventually be able to remove all the empty messages completely.)",
+      "range": {
+        "startLine": 116,
+        "startChar": 17,
+        "endLine": 116,
+        "endChar": 44
+      },
+      "revId": "565703bef63a3303f198b9ecd1f1e48078f45de5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e640fbc2_3dd23730",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-14T10:09:23Z",
+      "side": 1,
+      "message": "Specifically, you check that the remaining fields are indeed uninitialized, and that they contain zeros.",
+      "revId": "565703bef63a3303f198b9ecd1f1e48078f45de5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bb42261_8cbc8e49",
+        "filename": "rtc_base/sanitizer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-14T10:09:23Z",
+      "side": 1,
+      "message": "Excellent test! Did you verify that MSan complains if you don\u0027t expect uninitialized reads here, and if you do expect one on line 53?",
+      "revId": "565703bef63a3303f198b9ecd1f1e48078f45de5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

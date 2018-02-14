@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "64ed528b_84726283",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-14T10:09:23Z",
+      "side": 1,
+      "message": "Ah, right. Sorry. In that case I\u0027d do\n\n  MsanMarkUninitialized(MakeArrayView(\u0026t, 1));\n\nbut it\u0027s not *obviously* better than to use the C function, so you choose.",
+      "parentUuid": "aa94a9ed_ae42bb00",
+      "range": {
+        "startLine": 119,
+        "startChar": 2,
+        "endLine": 119,
+        "endChar": 46
+      },
+      "revId": "b5251ea24371bbbf4fe0ee7bbe04d1bf37789242",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa7d9ac1_3fb8c7a7",
         "filename": "rtc_base/sanitizer_unittest.cc",
         "patchSetId": 4

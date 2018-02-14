@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/android/src/jni/pc/androidnetworkmonitor.h"
+#include "sdk/android/src/jni/androidnetworkmonitor.h"
 
 #include <dlfcn.h>
 #ifndef RTLD_NOLOAD

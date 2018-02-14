@@ -272,6 +272,7 @@ class Call : public webrtc::Call,
   const std::unique_ptr<CallStats> call_stats_;
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
+  FecControllerFactoryInterface* fec_controller_factory_;
   rtc::SequencedTaskChecker configuration_sequence_checker_;
 
   NetworkState audio_network_state_;
@@ -407,6 +408,9 @@ Call* Call::Create(
   return new internal::Call(config, std::move(transport_send));
 }
 
+// This method here to avoid subclasses has to implement this method.
+// Call perf test will use Internal::Call::CreateVideoSendStream() to inject
+// FecController.
 VideoSendStream* Call::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config,
@@ -425,6 +429,7 @@ Call::Call(const Call::Config& config,
       call_stats_(new CallStats(clock_)),
       bitrate_allocator_(new BitrateAllocator(this)),
       config_(config),
+      fec_controller_factory_(config.fec_controller_factory),
       audio_network_state_(kNetworkDown),
       video_network_state_(kNetworkDown),
       receive_crit_(RWLockWrapper::CreateRWLock()),
@@ -723,14 +728,7 @@ void Call::DestroyAudioReceiveStream(
   delete audio_receive_stream;
 }
 
-webrtc::VideoSendStream* Call::CreateVideoSendStream(
-    webrtc::VideoSendStream::Config config,
-    VideoEncoderConfig encoder_config) {
-  return CreateVideoSendStream(
-      std::move(config), std::move(encoder_config),
-      rtc::MakeUnique<FecControllerDefault>(Clock::GetRealTimeClock()));
-}
-
+// This method can be used for Call tests with external fec controller factory.
 webrtc::VideoSendStream* Call::CreateVideoSendStream(
     webrtc::VideoSendStream::Config config,
     VideoEncoderConfig encoder_config,
@@ -749,6 +747,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   // the call has already started.
   // Copy ssrcs from |config| since |config| is moved.
   std::vector<uint32_t> ssrcs = config.rtp.ssrcs;
+
   VideoSendStream* send_stream = new VideoSendStream(
       num_cpu_cores_, module_process_thread_.get(), &worker_queue_,
       call_stats_.get(), transport_send_.get(), bitrate_allocator_.get(),
@@ -768,6 +767,18 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   UpdateAggregateNetworkState();
 
   return send_stream;
+}
+
+webrtc::VideoSendStream* Call::CreateVideoSendStream(
+    webrtc::VideoSendStream::Config config,
+    VideoEncoderConfig encoder_config) {
+  std::unique_ptr<FecController> fec_controller;
+  fec_controller =
+      fec_controller_factory_
+          ? rtc::MakeUnique<FecControllerDefault>(Clock::GetRealTimeClock())
+          : fec_controller_factory_->CreateFecController();
+  return CreateVideoSendStream(std::move(config), std::move(encoder_config),
+                               std::move(fec_controller));
 }
 
 void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "81949158_ab59db08",
+        "filename": "call/call.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-14T14:00:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b05dd9a_fba4bca4",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 57
+      },
+      "revId": "fc92b2161475f49f34c1ded40e18f4173a46011d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64f9a98d_cc97181a",
         "filename": "call/call.cc",
         "patchSetId": 18
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-14T12:52:15Z",
       "side": 1,
       "message": "It\u0027s a bit confusing with both webrtc::Call and webrtc::Internal::Call, but this method belongs to webrtc::Call, right?\n\nIt\u0027s not clear to me from the comment why this dummy implementation is needed. What breaks if you delete the implementation and make the method pure virtual in this class?",
+      "range": {
+        "startLine": 411,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 0
+      },
+      "revId": "fc92b2161475f49f34c1ded40e18f4173a46011d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89444095_ef210c31",
+        "filename": "call/call.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-14T14:00:14Z",
+      "side": 1,
+      "message": "Yes this one is webrtc::Call. Internal::Call inherits webrtc::call.\n\nIf removes this dummy implementation. There are some other test classes that implements Call will need to implement CreateVideoSendStream() by themselves, as it would be a pure virtual method.",
+      "parentUuid": "64f9a98d_cc97181a",
       "range": {
         "startLine": 411,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "fc92b2161475f49f34c1ded40e18f4173a46011d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "718f56c6_ff6b4c2b",
+        "filename": "call/call.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-14T14:00:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aa30cb5_a2eb8f78",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 3
+      },
+      "revId": "fc92b2161475f49f34c1ded40e18f4173a46011d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

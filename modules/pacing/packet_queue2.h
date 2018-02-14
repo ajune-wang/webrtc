@@ -8,24 +8,24 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
-#define MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
+#ifndef MODULES_PACING_PACKET_QUEUE2_H_
+#define MODULES_PACING_PACKET_QUEUE2_H_
 
 #include <map>
 #include <queue>
 #include <set>
 
-#include "modules/pacing/packet_queue_interface.h"
+#include "modules/pacing/packet_queue.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 
 namespace webrtc {
 
-class RoundRobinPacketQueue : public PacketQueueInterface {
+class PacketQueue2 : public PacketQueue {
  public:
-  explicit RoundRobinPacketQueue(const Clock* clock);
-  ~RoundRobinPacketQueue() override;
+  explicit PacketQueue2(const Clock* clock);
+  ~PacketQueue2() override;
 
-  using Packet = PacketQueueInterface::Packet;
+  using Packet = PacketQueue::Packet;
 
   void Push(const Packet& packet) override;
   const Packet& BeginPop() override;
@@ -41,7 +41,6 @@ class RoundRobinPacketQueue : public PacketQueueInterface {
   void UpdateQueueTime(int64_t timestamp_ms) override;
   void SetPauseState(bool paused, int64_t timestamp_ms) override;
 
- private:
   struct StreamPrioKey {
     StreamPrioKey() = default;
     StreamPrioKey(RtpPacketSender::Priority priority, int64_t bytes)
@@ -74,6 +73,7 @@ class RoundRobinPacketQueue : public PacketQueueInterface {
     std::multimap<StreamPrioKey, uint32_t>::iterator priority_it;
   };
 
+ private:
   static constexpr size_t kMaxLeadingBytes = 1400;
 
   Stream* GetHighestPriorityStream();
@@ -108,4 +108,4 @@ class RoundRobinPacketQueue : public PacketQueueInterface {
 };
 }  // namespace webrtc
 
-#endif  // MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
+#endif  // MODULES_PACING_PACKET_QUEUE2_H_

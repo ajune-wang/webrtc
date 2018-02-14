@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecb8abaa_7a446398",
+        "filename": "call/callfactory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-02-14T15:09:45Z",
+      "side": 1,
+      "message": "This can probably be removed",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "70e36e44baaebc38603f078ac2aa7bcf975acbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

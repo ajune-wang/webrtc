@@ -114,6 +114,9 @@ class Call {
     // RtcEventLog to use for this call. Required.
     // Use webrtc::RtcEventLog::CreateNull() for a null implementation.
     RtcEventLog* event_log = nullptr;
+
+    // FecController to use for this call.
+    FecControllerFactoryInterface* fec_controller_factory = nullptr;
   };
 
   struct Stats {

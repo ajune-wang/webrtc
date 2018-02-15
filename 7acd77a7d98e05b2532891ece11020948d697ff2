@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1dc18ec7_05f48091",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-02-15T19:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fca94ae_f8520fc7",
+      "range": {
+        "startLine": 18,
+        "startChar": 14,
+        "endLine": 18,
+        "endChar": 85
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72ac5b84_21f51820",
         "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "54b42caf_0a17a3ae",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-02-15T19:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72ac5b84_21f51820",
+      "range": {
+        "startLine": 91,
+        "startChar": 30,
+        "endLine": 91,
+        "endChar": 49
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3b9a9bf_a810e798",
         "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2018-02-13T11:52:49Z",
       "side": 1,
       "message": "I think this could be be in I420A buffer implementation.",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 71
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "194e952f_218da8d1",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-02-15T19:26:48Z",
+      "side": 1,
+      "message": "I just did things parallel with JavaI420Buffer.\nNot sure whey JavaI420Buffer puts its crop function here.\n\nI can move everything to JavaI420ABuffer, but that way, we will have to add another .cc file to handle the native function call.\n\nWhich way do you prefer?",
+      "parentUuid": "b3b9a9bf_a810e798",
       "range": {
         "startLine": 216,
         "startChar": 0,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56014e96_6096d0bc",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-15T10:17:16Z",
+      "side": 1,
+      "message": "Please don\u0027t call it FloatAudioFrame. AudioFrameView (to mirror ArrayView) is a better name seeing as the class doesn\u0027t actually own any audio samples. Also, what would FloatAudioFrame\u003cint16_t\u003e mean? :)\n\nAlso, should probably update the comment now that the type is less internal. Don\u0027t think the ArrayView of ArrayView explanation is very helpful for anyone wanting to use this.",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 21
+      },
+      "revId": "91fcf15a1ead4dd90c86de548f87913d60bd783a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -79,6 +79,7 @@ class VideoStreamDecoder : public VCMReceiveCallback,
                                    int jitter_buffer_ms,
                                    int min_playout_delay_ms,
                                    int render_delay_ms) override;
+  void OnSkippedFrames(int num_frames_skipped) override;
 
   void OnTimingFrameInfoUpdated(const TimingFrameInfo& info) override;
 

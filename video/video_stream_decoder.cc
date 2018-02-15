@@ -119,6 +119,10 @@ void VideoStreamDecoder::OnFrameBufferTimingsUpdated(int decode_ms,
                                                      int min_playout_delay_ms,
                                                      int render_delay_ms) {}
 
+void VideoStreamDecoder::OnSkippedFrames(int num_frames_skipped) {
+  receive_stats_callback_->OnSkippedFrames(num_frames_skipped);
+}
+
 void VideoStreamDecoder::OnTimingFrameInfoUpdated(const TimingFrameInfo& info) {
 }
 

@@ -358,6 +358,10 @@ void VideoReceiveStream::OnCompleteFrame(
     rtp_video_stream_receiver_.FrameContinuous(last_continuous_pid);
 }
 
+void VideoReceiveStream::OnSkippedFrames(int num_frames_skipped) {
+  stats_proxy_.OnSkippedFrames(num_frames_skipped);
+}
+
 void VideoReceiveStream::OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) {
   frame_buffer_->UpdateRtt(max_rtt_ms);
 }

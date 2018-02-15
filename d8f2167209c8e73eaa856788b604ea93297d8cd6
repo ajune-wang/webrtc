@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d81637f8_7b4e0425",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T15:02:48Z",
+      "side": 1,
+      "message": "I tried but couldn\u0027t get it to work easily. I think it was something with arrays decaying to pointers. The only way to make the ExpectArraysEq call to compile was to \n\ntemplate \u003cstd::ptrdiff_t N\u003e\nvoid ExpectArraysEq(rtc::ArrayView\u003cconst float, N\u003e ref,\n                    rtc::ArrayView\u003cconst float, N\u003e test) {...}\n\n...\nExpectArraysEq(rtc::ArrayView\u003cconst int16_t, kSize\u003e(kReference),\n               rtc::ArrayView\u003cconst int16_t, kSize\u003e(output));\n\nI think it\u0027s too much syntax overhead for the safety benefit. I compared to array_view_unittest.cc, but couldn\u0027t find why the arrays decayed to pointers. \n\nThe compiler said \n\ncandidate template ignored: could not match \u0027ArrayView\u003cconst short, N\u003e\u0027 against \u0027const short *\u0027",
+      "parentUuid": "98258a75_b1c60da5",
+      "revId": "d8f2167209c8e73eaa856788b604ea93297d8cd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "936663a2_0650741b",
         "filename": "common_audio/include/audio_util.h",
         "patchSetId": 8
@@ -30,6 +48,30 @@
       "writtenOn": "2018-02-15T14:25:02Z",
       "side": 1,
       "message": "Replacing this with 20.f makes clang on godbolt.org very happy---by having this constant be a double, you force conversions from float to double and then back again, and you make a double multiplication instead of a float multiplication.\n\n(I see you have double literals elsewhere that ought to be float literals. Maybe give them all f suffixes just to be safe? In fact, I just checked DbToRatio, and it shrinks from 8 to 4 instructions, *and* ends up calling powf() instead of pow(), which I imagine can save quite some time.)",
+      "range": {
+        "startLine": 91,
+        "startChar": 9,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "d8f2167209c8e73eaa856788b604ea93297d8cd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a898404_4e6fdd37",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T15:02:48Z",
+      "side": 1,
+      "message": "Wow, good that you spotted it! Done.",
+      "parentUuid": "936663a2_0650741b",
       "range": {
         "startLine": 91,
         "startChar": 9,

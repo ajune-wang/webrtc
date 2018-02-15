@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "d095f475_538acd55",
+        "filename": "api/mediatypes.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-15T16:16:23Z",
+      "side": 1,
+      "message": "sorry for confusing. I missed point \"that\u0027s only available for constexpr class static data members\"",
+      "parentUuid": "b03de4b3_45cb4d8d",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "775e8340e70f4eef729e97f06c89a38881fa4950",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75158a8f_a6e82ecd",
         "filename": "pc/BUILD.gn",
         "patchSetId": 2

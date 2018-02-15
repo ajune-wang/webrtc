@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "19e26cea_f0bd9313",
+        "filename": "api/mediatypes.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-15T15:50:21Z",
+      "side": 1,
+      "message": "I suggest to try here, in .h\nconstexpr char kMediaTypeAudio[] \u003d \"audio\";\n\nin .cc\nconstexpr char cricket::kMediaTypeAudio[];\n\nthis way size of the string is known at compile time.\nalso I wonder if it would allows to alias the constant in MediaStreamTrackInterface::kAudioKind without converting it to raw pointer.",
+      "parentUuid": "c86edeb2_4890324b",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "775e8340e70f4eef729e97f06c89a38881fa4950",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75158a8f_a6e82ecd",
         "filename": "pc/BUILD.gn",
         "patchSetId": 2

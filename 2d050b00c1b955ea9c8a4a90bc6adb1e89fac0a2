@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "647fcf9a_8ae0e93e",
+        "filename": "modules/audio_processing/echo_control_mobile_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-15T11:57:26Z",
+      "side": 1,
+      "message": "I\u0027d say this is the problem. stream_properties_ is not initialized at this point (see line 353).",
+      "range": {
+        "startLine": 347,
+        "startChar": 2,
+        "endLine": 347,
+        "endChar": 15
+      },
+      "revId": "2d050b00c1b955ea9c8a4a90bc6adb1e89fac0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

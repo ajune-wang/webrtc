@@ -117,6 +117,101 @@ AndroidVideoI420Buffer::~AndroidVideoI420Buffer() {
   Java_Buffer_release(jni, j_video_frame_buffer_);
 }
 
+class AndroidVideoI420ABuffer : public I420ABufferInterface {
+ public:
+  // Adopts and takes ownership of the Java VideoFrame.Buffer. I.e. retain()
+  // will not be called, but release() will be called when the returned
+  // AndroidVideoBuffer is destroyed.
+  static rtc::scoped_refptr<AndroidVideoI420ABuffer> Adopt(
+      JNIEnv* jni,
+      int width,
+      int height,
+      const JavaRef<jobject>& j_video_frame_buffer);
+
+ protected:
+  // Should not be called directly. Adopts the buffer. Use Adopt() instead for
+  // clarity.
+  AndroidVideoI420ABuffer(JNIEnv* jni,
+                          int width,
+                          int height,
+                          const JavaRef<jobject>& j_video_frame_buffer);
+  ~AndroidVideoI420ABuffer() override;
+
+ private:
+  const uint8_t* DataY() const override { return data_y_; }
+  const uint8_t* DataU() const override { return data_u_; }
+  const uint8_t* DataV() const override { return data_v_; }
+  const uint8_t* DataA() const override { return data_a_; }
+
+  int StrideY() const override { return stride_y_; }
+  int StrideU() const override { return stride_u_; }
+  int StrideV() const override { return stride_v_; }
+  int StrideA() const override { return stride_a_; }
+
+  int width() const override { return width_; }
+  int height() const override { return height_; }
+
+  const int width_;
+  const int height_;
+  // Holds a VideoFrame.I420Buffer.
+  const ScopedJavaGlobalRef<jobject> j_video_frame_buffer_;
+
+  const uint8_t* data_y_;
+  const uint8_t* data_u_;
+  const uint8_t* data_v_;
+  int stride_y_;
+  int stride_u_;
+  int stride_v_;
+
+  const uint8_t* data_a_;
+  int stride_a_;
+};
+
+rtc::scoped_refptr<AndroidVideoI420ABuffer> AndroidVideoI420ABuffer::Adopt(
+    JNIEnv* jni,
+    int width,
+    int height,
+    const JavaRef<jobject>& j_video_frame_buffer) {
+  return new rtc::RefCountedObject<AndroidVideoI420ABuffer>(
+      jni, width, height, j_video_frame_buffer);
+}
+
+AndroidVideoI420ABuffer::AndroidVideoI420ABuffer(
+    JNIEnv* jni,
+    int width,
+    int height,
+    const JavaRef<jobject>& j_video_frame_buffer)
+    : width_(width),
+      height_(height),
+      j_video_frame_buffer_(jni, j_video_frame_buffer) {
+  ScopedJavaLocalRef<jobject> j_data_y =
+      Java_I420ABuffer_getDataY(jni, j_video_frame_buffer);
+  ScopedJavaLocalRef<jobject> j_data_u =
+      Java_I420ABuffer_getDataU(jni, j_video_frame_buffer);
+  ScopedJavaLocalRef<jobject> j_data_v =
+      Java_I420ABuffer_getDataV(jni, j_video_frame_buffer);
+  ScopedJavaLocalRef<jobject> j_data_a =
+      Java_I420ABuffer_getDataA(jni, j_video_frame_buffer);
+  data_y_ =
+      static_cast<const uint8_t*>(jni->GetDirectBufferAddress(j_data_y.obj()));
+  data_u_ =
+      static_cast<const uint8_t*>(jni->GetDirectBufferAddress(j_data_u.obj()));
+  data_v_ =
+      static_cast<const uint8_t*>(jni->GetDirectBufferAddress(j_data_v.obj()));
+  data_a_ =
+      static_cast<const uint8_t*>(jni->GetDirectBufferAddress(j_data_a.obj()));
+
+  stride_y_ = Java_I420ABuffer_getStrideY(jni, j_video_frame_buffer);
+  stride_u_ = Java_I420ABuffer_getStrideU(jni, j_video_frame_buffer);
+  stride_v_ = Java_I420ABuffer_getStrideV(jni, j_video_frame_buffer);
+  stride_a_ = Java_I420ABuffer_getStrideA(jni, j_video_frame_buffer);
+}
+
+AndroidVideoI420ABuffer::~AndroidVideoI420ABuffer() {
+  JNIEnv* jni = AttachCurrentThreadIfNeeded();
+  Java_Buffer_release(jni, j_video_frame_buffer_);
+}
+
 }  // namespace
 
 int64_t GetJavaVideoFrameTimestampNs(JNIEnv* jni,
@@ -446,6 +541,30 @@ static void JNI_VideoFrame_CropAndScaleI420(
       crop_height, dst_y, dst_stride_y, dst_u, dst_stride_u, dst_v,
       dst_stride_v, scale_width, scale_height, libyuv::kFilterBox);
   RTC_DCHECK_EQ(ret, 0) << "I420Scale failed";
+}
+
+static void JNI_VideoFrame_CropAndScalePlane(JNIEnv* jni,
+                                             const JavaParamRef<jclass>&,
+                                             const JavaParamRef<jobject>& j_src,
+                                             jint src_stride,
+                                             jint crop_x,
+                                             jint crop_y,
+                                             jint crop_width,
+                                             jint crop_height,
+                                             const JavaParamRef<jobject>& j_dst,
+                                             jint dst_stride,
+                                             jint scale_width,
+                                             jint scale_height) {
+  uint8_t const* src =
+      static_cast<uint8_t*>(jni->GetDirectBufferAddress(j_src.obj()));
+  uint8_t* dst =
+      static_cast<uint8_t*>(jni->GetDirectBufferAddress(j_dst.obj()));
+
+  // Perform cropping using pointer arithmetic.
+  src += crop_x + crop_y * src_stride;
+
+  libyuv::ScalePlane(src, src_stride, crop_width, crop_height, dst, dst_stride,
+                     scale_width, scale_height, libyuv::kFilterBox);
 }
 
 }  // namespace jni

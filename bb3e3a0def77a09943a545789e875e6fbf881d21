@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9f0c463_8a59c90a",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:53:25Z",
+      "side": 1,
+      "message": "Just noticing that now we have two obsolete include paths...",
+      "revId": "bb3e3a0def77a09943a545789e875e6fbf881d21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3ad57f5_9200e02f",
+        "filename": "sdk/android/native_api/base/networkmonitor.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:53:25Z",
+      "side": 1,
+      "message": "Would it be appropriate to add a comment? I\u0027d suggest:\n\n\"Creates an Android-specific network monitor, which is capable of detecting network changes as soon as they occur, requesting a cellular interface (dependent on permissions), and binding sockets to network interfaces (more reliable than binding to IP addresses on Android).\"",
+      "revId": "bb3e3a0def77a09943a545789e875e6fbf881d21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

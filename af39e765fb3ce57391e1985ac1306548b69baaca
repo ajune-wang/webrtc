@@ -554,6 +554,30 @@
     },
     {
       "key": {
+        "uuid": "5674169e_2c6cd094",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-15T02:37:53Z",
+      "side": 1,
+      "message": "SetDtlsParameters seems good.",
+      "parentUuid": "350ee250_b7fb6d4a",
+      "range": {
+        "startLine": 314,
+        "startChar": 57,
+        "endLine": 314,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d82d738_5279f9ad",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -742,6 +766,30 @@
     },
     {
       "key": {
+        "uuid": "9a10ff6e_87676449",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-15T02:37:53Z",
+      "side": 1,
+      "message": "Hmm.... sure",
+      "parentUuid": "2c013df5_584544ef",
+      "range": {
+        "startLine": 536,
+        "startChar": 43,
+        "endLine": 536,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76ec18c7_c4d1f238",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3
@@ -777,6 +825,30 @@
       "side": 1,
       "message": "What about returning RTCError with an output parameter?",
       "parentUuid": "76ec18c7_c4d1f238",
+      "range": {
+        "startLine": 558,
+        "startChar": 74,
+        "endLine": 558,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6307da23_2e206814",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-15T02:37:53Z",
+      "side": 1,
+      "message": "Sure",
+      "parentUuid": "655f04dc_80f369c3",
       "range": {
         "startLine": 558,
         "startChar": 74,
@@ -1493,6 +1565,30 @@
       "side": 1,
       "message": "I see two options here:\n1. Merge TransportDescription to JsepTransportDescription but there would be some duplicated code (ICE related member variables and helper methods) before we can remove the TransportDescription.\n\n2. Make TransportDescription part of JsepTransportDescription. This would introduce an extra layer of abstraction but we can fix it by removing the TransportDescription later.\n\nI kind of lean towards 2. What do you think?",
       "parentUuid": "31ed2043_f188b732",
+      "range": {
+        "startLine": 827,
+        "startChar": 37,
+        "endLine": 827,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c43e820b_756553d6",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-02-15T02:37:53Z",
+      "side": 1,
+      "message": "#2 sounds good.",
+      "parentUuid": "2d3785c8_0474ef43",
       "range": {
         "startLine": 827,
         "startChar": 37,

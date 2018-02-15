@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23297013_f2416c6f",
+        "filename": "modules/audio_processing/include/audio_frame_view.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-15T15:00:53Z",
+      "side": 1,
+      "message": "My gut reaction is that templates are scary and need some unit tests. wdyt?",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "73edb1e21821765e7dc48f613543062545fa69ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a48fcaea_e2007207",
+        "filename": "modules/audio_processing/include/audio_frame_view.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-15T15:00:53Z",
+      "side": 1,
+      "message": "Is that allowed? Should it say \u0027converting Frame\u003cfloat\u003e to Frame\u003cconst float\u003e\u0027?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "73edb1e21821765e7dc48f613543062545fa69ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

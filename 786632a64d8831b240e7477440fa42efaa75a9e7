@@ -352,6 +352,30 @@
     },
     {
       "key": {
+        "uuid": "c39ceb28_b7f88477",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-15T15:00:53Z",
+      "side": 1,
+      "message": "Or rather, yes this does verify that the parameters are correct but there are illegal states that will pass, although they - when looking at the code - are impossible to reach.\n\nIf, in some dystopic future, the code is refactored to accidentally make those states reachable, then this check will not catch it.",
+      "parentUuid": "2b0e95b5_cd3d06f7",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d174939e_cbe4f358",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
         "patchSetId": 5
@@ -631,6 +655,30 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1afa000a_b85d4895",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-15T15:00:53Z",
+      "side": 1,
+      "message": "Ack, sounds good :)",
+      "parentUuid": "b0128119_9c3f9549",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 2
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

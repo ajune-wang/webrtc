@@ -9,6 +9,8 @@
  */
 
 #include "common_audio/include/audio_util.h"
+
+#include "rtc_base/arraysize.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "typedefs.h"  // NOLINT(build/include)
@@ -101,6 +103,40 @@ TEST(AudioUtilTest, FloatS16ToFloat) {
                                    -1.1f};
   float output[kSize];
   FloatS16ToFloat(kInput, kSize, output);
+  ExpectArraysEq(kReference, output, kSize);
+}
+
+TEST(AudioUtilTest, DbfsToFloatS16) {
+  static constexpr size_t kSize = 9;
+  static constexpr float kInput[] = {-90.f, -70.f, -30.f, -20.f, -10.f,
+                                     -5.f,  -1.f,  0.f,   1.f};
+  static constexpr float kReference[] = {
+      1.036215143f,  10.36215143f, 1036.215143f, 3276.8,        10362.151436f,
+      18426.800543f, 29204.51074f, 32768.0,      36766.3007105f};
+  static constexpr size_t kSize = arraysize(kInput);
+  static_assert(arraysize(kReference) == kSize);
+  float output[kSize];
+  for (size_t i = 0; i < kSize; ++i) {
+    output[i] = DbfsToFloatS16(kInput[i]);
+  }
+  ExpectArraysEq(kReference, output, kSize);
+}
+
+TEST(AudioUtilTest, FloatS16ToDbfs) {
+  static constexpr size_t kSize = 9;
+  static constexpr float kInput[] = {
+      1.036215143f,  10.36215143f, 1036.215143f, 3276.8,        10362.151436f,
+      18426.800543f, 29204.51074f, 32768.0,      36766.3007105f};
+
+  static constexpr float kReference[] = {-90.f, -70.f, -30.f, -20.f, -10.f,
+                                         -5.f,  -1.f,  0.f,   1.f};
+  static constexpr size_t kSize = arraysize(kInput);
+  static_assert(arraysize(kReference) == kSize);
+
+  float output[kSize];
+  for (size_t i = 0; i < kSize; ++i) {
+    output[i] = FloatS16ToDbfs(kInput[i]);
+  }
   ExpectArraysEq(kReference, output, kSize);
 }
 

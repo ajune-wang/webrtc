@@ -22,6 +22,30 @@
       "revId": "70e36e44baaebc38603f078ac2aa7bcf975acbc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c841fc7_8af670df",
+        "filename": "call/callfactory.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-02-15T12:49:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecb8abaa_7a446398",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "70e36e44baaebc38603f078ac2aa7bcf975acbc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

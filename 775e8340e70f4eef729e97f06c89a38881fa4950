@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b03de4b3_45cb4d8d",
+        "filename": "api/mediatypes.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-15T16:05:29Z",
+      "side": 1,
+      "message": "I can\u0027t get that to work, unfortunately.\n\n../../api/mediatypes.cc:17:16: error: redefinition of \u0027kMediaTypeAudio\u0027\nconstexpr char kMediaTypeAudio[];\n               ^\n../../api/mediatypes.h:24:16: note: previous definition is here\nconstexpr char kMediaTypeAudio[] \u003d \"audio\";\n               ^\n1 error generated.\n\nAlso tried adding extern in the .h file, but that made no difference.",
+      "parentUuid": "19e26cea_f0bd9313",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "775e8340e70f4eef729e97f06c89a38881fa4950",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75158a8f_a6e82ecd",
         "filename": "pc/BUILD.gn",
         "patchSetId": 2

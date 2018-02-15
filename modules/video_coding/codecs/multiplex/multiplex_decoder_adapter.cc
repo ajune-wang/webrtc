@@ -10,6 +10,8 @@
 
 #include "modules/video_coding/codecs/multiplex/include/multiplex_decoder_adapter.h"
 
+#include <iostream>
+
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame_buffer.h"
 #include "common_video/include/video_frame.h"
@@ -126,6 +128,7 @@ int32_t MultiplexDecoderAdapter::Decode(
   }
   int32_t rv = 0;
   for (size_t i = 0; i < image.image_components.size(); i++) {
+    std::cout << __func__ << i << std::endl;
     rv = decoders_[image.image_components[i].component_index]->Decode(
         image.image_components[i].encoded_image, missing_frames, nullptr,
         nullptr, render_time_ms);

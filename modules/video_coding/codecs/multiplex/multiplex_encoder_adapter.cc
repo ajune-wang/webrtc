@@ -11,6 +11,7 @@
 #include "modules/video_coding/codecs/multiplex/include/multiplex_encoder_adapter.h"
 
 #include <cstring>
+#include <iostream>
 
 #include "common_video/include/video_frame.h"
 #include "common_video/include/video_frame_buffer.h"
@@ -129,6 +130,7 @@ int MultiplexEncoderAdapter::Encode(
 
   ++picture_index_;
 
+  std::cout << __func__ << " 1" << std::endl;
   // Encode YUV
   int rv = encoders_[kYUVStream]->Encode(input_image, codec_specific_info,
                                          &adjusted_frame_types);
@@ -151,6 +153,7 @@ int MultiplexEncoderAdapter::Encode(
                          input_image.render_time_ms(), input_image.rotation());
   rv = encoders_[kAXXStream]->Encode(alpha_image, codec_specific_info,
                                      &adjusted_frame_types);
+  std::cout << __func__ << " 2" << std::endl;
   return rv;
 }
 

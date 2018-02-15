@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09f37812_b1ab28a8",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:32:52Z",
+      "side": 1,
+      "message": "Would be nice to reference and/or link to the webrtc-pc standard, since that goes into more details about when it\u0027s fired.",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8cad43c_ff4152d1",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:32:52Z",
+      "side": 1,
+      "message": "nit: Above, this comment already says \"When Unified Plan SDP is supported, transceivers can change direction (and receivers topped) but receivers are never removed,\" so this note is a little redundant. Maybe just reword the comment above to make it more clear?",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "458dd225_0bdfebd8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2159,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:32:52Z",
+      "side": 1,
+      "message": "I didn\u0027t realize we were already calling OnAddTrack when the direction flips; we (hbos and I) had planned on it only being called when the receiver is created. As indicated by the comment:\n\n// This is called when a receiver and its track is created.",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e052d67b_b060f1ce",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:32:52Z",
+      "side": 1,
+      "message": "Should have a test for the direction flipping back and forth as well.",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be052c33_a38bf65e",
+        "filename": "pc/test/mockpeerconnectionobservers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:32:52Z",
+      "side": 1,
+      "message": "nit: Would be more consistent to store a list of the events, like happens with OnAddTrack and OnRemoveTrack.",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

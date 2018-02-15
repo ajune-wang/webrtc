@@ -22,6 +22,30 @@
       "revId": "2d050b00c1b955ea9c8a4a90bc6adb1e89fac0a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad8540c3_4a2a00a8",
+        "filename": "modules/audio_processing/echo_control_mobile_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-02-15T14:36:37Z",
+      "side": 1,
+      "message": "Looks like you\u0027re right about that. Thank you so much!",
+      "parentUuid": "647fcf9a_8ae0e93e",
+      "range": {
+        "startLine": 347,
+        "startChar": 2,
+        "endLine": 347,
+        "endChar": 15
+      },
+      "revId": "2d050b00c1b955ea9c8a4a90bc6adb1e89fac0a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

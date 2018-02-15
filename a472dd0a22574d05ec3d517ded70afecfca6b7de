@@ -22,6 +22,30 @@
       "revId": "a472dd0a22574d05ec3d517ded70afecfca6b7de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c597a4c3_a18bbe01",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-02-15T10:31:20Z",
+      "side": 1,
+      "message": "That sounds like a good idea. Is there and difference between nestling a unnamed namespace under rtc and having one at the top level?",
+      "parentUuid": "71c5211d_04e5ab3a",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "a472dd0a22574d05ec3d517ded70afecfca6b7de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

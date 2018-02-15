@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aad5f86a_da0cb7eb",
+        "filename": "modules/audio_processing/agc2/vector_float_frame.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-15T14:03:33Z",
+      "side": 1,
+      "message": "Rename this one as well? Should probably return a (const) AudioFrameView\u003cfloat\u003e\u0026.",
+      "revId": "82615e9485786179f0f63bb8041decf40c7f4a96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

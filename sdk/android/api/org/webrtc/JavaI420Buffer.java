@@ -28,7 +28,7 @@ public class JavaI420Buffer implements VideoFrame.I420Buffer {
 
   private int refCount;
 
-  private JavaI420Buffer(int width, int height, ByteBuffer dataY, int strideY, ByteBuffer dataU,
+  protected JavaI420Buffer(int width, int height, ByteBuffer dataY, int strideY, ByteBuffer dataU,
       int strideU, ByteBuffer dataV, int strideV, Runnable releaseCallback) {
     this.width = width;
     this.height = height;

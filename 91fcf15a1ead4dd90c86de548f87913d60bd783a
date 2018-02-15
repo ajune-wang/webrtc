@@ -22,6 +22,30 @@
       "revId": "91fcf15a1ead4dd90c86de548f87913d60bd783a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75c76c56_48ad4e65",
+        "filename": "modules/audio_processing/include/float_audio_frame.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T13:05:55Z",
+      "side": 1,
+      "message": "Renamed into AudioFrameView and updated the comments.",
+      "parentUuid": "56014e96_6096d0bc",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 21
+      },
+      "revId": "91fcf15a1ead4dd90c86de548f87913d60bd783a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

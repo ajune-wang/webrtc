@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7997dcb7_13c945f7",
+        "filename": "api/mediatypes.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-15T15:20:27Z",
+      "side": 1,
+      "message": "constexpr might be better\nhttp://go/totw/105",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "775e8340e70f4eef729e97f06c89a38881fa4950",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75158a8f_a6e82ecd",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-15T15:20:27Z",
+      "side": 1,
+      "message": "can this dependency be removed from some targets now?",
+      "range": {
+        "startLine": 72,
+        "startChar": 42,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "775e8340e70f4eef729e97f06c89a38881fa4950",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

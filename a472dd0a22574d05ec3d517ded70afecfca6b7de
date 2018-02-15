@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71c5211d_04e5ab3a",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-15T10:28:49Z",
+      "side": 1,
+      "message": "So I think moving inside the same anonymous namespace as FilenameFromPath below is less clutter. Would be nice to also move g_log_crit to the same place, keeping all global variables together.\n\nAh, and should probably be renamed g_min_sev (without trailing underscore) etc.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "a472dd0a22574d05ec3d517ded70afecfca6b7de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

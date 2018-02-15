@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5b797db_8988211f",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-15T15:34:58Z",
+      "side": 1,
+      "message": "Sorry one last nit, can you make this createPeerConnectionFactory so its consistent with the reset of the builders in our SDK.",
+      "range": {
+        "startLine": 166,
+        "startChar": 33,
+        "endLine": 166,
+        "endChar": 38
+      },
+      "revId": "53126a755d332dc66d9e5824c006d70aaba679d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

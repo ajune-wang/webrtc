@@ -46,6 +46,17 @@ static const char kLibjingle[] = "libjingle";
 #include "rtc_base/stringutils.h"
 #include "rtc_base/timeutils.h"
 
+namespace {
+// By default, release builds don't log, debug builds at info level
+#if !defined(NDEBUG)
+static rtc::LoggingSeverity min_sev_ = rtc::LS_INFO;
+static rtc::LoggingSeverity dbg_sev_ = rtc::LS_INFO;
+#else
+static rtc::LoggingSeverity min_sev_ = rtc::LS_NONE;
+static rtc::LoggingSeverity dbg_sev_ = rtc::LS_NONE;
+#endif
+}
+
 namespace rtc {
 namespace {
 
@@ -92,14 +103,7 @@ std::string ErrorName(int err, const ConstantLabel* err_table) {
 // LogMessage
 /////////////////////////////////////////////////////////////////////////////
 
-// By default, release builds don't log, debug builds at info level
-#if !defined(NDEBUG)
-LoggingSeverity LogMessage::min_sev_ = LS_INFO;
-LoggingSeverity LogMessage::dbg_sev_ = LS_INFO;
-#else
-LoggingSeverity LogMessage::min_sev_ = LS_NONE;
-LoggingSeverity LogMessage::dbg_sev_ = LS_NONE;
-#endif
+
 bool LogMessage::log_to_stderr_ = true;
 
 namespace {
@@ -215,6 +219,17 @@ LogMessage::~LogMessage() {
   }
 }
 
+bool LogMessage::Loggable(LoggingSeverity sev) {
+  return sev >= min_sev_;
+}
+
+int LogMessage::GetMinLogSeverity() {
+  return min_sev_;
+}
+
+LoggingSeverity LogMessage::GetLogToDebug() {
+  return dbg_sev_;
+}
 int64_t LogMessage::LogStartTime() {
   static const int64_t g_start = SystemTimeMillis();
   return g_start;

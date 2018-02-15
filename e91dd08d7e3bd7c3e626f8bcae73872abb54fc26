@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "838214e9_9c68028a",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-15T10:12:50Z",
+      "side": 1,
+      "message": "These changes are basically to not crash if running two instances on the same machine.\nThe first process gets the camera, the second process will have a null video_device.\n\nThis code is pretty old (and fairly basic) and now the downstream code has changed enough that we hit a CHECK() if the video device is null.",
+      "range": {
+        "startLine": 419,
+        "startChar": 16,
+        "endLine": 419,
+        "endChar": 17
+      },
+      "revId": "e91dd08d7e3bd7c3e626f8bcae73872abb54fc26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

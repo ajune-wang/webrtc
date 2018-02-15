@@ -26,10 +26,6 @@ PacedSender* RtpTransportControllerSend::pacer() {
   return &pacer_;
 }
 
-SendSideCongestionController* RtpTransportControllerSend::send_side_cc() {
-  return &send_side_cc_;
-}
-
 TransportFeedbackObserver*
 RtpTransportControllerSend::transport_feedback_observer() {
   return &send_side_cc_;
@@ -52,6 +48,71 @@ void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
 void RtpTransportControllerSend::SetKeepAliveConfig(
     const RtpKeepAliveConfig& config) {
   keepalive_ = config;
+}
+RateLimiter* RtpTransportControllerSend::GetRetransmissionRateLimiter() {
+  return send_side_cc_.GetRetransmissionRateLimiter();
+}
+void RtpTransportControllerSend::RegisterNetworkObserver(
+    SendSideCongestionController::Observer* observer) {
+  send_side_cc_.RegisterNetworkObserver(observer);
+}
+void RtpTransportControllerSend::DeRegisterNetworkObserver(
+    SendSideCongestionController::Observer* observer) {
+  send_side_cc_.DeRegisterNetworkObserver(observer);
+}
+void RtpTransportControllerSend::SetBweBitrates(int min_bitrate_bps,
+                                                int start_bitrate_bps,
+                                                int max_bitrate_bps) {
+  send_side_cc_.SetBweBitrates(min_bitrate_bps, start_bitrate_bps,
+                               max_bitrate_bps);
+}
+void RtpTransportControllerSend::OnNetworkRouteChanged(
+    const rtc::NetworkRoute& network_route,
+    int start_bitrate_bps,
+    int min_bitrate_bps,
+    int max_bitrate_bps) {
+  send_side_cc_.OnNetworkRouteChanged(network_route, start_bitrate_bps,
+                                      min_bitrate_bps, max_bitrate_bps);
+}
+void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
+  send_side_cc_.EnablePeriodicAlrProbing(enable);
+}
+void RtpTransportControllerSend::SetTransportOverhead(
+    int transport_overhead_bytes_per_packet) {
+  send_side_cc_.SetTransportOverhead(transport_overhead_bytes_per_packet);
+}
+void RtpTransportControllerSend::RegisterPacketFeedbackObserver(
+    PacketFeedbackObserver* observer) {
+  send_side_cc_.RegisterPacketFeedbackObserver(observer);
+}
+void RtpTransportControllerSend::DeRegisterPacketFeedbackObserver(
+    PacketFeedbackObserver* observer) {
+  send_side_cc_.DeRegisterPacketFeedbackObserver(observer);
+}
+RtcpBandwidthObserver* RtpTransportControllerSend::GetBandwidthObserver() {
+  return send_side_cc_.GetBandwidthObserver();
+}
+CallStatsObserver* RtpTransportControllerSend::GetCallStatsObserver() {
+  return &send_side_cc_;
+}
+Module* RtpTransportControllerSend::GetModule() {
+  return &send_side_cc_;
+}
+int64_t RtpTransportControllerSend::GetFirstPacketTimeMs() const {
+  return send_side_cc_.GetFirstPacketTimeMs();
+}
+bool RtpTransportControllerSend::AvailableBandwidth(uint32_t* bandwidth) const {
+  return send_side_cc_.AvailableBandwidth(bandwidth);
+}
+int64_t RtpTransportControllerSend::GetPacerQueuingDelayMs() const {
+  return send_side_cc_.GetPacerQueuingDelayMs();
+}
+void RtpTransportControllerSend::OnSentPacket(
+    const rtc::SentPacket& sent_packet) {
+  send_side_cc_.OnSentPacket(sent_packet);
+}
+void RtpTransportControllerSend::SignalNetworkState(NetworkState state) {
+  send_side_cc_.SignalNetworkState(state);
 }
 
 }  // namespace webrtc

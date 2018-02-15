@@ -52,6 +52,7 @@ rtc_source_set("rtp_interfaces") {
   ]
   deps = [
     "../api:array_view",
+    "../modules/congestion_controller",
     "../rtc_base:rtc_base_approved",
   ]
 }

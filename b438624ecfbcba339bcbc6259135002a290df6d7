@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48f086af_7ea7f198",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T14:42:43Z",
+      "side": 1,
+      "message": "It\u0027s OK to have top-level const on arguments in function *definitions*, but in function *declarations* they\u0027re just noise.",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 11
+      },
+      "revId": "b438624ecfbcba339bcbc6259135002a290df6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e5096df_f07f8c56",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T14:42:43Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 79,
+        "startChar": 6,
+        "endLine": 79,
+        "endChar": 11
+      },
+      "revId": "b438624ecfbcba339bcbc6259135002a290df6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "435096e7_f1a42b0c",
+        "filename": "api/fec_controller.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T14:42:43Z",
+      "side": 1,
+      "message": "This change will break any user code that implements VCMProtectionCallback::UpdateWithEncodedData(). Are you sure that no such user code exists?\n\nOh---I guess the comment on line 21-22 applies here? All OK in that case.",
+      "revId": "b438624ecfbcba339bcbc6259135002a290df6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fcbe91f_395ec3a4",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 27
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T14:42:43Z",
+      "side": 1,
+      "message": "Two more overloads of CreateModularPeerConnectionFactory(). How incredibly happy that makes me...\n\nNot your fault though. This was already a mess.",
+      "revId": "b438624ecfbcba339bcbc6259135002a290df6d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

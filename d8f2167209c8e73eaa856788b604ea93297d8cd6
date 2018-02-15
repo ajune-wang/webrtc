@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98258a75_b1c60da5",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T14:25:02Z",
+      "side": 1,
+      "message": "If you wanted more churn, you could consider changing these to take two ArrayView arguments:\n\n  template \u003csize_t N\u003e\n  void ExpectArraysEq(rtc::ArrayView\u003cconst float, N\u003e ref,\n                      rtc::ArrayView\u003cconst float, N\u003e test) {...}\n\nThat way, you could no longer make mistakes with the array sizes.\n\nIt may be better to use EXPECT_THAT with the proper matchers, though. Or to not change it, in the interest of getting this landed. :-)",
+      "revId": "d8f2167209c8e73eaa856788b604ea93297d8cd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "936663a2_0650741b",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T14:25:02Z",
+      "side": 1,
+      "message": "Replacing this with 20.f makes clang on godbolt.org very happy---by having this constant be a double, you force conversions from float to double and then back again, and you make a double multiplication instead of a float multiplication.\n\n(I see you have double literals elsewhere that ought to be float literals. Maybe give them all f suffixes just to be safe? In fact, I just checked DbToRatio, and it shrinks from 8 to 4 instructions, *and* ends up calling powf() instead of pow(), which I imagine can save quite some time.)",
+      "range": {
+        "startLine": 91,
+        "startChar": 9,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "d8f2167209c8e73eaa856788b604ea93297d8cd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -11,6 +11,7 @@
 #ifndef CALL_RTP_TRANSPORT_CONTROLLER_SEND_H_
 #define CALL_RTP_TRANSPORT_CONTROLLER_SEND_H_
 
+#include "api/rtpparameters.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/congestion_controller/include/send_side_congestion_controller.h"

@@ -510,6 +510,10 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // cost.
     rtc::Optional<rtc::AdapterType> network_preference;
 
+    // The interval at which STUN candidates will resend STUN binding requests
+    // to keep NAT bindings open.
+    int stun_candidate_keepalive_interval = kUndefined;
+
     // Configure the SDP semantics used by this PeerConnection. Note that the
     // WebRTC 1.0 specification requires kUnifiedPlan semantics. The
     // RtpTransceiver API is only available with kUnifiedPlan semantics.

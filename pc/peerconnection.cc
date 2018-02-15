@@ -629,6 +629,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     webrtc::TurnCustomizer* turn_customizer;
     SdpSemantics sdp_semantics;
     rtc::Optional<rtc::AdapterType> network_preference;
+    int stun_candidate_keepalive_interval;
   };
   static_assert(sizeof(stuff_being_tested_for_equality) == sizeof(*this),
                 "Did you add something to RTCConfiguration and forget to "
@@ -667,7 +668,9 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          ice_regather_interval_range == o.ice_regather_interval_range &&
          turn_customizer == o.turn_customizer &&
          sdp_semantics == o.sdp_semantics &&
-         network_preference == o.network_preference;
+         network_preference == o.network_preference &&
+         stun_candidate_keepalive_interval ==
+             o.stun_candidate_keepalive_interval;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
@@ -4731,6 +4734,7 @@ cricket::IceConfig PeerConnection::ParseIceConfig(
   ice_config.regather_all_networks_interval_range =
       config.ice_regather_interval_range;
   ice_config.network_preference = config.network_preference;
+  ice_config.stun_keepalive_interval = config.stun_candidate_keepalive_interval;
   return ice_config;
 }
 

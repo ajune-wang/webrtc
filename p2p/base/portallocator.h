@@ -244,7 +244,10 @@ class PortAllocatorSession : public sigslot::has_slots<> {
   virtual void RegatherOnFailedNetworks() {}
   // Re-gathers candidates on all networks.
   virtual void RegatherOnAllNetworks() {}
-
+  // Set the interval at which STUN candidates will resend STUN binding requests
+  // on the underlying ports to keep NAT bindings open.
+  virtual void SetStunKeepaliveIntervalForReadyPorts(
+      int stun_keepalive_interval) {}
   // Another way of getting the information provided by the signals below.
   //
   // Ports and candidates are not guaranteed to be in the same order as the

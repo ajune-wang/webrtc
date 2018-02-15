@@ -429,6 +429,17 @@ void BasicPortAllocatorSession::Regather(
   }
 }
 
+void BasicPortAllocatorSession::SetStunKeepaliveIntervalForReadyPorts(
+    int stun_keepalive_interval) {
+  auto ports = ReadyPorts();
+  for (PortInterface* port : ports) {
+    if (port->Type() == LOCAL_PORT_TYPE || port->Type() == STUN_PORT_TYPE) {
+      reinterpret_cast<UDPPort*>(port)->set_stun_keepalive_delay(
+          stun_keepalive_interval);
+    }
+  }
+}
+
 std::vector<PortInterface*> BasicPortAllocatorSession::ReadyPorts() const {
   std::vector<PortInterface*> ret;
   for (const PortData& data : ports_) {

@@ -381,6 +381,9 @@ public class PeerConnection {
     // Use "Unknown" to represent no preference of adapter types, not the
     // preference of adapters of unknown types.
     public AdapterType networkPreference;
+    // The interval at which STUN candidates will resend STUN binding requests
+    // to keep NAT bindings open.
+    public int stunCandidateKeepaliveInterval;
 
     // This is an optional wrapper for the C++ webrtc::TurnCustomizer.
     public TurnCustomizer turnCustomizer;
@@ -417,6 +420,7 @@ public class PeerConnection {
       combinedAudioVideoBwe = null;
       enableDtlsSrtp = null;
       networkPreference = AdapterType.UNKNOWN;
+      stunCandidateKeepaliveInterval = -1;
     }
 
     @CalledByNative("RTCConfiguration")
@@ -562,6 +566,11 @@ public class PeerConnection {
     @CalledByNative("RTCConfiguration")
     AdapterType getNetworkPreference() {
       return networkPreference;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    int getStunCandidateKeepaliveInterval() {
+      return stunCandidateKeepaliveInterval;
     }
   };
 

@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "1f2f633a_a8effbe3",
+        "filename": "modules/audio_processing/agc2/agc2_common.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "849360e5_9b55571e",
+      "range": {
+        "startLine": 27,
+        "startChar": 27,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "788907f2_61d3a0de",
         "filename": "modules/audio_processing/agc2/agc2_common.h",
         "patchSetId": 5
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "738704c7_39a5e04e",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "788907f2_61d3a0de",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8e3ee3e_fe967f91",
         "filename": "modules/audio_processing/agc2/agc2_common.h",
         "patchSetId": 5
@@ -114,6 +162,30 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "155bfcac_537ecf1a",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8e3ee3e_fe967f91",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -160,6 +232,54 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "256ffe72_e30c2e8d",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "155e6e8c_5429720b",
+      "range": {
+        "startLine": 41,
+        "startChar": 20,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6ec6620_82971f4a",
+        "filename": "modules/audio_processing/agc2/agc2_common.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "I\u0027ve moved the dB and dBFs conversions to a separate CL. They are now in common_audio/include/audio_util.h https://webrtc-review.googlesource.com/c/src/+/53141",
+      "parentUuid": "e99d3de0_65543878",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 19
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -302,6 +422,30 @@
     },
     {
       "key": {
+        "uuid": "ed87379e_ab28bf4d",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "987264f3_396a757c",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4cd4d32_ffdb59ec",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
         "patchSetId": 5
@@ -322,6 +466,30 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cb004d6_eb4ee715",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4cd4d32_ffdb59ec",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 2
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -348,6 +516,30 @@
     },
     {
       "key": {
+        "uuid": "716967b7_9a841bda",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "\"at any time\" was a bad choice of words. This class is not thread safe. It relies on synchronization done in AudioProcessingImpl.",
+      "parentUuid": "bd9f4d1e_f4165187",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46243807_fafff780",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
         "patchSetId": 5
@@ -371,6 +563,30 @@
     },
     {
       "key": {
+        "uuid": "810cf25d_abfc974f",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46243807_fafff780",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9351b2a_bf66af49",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
         "patchSetId": 5
@@ -382,6 +598,30 @@
       "writtenOn": "2018-02-14T11:56:13Z",
       "side": 1,
       "message": "Is this class intended to be copy-/assignable? If not, delete corresponding member functions.\n\nAlso \"...document that your class is copyable and/or cheaply movable if that\u0027s an API guarantee.\"\nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 2
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0128119_9c3f9549",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-15T14:18:41Z",
+      "side": 1,
+      "message": "The class consists of 3 numeric values and one pointer. On one hand it\u0027s trivially copyable, on the other, we never try to copy it. I\u0027ll add DISALLOW macros for now. I will also maybe remove them in a later CL. When we re-configure the submodule, it could help to assign a new LevelEstimator to a member.",
+      "parentUuid": "a9351b2a_bf66af49",
       "range": {
         "startLine": 49,
         "startChar": 0,

@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15df59f6_54ecac2a",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T10:09:34Z",
+      "side": 1,
+      "message": "All of these can be `static constexpr`, right?",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 7
+      },
+      "revId": "940606fde3186925c1b573a1bf90273641e2512b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11942fb1_38f23e37",
+        "filename": "common_audio/audio_util_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T10:09:34Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s actually a good idea to declare arrays of a specific size like this---the compiler will silently accept too few numbers in the initializer thingy.\n\nBetter to do something like\n\n  static constexpr float kInput[] \u003d {...};\n  static constexpr size_t kSize \u003d arraysize(kInput);\n  static constexpr float kReference[] \u003d {...};\n  static_assert(arraysize(kReference) \u003d\u003d kSize);\n  float output[kSize];\n  ...",
+      "range": {
+        "startLine": 93,
+        "startChar": 25,
+        "endLine": 93,
+        "endChar": 30
+      },
+      "revId": "940606fde3186925c1b573a1bf90273641e2512b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19ae6fe1_afe26a1a",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T10:09:34Z",
+      "side": 1,
+      "message": "constexpr?",
+      "range": {
+        "startLine": 78,
+        "startChar": 9,
+        "endLine": 78,
+        "endChar": 14
+      },
+      "revId": "940606fde3186925c1b573a1bf90273641e2512b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e22d63f_ff7899f3",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T10:09:34Z",
+      "side": 1,
+      "message": "constexpr?",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "940606fde3186925c1b573a1bf90273641e2512b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79f0b104_d7b54a74",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T10:09:34Z",
+      "side": 1,
+      "message": "Irritatingly, std::log10 isn\u0027t constexpr. When I try this out on godbolt.org, the compiler doesn\u0027t (or isn\u0027t allowed to) realize that this is a compile-time constant, and instead generates code to dynamically compute kMinDbfs the first time we get here. If you care about performance, consider replacing this with\n\n  static constexpr float kMinDbfs \u003d \u003csome float literal\u003e;\n\n(Actually---again if you care about performance---consider rewriting the expression on line 89 so that you add or subtract the constant, since division is much more expensive.)",
+      "revId": "940606fde3186925c1b573a1bf90273641e2512b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aea3c91b_ab7d53a8",
+        "filename": "modules/audio_processing/agc2/gain_controller2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T10:09:34Z",
+      "side": 1,
+      "message": "Should you still divide by 20 here?",
+      "revId": "940606fde3186925c1b573a1bf90273641e2512b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a5b2774_269325b6",
+        "filename": "modules/audio_processing/level_controller/peak_level_estimator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-15T10:09:34Z",
+      "side": 1,
+      "message": "Consider merging these two expressions.",
+      "revId": "940606fde3186925c1b573a1bf90273641e2512b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

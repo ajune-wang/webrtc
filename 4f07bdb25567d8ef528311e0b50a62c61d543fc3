@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f82e0e9_5ed5b35e",
+        "filename": "pc/createpeerconnectionfactory.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:03:08Z",
+      "side": 1,
+      "message": "Can this be implemented in terms of the new method above?",
+      "revId": "4f07bdb25567d8ef528311e0b50a62c61d543fc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d686be3_1715dacb",
+        "filename": "pc/peerconnectionfactory.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-15T21:03:08Z",
+      "side": 1,
+      "message": "Should be able to remove this constructor.",
+      "revId": "4f07bdb25567d8ef528311e0b50a62c61d543fc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

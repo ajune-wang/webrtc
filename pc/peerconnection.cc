@@ -2157,7 +2157,8 @@ RTCError PeerConnection::ApplyRemoteDescription(
   }
 
   if (IsUnifiedPlan()) {
-    std::vector<TrackEvent> track_events;
+    std::vector<rtc::scoped_refptr<RtpTransceiverInterface>>
+        receiving_transceivers;
     for (auto transceiver : transceivers_) {
       const ContentInfo* content =
           FindMediaSectionForTransceiver(transceiver, remote_description());
@@ -2185,10 +2186,7 @@ RTCError PeerConnection::ApplyRemoteDescription(
           remote_streams_->AddStream(stream);
         }
         transceiver->internal()->receiver_internal()->SetStreams({stream});
-        TrackEvent track_event;
-        track_event.receiver = transceiver->receiver();
-        track_event.streams = transceiver->receiver()->streams();
-        track_events.push_back(std::move(track_event));
+        receiving_transceivers.push_back(transceiver);
       }
       // If direction is sendonly or inactive, and transceiver's current
       // direction is neither sendonly nor inactive, process the removal of a
@@ -2209,8 +2207,10 @@ RTCError PeerConnection::ApplyRemoteDescription(
             media_desc->streams()[0].first_ssrc());
       }
     }
-    for (auto event : track_events) {
-      observer_->OnAddTrack(event.receiver, event.streams);
+    for (auto transceiver : receiving_transceivers) {
+      observer_->OnTrack(transceiver);
+      observer_->OnAddTrack(transceiver->receiver(),
+                            transceiver->receiver()->streams());
     }
   }
 

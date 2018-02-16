@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6580e745_29e381ee",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-16T12:52:32Z",
+      "side": 1,
+      "message": "This won\u0027t work. PSNR is not a linear function. You could potentially infer sum-square-error  from the psnr values, and calculate a new psnr from the joint sse and sample count.\nOr preferably add direct support for this in libyuv. ping magjed@ itc",
+      "range": {
+        "startLine": 251,
+        "startChar": 29,
+        "endLine": 251,
+        "endChar": 0
+      },
+      "revId": "d4eab206d07340b8ab0f8837e5c80183a9c6dbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "488c0ffc_7940ac55",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-16T12:52:32Z",
+      "side": 1,
+      "message": "ssim isn\u0027t linear either...",
+      "range": {
+        "startLine": 298,
+        "startChar": 29,
+        "endLine": 298,
+        "endChar": 0
+      },
+      "revId": "d4eab206d07340b8ab0f8837e5c80183a9c6dbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43278cbc_c36b3da8",
+        "filename": "test/frame_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-16T12:52:32Z",
+      "side": 1,
+      "message": "Please add a comment what this is used for.\nWouldn\u0027t it be possible to use a lambda instead?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 4
+      },
+      "revId": "d4eab206d07340b8ab0f8837e5c80183a9c6dbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "184b6746_eea8b77a",
+        "filename": "test/frame_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-16T12:52:32Z",
+      "side": 1,
+      "message": "Update the draw-method to directly handle i420a?",
+      "range": {
+        "startLine": 70,
+        "startChar": 31,
+        "endLine": 70,
+        "endChar": 0
+      },
+      "revId": "d4eab206d07340b8ab0f8837e5c80183a9c6dbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

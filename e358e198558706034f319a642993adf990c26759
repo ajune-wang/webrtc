@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02bd3e63_77161590",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-16T08:31:48Z",
+      "side": 1,
+      "message": "nit: else if?\n(unless rampup_conf.non_zero_gain_blocks can be 0 or less)",
+      "revId": "e358e198558706034f319a642993adf990c26759",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eebe2fa_727bf4af",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-16T08:31:48Z",
+      "side": 1,
+      "message": "nit: else if",
+      "revId": "e358e198558706034f319a642993adf990c26759",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

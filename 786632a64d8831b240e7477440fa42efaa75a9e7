@@ -306,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "37cc20ce_4002da1a",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0e10d41_14e12a40",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 70
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faea097e_836e9395",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
         "patchSetId": 5
@@ -376,6 +400,54 @@
     },
     {
       "key": {
+        "uuid": "f952ac64_94550448",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure if the checks should be CHECK. I\u0027ll change to DCHECK for smaller binary.",
+      "parentUuid": "c39ceb28_b7f88477",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72458e70_4271e2b9",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "The algorithm doesn\u0027t work as well. I think the estimation is one sample late all the time. And that I think caused more clipping in the gain application stage.\n\nWe had a slightly different algorithm for one sample/frame. After tuning I found that 20 samples/frame had better quality. Then I removed the 1 sample / sub frame code and added the check.",
+      "parentUuid": "faea097e_836e9395",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d174939e_cbe4f358",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
         "patchSetId": 5
@@ -396,6 +468,30 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7be24c6c_7ef8b322",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Thanks, done!",
+      "parentUuid": "d174939e_cbe4f358",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 78
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -705,6 +801,30 @@
     },
     {
       "key": {
+        "uuid": "5d261677_28fb1e24",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f911f7f3_115ef70c",
+      "range": {
+        "startLine": 26,
+        "startChar": 51,
+        "endLine": 26,
+        "endChar": 61
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48680c5a_da5dcf6c",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
         "patchSetId": 5
@@ -725,6 +845,30 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f45d41f_2691b199",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "No, I don\u0027t think so. FloatAudioFrame is a wrapper around a data pointer and two size constants. The VectorFloatFrame owns its own data. It also provides a FloatAudioFrame view of the data. The VectorFloatFrame is only supposed to be used in tests.",
+      "parentUuid": "48680c5a_da5dcf6c",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -751,6 +895,30 @@
     },
     {
       "key": {
+        "uuid": "f906f58c_8af4f8b4",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18b7db69_527acc56",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 7
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8c3ca7c_dbe0396f",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
         "patchSetId": 5
@@ -771,6 +939,30 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0d2f705_e39b1967",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Probably just a mistake. The test passes with 0.99, 1.01. I\u0027ve changed the thresholds.",
+      "parentUuid": "c8c3ca7c_dbe0396f",
+      "range": {
+        "startLine": 117,
+        "startChar": 69,
+        "endLine": 118,
+        "endChar": 38
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -797,6 +989,30 @@
     },
     {
       "key": {
+        "uuid": "5a9752d5_fbde5c18",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcd85627_b355e36c",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 7
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "511c76d3_d6e4bcdb",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
         "patchSetId": 5
@@ -817,6 +1033,30 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7de5789b_0d650586",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "511c76d3_d6e4bcdb",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 7
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -843,6 +1083,30 @@
     },
     {
       "key": {
+        "uuid": "9ef66c9c_0d6ad407",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Thanks! I\u0027ve updated and renamed one of the tests.",
+      "parentUuid": "6571e3be_18d30aa0",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 1
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18c54462_30eafbb5",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
         "patchSetId": 5
@@ -863,6 +1127,30 @@
       "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "206b9bd7_dfc22337",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T10:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18c54462_30eafbb5",
+      "range": {
+        "startLine": 149,
+        "startChar": 2,
+        "endLine": 149,
+        "endChar": 7
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

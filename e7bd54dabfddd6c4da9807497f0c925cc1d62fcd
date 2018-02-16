@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6abf020a_628694c3",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T12:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2fe77b6_736ab8be",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "e7bd54dabfddd6c4da9807497f0c925cc1d62fcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33799b3d_981d730a",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
         "patchSetId": 14
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0f0d98e3_359cfb75",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T12:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33799b3d_981d730a",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 39
+      },
+      "revId": "e7bd54dabfddd6c4da9807497f0c925cc1d62fcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "063ad78b_d081aeed",
         "filename": "modules/audio_processing/audio_frame_view_unittest.cc",
         "patchSetId": 14
@@ -68,6 +116,30 @@
       "revId": "e7bd54dabfddd6c4da9807497f0c925cc1d62fcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f6b398_36597780",
+        "filename": "modules/audio_processing/audio_frame_view_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-16T12:59:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "063ad78b_d081aeed",
+      "range": {
+        "startLine": 42,
+        "startChar": 26,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "e7bd54dabfddd6c4da9807497f0c925cc1d62fcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

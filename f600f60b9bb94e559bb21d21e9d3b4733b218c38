@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd4b0437_169dd04f",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-02-16T09:09:34Z",
+      "side": 1,
+      "message": "If we\u0027re having a videoframebuffer_objc target it would make sense to me to have this in there, since it is also a video frame buffer class.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 59
+      },
+      "revId": "f600f60b9bb94e559bb21d21e9d3b4733b218c38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a000a185_06b37b86",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-02-16T09:09:34Z",
+      "side": 1,
+      "message": "Maybe these should be in its own target, their only purpose is to share some code between the implementations of the Obj-C wrapping of VP8 and VP9 SW codecs. So it\u0027s the opposite of the other things in the native_api targets, which is to wrap Obj-C components in C++ classes.",
+      "range": {
+        "startLine": 886,
+        "startChar": 0,
+        "endLine": 889,
+        "endChar": 80
+      },
+      "revId": "f600f60b9bb94e559bb21d21e9d3b4733b218c38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

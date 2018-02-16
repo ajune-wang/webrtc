@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4d4af94_99cc47bc",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-02-16T09:09:34Z",
+      "side": 0,
+      "message": "This seems sad, these should be part of the native API",
+      "range": {
+        "startLine": 834,
+        "startChar": 0,
+        "endLine": 835,
+        "endChar": 58
+      },
+      "revId": "c49bcd99117c04581b9b4f4fc3aef93aee804d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -78,6 +78,8 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
         std::make_pair(std::make_pair(pid, sidx), std::move(frame)));
   }
 
+  void OnSkippedFrames(int num_frames_skipped) override {}
+
   void InsertGeneric(uint16_t seq_num_start,
                      uint16_t seq_num_end,
                      bool keyframe) {

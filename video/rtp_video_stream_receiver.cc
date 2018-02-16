@@ -394,6 +394,10 @@ void RtpVideoStreamReceiver::OnReceivedFrame(
   reference_finder_->ManageFrame(std::move(frame));
 }
 
+void RtpVideoStreamReceiver::OnSkippedIncompleteFrames(int num_frames_skipped) {
+  complete_frame_callback_->OnSkippedFrames(num_frames_skipped);
+}
+
 void RtpVideoStreamReceiver::OnCompleteFrame(
     std::unique_ptr<video_coding::FrameObject> frame) {
   {
@@ -403,6 +407,10 @@ void RtpVideoStreamReceiver::OnCompleteFrame(
     last_seq_num_for_pic_id_[rtp_frame->picture_id] = rtp_frame->last_seq_num();
   }
   complete_frame_callback_->OnCompleteFrame(std::move(frame));
+}
+
+void RtpVideoStreamReceiver::OnSkippedFrames(int num_frames_skipped) {
+  complete_frame_callback_->OnSkippedFrames(num_frames_skipped);
 }
 
 void RtpVideoStreamReceiver::OnRttUpdate(int64_t avg_rtt_ms,

@@ -135,6 +135,8 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
                      << stream_duration_sec;
   }
 
+  RTC_LOG(LS_INFO) << "Frames decoded " << stats_.frames_decoded;
+
   if (first_report_block_time_ms_ != -1 &&
       ((clock_->TimeInMilliseconds() - first_report_block_time_ms_) / 1000) >=
           metrics::kMinRunTimeInSeconds) {
@@ -325,6 +327,13 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
       RTC_LOG(LS_INFO) << uma_prefix << ".ReceivedHeightInPixels" << uma_suffix
                        << " " << height;
     }
+
+    int num_dropped_frames = stats.num_dropped_frames;
+    RTC_HISTOGRAM_COUNTS_SPARSE_1000(
+        uma_prefix + ".DroppedFrames.Receiver" + uma_suffix,
+        num_dropped_frames);
+    RTC_LOG(LS_INFO) << uma_prefix << ".DroppedFrames.Receiver" << uma_suffix
+                     << " " << num_dropped_frames;
 
     if (content_type != VideoContentType::UNSPECIFIED) {
       // Don't report these 3 metrics unsliced, as more precise variants
@@ -575,6 +584,13 @@ void ReceiveStatisticsProxy::OnFrameBufferTimingsUpdated(
   // Network delay (rtt/2) + target_delay_ms (jitter delay + decode time +
   // render delay).
   delay_counter_.Add(target_delay_ms + avg_rtt_ms_ / 2);
+}
+
+void ReceiveStatisticsProxy::OnSkippedFrames(int num_frames_skipped) {
+  rtc::CritScope lock(&crit_);
+  ContentSpecificStats* content_specific_stats =
+      &content_specific_stats_[last_content_type_];
+  content_specific_stats->num_dropped_frames += num_frames_skipped;
 }
 
 void ReceiveStatisticsProxy::OnTimingFrameInfoUpdated(
@@ -837,5 +853,6 @@ void ReceiveStatisticsProxy::ContentSpecificStats::Add(
   frame_counts.key_frames += other.frame_counts.key_frames;
   frame_counts.delta_frames += other.frame_counts.delta_frames;
   interframe_delay_percentiles.Add(other.interframe_delay_percentiles);
+  num_dropped_frames += other.num_dropped_frames;
 }
 }  // namespace webrtc

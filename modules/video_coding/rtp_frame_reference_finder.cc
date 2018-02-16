@@ -37,6 +37,7 @@ void RtpFrameReferenceFinder::ManageFrame(
   // If we have cleared past this frame, drop it.
   if (cleared_to_seq_num_ != -1 &&
       AheadOf<uint16_t>(cleared_to_seq_num_, frame->first_seq_num())) {
+    frame_callback_->OnSkippedFrames(1);
     return;
   }
 
@@ -53,6 +54,7 @@ void RtpFrameReferenceFinder::ManageFrame(
       RetryStashedFrames();
       break;
     case kDrop:
+      frame_callback_->OnSkippedFrames(1);
       break;
   }
 }
@@ -75,6 +77,7 @@ void RtpFrameReferenceFinder::RetryStashedFrames() {
           RTC_FALLTHROUGH();
         case kDrop:
           frame_it = stashed_frames_.erase(frame_it);
+          frame_callback_->OnSkippedFrames(1);
       }
     }
   } while (complete_frame);
@@ -123,13 +126,18 @@ void RtpFrameReferenceFinder::ClearTo(uint16_t seq_num) {
   rtc::CritScope lock(&crit_);
   cleared_to_seq_num_ = seq_num;
 
+  int num_skipped_frames = 0;
   auto it = stashed_frames_.begin();
   while (it != stashed_frames_.end()) {
     if (AheadOf<uint16_t>(cleared_to_seq_num_, (*it)->first_seq_num())) {
       it = stashed_frames_.erase(it);
+      ++num_skipped_frames;
     } else {
       ++it;
     }
+  }
+  if (num_skipped_frames > 0) {
+    frame_callback_->OnSkippedFrames(num_skipped_frames);
   }
 }
 

@@ -35,6 +35,9 @@ class OnCompleteFrameCallback {
  public:
   virtual ~OnCompleteFrameCallback() {}
   virtual void OnCompleteFrame(std::unique_ptr<FrameObject> frame) = 0;
+  // Used to notify upper layers about full frame which are deemed undecodable
+  // and dropped.
+  virtual void OnSkippedFrames(int num_frames_skipped) = 0;
 };
 
 class RtpFrameReferenceFinder {

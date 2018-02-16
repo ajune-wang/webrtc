@@ -37,6 +37,8 @@ class OnReceivedFrameCallback {
  public:
   virtual ~OnReceivedFrameCallback() {}
   virtual void OnReceivedFrame(std::unique_ptr<RtpFrameObject> frame) = 0;
+  // Used to notify upper layers about incomplete frames deemed un-receivable.
+  virtual void OnSkippedIncompleteFrames(int num_frames_skipped) = 0;
 };
 
 class PacketBuffer {

@@ -305,6 +305,7 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<FrameObject> frame) {
                         << key.picture_id << ":"
                         << static_cast<int>(key.spatial_layer)
                         << ") has invalid frame references, dropping frame.";
+    stats_callback_->OnSkippedFrames(1);
     return last_continuous_picture_id;
   }
 
@@ -314,6 +315,7 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<FrameObject> frame) {
                         << static_cast<int>(key.spatial_layer)
                         << ") could not be inserted due to the frame "
                         << "buffer being full, dropping frame.";
+    stats_callback_->OnSkippedFrames(1);
     return last_continuous_picture_id;
   }
 
@@ -339,6 +341,7 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<FrameObject> frame) {
                           << static_cast<int>(
                                  last_decoded_frame_it_->first.spatial_layer)
                           << ") was handed off for decoding, dropping frame.";
+      stats_callback_->OnSkippedFrames(1);
       return last_continuous_picture_id;
     }
   }
@@ -445,13 +448,17 @@ void FrameBuffer::AdvanceLastDecodedFrame(FrameMap::iterator decoded) {
   --num_frames_buffered_;
   ++num_frames_history_;
 
+  size_t num_skipped_frames = 0;
   // First, delete non-decoded frames from the history.
   while (last_decoded_frame_it_ != decoded) {
     if (last_decoded_frame_it_->second.frame)
       --num_frames_buffered_;
     last_decoded_frame_it_ = frames_.erase(last_decoded_frame_it_);
+    num_skipped_frames++;
   }
-
+  if (num_skipped_frames > 0) {
+    stats_callback_->OnSkippedFrames(num_skipped_frames);
+  }
   // Then remove old history if we have too much history saved.
   if (num_frames_history_ > kMaxFramesHistory) {
     frames_.erase(frames_.begin());

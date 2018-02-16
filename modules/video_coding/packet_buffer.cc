@@ -146,15 +146,29 @@ void PacketBuffer::ClearTo(uint16_t seq_num) {
   ++seq_num;
   size_t diff = ForwardDiff<uint16_t>(first_seq_num_, seq_num);
   size_t iterations = std::min(diff, size_);
+  size_t num_skipped_frames = 0;
+  uint32_t last_skipped_timestamp = 0;
   for (size_t i = 0; i < iterations; ++i) {
     size_t index = first_seq_num_ % size_;
     RTC_DCHECK_EQ(data_buffer_[index].seqNum, sequence_buffer_[index].seq_num);
     if (AheadOf<uint16_t>(seq_num, sequence_buffer_[index].seq_num)) {
+      // Infer number of skipped frames by counting different RTP timestamps
+      // among skipped packets.
+      if (!sequence_buffer_[index].frame_created &&
+          (data_buffer_[index].timestamp != last_skipped_timestamp ||
+           num_skipped_frames == 0)) {
+        last_skipped_timestamp = data_buffer_[index].timestamp;
+        ++num_skipped_frames;
+      }
       delete[] data_buffer_[index].dataPtr;
       data_buffer_[index].dataPtr = nullptr;
       sequence_buffer_[index].used = false;
     }
     ++first_seq_num_;
+  }
+
+  if (num_skipped_frames > 0) {
+    received_frame_callback_->OnSkippedIncompleteFrames(num_skipped_frames);
   }
 
   // If |diff| is larger than |iterations| it means that we don't increment

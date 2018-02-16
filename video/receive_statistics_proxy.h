@@ -77,6 +77,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
                                    int jitter_buffer_ms,
                                    int min_playout_delay_ms,
                                    int render_delay_ms) override;
+  void OnSkippedFrames(int num_frames_skipped) override;
 
   void OnTimingFrameInfoUpdated(const TimingFrameInfo& info) override;
 
@@ -129,6 +130,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
     SampleCounter qp_counter;
     FrameCounts frame_counts;
     rtc::HistogramPercentileCounter interframe_delay_percentiles;
+    size_t num_dropped_frames = 0;
   };
 
   void UpdateHistograms() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);

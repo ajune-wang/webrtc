@@ -50,6 +50,8 @@ class TestPacketBuffer : public ::testing::Test,
         std::make_pair(frame->first_seq_num(), std::move(frame)));
   }
 
+  void OnSkippedIncompleteFrames(int num_frames_skipped) override {}
+
   enum IsKeyFrame { kKeyFrame, kDeltaFrame };
   enum IsFirst { kFirst, kNotFirst };
   enum IsLast { kLast, kNotLast };

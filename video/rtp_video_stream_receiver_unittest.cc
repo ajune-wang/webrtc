@@ -68,7 +68,8 @@ class MockOnCompleteFrameCallback
                void(video_coding::FrameObject* frame));
   MOCK_METHOD1(DoOnCompleteFrameFailBitstream,
                void(video_coding::FrameObject* frame));
-  void OnCompleteFrame(std::unique_ptr<video_coding::FrameObject> frame) {
+  void OnCompleteFrame(
+      std::unique_ptr<video_coding::FrameObject> frame) override {
     if (!frame) {
       DoOnCompleteFrameFailNullptr(nullptr);
       return;
@@ -86,6 +87,8 @@ class MockOnCompleteFrameCallback
     }
     DoOnCompleteFrame(frame.get());
   }
+  void OnSkippedFrames(int num_frames_skipped) override {}
+
   void AppendExpectedBitstream(const uint8_t data[], size_t size_in_bytes) {
     // TODO(Johan): Let rtc::ByteBuffer handle uint8_t* instead of char*.
     buffer_.WriteBytes(reinterpret_cast<const char*>(data), size_in_bytes);

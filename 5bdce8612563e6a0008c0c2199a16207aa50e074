@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ecac27a_77ed7a05",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-16T09:43:49Z",
+      "side": 1,
+      "message": "Hmm, we should probably use JniCommon nativeAllocateByteBuffer together with nativeFreeByteBuffer. We\u0027ve had problems with the garbage collection not collecting byte buffers fast enough. I can do the changes in JavaI420Bufer.",
+      "range": {
+        "startLine": 72,
+        "startChar": 35,
+        "endLine": 72,
+        "endChar": 49
+      },
+      "revId": "5bdce8612563e6a0008c0c2199a16207aa50e074",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04fc57ec_a5e4dd76",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-16T09:43:49Z",
+      "side": 1,
+      "message": "This seems to never get released.",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 80
+      },
+      "revId": "5bdce8612563e6a0008c0c2199a16207aa50e074",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

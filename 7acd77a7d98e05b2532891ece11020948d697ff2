@@ -140,6 +140,53 @@
       "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae2809d_08413bb4",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-16T09:43:49Z",
+      "side": 1,
+      "message": "Actually, we should just place libyuv::ScalePlane in YuvHelper.java. Then just implement the logic in Java.",
+      "parentUuid": "194e952f_218da8d1",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 71
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03c43fe9_eed1b858",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-16T09:43:49Z",
+      "side": 1,
+      "message": "I am still confused about how you are planning to use this class, can you address magjed\u0027s comment?",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 29
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -347,12 +347,8 @@ struct AudioDecoderUnicornSparklesRainbow {
 // https://bugs.chromium.org/p/webrtc/issues/detail?id=4719 for details.
 // Disabled for Mac, see
 // https://bugs.chromium.org/p/webrtc/issues/detail?id=5231 for details.
-#if defined(THREAD_SANITIZER) || defined(WEBRTC_MAC)
-#define MAYBE_Call DISABLED_Call
-#else
-#define MAYBE_Call Call
-#endif
-TEST_P(PeerConnectionEndToEndTest, MAYBE_Call) {
+#if !(defined(THREAD_SANITIZER) || defined(WEBRTC_MAC))
+TEST_P(PeerConnectionEndToEndTest, Call) {
   rtc::scoped_refptr<webrtc::AudioDecoderFactory> real_decoder_factory =
       webrtc::CreateBuiltinAudioDecoderFactory();
   CreatePcs(nullptr, webrtc::CreateBuiltinAudioEncoderFactory(),
@@ -361,6 +357,7 @@ TEST_P(PeerConnectionEndToEndTest, MAYBE_Call) {
   Negotiate();
   WaitForCallEstablished();
 }
+#endif  // !(defined(THREAD_SANITIZER) || defined(WEBRTC_MAC))
 
 #if !defined(ADDRESS_SANITIZER)
 TEST_P(PeerConnectionEndToEndTest, CallWithLegacySdp) {

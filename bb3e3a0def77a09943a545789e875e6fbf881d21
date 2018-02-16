@@ -33,6 +33,24 @@
       "revId": "bb3e3a0def77a09943a545789e875e6fbf881d21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23e8dffc_bab3a1b4",
+        "filename": "sdk/android/native_api/base/networkmonitor.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6425
+      },
+      "writtenOn": "2018-02-16T11:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3ad57f5_9200e02f",
+      "revId": "bb3e3a0def77a09943a545789e875e6fbf881d21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

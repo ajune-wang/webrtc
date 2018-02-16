@@ -448,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "8ae2c8b0_8312cc37",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-16T12:13:41Z",
+      "side": 1,
+      "message": "I see, thanks for explaining.",
+      "parentUuid": "72458e70_4271e2b9",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d174939e_cbe4f358",
         "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator.cc",
         "patchSetId": 5
@@ -860,6 +884,30 @@
       "side": 1,
       "message": "No, I don\u0027t think so. FloatAudioFrame is a wrapper around a data pointer and two size constants. The VectorFloatFrame owns its own data. It also provides a FloatAudioFrame view of the data. The VectorFloatFrame is only supposed to be used in tests.",
       "parentUuid": "48680c5a_da5dcf6c",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "786632a64d8831b240e7477440fa42efaa75a9e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fef066ed_485b715b",
+        "filename": "modules/audio_processing/agc2/fixed_digital_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-16T12:13:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3f45d41f_2691b199",
       "range": {
         "startLine": 36,
         "startChar": 8,

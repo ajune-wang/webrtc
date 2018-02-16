@@ -16,6 +16,24 @@
       "revId": "e0dd2c5c55f123cfa6060f059f955eaa437bd199",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00f4a40b_b2b3a96c",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-16T11:11:07Z",
+      "side": 1,
+      "message": "It is not necessary until I fill the _factory.cc with content. I added it now to make sure that the dependency graph is ok.\nI\u0027ll remove it from this CL.",
+      "parentUuid": "14581669_0768667a",
+      "revId": "e0dd2c5c55f123cfa6060f059f955eaa437bd199",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

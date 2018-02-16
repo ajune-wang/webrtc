@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "05ca8578_002a07c5",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-16T00:10:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09f37812_b1ab28a8",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8cad43c_ff4152d1",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f642a274_2ea362e4",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-16T00:10:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8cad43c_ff4152d1",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "458dd225_0bdfebd8",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-02-15T21:32:52Z",
       "side": 1,
       "message": "I didn\u0027t realize we were already calling OnAddTrack when the direction flips; we (hbos and I) had planned on it only being called when the receiver is created. As indicated by the comment:\n\n// This is called when a receiver and its track is created.",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "205c05bd_20913e3c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2159,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-16T00:10:46Z",
+      "side": 1,
+      "message": "Discussed this offline: The behavior of checking the direction is more or less equivalent to what would happen with Plan B adding/removing streams so this shouldn\u0027t be unexpected for applications.",
+      "parentUuid": "458dd225_0bdfebd8",
       "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "b460e4b1_8a05684b",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-16T00:10:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e052d67b_b060f1ce",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be052c33_a38bf65e",
         "filename": "pc/test/mockpeerconnectionobservers.h",
         "patchSetId": 2
@@ -84,6 +156,24 @@
       "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d0b6261_c8e37484",
+        "filename": "pc/test/mockpeerconnectionobservers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-16T00:10:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be052c33_a38bf65e",
+      "revId": "6700297c30fa7639116a153055836a4ea2691ecc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

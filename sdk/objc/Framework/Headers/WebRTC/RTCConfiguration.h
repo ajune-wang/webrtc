@@ -63,6 +63,13 @@ typedef NS_ENUM(NSInteger, RTCEncryptionKeyType) {
   RTCEncryptionKeyTypeECDSA,
 };
 
+/** Represents the chosen SDP semantics for the PeerConnection. */
+typedef NS_ENUM(NSInteger, RTCSdpSemantics) {
+  RTCSdpSemanticsDefault,
+  RTCSdpSemanticsPlanB,
+  RTCSdpSemanticsUnifiedPlan,
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 RTC_EXPORT
@@ -131,6 +138,33 @@ RTC_EXPORT
  *  interval specified in milliseconds by the uniform distribution [a, b].
  */
 @property(nonatomic, strong, nullable) RTCIntervalRange *iceRegatherIntervalRange;
+
+/** Configure the SDP semantics used by this PeerConnection. Note that the
+ *  WebRTC 1.0 specification requires kUnifiedPlan semantics. The
+ *  RtpTransceiver API is only available with kUnifiedPlan semantics.
+ *
+ *  kPlanB will cause PeerConnection to create offers and answers with at
+ *  most one audio and one video m= section with multiple RtpSenders and
+ *  RtpReceivers specified as multiple a=ssrc lines within the section. This
+ *  will also cause PeerConnection to reject offers/answers with multiple m=
+ *  sections of the same media type.
+ *
+ *  kUnifiedPlan will cause PeerConnection to create offers and answers with
+ *  multiple m= sections where each m= section maps to one RtpSender and one
+ *  RtpReceiver (an RtpTransceiver), either both audio or both video. Plan B
+ *  style offers or answers will be rejected in calls to SetLocalDescription
+ *  or SetRemoteDescription.
+ *
+ *  For users who only send at most one audio and one video track, this
+ *  choice does not matter and should be left as kDefault.
+ *
+ *  For users who wish to send multiple audio/video streams and need to stay
+ *  interoperable with legacy WebRTC implementations, specify kPlanB.
+ *
+ *  For users who wish to send multiple audio/video streams and/or wish to
+ *  use the new RtpTransceiver API, specify kUnifiedPlan.
+ */
+@property(nonatomic, assign) RTCSdpSemantics sdpSemantics;
 
 - (instancetype)init;
 

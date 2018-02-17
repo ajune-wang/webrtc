@@ -22,8 +22,12 @@
 @class RTCPeerConnectionFactory;
 @class RTCRtpReceiver;
 @class RTCRtpSender;
+@class RTCRtpTransceiver;
+@class RTCRtpTransceiverInit;
 @class RTCSessionDescription;
 @class RTCLegacyStatsReport;
+
+typedef NS_ENUM(NSInteger, RTCRtpMediaType);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -83,6 +87,10 @@ RTC_EXPORT
 - (void)peerConnection:(RTCPeerConnection *)peerConnection
        didRemoveStream:(RTCMediaStream *)stream;
 
+/** Called */
+- (void)peerConnection:(RTCPeerConnection *)peerConnection
+              didTrack:(RTCRtpTransceiver *)transceiver;
+
 /** Called when negotiation is needed, for example ICE has restarted. */
 - (void)peerConnectionShouldNegotiate:(RTCPeerConnection *)peerConnection;
 
@@ -137,6 +145,8 @@ RTC_EXPORT
  */
 @property(nonatomic, readonly) NSArray<RTCRtpReceiver *> *receivers;
 
+@property(nonatomic, readonly) NSArray<RTCRtpTransceiver *> *transceivers;
+
 - (instancetype)init NS_UNAVAILABLE;
 
 /** Sets the PeerConnection's global configuration to |configuration|.
@@ -161,6 +171,14 @@ RTC_EXPORT
 
 /** Remove the given media stream from this peer connection. */
 - (void)removeStream:(RTCMediaStream *)stream;
+
+- (RTCRtpSender *)addTrack:(RTCMediaStreamTrack *)track
+              streamLabels:(NSArray<NSString *> *)streamLabels;
+
+- (BOOL)removeTrack:(RTCRtpSender *)sender;
+
+- (RTCRtpTransceiver *)addTransceiverOfType:(RTCRtpMediaType)mediaType;
+- (RTCRtpTransceiver *)addTransceiverWithTrack:(RTCMediaStreamTrack *)track;
 
 /** Generate an SDP offer. */
 - (void)offerForConstraints:(RTCMediaConstraints *)constraints

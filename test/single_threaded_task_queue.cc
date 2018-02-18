@@ -16,7 +16,7 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/ptr_util.h"
 #include "rtc_base/timeutils.h"
-
+/*
 namespace webrtc {
 namespace test {
 
@@ -49,12 +49,12 @@ SingleThreadedTaskQueueForTesting::~SingleThreadedTaskQueueForTesting() {
   thread_.Stop();
 }
 
-SingleThreadedTaskQueueForTesting::TaskId
+void
 SingleThreadedTaskQueueForTesting::PostTask(Task task) {
   return PostDelayedTask(task, 0);
 }
 
-SingleThreadedTaskQueueForTesting::TaskId
+void
 SingleThreadedTaskQueueForTesting::PostDelayedTask(Task task,
                                                    int64_t delay_ms) {
   int64_t earliest_exec_time = rtc::TimeAfter(delay_ms);
@@ -142,3 +142,4 @@ void SingleThreadedTaskQueueForTesting::RunLoop() {
 
 }  // namespace test
 }  // namespace webrtc
+*/

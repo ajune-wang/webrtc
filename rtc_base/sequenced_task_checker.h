@@ -22,6 +22,9 @@
 #include "rtc_base/thread_annotations.h"
 
 namespace rtc {
+namespace internal {
+class AnnounceOnThread;
+}
 
 // Do nothing implementation, for use in release mode.
 //
@@ -30,8 +33,11 @@ namespace rtc {
 class SequencedTaskCheckerDoNothing {
  public:
   bool CalledSequentially() const { return true; }
-
   void Detach() {}
+
+ protected:
+  friend class internal::AnnounceOnThread;
+  bool IsCurrent() const { return CalledSequentially(); }
 };
 
 // SequencedTaskChecker is a helper class used to help verify that some methods

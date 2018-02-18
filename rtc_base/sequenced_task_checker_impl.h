@@ -33,6 +33,10 @@ class SequencedTaskCheckerImpl {
   // then used exclusively on another thread.
   void Detach();
 
+ protected:
+  friend class internal::AnnounceOnThread;
+  bool IsCurrent() const { return CalledSequentially(); }
+
  private:
   typedef const void* QueueId;
   CriticalSection lock_;

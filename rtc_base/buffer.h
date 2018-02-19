@@ -20,6 +20,7 @@
 #include "api/array_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/type_traits.h"
+#include "rtc_base/zero_memory.h"
 
 namespace rtc {
 
@@ -44,7 +45,8 @@ struct BufferCompat {
 
 // Basic buffer class, can be grown and shrunk dynamically.
 // Unlike std::string/vector, does not initialize data when increasing size.
-template <typename T>
+// If "ExplicitZero" is true, any memory is explicitly cleared before releasing.
+template <typename T, bool ExplicitZero = false>
 class BufferT {
   // We want T's destructor and default constructor to be trivial, i.e. perform
   // no action, so that we don't have to touch the memory we allocate and
@@ -107,6 +109,12 @@ class BufferT {
             typename std::enable_if<
                 internal::BufferCompat<T, U>::value>::type* = nullptr>
   BufferT(U (&array)[N]) : BufferT(array, N) {}
+
+  ~BufferT() {
+    if (ExplicitZero && capacity_) {
+      ExplicitZeroMemory(data_.get(), capacity_ * sizeof(T));
+    }
+  }
 
   // Get a pointer to the data. Just .data() will give you a (const) T*, but if
   // T is a byte-sized integer, you may also use .data<U>() for any other
@@ -346,6 +354,9 @@ class BufferT {
 
     std::unique_ptr<T[]> new_data(new T[new_capacity]);
     std::memcpy(new_data.get(), data_.get(), size_ * sizeof(T));
+    if (ExplicitZero && capacity_) {
+      ExplicitZeroMemory(data_.get(), capacity_ * sizeof(T));
+    }
     data_ = std::move(new_data);
     capacity_ = new_capacity;
     RTC_DCHECK(IsConsistent());
@@ -381,6 +392,10 @@ class BufferT {
 
 // By far the most common sort of buffer.
 using Buffer = BufferT<uint8_t>;
+
+// A buffer that zeros memory before releasing it.
+template <typename T>
+using ExplicitZeroBuffer = BufferT<T, true>;
 
 }  // namespace rtc
 

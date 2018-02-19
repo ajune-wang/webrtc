@@ -22,6 +22,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/timeutils.h"
+#include "rtc_base/zero_memory.h"
 
 namespace cricket {
 
@@ -196,7 +197,7 @@ bool SrtpFilter::ApplySendParams(const CryptoParams& send_params) {
     return false;
   }
 
-  send_key_ = rtc::Buffer(send_key_len + send_salt_len);
+  send_key_ = rtc::ExplicitZeroBuffer<uint8_t>(send_key_len + send_salt_len);
   return ParseKeyParams(send_params.key_params, send_key_.data(),
                         send_key_.size());
 }
@@ -225,7 +226,7 @@ bool SrtpFilter::ApplyRecvParams(const CryptoParams& recv_params) {
     return false;
   }
 
-  recv_key_ = rtc::Buffer(recv_key_len + recv_salt_len);
+  recv_key_ = rtc::ExplicitZeroBuffer<uint8_t>(recv_key_len + recv_salt_len);
   return ParseKeyParams(recv_params.key_params, recv_key_.data(),
                         recv_key_.size());
 }
@@ -241,6 +242,8 @@ bool SrtpFilter::ParseKeyParams(const std::string& key_params,
   }
 
   // Fail if base64 decode fails, or the key is the wrong size.
+  // TODO(jbauch): Switch to ExplicitZeroBuffer for storing sensitive data.
+  // See: crbug.com/webrtc/8905
   std::string key_b64(key_params.substr(7)), key_str;
   if (!rtc::Base64::Decode(key_b64, rtc::Base64::DO_STRICT, &key_str,
                            nullptr) ||
@@ -249,6 +252,7 @@ bool SrtpFilter::ParseKeyParams(const std::string& key_params,
   }
 
   memcpy(key, key_str.c_str(), len);
+  rtc::ExplicitZeroMemory(const_cast<char*>(key_str.data()), key_str.size());
   return true;
 }
 

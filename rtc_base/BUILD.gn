@@ -246,6 +246,8 @@ rtc_source_set("rtc_base_approved_generic") {
     "timeutils.cc",
     "timeutils.h",
     "trace_event.h",
+    "zero_memory.cc",
+    "zero_memory.h",
   ]
 
   deps += [
@@ -656,8 +658,6 @@ rtc_static_library("rtc_base_generic") {
     "stream.h",
     "thread.cc",
     "thread.h",
-    "zero_memory.cc",
-    "zero_memory.h",
   ]
 
   visibility = [
@@ -976,6 +976,7 @@ if (rtc_include_tests) {
       "timestampaligner_unittest.cc",
       "timeutils_unittest.cc",
       "virtualsocket_unittest.cc",
+      "zero_memory_unittest.cc",
     ]
     deps = [
       ":checks",
@@ -1093,7 +1094,6 @@ if (rtc_include_tests) {
       "stream_unittest.cc",
       "testclient_unittest.cc",
       "thread_unittest.cc",
-      "zero_memory_unittest.cc",
     ]
     if (is_win) {
       sources += [

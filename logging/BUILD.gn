@@ -57,6 +57,7 @@ rtc_source_set("rtc_stream_config") {
     ":rtc_event_log_api",
     "..:webrtc_common",
     "../api:libjingle_peerconnection_api",
+    "../api:rtpparameters_api",
   ]
 }
 
@@ -306,7 +307,7 @@ if (rtc_enable_protobuf) {
         ":rtc_event_rtp_rtcp",
         ":rtc_event_video",
         ":rtc_stream_config",
-        "../api:libjingle_peerconnection_api",
+        "../api:rtpparameters_api",
         "../call",
         "../call:call_interfaces",
         "../modules/audio_coding:audio_network_adaptor",

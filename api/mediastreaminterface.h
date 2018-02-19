@@ -85,8 +85,8 @@ class MediaStreamTrackInterface : public rtc::RefCountInterface,
     kEnded,
   };
 
-  static const char kAudioKind[];
-  static const char kVideoKind[];
+  static const char * const kAudioKind;
+  static const char * const kVideoKind;
 
   // The kind() method must return kAudioKind only if the object is a
   // subclass of AudioTrackInterface, and kVideoKind only if the

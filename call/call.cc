@@ -212,11 +212,10 @@ class Call : public webrtc::Call,
   // Implements RecoveredPacketReceiver.
   void OnRecoveredPacket(const uint8_t* packet, size_t length) override;
 
-  void SetBitrateConfig(
-      const webrtc::Call::Config::BitrateConfig& bitrate_config) override;
+  void SetBitrateConfig(const webrtc::BitrateConfig& bitrate_config) override;
 
   void SetBitrateConfigMask(
-      const webrtc::Call::Config::BitrateConfigMask& bitrate_config) override;
+      const webrtc::BitrateConfigMask& bitrate_config) override;
 
   void SetBitrateAllocationStrategy(
       std::unique_ptr<rtc::BitrateAllocationStrategy>
@@ -260,10 +259,6 @@ class Call : public webrtc::Call,
   void UpdateReceiveHistograms();
   void UpdateHistograms();
   void UpdateAggregateNetworkState();
-
-  // Applies update to the BitrateConfig cached in |config_|, restarting
-  // bandwidth estimation from |new_start| if set.
-  void UpdateCurrentBitrateConfig(const rtc::Optional<int>& new_start);
 
   Clock* const clock_;
 
@@ -360,8 +355,6 @@ class Call : public webrtc::Call,
       RTC_GUARDED_BY(&bitrate_crit_);
   AvgCounter pacer_bitrate_kbps_counter_ RTC_GUARDED_BY(&bitrate_crit_);
 
-  std::map<std::string, rtc::NetworkRoute> network_routes_;
-
   std::unique_ptr<RtpTransportControllerSendInterface> transport_send_;
   ReceiveSideCongestionController receive_side_cc_;
   const std::unique_ptr<SendDelayStats> video_send_delay_stats_;
@@ -371,14 +364,6 @@ class Call : public webrtc::Call,
   // |worker_queue| is defined last to ensure all pending tasks are cancelled
   // and deleted before any other members.
   rtc::TaskQueue worker_queue_;
-
-  // The config mask set by SetBitrateConfigMask.
-  // 0 <= min <= start <= max
-  Config::BitrateConfigMask bitrate_config_mask_;
-
-  // The config set by SetBitrateConfig.
-  // min >= 0, start != 0, max == -1 || max > 0
-  Config::BitrateConfig base_bitrate_config_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(Call);
 };
@@ -397,9 +382,10 @@ std::string Call::Stats::ToString(int64_t time_ms) const {
 }
 
 Call* Call::Create(const Call::Config& config) {
-  return new internal::Call(config,
-                            rtc::MakeUnique<RtpTransportControllerSend>(
-                                Clock::GetRealTimeClock(), config.event_log));
+  return new internal::Call(
+      config,
+      rtc::MakeUnique<RtpTransportControllerSend>(
+          Clock::GetRealTimeClock(), config.event_log, config.bitrate_config));
 }
 
 Call* Call::Create(
@@ -442,22 +428,11 @@ Call::Call(const Call::Config& config,
       receive_side_cc_(clock_, transport_send->packet_router()),
       video_send_delay_stats_(new SendDelayStats(clock_)),
       start_ms_(clock_->TimeInMilliseconds()),
-      worker_queue_("call_worker_queue"),
-      base_bitrate_config_(config.bitrate_config) {
+      worker_queue_("call_worker_queue") {
   RTC_DCHECK(config.event_log != nullptr);
-  RTC_DCHECK_GE(config.bitrate_config.min_bitrate_bps, 0);
-  RTC_DCHECK_GE(config.bitrate_config.start_bitrate_bps,
-                config.bitrate_config.min_bitrate_bps);
-  if (config.bitrate_config.max_bitrate_bps != -1) {
-    RTC_DCHECK_GE(config.bitrate_config.max_bitrate_bps,
-                  config.bitrate_config.start_bitrate_bps);
-  }
   transport_send->RegisterNetworkObserver(this);
   transport_send_ = std::move(transport_send);
-  transport_send_->OnNetworkAvailability(false);
-  transport_send_->SetBweBitrates(config_.bitrate_config.min_bitrate_bps,
-                                  config_.bitrate_config.start_bitrate_bps,
-                                  config_.bitrate_config.max_bitrate_bps);
+
   call_stats_->RegisterStatsObserver(&receive_side_cc_);
   call_stats_->RegisterStatsObserver(transport_send_->GetCallStatsObserver());
 
@@ -946,85 +921,16 @@ Call::Stats Call::GetStats() const {
   return stats;
 }
 
-void Call::SetBitrateConfig(
-    const webrtc::Call::Config::BitrateConfig& bitrate_config) {
+void Call::SetBitrateConfig(const BitrateConfig& bitrate_config) {
   TRACE_EVENT0("webrtc", "Call::SetBitrateConfig");
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
-  RTC_DCHECK_GE(bitrate_config.min_bitrate_bps, 0);
-  RTC_DCHECK_NE(bitrate_config.start_bitrate_bps, 0);
-  if (bitrate_config.max_bitrate_bps != -1) {
-    RTC_DCHECK_GT(bitrate_config.max_bitrate_bps, 0);
-  }
-
-  rtc::Optional<int> new_start;
-  // Only update the "start" bitrate if it's set, and different from the old
-  // value. In practice, this value comes from the x-google-start-bitrate codec
-  // parameter in SDP, and setting the same remote description twice shouldn't
-  // restart bandwidth estimation.
-  if (bitrate_config.start_bitrate_bps != -1 &&
-      bitrate_config.start_bitrate_bps !=
-          base_bitrate_config_.start_bitrate_bps) {
-    new_start.emplace(bitrate_config.start_bitrate_bps);
-  }
-  base_bitrate_config_ = bitrate_config;
-  UpdateCurrentBitrateConfig(new_start);
+  transport_send_->SetBitrateConfig(bitrate_config);
 }
 
-void Call::SetBitrateConfigMask(
-    const webrtc::Call::Config::BitrateConfigMask& mask) {
+void Call::SetBitrateConfigMask(const webrtc::BitrateConfigMask& mask) {
   TRACE_EVENT0("webrtc", "Call::SetBitrateConfigMask");
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
-
-  bitrate_config_mask_ = mask;
-  UpdateCurrentBitrateConfig(mask.start_bitrate_bps);
-}
-
-void Call::UpdateCurrentBitrateConfig(const rtc::Optional<int>& new_start) {
-  Config::BitrateConfig updated;
-  updated.min_bitrate_bps =
-      std::max(bitrate_config_mask_.min_bitrate_bps.value_or(0),
-               base_bitrate_config_.min_bitrate_bps);
-
-  updated.max_bitrate_bps =
-      MinPositive(bitrate_config_mask_.max_bitrate_bps.value_or(-1),
-                  base_bitrate_config_.max_bitrate_bps);
-
-  // If the combined min ends up greater than the combined max, the max takes
-  // priority.
-  if (updated.max_bitrate_bps != -1 &&
-      updated.min_bitrate_bps > updated.max_bitrate_bps) {
-    updated.min_bitrate_bps = updated.max_bitrate_bps;
-  }
-
-  // If there is nothing to update (min/max unchanged, no new bandwidth
-  // estimation start value), return early.
-  if (updated.min_bitrate_bps == config_.bitrate_config.min_bitrate_bps &&
-      updated.max_bitrate_bps == config_.bitrate_config.max_bitrate_bps &&
-      !new_start) {
-    RTC_LOG(LS_VERBOSE) << "WebRTC.Call.UpdateCurrentBitrateConfig: "
-                        << "nothing to update";
-    return;
-  }
-
-  if (new_start) {
-    // Clamp start by min and max.
-    updated.start_bitrate_bps = MinPositive(
-        std::max(*new_start, updated.min_bitrate_bps), updated.max_bitrate_bps);
-  } else {
-    updated.start_bitrate_bps = -1;
-  }
-
-  RTC_LOG(INFO) << "WebRTC.Call.UpdateCurrentBitrateConfig: "
-                << "calling SetBweBitrates with args ("
-                << updated.min_bitrate_bps << ", " << updated.start_bitrate_bps
-                << ", " << updated.max_bitrate_bps << ")";
-  transport_send_->SetBweBitrates(updated.min_bitrate_bps,
-                                  updated.start_bitrate_bps,
-                                  updated.max_bitrate_bps);
-  if (!new_start) {
-    updated.start_bitrate_bps = config_.bitrate_config.start_bitrate_bps;
-  }
-  config_.bitrate_config = updated;
+  transport_send_->SetBitrateConfigMask(mask);
 }
 
 void Call::SetBitrateAllocationStrategy(
@@ -1109,39 +1015,7 @@ void Call::OnTransportOverheadChanged(MediaType media,
 void Call::OnNetworkRouteChanged(const std::string& transport_name,
                                  const rtc::NetworkRoute& network_route) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
-  // Check if the network route is connected.
-  if (!network_route.connected) {
-    RTC_LOG(LS_INFO) << "Transport " << transport_name << " is disconnected";
-    // TODO(honghaiz): Perhaps handle this in SignalChannelNetworkState and
-    // consider merging these two methods.
-    return;
-  }
-
-  // Check whether the network route has changed on each transport.
-  auto result =
-      network_routes_.insert(std::make_pair(transport_name, network_route));
-  auto kv = result.first;
-  bool inserted = result.second;
-  if (inserted) {
-    // No need to reset BWE if this is the first time the network connects.
-    return;
-  }
-  if (kv->second != network_route) {
-    kv->second = network_route;
-    RTC_LOG(LS_INFO)
-        << "Network route changed on transport " << transport_name
-        << ": new local network id " << network_route.local_network_id
-        << " new remote network id " << network_route.remote_network_id
-        << " Reset bitrates to min: " << config_.bitrate_config.min_bitrate_bps
-        << " bps, start: " << config_.bitrate_config.start_bitrate_bps
-        << " bps,  max: " << config_.bitrate_config.start_bitrate_bps
-        << " bps.";
-    RTC_DCHECK_GT(config_.bitrate_config.start_bitrate_bps, 0);
-    transport_send_->OnNetworkRouteChanged(
-        network_route, config_.bitrate_config.start_bitrate_bps,
-        config_.bitrate_config.min_bitrate_bps,
-        config_.bitrate_config.max_bitrate_bps);
-  }
+  transport_send_->OnNetworkRouteChanged(transport_name, network_route);
 }
 
 void Call::UpdateAggregateNetworkState() {

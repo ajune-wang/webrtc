@@ -2809,7 +2809,7 @@ RTCError PeerConnection::SetBitrate(const BitrateParameters& bitrate) {
     }
   }
 
-  Call::Config::BitrateConfigMask mask;
+  BitrateConfigMask mask;
   mask.min_bitrate_bps = bitrate.min_bitrate_bps;
   mask.start_bitrate_bps = bitrate.current_bitrate_bps;
   mask.max_bitrate_bps = bitrate.max_bitrate_bps;

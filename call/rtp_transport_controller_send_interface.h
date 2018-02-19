@@ -13,6 +13,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <string>
+
+#include "api/optional.h"
+#include "call/bitrate_config.h"
+
 namespace rtc {
 struct SentPacket;
 struct NetworkRoute;
@@ -88,13 +93,9 @@ class RtpTransportControllerSendInterface {
       PacketFeedbackObserver* observer) = 0;
   virtual void RegisterNetworkObserver(NetworkChangedObserver* observer) = 0;
   virtual void DeRegisterNetworkObserver(NetworkChangedObserver* observer) = 0;
-  virtual void SetBweBitrates(int min_bitrate_bps,
-                              int start_bitrate_bps,
-                              int max_bitrate_bps) = 0;
-  virtual void OnNetworkRouteChanged(const rtc::NetworkRoute& network_route,
-                                     int start_bitrate_bps,
-                                     int min_bitrate_bps,
-                                     int max_bitrate_bps) = 0;
+  virtual void OnNetworkRouteChanged(
+      const std::string& transport_name,
+      const rtc::NetworkRoute& network_route) = 0;
   virtual void OnNetworkAvailability(bool network_available) = 0;
   virtual void SetTransportOverhead(
       size_t transport_overhead_bytes_per_packet) = 0;
@@ -105,6 +106,20 @@ class RtpTransportControllerSendInterface {
   virtual RateLimiter* GetRetransmissionRateLimiter() = 0;
   virtual void EnablePeriodicAlrProbing(bool enable) = 0;
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
+
+  // The greater min and smaller max set by this and SetBitrateConfigMask will
+  // be used. The latest non-negative start value from either call will be used.
+  // Specifying a start bitrate (>0) will reset the current bitrate estimate.
+  // This is due to how the 'x-google-start-bitrate' flag is currently
+  // implemented. Passing -1 leaves the start bitrate unchanged. Behavior is not
+  // guaranteed for other negative values or 0.
+  virtual void SetBitrateConfig(const BitrateConfig& bitrate_config) = 0;
+
+  // The greater min and smaller max set by this and SetBitrateConfig will be
+  // used. The latest non-negative start value form either call will be used.
+  // Specifying a start bitrate will reset the current bitrate estimate.
+  // Assumes 0 <= min <= start <= max holds for set parameters.
+  virtual void SetBitrateConfigMask(const BitrateConfigMask& bitrate_mask) = 0;
 };
 
 }  // namespace webrtc

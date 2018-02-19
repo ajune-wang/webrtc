@@ -11,6 +11,10 @@
 #ifndef CALL_RTP_TRANSPORT_CONTROLLER_SEND_H_
 #define CALL_RTP_TRANSPORT_CONTROLLER_SEND_H_
 
+#include <map>
+#include <string>
+
+#include "call/rtp_bitrate_configurator.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/congestion_controller/include/send_side_congestion_controller.h"
@@ -26,8 +30,11 @@ class RtcEventLog;
 // per transport, sharing the same congestion controller.
 class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
  public:
-  RtpTransportControllerSend(Clock* clock, webrtc::RtcEventLog* event_log);
-
+  RtpTransportControllerSend(
+      Clock* clock,
+      RtcEventLog* event_log,
+      const BitrateConfig& bitrate_config = BitrateConfig());
+  ~RtpTransportControllerSend() override;
   // Implements RtpTransportControllerSendInterface
   PacketRouter* packet_router() override;
 
@@ -50,13 +57,8 @@ class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
       PacketFeedbackObserver* observer) override;
   void RegisterNetworkObserver(NetworkChangedObserver* observer) override;
   void DeRegisterNetworkObserver(NetworkChangedObserver* observer) override;
-  void SetBweBitrates(int min_bitrate_bps,
-                      int start_bitrate_bps,
-                      int max_bitrate_bps) override;
-  void OnNetworkRouteChanged(const rtc::NetworkRoute& network_route,
-                             int start_bitrate_bps,
-                             int min_bitrate_bps,
-                             int max_bitrate_bps) override;
+  void OnNetworkRouteChanged(const std::string& transport_name,
+                             const rtc::NetworkRoute& network_route) override;
   void OnNetworkAvailability(bool network_available) override;
   void SetTransportOverhead(
       size_t transport_overhead_bytes_per_packet) override;
@@ -68,11 +70,16 @@ class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
   void EnablePeriodicAlrProbing(bool enable) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
+  void SetBitrateConfig(const BitrateConfig& bitrate_config) override;
+  void SetBitrateConfigMask(const BitrateConfigMask& bitrate_mask) override;
+
  private:
   PacketRouter packet_router_;
   PacedSender pacer_;
   SendSideCongestionController send_side_cc_;
   RtpKeepAliveConfig keepalive_;
+  RtpBitrateConfigurator bitrate_configurator_;
+  std::map<std::string, rtc::NetworkRoute> network_routes_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpTransportControllerSend);
 };

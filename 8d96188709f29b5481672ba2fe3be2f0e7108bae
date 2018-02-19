@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97562841_94042790",
+        "filename": "call/call.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-19T15:41:38Z",
+      "side": 0,
+      "message": "These comments deserve to survive. Move them to the bitrate configurator class, if you haven\u0027t done so already in one of the other cls?\n\nWould be good to eliminate magic -1 behavior, but that\u0027s a separate cleanup.",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 79
+      },
+      "revId": "8d96188709f29b5481672ba2fe3be2f0e7108bae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abdba36f_7e990b34",
+        "filename": "pc/channelmanager_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-19T15:41:38Z",
+      "side": 0,
+      "message": "It looks like the event_log_ member becomes unused. Delete? And check the other uses of FakeCall.",
+      "range": {
+        "startLine": 51,
+        "startChar": 41,
+        "endLine": 51,
+        "endChar": 51
+      },
+      "revId": "8d96188709f29b5481672ba2fe3be2f0e7108bae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

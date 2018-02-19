@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd651869_6463b064",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-19T15:41:38Z",
+      "side": 1,
+      "message": "Please spell out the names of the moved methods in the commit message.",
+      "revId": "0f3a250d4ea15e7dd43f5504e647187d26233623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0967a4fe_53084dbc",
+        "filename": "call/call.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-19T15:41:38Z",
+      "side": 1,
+      "message": "Maybe add a comment on why this needs to be exposed. If you intend to delete it later on, add a TODO, preferably with bug reference.",
+      "range": {
+        "startLine": 145,
+        "startChar": 10,
+        "endLine": 145,
+        "endChar": 45
+      },
+      "revId": "0f3a250d4ea15e7dd43f5504e647187d26233623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,7 @@
 #include "api/array_view.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
+#include "modules/audio_processing/agc2/interpolated_gain_curve.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -33,7 +34,8 @@ bool CloseToOne(float gain_factor) {
 }  // namespace
 
 FixedGainController::FixedGainController(ApmDataDumper* apm_data_dumper)
-    : apm_data_dumper_(apm_data_dumper) {
+    : apm_data_dumper_(apm_data_dumper),
+      gain_curve_applier_(48000, apm_data_dumper_) {
   RTC_DCHECK_LT(0.f, gain_to_apply_);
   RTC_DLOG(LS_INFO) << "Gain to apply: " << gain_to_apply_;
 }
@@ -47,7 +49,7 @@ void FixedGainController::SetGain(float gain_to_apply_db) {
 }
 
 void FixedGainController::SetSampleRate(size_t sample_rate_hz) {
-  // TODO(aleloi): propagate the new sample rate to the GainCurveApplier.
+  gain_curve_applier_.SetSampleRate(sample_rate_hz);
 }
 
 void FixedGainController::EnableLimiter(bool enable_limiter) {
@@ -70,8 +72,7 @@ void FixedGainController::Process(AudioFrameView<float> signal) {
 
   // Use the limiter (if configured to).
   if (enable_limiter_) {
-    // TODO(aleloi): Process the signal with the
-    // GainCurveApplier. This will be done in the upcoming CLs.
+    gain_curve_applier_.Process(signal);
 
     // Dump data for debug.
     const auto channel_view = signal.channel(0);

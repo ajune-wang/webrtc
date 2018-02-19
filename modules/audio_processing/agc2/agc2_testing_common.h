@@ -23,9 +23,9 @@ namespace test {
 constexpr float kDecayMs = 500.f;
 
 // Limiter parameters.
-constexpr double kLimiterMaxInputLevel = 1.0;
-constexpr double kLimiterKneeSmoothness = 1.0;
-constexpr double kLimiterCompressionRatio = 5.0;
+constexpr float kLimiterMaxInputLevel = 1.f;
+constexpr float kLimiterKneeSmoothness = 1.f;
+constexpr float kLimiterCompressionRatio = 5.f;
 
 std::vector<double> LinSpace(const double l, const double r, size_t num_points);
 }  // namespace test

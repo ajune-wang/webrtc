@@ -2815,7 +2815,7 @@ RTCError PeerConnection::SetBitrate(const BitrateParameters& bitrate) {
   mask.max_bitrate_bps = bitrate.max_bitrate_bps;
 
   RTC_DCHECK(call_.get());
-  call_->SetBitrateConfigMask(mask);
+  call_->GetSendTransportController()->SetBitrateConfigMask(mask);
 
   return RTCError::OK();
 }

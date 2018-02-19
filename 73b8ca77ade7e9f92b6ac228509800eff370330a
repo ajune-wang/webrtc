@@ -22,6 +22,30 @@
       "revId": "73b8ca77ade7e9f92b6ac228509800eff370330a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d18660c_30af8355",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-19T19:09:29Z",
+      "side": 1,
+      "message": "This was just copied from call (Gerrit really should have a way to detect code moves)\nIt\u0027s a good idea, but kv would need to have an explicit type, and the type of kv isn\u0027t trivial enough that I think it\u0027d be worth it for the scope of this CL.",
+      "parentUuid": "be28b2a1_c68d96c4",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 13
+      },
+      "revId": "73b8ca77ade7e9f92b6ac228509800eff370330a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

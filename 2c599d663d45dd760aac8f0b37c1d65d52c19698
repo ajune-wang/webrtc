@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8080fc35_be3e6208",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-19T07:38:12Z",
+      "side": 0,
+      "message": "We get to drop the libjingle_peerconnection_api dependency here.\n\nI expect more places if/when rtp_headers.h is moved out of that target.",
+      "range": {
+        "startLine": 309,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 44
+      },
+      "revId": "2c599d663d45dd760aac8f0b37c1d65d52c19698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffcf2ecc_f0bde173",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-19T07:38:12Z",
+      "side": 0,
+      "message": "Needed only for rtp_headers.h, looks like it\u0027s RtpExtension and RtcpMode that are used. Not\nsure what\u0027s the best way to handle that is, if it should be via an api/ headers, or if\nlogging should depend on things from modules/rtp_rtcp. Most targets currently depend on ../modules/rtp_rtcp:rtp_rtcp_format.",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 40
+      },
+      "revId": "2c599d663d45dd760aac8f0b37c1d65d52c19698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

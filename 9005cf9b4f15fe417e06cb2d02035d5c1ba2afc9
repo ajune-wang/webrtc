@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ef10b53_4b18d993",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "kLimiterMaxInputLevelDb",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 26,
+        "endChar": 37
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb16d41_0ef1474a",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae36c009_d7a7b7b7",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "This check should be in FixedGainController::SetGain too.",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd250a4_1ed5fcb3",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Add nullptr default member initializer, in case future, untrustworthy constructors miss it.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 34
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5389de4_87829ae4",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Mixing naming scheme. Use either sample_rate_hz or kInputLevel and kNumFrames.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3310db16_279d5b61",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "gain_db",
+      "range": {
+        "startLine": 95,
+        "startChar": 18,
+        "endLine": 95,
+        "endChar": 22
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4d6dd27_60bcc0a9",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Thanks for offline explanation. How about:\n// Since |gain| \u003c |test::kLimiterMaxInputLevel|, the limiter will not saturate the signal.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 70
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "337320f4_32cd3b84",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 51
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8ff353f_0ee69239",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Same naming mix here.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 34
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dd10518_5b2146e8",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Cool. I would like an offline explanation of this.",
+      "range": {
+        "startLine": 27,
+        "startChar": 64,
+        "endLine": 28,
+        "endChar": 32
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7eabc139_c3ac1b89",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Move below ComputePerSampleSubframeFactors for ever so slightly more logical layout.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9188a6_4165fa23",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "What sample rates are supported? Up to 48 kHz because of kMaximalNumberOfSamplesPerChannel. Any divisibility reqs?",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab54ee7d_a98d8dda",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Swap these lines.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 40
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10873206_ac2e3bfa",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Add nullptr default member initializer, in case future, untrustworthy constructors miss it.",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 16
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0aa96c9_14ccf36a",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-02-19T16:43:59Z",
+      "side": 1,
+      "message": "Is there a point to reading this from the fuzzer data too?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 50
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

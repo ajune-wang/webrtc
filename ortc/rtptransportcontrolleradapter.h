@@ -21,7 +21,7 @@
 #include "api/ortc/rtptransportcontrollerinterface.h"
 #include "api/ortc/srtptransportinterface.h"
 #include "call/call.h"
-#include "call/rtp_transport_controller_send.h"
+#include "call/rtp_send_transport_controller.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "media/base/mediachannel.h"  // For MediaConfig.
 #include "pc/channelmanager.h"
@@ -200,7 +200,7 @@ class RtpTransportControllerAdapter : public RtpTransportControllerInterface,
   cricket::ChannelManager* channel_manager_;
   webrtc::RtcEventLog* event_log_;
   std::unique_ptr<Call> call_;
-  webrtc::RtpTransportControllerSend* call_send_rtp_transport_controller_;
+  webrtc::RtpSendTransportController* call_send_rtp_transport_controller_;
 
   // BaseChannel takes content descriptions as input, so we store them here
   // such that they can be updated when a new RtpSenderAdapter/

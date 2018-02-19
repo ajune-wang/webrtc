@@ -8,14 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTP_TRANSPORT_CONTROLLER_SEND_H_
-#define CALL_RTP_TRANSPORT_CONTROLLER_SEND_H_
+#ifndef CALL_RTP_SEND_TRANSPORT_CONTROLLER_H_
+#define CALL_RTP_SEND_TRANSPORT_CONTROLLER_H_
 
 #include <map>
 #include <string>
 
 #include "call/rtp_bitrate_configurator.h"
-#include "call/rtp_transport_controller_send_interface.h"
+#include "call/rtp_send_transport_controller_interface.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/congestion_controller/include/send_side_congestion_controller.h"
 #include "modules/pacing/packet_router.h"
@@ -26,16 +26,16 @@ class Clock;
 class RtcEventLog;
 
 // TODO(nisse): When we get the underlying transports here, we should
-// have one object implementing RtpTransportControllerSendInterface
+// have one object implementing RtpSendTransportControllerInterface
 // per transport, sharing the same congestion controller.
-class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
+class RtpSendTransportController : public RtpSendTransportControllerInterface {
  public:
-  RtpTransportControllerSend(
+  RtpSendTransportController(
       Clock* clock,
       RtcEventLog* event_log,
       const BitrateConfig& bitrate_config = BitrateConfig());
-  ~RtpTransportControllerSend() override;
-  // Implements RtpTransportControllerSendInterface
+  ~RtpSendTransportController() override;
+  // Implements RtpSendTransportControllerInterface
   PacketRouter* packet_router() override;
 
   TransportFeedbackObserver* transport_feedback_observer() override;
@@ -81,9 +81,9 @@ class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
   RtpBitrateConfigurator bitrate_configurator_;
   std::map<std::string, rtc::NetworkRoute> network_routes_;
 
-  RTC_DISALLOW_COPY_AND_ASSIGN(RtpTransportControllerSend);
+  RTC_DISALLOW_COPY_AND_ASSIGN(RtpSendTransportController);
 };
 
 }  // namespace webrtc
 
-#endif  // CALL_RTP_TRANSPORT_CONTROLLER_SEND_H_
+#endif  // CALL_RTP_SEND_TRANSPORT_CONTROLLER_H_

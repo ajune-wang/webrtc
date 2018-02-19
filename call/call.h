@@ -22,7 +22,7 @@
 #include "call/audio_state.h"
 #include "call/bitrate_config.h"
 #include "call/flexfec_receive_stream.h"
-#include "call/rtp_transport_controller_send_interface.h"
+#include "call/rtp_send_transport_controller_interface.h"
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -104,7 +104,7 @@ class Call {
   // Allows mocking |transport_send| for testing.
   static Call* Create(
       const Call::Config& config,
-      std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
+      std::unique_ptr<RtpSendTransportControllerInterface> transport_send);
 
   virtual AudioSendStream* CreateAudioSendStream(
       const AudioSendStream::Config& config) = 0;

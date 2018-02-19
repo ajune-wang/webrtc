@@ -9,12 +9,12 @@
  */
 #include <utility>
 
-#include "call/rtp_transport_controller_send.h"
+#include "call/rtp_send_transport_controller.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
 
-RtpTransportControllerSend::RtpTransportControllerSend(
+RtpSendTransportController::RtpSendTransportController(
     Clock* clock,
     webrtc::RtcEventLog* event_log,
     const BitrateConfig& bitrate_config)
@@ -26,67 +26,67 @@ RtpTransportControllerSend::RtpTransportControllerSend(
                                bitrate_config.start_bitrate_bps,
                                bitrate_config.max_bitrate_bps);
 }
-RtpTransportControllerSend::~RtpTransportControllerSend() = default;
+RtpSendTransportController::~RtpSendTransportController() = default;
 
-PacketRouter* RtpTransportControllerSend::packet_router() {
+PacketRouter* RtpSendTransportController::packet_router() {
   return &packet_router_;
 }
 
 TransportFeedbackObserver*
-RtpTransportControllerSend::transport_feedback_observer() {
+RtpSendTransportController::transport_feedback_observer() {
   return &send_side_cc_;
 }
 
-RtpPacketSender* RtpTransportControllerSend::packet_sender() {
+RtpPacketSender* RtpSendTransportController::packet_sender() {
   return &pacer_;
 }
 
-const RtpKeepAliveConfig& RtpTransportControllerSend::keepalive_config() const {
+const RtpKeepAliveConfig& RtpSendTransportController::keepalive_config() const {
   return keepalive_;
 }
 
-void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
+void RtpSendTransportController::SetAllocatedSendBitrateLimits(
     int min_send_bitrate_bps,
     int max_padding_bitrate_bps) {
   pacer_.SetSendBitrateLimits(min_send_bitrate_bps, max_padding_bitrate_bps);
 }
 
-void RtpTransportControllerSend::SetKeepAliveConfig(
+void RtpSendTransportController::SetKeepAliveConfig(
     const RtpKeepAliveConfig& config) {
   keepalive_ = config;
 }
-Module* RtpTransportControllerSend::GetPacerModule() {
+Module* RtpSendTransportController::GetPacerModule() {
   return &pacer_;
 }
-void RtpTransportControllerSend::SetPacingFactor(float pacing_factor) {
+void RtpSendTransportController::SetPacingFactor(float pacing_factor) {
   pacer_.SetPacingFactor(pacing_factor);
 }
-void RtpTransportControllerSend::SetQueueTimeLimit(int limit_ms) {
+void RtpSendTransportController::SetQueueTimeLimit(int limit_ms) {
   pacer_.SetQueueTimeLimit(limit_ms);
 }
-Module* RtpTransportControllerSend::GetModule() {
+Module* RtpSendTransportController::GetModule() {
   return &send_side_cc_;
 }
-CallStatsObserver* RtpTransportControllerSend::GetCallStatsObserver() {
+CallStatsObserver* RtpSendTransportController::GetCallStatsObserver() {
   return &send_side_cc_;
 }
-void RtpTransportControllerSend::RegisterPacketFeedbackObserver(
+void RtpSendTransportController::RegisterPacketFeedbackObserver(
     PacketFeedbackObserver* observer) {
   send_side_cc_.RegisterPacketFeedbackObserver(observer);
 }
-void RtpTransportControllerSend::DeRegisterPacketFeedbackObserver(
+void RtpSendTransportController::DeRegisterPacketFeedbackObserver(
     PacketFeedbackObserver* observer) {
   send_side_cc_.DeRegisterPacketFeedbackObserver(observer);
 }
-void RtpTransportControllerSend::RegisterNetworkObserver(
+void RtpSendTransportController::RegisterNetworkObserver(
     NetworkChangedObserver* observer) {
   send_side_cc_.RegisterNetworkObserver(observer);
 }
-void RtpTransportControllerSend::DeRegisterNetworkObserver(
+void RtpSendTransportController::DeRegisterNetworkObserver(
     NetworkChangedObserver* observer) {
   send_side_cc_.DeRegisterNetworkObserver(observer);
 }
-void RtpTransportControllerSend::OnNetworkRouteChanged(
+void RtpSendTransportController::OnNetworkRouteChanged(
     const std::string& transport_name,
     const rtc::NetworkRoute& network_route) {
   // Check if the network route is connected.
@@ -125,38 +125,38 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
         bitrate_config.min_bitrate_bps, bitrate_config.max_bitrate_bps);
   }
 }
-void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
+void RtpSendTransportController::OnNetworkAvailability(bool network_available) {
   send_side_cc_.SignalNetworkState(network_available ? kNetworkUp
                                                      : kNetworkDown);
 }
-void RtpTransportControllerSend::SetTransportOverhead(
+void RtpSendTransportController::SetTransportOverhead(
     size_t transport_overhead_bytes_per_packet) {
   send_side_cc_.SetTransportOverhead(transport_overhead_bytes_per_packet);
 }
-RtcpBandwidthObserver* RtpTransportControllerSend::GetBandwidthObserver() {
+RtcpBandwidthObserver* RtpSendTransportController::GetBandwidthObserver() {
   return send_side_cc_.GetBandwidthObserver();
 }
-bool RtpTransportControllerSend::AvailableBandwidth(uint32_t* bandwidth) const {
+bool RtpSendTransportController::AvailableBandwidth(uint32_t* bandwidth) const {
   return send_side_cc_.AvailableBandwidth(bandwidth);
 }
-int64_t RtpTransportControllerSend::GetPacerQueuingDelayMs() const {
+int64_t RtpSendTransportController::GetPacerQueuingDelayMs() const {
   return send_side_cc_.GetPacerQueuingDelayMs();
 }
-int64_t RtpTransportControllerSend::GetFirstPacketTimeMs() const {
+int64_t RtpSendTransportController::GetFirstPacketTimeMs() const {
   return send_side_cc_.GetFirstPacketTimeMs();
 }
-RateLimiter* RtpTransportControllerSend::GetRetransmissionRateLimiter() {
+RateLimiter* RtpSendTransportController::GetRetransmissionRateLimiter() {
   return send_side_cc_.GetRetransmissionRateLimiter();
 }
-void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
+void RtpSendTransportController::EnablePeriodicAlrProbing(bool enable) {
   send_side_cc_.EnablePeriodicAlrProbing(enable);
 }
-void RtpTransportControllerSend::OnSentPacket(
+void RtpSendTransportController::OnSentPacket(
     const rtc::SentPacket& sent_packet) {
   send_side_cc_.OnSentPacket(sent_packet);
 }
 
-void RtpTransportControllerSend::SetBitrateConfig(
+void RtpSendTransportController::SetBitrateConfig(
     const BitrateConfig& bitrate_config) {
   rtc::Optional<BitrateConfig> config =
       bitrate_configurator_.UpdateBitrateConfig(bitrate_config);
@@ -166,12 +166,12 @@ void RtpTransportControllerSend::SetBitrateConfig(
                                  config->max_bitrate_bps);
   } else {
     RTC_LOG(LS_VERBOSE)
-        << "WebRTC.RtpTransportControllerSend.SetBitrateConfig: "
+        << "WebRTC.RtpSendTransportController.SetBitrateConfig: "
         << "nothing to update";
   }
 }
 
-void RtpTransportControllerSend::SetBitrateConfigMask(
+void RtpSendTransportController::SetBitrateConfigMask(
     const BitrateConfigMask& bitrate_mask) {
   rtc::Optional<BitrateConfig> config =
       bitrate_configurator_.UpdateBitrateConfigMask(bitrate_mask);
@@ -181,7 +181,7 @@ void RtpTransportControllerSend::SetBitrateConfigMask(
                                  config->max_bitrate_bps);
   } else {
     RTC_LOG(LS_VERBOSE)
-        << "WebRTC.RtpTransportControllerSend.SetBitrateConfigMask: "
+        << "WebRTC.RtpSendTransportController.SetBitrateConfigMask: "
         << "nothing to update";
   }
 }

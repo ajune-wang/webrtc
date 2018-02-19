@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_
-#define CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_
+#ifndef CALL_RTP_SEND_TRANSPORT_CONTROLLER_INTERFACE_H_
+#define CALL_RTP_SEND_TRANSPORT_CONTROLLER_INTERFACE_H_
 #include <stddef.h>
 #include <stdint.h>
 
@@ -59,9 +59,9 @@ class TransportFeedbackObserver;
 // Extracting the logic of the webrtc::Transport from BaseChannel and
 // subclasses into a separate class seems to be a prerequesite for
 // moving the transport here.
-class RtpTransportControllerSendInterface {
+class RtpSendTransportControllerInterface {
  public:
-  virtual ~RtpTransportControllerSendInterface() {}
+  virtual ~RtpSendTransportControllerInterface() {}
   virtual PacketRouter* packet_router() = 0;
   virtual TransportFeedbackObserver* transport_feedback_observer() = 0;
 
@@ -124,4 +124,4 @@ class RtpTransportControllerSendInterface {
 
 }  // namespace webrtc
 
-#endif  // CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_
+#endif  // CALL_RTP_SEND_TRANSPORT_CONTROLLER_INTERFACE_H_

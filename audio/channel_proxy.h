@@ -36,7 +36,7 @@ class RtpPacketSender;
 class RtpPacketReceived;
 class RtpReceiver;
 class RtpRtcp;
-class RtpTransportControllerSendInterface;
+class RtpSendTransportControllerInterface;
 class Transport;
 class TransportFeedbackObserver;
 
@@ -67,7 +67,7 @@ class ChannelProxy : public RtpPacketSinkInterface {
   virtual void SetSendAudioLevelIndicationStatus(bool enable, int id);
   virtual void EnableSendTransportSequenceNumber(int id);
   virtual void RegisterSenderCongestionControlObjects(
-      RtpTransportControllerSendInterface* transport,
+      RtpSendTransportControllerInterface* transport,
       RtcpBandwidthObserver* bandwidth_observer);
   virtual void RegisterReceiverCongestionControlObjects(
       PacketRouter* packet_router);

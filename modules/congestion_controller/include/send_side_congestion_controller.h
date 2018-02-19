@@ -55,7 +55,7 @@ class SendSideCongestionController : public CallStatsObserver,
 
   // Currently, there can be at most one observer.
   // TODO(nisse): The RegisterNetworkObserver method is needed because we first
-  // construct this object (as part of RtpTransportControllerSend), then pass a
+  // construct this object (as part of RtpSendTransportController), then pass a
   // reference to Call, which then registers itself as the observer. We should
   // try to break this circular chain of references, and make the observer a
   // construction time constant.

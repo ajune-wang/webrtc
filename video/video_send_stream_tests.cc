@@ -12,7 +12,7 @@
 #include <vector>
 
 #include "call/call.h"
-#include "call/rtp_transport_controller_send.h"
+#include "call/rtp_send_transport_controller.h"
 #include "common_video/include/frame_callback.h"
 #include "common_video/include/video_frame.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
@@ -3587,8 +3587,8 @@ TEST_F(VideoSendStreamTest, SendsKeepAlive) {
    public:
     KeepaliveObserver() : SendTest(kDefaultTimeoutMs) {}
 
-    void OnRtpTransportControllerSendCreated(
-        RtpTransportControllerSend* controller) override {
+    void OnRtpSendTransportControllerCreated(
+        RtpSendTransportController* controller) override {
       RtpKeepAliveConfig config;
       config.timeout_interval_ms = kTimeoutMs;
       config.payload_type = CallTest::kDefaultKeepalivePayloadType;

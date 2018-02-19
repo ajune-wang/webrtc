@@ -36,6 +36,7 @@ std::unique_ptr<AudioProcessing> CreateApm(test::FuzzDataHelper* fuzz_data) {
   bool use_le = fuzz_data->ReadOrDefaultValue(true);
   bool use_vad = fuzz_data->ReadOrDefaultValue(true);
   bool use_agc_limiter = fuzz_data->ReadOrDefaultValue(true);
+  bool use_agc2_limiter = fuzz_data->ReadOrDefaultValue(true);
 
   // Filter out incompatible settings that lead to CHECK failures.
   if (use_aecm && use_aec) {
@@ -70,6 +71,8 @@ std::unique_ptr<AudioProcessing> CreateApm(test::FuzzDataHelper* fuzz_data) {
   apm_config.residual_echo_detector.enabled = red;
   apm_config.level_controller.enabled = lc;
   apm_config.high_pass_filter.enabled = hpf;
+  apm_config.gain_controller2.enabled = use_agc2_limiter;
+  apm_config.gain_controller2.fixed_gain_db = 1.f;
 
   apm->ApplyConfig(apm_config);
 

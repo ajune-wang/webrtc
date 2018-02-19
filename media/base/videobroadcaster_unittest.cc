@@ -10,16 +10,30 @@
 
 #include <limits>
 
-#include "media/base/videobroadcaster.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
 #include "media/base/fakevideorenderer.h"
+#include "media/base/videobroadcaster.h"
+#include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/task_queue.h"
 
 using rtc::VideoBroadcaster;
 using rtc::VideoSinkWants;
 using cricket::FakeVideoRenderer;
 
+namespace {
+template <class Closure>
+void RunSynchronouslyOnTaskQueue(rtc::TaskQueue* tq, Closure&& closure) {
+  RTC_DCHECK(!tq->IsCurrent());
+  rtc::Event event(false, false);
+  tq->PostTask([&closure, &event]() {
+    closure();
+    event.Set();
+  });
+  event.Wait(rtc::Event::kForever);
+}
+}  // namespace
 
 TEST(VideoBroadcasterTest, frame_wanted) {
   VideoBroadcaster broadcaster;
@@ -34,6 +48,7 @@ TEST(VideoBroadcasterTest, frame_wanted) {
 }
 
 TEST(VideoBroadcasterTest, OnFrame) {
+  rtc::TaskQueue tq("VideoBroadcasterTest");
   VideoBroadcaster broadcaster;
 
   FakeVideoRenderer sink1;
@@ -50,17 +65,21 @@ TEST(VideoBroadcasterTest, OnFrame) {
 
   webrtc::VideoFrame frame(buffer, webrtc::kVideoRotation_0, 0);
 
-  broadcaster.OnFrame(frame);
+  RunSynchronouslyOnTaskQueue(
+      &tq, [&broadcaster, frame]() { broadcaster.OnFrame(frame); });
+
   EXPECT_EQ(1, sink1.num_rendered_frames());
   EXPECT_EQ(1, sink2.num_rendered_frames());
 
   broadcaster.RemoveSink(&sink1);
-  broadcaster.OnFrame(frame);
+  RunSynchronouslyOnTaskQueue(
+      &tq, [&broadcaster, frame]() { broadcaster.OnFrame(frame); });
   EXPECT_EQ(1, sink1.num_rendered_frames());
   EXPECT_EQ(2, sink2.num_rendered_frames());
 
   broadcaster.AddOrUpdateSink(&sink1, rtc::VideoSinkWants());
-  broadcaster.OnFrame(frame);
+  RunSynchronouslyOnTaskQueue(
+      &tq, [&broadcaster, frame]() { broadcaster.OnFrame(frame); });
   EXPECT_EQ(2, sink1.num_rendered_frames());
   EXPECT_EQ(3, sink2.num_rendered_frames());
 }
@@ -153,6 +172,7 @@ TEST(VideoBroadcasterTest, AppliesMinOfSinkWantsMaxFramerate) {
 }
 
 TEST(VideoBroadcasterTest, SinkWantsBlackFrames) {
+  rtc::TaskQueue tq("VideoBroadcasterTest");
   VideoBroadcaster broadcaster;
   EXPECT_TRUE(!broadcaster.wants().black_frames);
 
@@ -173,7 +193,8 @@ TEST(VideoBroadcasterTest, SinkWantsBlackFrames) {
 
   webrtc::VideoFrame frame1(buffer, webrtc::kVideoRotation_0,
                             10 /* timestamp_us */);
-  broadcaster.OnFrame(frame1);
+  RunSynchronouslyOnTaskQueue(
+      &tq, [&broadcaster, frame1]() { broadcaster.OnFrame(frame1); });
   EXPECT_TRUE(sink1.black_frame());
   EXPECT_EQ(10, sink1.timestamp_us());
   EXPECT_FALSE(sink2.black_frame());
@@ -187,7 +208,8 @@ TEST(VideoBroadcasterTest, SinkWantsBlackFrames) {
 
   webrtc::VideoFrame frame2(buffer, webrtc::kVideoRotation_0,
                             30 /* timestamp_us */);
-  broadcaster.OnFrame(frame2);
+  RunSynchronouslyOnTaskQueue(
+      &tq, [&broadcaster, frame2]() { broadcaster.OnFrame(frame2); });
   EXPECT_FALSE(sink1.black_frame());
   EXPECT_EQ(30, sink1.timestamp_us());
   EXPECT_TRUE(sink2.black_frame());

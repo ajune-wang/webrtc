@@ -15,6 +15,8 @@ rtc_source_set("agc2") {
     "fixed_digital_level_estimator.h",
     "fixed_gain_controller.cc",
     "fixed_gain_controller.h",
+    "gain_curve_applier.cc",
+    "gain_curve_applier.h",
     "interpolated_gain_curve.cc",
     "interpolated_gain_curve.h",
   ]
@@ -44,6 +46,7 @@ rtc_source_set("fixed_digital_unittests") {
     "compute_interpolated_gain_curve.h",
     "fixed_digital_level_estimator_unittest.cc",
     "fixed_gain_controller_unittest.cc",
+    "gain_curve_applier_unittest.cc",
     "interpolated_gain_curve_unittest.cc",
     "limiter.cc",
     "limiter.h",

@@ -23,6 +23,7 @@
 #include "call/rtp_packet_sink_interface.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/race_checker.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/thread_checker.h"
 
 namespace webrtc {
@@ -126,7 +127,7 @@ class ChannelProxy : public RtpPacketSinkInterface {
   // specific threads we know about. The goal is to eventually split up
   // voe::Channel into parts with single-threaded semantics, and thereby reduce
   // the need for locks.
-  rtc::ThreadChecker worker_thread_checker_;
+  rtc::SequencedTaskChecker worker_thread_checker_;
   rtc::ThreadChecker module_process_thread_checker_;
   // Methods accessed from audio and video threads are checked for sequential-
   // only access. We don't necessarily own and control these threads, so thread

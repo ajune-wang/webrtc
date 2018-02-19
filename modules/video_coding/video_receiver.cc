@@ -165,7 +165,7 @@ int32_t VideoReceiver::SetVideoProtection(VCMVideoProtection videoProtection,
 // ready for rendering.
 int32_t VideoReceiver::RegisterReceiveCallback(
     VCMReceiveCallback* receiveCallback) {
-  RTC_DCHECK(construction_thread_.CalledOnValidThread());
+  RTC_DCHECK(construction_sequence_.CalledSequentially());
   // TODO(tommi): Callback may be null, but only after the decoder thread has
   // been stopped. Use the signal we now get that tells us when the decoder
   // thread isn't running, to DCHECK that the method is never called while it
@@ -177,7 +177,7 @@ int32_t VideoReceiver::RegisterReceiveCallback(
 
 int32_t VideoReceiver::RegisterReceiveStatisticsCallback(
     VCMReceiveStatisticsCallback* receiveStats) {
-  RTC_DCHECK(construction_thread_.CalledOnValidThread());
+  RTC_DCHECK(construction_sequence_.CalledSequentially());
   rtc::CritScope cs(&process_crit_);
   _receiver.RegisterStatsCallback(receiveStats);
   _receiveStatsCallback = receiveStats;
@@ -187,7 +187,7 @@ int32_t VideoReceiver::RegisterReceiveStatisticsCallback(
 // Register an externally defined decoder object.
 void VideoReceiver::RegisterExternalDecoder(VideoDecoder* externalDecoder,
                                             uint8_t payloadType) {
-  RTC_DCHECK(construction_thread_.CalledOnValidThread());
+  RTC_DCHECK(construction_sequence_.CalledSequentially());
   // TODO(tommi): This method must be called when the decoder thread is not
   // running.  Do we need a lock in that case?
   rtc::CritScope cs(&receive_crit_);
@@ -214,7 +214,7 @@ int32_t VideoReceiver::RegisterPacketRequestCallback(
 }
 
 void VideoReceiver::TriggerDecoderShutdown() {
-  RTC_DCHECK(construction_thread_.CalledOnValidThread());
+  RTC_DCHECK(construction_sequence_.CalledSequentially());
   _receiver.TriggerDecoderShutdown();
 }
 
@@ -327,7 +327,7 @@ int32_t VideoReceiver::Decode(const VCMEncodedFrame& frame) {
 int32_t VideoReceiver::RegisterReceiveCodec(const VideoCodec* receiveCodec,
                                             int32_t numberOfCores,
                                             bool requireKeyFrame) {
-  RTC_DCHECK(construction_thread_.CalledOnValidThread());
+  RTC_DCHECK(construction_sequence_.CalledSequentially());
   // TODO(tommi): This method must only be called when the decoder thread
   // is not running. Do we need a lock? If not, it looks like we might not need
   // a lock at all for |_codecDataBase|.
@@ -396,7 +396,7 @@ int32_t VideoReceiver::Delay() const {
 int VideoReceiver::SetReceiverRobustnessMode(
     VideoCodingModule::ReceiverRobustness robustnessMode,
     VCMDecodeErrorMode decode_error_mode) {
-  RTC_DCHECK(construction_thread_.CalledOnValidThread());
+  RTC_DCHECK(construction_sequence_.CalledSequentially());
   // TODO(tommi): This method must only be called when the decoder thread
   // is not running and we don't need to hold this lock.
   rtc::CritScope cs(&receive_crit_);

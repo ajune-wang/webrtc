@@ -63,8 +63,6 @@ rtc_static_library("libjingle_peerconnection_api") {
     "mediastreaminterface.h",
     "mediastreamproxy.h",
     "mediastreamtrackproxy.h",
-    "mediatypes.cc",
-    "mediatypes.h",
     "notifier.h",
     "peerconnectionfactoryproxy.h",
     "peerconnectioninterface.h",
@@ -75,8 +73,6 @@ rtc_static_library("libjingle_peerconnection_api") {
     "rtcerror.h",
     "rtp_headers.cc",
     "rtp_headers.h",
-    "rtpparameters.cc",
-    "rtpparameters.h",
     "rtpreceiverinterface.cc",
     "rtpreceiverinterface.h",
     "rtpsenderinterface.h",
@@ -106,6 +102,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     ":libjingle_logging_api",
     ":optional",
     ":rtc_stats_api",
+    ":rtpparameters_api",
     ":video_frame_api",
     "audio_codecs:audio_codecs_api",
 
@@ -143,6 +140,20 @@ rtc_source_set("libjingle_logging_api") {
   ]
 }
 
+rtc_source_set("rtpparameters_api") {
+  visibility = [ "*" ]
+  sources = [
+    "mediatypes.cc",
+    "mediatypes.h",
+    "rtpparameters.cc",
+    "rtpparameters.h",
+  ]
+  deps = [
+    ":optional",
+    "../rtc_base:checks",
+  ]
+}
+
 rtc_source_set("ortc_api") {
   visibility = [ "*" ]
   sources = [
@@ -167,6 +178,7 @@ rtc_source_set("ortc_api") {
   deps = [
     ":libjingle_peerconnection_api",
     ":optional",
+    ":rtpparameters_api",
     "..:webrtc_common",
     "../rtc_base:rtc_base",
   ]
@@ -432,6 +444,7 @@ if (rtc_include_tests) {
       ":libjingle_peerconnection_test_api",
       ":optional",
       ":ortc_api",
+      ":rtpparameters_api",
       "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",

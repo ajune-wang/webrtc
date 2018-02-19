@@ -163,8 +163,8 @@ void DtlsSrtpTransport::SetupRtpDtlsSrtp() {
   }
 
   int selected_crypto_suite;
-  std::vector<unsigned char> send_key;
-  std::vector<unsigned char> recv_key;
+  rtc::ExplicitZeroBuffer<unsigned char> send_key;
+  rtc::ExplicitZeroBuffer<unsigned char> recv_key;
 
   if (!ExtractParams(rtp_dtls_transport_, &selected_crypto_suite, &send_key,
                      &recv_key) ||
@@ -196,8 +196,8 @@ void DtlsSrtpTransport::SetupRtcpDtlsSrtp() {
   }
 
   int selected_crypto_suite;
-  std::vector<unsigned char> rtcp_send_key;
-  std::vector<unsigned char> rtcp_recv_key;
+  rtc::ExplicitZeroBuffer<unsigned char> rtcp_send_key;
+  rtc::ExplicitZeroBuffer<unsigned char> rtcp_recv_key;
   if (!ExtractParams(rtcp_dtls_transport_, &selected_crypto_suite,
                      &rtcp_send_key, &rtcp_recv_key) ||
       !srtp_transport_->SetRtcpParams(
@@ -213,8 +213,8 @@ void DtlsSrtpTransport::SetupRtcpDtlsSrtp() {
 bool DtlsSrtpTransport::ExtractParams(
     cricket::DtlsTransportInternal* dtls_transport,
     int* selected_crypto_suite,
-    std::vector<unsigned char>* send_key,
-    std::vector<unsigned char>* recv_key) {
+    rtc::ExplicitZeroBuffer<unsigned char>* send_key,
+    rtc::ExplicitZeroBuffer<unsigned char>* recv_key) {
   if (!dtls_transport || !dtls_transport->IsDtlsActive()) {
     return false;
   }
@@ -237,7 +237,8 @@ bool DtlsSrtpTransport::ExtractParams(
   }
 
   // OK, we're now doing DTLS (RFC 5764)
-  std::vector<unsigned char> dtls_buffer(key_len * 2 + salt_len * 2);
+  rtc::ExplicitZeroBuffer<unsigned char> dtls_buffer(key_len * 2 +
+                                                     salt_len * 2);
 
   // RFC 5705 exporter using the RFC 5764 parameters
   if (!dtls_transport->ExportKeyingMaterial(kDtlsSrtpExporterLabel, NULL, 0,
@@ -249,8 +250,8 @@ bool DtlsSrtpTransport::ExtractParams(
   }
 
   // Sync up the keys with the DTLS-SRTP interface
-  std::vector<unsigned char> client_write_key(key_len + salt_len);
-  std::vector<unsigned char> server_write_key(key_len + salt_len);
+  rtc::ExplicitZeroBuffer<unsigned char> client_write_key(key_len + salt_len);
+  rtc::ExplicitZeroBuffer<unsigned char> server_write_key(key_len + salt_len);
   size_t offset = 0;
   memcpy(&client_write_key[0], &dtls_buffer[offset], key_len);
   offset += key_len;
@@ -267,13 +268,12 @@ bool DtlsSrtpTransport::ExtractParams(
   }
 
   if (role == rtc::SSL_SERVER) {
-    *send_key = server_write_key;
-    *recv_key = client_write_key;
+    *send_key = std::move(server_write_key);
+    *recv_key = std::move(client_write_key);
   } else {
-    *send_key = client_write_key;
-    *recv_key = server_write_key;
+    *send_key = std::move(client_write_key);
+    *recv_key = std::move(server_write_key);
   }
-
   return true;
 }
 

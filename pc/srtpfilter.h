@@ -76,8 +76,8 @@ class SrtpFilter {
   rtc::Optional<int> send_cipher_suite() { return send_cipher_suite_; }
   rtc::Optional<int> recv_cipher_suite() { return recv_cipher_suite_; }
 
-  const rtc::Buffer& send_key() { return send_key_; }
-  const rtc::Buffer& recv_key() { return recv_key_; }
+  const rtc::ExplicitZeroBuffer<uint8_t>& send_key() { return send_key_; }
+  const rtc::ExplicitZeroBuffer<uint8_t>& recv_key() { return recv_key_; }
 
  protected:
   bool ExpectOffer(ContentSource source);
@@ -132,8 +132,8 @@ class SrtpFilter {
   CryptoParams applied_recv_params_;
   rtc::Optional<int> send_cipher_suite_;
   rtc::Optional<int> recv_cipher_suite_;
-  rtc::Buffer send_key_;
-  rtc::Buffer recv_key_;
+  rtc::ExplicitZeroBuffer<uint8_t> send_key_;
+  rtc::ExplicitZeroBuffer<uint8_t> recv_key_;
 };
 
 }  // namespace cricket

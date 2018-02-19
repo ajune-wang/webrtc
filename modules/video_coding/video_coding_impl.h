@@ -196,7 +196,7 @@ class VideoReceiver : public Module {
   int32_t RequestKeyFrame();
 
  private:
-  rtc::ThreadChecker construction_thread_;
+  rtc::SequencedTaskChecker construction_sequence_;
   Clock* const clock_;
   rtc::CriticalSection process_crit_;
   rtc::CriticalSection receive_crit_;

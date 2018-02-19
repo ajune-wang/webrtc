@@ -10,25 +10,24 @@
 #include "test/direct_transport.h"
 
 #include "call/call.h"
+#include "rtc_base/criticalsection.h"
 #include "rtc_base/ptr_util.h"
 #include "system_wrappers/include/clock.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 namespace test {
 
 DirectTransport::DirectTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    rtc::TaskQueue* task_queue,
     Call* send_call,
     const std::map<uint8_t, MediaType>& payload_type_map)
     : DirectTransport(task_queue,
                       FakeNetworkPipe::Config(),
                       send_call,
-                      payload_type_map) {
-}
+                      payload_type_map) {}
 
 DirectTransport::DirectTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    rtc::TaskQueue* task_queue,
     const FakeNetworkPipe::Config& config,
     Call* send_call,
     const std::map<uint8_t, MediaType>& payload_type_map)
@@ -36,22 +35,22 @@ DirectTransport::DirectTransport(
           task_queue,
           config,
           send_call,
-          std::unique_ptr<Demuxer>(new DemuxerImpl(payload_type_map))) {
-}
+          std::unique_ptr<Demuxer>(new DemuxerImpl(payload_type_map))) {}
 
-DirectTransport::DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
+DirectTransport::DirectTransport(rtc::TaskQueue* task_queue,
                                  const FakeNetworkPipe::Config& config,
                                  Call* send_call,
                                  std::unique_ptr<Demuxer> demuxer)
     : send_call_(send_call),
       clock_(Clock::GetRealTimeClock()),
       task_queue_(task_queue),
-      fake_network_(rtc::MakeUnique<FakeNetworkPipe>(clock_, config,
-                                                      std::move(demuxer))) {
+      fake_network_(rtc::MakeUnique<FakeNetworkPipe>(clock_,
+                                                     config,
+                                                     std::move(demuxer))) {
   Start();
 }
 
-DirectTransport::DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
+DirectTransport::DirectTransport(rtc::TaskQueue* task_queue,
                                  std::unique_ptr<FakeNetworkPipe> pipe,
                                  Call* send_call)
     : send_call_(send_call),
@@ -65,16 +64,13 @@ DirectTransport::~DirectTransport() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
   // Constructor updates |next_scheduled_task_|, so it's guaranteed to
   // be initialized.
-  task_queue_->CancelTask(next_scheduled_task_);
+  // task_queue_->CancelTask(next_scheduled_task_);
+  if (send_packets_ && send_packets_->SelfDestructIfQueued())
+    send_packets_.release();
 }
 
 void DirectTransport::SetConfig(const FakeNetworkPipe::Config& config) {
   fake_network_->SetConfig(config);
-}
-
-void DirectTransport::StopSending() {
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequence_checker_);
-  task_queue_->CancelTask(next_scheduled_task_);
 }
 
 void DirectTransport::SetReceiver(PacketReceiver* receiver) {
@@ -105,11 +101,17 @@ int DirectTransport::GetAverageDelayMs() {
 
 void DirectTransport::Start() {
   RTC_DCHECK(task_queue_);
+  RTC_DCHECK(!send_packets_);
+
   if (send_call_) {
     send_call_->SignalChannelNetworkState(MediaType::AUDIO, kNetworkUp);
     send_call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
   }
-  SendPackets();
+
+  send_packets_.reset(new SendPacketsTask(this));
+  send_packets_->raise_is_queued();
+  // SendPackets();
+  task_queue_->PostTask(std::unique_ptr<rtc::QueuedTask>(send_packets_.get()));
 }
 
 void DirectTransport::SendPackets() {
@@ -117,10 +119,11 @@ void DirectTransport::SendPackets() {
 
   fake_network_->Process();
 
-  int64_t delay_ms = fake_network_->TimeUntilNextProcess();
-  next_scheduled_task_ = task_queue_->PostDelayedTask([this]() {
-    SendPackets();
-  }, delay_ms);
+  const int64_t delay_ms = fake_network_->TimeUntilNextProcess();
+  // next_scheduled_task_ =
+  send_packets_->raise_is_queued();
+  task_queue_->PostDelayedTask(
+      std::unique_ptr<rtc::QueuedTask>(send_packets_.get()), delay_ms);
 }
 }  // namespace test
 }  // namespace webrtc

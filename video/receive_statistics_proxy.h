@@ -26,6 +26,7 @@
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/ratetracker.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/thread_checker.h"
 #include "video/quality_threshold.h"
 #include "video/report_block_stats.h"
 #include "video/stats_counter.h"
@@ -177,7 +178,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   MaxCounter freq_offset_counter_ RTC_GUARDED_BY(crit_);
   int64_t first_report_block_time_ms_ RTC_GUARDED_BY(crit_);
   ReportBlockStats report_block_stats_ RTC_GUARDED_BY(crit_);
-  QpCounters qp_counters_;  // Only accessed on the decoding thread.
+  QpCounters qp_counters_ RTC_GUARDED_BY(decode_thread_);
   std::map<uint32_t, StreamDataCounters> rtx_stats_ RTC_GUARDED_BY(crit_);
   int64_t avg_rtt_ms_ RTC_GUARDED_BY(crit_);
   mutable std::map<int64_t, size_t> frame_window_ RTC_GUARDED_BY(&crit_);
@@ -188,6 +189,8 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   // called from const GetStats().
   mutable rtc::MovingMaxCounter<TimingFrameInfo> timing_frame_info_counter_
       RTC_GUARDED_BY(&crit_);
+  rtc::ThreadChecker decode_thread_;
+  rtc::ThreadChecker network_thread_;
 };
 
 }  // namespace webrtc

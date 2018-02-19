@@ -113,6 +113,8 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(
       avg_rtt_ms_(0),
       last_content_type_(VideoContentType::UNSPECIFIED),
       timing_frame_info_counter_(kMovingMaxWindowMs) {
+  decode_thread_.DetachFromThread();
+  network_thread_.DetachFromThread();
   stats_.ssrc = config_.rtp.remote_ssrc;
   // TODO(brandtr): Replace |rtx_stats_| with a single instance of
   // StreamDataCounters.
@@ -122,10 +124,14 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(
 }
 
 ReceiveStatisticsProxy::~ReceiveStatisticsProxy() {
+  // RTC_DCHECK_RUN_ON(&decode_thread_);
+  // HACK - assume that decoding has ended and there's no chance of a race, etc.
+  decode_thread_.DetachFromThread();
   UpdateHistograms();
 }
 
 void ReceiveStatisticsProxy::UpdateHistograms() {
+  RTC_DCHECK_RUN_ON(&decode_thread_);
   int stream_duration_sec = (clock_->TimeInMilliseconds() - start_ms_) / 1000;
   if (stats_.frame_counts.key_frames > 0 ||
       stats_.frame_counts.delta_frames > 0) {
@@ -438,6 +444,8 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
 }
 
 void ReceiveStatisticsProxy::QualitySample() {
+  RTC_DCHECK_RUN_ON(&network_thread_);
+
   int64_t now = clock_->TimeInMilliseconds();
   if (last_sample_time_ + kMinSampleLengthMs > now)
     return;
@@ -547,6 +555,7 @@ void ReceiveStatisticsProxy::OnDecoderImplementationName(
 }
 void ReceiveStatisticsProxy::OnIncomingRate(unsigned int framerate,
                                             unsigned int bitrate_bps) {
+  RTC_DCHECK_RUN_ON(&network_thread_);
   rtc::CritScope lock(&crit_);
   if (stats_.rtp_stats.first_packet_time_ms != -1)
     QualitySample();
@@ -766,6 +775,7 @@ void ReceiveStatisticsProxy::OnDiscardedPacketsUpdated(int discarded_packets) {
 void ReceiveStatisticsProxy::OnPreDecode(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info) {
+  RTC_DCHECK_RUN_ON(&decode_thread_);
   if (!codec_specific_info || encoded_image.qp_ == -1) {
     return;
   }

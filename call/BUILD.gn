@@ -309,6 +309,7 @@ if (rtc_include_tests) {
 
     sources = [
       "test/mock_rtp_packet_sink_interface.h",
+      "test/mock_rtp_send_transport_controller.h",
     ]
     deps = [
       ":rtp_interfaces",

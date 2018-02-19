@@ -36,12 +36,14 @@
 
 using testing::_;
 using testing::ContainerEq;
+using testing::Field;
 using testing::Return;
 using testing::ReturnPointee;
 using testing::SaveArg;
 using testing::StrictMock;
 
 namespace {
+using webrtc::BitrateConfig;
 
 constexpr uint32_t kMaxUnsignaledRecvStreams = 4;
 
@@ -160,7 +162,7 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
         apm_ec_(*apm_->echo_cancellation()),
         apm_ns_(*apm_->noise_suppression()),
         apm_vd_(*apm_->voice_detection()),
-        call_(webrtc::Call::Config(&event_log_)),
+        call_(),
         override_field_trials_(field_trials) {
     // AudioDeviceModule.
     AdmSetupExpectations(&adm_);
@@ -425,14 +427,15 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
     codecs[0].params[cricket::kCodecParamMinBitrate] = min_bitrate_kbps;
     codecs[0].params[cricket::kCodecParamStartBitrate] = start_bitrate_kbps;
     codecs[0].params[cricket::kCodecParamMaxBitrate] = max_bitrate_kbps;
-    SetSendParameters(send_parameters_);
+    EXPECT_CALL(
+        *call_.GetMockSendTransportController(),
+        SetBitrateConfig(AllOf(
+            Field(&BitrateConfig::min_bitrate_bps, expected_min_bitrate_bps),
+            Field(&BitrateConfig::start_bitrate_bps,
+                  expected_start_bitrate_bps),
+            Field(&BitrateConfig::max_bitrate_bps, expected_max_bitrate_bps))));
 
-    EXPECT_EQ(expected_min_bitrate_bps,
-              call_.GetConfig().bitrate_config.min_bitrate_bps);
-    EXPECT_EQ(expected_start_bitrate_bps,
-              call_.GetConfig().bitrate_config.start_bitrate_bps);
-    EXPECT_EQ(expected_max_bitrate_bps,
-              call_.GetConfig().bitrate_config.max_bitrate_bps);
+    SetSendParameters(send_parameters_);
   }
 
   void TestSetSendRtpHeaderExtensions(const std::string& ext) {
@@ -1531,12 +1534,14 @@ TEST_F(WebRtcVoiceEngineTestFake,
   SetSendCodecsShouldWorkForBitrates("100", 100000, "150", 150000, "200",
                                      200000);
   send_parameters_.max_bandwidth_bps = 100000;
+  // Setting max bitrate should keep previous min bitrate
+  // Setting max bitrate should not reset start bitrate.
+  EXPECT_CALL(
+      *call_.GetMockSendTransportController(),
+      SetBitrateConfig(AllOf(Field(&BitrateConfig::min_bitrate_bps, 100000),
+                             Field(&BitrateConfig::start_bitrate_bps, -1),
+                             Field(&BitrateConfig::max_bitrate_bps, 200000))));
   SetSendParameters(send_parameters_);
-  EXPECT_EQ(100000, call_.GetConfig().bitrate_config.min_bitrate_bps)
-      << "Setting max bitrate should keep previous min bitrate.";
-  EXPECT_EQ(-1, call_.GetConfig().bitrate_config.start_bitrate_bps)
-      << "Setting max bitrate should not reset start bitrate.";
-  EXPECT_EQ(200000, call_.GetConfig().bitrate_config.max_bitrate_bps);
 }
 
 // Test that we can enable NACK with opus as caller.

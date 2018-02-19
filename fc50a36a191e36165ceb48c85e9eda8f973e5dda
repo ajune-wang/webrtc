@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8bd2958d_ec490a55",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-02-19T22:35:37Z",
+      "side": 1,
+      "message": "Changed both to ExplicitZeroBuffer.",
+      "parentUuid": "39f7c530_e913400e",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0606d77e_f87065d7",
         "filename": "pc/dtlssrtptransport.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e76d71af_f9b8d955",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-02-19T22:35:37Z",
+      "side": 1,
+      "message": "Also changed to ExplicitZeroBuffer.",
+      "parentUuid": "0606d77e_f87065d7",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7860432a_c49666fb",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-02-19T22:35:37Z",
+      "side": 1,
+      "message": "\"dtls_buffer\" is now a ExplicitZeroBuffer.",
+      "parentUuid": "e991af54_b4fd55e5",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08c35859_10988423",
         "filename": "pc/dtlssrtptransport.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1be23ba0_57b42a06",
+        "filename": "pc/dtlssrtptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-02-19T22:35:37Z",
+      "side": 1,
+      "message": "Done, switched to use a new ExplicitZeroBuffer as you suggested.",
+      "parentUuid": "08c35859_10988423",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "f9e8fa73_afe034d8",
+        "filename": "pc/srtpfilter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-02-19T22:35:37Z",
+      "side": 1,
+      "message": "Both members changed to ExplicitZeroBuffer.",
+      "parentUuid": "b36d029c_dda413a3",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57438aa5_f0be489b",
         "filename": "pc/srtpfilter.cc",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cc0b455_55536758",
+        "filename": "pc/srtpfilter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-02-19T22:35:37Z",
+      "side": 1,
+      "message": "Added crbug.com/webrtc/8905 to track changing this and other places to ExplicitZeroBuffer.",
+      "parentUuid": "57438aa5_f0be489b",
+      "revId": "fc50a36a191e36165ceb48c85e9eda8f973e5dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

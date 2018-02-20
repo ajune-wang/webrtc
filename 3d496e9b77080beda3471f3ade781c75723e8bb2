@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "f5f9c280_10cc8b19",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-20T18:18:00Z",
+      "side": 1,
+      "message": "I forgot that P2PTransportChannel took ownership of the sessions... It\u0027s unfortunate that this means we need to go through both PortAllocator and P2PTransportChannel to get access to both pooled and non-pooled ports. But it\u0027s somewhat unavoidable.",
+      "revId": "3d496e9b77080beda3471f3ade781c75723e8bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07ec66bf_8db8a0c5",
         "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
         "patchSetId": 3

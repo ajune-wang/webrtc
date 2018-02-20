@@ -19,8 +19,9 @@
 #include "modules/congestion_controller/rtp/network_control/include/network_control.h"
 
 namespace webrtc {
-
 class Clock;
+
+namespace webrtc_cc {
 
 // This class controls initiation of probing to estimate initial channel
 // capacity. There is also support for probing during a session when max
@@ -92,6 +93,7 @@ class ProbeController {
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(ProbeController);
 };
 
+}  // namespace webrtc_cc
 }  // namespace webrtc
 
 #endif  // MODULES_CONGESTION_CONTROLLER_RTP_PROBE_CONTROLLER_H_

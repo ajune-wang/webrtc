@@ -32,6 +32,7 @@ using testing::SaveArg;
 using testing::StrictMock;
 
 namespace webrtc {
+namespace webrtc_cc {
 namespace test {
 
 namespace {
@@ -56,7 +57,6 @@ class SendSideCongestionControllerForTest
   }
 };
 }  // namespace
-
 
 class SendSideCongestionControllerTest : public ::testing::Test {
  protected:
@@ -477,7 +477,7 @@ TEST_F(SendSideCongestionControllerTest, UpdatesDelayBasedEstimate) {
 }
 
 TEST_F(SendSideCongestionControllerTest, PacerQueueEncodeRatePushback) {
-  ScopedFieldTrials pushback_field_trial(
+  ::webrtc::test::ScopedFieldTrials pushback_field_trial(
       "WebRTC-PacerPushbackExperiment/Enabled/");
   SetUp();
 
@@ -515,4 +515,5 @@ TEST_F(SendSideCongestionControllerTest, PacerQueueEncodeRatePushback) {
 }
 
 }  // namespace test
+}  // namespace webrtc_cc
 }  // namespace webrtc

@@ -15,6 +15,7 @@
 #include "test/gmock.h"
 
 namespace webrtc {
+namespace webrtc_cc {
 namespace test {
 
 class MockCongestionObserver : public SendSideCongestionController::Observer {
@@ -27,5 +28,6 @@ class MockCongestionObserver : public SendSideCongestionController::Observer {
 };
 
 }  // namespace test
+}  // namespace webrtc_cc
 }  // namespace webrtc
 #endif  // MODULES_CONGESTION_CONTROLLER_RTP_INCLUDE_MOCK_MOCK_CONGESTION_OBSERVER_H_

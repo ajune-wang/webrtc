@@ -18,8 +18,9 @@
 #include "modules/congestion_controller/rtp/bitrate_estimator.h"
 
 namespace webrtc {
-
 struct PacketFeedback;
+
+namespace webrtc_cc {
 
 class AcknowledgedBitrateEstimator {
  public:
@@ -40,6 +41,7 @@ class AcknowledgedBitrateEstimator {
   std::unique_ptr<BitrateEstimator> bitrate_estimator_;
 };
 
+}  // namespace webrtc_cc
 }  // namespace webrtc
 
 #endif  // MODULES_CONGESTION_CONTROLLER_RTP_ACKNOWLEDGED_BITRATE_ESTIMATOR_H_

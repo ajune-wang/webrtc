@@ -20,11 +20,9 @@ rtc_static_library("congestion_controller") {
   visibility = [ "*" ]
   configs += [ ":bwe_test_logging" ]
   sources = [
-    "include/receive_side_congestion_controller.h",
     "include/send_side_congestion_controller.h",
     "pacer_controller.cc",
     "pacer_controller.h",
-    "receive_side_congestion_controller.cc",
     "send_side_congestion_controller.cc",
   ]
 
@@ -49,7 +47,6 @@ rtc_static_library("congestion_controller") {
     "../../../system_wrappers:field_trial_api",
     "../../../system_wrappers:metrics_api",
     "../../../system_wrappers:runtime_enabled_features_api",
-    "../../bitrate_controller",
     "../../pacing",
     "../../remote_bitrate_estimator",
     "../../rtp_rtcp:rtp_rtcp_format",
@@ -84,6 +81,7 @@ rtc_static_library("goog_cc") {
   sources = [
     "alr_detector.cc",
     "alr_detector.h",
+    "goog_cc_factory.cc",
     "goog_cc_network_control.cc",
     "goog_cc_network_control.h",
     "include/goog_cc_factory.h",
@@ -192,7 +190,6 @@ if (rtc_include_tests) {
     sources = [
       "congestion_controller_unittests_helper.cc",
       "congestion_controller_unittests_helper.h",
-      "receive_side_congestion_controller_unittest.cc",
       "send_side_congestion_controller_unittest.cc",
       "send_time_history_unittest.cc",
       "transport_feedback_adapter_unittest.cc",

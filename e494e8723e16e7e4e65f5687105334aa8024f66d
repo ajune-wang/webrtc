@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1676ed70_ac01826b",
+        "filename": "call/call.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-20T16:06:21Z",
+      "side": 1,
+      "message": "Spelling.\n\nAnd better reworded as a TODO item.",
+      "range": {
+        "startLine": 146,
+        "startChar": 72,
+        "endLine": 146,
+        "endChar": 79
+      },
+      "revId": "e494e8723e16e7e4e65f5687105334aa8024f66d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4616d7ae_b7279401",
+        "filename": "call/rtp_bitrate_configurator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-20T16:06:21Z",
+      "side": 1,
+      "message": "Sounds like this and the below method are symmetric, both affect min and max in the same way, and for start bitrate, most recent one wins.\n\nThanks for clarifying.",
+      "range": {
+        "startLine": 34,
+        "startChar": 36,
+        "endLine": 34,
+        "endChar": 59
+      },
+      "revId": "e494e8723e16e7e4e65f5687105334aa8024f66d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea20e39_e23c0912",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-20T16:06:21Z",
+      "side": 1,
+      "message": "I\u0027m not that familiar with the gmock magic... Is this the struct with optionals or magic values for unset?\n\nMaybe good with a sanity check adding 1 to one of the expected values and check that the test really fails.\n\nThis construction is also repeated quite a few times. Maybe more readable with a helper to set up the expectation, basically, the first half of this method, with half of it\u0027s parameters?",
+      "range": {
+        "startLine": 1282,
+        "startChar": 0,
+        "endLine": 1289,
+        "endChar": 61
+      },
+      "revId": "e494e8723e16e7e4e65f5687105334aa8024f66d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

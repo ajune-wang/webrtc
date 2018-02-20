@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "896a9773_6160daef",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-20T14:04:22Z",
+      "side": 1,
+      "message": "Maybe have a window in ms instead of number of frames?",
+      "range": {
+        "startLine": 496,
+        "startChar": 44,
+        "endLine": 496,
+        "endChar": 0
+      },
+      "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

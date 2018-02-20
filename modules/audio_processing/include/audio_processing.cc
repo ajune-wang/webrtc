@@ -32,4 +32,7 @@ Beamforming::Beamforming(bool enabled,
       target_direction(target_direction) {}
 
 Beamforming::~Beamforming() {}
+
+EchoCanceller3Config::EchoCanceller3Config() = default;
+
 }  // namespace webrtc

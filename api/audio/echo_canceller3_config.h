@@ -105,6 +105,14 @@ struct EchoCanceller3Config {
 
     float floor_first_increase = 0.00001f;
   } gain_updates;
+
+  struct EchoRemovalControl {
+    struct GainRampup {
+      float first_non_zero_gain = 0.001f;
+      int non_zero_gain_blocks = 187;
+      int full_gain_blocks = 312;
+    } gain_rampup;
+  } echo_removal_control;
 };
 }  // namespace webrtc
 

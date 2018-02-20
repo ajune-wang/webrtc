@@ -1107,9 +1107,10 @@ bool WebRtcVideoChannel::AddSendStream(const StreamParams& sp) {
       video_config_.periodic_alr_bandwidth_probing;
   config.encoder_settings.experiment_cpu_load_estimator =
       video_config_.experiment_cpu_load_estimator;
+  config.encoder_settings.encoder_factory = encoder_factory_;
 
   WebRtcVideoSendStream* stream = new WebRtcVideoSendStream(
-      call_, sp, std::move(config), default_send_options_, encoder_factory_,
+      call_, sp, std::move(config), default_send_options_,
       video_config_.enable_cpu_adaptation,
       bitrate_config_.max_bitrate_bps, send_codec_, send_rtp_extensions_,
       send_params_);
@@ -1546,7 +1547,6 @@ WebRtcVideoChannel::WebRtcVideoSendStream::WebRtcVideoSendStream(
     const StreamParams& sp,
     webrtc::VideoSendStream::Config config,
     const VideoOptions& options,
-    webrtc::VideoEncoderFactory* encoder_factory,
     bool enable_cpu_overuse_detection,
     int max_bitrate_bps,
     const rtc::Optional<VideoCodecSettings>& codec_settings,
@@ -1560,7 +1560,6 @@ WebRtcVideoChannel::WebRtcVideoSendStream::WebRtcVideoSendStream(
       call_(call),
       enable_cpu_overuse_detection_(enable_cpu_overuse_detection),
       source_(nullptr),
-      encoder_factory_(encoder_factory),
       stream_(nullptr),
       encoder_sink_(nullptr),
       parameters_(std::move(config), options, max_bitrate_bps, codec_settings),
@@ -1709,12 +1708,17 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
       allocated_codec_ != codec_settings.codec) {
     const webrtc::SdpVideoFormat format(codec_settings.codec.name,
                                         codec_settings.codec.params);
-    new_encoder = encoder_factory_->CreateVideoEncoder(format);
+
+    // TODO(nisse): Leave to VideoStreamEncoder.
+    new_encoder =
+        parameters_.config.encoder_settings.encoder_factory->CreateVideoEncoder(
+            format);
 
     parameters_.config.encoder_settings.encoder = new_encoder.get();
 
     const webrtc::VideoEncoderFactory::CodecInfo info =
-        encoder_factory_->QueryVideoEncoder(format);
+        parameters_.config.encoder_settings.encoder_factory->QueryVideoEncoder(
+            format);
     parameters_.config.encoder_settings.full_overuse_time =
         info.is_hardware_accelerated;
     parameters_.config.encoder_settings.internal_source =

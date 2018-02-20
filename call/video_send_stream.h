@@ -21,6 +21,7 @@
 #include "api/rtp_headers.h"
 #include "api/videosinkinterface.h"
 #include "api/videosourceinterface.h"
+#include "api/video_codecs/video_encoder_factory.h"
 #include "call/rtp_config.h"
 #include "call/video_config.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -135,6 +136,11 @@ class VideoSendStream {
       // cpu adaptation.
       bool experiment_cpu_load_estimator = false;
 
+      // Ownership stays with
+      // PeerConnectionFactory/MediaEngine/ChannelManager.
+      VideoEncoderFactory* encoder_factory = nullptr;
+
+      // TODO(nisse): Delete, let VideoStreamEncoder create the encoder.
       // Uninitialized VideoEncoder instance to be used for encoding. Will be
       // initialized from inside the VideoSendStream.
       VideoEncoder* encoder = nullptr;

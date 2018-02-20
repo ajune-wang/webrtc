@@ -63,13 +63,14 @@ TEST(SuppressionGain, BasicGainComputation) {
   Subtractor subtractor(config, &data_dumper, DetectOptimization());
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
       RenderDelayBuffer::Create(config, 3));
+  rtc::Optional<DelayEstimate> delay_estimate;
 
   // Verify the functionality for forcing a zero gain.
   E2.fill(1000000000.f);
   R2.fill(10000000000000.f);
   N2.fill(0.f);
   s.fill(10.f);
-  aec_state.Update(subtractor.FilterFrequencyResponse(),
+  aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                    subtractor.FilterImpulseResponse(),
                    subtractor.ConvergedFilter(),
                    *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
@@ -85,14 +86,14 @@ TEST(SuppressionGain, BasicGainComputation) {
   N2.fill(100.f);
   // Ensure that the gain is no longer forced to zero.
   for (int k = 0; k <= kNumBlocksPerSecond / 5 + 1; ++k) {
-    aec_state.Update(subtractor.FilterFrequencyResponse(),
+    aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
                      subtractor.ConvergedFilter(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
   }
 
   for (int k = 0; k < 100; ++k) {
-    aec_state.Update(subtractor.FilterFrequencyResponse(),
+    aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
                      subtractor.ConvergedFilter(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
@@ -108,7 +109,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   R2.fill(0.1f);
   N2.fill(0.f);
   for (int k = 0; k < 100; ++k) {
-    aec_state.Update(subtractor.FilterFrequencyResponse(),
+    aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
                      subtractor.ConvergedFilter(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);

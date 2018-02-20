@@ -74,6 +74,7 @@ rtc::Optional<DelayEstimate> MatchedFilterLagAggregator::Aggregate(
       return DelayEstimate(DelayEstimate::Quality::kCoarse, candidate);
     }
   }
+
   return rtc::nullopt;
 }
 

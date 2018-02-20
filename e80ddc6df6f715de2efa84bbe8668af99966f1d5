@@ -1,0 +1,271 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "274a05d0_722b3b4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Add something about using a self-cleaning class, so that we catch every exit point?",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73c4a8a0_99a10cef",
+        "filename": "pc/srtpfilter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Consider changing to\n\n  // TODO(bugs.webrtc.org/8905): Switch to ExplicitZeroBuffer for storing sensitive data.\n\nAlso consider moving the comment closer to the ExplicitZeroMemory call.",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d8d173c_5f157762",
+        "filename": "pc/srtpfilter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Ew. Can\u0027t you write this without const_cast? Using \u0026key_str[0] maybe?",
+      "range": {
+        "startLine": 255,
+        "startChar": 26,
+        "endLine": 255,
+        "endChar": 59
+      },
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823e251b_f0432036",
+        "filename": "pc/srtpfilter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "While you\u0027re changing the return types anyway, consider changing them to ArrayView\u003cconst uint8_t\u003e instead. It\u0027s the new cool thing, and you won\u0027t have to expose the implementation type in the class API.",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f1ce238_1e7f015f",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "I wonder if something like ZeroOnFree (with the type alias ZeroOnFreeBuffer) may be easier to understand. ExplicitZero isn\u0027t even really accurate anymore, since the whole point of adding this to Buffer is that we won\u0027t have to zero the memory explicitly anymore...\n\n(Also, add a note here that it\u0027s better to use the type alias below than to pass true as a second template parameter to BufferT.)",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c655a6d_7035c820",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "If you follow my other advice, it should be enough to clear up to size_ here, instead of capacity_. (One option is to note this in a comment, and then clear up to capacity_ anyway, belt-and-suspenders style.)",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75fbb91a_eabaa5d3",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Zero excess data here if old size \u003e new size?",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d87566b_ee35d508",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Zero excess data here if old size \u003e new size?",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6746cb4f_4527c64f",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Zero excess data here if old size \u003e new size?",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cae34f05_82caad56",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Zero buffer here?",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3a561e7_ed5fd0d6",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "If you follow my other advice, it should be enough to clear up to size_ here, instead of capacity_. (One option is to note this in a comment, and then clear up to capacity_ anyway, belt-and-suspenders style.)",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d430c7e_7e10fc36",
+        "filename": "rtc_base/httpcommon.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "TODO formatting.",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee0a4ffb_0118b22a",
+        "filename": "rtc_base/httpcommon.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "TODO formatting.",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d1fb0d5_0c5b120a",
+        "filename": "rtc_base/httpcommon.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Consider changing this TODO also (see earlier comment).",
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22b0a928_6ea44bdd",
+        "filename": "rtc_base/socketadapters.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-20T14:43:20Z",
+      "side": 1,
+      "message": "Please try to avoid const_cast. I would suggest adding a MutableData() method to ByteBufferWriter instead.\n\n(What I\u0027d actually want is for ByteBufferWriter to be refactored into using a Buffer as its backing memory, so that you could use it with a zeroing Buffer here. But that would be a lot of work...)",
+      "range": {
+        "startLine": 684,
+        "startChar": 21,
+        "endLine": 684,
+        "endChar": 31
+      },
+      "revId": "e80ddc6df6f715de2efa84bbe8668af99966f1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

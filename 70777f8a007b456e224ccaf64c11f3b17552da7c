@@ -46,6 +46,47 @@
       "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "460d8dcc_9b3e53ee",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-02-20T14:53:49Z",
+      "side": 1,
+      "message": "The window has to be in specified in time, otherwise a jump in timestamp can cause chaos. It is up to the programmer to make sure that transitivity holds for all elements in the set/map at all times.",
+      "parentUuid": "896a9773_6160daef",
+      "range": {
+        "startLine": 496,
+        "startChar": 44,
+        "endLine": 496,
+        "endChar": 0
+      },
+      "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e4ccd55_477e1a49",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-02-20T14:53:49Z",
+      "side": 1,
+      "message": "Note that insert() returns whether the elements was inserted or not, you don\u0027t need the find().",
+      "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -31,10 +31,9 @@ class RtcEventLog;
 // per transport, sharing the same congestion controller.
 class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
  public:
-  RtpTransportControllerSend(
-      Clock* clock,
-      RtcEventLog* event_log,
-      const BitrateConstraints& bitrate_config = BitrateConstraints());
+  RtpTransportControllerSend(Clock* clock,
+                             RtcEventLog* event_log,
+                             const BitrateConstraints& bitrate_config);
   ~RtpTransportControllerSend() override;
   // Implements RtpTransportControllerSendInterface
   PacketRouter* packet_router() override;

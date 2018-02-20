@@ -46,9 +46,10 @@ class VideoDecoderSoftwareFallbackWrapper : public VideoDecoder {
 
  private:
   bool InitFallbackDecoder();
+  int32_t InitHwDecoder();
 
   // Determines if we are trying to use the HW or SW decoder.
-  bool use_hw_decoder_;
+  bool fallback_decoder_initialized_;
   std::unique_ptr<VideoDecoder> hw_decoder_;
   bool hw_decoder_initialized_;
 

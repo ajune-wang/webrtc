@@ -22,6 +22,30 @@
       "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9102a3cc_2a2f8568",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-02-20T14:29:50Z",
+      "side": 1,
+      "message": "Seems like an overkill. For reducing size of the history maybe by half we will need to either store timestamps (tripling the size of the set) or wire up some kind of FPS estimator. RTP timestamps are not suitable for that as there may be some weird jumps.",
+      "parentUuid": "896a9773_6160daef",
+      "range": {
+        "startLine": 496,
+        "startChar": 44,
+        "endLine": 496,
+        "endChar": 0
+      },
+      "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

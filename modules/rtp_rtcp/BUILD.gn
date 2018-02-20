@@ -78,7 +78,6 @@ rtc_source_set("rtp_rtcp_format") {
     "source/rtp_packet.cc",
     "source/rtp_packet_received.cc",
   ]
-
   deps = [
     "..:module_api",
     "../..:webrtc_common",
@@ -93,6 +92,7 @@ rtc_source_set("rtp_rtcp_format") {
     "../../rtc_base:deprecation",
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
+    "//third_party/absl/types:optional",
   ]
 }
 

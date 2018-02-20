@@ -274,6 +274,8 @@ if (build_with_chromium) {
   webrtc_default_visibility += [ webrtc_root + "/../webrtc_overrides/*" ]
 }
 
+absl_configs = [ "//third_party/absl:absl_config" ]
+
 template("rtc_test") {
   test(target_name) {
     forward_variables_from(invoker,
@@ -318,6 +320,7 @@ template("rtc_source_set") {
       visibility = webrtc_default_visibility
     }
     configs += invoker.configs
+    configs += absl_configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
     public_configs = [ rtc_common_inherited_config ]
@@ -343,6 +346,7 @@ template("rtc_executable") {
       visibility = webrtc_default_visibility
     }
     configs += invoker.configs
+    configs += absl_configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
     deps = [
@@ -372,6 +376,7 @@ template("rtc_static_library") {
       visibility = webrtc_default_visibility
     }
     configs += invoker.configs
+    configs += absl_configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
     public_configs = [ rtc_common_inherited_config ]
@@ -396,6 +401,7 @@ template("rtc_shared_library") {
       visibility = webrtc_default_visibility
     }
     configs += invoker.configs
+    configs += absl_configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
     public_configs = [ rtc_common_inherited_config ]

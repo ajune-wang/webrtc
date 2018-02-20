@@ -873,19 +873,15 @@ TEST_F(AudioDeviceTest, StartPlayoutVerifyCallbacks) {
 
 // Start recording and verify that the native audio layer starts feeding real
 // audio samples via the RecordedDataIsAvailable callback.
+// TODO(henrika): investigate if it is possible to perform a sanity check of
+// delay estimats as well (argumnent #6).
 TEST_F(AudioDeviceTest, StartRecordingVerifyCallbacks) {
   MockAudioTransportAndroid mock(kRecording);
   mock.HandleCallbacks(test_is_done_.get(), nullptr, kNumCallbacks);
-  EXPECT_CALL(mock, RecordedDataIsAvailable(NotNull(),
-                                            record_frames_per_10ms_buffer(),
-                                            kBytesPerSample,
-                                            record_channels(),
-                                            record_sample_rate(),
-                                            total_delay_ms(),
-                                            0,
-                                            0,
-                                            false,
-                                            _))
+  EXPECT_CALL(
+      mock, RecordedDataIsAvailable(NotNull(), record_frames_per_10ms_buffer(),
+                                    kBytesPerSample, record_channels(),
+                                    record_sample_rate(), _, 0, 0, false, _))
       .Times(AtLeast(kNumCallbacks));
 
   EXPECT_EQ(0, audio_device()->RegisterAudioCallback(&mock));
@@ -907,16 +903,10 @@ TEST_F(AudioDeviceTest, StartPlayoutAndRecordingVerifyCallbacks) {
                                      NotNull(),
                                      _, _, _))
       .Times(AtLeast(kNumCallbacks));
-  EXPECT_CALL(mock, RecordedDataIsAvailable(NotNull(),
-                                            record_frames_per_10ms_buffer(),
-                                            kBytesPerSample,
-                                            record_channels(),
-                                            record_sample_rate(),
-                                            total_delay_ms(),
-                                            0,
-                                            0,
-                                            false,
-                                            _))
+  EXPECT_CALL(
+      mock, RecordedDataIsAvailable(NotNull(), record_frames_per_10ms_buffer(),
+                                    kBytesPerSample, record_channels(),
+                                    record_sample_rate(), _, 0, 0, false, _))
       .Times(AtLeast(kNumCallbacks));
   EXPECT_EQ(0, audio_device()->RegisterAudioCallback(&mock));
   StartPlayout();

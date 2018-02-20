@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a2216e6_0f93cee2",
+        "filename": "modules/rtp_rtcp/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-20T16:15:14Z",
+      "side": 1,
+      "message": "may be better to add it to root DEPS instead",
+      "revId": "3087de50071a8eb679b01d6b2e87edc68589c185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

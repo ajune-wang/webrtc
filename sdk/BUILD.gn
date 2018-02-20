@@ -567,6 +567,7 @@ if (is_ios || is_mac) {
         ":native_video",
         ":videotracksource_objc",
         "../api:libjingle_peerconnection_api",
+        "../api:rtpparameters_api",
         "../api:video_frame_api",
         "../api/video_codecs:video_codecs_api",
         "../common_video",

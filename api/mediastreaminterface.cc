@@ -9,13 +9,16 @@
  */
 
 #include "api/mediastreaminterface.h"
+#include "api/mediatypes.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
 
-const char MediaStreamTrackInterface::kVideoKind[] = "video";
-const char MediaStreamTrackInterface::kAudioKind[] = "audio";
+const char * const MediaStreamTrackInterface::kVideoKind =
+    cricket::kMediaTypeVideo;
+const char * const MediaStreamTrackInterface::kAudioKind =
+    cricket::kMediaTypeAudio;
 
 void AudioProcessorInterface::GetStats(AudioProcessorStats* /*stats*/) {
   RTC_NOTREACHED() << "Old-style GetStats() is called but it has no "

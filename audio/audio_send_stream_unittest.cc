@@ -16,7 +16,7 @@
 #include "audio/audio_state.h"
 #include "audio/conversion.h"
 #include "audio/mock_voe_channel_proxy.h"
-#include "call/rtp_transport_controller_send.h"
+#include "call/rtp_send_transport_controller.h"
 #include "logging/rtc_event_log/mock/mock_rtc_event_log.h"
 #include "modules/audio_device/include/mock_audio_device.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
@@ -174,7 +174,7 @@ struct ConfigHelper {
         stream_config_.encoder_factory.get());
   }
   MockVoEChannelProxy* channel_proxy() { return channel_proxy_; }
-  RtpTransportControllerSendInterface* transport() { return &rtp_transport_; }
+  RtpSendTransportControllerInterface* transport() { return &rtp_transport_; }
   TimeInterval* active_lifetime() { return &active_lifetime_; }
 
   static void AddBweToConfig(AudioSendStream::Config* config) {
@@ -304,7 +304,7 @@ struct ConfigHelper {
   SimulatedClock simulated_clock_;
   TimeInterval active_lifetime_;
   MockRtcEventLog event_log_;
-  RtpTransportControllerSend rtp_transport_;
+  RtpSendTransportController rtp_transport_;
   MockRtpRtcp rtp_rtcp_;
   MockRtcpRttStats rtcp_rtt_stats_;
   testing::NiceMock<MockLimitObserver> limit_observer_;

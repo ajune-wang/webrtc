@@ -39,7 +39,7 @@ class SendSideCongestionController;
 class IvfFileWriter;
 class ProcessThread;
 class RtpRtcp;
-class RtpTransportControllerSendInterface;
+class RtpSendTransportControllerInterface;
 class RtcEventLog;
 
 namespace internal {
@@ -57,7 +57,7 @@ class VideoSendStream : public webrtc::VideoSendStream {
       ProcessThread* module_process_thread,
       rtc::TaskQueue* worker_queue,
       CallStats* call_stats,
-      RtpTransportControllerSendInterface* transport,
+      RtpSendTransportControllerInterface* transport,
       BitrateAllocator* bitrate_allocator,
       SendDelayStats* send_delay_stats,
       RtcEventLog* event_log,

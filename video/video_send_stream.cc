@@ -17,7 +17,7 @@
 #include <utility>
 #include <vector>
 
-#include "call/rtp_transport_controller_send_interface.h"
+#include "call/rtp_send_transport_controller_interface.h"
 #include "call/video_send_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "common_video/include/video_bitrate_allocator.h"
@@ -52,7 +52,7 @@ std::vector<RtpRtcp*> CreateRtpRtcpModules(
     Transport* outgoing_transport,
     RtcpIntraFrameObserver* intra_frame_callback,
     RtcpBandwidthObserver* bandwidth_callback,
-    RtpTransportControllerSendInterface* transport,
+    RtpSendTransportControllerInterface* transport,
     RtcpRttStats* rtt_stats,
     FlexfecSender* flexfec_sender,
     SendStatisticsProxy* stats_proxy,
@@ -273,7 +273,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
       SendStatisticsProxy* stats_proxy,
       rtc::TaskQueue* worker_queue,
       CallStats* call_stats,
-      RtpTransportControllerSendInterface* transport,
+      RtpSendTransportControllerInterface* transport,
       BitrateAllocator* bitrate_allocator,
       SendDelayStats* send_delay_stats,
       VideoStreamEncoder* video_stream_encoder,
@@ -377,7 +377,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
       RTC_GUARDED_BY(encoder_activity_crit_sect_);
 
   CallStats* const call_stats_;
-  RtpTransportControllerSendInterface* const transport_;
+  RtpSendTransportControllerInterface* const transport_;
   BitrateAllocator* const bitrate_allocator_;
 
   // TODO(brandtr): Move ownership to PayloadRouter.
@@ -429,7 +429,7 @@ class VideoSendStream::ConstructionTask : public rtc::QueuedTask {
       VideoStreamEncoder* video_stream_encoder,
       ProcessThread* module_process_thread,
       CallStats* call_stats,
-      RtpTransportControllerSendInterface* transport,
+      RtpSendTransportControllerInterface* transport,
       BitrateAllocator* bitrate_allocator,
       SendDelayStats* send_delay_stats,
       RtcEventLog* event_log,
@@ -476,7 +476,7 @@ class VideoSendStream::ConstructionTask : public rtc::QueuedTask {
   SendStatisticsProxy* const stats_proxy_;
   VideoStreamEncoder* const video_stream_encoder_;
   CallStats* const call_stats_;
-  RtpTransportControllerSendInterface* const transport_;
+  RtpSendTransportControllerInterface* const transport_;
   BitrateAllocator* const bitrate_allocator_;
   SendDelayStats* const send_delay_stats_;
   RtcEventLog* const event_log_;
@@ -598,7 +598,7 @@ VideoSendStream::VideoSendStream(
     ProcessThread* module_process_thread,
     rtc::TaskQueue* worker_queue,
     CallStats* call_stats,
-    RtpTransportControllerSendInterface* transport,
+    RtpSendTransportControllerInterface* transport,
     BitrateAllocator* bitrate_allocator,
     SendDelayStats* send_delay_stats,
     RtcEventLog* event_log,
@@ -755,7 +755,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     SendStatisticsProxy* stats_proxy,
     rtc::TaskQueue* worker_queue,
     CallStats* call_stats,
-    RtpTransportControllerSendInterface* transport,
+    RtpSendTransportControllerInterface* transport,
     BitrateAllocator* bitrate_allocator,
     SendDelayStats* send_delay_stats,
     VideoStreamEncoder* video_stream_encoder,

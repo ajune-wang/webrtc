@@ -651,10 +651,10 @@ void RtpTransportControllerAdapter::Init_w() {
   call_config.bitrate_config.start_bitrate_bps = kStartBandwidthBps;
   call_config.bitrate_config.max_bitrate_bps = kMaxBandwidthBps;
 
-  call_send_rtp_transport_controller_ = new RtpTransportControllerSend(
+  call_send_rtp_transport_controller_ = new RtpSendTransportController(
       Clock::GetRealTimeClock(), event_log_, call_config.bitrate_config);
   call_.reset(webrtc::Call::Create(
-      call_config, std::unique_ptr<RtpTransportControllerSendInterface>(
+      call_config, std::unique_ptr<RtpSendTransportControllerInterface>(
                        call_send_rtp_transport_controller_)));
 }
 

@@ -468,6 +468,8 @@ class PeerConnection : public PeerConnectionInternal,
           transceiver,
       const SessionDescriptionInterface* sdesc) const;
 
+  void OnNegotiationNeeded();
+
   bool IsClosed() const {
     return signaling_state_ == PeerConnectionInterface::kClosed;
   }

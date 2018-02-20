@@ -122,6 +122,7 @@ void EchoRemoverImpl::GetMetrics(EchoControl::Metrics* metrics) const {
 void EchoRemoverImpl::ProcessCapture(
     const EchoPathVariability& echo_path_variability,
     bool capture_signal_saturation,
+    const rtc::Optional<DelayEstimate>& delay_estimate,
     RenderBuffer* render_buffer,
     std::vector<std::vector<float>>* capture) {
   const std::vector<std::vector<float>>& x = render_buffer->Block(0);

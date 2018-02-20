@@ -37,6 +37,7 @@ class EchoRemover {
   virtual void ProcessCapture(
       const EchoPathVariability& echo_path_variability,
       bool capture_signal_saturation,
+      const rtc::Optional<DelayEstimate>& delay_estimate,
       RenderBuffer* render_buffer,
       std::vector<std::vector<float>>* capture) = 0;
 

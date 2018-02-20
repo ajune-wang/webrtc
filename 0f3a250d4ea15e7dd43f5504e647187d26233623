@@ -39,6 +39,30 @@
       "revId": "0f3a250d4ea15e7dd43f5504e647187d26233623",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3cd3a2a_556ef13b",
+        "filename": "call/call.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-20T10:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0967a4fe_53084dbc",
+      "range": {
+        "startLine": 145,
+        "startChar": 10,
+        "endLine": 145,
+        "endChar": 45
+      },
+      "revId": "0f3a250d4ea15e7dd43f5504e647187d26233623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b5b47544_713d80b8",
+        "filename": "call/call.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-20T10:27:48Z",
+      "side": 0,
+      "message": "Added in another CL.",
+      "parentUuid": "97562841_94042790",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 79
+      },
+      "revId": "8d96188709f29b5481672ba2fe3be2f0e7108bae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abdba36f_7e990b34",
         "filename": "pc/channelmanager_unittest.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8d96188709f29b5481672ba2fe3be2f0e7108bae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b7c76c_7aaf7e5f",
+        "filename": "pc/channelmanager_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-20T10:27:48Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "abdba36f_7e990b34",
+      "range": {
+        "startLine": 51,
+        "startChar": 41,
+        "endLine": 51,
+        "endChar": 51
+      },
+      "revId": "8d96188709f29b5481672ba2fe3be2f0e7108bae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -508,6 +508,7 @@ rtc_static_library("peerconnection_jni") {
     ":native_api_jni",
     "../..:webrtc_common",
     "../../api:libjingle_peerconnection_api",
+    "../../api:rtpparameters_api",
     "../../api/video_codecs:video_codecs_api",
     "../../logging:rtc_event_log_api",
     "../../logging:rtc_event_log_impl_base",

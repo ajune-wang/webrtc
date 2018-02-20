@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "fb284462_4902ac9b",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-02-20T15:28:52Z",
+      "side": 1,
+      "message": "That\u0027s why I suggest we use the total number of the timestamps in the history.",
+      "parentUuid": "460d8dcc_9b3e53ee",
+      "range": {
+        "startLine": 496,
+        "startChar": 44,
+        "endLine": 496,
+        "endChar": 0
+      },
+      "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e4ccd55_477e1a49",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -87,6 +111,24 @@
       "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dde5c628_bd50ead6",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-02-20T15:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e4ccd55_477e1a49",
+      "revId": "70777f8a007b456e224ccaf64c11f3b17552da7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

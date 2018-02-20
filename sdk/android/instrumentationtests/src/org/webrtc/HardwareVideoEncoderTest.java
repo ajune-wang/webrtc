@@ -210,9 +210,11 @@ public class HardwareVideoEncoderTest {
     private final JavaI420Buffer realBuffer;
 
     public MockI420Buffer(int width, int height, Runnable releaseCallback) {
-      super(width, height, releaseCallback);
-      // We never release this but it is not a problem in practice because the release is a no-op.
       realBuffer = JavaI420Buffer.allocate(width, height);
+      super(width, height, () -> {
+        releaseCallback.run();
+        realBuffer.release();
+      });
     }
 
     @Override

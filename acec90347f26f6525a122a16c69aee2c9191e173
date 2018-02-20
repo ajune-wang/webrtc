@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b8abc84_263db9e6",
+        "filename": "pc/dtmfsender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-02-20T09:46:52Z",
+      "side": 1,
+      "message": "Would it be more or less interesting to change this to 30?",
+      "range": {
+        "startLine": 330,
+        "startChar": 23,
+        "endLine": 330,
+        "endChar": 25
+      },
+      "revId": "acec90347f26f6525a122a16c69aee2c9191e173",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

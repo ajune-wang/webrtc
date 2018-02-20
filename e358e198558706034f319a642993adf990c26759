@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2c57c03e_25919758",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T19:44:44Z",
+      "side": 1,
+      "message": "I\u0027d prefer keeping it like that. I went for a design with early returns to avoid the elseif\u0027s.",
+      "parentUuid": "02bd3e63_77161590",
+      "revId": "e358e198558706034f319a642993adf990c26759",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9eebe2fa_727bf4af",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-16T08:31:48Z",
       "side": 1,
       "message": "nit: else if",
+      "revId": "e358e198558706034f319a642993adf990c26759",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a8b421_cade411d",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T19:44:44Z",
+      "side": 1,
+      "message": "I\u0027d prefer keeping it like that. I went for a design with early returns to avoid the elseif\u0027s.",
+      "parentUuid": "9eebe2fa_727bf4af",
       "revId": "e358e198558706034f319a642993adf990c26759",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

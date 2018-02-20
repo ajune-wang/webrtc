@@ -1154,9 +1154,11 @@ PeerConnection::AddTrackUnifiedPlan(
   auto transceiver = FindFirstTransceiverForAddedTrack(track);
   if (transceiver) {
     if (transceiver->direction() == RtpTransceiverDirection::kRecvOnly) {
-      transceiver->SetDirection(RtpTransceiverDirection::kSendRecv);
+      transceiver->internal()->set_direction(
+          RtpTransceiverDirection::kSendRecv);
     } else if (transceiver->direction() == RtpTransceiverDirection::kInactive) {
-      transceiver->SetDirection(RtpTransceiverDirection::kSendOnly);
+      transceiver->internal()->set_direction(
+          RtpTransceiverDirection::kSendOnly);
     }
     transceiver->sender()->SetTrack(track);
     transceiver->internal()->sender_internal()->set_stream_ids(stream_labels);
@@ -1169,7 +1171,7 @@ PeerConnection::AddTrackUnifiedPlan(
     auto receiver = CreateReceiver(media_type, rtc::CreateRandomUuid());
     transceiver = CreateAndAddTransceiver(sender, receiver);
     transceiver->internal()->set_created_by_addtrack(true);
-    transceiver->SetDirection(RtpTransceiverDirection::kSendRecv);
+    transceiver->internal()->set_direction(RtpTransceiverDirection::kSendRecv);
   }
   return transceiver->sender();
 }
@@ -1210,9 +1212,11 @@ RTCError PeerConnection::RemoveTrackInternal(
     }
     sender->SetTrack(nullptr);
     if (transceiver->direction() == RtpTransceiverDirection::kSendRecv) {
-      transceiver->internal()->SetDirection(RtpTransceiverDirection::kRecvOnly);
+      transceiver->internal()->set_direction(
+          RtpTransceiverDirection::kRecvOnly);
     } else if (transceiver->direction() == RtpTransceiverDirection::kSendOnly) {
-      transceiver->internal()->SetDirection(RtpTransceiverDirection::kInactive);
+      transceiver->internal()->set_direction(
+          RtpTransceiverDirection::kInactive);
     }
   } else {
     bool removed;
@@ -1386,7 +1390,15 @@ PeerConnection::CreateAndAddTransceiver(
   auto transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
       signaling_thread(), new RtpTransceiver(sender, receiver));
   transceivers_.push_back(transceiver);
+  transceiver->internal()->SignalNegotiationNeeded.connect(
+      this, &PeerConnection::OnNegotiationNeeded);
   return transceiver;
+}
+
+void PeerConnection::OnNegotiationNeeded() {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK(!IsClosed());
+  observer_->OnRenegotiationNeeded();
 }
 
 rtc::scoped_refptr<DtmfSenderInterface> PeerConnection::CreateDtmfSender(

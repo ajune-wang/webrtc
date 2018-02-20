@@ -55,7 +55,7 @@ class RTPPayloadRegistry;
 class RTPReceiverAudio;
 class RtpPacketReceived;
 class RtpRtcp;
-class RtpTransportControllerSendInterface;
+class RtpSendTransportControllerInterface;
 class TelephoneEventHandler;
 
 struct SenderInfo;
@@ -221,7 +221,7 @@ class Channel
   void EnableSendTransportSequenceNumber(int id);
 
   void RegisterSenderCongestionControlObjects(
-      RtpTransportControllerSendInterface* transport,
+      RtpSendTransportControllerInterface* transport,
       RtcpBandwidthObserver* bandwidth_observer);
   void RegisterReceiverCongestionControlObjects(PacketRouter* packet_router);
   void ResetSenderCongestionControlObjects();

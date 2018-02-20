@@ -17,7 +17,7 @@
 #include "audio/audio_state.h"
 #include "audio/channel_proxy.h"
 #include "audio/conversion.h"
-#include "call/rtp_transport_controller_send_interface.h"
+#include "call/rtp_send_transport_controller_interface.h"
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
@@ -86,7 +86,7 @@ AudioSendStream::AudioSendStream(
     const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
     rtc::TaskQueue* worker_queue,
     ProcessThread* module_process_thread,
-    RtpTransportControllerSendInterface* transport,
+    RtpSendTransportControllerInterface* transport,
     BitrateAllocator* bitrate_allocator,
     RtcEventLog* event_log,
     RtcpRttStats* rtcp_rtt_stats,
@@ -109,7 +109,7 @@ AudioSendStream::AudioSendStream(
     const webrtc::AudioSendStream::Config& config,
     const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
     rtc::TaskQueue* worker_queue,
-    RtpTransportControllerSendInterface* transport,
+    RtpSendTransportControllerInterface* transport,
     BitrateAllocator* bitrate_allocator,
     RtcEventLog* event_log,
     RtcpRttStats* rtcp_rtt_stats,

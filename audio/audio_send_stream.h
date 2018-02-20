@@ -28,7 +28,7 @@ namespace webrtc {
 class RtcEventLog;
 class RtcpBandwidthObserver;
 class RtcpRttStats;
-class RtpTransportControllerSendInterface;
+class RtpSendTransportControllerInterface;
 
 namespace voe {
 class ChannelProxy;
@@ -45,7 +45,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
                   const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
                   rtc::TaskQueue* worker_queue,
                   ProcessThread* module_process_thread,
-                  RtpTransportControllerSendInterface* transport,
+                  RtpSendTransportControllerInterface* transport,
                   BitrateAllocator* bitrate_allocator,
                   RtcEventLog* event_log,
                   RtcpRttStats* rtcp_rtt_stats,
@@ -55,7 +55,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   AudioSendStream(const webrtc::AudioSendStream::Config& config,
                   const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
                   rtc::TaskQueue* worker_queue,
-                  RtpTransportControllerSendInterface* transport,
+                  RtpSendTransportControllerInterface* transport,
                   BitrateAllocator* bitrate_allocator,
                   RtcEventLog* event_log,
                   RtcpRttStats* rtcp_rtt_stats,
@@ -138,7 +138,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   bool sending_ = false;
 
   BitrateAllocator* const bitrate_allocator_;
-  RtpTransportControllerSendInterface* const transport_;
+  RtpSendTransportControllerInterface* const transport_;
 
   rtc::CriticalSection packet_loss_tracker_cs_;
   TransportFeedbackPacketLossTracker packet_loss_tracker_

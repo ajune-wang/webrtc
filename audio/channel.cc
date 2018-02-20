@@ -19,9 +19,9 @@
 
 #include "api/array_view.h"
 #include "audio/utility/audio_frame_operations.h"
-#include "call/rtp_transport_controller_send_interface.h"
-#include "logging/rtc_event_log/rtc_event_log.h"
+#include "call/rtp_send_transport_controller_interface.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_playout.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor_config.h"
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_device/include/audio_device.h"
@@ -1100,7 +1100,7 @@ void Channel::EnableSendTransportSequenceNumber(int id) {
 }
 
 void Channel::RegisterSenderCongestionControlObjects(
-    RtpTransportControllerSendInterface* transport,
+    RtpSendTransportControllerInterface* transport,
     RtcpBandwidthObserver* bandwidth_observer) {
   RtpPacketSender* rtp_packet_sender = transport->packet_sender();
   TransportFeedbackObserver* transport_feedback_observer =

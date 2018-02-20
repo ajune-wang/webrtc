@@ -14,7 +14,7 @@
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
-#include "call/rtp_transport_controller_send.h"
+#include "call/rtp_send_transport_controller.h"
 #include "call/video_config.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "rtc_base/checks.h"
@@ -78,7 +78,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
     }
     CreateSenderCall(send_config);
     if (sender_call_transport_controller_ != nullptr) {
-      test->OnRtpTransportControllerSendCreated(
+      test->OnRtpSendTransportControllerCreated(
           sender_call_transport_controller_);
     }
     if (test->ShouldCreateReceivers()) {
@@ -171,11 +171,11 @@ void CallTest::CreateCalls(const Call::Config& sender_config,
 }
 
 void CallTest::CreateSenderCall(const Call::Config& config) {
-  sender_call_transport_controller_ = new RtpTransportControllerSend(
+  sender_call_transport_controller_ = new RtpSendTransportController(
       Clock::GetRealTimeClock(), config.event_log, config.bitrate_config);
 
   sender_call_.reset(
-      Call::Create(config, std::unique_ptr<RtpTransportControllerSend>(
+      Call::Create(config, std::unique_ptr<RtpSendTransportController>(
                                sender_call_transport_controller_)));
 }
 
@@ -517,8 +517,8 @@ Call::Config BaseTest::GetReceiverCallConfig() {
   return Call::Config(event_log_.get());
 }
 
-void BaseTest::OnRtpTransportControllerSendCreated(
-    RtpTransportControllerSend* controller) {}
+void BaseTest::OnRtpSendTransportControllerCreated(
+    RtpSendTransportController* controller) {}
 
 void BaseTest::OnCallsCreated(Call* sender_call, Call* receiver_call) {
 }

@@ -24,8 +24,8 @@
 #include "call/bitrate_allocator.h"
 #include "call/call.h"
 #include "call/flexfec_receive_stream_impl.h"
+#include "call/rtp_send_transport_controller.h"
 #include "call/rtp_stream_receiver_controller.h"
-#include "call/rtp_transport_controller_send.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_receive_stream_config.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_send_stream_config.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_incoming.h"
@@ -168,7 +168,7 @@ class Call : public webrtc::Call,
              public BitrateAllocator::LimitObserver {
  public:
   Call(const Call::Config& config,
-       std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
+       std::unique_ptr<RtpSendTransportControllerInterface> transport_send);
   virtual ~Call();
 
   // Implements webrtc::Call.
@@ -356,7 +356,7 @@ class Call : public webrtc::Call,
       RTC_GUARDED_BY(&bitrate_crit_);
   AvgCounter pacer_bitrate_kbps_counter_ RTC_GUARDED_BY(&bitrate_crit_);
 
-  std::unique_ptr<RtpTransportControllerSendInterface> transport_send_;
+  std::unique_ptr<RtpSendTransportControllerInterface> transport_send_;
   ReceiveSideCongestionController receive_side_cc_;
   const std::unique_ptr<SendDelayStats> video_send_delay_stats_;
   const int64_t start_ms_;
@@ -385,13 +385,13 @@ std::string Call::Stats::ToString(int64_t time_ms) const {
 Call* Call::Create(const Call::Config& config) {
   return new internal::Call(
       config,
-      rtc::MakeUnique<RtpTransportControllerSend>(
+      rtc::MakeUnique<RtpSendTransportController>(
           Clock::GetRealTimeClock(), config.event_log, config.bitrate_config));
 }
 
 Call* Call::Create(
     const Call::Config& config,
-    std::unique_ptr<RtpTransportControllerSendInterface> transport_send) {
+    std::unique_ptr<RtpSendTransportControllerInterface> transport_send) {
   return new internal::Call(config, std::move(transport_send));
 }
 
@@ -405,7 +405,7 @@ VideoSendStream* Call::CreateVideoSendStream(
 namespace internal {
 
 Call::Call(const Call::Config& config,
-           std::unique_ptr<RtpTransportControllerSendInterface> transport_send)
+           std::unique_ptr<RtpSendTransportControllerInterface> transport_send)
     : clock_(Clock::GetRealTimeClock()),
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
       module_process_thread_(ProcessThread::Create("ModuleProcessThread")),

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05cc5bdb_121011ac",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2938,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-20T23:40:54Z",
+      "side": 1,
+      "message": "Is the reasoning for keeping this function separate from GetAudioTransceiver so that we can keep the RTC_NOTREACHED() for GetAudioTransceiver to catch bugs in Plan B? Since they are doing the same thing I\u0027m just wondering why not switch everything to use GetFirstAudioTransceiver and do the same for video - change GetVideoTransceiver to GetFirstVideoTransceiver.",
+      "range": {
+        "startLine": 2938,
+        "startChar": 16,
+        "endLine": 2938,
+        "endChar": 40
+      },
+      "revId": "3e19f0a8deff5c044f08a0f6acfba9d43a9a1323",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

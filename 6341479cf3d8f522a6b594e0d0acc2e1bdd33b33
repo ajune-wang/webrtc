@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7328c82_d5de822d",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "We\u0027ll need to add a unit test which properly tests this code for a longer time than a few seconds as there seems to be a memory issue if the filter length is increased.",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 14
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66bc5111_65b0772c",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "I think it is better to move this to 180, as that will avoid running 180-184 if an early return occurs here.",
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4622003_75950ac5",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "Please use block_energies_.size() instead of kMaxAdaptiveFilterLength. Even though they are equivalent, using the .size() method clearly shows that the DCHECK is sufficient for checking that the index is within the boundary of the array.",
+      "range": {
+        "startLine": 221,
+        "startChar": 49,
+        "endLine": 221,
+        "endChar": 73
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9258b696_aeac0480",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "Please add a DCHECK to ensure that in \u003e0.",
+      "range": {
+        "startLine": 243,
+        "startChar": 50,
+        "endLine": 243,
+        "endChar": 51
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be4b1aed_028c77f3",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "It this is unly a truncation, I\u0027d rather see it being done as \nfloat out \u003d static_cast\u003cuint32_t\u003e(in);\nwhich is shorter and more easy to understand.\n\nIf that does not work, please explain in the comment why the chosen approach must be used.\n\nWhen I check the assembly, the static cast seem to generate a cvttss2si instruction, in contrast to the union approach. Is the intention of the union approach to avoid that?",
+      "range": {
+        "startLine": 245,
+        "startChar": 17,
+        "endLine": 245,
+        "endChar": 0
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f55f4945_aeb4fafe",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "Not important, but I actually think that ++accumulated_count_; would be valid here as well.",
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6faf351_50f3c050",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "Please add punctuation to the end of the comments. This also applies to other places below.\n(style guide link: https://google.github.io/styleguide/cppguide.html#Punctuation,_Spelling_and_Grammar)",
+      "range": {
+        "startLine": 269,
+        "startChar": 40,
+        "endLine": 269,
+        "endChar": 45
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01e40340_e2ca6f69",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "Please use -accumulated_nz_ and accumulated_nn_ directly in the computations below. That reduces the amount of code as well as clearly shows what the division does.",
+      "range": {
+        "startLine": 275,
+        "startChar": 16,
+        "endLine": 275,
+        "endChar": 19
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2308f082_8e4389e8",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "Please consider moving 1.f / kTailLength to a constant or checking to make sure that the compiler does not actually do a division.",
+      "range": {
+        "startLine": 294,
+        "startChar": 19,
+        "endLine": 294,
+        "endChar": 30
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be3c0b54_9605062e",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "What is the purpose of the constant 12? Does it map to a factor in the arithmetic sum?",
+      "range": {
+        "startLine": 305,
+        "startChar": 31,
+        "endLine": 305,
+        "endChar": 33
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "056b304b_f3b3137b",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-20T23:12:56Z",
+      "side": 1,
+      "message": "The parenthesis around the product are not needed.",
+      "range": {
+        "startLine": 320,
+        "startChar": 37,
+        "endLine": 320,
+        "endChar": 69
+      },
+      "revId": "6341479cf3d8f522a6b594e0d0acc2e1bdd33b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

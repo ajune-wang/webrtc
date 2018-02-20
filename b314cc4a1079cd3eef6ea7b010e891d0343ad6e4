@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03b48e4a_db395a7b",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-20T15:19:08Z",
+      "side": 1,
+      "message": "Is this still needed?\n\nIf so, would be good with a followup cl to at least fix the code moved to api/",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 3
+      },
+      "revId": "b314cc4a1079cd3eef6ea7b010e891d0343ad6e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74b482a_4f0083ec",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-20T15:19:08Z",
+      "side": 1,
+      "message": "Follow the style in the rest of the file, and write \"../../\" instead of \"//\".",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 40
+      },
+      "revId": "b314cc4a1079cd3eef6ea7b010e891d0343ad6e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

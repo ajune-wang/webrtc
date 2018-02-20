@@ -1933,7 +1933,7 @@ bool WebRtcVoiceMediaChannel::SetOutputVolume(uint32_t ssrc, double volume) {
 }
 
 bool WebRtcVoiceMediaChannel::CanInsertDtmf() {
-  return dtmf_payload_type_ ? true : false;
+  return dtmf_payload_type_.has_value() && send_;
 }
 
 bool WebRtcVoiceMediaChannel::InsertDtmf(uint32_t ssrc, int event,

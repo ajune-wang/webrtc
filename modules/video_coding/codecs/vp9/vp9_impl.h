@@ -77,6 +77,7 @@ class VP9EncoderImpl : public VP9Encoder {
                              uint32_t timestamp);
 
   bool ExplicitlyConfiguredSpatialLayers() const;
+  bool SvcRateAllocation();
   bool SetSvcRates();
 
   // Used for flexible mode to set the flags and buffer references used
@@ -119,6 +120,9 @@ class VP9EncoderImpl : public VP9Encoder {
   size_t frames_since_kf_;
   uint8_t num_temporal_layers_;
   uint8_t num_spatial_layers_;
+  uint8_t numSL;  // number of spatial layers
+  unsigned int num_pixels;
+  float sr_derived[VPX_SS_MAX_LAYERS];  // derived spatial resolution ratios
 
   // Used for flexible mode.
   bool is_flexible_mode_;

@@ -32,6 +32,16 @@
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
 
+#define SVC_RATE_ALLOC 1  // enable/disable proof-of-concept SVC rate alloc
+#if SVC_RATE_ALLOC
+  #define NUM_PIX_1080P 2073600  // number of pixels in 1080p
+  #define NUM_PIX_720P 921600  // number of pixels in 720p
+  #define NUM_PIX_540P 518400  // number of pixels in 540p
+  #define NUM_PIX_360P 230400  // number of pixels in 360p
+  #define NUM_PIX_270P 129600  // number of pixels in 270p
+  #define NUM_PIX_180P 57600   // number of pixels in 180p
+#endif
+
 namespace webrtc {
 
 // Only positive speeds, range for real-time coding currently is: 5 - 8.
@@ -124,6 +134,103 @@ bool VP9EncoderImpl::ExplicitlyConfiguredSpatialLayers() const {
          codec_.spatialLayers[0].target_bitrate_bps > 0;
 }
 
+#if SVC_RATE_ALLOC
+// VP9/SVC rate allocation (described in VP9/SVC rate alloc doc)
+bool VP9EncoderImpl::SvcRateAllocation() {
+    float spatial_rate_factor = 0.55;  // value range [0, 1]; adaptation later
+    float srf;
+    float denominator_srf;
+    float numerator_srf;
+    float temporal_rate_factor = 0.55;  // value range [0, 1]; adaptation later
+    float denominator_trf = 1;
+    unsigned int max_bitrate_thr[VPX_SS_MAX_LAYERS];
+    unsigned int excess_rate;
+    uint8_t i = 0;
+
+    // initialize denominator_srf and max bit rate thresholds
+    srf = 1;
+    denominator_srf = 0;
+    for (i = 0; i < numSL; ++i) {
+      // Compute maximum bitrate threshold for the i-th spatial layer
+      // Expression emprically derived for VP9/SVC
+      max_bitrate_thr[i] = (unsigned int)(1.5 * static_cast<float>(num_pixels) /
+        (sr_derived[i] * sr_derived[i] * 1000.0) + 75.0);
+       // printf("max_bitrate_thr[%d]=%d, sr_derived=%.1f\n",
+       // i, max_bitrate_thr[i], sr_derived[i]);
+      denominator_srf += srf;
+      srf *= spatial_rate_factor;
+    }
+
+    // Compute initial bit rate estimate for each spatial layer
+    numerator_srf = 1.0;
+    for (i = 0; i < numSL; i++) {
+      uint8_t layer_idx = numSL - 1 - i;
+
+        // Compute initial bit rate for i-th spatial layer
+        config_->ss_target_bitrate[layer_idx] = static_cast<unsigned int>(
+          config_->rc_target_bitrate * numerator_srf / denominator_srf);
+
+        numerator_srf *= spatial_rate_factor;
+    }
+
+    // Set spatial layer bit rates distributing excess bit rate (if any)
+    excess_rate = 0;
+    for (i = 0; i < numSL; i++) {
+        config_->ss_target_bitrate[i] += excess_rate;
+        if (static_cast<int>(config_->ss_target_bitrate[i]) -
+            static_cast<int>(max_bitrate_thr[i]) < 0)
+          excess_rate = 0;
+        else
+          excess_rate = config_->ss_target_bitrate[i] - max_bitrate_thr[i];
+        if (config_->ss_target_bitrate[i] > max_bitrate_thr[i])
+          config_->ss_target_bitrate[i] = max_bitrate_thr[i];
+    }
+
+    // Set temporal layer bit rates
+    if (num_temporal_layers_ > 3 || num_temporal_layers_ < 1) {
+            RTC_LOG(LS_ERROR) << "Unsupported number of temporal layers: "
+                          << num_temporal_layers_;
+            return false;
+    }
+    for (i = 0; i < numSL; ++i) {
+        if (num_temporal_layers_ == 1) {
+            config_->layer_target_bitrate[i] = config_->ss_target_bitrate[i];
+            printf("target_bitrate[SL%d:TL0] = %d\n", i,
+              config_->layer_target_bitrate[i*num_temporal_layers_]);
+        } else if (num_temporal_layers_ == 2) {
+          denominator_trf = 1 + temporal_rate_factor;
+            config_->layer_target_bitrate[i * num_temporal_layers_] =
+                config_->ss_target_bitrate[i] / denominator_trf;
+                printf("target_bitrate[SL%d:TL0] = %d\n", i,
+                  config_->layer_target_bitrate[i*num_temporal_layers_]);
+            config_->layer_target_bitrate[i * num_temporal_layers_ + 1] =
+                config_->ss_target_bitrate[i];
+                printf("target_bitrate[SL%d:TL1] = %d\n", i,
+                  config_->layer_target_bitrate[i*num_temporal_layers_+1]);
+        } else if (num_temporal_layers_ == 3) {
+          denominator_trf = 1 + temporal_rate_factor
+              + temporal_rate_factor*temporal_rate_factor;
+            config_->layer_target_bitrate[i * num_temporal_layers_] =
+                config_->ss_target_bitrate[i] / denominator_trf;
+                printf("target_bitrate[SL%d:TL0] = %d\n", i,
+                  config_->layer_target_bitrate[i*num_temporal_layers_]);
+            config_->layer_target_bitrate[i * num_temporal_layers_ + 1] =
+                config_->layer_target_bitrate[i * num_temporal_layers_] +
+                  config_->ss_target_bitrate[i] * temporal_rate_factor *
+                  temporal_rate_factor / denominator_trf;
+                printf("target_bitrate[SL%d:TL1] = %d\n", i,
+                  config_->layer_target_bitrate[i*num_temporal_layers_+1]);
+            config_->layer_target_bitrate[i * num_temporal_layers_ + 2] =
+                config_->ss_target_bitrate[i];
+                printf("target_bitrate[SL%d:TL2] = %d\n", i,
+                  config_->layer_target_bitrate[i*num_temporal_layers_+2]);
+        }
+    }
+    printf("\n");
+    return true;
+  }
+#endif
+
 bool VP9EncoderImpl::SetSvcRates() {
   uint8_t i = 0;
 
@@ -145,6 +252,91 @@ bool VP9EncoderImpl::SetSvcRates() {
                            total_bitrate_bps);
     }
   } else {
+  #if SVC_RATE_ALLOC
+    unsigned int min_bitrate_thr;
+    uint8_t check_op_flag = 1;  // check operating point flag
+    float sr_orig[VPX_SS_MAX_LAYERS];  // inital spatial layer resolution ratios
+
+    num_pixels = config_->g_w * config_->g_h;
+    // printf("\nnum_pixels=%d\n", num_pixels);
+    // num_spatial_layers_ is max num spatial layers
+    for (i = 0; i < num_spatial_layers_; i++) {
+        if (svc_params_.scaling_factor_num[i] <= 0 ||
+            svc_params_.scaling_factor_den[i] <= 0) {
+          RTC_LOG(LS_ERROR) << "Scaling factors not specified!";
+          return false;
+        }
+        // Compute ratios among intial spatial layer resolutions
+        sr_orig[i] = static_cast<float>(svc_params_.scaling_factor_den[i]) /
+          svc_params_.scaling_factor_num[i];
+    }
+
+    while ( check_op_flag != 0 ) {
+      check_op_flag = 0;
+      // Set number of spatial layers
+      if (num_pixels > NUM_PIX_540P)
+        numSL = 3;
+      else if (num_pixels >= NUM_PIX_270P)
+        numSL = 2;
+      else
+        numSL = 1;
+      numSL = (numSL > num_spatial_layers_) ? num_spatial_layers_ : numSL;
+      // printf("numSL=%d\n", numSL);
+
+      // Derive ratios among current number of spatial layers
+      for (i = 0; i < numSL; i++)
+        sr_derived[i] = sr_orig[i] / sr_orig[numSL-1];
+
+      // Allocate rate among numSL spatial layers
+      if (!SvcRateAllocation()) {
+        RTC_LOG(LS_ERROR) << "SVC rate allocation failed.";
+        return false;
+      }
+
+      // set and check min bit rate thresholds
+      for (i = 0; i < numSL; i++) {
+        unsigned int nPix;
+
+        nPix = static_cast<unsigned int>(static_cast<float>(num_pixels)
+          / (sr_derived[i] * sr_derived[i]));
+        // printf("nPix=%d\n", nPix);
+
+        // TODO(mhoro): replace if statements with minThr = 360*sqrt(num_pixels)
+        if (nPix < NUM_PIX_180P)
+          min_bitrate_thr = 50;
+        else if (nPix < NUM_PIX_270P)
+          min_bitrate_thr = 100;
+        else if (nPix < NUM_PIX_360P)
+          min_bitrate_thr = 125;
+        else if (nPix < NUM_PIX_540P)
+          min_bitrate_thr = 150;
+        else if (nPix < NUM_PIX_720P)
+          min_bitrate_thr = 250;
+        else if (nPix < NUM_PIX_1080P)
+          min_bitrate_thr = 350;
+        else
+          min_bitrate_thr = 500;
+        if (config_->ss_target_bitrate[i] < min_bitrate_thr) {
+          uint8_t j;
+
+          // step to lower spatial layer (if possible)
+          if (numSL == 1) {
+            RTC_LOG(LS_ERROR) << "Not enough bit rate for 1 spatial layer.";
+            return false;
+          }
+          num_pixels = static_cast<unsigned int>(static_cast<float>(num_pixels)
+            / (sr_derived[numSL-2] * sr_derived[numSL-2]));
+
+          // Disable top spatial layer by setting its bit rate to zero
+          for (j = 0; j < num_temporal_layers_; j++)
+            config_->layer_target_bitrate[(numSL-1)*num_temporal_layers_+j] = 0;
+
+          check_op_flag = 1;
+          break;
+        }
+      }
+    }
+#else
     float rate_ratio[VPX_MAX_LAYERS] = {0};
     float total = 0;
 
@@ -184,6 +376,7 @@ bool VP9EncoderImpl::SetSvcRates() {
         return false;
       }
     }
+#endif
   }
 
   // For now, temporal layers only supported when having one spatial layer.

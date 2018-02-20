@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd664599_28d1f355",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ef10b53_4b18d993",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 26,
+        "endChar": 37
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cb16d41_0ef1474a",
         "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cff1c05_fc9ee7ca",
+        "filename": "modules/audio_processing/agc2/agc2_testing_common.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cb16d41_0ef1474a",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4357a9c2_d409bf08",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "This looks strange. gain_to_apply_ is set though a default initializer in the .h file. Then why is there a check that will always pass? I\u0027ve moved the check (and changed it) to SetGain",
+      "parentUuid": "ae36c009_d7a7b7b7",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bd250a4_1ed5fcb3",
         "filename": "modules/audio_processing/agc2/fixed_gain_controller.h",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aa657f9_7825b20a",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bd250a4_1ed5fcb3",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 34
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "caac97f6_6ca7ea8b",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5389de4_87829ae4",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3310db16_279d5b61",
         "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3db257ee_3b913bae",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3310db16_279d5b61",
+      "range": {
+        "startLine": 95,
+        "startChar": 18,
+        "endLine": 95,
+        "endChar": 22
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ac58331d_9317627f",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4d6dd27_60bcc0a9",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 70
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "337320f4_32cd3b84",
         "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
         "patchSetId": 3
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "9b0a25c0_282decd3",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "337320f4_32cd3b84",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 51
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8ff353f_0ee69239",
         "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
         "patchSetId": 3
@@ -206,6 +398,30 @@
       "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1950b65_4c64edd0",
+        "filename": "modules/audio_processing/agc2/fixed_gain_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8ff353f_0ee69239",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 34
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "e45f4a14_4df2520e",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7eabc139_c3ac1b89",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc9188a6_4165fa23",
         "filename": "modules/audio_processing/agc2/gain_curve_applier.h",
         "patchSetId": 3
@@ -275,6 +515,30 @@
       "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e347a820_c8f09de3",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "\u003cthinking out loud\u003e. Currently \n* below 48k\u003dkMaximalNumberOfSamplesPerChannel*1000/kFrameDurationMs\n* such that RATE*kFrameDurationMs/1000 is divisible by kSubFramesInFrame\n* RATE*kFrameDurationMs/1000 is strictly greater than kSubFramesInFrame\n\nI don\u0027t want to write exactly that in a comment. It could be wrong or go stale. I\u0027ve added a DCHECK and written the deps of this class in a comment.",
+      "parentUuid": "bc9188a6_4165fa23",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -324,6 +588,54 @@
     },
     {
       "key": {
+        "uuid": "1d96bc68_b065a37b",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10873206_ac2e3bfa",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 16
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14e39ebd_e5f16f9d",
+        "filename": "modules/audio_processing/agc2/gain_curve_applier.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab54ee7d_a98d8dda",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 40
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0aa96c9_14ccf36a",
         "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
         "patchSetId": 3
@@ -344,6 +656,30 @@
       "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb1ad403_e5fe6b44",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-20T10:46:50Z",
+      "side": 1,
+      "message": "Yes, good that you spotted it. But we have to limit the gain value to something reasonable (+-50db). If we read 4 bytes and call it a float, the fuzzer will easily have us apply 1000db of gain. Then the output of the AGC would probably be all NaNs.",
+      "parentUuid": "b0aa96c9_14ccf36a",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 50
+      },
+      "revId": "9005cf9b4f15fe417e06cb2d02035d5c1ba2afc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

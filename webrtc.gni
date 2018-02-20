@@ -274,6 +274,8 @@ if (build_with_chromium) {
   webrtc_default_visibility += [ webrtc_root + "/../webrtc_overrides/*" ]
 }
 
+absl_configs = "//third_party/absl:absl_config"
+
 template("rtc_test") {
   test(target_name) {
     forward_variables_from(invoker,
@@ -292,7 +294,10 @@ template("rtc_test") {
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
-    public_configs = [ rtc_common_inherited_config ]
+    public_configs = [
+      rtc_common_inherited_config,
+      absl_configs,
+    ]
     if (defined(invoker.public_configs)) {
       public_configs += invoker.public_configs
     }
@@ -320,7 +325,10 @@ template("rtc_source_set") {
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
-    public_configs = [ rtc_common_inherited_config ]
+    public_configs = [
+      rtc_common_inherited_config,
+      absl_configs,
+    ]
     if (defined(invoker.public_configs)) {
       public_configs += invoker.public_configs
     }
@@ -350,7 +358,10 @@ template("rtc_executable") {
     ]
     deps += invoker.deps
 
-    public_configs = [ rtc_common_inherited_config ]
+    public_configs = [
+      rtc_common_inherited_config,
+      absl_configs,
+    ]
     if (defined(invoker.public_configs)) {
       public_configs += invoker.public_configs
     }
@@ -374,7 +385,10 @@ template("rtc_static_library") {
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
-    public_configs = [ rtc_common_inherited_config ]
+    public_configs = [
+      rtc_common_inherited_config,
+      absl_configs,
+    ]
     if (defined(invoker.public_configs)) {
       public_configs += invoker.public_configs
     }
@@ -398,7 +412,10 @@ template("rtc_shared_library") {
     configs += invoker.configs
     configs -= rtc_remove_configs
     configs -= invoker.suppressed_configs
-    public_configs = [ rtc_common_inherited_config ]
+    public_configs = [
+      rtc_common_inherited_config,
+      absl_configs,
+    ]
     if (defined(invoker.public_configs)) {
       public_configs += invoker.public_configs
     }

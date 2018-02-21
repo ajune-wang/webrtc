@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3dc2f8b3_e8f54e6c",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T08:20:54Z",
+      "side": 1,
+      "message": "My idea was that maybe the decoder might start working again after a resolution change. For example a decoder might only have problems with big / small resolutions. What is your experience on this?\n\nIf this is not the case, I will update this to keep the failure even after InitDecode.",
+      "parentUuid": "76c541d2_66f5d3a5",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22d8486d_aa14a858",
         "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
         "patchSetId": 11

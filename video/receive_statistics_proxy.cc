@@ -113,6 +113,7 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(
       avg_rtt_ms_(0),
       last_content_type_(VideoContentType::UNSPECIFIED),
       timing_frame_info_counter_(kMovingMaxWindowMs) {
+  decode_thread_.DetachFromThread();
   stats_.ssrc = config_.rtp.remote_ssrc;
   // TODO(brandtr): Replace |rtx_stats_| with a single instance of
   // StreamDataCounters.
@@ -768,6 +769,7 @@ void ReceiveStatisticsProxy::OnDiscardedPacketsUpdated(int discarded_packets) {
 void ReceiveStatisticsProxy::OnPreDecode(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info) {
+  RTC_DCHECK_RUN_ON(&decode_thread_);
   if (!codec_specific_info || encoded_image.qp_ == -1) {
     return;
   }

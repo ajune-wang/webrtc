@@ -26,6 +26,7 @@
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/ratetracker.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/thread_checker.h"
 #include "video/quality_threshold.h"
 #include "video/report_block_stats.h"
 #include "video/stats_counter.h"
@@ -188,6 +189,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   // called from const GetStats().
   mutable rtc::MovingMaxCounter<TimingFrameInfo> timing_frame_info_counter_
       RTC_GUARDED_BY(&crit_);
+  rtc::ThreadChecker decode_thread_;
 };
 
 }  // namespace webrtc

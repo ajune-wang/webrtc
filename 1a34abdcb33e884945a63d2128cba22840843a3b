@@ -46,6 +46,30 @@
       "revId": "1a34abdcb33e884945a63d2128cba22840843a3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0110286_e8f8baac",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-21T01:37:37Z",
+      "side": 1,
+      "message": "Yeah, we should do that. I filed a bug:https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8912",
+      "parentUuid": "7a4ca755_dd39f020",
+      "range": {
+        "startLine": 159,
+        "startChar": 11,
+        "endLine": 159,
+        "endChar": 18
+      },
+      "revId": "1a34abdcb33e884945a63d2128cba22840843a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

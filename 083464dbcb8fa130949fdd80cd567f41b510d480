@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbccfc8a_5f4772a9",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-02-21T14:48:27Z",
+      "side": 1,
+      "message": "Please use std::queue instead.",
+      "revId": "083464dbcb8fa130949fdd80cd567f41b510d480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

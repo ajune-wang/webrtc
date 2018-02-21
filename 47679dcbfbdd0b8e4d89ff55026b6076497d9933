@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f94a03c_ab1b660f",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-21T13:36:19Z",
+      "side": 1,
+      "message": "nit: --unique_frames_seen_\nmaybe also add a dcheck \u003e 0 before decrement",
+      "range": {
+        "startLine": 504,
+        "startChar": 30,
+        "endLine": 504,
+        "endChar": 0
+      },
+      "revId": "47679dcbfbdd0b8e4d89ff55026b6076497d9933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b2aeee1_8f07abc1",
+        "filename": "modules/video_coding/video_packet_buffer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-21T13:36:19Z",
+      "side": 1,
+      "message": "nit; s/int/size_t",
+      "range": {
+        "startLine": 235,
+        "startChar": 42,
+        "endLine": 235,
+        "endChar": 0
+      },
+      "revId": "47679dcbfbdd0b8e4d89ff55026b6076497d9933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

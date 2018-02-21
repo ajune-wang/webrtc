@@ -22,6 +22,30 @@
       "revId": "1a34abdcb33e884945a63d2128cba22840843a3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a4ca755_dd39f020",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-21T00:12:13Z",
+      "side": 1,
+      "message": "That\u0027s neat. Looks like it\u0027s been in sigslot for a while. But nothing currently using them (they all still specify the number), so I\u0027m going to follow the convention here.\n\nIt would be cool to see a CL which just sed\u0027s all the usage to the varadic template. That would encourage using the new style and allow removing the numbered aliases.",
+      "parentUuid": "e7b4c358_697b0eaf",
+      "range": {
+        "startLine": 159,
+        "startChar": 11,
+        "endLine": 159,
+        "endChar": 18
+      },
+      "revId": "1a34abdcb33e884945a63d2128cba22840843a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

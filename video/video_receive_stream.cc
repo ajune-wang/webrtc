@@ -224,7 +224,7 @@ void VideoReceiveStream::Start() {
   call_stats_->RegisterStatsObserver(video_stream_decoder_.get());
 
   process_thread_->RegisterModule(&video_receiver_, RTC_FROM_HERE);
-
+stats_proxy_.OnDecStart();
   // Start the decode thread
   decode_thread_.Start();
   rtp_video_stream_receiver_.StartReceive();

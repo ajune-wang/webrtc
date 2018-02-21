@@ -26,6 +26,7 @@
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/ratetracker.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/thread_checker.h"
 #include "video/quality_threshold.h"
 #include "video/report_block_stats.h"
 #include "video/stats_counter.h"
@@ -59,6 +60,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
 
   void OnPreDecode(const EncodedImage& encoded_image,
                    const CodecSpecificInfo* codec_specific_info);
+  void OnDecStart();
 
   // Indicates video stream has been paused (no incoming packets).
   void OnStreamInactive();
@@ -188,6 +190,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   // called from const GetStats().
   mutable rtc::MovingMaxCounter<TimingFrameInfo> timing_frame_info_counter_
       RTC_GUARDED_BY(&crit_);
+  rtc::ThreadChecker decode_thread_;
 };
 
 }  // namespace webrtc

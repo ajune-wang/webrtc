@@ -96,6 +96,8 @@ bool RtcpMuxFilter::SetAnswer(bool answer_enable, ContentSource src) {
     return false;
   }
 
+  RTC_LOG(INFO) << "offer_enable_:" << offer_enable_;
+  RTC_LOG(INFO) << "answer_enable:" << answer_enable;
   if (offer_enable_ && answer_enable) {
     state_ = ST_ACTIVE;
   } else if (answer_enable) {
@@ -103,6 +105,7 @@ bool RtcpMuxFilter::SetAnswer(bool answer_enable, ContentSource src) {
     RTC_LOG(LS_WARNING) << "Invalid parameters in RTCP mux answer";
     return false;
   } else {
+    RTC_LOG(INFO) << "Set it back in INIT";
     state_ = ST_INIT;
   }
   return true;
@@ -116,6 +119,7 @@ bool RtcpMuxFilter::ExpectOffer(bool offer_enable, ContentSource source) {
 }
 
 bool RtcpMuxFilter::ExpectAnswer(ContentSource source) {
+  RTC_LOG(INFO) << state_ << " source: " << source;
   return ((state_ == ST_SENTOFFER && source == CS_REMOTE) ||
           (state_ == ST_RECEIVEDOFFER && source == CS_LOCAL) ||
           (state_ == ST_SENTPRANSWER && source == CS_LOCAL) ||

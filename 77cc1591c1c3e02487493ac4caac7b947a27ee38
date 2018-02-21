@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6ba438ee_9eb7ad6d",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-02-21T13:16:30Z",
+      "side": 1,
+      "message": "Ownership conceptually belongs to PeerConnectionFactory, but it\u0027s delegated in several steps. Actually one more step, the actual \n\n  const std::unique_ptr\u003cwebrtc::VideoEncoderFactory\u003e encoder_factory_;\n\nseems to be a member of WebRtcVideoEngine.",
+      "parentUuid": "c23cc74f_9c6e532d",
+      "range": {
+        "startLine": 140,
+        "startChar": 9,
+        "endLine": 140,
+        "endChar": 57
+      },
+      "revId": "77cc1591c1c3e02487493ac4caac7b947a27ee38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7daebf55_96407cd1",
         "filename": "call/video_send_stream.h",
         "patchSetId": 2

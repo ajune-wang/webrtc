@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f6e944b0_419d4179",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-02-21T16:41:21Z",
+      "side": 1,
+      "message": "This class will change quite a bit in the coming weeks, just doing it in manageable steps.",
+      "parentUuid": "7107c680_a4c116a8",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 17
+      },
+      "revId": "cc1fa2e83ba188d5fb055404ea3b95716f49da75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b7f553a0_97a8d00e",
         "filename": "api/video/encoded_frame.h",
         "patchSetId": 4

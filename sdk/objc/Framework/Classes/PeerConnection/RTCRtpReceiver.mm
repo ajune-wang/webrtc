@@ -62,7 +62,7 @@ void RtpReceiverDelegateAdapter::OnFirstPacketReceived(
   rtc::scoped_refptr<webrtc::MediaStreamTrackInterface> nativeTrack(
     _nativeRtpReceiver->track());
   if (nativeTrack) {
-    return [[RTCMediaStreamTrack alloc] initWithNativeTrack:nativeTrack];
+    return [RTCMediaStreamTrack mediaTrackForNativeTrack:nativeTrack];
   }
   return nil;
 }
@@ -70,6 +70,12 @@ void RtpReceiverDelegateAdapter::OnFirstPacketReceived(
 - (NSString *)description {
   return [NSString stringWithFormat:@"RTCRtpReceiver {\n  receiverId: %@\n}",
       self.receiverId];
+}
+
+- (void)dealloc {
+  if (_nativeRtpReceiver) {
+    _nativeRtpReceiver->SetObserver(nullptr);
+  }
 }
 
 - (BOOL)isEqual:(id)object {

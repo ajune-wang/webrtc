@@ -201,6 +201,25 @@ void PeerConnectionDelegateAdapter::OnIceCandidatesRemoved(
                     didRemoveIceCandidates:ice_candidates];
 }
 
+void PeerConnectionDelegateAdapter::OnAddTrack(
+    rtc::scoped_refptr<RtpReceiverInterface> receiver,
+    const std::vector<rtc::scoped_refptr<MediaStreamInterface>> &streams) {
+  RTCPeerConnection *peer_connection = peer_connection_;
+  if ([peer_connection.delegate
+          respondsToSelector:@selector(peerConnection:didAddTrack:streams:)]) {
+    NSMutableArray *mediaStreams = [NSMutableArray arrayWithCapacity:streams.size()];
+    for (auto const &nativeStream : streams) {
+      RTCMediaStream *mediaStream = [[RTCMediaStream alloc] initWithNativeMediaStream:nativeStream];
+      [mediaStreams addObject:mediaStream];
+    }
+    RTCRtpReceiver *rtpReceiver = [[RTCRtpReceiver alloc] initWithNativeRtpReceiver:receiver];
+
+    [peer_connection.delegate peerConnection:peer_connection
+                                 didAddTrack:rtpReceiver
+                                     streams:mediaStreams];
+  }
+}
+
 }  // namespace webrtc
 
 

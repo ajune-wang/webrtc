@@ -44,8 +44,6 @@ class VCMEncoderDataBase {
 
   VCMGenericEncoder* GetEncoder();
 
-  bool SetPeriodicKeyFrames(bool enable);
-
   // Deregisters an external decoder object specified by |payload_type|.
   bool DeregisterExternalDecoder(uint8_t payload_type);
 

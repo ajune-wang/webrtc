@@ -498,10 +498,6 @@ int32_t H264EncoderImpl::SetChannelParameters(
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-int32_t H264EncoderImpl::SetPeriodicKeyFrames(bool enable) {
-  return WEBRTC_VIDEO_CODEC_OK;
-}
-
 VideoEncoder::ScalingSettings H264EncoderImpl::GetScalingSettings() const {
   return VideoEncoder::ScalingSettings(true);
 }

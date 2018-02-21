@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6e3ea97_59bb2025",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-21T05:55:52Z",
+      "side": 1,
+      "message": "nit: capital P",
+      "range": {
+        "startLine": 1033,
+        "startChar": 41,
+        "endLine": 1033,
+        "endChar": 42
+      },
+      "revId": "f1793c1e210e723a3ec2849ac6d23e02621ac691",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

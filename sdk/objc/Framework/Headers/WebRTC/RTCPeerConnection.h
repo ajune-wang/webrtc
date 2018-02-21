@@ -22,8 +22,12 @@
 @class RTCPeerConnectionFactory;
 @class RTCRtpReceiver;
 @class RTCRtpSender;
+@class RTCRtpTransceiver;
+@class RTCRtpTransceiverInit;
 @class RTCSessionDescription;
 @class RTCLegacyStatsReport;
+
+typedef NS_ENUM(NSInteger, RTCRtpMediaType);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -112,6 +116,14 @@ RTC_EXPORT
            didAddTrack:(RTCRtpReceiver *)rtpReceiver
                streams:(NSArray<RTCMediaStream *> *)mediaStreams;
 
+/** Called when signaling indicates a transceiver will be receiving media from
+ *  the remote endpoint.
+ *  This is only called with RTCSdpSemanticsUnifiedPlan specified.
+ */
+@optional
+- (void)peerConnection:(RTCPeerConnection *)peerConnection
+              didTrack:(RTCRtpTransceiver *)transceiver;
+
 @end
 
 RTC_EXPORT
@@ -143,6 +155,14 @@ RTC_EXPORT
  */
 @property(nonatomic, readonly) NSArray<RTCRtpReceiver *> *receivers;
 
+/** Gets all RTCRtpTransceivers associated with this peer connection.
+ *  Note: reading this property returns different instances of
+ *  RTCRtpTransceiver. Use isEqual: instead of == to compare RTCRtpTransceiver
+ *  instances.
+ *  This is only available with RTCSdpSemanticsUnifiedPlan specified.
+ */
+@property(nonatomic, readonly) NSArray<RTCRtpTransceiver *> *transceivers;
+
 - (instancetype)init NS_UNAVAILABLE;
 
 /** Sets the PeerConnection's global configuration to |configuration|.
@@ -167,6 +187,54 @@ RTC_EXPORT
 
 /** Remove the given media stream from this peer connection. */
 - (void)removeStream:(RTCMediaStream *)stream;
+
+/** Add a new media stream track to be sent on this peer connection, and return
+ *  the newly created RTCRtpSender. The RTCRtpSender will be associated with
+ *  the streams specified in the |streamLabels| list.
+ *
+ *  Errors: If an error occurs, returns nil. An error can occur if:
+ *  - A sender already exists for the track.
+ *  - The peer connection is closed.
+ */
+- (RTCRtpSender *)addTrack:(RTCMediaStreamTrack *)track
+              streamLabels:(NSArray<NSString *> *)streamLabels;
+
+/** Removes an RTCRtpSender from this peer connection.
+ *  Returns YES on success.
+ */
+- (BOOL)removeTrack:(RTCRtpSender *)sender;
+
+/** addTransceiver creates a new RTCRtpTransceiver and adds it to the set of
+ *  transceivers. Adding a transceiver will cause future calls to CreateOffer
+ *  to add a media description for the corresponding transceiver.
+ *
+ *  The initial value of |mid| in the returned transceiver is nil. Setting a
+ *  new session description may change it to a non-nil value.
+ *
+ *  https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection-addtransceiver
+ *
+ *  Optionally, an RtpTransceiverInit structure can be specified to configure
+ *  the transceiver from construction. If not specified, the transceiver will
+ *  default to having a direction of kSendRecv and not be part of any streams.
+ *
+ *  These methods are only available when Unified Plan is enabled (see
+ *  RTCConfiguration).
+ */
+
+/** Adds a transceiver with a sender set to transmit the given track. The kind
+ *  of the transceiver (and sender/receiver) will be derived from the kind of
+ *  the track.
+ */
+- (RTCRtpTransceiver *)addTransceiverWithTrack:(RTCMediaStreamTrack *)track;
+- (RTCRtpTransceiver *)addTransceiverWithTrack:(RTCMediaStreamTrack *)track
+                                          init:(RTCRtpTransceiverInit *)init;
+
+/** Adds a transceiver with the given kind. Can either be RTCRtpMediaTypeAudio
+ *  or RTCRtpMediaTypeVideo.
+ */
+- (RTCRtpTransceiver *)addTransceiverOfType:(RTCRtpMediaType)mediaType;
+- (RTCRtpTransceiver *)addTransceiverOfType:(RTCRtpMediaType)mediaType
+                                       init:(RTCRtpTransceiverInit *)init;
 
 /** Generate an SDP offer. */
 - (void)offerForConstraints:(RTCMediaConstraints *)constraints

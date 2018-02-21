@@ -392,7 +392,7 @@ TEST_P(TransportFeedbackEndToEndTest,
       // therefore filling up the congestion window. In the congested state, the
       // pacer should send padding packets to trigger feedback in case all
       // feedback of previous traffic was lost. This test listens for the
-      // padding packets and when 2 padding packets have been received, feedback
+      // padding packets and when 2 padding packets has been received feedback
       // will be let trough again. This should cause the pacer to continue
       // sending meadia yet again.
       if (media_sent_ > 20 && HasTransportFeedback(data, length) &&

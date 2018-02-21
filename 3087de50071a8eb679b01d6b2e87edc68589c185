@@ -16,6 +16,24 @@
       "revId": "3087de50071a8eb679b01d6b2e87edc68589c185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5806113_b273e154",
+        "filename": "modules/rtp_rtcp/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-21T07:00:27Z",
+      "side": 1,
+      "message": "Yes, that\u0027s right.\nI moved it.",
+      "parentUuid": "5a2216e6_0f93cee2",
+      "revId": "3087de50071a8eb679b01d6b2e87edc68589c185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

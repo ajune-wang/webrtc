@@ -1481,7 +1481,7 @@ void WebRtcVideoChannel::OnReadyToSend(bool ready) {
 void WebRtcVideoChannel::OnNetworkRouteChanged(
     const std::string& transport_name,
     const rtc::NetworkRoute& network_route) {
-  // TODO(zhihaung): Merge these two callbacks.
+  // TODO(zhihuang): Merge these two callbacks.
   call_->OnNetworkRouteChanged(transport_name, network_route);
   call_->OnTransportOverheadChanged(webrtc::MediaType::VIDEO,
                                     network_route.packet_overhead);

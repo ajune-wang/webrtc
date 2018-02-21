@@ -1,0 +1,136 @@
+/*
+ *  Copyright 2018 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#import "RTCRtpTransceiver+Private.h"
+
+#import "NSString+StdString.h"
+#import "RTCRtpParameters+Private.h"
+#import "RTCRtpReceiver+Private.h"
+#import "RTCRtpSender+Private.h"
+#import "WebRTC/RTCLogging.h"
+
+@implementation RTCRtpTransceiver {
+  rtc::scoped_refptr<webrtc::RtpTransceiverInterface> _nativeRtpTransceiver;
+}
+
+- (RTCRtpMediaType)mediaType {
+  return [RTCRtpReceiver mediaTypeForNativeMediaType:_nativeRtpTransceiver->media_type()];
+}
+
+- (NSString *)mid {
+  if (_nativeRtpTransceiver->mid()) {
+    return [NSString stringForStdString:*_nativeRtpTransceiver->mid()];
+  } else {
+    return nil;
+  }
+}
+
+@synthesize sender = _sender;
+@synthesize receiver = _receiver;
+
+- (BOOL)isStopped {
+  return _nativeRtpTransceiver->stopped();
+}
+
+- (RTCRtpTransceiverDirection)direction {
+  return [RTCRtpTransceiver
+      rtpTransceiverDirectionFromNativeDirection:_nativeRtpTransceiver->direction()];
+}
+
+- (void)setDirection:(RTCRtpTransceiverDirection)direction {
+  _nativeRtpTransceiver->SetDirection(
+      [RTCRtpTransceiver nativeRtpTransceiverDirectionFromDirection:direction]);
+}
+
+- (BOOL)currentDirection:(RTCRtpTransceiverDirection *)currentDirectionOut {
+  if (_nativeRtpTransceiver->current_direction()) {
+    *currentDirectionOut = [RTCRtpTransceiver
+        rtpTransceiverDirectionFromNativeDirection:*_nativeRtpTransceiver->current_direction()];
+    return true;
+  } else {
+    return false;
+  }
+}
+
+- (void)stop {
+  _nativeRtpTransceiver->Stop();
+}
+
+- (NSString *)description {
+  /*return [NSString stringWithFormat:@"RTCRtpTransceiver {\n  senderId: %@\n}",
+      self.senderId];*/
+  return @"RTCRtpTransceiver {}";
+}
+
+- (BOOL)isEqual:(id)object {
+  if (self == object) {
+    return YES;
+  }
+  if (object == nil) {
+    return NO;
+  }
+  if (![object isMemberOfClass:[self class]]) {
+    return NO;
+  }
+  RTCRtpTransceiver *transceiver = (RTCRtpTransceiver *)object;
+  return _nativeRtpTransceiver == transceiver.nativeRtpTransceiver;
+}
+
+- (NSUInteger)hash {
+  return (NSUInteger)_nativeRtpTransceiver.get();
+}
+
+#pragma mark - Private
+
+- (rtc::scoped_refptr<webrtc::RtpTransceiverInterface>)nativeRtpTransceiver {
+  return _nativeRtpTransceiver;
+}
+
+- (instancetype)initWithNativeRtpTransceiver:
+        (rtc::scoped_refptr<webrtc::RtpTransceiverInterface>)nativeRtpTransceiver {
+  NSParameterAssert(nativeRtpTransceiver);
+  if (self = [super init]) {
+    _nativeRtpTransceiver = nativeRtpTransceiver;
+    _sender = [[RTCRtpSender alloc] initWithNativeRtpSender:nativeRtpTransceiver->sender()];
+    _receiver = [[RTCRtpReceiver alloc] initWithNativeRtpReceiver:nativeRtpTransceiver->receiver()];
+    RTCLogInfo(@"RTCRtpTransceiver(%p): created transceiver: %@", self, self.description);
+  }
+  return self;
+}
+
++ (webrtc::RtpTransceiverDirection)nativeRtpTransceiverDirectionFromDirection:
+        (RTCRtpTransceiverDirection)direction {
+  switch (direction) {
+    case RTCRtpTransceiverDirectionSendRecv:
+      return webrtc::RtpTransceiverDirection::kSendRecv;
+    case RTCRtpTransceiverDirectionSendOnly:
+      return webrtc::RtpTransceiverDirection::kSendOnly;
+    case RTCRtpTransceiverDirectionRecvOnly:
+      return webrtc::RtpTransceiverDirection::kRecvOnly;
+    case RTCRtpTransceiverDirectionInactive:
+      return webrtc::RtpTransceiverDirection::kInactive;
+  }
+}
+
++ (RTCRtpTransceiverDirection)rtpTransceiverDirectionFromNativeDirection:
+        (webrtc::RtpTransceiverDirection)nativeDirection {
+  switch (nativeDirection) {
+    case webrtc::RtpTransceiverDirection::kSendRecv:
+      return RTCRtpTransceiverDirectionSendRecv;
+    case webrtc::RtpTransceiverDirection::kSendOnly:
+      return RTCRtpTransceiverDirectionSendOnly;
+    case webrtc::RtpTransceiverDirection::kRecvOnly:
+      return RTCRtpTransceiverDirectionRecvOnly;
+    case webrtc::RtpTransceiverDirection::kInactive:
+      return RTCRtpTransceiverDirectionInactive;
+  }
+}
+
+@end

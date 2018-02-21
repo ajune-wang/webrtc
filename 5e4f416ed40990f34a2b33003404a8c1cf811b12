@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "447305f1_35526afd",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "maybe: this(JavaI420Buffer.wrap(width, height, dataY, strideY, dataU, strideU, dataV, strideV, null), dataA, strideA);",
+      "revId": "5e4f416ed40990f34a2b33003404a8c1cf811b12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd5deac0_0bee1583",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "nit: add a comment /* releaseCallback */",
+      "range": {
+        "startLine": 33,
+        "startChar": 91,
+        "endLine": 33,
+        "endChar": 95
+      },
+      "revId": "5e4f416ed40990f34a2b33003404a8c1cf811b12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e273d4a_d0ee3248",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "Caller takes ownership, we should do yuvImage.retain() here.",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 159,
+        "endChar": 20
+      },
+      "revId": "5e4f416ed40990f34a2b33003404a8c1cf811b12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c36f6cf_fd2b8963",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "This works but it would be more optimal to only call yuvImage.release() once after this has been released.",
+      "range": {
+        "startLine": 165,
+        "startChar": 6,
+        "endLine": 165,
+        "endChar": 24
+      },
+      "revId": "5e4f416ed40990f34a2b33003404a8c1cf811b12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ba75f86_c8c0fae8",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "nit: not necessary to have inside the lock.",
+      "range": {
+        "startLine": 173,
+        "startChar": 6,
+        "endLine": 173,
+        "endChar": 25
+      },
+      "revId": "5e4f416ed40990f34a2b33003404a8c1cf811b12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a30fa8f0_60f2a151",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "not necessary to slice here, it is already sliced.",
+      "range": {
+        "startLine": 185,
+        "startChar": 47,
+        "endLine": 185,
+        "endChar": 56
+      },
+      "revId": "5e4f416ed40990f34a2b33003404a8c1cf811b12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84ff2023_0b62cbbc",
+        "filename": "sdk/android/api/org/webrtc/JavaI420ABuffer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "nit: store in a helper variable? same for cropY / 2",
+      "range": {
+        "startLine": 189,
+        "startChar": 24,
+        "endLine": 189,
+        "endChar": 33
+      },
+      "revId": "5e4f416ed40990f34a2b33003404a8c1cf811b12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

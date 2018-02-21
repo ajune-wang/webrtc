@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "0f9d261c_78caaad9",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "Please address.",
+      "parentUuid": "eae2809d_08413bb4",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 71
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03c43fe9_eed1b858",
         "filename": "sdk/android/src/jni/videoframe.cc",
         "patchSetId": 6
@@ -178,6 +202,30 @@
       "writtenOn": "2018-02-16T09:43:49Z",
       "side": 1,
       "message": "I am still confused about how you are planning to use this class, can you address magjed\u0027s comment?",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 29
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e764b7_a74756e5",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:49:37Z",
+      "side": 1,
+      "message": "Please address.",
+      "parentUuid": "03c43fe9_eed1b858",
       "range": {
         "startLine": 120,
         "startChar": 6,

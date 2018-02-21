@@ -36,6 +36,7 @@
 
 namespace webrtc {
 
+class ProcessThread;
 class VideoBitrateAllocator;
 class VideoBitrateAllocationObserver;
 
@@ -143,7 +144,7 @@ class VideoReceiver : public Module {
                 VCMTiming* timing,
                 NackSender* nack_sender = nullptr,
                 KeyFrameRequestSender* keyframe_request_sender = nullptr);
-  ~VideoReceiver();
+  ~VideoReceiver() override;
 
   int32_t RegisterReceiveCodec(const VideoCodec* receiveCodec,
                                int32_t numberOfCores,
@@ -160,9 +161,6 @@ class VideoReceiver : public Module {
   int32_t Decode(uint16_t maxWaitTimeMs);
 
   int32_t Decode(const webrtc::VCMEncodedFrame* frame);
-
-  // Called on the decoder thread when thread is exiting.
-  void DecodingStopped();
 
   int32_t IncomingPacket(const uint8_t* incomingPayload,
                          size_t payloadLength,
@@ -188,19 +186,29 @@ class VideoReceiver : public Module {
 
   int64_t TimeUntilNextProcess() override;
   void Process() override;
+  void ProcessThreadAttached(ProcessThread* process_thread) override;
 
   void TriggerDecoderShutdown();
+  void DecoderThreadStarting();
+  void DecoderThreadStopped();
 
  protected:
-  int32_t Decode(const webrtc::VCMEncodedFrame& frame)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(receive_crit_);
+  int32_t Decode(const webrtc::VCMEncodedFrame& frame);
   int32_t RequestKeyFrame();
 
  private:
+  // Used for DCHECKing thread correctness.
+  // In build where DCHECKs are enabled, will return false before
+  // DecoderThreadStarting is called, then true until DecoderThreadStopped
+  // is called.
+  // In builds where DCHECKs aren't enabled, it will return true.
+  bool IsDecoderThreadRunning();
+
   rtc::ThreadChecker construction_thread_;
+  rtc::ThreadChecker decoder_thread_;
+  rtc::ThreadChecker module_thread_;
   Clock* const clock_;
   rtc::CriticalSection process_crit_;
-  rtc::CriticalSection receive_crit_;
   VCMTiming* _timing;
   VCMReceiver _receiver;
   VCMDecodedFrameCallback _decodedFrameCallback;

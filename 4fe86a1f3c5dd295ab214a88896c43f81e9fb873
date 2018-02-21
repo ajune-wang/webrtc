@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b45c9e3d_5d85f6ec",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-02-21T01:18:47Z",
+      "side": 1,
+      "message": "May be use enum DecoderType { NONE, HARDWARE, SOFTWARE_FALLBACK } instead of 2 bool mutually exclusive flags - hw_decoder_initialized_ and fallback_decoder_initialized_",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 35
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76c541d2_66f5d3a5",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-02-21T01:18:47Z",
+      "side": 1,
+      "message": "Could this be called multiple times during WebRTC call - for example if video resolution changes? If yes and previous InitHwDecoder() call failed then probably we should not attempt re initialize previously failed hw codec?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d8486d_aa14a858",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-02-21T01:18:47Z",
+      "side": 1,
+      "message": "This is critical error - both HW and SW decoder initialization fail. Should we save this ins some flag and immediately return error in VideoDecoderSoftwareFallbackWrapper::Decode() in this case?",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 8
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e12eac98_b77c0782",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-02-21T01:18:47Z",
+      "side": 1,
+      "message": "May be add\nif (!fallback_decoder_initialized_ \u0026\u0026 !hw_decoder_initialized_ ) {\n  return WEBRTC_VIDEO_CODEC_ERROR;\n}\nSo we never try to decode if both HW and SW codecs failed to initialize before",
+      "range": {
+        "startLine": 93,
+        "startChar": 3,
+        "endLine": 93,
+        "endChar": 4
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

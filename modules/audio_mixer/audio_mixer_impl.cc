@@ -19,6 +19,7 @@
 #include "modules/audio_mixer/default_output_rate_calculator.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/refcountedobject.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
@@ -97,7 +98,9 @@ AudioMixerImpl::AudioMixerImpl(
       output_frequency_(0),
       sample_size_(0),
       audio_source_list_(),
-      frame_combiner_(use_limiter) {}
+      frame_combiner_(field_trial::IsEnabled("WebRTC-ApmGainController2Limiter")
+                          ? FrameCombiner::LimiterType::kApmAgcLimiter
+                          : FrameCombiner::LimiterType::kApmAgc2Limiter) {}
 
 AudioMixerImpl::~AudioMixerImpl() {}
 

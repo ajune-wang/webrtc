@@ -44,6 +44,10 @@ rtc_static_library("rtc_pc_base") {
     "externalhmac.h",
     "jseptransport.cc",
     "jseptransport.h",
+    "jseptransport2.cc",
+    "jseptransport2.h",
+    "jseptransportcontroller.cc",
+    "jseptransportcontroller.h",
     "mediasession.cc",
     "mediasession.h",
     "rtcpmuxfilter.cc",
@@ -64,6 +68,8 @@ rtc_static_library("rtc_pc_base") {
     "srtptransport.h",
     "transportcontroller.cc",
     "transportcontroller.h",
+    "transportstats.cc",
+    "transportstats.h",
   ]
 
   deps = [
@@ -72,6 +78,7 @@ rtc_static_library("rtc_pc_base") {
     "../api:libjingle_peerconnection_api",
     "../api:optional",
     "../api:ortc_api",
+    "../api:peerconnection_and_implicit_call_api",
     "../common_video:common_video",
     "../media:rtc_data",
     "../media:rtc_h264_profile_id",
@@ -268,7 +275,9 @@ if (rtc_include_tests) {
       "channelmanager_unittest.cc",
       "currentspeakermonitor_unittest.cc",
       "dtlssrtptransport_unittest.cc",
+      "jseptransport2_unittest.cc",
       "jseptransport_unittest.cc",
+      "jseptransportcontroller_unittest.cc",
       "mediasession_unittest.cc",
       "rtcpmuxfilter_unittest.cc",
       "rtptransport_unittest.cc",

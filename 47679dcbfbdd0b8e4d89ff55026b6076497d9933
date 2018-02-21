@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "df2bbbcc_e2ae36c7",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-02-21T13:40:48Z",
+      "side": 1,
+      "message": "You must assume that timestamps can jump, and since you don\u0027t check if transitivity hold if you were to insert the timestamp sad things can happen.\n\nI\u0027m not sure if using a std::set\u003cuint32_t, DescendingSeqNumComp\u003cuint32_t\u003e\u003e is the right data structure in this case, maybe it\u0027s easier to just have a set and a queue to keep track of which timestamps you have seen and which timestamp is the oldest seen.",
+      "revId": "47679dcbfbdd0b8e4d89ff55026b6076497d9933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f94a03c_ab1b660f",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 6

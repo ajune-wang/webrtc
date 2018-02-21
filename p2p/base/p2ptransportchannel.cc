@@ -980,8 +980,8 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
       return false;
     }
     AddConnection(connection);
-    LOG_J(LS_INFO, this) << "Created connection with origin=" << origin << ", ("
-                         << connections_.size() << " total)";
+    LOG_J(LS_INFO, this) << "Created connection with origin: " << origin
+                         << ", total: " << connections_.size();
     return true;
   }
 
@@ -990,7 +990,7 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
   // connection; however, the other side can send a duplicate candidate.
   if (!remote_candidate.IsEquivalent(connection->remote_candidate())) {
     RTC_LOG(INFO) << "Attempt to change a remote candidate."
-                  << " Existing remote candidate: "
+                     " Existing remote candidate: "
                   << connection->remote_candidate().ToString()
                   << "New remote candidate: " << remote_candidate.ToString();
   }
@@ -1180,7 +1180,7 @@ void P2PTransportChannel::MaybeStartPinging() {
           connections_.begin(), connections_.end(),
           [this, now](const Connection* c) { return IsPingable(c, now); })) {
     LOG_J(LS_INFO, this) << "Have a pingable connection for the first time; "
-                         << "starting to ping.";
+                            "starting to ping.";
     thread()->Post(RTC_FROM_HERE, this, MSG_CHECK_AND_PING);
     thread()->PostDelayed(RTC_FROM_HERE,
                           *config_.regather_on_failed_networks_interval, this,

@@ -653,7 +653,7 @@ void TurnServerAllocation::HandleAllocateRequest(const TurnMessage* msg) {
   thread_->PostDelayed(RTC_FROM_HERE, lifetime_secs * 1000, this,
                        MSG_ALLOCATION_TIMEOUT);
 
-  LOG_J(LS_INFO, this) << "Created allocation, lifetime=" << lifetime_secs;
+  LOG_J(LS_INFO, this) << "Created allocation with lifetime=" << lifetime_secs;
 
   // We've already validated all the important bits; just send a response here.
   TurnMessage response;
@@ -710,7 +710,8 @@ void TurnServerAllocation::HandleSendIndication(const TurnMessage* msg) {
                  peer_attr->GetAddress());
   } else {
     LOG_J(LS_WARNING, this) << "Received send indication without permission"
-                            << "peer=" << peer_attr->GetAddress();
+                               " peer="
+                            << peer_attr->GetAddress();
   }
 }
 
@@ -833,7 +834,8 @@ void TurnServerAllocation::OnExternalPacket(
     server_->SendStun(&conn_, &msg);
   } else {
     LOG_J(LS_WARNING, this) << "Received external packet without permission, "
-                            << "peer=" << addr;
+                               "peer="
+                            << addr;
   }
 }
 

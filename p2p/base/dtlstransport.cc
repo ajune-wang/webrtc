@@ -531,12 +531,12 @@ void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
         LOG_J(LS_INFO, this) << "Packet received before DTLS started.";
       } else {
         LOG_J(LS_WARNING, this) << "Packet received before we know if we are "
-                                << "doing DTLS or not.";
+                                   "doing DTLS or not.";
       }
       // Cache a client hello packet received before DTLS has actually started.
       if (IsDtlsClientHelloPacket(data, size)) {
         LOG_J(LS_INFO, this) << "Caching DTLS ClientHello packet until DTLS is "
-                             << "started.";
+                                "started.";
         cached_client_hello_.SetData(data, size);
         // If we haven't started setting up DTLS yet (because we don't have a
         // remote fingerprint/role), we can use the client hello as a clue that
@@ -564,7 +564,7 @@ void DtlsTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
         // Not a DTLS packet; our handshake should be complete by now.
         if (dtls_state() != DTLS_TRANSPORT_CONNECTED) {
           LOG_J(LS_ERROR, this) << "Received non-DTLS packet before DTLS "
-                                << "complete.";
+                                   "complete.";
           return;
         }
 
@@ -685,7 +685,7 @@ void DtlsTransport::MaybeStartDtls() {
         }
       } else {
         LOG_J(LS_WARNING, this) << "Discarding cached DTLS ClientHello packet "
-                                << "because we don't have the server role.";
+                                   "because we don't have the server role.";
       }
       cached_client_hello_.Clear();
     }
@@ -727,8 +727,7 @@ void DtlsTransport::set_writable(bool writable) {
   if (writable_ == writable) {
     return;
   }
-  LOG_J(LS_VERBOSE, this) << "set_writable from:" << writable_ << " to "
-                          << writable;
+  LOG_J(LS_VERBOSE, this) << "set_writable to: " << writable;
   writable_ = writable;
   if (writable_) {
     SignalReadyToSend(this);

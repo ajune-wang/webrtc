@@ -211,7 +211,7 @@ int TCPPort::SendTo(const void* data, size_t size,
     socket = GetIncoming(addr);
   }
   if (!socket) {
-    LOG_J(LS_ERROR, this) << "Attempted to send to an unknown destination, "
+    LOG_J(LS_ERROR, this) << "Attempted to send to an unknown destination: "
                           << addr.ToSensitiveString();
     return SOCKET_ERROR;  // TODO(tbd): Set error_
   }
@@ -443,7 +443,7 @@ void TCPConnection::OnConnect(rtc::AsyncPacketSocket* socket) {
           << ", rather then an address associated with network:"
           << port_->Network()->ToString()
           << ". Still allowing it since it's the 'any' address"
-          << ", possibly caused by multiple_routes being disabled.";
+             ", possibly caused by multiple_routes being disabled.";
     } else {
       RTC_LOG(LS_WARNING) << "Dropping connection as TCP socket bound to IP "
                           << socket_address.ipaddr().ToString()
@@ -509,7 +509,7 @@ void TCPConnection::MaybeReconnect() {
   }
 
   LOG_J(LS_INFO, this) << "TCP Connection with remote is closed, "
-                       << "trying to reconnect";
+                          "trying to reconnect";
 
   CreateOutgoingTcpSocket();
   error_ = EPIPE;

@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e82fa644_d8396b5f",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2018-02-21T20:08:57Z",
+      "side": 1,
+      "message": "Ah yes, this may happen. But will WebRTC video engine invoke InitDecode() every time resolution changes? At least in Android HW implementation this resolution change detection is processed in jni wrapper.\nBut I don\u0027t have any preferences for this case - I have seen the cases when decoder can not support low resolution and cases when all attempts to init the decoder will fail - not sure which are more frequent.",
+      "parentUuid": "3dc2f8b3_e8f54e6c",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22d8486d_aa14a858",
         "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
         "patchSetId": 11

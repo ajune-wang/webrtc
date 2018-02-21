@@ -22,6 +22,30 @@
       "revId": "b4b343559ba4e5a9172e9a1364a82199f3d96b8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0466b08_3d23a16d",
+        "filename": "modules/video_coding/generic_decoder_android.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-21T08:37:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df317f70_eb793dba",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "b4b343559ba4e5a9172e9a1364a82199f3d96b8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

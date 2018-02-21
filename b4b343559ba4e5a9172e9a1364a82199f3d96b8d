@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df317f70_eb793dba",
+        "filename": "modules/video_coding/generic_decoder_android.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-21T07:12:45Z",
+      "side": 1,
+      "message": "nit: Leave a comment / TODO to remove this class pointing to webrtc:7361?",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "b4b343559ba4e5a9172e9a1364a82199f3d96b8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

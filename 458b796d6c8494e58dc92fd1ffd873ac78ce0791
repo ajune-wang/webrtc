@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fbd9645_4a0aba4c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-21T00:01:04Z",
+      "side": 1,
+      "message": "Just curious, does this matter if it\u0027s SetDirection() or internal-\u003eset_direction()? Did you change it for consistency?",
+      "range": {
+        "startLine": 1174,
+        "startChar": 29,
+        "endLine": 1174,
+        "endChar": 42
+      },
+      "revId": "458b796d6c8494e58dc92fd1ffd873ac78ce0791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

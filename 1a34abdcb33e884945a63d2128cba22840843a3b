@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7b4c358_697b0eaf",
+        "filename": "pc/rtptransceiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-21T00:01:04Z",
+      "side": 1,
+      "message": "nit: I\u0027m not very familiar with sigslot, but it looks like you no longer need to add the number for amount of arguments:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/sigslot.h?type\u003dcs\u0026q\u003dsigslot+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026l\u003d578\n\nFeel free to keep as is if you think it\u0027s better for readability.",
+      "range": {
+        "startLine": 159,
+        "startChar": 11,
+        "endLine": 159,
+        "endChar": 18
+      },
+      "revId": "1a34abdcb33e884945a63d2128cba22840843a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

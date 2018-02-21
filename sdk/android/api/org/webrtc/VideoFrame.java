@@ -88,6 +88,42 @@ public class VideoFrame {
     @CalledByNative("I420Buffer") int getStrideV();
   }
 
+  public interface I420ABuffer extends Buffer {
+    /**
+     * Returns a direct ByteBuffer containing Y-plane data. The buffer capacity is at least
+     * getStrideY() * getHeight() bytes. The position of the returned buffer is ignored and must
+     * be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * implementations must return a new ByteBuffer or slice for each call.
+     */
+    @CalledByNative("I420ABuffer") ByteBuffer getDataY();
+    /**
+     * Returns a direct ByteBuffer containing U-plane data. The buffer capacity is at least
+     * getStrideU() * ((getHeight() + 1) / 2) bytes. The position of the returned buffer is ignored
+     * and must be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * implementations must return a new ByteBuffer or slice for each call.
+     */
+    @CalledByNative("I420ABuffer") ByteBuffer getDataU();
+    /**
+     * Returns a direct ByteBuffer containing V-plane data. The buffer capacity is at least
+     * getStrideV() * ((getHeight() + 1) / 2) bytes. The position of the returned buffer is ignored
+     * and must be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * implementations must return a new ByteBuffer or slice for each call.
+     */
+    @CalledByNative("I420ABuffer") ByteBuffer getDataV();
+    /**
+     * Returns a direct ByteBuffer containing A-plane data. The buffer capacity is at least
+     * getStrideY() * getHeight() bytes. The position of the returned buffer is ignored and must
+     * be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * implementations must return a new ByteBuffer or slice for each call.
+     */
+    @CalledByNative("I420ABuffer") ByteBuffer getDataA();
+
+    @CalledByNative("I420ABuffer") int getStrideY();
+    @CalledByNative("I420ABuffer") int getStrideU();
+    @CalledByNative("I420ABuffer") int getStrideV();
+    @CalledByNative("I420ABuffer") int getStrideA();
+  }
+
   /**
    * Interface for buffers that are stored as a single texture, either in OES or RGB format.
    */
@@ -208,8 +244,20 @@ public class VideoFrame {
     return newBuffer;
   }
 
+  public static ByteBuffer cropAndScalePlane(ByteBuffer src, int srcStride, int cropX, int cropY,
+      int cropWidth, int cropHeight, int dstStride, int scaleWidth, int scaleHeight) {
+    ByteBuffer dst = JniCommon.nativeAllocateByteBuffer(dstStride * scaleHeight);
+    nativeCropAndScalePlane(src, srcStride, cropX, cropY, cropWidth, cropHeight, dst, dstStride,
+        scaleWidth, scaleHeight);
+    return dst;
+  }
+
   private static native void nativeCropAndScaleI420(ByteBuffer srcY, int srcStrideY,
       ByteBuffer srcU, int srcStrideU, ByteBuffer srcV, int srcStrideV, int cropX, int cropY,
       int cropWidth, int cropHeight, ByteBuffer dstY, int dstStrideY, ByteBuffer dstU,
       int dstStrideU, ByteBuffer dstV, int dstStrideV, int scaleWidth, int scaleHeight);
+
+  private static native void nativeCropAndScalePlane(ByteBuffer src, int srcStride, int cropX,
+      int cropY, int cropWidth, int cropHeight, ByteBuffer dst, int dstStride, int scaleWidth,
+      int scaleHeight);
 }

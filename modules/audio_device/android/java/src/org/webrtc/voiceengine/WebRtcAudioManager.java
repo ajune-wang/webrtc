@@ -156,6 +156,7 @@ public class WebRtcAudioManager {
   private boolean lowLatencyOutput;
   private boolean lowLatencyInput;
   private boolean proAudio;
+  private boolean aAudio;
   private int sampleRate;
   private int outputChannels;
   private int inputChannels;
@@ -175,8 +176,9 @@ public class WebRtcAudioManager {
     volumeLogger = new VolumeLogger(audioManager);
     storeAudioParameters();
     nativeCacheAudioParameters(sampleRate, outputChannels, inputChannels, hardwareAEC, hardwareAGC,
-        hardwareNS, lowLatencyOutput, lowLatencyInput, proAudio, outputBufferSize, inputBufferSize,
-        nativeAudioManager);
+        hardwareNS, lowLatencyOutput, lowLatencyInput, proAudio, aAudio, outputBufferSize,
+        inputBufferSize, nativeAudioManager);
+    WebRtcAudioUtils.logAudioState(TAG);
   }
 
   private boolean init() {
@@ -225,6 +227,7 @@ public class WebRtcAudioManager {
     lowLatencyOutput = isLowLatencyOutputSupported();
     lowLatencyInput = isLowLatencyInputSupported();
     proAudio = isProAudioSupported();
+    aAudio = isAAudioSupported();
     outputBufferSize = lowLatencyOutput ? getLowLatencyOutputFramesPerBuffer()
                                         : getMinOutputFrameSize(sampleRate, outputChannels);
     inputBufferSize = lowLatencyInput ? getLowLatencyInputFramesPerBuffer()
@@ -261,6 +264,11 @@ public class WebRtcAudioManager {
     return WebRtcAudioUtils.runningOnMarshmallowOrHigher()
         && ContextUtils.getApplicationContext().getPackageManager().hasSystemFeature(
                PackageManager.FEATURE_AUDIO_PRO);
+  }
+
+  // AAudio is supported on Androio Oreo (API 26) and higher.
+  private boolean isAAudioSupported() {
+    return WebRtcAudioUtils.runningOnOreoOrHigher();
   }
 
   // Returns the native output sample rate for this device's output stream.
@@ -361,6 +369,6 @@ public class WebRtcAudioManager {
 
   private native void nativeCacheAudioParameters(int sampleRate, int outputChannels,
       int inputChannels, boolean hardwareAEC, boolean hardwareAGC, boolean hardwareNS,
-      boolean lowLatencyOutput, boolean lowLatencyInput, boolean proAudio, int outputBufferSize,
-      int inputBufferSize, long nativeAudioManager);
+      boolean lowLatencyOutput, boolean lowLatencyInput, boolean proAudio, boolean aAudio,
+      int outputBufferSize, int inputBufferSize, long nativeAudioManager);
 }

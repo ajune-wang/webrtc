@@ -24,6 +24,8 @@
 #endif
 #elif defined(WEBRTC_ANDROID)
 #include <stdlib.h>
+#include "modules/audio_device/android/aaudio_player.h"
+#include "modules/audio_device/android/aaudio_recorder.h"
 #include "modules/audio_device/android/audio_device_template.h"
 #include "modules/audio_device/android/audio_manager.h"
 #include "modules/audio_device/android/audio_record_jni.h"
@@ -167,6 +169,7 @@ int32_t AudioDeviceModuleImpl::CreatePlatformSpecificObjects() {
 
 #if defined(WEBRTC_ANDROID)
   // Create an Android audio manager.
+  // TODO(henrika): add support for usage of AAudio in combination with API 26+.
   audio_manager_android_.reset(new AudioManager());
   // Select best possible combination of audio layers.
   if (audio_layer == kPlatformDefaultAudio) {
@@ -200,6 +203,14 @@ int32_t AudioDeviceModuleImpl::CreatePlatformSpecificObjects() {
     // This combination provides low-latency output audio and at the same
     // time support for HW AEC using the AudioRecord Java API.
     audio_device_.reset(new AudioDeviceTemplate<AudioRecordJni, OpenSLESPlayer>(
+        audio_layer, audio_manager));
+  } else if (audio_layer == kAndroidAAudioAudio) {
+    // AAudio based audio for both input and output.
+    audio_device_.reset(new AudioDeviceTemplate<AAudioRecorder, AAudioPlayer>(
+        audio_layer, audio_manager));
+  } else if (audio_layer == kAndroidJavaInputAndAAudioOutputAudio) {
+    // Java audio for input and AAudio for output audio (i.e. mixed APIs).
+    audio_device_.reset(new AudioDeviceTemplate<AudioRecordJni, AAudioPlayer>(
         audio_layer, audio_manager));
   } else {
     // Invalid audio layer.

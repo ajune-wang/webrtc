@@ -680,6 +680,8 @@ TEST_F(AudioDeviceTest, ConstructDestruct) {
 // for input and output based on if low-latency output and/or input audio in
 // combination with OpenSL ES is supported or not. This test ensures that the
 // correct selection is done.
+// TODO(henrika): add support for usage of AAudio in combination with API 26+
+// instead of OpenSL ES.
 TEST_F(AudioDeviceTest, VerifyDefaultAudioLayer) {
   const AudioDeviceModule::AudioLayer audio_layer = GetActiveAudioLayer();
   bool low_latency_output = audio_manager()->IsLowLatencyPlayoutSupported();
@@ -720,6 +722,22 @@ TEST_F(AudioDeviceTest, CorrectAudioLayerIsUsedForOpenSLInBothDirections) {
       AudioDeviceModule::kAndroidOpenSLESAudio;
   AudioDeviceModule::AudioLayer active_layer =
       TestActiveAudioLayer(expected_layer);
+  EXPECT_EQ(expected_layer, active_layer);
+}
+
+TEST_F(AudioDeviceTest, CorrectAudioLayerIsUsedForAAudioInBothDirections) {
+  AudioDeviceModule::AudioLayer expected_layer =
+      AudioDeviceModule::kAndroidAAudioAudio;
+  AudioDeviceModule::AudioLayer active_layer =
+      TestActiveAudioLayer(expected_layer);
+  EXPECT_EQ(expected_layer, active_layer);
+}
+
+TEST_F(AudioDeviceTest, CorrectAudioLayerIsUsedForCombinedJavaAAudioCombo) {
+  AudioDeviceModule::AudioLayer expected_layer =
+      AudioDeviceModule::kAndroidJavaInputAndAAudioOutputAudio;
+  AudioDeviceModule::AudioLayer active_layer = TestActiveAudioLayer(
+      expected_layer);
   EXPECT_EQ(expected_layer, active_layer);
 }
 
@@ -873,19 +891,15 @@ TEST_F(AudioDeviceTest, StartPlayoutVerifyCallbacks) {
 
 // Start recording and verify that the native audio layer starts feeding real
 // audio samples via the RecordedDataIsAvailable callback.
+// TODO(henrika): investigate if it is possible to perform a sanity check of
+// delay estimats as well (argumnent #6).
 TEST_F(AudioDeviceTest, StartRecordingVerifyCallbacks) {
   MockAudioTransportAndroid mock(kRecording);
   mock.HandleCallbacks(test_is_done_.get(), nullptr, kNumCallbacks);
-  EXPECT_CALL(mock, RecordedDataIsAvailable(NotNull(),
-                                            record_frames_per_10ms_buffer(),
-                                            kBytesPerSample,
-                                            record_channels(),
-                                            record_sample_rate(),
-                                            total_delay_ms(),
-                                            0,
-                                            0,
-                                            false,
-                                            _))
+  EXPECT_CALL(
+      mock, RecordedDataIsAvailable(NotNull(), record_frames_per_10ms_buffer(),
+                                    kBytesPerSample, record_channels(),
+                                    record_sample_rate(), _, 0, 0, false, _))
       .Times(AtLeast(kNumCallbacks));
 
   EXPECT_EQ(0, audio_device()->RegisterAudioCallback(&mock));
@@ -907,16 +921,10 @@ TEST_F(AudioDeviceTest, StartPlayoutAndRecordingVerifyCallbacks) {
                                      NotNull(),
                                      _, _, _))
       .Times(AtLeast(kNumCallbacks));
-  EXPECT_CALL(mock, RecordedDataIsAvailable(NotNull(),
-                                            record_frames_per_10ms_buffer(),
-                                            kBytesPerSample,
-                                            record_channels(),
-                                            record_sample_rate(),
-                                            total_delay_ms(),
-                                            0,
-                                            0,
-                                            false,
-                                            _))
+  EXPECT_CALL(
+      mock, RecordedDataIsAvailable(NotNull(), record_frames_per_10ms_buffer(),
+                                    kBytesPerSample, record_channels(),
+                                    record_sample_rate(), _, 0, 0, false, _))
       .Times(AtLeast(kNumCallbacks));
   EXPECT_EQ(0, audio_device()->RegisterAudioCallback(&mock));
   StartPlayout();

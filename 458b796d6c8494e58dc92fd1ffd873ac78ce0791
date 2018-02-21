@@ -46,6 +46,30 @@
       "revId": "458b796d6c8494e58dc92fd1ffd873ac78ce0791",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e99c5c9_6e9f9b69",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-21T01:54:22Z",
+      "side": 1,
+      "message": "Ah, right. Sounds good.",
+      "parentUuid": "d4217da0_c6d44c0e",
+      "range": {
+        "startLine": 1174,
+        "startChar": 29,
+        "endLine": 1174,
+        "endChar": 42
+      },
+      "revId": "458b796d6c8494e58dc92fd1ffd873ac78ce0791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

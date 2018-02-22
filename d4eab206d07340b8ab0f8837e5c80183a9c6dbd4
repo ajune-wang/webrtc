@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "659188a7_6eb6bc52",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-02-22T03:05:44Z",
+      "side": 1,
+      "message": "I see. I changed it to a simple average for now. I think we can keep YUV and AXX seperate and add an additional line in the report, WDYT? I am adding magjed to advice on the way to go with these.",
+      "parentUuid": "6580e745_29e381ee",
+      "range": {
+        "startLine": 251,
+        "startChar": 29,
+        "endLine": 251,
+        "endChar": 0
+      },
+      "revId": "d4eab206d07340b8ab0f8837e5c80183a9c6dbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "488c0ffc_7940ac55",
         "filename": "common_video/libyuv/webrtc_libyuv.cc",
         "patchSetId": 4
@@ -82,6 +106,30 @@
       "writtenOn": "2018-02-16T12:52:32Z",
       "side": 1,
       "message": "Update the draw-method to directly handle i420a?",
+      "range": {
+        "startLine": 70,
+        "startChar": 31,
+        "endLine": 70,
+        "endChar": 0
+      },
+      "revId": "d4eab206d07340b8ab0f8837e5c80183a9c6dbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8733c7ae_d0904237",
+        "filename": "test/frame_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-02-22T03:05:44Z",
+      "side": 1,
+      "message": "MutableData*() methods are only available in I420Buffer. If I pass in any other interface we don\u0027t have access to mutable data pointers. I just wanted to keep the scope of CL to the added test, but let me know if you have a suggestion.",
+      "parentUuid": "184b6746_eea8b77a",
       "range": {
         "startLine": 70,
         "startChar": 31,

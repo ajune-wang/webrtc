@@ -44,8 +44,6 @@ class VCMEncoderDataBase {
 
   VCMGenericEncoder* GetEncoder();
 
-  bool SetPeriodicKeyFrames(bool enable);
-
   bool MatchesCurrentResolution(int width, int height) const;
 
  private:

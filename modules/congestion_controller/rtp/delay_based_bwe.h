@@ -25,8 +25,9 @@
 #include "rtc_base/race_checker.h"
 
 namespace webrtc {
-
 class RtcEventLog;
+
+namespace webrtc_cc {
 
 class DelayBasedBwe {
  public:
@@ -87,6 +88,7 @@ class DelayBasedBwe {
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(DelayBasedBwe);
 };
 
+}  // namespace webrtc_cc
 }  // namespace webrtc
 
 #endif  // MODULES_CONGESTION_CONTROLLER_RTP_DELAY_BASED_BWE_H_

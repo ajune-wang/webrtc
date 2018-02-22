@@ -54,8 +54,8 @@ class RtpTransportInternal : public RtpTransportInterface,
   // TODO(zstein): Consider having two signals - RtpPacketReceived and
   // RtcpPacketReceived.
   // The first argument is true for RTCP packets and false for RTP packets.
-  sigslot::signal3<bool, rtc::CopyOnWriteBuffer*, const rtc::PacketTime&>
-      SignalPacketReceived;
+  // sigslot::signal3<bool, rtc::CopyOnWriteBuffer*, const rtc::PacketTime&>
+  // SignalPacketReceived;
 
   // Called whenever the network route of the P2P layer transport changes.
   // The argument is an optional network route.
@@ -82,6 +82,12 @@ class RtpTransportInternal : public RtpTransportInterface,
   virtual bool HandlesPayloadType(int payload_type) const = 0;
 
   virtual void AddHandledPayloadType(int payload_type) = 0;
+
+  virtual sigslot::signal4<bool,
+                           rtc::CopyOnWriteBuffer*,
+                           const rtc::PacketTime&,
+                           rtc::Optional<std::string>>&
+  SignalPacketReceived() = 0;
 };
 
 }  // namespace webrtc

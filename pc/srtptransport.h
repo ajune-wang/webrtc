@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "p2p/base/icetransportinternal.h"
 #include "pc/rtptransportinternaladapter.h"
 #include "pc/srtpfilter.h"
@@ -98,6 +99,14 @@ class SrtpTransport : public RtpTransportInternalAdapter {
     rtp_abs_sendtime_extn_id_ = rtp_abs_sendtime_extn_id;
   }
 
+  sigslot::signal4<bool,
+                   rtc::CopyOnWriteBuffer*,
+                   const rtc::PacketTime&,
+                   rtc::Optional<std::string>>&
+  SignalPacketReceived() override {
+    return SignalPacketReceived_;
+  }
+
  private:
   void ConnectToRtpTransport();
   void CreateSrtpSessions();
@@ -109,7 +118,8 @@ class SrtpTransport : public RtpTransportInternalAdapter {
 
   void OnPacketReceived(bool rtcp,
                         rtc::CopyOnWriteBuffer* packet,
-                        const rtc::PacketTime& packet_time);
+                        const rtc::PacketTime& packet_time,
+                        rtc::Optional<std::string> mid);
   void OnReadyToSend(bool ready) { SignalReadyToSend(ready); }
   void OnNetworkRouteChanged(rtc::Optional<rtc::NetworkRoute> network_route);
 
@@ -132,8 +142,13 @@ class SrtpTransport : public RtpTransportInternalAdapter {
   // Decrypts/verifies an invidiual RTP/RTCP packet.
   // If an HMAC is used, this will decrease the packet size.
   bool UnprotectRtp(void* data, int in_len, int* out_len);
-
   bool UnprotectRtcp(void* data, int in_len, int* out_len);
+
+  sigslot::signal4<bool,
+                   rtc::CopyOnWriteBuffer*,
+                   const rtc::PacketTime&,
+                   rtc::Optional<std::string>>
+      SignalPacketReceived_;
 
   const std::string content_name_;
   std::unique_ptr<RtpTransportInternal> rtp_transport_;

@@ -58,6 +58,14 @@ class DtlsSrtpTransport : public RtpTransportInternalAdapter {
 
   sigslot::signal2<DtlsSrtpTransport*, bool> SignalDtlsSrtpSetupFailure;
 
+  sigslot::signal4<bool,
+                   rtc::CopyOnWriteBuffer*,
+                   const rtc::PacketTime&,
+                   rtc::Optional<std::string>>&
+  SignalPacketReceived() override {
+    return SignalPacketReceived_;
+  }
+
  private:
   bool IsDtlsActive();
   bool IsDtlsConnected();
@@ -86,9 +94,16 @@ class DtlsSrtpTransport : public RtpTransportInternalAdapter {
   void OnSentPacket(const rtc::SentPacket& sent_packet);
   void OnPacketReceived(bool rtcp,
                         rtc::CopyOnWriteBuffer* packet,
-                        const rtc::PacketTime& packet_time);
+                        const rtc::PacketTime& packet_time,
+                        rtc::Optional<std::string> mid);
   void OnReadyToSend(bool ready);
   void OnNetworkRouteChanged(rtc::Optional<rtc::NetworkRoute> network_route);
+
+  sigslot::signal4<bool,
+                   rtc::CopyOnWriteBuffer*,
+                   const rtc::PacketTime&,
+                   rtc::Optional<std::string>>
+      SignalPacketReceived_;
 
   bool writable_ = false;
   std::unique_ptr<SrtpTransport> srtp_transport_;

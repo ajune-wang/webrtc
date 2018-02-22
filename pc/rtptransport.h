@@ -70,6 +70,14 @@ class RtpTransport : public RtpTransportInternal {
 
   void AddHandledPayloadType(int payload_type) override;
 
+  sigslot::signal4<bool,
+                   rtc::CopyOnWriteBuffer*,
+                   const rtc::PacketTime&,
+                   rtc::Optional<std::string>>&
+  SignalPacketReceived() override {
+    return SignalPacketReceived_;
+  }
+
  protected:
   // TODO(zstein): Remove this when we remove RtpTransportAdapter.
   RtpTransportAdapter* GetInternal() override;
@@ -102,6 +110,12 @@ class RtpTransport : public RtpTransportInternal {
                     int flags);
 
   bool WantsPacket(bool rtcp, const rtc::CopyOnWriteBuffer* packet);
+
+  sigslot::signal4<bool,
+                   rtc::CopyOnWriteBuffer*,
+                   const rtc::PacketTime&,
+                   rtc::Optional<std::string>>
+      SignalPacketReceived_;
 
   bool rtcp_mux_enabled_;
 

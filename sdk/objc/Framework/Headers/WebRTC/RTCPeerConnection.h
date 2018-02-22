@@ -106,6 +106,12 @@ RTC_EXPORT
 - (void)peerConnection:(RTCPeerConnection *)peerConnection
     didOpenDataChannel:(RTCDataChannel *)dataChannel;
 
+/** Called when a receiver and its track is created */
+@optional
+- (void)peerConnection:(RTCPeerConnection *)peerConnection
+           didAddTrack:(RTCRtpReceiver *)rtpReceiver
+               streams:(NSArray<RTCMediaStream *> *)mediaStreams;
+
 @end
 
 RTC_EXPORT

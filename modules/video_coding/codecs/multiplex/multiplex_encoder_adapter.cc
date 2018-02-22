@@ -15,6 +15,7 @@
 #include "common_video/include/video_frame.h"
 #include "common_video/include/video_frame_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "media/base/mediaconstants.h"
 #include "modules/include/module_common_types.h"
 #include "rtc_base/keep_ref_until_done.h"
 #include "rtc_base/logging.h"
@@ -67,33 +68,38 @@ int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
             0x80);
 
   RTC_DCHECK_EQ(kVideoCodecMultiplex, inst->codecType);
-  VideoCodec settings = *inst;
-  settings.codecType = PayloadStringToCodecType(associated_format_.name);
+    VideoCodec settings[2];
+    settings[0] = *inst;
+  settings[0].codecType = PayloadStringToCodecType(associated_format_.name);
 
   // Take over the key frame interval at adapter level, because we have to
   // sync the key frames for both sub-encoders.
-  switch (settings.codecType) {
+  switch (settings[0].codecType) {
     case kVideoCodecVP8:
-      key_frame_interval_ = settings.VP8()->keyFrameInterval;
-      settings.VP8()->keyFrameInterval = 0;
+      key_frame_interval_ = settings[0].VP8()->keyFrameInterval;
+      settings[0].VP8()->keyFrameInterval = 0;
       break;
     case kVideoCodecVP9:
-      key_frame_interval_ = settings.VP9()->keyFrameInterval;
-      settings.VP9()->keyFrameInterval = 0;
+      key_frame_interval_ = settings[0].VP9()->keyFrameInterval;
+      settings[0].VP9()->keyFrameInterval = 0;
       break;
     case kVideoCodecH264:
-      key_frame_interval_ = settings.H264()->keyFrameInterval;
-      settings.H264()->keyFrameInterval = 0;
+      key_frame_interval_ = settings[0].H264()->keyFrameInterval;
+      settings[0].H264()->keyFrameInterval = 0;
       break;
     default:
       break;
   }
-
+    settings[1]=settings[0];
+    settings[1].codecType=kVideoCodecVP9;
+    *(settings[1].VP9()) = VideoEncoder::GetDefaultVp9Settings();
+    settings[1].VP9()->keyFrameInterval = 0;
+    
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoEncoder> encoder =
-        factory_->CreateVideoEncoder(associated_format_);
+      factory_->CreateVideoEncoder(i==0?associated_format_:SdpVideoFormat(cricket::kVp9CodecName));
     const int rv =
-        encoder->InitEncode(&settings, number_of_cores, max_payload_size);
+        encoder->InitEncode(&settings[i], number_of_cores, max_payload_size);
     if (rv) {
       RTC_LOG(LS_ERROR) << "Failed to create multiplex codec index " << i;
       return rv;
@@ -237,8 +243,10 @@ EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(
     auto iter = stashed_images_.begin();
     while (iter != stashed_images_.end() && iter != stashed_image_next_itr) {
       // No image at all, skip.
-      if (iter->second.image_components.size() == 0)
-        continue;
+        if (iter->second.image_components.size() == 0){
+            iter++;
+            continue;
+        }
 
       // We have to send out those stashed frames, otherwise the delta frame
       // dependency chain is broken.

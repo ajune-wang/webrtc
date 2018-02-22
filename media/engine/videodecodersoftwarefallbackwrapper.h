@@ -46,11 +46,15 @@ class VideoDecoderSoftwareFallbackWrapper : public VideoDecoder {
 
  private:
   bool InitFallbackDecoder();
+  int32_t InitHwDecoder();
 
   // Determines if we are trying to use the HW or SW decoder.
-  bool use_hw_decoder_;
+  enum class DecoderType {
+    kNone,
+    kHardware,
+    kFallback,
+  } decoder_type_;
   std::unique_ptr<VideoDecoder> hw_decoder_;
-  bool hw_decoder_initialized_;
 
   VideoCodec codec_settings_;
   int32_t number_of_cores_;

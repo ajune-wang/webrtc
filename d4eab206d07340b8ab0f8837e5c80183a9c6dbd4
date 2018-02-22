@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6a988527_8a42397a",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-22T12:56:10Z",
+      "side": 1,
+      "message": "Have a look at the psnr and ssim functions used in libyuv: https://cs.chromium.org/chromium/src/third_party/libyuv/source/compare.cc\n\nSeems pretty trivial to implement a version with axx support here, since all the functions used (looking at each plane at a time) are also exposed externally. Then we will get proper values.",
+      "parentUuid": "659188a7_6eb6bc52",
+      "range": {
+        "startLine": 251,
+        "startChar": 29,
+        "endLine": 251,
+        "endChar": 0
+      },
+      "revId": "d4eab206d07340b8ab0f8837e5c80183a9c6dbd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "488c0ffc_7940ac55",
         "filename": "common_video/libyuv/webrtc_libyuv.cc",
         "patchSetId": 4

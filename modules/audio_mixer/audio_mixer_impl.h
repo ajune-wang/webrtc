@@ -51,7 +51,7 @@ class AudioMixerImpl : public AudioMixer {
 
   static rtc::scoped_refptr<AudioMixerImpl> Create(
       std::unique_ptr<OutputRateCalculator> output_rate_calculator,
-      bool use_limiter);
+      int32_t limiter);
 
   ~AudioMixerImpl() override;
 
@@ -70,7 +70,7 @@ class AudioMixerImpl : public AudioMixer {
 
  protected:
   AudioMixerImpl(std::unique_ptr<OutputRateCalculator> output_rate_calculator,
-                 bool use_limiter);
+                 int32_t limiter);
 
  private:
   // Set mixing frequency through OutputFrequencyCalculator.

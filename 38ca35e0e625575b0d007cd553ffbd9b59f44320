@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70d9252d_6c49b846",
+        "filename": "buildbucket.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-02-22T12:30:02Z",
+      "side": 1,
+      "message": "Aren\u0027t these the old names? And weren\u0027t there 4 of these bots?",
+      "range": {
+        "startLine": 30,
+        "startChar": 11,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "38ca35e0e625575b0d007cd553ffbd9b59f44320",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

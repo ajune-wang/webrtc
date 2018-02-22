@@ -182,7 +182,7 @@ void CombineWithAgc2Limiter(const std::vector<AudioFrame*>& mix_list,
     const AudioFrame* const frame = mix_list[i];
     for (size_t j = 0; j < num_channels; ++j) {
       for (size_t k = 0; k < samples_per_channel; ++k) {
-        mixing_buffer[j][k] += frame->data()[2 * k + j];
+        mixing_buffer[j][k] += frame->data()[num_channels * k + j];
       }
     }
   }
@@ -201,7 +201,7 @@ void CombineWithAgc2Limiter(const std::vector<AudioFrame*>& mix_list,
   // (5) Put data to the result frame.
   for (size_t i = 0; i < num_channels; ++i) {
     for (size_t j = 0; j < samples_per_channel; ++j) {
-      audio_frame_for_mixing->mutable_data()[2 * j + i] =
+      audio_frame_for_mixing->mutable_data()[num_channels * j + i] =
           static_cast<int16_t>(audio_frame_view.channel(i)[j]);
     }
   }

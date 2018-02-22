@@ -17,7 +17,6 @@
 
 #include "api/umametrics.h"
 #include "p2p/base/basicpacketsocketfactory.h"
-#include "p2p/base/common.h"
 #include "p2p/base/port.h"
 #include "p2p/base/relayport.h"
 #include "p2p/base/stunport.h"
@@ -828,7 +827,8 @@ void BasicPortAllocatorSession::AddAllocatedPort(Port* port,
       &BasicPortAllocatorSession::OnPortDestroyed);
   port->SignalPortError.connect(
       this, &BasicPortAllocatorSession::OnPortError);
-  LOG_J(LS_INFO, port) << "Added port to allocator";
+  RTC_LOG(LS_INFO) << "Jingle:" << port->ToString()
+                   << ": Added port to allocator";
 
   if (prepare_address)
     port->PrepareAddress();
@@ -845,7 +845,8 @@ void BasicPortAllocatorSession::OnCandidateReady(
   RTC_DCHECK(rtc::Thread::Current() == network_thread_);
   PortData* data = FindPort(port);
   RTC_DCHECK(data != NULL);
-  LOG_J(LS_INFO, port) << "Gathered candidate: " << c.ToSensitiveString();
+  RTC_LOG(LS_INFO) << "Jingle:" << port->ToString()
+                   << ": Gathered candidate: " << c.ToSensitiveString();
   // Discarding any candidate signal if port allocation status is
   // already done with gathering.
   if (!data->inprogress()) {
@@ -872,7 +873,7 @@ void BasicPortAllocatorSession::OnCandidateReady(
     }
     // If the current port is not pruned yet, SignalPortReady.
     if (!data->pruned()) {
-      LOG_J(LS_INFO, port) << "Port ready.";
+      RTC_LOG(LS_INFO) << "Jingle:" << port->ToString() << ": Port ready.";
       SignalPortReady(this, port);
       port->KeepAliveUntilPruned();
     }
@@ -946,7 +947,8 @@ void BasicPortAllocatorSession::PruneAllPorts() {
 
 void BasicPortAllocatorSession::OnPortComplete(Port* port) {
   RTC_DCHECK(rtc::Thread::Current() == network_thread_);
-  LOG_J(LS_INFO, port) << "Port completed gathering candidates.";
+  RTC_LOG(LS_INFO) << "Jingle:" << port->ToString()
+                   << ": Port completed gathering candidates.";
   PortData* data = FindPort(port);
   RTC_DCHECK(data != NULL);
 
@@ -963,7 +965,8 @@ void BasicPortAllocatorSession::OnPortComplete(Port* port) {
 
 void BasicPortAllocatorSession::OnPortError(Port* port) {
   RTC_DCHECK(rtc::Thread::Current() == network_thread_);
-  LOG_J(LS_INFO, port) << "Port encountered error while gathering candidates.";
+  RTC_LOG(LS_INFO) << "Jingle:" << port->ToString()
+                   << ": Port encountered error while gathering candidates.";
   PortData* data = FindPort(port);
   RTC_DCHECK(data != NULL);
   // We might have already given up on this port and stopped it.
@@ -1054,8 +1057,9 @@ void BasicPortAllocatorSession::OnPortDestroyed(
        iter != ports_.end(); ++iter) {
     if (port == iter->port()) {
       ports_.erase(iter);
-      LOG_J(LS_INFO, port) << "Removed port from allocator ("
-                           << static_cast<int>(ports_.size()) << " remaining)";
+      RTC_LOG(LS_INFO) << "Jingle:" << port->ToString()
+                       << ": Removed port from allocator ("
+                       << static_cast<int>(ports_.size()) << " remaining)";
       return;
     }
   }
@@ -1236,8 +1240,8 @@ void AllocationSequence::OnMessage(rtc::Message* msg) {
   const char* const PHASE_NAMES[kNumPhases] = {"Udp", "Relay", "Tcp"};
 
   // Perform all of the phases in the current step.
-  LOG_J(LS_INFO, network_) << "Allocation Phase="
-                           << PHASE_NAMES[phase_];
+  RTC_LOG(LS_INFO) << "Jingle:" << network_->ToString()
+                   << ": Allocation Phase=" << PHASE_NAMES[phase_];
 
   switch (phase_) {
     case PHASE_UDP:
@@ -1307,7 +1311,7 @@ void AllocationSequence::CreateUDPPorts() {
         if (config_ && !config_->StunServers().empty()) {
           RTC_LOG(LS_INFO)
               << "AllocationSequence: UDPPort will be handling the "
-              << "STUN candidate generation.";
+                 "STUN candidate generation.";
           port->set_server_addresses(config_->StunServers());
         }
       }
@@ -1437,7 +1441,7 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
     if (server_ip_family != AF_UNSPEC && server_ip_family != local_ip_family) {
       RTC_LOG(LS_INFO)
           << "Server and local address families are not compatible. "
-          << "Server address: " << relay_port->address.ipaddr().ToString()
+             "Server address: " << relay_port->address.ipaddr().ToString()
           << " Local address: " << network_->GetBestIP().ToString();
       continue;
     }

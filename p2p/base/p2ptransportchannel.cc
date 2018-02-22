@@ -19,7 +19,6 @@
 #include "api/umametrics.h"
 #include "logging/rtc_event_log/icelogger.h"
 #include "p2p/base/candidatepairinterface.h"
-#include "p2p/base/common.h"
 #include "p2p/base/relayport.h"  // For RELAY_PORT_TYPE.
 #include "p2p/base/stunport.h"   // For STUN_PORT_TYPE.
 #include "rtc_base/checks.h"
@@ -383,9 +382,10 @@ IceTransportState P2PTransportChannel::ComputeState() const {
     if (networks.find(network) == networks.end()) {
       networks.insert(network);
     } else {
-      LOG_J(LS_VERBOSE, this) << "Ice not completed yet for this channel as "
-                              << network->ToString()
-                              << " has more than 1 connection.";
+      RTC_LOG(LS_VERBOSE) << "Jingle:" << this->ToString()
+                          << ": Ice not completed yet for this channel as "
+                          << network->ToString()
+                          << " has more than 1 connection.";
       return IceTransportState::STATE_CONNECTING;
     }
   }
@@ -442,7 +442,7 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
   if (config_.continual_gathering_policy != config.continual_gathering_policy) {
     if (!allocator_sessions_.empty()) {
       RTC_LOG(LS_ERROR) << "Trying to change continual gathering policy "
-                        << "when gathering has already started!";
+                           "when gathering has already started!";
     } else {
       config_.continual_gathering_policy = config.continual_gathering_policy;
       RTC_LOG(LS_INFO) << "Set continual_gathering_policy to "
@@ -491,7 +491,7 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
       config_.presume_writable_when_fully_relayed) {
     if (!connections_.empty()) {
       RTC_LOG(LS_ERROR) << "Trying to change 'presume writable' "
-                        << "while connections already exist!";
+                           "while connections already exist!";
     } else {
       config_.presume_writable_when_fully_relayed =
           config.presume_writable_when_fully_relayed;
@@ -556,7 +556,7 @@ void P2PTransportChannel::MaybeStartGathering() {
   if (ice_parameters_.ufrag.empty() || ice_parameters_.pwd.empty()) {
     RTC_LOG(LS_ERROR)
         << "Cannot gather candidates because ICE parameters are empty"
-        << " ufrag: " << ice_parameters_.ufrag
+           " ufrag: " << ice_parameters_.ufrag
         << " pwd: " << ice_parameters_.pwd;
     return;
   }
@@ -622,9 +622,9 @@ void P2PTransportChannel::OnPortReady(PortAllocatorSession *session,
        ++it) {
     int val = port->SetOption(it->first, it->second);
     if (val < 0) {
-      LOG_J(LS_WARNING, port) << "SetOption(" << it->first
-                              << ", " << it->second
-                              << ") failed: " << port->GetError();
+      RTC_LOG(LS_WARNING) << "Jingle:" << port->ToString() << ": SetOption("
+                          << it->first << ", " << it->second
+                          << ") failed: " << port->GetError();
     }
   }
 
@@ -672,7 +672,7 @@ void P2PTransportChannel::OnCandidatesAllocationDone(
     RTC_LOG(LS_INFO) << "P2PTransportChannel: " << transport_name()
                      << ", component " << component()
                      << " gathering complete, but using continual "
-                     << "gathering so not changing gathering state.";
+                        "gathering so not changing gathering state.";
     return;
   }
   gathering_state_ = kIceGatheringComplete;
@@ -726,8 +726,8 @@ void P2PTransportChannel::OnUnknownAddress(
         stun_msg->GetUInt32(STUN_ATTR_PRIORITY);
     if (!priority_attr) {
       RTC_LOG(LS_WARNING) << "P2PTransportChannel::OnUnknownAddress - "
-                          << "No STUN_ATTR_PRIORITY found in the "
-                          << "stun request message";
+                             "No STUN_ATTR_PRIORITY found in the "
+                             "stun request message";
       port->SendBindingErrorResponse(stun_msg, address, STUN_ERROR_BAD_REQUEST,
                                      STUN_ERROR_REASON_BAD_REQUEST);
       return;
@@ -772,7 +772,7 @@ void P2PTransportChannel::OnUnknownAddress(
   if (port->GetConnection(remote_candidate.address())) {
     if (port_muxed) {
       RTC_LOG(LS_INFO) << "Connection already exists for peer reflexive "
-                       << "candidate: " << remote_candidate.ToString();
+                          "candidate: " << remote_candidate.ToString();
       return;
     } else {
       RTC_NOTREACHED();
@@ -980,8 +980,9 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
       return false;
     }
     AddConnection(connection);
-    LOG_J(LS_INFO, this) << "Created connection with origin=" << origin << ", ("
-                         << connections_.size() << " total)";
+    RTC_LOG(LS_INFO) << "Jingle:" << this->ToString()
+                     << ": Created connection with origin: " << origin
+                     << ", total: " << connections_.size();
     return true;
   }
 
@@ -990,7 +991,7 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
   // connection; however, the other side can send a duplicate candidate.
   if (!remote_candidate.IsEquivalent(connection->remote_candidate())) {
     RTC_LOG(INFO) << "Attempt to change a remote candidate."
-                  << " Existing remote candidate: "
+                     " Existing remote candidate: "
                   << connection->remote_candidate().ToString()
                   << "New remote candidate: " << remote_candidate.ToString();
   }
@@ -1179,8 +1180,9 @@ void P2PTransportChannel::MaybeStartPinging() {
   if (std::any_of(
           connections_.begin(), connections_.end(),
           [this, now](const Connection* c) { return IsPingable(c, now); })) {
-    LOG_J(LS_INFO, this) << "Have a pingable connection for the first time; "
-                         << "starting to ping.";
+    RTC_LOG(LS_INFO) << "Jingle:" << this->ToString()
+                     << ": Have a pingable connection for the first time; "
+                        "starting to ping.";
     thread()->Post(RTC_FROM_HERE, this, MSG_CHECK_AND_PING);
     thread()->PostDelayed(RTC_FROM_HERE,
                           *config_.regather_on_failed_networks_interval, this,
@@ -1424,7 +1426,7 @@ void P2PTransportChannel::SortConnectionsAndUpdateState() {
                    });
 
   RTC_LOG(LS_VERBOSE) << "Sorting " << connections_.size()
-                      << " available connections:";
+                      << " available connections";
   for (size_t i = 0; i < connections_.size(); ++i) {
     RTC_LOG(LS_VERBOSE) << connections_[i]->ToString();
   }
@@ -1551,11 +1553,13 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
   if (selected_connection_) {
     ++nomination_;
     if (old_selected_connection) {
-      LOG_J(LS_INFO, this) << "Previous selected connection: "
-                           << old_selected_connection->ToString();
+      RTC_LOG(LS_INFO) << "Jingle:" << this->ToString()
+                       << ": Previous selected connection: "
+                       << old_selected_connection->ToString();
     }
-    LOG_J(LS_INFO, this) << "New selected connection: "
-                         << selected_connection_->ToString();
+    RTC_LOG(LS_INFO) << "Jingle:" << this->ToString()
+                     << ": New selected connection: "
+                     << selected_connection_->ToString();
     SignalRouteChange(this, selected_connection_->remote_candidate());
     // This is a temporary, but safe fix to webrtc issue 5705.
     // TODO(honghaiz): Make all ENOTCONN error routed through the transport
@@ -1579,7 +1583,8 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
             selected_connection_->local_candidate().address().family()) +
         GetProtocolOverhead(selected_connection_->local_candidate().protocol());
   } else {
-    LOG_J(LS_INFO, this) << "No selected connection";
+    RTC_LOG(LS_INFO) << "Jingle:" << this->ToString()
+                     << ": No selected connection";
   }
 
   SignalNetworkRouteChanged(network_route_);
@@ -1594,9 +1599,10 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
 void P2PTransportChannel::UpdateState() {
   IceTransportState state = ComputeState();
   if (state_ != state) {
-    LOG_J(LS_INFO, this) << "Transport channel state changed from "
-                         << static_cast<int>(state_) << " to "
-                         << static_cast<int>(state);
+    RTC_LOG(LS_INFO) << "Jingle:" << this->ToString()
+                     << ": Transport channel state changed from "
+                     << static_cast<int>(state_) << " to "
+                     << static_cast<int>(state);
     // Check that the requested transition is allowed. Note that
     // P2PTransportChannel does not (yet) implement a direct mapping of the ICE
     // states from the standard; the difference is covered by
@@ -2012,9 +2018,9 @@ void P2PTransportChannel::OnConnectionDestroyed(Connection* connection) {
   unpinged_connections_.erase(*iter);
   connections_.erase(iter);
 
-  LOG_J(LS_INFO, this) << "Removed connection " << std::hex << connection
-                       << std::dec << " (" << connections_.size()
-                       << " remaining)";
+  RTC_LOG(LS_INFO) << "Jingle:" << this->ToString() << ": Removed connection "
+                   << std::hex << connection << std::dec << " ("
+                   << connections_.size() << " remaining)";
 
   // If this is currently the selected connection, then we need to pick a new
   // one. The call to SortConnectionsAndUpdateState will pick a new one. It
@@ -2237,7 +2243,8 @@ void P2PTransportChannel::set_writable(bool writable) {
   if (writable_ == writable) {
     return;
   }
-  LOG_J(LS_VERBOSE, this) << "Changed writable_ to " << writable;
+  RTC_LOG(LS_VERBOSE) << "Jingle:" << this->ToString()
+                      << ": Changed writable_ to " << writable;
   writable_ = writable;
   if (writable_) {
     SignalReadyToSend(this);

@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <array>
 #include <functional>
-#include <memory>
 
 #include "api/array_view.h"
 #include "audio/utility/audio_frame_operations.h"
@@ -26,7 +25,9 @@ namespace webrtc {
 namespace {
 
 // Stereo, 48 kHz, 10 ms.
-constexpr int kMaximalFrameSize = 2 * 48 * 10;
+constexpr int kMaximumAmountOfChannels = 2;
+constexpr int kMaximumFrameSize =
+    kMaximumAmountOfChannels * 48 * AudioMixerImpl::kFrameDurationInMs;
 
 void CombineZeroFrames(bool use_limiter,
                        AudioProcessing* limiter,
@@ -90,8 +91,8 @@ void CombineMultipleFrames(
   // more efficient than addition in place in the int16 audio
   // frame. The audio quality loss due to halving the samples is
   // smaller than 16-bit addition in place.
-  RTC_DCHECK_GE(kMaximalFrameSize, frame_length);
-  std::array<int32_t, kMaximalFrameSize> add_buffer;
+  RTC_DCHECK_GE(kMaximumFrameSize, frame_length);
+  std::array<int32_t, kMaximumFrameSize> add_buffer;
 
   add_buffer.fill(0);
 
@@ -141,7 +142,6 @@ std::unique_ptr<AudioProcessing> CreateLimiter() {
   std::unique_ptr<AudioProcessing> limiter(
       AudioProcessingBuilder().Create(config));
   RTC_DCHECK(limiter);
-
   webrtc::AudioProcessing::Config apm_config;
   apm_config.residual_echo_detector.enabled = false;
   limiter->ApplyConfig(apm_config);
@@ -160,13 +160,60 @@ std::unique_ptr<AudioProcessing> CreateLimiter() {
   check_no_error(gain_control->set_compression_gain_db(0));
   check_no_error(gain_control->enable_limiter(true));
   check_no_error(gain_control->Enable(true));
+
   return limiter;
+}
+
+void CombineWithAgc2Limiter(const std::vector<AudioFrame*>& mix_list,
+                            FixedGainController* apm_agc2_limiter,
+                            AudioFrame* audio_frame_for_mixing) {
+  const int samples_per_channel = audio_frame_for_mixing->samples_per_channel_;
+  const int num_channels = audio_frame_for_mixing->num_channels_;
+
+  // (1) Deinterleave. Nah, can't use common_audio-Deinterleave
+  //     easily. Will just make 3 for loops
+
+  // (2) Convert to FloatS16 and mix.
+  using OneChannelBuffer = std::array<float, kMaximumFrameSize>;
+  std::array<OneChannelBuffer, kMaximumAmountOfChannels> mixing_buffer{};
+
+  for (size_t i = 0; i < mix_list.size(); ++i) {
+    const AudioFrame* const frame = mix_list[i];
+    for (int j = 0; j < num_channels; ++j) {
+      for (int k = 0; k < samples_per_channel; ++k) {
+        mixing_buffer[j][k] += frame->data()[2 * k + j];
+      }
+    }
+  }
+
+  // (3) Put float data in an AudioFrameView.
+  std::array<float*, kMaximumAmountOfChannels> channel_pointers{};
+  for (int i = 0; i < num_channels; ++i) {
+    channel_pointers[i] = &mixing_buffer[i][0];
+  }
+  AudioFrameView<float> audio_frame_view(&channel_pointers[0], num_channels,
+                                         samples_per_channel);
+  // (4) Run the limiter on the View.
+  apm_agc2_limiter->SetSampleRate(audio_frame_for_mixing->sample_rate_hz_);
+  apm_agc2_limiter->Process(audio_frame_view);
+
+  // (5) Put data to the result frame.
+  for (int i = 0; i < num_channels; ++i) {
+    for (int j = 0; j < samples_per_channel; ++j) {
+      audio_frame_for_mixing->mutable_data()[2 * j + i] =
+          static_cast<int16_t>(audio_frame_view.channel(i)[j]);
+    }
+  }
 }
 }  // namespace
 
-FrameCombiner::FrameCombiner(bool use_apm_limiter)
-    : use_apm_limiter_(use_apm_limiter),
-      limiter_(use_apm_limiter ? CreateLimiter() : nullptr) {}
+FrameCombiner::FrameCombiner(LimiterType limiter_type)
+    : limiter_type_(limiter_type),
+      apm_agc_limiter_(limiter_type_ == LimiterType::kApmAgcLimiter
+                           ? CreateLimiter()
+                           : nullptr),
+      data_dumper_(0),
+      apm_agc2_limiter_(&data_dumper_) {}
 
 FrameCombiner::~FrameCombiner() = default;
 
@@ -174,7 +221,7 @@ void FrameCombiner::Combine(const std::vector<AudioFrame*>& mix_list,
                             size_t number_of_channels,
                             int sample_rate,
                             size_t number_of_streams,
-                            AudioFrame* audio_frame_for_mixing) const {
+                            AudioFrame* audio_frame_for_mixing) {
   RTC_DCHECK(audio_frame_for_mixing);
   const size_t samples_per_channel = static_cast<size_t>(
       (sample_rate * webrtc::AudioMixerImpl::kFrameDurationInMs) / 1000);
@@ -197,22 +244,29 @@ void FrameCombiner::Combine(const std::vector<AudioFrame*>& mix_list,
       0, nullptr, samples_per_channel, sample_rate, AudioFrame::kUndefined,
       AudioFrame::kVadUnknown, number_of_channels);
 
-  const bool use_limiter_this_round = use_apm_limiter_ && number_of_streams > 1;
+  if (limiter_type_ == LimiterType::kApmAgc2Limiter) {
+    CombineWithAgc2Limiter(mix_list, &apm_agc2_limiter_,
+                           audio_frame_for_mixing);
+    return;
+  }
+
+  const bool use_limiter_this_round =
+      limiter_type_ == LimiterType::kApmAgcLimiter && number_of_streams > 1;
 
   if (mix_list.empty()) {
-    CombineZeroFrames(use_limiter_this_round, limiter_.get(),
+    CombineZeroFrames(use_limiter_this_round, apm_agc_limiter_.get(),
                       audio_frame_for_mixing);
   } else if (mix_list.size() == 1) {
-    CombineOneFrame(mix_list.front(), use_limiter_this_round, limiter_.get(),
-                    audio_frame_for_mixing);
+    CombineOneFrame(mix_list.front(), use_limiter_this_round,
+                    apm_agc_limiter_.get(), audio_frame_for_mixing);
   } else {
     std::vector<rtc::ArrayView<const int16_t>> input_frames;
     for (size_t i = 0; i < mix_list.size(); ++i) {
       input_frames.push_back(rtc::ArrayView<const int16_t>(
           mix_list[i]->data(), samples_per_channel * number_of_channels));
     }
-    CombineMultipleFrames(input_frames, use_limiter_this_round, limiter_.get(),
-                          audio_frame_for_mixing);
+    CombineMultipleFrames(input_frames, use_limiter_this_round,
+                          apm_agc_limiter_.get(), audio_frame_for_mixing);
   }
 }
 

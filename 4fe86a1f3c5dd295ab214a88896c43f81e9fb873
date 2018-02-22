@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a17c92fd_ae1c8470",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-22T10:15:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b45c9e3d_5d85f6ec",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 35
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76c541d2_66f5d3a5",
         "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
         "patchSetId": 11
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "61dfdc21_580b5a39",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-22T10:15:20Z",
+      "side": 1,
+      "message": "You are right I was confusing this with the encoder. There the codec is reinitialized. I\u0027ll keep this as is because it doesn\u0027t seem WebRTC reinitializes the codec.",
+      "parentUuid": "e82fa644_d8396b5f",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22d8486d_aa14a858",
         "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
         "patchSetId": 11
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "05ee7405_8acca1c9",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-22T10:15:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22d8486d_aa14a858",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 8
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e12eac98_b77c0782",
         "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
         "patchSetId": 11
@@ -139,6 +211,30 @@
       "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8db3ee4_4be1db6f",
+        "filename": "media/engine/videodecodersoftwarefallbackwrapper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-22T10:15:20Z",
+      "side": 1,
+      "message": "Previously the logic was to just keep trying but just returning an error is cleaner, done.",
+      "parentUuid": "e12eac98_b77c0782",
+      "range": {
+        "startLine": 93,
+        "startChar": 3,
+        "endLine": 93,
+        "endChar": 4
+      },
+      "revId": "4fe86a1f3c5dd295ab214a88896c43f81e9fb873",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

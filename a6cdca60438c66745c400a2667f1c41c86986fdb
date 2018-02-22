@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25b173ab_b5479d50",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection+Private.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-22T22:41:49Z",
+      "side": 1,
+      "message": "nit: \u0026 next to type not name",
+      "range": {
+        "startLine": 53,
+        "startChar": 78,
+        "endLine": 53,
+        "endChar": 79
+      },
+      "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92b5942b_bea42e9d",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-22T22:41:49Z",
+      "side": 1,
+      "message": "nit: \u0026 next to type not name (does git cl format catch this?)",
+      "range": {
+        "startLine": 206,
+        "startChar": 64,
+        "endLine": 206,
+        "endChar": 65
+      },
+      "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a29d0843_95eb3898",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-22T22:41:49Z",
+      "side": 1,
+      "message": "nit: \"are created.\" (with a period)",
+      "range": {
+        "startLine": 109,
+        "startChar": 41,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

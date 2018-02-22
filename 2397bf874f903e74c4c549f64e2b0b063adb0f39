@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1d1f0f0e_d4758c37",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection.mm",
+        "patchSetId": 6
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-22T21:21:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "254e4833_8af78fff",
+      "range": {
+        "startLine": 416,
+        "startChar": 23,
+        "endLine": 416,
+        "endChar": 43
+      },
+      "revId": "2397bf874f903e74c4c549f64e2b0b063adb0f39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ad8810e_a6574d01",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-22T10:14:23Z",
       "side": 1,
       "message": "The naming of this method is pretty confusing to me. What did the peerconnection track? Something like didAddTrasceiver would make more sense to me.",
+      "range": {
+        "startLine": 125,
+        "startChar": 14,
+        "endLine": 125,
+        "endChar": 22
+      },
+      "revId": "2397bf874f903e74c4c549f64e2b0b063adb0f39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4e292e_09987e9e",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-22T21:21:56Z",
+      "side": 1,
+      "message": "I agree it\u0027s not a great name. The standardized name is \u0027ontrack\u0027 which isn\u0027t much better. But I think it would be best to stick with a standard name across platforms for the same event.",
+      "parentUuid": "8ad8810e_a6574d01",
       "range": {
         "startLine": 125,
         "startChar": 14,

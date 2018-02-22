@@ -625,6 +625,30 @@
     },
     {
       "key": {
+        "uuid": "039b1032_2946ae7a",
+        "filename": "pc/jseptransport2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-22T04:58:40Z",
+      "side": 1,
+      "message": "There was a reason for the \"fully\" distinction though; when applying a PR-answer that enables RTCP muxing, it\u0027s \"active\" but the RTCP transport isn\u0027t destroyed yet, in case a subsequent PR-answer disables it.",
+      "parentUuid": "7aa54171_5690ab06",
+      "range": {
+        "startLine": 383,
+        "startChar": 29,
+        "endLine": 383,
+        "endChar": 0
+      },
+      "revId": "af39e765fb3ce57391e1985ac1306548b69baaca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45472359_af78ef17",
         "filename": "pc/jseptransport2.cc",
         "patchSetId": 3

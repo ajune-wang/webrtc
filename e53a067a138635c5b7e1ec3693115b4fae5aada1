@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "300fa600_ff8be111",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-22T18:58:50Z",
+      "side": 1,
+      "message": "I don\u0027t think this works. There\u0027s two constructors for RtpPacketReceived. The default constructor initializes all the extension IDs to kInvalidType so it won\u0027t be able to find the MID header extension. The other constructor (which takes an ExtensionManager) is needed, and that information (extension ID -\u003e extension mapping) needs to be passed down from the SDP.",
+      "revId": "e53a067a138635c5b7e1ec3693115b4fae5aada1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

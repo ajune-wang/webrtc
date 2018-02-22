@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1185c9c1_6cba8e1f",
+        "filename": "p2p/base/icetransportinternal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-22T01:56:24Z",
+      "side": 1,
+      "message": "blank line",
+      "range": {
+        "startLine": 116,
+        "startChar": 44,
+        "endLine": 116,
+        "endChar": 0
+      },
+      "revId": "db53f8e604db9050dd1b860c185558474d601a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93ff78f6_b8532752",
+        "filename": "p2p/base/stunport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-02-22T01:56:24Z",
+      "side": 1,
+      "message": "delay.value_or(KEEPALIVE_DELAY)",
+      "range": {
+        "startLine": 321,
+        "startChar": 80,
+        "endLine": 321,
+        "endChar": 0
+      },
+      "revId": "db53f8e604db9050dd1b860c185558474d601a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

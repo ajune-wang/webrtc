@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "44ba2cff_8abc5582",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-22T16:59:05Z",
+      "side": 1,
+      "message": "The idea about once a minute is that it is quite easy to misdetect one glitch as being many glitches. Therefore, this allows for a grace period after a glitch until a new glitch is detected. If we reduce the interval to 10 seconds, we would therefore as a maximum detect a 3 glitches during that period.\n\nThe idea with reporting the number of glitches during a minute is that that would provide some kind of measure for how often the glitches occur, when they occur.",
+      "parentUuid": "3718d229_d6639836",
+      "range": {
+        "startLine": 121,
+        "startChar": 49,
+        "endLine": 121,
+        "endChar": 73
+      },
+      "revId": "31c2d5e9840f5760f6f9ff0d1a37deae01bd65ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38844890_0539e500",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-22T16:59:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64dfa449_91c1c6b9",
+      "range": {
+        "startLine": 121,
+        "startChar": 27,
+        "endLine": 121,
+        "endChar": 45
+      },
+      "revId": "31c2d5e9840f5760f6f9ff0d1a37deae01bd65ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1d14b8_46975920",
         "filename": "modules/audio_processing/aec3/render_delay_controller_metrics.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-02-15T13:06:35Z",
       "side": 1,
       "message": "What is the unit we are measuring here?",
+      "range": {
+        "startLine": 122,
+        "startChar": 60,
+        "endLine": 122,
+        "endChar": 77
+      },
+      "revId": "31c2d5e9840f5760f6f9ff0d1a37deae01bd65ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b6640ee_405a6443",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-22T16:59:05Z",
+      "side": 1,
+      "message": "It depends on the reporting interval.\nAs it is now,it is number of skew shifts per minute.",
+      "parentUuid": "fc1d14b8_46975920",
       "range": {
         "startLine": 122,
         "startChar": 60,

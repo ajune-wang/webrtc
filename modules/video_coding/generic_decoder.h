@@ -19,7 +19,7 @@
 #include "modules/video_coding/timestamp_map.h"
 #include "modules/video_coding/timing.h"
 #include "rtc_base/criticalsection.h"
-#include "rtc_base/thread_checker.h"
+#include "rtc_base/sequenced_task_checker.h"
 
 namespace webrtc {
 
@@ -58,7 +58,7 @@ class VCMDecodedFrameCallback : public DecodedImageCallback {
   int32_t Pop(uint32_t timestamp);
 
  private:
-  rtc::ThreadChecker construction_thread_;
+  rtc::SequencedTaskChecker construction_sequence_;
   // Protect |_timestampMap|.
   Clock* const _clock;
   // This callback must be set before the decoder thread starts running

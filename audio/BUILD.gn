@@ -79,6 +79,7 @@ rtc_static_library("audio") {
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
+    "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",
     "../system_wrappers:metrics_api",
@@ -95,6 +96,7 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":audio",
+      "../rtc_base:rtc_task_queue_for_test",
       "../system_wrappers:system_wrappers",
       "../test:fake_audio_device",
       "../test:test_common",
@@ -143,6 +145,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
       "../rtc_base:rtc_task_queue",
+      "../rtc_base:rtc_task_queue_for_test",
       "../rtc_base:safe_compare",
       "../system_wrappers:system_wrappers",
       "../test:audio_codec_mocks",
@@ -176,6 +179,7 @@ if (rtc_include_tests) {
         ":audio_end_to_end_test",
         "../common_audio",
         "../rtc_base:rtc_base_approved",
+        "../rtc_base:rtc_task_queue_for_test",
         "../system_wrappers",
         "../test:fake_audio_device",
         "../test:test_common",
@@ -227,10 +231,10 @@ if (rtc_include_tests) {
     deps = [
       "../common_audio",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_task_queue_for_test",
       "../system_wrappers",
       "../test:fake_audio_device",
       "../test:field_trial",
-      "../test:single_threaded_task_queue",
       "../test:test_common",
       "../test:test_main",
       "//testing/gtest",

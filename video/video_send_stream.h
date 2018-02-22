@@ -22,6 +22,7 @@
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/task_queue.h"
 #include "video/encoder_rtcp_feedback.h"
 #include "video/send_delay_stats.h"
@@ -109,7 +110,7 @@ class VideoSendStream : public webrtc::VideoSendStream {
 
   rtc::Optional<float> GetPacingFactorOverride() const;
 
-  rtc::ThreadChecker thread_checker_;
+  rtc::SequencedTaskChecker thread_checker_;
   rtc::TaskQueue* const worker_queue_;
   rtc::Event thread_sync_event_;
 

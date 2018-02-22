@@ -16,6 +16,7 @@
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/event.h"
 #include "rtc_base/platform_thread_types.h"
+//#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/thread_checker.h"
 
 namespace rtc {
@@ -91,7 +92,7 @@ class PlatformThread {
   // TODO(pbos): Make sure call sites use string literals and update to a const
   // char* instead of a std::string.
   const std::string name_;
-  rtc::ThreadChecker thread_checker_;
+  // rtc::SequencedTaskChecker sequence_checker_;
   rtc::ThreadChecker spawned_thread_checker_;
 #if defined(WEBRTC_WIN)
   static DWORD WINAPI StartThread(void* param);

@@ -11,6 +11,8 @@
 #ifndef PC_RTPTRANSPORTTESTUTIL_H_
 #define PC_RTPTRANSPORTTESTUTIL_H_
 
+#include <string>
+
 #include "pc/rtptransportinternal.h"
 #include "rtc_base/sigslot.h"
 
@@ -19,7 +21,7 @@ namespace webrtc {
 class SignalPacketReceivedCounter : public sigslot::has_slots<> {
  public:
   explicit SignalPacketReceivedCounter(RtpTransportInternal* transport) {
-    transport->SignalPacketReceived.connect(
+    transport->SignalPacketReceived().connect(
         this, &SignalPacketReceivedCounter::OnPacketReceived);
   }
   int rtcp_count() const { return rtcp_count_; }
@@ -28,7 +30,8 @@ class SignalPacketReceivedCounter : public sigslot::has_slots<> {
  private:
   void OnPacketReceived(bool rtcp,
                         rtc::CopyOnWriteBuffer*,
-                        const rtc::PacketTime&) {
+                        const rtc::PacketTime&,
+                        rtc::Optional<std::string> mid) {
     if (rtcp) {
       ++rtcp_count_;
     } else {

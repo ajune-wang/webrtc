@@ -37,7 +37,8 @@ class TransportObserver : public sigslot::has_slots<> {
  public:
   void OnPacketReceived(bool rtcp,
                         rtc::CopyOnWriteBuffer* packet,
-                        const rtc::PacketTime& packet_time) {
+                        const rtc::PacketTime& packet_time,
+                        rtc::Optional<std::string> mid) {
     rtcp ? last_recv_rtcp_packet_ = *packet : last_recv_rtp_packet_ = *packet;
   }
 
@@ -93,12 +94,12 @@ class DtlsSrtpTransportTest : public testing::Test,
     dtls_srtp_transport2_ =
         MakeDtlsSrtpTransport(rtp_dtls2, rtcp_dtls2, rtcp_mux_enabled);
 
-    dtls_srtp_transport1_->SignalPacketReceived.connect(
+    dtls_srtp_transport1_->SignalPacketReceived().connect(
         &transport_observer1_, &TransportObserver::OnPacketReceived);
     dtls_srtp_transport1_->SignalReadyToSend.connect(
         &transport_observer1_, &TransportObserver::OnReadyToSend);
 
-    dtls_srtp_transport2_->SignalPacketReceived.connect(
+    dtls_srtp_transport2_->SignalPacketReceived().connect(
         &transport_observer2_, &TransportObserver::OnPacketReceived);
     dtls_srtp_transport2_->SignalReadyToSend.connect(
         &transport_observer2_, &TransportObserver::OnReadyToSend);

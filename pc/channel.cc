@@ -137,8 +137,8 @@ void BaseChannel::ConnectToRtpTransport() {
   // TODO(zstein):  RtpTransport::SignalPacketReceived will probably be replaced
   // with a callback interface later so that the demuxer can select which
   // channel to signal.
-  rtp_transport_->SignalPacketReceived.connect(this,
-                                               &BaseChannel::OnPacketReceived);
+  rtp_transport_->SignalPacketReceived().connect(
+      this, &BaseChannel::OnPacketReceived);
   rtp_transport_->SignalNetworkRouteChanged.connect(
       this, &BaseChannel::OnNetworkRouteChanged);
   rtp_transport_->SignalWritableState.connect(this,
@@ -150,7 +150,7 @@ void BaseChannel::ConnectToRtpTransport() {
 void BaseChannel::DisconnectFromRtpTransport() {
   RTC_DCHECK(rtp_transport_);
   rtp_transport_->SignalReadyToSend.disconnect(this);
-  rtp_transport_->SignalPacketReceived.disconnect(this);
+  rtp_transport_->SignalPacketReceived().disconnect(this);
   rtp_transport_->SignalNetworkRouteChanged.disconnect(this);
   rtp_transport_->SignalWritableState.disconnect(this);
   rtp_transport_->SignalSentPacket.disconnect(this);
@@ -573,11 +573,20 @@ bool BaseChannel::HandlesPayloadType(int packet_type) const {
 
 void BaseChannel::OnPacketReceived(bool rtcp,
                                    rtc::CopyOnWriteBuffer* packet,
-                                   const rtc::PacketTime& packet_time) {
+                                   const rtc::PacketTime& packet_time,
+                                   rtc::Optional<std::string> mid) {
   if (!has_received_packet_ && !rtcp) {
     has_received_packet_ = true;
     signaling_thread()->Post(RTC_FROM_HERE, this, MSG_FIRSTPACKETRECEIVED);
   }
+
+  // TODO(zhihuang): Implement MID based filtering here. Rename the
+  // |content_name_| to |mid_|.
+  // If the |mid| is unset, we can still forward the packet and let the
+  // RtpDemuxer in upper layer handle it.
+  //
+  // If the |mid| is set, drop the packet if it doesn't match the
+  // |content_name_|.
 
   if (!srtp_active() && srtp_required_) {
     // Our session description indicates that SRTP is required, but we got a
@@ -1187,8 +1196,9 @@ bool VoiceChannel::GetStats(VoiceMediaInfo* stats) {
 
 void VoiceChannel::OnPacketReceived(bool rtcp,
                                     rtc::CopyOnWriteBuffer* packet,
-                                    const rtc::PacketTime& packet_time) {
-  BaseChannel::OnPacketReceived(rtcp, packet, packet_time);
+                                    const rtc::PacketTime& packet_time,
+                                    rtc::Optional<std::string> mid) {
+  BaseChannel::OnPacketReceived(rtcp, packet, packet_time, mid);
   // Set a flag when we've received an RTP packet. If we're waiting for early
   // media, this will disable the timeout.
   if (!received_media_ && !rtcp) {

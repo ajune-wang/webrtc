@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "media/base/rtputils.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "pc/rtptransport.h"
 #include "pc/srtpsession.h"
 #include "rtc_base/asyncpacketsocket.h"
@@ -41,7 +42,7 @@ SrtpTransport::SrtpTransport(
 }
 
 void SrtpTransport::ConnectToRtpTransport() {
-  rtp_transport_->SignalPacketReceived.connect(
+  rtp_transport_->SignalPacketReceived().connect(
       this, &SrtpTransport::OnPacketReceived);
   rtp_transport_->SignalReadyToSend.connect(this,
                                             &SrtpTransport::OnReadyToSend);
@@ -139,7 +140,8 @@ bool SrtpTransport::SendPacket(bool rtcp,
 
 void SrtpTransport::OnPacketReceived(bool rtcp,
                                      rtc::CopyOnWriteBuffer* packet,
-                                     const rtc::PacketTime& packet_time) {
+                                     const rtc::PacketTime& packet_time,
+                                     rtc::Optional<std::string> mid) {
   if (!IsActive()) {
     RTC_LOG(LS_WARNING)
         << "Inactive SRTP transport received a packet. Drop it.";
@@ -173,7 +175,19 @@ void SrtpTransport::OnPacketReceived(bool rtcp,
   }
 
   packet->SetSize(len);
-  SignalPacketReceived(rtcp, packet, packet_time);
+  if (!rtcp) {
+    webrtc::RtpPacketReceived parsed_packet;
+    if (parsed_packet.Parse(*packet)) {
+      std::string mid_str;
+      parsed_packet.GetExtension<RtpMid>(&mid_str);
+      mid = mid_str;
+    } else {
+      RTC_LOG(LS_ERROR)
+          << "Failed to parse the incoming RTP packet. Dropping it.";
+      return;
+    }
+  }
+  SignalPacketReceived_(rtcp, packet, packet_time, mid);
 }
 
 void SrtpTransport::OnNetworkRouteChanged(

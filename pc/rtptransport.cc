@@ -259,8 +259,11 @@ void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
   if (!WantsPacket(rtcp, &packet)) {
     return;
   }
-  // This mutates |packet| if it is protected.
-  SignalPacketReceived(rtcp, &packet, packet_time);
+  // This mutates |packet| if it is protected. For encrypted RTP, the MID is
+  // unknown here.
+  // TODO(zhihuang): Get the MID for the unencrypted RTP.
+  SignalPacketReceived_(rtcp, &packet, packet_time,
+                        /*MID=*/rtc::Optional<std::string>());
 }
 
 bool RtpTransport::WantsPacket(bool rtcp,

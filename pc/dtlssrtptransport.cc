@@ -29,7 +29,7 @@ DtlsSrtpTransport::DtlsSrtpTransport(
     : RtpTransportInternalAdapter(srtp_transport.get()) {
   srtp_transport_ = std::move(srtp_transport);
   RTC_DCHECK(srtp_transport_);
-  srtp_transport_->SignalPacketReceived.connect(
+  srtp_transport_->SignalPacketReceived().connect(
       this, &DtlsSrtpTransport::OnPacketReceived);
   srtp_transport_->SignalReadyToSend.connect(this,
                                              &DtlsSrtpTransport::OnReadyToSend);
@@ -350,8 +350,9 @@ void DtlsSrtpTransport::OnSentPacket(const rtc::SentPacket& sent_packet) {
 
 void DtlsSrtpTransport::OnPacketReceived(bool rtcp,
                                          rtc::CopyOnWriteBuffer* packet,
-                                         const rtc::PacketTime& packet_time) {
-  SignalPacketReceived(rtcp, packet, packet_time);
+                                         const rtc::PacketTime& packet_time,
+                                         rtc::Optional<std::string> mid) {
+  SignalPacketReceived_(rtcp, packet, packet_time, mid);
 }
 
 void DtlsSrtpTransport::OnReadyToSend(bool ready) {

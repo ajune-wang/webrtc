@@ -13,7 +13,9 @@
 #include <string.h>
 
 #include "api/video/i420_buffer.h"
+#include "common_video/include/video_frame_buffer.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/keep_ref_until_done.h"
 #include "third_party/libyuv/include/libyuv.h"
 
 namespace webrtc {
@@ -203,6 +205,17 @@ int ConvertFromI420(const VideoFrame& src_frame,
       ConvertVideoType(dst_video_type));
 }
 
+rtc::scoped_refptr<I420BufferInterface> ExtractAXXBuffer(
+    const I420ABufferInterface& buffer) {
+  rtc::scoped_refptr<I420Buffer> dummy_buffer =
+      I420Buffer::Create(buffer.width(), buffer.height());
+  rtc::scoped_refptr<I420BufferInterface> buffer_axx = WrapI420Buffer(
+      buffer.width(), buffer.height(), buffer.DataA(), buffer.StrideA(),
+      dummy_buffer->DataU(), dummy_buffer->StrideU(), dummy_buffer->DataV(),
+      dummy_buffer->StrideV(), rtc::KeepRefUntilDone(dummy_buffer));
+  return buffer_axx;
+}
+
 // Compute PSNR for an I420 frame (all planes). Can upscale test frame.
 double I420PSNR(const I420BufferInterface& ref_buffer,
                 const I420BufferInterface& test_buffer) {
@@ -226,10 +239,29 @@ double I420PSNR(const I420BufferInterface& ref_buffer,
   return (psnr > kPerfectPSNR) ? kPerfectPSNR : psnr;
 }
 
+// Compute PSNR for an I420A frame by splitting into YUV and AXX frames.
+double I420APSNR(const I420ABufferInterface& ref_buffer,
+                 const I420ABufferInterface& test_buffer) {
+  const double yuv_psnr = I420PSNR(ref_buffer, test_buffer);
+  rtc::scoped_refptr<I420BufferInterface> ref_buffer_axx =
+      ExtractAXXBuffer(ref_buffer);
+  rtc::scoped_refptr<I420BufferInterface> test_buffer_axx =
+      ExtractAXXBuffer(test_buffer);
+  const double axx_psnr = I420PSNR(*ref_buffer_axx, *test_buffer_axx);
+  return (yuv_psnr + axx_psnr) / 2.0;
+}
+
 // Compute PSNR for an I420 frame (all planes)
 double I420PSNR(const VideoFrame* ref_frame, const VideoFrame* test_frame) {
   if (!ref_frame || !test_frame)
     return -1;
+  if (ref_frame->video_frame_buffer()->type() ==
+          VideoFrameBuffer::Type::kI420A &&
+      test_frame->video_frame_buffer()->type() ==
+          VideoFrameBuffer::Type::kI420A) {
+    return I420APSNR(*ref_frame->video_frame_buffer()->GetI420A(),
+                     *test_frame->video_frame_buffer()->GetI420A());
+  }
   return I420PSNR(*ref_frame->video_frame_buffer()->ToI420(),
                   *test_frame->video_frame_buffer()->ToI420());
 }
@@ -253,9 +285,29 @@ double I420SSIM(const I420BufferInterface& ref_buffer,
       test_buffer.StrideU(), test_buffer.DataV(), test_buffer.StrideV(),
       test_buffer.width(), test_buffer.height());
 }
+
+// Compute SSIM for an I420A frame by splitting into YUV and AXX frames.
+double I420ASSIM(const I420ABufferInterface& ref_buffer,
+                 const I420ABufferInterface& test_buffer) {
+  const double yuv_ssim = I420SSIM(ref_buffer, test_buffer);
+  rtc::scoped_refptr<I420BufferInterface> ref_buffer_axx =
+      ExtractAXXBuffer(ref_buffer);
+  rtc::scoped_refptr<I420BufferInterface> test_buffer_axx =
+      ExtractAXXBuffer(test_buffer);
+  const double axx_ssim = I420SSIM(*ref_buffer_axx, *test_buffer_axx);
+  return (yuv_ssim + axx_ssim) / 2.0;
+}
+
 double I420SSIM(const VideoFrame* ref_frame, const VideoFrame* test_frame) {
   if (!ref_frame || !test_frame)
     return -1;
+  if (ref_frame->video_frame_buffer()->type() ==
+          VideoFrameBuffer::Type::kI420A &&
+      test_frame->video_frame_buffer()->type() ==
+          VideoFrameBuffer::Type::kI420A) {
+    return I420ASSIM(*ref_frame->video_frame_buffer()->GetI420A(),
+                     *test_frame->video_frame_buffer()->GetI420A());
+  }
   return I420SSIM(*ref_frame->video_frame_buffer()->ToI420(),
                   *test_frame->video_frame_buffer()->ToI420());
 }

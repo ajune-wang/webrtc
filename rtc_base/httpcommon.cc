@@ -32,8 +32,80 @@
 
 namespace rtc {
 
+/////////////////////////////////////////////////////////////////////////////
+// Constant Labels
+/////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// ConstantLabel can be used to easily generate string names from constant
+// values.  This can be useful for logging descriptive names of error messages.
+// Usage:
+//   const ConstantLabel LIBRARY_ERRORS[] = {
+//     KLABEL(SOME_ERROR),
+//     KLABEL(SOME_OTHER_ERROR),
+//     ...
+//     LASTLABEL
+//   }
+//
+//   int err = LibraryFunc();
+//   LOG(LS_ERROR) << "LibraryFunc returned: "
+//                 << ErrorName(err, LIBRARY_ERRORS);
+
+struct ConstantLabel { int value; const char * label; };
+#define KLABEL(x) { x, #x }
+#define TLABEL(x, y) { x, y }
+#define LASTLABEL { 0, 0 }
+
+const char* FindLabel(int value, const ConstantLabel entries[]) {
+  for (int i = 0; entries[i].label; ++i) {
+    if (value == entries[i].value) {
+      return entries[i].label;
+    }
+  }
+  return 0;
+}
+
+std::string ErrorName(int err, const ConstantLabel* err_table) {
+  if (err == 0)
+    return "No error";
+
+  if (err_table != 0) {
+    if (const char* value = FindLabel(err, err_table))
+      return value;
+  }
+
+  char buffer[16];
+  snprintf(buffer, sizeof(buffer), "0x%08x", err);
+  return buffer;
+}
+
 #if defined(WEBRTC_WIN)
-extern const ConstantLabel SECURITY_ERRORS[];
+const ConstantLabel SECURITY_ERRORS[] = {
+  KLABEL(SEC_I_COMPLETE_AND_CONTINUE),
+  KLABEL(SEC_I_COMPLETE_NEEDED),
+  KLABEL(SEC_I_CONTEXT_EXPIRED),
+  KLABEL(SEC_I_CONTINUE_NEEDED),
+  KLABEL(SEC_I_INCOMPLETE_CREDENTIALS),
+  KLABEL(SEC_I_RENEGOTIATE),
+  KLABEL(SEC_E_CERT_EXPIRED),
+  KLABEL(SEC_E_INCOMPLETE_MESSAGE),
+  KLABEL(SEC_E_INSUFFICIENT_MEMORY),
+  KLABEL(SEC_E_INTERNAL_ERROR),
+  KLABEL(SEC_E_INVALID_HANDLE),
+  KLABEL(SEC_E_INVALID_TOKEN),
+  KLABEL(SEC_E_LOGON_DENIED),
+  KLABEL(SEC_E_NO_AUTHENTICATING_AUTHORITY),
+  KLABEL(SEC_E_NO_CREDENTIALS),
+  KLABEL(SEC_E_NOT_OWNER),
+  KLABEL(SEC_E_OK),
+  KLABEL(SEC_E_SECPKG_NOT_FOUND),
+  KLABEL(SEC_E_TARGET_UNKNOWN),
+  KLABEL(SEC_E_UNKNOWN_CREDENTIALS),
+  KLABEL(SEC_E_UNSUPPORTED_FUNCTION),
+  KLABEL(SEC_E_UNTRUSTED_ROOT),
+  KLABEL(SEC_E_WRONG_PRINCIPAL),
+  LASTLABEL
+};
 #endif
 
 //////////////////////////////////////////////////////////////////////

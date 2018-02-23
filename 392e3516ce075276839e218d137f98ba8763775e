@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0e45456_b14fd833",
+        "filename": "pc/test/fakepeerconnectionforstats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-02-23T18:57:30Z",
+      "side": 1,
+      "message": "remote_cert_chain_by_tranpsort_ ?",
+      "range": {
+        "startLine": 383,
+        "startChar": 6,
+        "endLine": 383,
+        "endChar": 39
+      },
+      "revId": "392e3516ce075276839e218d137f98ba8763775e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -511,6 +511,11 @@ void RtpVideoStreamReceiver::NotifyReceiverOfFecPacket(
     rtp_header.type.Video.video_timing = header.extension.video_timing;
   }
   rtp_header.type.Video.playout_delay = header.extension.playout_delay;
+  rtp_header.type.Video.frame_marking = {false, false, false, false, false,
+                                         kNoTemporalIdx, 0, 0};
+  if (header.extension.has_frame_marking) {
+    rtp_header.type.Video.frame_marking = header.extension.frame_marking;
+  }
 
   OnReceivedPayloadData(nullptr, 0, &rtp_header);
 }

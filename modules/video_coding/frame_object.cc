@@ -164,5 +164,13 @@ rtc::Optional<RTPVideoTypeHeader> RtpFrameObject::GetCodecHeader() const {
   return packet->video_header.codecHeader;
 }
 
+rtc::Optional<FrameMarking> RtpFrameObject::GetFrameMarking() const {
+  rtc::CritScope lock(&packet_buffer_->crit_);
+  VCMPacket* packet = packet_buffer_->GetPacket(first_seq_num_);
+  if (!packet)
+    return rtc::nullopt;
+  return packet->video_header.frame_marking;
+}
+
 }  // namespace video_coding
 }  // namespace webrtc

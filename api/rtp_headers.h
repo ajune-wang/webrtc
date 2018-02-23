@@ -20,6 +20,7 @@
 #include "api/array_view.h"
 #include "api/optional.h"
 #include "api/video/video_content_type.h"
+#include "api/video/video_frame_marking.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_timing.h"
 
@@ -110,6 +111,9 @@ struct RTPHeaderExtension {
 
   bool has_video_timing;
   VideoSendTiming video_timing;
+
+  bool has_frame_marking;
+  FrameMarking frame_marking;
 
   PlayoutDelay playout_delay = {-1, -1};
 

@@ -335,6 +335,96 @@ bool VideoTimingExtension::Write(uint8_t* data,
   return true;
 }
 
+// Frame Marking.
+//
+// Video frame metadata which includes scalability and dependency information
+// useful for error recovery and congestion control.
+//
+//    0                   1                   2                   3
+//    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//   |  ID   | L = 2 |S|E|I|D|B| TID |      LID      |   TL0PICIDX   |
+//   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+constexpr RTPExtensionType FrameMarkingExtension::kId;
+constexpr uint8_t FrameMarkingExtension::kValueSizeBytes;
+constexpr const char FrameMarkingExtension::kUri[];
+
+bool FrameMarkingExtension::Parse(rtc::ArrayView<const uint8_t> data,
+                                  FrameMarking* frame_marking) {
+                                  RTC_DCHECK(frame_marking);
+
+  if (data.size() != 3)
+    return false;
+
+  frame_marking->start_of_frame = (data[0] & 0x80) != 0;
+  frame_marking->end_of_frame = (data[0] & 0x40) != 0;
+  frame_marking->independent_frame = (data[0] & 0x20) != 0;
+  frame_marking->discardable_frame = (data[0] & 0x10) != 0;
+  frame_marking->base_layer_sync = (data[0] & 0x08) != 0;
+  frame_marking->temporal_id = data[0] & 0x7;
+  frame_marking->layer_id = data[1];
+  frame_marking->tl0_pic_index = data[2];
+  return true;
+}
+
+bool FrameMarkingExtension::Write(uint8_t* data,
+                                  const FrameMarking& frame_marking) {
+  RTC_CHECK_LE(frame_marking.temporal_id, 0x07);
+  data[0] = (frame_marking.start_of_frame ? 0x80 : 0x00);
+  data[0] |= (frame_marking.end_of_frame ? 0x40 : 0x00);
+  data[0] |= (frame_marking.independent_frame ? 0x20 : 0x00);
+  data[0] |= (frame_marking.discardable_frame ? 0x10 : 0x00);
+  data[0] |= (frame_marking.base_layer_sync ? 0x08 : 0x00);
+  data[0] |= (frame_marking.temporal_id & 0x07);
+  data[1] = frame_marking.layer_id;
+  data[2] = frame_marking.tl0_pic_index;
+  return true;
+}
+
+bool FrameMarkingExtension::Parse(rtc::ArrayView<const uint8_t> data,
+                                  bool* start_of_frame,
+                                  bool* end_of_frame,
+                                  bool* independent_frame,
+                                  bool* discardable_frame,
+                                  bool* base_layer_sync,
+                                  uint8_t* temporal_id,
+                                  uint8_t* layer_id,
+                                  uint8_t* tl0_pic_index) {
+  if (data.size() != 3)
+    return false;
+  *start_of_frame = (data[0] & 0x80) != 0;
+  *end_of_frame = (data[0] & 0x40) != 0;
+  *independent_frame = (data[0] & 0x20) != 0;
+  *discardable_frame = (data[0] & 0x10) != 0;
+  *base_layer_sync = (data[0] & 0x08) != 0;
+  *temporal_id = data[0] & 0x7;
+  *layer_id = data[1];
+  *tl0_pic_index = data[2];
+  return true;
+}
+
+bool FrameMarkingExtension::Write(uint8_t* data,
+                                  bool start_of_frame,
+                                  bool end_of_frame,
+                                  bool independent_frame,
+                                  bool discardable_frame,
+                                  bool base_layer_sync,
+                                  uint8_t temporal_id,
+                                  uint8_t layer_id,
+                                  uint8_t tl0_pic_index) {
+  RTC_CHECK_LE(temporal_id, 0x07);
+  data[0] = (start_of_frame ? 0x80 : 0x00);
+  data[0] |= (end_of_frame ? 0x40 : 0x00);
+  data[0] |= (independent_frame ? 0x20 : 0x00);
+  data[0] |= (discardable_frame ? 0x10 : 0x00);
+  data[0] |= (base_layer_sync ? 0x08 : 0x00);
+  data[0] |= (temporal_id & 0x07);
+  data[1] = layer_id;
+  data[2] = tl0_pic_index;
+  return true;
+}
+
 bool BaseRtpStringExtension::Parse(rtc::ArrayView<const uint8_t> data,
                                    StringRtpHeaderExtension* str) {
   if (data.empty() || data[0] == 0)  // Valid string extension can't be empty.

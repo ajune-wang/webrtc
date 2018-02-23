@@ -178,6 +178,8 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     case kVideoCodecH264: {
       if (!config.encoder_specific_settings)
         *video_codec.H264() = VideoEncoder::GetDefaultH264Settings();
+      video_codec.H264()->numberOfTemporalLayers = static_cast<unsigned char>(
+          streams.back().temporal_layer_thresholds_bps.size() + 1);
       break;
     }
     default:

@@ -146,6 +146,48 @@ class VideoTimingExtension {
   static bool Write(uint8_t* data, uint16_t time_delta_ms, uint8_t idx);
 };
 
+class FrameMarkingExtension {
+ public:
+  static constexpr RTPExtensionType kId = kRtpExtensionFrameMarking;
+  static constexpr uint8_t kValueSizeBytes = 3;
+  static constexpr const char kUri[] =
+      "urn:ietf:params:rtp-hdrext:framemarking";
+
+  static bool Parse(rtc::ArrayView<const uint8_t> data,
+                    FrameMarking* frame_marking);
+  static size_t ValueSize(const FrameMarking&) { return kValueSizeBytes; }
+  static bool Write(uint8_t* data, const FrameMarking& frame_marking);
+
+  static bool Parse(rtc::ArrayView<const uint8_t> data,
+                    bool* start_of_frame,
+                    bool* end_of_frame,
+                    bool* independent_frame,
+                    bool* discardable_frame,
+                    bool* base_layer_sync,
+                    uint8_t* temporal_id,
+                    uint8_t* layer_id,
+                    uint8_t* tl0_pic_index);
+  static size_t ValueSize(bool start_of_frame,
+                          bool end_of_frame,
+                          bool independent_frame,
+                          bool discardable_frame,
+                          bool base_layer_sync,
+                          uint8_t temporal_id,
+                          uint8_t layer_id,
+                          uint8_t tl0_pic_index) {
+    return kValueSizeBytes;
+  }
+  static bool Write(uint8_t* data,
+                    bool start_of_frame,
+                    bool end_of_frame,
+                    bool independent_frame,
+                    bool discardable_frame,
+                    bool base_layer_sync,
+                    uint8_t temporal_id,
+                    uint8_t layer_id,
+                    uint8_t tl0_pic_index);
+};
+
 // Base extension class for RTP header extensions which are strings.
 // Subclasses must defined kId and kUri static constexpr members.
 class BaseRtpStringExtension {

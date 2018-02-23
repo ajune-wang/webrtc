@@ -57,6 +57,24 @@
       "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88b4324_a81e76f6",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-23T17:04:43Z",
+      "side": 1,
+      "message": "You do not generate code manually, it is ok to write in .cc\nTransportFeedback::TransportFeedback(const TransportFeedback\u0026) \u003d default;\n\nAnd yes, there is chromium style guide about it.\nhttps://www.chromium.org/developers/coding-style/cpp-dos-and-donts#TOC-Stop-inlining-constructors-and-destructors\n\nEven more, there is clang warning (that currently turned off in half of webrtc targets:\nbugs.webrtc.org/163 )",
+      "parentUuid": "fd97dc07_c2882098",
+      "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

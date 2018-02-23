@@ -114,6 +114,10 @@ const char RtpExtension::kVideoTimingUri[] =
     "http://www.webrtc.org/experiments/rtp-hdrext/video-timing";
 const int RtpExtension::kVideoTimingDefaultId = 8;
 
+const char RtpExtension::kFrameMarkingUri[] =
+    "urn:ietf:params:rtp-hdrext:framemarking";
+const int RtpExtension::kFrameMarkingDefaultId = 9;
+
 const char RtpExtension::kEncryptHeaderExtensionsUri[] =
     "urn:ietf:params:rtp-hdrext:encrypt";
 
@@ -132,7 +136,8 @@ bool RtpExtension::IsSupportedForVideo(const std::string& uri) {
          uri == webrtc::RtpExtension::kTransportSequenceNumberUri ||
          uri == webrtc::RtpExtension::kPlayoutDelayUri ||
          uri == webrtc::RtpExtension::kVideoContentTypeUri ||
-         uri == webrtc::RtpExtension::kVideoTimingUri;
+         uri == webrtc::RtpExtension::kVideoTimingUri ||
+         uri == webrtc::RtpExtension::kFrameMarkingUri;
 }
 
 bool RtpExtension::IsEncryptionSupported(const std::string& uri) {

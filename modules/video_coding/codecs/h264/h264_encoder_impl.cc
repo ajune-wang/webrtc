@@ -172,7 +172,10 @@ H264EncoderImpl::H264EncoderImpl(const cricket::VideoCodec& codec)
       number_of_cores_(0),
       encoded_image_callback_(nullptr),
       has_reported_init_(false),
-      has_reported_error_(false) {
+      has_reported_error_(false),
+      tl0_pic_index_(0),
+      temporal_layer_num_(1),
+      tl0sync_limit_(0) {
   RTC_CHECK(cricket::CodecNamesEq(codec.name, cricket::kH264CodecName));
   std::string packetization_mode_string;
   if (codec.GetParam(cricket::kH264FmtpPacketizationMode,
@@ -236,6 +239,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* codec_settings,
   frame_dropping_on_ = codec_settings->H264().frameDroppingOn;
   key_frame_interval_ = codec_settings->H264().keyFrameInterval;
   max_payload_size_ = max_payload_size;
+  temporal_layer_num_ = codec_settings->H264().numberOfTemporalLayers;
 
   // Codec_settings uses kbits/second; encoder uses bits/second.
   max_bps_ = codec_settings->maxBitrate * 1000;
@@ -396,6 +400,23 @@ int32_t H264EncoderImpl::Encode(const VideoFrame& input_frame,
     CodecSpecificInfo codec_specific;
     codec_specific.codecType = kVideoCodecH264;
     codec_specific.codecSpecific.H264.packetization_mode = packetization_mode_;
+    codec_specific.codecSpecific.H264.temporal_layer_count =
+        temporal_layer_num_;
+    codec_specific.codecSpecific.H264.temporal_idx = kNoTemporalIdx;
+    codec_specific.codecSpecific.H264.tl0_pic_idx = 0;
+    codec_specific.codecSpecific.H264.idr_frame =
+        (info.eFrameType == videoFrameTypeIDR);
+    codec_specific.codecSpecific.H264.tl0_sync = false;
+    if (temporal_layer_num_ > 1) {
+      const uint8_t tid = info.sLayerInfo[0].uiTemporalId;
+      codec_specific.codecSpecific.H264.temporal_idx = tid;
+      tl0_pic_index_ += (tid == 0) ? 1 : 0;
+      codec_specific.codecSpecific.H264.tl0_pic_idx = tl0_pic_index_;
+      codec_specific.codecSpecific.H264.tl0_sync =
+          codec_specific.codecSpecific.H264.idr_frame
+          || ((tid > 0) && (tid < tl0sync_limit_));
+      tl0sync_limit_ = (tid == 0) ? 100 : tid;
+    }
     encoded_image_callback_->OnEncodedImage(encoded_image_, &codec_specific,
                                             &frag_header);
   }
@@ -455,6 +476,7 @@ SEncParamExt H264EncoderImpl::CreateEncoderParams() const {
       encoder_params.iTargetBitrate;
   encoder_params.sSpatialLayers[0].iMaxSpatialBitrate =
       encoder_params.iMaxBitrate;
+  encoder_params.iTemporalLayerNum = temporal_layer_num_;
   RTC_LOG(INFO) << "OpenH264 version is " << OPENH264_MAJOR << "."
                 << OPENH264_MINOR;
   switch (packetization_mode_) {

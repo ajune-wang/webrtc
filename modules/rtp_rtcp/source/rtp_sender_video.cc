@@ -304,6 +304,14 @@ bool RTPSenderVideo::SendVideo(RtpVideoCodecTypes video_type,
   rtp_header->SetPayloadType(payload_type);
   rtp_header->SetTimestamp(rtp_timestamp);
   rtp_header->set_capture_time_ms(capture_time_ms);
+  if (video_header) {
+    if (video_header->codec == kRtpVideoH264 &&
+        video_header->frame_marking.temporal_id != kNoTemporalIdx) {
+      rtp_header->SetExtension<FrameMarkingExtension>(
+          video_header->frame_marking);
+    }
+  }
+
   auto last_packet = rtc::MakeUnique<RtpPacketToSend>(*rtp_header);
 
   size_t fec_packet_overhead;
@@ -407,6 +415,17 @@ bool RTPSenderVideo::SendVideo(RtpVideoCodecTypes video_type,
       // FEC, otherwise recovered by FEC packets will be corrupted.
       protect_packet = false;
     }
+    if (packet->HasExtension<FrameMarkingExtension>()) {
+      packet->SetExtension<FrameMarkingExtension>(
+          i == 0,
+          last,
+          video_header->frame_marking.independent_frame,
+          video_header->frame_marking.discardable_frame,
+          video_header->frame_marking.base_layer_sync,
+          video_header->frame_marking.temporal_id,
+          video_header->frame_marking.layer_id,
+          video_header->frame_marking.tl0_pic_index);
+    }
 
     if (flexfec_enabled()) {
       // TODO(brandtr): Remove the FlexFEC code path when FlexfecSender
@@ -491,6 +510,8 @@ uint8_t RTPSenderVideo::GetTemporalId(const RTPVideoHeader& header) {
       return header.codecHeader.VP8.temporalIdx;
     case kRtpVideoVp9:
       return header.codecHeader.VP9.temporal_idx;
+    case kRtpVideoH264:
+      return header.frame_marking.temporal_id;
     default:
       return kNoTemporalIdx;
   }

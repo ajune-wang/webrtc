@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "dbf24377_5c306974",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-23T21:24:26Z",
+      "side": 1,
+      "message": "Unfortunately it\u0027s not as simple as adding an RtpReceiver/RtpTransceiver with Unified Plan. This event is fired when the SDP direction goes from either inactive or sendonly to recvonly or sendrecv. So it can be fired multiple time for the same transceiver over the course of multiple offer/answer exchanges. Likewise, it will call didAddTrack as backwards compatibility.\n\nI think keeping didAddTrack and didReceiveTrack will probably be OK for now. The native code in Plan B mode will call didAddStream/didAddTrack and in Unified Plan mode will call that plus the new didReceiveTrack. Eventually once Unified Plan is the only mode then we\u0027d drop didAddTrack I expect.",
+      "parentUuid": "495b87c9_acf8506f",
+      "revId": "de0821d38519b2be3e311710dda71df3215c60d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dfb4d2ad_0a22c66c",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
         "patchSetId": 9

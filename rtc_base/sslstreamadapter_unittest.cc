@@ -597,10 +597,13 @@ class SSLStreamAdapterTestBase : public testing::Test,
   }
 
   std::unique_ptr<rtc::SSLCertificate> GetPeerCertificate(bool client) {
+    std::unique_ptr<rtc::SSLCertChain> chain;
     if (client)
-      return client_ssl_->GetPeerCertificate();
+      chain = client_ssl_->GetPeerSSLCertChain();
     else
-      return server_ssl_->GetPeerCertificate();
+      chain = server_ssl_->GetPeerSSLCertChain();
+    return (chain && chain->GetSize()) ? chain->Get(0).GetUniqueReference()
+                                       : nullptr;
   }
 
   bool GetSslCipherSuite(bool client, int* retval) {
@@ -971,11 +974,10 @@ TEST_P(SSLStreamAdapterTestTLS, GetPeerCertChainWithOneCertificate) {
   TestHandshake();
   std::unique_ptr<rtc::SSLCertChain> cert_chain =
       client_ssl_->GetPeerSSLCertChain();
-  std::unique_ptr<rtc::SSLCertificate> certificate =
-      client_ssl_->GetPeerCertificate();
   ASSERT_NE(nullptr, cert_chain);
   EXPECT_EQ(1u, cert_chain->GetSize());
-  EXPECT_EQ(cert_chain->Get(0).ToPEMString(), certificate->ToPEMString());
+  EXPECT_EQ(cert_chain->Get(0).ToPEMString(),
+            server_identity_->certificate().ToPEMString());
 }
 
 TEST_F(SSLStreamAdapterTestDTLSCertChain, TwoCertHandshake) {

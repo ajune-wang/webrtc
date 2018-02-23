@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f06d928e_e051eeb3",
+        "filename": "common_audio/real_fourier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-23T01:32:08Z",
+      "side": 1,
+      "message": "Should we start making a habit of putting conditional #includes at the end, in their own block(s)? clang-format can\u0027t sort headers past #ifdefs, IIRC. Also, having #ifdefs in the middle of things is hard to read.",
+      "revId": "79759c421aec72f9fa32a45b2aad3180a53dfe46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

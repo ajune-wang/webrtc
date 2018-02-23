@@ -31,11 +31,28 @@ int I420DataSize(int height, int stride_y, int stride_u, int stride_v) {
   return stride_y * height + (stride_u + stride_v) * ((height + 1) / 2);
 }
 
+int I420ADataSize(int height,
+                  int stride_y,
+                  int stride_u,
+                  int stride_v,
+                  int stride_a) {
+  return (stride_y + stride_a) * height +
+         (stride_u + stride_v) * ((height + 1) / 2);
+}
+
 }  // namespace
 
 I420Buffer::I420Buffer(int width, int height)
     : I420Buffer(width, height, width, (width + 1) / 2, (width + 1) / 2) {
 }
+
+I420ABuffer::I420ABuffer(int width, int height)
+    : I420ABuffer(width,
+                  height,
+                  width,
+                  (width + 1) / 2,
+                  (width + 1) / 2,
+                  width) {}
 
 I420Buffer::I420Buffer(int width,
                        int height,
@@ -57,12 +74,40 @@ I420Buffer::I420Buffer(int width,
   RTC_DCHECK_GE(stride_v, (width + 1) / 2);
 }
 
+I420ABuffer::I420ABuffer(int width,
+                         int height,
+                         int stride_y,
+                         int stride_u,
+                         int stride_v,
+                         int stride_a)
+    : width_(width),
+      height_(height),
+      stride_y_(stride_y),
+      stride_u_(stride_u),
+      stride_v_(stride_v),
+      stride_a_(stride_a),
+      data_(static_cast<uint8_t*>(AlignedMalloc(
+          I420ADataSize(height, stride_y, stride_u, stride_v, stride_a),
+          kBufferAlignment))) {
+  RTC_DCHECK_GT(width, 0);
+  RTC_DCHECK_GT(height, 0);
+  RTC_DCHECK_GE(stride_y, width);
+  RTC_DCHECK_GE(stride_a, width);
+  RTC_DCHECK_GE(stride_u, (width + 1) / 2);
+  RTC_DCHECK_GE(stride_v, (width + 1) / 2);
+}
 I420Buffer::~I420Buffer() {
 }
+
+I420ABuffer::~I420ABuffer() {}
 
 // static
 rtc::scoped_refptr<I420Buffer> I420Buffer::Create(int width, int height) {
   return new rtc::RefCountedObject<I420Buffer>(width, height);
+}
+// static
+rtc::scoped_refptr<I420ABuffer> I420ABuffer::Create(int width, int height) {
+  return new rtc::RefCountedObject<I420ABuffer>(width, height);
 }
 
 // static
@@ -131,7 +176,37 @@ rtc::scoped_refptr<I420Buffer> I420Buffer::Rotate(
 
   return buffer;
 }
+// static
+rtc::scoped_refptr<I420ABuffer> I420ABuffer::Rotate(
+    const I420ABufferInterface& src,
+    VideoRotation rotation) {
+  RTC_CHECK(src.DataY());
+  RTC_CHECK(src.DataU());
+  RTC_CHECK(src.DataV());
 
+  int rotated_width = src.width();
+  int rotated_height = src.height();
+  if (rotation == webrtc::kVideoRotation_90 ||
+      rotation == webrtc::kVideoRotation_270) {
+    std::swap(rotated_width, rotated_height);
+  }
+
+  rtc::scoped_refptr<webrtc::I420ABuffer> buffer =
+      I420ABuffer::Create(rotated_width, rotated_height);
+
+  RTC_CHECK_EQ(0,
+               libyuv::I420Rotate(
+                   src.DataY(), src.StrideY(), src.DataU(), src.StrideU(),
+                   src.DataV(), src.StrideV(), buffer->MutableDataY(),
+                   buffer->StrideY(), buffer->MutableDataU(), buffer->StrideU(),
+                   buffer->MutableDataV(), buffer->StrideV(), src.width(),
+                   src.height(), static_cast<libyuv::RotationMode>(rotation)));
+  libyuv::RotatePlane(src.DataA(), src.StrideA(), buffer->MutableDataA(),
+                      buffer->StrideA(), src.width(), src.height(),
+                      static_cast<libyuv::RotationMode>(rotation));
+
+  return buffer;
+}
 void I420Buffer::InitializeData() {
   memset(data_.get(), 0,
          I420DataSize(height_, stride_y_, stride_u_, stride_v_));
@@ -142,6 +217,14 @@ int I420Buffer::width() const {
 }
 
 int I420Buffer::height() const {
+  return height_;
+}
+
+int I420ABuffer::width() const {
+  return width_;
+}
+
+int I420ABuffer::height() const {
   return height_;
 }
 
@@ -165,6 +248,32 @@ int I420Buffer::StrideV() const {
   return stride_v_;
 }
 
+const uint8_t* I420ABuffer::DataY() const {
+  return data_.get();
+}
+const uint8_t* I420ABuffer::DataU() const {
+  return data_.get() + stride_y_ * height_;
+}
+const uint8_t* I420ABuffer::DataV() const {
+  return data_.get() + stride_y_ * height_ + stride_u_ * ((height_ + 1) / 2);
+}
+const uint8_t* I420ABuffer::DataA() const {
+  return data_.get() + stride_y_ * height_ +
+         (stride_u_ + stride_v_) * ((height_ + 1) / 2);
+}
+int I420ABuffer::StrideY() const {
+  return stride_y_;
+}
+int I420ABuffer::StrideU() const {
+  return stride_u_;
+}
+int I420ABuffer::StrideV() const {
+  return stride_v_;
+}
+int I420ABuffer::StrideA() const {
+  return stride_a_;
+}
+
 uint8_t* I420Buffer::MutableDataY() {
   return const_cast<uint8_t*>(DataY());
 }
@@ -174,7 +283,18 @@ uint8_t* I420Buffer::MutableDataU() {
 uint8_t* I420Buffer::MutableDataV() {
   return const_cast<uint8_t*>(DataV());
 }
-
+uint8_t* I420ABuffer::MutableDataY() {
+  return const_cast<uint8_t*>(DataY());
+}
+uint8_t* I420ABuffer::MutableDataU() {
+  return const_cast<uint8_t*>(DataU());
+}
+uint8_t* I420ABuffer::MutableDataV() {
+  return const_cast<uint8_t*>(DataV());
+}
+uint8_t* I420ABuffer::MutableDataA() {
+  return const_cast<uint8_t*>(DataA());
+}
 // static
 void I420Buffer::SetBlack(I420Buffer* buffer) {
   RTC_CHECK(libyuv::I420Rect(buffer->MutableDataY(), buffer->StrideY(),
@@ -218,6 +338,75 @@ void I420Buffer::CropAndScaleFrom(const I420BufferInterface& src,
                               width(), height(), libyuv::kFilterBox);
 
   RTC_DCHECK_EQ(res, 0);
+}
+
+void I420ABuffer::CropAndScaleFrom(const I420BufferInterface& src,
+                                   int offset_x,
+                                   int offset_y,
+                                   int crop_width,
+                                   int crop_height) {
+  RTC_CHECK_LE(crop_width, src.width());
+  RTC_CHECK_LE(crop_height, src.height());
+  RTC_CHECK_LE(crop_width + offset_x, src.width());
+  RTC_CHECK_LE(crop_height + offset_y, src.height());
+  RTC_CHECK_GE(offset_x, 0);
+  RTC_CHECK_GE(offset_y, 0);
+
+  // Make sure offset is even so that u/v plane becomes aligned.
+  const int uv_offset_x = offset_x / 2;
+  const int uv_offset_y = offset_y / 2;
+  offset_x = uv_offset_x * 2;
+  offset_y = uv_offset_y * 2;
+
+  const uint8_t* y_plane = src.DataY() + src.StrideY() * offset_y + offset_x;
+  const uint8_t* u_plane =
+      src.DataU() + src.StrideU() * uv_offset_y + uv_offset_x;
+  const uint8_t* v_plane =
+      src.DataV() + src.StrideV() * uv_offset_y + uv_offset_x;
+
+  int res =
+      libyuv::I420Scale(y_plane, src.StrideY(), u_plane, src.StrideU(), v_plane,
+                        src.StrideV(), crop_width, crop_height, MutableDataY(),
+                        StrideY(), MutableDataU(), StrideU(), MutableDataV(),
+                        StrideV(), width(), height(), libyuv::kFilterBox);
+  RTC_DCHECK_EQ(res, 0);
+}
+void I420ABuffer::CropAndScaleFromYAsA(const I420BufferInterface& src,
+                                       int offset_x,
+                                       int offset_y,
+                                       int crop_width,
+                                       int crop_height) {
+  RTC_CHECK_LE(crop_width, src.width());
+  RTC_CHECK_LE(crop_height, src.height());
+  RTC_CHECK_LE(crop_width + offset_x, src.width());
+  RTC_CHECK_LE(crop_height + offset_y, src.height());
+  RTC_CHECK_GE(offset_x, 0);
+  RTC_CHECK_GE(offset_y, 0);
+
+  // Make sure offset is even so that u/v plane becomes aligned.
+  const int uv_offset_x = offset_x / 2;
+  const int uv_offset_y = offset_y / 2;
+  offset_x = uv_offset_x * 2;
+  offset_y = uv_offset_y * 2;
+
+  const uint8_t* y_plane = src.DataY() + src.StrideY() * offset_y + offset_x;
+
+  libyuv::ScalePlane(y_plane, src.StrideY(), crop_width, crop_height,
+                     MutableDataA(), StrideA(), width(), height(),
+                     libyuv::kFilterBox);
+}
+
+void I420ABuffer::CropAndScaleFrom(const I420ABufferInterface& src,
+                                   int offset_x,
+                                   int offset_y,
+                                   int crop_width,
+                                   int crop_height) {
+  const uint8_t* a_plane = src.DataA() + src.StrideA() * offset_y + offset_x;
+  CropAndScaleFrom((const I420BufferInterface&)src, offset_x, offset_y,
+                   crop_width, crop_height);
+  libyuv::ScalePlane(a_plane, src.StrideA(), crop_width, crop_height,
+                     MutableDataA(), StrideA(), width(), height(),
+                     libyuv::kFilterBox);
 }
 
 void I420Buffer::CropAndScaleFrom(const I420BufferInterface& src) {

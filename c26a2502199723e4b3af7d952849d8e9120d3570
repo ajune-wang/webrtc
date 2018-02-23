@@ -117,6 +117,24 @@
       "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2abdb453_e050b7f4",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-02-23T18:03:18Z",
+      "side": 1,
+      "message": "I trust compiler for doing copy correctly,\nbut move is trickier. In particular documentation for the IsConsistent method needs an update now: moved-from TransportFeedback is no longer consistent.\n(alternative is to ensure move leaves object in consistent state, but updating documentation is simpler and should be enough for expected usage)",
+      "parentUuid": "f53ea25a_840ec0e2",
+      "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

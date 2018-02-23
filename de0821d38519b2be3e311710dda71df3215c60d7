@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "495b87c9_acf8506f",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-02-23T21:19:37Z",
+      "side": 1,
+      "message": "Maybe I should rename similar method in my CL 56980 from didAddTrack to something like didAddRtpReceiver. So this one could be renamed to didAddRtpTranceiver, this will result in self explanatory difference between this similar delegate methods. What do you think?",
+      "parentUuid": "f04ee8e0_21f971c9",
+      "revId": "de0821d38519b2be3e311710dda71df3215c60d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dfb4d2ad_0a22c66c",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
         "patchSetId": 9

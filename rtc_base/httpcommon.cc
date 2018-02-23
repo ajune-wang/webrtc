@@ -36,6 +36,53 @@ namespace rtc {
 extern const ConstantLabel SECURITY_ERRORS[];
 #endif
 
+/////////////////////////////////////////////////////////////////////////////
+// Constant Labels
+/////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// ConstantLabel can be used to easily generate string names from constant
+// values.  This can be useful for logging descriptive names of error messages.
+// Usage:
+//   const ConstantLabel LIBRARY_ERRORS[] = {
+//     KLABEL(SOME_ERROR),
+//     KLABEL(SOME_OTHER_ERROR),
+//     ...
+//     LASTLABEL
+//   }
+//
+//   int err = LibraryFunc();
+//   LOG(LS_ERROR) << "LibraryFunc returned: "
+//                 << ErrorName(err, LIBRARY_ERRORS);
+
+struct ConstantLabel { int value; const char * label; };
+#define KLABEL(x) { x, #x }
+#define TLABEL(x, y) { x, y }
+#define LASTLABEL { 0, 0 }
+
+const char* FindLabel(int value, const ConstantLabel entries[]) {
+  for (int i = 0; entries[i].label; ++i) {
+    if (value == entries[i].value) {
+      return entries[i].label;
+    }
+  }
+  return 0;
+}
+
+std::string ErrorName(int err, const ConstantLabel* err_table) {
+  if (err == 0)
+    return "No error";
+
+  if (err_table != 0) {
+    if (const char* value = FindLabel(err, err_table))
+      return value;
+  }
+
+  char buffer[16];
+  snprintf(buffer, sizeof(buffer), "0x%08x", err);
+  return buffer;
+}
+
 //////////////////////////////////////////////////////////////////////
 // Enum - TODO: expose globally later?
 //////////////////////////////////////////////////////////////////////

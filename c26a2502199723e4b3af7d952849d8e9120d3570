@@ -39,6 +39,24 @@
       "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd97dc07_c2882098",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-23T16:57:26Z",
+      "side": 1,
+      "message": "Is the style guide to manually generate code even if the code would be equivalent to the default generated code?",
+      "parentUuid": "45b45f6c_6923fbec",
+      "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

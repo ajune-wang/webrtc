@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1d33f529_61d23a36",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-23T17:45:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c00d682_936cf775",
+      "range": {
+        "startLine": 268,
+        "startChar": 3,
+        "endLine": 268,
+        "endChar": 4
+      },
+      "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45b45f6c_6923fbec",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h",
         "patchSetId": 1
@@ -72,6 +96,24 @@
       "side": 1,
       "message": "You do not generate code manually, it is ok to write in .cc\nTransportFeedback::TransportFeedback(const TransportFeedback\u0026) \u003d default;\n\nAnd yes, there is chromium style guide about it.\nhttps://www.chromium.org/developers/coding-style/cpp-dos-and-donts#TOC-Stop-inlining-constructors-and-destructors\n\nEven more, there is clang warning (that currently turned off in half of webrtc targets:\nbugs.webrtc.org/163 )",
       "parentUuid": "fd97dc07_c2882098",
+      "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f53ea25a_840ec0e2",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-23T17:45:07Z",
+      "side": 1,
+      "message": "Right, not inlining makes sense. I though you didn\u0027t trust the compiler for some reason. :)\n\nI added an explicit copy constructor and a move constructor. I don\u0027t need an assignment operator since I just want to insert TransportFeedbacks in a vector.",
+      "parentUuid": "f88b4324_a81e76f6",
       "revId": "c26a2502199723e4b3af7d952849d8e9120d3570",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

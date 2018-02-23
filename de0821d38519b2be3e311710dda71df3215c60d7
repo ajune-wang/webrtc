@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fb5d2b7_87ceaf09",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-23T20:58:32Z",
+      "side": 1,
+      "message": "Sorry for not realizing when we talked earlier, but since the above callbacks don\u0027t use names that match the native API (for example, \"didOpenDataChannel\" instead of \"didDataChannel\"), we could pick another name for this. Though with \"didAddTrack\" taken by the other CL, I don\u0027t have a great suggestion.\n\nEither way, it would be helpful if this linked to the spec to define when the callback is invoked in more detail.",
+      "revId": "de0821d38519b2be3e311710dda71df3215c60d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb4d2ad_0a22c66c",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-23T20:58:32Z",
+      "side": 1,
+      "message": "Not 100% accurate, since you can still \"setDirection\" and \"replaceTrack\" to use it again in unified plan mode.",
+      "revId": "de0821d38519b2be3e311710dda71df3215c60d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

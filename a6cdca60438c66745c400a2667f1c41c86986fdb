@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "52b5dbd9_3a2fbfa4",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-23T17:14:33Z",
+      "side": 1,
+      "message": "Ah, that\u0027s what I get for assuming. It looks like the Objective-C clang format doesn\u0027t really care either way but will default to a space before the \u0026 if no spaces are added at all. It seems like most code in this file does the space after the \u0026, so I guess it\u0027s slightly more consistent.",
+      "parentUuid": "55100c8c_7fb40fa9",
+      "range": {
+        "startLine": 206,
+        "startChar": 64,
+        "endLine": 206,
+        "endChar": 65
+      },
+      "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a29d0843_95eb3898",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Probably also need to be fixed inside peerconnectioninterface.h",
       "parentUuid": "a29d0843_95eb3898",
+      "range": {
+        "startLine": 109,
+        "startChar": 41,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1429b7f_69deddf3",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-23T17:14:33Z",
+      "side": 1,
+      "message": "Good to know. I\u0027m planning to go over the C++ documentation soon and will fix it there too.",
+      "parentUuid": "dfe29f67_aed837e2",
       "range": {
         "startLine": 109,
         "startChar": 41,

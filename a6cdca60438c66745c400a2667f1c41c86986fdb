@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "185e1711_1a54aa99",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection+Private.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-02-23T08:07:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25b173ab_b5479d50",
+      "range": {
+        "startLine": 53,
+        "startChar": 78,
+        "endLine": 53,
+        "endChar": 79
+      },
+      "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92b5942b_bea42e9d",
         "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection.mm",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "55100c8c_7fb40fa9",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-02-23T08:07:06Z",
+      "side": 1,
+      "message": "Done. But that \"syntax\" actually was introduced by git cl format.",
+      "parentUuid": "92b5942b_bea42e9d",
+      "range": {
+        "startLine": 206,
+        "startChar": 64,
+        "endLine": 206,
+        "endChar": 65
+      },
+      "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a29d0843_95eb3898",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe29f67_aed837e2",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-02-23T08:07:06Z",
+      "side": 1,
+      "message": "Probably also need to be fixed inside peerconnectioninterface.h",
+      "parentUuid": "a29d0843_95eb3898",
+      "range": {
+        "startLine": 109,
+        "startChar": 41,
+        "endLine": 109,
+        "endChar": 51
+      },
+      "revId": "a6cdca60438c66745c400a2667f1c41c86986fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

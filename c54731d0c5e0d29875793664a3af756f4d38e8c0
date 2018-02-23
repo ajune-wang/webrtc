@@ -22,6 +22,29 @@
       "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d62db3c_bae172a3",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-23T08:18:09Z",
+      "side": 1,
+      "message": "can we avoid calling out to external implementations while holding a lock?\nIt\u0027s easy to get hit by a deadlock if we follow this pattern.\n\nWould it be possible to use a Looper instead and deliver all notifications from there?",
+      "range": {
+        "startLine": 190,
+        "startChar": 18,
+        "endLine": 190,
+        "endChar": 37
+      },
+      "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

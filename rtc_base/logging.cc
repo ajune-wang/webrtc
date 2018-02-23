@@ -29,8 +29,6 @@
 static const int kMaxLogLineSize = 1024 - 60;
 #endif  // WEBRTC_MAC && !defined(WEBRTC_IOS) || WEBRTC_ANDROID
 
-static const char kLibjingle[] = "libjingle";
-
 #include <time.h>
 #include <limits.h>
 
@@ -119,7 +117,7 @@ LogMessage::LogMessage(const char* file,
                        LogErrorContext err_ctx,
                        int err,
                        const char* module)
-    : severity_(sev), tag_(kLibjingle) {
+    : severity_(sev) {
   if (timestamp_) {
     // Use SystemTimeMillis so that even if tests use fake clocks, the timestamp
     // in log messages represents the real system time.
@@ -180,10 +178,11 @@ LogMessage::LogMessage(const char* file,
   }
 }
 
+#if defined(WEBRTC_ANDROID)
 LogMessage::LogMessage(const char* file,
                        int line,
                        LoggingSeverity sev,
-                       const std::string& tag)
+                       const char* tag)
     : LogMessage(file,
                  line,
                  sev,
@@ -193,6 +192,7 @@ LogMessage::LogMessage(const char* file,
   tag_ = tag;
   print_stream_ << tag << ": ";
 }
+#endif
 
 LogMessage::~LogMessage() {
   if (!extra_.empty())
@@ -201,7 +201,11 @@ LogMessage::~LogMessage() {
 
   const std::string& str = print_stream_.str();
   if (severity_ >= g_dbg_sev) {
+#if defined(WEBRTC_ANDROID)
     OutputToDebug(str, severity_, tag_);
+#else
+    OutputToDebug(str, severity_);
+#endif
   }
 
   CritScope cs(&g_log_crit);
@@ -350,9 +354,14 @@ void LogMessage::UpdateMinLogSeverity()
   g_min_sev = min_sev;
 }
 
+#if defined(WEBRTC_ANDROID)
 void LogMessage::OutputToDebug(const std::string& str,
                                LoggingSeverity severity,
-                               const std::string& tag) {
+                               const char* tag) {
+#else
+void LogMessage::OutputToDebug(const std::string& str,
+                               LoggingSeverity severity) {
+#endif
   bool log_to_stderr = log_to_stderr_;
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS) && defined(NDEBUG)
   // On the Mac, all stderr output goes to the Console log and causes clutter.
@@ -396,7 +405,7 @@ void LogMessage::OutputToDebug(const std::string& str,
   int prio;
   switch (severity) {
     case LS_SENSITIVE:
-      __android_log_write(ANDROID_LOG_INFO, tag.c_str(), "SENSITIVE");
+      __android_log_write(ANDROID_LOG_INFO, tag, "SENSITIVE");
       if (log_to_stderr) {
         fprintf(stderr, "SENSITIVE");
         fflush(stderr);
@@ -423,15 +432,14 @@ void LogMessage::OutputToDebug(const std::string& str,
   int idx = 0;
   const int max_lines = size / kMaxLogLineSize + 1;
   if (max_lines == 1) {
-    __android_log_print(prio, tag.c_str(), "%.*s", size, str.c_str());
+    __android_log_print(prio, tag, "%.*s", size, str.c_str());
   } else {
     while (size > 0) {
       const int len = std::min(size, kMaxLogLineSize);
       // Use the size of the string in the format (str may have \0 in the
       // middle).
-      __android_log_print(prio, tag.c_str(), "[%d/%d] %.*s",
-                          line + 1, max_lines,
-                          len, str.c_str() + idx);
+      __android_log_print(prio, tag, "[%d/%d] %.*s", line + 1, max_lines, len,
+                          str.c_str() + idx);
       idx += len;
       size -= len;
       ++line;

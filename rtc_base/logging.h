@@ -151,10 +151,9 @@ class LogMessage {
              int err = 0,
              const char* module = nullptr);
 
-  LogMessage(const char* file,
-             int line,
-             LoggingSeverity sev,
-             const std::string& tag);
+#if defined(WEBRTC_ANDROID)
+  LogMessage(const char* file, int line, LoggingSeverity sev, const char* tag);
+#endif
 
   ~LogMessage();
 
@@ -213,9 +212,13 @@ class LogMessage {
   static void UpdateMinLogSeverity();
 
   // These write out the actual log messages.
+#if defined(WEBRTC_ANDROID)
   static void OutputToDebug(const std::string& msg,
                             LoggingSeverity severity,
-                            const std::string& tag);
+                            const char* tag);
+#else
+  static void OutputToDebug(const std::string& msg, LoggingSeverity severity);
+#endif
 
   // The ostream that buffers the formatted message before output
   std::ostringstream print_stream_;
@@ -223,8 +226,10 @@ class LogMessage {
   // The severity level of this message
   LoggingSeverity severity_;
 
+#if defined(WEBRTC_ANDROID)
   // The Android debug output tag.
-  std::string tag_;
+  const char* tag_ = "libjingle";
+#endif
 
   // String data generated in the constructor, that should be appended to
   // the message before output.
@@ -331,9 +336,11 @@ inline bool LogCheckLevel(LoggingSeverity sev) {
   RTC_LOG_ERRNO(sev)
 #endif  // WEBRTC_WIN
 
+#if defined(WEBRTC_ANDROID)
 #define RTC_LOG_TAG(sev, tag)        \
   RTC_LOG_SEVERITY_PRECONDITION(sev) \
   rtc::LogMessage(nullptr, 0, sev, tag).stream()
+#endif
 
 // The RTC_DLOG macros are equivalent to their RTC_LOG counterparts except that
 // they only generate code in debug builds.

@@ -21,6 +21,9 @@
 #include "rtc_base/ipaddress.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/nethelpers.h"
+#if defined(WEBRTC_POSIX)
+#include "rtc_base/safe_strerror.h"
+#endif
 
 namespace cricket {
 
@@ -277,7 +280,11 @@ int UDPPort::SendTo(const void* data, size_t size,
   if (sent < 0) {
     error_ = socket_->GetError();
     LOG_J(LS_ERROR, this) << "UDP send of " << size
-                          << " bytes failed with error " << error_;
+                          << " bytes failed with error " << error_
+#ifdef WEBRTC_POSIX
+                          << " (" << rtc::safe_strerror(error_) << ")";
+#endif
+    ;
   }
   return sent;
 }

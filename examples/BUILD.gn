@@ -190,12 +190,25 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     cflags = [
       "-Wno-sign-compare",
       "-Wno-unused-variable",
+      "-F",
+      "../../examples/objc/AppRTCMobile/ios/segment",
+    ]
+    ldflags = [
+      "-F",
+      "../../examples/objc/AppRTCMobile/ios/segment",
+    ]
+    libs = [
+      "ARKit.framework",
+      "QuartzCore.framework",
+      "SegmentAlgorithms.framework",
     ]
   }
 
   rtc_static_library("apprtc_signaling") {
     testonly = true
     sources = [
+      "objc/AppRTCMobile/ARDARVideoCapturer.h",
+      "objc/AppRTCMobile/ARDARVideoCapturer.m",
       "objc/AppRTCMobile/ARDAppClient+Internal.h",
       "objc/AppRTCMobile/ARDAppClient.h",
       "objc/AppRTCMobile/ARDAppClient.m",
@@ -249,7 +262,15 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     } else {
       deps += [ "../sdk:peerconnection_objc" ]
     }
-    libs = [ "QuartzCore.framework" ]
+  }
+
+  config("framework_findpath_config") {
+    common_flags = [
+      "-F",
+      "../../examples/objc/AppRTCMobile/ios/segment",
+    ]
+    cflags = common_flags
+    ldflags = common_flags
   }
 
   if (is_ios) {
@@ -276,7 +297,12 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         "objc/AppRTCMobile/ios/RTCVideoCodecInfo+HumanReadable.m",
         "objc/AppRTCMobile/ios/UIImage+ARDUtilities.h",
         "objc/AppRTCMobile/ios/UIImage+ARDUtilities.m",
+
+        #"objc/AppRTCMobile/ios/segment/SegmentAlgorithms.framework/Headers/SegmentAlgorithms.h",
+        #"objc/AppRTCMobile/ios/segment/SegmentAlgorithms.framework/Headers/SegmentApis.h",
       ]
+
+      public_configs = [ ":framework_findpath_config" ]
 
       deps = [
         ":AppRTCMobile_ios_frameworks",
@@ -315,6 +341,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       ]
       sources = [
         "$root_build_dir/WebRTC.framework",
+        "objc/AppRTCMobile/ios/segment/SegmentAlgorithms.framework",
       ]
       outputs = [
         "{{bundle_resources_dir}}/Frameworks/{{source_file_part}}",

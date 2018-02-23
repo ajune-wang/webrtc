@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "831600c3_eb249edb",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-23T08:14:12Z",
+      "side": 1,
+      "message": "I don\u0027t think we need separate lock objects. We can just use the ArrayList objects themselves.",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 58
+      },
+      "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

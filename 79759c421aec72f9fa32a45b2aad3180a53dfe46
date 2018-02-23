@@ -16,6 +16,24 @@
       "revId": "79759c421aec72f9fa32a45b2aad3180a53dfe46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79322997_e20190a6",
+        "filename": "common_audio/real_fourier.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-23T07:44:39Z",
+      "side": 1,
+      "message": "Yes, I agree. I\u0027ve also added an empty line between the last #include and the #ifdef.",
+      "parentUuid": "f06d928e_e051eeb3",
+      "revId": "79759c421aec72f9fa32a45b2aad3180a53dfe46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

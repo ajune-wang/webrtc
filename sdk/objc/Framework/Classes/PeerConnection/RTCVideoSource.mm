@@ -12,7 +12,7 @@
 
 #include "api/videosourceproxy.h"
 #include "rtc_base/checks.h"
-#include "sdk/objc/Framework/Classes/Video/objcvideotracksource.h"
+#include "sdk/objc/Framework/Native/src/objc_video_track_source.h"
 
 static webrtc::ObjcVideoTrackSource *getObjcVideoSource(
     const rtc::scoped_refptr<webrtc::VideoTrackSourceInterface> nativeSource) {
@@ -43,6 +43,15 @@ static webrtc::ObjcVideoTrackSource *getObjcVideoSource(
                                      type:(RTCMediaSourceType)type {
   RTC_NOTREACHED();
   return nil;
+}
+
+- (instancetype)initWithSignalingThread:(rtc::Thread *)signalingThread
+                           workerThread:(rtc::Thread *)workerThread {
+  rtc::scoped_refptr<webrtc::ObjcVideoTrackSource> objcVideoTrackSource(
+      new rtc::RefCountedObject<webrtc::ObjcVideoTrackSource>());
+
+  return [self initWithNativeVideoSource:webrtc::VideoTrackSourceProxy::Create(
+                                             signalingThread, workerThread, objcVideoTrackSource)];
 }
 
 - (NSString *)description {

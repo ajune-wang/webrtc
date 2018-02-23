@@ -38,8 +38,8 @@
 #include "sdk/objc/Framework/Native/src/objc_video_encoder_factory.h"
 #endif
 
-#include "Video/objcvideotracksource.h"
 #include "api/videosourceproxy.h"
+#include "sdk/objc/Framework/Native/src/objc_video_track_source.h"
 // Adding the nogncheck to disable the including header check.
 // The no-media version PeerConnectionFactory doesn't depend on media related
 // C++ target.

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/objc/Framework/Classes/Video/objcvideotracksource.h"
+#include "sdk/objc/Framework/Native/src/objc_video_track_source.h"
 
 #import "WebRTC/RTCVideoFrame.h"
 #import "WebRTC/RTCVideoFrameBuffer.h"
@@ -25,7 +25,7 @@ void ObjcVideoTrackSource::OnOutputFormatRequest(int width, int height, int fps)
   video_adapter()->OnOutputFormatRequest(format);
 }
 
-void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame* frame) {
+void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame *frame) {
   const int64_t timestamp_us = frame.timeStampNs / rtc::kNumNanosecsPerMicrosec;
   const int64_t translated_timestamp_us =
       timestamp_aligner_.TranslateTimestamp(timestamp_us, rtc::TimeMicros());
@@ -36,8 +36,15 @@ void ObjcVideoTrackSource::OnCapturedFrame(RTCVideoFrame* frame) {
   int crop_height;
   int crop_x;
   int crop_y;
-  if (!AdaptFrame(frame.width, frame.height, timestamp_us, &adapted_width, &adapted_height,
-                  &crop_width, &crop_height, &crop_x, &crop_y)) {
+  if (!AdaptFrame(frame.width,
+                  frame.height,
+                  timestamp_us,
+                  &adapted_width,
+                  &adapted_height,
+                  &crop_width,
+                  &crop_height,
+                  &crop_x,
+                  &crop_y)) {
     return;
   }
 

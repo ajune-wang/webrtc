@@ -90,41 +90,44 @@ AudioMixerImpl::SourceStatusList::const_iterator FindSourceInList(
       });
 }
 
-FrameCombiner::LimiterType ChooseLimiterType(bool use_limiter) {
+FrameCombiner::LimiterType ChooseLimiterType(int32_t limiter) {
   using LimiterType = FrameCombiner::LimiterType;
-  if (!use_limiter) {
+  if (limiter == 0) {
     return LimiterType::kNoLimiter;
-  } else if (field_trial::IsEnabled("WebRTC-ApmGainController2Limiter")) {
-    return LimiterType::kApmAgc2Limiter;
-  } else {
+  } else if (limiter == 1) {
     return LimiterType::kApmAgcLimiter;
+  } else if (limiter == 2) {
+    return LimiterType::kApmAgc2Limiter;
   }
+  RTC_CHECK(false);
+  RTC_NOTREACHED();
+  return LimiterType::kApmAgc2Limiter;
 }
 }  // namespace
 
 AudioMixerImpl::AudioMixerImpl(
     std::unique_ptr<OutputRateCalculator> output_rate_calculator,
-    bool use_limiter)
+    int32_t limiter)
     : output_rate_calculator_(std::move(output_rate_calculator)),
       output_frequency_(0),
       sample_size_(0),
       audio_source_list_(),
-      frame_combiner_(ChooseLimiterType(use_limiter)) {}
+      frame_combiner_(ChooseLimiterType(limiter)) {}
 
 AudioMixerImpl::~AudioMixerImpl() {}
 
 rtc::scoped_refptr<AudioMixerImpl> AudioMixerImpl::Create() {
   return Create(std::unique_ptr<DefaultOutputRateCalculator>(
                     new DefaultOutputRateCalculator()),
-                true);
+                0);
 }
 
 rtc::scoped_refptr<AudioMixerImpl> AudioMixerImpl::Create(
     std::unique_ptr<OutputRateCalculator> output_rate_calculator,
-    bool use_limiter) {
+    int32_t limiter) {
   return rtc::scoped_refptr<AudioMixerImpl>(
       new rtc::RefCountedObject<AudioMixerImpl>(
-          std::move(output_rate_calculator), use_limiter));
+          std::move(output_rate_calculator), limiter));
 }
 
 void AudioMixerImpl::Mix(size_t number_of_channels,

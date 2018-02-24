@@ -105,6 +105,7 @@ rtc_static_library("rtc_p2p") {
       "base/turnserver.cc",
       "base/turnserver.h",
     ]
+    deps += [ "../rtc_base:http_common" ]
     defines += [
       "FEATURE_ENABLE_VOICEMAIL",
       "FEATURE_ENABLE_PSTN",
@@ -132,6 +133,7 @@ if (rtc_include_tests) {
       ":rtc_p2p",
       "../api:libjingle_peerconnection_api",
       "../api:ortc_api",
+      "../rtc_base:http_common",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
@@ -169,6 +171,7 @@ if (rtc_include_tests) {
       "../api:fakemetricsobserver",
       "../api:ortc_api",
       "../rtc_base:checks",
+      "../rtc_base:http_common",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",

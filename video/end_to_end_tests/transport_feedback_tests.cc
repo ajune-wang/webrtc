@@ -44,7 +44,7 @@ TEST_P(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
   class RtpExtensionHeaderObserver : public test::DirectTransport {
    public:
     RtpExtensionHeaderObserver(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
+        rtc::test::TaskQueueForTest* task_queue,
         Call* sender_call,
         const uint32_t& first_media_ssrc,
         const std::map<uint32_t, uint32_t>& ssrc_map,
@@ -165,7 +165,7 @@ TEST_P(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
   class TransportSequenceNumberTester : public MultiStreamTester {
    public:
     explicit TransportSequenceNumberTester(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+        rtc::test::TaskQueueForTest* task_queue)
         : MultiStreamTester(task_queue),
           first_media_ssrc_(0),
           observer_(nullptr) {}
@@ -216,7 +216,7 @@ TEST_P(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
     }
 
     test::DirectTransport* CreateSendTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
+        rtc::test::TaskQueueForTest* task_queue,
         Call* sender_call) override {
       std::map<uint8_t, MediaType> payload_type_map =
           MultiStreamTester::payload_type_map_;

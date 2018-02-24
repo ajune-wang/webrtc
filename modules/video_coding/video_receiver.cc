@@ -55,7 +55,7 @@ VideoReceiver::VideoReceiver(Clock* clock,
 }
 
 VideoReceiver::~VideoReceiver() {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
 }
 
 void VideoReceiver::Process() {
@@ -109,7 +109,7 @@ void VideoReceiver::Process() {
 }
 
 void VideoReceiver::ProcessThreadAttached(ProcessThread* process_thread) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   if (process_thread) {
     is_attached_to_process_thread_ = true;
     RTC_DCHECK(!process_thread_ || process_thread_ == process_thread);
@@ -177,7 +177,7 @@ int32_t VideoReceiver::SetVideoProtection(VCMVideoProtection videoProtection,
 // ready for rendering.
 int32_t VideoReceiver::RegisterReceiveCallback(
     VCMReceiveCallback* receiveCallback) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   // This value is set before the decoder thread starts and unset after
   // the decoder thread has been stopped.
@@ -187,7 +187,7 @@ int32_t VideoReceiver::RegisterReceiveCallback(
 
 int32_t VideoReceiver::RegisterReceiveStatisticsCallback(
     VCMReceiveStatisticsCallback* receiveStats) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning() && !is_attached_to_process_thread_);
   // |_receiver| is used on both the decoder and module threads.
   // However, since we make sure that we never do anything on the module thread
@@ -201,7 +201,7 @@ int32_t VideoReceiver::RegisterReceiveStatisticsCallback(
 // Register an externally defined decoder object.
 void VideoReceiver::RegisterExternalDecoder(VideoDecoder* externalDecoder,
                                             uint8_t payloadType) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   if (externalDecoder == nullptr) {
     RTC_CHECK(_codecDataBase.DeregisterExternalDecoder(payloadType));
@@ -213,7 +213,7 @@ void VideoReceiver::RegisterExternalDecoder(VideoDecoder* externalDecoder,
 // Register a frame type request callback.
 int32_t VideoReceiver::RegisterFrameTypeCallback(
     VCMFrameTypeCallback* frameTypeCallback) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning() && !is_attached_to_process_thread_);
   // This callback is used on the module thread, but since we don't get
   // callbacks on the module thread while the decoder thread isn't running
@@ -225,7 +225,7 @@ int32_t VideoReceiver::RegisterFrameTypeCallback(
 
 int32_t VideoReceiver::RegisterPacketRequestCallback(
     VCMPacketRequestCallback* callback) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning() && !is_attached_to_process_thread_);
   // This callback is used on the module thread, but since we don't get
   // callbacks on the module thread while the decoder thread isn't running
@@ -236,13 +236,13 @@ int32_t VideoReceiver::RegisterPacketRequestCallback(
 }
 
 void VideoReceiver::TriggerDecoderShutdown() {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(IsDecoderThreadRunning());
   _receiver.TriggerDecoderShutdown();
 }
 
 void VideoReceiver::DecoderThreadStarting() {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   if (process_thread_ && !is_attached_to_process_thread_) {
     process_thread_->RegisterModule(this, RTC_FROM_HERE);
@@ -253,7 +253,7 @@ void VideoReceiver::DecoderThreadStarting() {
 }
 
 void VideoReceiver::DecoderThreadStopped() {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(IsDecoderThreadRunning());
   if (process_thread_ && is_attached_to_process_thread_) {
     process_thread_->DeRegisterModule(this);
@@ -378,7 +378,7 @@ int32_t VideoReceiver::Decode(const VCMEncodedFrame& frame) {
 int32_t VideoReceiver::RegisterReceiveCodec(const VideoCodec* receiveCodec,
                                             int32_t numberOfCores,
                                             bool requireKeyFrame) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   if (receiveCodec == nullptr) {
     return VCM_PARAMETER_ERROR;
@@ -434,7 +434,7 @@ int32_t VideoReceiver::SetMinimumPlayoutDelay(uint32_t minPlayoutDelayMs) {
 // The estimated delay caused by rendering, defaults to
 // kDefaultRenderDelayMs = 10 ms
 int32_t VideoReceiver::SetRenderDelay(uint32_t timeMS) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   _timing->set_render_delay(timeMS);
   return VCM_OK;
@@ -450,7 +450,7 @@ int32_t VideoReceiver::Delay() const {
 int VideoReceiver::SetReceiverRobustnessMode(
     VideoCodingModule::ReceiverRobustness robustnessMode,
     VCMDecodeErrorMode decode_error_mode) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   switch (robustnessMode) {
     case VideoCodingModule::kNone:
@@ -469,7 +469,7 @@ int VideoReceiver::SetReceiverRobustnessMode(
 }
 
 void VideoReceiver::SetDecodeErrorMode(VCMDecodeErrorMode decode_error_mode) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   _receiver.SetDecodeErrorMode(decode_error_mode);
 }
@@ -477,7 +477,7 @@ void VideoReceiver::SetDecodeErrorMode(VCMDecodeErrorMode decode_error_mode) {
 void VideoReceiver::SetNackSettings(size_t max_nack_list_size,
                                     int max_packet_age_to_nack,
                                     int max_incomplete_time_ms) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   if (max_nack_list_size != 0) {
     max_nack_list_size_ = max_nack_list_size;
@@ -487,7 +487,7 @@ void VideoReceiver::SetNackSettings(size_t max_nack_list_size,
 }
 
 int VideoReceiver::SetMinReceiverDelay(int desired_delay_ms) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
   RTC_DCHECK(!IsDecoderThreadRunning());
   // TODO(tommi): Is the method only used by tests? Maybe could be offered
   // via a test only subclass?

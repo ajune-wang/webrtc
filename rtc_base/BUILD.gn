@@ -465,6 +465,21 @@ rtc_static_library("weak_ptr") {
   ]
 }
 
+rtc_static_library("http_common") {
+  sources = [
+    "httpcommon-inl.h",
+    "httpcommon.cc",
+    "httpcommon.h",
+    "socketadapters.cc",
+    "socketadapters.h",
+  ]
+  deps = [
+    ":checks",
+    ":rtc_base_generic",
+    ":stringutils",
+  ]
+}
+
 rtc_static_library("rtc_numerics") {
   sources = [
     "numerics/exp_filter.cc",
@@ -588,9 +603,6 @@ rtc_static_library("rtc_base_generic") {
     "gunit_prod.h",
     "helpers.cc",
     "helpers.h",
-    "httpcommon-inl.h",
-    "httpcommon.cc",
-    "httpcommon.h",
     "ipaddress.cc",
     "ipaddress.h",
     "keep_ref_until_done.h",
@@ -637,8 +649,6 @@ rtc_static_library("rtc_base_generic") {
     "sigslot.h",
     "sigslotrepeater.h",
     "socket.h",
-    "socketadapters.cc",
-    "socketadapters.h",
     "socketaddress.cc",
     "socketaddress.h",
     "socketaddresspair.cc",
@@ -666,6 +676,7 @@ rtc_static_library("rtc_base_generic") {
   visibility = [
     ":rtc_base",
     ":rtc_base_objc",
+    ":http_common",
   ]
 
   # TODO(henrike): issue 3307, make rtc_base build with the Chromium default
@@ -764,7 +775,6 @@ rtc_static_library("rtc_base_generic") {
       "win32.h",
       "win32filesystem.cc",
       "win32filesystem.h",
-      "win32securityerrors.cc",
       "win32window.cc",
       "win32window.h",
     ]
@@ -837,20 +847,12 @@ rtc_source_set("rtc_base_tests_utils") {
     "firewallsocketserver.h",
     "gunit.cc",
     "gunit.h",
-    "httpbase.cc",
-    "httpbase.h",
-    "httpserver.cc",
-    "httpserver.h",
     "memory_usage.cc",
     "memory_usage.h",
-    "natserver.cc",
-    "natserver.h",
     "natsocketfactory.cc",
     "natsocketfactory.h",
     "nattypes.cc",
     "nattypes.h",
-    "proxyserver.cc",
-    "proxyserver.h",
     "refcount.h",
     "sigslottester.h",
     "sigslottester.h.pump",
@@ -878,6 +880,20 @@ rtc_source_set("rtc_base_tests_utils") {
   public_deps = [
     "//testing/gtest",
   ]
+
+  if (!build_with_chromium) {
+    sources += [
+      "httpbase.cc",
+      "httpbase.h",
+      "httpserver.cc",
+      "httpserver.h",
+      "natserver.cc",
+      "natserver.h",
+      "proxyserver.cc",
+      "proxyserver.h",
+    ]
+    deps += [ ":http_common" ]
+  }
 }
 
 rtc_source_set("rtc_task_queue_for_test") {
@@ -1081,17 +1097,12 @@ if (rtc_include_tests) {
       "callback_unittest.cc",
       "crc32_unittest.cc",
       "helpers_unittest.cc",
-      "httpbase_unittest.cc",
-      "httpcommon_unittest.cc",
-      "httpserver_unittest.cc",
       "ipaddress_unittest.cc",
       "memory_usage_unittest.cc",
       "messagedigest_unittest.cc",
       "messagequeue_unittest.cc",
-      "nat_unittest.cc",
       "network_unittest.cc",
       "optionsfile_unittest.cc",
-      "proxy_unittest.cc",
       "ptr_util_unittest.cc",
       "ratelimiter_unittest.cc",
       "rollingaccumulator_unittest.cc",
@@ -1135,6 +1146,18 @@ if (rtc_include_tests) {
     if (build_with_chromium) {
       include_dirs = [ "../../boringssl/src/include" ]
     }
+
+    if (!build_with_chromium) {
+      sources += [
+        "httpbase_unittest.cc",
+        "httpcommon_unittest.cc",
+        "httpserver_unittest.cc",
+        "nat_unittest.cc",
+        "proxy_unittest.cc",
+      ]
+      deps += [ ":http_common" ]
+    }
+
     if (rtc_build_ssl) {
       deps += [ "//third_party/boringssl" ]
     } else {

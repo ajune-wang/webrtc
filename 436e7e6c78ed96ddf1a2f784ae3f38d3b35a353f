@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "622db0a3_518740d7",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-24T09:37:34Z",
+      "side": 1,
+      "message": "It this is unly a truncation, I\u0027d rather see it being done as \nfloat out \u003d static_cast\u003cuint32_t\u003e(in);\nwhich is shorter and more easy to understand.\n\nIf that does not work, please explain in the comment why the chosen approach must be used.\n\nWhen I check the assembly, the static cast seem to generate a cvttss2si instruction, in contrast to the union approach. Is the intention of the union approach to avoid that?",
+      "range": {
+        "startLine": 246,
+        "startChar": 15,
+        "endLine": 246,
+        "endChar": 16
+      },
+      "revId": "436e7e6c78ed96ddf1a2f784ae3f38d3b35a353f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c519292_904dbed5",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-24T09:37:34Z",
+      "side": 1,
+      "message": "If num_reverb_decay_sections_ is typed as an int, this static_cast is not needed.",
+      "range": {
+        "startLine": 305,
+        "startChar": 20,
+        "endLine": 305,
+        "endChar": 25
+      },
+      "revId": "436e7e6c78ed96ddf1a2f784ae3f38d3b35a353f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7c4ac3_a8396016",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-24T09:37:34Z",
+      "side": 1,
+      "message": "Do these 3 variables need to be size_t. Would int work instead? Since these at most can be 40, size_t is not really needed.",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 8
+      },
+      "revId": "436e7e6c78ed96ddf1a2f784ae3f38d3b35a353f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afe7f01b_5c9a112c",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-24T09:37:34Z",
+      "side": 1,
+      "message": "Please add a period at the end of the comment.",
+      "range": {
+        "startLine": 1209,
+        "startChar": 48,
+        "endLine": 1209,
+        "endChar": 56
+      },
+      "revId": "436e7e6c78ed96ddf1a2f784ae3f38d3b35a353f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

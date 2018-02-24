@@ -666,6 +666,7 @@ rtc_static_library("rtc_base_generic") {
   visibility = [
     ":rtc_base",
     ":rtc_base_objc",
+    ":http_common",
   ]
 
   # TODO(henrike): issue 3307, make rtc_base build with the Chromium default
@@ -764,7 +765,6 @@ rtc_static_library("rtc_base_generic") {
       "win32.h",
       "win32filesystem.cc",
       "win32filesystem.h",
-      "win32securityerrors.cc",
       "win32window.cc",
       "win32window.h",
     ]
@@ -1135,6 +1135,7 @@ if (rtc_include_tests) {
     if (build_with_chromium) {
       include_dirs = [ "../../boringssl/src/include" ]
     }
+
     if (rtc_build_ssl) {
       deps += [ "//third_party/boringssl" ]
     } else {

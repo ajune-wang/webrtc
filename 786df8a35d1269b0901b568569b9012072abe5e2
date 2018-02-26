@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "65215694_e0e57b3f",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-26T15:36:19Z",
+      "side": 1,
+      "message": "True. I will remove the validation as it is not doing anything at the moment.",
+      "parentUuid": "af6d6cda_a1f85898",
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc874f34_8c681441",
         "filename": "api/audio/echo_canceller3_factory.h",
         "patchSetId": 3
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "bb29fbc8_3e05725d",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-26T15:36:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc874f34_8c681441",
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f48eb1de_11f766ea",
         "filename": "api/audio/echo_canceller3_factory.h",
         "patchSetId": 3
@@ -64,6 +100,24 @@
       "writtenOn": "2018-02-26T09:17:27Z",
       "side": 1,
       "message": "Instead of exposing this class in the API, consider exposing just a create function; something like\n\n  std::unique_ptr\u003cEchoControlFactory\u003e CreateEchoCanceller3Factory();\n  std::unique_ptr\u003cEchoControlFactory\u003e CreateEchoCanceller3Factory(\n      const EchoCanceller3Config\u0026 config);\n\nAnd move this class to an unnamed namespace in the .cc file.",
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5f8a5de_588bab01",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-26T15:36:19Z",
+      "side": 1,
+      "message": "Is there a drawback exposing this in the API? The configuration is already a part of the factory API as it can be passed as a parameter to the ctor.\nIf possible I would like to keep it as-is to avoid more downstream work.",
+      "parentUuid": "f48eb1de_11f766ea",
       "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -13,7 +13,6 @@
 #import "WebRTC/RTCAudioTrack.h"
 #import "WebRTC/RTCCameraVideoCapturer.h"
 #import "WebRTC/RTCConfiguration.h"
-#import "WebRTC/RTCFileLogger.h"
 #import "WebRTC/RTCFileVideoCapturer.h"
 #import "WebRTC/RTCIceServer.h"
 #import "WebRTC/RTCLogging.h"
@@ -100,7 +99,6 @@ static int const kKbpsMultiplier = 1000;
 @end
 
 @implementation ARDAppClient {
-  RTCFileLogger *_fileLogger;
   ARDTimerProxy *_statsTimer;
   ARDSettingsModel *_settings;
   RTCVideoTrack *_localVideoTrack;
@@ -166,8 +164,6 @@ static int const kKbpsMultiplier = 1000;
 - (void)configure {
   _messageQueue = [NSMutableArray array];
   _iceServers = [NSMutableArray array];
-  _fileLogger = [[RTCFileLogger alloc] init];
-  [_fileLogger start];
 }
 
 - (void)dealloc {

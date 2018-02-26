@@ -22,6 +22,30 @@
       "revId": "66dc2d8f21513a0d509d3f71da47cb29c56fd5b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7141b04_bc009296",
+        "filename": "system_wrappers/source/event_timer_posix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-02-26T12:12:56Z",
+      "side": 1,
+      "message": "Looks like it.\nSo from api 22 and up we automatically have a guarantee of monotonicity?",
+      "parentUuid": "a9218998_25efdc3e",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 53
+      },
+      "revId": "66dc2d8f21513a0d509d3f71da47cb29c56fd5b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

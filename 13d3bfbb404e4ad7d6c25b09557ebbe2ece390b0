@@ -22,6 +22,30 @@
       "revId": "13d3bfbb404e4ad7d6c25b09557ebbe2ece390b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e020f37e_aed1562c",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-26T19:08:37Z",
+      "side": 1,
+      "message": "It\u0027s not really an interop case but rather a limitation. We can\u0027t assume that the other endpoint is always another PeerConnection with Unified Plan/Plan B semantics, so I think it\u0027s best to leave the description in terms of how the SDP looks.",
+      "parentUuid": "0bb4d472_a2af4aa3",
+      "range": {
+        "startLine": 524,
+        "startChar": 75,
+        "endLine": 524,
+        "endChar": 79
+      },
+      "revId": "13d3bfbb404e4ad7d6c25b09557ebbe2ece390b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

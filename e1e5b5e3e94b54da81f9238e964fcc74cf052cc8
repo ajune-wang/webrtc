@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96f0f1c6_0de34b94",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-26T18:55:16Z",
+      "side": 1,
+      "message": "May be safer to do RequestSortAndStateUpdate instead?",
+      "revId": "e1e5b5e3e94b54da81f9238e964fcc74cf052cc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

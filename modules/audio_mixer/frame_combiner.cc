@@ -16,7 +16,6 @@
 
 #include "api/array_view.h"
 #include "audio/utility/audio_frame_operations.h"
-#include "common_audio/include/audio_util.h"
 #include "modules/audio_mixer/audio_frame_manipulator.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "rtc_base/checks.h"
@@ -191,6 +190,14 @@ FrameCombiner::FrameCombiner(bool use_limiter)
                                 : LimiterType::kNoLimiter) {}
 
 FrameCombiner::~FrameCombiner() = default;
+
+void FrameCombiner::SetLimiterType(LimiterType limiter_type) {
+  limiter_type_ = limiter_type;
+  if (limiter_type_ == LimiterType::kApmAgcLimiter &&
+      apm_agc_limiter_ == nullptr) {
+    apm_agc_limiter_ = CreateLimiter();
+  }
+}
 
 void FrameCombiner::Combine(const std::vector<AudioFrame*>& mix_list,
                             size_t number_of_channels,

@@ -21,6 +21,7 @@
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 namespace {
@@ -238,6 +239,29 @@ void FrameCombiner::Combine(const std::vector<AudioFrame*>& mix_list,
   }
 
   InterleaveToAudioFrame(mixing_buffer_view, audio_frame_for_mixing);
+
+  // Log every second.
+  uma_logging_counter_++;
+  if (uma_logging_counter_ > 100) {
+    uma_logging_counter_ = 0;
+    RTC_HISTOGRAM_COUNTS_100("WebRTC.Audio.NumIncomingStreams",
+                             number_of_streams);
+    RTC_HISTOGRAM_ENUMERATION("WebRTC.Audio.NumIncomingActiveStreams",
+                              mix_list.size(), 3);
+    // enum MixingRate {
+    //   k8kHz = 0,
+    //   k16kHz = 1,
+    //   k32kHz = 2,
+    //   k48kHz = 3,
+    //   kOther = 4,
+    // };
+    // MixingRate mixing_rate;
+    // if (sample_rate == 8000) {
+
+    // }
+    // RTC_HISTOGRAM_ENUMERATION("WebRTC.Audio.MixingRate",
+    //                           3);
+  }
 }
 
 }  // namespace webrtc

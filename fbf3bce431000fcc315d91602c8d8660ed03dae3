@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1776882b_a076f3e0",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T10:46:31Z",
+      "side": 0,
+      "message": "Very nice to get these out of our headers!",
+      "revId": "fbf3bce431000fcc315d91602c8d8660ed03dae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

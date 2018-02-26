@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "f5705a5d_6abb6369",
+        "filename": "rtc_base/httpcommon.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T10:46:31Z",
+      "side": 1,
+      "message": "This just decays to a pointer. If you passed it as a reference to an array instead, you could get rid of the sentinel, I think:\n\n  template \u003csize_t N\u003e\n  const char* LookupLabel(int value, const ConstantToLabel (\u0026entries)[N]) {\n    for (size_t i \u003d 0; i \u003c N; ++i) {\n\nBut passing it as an ArrayView is probably even better:\n\n  const char* LookupLabel(int value,\n                          rtc::ArrayView\u003cconst ConstantToLabel\u003e table) {\n    for (const auto\u0026 entry : table) {",
+      "range": {
+        "startLine": 51,
+        "startChar": 35,
+        "endLine": 51,
+        "endChar": 66
+      },
+      "revId": "b818ccaafe6095f2b466e622d0e54d1e0ef36f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36bceedd_5eac4be0",
+        "filename": "rtc_base/httpcommon.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T10:46:31Z",
+      "side": 1,
+      "message": "Better give these an RTC_ prefix. A lot of foreign headers have been #included at this point.",
+      "revId": "b818ccaafe6095f2b466e622d0e54d1e0ef36f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "595cced0_5743cc29",
         "filename": "rtc_base/logging.cc",
         "patchSetId": 22

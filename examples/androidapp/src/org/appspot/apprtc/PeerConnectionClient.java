@@ -47,12 +47,14 @@ import org.webrtc.IceCandidate;
 import org.webrtc.Logging;
 import org.webrtc.MediaConstraints;
 import org.webrtc.MediaStream;
+import org.webrtc.MediaStreamTrack.MediaType;
 import org.webrtc.PeerConnection;
 import org.webrtc.PeerConnection.IceConnectionState;
 import org.webrtc.PeerConnectionFactory;
 import org.webrtc.RtpParameters;
 import org.webrtc.RtpReceiver;
 import org.webrtc.RtpSender;
+import org.webrtc.RtpTransceiver;
 import org.webrtc.SdpObserver;
 import org.webrtc.SessionDescription;
 import org.webrtc.SoftwareVideoDecoderFactory;
@@ -644,6 +646,7 @@ public class PeerConnectionClient {
     rtcConfig.keyType = PeerConnection.KeyType.ECDSA;
     // Enable DTLS for normal calls and disable for loopback calls.
     rtcConfig.enableDtlsSrtp = !peerConnectionParameters.loopback;
+    rtcConfig.sdpSemantics = PeerConnection.SdpSemantics.UNIFIED_PLAN;
 
     peerConnection = factory.createPeerConnection(rtcConfig, pcObserver);
 
@@ -663,16 +666,19 @@ public class PeerConnectionClient {
     // NOTE: this _must_ happen while |factory| is alive!
     Logging.enableLogToDebugOutput(Logging.Severity.LS_INFO);
 
-    mediaStream = factory.createLocalMediaStream("ARDAMS");
+    List<String> mediaStreamLabels = new ArrayList<>();
+    mediaStreamLabels.add("ARDAMS");
     if (videoCallEnabled) {
-      mediaStream.addTrack(createVideoTrack(videoCapturer));
+      peerConnection.addTrack(createVideoTrack(videoCapturer), mediaStreamLabels);
     }
-
-    mediaStream.addTrack(createAudioTrack());
-    peerConnection.addStream(mediaStream);
+    peerConnection.addTrack(createAudioTrack(), mediaStreamLabels);
     if (videoCallEnabled) {
       findVideoSender();
     }
+
+    // We can add the renderers right away because we don't need to wait for an
+    // answer to render the video.
+    setRemoteVideoRenderers();
 
     if (peerConnectionParameters.aecDump) {
       try {
@@ -1032,6 +1038,19 @@ public class PeerConnectionClient {
     }
   }
 
+  private void setRemoteVideoRenderers() {
+    for (RtpTransceiver transceiver : peerConnection.getTransceivers()) {
+      if (transceiver.mediaType().equals(MediaType.MEDIA_TYPE_VIDEO)) {
+        // Found the video transceiver. Set its receiving side video renderer.
+        remoteVideoTrack = new VideoTrack(transceiver.receiver().track().nativeTrack);
+        remoteVideoTrack.setEnabled(renderVideo);
+        for (VideoRenderer.Callbacks remoteRender : remoteRenders) {
+          remoteVideoTrack.addRenderer(new VideoRenderer(remoteRender));
+        }
+      }
+    }
+  }
+
   @SuppressWarnings("StringSplitter")
   private static String setStartBitrate(
       String codec, boolean isVideoCodec, String sdpDescription, int bitrateKbps) {
@@ -1282,27 +1301,7 @@ public class PeerConnectionClient {
     }
 
     @Override
-    public void onAddStream(final MediaStream stream) {
-      executor.execute(new Runnable() {
-        @Override
-        public void run() {
-          if (peerConnection == null || isError) {
-            return;
-          }
-          if (stream.audioTracks.size() > 1 || stream.videoTracks.size() > 1) {
-            reportError("Weird-looking stream: " + stream);
-            return;
-          }
-          if (stream.videoTracks.size() == 1) {
-            remoteVideoTrack = stream.videoTracks.get(0);
-            remoteVideoTrack.setEnabled(renderVideo);
-            for (VideoRenderer.Callbacks remoteRender : remoteRenders) {
-              remoteVideoTrack.addRenderer(new VideoRenderer(remoteRender));
-            }
-          }
-        }
-      });
-    }
+    public void onAddStream(final MediaStream stream) {}
 
     @Override
     public void onRemoveStream(final MediaStream stream) {

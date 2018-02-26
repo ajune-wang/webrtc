@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "595cced0_5743cc29",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-02-26T09:36:55Z",
+      "side": 1,
+      "message": "What\u0027s happening here?",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 79
+      },
+      "revId": "b818ccaafe6095f2b466e622d0e54d1e0ef36f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

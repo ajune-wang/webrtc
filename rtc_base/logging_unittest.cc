@@ -147,7 +147,7 @@ TEST(LogTest, MAYBE_Perf) {
   LogMessage::AddLogToStream(&stream, LS_SENSITIVE);
 
   int64_t start = TimeMillis(), finish;
-  std::string message('X', 80);
+  std::string message(80, 'X');
   for (int i = 0; i < 1000; ++i) {
     RTC_LOG(LS_SENSITIVE) << message;
   }

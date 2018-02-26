@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd71528c_3025b047",
+        "filename": "modules/audio_mixer/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "Add testonly \u003d true above",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 11
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22985aba_3d5948a4",
+        "filename": "modules/audio_mixer/audio_mixer_impl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "Probably you thought about what I\u0027m going to propose and you decided not to do that to avoid breaking the client code.\n\nIf the limiter type is not changed once set, I would rather change the factory method above.\nFor instance, instead of bool use_limiter, we could pass an rtc::Optional\u003cFrameCombiner::LimiterType\u003e.\n\nWDYT?",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 63
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff865a0_c599b815",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "Add \"namespace test {\" if you accept my comment in BUILD.gn",
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f3d5b6e_ce9ba80e",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "Inside anon NS",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d4ec41c_3b863f9b",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "Remove (unused).",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 10
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a28f790_7e30d39d",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "Why not just WavReader wav_reader_? You have everything (i.e., filename) to instantiate in FilePlayingSource CTOR",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c182a968_66127f1b",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "Inside anon NS",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 48
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75c60403_7718bca7",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "[nit] maybe use std::all_of/any_of",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 52
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05189bdf_cf43b311",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-26T15:42:49Z",
+      "side": 1,
+      "message": "Maybe it\u0027s not the right place, but intuitively I would add a TODO for AGC2 limiter.",
+      "range": {
+        "startLine": 199,
+        "startChar": 3,
+        "endLine": 199,
+        "endChar": 0
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

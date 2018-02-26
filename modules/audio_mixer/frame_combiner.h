@@ -45,6 +45,7 @@ class FrameCombiner {
   std::unique_ptr<AudioProcessing> apm_agc_limiter_;
   ApmDataDumper data_dumper_;
   FixedGainController apm_agc2_limiter_;
+  int uma_logging_counter_ = 0;
 };
 }  // namespace webrtc
 

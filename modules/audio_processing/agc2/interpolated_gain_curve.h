@@ -113,8 +113,9 @@ class InterpolatedGainCurve {
 
   // Stats.
   mutable Stats stats_;
+  mutable int uma_logging_counter_ = 0;
 
-  // RTC_DISALLOW_COPY_AND_ASSIGN(InterpolatedGainCurve);
+  RTC_DISALLOW_COPY_AND_ASSIGN(InterpolatedGainCurve);
 };
 
 }  // namespace webrtc

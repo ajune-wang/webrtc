@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c914a39_b34b4b8f",
+        "filename": "api/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T09:17:27Z",
+      "side": 1,
+      "message": "This looks good.",
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af6d6cda_a1f85898",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T09:17:27Z",
+      "side": 1,
+      "message": "Is it really a good idea to silently disregard the passed config if we don\u0027t like it? It might make callers confused.",
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc874f34_8c681441",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T09:17:27Z",
+      "side": 1,
+      "message": "Document these three?",
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f48eb1de_11f766ea",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T09:17:27Z",
+      "side": 1,
+      "message": "Instead of exposing this class in the API, consider exposing just a create function; something like\n\n  std::unique_ptr\u003cEchoControlFactory\u003e CreateEchoCanceller3Factory();\n  std::unique_ptr\u003cEchoControlFactory\u003e CreateEchoCanceller3Factory(\n      const EchoCanceller3Config\u0026 config);\n\nAnd move this class to an unnamed namespace in the .cc file.",
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

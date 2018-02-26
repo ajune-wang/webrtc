@@ -119,7 +119,7 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
         // This will cause the frame buffer to prefer high framerate rather
         // than high resolution in the case of the decoder not decoding fast
         // enough and the stream has multiple spatial and temporal layers.
-        if (wait_ms == 0)
+        if (wait_ms < 0)
           continue;
 
         break;

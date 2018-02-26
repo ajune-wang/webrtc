@@ -52,9 +52,9 @@ class VCMTimingFake : public VCMTiming {
     return last_ms_;
   }
 
-  uint32_t MaxWaitingTime(int64_t render_time_ms,
+  int64_t MaxWaitingTime(int64_t render_time_ms,
                           int64_t now_ms) const override {
-    return std::max<int>(0, render_time_ms - now_ms - kDecodeTime);
+    return render_time_ms - now_ms - kDecodeTime;
   }
 
   bool GetTimings(int* decode_ms,

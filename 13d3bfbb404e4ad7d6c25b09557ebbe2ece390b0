@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bb4d472_a2af4aa3",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-26T19:02:00Z",
+      "side": 1,
+      "message": "Think it\u0027s worth specifying this is an interop case? Maybe something like \"When negotiating with kUnifiedPlan, this will cause PeerConnection to ignore all but the first m\u003d section....\"\n\nMaybe the same below too - \"When negotating with kPlanB this will cause PeerConnection to ignore all but the first a\u003dssrc...\"\n\nwdyt?",
+      "range": {
+        "startLine": 524,
+        "startChar": 75,
+        "endLine": 524,
+        "endChar": 79
+      },
+      "revId": "13d3bfbb404e4ad7d6c25b09557ebbe2ece390b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dbaf8108_2a1bebe3",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-02-26T23:40:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "831600c3_eb249edb",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 58
+      },
+      "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d62db3c_bae172a3",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-23T08:18:09Z",
       "side": 1,
       "message": "can we avoid calling out to external implementations while holding a lock?\nIt\u0027s easy to get hit by a deadlock if we follow this pattern.\n\nWould it be possible to use a Looper instead and deliver all notifications from there?",
+      "range": {
+        "startLine": 190,
+        "startChar": 18,
+        "endLine": 190,
+        "endChar": 37
+      },
+      "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c994dbf_13e6b26c",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-02-26T23:40:36Z",
+      "side": 1,
+      "message": "Thanks for raising the issue!\nI am afraid of creating a new thread in order to use a LoopExecutor (or something similar) in the library. \nI tried to avoid calling external implementations while holding a lock\nby just locking on getting the list of the observers.",
+      "parentUuid": "2d62db3c_bae172a3",
       "range": {
         "startLine": 190,
         "startChar": 18,

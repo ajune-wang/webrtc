@@ -22,6 +22,30 @@
       "revId": "b818ccaafe6095f2b466e622d0e54d1e0ef36f85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d839150_bef0b9d3",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-26T09:56:16Z",
+      "side": 1,
+      "message": "There are two fundamental changes:\n\n#1 |hmod| has been removed and replaced by nullptr.\n\nThe previous implementation had these problems:\n* |module| was always NULL, so |hmod| GetModuleHandleA returned the module handle for the executable.\n* Since |hmod| represented the executable, FORMAT_MESSAGE_FROM_HMODULE was set.\n* FormatMessage would then try to find the message table from the current executable.\n* Since none of our executables have a message table, this would fail with ERROR_RESOURCE_TYPE_NOT_FOUND\n\nBecause of this, I think that this code has been broken for a long time.\n\n\n#2 I\u0027m setting the FORMAT_MESSAGE_IGNORE_INSERTS flag.\nPreviously, this flag was not raised and that can be dangerous. If a message had been looked up (but because of the previous bug, that was not actually likely to happen), and that message required injecting \u0027inserts\u0027 (a feature of FormatMessage), then we could have hit problems because we always pass nullptr for the inserts parameter.\n\nSetting the \u0027ignore inserts\u0027 flag, essentially tells FormatMessage to not bother with inserts.\n\nFor easier reference, I found an implementation in Chrome, that does a similar thing (I suspect these two might be derived from a similar source code example due to the \u0027msgbuf\u0027 variable). Regardless, the Chrome implementation does the right thing:\nhttps://cs.chromium.org/chromium/src/base/logging.cc?type\u003dcs\u0026q\u003dFormatMessageA\u0026sq\u003dpackage:chromium\u0026l\u003d928\n\nAlthough I guess it too could be made a little more flexible by using FORMAT_MESSAGE_ALLOCATE_BUFFER, but we can ignore that for now.",
+      "parentUuid": "595cced0_5743cc29",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 79
+      },
+      "revId": "b818ccaafe6095f2b466e622d0e54d1e0ef36f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

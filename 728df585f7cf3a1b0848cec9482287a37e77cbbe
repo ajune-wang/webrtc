@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a19dff3e_fd22a643",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5906
+      },
+      "writtenOn": "2018-02-26T21:32:53Z",
+      "side": 1,
+      "message": "1. nit: IMHO, it would be better to add parentheses, rather than make a reader wonder about operator precedence.\n2. Given that we never expect this to happen, would it perhaps be better to DCHECK rather than CHECK, so as to avoid the cost of this check? Do we expect this to be a security issue if this were to happen and slip through the DCHECK?",
+      "revId": "728df585f7cf3a1b0848cec9482287a37e77cbbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca3e8b97_34f43fc7",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5906
+      },
+      "writtenOn": "2018-02-26T21:32:53Z",
+      "side": 1,
+      "message": "I would need to do some research before I could say whether the compiler could be tricked into producing a null reference by the way we call Encode(), and additional research to make sure that this check would catch that. If we keep this CHECK, other people would probably do the same. Perhaps we could avoid this CHECK, relying on the callers to Encode() instead?",
+      "revId": "728df585f7cf3a1b0848cec9482287a37e77cbbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2207b9cc_f564dbda",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5906
+      },
+      "writtenOn": "2018-02-26T21:32:53Z",
+      "side": 1,
+      "message": "Seems reasonable.",
+      "revId": "728df585f7cf3a1b0848cec9482287a37e77cbbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

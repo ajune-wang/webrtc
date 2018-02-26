@@ -96,7 +96,9 @@ EventTypeWrapper EventTimerPosix::Wait(unsigned long timeout_ms) {
         end_at.tv_nsec -= kNanosecondsPerSecond;
       }
       while (ret_val == 0 && !event_set_) {
-#if defined(WEBRTC_ANDROID) && defined(HAVE_PTHREAD_COND_TIMEDWAIT_MONOTONIC)
+#if defined(WEBRTC_ANDROID) &&                               \
+    (!defined(__ANDROID_API__) || (__ANDROID_API__ < 21)) && \
+    defined(HAVE_PTHREAD_COND_TIMEDWAIT_MONOTONIC)
         ret_val = pthread_cond_timedwait_monotonic_np(&cond_, &mutex_, &end_at);
 #else
         ret_val = pthread_cond_timedwait(&cond_, &mutex_, &end_at);
@@ -129,7 +131,9 @@ EventTypeWrapper EventTimerPosix::Wait(timespec* end_at, bool reset_event) {
   }
 
   while (ret_val == 0 && !event_set_) {
-#if defined(WEBRTC_ANDROID) && defined(HAVE_PTHREAD_COND_TIMEDWAIT_MONOTONIC)
+#if defined(WEBRTC_ANDROID) &&                               \
+    (!defined(__ANDROID_API__) || (__ANDROID_API__ < 21)) && \
+    defined(HAVE_PTHREAD_COND_TIMEDWAIT_MONOTONIC)
     ret_val = pthread_cond_timedwait_monotonic_np(&cond_, &mutex_, end_at);
 #else
     ret_val = pthread_cond_timedwait(&cond_, &mutex_, end_at);

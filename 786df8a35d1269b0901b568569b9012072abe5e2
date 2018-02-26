@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "a4f2c682_06874ecc",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T22:31:08Z",
+      "side": 1,
+      "message": "Not *much* of a drawback, but just like it eventually pays off to not write code that\u0027s needlessly inefficient, it eventually pays off to not needlessly expose implementation details in the API. In this case, users may come to rely in this class being copyable or movable or default constructible, for example, or they may subclass it---all of which can end up complicating some future code change.",
+      "parentUuid": "c5f8a5de_588bab01",
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2af04e8_d3d70c3f",
         "filename": "modules/audio_processing/BUILD.gn",
         "patchSetId": 3

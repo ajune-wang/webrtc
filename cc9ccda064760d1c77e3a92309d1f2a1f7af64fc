@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7241bf80_49fe982f",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T22:31:08Z",
+      "side": 1,
+      "message": "return rtc::MakeUnique\u003cEchoCanceller3\u003e(config_, sample_rate_hz, true);",
+      "revId": "cc9ccda064760d1c77e3a92309d1f2a1f7af64fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7852f56_9f46fc43",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-26T22:31:08Z",
+      "side": 1,
+      "message": "Oh, by the way, can this be const now?",
+      "revId": "cc9ccda064760d1c77e3a92309d1f2a1f7af64fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

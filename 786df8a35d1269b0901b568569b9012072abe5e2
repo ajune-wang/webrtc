@@ -67,6 +67,29 @@
       "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2af04e8_d3d70c3f",
+        "filename": "modules/audio_processing/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-26T12:22:47Z",
+      "side": 1,
+      "message": "We still always build with the AEC3, right? :audio_processing depends on aec3_factory, which pulls in aec3:aec3. Will build-disabling come later?",
+      "range": {
+        "startLine": 511,
+        "startChar": 17,
+        "endLine": 511,
+        "endChar": 35
+      },
+      "revId": "786df8a35d1269b0901b568569b9012072abe5e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

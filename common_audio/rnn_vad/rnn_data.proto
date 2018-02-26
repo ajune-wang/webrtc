@@ -1,0 +1,37 @@
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+package webrtc.rnn_vad;
+
+message FullyConnectedLayerParams {
+  required int32 input_size = 1;
+  // Output size, or number of units.
+  required int32 output_size = 2;
+  // Bias terms (size: output_size).
+  required bytes bias = 3;
+  // Weights (size: input_size x output_size).
+  required bytes weights = 4;
+}
+
+message GatedRecurrentLayerParams {
+  required int32 input_size = 1;
+  // Output size, or number of recurrent units.
+  required int32 output_size = 2;
+
+  message Params {
+    // Bias terms (size: output_size).
+    required bytes bias = 1;
+    // Weights (size: input_size x output_size).
+    required bytes weights = 2;
+    // Recurrent weights (size: input_size x output_size).
+    required bytes recurrent_weights = 3;
+  }
+  required Params update = 3;
+  required Params reset = 4;
+  required Params output = 5;
+}
+
+message RnnBasedVadParams {
+  required FullyConnectedLayerParams input_layer = 1;
+  required GatedRecurrentLayerParams hidden_layer = 2;
+  required FullyConnectedLayerParams output_layer = 3;
+}

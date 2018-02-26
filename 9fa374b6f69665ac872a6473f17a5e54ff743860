@@ -85,6 +85,23 @@
       "revId": "9fa374b6f69665ac872a6473f17a5e54ff743860",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31f3f037_426ec476",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-26T22:30:57Z",
+      "side": 1,
+      "message": "Ah, so this is why you made nativeTrack public. Instead I\u0027d suggest creating a VideoTrack or AudioTrack in RtpReceiver.java. Then the caller here could just downcast \"track()\". Or we could add \"audio_track()\"/\"video_track()\" accessors to avoid even needing to downcast.",
+      "revId": "9fa374b6f69665ac872a6473f17a5e54ff743860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

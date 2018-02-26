@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6a98f09b_ed8feb3c",
+        "filename": "rtc_base/httpcommon.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-26T11:20:43Z",
+      "side": 1,
+      "message": "I just copied the code from the header and just left it unchanged except for renaming the functions to avoid hitting a conflict with Chrome\u0027s logging.h that\u0027s in webrtc_overrides. I\u0027ll delete the code from there too.\n\nI think this code is actually dead code in practice. It\u0027s Windows only and I\u0027m not aware of any users of it. Possibly cast utilities in chromium? (not chromium itself)\nIn any case, I don\u0027t think it\u0027s worth it spending time on rewriting it so I\u0027ll take you up on the offer of leaving it as is :)",
+      "parentUuid": "f5705a5d_6abb6369",
+      "range": {
+        "startLine": 51,
+        "startChar": 35,
+        "endLine": 51,
+        "endChar": 66
+      },
+      "revId": "b818ccaafe6095f2b466e622d0e54d1e0ef36f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36bceedd_5eac4be0",
         "filename": "rtc_base/httpcommon.cc",
         "patchSetId": 22
@@ -36,6 +60,24 @@
       "writtenOn": "2018-02-26T10:46:31Z",
       "side": 1,
       "message": "Better give these an RTC_ prefix. A lot of foreign headers have been #included at this point.",
+      "revId": "b818ccaafe6095f2b466e622d0e54d1e0ef36f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5567627d_50fe1682",
+        "filename": "rtc_base/httpcommon.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-02-26T11:20:43Z",
+      "side": 1,
+      "message": "Same here, I\u0027d like to just keep this as is, it\u0027s much smaller in scope now than it was at least. Eventually I expect that we\u0027ll delete this.",
+      "parentUuid": "36bceedd_5eac4be0",
       "revId": "b818ccaafe6095f2b466e622d0e54d1e0ef36f85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5a2a9be_a4c893c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-02-27T08:26:10Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s how it works :S\nOnly luci.webrtc.try is usable with `led`, anything else in this file is not.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "57051ec4ef54339912ca1d738c136518c8eb8ec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

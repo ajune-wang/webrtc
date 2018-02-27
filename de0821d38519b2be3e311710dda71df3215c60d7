@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "cc6a7f67_a38aeba5",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCConfiguration.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-27T00:55:53Z",
+      "side": 1,
+      "message": "As I looked here to copy this to PeerConnection.java I noticed that it isn\u0027t up to date with you latest CL:\nhttps://webrtc-review.googlesource.com/c/src/+/57240",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 3
+      },
+      "revId": "de0821d38519b2be3e311710dda71df3215c60d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5fb5d2b7_87ceaf09",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
         "patchSetId": 9

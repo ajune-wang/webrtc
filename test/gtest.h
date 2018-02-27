@@ -15,6 +15,7 @@
 
 RTC_PUSH_IGNORING_WUNDEF()
 #include "testing/gtest/include/gtest/gtest.h"
+#include "testing/gtest/include/gtest/gtest-spi.h"
 RTC_POP_IGNORING_WUNDEF()
 
 // GTEST_HAS_DEATH_TEST is set to 1 when death tests are supported, but appears

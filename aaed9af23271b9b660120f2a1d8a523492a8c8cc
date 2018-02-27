@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d99f09f4_bf66dc44",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5906
+      },
+      "writtenOn": "2018-02-27T11:02:12Z",
+      "side": 1,
+      "message": "nit: RTC_CHECK_NE",
+      "revId": "aaed9af23271b9b660120f2a1d8a523492a8c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -14,6 +14,7 @@
 #include <map>
 
 #include "call/call.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "test/direct_transport.h"
 #include "test/frame_generator_capturer.h"
 
@@ -33,8 +34,7 @@ class MultiStreamTester {
     int height;
   } codec_settings[kNumStreams];
 
-  explicit MultiStreamTester(
-      test::SingleThreadedTaskQueueForTesting* task_queue);
+  explicit MultiStreamTester(rtc::test::TaskQueueForTest* task_queue);
 
   virtual ~MultiStreamTester();
 
@@ -52,13 +52,13 @@ class MultiStreamTester {
   virtual void UpdateReceiveConfig(size_t stream_index,
                                    VideoReceiveStream::Config* receive_config);
   virtual test::DirectTransport* CreateSendTransport(
-      test::SingleThreadedTaskQueueForTesting* task_queue,
+      rtc::test::TaskQueueForTest* task_queue,
       Call* sender_call);
   virtual test::DirectTransport* CreateReceiveTransport(
-      test::SingleThreadedTaskQueueForTesting* task_queue,
+      rtc::test::TaskQueueForTest* task_queue,
       Call* receiver_call);
 
-  test::SingleThreadedTaskQueueForTesting* const task_queue_;
+  rtc::test::TaskQueueForTest* const task_queue_;
 };
 }  // namespace webrtc
 #endif  // VIDEO_END_TO_END_TESTS_MULTI_STREAM_TESTER_H_

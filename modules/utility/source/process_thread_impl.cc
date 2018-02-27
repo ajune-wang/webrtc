@@ -48,7 +48,7 @@ ProcessThreadImpl::ProcessThreadImpl(const char* thread_name)
       thread_name_(thread_name) {}
 
 ProcessThreadImpl::~ProcessThreadImpl() {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(sequence_checker_.CalledSequentially());
   RTC_DCHECK(!thread_.get());
   RTC_DCHECK(!stop_);
 
@@ -59,7 +59,7 @@ ProcessThreadImpl::~ProcessThreadImpl() {
 }
 
 void ProcessThreadImpl::Start() {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(sequence_checker_.CalledSequentially());
   RTC_DCHECK(!thread_.get());
   if (thread_.get())
     return;
@@ -75,7 +75,7 @@ void ProcessThreadImpl::Start() {
 }
 
 void ProcessThreadImpl::Stop() {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(sequence_checker_.CalledSequentially());
   if(!thread_.get())
     return;
 
@@ -117,7 +117,7 @@ void ProcessThreadImpl::PostTask(std::unique_ptr<rtc::QueuedTask> task) {
 
 void ProcessThreadImpl::RegisterModule(Module* module,
                                        const rtc::Location& from) {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(sequence_checker_.CalledSequentially());
   RTC_DCHECK(module) << from.ToString();
 
 #if RTC_DCHECK_IS_ON
@@ -150,7 +150,7 @@ void ProcessThreadImpl::RegisterModule(Module* module,
 }
 
 void ProcessThreadImpl::DeRegisterModule(Module* module) {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(sequence_checker_.CalledSequentially());
   RTC_DCHECK(module);
 
   {

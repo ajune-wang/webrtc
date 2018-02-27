@@ -70,7 +70,7 @@ TEST_P(MultiStreamEndToEndTest, SendsAndReceivesMultipleStreams) {
 
   class Tester : public MultiStreamTester {
    public:
-    explicit Tester(test::SingleThreadedTaskQueueForTesting* task_queue)
+    explicit Tester(rtc::test::TaskQueueForTest* task_queue)
         : MultiStreamTester(task_queue) {}
     virtual ~Tester() {}
 

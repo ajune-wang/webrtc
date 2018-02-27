@@ -70,6 +70,30 @@
       "revId": "57051ec4ef54339912ca1d738c136518c8eb8ec1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3199cd6_4f685d1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-02-27T09:08:21Z",
+      "side": 1,
+      "message": "Aha. Well there\u0027s a good reason to switch to LUCI!\n\nI will just have to break the perf bots in production for a bit, then.",
+      "parentUuid": "c8674813_eede295a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "57051ec4ef54339912ca1d738c136518c8eb8ec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

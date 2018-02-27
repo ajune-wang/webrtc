@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2013 The WebRTC project authors. All Rights Reserved.
+ *  Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_FAKE_AUDIO_DEVICE_H_
-#define TEST_FAKE_AUDIO_DEVICE_H_
+#ifndef MODULES_AUDIO_DEVICE_INCLUDE_TEST_AUDIO_DEVICE_H_
+#define MODULES_AUDIO_DEVICE_INCLUDE_TEST_AUDIO_DEVICE_H_
 
 #include <memory>
 #include <string>
@@ -27,12 +27,9 @@ namespace webrtc {
 
 class EventTimerWrapper;
 
-namespace test {
-
-// FakeAudioDevice implements an AudioDevice module that can act both as a
+// TestAudioDeviceModule implements an AudioDevice module that can act both as a
 // capturer and a renderer. It will use 10ms audio frames.
-// Deprecated: use modules/audio_device/include/test_audio_device.h instead.
-class FakeAudioDevice : public FakeAudioDeviceModule {
+class TestAudioDeviceModule : public FakeAudioDeviceModule {
  public:
   // Returns the number of samples that Capturers and Renderers with this
   // sampling frequency will work with every time Capture or Render is called.
@@ -45,8 +42,8 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
     // capturer produces.
     virtual int SamplingFrequency() const = 0;
     // Replaces the contents of |buffer| with 10ms of captured audio data
-    // (see FakeAudioDevice::SamplesPerFrame). Returns true if the capturer can
-    // keep producing data, or false when the capture finishes.
+    // (see TestAudioDeviceModule::SamplesPerFrame). Returns true if the
+    // capturer can keep producing data, or false when the capture finishes.
     virtual bool Capture(rtc::BufferT<int16_t>* buffer) = 0;
   };
 
@@ -81,17 +78,17 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
     int16_t max_amplitude_ RTC_GUARDED_BY(lock_);
   };
 
-  // Creates a new FakeAudioDevice. When capturing or playing, 10 ms audio
+  // Creates a new TestAudioDeviceModule. When capturing or playing, 10 ms audio
   // frames will be processed every 10ms / |speed|.
   // |capturer| is an object that produces audio data. Can be nullptr if this
   // device is never used for recording.
   // |renderer| is an object that receives audio data that would have been
   // played out. Can be nullptr if this device is never used for playing.
   // Use one of the Create... functions to get these instances.
-  FakeAudioDevice(std::unique_ptr<Capturer> capturer,
-                  std::unique_ptr<Renderer> renderer,
-                  float speed = 1);
-  ~FakeAudioDevice() override;
+  TestAudioDeviceModule(std::unique_ptr<Capturer> capturer,
+                        std::unique_ptr<Renderer> renderer,
+                        float speed = 1);
+  ~TestAudioDeviceModule() override;
 
   // Returns a Capturer instance that generates a signal where every second
   // frame is zero and every second frame is evenly distributed random noise
@@ -102,7 +99,8 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
 
   // Returns a Capturer instance that gets its data from a file.
   static std::unique_ptr<Capturer> CreateWavFileReader(
-      std::string filename, int sampling_frequency_in_hz);
+      std::string filename,
+      int sampling_frequency_in_hz);
 
   // Returns a Capturer instance that gets its data from a file.
   // Automatically detects sample rate.
@@ -110,13 +108,15 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
 
   // Returns a Renderer instance that writes its data to a file.
   static std::unique_ptr<Renderer> CreateWavFileWriter(
-      std::string filename, int sampling_frequency_in_hz);
+      std::string filename,
+      int sampling_frequency_in_hz);
 
   // Returns a Renderer instance that writes its data to a WAV file, cutting
   // off silence at the beginning (not necessarily perfect silence, see
   // kAmplitudeThreshold) and at the end (only actual 0 samples in this case).
   static std::unique_ptr<Renderer> CreateBoundedWavFileWriter(
-      std::string filename, int sampling_frequency_in_hz);
+      std::string filename,
+      int sampling_frequency_in_hz);
 
   // Returns a Renderer instance that does nothing with the audio data.
   static std::unique_ptr<Renderer> CreateDiscardRenderer(
@@ -161,7 +161,7 @@ class FakeAudioDevice : public FakeAudioDeviceModule {
   std::unique_ptr<EventTimerWrapper> tick_;
   rtc::PlatformThread thread_;
 };
-}  // namespace test
+
 }  // namespace webrtc
 
-#endif  // TEST_FAKE_AUDIO_DEVICE_H_
+#endif  // MODULES_AUDIO_DEVICE_INCLUDE_TEST_AUDIO_DEVICE_H_

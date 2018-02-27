@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8ab66a52_fe0f50d2",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-27T15:25:55Z",
+      "side": 1,
+      "message": "Was just making sure to not break any code depending on it being const. I don\u0027t know of any current usage of the const interface. Should I remove it directly?",
+      "parentUuid": "2f04e418_3b537c03",
+      "range": {
+        "startLine": 83,
+        "startChar": 40,
+        "endLine": 83,
+        "endChar": 60
+      },
+      "revId": "01613803859ab96139618919ed78009291e4d948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a48743d2_262481f6",
         "filename": "modules/congestion_controller/include/send_side_congestion_controller_interface.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "01613803859ab96139618919ed78009291e4d948",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4757df8_8ea8308c",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-27T15:25:55Z",
+      "side": 1,
+      "message": "Because it returns \"this\" which would then be const.",
+      "parentUuid": "a48743d2_262481f6",
+      "range": {
+        "startLine": 60,
+        "startChar": 33,
+        "endLine": 60,
+        "endChar": 53
+      },
+      "revId": "01613803859ab96139618919ed78009291e4d948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

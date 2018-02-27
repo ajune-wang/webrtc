@@ -172,6 +172,7 @@ class ScopedJavaGlobalRef : public JavaRef<T> {
  public:
   using JavaRef<T>::obj_;
 
+  ScopedJavaGlobalRef() = default;
   ScopedJavaGlobalRef(JNIEnv* env, const JavaRef<T>& other)
       : JavaRef<T>(static_cast<T>(env->NewGlobalRef(other.obj()))) {}
   explicit ScopedJavaGlobalRef(const ScopedJavaLocalRef<T>& other)

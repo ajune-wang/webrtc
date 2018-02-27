@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cbaa71e_acf83f9c",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:18:50Z",
+      "side": 1,
+      "message": "Is std::atomic\u003c\u003e ok to use now? To me it is, and from what I understand it\u0027s already used in Chromium, but I thought I\u0027d check. :)",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7758d26f_48e49f66",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:18:50Z",
+      "side": 1,
+      "message": "1\u003c\u003c63 isn\u0027t the absolute maximum, is it? It\u0027s (1\u003c\u003c64)-1. Although, I don\u0027t really think anyone should rely on the exact limit of this anyways.",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b841f9d_bd6779cb",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:18:50Z",
+      "side": 1,
+      "message": "There\u0027s no way I can check these. I\u0027ll have to take your word for it. :)",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5633b068_528b17b0",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:18:50Z",
+      "side": 1,
+      "message": "Is there a #pragma you could use for Visual C++ to disable that warning for this block?\nI guess it\u0027s not critical to run these, but could be nice to have if they were to actually trigger a problem on a Windows compiler.\n\nActually, wouldn\u0027t the warning have to be disabled for ObfuscateId? Otherwise it might explode when used.",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c0d915c_2623d380",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:18:50Z",
+      "side": 1,
+      "message": "This is a bit bonkers, but I do like that we hand out something unpredictable. If it were just a consecutive sequence, someone _would_ rely on it starting at zero or one, etc., and things would magically break sometime in the future.",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24276260_6dff63ea",
+        "filename": "api/audio_codecs/audio_codec_pair_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:18:50Z",
+      "side": 1,
+      "message": "Welcome to my bikeshed! Should it be called AudioCodecPairingId instead?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ef3bf41_3be16a1f",
+        "filename": "api/audio_codecs/audio_decoder_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:18:50Z",
+      "side": 1,
+      "message": "IIRC, this causes warnings about shadowing when a subclass implements one of these but not the other. I think I got hit with that when trying to change the AudioEncoder interface a couple of years back.",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

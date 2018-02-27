@@ -13,7 +13,6 @@
 
 #include <stddef.h>
 #include <string.h>
-#include <ostream>
 #include <string>
 #include <vector>
 
@@ -612,10 +611,6 @@ class BitrateAllocation {
   inline bool operator!=(const BitrateAllocation& other) const {
     return !(*this == other);
   }
-
-  // Expensive, please use only in tests.
-  std::string ToString() const;
-  std::ostream& operator<<(std::ostream& os) const;
 
  private:
   uint32_t sum_;

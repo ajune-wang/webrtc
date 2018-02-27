@@ -119,6 +119,14 @@ public class YuvHelper {
         dstStrideU, dstV, dstStrideV, srcWidth, srcHeight, rotationMode);
   }
 
+  public static ByteBuffer cropAndScalePlane(ByteBuffer src, int srcStride, int cropX, int cropY,
+      int cropWidth, int cropHeight, int dstStride, int scaleWidth, int scaleHeight) {
+    ByteBuffer dst = JniCommon.nativeAllocateByteBuffer(dstStride * scaleHeight);
+    nativeCropAndScalePlane(src, srcStride, cropX, cropY, cropWidth, cropHeight, dst, dstStride,
+        scaleWidth, scaleHeight);
+    return dst;
+  }
+
   private static native void nativeI420Copy(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU,
       int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
       ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int width, int height);
@@ -129,4 +137,7 @@ public class YuvHelper {
       int srcStrideU, ByteBuffer srcV, int srcStrideV, ByteBuffer dstY, int dstStrideY,
       ByteBuffer dstU, int dstStrideU, ByteBuffer dstV, int dstStrideV, int srcWidth, int srcHeight,
       int rotationMode);
+  private static native void nativeCropAndScalePlane(ByteBuffer src, int srcStride, int cropX,
+      int cropY, int cropWidth, int cropHeight, ByteBuffer dst, int dstStride, int scaleWidth,
+      int scaleHeight);
 }

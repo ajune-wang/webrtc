@@ -34,6 +34,24 @@
       "revId": "aaed9af23271b9b660120f2a1d8a523492a8c8cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1c47688_929d7ae8",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-02-27T13:26:53Z",
+      "side": 1,
+      "message": "FYI, it would work with static_cast\u003cRtcEvent*\u003e(nullptr), but that\u0027s probably overkill.",
+      "parentUuid": "5075365e_6509631a",
+      "revId": "aaed9af23271b9b660120f2a1d8a523492a8c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

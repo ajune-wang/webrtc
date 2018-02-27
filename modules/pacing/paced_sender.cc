@@ -261,6 +261,10 @@ void PacedSender::Process() {
   time_last_process_us_ = now_us;
   int64_t elapsed_time_ms = (now_us - last_send_time_us_ + 500) / 1000;
 
+  RTC_DCHECK_LT(elapsed_time_ms, kPausedPacketIntervalMs * 2)
+      << "Process called with interval longer than paximum possible interval. "
+         "Possibly due to initialization done long before attaching to process "
+         "thread.";
   // When paused we send a padding packet every 500 ms to ensure we won't get
   // stuck in the paused state due to no feedback being received.
   if (paused_) {

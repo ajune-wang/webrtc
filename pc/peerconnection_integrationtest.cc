@@ -2728,8 +2728,10 @@ TEST_P(PeerConnectionIntegrationTest,
 // transport has detected that a channel is writable and thus data can be
 // received before the data channel state changes to open. That is hard to test
 // but the same buffering is expected to be used in that case.
+// TODO(srte): Disabled due to fake_clock being destructed before caller and
+// callee, causing an inappropriate jump in time.
 TEST_P(PeerConnectionIntegrationTest,
-       DataBufferedUntilRtpDataChannelObserverRegistered) {
+       DISABLED_DataBufferedUntilRtpDataChannelObserverRegistered) {
   // Use fake clock and simulated network delay so that we predictably can wait
   // until an SCTP message has been delivered without "sleep()"ing.
   rtc::ScopedFakeClock fake_clock;

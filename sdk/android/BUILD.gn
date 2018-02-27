@@ -611,6 +611,7 @@ rtc_android_library("libjingle_peerconnection_java") {
     "api/org/webrtc/HardwareVideoDecoderFactory.java",
     "api/org/webrtc/HardwareVideoEncoderFactory.java",
     "api/org/webrtc/IceCandidate.java",
+    "api/org/webrtc/JavaI420ABuffer.java",
     "api/org/webrtc/JavaI420Buffer.java",
     "api/org/webrtc/MediaCodecVideoDecoder.java",
     "api/org/webrtc/MediaCodecVideoEncoder.java",

@@ -88,6 +88,42 @@ public class VideoFrame {
     @CalledByNative("I420Buffer") int getStrideV();
   }
 
+  public interface I420ABuffer extends Buffer {
+    /**
+     * Returns a direct ByteBuffer containing Y-plane data. The buffer capacity is at least
+     * getStrideY() * getHeight() bytes. The position of the returned buffer is ignored and must
+     * be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * implementations must return a new ByteBuffer or slice for each call.
+     */
+    @CalledByNative("I420ABuffer") ByteBuffer getDataY();
+    /**
+     * Returns a direct ByteBuffer containing U-plane data. The buffer capacity is at least
+     * getStrideU() * ((getHeight() + 1) / 2) bytes. The position of the returned buffer is ignored
+     * and must be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * implementations must return a new ByteBuffer or slice for each call.
+     */
+    @CalledByNative("I420ABuffer") ByteBuffer getDataU();
+    /**
+     * Returns a direct ByteBuffer containing V-plane data. The buffer capacity is at least
+     * getStrideV() * ((getHeight() + 1) / 2) bytes. The position of the returned buffer is ignored
+     * and must be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * implementations must return a new ByteBuffer or slice for each call.
+     */
+    @CalledByNative("I420ABuffer") ByteBuffer getDataV();
+    /**
+     * Returns a direct ByteBuffer containing A-plane data. The buffer capacity is at least
+     * getStrideY() * getHeight() bytes. The position of the returned buffer is ignored and must
+     * be 0. Callers may mutate the ByteBuffer (eg. through relative-read operations), so
+     * implementations must return a new ByteBuffer or slice for each call.
+     */
+    @CalledByNative("I420ABuffer") ByteBuffer getDataA();
+
+    @CalledByNative("I420ABuffer") int getStrideY();
+    @CalledByNative("I420ABuffer") int getStrideU();
+    @CalledByNative("I420ABuffer") int getStrideV();
+    @CalledByNative("I420ABuffer") int getStrideA();
+  }
+
   /**
    * Interface for buffers that are stored as a single texture, either in OES or RGB format.
    */

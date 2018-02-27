@@ -22,6 +22,30 @@
       "revId": "3779ce5ed933f1dbc2c41ce14ed37c790fb044b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a253ac53_06b7f5fb",
+        "filename": "sdk/android/native_api/jni/scoped_java_ref.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-27T15:16:06Z",
+      "side": 1,
+      "message": "This is needed by the deprecated AndroidNetworkMonitorFactory constructor where application context is not set.",
+      "parentUuid": "19c0541a_39def382",
+      "range": {
+        "startLine": 175,
+        "startChar": 2,
+        "endLine": 175,
+        "endChar": 34
+      },
+      "revId": "3779ce5ed933f1dbc2c41ce14ed37c790fb044b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

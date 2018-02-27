@@ -1952,7 +1952,7 @@ RTCError PeerConnection::ApplyLocalDescription(
       const auto& streams = content->media_description()->streams();
       if (!content->rejected && !streams.empty()) {
         transceiver->internal()->sender_internal()->set_stream_ids(
-            {streams[0].sync_label});
+            streams[0].stream_labels());
         transceiver->internal()->sender_internal()->SetSsrc(
             streams[0].first_ssrc());
       }
@@ -2245,7 +2245,10 @@ RTCError PeerConnection::ApplyRemoteDescription(
       // Create a sync label in the case of an unsignalled msid.
       std::string sync_label = rtc::CreateRandomUuid();
       if (!media_desc->streams().empty()) {
-        sync_label = media_desc->streams()[0].sync_label;
+        const cricket::StreamParams& stream_params = media_desc->streams()[0];
+        if (!stream_params.stream_labels().empty()) {
+          sync_label = stream_params.stream_labels()[0];
+        }
       }
       if (RtpTransceiverDirectionHasRecv(local_direction) &&
           (!transceiver->current_direction() ||
@@ -3882,7 +3885,9 @@ void PeerConnection::UpdateRemoteSendersList(
   for (const cricket::StreamParams& params : streams) {
     // The sync_label is the MediaStream label and the |stream.id| is the
     // sender id.
-    const std::string& stream_label = params.sync_label;
+    // TODO(bugs.webrtc.org/7932): Add support for multiple stream labels.
+    const std::string& stream_label =
+        (!params.stream_labels().empty() ? params.stream_labels()[0] : "");
     const std::string& sender_id = params.id;
     uint32_t ssrc = params.first_ssrc();
 
@@ -4005,7 +4010,7 @@ void PeerConnection::UpdateLocalSenders(
     const cricket::StreamParams* params =
         cricket::GetStreamBySsrc(streams, info.first_ssrc);
     if (!params || params->id != info.sender_id ||
-        params->sync_label != info.stream_label) {
+        params->first_stream_label() != info.stream_label) {
       OnLocalSenderRemoved(info, media_type);
       sender_it = current_senders->erase(sender_it);
     } else {
@@ -4017,7 +4022,7 @@ void PeerConnection::UpdateLocalSenders(
   for (const cricket::StreamParams& params : streams) {
     // The sync_label is the MediaStream label and the |stream.id| is the
     // sender id.
-    const std::string& stream_label = params.sync_label;
+    const std::string& stream_label = params.first_stream_label();
     const std::string& sender_id = params.id;
     uint32_t ssrc = params.first_ssrc();
     const RtpSenderInfo* sender_info =
@@ -4081,7 +4086,7 @@ void PeerConnection::UpdateLocalRtpDataChannels(
     // MediaStreams and Tracks.
     // For MediaStreams, the sync_label is the MediaStream label and the
     // track label is the same as |streamid|.
-    const std::string& channel_label = params.sync_label;
+    const std::string& channel_label = params.first_stream_label();
     auto data_channel_it = rtp_data_channels_.find(channel_label);
     if (data_channel_it == rtp_data_channels_.end()) {
       RTC_LOG(LS_ERROR) << "channel label not found";
@@ -4103,9 +4108,9 @@ void PeerConnection::UpdateRemoteRtpDataChannels(
   for (const cricket::StreamParams& params : streams) {
     // The data channel label is either the mslabel or the SSRC if the mslabel
     // does not exist. Ex a=ssrc:444330170 mslabel:test1.
-    std::string label = params.sync_label.empty()
+    std::string label = params.first_stream_label().empty()
                             ? rtc::ToString(params.first_ssrc())
-                            : params.sync_label;
+                            : params.first_stream_label();
     auto data_channel_it = rtp_data_channels_.find(label);
     if (data_channel_it == rtp_data_channels_.end()) {
       // This is a new data channel.

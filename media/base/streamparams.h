@@ -69,14 +69,10 @@ struct StreamParams {
   }
 
   bool operator==(const StreamParams& other) const {
-    return (groupid == other.groupid &&
-            id == other.id &&
-            ssrcs == other.ssrcs &&
-            ssrc_groups == other.ssrc_groups &&
-            type == other.type &&
-            display == other.display &&
-            cname == other.cname &&
-            sync_label == other.sync_label);
+    return (groupid == other.groupid && id == other.id &&
+            ssrcs == other.ssrcs && ssrc_groups == other.ssrc_groups &&
+            type == other.type && display == other.display &&
+            cname == other.cname && stream_labels_ == other.stream_labels_);
   }
   bool operator!=(const StreamParams &other) const {
     return !(*this == other);
@@ -150,6 +146,10 @@ struct StreamParams {
   std::vector<std::string> stream_labels() const;
   void set_stream_labels(const std::vector<std::string>& stream_labels);
 
+  // Returns the first stream label or "" if none exist. This method exists only
+  // as temporary backwards compatibility with the old sync_label.
+  std::string first_stream_label() const;
+
   std::string ToString() const;
 
   // Resource of the MUC jid of the participant of with this stream.
@@ -165,8 +165,6 @@ struct StreamParams {
   // Friendly name describing stream
   std::string display;
   std::string cname;  // RTCP CNAME
-  // TODO(steveanton): Move callers to |stream_labels()| and make private.
-  std::string sync_label;  // Friendly name of cname.
 
  private:
   bool AddSecondarySsrc(const std::string& semantics,
@@ -175,6 +173,8 @@ struct StreamParams {
   bool GetSecondarySsrc(const std::string& semantics,
                         uint32_t primary_ssrc,
                         uint32_t* secondary_ssrc) const;
+
+  std::vector<std::string> stream_labels_;
 };
 
 // A Stream can be selected by either groupid+id or ssrc.

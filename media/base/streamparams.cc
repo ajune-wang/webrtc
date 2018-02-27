@@ -141,8 +141,12 @@ std::string StreamParams::ToString() const {
   if (!cname.empty()) {
     ost << "cname:" << cname << ";";
   }
-  if (!sync_label.empty()) {
-    ost << "sync_label:" << sync_label;
+  ost << "stream_labels:";
+  for (auto it = stream_labels_.begin(); it != stream_labels_.end(); ++it) {
+    if (it != stream_labels_.begin()) {
+      ost << ",";
+    }
+    ost << *it;
   }
   ost << "}";
   return ost.str();
@@ -200,10 +204,7 @@ bool StreamParams::GetSecondarySsrc(const std::string& semantics,
 }
 
 std::vector<std::string> StreamParams::stream_labels() const {
-  if (sync_label.empty()) {
-    return {};
-  }
-  return {sync_label};
+  return stream_labels_;
 }
 
 void StreamParams::set_stream_labels(
@@ -212,7 +213,11 @@ void StreamParams::set_stream_labels(
   RTC_DCHECK_LE(stream_labels.size(), 1) << "set_stream_labels currently only "
                                             "supports exactly 0 or 1 stream "
                                             "label.";
-  sync_label = (stream_labels.empty() ? "" : stream_labels[0]);
+  stream_labels_ = stream_labels;
+}
+
+std::string StreamParams::first_stream_label() const {
+  return (stream_labels_.empty() ? "" : stream_labels_[0]);
 }
 
 bool IsOneSsrcStream(const StreamParams& sp) {

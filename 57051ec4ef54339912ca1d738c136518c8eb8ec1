@@ -46,6 +46,30 @@
       "revId": "57051ec4ef54339912ca1d738c136518c8eb8ec1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8674813_eede295a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-02-27T08:42:53Z",
+      "side": 1,
+      "message": "Well it has a hard requirement of LUCI, and this is not using LUCI",
+      "parentUuid": "2ebf3767_adb776e0",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "57051ec4ef54339912ca1d738c136518c8eb8ec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

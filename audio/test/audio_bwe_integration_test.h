@@ -33,11 +33,12 @@ class AudioBweTest : public test::EndToEndTest {
   size_t GetNumAudioStreams() const override;
   size_t GetNumFlexfecStreams() const override;
 
-  std::unique_ptr<test::FakeAudioDevice::Capturer> CreateCapturer() override;
+  std::unique_ptr<webrtc::TestAudioDeviceModule::Capturer> CreateCapturer()
+      override;
 
   void OnFakeAudioDevicesCreated(
-      test::FakeAudioDevice* send_audio_device,
-      test::FakeAudioDevice* recv_audio_device) override;
+      webrtc::TestAudioDeviceModule* send_audio_device,
+      webrtc::TestAudioDeviceModule* recv_audio_device) override;
 
   test::PacketTransport* CreateSendTransport(
       SingleThreadedTaskQueueForTesting* task_queue,
@@ -48,7 +49,7 @@ class AudioBweTest : public test::EndToEndTest {
   void PerformTest() override;
 
  private:
-  test::FakeAudioDevice* send_audio_device_;
+  webrtc::TestAudioDeviceModule* send_audio_device_;
 };
 
 }  // namespace test

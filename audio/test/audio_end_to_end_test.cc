@@ -43,19 +43,20 @@ size_t AudioEndToEndTest::GetNumFlexfecStreams() const {
   return 0;
 }
 
-std::unique_ptr<test::FakeAudioDevice::Capturer>
-    AudioEndToEndTest::CreateCapturer() {
-  return test::FakeAudioDevice::CreatePulsedNoiseCapturer(32000, kSampleRate);
+std::unique_ptr<webrtc::TestAudioDeviceModule::Capturer>
+AudioEndToEndTest::CreateCapturer() {
+  return webrtc::TestAudioDeviceModule::CreatePulsedNoiseCapturer(32000,
+                                                                  kSampleRate);
 }
 
-std::unique_ptr<test::FakeAudioDevice::Renderer>
-    AudioEndToEndTest::CreateRenderer() {
-  return test::FakeAudioDevice::CreateDiscardRenderer(kSampleRate);
+std::unique_ptr<webrtc::TestAudioDeviceModule::Renderer>
+AudioEndToEndTest::CreateRenderer() {
+  return webrtc::TestAudioDeviceModule::CreateDiscardRenderer(kSampleRate);
 }
 
 void AudioEndToEndTest::OnFakeAudioDevicesCreated(
-    test::FakeAudioDevice* send_audio_device,
-    test::FakeAudioDevice* recv_audio_device) {
+    webrtc::TestAudioDeviceModule* send_audio_device,
+    webrtc::TestAudioDeviceModule* recv_audio_device) {
   send_audio_device_ = send_audio_device;
 }
 

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c04b7be3_248ad443",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-27T13:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7241bf80_49fe982f",
+      "revId": "cc9ccda064760d1c77e3a92309d1f2a1f7af64fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7852f56_9f46fc43",
         "filename": "api/audio/echo_canceller3_factory.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "cc9ccda064760d1c77e3a92309d1f2a1f7af64fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30f6cfdb_500c247a",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-27T13:00:35Z",
+      "side": 1,
+      "message": "It can!",
+      "parentUuid": "f7852f56_9f46fc43",
+      "revId": "cc9ccda064760d1c77e3a92309d1f2a1f7af64fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

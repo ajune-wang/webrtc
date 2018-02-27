@@ -114,9 +114,13 @@ TEST_P(VideoProcessorIntegrationTestParameterized, Foreman_352x288_30) {
   RunTest(352, 288, 30, "foreman_cif");
 }
 
+// FourPeople_1280x720_30.yuv was removed from resources for mobile builds
+// because uploading of the file to device caused timeouts. See webrtc:8936.
+#if !defined(WEBRTC_ANDROID) && !defined(WEBRTC_IOS)
 TEST_P(VideoProcessorIntegrationTestParameterized, FourPeople_1280x720_30) {
   RunTest(1280, 720, 30, "FourPeople_1280x720_30");
 }
+#endif
 
 }  // namespace test
 }  // namespace webrtc

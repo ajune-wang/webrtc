@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "2710ed01_0cbacb39",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-02-27T23:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f9d261c_78caaad9",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 71
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03c43fe9_eed1b858",
         "filename": "sdk/android/src/jni/videoframe.cc",
         "patchSetId": 6
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "Please address.",
       "parentUuid": "03c43fe9_eed1b858",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 29
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a36bd53_629cfe46",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-02-27T23:47:51Z",
+      "side": 1,
+      "message": "For android app, say AppRTC, we may apply some segmentation algorithm on the video frame, say AIMatter, which takes in the video frame, and returns a mask array of the same size, where foreground pixel is labelled as 0xFF, and background pixel is labelled as 0. Now we want to stream both the color image and the mask to the remote side. Then we need some place to store the mask on the code path from capturer to the encoder. Naturally, we can store the segmentation result (the mask array) as the alpha channel of the frame.",
+      "parentUuid": "b5e764b7_a74756e5",
       "range": {
         "startLine": 120,
         "startChar": 6,

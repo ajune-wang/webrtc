@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5fbbd65_9517db34",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/kenny.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:26:25Z",
+      "side": 1,
+      "message": "Perhaps outside the scope of this CL, but chartjson_result_file could just be a pointer to const char pointing into one of the arguments, or NULL if unset. Then you wouldn\u0027t have to worry about the file name being \u003e100 characters long.",
+      "revId": "b0fe22000bfbb5e20a0a207fe10d4940a1b91ba8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f505240_0f2a4517",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/kenny.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:26:25Z",
+      "side": 1,
+      "message": "Do you need to print it, or was this just left over from debugging?",
+      "revId": "b0fe22000bfbb5e20a0a207fe10d4940a1b91ba8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

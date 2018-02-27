@@ -14,8 +14,8 @@
 #include <utility>
 
 #include "common_video/h264/h264_common.h"
-#include "modules/video_coding/frame_object.h"
 #include "modules/video_coding/packet_buffer.h"
+#include "modules/video_coding/rtp_encoded_frame.h"
 #include "rtc_base/random.h"
 #include "system_wrappers/include/clock.h"
 #include "test/field_trial.h"
@@ -37,7 +37,7 @@ class TestPacketBuffer : public ::testing::Test,
 
   uint16_t Rand() { return rand_.Rand<uint16_t>(); }
 
-  void OnReceivedFrame(std::unique_ptr<RtpFrameObject> frame) override {
+  void OnReceivedFrame(std::unique_ptr<RtpEncodedFrame> frame) override {
     uint16_t first_seq_num = frame->first_seq_num();
     if (frames_from_callback_.find(first_seq_num) !=
         frames_from_callback_.end()) {
@@ -90,7 +90,7 @@ class TestPacketBuffer : public ::testing::Test,
   Random rand_;
   std::unique_ptr<SimulatedClock> clock_;
   rtc::scoped_refptr<PacketBuffer> packet_buffer_;
-  std::map<uint16_t, std::unique_ptr<RtpFrameObject>> frames_from_callback_;
+  std::map<uint16_t, std::unique_ptr<RtpEncodedFrame>> frames_from_callback_;
 };
 
 TEST_F(TestPacketBuffer, InsertOnePacket) {
@@ -177,7 +177,7 @@ TEST_F(TestPacketBuffer, NackCount) {
   packet_buffer_->InsertPacket(&packet);
 
   ASSERT_EQ(1UL, frames_from_callback_.size());
-  RtpFrameObject* frame = frames_from_callback_.begin()->second.get();
+  RtpEncodedFrame* frame = frames_from_callback_.begin()->second.get();
   EXPECT_EQ(3, frame->times_nacked());
 }
 

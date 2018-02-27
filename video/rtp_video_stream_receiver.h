@@ -131,7 +131,7 @@ class RtpVideoStreamReceiver : public RtpData,
 
   // Implements OnReceivedFrameCallback.
   void OnReceivedFrame(
-      std::unique_ptr<video_coding::RtpFrameObject> frame) override;
+      std::unique_ptr<video_coding::RtpEncodedFrame> frame) override;
 
   // Implements OnCompleteFrameCallback.
   void OnCompleteFrame(

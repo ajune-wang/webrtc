@@ -17,8 +17,8 @@
 #include "common_video/h264/pps_parser.h"
 #include "common_video/h264/sps_parser.h"
 #include "modules/video_coding/codecs/h264/include/h264_globals.h"
-#include "modules/video_coding/frame_object.h"
 #include "modules/video_coding/packet_buffer.h"
+#include "modules/video_coding/rtp_encoded_frame.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 

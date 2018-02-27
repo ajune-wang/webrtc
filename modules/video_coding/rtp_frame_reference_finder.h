@@ -27,7 +27,7 @@ namespace webrtc {
 namespace video_coding {
 
 class EncodedFrame;
-class RtpFrameObject;
+class RtpEncodedFrame;
 
 // A complete frame is a frame which has received all its packets and all its
 // references are known.
@@ -47,7 +47,7 @@ class RtpFrameReferenceFinder {
   //  - We have too many stashed frames (determined by |kMaxStashedFrames|)
   //    so we drop this frame, or
   //  - It gets cleared by ClearTo, which also means we drop it.
-  void ManageFrame(std::unique_ptr<RtpFrameObject> frame);
+  void ManageFrame(std::unique_ptr<RtpEncodedFrame> frame);
 
   // Notifies that padding has been received, which the reference finder
   // might need to calculate the references of a frame.
@@ -84,27 +84,27 @@ class RtpFrameReferenceFinder {
   // Retry stashed frames until no more complete frames are found.
   void RetryStashedFrames() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
-  FrameDecision ManageFrameInternal(RtpFrameObject* frame)
+  FrameDecision ManageFrameInternal(RtpEncodedFrame* frame)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Find references for generic frames. If |picture_id| is unspecified
   // then packet sequence numbers will be used to determine the references
   // of the frames.
-  FrameDecision ManageFrameGeneric(RtpFrameObject* frame, int picture_id)
+  FrameDecision ManageFrameGeneric(RtpEncodedFrame* frame, int picture_id)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Find references for Vp8 frames
-  FrameDecision ManageFrameVp8(RtpFrameObject* frame)
+  FrameDecision ManageFrameVp8(RtpEncodedFrame* frame)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Updates necessary layer info state used to determine frame references for
   // Vp8.
-  void UpdateLayerInfoVp8(RtpFrameObject* frame,
+  void UpdateLayerInfoVp8(RtpEncodedFrame* frame,
                           const RTPVideoHeaderVP8& codec_header)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Find references for Vp9 frames
-  FrameDecision ManageFrameVp9(RtpFrameObject* frame)
+  FrameDecision ManageFrameVp9(RtpEncodedFrame* frame)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Check if we are missing a frame necessary to determine the references
@@ -126,13 +126,13 @@ class RtpFrameReferenceFinder {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Unwrap |frame|s picture id and its references to 16 bits.
-  void UnwrapPictureIds(RtpFrameObject* frame)
+  void UnwrapPictureIds(RtpEncodedFrame* frame)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Returns true if the frame is old and should be dropped.
   // TODO(philipel): Remove when VP9 PID/TL0 does not jump mid-stream (should be
   //                 around M59).
-  bool Vp9PidTl0Fix(const RtpFrameObject& frame,
+  bool Vp9PidTl0Fix(const RtpEncodedFrame& frame,
                     int16_t* picture_id,
                     int16_t* tl0_pic_idx) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
@@ -177,7 +177,7 @@ class RtpFrameReferenceFinder {
 
   // Frames that have been fully received but didn't have all the information
   // needed to determine their references.
-  std::deque<std::unique_ptr<RtpFrameObject>> stashed_frames_
+  std::deque<std::unique_ptr<RtpEncodedFrame>> stashed_frames_
       RTC_GUARDED_BY(crit_);
 
   // Holds the information about the last completed frame for a given temporal

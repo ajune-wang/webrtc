@@ -13,8 +13,8 @@
 #include <algorithm>
 #include <limits>
 
-#include "modules/video_coding/frame_object.h"
 #include "modules/video_coding/packet_buffer.h"
+#include "modules/video_coding/rtp_encoded_frame.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/system/fallthrough.h"
@@ -31,7 +31,7 @@ RtpFrameReferenceFinder::RtpFrameReferenceFinder(
       frame_callback_(frame_callback) {}
 
 void RtpFrameReferenceFinder::ManageFrame(
-    std::unique_ptr<RtpFrameObject> frame) {
+    std::unique_ptr<RtpEncodedFrame> frame) {
   rtc::CritScope lock(&crit_);
 
   // If we have cleared past this frame, drop it.
@@ -81,7 +81,7 @@ void RtpFrameReferenceFinder::RetryStashedFrames() {
 }
 
 RtpFrameReferenceFinder::FrameDecision
-RtpFrameReferenceFinder::ManageFrameInternal(RtpFrameObject* frame) {
+RtpFrameReferenceFinder::ManageFrameInternal(RtpEncodedFrame* frame) {
   switch (frame->codec_type()) {
     case kVideoCodecFlexfec:
     case kVideoCodecULPFEC:
@@ -170,7 +170,7 @@ void RtpFrameReferenceFinder::UpdateLastPictureIdWithPadding(uint16_t seq_num) {
 }
 
 RtpFrameReferenceFinder::FrameDecision
-RtpFrameReferenceFinder::ManageFrameGeneric(RtpFrameObject* frame,
+RtpFrameReferenceFinder::ManageFrameGeneric(RtpEncodedFrame* frame,
                                             int picture_id) {
   // If |picture_id| is specified then we use that to set the frame references,
   // otherwise we use sequence number.
@@ -244,7 +244,7 @@ RtpFrameReferenceFinder::ManageFrameGeneric(RtpFrameObject* frame,
 }
 
 RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
-    RtpFrameObject* frame) {
+    RtpEncodedFrame* frame) {
   rtc::Optional<RTPVideoTypeHeader> rtp_codec_header = frame->GetCodecHeader();
   if (!rtp_codec_header) {
     RTC_LOG(LS_WARNING)
@@ -372,7 +372,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
 }
 
 void RtpFrameReferenceFinder::UpdateLayerInfoVp8(
-    RtpFrameObject* frame,
+    RtpEncodedFrame* frame,
     const RTPVideoHeaderVP8& codec_header) {
   uint8_t tl0_pic_idx = codec_header.tl0PicIdx;
   uint8_t temporal_index = codec_header.temporalIdx;
@@ -398,7 +398,7 @@ void RtpFrameReferenceFinder::UpdateLayerInfoVp8(
 }
 
 RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
-    RtpFrameObject* frame) {
+    RtpEncodedFrame* frame) {
   rtc::Optional<RTPVideoTypeHeader> rtp_codec_header = frame->GetCodecHeader();
   if (!rtp_codec_header) {
     RTC_LOG(LS_WARNING)
@@ -595,7 +595,7 @@ bool RtpFrameReferenceFinder::UpSwitchInIntervalVp9(uint16_t picture_id,
   return false;
 }
 
-void RtpFrameReferenceFinder::UnwrapPictureIds(RtpFrameObject* frame) {
+void RtpFrameReferenceFinder::UnwrapPictureIds(RtpEncodedFrame* frame) {
   for (size_t i = 0; i < frame->num_references; ++i)
     frame->references[i] = unwrapper_.Unwrap(frame->references[i]);
   frame->picture_id = unwrapper_.Unwrap(frame->picture_id);

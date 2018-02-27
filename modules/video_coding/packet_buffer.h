@@ -30,13 +30,13 @@ class Clock;
 
 namespace video_coding {
 
-class RtpFrameObject;
+class RtpEncodedFrame;
 
 // A received frame is a frame which has received all its packets.
 class OnReceivedFrameCallback {
  public:
   virtual ~OnReceivedFrameCallback() {}
-  virtual void OnReceivedFrame(std::unique_ptr<RtpFrameObject> frame) = 0;
+  virtual void OnReceivedFrame(std::unique_ptr<RtpEncodedFrame> frame) = 0;
 };
 
 class PacketBuffer {
@@ -75,7 +75,7 @@ class PacketBuffer {
                OnReceivedFrameCallback* frame_callback);
 
  private:
-  friend RtpFrameObject;
+  friend RtpEncodedFrame;
   // Since we want the packet buffer to be as packet type agnostic
   // as possible we extract only the information needed in order
   // to determine whether a sequence of packets is continuous or not.
@@ -110,12 +110,12 @@ class PacketBuffer {
 
   // Test if all packets of a frame has arrived, and if so, creates a frame.
   // Returns a vector of received frames.
-  std::vector<std::unique_ptr<RtpFrameObject>> FindFrames(uint16_t seq_num)
+  std::vector<std::unique_ptr<RtpEncodedFrame>> FindFrames(uint16_t seq_num)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Copy the bitstream for |frame| to |destination|.
   // Virtual for testing.
-  virtual bool GetBitstream(const RtpFrameObject& frame, uint8_t* destination);
+  virtual bool GetBitstream(const RtpEncodedFrame& frame, uint8_t* destination);
 
   // Get the packet with sequence number |seq_num|.
   // Virtual for testing.
@@ -124,7 +124,7 @@ class PacketBuffer {
 
   // Mark all slots used by |frame| as not used.
   // Virtual for testing.
-  virtual void ReturnFrame(RtpFrameObject* frame);
+  virtual void ReturnFrame(RtpEncodedFrame* frame);
 
   void UpdateMissingPackets(uint16_t seq_num)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);

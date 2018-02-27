@@ -16,7 +16,7 @@
 #include <utility>
 
 #include "common_video/h264/h264_common.h"
-#include "modules/video_coding/frame_object.h"
+#include "modules/video_coding/rtp_encoded_frame.h"
 #include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -62,7 +62,7 @@ PacketBuffer::~PacketBuffer() {
 }
 
 bool PacketBuffer::InsertPacket(VCMPacket* packet) {
-  std::vector<std::unique_ptr<RtpFrameObject>> found_frames;
+  std::vector<std::unique_ptr<RtpEncodedFrame>> found_frames;
   {
     rtc::CritScope lock(&crit_);
 
@@ -126,7 +126,7 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
     found_frames = FindFrames(seq_num);
   }
 
-  for (std::unique_ptr<RtpFrameObject>& frame : found_frames)
+  for (std::unique_ptr<RtpEncodedFrame>& frame : found_frames)
     received_frame_callback_->OnReceivedFrame(std::move(frame));
 
   return true;
@@ -189,14 +189,14 @@ void PacketBuffer::Clear() {
 }
 
 void PacketBuffer::PaddingReceived(uint16_t seq_num) {
-  std::vector<std::unique_ptr<RtpFrameObject>> found_frames;
+  std::vector<std::unique_ptr<RtpEncodedFrame>> found_frames;
   {
     rtc::CritScope lock(&crit_);
     UpdateMissingPackets(seq_num);
     found_frames = FindFrames(static_cast<uint16_t>(seq_num + 1));
   }
 
-  for (std::unique_ptr<RtpFrameObject>& frame : found_frames)
+  for (std::unique_ptr<RtpEncodedFrame>& frame : found_frames)
     received_frame_callback_->OnReceivedFrame(std::move(frame));
 }
 
@@ -266,15 +266,15 @@ bool PacketBuffer::PotentialNewFrame(uint16_t seq_num) const {
   return false;
 }
 
-std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
+std::vector<std::unique_ptr<RtpEncodedFrame>> PacketBuffer::FindFrames(
     uint16_t seq_num) {
-  std::vector<std::unique_ptr<RtpFrameObject>> found_frames;
+  std::vector<std::unique_ptr<RtpEncodedFrame>> found_frames;
   for (size_t i = 0; i < size_ && PotentialNewFrame(seq_num); ++i) {
     size_t index = seq_num % size_;
     sequence_buffer_[index].continuous = true;
 
     // If all packets of the frame is continuous, find the first packet of the
-    // frame and create an RtpFrameObject.
+    // frame and create an RtpEncodedFrame.
     if (sequence_buffer_[index].frame_end) {
       size_t frame_size = 0;
       int max_nack_count = -1;
@@ -360,7 +360,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
 
         // Now that we have decided whether to treat this frame as a key frame
         // or delta frame in the frame buffer, we update the field that
-        // determines if the RtpFrameObject is a key frame or delta frame.
+        // determines if the RtpEncodedFrame is a key frame or delta frame.
         const size_t first_packet_index = start_seq_num % size_;
         RTC_CHECK_LT(first_packet_index, size_);
         if (is_h264_keyframe) {
@@ -387,15 +387,15 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
                              missing_packets_.upper_bound(seq_num));
 
       found_frames.emplace_back(
-          new RtpFrameObject(this, start_seq_num, seq_num, frame_size,
-                             max_nack_count, clock_->TimeInMilliseconds()));
+          new RtpEncodedFrame(this, start_seq_num, seq_num, frame_size,
+                              max_nack_count, clock_->TimeInMilliseconds()));
     }
     ++seq_num;
   }
   return found_frames;
 }
 
-void PacketBuffer::ReturnFrame(RtpFrameObject* frame) {
+void PacketBuffer::ReturnFrame(RtpEncodedFrame* frame) {
   rtc::CritScope lock(&crit_);
   size_t index = frame->first_seq_num() % size_;
   size_t end = (frame->last_seq_num() + 1) % size_;
@@ -412,7 +412,7 @@ void PacketBuffer::ReturnFrame(RtpFrameObject* frame) {
   }
 }
 
-bool PacketBuffer::GetBitstream(const RtpFrameObject& frame,
+bool PacketBuffer::GetBitstream(const RtpEncodedFrame& frame,
                                 uint8_t* destination) {
   rtc::CritScope lock(&crit_);
 

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/frame_object.h"
+#include "modules/video_coding/rtp_encoded_frame.h"
 
 #include "common_video/h264/h264_common.h"
 #include "modules/video_coding/packet_buffer.h"
@@ -17,12 +17,12 @@
 namespace webrtc {
 namespace video_coding {
 
-RtpFrameObject::RtpFrameObject(PacketBuffer* packet_buffer,
-                               uint16_t first_seq_num,
-                               uint16_t last_seq_num,
-                               size_t frame_size,
-                               int times_nacked,
-                               int64_t received_time)
+RtpEncodedFrame::RtpEncodedFrame(PacketBuffer* packet_buffer,
+                                 uint16_t first_seq_num,
+                                 uint16_t last_seq_num,
+                                 size_t frame_size,
+                                 int times_nacked,
+                                 int64_t received_time)
     : packet_buffer_(packet_buffer),
       first_seq_num_(first_seq_num),
       last_seq_num_(last_seq_num),
@@ -112,51 +112,51 @@ RtpFrameObject::RtpFrameObject(PacketBuffer* packet_buffer,
   timing_.flags = last_packet->video_header.video_timing.flags;
 }
 
-RtpFrameObject::~RtpFrameObject() {
+RtpEncodedFrame::~RtpEncodedFrame() {
   packet_buffer_->ReturnFrame(this);
 }
 
-uint16_t RtpFrameObject::first_seq_num() const {
+uint16_t RtpEncodedFrame::first_seq_num() const {
   return first_seq_num_;
 }
 
-uint16_t RtpFrameObject::last_seq_num() const {
+uint16_t RtpEncodedFrame::last_seq_num() const {
   return last_seq_num_;
 }
 
-int RtpFrameObject::times_nacked() const {
+int RtpEncodedFrame::times_nacked() const {
   return times_nacked_;
 }
 
-FrameType RtpFrameObject::frame_type() const {
+FrameType RtpEncodedFrame::frame_type() const {
   return frame_type_;
 }
 
-VideoCodecType RtpFrameObject::codec_type() const {
+VideoCodecType RtpEncodedFrame::codec_type() const {
   return codec_type_;
 }
 
-bool RtpFrameObject::GetBitstream(uint8_t* destination) const {
+bool RtpEncodedFrame::GetBitstream(uint8_t* destination) const {
   return packet_buffer_->GetBitstream(*this, destination);
 }
 
-uint32_t RtpFrameObject::Timestamp() const {
+uint32_t RtpEncodedFrame::Timestamp() const {
   return timestamp_;
 }
 
-int64_t RtpFrameObject::ReceivedTime() const {
+int64_t RtpEncodedFrame::ReceivedTime() const {
   return received_time_;
 }
 
-int64_t RtpFrameObject::RenderTime() const {
+int64_t RtpEncodedFrame::RenderTime() const {
   return _renderTimeMs;
 }
 
-bool RtpFrameObject::delayed_by_retransmission() const {
+bool RtpEncodedFrame::delayed_by_retransmission() const {
   return times_nacked() > 0;
 }
 
-rtc::Optional<RTPVideoTypeHeader> RtpFrameObject::GetCodecHeader() const {
+rtc::Optional<RTPVideoTypeHeader> RtpEncodedFrame::GetCodecHeader() const {
   rtc::CritScope lock(&packet_buffer_->crit_);
   VCMPacket* packet = packet_buffer_->GetPacket(first_seq_num_);
   if (!packet)

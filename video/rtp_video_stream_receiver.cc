@@ -26,10 +26,10 @@
 #include "modules/rtp_rtcp/include/ulpfec_receiver.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
-#include "modules/video_coding/frame_object.h"
 #include "modules/video_coding/h264_sprop_parameter_sets.h"
 #include "modules/video_coding/h264_sps_pps_tracker.h"
 #include "modules/video_coding/packet_buffer.h"
+#include "modules/video_coding/rtp_encoded_frame.h"
 #include "modules/video_coding/video_coding_impl.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
@@ -382,7 +382,7 @@ int32_t RtpVideoStreamReceiver::ResendPackets(const uint16_t* sequence_numbers,
 }
 
 void RtpVideoStreamReceiver::OnReceivedFrame(
-    std::unique_ptr<video_coding::RtpFrameObject> frame) {
+    std::unique_ptr<video_coding::RtpEncodedFrame> frame) {
   if (!has_received_frame_) {
     has_received_frame_ = true;
     if (frame->FrameType() != kVideoFrameKey)
@@ -398,8 +398,8 @@ void RtpVideoStreamReceiver::OnCompleteFrame(
     std::unique_ptr<video_coding::EncodedFrame> frame) {
   {
     rtc::CritScope lock(&last_seq_num_cs_);
-    video_coding::RtpFrameObject* rtp_frame =
-        static_cast<video_coding::RtpFrameObject*>(frame.get());
+    video_coding::RtpEncodedFrame* rtp_frame =
+        static_cast<video_coding::RtpEncodedFrame*>(frame.get());
     last_seq_num_for_pic_id_[rtp_frame->picture_id] = rtp_frame->last_seq_num();
   }
   complete_frame_callback_->OnCompleteFrame(std::move(frame));

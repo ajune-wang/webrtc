@@ -15,8 +15,8 @@
 #include <limits>
 #include <vector>
 
-#include "modules/video_coding/frame_object.h"
 #include "modules/video_coding/jitter_estimator.h"
+#include "modules/video_coding/rtp_encoded_frame.h"
 #include "modules/video_coding/timing.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/platform_thread.h"
@@ -86,7 +86,7 @@ class VCMJitterEstimatorMock : public VCMJitterEstimator {
   MOCK_METHOD1(GetJitterEstimate, int(double rttMultiplier));
 };
 
-class FrameObjectFake : public EncodedFrame {
+class FakeEncodedFrame : public EncodedFrame {
  public:
   bool GetBitstream(uint8_t* destination) const override { return true; }
 
@@ -159,7 +159,7 @@ class TestFrameBuffer2 : public ::testing::Test {
     std::array<uint16_t, sizeof...(refs)> references = {
         {rtc::checked_cast<uint16_t>(refs)...}};
 
-    std::unique_ptr<FrameObjectFake> frame(new FrameObjectFake());
+    std::unique_ptr<FakeEncodedFrame> frame(new FakeEncodedFrame());
     frame->picture_id = picture_id;
     frame->spatial_layer = spatial_layer;
     frame->timestamp = ts_ms * 90;
@@ -268,7 +268,7 @@ TEST_F(TestFrameBuffer2, OneSuperFrame) {
 
 TEST_F(TestFrameBuffer2, SetPlayoutDelay) {
   const PlayoutDelay kPlayoutDelayMs = {123, 321};
-  std::unique_ptr<FrameObjectFake> test_frame(new FrameObjectFake());
+  std::unique_ptr<FakeEncodedFrame> test_frame(new FakeEncodedFrame());
   test_frame->SetPlayoutDelay(kPlayoutDelayMs);
   buffer_.InsertFrame(std::move(test_frame));
   EXPECT_EQ(kPlayoutDelayMs.min_ms, timing_.min_playout_delay());
@@ -498,7 +498,7 @@ TEST_F(TestFrameBuffer2, StatsCallback) {
               OnFrameBufferTimingsUpdated(_, _, _, _, _, _, _));
 
   {
-    std::unique_ptr<FrameObjectFake> frame(new FrameObjectFake());
+    std::unique_ptr<FakeEncodedFrame> frame(new FakeEncodedFrame());
     frame->SetSize(kFrameSize);
     frame->picture_id = pid;
     frame->spatial_layer = 0;

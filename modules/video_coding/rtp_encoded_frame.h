@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_FRAME_OBJECT_H_
-#define MODULES_VIDEO_CODING_FRAME_OBJECT_H_
+#ifndef MODULES_VIDEO_CODING_RTP_ENCODED_FRAME_H_
+#define MODULES_VIDEO_CODING_RTP_ENCODED_FRAME_H_
 
 #include "api/optional.h"
 #include "api/video/encoded_frame.h"
@@ -21,16 +21,16 @@ namespace video_coding {
 
 class PacketBuffer;
 
-class RtpFrameObject : public EncodedFrame {
+class RtpEncodedFrame : public EncodedFrame {
  public:
-  RtpFrameObject(PacketBuffer* packet_buffer,
-                 uint16_t first_seq_num,
-                 uint16_t last_seq_num,
-                 size_t frame_size,
-                 int times_nacked,
-                 int64_t received_time);
+  RtpEncodedFrame(PacketBuffer* packet_buffer,
+                  uint16_t first_seq_num,
+                  uint16_t last_seq_num,
+                  size_t frame_size,
+                  int times_nacked,
+                  int64_t received_time);
 
-  ~RtpFrameObject();
+  ~RtpEncodedFrame();
   uint16_t first_seq_num() const;
   uint16_t last_seq_num() const;
   int times_nacked() const;
@@ -60,4 +60,4 @@ class RtpFrameObject : public EncodedFrame {
 }  // namespace video_coding
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_FRAME_OBJECT_H_
+#endif  // MODULES_VIDEO_CODING_RTP_ENCODED_FRAME_H_

@@ -14,8 +14,8 @@
 #include <set>
 #include <utility>
 
-#include "modules/video_coding/frame_object.h"
 #include "modules/video_coding/packet_buffer.h"
+#include "modules/video_coding/rtp_encoded_frame.h"
 #include "rtc_base/random.h"
 #include "rtc_base/refcount.h"
 #include "system_wrappers/include/clock.h"
@@ -38,12 +38,12 @@ class FakePacketBuffer : public PacketBuffer {
     return true;
   }
 
-  bool GetBitstream(const RtpFrameObject& frame,
+  bool GetBitstream(const RtpEncodedFrame& frame,
                     uint8_t* destination) override {
     return true;
   }
 
-  void ReturnFrame(RtpFrameObject* frame) override {
+  void ReturnFrame(RtpEncodedFrame* frame) override {
     packets_.erase(frame->first_seq_num());
   }
 
@@ -91,7 +91,7 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
     packet.markerBit = true;
     ref_packet_buffer_->InsertPacket(&packet);
 
-    std::unique_ptr<RtpFrameObject> frame(new RtpFrameObject(
+    std::unique_ptr<RtpEncodedFrame> frame(new RtpEncodedFrame(
         ref_packet_buffer_, seq_num_start, seq_num_end, 0, 0, 0));
     reference_finder_->ManageFrame(std::move(frame));
   }
@@ -120,7 +120,7 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
       ref_packet_buffer_->InsertPacket(&packet);
     }
 
-    std::unique_ptr<RtpFrameObject> frame(new RtpFrameObject(
+    std::unique_ptr<RtpEncodedFrame> frame(new RtpEncodedFrame(
         ref_packet_buffer_, seq_num_start, seq_num_end, 0, 0, 0));
     reference_finder_->ManageFrame(std::move(frame));
   }
@@ -159,7 +159,7 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
       ref_packet_buffer_->InsertPacket(&packet);
     }
 
-    std::unique_ptr<RtpFrameObject> frame(new RtpFrameObject(
+    std::unique_ptr<RtpEncodedFrame> frame(new RtpEncodedFrame(
         ref_packet_buffer_, seq_num_start, seq_num_end, 0, 0, 0));
     reference_finder_->ManageFrame(std::move(frame));
   }
@@ -196,7 +196,7 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
       ref_packet_buffer_->InsertPacket(&packet);
     }
 
-    std::unique_ptr<RtpFrameObject> frame(new RtpFrameObject(
+    std::unique_ptr<RtpEncodedFrame> frame(new RtpEncodedFrame(
         ref_packet_buffer_, seq_num_start, seq_num_end, 0, 0, 0));
     reference_finder_->ManageFrame(std::move(frame));
   }

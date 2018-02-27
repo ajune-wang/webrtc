@@ -36,6 +36,19 @@ static jboolean JNI_RtpSender_SetTrack(JNIEnv* jni,
       ->SetTrack(reinterpret_cast<MediaStreamTrackInterface*>(j_track_pointer));
 }
 
+static ScopedJavaLocalRef<jstring> JNI_RtpSender_GetTrackKind(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&,
+    jlong j_rtp_sender_pointer) {
+  MediaStreamTrackInterface* track_ptr = reinterpret_cast<RtpSenderInterface*>(
+        j_rtp_sender_pointer)->track().get();
+  if (track_ptr) {
+    return NativeToJavaString(jni, track_ptr->kind());
+  } else {
+    return nullptr;
+  }
+}
+
 jlong JNI_RtpSender_GetTrack(JNIEnv* jni,
                              const JavaParamRef<jclass>&,
                              jlong j_rtp_sender_pointer) {

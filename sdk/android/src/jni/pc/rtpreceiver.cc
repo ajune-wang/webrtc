@@ -64,6 +64,19 @@ JavaRtpReceiverGlobalOwner::~JavaRtpReceiverGlobalOwner() {
     Java_RtpReceiver_dispose(AttachCurrentThreadIfNeeded(), j_receiver_);
 }
 
+static ScopedJavaLocalRef<jstring> JNI_RtpReceiver_GetTrackKind(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&,
+    jlong j_rtp_receiver_pointer) {
+  MediaStreamTrackInterface* track_ptr = reinterpret_cast<RtpReceiverInterface*>(
+      j_rtp_receiver_pointer)->track().release();
+  if (track_ptr) {
+    return NativeToJavaString(jni, track_ptr->kind());
+  } else {
+    return nullptr;
+  }
+}
+
 static jlong JNI_RtpReceiver_GetTrack(JNIEnv* jni,
                                       const JavaParamRef<jclass>&,
                                       jlong j_rtp_receiver_pointer) {

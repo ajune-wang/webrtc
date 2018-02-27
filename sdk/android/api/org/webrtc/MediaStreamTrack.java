@@ -13,6 +13,9 @@ package org.webrtc;
 /** Java wrapper for a C++ MediaStreamTrackInterface. */
 @JNINamespace("webrtc::jni")
 public class MediaStreamTrack {
+  public static final String AUDIO_TRACK_KIND = "audio";
+  public static final String VIDEO_TRACK_KIND = "video";
+
   /** Tracks MediaStreamTrackInterface.TrackState */
   public enum State {
     LIVE,

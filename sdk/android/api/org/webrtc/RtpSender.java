@@ -23,9 +23,18 @@ public class RtpSender {
   @CalledByNative
   public RtpSender(long nativeRtpSender) {
     this.nativeRtpSender = nativeRtpSender;
-    long track = nativeGetTrack(nativeRtpSender);
+    long nativeTrack = nativeGetTrack(nativeRtpSender);
+    String trackKind = nativeGetTrackKind(nativeRtpSender);
     // It may be possible for an RtpSender to be created without a track.
-    cachedTrack = (track != 0) ? new MediaStreamTrack(track) : null;
+    if (nativeTrack == 0 || trackKind == null) {
+      cachedTrack = null;
+    } else if (trackKind.equals(MediaStreamTrack.AUDIO_TRACK_KIND)) {
+      cachedTrack = new AudioTrack(nativeTrack);
+    } else if (trackKind.equals(MediaStreamTrack.VIDEO_TRACK_KIND)) {
+      cachedTrack = new VideoTrack(nativeTrack);
+    } else {
+      cachedTrack = null;
+    }
 
     long nativeDtmfSender = nativeGetDtmfSender(nativeRtpSender);
     dtmfSender = (nativeDtmfSender != 0) ? new DtmfSender(nativeDtmfSender) : null;
@@ -61,6 +70,20 @@ public class RtpSender {
     return cachedTrack;
   }
 
+  public VideoTrack videoTrack() {
+    if (cachedTrack instanceof VideoTrack) {
+      return (VideoTrack) cachedTrack;
+    }
+    return null;
+  }
+
+  public AudioTrack audioTrack() {
+    if (cachedTrack instanceof AudioTrack) {
+      return (AudioTrack) cachedTrack;
+    }
+    return null;
+  }
+
   public boolean setParameters(RtpParameters parameters) {
     return nativeSetParameters(nativeRtpSender, parameters);
   }
@@ -88,6 +111,8 @@ public class RtpSender {
   }
 
   private static native boolean nativeSetTrack(long rtpSender, long nativeTrack);
+
+  private static native String nativeGetTrackKind(long rtpReceiver);
 
   // This should increment the reference count of the track.
   // Will be released in dispose() or setTrack().

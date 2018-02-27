@@ -70,6 +70,30 @@
       "revId": "defad847b1ad71440ebb782250c2b2d5627dcc04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a9c9ed7_bb678570",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/kenny.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-02-27T13:40:24Z",
+      "side": 0,
+      "message": "No, I don\u0027t think a new loop would make things better. I suggest doing:\nif (i+1 \u003c argc) {\n  printf(\"\u003cargument\u003e requires a parameter.\\n\");\n  exit(1);\n}\n\nfor each flag that requires looking at the next argv. I count nine of them, so it should be copy-pastable pretty quickly.",
+      "parentUuid": "51f1bd3f_22743999",
+      "range": {
+        "startLine": 266,
+        "startChar": 9,
+        "endLine": 266,
+        "endChar": 15
+      },
+      "revId": "defad847b1ad71440ebb782250c2b2d5627dcc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "db1e9c88_e4b8ff08",
+        "filename": "modules/audio_mixer/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd71528c_3025b047",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 11
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22985aba_3d5948a4",
         "filename": "modules/audio_mixer/audio_mixer_impl.h",
         "patchSetId": 13
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5f890645_a324031d",
+        "filename": "modules/audio_mixer/audio_mixer_impl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "Yes, I thought along those lines. Here are my arguments for keeping this as is. The change to allow two different limiters is intended to be temporary. If all goes well, it should only last 1-2 months. A client shouldn\u0027t care about what limiter is used internally. I think a flag to use the limiter or not should be sufficient.",
+      "parentUuid": "22985aba_3d5948a4",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 63
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bff865a0_c599b815",
         "filename": "modules/audio_mixer/audio_mixer_test.cc",
         "patchSetId": 13
@@ -62,6 +110,24 @@
       "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45650646_53a98bc0",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bff865a0_c599b815",
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "99b24046_85ddd0b1",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "I\u0027ve put it in webrtc::test. The parse function is in anon NS.",
+      "parentUuid": "2f3d5b6e_ce9ba80e",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d4ec41c_3b863f9b",
         "filename": "modules/audio_mixer/audio_mixer_test.cc",
         "patchSetId": 13
@@ -108,6 +198,30 @@
       "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c3956a_5f5987b7",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "Have to keep it because it\u0027s declared pure virtual (\u003d0) in the ::Source interface.",
+      "parentUuid": "4d4ec41c_3b863f9b",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 10
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "4b5c0ffc_204aa81d",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "There is some issue with copy constructors. I think I can\u0027t put a FilePlayingSource in a vector if wav_reader_ is not a pointer. Since it\u0027s test code, I\u0027d like to leave it as is.",
+      "parentUuid": "1a28f790_7e30d39d",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c182a968_66127f1b",
         "filename": "modules/audio_mixer/audio_mixer_test.cc",
         "patchSetId": 13
@@ -154,6 +292,30 @@
       "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acf6f5c3_b4d853d6",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c182a968_66127f1b",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 48
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "77936507_19159308",
+        "filename": "modules/audio_mixer/audio_mixer_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c60403_7718bca7",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 52
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05189bdf_cf43b311",
         "filename": "modules/audio_mixer/frame_combiner.cc",
         "patchSetId": 13
@@ -200,6 +386,30 @@
       "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7af7642f_90f8dd1f",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-02-27T13:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05189bdf_cf43b311",
+      "range": {
+        "startLine": 199,
+        "startChar": 3,
+        "endLine": 199,
+        "endChar": 0
+      },
+      "revId": "45fdf64ef5546389e92d928980a6e23f49838e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

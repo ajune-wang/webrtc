@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d982386a_f5018162",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCRtpTransceiver.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-27T23:26:41Z",
+      "side": 1,
+      "message": "nit: should be YES/NO, since it\u0027s a BOOL.",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 15
+      },
+      "revId": "a373797dd61af697138599d6fdddfe18fbf75c45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

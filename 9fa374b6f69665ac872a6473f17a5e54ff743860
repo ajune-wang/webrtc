@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b6d5150a_8b548d34",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-27T01:25:04Z",
+      "side": 1,
+      "message": "Much better, thanks.",
+      "parentUuid": "9f1817f7_e8a56da3",
+      "range": {
+        "startLine": 669,
+        "startChar": 17,
+        "endLine": 669,
+        "endChar": 34
+      },
+      "revId": "9fa374b6f69665ac872a6473f17a5e54ff743860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "834bdf7f_2095eae3",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "d8dbc8f6_2378e041",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-27T01:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "834bdf7f_2095eae3",
+      "revId": "9fa374b6f69665ac872a6473f17a5e54ff743860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba029dbf_2ac18f48",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2018-02-26T18:59:14Z",
       "side": 1,
       "message": "I assume you\u0027re looping over transceivers instead of receivers to exercise the API.",
+      "range": {
+        "startLine": 1042,
+        "startChar": 53,
+        "endLine": 1042,
+        "endChar": 68
+      },
+      "revId": "9fa374b6f69665ac872a6473f17a5e54ff743860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b64a300_1ce28c0d",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-27T01:25:04Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "ba029dbf_2ac18f48",
       "range": {
         "startLine": 1042,
         "startChar": 53,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "051ebc8f_a4d15acf",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-27T01:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da005a28_ed04037a",
+      "range": {
+        "startLine": 1043,
+        "startChar": 34,
+        "endLine": 1043,
+        "endChar": 40
+      },
+      "revId": "9fa374b6f69665ac872a6473f17a5e54ff743860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31f3f037_426ec476",
         "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
         "patchSetId": 1
@@ -102,6 +192,24 @@
       "revId": "9fa374b6f69665ac872a6473f17a5e54ff743860",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "840b8e0a_e8fa066e",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-27T01:25:04Z",
+      "side": 1,
+      "message": "Right. I should have put that change in this CL to make that more clear. I\u0027m glad you suggested creating the appropriate VideoTrack/AudioTrack in RtpReceiver, because that\u0027s what I decided to do after Steve suggested removing nativeTrack from being public. I added it to the RtpSender as well. Let me know what you think.",
+      "parentUuid": "31f3f037_426ec476",
+      "revId": "9fa374b6f69665ac872a6473f17a5e54ff743860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

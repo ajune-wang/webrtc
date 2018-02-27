@@ -95,7 +95,7 @@ void ResidualEchoEstimator::Estimate(
   RenderNoisePower(render_buffer, &X2_noise_floor_, &X2_noise_floor_counter_);
 
   // Estimate the residual echo power.
-  if (aec_state.UsableLinearEstimate()) {
+  if (aec_state.LinearEchoModelFeasible()) {
     LinearEstimate(S2_linear, aec_state.Erle(), aec_state.FilterDelay(), R2);
     AddEchoReverb(S2_linear, aec_state.SaturatedEcho(), aec_state.FilterDelay(),
                   aec_state.ReverbDecay(), R2);
@@ -110,8 +110,15 @@ void ResidualEchoEstimator::Estimate(
     std::array<float, kFftLengthBy2Plus1> X2;
 
     // Computes the spectral power over the blocks surrounding the delay.
-    EchoGeneratingPower(render_buffer, std::max(0, aec_state.FilterDelay() - 1),
-                        aec_state.FilterDelay() + 10, &X2);
+    if (aec_state.ClockDrift()) {
+      EchoGeneratingPower(render_buffer,
+                          std::max(0, aec_state.FilterDelay() - 4),
+                          aec_state.FilterDelay() + 14, &X2);
+    } else {
+      EchoGeneratingPower(render_buffer,
+                          std::max(0, aec_state.FilterDelay() - 1),
+                          aec_state.FilterDelay() + 10, &X2);
+    }
 
     // Subtract the stationary noise power to avoid stationary noise causing
     // excessive echo suppression.
@@ -119,10 +126,9 @@ void ResidualEchoEstimator::Estimate(
         X2.begin(), X2.end(), X2_noise_floor_.begin(), X2.begin(),
         [](float a, float b) { return std::max(0.f, a - 10.f * b); });
 
-    NonLinearEstimate(aec_state.FilterHasHadTimeToConverge(),
-                      aec_state.SaturatedEcho(),
-                      config_.ep_strength.bounded_erl,
-                      aec_state.TransparentMode(), X2, Y2, R2);
+    NonLinearEstimate(aec_state.SaturatedEcho(), aec_state.EchoPathGain(),
+                      aec_state.TransparentMode(), aec_state.StartupPhase(), X2,
+                      Y2, *R2);
 
     if (aec_state.SaturatedEcho()) {
       // TODO(peah): Modify to make sense theoretically.
@@ -167,13 +173,24 @@ void ResidualEchoEstimator::LinearEstimate(
 }
 
 void ResidualEchoEstimator::NonLinearEstimate(
-    bool sufficient_filter_updates,
     bool saturated_echo,
-    bool bounded_erl,
+    const rtc::Optional<float>& echo_path_gain,
     bool transparent_mode,
-    const std::array<float, kFftLengthBy2Plus1>& X2,
-    const std::array<float, kFftLengthBy2Plus1>& Y2,
-    std::array<float, kFftLengthBy2Plus1>* R2) {
+    bool startup_phase,
+    rtc::ArrayView<const float> X2,
+    rtc::ArrayView<const float> Y2,
+    rtc::ArrayView<float> R2) {
+  RTC_DCHECK_EQ(kFftLengthBy2Plus1, X2.size());
+  RTC_DCHECK_EQ(kFftLengthBy2Plus1, Y2.size());
+  RTC_DCHECK_EQ(kFftLengthBy2Plus1, R2.size());
+
+  if (transparent_mode) {
+    std::fill(R2_hold_counter_.begin(), R2_hold_counter_.end(), 0);
+    std::fill(R2.begin(), R2.end(), 0);
+    std::fill(R2_old_.begin(), R2_old_.end(), 0);
+    return;
+  }
+
   float echo_path_gain_lf;
   float echo_path_gain_mf;
   float echo_path_gain_hf;
@@ -182,14 +199,8 @@ void ResidualEchoEstimator::NonLinearEstimate(
   if (saturated_echo) {
     // If the echo could be saturated, use a very conservative gain.
     echo_path_gain_lf = echo_path_gain_mf = echo_path_gain_hf = 10000.f;
-  } else if (sufficient_filter_updates && !bounded_erl) {
-    // If the filter should have been able to converge, and no assumption is
-    // possible on the ERL, use a low gain.
-    echo_path_gain_lf = echo_path_gain_mf = echo_path_gain_hf = 0.01f;
-  } else if ((sufficient_filter_updates && bounded_erl) || transparent_mode) {
-    // If the filter should have been able to converge, and and it is known that
-    // the ERL is bounded, use a very low gain.
-    echo_path_gain_lf = echo_path_gain_mf = echo_path_gain_hf = 0.001f;
+  } else if (!startup_phase && echo_path_gain) {
+    echo_path_gain_lf = echo_path_gain_mf = echo_path_gain_hf = *echo_path_gain;
   } else {
     // In the initial state, use conservative gains.
     echo_path_gain_lf = config_.ep_strength.lf;
@@ -199,24 +210,24 @@ void ResidualEchoEstimator::NonLinearEstimate(
 
   // Compute preliminary residual echo.
   std::transform(
-      X2.begin(), X2.begin() + 12, R2->begin(),
+      X2.begin(), X2.begin() + 12, R2.begin(),
       [echo_path_gain_lf](float a) { return a * echo_path_gain_lf; });
   std::transform(
-      X2.begin() + 12, X2.begin() + 25, R2->begin() + 12,
+      X2.begin() + 12, X2.begin() + 25, R2.begin() + 12,
       [echo_path_gain_mf](float a) { return a * echo_path_gain_mf; });
   std::transform(
-      X2.begin() + 25, X2.end(), R2->begin() + 25,
+      X2.begin() + 25, X2.end(), R2.begin() + 25,
       [echo_path_gain_hf](float a) { return a * echo_path_gain_hf; });
 
-  for (size_t k = 0; k < R2->size(); ++k) {
+  for (size_t k = 0; k < R2.size(); ++k) {
     // Update hold counter.
-    R2_hold_counter_[k] = R2_old_[k] < (*R2)[k] ? 0 : R2_hold_counter_[k] + 1;
+    R2_hold_counter_[k] = R2_old_[k] < R2[k] ? 0 : R2_hold_counter_[k] + 1;
 
     // Compute the residual echo by holding a maximum echo powers and an echo
     // fading corresponding to a room with an RT60 value of about 50 ms.
-    (*R2)[k] = R2_hold_counter_[k] < 2
-                   ? std::max((*R2)[k], R2_old_[k])
-                   : std::min((*R2)[k] + R2_old_[k] * 0.1f, Y2[k]);
+    R2[k] = R2_hold_counter_[k] < 2
+                ? std::max(R2[k], R2_old_[k])
+                : std::min(R2[k] + R2_old_[k] * 0.1f, Y2[k]);
   }
 }
 

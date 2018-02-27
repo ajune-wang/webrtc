@@ -390,7 +390,7 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
           false, EchoPathVariability::DelayAdjustment::kNone, false));
       aec_state.Update(delay_estimate, filter.FilterFrequencyResponse(),
                        filter.FilterImpulseResponse(), true, *render_buffer,
-                       E2_main, Y2, s, false);
+                       E2_main, Y2, s);
     }
     // Verify that the filter is able to perform well.
     EXPECT_LT(1000 * std::inner_product(e.begin(), e.end(), e.begin(), 0.f),

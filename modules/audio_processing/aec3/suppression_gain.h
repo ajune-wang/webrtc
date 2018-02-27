@@ -39,7 +39,6 @@ class SuppressionGain {
   void LowerBandGain(bool stationary_with_low_power,
                      const rtc::Optional<int>& narrow_peak_band,
                      bool saturated_echo,
-                     bool saturating_echo_path,
                      bool initial_state,
                      bool linear_echo_estimate,
                      const std::array<float, kFftLengthBy2Plus1>& nearend,

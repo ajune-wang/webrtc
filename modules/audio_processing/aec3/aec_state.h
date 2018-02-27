@@ -12,6 +12,7 @@
 #define MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
 
 #include <algorithm>
+#include <limits>
 #include <memory>
 #include <vector>
 
@@ -38,13 +39,12 @@ class AecState {
 
   // Returns whether the echo subtractor can be used to determine the residual
   // echo.
-  bool UsableLinearEstimate() const { return usable_linear_estimate_; }
-
-  // Returns whether there has been echo leakage detected.
-  bool EchoLeakageDetected() const { return echo_leakage_detected_; }
+  bool LinearEchoModelFeasible() const {
+    return echo_model_selector_.LinearModelSelected();
+  }
 
   // Returns whether the render signal is currently active.
-  bool ActiveRender() const { return blocks_with_active_render_ > 200; }
+  bool ActiveRender() const { return render_activity_.ActiveBlocks() > 200; }
 
   // Returns the ERLE.
   const std::array<float, kFftLengthBy2Plus1>& Erle() const {
@@ -63,24 +63,20 @@ class AecState {
   float ErlTimeDomain() const { return erl_estimator_.ErlTimeDomain(); }
 
   // Returns the delay estimate based on the linear filter.
-  int FilterDelay() const { return filter_delay_; }
+  int FilterDelay() const { return filter_analyzer_.DelayBlocks(); }
 
   // Returns whether the capture signal is saturated.
   bool SaturatedCapture() const { return capture_signal_saturation_; }
 
   // Returns whether the echo signal is saturated.
-  bool SaturatedEcho() const { return echo_saturation_; }
-
-  // Returns whether the echo path can saturate.
-  bool SaturatingEchoPath() const { return saturating_echo_path_; }
+  bool SaturatedEcho() const {
+    return echo_saturation_detector_.SaturationDetected();
+  }
 
   // Updates the capture signal saturation.
   void UpdateCaptureSaturation(bool capture_signal_saturation) {
     capture_signal_saturation_ = capture_signal_saturation;
   }
-
-  // Returns whether the transparent mode is active
-  bool TransparentMode() const { return transparent_mode_; }
 
   // Takes appropriate action at an echo path change.
   void HandleEchoPathChange(const EchoPathVariability& echo_path_variability);
@@ -89,7 +85,9 @@ class AecState {
   float ReverbDecay() const { return reverb_decay_; }
 
   // Returns the upper limit for the echo suppression gain.
-  float SuppressionGainLimit() const { return suppressor_gain_limit_; }
+  float SuppressionGainLimit() const {
+    return suppression_gain_limiter_.Limit();
+  }
 
   // Returns whether the echo in the capture signal is audible.
   bool InaudibleEcho() const { return echo_audibility_.InaudibleEcho(); }
@@ -99,13 +97,22 @@ class AecState {
     echo_audibility_.UpdateWithOutput(e);
   }
 
-  // Returns whether the linear filter should have been able to properly adapt.
-  bool FilterHasHadTimeToConverge() const {
-    return filter_has_had_time_to_converge_;
+  // Returns whether the linear filter adaptation has recently started.
+  bool StartupPhase() const { return startup_phase_; }
+
+  // Returns wether a headset has been detected.
+  bool TransparentMode() const { return headset_detector_.HeadsetDetected(); }
+
+  // Returns the echo path gain.
+  const rtc::Optional<float>& EchoPathGain() const {
+    return filter_analyzer_.Gain();
   }
 
   // Returns whether the filter adaptation is still in the initial state.
   bool InitialState() const { return initial_state_; }
+
+  // Returns whether the setup has clock_drift_.
+  bool ClockDrift() const { return clock_drift_detector_.HasClockDrift(); }
 
   // Updates the aec state.
   void Update(const rtc::Optional<DelayEstimate>& delay_estimate,
@@ -116,8 +123,7 @@ class AecState {
               const RenderBuffer& render_buffer,
               const std::array<float, kFftLengthBy2Plus1>& E2_main,
               const std::array<float, kFftLengthBy2Plus1>& Y2,
-              const std::array<float, kBlockSize>& s_main,
-              bool echo_leakage_detected);
+              const std::array<float, kBlockSize>& s_main);
 
  private:
   class EchoAudibility {
@@ -135,41 +141,149 @@ class AecState {
     bool inaudible_echo_ = false;
   };
 
+  class HeadsetDetector {
+   public:
+    HeadsetDetector();
+    void Reset();
+    void Update(const rtc::Optional<DelayEstimate>& delay_estimate,
+                bool good_filter_estimate,
+                bool converged_filter);
+    bool HeadsetDetected() const { return headset_present_; }
+
+   private:
+    bool converged_filter_seen_ = false;
+    float delay_update_measure_ = 0.f;
+    float delay_change_measure_ = 0.f;
+    bool headset_present_ = false;
+    size_t old_delay_ = 0;
+  };
+
+  class EchoSaturationDetector {
+   public:
+    explicit EchoSaturationDetector(const EchoCanceller3Config& config);
+    void Reset();
+    void Update(rtc::ArrayView<const float> x_aligned,
+                bool saturated_capture,
+                const rtc::Optional<float>& echo_path_gain,
+                bool good_filter_estimate);
+    bool SaturationDetected() const { return echo_saturation_; }
+
+   private:
+    const bool can_saturate_;
+    bool echo_saturation_ = false;
+    size_t blocks_since_last_saturation_ = 0;
+    float echo_path_gain_ = 160.f;
+  };
+
+  class EchoModelSelector {
+   public:
+    EchoModelSelector();
+    void Reset();
+    void Update(bool echo_saturation,
+                bool converged_filter,
+                size_t blocks_with_proper_filter_adaptation,
+                size_t capture_blocks_counter);
+    bool LinearModelSelected() const { return linear_model_selected_; }
+
+   private:
+    size_t blocks_since_converged_filter_ =
+        std::numeric_limits<std::size_t>::max();
+    bool linear_model_selected_ = false;
+  };
+
+  class RenderActivity {
+   public:
+    explicit RenderActivity(const EchoCanceller3Config& config);
+    void Reset();
+    void Update(rtc::ArrayView<const float> x_aligned, bool saturated_capture);
+    size_t ActiveBlocks() const { return active_render_blocks_; }
+    size_t ActiveBlocksWithoutSaturation() const {
+      return active_render_blocks_with_no_saturation_;
+    }
+
+   private:
+    const float active_render_limit_;
+    size_t active_render_blocks_with_no_saturation_ = 0;
+    size_t active_render_blocks_ = 0;
+  };
+
+  class FilterAnalyzer {
+   public:
+    explicit FilterAnalyzer(const EchoCanceller3Config& config);
+    ~FilterAnalyzer();
+    void Reset();
+    void Update(rtc::ArrayView<const float> filter,
+                bool converged_filter,
+                bool clock_drift);
+    int DelayBlocks() const { return delay_blocks_; }
+    const rtc::Optional<float>& Gain() const { return gain_; }
+    bool GoodEstimate() const { return good_estimate_; }
+
+   private:
+    const bool bounded_erl_;
+    bool converged_filter_seen_ = false;
+    size_t blocks_since_converged_filter_seen_ = 0;
+    int delay_blocks_ = 0;
+    rtc::Optional<float> gain_;
+    size_t blocks_since_reset_ = 0;
+    bool good_estimate_ = false;
+  };
+
+  class ClockDriftDetector {
+   public:
+    explicit ClockDriftDetector(const EchoCanceller3Config& config);
+    void Reset();
+    void Update(rtc::ArrayView<const float> filter,
+                const rtc::Optional<DelayEstimate>& delay_estimate,
+                bool converged_filter);
+    int HasClockDrift() const { return clock_drift_; }
+
+   private:
+    const bool clock_drift_flagged_;
+    bool clock_drift_ = false;
+  };
+
+  class SuppressionGainLimiter {
+   public:
+    explicit SuppressionGainLimiter(const EchoCanceller3Config& config);
+    void Reset();
+    void Update(bool render_activity);
+    float Limit() const { return suppressor_gain_limit_; }
+
+   private:
+    const EchoCanceller3Config::EchoRemovalControl::GainRampup rampup_config_;
+    const float gain_rampup_increase_;
+    bool call_startup_phase_ = true;
+    int realignment_counter_ = 0;
+    bool active_render_seen_ = false;
+    float suppressor_gain_limit_ = 1.f;
+    bool recent_reset_ = false;
+  };
+
   void UpdateReverb(const std::vector<float>& impulse_response);
-  bool DetectActiveRender(rtc::ArrayView<const float> x) const;
-  void UpdateSuppressorGainLimit(bool render_activity);
-  bool DetectEchoSaturation(rtc::ArrayView<const float> x);
 
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
+  const EchoCanceller3Config config_;
   ErlEstimator erl_estimator_;
   ErleEstimator erle_estimator_;
   size_t capture_block_counter_ = 0;
-  size_t blocks_with_proper_filter_adaptation_ = 0;
-  size_t blocks_with_active_render_ = 0;
-  bool usable_linear_estimate_ = false;
-  bool echo_leakage_detected_ = false;
   bool capture_signal_saturation_ = false;
-  bool echo_saturation_ = false;
-  bool transparent_mode_ = false;
-  float previous_max_sample_ = 0.f;
-  bool render_received_ = false;
-  int realignment_counter_ = 0;
-  float suppressor_gain_limit_ = 1.f;
-  bool active_render_seen_ = false;
-  int filter_delay_ = 0;
-  size_t blocks_since_last_saturation_ = 1000;
+  bool recent_reset_ = true;
   float reverb_decay_to_test_ = 0.9f;
   float reverb_decay_candidate_ = 0.f;
   float reverb_decay_candidate_residual_ = -1.f;
-  EchoAudibility echo_audibility_;
-  const EchoCanceller3Config config_;
-  std::vector<float> max_render_;
   float reverb_decay_;
-  bool saturating_echo_path_ = false;
-  bool filter_has_had_time_to_converge_ = false;
+  EchoAudibility echo_audibility_;
+  HeadsetDetector headset_detector_;
+  EchoModelSelector echo_model_selector_;
+  EchoSaturationDetector echo_saturation_detector_;
+  RenderActivity render_activity_;
+  FilterAnalyzer filter_analyzer_;
+  ClockDriftDetector clock_drift_detector_;
+  SuppressionGainLimiter suppression_gain_limiter_;
+  bool startup_phase_ = true;
   bool initial_state_ = true;
-  const float gain_rampup_increase_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };

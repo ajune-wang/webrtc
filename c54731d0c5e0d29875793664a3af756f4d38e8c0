@@ -117,6 +117,30 @@
       "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf9f9593_a73004d3",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-02-27T18:11:33Z",
+      "side": 1,
+      "message": "I realize that this part of native code (when receiving connection state change), has not used lock, so it is safe to use the full lock for native code.",
+      "parentUuid": "54194ce8_43703793",
+      "range": {
+        "startLine": 190,
+        "startChar": 18,
+        "endLine": 190,
+        "endChar": 37
+      },
+      "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

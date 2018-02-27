@@ -16,6 +16,24 @@
       "revId": "7850a8631a39e3101fa10ac647fd1acd2a7e5b03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b467fb4d_6485066b",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-02-27T10:12:43Z",
+      "side": 1,
+      "message": "I think it might be a bad idea. I am afraid it may make decoder to fall behind? It also might make framerate unstable. Also, fixing tests for any new value is troublesome, so I\u0027ll leave it to the later CLs. You may experiment with that value later, if you want.",
+      "parentUuid": "f4a15415_0b1e89fb",
+      "revId": "7850a8631a39e3101fa10ac647fd1acd2a7e5b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

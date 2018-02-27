@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31c3c66c_5158f06f",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/kenny.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-02-27T13:21:10Z",
+      "side": 0,
+      "message": "The + 1 here is probably because all switches in here take exactly one argument (though with my change, that is no longer true). When I think of it, it\u0027s not great that the binary segfaults on argv[i + 1] when too few args are passed.",
+      "range": {
+        "startLine": 266,
+        "startChar": 9,
+        "endLine": 266,
+        "endChar": 15
+      },
+      "revId": "defad847b1ad71440ebb782250c2b2d5627dcc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

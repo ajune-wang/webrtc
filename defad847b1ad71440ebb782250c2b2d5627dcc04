@@ -94,6 +94,30 @@
       "revId": "defad847b1ad71440ebb782250c2b2d5627dcc04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9e6522_c1240fa2",
+        "filename": "modules/audio_coding/codecs/isac/fix/test/kenny.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-02-27T14:22:26Z",
+      "side": 0,
+      "message": "Sure.",
+      "parentUuid": "0a9c9ed7_bb678570",
+      "range": {
+        "startLine": 266,
+        "startChar": 9,
+        "endLine": 266,
+        "endChar": 15
+      },
+      "revId": "defad847b1ad71440ebb782250c2b2d5627dcc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

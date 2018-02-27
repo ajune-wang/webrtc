@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e671b97_a430c6b8",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-27T23:37:19Z",
+      "side": 1,
+      "message": "Sorry for annoying nit but we do `const auto`. Please change this to be consistent.",
+      "range": {
+        "startLine": 211,
+        "startChar": 9,
+        "endLine": 211,
+        "endChar": 13
+      },
+      "revId": "54e6167c18b9a2cb3f70afb01a9c25465a2c5f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9655936_cb7636ba",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-27T23:37:19Z",
+      "side": 1,
+      "message": "Either this should take an RTCMediaStreamTrack as the second argument or the name should be changed to reflect the fact that is takes an RtpReceiver. Is there a reason this takes an RtpReceiver rather than a track?",
+      "range": {
+        "startLine": 113,
+        "startChar": 15,
+        "endLine": 113,
+        "endChar": 22
+      },
+      "revId": "54e6167c18b9a2cb3f70afb01a9c25465a2c5f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

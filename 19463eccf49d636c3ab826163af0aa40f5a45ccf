@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "704de58e_fe2c0151",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-27T01:44:08Z",
+      "side": 1,
+      "message": "This code should be inside if (videoCallEnabled). Also then you can expect remoteVideoTrack to not be null.",
+      "revId": "19463eccf49d636c3ab826163af0aa40f5a45ccf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "846b33a2_e3290be9",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-27T01:44:08Z",
+      "side": 1,
+      "message": "nit: newline after",
+      "revId": "19463eccf49d636c3ab826163af0aa40f5a45ccf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a180e49_812f6180",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-27T01:44:08Z",
+      "side": 1,
+      "message": "Can also do:\n\nMediaStreamTrack track \u003d transceiver.receiver().track();\nif (track instanceof VideoTrack) {\n  return (VideoTrack) track;\n}",
+      "revId": "19463eccf49d636c3ab826163af0aa40f5a45ccf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "188671b5_12d0a8e4",
+        "filename": "sdk/android/api/org/webrtc/RtpReceiver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-27T01:44:08Z",
+      "side": 1,
+      "message": "This code is duplicated between RtpSender/RtpReceiver and requires a JNI method which fetches the kind from the track, but the track has its own kind() native accessor.\n\nInstead, I suggest adding a factory method to MediaStreamTrack which will take a long nativeTrack and create the appropriate subclass (it can use the MediaStreamTrack.nativeGetKind to figure out which one to construct).",
+      "revId": "19463eccf49d636c3ab826163af0aa40f5a45ccf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b292a81_e560cb0f",
+        "filename": "sdk/android/api/org/webrtc/RtpSender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-27T01:44:08Z",
+      "side": 1,
+      "message": "I think it might be best to require clients to instanceof on track. That way the compiler will check it at compile time rather than hitting a null pointer exception at run time with these methods (if the client does not check for the result being null).",
+      "revId": "19463eccf49d636c3ab826163af0aa40f5a45ccf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

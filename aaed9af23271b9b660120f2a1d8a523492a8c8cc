@@ -16,6 +16,24 @@
       "revId": "aaed9af23271b9b660120f2a1d8a523492a8c8cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5075365e_6509631a",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-27T13:20:59Z",
+      "side": 1,
+      "message": "I don\u0027t think _NE works for nullpointer checks.",
+      "parentUuid": "d99f09f4_bf66dc44",
+      "revId": "aaed9af23271b9b660120f2a1d8a523492a8c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

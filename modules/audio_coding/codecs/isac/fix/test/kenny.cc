@@ -263,7 +263,7 @@ TEST(IsacFixTest, Kenny) {
   sscanf(argv[i++], "%s", inname);
   sscanf(argv[i++], "%s", outname);
 
-  for (; i + 1 < static_cast<size_t>(argc); i++) {
+  for (; i < static_cast<size_t>(argc); i++) {
     /* Set (initial) bottleneck value */
     if (!strcmp ("-INITRATE", argv[i])) {
       rateBPS = atoi(argv[i + 1]);
@@ -390,9 +390,14 @@ TEST(IsacFixTest, Kenny) {
       i++;
     }
 
-    if (!strcmp ("--isolated-script-test-perf-output", argv[i])) {
-      strncpy(chartjson_result_file, argv[i+1], 50);
-      i++;
+    if (strstr(argv[i], "--isolated-script-test-perf-output") == argv[i]) {
+      const char* filename_start = strstr(argv[i], "=");
+      if (!filename_start || strlen(filename_start) < 2) {
+        printf("Expected --isolated-script-test-perf-output=/some/filename\n");
+        exit(1);
+      }
+      strcpy(chartjson_result_file, filename_start + 1);
+      printf("%s", chartjson_result_file);
     }
   }
 

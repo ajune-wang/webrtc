@@ -93,6 +93,30 @@
       "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54194ce8_43703793",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-27T11:53:44Z",
+      "side": 1,
+      "message": "I have concerns with this approach. Now calls to the observer might still be made after removeNetworkObserver/stopMonitoring is called. This might cause synchronization problems elsewhere (especially with native observers).",
+      "parentUuid": "2c994dbf_13e6b26c",
+      "range": {
+        "startLine": 190,
+        "startChar": 18,
+        "endLine": 190,
+        "endChar": 37
+      },
+      "revId": "c54731d0c5e0d29875793664a3af756f4d38e8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

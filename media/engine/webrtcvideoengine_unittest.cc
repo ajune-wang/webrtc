@@ -1968,7 +1968,7 @@ TEST_F(WebRtcVideoChannelTest, UsesCorrectSettingsForScreencast) {
   streams = send_stream->GetVideoStreams();
   EXPECT_EQ(capture_format_hd.width, streams.front().width);
   EXPECT_EQ(capture_format_hd.height, streams.front().height);
-  EXPECT_TRUE(streams[0].temporal_layer_thresholds_bps.empty());
+  EXPECT_FALSE(streams[0].num_temporal_layers.has_value());
   EXPECT_TRUE(channel_->SetVideoSend(last_ssrc_, true, nullptr, nullptr));
 }
 
@@ -2004,9 +2004,9 @@ TEST_F(WebRtcVideoChannelTest,
 
   std::vector<webrtc::VideoStream> streams = send_stream->GetVideoStreams();
   ASSERT_EQ(1u, streams.size());
-  ASSERT_EQ(1u, streams[0].temporal_layer_thresholds_bps.size());
+  ASSERT_EQ(2u, streams[0].num_temporal_layers);
   EXPECT_EQ(kConferenceScreencastTemporalBitrateBps,
-            streams[0].temporal_layer_thresholds_bps[0]);
+            streams[0].target_bitrate_bps);
 
   EXPECT_TRUE(channel_->SetVideoSend(last_ssrc_, true, nullptr, nullptr));
 }
@@ -5023,9 +5023,11 @@ class WebRtcVideoChannelSimulcastTest : public testing::Test {
       EXPECT_EQ(expected_streams[i].max_qp, video_streams[i].max_qp);
 
       EXPECT_EQ(!conference_mode,
-                expected_streams[i].temporal_layer_thresholds_bps.empty());
-      EXPECT_EQ(expected_streams[i].temporal_layer_thresholds_bps,
-                video_streams[i].temporal_layer_thresholds_bps);
+                !expected_streams[i].num_temporal_layers.has_value());
+      EXPECT_EQ(expected_streams[i].num_temporal_layers.has_value(),
+                video_streams[i].num_temporal_layers.has_value());
+      EXPECT_EQ(expected_streams[i].num_temporal_layers.value_or(0),
+                video_streams[i].num_temporal_layers.value_or(0));
 
       if (i == num_streams - 1) {
         total_max_bitrate_bps += video_streams[i].max_bitrate_bps;

@@ -31,14 +31,22 @@ class AdaptedVideoTrackSource
   // Allows derived classes to initialize |video_adapter_| with a custom
   // alignment.
   explicit AdaptedVideoTrackSource(int required_alignment);
+
   // Checks the apply_rotation() flag. If the frame needs rotation, and it is a
   // plain memory frame, it is rotated. Subclasses producing native frames must
   // handle apply_rotation() themselves.
+  // Should be called on a TaskQueue thread used for delivering frames.
   void OnFrame(const webrtc::VideoFrame& frame);
+
+  // Should be called on a TaskQueue thread used for delivering frames.
+  void OnDiscardedFrame();
 
   // Reports the appropriate frame size after adaptation. Returns true
   // if a frame is wanted. Returns false if there are no interested
   // sinks, or if the VideoAdapter decides to drop the frame.
+  // Note, if the function sets drop_frame to |true|, it's the callers
+  // responsibility to ensure that |OnDiscardedFrame()| gets called in the
+  // correct context.
   bool AdaptFrame(int width,
                   int height,
                   int64_t time_us,
@@ -47,7 +55,8 @@ class AdaptedVideoTrackSource
                   int* crop_width,
                   int* crop_height,
                   int* crop_x,
-                  int* crop_y);
+                  int* crop_y,
+                  bool* drop_frame);
 
   // Returns the current value of the apply_rotation flag, derived
   // from the VideoSinkWants of registered sinks. The value is derived

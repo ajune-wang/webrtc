@@ -192,8 +192,12 @@ VCMEncodedFrame* VCMReceiver::FrameForDecoding(uint16_t max_wait_time_ms,
         static_cast<int32_t>(clock_->TimeInMilliseconds() - start_time_ms);
     uint16_t new_max_wait_time =
         static_cast<uint16_t>(VCM_MAX(available_wait_time, 0));
-    uint32_t wait_time_ms =
+    // May be negative.
+    int64_t real_wait_time_ms =
         timing_->MaxWaitingTime(render_time_ms, clock_->TimeInMilliseconds());
+    if (real_wait_time_ms < 0)
+      real_wait_time_ms = 0;
+    uint32_t wait_time_ms = static_cast<uint32_t>(real_wait_time_ms);
     if (new_max_wait_time < wait_time_ms) {
       // We're not allowed to wait until the frame is supposed to be rendered,
       // waiting as long as we're allowed to avoid busy looping, and then return

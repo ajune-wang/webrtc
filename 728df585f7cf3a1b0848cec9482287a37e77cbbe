@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff0eedcb_9c5f6d6d",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-27T10:49:18Z",
+      "side": 1,
+      "message": "Yeah, there shouldn\u0027t be an asterisk in the first place. See patchset 2.\n\nI do want a CHECK here though. See offline discussion.",
+      "parentUuid": "a19dff3e_fd22a643",
+      "revId": "728df585f7cf3a1b0848cec9482287a37e77cbbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca3e8b97_34f43fc7",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "728df585f7cf3a1b0848cec9482287a37e77cbbe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ae464e_b1a23056",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-02-27T10:49:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca3e8b97_34f43fc7",
+      "revId": "728df585f7cf3a1b0848cec9482287a37e77cbbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

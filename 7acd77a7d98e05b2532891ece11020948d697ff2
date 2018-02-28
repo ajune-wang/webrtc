@@ -307,6 +307,30 @@
       "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72886e04_b656c843",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-02-28T17:52:11Z",
+      "side": 1,
+      "message": "Ah, you are right, I missed the hooking up part.\n\nEssentially the C++ part is the wrapper of the JavaI420ABuffer.\n\nThe full code path is that \n1. JavaI420ABuffer is wrapped in AndroidVideoBuffer\n2. Just before multiplex encoder, toI420 will have to be called to get memory based frame data, and it is at this step, we have to use AndroidI420ABuffer (rather than AndroidI420Buffer) to wrap JavaI420ABuffer to provide all implementations for StrideA() dataA() etc.",
+      "parentUuid": "393d16cd_8d22f18f",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 29
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

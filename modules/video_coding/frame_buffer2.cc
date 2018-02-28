@@ -368,7 +368,11 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
 
   if (!UpdateFrameInfoWithIncomingFrame(*frame, info))
     return last_continuous_picture_id;
+
   UpdatePlayoutDelays(*frame);
+  if (!frame->delayed_by_retransmission())
+    timing_->IncomingTimestamp(frame->timestamp, frame->ReceivedTime());
+
   info->second.frame = std::move(frame);
   ++num_frames_buffered_;
 

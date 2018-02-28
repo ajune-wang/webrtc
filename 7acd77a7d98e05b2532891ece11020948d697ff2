@@ -283,6 +283,30 @@
       "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "393d16cd_8d22f18f",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-02-28T15:42:39Z",
+      "side": 1,
+      "message": "I understand the need for the class in Java but how do you plan to use this C++ class? Do you need to do some processing on the frame on C++ side?\n\nRight now it is dead code.",
+      "parentUuid": "1a36bd53_629cfe46",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 29
+      },
+      "revId": "7acd77a7d98e05b2532891ece11020948d697ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

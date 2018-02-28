@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c90777f6_79b68227",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-28T12:29:04Z",
+      "side": 1,
+      "message": "Thanks! Good find!\n\nDone.",
+      "parentUuid": "29b02dbf_4bc66e22",
+      "revId": "bdc1d7052488898ca03580bac52e63c0bec068b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c50f1e9f_4d6c0deb",
         "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "bdc1d7052488898ca03580bac52e63c0bec068b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e49fac0_9c85f751",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-02-28T12:29:04Z",
+      "side": 1,
+      "message": "Good point!\n\nDone.",
+      "parentUuid": "c50f1e9f_4d6c0deb",
+      "revId": "bdc1d7052488898ca03580bac52e63c0bec068b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

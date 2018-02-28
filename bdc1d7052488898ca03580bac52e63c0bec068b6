@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29b02dbf_4bc66e22",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-28T11:43:30Z",
+      "side": 1,
+      "message": "fabs() is for doubles, so I would prefer abs()",
+      "revId": "bdc1d7052488898ca03580bac52e63c0bec068b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c50f1e9f_4d6c0deb",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-02-28T11:43:30Z",
+      "side": 1,
+      "message": "else if (soft_reset_counter_ \u003e 10 * kNumBlocksPerSecond) {",
+      "revId": "bdc1d7052488898ca03580bac52e63c0bec068b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

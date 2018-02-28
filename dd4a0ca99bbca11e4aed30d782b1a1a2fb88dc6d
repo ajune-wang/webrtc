@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b09a6eb_1ded0eb0",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 24
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-28T15:51:06Z",
+      "side": 1,
+      "message": "We need to conditionally depend on \"//base/third_party/libevent\" in order to fix the libevent error downstream.\n\nSomething like this will work:\ndeps \u003d [\n  \":checks\",\n  \":criticalsection\",\n  \":logging\",\n  \":platform_thread\",\n  \":ptr_util\",\n  \":refcount\",\n  \":rtc_task_queue_api\",\n  \":safe_conversions\",\n  \":timeutils\",\n]\nif (rtc_build_libevent) {\n  deps +\u003d [ \"//base/third_party/libevent\" ]\n}",
+      "range": {
+        "startLine": 589,
+        "startChar": 6,
+        "endLine": 589,
+        "endChar": 36
+      },
+      "revId": "dd4a0ca99bbca11e4aed30d782b1a1a2fb88dc6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

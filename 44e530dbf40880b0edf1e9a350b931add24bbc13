@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d76b9c0a_8640bb72",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-28T19:17:01Z",
+      "side": 1,
+      "message": "I see this is only used by peerconnection.cc (and peerconnectioninterface_unittest.cc). Would it be removed after updating PeerConnection to handle multiple streams correctly?",
+      "revId": "44e530dbf40880b0edf1e9a350b931add24bbc13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

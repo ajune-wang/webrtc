@@ -34,9 +34,9 @@ void PacerController::OnCongestionWindow(CongestionWindow congestion_window) {
   }
 }
 
-void PacerController::OnNetworkAvailability(NetworkAvailability msg) {
+void PacerController::OnNetworkAvailability(bool network_available) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  network_available_ = msg.network_available;
+  network_available_ = network_available;
   congested_ = false;
   UpdatePacerState();
 }
@@ -58,6 +58,10 @@ void PacerController::OnProbeClusterConfig(ProbeClusterConfig config) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   int64_t bitrate_bps = config.target_data_rate.bps();
   pacer_->CreateProbeCluster(bitrate_bps);
+}
+
+void PacerController::Detach() {
+  sequenced_checker_.Detach();
 }
 
 void PacerController::OnOutstandingData(OutstandingData msg) {

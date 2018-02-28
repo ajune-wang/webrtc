@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cb6655d_91f8e58f",
+        "filename": "test/fpe_observer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T19:03:28Z",
+      "side": 1,
+      "message": "Are we guaranteed that these calls will do what we expect if NDEBUG, or are we better of ifdeffing this line (and the entire destructor) away?",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 35
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8428edb_8486bc40",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T19:03:28Z",
+      "side": 1,
+      "message": "I would drop these prefixes, on account of them being unnecessary. Your call.",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b02db339_c21c50c3",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T19:03:28Z",
+      "side": 1,
+      "message": "How about std::numeric_limits\u003cdouble\u003e::max() * 2.0? (I haven\u0027t been able to test this myself---what clang command-line flags do I need to switch on floating-point exceptions?)",
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "059a5ab9_bf28b8b9",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T19:03:28Z",
+      "side": 1,
+      "message": "If you\u0027re going to #ifdef the tests like this (which I agree is a good idea!), why not make use of FloatingPointExceptionObserver be a compile-time error?",
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

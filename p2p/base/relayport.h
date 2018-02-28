@@ -69,6 +69,8 @@ class RelayPort : public Port {
   sigslot::signal1<const ProtocolAddress*> SignalConnectFailure;
   sigslot::signal1<const ProtocolAddress*> SignalSoftTimeout;
 
+  PortName port_name() const override;
+
  protected:
   RelayPort(rtc::Thread* thread,
             rtc::PacketSocketFactory* factory,

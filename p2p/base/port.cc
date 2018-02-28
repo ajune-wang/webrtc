@@ -332,6 +332,9 @@ const std::string& Port::Type() const {
 rtc::Network* Port::Network() const {
   return network_;
 }
+PortName Port::port_name() const {
+  return PortName::UNKNOWN;
+}
 
 IceRole Port::GetIceRole() const {
   return ice_role_;

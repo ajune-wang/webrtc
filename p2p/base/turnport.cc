@@ -1215,6 +1215,10 @@ bool TurnPort::TurnCustomizerAllowChannelData(
   return turn_customizer_->AllowChannelData(this, data, size, payload);
 }
 
+PortName TurnPort::port_name() const {
+  return PortName::TURN_PORT;
+}
+
 TurnAllocateRequest::TurnAllocateRequest(TurnPort* port)
     : StunRequest(new TurnMessage()),
       port_(port) {

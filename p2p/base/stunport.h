@@ -118,6 +118,8 @@ class UDPPort : public Port {
     return requests_.HasRequest(msg_type);
   }
 
+  PortName port_name() const override;
+
  protected:
   UDPPort(rtc::Thread* thread,
           rtc::PacketSocketFactory* factory,
@@ -265,6 +267,8 @@ class StunPort : public UDPPort {
                           const std::string& origin);
 
   void PrepareAddress() override;
+
+  PortName port_name() const override;
 
  protected:
   StunPort(rtc::Thread* thread,

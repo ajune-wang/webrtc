@@ -54,6 +54,19 @@ extern const char TCPTYPE_ACTIVE_STR[];
 extern const char TCPTYPE_PASSIVE_STR[];
 extern const char TCPTYPE_SIMOPEN_STR[];
 
+// Unique name for a subtype of Port.
+//
+// Note that the concept of type, return by Port::Type(), does not uniquely
+// identifies a subtype of ports, e.g. UDP and TCP ports share LOCAL_PORT_TYPE.
+enum class PortName {
+  RELAY_PORT,
+  STUN_PORT,
+  TCP_PORT,
+  TURN_PORT,
+  UDP_PORT,
+  UNKNOWN,
+};
+
 // The minimum time we will wait before destroying a connection after creating
 // it.
 static const int MIN_CONNECTION_LIFETIME = 10 * 1000;  // 10 seconds.
@@ -238,6 +251,8 @@ class Port : public PortInterface, public rtc::MessageHandler,
 
   const std::string& Type() const override;
   rtc::Network* Network() const override;
+  // Returns the unique name of a subtype port.
+  virtual PortName port_name() const;
 
   // Methods to set/get ICE role and tiebreaker values.
   IceRole GetIceRole() const override;

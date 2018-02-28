@@ -54,6 +54,8 @@ class TCPPort : public Port {
   bool SupportsProtocol(const std::string& protocol) const override;
   ProtocolType GetProtocol() const override;
 
+  PortName port_name() const override;
+
  protected:
   TCPPort(rtc::Thread* thread,
           rtc::PacketSocketFactory* factory,

@@ -410,6 +410,10 @@ void RelayPort::OnReadPacket(
   }
 }
 
+PortName RelayPort::port_name() const {
+  return PortName::RELAY_PORT;
+}
+
 RelayConnection::RelayConnection(const ProtocolAddress* protocol_address,
                                  rtc::AsyncPacketSocket* socket,
                                  rtc::Thread* thread)

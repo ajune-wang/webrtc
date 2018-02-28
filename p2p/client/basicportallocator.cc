@@ -433,7 +433,12 @@ void BasicPortAllocatorSession::SetStunKeepaliveIntervalForReadyPorts(
     const rtc::Optional<int>& stun_keepalive_interval) {
   auto ports = ReadyPorts();
   for (PortInterface* port : ports) {
-    if (port->Type() == STUN_PORT_TYPE) {
+    const PortName port_name = static_cast<Port*>(port)->port_name();
+    // TODO(qingsi): This is almost manual RTTI. We can rewrite
+    // set_stun_keepalive_delay() as virtual, which however forces it to become
+    // part of the interface for all subtypes of ports even if it does not
+    // apply.
+    if (port_name == PortName::UDP_PORT || port_name == PortName::STUN_PORT) {
       static_cast<UDPPort*>(port)->set_stun_keepalive_delay(
           stun_keepalive_interval);
     }

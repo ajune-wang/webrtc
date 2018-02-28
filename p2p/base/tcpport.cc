@@ -323,6 +323,10 @@ void TCPPort::OnAddressReady(rtc::AsyncPacketSocket* socket,
              0, "", true);
 }
 
+PortName TCPPort::port_name() const {
+  return PortName::TCP_PORT;
+}
+
 TCPConnection::TCPConnection(TCPPort* port,
                              const Candidate& candidate,
                              rtc::AsyncPacketSocket* socket)

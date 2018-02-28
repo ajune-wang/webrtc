@@ -457,17 +457,16 @@ void UDPPort::OnStunBindingRequestSucceeded(
     int rtt_ms,
     const rtc::SocketAddress& stun_server_addr,
     const rtc::SocketAddress& stun_reflected_addr) {
-  if (bind_request_succeeded_servers_.find(stun_server_addr) !=
-          bind_request_succeeded_servers_.end()) {
-    return;
-  }
-  bind_request_succeeded_servers_.insert(stun_server_addr);
-
   RTC_DCHECK(stats_.stun_binding_responses_received <
              stats_.stun_binding_requests_sent);
   stats_.stun_binding_responses_received++;
   stats_.stun_binding_rtt_ms_total += rtt_ms;
   stats_.stun_binding_rtt_ms_squared_total += rtt_ms * rtt_ms;
+  if (bind_request_succeeded_servers_.find(stun_server_addr) !=
+      bind_request_succeeded_servers_.end()) {
+    return;
+  }
+  bind_request_succeeded_servers_.insert(stun_server_addr);
   // If socket is shared and |stun_reflected_addr| is equal to local socket
   // address, or if the same address has been added by another STUN server,
   // then discarding the stun address.
@@ -546,6 +545,10 @@ bool UDPPort::HasCandidateWithAddress(const rtc::SocketAddress& addr) const {
   return false;
 }
 
+PortName UDPPort::port_name() const {
+  return PortName::UDP_PORT;
+}
+
 StunPort* StunPort::Create(rtc::Thread* thread,
                            rtc::PacketSocketFactory* factory,
                            rtc::Network* network,
@@ -589,6 +592,10 @@ StunPort::StunPort(rtc::Thread* thread,
 
 void StunPort::PrepareAddress() {
   SendStunBindingRequests();
+}
+
+PortName StunPort::port_name() const {
+  return PortName::STUN_PORT;
 }
 
 }  // namespace cricket

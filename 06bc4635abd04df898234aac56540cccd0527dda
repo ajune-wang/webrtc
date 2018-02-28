@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "012ac374_4c2ab23b",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-28T02:53:03Z",
+      "side": 1,
+      "message": "nit: \"get the remote track\".",
+      "range": {
+        "startLine": 674,
+        "startChar": 19,
+        "endLine": 674,
+        "endChar": 35
+      },
+      "revId": "06bc4635abd04df898234aac56540cccd0527dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0747e614_a135e55d",
+        "filename": "sdk/android/api/org/webrtc/MediaStreamTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-28T02:53:03Z",
+      "side": 1,
+      "message": "nit: stray newline",
+      "revId": "06bc4635abd04df898234aac56540cccd0527dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

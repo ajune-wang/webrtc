@@ -115,7 +115,6 @@ class ControlHandler : public NetworkControllerObserver {
   void OnPacerQueueUpdate(PacerQueueUpdate msg);
 
   void RegisterNetworkObserver(NetworkChangedObserver* observer);
-  void DeRegisterNetworkObserver(NetworkChangedObserver* observer);
 
   rtc::Optional<TargetTransferRate> last_transfer_rate();
   bool pacer_configured();
@@ -198,13 +197,6 @@ void ControlHandler::RegisterNetworkObserver(NetworkChangedObserver* observer) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   RTC_DCHECK(observer_ == nullptr);
   observer_ = observer;
-}
-
-void ControlHandler::DeRegisterNetworkObserver(
-    NetworkChangedObserver* observer) {
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  RTC_DCHECK_EQ(observer_, observer);
-  observer_ = nullptr;
 }
 
 void ControlHandler::OnNetworkInvalidation() {
@@ -339,12 +331,6 @@ void SendSideCongestionController::RegisterNetworkObserver(
   });
 }
 
-void SendSideCongestionController::DeRegisterNetworkObserver(
-    NetworkChangedObserver* observer) {
-  WaitOnTask([this, observer]() {
-    control_handler->DeRegisterNetworkObserver(observer);
-  });
-}
 
 void SendSideCongestionController::SetBweBitrates(int min_bitrate_bps,
                                                   int start_bitrate_bps,

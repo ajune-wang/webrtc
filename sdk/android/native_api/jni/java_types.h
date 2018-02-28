@@ -178,13 +178,13 @@ ScopedJavaLocalRef<jobject> NativeToJavaLong(JNIEnv* env, int64_t u);
 ScopedJavaLocalRef<jstring> NativeToJavaString(JNIEnv* jni, const char* str);
 ScopedJavaLocalRef<jstring> NativeToJavaString(JNIEnv* jni,
                                                const std::string& str);
-ScopedJavaLocalRef<jstring> NativeToJavaString(
-    JNIEnv* jni, const rtc::Optional<std::string>& str);
-
 
 ScopedJavaLocalRef<jobject> NativeToJavaInteger(
     JNIEnv* jni,
     const rtc::Optional<int32_t>& optional_int);
+ScopedJavaLocalRef<jstring> NativeToJavaString(
+    JNIEnv* jni,
+    const rtc::Optional<std::string>& str);
 
 // Helper function for converting std::vector<T> into a Java array.
 template <typename T, typename Convert>

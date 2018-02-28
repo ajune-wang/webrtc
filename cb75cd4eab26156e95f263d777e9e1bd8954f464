@@ -1,0 +1,209 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff98e0ad_1552948b",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "Does this need to be publicly visible?",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbb569e3_83cfd995",
+        "filename": "test/fpe_observer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "EXPECT this call to return 0?",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea7fdaa_3f282d58",
+        "filename": "test/fpe_observer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "Structure this as\n\n  const int occurred \u003d std::fetestexcept(mask_);\n  EXPECT_FALSE(occurred \u0026 FE_INVALID) \u003c\u003c \"Domain error occurred in a floating-point operation.\";\n  EXPECT_FALSE(occurred \u0026 FE_DIVBYZERO) \u003c\u003c \"Division by zero.\";\n  ...\n\n?",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0823fb7_a3ce5a3b",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "int? (Several more cases below.)",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 13
+      },
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7947c84e_25336985",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "Better to not specify the size explicitly.",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa7cd329_7bb5f52c",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "The style guide strongly discourages initializing globals like this (https://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables). Can you turn this into three functions instead?",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "529b9d87_c262b3ee",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "Some parentheses here, please?",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 53
+      },
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0ee2735_6ac8788a",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "This is equivalent to\n\n  observe ^\u003d FE_INEXACT;",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6f5de74_87462d7d",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "A bunch of | in this function should be \u0026, right?",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cb0c20c_b1eb8892",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "I must confess I have no clue what this function does. Well, if `trigger` has FE_OVERFLOW or FE_UNDERFLOW set, it flips the FE_INEXACT bit of `observe`, otherwise it returns `observe` unaltered... I just don\u0027t get *why*.",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2f26fd0_e0073b2c",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-02-28T14:01:33Z",
+      "side": 1,
+      "message": "Document the arguments?",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -62,7 +62,7 @@ class SendSideCongestionController
   // try to break this circular chain of references, and make the observer a
   // construction time constant.
   void RegisterNetworkObserver(Observer* observer) override;
-  void DeRegisterNetworkObserver(Observer* observer) override;
+  virtual void DeRegisterNetworkObserver(Observer* observer);
 
   void SetBweBitrates(int min_bitrate_bps,
                       int start_bitrate_bps,
@@ -90,7 +90,7 @@ class SendSideCongestionController
 
   TransportFeedbackObserver* GetTransportFeedbackObserver() override;
 
-  RateLimiter* GetRetransmissionRateLimiter() override;
+  RTC_DEPRECATED virtual RateLimiter* GetRetransmissionRateLimiter();
   void EnablePeriodicAlrProbing(bool enable) override;
 
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;

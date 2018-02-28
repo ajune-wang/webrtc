@@ -46,7 +46,6 @@ class SendSideCongestionControllerInterface : public CallStatsObserver,
   virtual void DeRegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) = 0;
   virtual void RegisterNetworkObserver(NetworkChangedObserver* observer) = 0;
-  virtual void DeRegisterNetworkObserver(NetworkChangedObserver* observer) = 0;
   virtual void SetBweBitrates(int min_bitrate_bps,
                               int start_bitrate_bps,
                               int max_bitrate_bps) = 0;
@@ -62,7 +61,6 @@ class SendSideCongestionControllerInterface : public CallStatsObserver,
   virtual int64_t GetPacerQueuingDelayMs() const = 0;
   virtual int64_t GetFirstPacketTimeMs() const = 0;
   virtual TransportFeedbackObserver* GetTransportFeedbackObserver() = 0;
-  virtual RateLimiter* GetRetransmissionRateLimiter() = 0;
   virtual void EnablePeriodicAlrProbing(bool enable) = 0;
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
   RTC_DISALLOW_COPY_AND_ASSIGN(SendSideCongestionControllerInterface);

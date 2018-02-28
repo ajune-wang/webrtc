@@ -32,11 +32,11 @@ namespace webrtc_cc {
 class GoogCcNetworkController : public NetworkControllerInterface {
  public:
   GoogCcNetworkController(RtcEventLog* event_log,
-                          NetworkControllerObserver* observer);
+                          NetworkControllerObserver* observer,
+                          NetworkControllerConfig config);
   ~GoogCcNetworkController() override;
 
   // NetworkControllerInterface
-  void OnNetworkAvailability(NetworkAvailability msg) override;
   void OnNetworkRouteChange(NetworkRouteChange msg) override;
   void OnProcessInterval(ProcessInterval msg) override;
   void OnRemoteBitrateReport(RemoteBitrateReport msg) override;
@@ -48,6 +48,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   void OnTransportPacketsFeedback(TransportPacketsFeedback msg) override;
 
  private:
+  void UpdateBitrateConstraints(TargetRateConstraints constraints,
+                                DataRate starting_rate);
   void MaybeUpdateCongestionWindow();
   void MaybeTriggerOnNetworkChanged(Timestamp at_time);
   bool GetNetworkParameters(int32_t* estimated_bitrate_bps,
@@ -60,7 +62,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   RtcEventLog* const event_log_;
   NetworkControllerObserver* const observer_;
 
-  const std::unique_ptr<ProbeController> probe_controller_;
+  std::unique_ptr<ProbeController> probe_controller_;
 
   std::unique_ptr<SendSideBandwidthEstimation> bandwidth_estimation_;
   std::unique_ptr<AlrDetector> alr_detector_;
@@ -77,6 +79,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   uint8_t last_estimated_fraction_loss_ = 0;
   int64_t last_estimated_rtt_ms_ = 0;
 
+  bool enable_alr_probing_;
   double pacing_factor_;
   DataRate min_pacing_rate_;
   DataRate max_padding_rate_;

@@ -13,6 +13,7 @@
 #include "sdk/android/generated_video_jni/jni/YuvHelper_jni.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "third_party/libyuv/include/libyuv/convert.h"
+#include "third_party/libyuv/include/libyuv/scale.h"
 
 namespace webrtc {
 namespace jni {
@@ -115,6 +116,30 @@ void JNI_YuvHelper_I420Rotate(JNIEnv* jni,
                      src_stride_v, dst_y, dst_stride_y, dst_u, dst_stride_u,
                      dst_v, dst_stride_v, src_width, src_height,
                      static_cast<libyuv::RotationMode>(rotation_mode));
+}
+
+static void JNI_YuvHelper_CropAndScalePlane(JNIEnv* jni,
+                                            const JavaParamRef<jclass>&,
+                                            const JavaParamRef<jobject>& j_src,
+                                            jint src_stride,
+                                            jint crop_x,
+                                            jint crop_y,
+                                            jint crop_width,
+                                            jint crop_height,
+                                            const JavaParamRef<jobject>& j_dst,
+                                            jint dst_stride,
+                                            jint scale_width,
+                                            jint scale_height) {
+  uint8_t const* src =
+      static_cast<uint8_t*>(jni->GetDirectBufferAddress(j_src.obj()));
+  uint8_t* dst =
+      static_cast<uint8_t*>(jni->GetDirectBufferAddress(j_dst.obj()));
+
+  // Perform cropping using pointer arithmetic.
+  src += crop_x + crop_y * src_stride;
+
+  libyuv::ScalePlane(src, src_stride, crop_width, crop_height, dst, dst_stride,
+                     scale_width, scale_height, libyuv::kFilterBox);
 }
 
 }  // namespace jni

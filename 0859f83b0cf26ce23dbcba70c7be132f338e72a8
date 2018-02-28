@@ -46,6 +46,30 @@
       "revId": "0859f83b0cf26ce23dbcba70c7be132f338e72a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae9416c_149e718a",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-02-28T19:53:22Z",
+      "side": 1,
+      "message": "I agree it is unlikely and it feels better using what we already have instead of adding a new tag just for manual RTTI. I will fix it.",
+      "parentUuid": "9bc26495_f6b4f27f",
+      "range": {
+        "startLine": 436,
+        "startChar": 10,
+        "endLine": 436,
+        "endChar": 18
+      },
+      "revId": "0859f83b0cf26ce23dbcba70c7be132f338e72a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

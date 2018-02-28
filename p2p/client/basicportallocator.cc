@@ -433,7 +433,11 @@ void BasicPortAllocatorSession::SetStunKeepaliveIntervalForReadyPorts(
     const rtc::Optional<int>& stun_keepalive_interval) {
   auto ports = ReadyPorts();
   for (PortInterface* port : ports) {
-    if (port->Type() == STUN_PORT_TYPE) {
+    // The port type and protocol can be used to identify different subclasses
+    // of Port in the current implementation. Note that a TCPPort has the type
+    // LOCAL_PORT_TYPE but uses the protocol PROTO_TCP.
+    if (port->Type() == STUN_PORT_TYPE ||
+        (port->Type() == LOCAL_PORT_TYPE && port->GetProtocol() == PROTO_UDP)) {
       static_cast<UDPPort*>(port)->set_stun_keepalive_delay(
           stun_keepalive_interval);
     }

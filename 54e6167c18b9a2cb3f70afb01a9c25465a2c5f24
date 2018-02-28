@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2e9bf15d_44b9d243",
+        "filename": "sdk/objc/Framework/Classes/PeerConnection/RTCPeerConnection.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-02-28T10:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e671b97_a430c6b8",
+      "range": {
+        "startLine": 211,
+        "startChar": 9,
+        "endLine": 211,
+        "endChar": 13
+      },
+      "revId": "54e6167c18b9a2cb3f70afb01a9c25465a2c5f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9655936_cb7636ba",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-27T23:37:19Z",
       "side": 1,
       "message": "Either this should take an RTCMediaStreamTrack as the second argument or the name should be changed to reflect the fact that is takes an RtpReceiver. Is there a reason this takes an RtpReceiver rather than a track?",
+      "range": {
+        "startLine": 113,
+        "startChar": 15,
+        "endLine": 113,
+        "endChar": 22
+      },
+      "revId": "54e6167c18b9a2cb3f70afb01a9c25465a2c5f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b957e365_e2b6bb06",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-02-28T10:25:42Z",
+      "side": 1,
+      "message": "I don\u0027t mind passing RTCMediaStreamTrack at all. I\u0027ve just followed original signature of PeerConnectionObserver::OnAddTrack, and how OnAddTrack is implemented in Java SDK. and how it was implemented in rejected CL https://webrtc-codereview.appspot.com/50109004/.\nWhich solution do you prefer: should I change type and pass RTCMediaStreamTrack or should I rename method (but I don\u0027t have any suggestions other than didAddRtpReceiver)?",
+      "parentUuid": "e9655936_cb7636ba",
       "range": {
         "startLine": 113,
         "startChar": 15,

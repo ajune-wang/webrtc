@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0106ccb1_739f87fd",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-28T18:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "012ac374_4c2ab23b",
+      "range": {
+        "startLine": 674,
+        "startChar": 19,
+        "endLine": 674,
+        "endChar": 35
+      },
+      "revId": "06bc4635abd04df898234aac56540cccd0527dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0747e614_a135e55d",
         "filename": "sdk/android/api/org/webrtc/MediaStreamTrack.java",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "06bc4635abd04df898234aac56540cccd0527dda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f753958e_dcfa056a",
+        "filename": "sdk/android/api/org/webrtc/MediaStreamTrack.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-02-28T18:55:57Z",
+      "side": 1,
+      "message": "Whoops, removed.",
+      "parentUuid": "0747e614_a135e55d",
+      "revId": "06bc4635abd04df898234aac56540cccd0527dda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

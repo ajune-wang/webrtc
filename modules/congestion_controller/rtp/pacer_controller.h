@@ -31,11 +31,13 @@ class PacerController {
   explicit PacerController(PacedSender* pacer);
   ~PacerController();
   void OnCongestionWindow(CongestionWindow msg);
-  void OnNetworkAvailability(NetworkAvailability msg);
+  void OnNetworkAvailability(bool network_available);
   void OnNetworkRouteChange(NetworkRouteChange msg);
   void OnOutstandingData(OutstandingData msg);
   void OnPacerConfig(PacerConfig msg);
   void OnProbeClusterConfig(ProbeClusterConfig msg);
+
+  void Detach();
 
  private:
   void UpdatePacerState();

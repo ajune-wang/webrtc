@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a5b94d91_a138bb8e",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Yes, unless we want to always include this target when //test is included (not sure we want this).",
+      "parentUuid": "ff98e0ad_1552948b",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbb569e3_83cfd995",
         "filename": "test/fpe_observer.h",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d2229ba1_98ed2b6e",
+        "filename": "test/fpe_observer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbb569e3_83cfd995",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ea7fdaa_3f282d58",
         "filename": "test/fpe_observer.h",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "010baed0_1ae309df",
+        "filename": "test/fpe_observer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ea7fdaa_3f282d58",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +153,54 @@
     },
     {
       "key": {
+        "uuid": "d5af5cc8_d43bab66",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "I changed this in another PS and switched to std::map with which i can feed SCOPED_TRACE with a string",
+      "parentUuid": "7947c84e_25336985",
+      "range": {
+        "startLine": 23,
+        "startChar": 30,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c90db4ec_78600021",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0823fb7_a3ce5a3b",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 13
+      },
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa7cd329_7bb5f52c",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 4
@@ -113,6 +215,24 @@
       "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1fcef50_878bed66",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa7cd329_7bb5f52c",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "d63442e9_1deb27f8",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "529b9d87_c262b3ee",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 53
+      },
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0ee2735_6ac8788a",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 4
@@ -153,6 +297,24 @@
       "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f49f3de_126a3340",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Nice :)",
+      "parentUuid": "d0ee2735_6ac8788a",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -173,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "fb1a5fc6_e260bc19",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Right... sorry!",
+      "parentUuid": "f6f5de74_87462d7d",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cb0c20c_b1eb8892",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 4
@@ -190,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "aaba2bf0_38948c87",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "My apologies, the comments are not enough and I found the correct and a simpler way (see the latest PS).\n\nWhat happens is that if we trigger an over/underflow, we implicitly trigger also FE_INEXACT since the result must be rounded off. Therefore we need to set the right expectations in the tests.\n\nHence, I initially toggled the flag in |observe| because either (i) we expect that FE_INEXACT is triggered or (ii) we expect that FE_INEXACT is *not* triggered. The two cases correspond to what CheckNoFalseNegatives() and CheckNoFalsePositives() do respectively.\n\nMore in details.\nCase (i): CheckNoFalseNegatives() triggers FE_OVERFLOW/FE_UNDERFLOW and checks that the same exception is detected. The correct expectation here is to also expect FE_INEXACT; but I noticed that EXPECT_NONFATAL_FAILURE() expects exactly 1 non fatal failure, therefore in the new PS nothing is done in terms of expectation - we just ignore FE_INEXACT in this case.\n\nCase (ii): CheckNoFalsePositives() triggers FE_OVERFLOW/FE_UNDERFLOW and checks that no other exception is detected. However, FE_INEXACT will also be triggered and therefore that flag must be removed from the mask.\n\nA bit elaborate, but the exceptions are not isolated and we have to take that into account.\nI\u0027m sure you will like more the new PS.",
+      "parentUuid": "6cb0c20c_b1eb8892",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2f26fd0_e0073b2c",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 4
@@ -204,6 +402,24 @@
       "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4523ce4b_1c7389da",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-02-28T16:20:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2f26fd0_e0073b2c",
+      "revId": "cb75cd4eab26156e95f263d777e9e1bd8954f464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

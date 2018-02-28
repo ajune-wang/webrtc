@@ -110,7 +110,6 @@ class SendSideCongestionController : public CallStatsObserver,
 
   virtual TransportFeedbackObserver* GetTransportFeedbackObserver();
 
-  RateLimiter* GetRetransmissionRateLimiter();
   void EnablePeriodicAlrProbing(bool enable);
 
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet);

@@ -308,8 +308,8 @@ SendSideCongestionController::SendSideCongestionController(
       task_queue_(MakeUnique<rtc::TaskQueue>("SendSideCCQueue")) {}
 
 void SendSideCongestionController::MaybeCreateControllers() {
+  rtc::CritScope cs(&config_lock_);
   if (!controller_) {
-    rtc::CritScope cs(&config_lock_);
     if (initial_config_ && network_available_ && observer_) {
       control_handler_ = MakeUnique<send_side_cc_internal::ControlHandler>(
           observer_, pacer_controller_.get(), clock_);
@@ -345,6 +345,7 @@ void SendSideCongestionController::DeRegisterPacketFeedbackObserver(
 void SendSideCongestionController::RegisterNetworkObserver(
     NetworkChangedObserver* observer) {
   rtc::CritScope cs(&config_lock_);
+  RTC_DCHECK(!controller_);
   RTC_DCHECK(observer_ == nullptr);
   observer_ = observer;
   MaybeCreateControllers();
@@ -394,7 +395,9 @@ void SendSideCongestionController::OnNetworkRouteChanged(
 
 bool SendSideCongestionController::AvailableBandwidth(
     uint32_t* bandwidth) const {
-  RTC_DCHECK(control_handler_);
+  if (!control_handler_) {
+    return false;
+  }
   // TODO(srte): Remove this interface and push information about bandwidth
   // estimation to users of this class, thereby reducing synchronous calls.
   if (control_handler_->last_transfer_rate().has_value()) {
@@ -469,11 +472,11 @@ void SendSideCongestionController::SetTransportOverhead(
 
 void SendSideCongestionController::OnSentPacket(
     const rtc::SentPacket& sent_packet) {
-  RTC_DCHECK(controller_);
   // We're not interested in packets without an id, which may be stun packets,
   // etc, sent on the same transport.
   if (sent_packet.packet_id == -1)
     return;
+  RTC_DCHECK(controller_);
   transport_feedback_adapter_.OnSentPacket(sent_packet.packet_id,
                                            sent_packet.send_time_ms);
   MaybeUpdateOutstandingData();
@@ -601,7 +604,6 @@ void SendSideCongestionController::SetSendBitrateLimits(
 }
 
 void SendSideCongestionController::SetPacingFactor(float pacing_factor) {
-  RTC_DCHECK(controller_);
   if (!controller_) {
     rtc::CritScope cs(&config_lock_);
     initial_streams_config_.pacing_factor = pacing_factor;

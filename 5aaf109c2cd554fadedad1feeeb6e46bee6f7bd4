@@ -22,6 +22,30 @@
       "revId": "5aaf109c2cd554fadedad1feeeb6e46bee6f7bd4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1091c183_793ccc97",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-02-28T14:18:31Z",
+      "side": 1,
+      "message": "SSCC is in our public API, removing this requires making it deprecated first. However, this old SSCC version will be deprecated altogether, so I don\u0027t see much value in doing that here.",
+      "parentUuid": "a2b05c5b_93a589ea",
+      "range": {
+        "startLine": 65,
+        "startChar": 15,
+        "endLine": 65,
+        "endChar": 40
+      },
+      "revId": "5aaf109c2cd554fadedad1feeeb6e46bee6f7bd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

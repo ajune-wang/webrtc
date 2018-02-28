@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "41c8523e_c3a21ae9",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 20
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-02-28T12:24:27Z",
+      "side": 1,
+      "message": "This CL is an amazing step towards the right direction! :-)\n\nI am wondering if we can avoid to expose these sub-targets as public_deps of rtc_base_approved and just let internal targets to depend on what they need. It can probably be done in a follow-up CL (I have a task to drop public_deps where we can avoid them).\n\nAdding Karl and Patrik to CC since talks about splitting the big targets have been done in the past. Maybe they have insights.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 17
+      },
+      "revId": "245eb28d31a9672147a24a4255c9dffc0f0bfafa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c4b8b11_fa54d6f2",
         "filename": "rtc_base/BUILD.gn",
         "patchSetId": 20

@@ -346,7 +346,7 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
         false, /* aecDump */
         false, /* saveInputAudioToFile */
         false /* useOpenSLES */, false /* disableBuiltInAEC */, false /* disableBuiltInAGC */,
-        false /* disableBuiltInNS */, false /* enableLevelControl */, false /* disableWebRtcAGC */,
+        false /* disableBuiltInNS */, false /* disableWebRtcAGC */,
         false /* enableRtcEventLog */, null /*dataChannelParameters */);
   }
 
@@ -383,7 +383,7 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
         false, /* aecDump */
         false, /* saveInputAudioToFile */
         false /* useOpenSLES */, false /* disableBuiltInAEC */, false /* disableBuiltInAGC */,
-        false /* disableBuiltInNS */, false /* enableLevelControl */, false /* disableWebRtcAGC */,
+        false /* disableBuiltInNS */, false /* disableWebRtcAGC */,
         false /* enableRtcEventLog */, null /*dataChannelParameters */);
   }
 

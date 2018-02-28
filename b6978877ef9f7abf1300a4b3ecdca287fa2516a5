@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "859bd3df_4f327c91",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 22
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5025
+      },
+      "writtenOn": "2018-02-28T13:39:31Z",
+      "side": 1,
+      "message": "Uh oh. public_deps is something we try to get rid of, because it maps poorly to downstream build systems. Splitting all these small targets out is good, but they have to be added explicitly to all targets who use them.\n\nYou can remove this public_deps and run \n\npython tools_webrtc/gn_check_autofix.py -m client.webrtc -b \"Linux32 Release\"\u0027 \n\nto automatically add dependencies where they are needed in the WebRTC repo.\n\nThat\u0027s just in the webrtc repo though. It will get more troublesome to update downstream projects. I think the above might be a good middle step, but you have to update each downstream dependency to depend directly on e.g. :atomicops and then remove this public_deps. Me and Mirko can explain further.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 103,
+        "endChar": 3
+      },
+      "revId": "b6978877ef9f7abf1300a4b3ecdca287fa2516a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

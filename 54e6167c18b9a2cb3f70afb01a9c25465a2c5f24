@@ -93,6 +93,30 @@
       "revId": "54e6167c18b9a2cb3f70afb01a9c25465a2c5f24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c669fb3_0258aeb8",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-02-28T18:02:00Z",
+      "side": 1,
+      "message": "If we have to choose between those two options, I vote to keep the signature the same and rename to \u0027didAddReceiver\u0027 (which is effectively what it really is).",
+      "parentUuid": "b957e365_e2b6bb06",
+      "range": {
+        "startLine": 113,
+        "startChar": 15,
+        "endLine": 113,
+        "endChar": 22
+      },
+      "revId": "54e6167c18b9a2cb3f70afb01a9c25465a2c5f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

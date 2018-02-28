@@ -117,6 +117,30 @@
       "revId": "54e6167c18b9a2cb3f70afb01a9c25465a2c5f24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb4b1af5_72b1a4b1",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCPeerConnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-02-28T18:08:11Z",
+      "side": 1,
+      "message": "Agree, we should keep the signature consistent with the Java implementation, and I\u0027m on board with `didAddReceiver`.",
+      "parentUuid": "2c669fb3_0258aeb8",
+      "range": {
+        "startLine": 113,
+        "startChar": 15,
+        "endLine": 113,
+        "endChar": 22
+      },
+      "revId": "54e6167c18b9a2cb3f70afb01a9c25465a2c5f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

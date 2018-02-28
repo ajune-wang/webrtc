@@ -2,6 +2,8 @@ include_rules = [
   "+vpx",
   "+call",
   "+common_video",
+  "+media/base",
+  "+media/engine",
   "+sdk",
   "+system_wrappers",
   "+rtc_tools",
@@ -11,9 +13,5 @@ include_rules = [
 specific_include_rules = {
   "android_codec_factory_helper\.cc": [
     "+base/android",
-  ],
-  "test_config.cc": [
-     "+media/base",
-     "+media/engine",
   ],
 }

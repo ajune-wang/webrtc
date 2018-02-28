@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7f4265b_37f4f0dd",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-02-28T15:36:29Z",
+      "side": 1,
+      "message": "Could we just use the port type \u003d\u003d \"local\" and protocol \u003d\u003d UDP to determine that is a udp port?",
+      "range": {
+        "startLine": 436,
+        "startChar": 10,
+        "endLine": 436,
+        "endChar": 18
+      },
+      "revId": "0859f83b0cf26ce23dbcba70c7be132f338e72a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

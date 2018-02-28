@@ -22,6 +22,30 @@
       "revId": "0859f83b0cf26ce23dbcba70c7be132f338e72a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc26495_f6b4f27f",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-02-28T19:40:03Z",
+      "side": 1,
+      "message": "Agreed. One could argue that this is more fragile, but I think it\u0027s unlikely that we\u0027d implement any other \"local/UDP\" Port subclass. Qingsi, what do you think?",
+      "parentUuid": "a7f4265b_37f4f0dd",
+      "range": {
+        "startLine": 436,
+        "startChar": 10,
+        "endLine": 436,
+        "endChar": 18
+      },
+      "revId": "0859f83b0cf26ce23dbcba70c7be132f338e72a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

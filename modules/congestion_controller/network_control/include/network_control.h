@@ -37,6 +37,14 @@ class NetworkControllerObserver {
   virtual ~NetworkControllerObserver() = default;
 };
 
+// Configuration sent to factory create  function. The parameters here are
+// optional to use for a network controller implementation.
+struct NetworkControllerConfig {
+  TargetRateConstraints constraints;
+  StreamsConfig stream_based_config;
+  DataRate starting_rate;
+};
+
 // NetworkControllerInterface is implemented by network controllers. A network
 // controller is a class that uses information about network state and traffic
 // to estimate network parameters such as round trip time and bandwidth. Network
@@ -47,8 +55,6 @@ class NetworkControllerInterface {
   using uptr = std::unique_ptr<NetworkControllerInterface>;
   virtual ~NetworkControllerInterface() = default;
 
-  // Called when network availabilty changes.
-  virtual void OnNetworkAvailability(NetworkAvailability) = 0;
   // Called when the receiving or sending endpoint changes address.
   virtual void OnNetworkRouteChange(NetworkRouteChange) = 0;
   // Called periodically with a periodicy as specified by
@@ -78,7 +84,8 @@ class NetworkControllerFactoryInterface {
   // Used to create a new network controller, requires an observer to be
   // provided to handle callbacks.
   virtual NetworkControllerInterface::uptr Create(
-      NetworkControllerObserver* observer) = 0;
+      NetworkControllerObserver* observer,
+      NetworkControllerConfig config) = 0;
   // Returns the interval by which the network controller expects
   // OnProcessInterval calls.
   virtual TimeDelta GetProcessInterval() const = 0;

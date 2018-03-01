@@ -67,6 +67,7 @@ class MultiplexEncoderAdapter : public VideoEncoder {
   EncodedImageCallback* encoded_complete_callback_;
 
   std::map<uint32_t /* timestamp */, MultiplexImage> stashed_images_;
+  std::mutex stashed_images_lock_;
 
   uint16_t picture_index_ = 0;
   std::vector<uint8_t> multiplex_dummy_planes_;

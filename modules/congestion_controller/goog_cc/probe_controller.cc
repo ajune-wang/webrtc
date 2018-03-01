@@ -76,26 +76,35 @@ constexpr char kBweRapidRecoveryExperiment[] =
 
 }  // namespace
 
-ProbeController::ProbeController(NetworkControllerObserver* observer)
-    : observer_(observer), enable_periodic_alr_probing_(false) {
-  Reset(0);
+ProbeController::ProbeController(NetworkControllerObserver* observer,
+                                 int64_t at_time_ms,
+                                 int64_t probing_start_bitrate_bps,
+                                 int64_t estimated_bitrate_bps,
+                                 int64_t max_bitrate_bps,
+                                 bool enable_alr_probing)
+    : observer_(observer), enable_periodic_alr_probing_(enable_alr_probing) {
+  state_ = State::kInit;
+  min_bitrate_to_probe_further_bps_ = kExponentialProbingDisabled;
+  time_last_probing_initiated_ms_ = 0;
+  start_bitrate_bps_ = probing_start_bitrate_bps;
+  estimated_bitrate_bps_ = estimated_bitrate_bps;
+  max_bitrate_bps_ = max_bitrate_bps;
+  int64_t now_ms = at_time_ms;
+  last_bwe_drop_probing_time_ms_ = now_ms;
+  mid_call_probing_waiting_for_result_ = false;
+  time_of_last_large_drop_ms_ = now_ms;
+  bitrate_before_last_large_drop_bps_ = 0;
+
   in_rapid_recovery_experiment_ = webrtc::field_trial::FindFullName(
                                       kBweRapidRecoveryExperiment) == "Enabled";
+
+  InitiateExponentialProbing(at_time_ms);
 }
 
 ProbeController::~ProbeController() {}
 
-void ProbeController::SetBitrates(int64_t min_bitrate_bps,
-                                  int64_t start_bitrate_bps,
-                                  int64_t max_bitrate_bps,
-                                  int64_t at_time_ms) {
-  if (start_bitrate_bps > 0) {
-    start_bitrate_bps_ = start_bitrate_bps;
-    estimated_bitrate_bps_ = start_bitrate_bps;
-  } else if (start_bitrate_bps_ == 0) {
-    start_bitrate_bps_ = min_bitrate_bps;
-  }
-
+void ProbeController::UpdateMaxBitrate(int64_t max_bitrate_bps,
+                                       int64_t at_time_ms) {
   // The reason we use the variable |old_max_bitrate_pbs| is because we
   // need to set |max_bitrate_bps_| before we call InitiateProbing.
   int64_t old_max_bitrate_bps = max_bitrate_bps_;
@@ -103,8 +112,7 @@ void ProbeController::SetBitrates(int64_t min_bitrate_bps,
 
   switch (state_) {
     case State::kInit:
-      if (network_available_)
-        InitiateExponentialProbing(at_time_ms);
+      RTC_NOTREACHED();
       break;
 
     case State::kWaitingForProbingResult:
@@ -133,14 +141,7 @@ void ProbeController::SetBitrates(int64_t min_bitrate_bps,
   }
 }
 
-void ProbeController::OnNetworkAvailability(NetworkAvailability msg) {
-  network_available_ = msg.network_available;
-  if (network_available_ && state_ == State::kInit && start_bitrate_bps_ > 0)
-    InitiateExponentialProbing(msg.at_time.ms());
-}
-
 void ProbeController::InitiateExponentialProbing(int64_t at_time_ms) {
-  RTC_DCHECK(network_available_);
   RTC_DCHECK(state_ == State::kInit);
   RTC_DCHECK_GT(start_bitrate_bps_, 0);
 
@@ -193,6 +194,7 @@ void ProbeController::SetAlrStartTimeMs(
     rtc::Optional<int64_t> alr_start_time_ms) {
   alr_start_time_ms_ = alr_start_time_ms;
 }
+
 void ProbeController::SetAlrEndedTimeMs(int64_t alr_end_time_ms) {
   alr_end_time_ms_.emplace(alr_end_time_ms);
 }
@@ -229,22 +231,6 @@ void ProbeController::RequestProbe(int64_t at_time_ms) {
       }
     }
   }
-}
-
-void ProbeController::Reset(int64_t at_time_ms) {
-  network_available_ = true;
-  state_ = State::kInit;
-  min_bitrate_to_probe_further_bps_ = kExponentialProbingDisabled;
-  time_last_probing_initiated_ms_ = 0;
-  estimated_bitrate_bps_ = 0;
-  start_bitrate_bps_ = 0;
-  max_bitrate_bps_ = 0;
-  int64_t now_ms = at_time_ms;
-  last_bwe_drop_probing_time_ms_ = now_ms;
-  alr_end_time_ms_.reset();
-  mid_call_probing_waiting_for_result_ = false;
-  time_of_last_large_drop_ms_ = now_ms;
-  bitrate_before_last_large_drop_bps_ = 0;
 }
 
 void ProbeController::Process(int64_t at_time_ms) {

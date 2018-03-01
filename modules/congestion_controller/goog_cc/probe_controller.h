@@ -29,15 +29,15 @@ namespace webrtc_cc {
 // bitrate is adjusted by an application.
 class ProbeController {
  public:
-  explicit ProbeController(NetworkControllerObserver* observer);
+  explicit ProbeController(NetworkControllerObserver* observer,
+                           int64_t at_time_ms,
+                           int64_t probing_start_bitrate_bps,
+                           int64_t estimated_bitrate_bps,
+                           int64_t max_bitrate_bps,
+                           bool enable_alr_probing);
   ~ProbeController();
 
-  void SetBitrates(int64_t min_bitrate_bps,
-                   int64_t start_bitrate_bps,
-                   int64_t max_bitrate_bps,
-                   int64_t at_time_ms);
-
-  void OnNetworkAvailability(NetworkAvailability msg);
+  void UpdateMaxBitrate(int64_t max_bitrate_bps, int64_t at_time_ms);
 
   void SetEstimatedBitrate(int64_t bitrate_bps, int64_t at_time_ms);
 
@@ -47,10 +47,6 @@ class ProbeController {
   void SetAlrEndedTimeMs(int64_t alr_end_time);
 
   void RequestProbe(int64_t at_time_ms);
-
-  // Resets the ProbeController to a state equivalent to as if it was just
-  // created EXCEPT for |enable_periodic_alr_probing_|.
-  void Reset(int64_t at_time_ms);
 
   void Process(int64_t at_time_ms);
 
@@ -71,7 +67,6 @@ class ProbeController {
 
   NetworkControllerObserver* const observer_;
 
-  bool network_available_;
   State state_;
   int64_t min_bitrate_to_probe_further_bps_;
   int64_t time_last_probing_initiated_ms_;

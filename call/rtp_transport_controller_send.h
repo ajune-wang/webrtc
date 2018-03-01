@@ -64,7 +64,6 @@ class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
   bool AvailableBandwidth(uint32_t* bandwidth) const override;
   int64_t GetPacerQueuingDelayMs() const override;
   int64_t GetFirstPacketTimeMs() const override;
-  RateLimiter* GetRetransmissionRateLimiter() override;
   void EnablePeriodicAlrProbing(bool enable) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
@@ -75,6 +74,7 @@ class RtpTransportControllerSend : public RtpTransportControllerSendInterface {
  private:
   PacketRouter packet_router_;
   PacedSender pacer_;
+  bool task_queue_controller_;
   const std::unique_ptr<SendSideCongestionControllerInterface> send_side_cc_;
   RtpKeepAliveConfig keepalive_;
   RtpBitrateConfigurator bitrate_configurator_;

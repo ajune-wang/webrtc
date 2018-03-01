@@ -2743,7 +2743,11 @@ TEST_F(VideoSendStreamTest, TranslatesTwoLayerScreencastToTargetBitrate) {
   RunBaseTest(&test);
 }
 
-TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
+// TODO(srte): Evaluate if this functionality should be provided and how to
+// achieve this. The problem is that we start probing before the reconfiguration
+// is set, so we would probably not get expected behaviour.
+TEST_F(VideoSendStreamTest,
+       DISABLED_ReconfigureBitratesSetsEncoderBitratesCorrectly) {
   // These are chosen to be "kind of odd" to not be accidentally checked against
   // default values.
   static const int kMinBitrateKbps = 137;

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1109223_9310872a",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-01T10:56:36Z",
+      "side": 1,
+      "message": "Could you add a simple test for this method? You can copy and modify one of the existing tests in YuvHelperTest.",
+      "range": {
+        "startLine": 122,
+        "startChar": 27,
+        "endLine": 122,
+        "endChar": 44
+      },
+      "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c6bae64_9a53fde1",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-01T10:56:36Z",
+      "side": 1,
+      "message": "This is not allowed. ToI420 should not return I420A buffers. Could you maybe point us to a design doc so we could better understand how you plan to use this.",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 3
+      },
+      "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

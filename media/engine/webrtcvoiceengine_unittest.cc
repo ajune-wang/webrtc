@@ -2656,7 +2656,7 @@ TEST_F(WebRtcVoiceEngineTestFake, AddRecvStreamAfterUnsignaled_Recreate) {
   int audio_receive_stream_id = streams.front()->id();
   cricket::StreamParams stream_params;
   stream_params.ssrcs.push_back(1);
-  stream_params.set_stream_labels({"sync_label"});
+  stream_params.set_stream_ids({"stream_id"});
   EXPECT_TRUE(channel_->AddRecvStream(stream_params));
   EXPECT_EQ(1, streams.size());
   EXPECT_NE(audio_receive_stream_id, streams.front()->id());
@@ -3037,11 +3037,11 @@ TEST_F(WebRtcVoiceEngineTestFake, SetOutputVolumeUnsignaledRecvStream) {
 
 TEST_F(WebRtcVoiceEngineTestFake, SetsSyncGroupFromSyncLabel) {
   const uint32_t kAudioSsrc = 123;
-  const std::string kSyncLabel = "AvSyncLabel";
+  const std::string kStreamId = "AvSyncLabel";
 
   EXPECT_TRUE(SetupSendStream());
   cricket::StreamParams sp = cricket::StreamParams::CreateLegacy(kAudioSsrc);
-  sp.set_stream_labels({kSyncLabel});
+  sp.set_stream_ids({kStreamId});
   // Creating two channels to make sure that sync label is set properly for both
   // the default voice channel and following ones.
   EXPECT_TRUE(channel_->AddRecvStream(sp));
@@ -3049,10 +3049,10 @@ TEST_F(WebRtcVoiceEngineTestFake, SetsSyncGroupFromSyncLabel) {
   EXPECT_TRUE(channel_->AddRecvStream(sp));
 
   ASSERT_EQ(2, call_.GetAudioReceiveStreams().size());
-  EXPECT_EQ(kSyncLabel,
+  EXPECT_EQ(kStreamId,
             call_.GetAudioReceiveStream(kAudioSsrc)->GetConfig().sync_group)
       << "SyncGroup should be set based on sync_label";
-  EXPECT_EQ(kSyncLabel,
+  EXPECT_EQ(kStreamId,
             call_.GetAudioReceiveStream(kAudioSsrc + 1)->GetConfig().sync_group)
       << "SyncGroup should be set based on sync_label";
 }

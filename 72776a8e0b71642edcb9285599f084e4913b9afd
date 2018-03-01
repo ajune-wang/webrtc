@@ -16,6 +16,24 @@
       "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "398250a2_f818dca9",
+        "filename": "api/audio_codecs/audio_decoder_factory_template.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T12:20:17Z",
+      "side": 1,
+      "message": "Yes, this class is necessary iff the MakeAudioDecoder overload set accepts both one and two arguments. So we could do without it by imposing that extra restriction.\n\nI would argue that that\u0027s not worth doing, however, since I already have a CL lined up that removes support for the one-argument form of MakeAudioDecoder, including nuking this helper class.",
+      "parentUuid": "589aaaf9_6f60a17e",
+      "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

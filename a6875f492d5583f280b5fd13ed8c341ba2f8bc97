@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "75284a00_518dbef8",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T11:04:31Z",
+      "side": 1,
+      "message": "No, they\u0027re... because... dammit! Hex is hard!\n\nIt\u0027s good that you caught this. Otherwise, we would\u0027ve started reusing IDs after only 2^63 steps.",
+      "parentUuid": "4a191068_c9d2c229",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5633b068_528b17b0",
         "filename": "api/audio_codecs/audio_codec_pair_id.cc",
         "patchSetId": 2
@@ -172,6 +190,24 @@
       "side": 1,
       "message": "It looks like it may be possible. I\u0027ll try it.",
       "parentUuid": "5633b068_528b17b0",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d131b96f_0a44e4db",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T11:04:31Z",
+      "side": 1,
+      "message": "I think I managed to solve this.",
+      "parentUuid": "4ab1de9e_6cfdc089",
       "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

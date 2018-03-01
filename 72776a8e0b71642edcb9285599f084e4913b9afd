@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "589aaaf9_6f60a17e",
+        "filename": "api/audio_codecs/audio_decoder_factory_template.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-01T11:15:20Z",
+      "side": 1,
+      "message": "I gather this is for the case where you have an implementation that takes two arguments but the second one has a default value? Without this, CallMakeAudioDecoder would get two identical overloads. If we don\u0027t consider that option, I think the overload could be made simpler and without this class.",
+      "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

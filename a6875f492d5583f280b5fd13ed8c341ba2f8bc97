@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "12e06088_69384323",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-01T10:45:48Z",
+      "side": 1,
+      "message": "Got it!",
+      "parentUuid": "adf64c33_6ebf8921",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b841f9d_bd6779cb",
         "filename": "api/audio_codecs/audio_codec_pair_id.cc",
         "patchSetId": 2
@@ -104,6 +122,24 @@
       "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a191068_c9d2c229",
+        "filename": "api/audio_codecs/audio_codec_pair_id.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-01T10:45:48Z",
+      "side": 1,
+      "message": "Have I gone crazy, or are neither of these odd? Or do you mean \"strange\" and not \"not even\"? :)",
+      "parentUuid": "46fd310e_56de5ada",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -224,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "beba5aae_7cfd42b2",
+        "filename": "api/audio_codecs/audio_codec_pair_id.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-01T10:45:48Z",
+      "side": 1,
+      "message": "sgtm",
+      "parentUuid": "ba2ebb5e_9b11792b",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef3bf41_3be16a1f",
         "filename": "api/audio_codecs/audio_decoder_factory.h",
         "patchSetId": 2
@@ -253,6 +313,24 @@
       "side": 1,
       "message": "Hmm. Strange---I didn\u0027t see any such warnings, and the current state of affairs as of this CL is that all subclasses implements just the old one without the new ID argument. And a couple of steps ahead, in this CL [https://webrtc-review.googlesource.com/c/src/+/58089], I switch them all to implement just the new method, and again see no warnings.\n\nMaybe contemporary compilers don\u0027t behave the same as ye olde ones?",
       "parentUuid": "4ef3bf41_3be16a1f",
+      "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af9fe4a_cde5c765",
+        "filename": "api/audio_codecs/audio_decoder_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-01T10:45:48Z",
+      "side": 1,
+      "message": "It might just have been a similar but not exactly the same situation. I think you had to add a using statement to bring the hidden overload into the subclass. Perhaps there\u0027s just no code yet that implements this in a way where it\u0027s a problem? Or perhaps this code just haven\u0027t run against that code yet.",
+      "parentUuid": "984ab294_c9c148ca",
       "revId": "a6875f492d5583f280b5fd13ed8c341ba2f8bc97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

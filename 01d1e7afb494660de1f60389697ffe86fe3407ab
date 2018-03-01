@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01cb1edb_daa56ce8",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-01T12:51:10Z",
+      "side": 1,
+      "message": "Is this still needed since onAddStream was removed?",
+      "range": {
+        "startLine": 1309,
+        "startChar": 0,
+        "endLine": 1313,
+        "endChar": 9
+      },
+      "revId": "01d1e7afb494660de1f60389697ffe86fe3407ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fefbe5ea_b97fb4a8",
+        "filename": "sdk/android/api/org/webrtc/MediaStreamTrack.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-01T12:51:10Z",
+      "side": 1,
+      "message": "Can this be package local?",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 9
+      },
+      "revId": "01d1e7afb494660de1f60389697ffe86fe3407ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

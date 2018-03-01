@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b40fadde_32b4ce25",
+        "filename": "audio/test/audio_bwe_integration_test.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T10:28:32Z",
+      "side": 1,
+      "message": "You don\u0027t need to specify the namespace explicitly, unless there\u0027s also a TestAudioDeviceModule in webrtc::test::.",
+      "range": {
+        "startLine": 35,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "762de6df9bca4132209bc8536f3cfe322cfc9344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "204b5990_7be8ea0c",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T10:28:32Z",
+      "side": 1,
+      "message": "Am I missing something, or did you forget to list this new .h file in a BUILD.gn build target?",
+      "revId": "762de6df9bca4132209bc8536f3cfe322cfc9344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef9967fd_59887901",
+        "filename": "modules/audio_device/test_audio_device.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T10:28:32Z",
+      "side": 1,
+      "message": "Please put foo.cc in the same directory as foo.h. There\u0027s essentially no downside in doing so, and it makes them easier to find and easier to put in the same build target.",
+      "revId": "762de6df9bca4132209bc8536f3cfe322cfc9344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

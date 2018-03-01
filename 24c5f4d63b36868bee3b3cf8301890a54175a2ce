@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c88eee00_4e9f9ffa",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_videotoolbox.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-01T07:44:00Z",
+      "side": 1,
+      "message": "I guess you had to use the same quality thresholds as above for the case of devices that do not support CHP? Maybe add a comment about that? Otherwise, we should be able to have tighter thresholds here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 55,
+        "endLine": 70,
+        "endChar": 74
+      },
+      "revId": "24c5f4d63b36868bee3b3cf8301890a54175a2ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

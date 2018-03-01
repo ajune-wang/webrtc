@@ -11,29 +11,56 @@
 
 #include "call/rtp_transport_controller_send.h"
 #include "modules/congestion_controller/include/send_side_congestion_controller.h"
+#include "modules/congestion_controller/rtp/include/send_side_congestion_controller.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
+const char kTaskQueueExperiment[] = "WebRTC-TaskQueueCongestionControl";
 
+namespace {
+using TaskQueueController = webrtc::webrtc_cc::SendSideCongestionController;
+
+bool TaskQueueExperimentEnabled() {
+  std::string trial = webrtc::field_trial::FindFullName(kTaskQueueExperiment);
+  return trial.find("Enable") == 0;
+}
+
+std::unique_ptr<SendSideCongestionControllerInterface> CreateController(
+    Clock* clock,
+    webrtc::RtcEventLog* event_log,
+    PacedSender* pacer,
+    const BitrateConstraints& bitrate_config,
+    bool task_queue_controller) {
+  if (task_queue_controller) {
+    return rtc::MakeUnique<webrtc::webrtc_cc::SendSideCongestionController>(
+        clock, event_log, pacer, bitrate_config);
+  } else {
+    auto cc = rtc::MakeUnique<webrtc::SendSideCongestionController>(
+        clock, nullptr /* observer */, event_log, pacer);
+    cc->SignalNetworkState(kNetworkDown);
+    cc->SetBweBitrates(bitrate_config.min_bitrate_bps,
+                       bitrate_config.start_bitrate_bps,
+                       bitrate_config.max_bitrate_bps);
+    return cc;
+  }
+}
+}  // namespace
 RtpTransportControllerSend::RtpTransportControllerSend(
     Clock* clock,
     webrtc::RtcEventLog* event_log,
     const BitrateConstraints& bitrate_config)
     : pacer_(clock, &packet_router_, event_log),
-      send_side_cc_(
-          rtc::MakeUnique<SendSideCongestionController>(clock,
-                                                        nullptr /* observer */,
-                                                        event_log,
-                                                        &pacer_)),
+      task_queue_controller_(TaskQueueExperimentEnabled()),
+      send_side_cc_(CreateController(clock,
+                                     event_log,
+                                     &pacer_,
+                                     bitrate_config,
+                                     task_queue_controller_)),
       bitrate_configurator_(bitrate_config),
       process_thread_(ProcessThread::Create("SendControllerThread")) {
-  send_side_cc_->SignalNetworkState(kNetworkDown);
-  send_side_cc_->SetBweBitrates(bitrate_config.min_bitrate_bps,
-                                bitrate_config.start_bitrate_bps,
-                                bitrate_config.max_bitrate_bps);
-
   process_thread_->RegisterModule(&pacer_, RTC_FROM_HERE);
   process_thread_->RegisterModule(send_side_cc_.get(), RTC_FROM_HERE);
   process_thread_->Start();
@@ -65,7 +92,12 @@ const RtpKeepAliveConfig& RtpTransportControllerSend::keepalive_config() const {
 void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
     int min_send_bitrate_bps,
     int max_padding_bitrate_bps) {
-  pacer_.SetSendBitrateLimits(min_send_bitrate_bps, max_padding_bitrate_bps);
+  if (task_queue_controller_) {
+    auto* cc = static_cast<TaskQueueController*>(send_side_cc_.get());
+    cc->SetSendBitrateLimits(min_send_bitrate_bps, max_padding_bitrate_bps);
+  } else {
+    pacer_.SetSendBitrateLimits(min_send_bitrate_bps, max_padding_bitrate_bps);
+  }
 }
 
 void RtpTransportControllerSend::SetKeepAliveConfig(
@@ -73,7 +105,12 @@ void RtpTransportControllerSend::SetKeepAliveConfig(
   keepalive_ = config;
 }
 void RtpTransportControllerSend::SetPacingFactor(float pacing_factor) {
-  pacer_.SetPacingFactor(pacing_factor);
+  if (task_queue_controller_) {
+    auto* cc = static_cast<TaskQueueController*>(send_side_cc_.get());
+    cc->SetPacingFactor(pacing_factor);
+  } else {
+    pacer_.SetPacingFactor(pacing_factor);
+  }
 }
 void RtpTransportControllerSend::SetQueueTimeLimit(int limit_ms) {
   pacer_.SetQueueTimeLimit(limit_ms);

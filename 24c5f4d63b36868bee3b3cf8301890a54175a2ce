@@ -22,6 +22,30 @@
       "revId": "24c5f4d63b36868bee3b3cf8301890a54175a2ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e7f1476_a35c7667",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_videotoolbox.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-03-01T18:55:55Z",
+      "side": 1,
+      "message": "This is actually not the case. We don\u0027t really know if some devices don\u0027t support CHP, but at least those we test on all support it. The real reason is more laziness. I\u0027ve updated these in the new patchset.",
+      "parentUuid": "c88eee00_4e9f9ffa",
+      "range": {
+        "startLine": 70,
+        "startChar": 55,
+        "endLine": 70,
+        "endChar": 74
+      },
+      "revId": "24c5f4d63b36868bee3b3cf8301890a54175a2ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

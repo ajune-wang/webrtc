@@ -22,6 +22,7 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 namespace {
@@ -129,6 +130,14 @@ void RunApmAgcLimiter(AudioFrameView<float> mixing_buffer_view,
                    [](float a) { return FloatS16ToFloat(a / 2); });
   }
 
+  // The input format of APM is Float. Convert the samples from
+  // FloatS16 to Float.
+  for (size_t i = 0; i < mixing_buffer_view.num_channels(); ++i) {
+    FloatS16ToFloat(mixing_buffer_view.channel(i).begin(),
+                    mixing_buffer_view.samples_per_channel(),
+                    mixing_buffer_view.channel(i).begin());
+  }
+
   const int sample_rate =
       static_cast<int>(mixing_buffer_view.samples_per_channel()) * 1000 /
       AudioMixerImpl::kFrameDurationInMs;
@@ -154,6 +163,13 @@ void RunApmAgcLimiter(AudioFrameView<float> mixing_buffer_view,
                    mixing_buffer_view.channel(i).end(),
                    mixing_buffer_view.channel(i).begin(),
                    [](float a) { return FloatToFloatS16(a * 2); });
+  }
+
+  // Convert the samples back to FloatS16.
+  for (size_t i = 0; i < mixing_buffer_view.num_channels(); ++i) {
+    FloatToFloatS16(mixing_buffer_view.channel(i).begin(),
+                    mixing_buffer_view.samples_per_channel(),
+                    mixing_buffer_view.channel(i).begin());
   }
 }
 
@@ -253,6 +269,34 @@ void FrameCombiner::Combine(const std::vector<AudioFrame*>& mix_list,
   }
 
   InterleaveToAudioFrame(mixing_buffer_view, audio_frame_for_mixing);
+
+  LogMixingStats(mix_list, sample_rate, number_of_streams);
+}
+
+void FrameCombiner::LogMixingStats(const std::vector<AudioFrame*>& mix_list,
+                                   int sample_rate,
+                                   size_t number_of_streams) const {
+  // Log every second.
+  uma_logging_counter_++;
+  if (uma_logging_counter_ > 1000 / AudioMixerImpl::kFrameDurationInMs) {
+    uma_logging_counter_ = 0;
+    RTC_HISTOGRAM_COUNTS_100("WebRTC.Audio.AudioMixer.NumIncomingStreams",
+                             static_cast<int>(number_of_streams));
+    RTC_HISTOGRAM_ENUMERATION(
+        "WebRTC.Audio.AudioMixer.NumIncomingActiveStreams",
+        static_cast<int>(mix_list.size()), 3);
+
+    using NativeRate = AudioProcessing::NativeRate;
+    static constexpr NativeRate native_rates[] = {
+        NativeRate::kSampleRate8kHz, NativeRate::kSampleRate16kHz,
+        NativeRate::kSampleRate32kHz, NativeRate::kSampleRate48kHz};
+    const auto* rate_position = std::lower_bound(
+        std::begin(native_rates), std::end(native_rates), sample_rate);
+
+    RTC_HISTOGRAM_ENUMERATION(
+        "WebRTC.Audio.AudioMixer.MixingRate",
+        std::distance(std::begin(native_rates), rate_position), 3);
+  }
 }
 
 }  // namespace webrtc

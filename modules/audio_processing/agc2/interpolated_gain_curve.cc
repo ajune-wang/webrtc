@@ -14,6 +14,7 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 
@@ -31,7 +32,6 @@ InterpolatedGainCurve::InterpolatedGainCurve(ApmDataDumper* apm_data_dumper)
 
 InterpolatedGainCurve::~InterpolatedGainCurve() {
   if (stats_.available) {
-    // TODO(alessiob): We might want to add these stats as RTC metrics.
     RTC_DCHECK(apm_data_dumper_);
     apm_data_dumper_->DumpRaw("agc2_interp_gain_curve_lookups_identity",
                               stats_.look_ups_identity_region);
@@ -47,15 +47,38 @@ InterpolatedGainCurve::~InterpolatedGainCurve() {
 void InterpolatedGainCurve::UpdateStats(float input_level) const {
   stats_.available = true;
 
+  enum GainCurveRegion {
+    kIdentity = 0,
+    kKnee = 1,
+    kLimiter = 2,
+    kSaturation = 3
+  };
+
+  GainCurveRegion region;
+
   if (input_level < approximation_params_x_[0]) {
     stats_.look_ups_identity_region++;
+    region = GainCurveRegion::kIdentity;
   } else if (input_level <
              approximation_params_x_[kInterpolatedGainCurveKneePoints - 1]) {
     stats_.look_ups_knee_region++;
+    region = GainCurveRegion::kKnee;
   } else if (input_level < kMaxInputLevelLinear) {
     stats_.look_ups_limiter_region++;
+    region = GainCurveRegion::kLimiter;
   } else {
     stats_.look_ups_saturation_region++;
+    region = GainCurveRegion::kSaturation;
+  }
+
+  // Log current region every 2000 * kFrameDurationMs / kSubFramesInFrame
+  // milliseconds. For kFrameDurationMs=10, kSubFramesInFrame=20, this happens
+  // every second.
+  uma_logging_counter_++;
+  if (uma_logging_counter_ > 2000) {
+    uma_logging_counter_ = 0;
+    RTC_HISTOGRAM_ENUMERATION("WebRTC.Audio.AGC2.FixedDigitalGainCurveRegion",
+                              region, kSaturation);
   }
 }
 

@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "ece823cf_39b53bed",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-03-01T08:12:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be http://bugs.webrtc.org/8948)",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8428edb_8486bc40",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 8
@@ -65,6 +88,29 @@
     },
     {
       "key": {
+        "uuid": "95b7e7f1_64ba4502",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-03-01T08:12:35Z",
+      "side": 1,
+      "message": "What is this test really about? Will the floating point observer be used by production code, or is it just a means through which you test that floating point exceptions are correctly generated?",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "059a5ab9_bf28b8b9",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 8
@@ -76,6 +122,24 @@
       "writtenOn": "2018-02-28T19:03:28Z",
       "side": 1,
       "message": "If you\u0027re going to #ifdef the tests like this (which I agree is a good idea!), why not make use of FloatingPointExceptionObserver be a compile-time error?",
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f616a8_197f6abd",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-03-01T08:12:35Z",
+      "side": 1,
+      "message": "Yeah, printing a warning is pretty useless. It\u0027s better to just fail the compilation if we do something obviously wrong.\n\nHowever: will these tests fail to compile if !NDEBUG, or merely fail? If they just fail, it\u0027s better to do\n\n#ifdef NDEBUG\n// The floating point exception observer only works in debug mode.\n#define MAYBE_FloatingPointExceptionObserver FloatingPointExceptionObserver\n#else\n#define MAYBE_FloatingPointExceptionObserver DISABLED_FloatingPointExceptionObserver\n#endif\n\nTEST(MAYBE_FloatingPointExceptionObserver, ...)\n\nThen the tests will still compile in release, but they won\u0027t run. I think we have dbg mode bots for all platforms, on the other hand, so maybe it\u0027s a wash.",
+      "parentUuid": "059a5ab9_bf28b8b9",
       "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

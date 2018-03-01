@@ -2711,6 +2711,10 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
     return SafeSetError(parse_error, error);
   }
 
+  RTC_LOG(INFO) << "Before ReconfigurePortAllocator_n";
+  RTC_LOG(INFO) << "Before ReconfigurePortAllocator_n";
+  RTC_LOG(INFO) << "Before ReconfigurePortAllocator_n";
+  RTC_LOG(INFO) << "Before ReconfigurePortAllocator_n";
   // In theory this shouldn't fail.
   if (!network_thread()->Invoke<bool>(
           RTC_FROM_HERE,

@@ -35,16 +35,19 @@ static const int HIGH_COST_PORT_KEEPALIVE_LIFETIME = 2 * 60 * 1000;
 // Communicates using the address on the outside of a NAT.
 class UDPPort : public Port {
  public:
-  static UDPPort* Create(rtc::Thread* thread,
-                         rtc::PacketSocketFactory* factory,
-                         rtc::Network* network,
-                         rtc::AsyncPacketSocket* socket,
-                         const std::string& username,
-                         const std::string& password,
-                         const std::string& origin,
-                         bool emit_local_for_anyaddress) {
+  static UDPPort* Create(
+      rtc::Thread* thread,
+      rtc::PacketSocketFactory* factory,
+      rtc::Network* network,
+      rtc::AsyncPacketSocket* socket,
+      const std::string& username,
+      const std::string& password,
+      const std::string& origin,
+      bool emit_local_for_anyaddress,
+      rtc::Optional<int> stun_keepalive_interval = rtc::nullopt) {
     UDPPort* port = new UDPPort(thread, factory, network, socket, username,
                                 password, origin, emit_local_for_anyaddress);
+    port->set_stun_keepalive_delay(stun_keepalive_interval);
     if (!port->Init()) {
       delete port;
       port = NULL;
@@ -52,18 +55,21 @@ class UDPPort : public Port {
     return port;
   }
 
-  static UDPPort* Create(rtc::Thread* thread,
-                         rtc::PacketSocketFactory* factory,
-                         rtc::Network* network,
-                         uint16_t min_port,
-                         uint16_t max_port,
-                         const std::string& username,
-                         const std::string& password,
-                         const std::string& origin,
-                         bool emit_local_for_anyaddress) {
+  static UDPPort* Create(
+      rtc::Thread* thread,
+      rtc::PacketSocketFactory* factory,
+      rtc::Network* network,
+      uint16_t min_port,
+      uint16_t max_port,
+      const std::string& username,
+      const std::string& password,
+      const std::string& origin,
+      bool emit_local_for_anyaddress,
+      rtc::Optional<int> stun_keepalive_interval = rtc::nullopt) {
     UDPPort* port =
         new UDPPort(thread, factory, network, min_port, max_port, username,
                     password, origin, emit_local_for_anyaddress);
+    port->set_stun_keepalive_delay(stun_keepalive_interval);
     if (!port->Init()) {
       delete port;
       port = NULL;
@@ -254,15 +260,17 @@ class UDPPort : public Port {
 
 class StunPort : public UDPPort {
  public:
-  static StunPort* Create(rtc::Thread* thread,
-                          rtc::PacketSocketFactory* factory,
-                          rtc::Network* network,
-                          uint16_t min_port,
-                          uint16_t max_port,
-                          const std::string& username,
-                          const std::string& password,
-                          const ServerAddresses& servers,
-                          const std::string& origin);
+  static StunPort* Create(
+      rtc::Thread* thread,
+      rtc::PacketSocketFactory* factory,
+      rtc::Network* network,
+      uint16_t min_port,
+      uint16_t max_port,
+      const std::string& username,
+      const std::string& password,
+      const ServerAddresses& servers,
+      const std::string& origin,
+      rtc::Optional<int> stun_keepalive_interval = rtc::nullopt);
 
   void PrepareAddress() override;
 

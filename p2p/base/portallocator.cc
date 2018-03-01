@@ -160,6 +160,7 @@ bool PortAllocator::SetConfiguration(
   // in future sessions. We also update the ready ports in the pooled sessions.
   // Ports in sessions that are taken and owned by P2PTransportChannel will be
   // updated there via IceConfig.
+  RTC_LOG(INFO) << "Before SetStunKeepaliveIntervalForReadyPorts";
   stun_candidate_keepalive_interval_ = stun_candidate_keepalive_interval;
   for (const auto& session : pooled_sessions_) {
     session->SetStunKeepaliveIntervalForReadyPorts(

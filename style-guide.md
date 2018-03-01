@@ -20,6 +20,23 @@ both.
 [chr-style]: https://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md
 [goog-style]: https://google.github.io/styleguide/cppguide.html
 
+### `.h` and `.cc` files come in pairs
+
+`.h` and `.cc` files should come in pairs, with the same name (except
+for the file type suffix), in the same directory, in the same build
+target.
+
+* If a declaration in the `.h` file has a definition in a `.cc` file,
+  it should be the paired `.cc` file.
+* If a definition in the `.cc` file has a declaration in a `.h` file,
+  it should be the paired `.h` file.
+* Omit the `.cc` file if it would have been empty.
+
+This makes the source code easier to navigate and organize, and
+precludes some questionable build system practices such as having
+build targets that don’t pull in definitions for everything they
+declare.
+
 ### ArrayView
 
 When passing an array of values to a function, use `rtc::ArrayView`

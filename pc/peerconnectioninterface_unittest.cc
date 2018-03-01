@@ -4069,3 +4069,65 @@ TEST(RTCConfigurationTest, ComparisonOperators) {
       PeerConnectionInterface::RTCConfigurationType::kAggressive);
   EXPECT_NE(a, h);
 }
+
+class PeerConnectionIceConfigTest : public testing::Test {
+ protected:
+  void SetUp() override {
+    pcf_ = PeerConnectionFactoryForTest::CreatePeerConnectionFactoryForTest();
+    pcf_->Initialize();
+  }
+  void CreatePeerConnection(
+      const PeerConnectionInterface::RTCConfiguration& config) {
+    std::unique_ptr<cricket::FakePortAllocator> port_allocator(
+        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+    port_allocator->AddPortTypeToAllocationSequence(
+        cricket::PortTypeToAllocateInFakeSession::UDP);
+    port_allocator_ = port_allocator.get();
+    rtc::scoped_refptr<PeerConnectionInterface> pc(pcf_->CreatePeerConnection(
+        config, nullptr /* constraint */, std::move(port_allocator), nullptr,
+        &observer_));
+    EXPECT_TRUE(pc.get());
+    pc_ = std::move(pc.get());
+  }
+
+  rtc::scoped_refptr<PeerConnectionFactoryForTest> pcf_ = nullptr;
+  rtc::scoped_refptr<PeerConnectionInterface> pc_ = nullptr;
+  cricket::FakePortAllocator* port_allocator_ = nullptr;
+
+  MockPeerConnectionObserver observer_;
+};
+
+TEST_F(PeerConnectionIceConfigTest, SetStunCandidateKeepaliveInPooledSession) {
+  PeerConnectionInterface::RTCConfiguration config;
+  config.stun_candidate_keepalive_interval = 123;
+  config.ice_candidate_pool_size = 1;
+  CreatePeerConnection(config);
+  ASSERT_NE(port_allocator_, nullptr);
+  auto* pooled_session = port_allocator_->GetPooledSession();
+  ASSERT_NE(pooled_session, nullptr);
+  auto ready_ports = pooled_session->ReadyPorts();
+  for (const auto* port : ready_ports) {
+    if (port->Type() == cricket::STUN_PORT_TYPE ||
+        (port->Type() == cricket::LOCAL_PORT_TYPE &&
+         port->GetProtocol() == cricket::PROTO_UDP)) {
+      EXPECT_EQ(
+          static_cast<const cricket::UDPPort*>(port)->stun_keepalive_delay(),
+          123);
+    }
+  }
+  config.stun_candidate_keepalive_interval = 321;
+  RTCError error;
+  pc_->SetConfiguration(config, &error);
+  pooled_session = port_allocator_->GetPooledSession();
+  ASSERT_NE(pooled_session, nullptr);
+  ready_ports = pooled_session->ReadyPorts();
+  for (const auto* port : ready_ports) {
+    if (port->Type() == cricket::STUN_PORT_TYPE ||
+        (port->Type() == cricket::LOCAL_PORT_TYPE &&
+         port->GetProtocol() == cricket::PROTO_UDP)) {
+      EXPECT_EQ(
+          static_cast<const cricket::UDPPort*>(port)->stun_keepalive_delay(),
+          321);
+    }
+  }
+}

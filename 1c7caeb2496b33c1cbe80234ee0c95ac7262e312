@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "b6665ad5_3fd7aea5",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T08:23:58Z",
+      "side": 1,
+      "message": "Indeed. But just\n\n  bugs.webrtc.org/8948\n\nsuffices.",
+      "parentUuid": "ece823cf_39b53bed",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8428edb_8486bc40",
         "filename": "test/fpe_observer_unittest.cc",
         "patchSetId": 8
@@ -99,6 +123,30 @@
       "writtenOn": "2018-03-01T08:12:35Z",
       "side": 1,
       "message": "What is this test really about? Will the floating point observer be used by production code, or is it just a means through which you test that floating point exceptions are correctly generated?",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "1c7caeb2496b33c1cbe80234ee0c95ac7262e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93e43d33_80365fa4",
+        "filename": "test/fpe_observer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T08:23:58Z",
+      "side": 1,
+      "message": "It\u0027s test-only (it says so in BUILD.gn).",
+      "parentUuid": "95b7e7f1_64ba4502",
       "range": {
         "startLine": 75,
         "startChar": 5,

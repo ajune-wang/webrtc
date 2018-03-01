@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fe0f8041_e77f87e8",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-03-01T17:35:30Z",
+      "side": 1,
+      "message": "Leave this open. As the other comment seems a big conflict with current alpha channel storage on C++ side.",
+      "parentUuid": "c1109223_9310872a",
+      "range": {
+        "startLine": 122,
+        "startChar": 27,
+        "endLine": 122,
+        "endChar": 44
+      },
+      "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c6bae64_9a53fde1",
         "filename": "sdk/android/src/jni/videoframe.cc",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-01T10:56:36Z",
       "side": 1,
       "message": "This is not allowed. ToI420 should not return I420A buffers. Could you maybe point us to a design doc so we could better understand how you plan to use this.",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 3
+      },
+      "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76d7cfa2_09c6d972",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-03-01T17:35:30Z",
+      "side": 1,
+      "message": "On C++ side emircan@ made I420ABufferInterface as an extension of I420BufferInterface, it is distinguished in the MultiplexEncoderAdapter by reading its type(). We do this because the encoder needs to handle the case the frame has no alpha channel, and we do not have knowledge whether a handler-based frame has alpha channel or not before we visualize the data out through ToI420(), and thus adding a function ToI420A() is kind of hard.\n\nOr maybe we should do the same to make I420ABuffer as an extension of interface I420Buffer for consistency?\nIf you insist splitting these two apart on C++ side, then I think that will incur somewhat big structural change, which is definitely out of this CL scope, and we need to wrap emircan@ in.\n\n[1] https://docs.google.com/document/d/1jpe8qnRLYH7pIygEgsOnm6CdAxlXPR_jFB4FpbpRwk8/edit#heading\u003dh.xgjl2srtytjt",
+      "parentUuid": "7c6bae64_9a53fde1",
       "range": {
         "startLine": 447,
         "startChar": 0,

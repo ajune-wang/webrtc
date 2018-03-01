@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd88c1ce_f66c0e67",
+        "filename": "modules/video_coding/codecs/test/video_encoder_decoder_instantiation_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-01T16:46:25Z",
+      "side": 1,
+      "message": "Does number of codecs that can be instantiated depend on resolution? I would guess it does since memory usage depends on resolution.",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "346de231dcc1d3e3a0bd2eb631cc4f45646e99c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

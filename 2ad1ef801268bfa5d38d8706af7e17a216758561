@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fce7ea6_3ab92139",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-01T09:46:54Z",
+      "side": 1,
+      "message": "This leaves str_ in a moved-from state, where it may not be used further. It would be very nearly as cheap to have something like\n\n  std::string Release() {\n    std::string ret;\n    std::swap(str_, ret);\n    return ret;\n  }",
+      "revId": "2ad1ef801268bfa5d38d8706af7e17a216758561",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#import "ARDAppClient+Internal.h"
+#import "ARDAppClientObjc+Internal.h"
 
 #import "WebRTC/RTCAudioTrack.h"
 #import "WebRTC/RTCCameraVideoCapturer.h"
@@ -23,6 +23,7 @@
 #import "WebRTC/RTCRtpSender.h"
 #import "WebRTC/RTCTracing.h"
 #import "WebRTC/RTCVideoCodecFactory.h"
+#import "WebRTC/RTCVideoRenderer.h"
 #import "WebRTC/RTCVideoSource.h"
 #import "WebRTC/RTCVideoTrack.h"
 
@@ -37,24 +38,24 @@
 #import "RTCIceCandidate+JSON.h"
 #import "RTCSessionDescription+JSON.h"
 
-static NSString * const kARDIceServerRequestUrl = @"https://appr.tc/params";
+static NSString *const kARDIceServerRequestUrl = @"https://appr.tc/params";
 
-static NSString * const kARDAppClientErrorDomain = @"ARDAppClient";
+static NSString *const kARDAppClientErrorDomain = @"ARDAppClient";
 static NSInteger const kARDAppClientErrorUnknown = -1;
 static NSInteger const kARDAppClientErrorRoomFull = -2;
 static NSInteger const kARDAppClientErrorCreateSDP = -3;
 static NSInteger const kARDAppClientErrorSetSDP = -4;
 static NSInteger const kARDAppClientErrorInvalidClient = -5;
 static NSInteger const kARDAppClientErrorInvalidRoom = -6;
-static NSString * const kARDMediaStreamId = @"ARDAMS";
-static NSString * const kARDAudioTrackId = @"ARDAMSa0";
-static NSString * const kARDVideoTrackId = @"ARDAMSv0";
-static NSString * const kARDVideoTrackKind = @"video";
+static NSString *const kARDMediaStreamId = @"ARDAMS";
+static NSString *const kARDAudioTrackId = @"ARDAMSa0";
+static NSString *const kARDVideoTrackId = @"ARDAMSv0";
+static NSString *const kARDVideoTrackKind = @"video";
 
 // TODO(tkchin): Add these as UI options.
 static BOOL const kARDAppClientEnableTracing = NO;
 static BOOL const kARDAppClientEnableRtcEventLog = YES;
-static int64_t const kARDAppClientAecDumpMaxSizeInBytes = 5e6;  // 5 MB.
+static int64_t const kARDAppClientAecDumpMaxSizeInBytes = 5e6;      // 5 MB.
 static int64_t const kARDAppClientRtcEventLogMaxSizeInBytes = 5e6;  // 5 MB.
 static int const kKbpsMultiplier = 1000;
 
@@ -99,11 +100,12 @@ static int const kKbpsMultiplier = 1000;
 
 @end
 
-@implementation ARDAppClient {
+@implementation ARDAppClientObjc {
   RTCFileLogger *_fileLogger;
   ARDTimerProxy *_statsTimer;
   ARDSettingsModel *_settings;
   RTCVideoTrack *_localVideoTrack;
+  RTCVideoTrack *_remoteVideoTrack;
 }
 
 @synthesize shouldGetStats = _shouldGetStats;
@@ -117,15 +119,14 @@ static int const kKbpsMultiplier = 1000;
 @synthesize factory = _factory;
 @synthesize messageQueue = _messageQueue;
 @synthesize isTurnComplete = _isTurnComplete;
-@synthesize hasReceivedSdp  = _hasReceivedSdp;
+@synthesize hasReceivedSdp = _hasReceivedSdp;
 @synthesize roomId = _roomId;
 @synthesize clientId = _clientId;
 @synthesize isInitiator = _isInitiator;
 @synthesize iceServers = _iceServers;
 @synthesize webSocketURL = _websocketURL;
 @synthesize webSocketRestURL = _websocketRestURL;
-@synthesize defaultPeerConnectionConstraints =
-    _defaultPeerConnectionConstraints;
+@synthesize defaultPeerConnectionConstraints = _defaultPeerConnectionConstraints;
 @synthesize isLoopback = _isLoopback;
 
 - (instancetype)init {
@@ -180,20 +181,22 @@ static int const kKbpsMultiplier = 1000;
     return;
   }
   if (shouldGetStats) {
-    __weak ARDAppClient *weakSelf = self;
-    _statsTimer = [[ARDTimerProxy alloc] initWithInterval:1
-                                                  repeats:YES
-                                             timerHandler:^{
-      ARDAppClient *strongSelf = weakSelf;
-      [strongSelf.peerConnection statsForTrack:nil
-                              statsOutputLevel:RTCStatsOutputLevelDebug
-                             completionHandler:^(NSArray *stats) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-          ARDAppClient *strongSelf = weakSelf;
-          [strongSelf.delegate appClient:strongSelf didGetStats:stats];
-        });
-      }];
-    }];
+    __weak ARDAppClientObjc *weakSelf = self;
+    _statsTimer = [[ARDTimerProxy alloc]
+        initWithInterval:1
+                 repeats:YES
+            timerHandler:^{
+              ARDAppClientObjc *strongSelf = weakSelf;
+              [strongSelf.peerConnection
+                      statsForTrack:nil
+                   statsOutputLevel:RTCStatsOutputLevelDebug
+                  completionHandler:^(NSArray *stats) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                      ARDAppClientObjc *strongSelf = weakSelf;
+                      [strongSelf.delegate appClient:strongSelf didGetStats:stats];
+                    });
+                  }];
+            }];
   } else {
     [_statsTimer invalidate];
     _statsTimer = nil;
@@ -232,14 +235,12 @@ static int const kKbpsMultiplier = 1000;
 #endif
 
   // Request TURN.
-  __weak ARDAppClient *weakSelf = self;
-  [_turnClient requestServersWithCompletionHandler:^(NSArray *turnServers,
-                                                     NSError *error) {
+  __weak ARDAppClientObjc *weakSelf = self;
+  [_turnClient requestServersWithCompletionHandler:^(NSArray *turnServers, NSError *error) {
     if (error) {
-      RTCLogError("Error retrieving TURN servers: %@",
-                  error.localizedDescription);
+      RTCLogError("Error retrieving TURN servers: %@", error.localizedDescription);
     }
-    ARDAppClient *strongSelf = weakSelf;
+    ARDAppClientObjc *strongSelf = weakSelf;
     [strongSelf.iceServers addObjectsFromArray:turnServers];
     strongSelf.isTurnComplete = YES;
     [strongSelf startSignalingIfReady];
@@ -248,38 +249,38 @@ static int const kKbpsMultiplier = 1000;
   // Join room on room server.
   [_roomServerClient joinRoomWithRoomId:roomId
                              isLoopback:isLoopback
-      completionHandler:^(ARDJoinResponse *response, NSError *error) {
-    ARDAppClient *strongSelf = weakSelf;
-    if (error) {
-      [strongSelf.delegate appClient:strongSelf didError:error];
-      return;
-    }
-    NSError *joinError =
-        [[strongSelf class] errorForJoinResultType:response.result];
-    if (joinError) {
-      RTCLogError(@"Failed to join room:%@ on room server.", roomId);
-      [strongSelf disconnect];
-      [strongSelf.delegate appClient:strongSelf didError:joinError];
-      return;
-    }
-    RTCLog(@"Joined room:%@ on room server.", roomId);
-    strongSelf.roomId = response.roomId;
-    strongSelf.clientId = response.clientId;
-    strongSelf.isInitiator = response.isInitiator;
-    for (ARDSignalingMessage *message in response.messages) {
-      if (message.type == kARDSignalingMessageTypeOffer ||
-          message.type == kARDSignalingMessageTypeAnswer) {
-        strongSelf.hasReceivedSdp = YES;
-        [strongSelf.messageQueue insertObject:message atIndex:0];
-      } else {
-        [strongSelf.messageQueue addObject:message];
-      }
-    }
-    strongSelf.webSocketURL = response.webSocketURL;
-    strongSelf.webSocketRestURL = response.webSocketRestURL;
-    [strongSelf registerWithColliderIfReady];
-    [strongSelf startSignalingIfReady];
-  }];
+                      completionHandler:^(ARDJoinResponse *response, NSError *error) {
+                        ARDAppClientObjc *strongSelf = weakSelf;
+                        if (error) {
+                          [strongSelf.delegate appClient:strongSelf didError:error];
+                          return;
+                        }
+                        NSError *joinError =
+                            [[strongSelf class] errorForJoinResultType:response.result];
+                        if (joinError) {
+                          RTCLogError(@"Failed to join room:%@ on room server.", roomId);
+                          [strongSelf disconnect];
+                          [strongSelf.delegate appClient:strongSelf didError:joinError];
+                          return;
+                        }
+                        RTCLog(@"Joined room:%@ on room server.", roomId);
+                        strongSelf.roomId = response.roomId;
+                        strongSelf.clientId = response.clientId;
+                        strongSelf.isInitiator = response.isInitiator;
+                        for (ARDSignalingMessage *message in response.messages) {
+                          if (message.type == kARDSignalingMessageTypeOffer ||
+                              message.type == kARDSignalingMessageTypeAnswer) {
+                            strongSelf.hasReceivedSdp = YES;
+                            [strongSelf.messageQueue insertObject:message atIndex:0];
+                          } else {
+                            [strongSelf.messageQueue addObject:message];
+                          }
+                        }
+                        strongSelf.webSocketURL = response.webSocketURL;
+                        strongSelf.webSocketRestURL = response.webSocketRestURL;
+                        [strongSelf registerWithColliderIfReady];
+                        [strongSelf startSignalingIfReady];
+                      }];
 }
 
 - (void)disconnect {
@@ -287,9 +288,7 @@ static int const kKbpsMultiplier = 1000;
     return;
   }
   if (self.hasJoinedRoomServerRoom) {
-    [_roomServerClient leaveRoomWithRoomId:_roomId
-                                  clientId:_clientId
-                         completionHandler:nil];
+    [_roomServerClient leaveRoomWithRoomId:_roomId clientId:_clientId completionHandler:nil];
   }
   if (_channel) {
     if (_channel.state == kARDSignalingChannelStateRegistered) {
@@ -322,8 +321,7 @@ static int const kKbpsMultiplier = 1000;
 
 #pragma mark - ARDSignalingChannelDelegate
 
-- (void)channel:(id<ARDSignalingChannel>)channel
-    didReceiveMessage:(ARDSignalingMessage *)message {
+- (void)channel:(id<ARDSignalingChannel>)channel didReceiveMessage:(ARDSignalingMessage *)message {
   switch (message.type) {
     case kARDSignalingMessageTypeOffer:
     case kARDSignalingMessageTypeAnswer:
@@ -344,8 +342,7 @@ static int const kKbpsMultiplier = 1000;
   [self drainMessageQueueIfReady];
 }
 
-- (void)channel:(id<ARDSignalingChannel>)channel
-    didChangeState:(ARDSignalingChannelState)state {
+- (void)channel:(id<ARDSignalingChannel>)channel didChangeState:(ARDSignalingChannelState)state {
   switch (state) {
     case kARDSignalingChannelStateOpen:
       break;
@@ -369,15 +366,23 @@ static int const kKbpsMultiplier = 1000;
   RTCLog(@"Signaling state changed: %ld", (long)stateChanged);
 }
 
-- (void)peerConnection:(RTCPeerConnection *)peerConnection
-          didAddStream:(RTCMediaStream *)stream {
+- (void)peerConnection:(RTCPeerConnection *)peerConnection didAddStream:(RTCMediaStream *)stream {
   dispatch_async(dispatch_get_main_queue(), ^{
     RTCLog(@"Received %lu video tracks and %lu audio tracks",
-        (unsigned long)stream.videoTracks.count,
-        (unsigned long)stream.audioTracks.count);
+           (unsigned long)stream.videoTracks.count,
+           (unsigned long)stream.audioTracks.count);
     if (stream.videoTracks.count) {
-      RTCVideoTrack *videoTrack = stream.videoTracks[0];
-      [_delegate appClient:self didReceiveRemoteVideoTrack:videoTrack];
+      if (_remoteVideoTrack != stream.videoTracks[0]) {
+        id<RTCVideoRenderer> renderer = [_delegate remoteVideoRenderer];
+        [_remoteVideoTrack removeRenderer:renderer];
+        _remoteVideoTrack = nil;
+        [renderer renderFrame:nil];
+
+        _remoteVideoTrack = stream.videoTracks[0];
+        [_remoteVideoTrack addRenderer:renderer];
+
+        [_delegate appClientDidReceiveRemoteVideoTrack:self];
+      }
     }
   });
 }
@@ -407,8 +412,7 @@ static int const kKbpsMultiplier = 1000;
 - (void)peerConnection:(RTCPeerConnection *)peerConnection
     didGenerateIceCandidate:(RTCIceCandidate *)candidate {
   dispatch_async(dispatch_get_main_queue(), ^{
-    ARDICECandidateMessage *message =
-        [[ARDICECandidateMessage alloc] initWithCandidate:candidate];
+    ARDICECandidateMessage *message = [[ARDICECandidateMessage alloc] initWithCandidate:candidate];
     [self sendSignalingMessage:message];
   });
 }
@@ -417,8 +421,7 @@ static int const kKbpsMultiplier = 1000;
     didRemoveIceCandidates:(NSArray<RTCIceCandidate *> *)candidates {
   dispatch_async(dispatch_get_main_queue(), ^{
     ARDICECandidateRemovalMessage *message =
-        [[ARDICECandidateRemovalMessage alloc]
-            initWithRemovedCandidates:candidates];
+        [[ARDICECandidateRemovalMessage alloc] initWithRemovedCandidates:candidates];
     [self sendSignalingMessage:message];
   });
 }
@@ -439,19 +442,18 @@ static int const kKbpsMultiplier = 1000;
       RTCLogError(@"Failed to create session description. Error: %@", error);
       [self disconnect];
       NSDictionary *userInfo = @{
-        NSLocalizedDescriptionKey: @"Failed to create session description.",
+        NSLocalizedDescriptionKey : @"Failed to create session description.",
       };
-      NSError *sdpError =
-          [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
-                                     code:kARDAppClientErrorCreateSDP
-                                 userInfo:userInfo];
+      NSError *sdpError = [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
+                                                     code:kARDAppClientErrorCreateSDP
+                                                 userInfo:userInfo];
       [_delegate appClient:self didError:sdpError];
       return;
     }
-    __weak ARDAppClient *weakSelf = self;
+    __weak ARDAppClientObjc *weakSelf = self;
     [_peerConnection setLocalDescription:sdp
                        completionHandler:^(NSError *error) {
-                         ARDAppClient *strongSelf = weakSelf;
+                         ARDAppClientObjc *strongSelf = weakSelf;
                          [strongSelf peerConnection:strongSelf.peerConnection
                              didSetSessionDescriptionWithError:error];
                        }];
@@ -469,12 +471,11 @@ static int const kKbpsMultiplier = 1000;
       RTCLogError(@"Failed to set session description. Error: %@", error);
       [self disconnect];
       NSDictionary *userInfo = @{
-        NSLocalizedDescriptionKey: @"Failed to set session description.",
+        NSLocalizedDescriptionKey : @"Failed to set session description.",
       };
-      NSError *sdpError =
-          [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
-                                     code:kARDAppClientErrorSetSDP
-                                 userInfo:userInfo];
+      NSError *sdpError = [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
+                                                     code:kARDAppClientErrorSetSDP
+                                                 userInfo:userInfo];
       [_delegate appClient:self didError:sdpError];
       return;
     }
@@ -482,15 +483,14 @@ static int const kKbpsMultiplier = 1000;
     // an answer and set the local description.
     if (!_isInitiator && !_peerConnection.localDescription) {
       RTCMediaConstraints *constraints = [self defaultAnswerConstraints];
-      __weak ARDAppClient *weakSelf = self;
+      __weak ARDAppClientObjc *weakSelf = self;
       [_peerConnection answerForConstraints:constraints
-                          completionHandler:^(RTCSessionDescription *sdp,
-                                              NSError *error) {
-        ARDAppClient *strongSelf = weakSelf;
-        [strongSelf peerConnection:strongSelf.peerConnection
-            didCreateSessionDescription:sdp
-                                  error:error];
-      }];
+                          completionHandler:^(RTCSessionDescription *sdp, NSError *error) {
+                            ARDAppClientObjc *strongSelf = weakSelf;
+                            [strongSelf peerConnection:strongSelf.peerConnection
+                                didCreateSessionDescription:sdp
+                                                      error:error];
+                          }];
     }
   });
 }
@@ -501,11 +501,9 @@ static int const kKbpsMultiplier = 1000;
 
 - (NSString *)documentsFilePathForFileName:(NSString *)fileName {
   NSParameterAssert(fileName.length);
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(
-      NSDocumentDirectory, NSUserDomainMask, YES);
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString *documentsDirPath = paths.firstObject;
-  NSString *filePath =
-      [documentsDirPath stringByAppendingPathComponent:fileName];
+  NSString *filePath = [documentsDirPath stringByAppendingPathComponent:fileName];
   return filePath;
 }
 
@@ -530,22 +528,20 @@ static int const kKbpsMultiplier = 1000;
   RTCMediaConstraints *constraints = [self defaultPeerConnectionConstraints];
   RTCConfiguration *config = [[RTCConfiguration alloc] init];
   config.iceServers = _iceServers;
-  _peerConnection = [_factory peerConnectionWithConfiguration:config
-                                                  constraints:constraints
-                                                     delegate:self];
+  _peerConnection =
+      [_factory peerConnectionWithConfiguration:config constraints:constraints delegate:self];
   // Create AV senders.
   [self createMediaSenders];
   if (_isInitiator) {
     // Send offer.
-    __weak ARDAppClient *weakSelf = self;
+    __weak ARDAppClientObjc *weakSelf = self;
     [_peerConnection offerForConstraints:[self defaultOfferConstraints]
-                       completionHandler:^(RTCSessionDescription *sdp,
-                                           NSError *error) {
-      ARDAppClient *strongSelf = weakSelf;
-      [strongSelf peerConnection:strongSelf.peerConnection
-          didCreateSessionDescription:sdp
-                                error:error];
-    }];
+                       completionHandler:^(RTCSessionDescription *sdp, NSError *error) {
+                         ARDAppClientObjc *strongSelf = weakSelf;
+                         [strongSelf peerConnection:strongSelf.peerConnection
+                             didCreateSessionDescription:sdp
+                                                   error:error];
+                       }];
   } else {
     // Check if we've received an offer.
     [self drainMessageQueueIfReady];
@@ -555,7 +551,7 @@ static int const kKbpsMultiplier = 1000;
   if (kARDAppClientEnableRtcEventLog) {
     NSString *filePath = [self documentsFilePathForFileName:@"webrtc-rtceventlog"];
     if (![_peerConnection startRtcEventLogWithFilePath:filePath
-                                 maxSizeInBytes:kARDAppClientRtcEventLogMaxSizeInBytes]) {
+                                        maxSizeInBytes:kARDAppClientRtcEventLogMaxSizeInBytes]) {
       RTCLogError(@"Failed to start event logging.");
     }
   }
@@ -588,32 +584,28 @@ static int const kKbpsMultiplier = 1000;
 
 // Processes the given signaling message based on its type.
 - (void)processSignalingMessage:(ARDSignalingMessage *)message {
-  NSParameterAssert(_peerConnection ||
-      message.type == kARDSignalingMessageTypeBye);
+  NSParameterAssert(_peerConnection || message.type == kARDSignalingMessageTypeBye);
   switch (message.type) {
     case kARDSignalingMessageTypeOffer:
     case kARDSignalingMessageTypeAnswer: {
-      ARDSessionDescriptionMessage *sdpMessage =
-          (ARDSessionDescriptionMessage *)message;
+      ARDSessionDescriptionMessage *sdpMessage = (ARDSessionDescriptionMessage *)message;
       RTCSessionDescription *description = sdpMessage.sessionDescription;
-      __weak ARDAppClient *weakSelf = self;
+      __weak ARDAppClientObjc *weakSelf = self;
       [_peerConnection setRemoteDescription:description
                           completionHandler:^(NSError *error) {
-                            ARDAppClient *strongSelf = weakSelf;
+                            ARDAppClientObjc *strongSelf = weakSelf;
                             [strongSelf peerConnection:strongSelf.peerConnection
                                 didSetSessionDescriptionWithError:error];
                           }];
       break;
     }
     case kARDSignalingMessageTypeCandidate: {
-      ARDICECandidateMessage *candidateMessage =
-          (ARDICECandidateMessage *)message;
+      ARDICECandidateMessage *candidateMessage = (ARDICECandidateMessage *)message;
       [_peerConnection addIceCandidate:candidateMessage.candidate];
       break;
     }
     case kARDSignalingMessageTypeCandidateRemoval: {
-      ARDICECandidateRemovalMessage *candidateMessage =
-          (ARDICECandidateRemovalMessage *)message;
+      ARDICECandidateRemovalMessage *candidateMessage = (ARDICECandidateRemovalMessage *)message;
       [_peerConnection removeIceCandidates:candidateMessage.candidates];
       break;
     }
@@ -631,24 +623,23 @@ static int const kKbpsMultiplier = 1000;
 // signaling channel.
 - (void)sendSignalingMessage:(ARDSignalingMessage *)message {
   if (_isInitiator) {
-    __weak ARDAppClient *weakSelf = self;
+    __weak ARDAppClientObjc *weakSelf = self;
     [_roomServerClient sendMessage:message
                          forRoomId:_roomId
                           clientId:_clientId
-                 completionHandler:^(ARDMessageResponse *response,
-                                     NSError *error) {
-      ARDAppClient *strongSelf = weakSelf;
-      if (error) {
-        [strongSelf.delegate appClient:strongSelf didError:error];
-        return;
-      }
-      NSError *messageError =
-          [[strongSelf class] errorForMessageResultType:response.result];
-      if (messageError) {
-        [strongSelf.delegate appClient:strongSelf didError:messageError];
-        return;
-      }
-    }];
+                 completionHandler:^(ARDMessageResponse *response, NSError *error) {
+                   ARDAppClientObjc *strongSelf = weakSelf;
+                   if (error) {
+                     [strongSelf.delegate appClient:strongSelf didError:error];
+                     return;
+                   }
+                   NSError *messageError =
+                       [[strongSelf class] errorForMessageResultType:response.result];
+                   if (messageError) {
+                     [strongSelf.delegate appClient:strongSelf didError:messageError];
+                     return;
+                   }
+                 }];
   } else {
     [_channel sendMessage:message];
   }
@@ -679,8 +670,7 @@ static int const kKbpsMultiplier = 1000;
 - (void)createMediaSenders {
   RTCMediaConstraints *constraints = [self defaultMediaAudioConstraints];
   RTCAudioSource *source = [_factory audioSourceWithConstraints:constraints];
-  RTCAudioTrack *track = [_factory audioTrackWithSource:source
-                                                trackId:kARDAudioTrackId];
+  RTCAudioTrack *track = [_factory audioTrackWithSource:source trackId:kARDAudioTrackId];
   RTCMediaStream *stream = [_factory mediaStreamWithStreamId:kARDMediaStreamId];
   [stream addAudioTrack:track];
   _localVideoTrack = [self createLocalVideoTrack];
@@ -721,14 +711,12 @@ static int const kKbpsMultiplier = 1000;
   }
   // Open WebSocket connection.
   if (!_channel) {
-    _channel =
-        [[ARDWebSocketChannel alloc] initWithURL:_websocketURL
-                                         restURL:_websocketRestURL
-                                        delegate:self];
+    _channel = [[ARDWebSocketChannel alloc] initWithURL:_websocketURL
+                                                restURL:_websocketRestURL
+                                               delegate:self];
     if (_isLoopback) {
       _loopbackChannel =
-          [[ARDLoopbackWebSocketChannel alloc] initWithURL:_websocketURL
-                                                   restURL:_websocketRestURL];
+          [[ARDLoopbackWebSocketChannel alloc] initWithURL:_websocketURL restURL:_websocketRestURL];
     }
   }
   [_channel registerForRoomId:_roomId clientId:_clientId];
@@ -739,15 +727,15 @@ static int const kKbpsMultiplier = 1000;
 
 #pragma mark - Defaults
 
- - (RTCMediaConstraints *)defaultMediaAudioConstraints {
-   NSString *valueLevelControl = [_settings currentUseLevelControllerSettingFromStore] ?
-       kRTCMediaConstraintsValueTrue :
-       kRTCMediaConstraintsValueFalse;
-   NSDictionary *mandatoryConstraints = @{ kRTCMediaConstraintsLevelControl : valueLevelControl };
-   RTCMediaConstraints *constraints =
-       [[RTCMediaConstraints alloc] initWithMandatoryConstraints:mandatoryConstraints
-                                             optionalConstraints:nil];
-   return constraints;
+- (RTCMediaConstraints *)defaultMediaAudioConstraints {
+  NSString *valueLevelControl = [_settings currentUseLevelControllerSettingFromStore] ?
+      kRTCMediaConstraintsValueTrue :
+      kRTCMediaConstraintsValueFalse;
+  NSDictionary *mandatoryConstraints = @{kRTCMediaConstraintsLevelControl : valueLevelControl};
+  RTCMediaConstraints *constraints =
+      [[RTCMediaConstraints alloc] initWithMandatoryConstraints:mandatoryConstraints
+                                            optionalConstraints:nil];
+  return constraints;
 }
 
 - (RTCMediaConstraints *)defaultAnswerConstraints {
@@ -755,14 +743,11 @@ static int const kKbpsMultiplier = 1000;
 }
 
 - (RTCMediaConstraints *)defaultOfferConstraints {
-  NSDictionary *mandatoryConstraints = @{
-    @"OfferToReceiveAudio" : @"true",
-    @"OfferToReceiveVideo" : @"true"
-  };
-  RTCMediaConstraints* constraints =
-      [[RTCMediaConstraints alloc]
-          initWithMandatoryConstraints:mandatoryConstraints
-                   optionalConstraints:nil];
+  NSDictionary *mandatoryConstraints =
+      @{@"OfferToReceiveAudio" : @"true", @"OfferToReceiveVideo" : @"true"};
+  RTCMediaConstraints *constraints =
+      [[RTCMediaConstraints alloc] initWithMandatoryConstraints:mandatoryConstraints
+                                            optionalConstraints:nil];
   return constraints;
 }
 
@@ -771,11 +756,10 @@ static int const kKbpsMultiplier = 1000;
     return _defaultPeerConnectionConstraints;
   }
   NSString *value = _isLoopback ? @"false" : @"true";
-  NSDictionary *optionalConstraints = @{ @"DtlsSrtpKeyAgreement" : value };
-  RTCMediaConstraints* constraints =
-      [[RTCMediaConstraints alloc]
-          initWithMandatoryConstraints:nil
-                   optionalConstraints:optionalConstraints];
+  NSDictionary *optionalConstraints = @{@"DtlsSrtpKeyAgreement" : value};
+  RTCMediaConstraints *constraints =
+      [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil
+                                            optionalConstraints:optionalConstraints];
   return constraints;
 }
 
@@ -790,16 +774,16 @@ static int const kKbpsMultiplier = 1000;
       error = [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
                                          code:kARDAppClientErrorUnknown
                                      userInfo:@{
-        NSLocalizedDescriptionKey: @"Unknown error.",
-      }];
+                                       NSLocalizedDescriptionKey : @"Unknown error.",
+                                     }];
       break;
     }
     case kARDJoinResultTypeFull: {
       error = [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
                                          code:kARDAppClientErrorRoomFull
                                      userInfo:@{
-        NSLocalizedDescriptionKey: @"Room is full.",
-      }];
+                                       NSLocalizedDescriptionKey : @"Room is full.",
+                                     }];
       break;
     }
   }
@@ -815,22 +799,22 @@ static int const kKbpsMultiplier = 1000;
       error = [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
                                          code:kARDAppClientErrorUnknown
                                      userInfo:@{
-        NSLocalizedDescriptionKey: @"Unknown error.",
-      }];
+                                       NSLocalizedDescriptionKey : @"Unknown error.",
+                                     }];
       break;
     case kARDMessageResultTypeInvalidClient:
       error = [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
                                          code:kARDAppClientErrorInvalidClient
                                      userInfo:@{
-        NSLocalizedDescriptionKey: @"Invalid client.",
-      }];
+                                       NSLocalizedDescriptionKey : @"Invalid client.",
+                                     }];
       break;
     case kARDMessageResultTypeInvalidRoom:
       error = [[NSError alloc] initWithDomain:kARDAppClientErrorDomain
                                          code:kARDAppClientErrorInvalidRoom
                                      userInfo:@{
-        NSLocalizedDescriptionKey: @"Invalid room.",
-      }];
+                                       NSLocalizedDescriptionKey : @"Invalid room.",
+                                     }];
       break;
   }
   return error;

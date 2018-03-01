@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 
 @class ARDVideoCallViewController;
+@protocol ARDAppClient;
+
 @protocol ARDVideoCallViewControllerDelegate <NSObject>
 
 - (void)viewControllerDidFinish:(ARDVideoCallViewController *)viewController;
@@ -23,6 +25,7 @@
 
 - (instancetype)initForRoom:(NSString *)room
                  isLoopback:(BOOL)isLoopback
-                   delegate:(id<ARDVideoCallViewControllerDelegate>)delegate;
+                   delegate:(id<ARDVideoCallViewControllerDelegate>)delegate
+                clientClass:(Class<ARDAppClient>)clientClass;
 
 @end

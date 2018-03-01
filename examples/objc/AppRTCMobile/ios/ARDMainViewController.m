@@ -17,7 +17,6 @@
 #import "WebRTC/RTCDispatcher.h"
 #import "WebRTC/RTCLogging.h"
 
-
 #import "ARDAppClient.h"
 #import "ARDMainView.h"
 #import "ARDSettingsModel.h"
@@ -39,6 +38,15 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
   ARDMainView *_mainView;
   AVAudioPlayer *_audioPlayer;
   BOOL _useManualAudio;
+  Class<ARDAppClient> _clientClass;
+}
+
+- (instancetype)initWithClientClass:(Class<ARDAppClient>)clientClass {
+  if (self = [super init]) {
+    _clientClass = clientClass;
+  }
+
+  return self;
 }
 
 - (void)viewDidLoad {
@@ -130,7 +138,8 @@ static NSString *const loopbackLaunchProcessArgument = @"loopback";
   ARDVideoCallViewController *videoCallViewController =
       [[ARDVideoCallViewController alloc] initForRoom:trimmedRoom
                                            isLoopback:isLoopback
-                                             delegate:self];
+                                             delegate:self
+                                          clientClass:_clientClass];
   videoCallViewController.modalTransitionStyle =
       UIModalTransitionStyleCrossDissolve;
   [self presentViewController:videoCallViewController

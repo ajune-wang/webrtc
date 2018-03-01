@@ -12,6 +12,12 @@
 #import "WebRTC/RTCPeerConnection.h"
 #import "WebRTC/RTCVideoTrack.h"
 
+#import "WebRTC/RTCPeerConnection.h"
+
+#import "ARDRoomServerClient.h"
+#import "ARDSignalingChannel.h"
+#import "ARDTURNClient.h"
+
 typedef NS_ENUM(NSInteger, ARDAppClientState) {
   // Disconnected from servers.
   kARDAppClientStateDisconnected,
@@ -21,7 +27,7 @@ typedef NS_ENUM(NSInteger, ARDAppClientState) {
   kARDAppClientStateConnected,
 };
 
-@class ARDAppClient;
+@protocol ARDAppClient;
 @class ARDSettingsModel;
 @class RTCMediaConstraints;
 @class RTCCameraVideoCapturer;
@@ -31,36 +37,33 @@ typedef NS_ENUM(NSInteger, ARDAppClientState) {
 // main queue.
 @protocol ARDAppClientDelegate <NSObject>
 
-- (void)appClient:(ARDAppClient *)client
-    didChangeState:(ARDAppClientState)state;
+- (void)appClient:(id<ARDAppClient>)client didChangeState:(ARDAppClientState)state;
 
-- (void)appClient:(ARDAppClient *)client
-    didChangeConnectionState:(RTCIceConnectionState)state;
+- (void)appClient:(id<ARDAppClient>)client didChangeConnectionState:(RTCIceConnectionState)state;
 
-- (void)appClient:(ARDAppClient *)client
+- (void)appClient:(id<ARDAppClient>)client
     didCreateLocalCapturer:(RTCCameraVideoCapturer *)localCapturer;
 
-- (void)appClient:(ARDAppClient *)client
+- (void)appClient:(id<ARDAppClient>)client
     didReceiveLocalVideoTrack:(RTCVideoTrack *)localVideoTrack;
 
-- (void)appClient:(ARDAppClient *)client
-    didReceiveRemoteVideoTrack:(RTCVideoTrack *)remoteVideoTrack;
+- (void)appClientDidReceiveRemoteVideoTrack:(id<ARDAppClient>)client;
 
-- (void)appClient:(ARDAppClient *)client
-         didError:(NSError *)error;
+- (void)appClient:(id<ARDAppClient>)client didError:(NSError *)error;
 
-- (void)appClient:(ARDAppClient *)client
-      didGetStats:(NSArray *)stats;
+- (void)appClient:(id<ARDAppClient>)client didGetStats:(NSArray *)stats;
+
+- (id<RTCVideoRenderer>)remoteVideoRenderer;
 
 @optional
-- (void)appClient:(ARDAppClient *)client
-didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
+- (void)appClient:(id<ARDAppClient>)client
+    didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 
 @end
 
 // Handles connections to the AppRTC server for a given room. Methods on this
 // class should only be called from the main queue.
-@interface ARDAppClient : NSObject
+@protocol ARDAppClient <NSObject>
 
 // If |shouldGetStats| is true, stats will be reported in 1s intervals through
 // the delegate.

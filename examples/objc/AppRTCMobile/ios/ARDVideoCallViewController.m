@@ -25,30 +25,28 @@
 @interface ARDVideoCallViewController () <ARDAppClientDelegate,
                                           ARDVideoCallViewDelegate,
                                           RTCAudioSessionDelegate>
-@property(nonatomic, strong) RTCVideoTrack *remoteVideoTrack;
 @property(nonatomic, readonly) ARDVideoCallView *videoCallView;
 @end
 
 @implementation ARDVideoCallViewController {
-  ARDAppClient *_client;
-  RTCVideoTrack *_remoteVideoTrack;
+  id<ARDAppClient> _client;
   ARDCaptureController *_captureController;
   ARDFileCaptureController *_fileCaptureController NS_AVAILABLE_IOS(10);
   AVAudioSessionPortOverride _portOverride;
 }
 
 @synthesize videoCallView = _videoCallView;
-@synthesize remoteVideoTrack = _remoteVideoTrack;
 @synthesize delegate = _delegate;
 
 - (instancetype)initForRoom:(NSString *)room
                  isLoopback:(BOOL)isLoopback
-                   delegate:(id<ARDVideoCallViewControllerDelegate>)delegate {
+                   delegate:(id<ARDVideoCallViewControllerDelegate>)delegate
+                clientClass:(Class<ARDAppClient>)clientClass {
   if (self = [super init]) {
     ARDSettingsModel *settingsModel = [[ARDSettingsModel alloc] init];
     _delegate = delegate;
 
-    _client = [[ARDAppClient alloc] initWithDelegate:self];
+    _client = [[(Class)clientClass alloc] initWithDelegate:self];
     [_client connectToRoomWithId:room settings:settingsModel isLoopback:isLoopback];
   }
   return self;
@@ -71,8 +69,7 @@
 
 #pragma mark - ARDAppClientDelegate
 
-- (void)appClient:(ARDAppClient *)client
-    didChangeState:(ARDAppClientState)state {
+- (void)appClient:(id<ARDAppClient>)client didChangeState:(ARDAppClientState)state {
   switch (state) {
     case kARDAppClientStateConnected:
       RTCLog(@"Client connected.");
@@ -87,8 +84,7 @@
   }
 }
 
-- (void)appClient:(ARDAppClient *)client
-    didChangeConnectionState:(RTCIceConnectionState)state {
+- (void)appClient:(id<ARDAppClient>)client didChangeConnectionState:(RTCIceConnectionState)state {
   RTCLog(@"ICE state changed: %ld", (long)state);
   __weak ARDVideoCallViewController *weakSelf = self;
   dispatch_async(dispatch_get_main_queue(), ^{
@@ -98,7 +94,7 @@
   });
 }
 
-- (void)appClient:(ARDAppClient *)client
+- (void)appClient:(id<ARDAppClient>)client
     didCreateLocalCapturer:(RTCCameraVideoCapturer *)localCapturer {
   _videoCallView.localVideoView.captureSession = localCapturer.captureSession;
   ARDSettingsModel *settingsModel = [[ARDSettingsModel alloc] init];
@@ -107,7 +103,7 @@
   [_captureController startCapture];
 }
 
-- (void)appClient:(ARDAppClient *)client
+- (void)appClient:(id<ARDAppClient>)client
     didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer {
 #if defined(__IPHONE_11_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0)
   if (@available(iOS 10, *)) {
@@ -117,28 +113,28 @@
 #endif
 }
 
-- (void)appClient:(ARDAppClient *)client
+- (void)appClient:(id<ARDAppClient>)client
     didReceiveLocalVideoTrack:(RTCVideoTrack *)localVideoTrack {
 }
 
-- (void)appClient:(ARDAppClient *)client
-    didReceiveRemoteVideoTrack:(RTCVideoTrack *)remoteVideoTrack {
-  self.remoteVideoTrack = remoteVideoTrack;
+- (void)appClientDidReceiveRemoteVideoTrack:(id<ARDAppClient>)client {
   _videoCallView.statusLabel.hidden = YES;
 }
 
-- (void)appClient:(ARDAppClient *)client
-      didGetStats:(NSArray *)stats {
+- (void)appClient:(id<ARDAppClient>)client didGetStats:(NSArray *)stats {
   _videoCallView.statsView.stats = stats;
   [_videoCallView setNeedsLayout];
 }
 
-- (void)appClient:(ARDAppClient *)client
-         didError:(NSError *)error {
+- (void)appClient:(id<ARDAppClient>)client didError:(NSError *)error {
   NSString *message =
       [NSString stringWithFormat:@"%@", error.localizedDescription];
   [self hangup];
   [self showAlertWithMessage:message];
+}
+
+- (id<RTCVideoRenderer>)remoteVideoRenderer {
+  return _videoCallView.remoteVideoView;
 }
 
 #pragma mark - ARDVideoCallViewDelegate
@@ -187,19 +183,7 @@
 
 #pragma mark - Private
 
-- (void)setRemoteVideoTrack:(RTCVideoTrack *)remoteVideoTrack {
-  if (_remoteVideoTrack == remoteVideoTrack) {
-    return;
-  }
-  [_remoteVideoTrack removeRenderer:_videoCallView.remoteVideoView];
-  _remoteVideoTrack = nil;
-  [_videoCallView.remoteVideoView renderFrame:nil];
-  _remoteVideoTrack = remoteVideoTrack;
-  [_remoteVideoTrack addRenderer:_videoCallView.remoteVideoView];
-}
-
 - (void)hangup {
-  self.remoteVideoTrack = nil;
   _videoCallView.localVideoView.captureSession = nil;
   [_captureController stopCapture];
   _captureController = nil;

@@ -213,9 +213,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
   rtc_static_library("apprtc_signaling") {
     testonly = true
     sources = [
-      "objc/AppRTCMobile/ARDAppClient+Internal.h",
       "objc/AppRTCMobile/ARDAppClient.h",
-      "objc/AppRTCMobile/ARDAppClient.m",
       "objc/AppRTCMobile/ARDAppEngineClient.h",
       "objc/AppRTCMobile/ARDAppEngineClient.m",
       "objc/AppRTCMobile/ARDBitrateTracker.h",
@@ -263,10 +261,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       # 'gn check' is disabled in order to avoid confusion and
       # errors caused by multiple implementations.
       check_includes = false
-      deps += [
-        ":AppRTCMobile_ios_frameworks",
-        "../sdk:framework_objc",
-      ]
+      deps += [ "../sdk:framework_objc" ]
     } else {
       deps += [
         "../sdk:common_objc",
@@ -280,16 +275,64 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     libs = [ "QuartzCore.framework" ]
   }
 
+  rtc_static_library("apprtcclient_objc") {
+    testonly = true
+    sources = [
+      "objc/AppRTCMobile/ARDAppClientObjc+Internal.h",
+      "objc/AppRTCMobile/ARDAppClientObjc.h",
+      "objc/AppRTCMobile/ARDAppClientObjc.m",
+    ]
+    public_configs = [ ":apprtc_signaling_config" ]
+    deps = [
+      ":apprtc_common",
+      ":apprtc_signaling",
+    ]
+
+    if (is_ios) {
+      check_includes = false
+      deps += [ "../sdk:framework_objc" ]
+    }
+  }
+
+  rtc_static_library("apprtcclient_native") {
+    testonly = true
+    sources = [
+      "objc/AppRTCMobile/native/ARDAppClientNative.h",
+      "objc/AppRTCMobile/native/ARDAppClientNative.mm",
+    ]
+
+    public_configs = [ ":apprtc_signaling_config" ]
+
+    if (!build_with_chromium && is_clang) {
+      # Suppress warnings from Chrome's Clang plugins.
+      # See http://code.google.com/p/webrtc/issues/detail?id=163 for details.
+      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+    }
+
+    deps = [
+      ":apprtc_common",
+      ":apprtc_signaling",
+      "../api:libjingle_peerconnection_api",
+      "../api/audio_codecs:builtin_audio_decoder_factory",
+      "../api/audio_codecs:builtin_audio_encoder_factory",
+      "../modules/audio_device:audio_device",
+      "../modules/audio_processing:audio_processing",
+      "../pc:create_pc_factory",
+      "../pc:peerconnection",
+      "../rtc_base:rtc_base",
+      "../sdk:native_api",
+    ]
+
+    if (is_ios) {
+      check_includes = false
+      deps += [ "../sdk:framework_objc" ]
+    }
+  }
+
   if (is_ios) {
     rtc_static_library("AppRTCMobile_lib") {
-      # iOS must use WebRTC.framework which is dynamically linked.
-      # 'gn check' is disabled in order to avoid confusion and
-      # errors caused by multiple implementations.
-      check_includes = false
       testonly = true
       sources = [
-        "objc/AppRTCMobile/ios/ARDAppDelegate.h",
-        "objc/AppRTCMobile/ios/ARDAppDelegate.m",
         "objc/AppRTCMobile/ios/ARDFileCaptureController.h",
         "objc/AppRTCMobile/ios/ARDFileCaptureController.m",
         "objc/AppRTCMobile/ios/ARDMainView.h",
@@ -311,9 +354,31 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       ]
 
       deps = [
-        ":AppRTCMobile_ios_frameworks",
         ":apprtc_common",
         ":apprtc_signaling",
+        "../system_wrappers:system_wrappers_default",
+      ]
+
+      if (is_ios) {
+        check_includes = false
+        deps += [ "../sdk:framework_objc" ]
+      }
+    }
+
+    rtc_static_library("AppRTCMobileObjc_lib") {
+      # iOS must use WebRTC.framework which is dynamically linked.
+      # 'gn check' is disabled in order to avoid confusion and
+      # errors caused by multiple implementations.
+      check_includes = false
+      testonly = true
+      sources = [
+        "objc/AppRTCMobile/ios/ARDAppDelegate.h",
+        "objc/AppRTCMobile/ios/ARDAppDelegate.m",
+      ]
+
+      deps = [
+        ":AppRTCMobile_lib",
+        ":apprtcclient_objc",
         "../sdk:framework_objc",
       ]
     }
@@ -330,9 +395,9 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       public_configs = [ "..:common_inherited_config" ]
 
       deps = [
+        ":AppRTCMobileObjc_lib",
         ":AppRTCMobile_ios_bundle_data",
         ":AppRTCMobile_ios_frameworks",
-        ":AppRTCMobile_lib",
         "../sdk:framework_objc",
       ]
 
@@ -380,6 +445,50 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       outputs = [
         "{{bundle_resources_dir}}/{{source_file_part}}",
       ]
+    }
+
+    rtc_static_library("AppRTCMobileNative_lib") {
+      testonly = true
+      sources = [
+        "objc/AppRTCMobile/native/ios/ARDAppDelegateNative.h",
+        "objc/AppRTCMobile/native/ios/ARDAppDelegateNative.mm",
+      ]
+
+      deps = [
+        ":AppRTCMobile_lib",
+        ":apprtc_common",
+        ":apprtcclient_native",
+        "../rtc_base:checks",
+        "../rtc_base:rtc_base",
+        "../sdk:framework_objc",
+        "../system_wrappers:field_trial_default",
+      ]
+    }
+
+    ios_app_bundle("AppRTCMobileNative") {
+      testonly = true
+      sources = [
+        "objc/AppRTCMobile/native/ios/main.m",
+      ]
+
+      info_plist = "objc/AppRTCMobile/ios/Info.plist"
+
+      configs += [ "..:common_config" ]
+      public_configs = [ "..:common_inherited_config" ]
+
+      deps = [
+        ":AppRTCMobileNative_lib",
+        ":AppRTCMobile_ios_bundle_data",
+        "../sdk:default_codec_factory_objc",
+        "../sdk:metal_objc",
+        "../sdk:peerconnectionfactory_base_objc",
+        "../sdk:ui_objc",
+        "../sdk:videotoolbox_objc",
+      ]
+
+      if (target_cpu == "x86") {
+        deps += [ "//testing/iossim:iossim" ]
+      }
     }
   }
 
@@ -499,6 +608,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
           "objc/AppRTCMobile/ios/main.m",
         ]
         deps = [
+          ":AppRTCMobileObjc_lib",
           ":AppRTCMobile_lib",
           ":apprtcmobile_test_sources",
           "../sdk:framework_objc",

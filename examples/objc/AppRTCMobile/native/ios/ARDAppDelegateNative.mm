@@ -1,5 +1,5 @@
 /*
- *  Copyright 2013 The WebRTC Project Authors. All rights reserved.
+ *  Copyright 2018 The WebRTC Project Authors. All rights reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -8,17 +8,22 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#import "ARDAppDelegate.h"
+#import "ARDAppDelegateNative.h"
 
-#import "WebRTC/RTCFieldTrials.h"
-#import "WebRTC/RTCLogging.h"
-#import "WebRTC/RTCSSLAdapter.h"
-#import "WebRTC/RTCTracing.h"
+#import "ios/ARDMainViewController.h"
+#import "native/ARDAppClientNative.h"
 
-#import "ARDAppClientObjc.h"
-#import "ARDMainViewController.h"
+#include <memory>
 
-@implementation ARDAppDelegate {
+#include "rtc_base/checks.h"
+#include "rtc_base/event_tracer.h"
+#include "rtc_base/logging.h"
+#include "rtc_base/ssladapter.h"
+#include "system_wrappers/include/field_trial_default.h"
+
+static std::unique_ptr<char[]> gFieldTrialInitString;
+
+@implementation ARDAppDelegateNative {
   UIWindow *_window;
 }
 
@@ -26,16 +31,16 @@
 
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  NSDictionary *fieldTrials = @{
-    kRTCFieldTrialH264HighProfileKey: kRTCFieldTrialEnabledValue,
-  };
-  RTCInitFieldTrialDictionary(fieldTrials);
-  RTCInitializeSSL();
-  RTCSetupInternalTracer();
-  _window =  [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  // gFieldTrialInitString.reset("WebRTC-H264HighProfile/Enabled/");
+  webrtc::field_trial::InitFieldTrialsFromString("WebRTC-H264HighProfile/Enabled/");
+
+  RTC_DCHECK(rtc::InitializeSSL());
+  rtc::tracing::SetupInternalTracer();
+
+  _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   [_window makeKeyAndVisible];
   ARDMainViewController *viewController =
-      [[ARDMainViewController alloc] initWithClientClass:[ARDAppClientObjc class]];
+      [[ARDMainViewController alloc] initWithClientClass:[ARDAppClientNative class]];
 
   UINavigationController *root =
       [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -46,15 +51,15 @@
   // In debug builds the default level is LS_INFO and in non-debug builds it is
   // disabled. Continue to log to console in non-debug builds, but only
   // warnings and errors.
-  RTCSetMinDebugLogLevel(RTCLoggingSeverityWarning);
+  rtc::LogMessage::LogToDebug(rtc::LS_WARNING);
 #endif
 
   return YES;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-  RTCShutdownInternalTracer();
-  RTCCleanupSSL();
+  rtc::tracing::ShutdownInternalTracer();
+  RTC_DCHECK(rtc::CleanupSSL());
 }
 
 @end

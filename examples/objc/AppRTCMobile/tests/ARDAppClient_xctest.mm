@@ -18,7 +18,7 @@
 #import "WebRTC/RTCMediaConstraints.h"
 #import "WebRTC/RTCPeerConnectionFactory.h"
 
-#import "ARDAppClient+Internal.h"
+#import "ARDAppClientObjc+Internal.h"
 #import "ARDJoinResponse+Internal.h"
 #import "ARDMessageResponse+Internal.h"
 #import "ARDSettingsModel.h"
@@ -124,14 +124,14 @@
   return model;
 }
 
-- (ARDAppClient *)createAppClientForRoomId:(NSString *)roomId
-                                  clientId:(NSString *)clientId
-                               isInitiator:(BOOL)isInitiator
-                                  messages:(NSArray *)messages
-                            messageHandler:
-    (void (^)(ARDSignalingMessage *message))messageHandler
-                          connectedHandler:(void (^)(void))connectedHandler
-                    localVideoTrackHandler:(void (^)(void))localVideoTrackHandler {
+- (ARDAppClientObjc *)createAppClientForRoomId:(NSString *)roomId
+                                      clientId:(NSString *)clientId
+                                   isInitiator:(BOOL)isInitiator
+                                      messages:(NSArray *)messages
+                                messageHandler:
+                                    (void (^)(ARDSignalingMessage *message))messageHandler
+                              connectedHandler:(void (^)(void))connectedHandler
+                        localVideoTrackHandler:(void (^)(void))localVideoTrackHandler {
   id turnClient = [self mockTURNClient];
   id signalingChannel = [self mockSignalingChannelForRoomId:roomId
                                                    clientId:clientId
@@ -153,10 +153,10 @@
   }] appClient:[OCMArg any]
       didReceiveLocalVideoTrack:[OCMArg any]];
 
-  return [[ARDAppClient alloc] initWithRoomServerClient:roomServerClient
-                                       signalingChannel:signalingChannel
-                                             turnClient:turnClient
-                                               delegate:delegate];
+  return [[ARDAppClientObjc alloc] initWithRoomServerClient:roomServerClient
+                                           signalingChannel:signalingChannel
+                                                 turnClient:turnClient
+                                                   delegate:delegate];
 }
 
 // Tests that an ICE connection is established between two ARDAppClient objects
@@ -167,10 +167,10 @@
 - (void)testSession {
   // Need block arguments here because we're setting up a callbacks before we
   // create the clients.
-  ARDAppClient *caller = nil;
-  ARDAppClient *answerer = nil;
-  __block __weak ARDAppClient *weakCaller = nil;
-  __block __weak ARDAppClient *weakAnswerer = nil;
+  ARDAppClientObjc *caller = nil;
+  ARDAppClientObjc *answerer = nil;
+  __block __weak ARDAppClientObjc *weakCaller = nil;
+  __block __weak ARDAppClientObjc *weakAnswerer = nil;
   NSString *roomId = @"testRoom";
   NSString *callerId = @"testCallerId";
   NSString *answererId = @"testAnswererId";
@@ -181,16 +181,18 @@
       [self expectationWithDescription:@"Answerer PC connected."];
 
   caller = [self createAppClientForRoomId:roomId
-                                 clientId:callerId
-                              isInitiator:YES
-                                 messages:[NSArray array]
-                           messageHandler:^(ARDSignalingMessage *message) {
-    ARDAppClient *strongAnswerer = weakAnswerer;
-    [strongAnswerer channel:strongAnswerer.channel didReceiveMessage:message];
-  }                      connectedHandler:^{
-    [callerConnectionExpectation fulfill];
-  }                localVideoTrackHandler:^{
-  }];
+      clientId:callerId
+      isInitiator:YES
+      messages:[NSArray array]
+      messageHandler:^(ARDSignalingMessage *message) {
+        ARDAppClientObjc *strongAnswerer = weakAnswerer;
+        [strongAnswerer channel:strongAnswerer.channel didReceiveMessage:message];
+      }
+      connectedHandler:^{
+        [callerConnectionExpectation fulfill];
+      }
+      localVideoTrackHandler:^{
+      }];
   // TODO(tkchin): Figure out why DTLS-SRTP constraint causes thread assertion
   // crash in Debug.
   caller.defaultPeerConnectionConstraints =
@@ -199,16 +201,18 @@
   weakCaller = caller;
 
   answerer = [self createAppClientForRoomId:roomId
-                                   clientId:answererId
-                                isInitiator:NO
-                                   messages:[NSArray array]
-                             messageHandler:^(ARDSignalingMessage *message) {
-    ARDAppClient *strongCaller = weakCaller;
-    [strongCaller channel:strongCaller.channel didReceiveMessage:message];
-  }                        connectedHandler:^{
-    [answererConnectionExpectation fulfill];
-  }                  localVideoTrackHandler:^{
-  }];
+      clientId:answererId
+      isInitiator:NO
+      messages:[NSArray array]
+      messageHandler:^(ARDSignalingMessage *message) {
+        ARDAppClientObjc *strongCaller = weakCaller;
+        [strongCaller channel:strongCaller.channel didReceiveMessage:message];
+      }
+      connectedHandler:^{
+        [answererConnectionExpectation fulfill];
+      }
+      localVideoTrackHandler:^{
+      }];
   // TODO(tkchin): Figure out why DTLS-SRTP constraint causes thread assertion
   // crash in Debug.
   answerer.defaultPeerConnectionConstraints =
@@ -231,7 +235,7 @@
 // video track is created regardless (Perhaps there should be a test for that...)
 #if !TARGET_IPHONE_SIMULATOR // Expect to fail on simulator due to no camera support
 - (void)testSessionShouldGetLocalVideoTrackCallback {
-  ARDAppClient *caller = nil;
+  ARDAppClientObjc *caller = nil;
   NSString *roomId = @"testRoom";
   NSString *callerId = @"testCallerId";
 

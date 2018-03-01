@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2c05f83_1caaf349",
+        "filename": "p2p/base/fakeportallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-01T19:47:56Z",
+      "side": 1,
+      "message": "nit: I\u0027d call this \"PortTypesForFakeSession\". We\u0027ll likely get rid of the concept of \"allocation sequences\" eventually.",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "294e6fa2_754bc0b7",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-01T19:47:56Z",
+      "side": 1,
+      "message": "Remove before submitting",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73ad62a6_a16e7ae1",
+        "filename": "p2p/base/stunport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-01T19:47:56Z",
+      "side": 1,
+      "message": "nit: We generally avoid default arguments unless there\u0027s a good reason.",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8b2b2c6_e8cc50b7",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-01T19:47:56Z",
+      "side": 1,
+      "message": "Still not passing the keepalive interval in here.",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec6641c8_232b732f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2717,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-01T19:47:56Z",
+      "side": 1,
+      "message": "Remove before submitting",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a07375_4ee4e989",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4101,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-01T19:47:56Z",
+      "side": 1,
+      "message": "nit: Don\u0027t need to prefix test names with \"Test\".\n\nAlso, this may be better grouped in \"peerconnection_ice_unittest.cc\".",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b11090be_7703c0a0",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4115,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-01T19:47:56Z",
+      "side": 1,
+      "message": "This is really testing the combination of PeerConnection and FakePortAllocator, but in reality BasicPortAllocator still doesn\u0027t construct the UDPPort with the correct value (see comment there).\n\nIf you want to be thorough, I\u0027d suggest one test for each layer:\n\n1. Test that after creating a PeerConnection with a given RTCConfiguration, PortAllocator::stun_candidate_keepalive_interval() returns the expected value, in peerconnection_ice_unittest.cc.\n2. Test that BasicPortAllocator creates ports with the expected value, in basicportallocator_unittest.cc\n\nThis wouldn\u0027t need the changes made to FakePortAllocator.",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

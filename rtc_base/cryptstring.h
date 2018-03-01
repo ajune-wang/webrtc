@@ -17,10 +17,12 @@
 #include <string>
 #include <vector>
 
+#include "rtc_base/zero_memory.h"
+
 namespace rtc {
 
 class CryptStringImpl {
-public:
+ public:
   virtual ~CryptStringImpl() {}
   virtual size_t GetLength() const = 0;
   virtual void CopyTo(char * dest, bool nullterminate) const = 0;
@@ -30,7 +32,7 @@ public:
 };
 
 class EmptyCryptStringImpl : public CryptStringImpl {
-public:
+ public:
   ~EmptyCryptStringImpl() override {}
   size_t GetLength() const override;
   void CopyTo(char* dest, bool nullterminate) const override;
@@ -43,7 +45,9 @@ class CryptString {
  public:
   CryptString();
   size_t GetLength() const { return impl_->GetLength(); }
-  void CopyTo(char * dest, bool nullterminate) const { impl_->CopyTo(dest, nullterminate); }
+  void CopyTo(char* dest, bool nullterminate) const {
+    impl_->CopyTo(dest, nullterminate);
+  }
   CryptString(const CryptString& other);
   explicit CryptString(const CryptStringImpl& impl);
   ~CryptString();
@@ -63,11 +67,10 @@ class CryptString {
   std::unique_ptr<const CryptStringImpl> impl_;
 };
 
-
 // Used for constructing strings where a password is involved and we
 // need to ensure that we zero memory afterwards
 class FormatCryptString {
-public:
+ public:
   FormatCryptString() {
     storage_ = new char[32];
     capacity_ = 32;
@@ -101,7 +104,6 @@ public:
     return storage_;
   }
 
-
   // Ensures storage of at least n bytes
   void EnsureStorage(size_t n) {
     if (capacity_ >= n) {
@@ -122,25 +124,19 @@ public:
     if (old_capacity) {
       memcpy(storage_, old_storage, length_);
 
-      // zero memory in a way that an optimizer won't optimize it out
-      old_storage[0] = 0;
-      for (size_t i = 1; i < old_capacity; i++) {
-        old_storage[i] = old_storage[i - 1];
-      }
+      ExplicitZeroMemory(old_storage, old_capacity);
       delete[] old_storage;
     }
   }
 
   ~FormatCryptString() {
     if (capacity_) {
-      storage_[0] = 0;
-      for (size_t i = 1; i < capacity_; i++) {
-        storage_[i] = storage_[i - 1];
-      }
+      ExplicitZeroMemory(storage_, capacity_);
     }
     delete[] storage_;
   }
-private:
+
+ private:
   char * storage_;
   size_t capacity_;
   size_t length_;
@@ -162,6 +158,6 @@ class InsecureCryptStringImpl : public CryptStringImpl {
   std::string password_;
 };
 
-}
+}  // namespace rtc
 
 #endif  // RTC_BASE_CRYPTSTRING_H_

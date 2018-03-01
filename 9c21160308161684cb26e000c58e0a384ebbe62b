@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca3a8b35_517c5b13",
+        "filename": "examples/androidtests/src/org/appspot/apprtc/test/PeerConnectionClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-01T09:36:31Z",
+      "side": 1,
+      "message": "nit: Can you fix this comment (add a space).",
+      "range": {
+        "startLine": 350,
+        "startChar": 13,
+        "endLine": 350,
+        "endChar": 15
+      },
+      "revId": "9c21160308161684cb26e000c58e0a384ebbe62b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fc9ad06_d290beae",
+        "filename": "modules/video_coding/codecs/multiplex/include/multiplex_encoder_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-03-01T21:11:54Z",
+      "side": 1,
+      "message": "From what I can find, WebRTC has a different convention for locking. Can you use CriticalSection and RTC_GUARDED_BY() like below?\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/stream.h?rcl\u003d12c8110e8c717b7f0f87615d3b99caac2a69fa6c\u0026l\u003d552\n\nstd::map\u003cuint32_t /* timestamp */, MultiplexImage\u003e RTC_GUARDED_BY(crit_);\nCriticalSection crit_;",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 34
+      },
+      "revId": "de42bbde1b670fa29fe45b2a8daf2f8e62a10f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

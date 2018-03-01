@@ -93,6 +93,30 @@
       "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "261f4afe_4306242b",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-03-01T18:11:12Z",
+      "side": 1,
+      "message": "In MultiplexEncoderAdapter, we are using GetI420A() to return the class instance[1]. We didn\u0027t need native to CPU buffer conversion so far, therefore it was enough. I don\u0027t think it is necessary to add a ToI420A() method seperately. I420ABufferInterface extends I420BufferInterface, so it wouldn\u0027t be wrong to return that from this class. I420ABufferInterface still contains a memory-backed frame buffer in I420 format, and other SW encoders can use that.\n\n[0] https://cs.chromium.org/chromium/src/third_party/webrtc/api/video/video_frame_buffer.h?rcl\u003d12c8110e8c717b7f0f87615d3b99caac2a69fa6c\u0026l\u003d72\n[1] https://cs.chromium.org/chromium/src/third_party/webrtc/api/video/video_frame_buffer.h?rcl\u003d12c8110e8c717b7f0f87615d3b99caac2a69fa6c\u0026l\u003d72",
+      "parentUuid": "76d7cfa2_09c6d972",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 3
+      },
+      "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

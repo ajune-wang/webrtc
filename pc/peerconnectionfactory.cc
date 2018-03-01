@@ -42,6 +42,7 @@
 #include "pc/peerconnection.h"
 #include "pc/videocapturertracksource.h"
 #include "pc/videotrack.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -139,6 +140,12 @@ PeerConnectionFactory::PeerConnectionFactory(
       signaling_thread_ = rtc::ThreadManager::Instance()->WrapCurrentThread();
       wraps_current_thread_ = true;
     }
+  }
+
+  if (fec_controller_factory_.get()) {
+    fec_controller_factory_->SetProtectionLevel(strtof(
+        webrtc::field_trial::FindFullName("WebRTC-FecProtectionLevel").c_str(),
+        nullptr));
   }
 
   // TODO(deadbeef): Currently there is no way to create an external adm in

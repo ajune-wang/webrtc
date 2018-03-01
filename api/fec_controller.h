@@ -85,6 +85,7 @@ class FecControllerFactoryInterface {
  public:
   virtual std::unique_ptr<FecController> CreateFecController() = 0;
   virtual ~FecControllerFactoryInterface() = default;
+  virtual void SetProtectionLevel(float protection_level) = 0;
 };
 
 }  // namespace webrtc

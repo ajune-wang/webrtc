@@ -22,6 +22,30 @@
       "revId": "dd20d8e42a9e7fc026588cee41aa5526819e56c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de3a2f49_3048a788",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-02T13:36:43Z",
+      "side": 0,
+      "message": "Because constraints are now set in the constructor, so the constraints_set_ value would always be true. Setting them again could not change the conditions that are required to be fulfilled for creating the controllers.",
+      "parentUuid": "d78f5df4_82239b04",
+      "range": {
+        "startLine": 367,
+        "startChar": 4,
+        "endLine": 367,
+        "endChar": 26
+      },
+      "revId": "dd20d8e42a9e7fc026588cee41aa5526819e56c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -34,7 +34,7 @@ using webrtc::SessionDescriptionInterface;
 using webrtc::VideoTrackInterface;
 
 namespace {
-const char kStreamLabelBase[] = "stream_label";
+const char kStreamIdBase[] = "stream_id";
 const char kVideoTrackLabelBase[] = "video_track";
 const char kAudioTrackLabelBase[] = "audio_track";
 constexpr int kMaxWait = 10000;
@@ -263,11 +263,11 @@ rtc::scoped_refptr<webrtc::MediaStreamInterface>
     PeerConnectionTestWrapper::GetUserMedia(
         bool audio, const webrtc::FakeConstraints& audio_constraints,
         bool video, const webrtc::FakeConstraints& video_constraints) {
-  std::string label = kStreamLabelBase +
-      rtc::ToString<int>(
-          static_cast<int>(peer_connection_->local_streams()->count()));
+  std::string stream_id =
+      kStreamIdBase + rtc::ToString<int>(static_cast<int>(
+                          peer_connection_->local_streams()->count()));
   rtc::scoped_refptr<webrtc::MediaStreamInterface> stream =
-      peer_connection_factory_->CreateLocalMediaStream(label);
+      peer_connection_factory_->CreateLocalMediaStream(stream_id);
 
   if (audio) {
     FakeConstraints constraints = audio_constraints;
@@ -292,7 +292,7 @@ rtc::scoped_refptr<webrtc::MediaStreamInterface>
             std::unique_ptr<cricket::VideoCapturer>(
                 new webrtc::FakePeriodicVideoCapturer()),
             &constraints);
-    std::string videotrack_label = label + kVideoTrackLabelBase;
+    std::string videotrack_label = stream_id + kVideoTrackLabelBase;
     rtc::scoped_refptr<webrtc::VideoTrackInterface> video_track(
         peer_connection_factory_->CreateVideoTrack(videotrack_label, source));
 

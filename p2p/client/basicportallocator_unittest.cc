@@ -14,6 +14,7 @@
 #include "p2p/base/basicpacketsocketfactory.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/p2ptransportchannel.h"
+#include "p2p/base/stunport.h"
 #include "p2p/base/testrelayserver.h"
 #include "p2p/base/teststunserver.h"
 #include "p2p/base/testturnserver.h"
@@ -2097,6 +2098,38 @@ TEST_F(BasicPortAllocatorTest, TestSetCandidateFilterAfterCandidatesGathered) {
     // Expect that the raddr is emptied due to the CF_RELAY filter.
     EXPECT_EQ(candidate.related_address(),
               rtc::EmptySocketAddressWithFamily(candidate.address().family()));
+  }
+}
+
+TEST_F(BasicPortAllocatorTest, SetStunKeepaliveIntervalForPorts) {
+  int pool_size = 1;
+  rtc::Optional<int> expected_stun_keepalive_interval = 123;
+  AddInterface(kClientAddr);
+  allocator_->SetConfiguration(allocator_->stun_servers(),
+                               allocator_->turn_servers(), pool_size, false,
+                               nullptr, expected_stun_keepalive_interval);
+  auto* pooled_session = allocator_->GetPooledSession();
+  ASSERT_NE(nullptr, pooled_session);
+  EXPECT_EQ_SIMULATED_WAIT(true, pooled_session->CandidatesAllocationDone(),
+                           kDefaultAllocationTimeout, fake_clock);
+  auto ready_ports = pooled_session->ReadyPorts();
+  EXPECT_FALSE(ready_ports.empty());
+  for (const auto* port : ready_ports) {
+    if (port->Type() == STUN_PORT_TYPE ||
+        (port->Type() == LOCAL_PORT_TYPE && port->GetProtocol() == PROTO_UDP)) {
+      EXPECT_EQ(static_cast<const UDPPort*>(port)->stun_keepalive_delay(), 123);
+    }
+  }
+  expected_stun_keepalive_interval = 321;
+  allocator_->SetConfiguration(allocator_->stun_servers(),
+                               allocator_->turn_servers(), pool_size, false,
+                               nullptr, expected_stun_keepalive_interval);
+  ready_ports = pooled_session->ReadyPorts();
+  for (const auto* port : ready_ports) {
+    if (port->Type() == STUN_PORT_TYPE ||
+        (port->Type() == LOCAL_PORT_TYPE && port->GetProtocol() == PROTO_UDP)) {
+      EXPECT_EQ(static_cast<const UDPPort*>(port)->stun_keepalive_delay(), 321);
+    }
   }
 }
 

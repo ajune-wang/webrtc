@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e51de8f_3e1767c5",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-02T10:00:15Z",
+      "side": 1,
+      "message": "Remove this check since it would cause bad input to crash chrome. The check below still guards against OoB access.",
+      "revId": "9b1fff4f3c29b3298267605eb7a7f6dcbdf082b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b13d41c8_2663f701",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-02T10:00:15Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "9b1fff4f3c29b3298267605eb7a7f6dcbdf082b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

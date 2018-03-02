@@ -278,22 +278,9 @@ void ControlHandler::Detach() {
 
 SendSideCongestionController::SendSideCongestionController(
     const Clock* clock,
-    NetworkChangedObserver* observer,
-    RtcEventLog* event_log,
-    PacedSender* pacer)
-    : SendSideCongestionController(clock,
-                                   event_log,
-                                   pacer,
-                                   ControllerFactory(event_log)) {
-  if (observer != nullptr)
-    RegisterNetworkObserver(observer);
-}
-
-SendSideCongestionController::SendSideCongestionController(
-    const Clock* clock,
     RtcEventLog* event_log,
     PacedSender* pacer,
-    NetworkControllerFactoryInterface::uptr controller_factory)
+    BitrateConstraints constraints)
     : clock_(clock),
       pacer_(pacer),
       transport_feedback_adapter_(clock_),
@@ -304,14 +291,19 @@ SendSideCongestionController::SendSideCongestionController(
       send_side_bwe_with_overhead_(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
       transport_overhead_bytes_per_packet_(0),
-      network_available_(true),
+      network_available_(false),
       task_queue_(MakeUnique<rtc::TaskQueue>("SendSideCCQueue")) {
+  initial_config_.constraints = ConvertConstraints(
+      constraints.min_bitrate_bps, constraints.max_bitrate_bps, clock_);
+  initial_config_.stream_based_config = StreamsConfig();
+  RTC_DCHECK(constraints.start_bitrate_bps > 0);
+  initial_config_.starting_rate = DataRate::bps(constraints.start_bitrate_bps);
 }
 
 void SendSideCongestionController::MaybeCreateControllers() {
   rtc::CritScope cs(&config_lock_);
   if (!controller_) {
-    if (network_available_ && observer_ && constraints_set_) {
+    if (network_available_ && observer_) {
       control_handler_ = MakeUnique<send_side_cc_internal::ControlHandler>(
           observer_, pacer_controller_.get(), clock_);
       initial_config_.constraints.at_time =
@@ -321,7 +313,7 @@ void SendSideCongestionController::MaybeCreateControllers() {
       pacer_controller_->Detach();
       control_handler_->Detach();
       streams_config_ = initial_config_.stream_based_config;
-      // The delay is to ensure that code that expects immideate effect of the
+      // The delay is to ensure that code that expects immediate effect of the
       // task will break.
       task_queue_->PostDelayedTask([this]() { UpdateStreamsConfig(); }, 5);
     }
@@ -363,8 +355,6 @@ void SendSideCongestionController::SetBweBitrates(int min_bitrate_bps,
     if (start_bitrate_bps > 0)
       initial_config_.starting_rate = DataRate::bps(start_bitrate_bps);
     initial_config_.constraints = constraints;
-    constraints_set_ = true;
-    MaybeCreateControllers();
   } else {
     task_queue_->PostTask([this, constraints]() {
       controller_->OnTargetRateConstraints(constraints);

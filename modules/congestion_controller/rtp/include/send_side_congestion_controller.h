@@ -17,6 +17,7 @@
 #include <memory>
 #include <vector>
 
+#include "call/bitrate_constraints.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/congestion_controller/include/send_side_congestion_controller_interface.h"
 #include "modules/congestion_controller/network_control/include/network_control.h"
@@ -59,9 +60,9 @@ class SendSideCongestionController
       public RtcpBandwidthObserver {
  public:
   SendSideCongestionController(const Clock* clock,
-                               NetworkChangedObserver* observer,
                                RtcEventLog* event_log,
-                               PacedSender* pacer);
+                               PacedSender* pacer,
+                               BitrateConstraints constraints);
   ~SendSideCongestionController() override;
 
   void RegisterPacketFeedbackObserver(
@@ -138,11 +139,6 @@ class SendSideCongestionController
 
  private:
   void MaybeCreateControllers();
-  SendSideCongestionController(
-      const Clock* clock,
-      RtcEventLog* event_log,
-      PacedSender* pacer,
-      NetworkControllerFactoryInterface::uptr controller_factory);
 
   void UpdateStreamsConfig();
   void MaybeUpdateOutstandingData();
@@ -167,7 +163,6 @@ class SendSideCongestionController
   rtc::CriticalSection config_lock_;
   NetworkChangedObserver* observer_ RTC_GUARDED_BY(config_lock_);
   NetworkControllerConfig initial_config_ RTC_GUARDED_BY(config_lock_);
-  bool constraints_set_ RTC_GUARDED_BY(config_lock_) = false;
   StreamsConfig streams_config_;
   const bool send_side_bwe_with_overhead_;
   std::atomic<size_t> transport_overhead_bytes_per_packet_;

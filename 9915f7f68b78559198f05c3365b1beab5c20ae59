@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5acb73bf_565ce2d1",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "elements",
+      "range": {
+        "startLine": 117,
+        "startChar": 53,
+        "endLine": 117,
+        "endChar": 58
+      },
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dc0ee83_0b7f24cf",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "already ensure that the unused capacity contains no sensitive data",
+      "range": {
+        "startLine": 118,
+        "startChar": 17,
+        "endLine": 118,
+        "endChar": 56
+      },
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "066c1d4c_1f106a5e",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "This is the third time you repeat this exact block of code. Subroutine, please!",
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f4ce6d5_fc868770",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "Zero the first `count` elements of unused capacity.",
+      "range": {
+        "startLine": 392,
+        "startChar": 5,
+        "endLine": 392,
+        "endChar": 50
+      },
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcc47c2b_91e93a3b",
+        "filename": "rtc_base/buffer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "constexpr",
+      "range": {
+        "startLine": 442,
+        "startChar": 2,
+        "endLine": 442,
+        "endChar": 7
+      },
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afcfa9da_8e679b99",
+        "filename": "rtc_base/buffer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "the underlying heap memory was not reallocated",
+      "range": {
+        "startLine": 444,
+        "startChar": 32,
+        "endLine": 444,
+        "endChar": 65
+      },
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdfc690c_f7ddaa37",
+        "filename": "rtc_base/buffer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "The first two elements have been overwritten, and the remaining five have been zeroed.",
+      "range": {
+        "startLine": 447,
+        "startChar": 5,
+        "endLine": 447,
+        "endChar": 80
+      },
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "589994ea_16654609",
+        "filename": "rtc_base/buffer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "constexpr",
+      "range": {
+        "startLine": 456,
+        "startChar": 2,
+        "endLine": 456,
+        "endChar": 7
+      },
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f52aa04_6aa90a84",
+        "filename": "rtc_base/buffer_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "const auto",
+      "range": {
+        "startLine": 457,
+        "startChar": 2,
+        "endLine": 457,
+        "endChar": 6
+      },
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74c303a6_40be6f23",
+        "filename": "rtc_base/bytebuffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "All the methods that change bytes_ below are non-const. Shouldn\u0027t this one be non-const as well?",
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02e5197_cc582f05",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-02T11:22:25Z",
+      "side": 1,
+      "message": "Replace the data members of this class with a ZeroOnFreeBuffer? That will make it very small, and there\u0027ll be many fewer things that could go wrong.\n\n(If you decide to not do this---and I won\u0027t insist, in the interest of not making your CL balloon uncontrollably if you just want to land the darned thing---could you please add a TODO that it should be done?)",
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

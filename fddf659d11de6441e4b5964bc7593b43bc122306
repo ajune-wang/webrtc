@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4d753a2_84d76a78",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-02T14:07:37Z",
+      "side": 1,
+      "message": "No need for the else clause.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 10
+      },
+      "revId": "fddf659d11de6441e4b5964bc7593b43bc122306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3898e0e_bb26a0a0",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-02T14:07:37Z",
+      "side": 1,
+      "message": "This can fail, in which case I think it\u0027s better to log an error and return a default value. Perhaps we should also make sure the value is within reasonable bounds?\n\nYou may want to look at https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/experiments/alr_experiment.cc?q\u003dWebRTC-Strict\u0026sq\u003dpackage:chromium\u0026l\u003d58 and do the same thing as we do there since that\u0027s proven to work?",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 15
+      },
+      "revId": "fddf659d11de6441e4b5964bc7593b43bc122306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

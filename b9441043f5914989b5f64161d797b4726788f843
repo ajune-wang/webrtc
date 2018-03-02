@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fced1f8_dde857d8",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-02T13:27:04Z",
+      "side": 1,
+      "message": "Prefer to rewrite this using a regular if statement. It\u0027s a bit difficult to parse now... :)",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 41
+      },
+      "revId": "b9441043f5914989b5f64161d797b4726788f843",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

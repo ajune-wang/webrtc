@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a5fdbf1e_310f499e",
+        "filename": "p2p/base/fakeportallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-02T02:26:42Z",
+      "side": 1,
+      "message": "The test is broken down to different layers and the changes to FakePortAllocator(Session) are reverted.",
+      "parentUuid": "b2c05f83_1caaf349",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "294e6fa2_754bc0b7",
         "filename": "p2p/base/portallocator.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83557369_6868a91c",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-02T02:26:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "294e6fa2_754bc0b7",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5972d709_10569366",
+        "filename": "p2p/base/stunport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-02T02:26:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73ad62a6_a16e7ae1",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8b2b2c6_e8cc50b7",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6f4debd_c70a789b",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-02T02:26:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8b2b2c6_e8cc50b7",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "460eb4cf_698cd3f8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2717,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-02T02:26:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ec6641c8_232b732f",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35a07375_4ee4e989",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 3
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "c08fe193_f0b0e921",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4101,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-02T02:26:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "35a07375_4ee4e989",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b11090be_7703c0a0",
         "filename": "pc/peerconnectioninterface_unittest.cc",
         "patchSetId": 3
@@ -118,6 +226,24 @@
       "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92007341_41d055c7",
+        "filename": "pc/peerconnectioninterface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4115,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-02T02:26:42Z",
+      "side": 1,
+      "message": "Done. Thanks for the suggestion and I think it makes the test much more solid. The above test is very flawed and that\u0027s why I didn\u0027t catch the new bug in BasicPortAllocator.",
+      "parentUuid": "b11090be_7703c0a0",
+      "revId": "66045b2c97762ad422e36265399a6393e2b04a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

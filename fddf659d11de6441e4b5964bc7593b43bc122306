@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7d480591_c86b2b29",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-03-02T14:56:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c4d753a2_84d76a78",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 10
+      },
+      "revId": "fddf659d11de6441e4b5964bc7593b43bc122306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3898e0e_bb26a0a0",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "fddf659d11de6441e4b5964bc7593b43bc122306",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075744d3_522392f5",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-03-02T14:56:17Z",
+      "side": 1,
+      "message": "I updated the code to check bounds. strtol() has also been proven to work in a few places: \nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_tools/psnr_ssim_analyzer/psnr_ssim_analyzer.cc?l\u003d122\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/p2ptransportchannel.cc?l\u003d168",
+      "parentUuid": "b3898e0e_bb26a0a0",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 15
+      },
+      "revId": "fddf659d11de6441e4b5964bc7593b43bc122306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

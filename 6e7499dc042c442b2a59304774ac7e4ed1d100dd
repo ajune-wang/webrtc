@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1a2813c_aff8078f",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-02T09:30:22Z",
+      "side": 1,
+      "message": "Why is this change necessary?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 23
+      },
+      "revId": "6e7499dc042c442b2a59304774ac7e4ed1d100dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "955609ec_4defde38",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-02T09:30:22Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem good that there is a method on a singleton that affects all users of that singleton. Why is it necessary to add it now?",
+      "range": {
+        "startLine": 148,
+        "startChar": 2,
+        "endLine": 148,
+        "endChar": 33
+      },
+      "revId": "6e7499dc042c442b2a59304774ac7e4ed1d100dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be82801a_b352da57",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-02T09:30:22Z",
+      "side": 1,
+      "message": "Do you have a reason for converting to an array here instead of just copying the list?",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 62
+      },
+      "revId": "6e7499dc042c442b2a59304774ac7e4ed1d100dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

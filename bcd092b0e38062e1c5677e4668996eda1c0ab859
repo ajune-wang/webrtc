@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9951c368_3c20adc6",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-02T15:29:46Z",
+      "side": 1,
+      "message": "Better not to use auto so that it\u0027s easier to understand what type this is.",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 6
+      },
+      "revId": "bcd092b0e38062e1c5677e4668996eda1c0ab859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b82ca749_bad4e000",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-02T15:29:46Z",
+      "side": 1,
+      "message": "Should this be multiplier \u003e 0? In that case you can probably drop the first part of this if statement.",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "bcd092b0e38062e1c5677e4668996eda1c0ab859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e40c39ee_406a61b1",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-02T18:07:05Z",
+      "side": 0,
+      "message": "I forgot that we had \"label\" here... I imagine switching to a new name here will require a few CLS:\n\n1. This one, adding id() but not using it.\n2. Update subclasses (fakes/mocks) to implement id().\n3. Make id() pure virtual, and add default implementation of label() that does \"return id();\"\n4. Remove subclasses\u0027 implementation of label().\n5. Remove label() completely.\n\nMaybe there\u0027s a safe way to do it in 3 I\u0027m missing.\n\nAnyway, if you think this is more work than it\u0027s worth, I\u0027d be fine just leaving label() here. But if we change this, it would also make sense to change it in MediaStream.java. Luckily the Obj-C RTCMediaStream already calls it \"streamId\".",
+      "revId": "243cd32a9e41a0fc79629874106c52894cda33b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

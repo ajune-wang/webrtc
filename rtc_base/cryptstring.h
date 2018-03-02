@@ -17,10 +17,13 @@
 #include <string>
 #include <vector>
 
+#include "api/array_view.h"
+#include "rtc_base/buffer.h"
+
 namespace rtc {
 
 class CryptStringImpl {
-public:
+ public:
   virtual ~CryptStringImpl() {}
   virtual size_t GetLength() const = 0;
   virtual void CopyTo(char * dest, bool nullterminate) const = 0;
@@ -30,7 +33,7 @@ public:
 };
 
 class EmptyCryptStringImpl : public CryptStringImpl {
-public:
+ public:
   ~EmptyCryptStringImpl() override {}
   size_t GetLength() const override;
   void CopyTo(char* dest, bool nullterminate) const override;
@@ -43,7 +46,9 @@ class CryptString {
  public:
   CryptString();
   size_t GetLength() const { return impl_->GetLength(); }
-  void CopyTo(char * dest, bool nullterminate) const { impl_->CopyTo(dest, nullterminate); }
+  void CopyTo(char* dest, bool nullterminate) const {
+    impl_->CopyTo(dest, nullterminate);
+  }
   CryptString(const CryptString& other);
   explicit CryptString(const CryptStringImpl& impl);
   ~CryptString();
@@ -63,87 +68,41 @@ class CryptString {
   std::unique_ptr<const CryptStringImpl> impl_;
 };
 
-
 // Used for constructing strings where a password is involved and we
 // need to ensure that we zero memory afterwards
 class FormatCryptString {
-public:
-  FormatCryptString() {
-    storage_ = new char[32];
-    capacity_ = 32;
-    length_ = 0;
-    storage_[0] = 0;
+ public:
+  FormatCryptString() : data_(0, kInitialCapacity) { *data_.begin() = '\0'; }
+
+  void Append(const std::string& text) { Append(text.data(), text.length()); }
+
+  void Append(const char* data, size_t length) {
+    data_.AppendData(length + 1, [data, length](ArrayView<char> dest) {
+      memcpy(dest.data(), data, length);
+      dest[length] = 0;
+      return length + 1;
+    });
   }
 
-  void Append(const std::string & text) {
-    Append(text.data(), text.length());
-  }
-
-  void Append(const char * data, size_t length) {
-    EnsureStorage(length_ + length + 1);
-    memcpy(storage_ + length_, data, length);
-    length_ += length;
-    storage_[length_] = '\0';
-  }
-
-  void Append(const CryptString * password) {
+  void Append(const CryptString* password) {
     size_t len = password->GetLength();
-    EnsureStorage(length_ + len + 1);
-    password->CopyTo(storage_ + length_, true);
-    length_ += len;
+    // The internal data is null terminated, reserve one additional byte.
+    data_.EnsureCapacity(data_.size() + len + 1);
+    password->CopyTo(data_.end(), true);
+    data_.SetSize(data_.size() + len);
   }
 
-  size_t GetLength() {
-    return length_;
-  }
+  size_t GetLength() const { return data_.size(); }
 
-  const char * GetData() {
-    return storage_;
-  }
-
+  const char* GetData() const { return data_.data(); }
 
   // Ensures storage of at least n bytes
-  void EnsureStorage(size_t n) {
-    if (capacity_ >= n) {
-      return;
-    }
+  void EnsureStorage(size_t n) { data_.EnsureCapacity(n); }
 
-    size_t old_capacity = capacity_;
-    char * old_storage = storage_;
+ private:
+  static constexpr size_t kInitialCapacity = 32;
 
-    for (;;) {
-      capacity_ *= 2;
-      if (capacity_ >= n)
-        break;
-    }
-
-    storage_ = new char[capacity_];
-
-    if (old_capacity) {
-      memcpy(storage_, old_storage, length_);
-
-      // zero memory in a way that an optimizer won't optimize it out
-      old_storage[0] = 0;
-      for (size_t i = 1; i < old_capacity; i++) {
-        old_storage[i] = old_storage[i - 1];
-      }
-      delete[] old_storage;
-    }
-  }
-
-  ~FormatCryptString() {
-    if (capacity_) {
-      storage_[0] = 0;
-      for (size_t i = 1; i < capacity_; i++) {
-        storage_[i] = storage_[i - 1];
-      }
-    }
-    delete[] storage_;
-  }
-private:
-  char * storage_;
-  size_t capacity_;
-  size_t length_;
+  ZeroOnFreeBuffer<char> data_;
 };
 
 class InsecureCryptStringImpl : public CryptStringImpl {
@@ -162,6 +121,6 @@ class InsecureCryptStringImpl : public CryptStringImpl {
   std::string password_;
 };
 
-}
+}  // namespace rtc
 
 #endif  // RTC_BASE_CRYPTSTRING_H_

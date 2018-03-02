@@ -117,6 +117,30 @@
       "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8aec491_8645e2aa",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-02T09:20:02Z",
+      "side": 1,
+      "message": "I agree with Sami that we shouldn\u0027t rely on I420A extending I420. The fact that you can upcast the result from ToI420 is kind of a hack. ToI420 is supposed to be a fallback for SW encoders that know nothing about specific Java buffers, like textures. Now you are using ToI420 as a way to send custom Java frames to a custom C++ encoder. Whenever someone wants to use a combination of custom frames and custom encoder they should inject these into WebRTC, and WebRTC shouldn\u0027t have to know anything about them. I get the feeling now that none of you the code you are trying to land here actually needs to go into WebRTC and you can do everything externally instead.\n\nIt\u0027s still not clear to me how you plan to use this. The document you link to is about Alpha support in general, and nothing about how this will be exposed in the Android API. If your plan is to use MultiplexEncoderFactory, which is an external encoder, you need to inject it into PeerConnectionFactory. How are you planning to do that through the Android API? Can you write up some brief explanation or doc what your proposed extended Android API is and how an app will use it? With this CL, it\u0027s still impossible to use alpha support through the Android API, something is missing.",
+      "parentUuid": "261f4afe_4306242b",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 3
+      },
+      "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

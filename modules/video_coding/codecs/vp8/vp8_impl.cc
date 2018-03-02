@@ -270,8 +270,6 @@ VP8EncoderImpl::~VP8EncoderImpl() {
 }
 
 int VP8EncoderImpl::Release() {
-  int ret_val = WEBRTC_VIDEO_CODEC_OK;
-
   while (!encoded_images_.empty()) {
     EncodedImage& image = encoded_images_.back();
     delete[] image._buffer;
@@ -279,9 +277,7 @@ int VP8EncoderImpl::Release() {
   }
   while (!encoders_.empty()) {
     vpx_codec_ctx_t& encoder = encoders_.back();
-    if (vpx_codec_destroy(&encoder)) {
-      ret_val = WEBRTC_VIDEO_CODEC_MEMORY;
-    }
+    vpx_codec_destroy(&encoder);
     encoders_.pop_back();
   }
   configurations_.clear();
@@ -297,7 +293,7 @@ int VP8EncoderImpl::Release() {
   temporal_layers_.clear();
   temporal_layers_checkers_.clear();
   inited_ = false;
-  return ret_val;
+  return WEBRTC_VIDEO_CODEC_OK;
 }
 
 int VP8EncoderImpl::SetRateAllocation(const BitrateAllocation& bitrate,
@@ -1292,9 +1288,7 @@ int VP8DecoderImpl::RegisterDecodeCompleteCallback(
 
 int VP8DecoderImpl::Release() {
   if (decoder_ != NULL) {
-    if (vpx_codec_destroy(decoder_)) {
-      return WEBRTC_VIDEO_CODEC_MEMORY;
-    }
+    vpx_codec_destroy(decoder_);
     delete decoder_;
     decoder_ = NULL;
   }

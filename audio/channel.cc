@@ -153,9 +153,24 @@ class TransportFeedbackProxy : public TransportFeedbackObserver {
     if (feedback_observer_)
       feedback_observer_->OnTransportFeedback(feedback);
   }
+
   std::vector<PacketFeedback> GetTransportFeedbackVector() const override {
     RTC_NOTREACHED();
     return std::vector<PacketFeedback>();
+  }
+
+  void RegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) override {
+    rtc::CritScope lock(&crit_);
+    if (feedback_observer_)
+      feedback_observer_->RegisterPacketFeedbackObserver(observer);
+  }
+
+  void DeRegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) override {
+    rtc::CritScope lock(&crit_);
+    if (feedback_observer_)
+      feedback_observer_->DeRegisterPacketFeedbackObserver(observer);
   }
 
  private:
@@ -632,6 +647,7 @@ Channel::Channel(ProcessThread* module_process_thread,
     configuration.transport_sequence_number_allocator =
         seq_num_allocator_proxy_.get();
     configuration.transport_feedback_callback = feedback_observer_proxy_.get();
+    configuration.use_rtp_history_cylling = true;
   }
   configuration.event_log = &(*event_log_proxy_);
   configuration.rtt_stats = &(*rtcp_rtt_stats_proxy_);

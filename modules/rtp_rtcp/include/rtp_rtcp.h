@@ -99,6 +99,11 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
     // Update network2 instead of pacer_exit field of video timing extension.
     bool populate_network2_timestamp = false;
 
+    // If set to true, will attempt to remove packets from the RTP packet
+    // history if we receive TransportFeedback messages that indicate they have
+    // been received by the remote end.
+    bool use_rtp_history_cylling = false;
+
    private:
     RTC_DISALLOW_COPY_AND_ASSIGN(Configuration);
   };

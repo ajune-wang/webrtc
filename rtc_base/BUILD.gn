@@ -259,7 +259,11 @@ rtc_source_set("rtc_base_approved_generic") {
   }
 
   if (is_posix) {
-    sources += [ "file_posix.cc" ]
+    sources += [
+      "file_posix.cc",
+      "safe_strerror.cc",
+      "safe_strerror.h",
+    ]
   }
 
   if (is_win) {

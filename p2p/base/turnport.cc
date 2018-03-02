@@ -24,6 +24,9 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/nethelpers.h"
 #include "rtc_base/ptr_util.h"
+#if defined(WEBRTC_POSIX)
+#include "rtc_base/safe_strerror.h"
+#endif
 #include "rtc_base/socketaddress.h"
 #include "rtc_base/stringencode.h"
 
@@ -592,6 +595,13 @@ int TurnPort::SendTo(const void* data, size_t size,
   // Send the actual contents to the server using the usual mechanism.
   int sent = entry->Send(data, size, payload, options);
   if (sent <= 0) {
+    error_ = socket_->GetError();
+    LOG_J(LS_ERROR, this) << "Send of " << size << " bytes failed with error "
+                          << error_
+#ifdef WEBRTC_POSIX
+                          << " (" << rtc::safe_strerror(error_) << ")";
+#endif
+    ;
     return SOCKET_ERROR;
   }
 

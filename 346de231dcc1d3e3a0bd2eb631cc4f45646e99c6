@@ -22,6 +22,30 @@
       "revId": "346de231dcc1d3e3a0bd2eb631cc4f45646e99c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c5874e4_49678da8",
+        "filename": "modules/video_coding/codecs/test/video_encoder_decoder_instantiation_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-02T07:42:18Z",
+      "side": 1,
+      "message": "Yes, it does. I guess the specifics depend on the SoC+driver, but as you say it should have something to do with memory requirements. Possibly level as well?\n\nBy parameterizing on #pixels, we should be able to find the threshold per device, but that is not something we need to prioritize right now. (We might be able to get this information by querying MediaCodec/MediaFormat in the Android API as well.)",
+      "parentUuid": "dd88c1ce_f66c0e67",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "346de231dcc1d3e3a0bd2eb631cc4f45646e99c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

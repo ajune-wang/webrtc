@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4666f19d_f7994b7b",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-03-02T12:32:32Z",
+      "side": 1,
+      "message": "Is it reasonable to add a getter like \u0027BytesRead\u0027 or similar for data_ix_ to FuzzDataHelper, and then read e.g. | 30 - fuzz_data-\u003eBytesRead() | bytes? Otherwise it is quite possible to add/remove a setting above but forget to update this value.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "ea521c4d68e567863c9643e3a9d46e1b7a729890",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

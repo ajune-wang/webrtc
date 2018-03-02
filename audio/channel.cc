@@ -153,9 +153,24 @@ class TransportFeedbackProxy : public TransportFeedbackObserver {
     if (feedback_observer_)
       feedback_observer_->OnTransportFeedback(feedback);
   }
+
   std::vector<PacketFeedback> GetTransportFeedbackVector() const override {
     RTC_NOTREACHED();
     return std::vector<PacketFeedback>();
+  }
+
+  void RegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) override {
+    rtc::CritScope lock(&crit_);
+    if (feedback_observer_)
+      feedback_observer_->RegisterPacketFeedbackObserver(observer);
+  }
+
+  void DeRegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) override {
+    rtc::CritScope lock(&crit_);
+    if (feedback_observer_)
+      feedback_observer_->DeRegisterPacketFeedbackObserver(observer);
   }
 
  private:

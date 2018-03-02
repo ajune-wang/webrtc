@@ -50,8 +50,10 @@ class SendSideCongestionController : public CallStatsObserver,
                                PacedSender* pacer);
   ~SendSideCongestionController() override;
 
-  void RegisterPacketFeedbackObserver(PacketFeedbackObserver* observer);
-  void DeRegisterPacketFeedbackObserver(PacketFeedbackObserver* observer);
+  void RegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) override;
+  void DeRegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) override;
 
   // Currently, there can be at most one observer.
   // TODO(nisse): The RegisterNetworkObserver method is needed because we first

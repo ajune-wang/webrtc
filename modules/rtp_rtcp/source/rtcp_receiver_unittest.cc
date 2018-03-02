@@ -78,6 +78,8 @@ class MockTransportFeedbackObserver : public TransportFeedbackObserver {
                void(uint32_t, uint16_t, size_t, const PacedPacketInfo&));
   MOCK_METHOD1(OnTransportFeedback, void(const rtcp::TransportFeedback&));
   MOCK_CONST_METHOD0(GetTransportFeedbackVector, std::vector<PacketFeedback>());
+  MOCK_METHOD1(RegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
+  MOCK_METHOD1(DeRegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
 };
 
 class MockRtcpBandwidthObserver : public RtcpBandwidthObserver {

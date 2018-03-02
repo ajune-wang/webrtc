@@ -141,6 +141,30 @@
       "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbcb7cad_9af461de",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5656
+      },
+      "writtenOn": "2018-03-02T17:24:48Z",
+      "side": 1,
+      "message": "The hook up point of MultiplexEncoderFactory is at[1], where one should wrap the encoder_factory and decoder_factory into the MultiplexXXXFactory before creating the peerconnection. Is there a way we can make this available to the caller? (Our current experimental code just hardcoded modify the code at [1] to do a hook up by force)\n\nTo avoid using ToI420() converting a general buffer to AndroidI420ABuffer, the way I can think of is to do a check at [2], if the |j_video_frame_buffer| is of type JavaI420ABuffer, we wrap it into an instance of AndroidI420ABuffer, rather than a general AndroidVideoBuffer. What do you think?\n\n[1] https://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/src/jni/pc/peerconnectionfactory.cc?type\u003dcs\u0026q\u003dpeerconnectionfactory_jni\u0026l\u003d263\n\n[2]\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/src/jni/androidvideotracksource.cc?type\u003dcs\u0026q\u003dAndroidVideoBuffer\u0026ssfr\u003d1\u0026l\u003d195",
+      "parentUuid": "a8aec491_8645e2aa",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 3
+      },
+      "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

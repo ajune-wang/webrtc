@@ -779,8 +779,12 @@ void RTCStatsCollector::DeliverCachedReport() {
   RTC_DCHECK(signaling_thread_->IsCurrent());
   RTC_DCHECK(!callbacks_.empty());
   RTC_DCHECK(cached_report_);
-  for (const rtc::scoped_refptr<RTCStatsCollectorCallback>& callback :
-       callbacks_) {
+  for (auto it = callbacks_.begin(); it != callbacks_.end();
+       /* incremented manually */) {
+    const rtc::scoped_refptr<RTCStatsCollectorCallback>& callback = *it;
+    // Erase the callback from our list before calling it, in case it results
+    // in DeliverCachedReport being called again recursively.
+    it = callbacks_.erase(it);
     callback->OnStatsDelivered(cached_report_);
   }
   callbacks_.clear();

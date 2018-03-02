@@ -1908,6 +1908,31 @@ TEST_F(RTCStatsCollectorTest, DoNotCrashOnSsrcChange) {
   EXPECT_EQ(1, track_stats.size());
 }
 
+// Used for test below, to test calling GetStatsReport during a callback.
+class ReentrantCallback : public RTCStatsCollectorCallback {
+ public:
+  explicit ReentrantCallback(RTCStatsCollectorWrapper* stats) : stats_(stats) {}
+
+  void OnStatsDelivered(
+      const rtc::scoped_refptr<const RTCStatsReport>& report) override {
+    stats_->GetStatsReport();
+    called_ = true;
+  }
+
+  bool called() const { return called_; }
+
+ private:
+  RTCStatsCollectorWrapper* stats_;
+  bool called_ = false;
+};
+
+TEST_F(RTCStatsCollectorTest, DoNotCrashOnReentrantInvocation) {
+  rtc::scoped_refptr<ReentrantCallback> callback(
+      new rtc::RefCountedObject<ReentrantCallback>(stats_.get()));
+  stats_->stats_collector()->GetStatsReport(callback);
+  EXPECT_TRUE_WAIT(callback->called(), kGetStatsReportTimeoutMs);
+}
+
 class RTCTestStats : public RTCStats {
  public:
   WEBRTC_RTCSTATS_DECL();

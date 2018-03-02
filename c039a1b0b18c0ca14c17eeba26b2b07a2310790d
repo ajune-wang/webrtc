@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f288166_eb06f3fe",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2191,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-02T18:42:01Z",
+      "side": 1,
+      "message": "Very thorough job with tests. Just FYI, the \"shared socket\" flag is always turned on in practice (in everything but tests), so we plan to remove it to simplify things (https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8283).",
+      "revId": "c039a1b0b18c0ca14c17eeba26b2b07a2310790d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

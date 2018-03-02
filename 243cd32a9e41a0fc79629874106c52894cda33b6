@@ -16,6 +16,24 @@
       "revId": "243cd32a9e41a0fc79629874106c52894cda33b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8378e62_a8df569c",
+        "filename": "api/mediastreaminterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-02T19:27:24Z",
+      "side": 0,
+      "message": "As discussed offline. I think it can be done in 3 passes:\n1. This one adding id() but not using it, removing label from pure virtual with a default that does \"retun id();\"\n2. Subclasses implement id() \u0026 call id(), and remove implementation and calling of label() \n3. Make id() pure virtual, and have webrtc code call id() instead of label(). Remove label() completely.",
+      "parentUuid": "e40c39ee_406a61b1",
+      "revId": "243cd32a9e41a0fc79629874106c52894cda33b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

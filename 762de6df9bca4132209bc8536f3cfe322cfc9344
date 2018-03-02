@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b688956_0e5811a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-03-02T10:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c575e571_32bb8528",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "762de6df9bca4132209bc8536f3cfe322cfc9344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b40fadde_32b4ce25",
         "filename": "audio/test/audio_bwe_integration_test.h",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2ed66ec1_80f812e3",
+        "filename": "audio/test/audio_bwe_integration_test.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-03-02T10:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b40fadde_32b4ce25",
+      "range": {
+        "startLine": 35,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "762de6df9bca4132209bc8536f3cfe322cfc9344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "204b5990_7be8ea0c",
         "filename": "modules/audio_device/include/test_audio_device.h",
         "patchSetId": 8
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "b9f99251_e1e550f4",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-03-02T10:16:27Z",
+      "side": 1,
+      "message": "It was added to source of audio_device_generic target",
+      "parentUuid": "204b5990_7be8ea0c",
+      "revId": "762de6df9bca4132209bc8536f3cfe322cfc9344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef9967fd_59887901",
         "filename": "modules/audio_device/test_audio_device.cc",
         "patchSetId": 8
@@ -79,6 +145,24 @@
       "revId": "762de6df9bca4132209bc8536f3cfe322cfc9344",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714825f9_418322dd",
+        "filename": "modules/audio_device/test_audio_device.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-03-02T10:16:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef9967fd_59887901",
+      "revId": "762de6df9bca4132209bc8536f3cfe322cfc9344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

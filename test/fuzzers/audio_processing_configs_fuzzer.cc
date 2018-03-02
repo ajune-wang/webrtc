@@ -27,7 +27,6 @@ std::unique_ptr<AudioProcessing> CreateApm(test::FuzzDataHelper* fuzz_data) {
   bool da = fuzz_data->ReadOrDefaultValue(true);
   bool ie = fuzz_data->ReadOrDefaultValue(true);
   bool red = fuzz_data->ReadOrDefaultValue(true);
-  bool lc = fuzz_data->ReadOrDefaultValue(true);
   bool hpf = fuzz_data->ReadOrDefaultValue(true);
   bool aec3 = fuzz_data->ReadOrDefaultValue(true);
 
@@ -39,6 +38,14 @@ std::unique_ptr<AudioProcessing> CreateApm(test::FuzzDataHelper* fuzz_data) {
   bool use_vad = fuzz_data->ReadOrDefaultValue(true);
   bool use_agc_limiter = fuzz_data->ReadOrDefaultValue(true);
   bool use_agc2_limiter = fuzz_data->ReadOrDefaultValue(true);
+
+  // Read an int8 value, but don't let it be too large or small.
+  const float gain_controller2_gain_db =
+      rtc::SafeClamp<int>(fuzz_data->ReadOrDefaultValue<int8_t>(0), -50, 50);
+
+  // Ignore a few bytes. Bytes from this segment will be used for
+  // future config flag changes.
+  static_cast<void>(fuzz_data->ReadByteArray(20));
 
   // Filter out incompatible settings that lead to CHECK failures.
   if (use_aecm && use_aec) {
@@ -71,14 +78,10 @@ std::unique_ptr<AudioProcessing> CreateApm(test::FuzzDataHelper* fuzz_data) {
 
   webrtc::AudioProcessing::Config apm_config;
   apm_config.residual_echo_detector.enabled = red;
-  apm_config.level_controller.enabled = lc;
   apm_config.high_pass_filter.enabled = hpf;
   apm_config.gain_controller2.enabled = use_agc2_limiter;
 
-  // Read an int8 value, but don't let it be too large or small.
-  const float gain_db =
-      rtc::SafeClamp<int>(fuzz_data->ReadOrDefaultValue<int8_t>(0), -50, 50);
-  apm_config.gain_controller2.fixed_gain_db = gain_db;
+  apm_config.gain_controller2.fixed_gain_db = gain_controller2_gain_db;
 
   apm->ApplyConfig(apm_config);
 

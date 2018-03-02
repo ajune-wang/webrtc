@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78939b91_26e8d12a",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-03-02T19:27:47Z",
+      "side": 1,
+      "message": "This was because of adding the method stopMonitoringAll. \nNow that I removed that, it is not needed any more.",
+      "parentUuid": "f1a2813c_aff8078f",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 23
+      },
+      "revId": "6e7499dc042c442b2a59304774ac7e4ed1d100dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "955609ec_4defde38",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0ebba341_ad1c75e3",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-03-02T19:27:47Z",
+      "side": 1,
+      "message": "I added so that the java code can definitely stop updating the native client.\nThis may not be necessary. So I remove it now.",
+      "parentUuid": "955609ec_4defde38",
+      "range": {
+        "startLine": 148,
+        "startChar": 2,
+        "endLine": 148,
+        "endChar": 33
+      },
+      "revId": "6e7499dc042c442b2a59304774ac7e4ed1d100dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be82801a_b352da57",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2018-03-02T09:30:22Z",
       "side": 1,
       "message": "Do you have a reason for converting to an array here instead of just copying the list?",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 62
+      },
+      "revId": "6e7499dc042c442b2a59304774ac7e4ed1d100dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c0f53cb_8cfae0fc",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2018-03-02T19:27:47Z",
+      "side": 1,
+      "message": "I thought array might be cheaper. But it may not be worth it. \nJust copy the list now.",
+      "parentUuid": "be82801a_b352da57",
       "range": {
         "startLine": 219,
         "startChar": 0,

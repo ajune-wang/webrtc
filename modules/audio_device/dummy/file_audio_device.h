@@ -143,8 +143,11 @@ class FileAudioDevice : public AudioDeviceGeneric {
   uint32_t _playoutFramesLeft;
   rtc::CriticalSection _critSect;
 
+  size_t _recordingNumChannels;
+  size_t _playoutNumChannels;
   size_t _recordingBufferSizeIn10MS;
   size_t _recordingFramesIn10MS;
+  size_t _playoutBufferSizeIn10MS;
   size_t _playoutFramesIn10MS;
 
   // TODO(pbos): Make plain members instead of pointers and stop resetting them.

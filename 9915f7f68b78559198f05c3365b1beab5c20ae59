@@ -480,6 +480,24 @@
       "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b59a9b8_712a1c33",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T20:07:08Z",
+      "side": 1,
+      "message": "I would suggest that you remove it in this CL, since that\u0027s less work than getting the implementation right---especially considering there are no unit tests.",
+      "parentUuid": "87877ed1_d717d3b0",
+      "revId": "9915f7f68b78559198f05c3365b1beab5c20ae59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

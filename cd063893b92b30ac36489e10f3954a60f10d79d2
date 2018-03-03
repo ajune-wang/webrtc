@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0126378_5f66e5fc",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T20:07:08Z",
+      "side": 1,
+      "message": "This is illegal; you\u0027ve just said that you want size 0, so there is no first element. Either ask for size 1, or use data_.SetData(\"\", 1);",
+      "range": {
+        "startLine": 75,
+        "startChar": 53,
+        "endLine": 75,
+        "endChar": 75
+      },
+      "revId": "cd063893b92b30ac36489e10f3954a60f10d79d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7f357a7_af5aa3b8",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T20:07:08Z",
+      "side": 1,
+      "message": "The buffer is already null terminated, so you\u0027d need to drop the last element before doing this. Also, I would suggest not using memcpy manually:\n\n  RTC_DCHECK_EQ(\u0027\\0\u0027, data_[data_.size() - 1]);  // We have a trailing \\0.\n  data_.SetSize(data_.size() - 1);               // Drop the trailing \\0.\n  data_.AppendData(data, length);                // With no trailing \\0.\n  data_.AppendData(\"\", 1);                       // Add back the trailing \\0.\n\nBuffer is smart about reallocations, so this is very very nearly as efficient as using just one AppendData call.",
+      "revId": "cd063893b92b30ac36489e10f3954a60f10d79d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7467a3f2_56dae7ba",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T20:07:08Z",
+      "side": 1,
+      "message": "data_.size() already includes space for the null. (GetLength() does too, but I\u0027m asking you to change that below.) So this should be just\n\n  data_.EnsureCapacity(data_.size() + len);",
+      "revId": "cd063893b92b30ac36489e10f3954a60f10d79d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "189cab72_fbc5f93a",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T20:07:08Z",
+      "side": 1,
+      "message": "Illegal. You must increase the size first, *then* copy.\n\nAnd once you do that, there\u0027s no point in manually calling EnsureCapacity. So this entire method should be\n\n  RTC_DCHECK_EQ(\u0027\\0\u0027, data_[data_.size() - 1]);       // We have a trailing \\0.\n  data_.SetSize(data_.size() - 1);                    // Drop trailing \\0.\n  data_.AppendData(data, password-\u003eGetLength() + 1);  // Including trailing \\0.",
+      "revId": "cd063893b92b30ac36489e10f3954a60f10d79d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d1ad51_b60c3f43",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T20:07:08Z",
+      "side": 1,
+      "message": "To preserve existing behavior, you need to subtract 1 for the trailing \\0.",
+      "revId": "cd063893b92b30ac36489e10f3954a60f10d79d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4afdee9_249d2bcc",
+        "filename": "rtc_base/cryptstring.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T20:07:08Z",
+      "side": 1,
+      "message": "Document that this always ends in \\0.",
+      "revId": "cd063893b92b30ac36489e10f3954a60f10d79d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

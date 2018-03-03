@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bd73bc1_15e869b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T21:37:21Z",
+      "side": 1,
+      "message": "This is no longer correct.",
+      "range": {
+        "startLine": 7,
+        "startChar": 73,
+        "endLine": 7,
+        "endChar": 81
+      },
+      "revId": "bbafd5e4dd450d5f75c41e5e16183e5d57b8ddd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbaae92e_a49a6a69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T21:37:21Z",
+      "side": 1,
+      "message": "is",
+      "range": {
+        "startLine": 12,
+        "startChar": 37,
+        "endLine": 12,
+        "endChar": 44
+      },
+      "revId": "bbafd5e4dd450d5f75c41e5e16183e5d57b8ddd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5143a6a_b8ba4ff6",
+        "filename": "modules/audio_device/include/audio_device_default.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T21:37:21Z",
+      "side": 1,
+      "message": "2018; this is a new file.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "bbafd5e4dd450d5f75c41e5e16183e5d57b8ddd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f13d1903_e007325b",
+        "filename": "modules/audio_device/include/audio_device_default.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T21:37:21Z",
+      "side": 1,
+      "message": "If you don\u0027t have a good reason to expose AudioDeviceModuleDefault in the API, consider putting it in the webrtc::webrtc_impl namespace. That way, users will know not to use it even though technically they could.",
+      "revId": "bbafd5e4dd450d5f75c41e5e16183e5d57b8ddd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f70b36e_53c5061e",
+        "filename": "modules/audio_device/include/fake_audio_device.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T21:37:21Z",
+      "side": 1,
+      "message": "Use public inheritance. Otherwise, FakeAudioDeviceModule instances can\u0027t be cast to AudioDeviceModule, and can\u0027t be used to call its methods.\n\nAlternatively, use a type alias:\n\n  using FakeAudioDeviceModule \u003d AudioDeviceModuleDefault\u003cAudioDeviceModule\u003e;",
+      "revId": "bbafd5e4dd450d5f75c41e5e16183e5d57b8ddd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "642f5535_307a5c0b",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-03T21:37:21Z",
+      "side": 1,
+      "message": "It\u0027s dangerous to have default values for arguments in virtual methods, and they\u0027re forbidden by the style guide: https://google.github.io/styleguide/cppguide.html#Default_Arguments\n\nBut I guess since you\u0027re only moving this code around, it may be better to just let it be.",
+      "revId": "bbafd5e4dd450d5f75c41e5e16183e5d57b8ddd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

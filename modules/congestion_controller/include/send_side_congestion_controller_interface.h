@@ -41,10 +41,6 @@ class SendSideCongestionControllerInterface : public CallStatsObserver,
  public:
   SendSideCongestionControllerInterface() = default;
   ~SendSideCongestionControllerInterface() override = default;
-  virtual void RegisterPacketFeedbackObserver(
-      PacketFeedbackObserver* observer) = 0;
-  virtual void DeRegisterPacketFeedbackObserver(
-      PacketFeedbackObserver* observer) = 0;
   virtual void RegisterNetworkObserver(NetworkChangedObserver* observer) = 0;
   virtual void SetBweBitrates(int min_bitrate_bps,
                               int start_bitrate_bps,

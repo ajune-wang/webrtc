@@ -16,6 +16,24 @@
       "revId": "936d5d936eabaa2fb88f1d11a9a6e03a30fc05e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09fcd168_9cf3075c",
+        "filename": "modules/audio_device/include/audio_device_default.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-03-05T13:20:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4da4b59d_58cf00f0",
+      "revId": "936d5d936eabaa2fb88f1d11a9a6e03a30fc05e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

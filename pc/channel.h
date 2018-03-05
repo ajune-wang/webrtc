@@ -29,6 +29,7 @@
 #include "p2p/base/dtlstransportinternal.h"
 #include "p2p/base/packettransportinternal.h"
 #include "pc/audiomonitor.h"
+#include "pc/bundlefilter.h"
 #include "pc/dtlssrtptransport.h"
 #include "pc/mediasession.h"
 #include "pc/rtcpmuxfilter.h"
@@ -102,16 +103,8 @@ class BaseChannel
   const std::string& transport_name() const { return transport_name_; }
   bool enabled() const { return enabled_; }
 
-  // This function returns true if we are using SDES.
-  bool sdes_active() const {
-    return sdes_transport_ && sdes_negotiator_.IsActive();
-  }
-  // The following function returns true if we are using DTLS-based keying.
-  bool dtls_active() const {
-    return dtls_srtp_transport_ && dtls_srtp_transport_->IsActive();
-  }
   // This function returns true if using SRTP (DTLS-based keying or SDES).
-  bool srtp_active() const { return sdes_active() || dtls_active(); }
+  bool srtp_active() const { return rtp_transport_->IsSrtpActive(); }
 
   bool writable() const { return writable_; }
 
@@ -173,12 +166,19 @@ class BaseChannel
   // Fired on the network thread.
   sigslot::signal1<const std::string&> SignalRtcpMuxFullyActive;
 
-  // Only public for unit tests.  Otherwise, consider private.
   DtlsTransportInternal* rtp_dtls_transport() const {
-    return rtp_dtls_transport_;
+    if (!rtp_transport_) {
+      return nullptr;
+    }
+    return static_cast<DtlsTransportInternal*>(
+        rtp_transport_->rtp_packet_transport());
   }
   DtlsTransportInternal* rtcp_dtls_transport() const {
-    return rtcp_dtls_transport_;
+    if (!rtp_transport_) {
+      return nullptr;
+    }
+    return static_cast<DtlsTransportInternal*>(
+        rtp_transport_->rtcp_packet_transport());
   }
 
   bool NeedsRtcpTransport();
@@ -192,6 +192,10 @@ class BaseChannel
   int SetOption_n(SocketType type, rtc::Socket::Option o, int val);
 
   virtual cricket::MediaType media_type() = 0;
+
+  void SetEncryptionDisabled(bool encryption_disabled) {
+    encryption_disabled_ = encryption_disabled;
+  }
 
   // Public for testing.
   // TODO(zstein): Remove this once channels register themselves with
@@ -310,18 +314,6 @@ class BaseChannel
   virtual bool SetRemoteContent_w(const MediaContentDescription* content,
                                   webrtc::SdpType type,
                                   std::string* error_desc) = 0;
-  bool SetRtpTransportParameters(const MediaContentDescription* content,
-                                 webrtc::SdpType type,
-                                 ContentSource src,
-                                 const RtpHeaderExtensions& extensions,
-                                 std::string* error_desc);
-  bool SetRtpTransportParameters_n(
-      const MediaContentDescription* content,
-      webrtc::SdpType type,
-      ContentSource src,
-      const std::vector<int>& encrypted_extension_ids,
-      std::string* error_desc);
-
   // Return a list of RTP header extensions with the non-encrypted extensions
   // removed depending on the current crypto_options_ and only if both the
   // non-encrypted and encrypted extension is present for the same URI.
@@ -332,19 +324,6 @@ class BaseChannel
   // present in remote supported extensions list.
   void MaybeCacheRtpAbsSendTimeHeaderExtension_w(
       const std::vector<webrtc::RtpExtension>& extensions);
-
-  bool CheckSrtpConfig_n(const std::vector<CryptoParams>& cryptos,
-                         bool* dtls,
-                         std::string* error_desc);
-  bool SetSrtp_n(const std::vector<CryptoParams>& params,
-                 webrtc::SdpType type,
-                 ContentSource src,
-                 const std::vector<int>& encrypted_extension_ids,
-                 std::string* error_desc);
-  bool SetRtcpMux_n(bool enable,
-                    webrtc::SdpType type,
-                    ContentSource src,
-                    std::string* error_desc);
 
   // From MessageHandler
   void OnMessage(rtc::Message* pmsg) override;
@@ -363,26 +342,6 @@ class BaseChannel
   void SignalSentPacket_n(const rtc::SentPacket& sent_packet);
   void SignalSentPacket_w(const rtc::SentPacket& sent_packet);
   bool IsReadyToSendMedia_n() const;
-  void CacheRtpAbsSendTimeHeaderExtension_n(int rtp_abs_sendtime_extn_id);
-  // Wraps the existing RtpTransport in an SrtpTransport.
-  void EnableSdes_n();
-
-  // Wraps the existing RtpTransport in a new SrtpTransport and wraps that in a
-  // new DtlsSrtpTransport.
-  void EnableDtlsSrtp_n();
-
-  // Update the encrypted header extension IDs when setting the local/remote
-  // description and use them later together with other crypto parameters from
-  // DtlsTransport. If DTLS-SRTP is enabled, it also update the encrypted header
-  // extension IDs for DtlsSrtpTransport.
-  void UpdateEncryptedHeaderExtensionIds(cricket::ContentSource source,
-                                         const std::vector<int>& extension_ids);
-
-  // Permanently enable RTCP muxing. Set null RTCP PacketTransport for
-  // BaseChannel and RtpTransport. If using DTLS-SRTP, set null DtlsTransport
-  // for DtlsSrtpTransport.
-  void ActivateRtcpMux();
-
   rtc::Thread* const worker_thread_;
   rtc::Thread* const network_thread_;
   rtc::Thread* const signaling_thread_;
@@ -410,7 +369,6 @@ class BaseChannel
 
   std::vector<std::pair<rtc::Socket::Option, int> > socket_options_;
   std::vector<std::pair<rtc::Socket::Option, int> > rtcp_socket_options_;
-  SrtpFilter sdes_negotiator_;
   RtcpMuxFilter rtcp_mux_filter_;
   bool writable_ = false;
   bool was_ever_writable_ = false;
@@ -434,6 +392,12 @@ class BaseChannel
   // The cached encrypted header extension IDs.
   rtc::Optional<std::vector<int>> cached_send_extension_ids_;
   rtc::Optional<std::vector<int>> cached_recv_extension_ids_;
+
+  // If set to be true, the unencrypted media will be allowed. This is only used
+  // for testing.
+  bool encryption_disabled_ = false;
+  // TODO(zhihuang): This can be removed once switching to RtpDemuxer.
+  BundleFilter bundle_filter_;
 };
 
 // VoiceChannel is a specialization that adds support for early media, DTMF,

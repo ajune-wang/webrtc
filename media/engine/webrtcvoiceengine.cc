@@ -1983,6 +1983,8 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
   if (!GetRtpSsrc(packet->cdata(), packet->size(), &ssrc)) {
     return;
   }
+  RTC_LOG(INFO) << this << " checking unsignaled ssrc:" << ssrc;
+
   RTC_DCHECK(std::find(unsignaled_recv_ssrcs_.begin(),
       unsignaled_recv_ssrcs_.end(), ssrc) == unsignaled_recv_ssrcs_.end());
 
@@ -1995,6 +1997,8 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
     return;
   }
   unsignaled_recv_ssrcs_.push_back(ssrc);
+  RTC_LOG(INFO) << this << " Adding unsignaled ssrc:" << ssrc
+                << " Total:" << unsignaled_recv_ssrcs_.size();
   RTC_HISTOGRAM_COUNTS_LINEAR(
       "WebRTC.Audio.NumOfUnsignaledStreams", unsignaled_recv_ssrcs_.size(), 1,
       100, 101);

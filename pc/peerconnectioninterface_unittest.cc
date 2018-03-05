@@ -2348,7 +2348,7 @@ TEST_P(PeerConnectionInterfaceTest, DtlsSdesFallbackNotSupported) {
   std::unique_ptr<SessionDescriptionInterface> desc(
       webrtc::CreateSessionDescription(SdpType::kOffer, kDtlsSdesFallbackSdp,
                                        nullptr));
-  EXPECT_FALSE(DoSetSessionDescription(std::move(desc), false));
+  EXPECT_FALSE(DoSetSessionDescription(std::move(desc), /*local=*/false));
 }
 
 // Test that we can create an audio only offer and receive an answer with a

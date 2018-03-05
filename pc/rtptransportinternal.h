@@ -30,8 +30,7 @@ namespace webrtc {
 // it is not accessible to API consumers but is accessible to internal classes
 // in order to send and receive RTP and RTCP packets belonging to a single RTP
 // session. Additional convenience and configuration methods are also provided.
-class RtpTransportInternal : public RtpTransportInterface,
-                             public sigslot::has_slots<> {
+class RtpTransportInternal : public sigslot::has_slots<> {
  public:
   virtual void SetRtcpMuxEnabled(bool enable) = 0;
 
@@ -45,6 +44,8 @@ class RtpTransportInternal : public RtpTransportInterface,
 
   virtual rtc::PacketTransportInternal* rtcp_packet_transport() const = 0;
   virtual void SetRtcpPacketTransport(rtc::PacketTransportInternal* rtcp) = 0;
+
+  virtual bool IsReadyToSend() const = 0;
 
   // Called whenever a transport's ready-to-send state changes. The argument
   // is true if all used transports are ready to send. This is more specific
@@ -79,9 +80,7 @@ class RtpTransportInternal : public RtpTransportInterface,
                               const rtc::PacketOptions& options,
                               int flags) = 0;
 
-  virtual bool HandlesPayloadType(int payload_type) const = 0;
-
-  virtual void AddHandledPayloadType(int payload_type) = 0;
+  virtual bool IsSrtpActive() const = 0;
 };
 
 }  // namespace webrtc

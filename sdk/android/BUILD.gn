@@ -580,6 +580,7 @@ rtc_shared_library("libjingle_peerconnection_datachannelonly_so") {
   deps = [
     ":base_jni",
     ":libjingle_peerconnection_metrics_default_jni",
+    ":native_api_sdk",
     ":null_audio_jni",
     ":null_media_jni",
     ":null_video_jni",
@@ -602,6 +603,7 @@ rtc_shared_library("libjingle_peerconnection_so") {
   deps = [
     ":libjingle_peerconnection_jni",
     ":libjingle_peerconnection_metrics_default_jni",
+    ":native_api_sdk",
     "../../pc:libjingle_peerconnection",
     "../../rtc_base:rtc_base",
   ]
@@ -811,7 +813,23 @@ group("native_api") {
     ":native_api_base",
     ":native_api_codecs",
     ":native_api_jni",
+    ":native_api_sdk",
     ":native_api_video",
+  ]
+}
+
+# Entry point for clients that are using Java SDK but want to implement their
+# own shared library with multiple libraries combined.
+rtc_static_library("native_api_sdk") {
+  visibility = [ "*" ]
+  sources = [
+    "native_api/sdk/jni.cc",
+    "native_api/sdk/jni.h",
+  ]
+
+  deps = [
+    ":base_jni",
+    "//rtc_base:rtc_base",
   ]
 }
 

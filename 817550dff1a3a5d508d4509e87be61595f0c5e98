@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f3ac83c_0d1a0e69",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-05T09:19:11Z",
+      "side": 1,
+      "message": "Use the passed in applicationContext here. I know this used to not use it, but that was a mistake in my CL.",
+      "range": {
+        "startLine": 113,
+        "startChar": 20,
+        "endLine": 113,
+        "endChar": 56
+      },
+      "revId": "817550dff1a3a5d508d4509e87be61595f0c5e98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2ddecf9_a626f9da",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-05T09:19:11Z",
+      "side": 1,
+      "message": "These changes aren\u0027t necessary either since stopMonitoringAll was removed, right?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 9
+      },
+      "revId": "817550dff1a3a5d508d4509e87be61595f0c5e98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d0ddaad_9243ee37",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-05T09:19:11Z",
+      "side": 1,
+      "message": "nit: Add for testing only comment here also?",
+      "range": {
+        "startLine": 302,
+        "startChar": 2,
+        "endLine": 302,
+        "endChar": 25
+      },
+      "revId": "817550dff1a3a5d508d4509e87be61595f0c5e98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

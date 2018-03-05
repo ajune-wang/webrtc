@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1a2f557_179c0575",
+        "filename": "modules/audio_device/dummy/file_audio_device.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-03-05T19:14:15Z",
+      "side": 1,
+      "message": "Changing this property while playing will yield unpredictable results.",
+      "revId": "f22b3d45323df00f46a5b8cc8c05aca53c708fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6944c7e6_c80e3075",
+        "filename": "modules/audio_device/dummy/file_audio_device.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-03-05T19:14:15Z",
+      "side": 1,
+      "message": "Changing this property while recording will yield unpredictable results.",
+      "revId": "f22b3d45323df00f46a5b8cc8c05aca53c708fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

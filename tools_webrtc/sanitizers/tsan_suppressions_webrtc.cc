@@ -28,9 +28,6 @@ char kTSanDefaultSuppressions[] =
 "race:third_party/libvpx/source/libvpx/vp9/common/vp9_scan.h\n"
 
 // rtc_unittests
-// https://code.google.com/p/webrtc/issues/detail?id=3911 for details.
-"race:rtc::MessageQueueManager::Clear\n"
-"race:rtc::Thread::Clear\n"
 // https://code.google.com/p/webrtc/issues/detail?id=2080
 "race:rtc_base/logging.cc\n"
 "race:rtc_base/sharedexclusivelock_unittest.cc\n"

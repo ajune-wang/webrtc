@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4da4b59d_58cf00f0",
+        "filename": "modules/audio_device/include/audio_device_default.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-05T12:14:36Z",
+      "side": 1,
+      "message": "Hmm. Perhaps add a comment about this being default implementations of all the AudioDeviceModule methods, now that it isn\u0027t obvious from the code?",
+      "revId": "936d5d936eabaa2fb88f1d11a9a6e03a30fc05e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

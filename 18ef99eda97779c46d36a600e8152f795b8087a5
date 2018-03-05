@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6bc10db_26a2fe70",
+        "filename": "modules/audio_device/dummy/file_audio_device.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-03-05T13:08:42Z",
+      "side": 1,
+      "message": "It is not clear to me why there is a need to use a non-fixed channel configuration but using a fixed sample rate is OK.",
+      "revId": "18ef99eda97779c46d36a600e8152f795b8087a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

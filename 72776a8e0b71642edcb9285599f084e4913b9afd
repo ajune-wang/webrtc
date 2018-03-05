@@ -70,6 +70,24 @@
       "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "145bf5db_405f4225",
+        "filename": "api/audio_codecs/audio_decoder_factory_template.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-05T14:22:40Z",
+      "side": 1,
+      "message": "Well waddayaknow, we _do_ have versions with default arguments! Looks like I missed that. This is all fine by me.",
+      "parentUuid": "f963d534_134e20bd",
+      "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

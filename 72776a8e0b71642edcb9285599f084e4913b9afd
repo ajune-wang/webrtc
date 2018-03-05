@@ -34,6 +34,24 @@
       "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03ce3efb_04941a6a",
+        "filename": "api/audio_codecs/audio_decoder_factory_template.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-05T13:29:21Z",
+      "side": 1,
+      "message": "So, does that mean you want to remove it already in this CL?",
+      "parentUuid": "398250a2_f818dca9",
+      "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

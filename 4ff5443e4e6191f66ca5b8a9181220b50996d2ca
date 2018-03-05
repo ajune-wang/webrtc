@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d1f726c_60dbb998",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-05T17:52:48Z",
+      "side": 1,
+      "message": "An example here would probably be useful.",
+      "range": {
+        "startLine": 243,
+        "startChar": 57,
+        "endLine": 244,
+        "endChar": 0
+      },
+      "revId": "4ff5443e4e6191f66ca5b8a9181220b50996d2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

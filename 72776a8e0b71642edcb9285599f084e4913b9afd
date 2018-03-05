@@ -52,6 +52,24 @@
       "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f963d534_134e20bd",
+        "filename": "api/audio_codecs/audio_decoder_factory_template.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-05T13:57:57Z",
+      "side": 1,
+      "message": "No. For a transition period (traditionally about two weeks), we need to support both MakeAudioDecoder() functions that take two arguments, and MakeAudioDecoder() functions that take one argument. The question is if we want to go with this CL as it currently stands (slightly more complex code, supports MakeAudioDecoder() functions that take either one or two arguments) or change it (slightly less complex code, doesn\u0027t support MakeAudioDecoder() functions that take either one or two arguments).\n\nThere\u0027s one reason besides not wanting to rewrite this CL in favor of option one: We have MakeAudioDecoder() functions in the public API, and not letting them take either one or two arguments during a transition period would break users.\n\nEither way, the more or less complicated code will go away completely ~two weeks later when we drop support for the one-argument case and start unconditionally calling MakeAudioDecoder() with two arguments.",
+      "parentUuid": "03ce3efb_04941a6a",
+      "revId": "72776a8e0b71642edcb9285599f084e4913b9afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

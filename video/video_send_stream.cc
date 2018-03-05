@@ -70,6 +70,7 @@ std::vector<RtpRtcp*> CreateRtpRtcpModules(
   configuration.bandwidth_callback = bandwidth_callback;
   configuration.transport_feedback_callback =
       transport->transport_feedback_observer();
+  configuration.use_rtp_history_cylling = true;
   configuration.rtt_stats = rtt_stats;
   configuration.rtcp_packet_type_counter_observer = stats_proxy;
   configuration.paced_sender = transport->packet_sender();

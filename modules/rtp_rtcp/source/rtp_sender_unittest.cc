@@ -143,6 +143,8 @@ class MockTransportFeedbackObserver : public TransportFeedbackObserver {
                void(uint32_t, uint16_t, size_t, const PacedPacketInfo&));
   MOCK_METHOD1(OnTransportFeedback, void(const rtcp::TransportFeedback&));
   MOCK_CONST_METHOD0(GetTransportFeedbackVector, std::vector<PacketFeedback>());
+  MOCK_METHOD1(RegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
+  MOCK_METHOD1(DeRegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
 };
 
 class MockOverheadObserver : public OverheadObserver {
@@ -171,13 +173,14 @@ class RtpSenderTest : public ::testing::TestWithParam<bool> {
         false, &fake_clock_, &transport_, pacer ? &mock_paced_sender_ : nullptr,
         nullptr, &seq_num_allocator_, nullptr, nullptr, nullptr, nullptr,
         &mock_rtc_event_log_, &send_packet_observer_,
-        &retransmission_rate_limiter_, nullptr, populate_network2));
+        &retransmission_rate_limiter_, nullptr, populate_network2, true));
     rtp_sender_->SetSendPayloadType(kPayload);
     rtp_sender_->SetSequenceNumber(kSeqNum);
     rtp_sender_->SetTimestampOffset(0);
     rtp_sender_->SetSSRC(kSsrc);
   }
 
+  static const bool kUseRtpHistoryCulling = true;
   SimulatedClock fake_clock_;
   testing::NiceMock<MockRtcEventLog> mock_rtc_event_log_;
   MockRtpPacketSender mock_paced_sender_;
@@ -382,10 +385,12 @@ TEST_P(RtpSenderTestWithoutPacer,
        TransportFeedbackObserverGetsCorrectByteCount) {
   constexpr int kRtpOverheadBytesPerPacket = 12 + 8;
   testing::NiceMock<MockOverheadObserver> mock_overhead_observer;
+  EXPECT_CALL(feedback_observer_, RegisterPacketFeedbackObserver(_)).Times(1);
   rtp_sender_.reset(new RTPSender(
       false, &fake_clock_, &transport_, nullptr, nullptr, &seq_num_allocator_,
       &feedback_observer_, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
-      nullptr, &retransmission_rate_limiter_, &mock_overhead_observer, false));
+      nullptr, &retransmission_rate_limiter_, &mock_overhead_observer, false,
+      true));
   rtp_sender_->SetSSRC(kSsrc);
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
                    kRtpExtensionTransportSequenceNumber,
@@ -406,13 +411,18 @@ TEST_P(RtpSenderTestWithoutPacer,
               OnOverheadChanged(kRtpOverheadBytesPerPacket))
       .Times(1);
   SendGenericPayload();
+  EXPECT_CALL(feedback_observer_,
+              DeRegisterPacketFeedbackObserver(rtp_sender_.get()))
+      .Times(1);
 }
 
 TEST_P(RtpSenderTestWithoutPacer, SendsPacketsWithTransportSequenceNumber) {
-  rtp_sender_.reset(new RTPSender(
-      false, &fake_clock_, &transport_, nullptr, nullptr, &seq_num_allocator_,
-      &feedback_observer_, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
-      &send_packet_observer_, &retransmission_rate_limiter_, nullptr, false));
+  EXPECT_CALL(feedback_observer_, RegisterPacketFeedbackObserver(_)).Times(1);
+  rtp_sender_.reset(
+      new RTPSender(false, &fake_clock_, &transport_, nullptr, nullptr,
+                    &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
+                    nullptr, &mock_rtc_event_log_, &send_packet_observer_,
+                    &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSSRC(kSsrc);
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
                    kRtpExtensionTransportSequenceNumber,
@@ -436,6 +446,9 @@ TEST_P(RtpSenderTestWithoutPacer, SendsPacketsWithTransportSequenceNumber) {
   ASSERT_TRUE(packet.GetExtension<TransportSequenceNumber>(&transport_seq_no));
   EXPECT_EQ(kTransportSequenceNumber, transport_seq_no);
   EXPECT_EQ(transport_.last_packet_id_, transport_seq_no);
+  EXPECT_CALL(feedback_observer_,
+              DeRegisterPacketFeedbackObserver(rtp_sender_.get()))
+      .Times(1);
 }
 
 TEST_P(RtpSenderTestWithoutPacer, NoAllocationIfNotRegistered) {
@@ -456,11 +469,12 @@ TEST_P(RtpSenderTestWithoutPacer, OnSendPacketUpdated) {
 }
 
 TEST_P(RtpSenderTest, SendsPacketsWithTransportSequenceNumber) {
+  EXPECT_CALL(feedback_observer_, RegisterPacketFeedbackObserver(_)).Times(1);
   rtp_sender_.reset(new RTPSender(
       false, &fake_clock_, &transport_, &mock_paced_sender_, nullptr,
       &seq_num_allocator_, &feedback_observer_, nullptr, nullptr, nullptr,
       &mock_rtc_event_log_, &send_packet_observer_,
-      &retransmission_rate_limiter_, nullptr, false));
+      &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetSSRC(kSsrc);
   rtp_sender_->SetStorePacketsStatus(true, 10);
@@ -489,6 +503,9 @@ TEST_P(RtpSenderTest, SendsPacketsWithTransportSequenceNumber) {
   EXPECT_TRUE(packet.GetExtension<TransportSequenceNumber>(&transport_seq_no));
   EXPECT_EQ(kTransportSequenceNumber, transport_seq_no);
   EXPECT_EQ(transport_.last_packet_id_, transport_seq_no);
+  EXPECT_CALL(feedback_observer_,
+              DeRegisterPacketFeedbackObserver(rtp_sender_.get()))
+      .Times(1);
 }
 
 TEST_P(RtpSenderTest, WritesPacerExitToTimingExtension) {
@@ -819,7 +836,7 @@ TEST_P(RtpSenderTest, OnSendPacketNotUpdatedWithoutSeqNumAllocator) {
       false, &fake_clock_, &transport_, &mock_paced_sender_, nullptr,
       nullptr /* TransportSequenceNumberAllocator */, nullptr, nullptr, nullptr,
       nullptr, nullptr, &send_packet_observer_, &retransmission_rate_limiter_,
-      nullptr, false));
+      nullptr, false, true));
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetSSRC(kSsrc);
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
@@ -845,7 +862,7 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
   rtp_sender_.reset(new RTPSender(
       false, &fake_clock_, &transport, &mock_paced_sender_, nullptr, nullptr,
       nullptr, nullptr, nullptr, nullptr, &mock_rtc_event_log_, nullptr,
-      &retransmission_rate_limiter_, nullptr, false));
+      &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetSSRC(kSsrc);
   rtp_sender_->SetRtxPayloadType(kRtxPayload, kPayload);
@@ -959,7 +976,7 @@ TEST_P(RtpSenderTest, SendFlexfecPackets) {
       false, &fake_clock_, &transport_, &mock_paced_sender_, &flexfec_sender,
       &seq_num_allocator_, nullptr, nullptr, nullptr, nullptr,
       &mock_rtc_event_log_, &send_packet_observer_,
-      &retransmission_rate_limiter_, nullptr, false));
+      &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSSRC(kMediaSsrc);
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetSendPayloadType(kMediaPayloadType);
@@ -1019,7 +1036,7 @@ TEST_P(RtpSenderTest, NoFlexfecForTimingFrames) {
       false, &fake_clock_, &transport_, &mock_paced_sender_, &flexfec_sender,
       &seq_num_allocator_, nullptr, nullptr, nullptr, nullptr,
       &mock_rtc_event_log_, &send_packet_observer_,
-      &retransmission_rate_limiter_, nullptr, false));
+      &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSSRC(kMediaSsrc);
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetSendPayloadType(kMediaPayloadType);
@@ -1119,7 +1136,7 @@ TEST_P(RtpSenderTestWithoutPacer, SendFlexfecPackets) {
       new RTPSender(false, &fake_clock_, &transport_, nullptr, &flexfec_sender,
                     &seq_num_allocator_, nullptr, nullptr, nullptr, nullptr,
                     &mock_rtc_event_log_, &send_packet_observer_,
-                    &retransmission_rate_limiter_, nullptr, false));
+                    &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSSRC(kMediaSsrc);
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetSendPayloadType(kMediaPayloadType);
@@ -1160,7 +1177,7 @@ TEST_P(RtpSenderTest, FecOverheadRate) {
       false, &fake_clock_, &transport_, &mock_paced_sender_, &flexfec_sender,
       &seq_num_allocator_, nullptr, nullptr, nullptr, nullptr,
       &mock_rtc_event_log_, &send_packet_observer_,
-      &retransmission_rate_limiter_, nullptr, false));
+      &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSSRC(kMediaSsrc);
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetSendPayloadType(kMediaPayloadType);
@@ -1213,7 +1230,7 @@ TEST_P(RtpSenderTest, FrameCountCallbacks) {
   rtp_sender_.reset(new RTPSender(
       false, &fake_clock_, &transport_, &mock_paced_sender_, nullptr, nullptr,
       nullptr, nullptr, &callback, nullptr, nullptr, nullptr,
-      &retransmission_rate_limiter_, nullptr, false));
+      &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSSRC(kSsrc);
   char payload_name[RTP_PAYLOAD_NAME_SIZE] = "GENERIC";
   const uint8_t payload_type = 127;
@@ -1275,7 +1292,7 @@ TEST_P(RtpSenderTest, BitrateCallbacks) {
   rtp_sender_.reset(
       new RTPSender(false, &fake_clock_, &transport_, nullptr, nullptr, nullptr,
                     nullptr, &callback, nullptr, nullptr, nullptr, nullptr,
-                    &retransmission_rate_limiter_, nullptr, false));
+                    &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSSRC(kSsrc);
 
   // Simulate kNumPackets sent with kPacketInterval ms intervals, with the
@@ -1331,10 +1348,10 @@ class RtpSenderAudioTest : public RtpSenderTest {
 
   void SetUp() override {
     payload_ = kAudioPayload;
-    rtp_sender_.reset(
-        new RTPSender(true, &fake_clock_, &transport_, nullptr, nullptr,
-                      nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-                      nullptr, &retransmission_rate_limiter_, nullptr, false));
+    rtp_sender_.reset(new RTPSender(
+        true, &fake_clock_, &transport_, nullptr, nullptr, nullptr, nullptr,
+        nullptr, nullptr, nullptr, nullptr, nullptr,
+        &retransmission_rate_limiter_, nullptr, false, true));
     rtp_sender_->SetSSRC(kSsrc);
     rtp_sender_->SetSequenceNumber(kSeqNum);
   }
@@ -1934,7 +1951,7 @@ TEST_P(RtpSenderTest, OnOverheadChanged) {
   rtp_sender_.reset(new RTPSender(
       false, &fake_clock_, &transport_, nullptr, nullptr, nullptr, nullptr,
       nullptr, nullptr, nullptr, nullptr, nullptr,
-      &retransmission_rate_limiter_, &mock_overhead_observer, false));
+      &retransmission_rate_limiter_, &mock_overhead_observer, false, true));
   rtp_sender_->SetSSRC(kSsrc);
 
   // RTP overhead is 12B.
@@ -1955,7 +1972,7 @@ TEST_P(RtpSenderTest, DoesNotUpdateOverheadOnEqualSize) {
   rtp_sender_.reset(new RTPSender(
       false, &fake_clock_, &transport_, nullptr, nullptr, nullptr, nullptr,
       nullptr, nullptr, nullptr, nullptr, nullptr,
-      &retransmission_rate_limiter_, &mock_overhead_observer, false));
+      &retransmission_rate_limiter_, &mock_overhead_observer, false, true));
   rtp_sender_->SetSSRC(kSsrc);
 
   EXPECT_CALL(mock_overhead_observer, OnOverheadChanged(_)).Times(1);
@@ -1969,7 +1986,7 @@ TEST_P(RtpSenderTest, SendAudioPadding) {
   rtp_sender_.reset(new RTPSender(
       kEnableAudio, &fake_clock_, &transport, &mock_paced_sender_, nullptr,
       nullptr, nullptr, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
-      nullptr, &retransmission_rate_limiter_, nullptr, false));
+      nullptr, &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSendPayloadType(kPayload);
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetTimestampOffset(0);
@@ -1992,10 +2009,10 @@ TEST_P(RtpSenderTest, SendAudioPadding) {
 
 TEST_P(RtpSenderTest, SendsKeepAlive) {
   MockTransport transport;
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport, nullptr, nullptr, nullptr,
-                    nullptr, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
-                    nullptr, &retransmission_rate_limiter_, nullptr, false));
+  rtp_sender_.reset(new RTPSender(
+      false, &fake_clock_, &transport, nullptr, nullptr, nullptr, nullptr,
+      nullptr, nullptr, nullptr, &mock_rtc_event_log_, nullptr,
+      &retransmission_rate_limiter_, nullptr, false, true));
   rtp_sender_->SetSendPayloadType(kPayload);
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetTimestampOffset(0);

@@ -400,22 +400,6 @@ class PacketFeedbackComparator {
   }
 };
 
-class TransportFeedbackObserver {
- public:
-  TransportFeedbackObserver() {}
-  virtual ~TransportFeedbackObserver() {}
-
-  // Note: Transport-wide sequence number as sequence number.
-  virtual void AddPacket(uint32_t ssrc,
-                         uint16_t sequence_number,
-                         size_t length,
-                         const PacedPacketInfo& pacing_info) = 0;
-
-  virtual void OnTransportFeedback(const rtcp::TransportFeedback& feedback) = 0;
-
-  virtual std::vector<PacketFeedback> GetTransportFeedbackVector() const = 0;
-};
-
 // Interface for PacketRouter to send rtcp feedback on behalf of
 // congestion controller.
 // TODO(bugs.webrtc.org/8239): Remove and use RtcpTransceiver directly
@@ -436,6 +420,27 @@ class PacketFeedbackObserver {
   virtual void OnPacketAdded(uint32_t ssrc, uint16_t seq_num) = 0;
   virtual void OnPacketFeedbackVector(
       const std::vector<PacketFeedback>& packet_feedback_vector) = 0;
+};
+
+class TransportFeedbackObserver {
+ public:
+  TransportFeedbackObserver() {}
+  virtual ~TransportFeedbackObserver() {}
+
+  // Note: Transport-wide sequence number as sequence number.
+  virtual void AddPacket(uint32_t ssrc,
+                         uint16_t sequence_number,
+                         size_t length,
+                         const PacedPacketInfo& pacing_info) = 0;
+
+  virtual void OnTransportFeedback(const rtcp::TransportFeedback& feedback) = 0;
+
+  virtual std::vector<PacketFeedback> GetTransportFeedbackVector() const = 0;
+
+  virtual void RegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) = 0;
+  virtual void DeRegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) = 0;
 };
 
 class RtcpRttStats {

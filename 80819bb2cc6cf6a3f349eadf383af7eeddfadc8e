@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e29998d2_4e54979f",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-05T15:56:52Z",
+      "side": 1,
+      "message": "On second thought you can never get several elements past the end() because you are always working with the first element, but you are not guaranteed that the internal buffer is not reallocated.\n\nMy concern is mostly theoretical, but fetching begin() in each loop guarantees a fresh and usable iterator, and does the same thing as your code intended.",
+      "parentUuid": "aa6635d9_64e3e768",
+      "revId": "80819bb2cc6cf6a3f349eadf383af7eeddfadc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29eb11a6_6541ad52",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 1

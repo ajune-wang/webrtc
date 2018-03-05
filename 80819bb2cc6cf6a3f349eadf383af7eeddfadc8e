@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa6635d9_64e3e768",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-05T15:52:34Z",
+      "side": 1,
+      "message": "I\u0027m a little bit worried about |it| being invalidated by recursive calls to getStats(), since these are modifying the |callbacks_| list.\n\nAny recursive call doing DeliverCachedReport() would have performed callback_.clear() before exit, so when returning to higher-up DeliverCachedReport() calls any |it| would be past end().\n\nIn your test, callbacks_ has 1 element when the recursion happens, so when we re-enter the original DeliverCachedReport() and callbacks_ has been cleared, it \u003d\u003d end(), but this is not always the case. E.g.\n- What if |it| is no longer comparable to end() because of reallocation or other invalidation of the iterator.\n- Example: What if there were multiple callbacks queued, you could end up where |it| is several elements after the cleared callbacks_\u0027s end(), and not actual equal to end(), even if same internal buffer is used.\n\nOn the other hand, we can\u0027t copy callbacks_, clear it, and then process the copy without risking recursively queued callbacks to be processed not in the same order as get getStats() calls.\n\nSo... 1) We have to process callbacks_ in the same order, and 2) We cannot rely on |it| because it may be invalidated.\nHow about?\n\nwhile (!callbacks_.empty()) {\n  auto it \u003d callbacks_.begin();\n  const rtc::scoped_refptr\u003cRTCStatsCollectorCallback\u003e\u0026 callback \u003d *it;\n  callbacks_.erase(it);\n  callback-\u003eOnStatsDelivered(cached_report_);\n}",
+      "revId": "80819bb2cc6cf6a3f349eadf383af7eeddfadc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29eb11a6_6541ad52",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1934,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-05T15:52:34Z",
+      "side": 1,
+      "message": "Optional: If you care to, though I think it\u0027s an obscure edge case, add a test where multiple callbacks are queued to catch the problem where the iterator would have been past end() but not equal to end().",
+      "revId": "80819bb2cc6cf6a3f349eadf383af7eeddfadc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -43,7 +43,7 @@ class RtpPacketToSend;
 class RTPSenderAudio;
 class RTPSenderVideo;
 
-class RTPSender {
+class RTPSender : public PacketFeedbackObserver {
  public:
   RTPSender(bool audio,
             Clock* clock,
@@ -61,9 +61,10 @@ class RTPSender {
             SendPacketObserver* send_packet_observer,
             RateLimiter* nack_rate_limiter,
             OverheadObserver* overhead_observer,
-            bool populate_network2_timestamp);
+            bool populate_network2_timestamp,
+            bool use_history_culling);
 
-  ~RTPSender();
+  ~RTPSender() override;
 
   void ProcessBitrate();
 
@@ -208,6 +209,15 @@ class RTPSender {
 
   void SetRtt(int64_t rtt_ms);
 
+  // Implements PacketFeedbackObserver.
+  // This allows us to use the transport feedback data for auxiliary purposes
+  // like pruning the packet history from packets that have already been
+  // received.
+  // Note: Transport-wide sequence number as sequence number.
+  void OnPacketAdded(uint32_t ssrc, uint16_t seq_num) override;
+  void OnPacketFeedbackVector(
+      const std::vector<PacketFeedback>& packet_feedback_vector) override;
+
  protected:
   int32_t CheckPayloadType(int8_t payload_type, RtpVideoCodecTypes* video_type);
 
@@ -289,6 +299,7 @@ class RTPSender {
   // TODO(brandtr): Remove |flexfec_packet_history_| when the FlexfecSender
   // is hooked up to the PacedSender.
   RtpPacketHistory flexfec_packet_history_;
+  const bool use_history_culling_;
 
   // Statistics
   rtc::CriticalSection statistics_crit_;

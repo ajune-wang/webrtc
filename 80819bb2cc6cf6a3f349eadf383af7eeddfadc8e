@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ab2ace3a_06e7a7a9",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-06T17:44:51Z",
+      "side": 1,
+      "message": "You\u0027re right. Your approach should work, though I went with something slightly different, using vector::swap. I\u0027ve seen it used elsewhere for this type of problem.",
+      "parentUuid": "e29998d2_4e54979f",
+      "revId": "80819bb2cc6cf6a3f349eadf383af7eeddfadc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29eb11a6_6541ad52",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 1
@@ -51,6 +69,24 @@
       "revId": "80819bb2cc6cf6a3f349eadf383af7eeddfadc8e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b434ae16_6ed3e41d",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1934,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-06T17:44:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29eb11a6_6541ad52",
+      "revId": "80819bb2cc6cf6a3f349eadf383af7eeddfadc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

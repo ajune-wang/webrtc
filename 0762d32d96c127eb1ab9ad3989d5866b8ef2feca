@@ -22,6 +22,29 @@
       "revId": "0762d32d96c127eb1ab9ad3989d5866b8ef2feca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c34dfb17_fb79719b",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-06T09:05:27Z",
+      "side": 1,
+      "message": "or foo.h should be split into foo_bar.h and foo_baz.h respectively\n\n(In my practice desire splitting foo.c comes from too big foo, which imply that foo.h probably has too many declarations too)",
+      "range": {
+        "startLine": 48,
+        "startChar": 10,
+        "endLine": 48,
+        "endChar": 11
+      },
+      "revId": "0762d32d96c127eb1ab9ad3989d5866b8ef2feca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

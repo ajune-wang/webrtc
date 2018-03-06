@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee4ceaf0_eba57286",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-06T09:05:27Z",
+      "side": 1,
+      "message": "isn\u0027t it same as\nhttps://google.github.io/styleguide/cppguide.html#Header_Files",
+      "range": {
+        "startLine": 23,
+        "startChar": 38,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "40052190e79f316fe953e780f19d23a0487b6cde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

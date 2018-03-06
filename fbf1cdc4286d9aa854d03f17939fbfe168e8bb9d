@@ -22,6 +22,30 @@
       "revId": "fbf1cdc4286d9aa854d03f17939fbfe168e8bb9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1278d5b6_6a8e80b0",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-06T13:00:30Z",
+      "side": 1,
+      "message": "Agree, names can better reflect the intend.\nChanged the name of the function and parameter, is it good enough now?\n\nTracking the call stack for the main intended use, there is always single function with a parameter:\nRtpRtcp::SetRTCPStatus(RtcpMode method)\nRtpVideoStreamReceiver::SignalNetworkState(NetworkState state)\nVideoReceiveStream::SignalNetworkState(NetworkState state)\nCall::SignalChannelNetworkState(NetworkState state)\nWebRtcVideoChannel::OnReadyToSend(bool ready)\nBaseChannel::OnTransportReadyToSend(bool ready)\nRtpTransport::MaybeSignalReadyToSend() {\n  bool ready_to_send \u003d (some calculations);\n  SignalReadyToSend(ready_to_send);\n}\n\nSo prefer to do the same.\n(But call stack provided more name suggestions.)",
+      "parentUuid": "9ba42489_05be4cd4",
+      "range": {
+        "startLine": 49,
+        "startChar": 7,
+        "endLine": 49,
+        "endChar": 22
+      },
+      "revId": "fbf1cdc4286d9aa854d03f17939fbfe168e8bb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

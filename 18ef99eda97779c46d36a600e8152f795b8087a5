@@ -34,6 +34,24 @@
       "revId": "18ef99eda97779c46d36a600e8152f795b8087a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93d10c86_239b00fb",
+        "filename": "modules/audio_device/dummy/file_audio_device.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-03-06T08:49:53Z",
+      "side": 1,
+      "message": "We have reduced the number of methods in the AudioDeviceModule interface during the last year and you are correct, there is no API for setting the sample rate since that is something that the native audio layer is expected to take care of. We do not want to extend the interface. Hence, if you need an API to set the sample rate you would have to extend your particular version of the ADM in some other way. The reason for not adding a sample-rate APIs is that it can lead to misunderstandings where the user thinks that he/she can set a sample rate which is not supported. We did have such APIs in the past but they have been removed. The \"stereo APIs\" are OK to keep as is.\n\nAlso, please note that, we do resampling inside WebRTC, hence I can\u0027t see a big gain in adding a flexible support for different sample rates in the FileAudioDevice. Using 48k seems like a good compromise since it gives you wideband and works well with all codecs.\n\nTo summarize: try to avoid adding more flexibility regarding sample rate and use the built-in resampling support in WebRTC instead.",
+      "parentUuid": "beacb0db_1ff0c72a",
+      "revId": "18ef99eda97779c46d36a600e8152f795b8087a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

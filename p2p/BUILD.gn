@@ -57,6 +57,8 @@ rtc_static_library("rtc_p2p") {
     "base/relayport.h",
     "base/session.cc",
     "base/session.h",
+    "base/socketerror.cc",
+    "base/socketerror.h",
     "base/stun.cc",
     "base/stun.h",
     "base/stunport.cc",

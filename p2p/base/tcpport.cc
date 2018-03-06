@@ -69,6 +69,7 @@
 #include <vector>
 
 #include "p2p/base/common.h"
+#include "p2p/base/socketerror.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
@@ -223,7 +224,8 @@ int TCPPort::SendTo(const void* data, size_t size,
     // socket) will not trigger reconnecting. In theory, this shouldn't matter
     // as OnClose should always be called and set connected to false.
     LOG_J(LS_ERROR, this) << "TCP send of " << size
-                          << " bytes failed with error " << error_;
+                          << " bytes failed with error "
+                          << rtc::SocketError(error_);
   }
   return sent;
 }

@@ -17,6 +17,7 @@
 
 #include "api/optional.h"
 #include "p2p/base/common.h"
+#include "p2p/base/socketerror.h"
 #include "p2p/base/stun.h"
 #include "rtc_base/asyncpacketsocket.h"
 #include "rtc_base/byteorder.h"
@@ -592,6 +593,9 @@ int TurnPort::SendTo(const void* data, size_t size,
   // Send the actual contents to the server using the usual mechanism.
   int sent = entry->Send(data, size, payload, options);
   if (sent <= 0) {
+    error_ = socket_->GetError();
+    LOG_J(LS_ERROR, this) << "Send of " << size << " bytes failed with error "
+                          << rtc::SocketError(error_);
     return SOCKET_ERROR;
   }
 

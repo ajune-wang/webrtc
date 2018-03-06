@@ -340,43 +340,43 @@ static int GetMaxDefaultVideoBitrateKbps(int width, int height) {
   }
 }
 
-bool GetVp9LayersFromFieldTrialGroup(int* num_spatial_layers,
-                                     int* num_temporal_layers) {
+bool GetVp9LayersFromFieldTrialGroup(size_t* num_spatial_layers,
+                                     size_t* num_temporal_layers) {
   std::string group = webrtc::field_trial::FindFullName("WebRTC-SupportVP9SVC");
   if (group.empty())
     return false;
 
-  if (sscanf(group.c_str(), "EnabledByFlag_%dSL%dTL", num_spatial_layers,
+  if (sscanf(group.c_str(), "EnabledByFlag_%zuSL%zuTL", num_spatial_layers,
              num_temporal_layers) != 2) {
     return false;
   }
-  const int kMaxSpatialLayers = 2;
+  const size_t kMaxSpatialLayers = 3;
   if (*num_spatial_layers > kMaxSpatialLayers || *num_spatial_layers < 1)
     return false;
 
-  const int kMaxTemporalLayers = 3;
+  const size_t kMaxTemporalLayers = 3;
   if (*num_temporal_layers > kMaxTemporalLayers || *num_temporal_layers < 1)
     return false;
 
   return true;
 }
 
-int GetDefaultVp9SpatialLayers() {
-  int num_sl;
-  int num_tl;
+size_t GetVp9SpatialLayersFromFieldTrial(size_t default_num_spatial_layers) {
+  size_t num_sl;
+  size_t num_tl;
   if (GetVp9LayersFromFieldTrialGroup(&num_sl, &num_tl)) {
     return num_sl;
   }
-  return 1;
+  return default_num_spatial_layers;
 }
 
-int GetDefaultVp9TemporalLayers() {
-  int num_sl;
-  int num_tl;
+size_t GetVp9TemporalLayersFromFieldTrial(size_t default_num_temporal_layers) {
+  size_t num_sl;
+  size_t num_tl;
   if (GetVp9LayersFromFieldTrialGroup(&num_sl, &num_tl)) {
     return num_tl;
   }
-  return 1;
+  return default_num_temporal_layers;
 }
 
 const char kForcedFallbackFieldTrial[] =
@@ -464,8 +464,19 @@ WebRtcVideoChannel::WebRtcVideoSendStream::ConfigureVideoEncoderSettings(
       vp9_settings.numberOfSpatialLayers = 2;
       vp9_settings.numberOfTemporalLayers = 1;
     } else {
-      vp9_settings.numberOfSpatialLayers = GetDefaultVp9SpatialLayers();
-      vp9_settings.numberOfTemporalLayers = GetDefaultVp9TemporalLayers();
+      const size_t default_num_spatial_layers =
+          parameters_.config.rtp.ssrcs.size();
+      const size_t num_spatial_layers =
+          GetVp9SpatialLayersFromFieldTrial(default_num_spatial_layers);
+      const size_t default_num_temporal_layers =
+          num_spatial_layers > 1 ? kConferenceDefaultNumTemporalLayers : 1;
+      const size_t num_temporal_layers =
+          GetVp9TemporalLayersFromFieldTrial(default_num_temporal_layers);
+
+      vp9_settings.numberOfSpatialLayers = std::max<unsigned char>(
+          std::min(num_spatial_layers, kConferenceMaxNumSpatialLayers), 1);
+      vp9_settings.numberOfTemporalLayers = std::max<unsigned char>(
+          std::min(num_temporal_layers, kConferenceMaxNumTemporalLayers), 1);
     }
 
     // VP9 denoising is disabled by default.

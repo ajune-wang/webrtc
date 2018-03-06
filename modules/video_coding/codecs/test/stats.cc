@@ -183,7 +183,7 @@ size_t Stats::CalcLayerTargetBitrateKbps(size_t first_frame_num,
                                          size_t spatial_layer_idx,
                                          size_t temporal_layer_idx,
                                          bool aggregate_independent_layers) {
-  std::vector<size_t> target_bitrate_kbps(temporal_layer_idx + 1, 0);
+  size_t target_bitrate_kbps = 0;
 
   // We don't know if superframe includes all required spatial layers because
   // of possible frame drops. Run through all frames required range, track
@@ -195,14 +195,12 @@ size_t Stats::CalcLayerTargetBitrateKbps(size_t first_frame_num,
         frame_num, spatial_layer_idx, aggregate_independent_layers);
 
     if (superframe.temporal_layer_idx <= temporal_layer_idx) {
-      target_bitrate_kbps[superframe.temporal_layer_idx] =
-          std::max(target_bitrate_kbps[superframe.temporal_layer_idx],
-                   superframe.target_bitrate_kbps);
+      target_bitrate_kbps =
+          std::max(target_bitrate_kbps, superframe.target_bitrate_kbps);
     }
   }
 
-  return std::accumulate(target_bitrate_kbps.begin(), target_bitrate_kbps.end(),
-                         std::size_t {0});
+  return target_bitrate_kbps;
 }
 
 VideoStatistics Stats::SliceAndCalcVideoStatistic(

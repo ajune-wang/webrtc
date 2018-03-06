@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "172a3bfc_25a5628e",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-06T10:22:05Z",
+      "side": 1,
+      "message": "I think that\u0027s a good way of thinking of it. Take the Google style guide for example: the expectation is that the vast majority of new code will follow all the rules, but you can get a waiver to break a specific rule in a specific instance if you can convince \"your project leads\" (the wording used by the guide) that it would be a net win.\n\nIn other words, we don\u0027t want legalese in the style guide, because if a rule is difficult to interpret or just plain in the way in some case, there is a group of humans that may interpret and/or override the rule as they see fit.",
+      "parentUuid": "c7a5a78f_5bb49f4f",
+      "range": {
+        "startLine": 37,
+        "startChar": 15,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "0762d32d96c127eb1ab9ad3989d5866b8ef2feca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c34dfb17_fb79719b",
         "filename": "style-guide.md",
         "patchSetId": 3

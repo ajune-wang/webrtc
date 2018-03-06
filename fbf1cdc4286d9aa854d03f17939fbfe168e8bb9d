@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ba42489_05be4cd4",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-06T12:09:15Z",
+      "side": 1,
+      "message": "Prefer a name relating to the actions of this class. Maybe SetEnableTransmit or just EnableTransmit?\n\nHaving separate Enable/Disable methods might be clearer than a bool argument (the meaning of true is not obvious), similar to other Start/Stop methods. Depends a bit on how it\u0027s used, though; if the typical caller has a bool, it might be inconvenient to dispatch to separate methods. The underlying RtcpTransceiverImpl could still have a single method with bool argument regardless, if that\u0027s convenient.",
+      "range": {
+        "startLine": 49,
+        "startChar": 7,
+        "endLine": 49,
+        "endChar": 22
+      },
+      "revId": "fbf1cdc4286d9aa854d03f17939fbfe168e8bb9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

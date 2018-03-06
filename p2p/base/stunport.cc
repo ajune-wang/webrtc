@@ -15,6 +15,7 @@
 
 #include "p2p/base/common.h"
 #include "p2p/base/portallocator.h"
+#include "p2p/base/socketerror.h"
 #include "p2p/base/stun.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
@@ -277,7 +278,8 @@ int UDPPort::SendTo(const void* data, size_t size,
   if (sent < 0) {
     error_ = socket_->GetError();
     LOG_J(LS_ERROR, this) << "UDP send of " << size
-                          << " bytes failed with error " << error_;
+                          << " bytes failed with error "
+                          << rtc::SocketError(error_);
   }
   return sent;
 }

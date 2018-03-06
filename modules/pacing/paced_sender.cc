@@ -33,6 +33,7 @@
 namespace {
 // Time limit in milliseconds between packet bursts.
 const int64_t kMinPacketLimitMs = 5;
+const int64_t kCongestedPacketIntervalMs = 500;
 const int64_t kPausedPacketIntervalMs = 500;
 const int64_t kMaxElapsedTimeMs = 2000;
 
@@ -117,6 +118,22 @@ void PacedSender::Resume() {
   // refresh the estimate for when to call Process().
   if (process_thread_)
     process_thread_->WakeUp(this);
+}
+
+void PacedSender::SetCongestionWindow(int64_t congestion_window_bytes) {
+  rtc::CritScope cs(&critsect_);
+  congestion_window_bytes_ = congestion_window_bytes;
+}
+
+void PacedSender::UpdateOutstandingData(int64_t outstanding_bytes) {
+  rtc::CritScope cs(&critsect_);
+  outstanding_bytes_ = outstanding_bytes;
+}
+
+bool PacedSender::Congested() const {
+  if (congestion_window_bytes_ == kNoCongestionWindow)
+    return false;
+  return outstanding_bytes_ >= congestion_window_bytes_;
 }
 
 void PacedSender::SetProbingEnabled(bool enabled) {
@@ -259,6 +276,18 @@ void PacedSender::Process() {
     }
     return;
   }
+  // When congested we send a padding packet every 500 ms to ensure we won't get
+  // stuck in the congested state due to no feedback being received.
+  if (Congested()) {
+    // We can not send padding unless a normal packet has first been sent. If we
+    // do, timestamps get messed up.
+    if (elapsed_time_ms >= kCongestedPacketIntervalMs && packet_counter_ > 0) {
+      PacedPacketInfo pacing_info;
+      SendPadding(1, pacing_info);
+      last_send_time_us_ = clock_->TimeInMicroseconds();
+    }
+    return;
+  }
 
   int target_bitrate_kbps = pacing_bitrate_kbps_;
   if (elapsed_time_ms > 0) {
@@ -292,7 +321,7 @@ void PacedSender::Process() {
   }
   // The paused state is checked in the loop since SendPacket leaves the
   // critical section allowing the paused state to be changed from other code.
-  while (!packets_->Empty() && !paused_) {
+  while (!packets_->Empty() && !paused_ && !Congested()) {
     // Since we need to release the lock in order to send, we first pop the
     // element from the priority queue but keep it in storage, so that we can
     // reinsert it if send fails.
@@ -311,7 +340,7 @@ void PacedSender::Process() {
     }
   }
 
-  if (packets_->Empty()) {
+  if (packets_->Empty() && !Congested()) {
     // We can not send padding unless a normal packet has first been sent. If we
     // do, timestamps get messed up.
     if (packet_counter_ > 0) {
@@ -388,6 +417,7 @@ void PacedSender::UpdateBudgetWithElapsedTime(int64_t delta_time_ms) {
 }
 
 void PacedSender::UpdateBudgetWithBytesSent(size_t bytes_sent) {
+  outstanding_bytes_ += bytes_sent;
   media_budget_->UseBudget(bytes_sent);
   padding_budget_->UseBudget(bytes_sent);
 }

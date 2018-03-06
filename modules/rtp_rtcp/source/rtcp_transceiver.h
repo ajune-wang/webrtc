@@ -43,6 +43,11 @@ class RtcpTransceiver : public RtcpFeedbackSenderInterface {
       MediaReceiverRtcpObserver* observer,
       std::unique_ptr<rtc::QueuedTask> on_removed);
 
+  // Enables/disables the transceiver eventually (i.e. sending rtcp).
+  // Packets may be send after the SetNetworkState(false) returns, but no new
+  // packets will be scheduled.
+  void SetNetworkState(bool up);
+
   // Handles incoming rtcp packets.
   void ReceivePacket(rtc::CopyOnWriteBuffer packet);
 

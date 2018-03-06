@@ -73,6 +73,14 @@ void RtcpTransceiver::RemoveMediaReceiverRtcpObserver(
   task_queue_->PostTaskAndReply(std::move(remove), std::move(on_removed));
 }
 
+void RtcpTransceiver::SetNetworkState(bool up) {
+  rtc::WeakPtr<RtcpTransceiverImpl> ptr = ptr_;
+  task_queue_->PostTask([ptr, up] {
+    if (ptr)
+      ptr->SetNetworkState(up);
+  });
+}
+
 void RtcpTransceiver::ReceivePacket(rtc::CopyOnWriteBuffer packet) {
   rtc::WeakPtr<RtcpTransceiverImpl> ptr = ptr_;
   int64_t now_us = rtc::TimeMicros();

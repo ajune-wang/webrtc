@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6badc9b_8210f4e5",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-06T08:08:49Z",
+      "side": 1,
+      "message": "No mention of link-time injection. Maybe something like \"One example of a questionable practice is declaring the interface for a needed facility, but allowing applications to provide their own implementation at link-time. We currently do this for the TaskQueue. This is a good trade-off only in rare cases, due to the significant additional complexity in build rules for webrtc applications. For most facilities that applications need to replace, run-time injection, e.g, an EncoderFactory, is a better choice.\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 15,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "0762d32d96c127eb1ab9ad3989d5866b8ef2feca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

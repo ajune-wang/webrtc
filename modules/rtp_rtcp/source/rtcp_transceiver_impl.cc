@@ -86,9 +86,11 @@ class RtcpTransceiverImpl::PacketSender {
 };
 
 RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
-    : config_(config), ptr_factory_(this) {
+    : config_(config),
+      network_up_(config.initial_network_up),
+      ptr_factory_(this) {
   RTC_CHECK(config_.Validate());
-  if (config_.schedule_periodic_compound_packets)
+  if (network_up_ && config_.schedule_periodic_compound_packets)
     SchedulePeriodicCompoundPackets(config_.initial_report_delay_ms);
 }
 
@@ -115,6 +117,17 @@ void RtcpTransceiverImpl::RemoveMediaReceiverRtcpObserver(
   stored.erase(it);
 }
 
+void RtcpTransceiverImpl::SetNetworkState(bool up) {
+  if (config_.schedule_periodic_compound_packets) {
+    if (network_up_ && !up)  // Stop existent send task.
+      ptr_factory_.InvalidateWeakPtrs();
+
+    if (!network_up_ && up)  // Restart periodic sending.
+      SchedulePeriodicCompoundPackets(config_.report_period_ms / 2);
+  }
+  network_up_ = up;
+}
+
 void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet,
                                         int64_t now_us) {
   while (!packet.empty()) {
@@ -130,6 +143,8 @@ void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet,
 }
 
 void RtcpTransceiverImpl::SendCompoundPacket() {
+  if (!network_up_)
+    return;
   SendPeriodicCompoundPacket();
   ReschedulePeriodicCompoundPackets();
 }
@@ -150,6 +165,8 @@ void RtcpTransceiverImpl::UnsetRemb() {
 }
 
 void RtcpTransceiverImpl::SendRawPacket(rtc::ArrayView<const uint8_t> packet) {
+  if (!network_up_)
+    return;
   // Unlike other senders, this functions just tries to send packet away and
   // disregard rtcp_mode, max_packet_size or anything else.
   // TODO(bugs.webrtc.org/8239): respect config_ by creating the
@@ -160,6 +177,8 @@ void RtcpTransceiverImpl::SendRawPacket(rtc::ArrayView<const uint8_t> packet) {
 void RtcpTransceiverImpl::SendNack(uint32_t ssrc,
                                    std::vector<uint16_t> sequence_numbers) {
   RTC_DCHECK(!sequence_numbers.empty());
+  if (!network_up_)
+    return;
   rtcp::Nack nack;
   nack.SetSenderSsrc(config_.feedback_ssrc);
   nack.SetMediaSsrc(ssrc);
@@ -168,6 +187,8 @@ void RtcpTransceiverImpl::SendNack(uint32_t ssrc,
 }
 
 void RtcpTransceiverImpl::SendPictureLossIndication(uint32_t ssrc) {
+  if (!network_up_)
+    return;
   rtcp::Pli pli;
   pli.SetSenderSsrc(config_.feedback_ssrc);
   pli.SetMediaSsrc(ssrc);
@@ -177,6 +198,8 @@ void RtcpTransceiverImpl::SendPictureLossIndication(uint32_t ssrc) {
 void RtcpTransceiverImpl::SendFullIntraRequest(
     rtc::ArrayView<const uint32_t> ssrcs) {
   RTC_DCHECK(!ssrcs.empty());
+  if (!network_up_)
+    return;
   rtcp::Fir fir;
   fir.SetSenderSsrc(config_.feedback_ssrc);
   for (uint32_t media_ssrc : ssrcs)

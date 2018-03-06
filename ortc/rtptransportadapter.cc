@@ -32,20 +32,6 @@ RtpTransportAdapter* GetInternal() override {
 }
 END_PROXY_MAP()
 
-BEGIN_OWNED_PROXY_MAP(SrtpTransport)
-PROXY_SIGNALING_THREAD_DESTRUCTOR()
-PROXY_CONSTMETHOD0(PacketTransportInterface*, GetRtpPacketTransport)
-PROXY_CONSTMETHOD0(PacketTransportInterface*, GetRtcpPacketTransport)
-PROXY_METHOD1(RTCError, SetParameters, const RtpTransportParameters&)
-PROXY_CONSTMETHOD0(RtpTransportParameters, GetParameters)
-PROXY_METHOD1(RTCError, SetSrtpSendKey, const cricket::CryptoParams&)
-PROXY_METHOD1(RTCError, SetSrtpReceiveKey, const cricket::CryptoParams&)
-protected:
-RtpTransportAdapter* GetInternal() override {
-  return internal();
-}
-END_PROXY_MAP()
-
 // static
 RTCErrorOr<std::unique_ptr<RtpTransportInterface>>
 RtpTransportAdapter::CreateProxied(
@@ -94,39 +80,7 @@ RtpTransportAdapter::CreateSrtpProxied(
     PacketTransportInterface* rtp,
     PacketTransportInterface* rtcp,
     RtpTransportControllerAdapter* rtp_transport_controller) {
-  if (!rtp) {
-    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
-                         "Must provide an RTP packet transport.");
-  }
-  if (!parameters.rtcp.mux && !rtcp) {
-    LOG_AND_RETURN_ERROR(
-        RTCErrorType::INVALID_PARAMETER,
-        "Must provide an RTCP packet transport when RTCP muxing is not used.");
-  }
-  if (parameters.rtcp.mux && rtcp) {
-    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
-                         "Creating an RtpTransport with RTCP muxing enabled, "
-                         "with a separate RTCP packet transport?");
-  }
-  if (!rtp_transport_controller) {
-    // Since OrtcFactory::CreateRtpTransport creates an RtpTransportController
-    // automatically when one isn't passed in, this should never be reached.
-    RTC_NOTREACHED();
-    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
-                         "Must provide an RTP transport controller.");
-  }
-  std::unique_ptr<RtpTransportAdapter> transport_adapter(
-      new RtpTransportAdapter(parameters.rtcp, rtp, rtcp,
-                              rtp_transport_controller,
-                              true /*is_srtp_transport*/));
-  RTCError params_result = transport_adapter->SetParameters(parameters);
-  if (!params_result.ok()) {
-    return std::move(params_result);
-  }
-
-  return SrtpTransportProxyWithInternal<RtpTransportAdapter>::Create(
-      rtp_transport_controller->signaling_thread(),
-      rtp_transport_controller->worker_thread(), std::move(transport_adapter));
+  return RTCError::OK();
 }
 
 void RtpTransportAdapter::TakeOwnershipOfRtpTransportController(
@@ -142,7 +96,8 @@ RtpTransportAdapter::RtpTransportAdapter(
     PacketTransportInterface* rtcp,
     RtpTransportControllerAdapter* rtp_transport_controller,
     bool is_srtp_transport)
-    : rtp_packet_transport_(rtp),
+    : RtpTransport(rtcp == nullptr),
+      rtp_packet_transport_(rtp),
       rtcp_packet_transport_(rtcp),
       rtp_transport_controller_(rtp_transport_controller),
       is_srtp_transport_(is_srtp_transport) {
@@ -150,22 +105,22 @@ RtpTransportAdapter::RtpTransportAdapter(
   // CNAME should have been filled by OrtcFactory if empty.
   RTC_DCHECK(!parameters_.rtcp.cname.empty());
   RTC_DCHECK(rtp_transport_controller);
+
+  rtp_transport_controller->network_thread()->Invoke<void>(RTC_FROM_HERE, [=] {
+    SetRtpPacketTransport(rtp->GetInternal());
+    if (rtcp) {
+      SetRtcpPacketTransport(rtcp->GetInternal());
+    }
+  });
 }
 
 RtpTransportAdapter::~RtpTransportAdapter() {
   SignalDestroyed(this);
 }
 
-PacketTransportInterface* RtpTransportAdapter::GetRtpPacketTransport() const {
-  return rtp_packet_transport_;
-}
-
-PacketTransportInterface* RtpTransportAdapter::GetRtcpPacketTransport() const {
-  return rtcp_packet_transport_;
-}
-
 RTCError RtpTransportAdapter::SetParameters(
     const RtpTransportParameters& parameters) {
+  RtpTransport::SetParameters(parameters);
   if (!parameters.rtcp.mux && parameters_.rtcp.mux) {
     LOG_AND_RETURN_ERROR(webrtc::RTCErrorType::INVALID_STATE,
                          "Can't disable RTCP muxing after enabling.");

@@ -855,6 +855,8 @@ TEST_P(PeerConnectionIceTest,
 
   EXPECT_EQ(cricket::ICEROLE_CONTROLLED, GetIceRole(caller));
   EXPECT_EQ(cricket::ICEROLE_CONTROLLING, GetIceRole(callee));
+  RTC_LOG(INFO) << GetIceRole(caller);
+  RTC_LOG(INFO) << GetIceRole(callee);
 }
 
 // Test that when the caller and the callee both use the lite implementation of

@@ -76,6 +76,7 @@ class SendSideCongestionControllerTest : public ::testing::Test {
     EXPECT_CALL(*pacer_, CreateProbeCluster(kInitialBitrateBps * 3));
     EXPECT_CALL(*pacer_, CreateProbeCluster(kInitialBitrateBps * 5));
     controller_->SetBweBitrates(0, kInitialBitrateBps, 5 * kInitialBitrateBps);
+    controller_->WaitOnTasks();
     testing::Mock::VerifyAndClearExpectations(pacer_.get());
     testing::Mock::VerifyAndClearExpectations(&observer_);
   }

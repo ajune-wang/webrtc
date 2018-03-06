@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67bc5a61_52f631ec",
+        "filename": "rtc_base/buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-03-06T00:49:15Z",
+      "side": 1,
+      "message": "If I capture \"offset\" to fix the Windows compilation error below, compilation fails on Linux with\n../../rtc_base/buffer_unittest.cc:458:24: error: lambda capture \u0027offset\u0027 is not required to be captured for this use [-Werror,-Wunused-lambda-capture]\n\nDo you have any suggestions how this should be handled?",
+      "revId": "eebbd3dd048cebe909cbddcee9aa9695787694c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2db08738_09ec7c6b",
+        "filename": "rtc_base/buffer_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5889
+      },
+      "writtenOn": "2018-03-06T00:49:15Z",
+      "side": 1,
+      "message": "Compilation on Windows fails with\n../../rtc_base/buffer_unittest.cc(460): error C3493: \u0027offset\u0027 cannot be implicitly captured because no default capture mode has been specified",
+      "revId": "eebbd3dd048cebe909cbddcee9aa9695787694c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

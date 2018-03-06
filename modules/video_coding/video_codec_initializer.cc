@@ -16,6 +16,8 @@
 #include "modules/video_coding/codecs/vp8/screenshare_layers.h"
 #include "modules/video_coding/codecs/vp8/simulcast_rate_allocator.h"
 #include "modules/video_coding/codecs/vp8/temporal_layers.h"
+#include "modules/video_coding/codecs/vp9/svc_layering_config.h"
+#include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "rtc_base/basictypes.h"
@@ -87,11 +89,14 @@ VideoCodecInitializer::CreateBitrateAllocator(
   std::unique_ptr<VideoBitrateAllocator> rate_allocator;
 
   switch (codec.codecType) {
-    case kVideoCodecVP8: {
+    case kVideoCodecVP8:
       // Set up default VP8 temporal layer factory, if not provided.
       rate_allocator.reset(
           new SimulcastRateAllocator(codec, std::move(tl_factory)));
-    } break;
+      break;
+    case kVideoCodecVP9:
+      rate_allocator.reset(new SvcRateAllocator(codec));
+      break;
     default:
       rate_allocator.reset(new DefaultVideoBitrateAllocator(codec));
   }
@@ -205,16 +210,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
   video_codec.timing_frame_thresholds = {kDefaultTimingFramesDelayMs,
                                          kDefaultOutlierFrameSizePercent};
   RTC_DCHECK_LE(streams.size(), kMaxSimulcastStreams);
-  if (video_codec.codecType == kVideoCodecVP9) {
-    // If the vector is empty, bitrates will be configured automatically.
-    RTC_DCHECK(config.spatial_layers.empty() ||
-               config.spatial_layers.size() ==
-                   video_codec.VP9()->numberOfSpatialLayers);
-    RTC_DCHECK_LE(video_codec.VP9()->numberOfSpatialLayers,
-                  kMaxSimulcastStreams);
-    for (size_t i = 0; i < config.spatial_layers.size(); ++i)
-      video_codec.spatialLayers[i] = config.spatial_layers[i];
-  }
+
   for (size_t i = 0; i < streams.size(); ++i) {
     SimulcastStream* sim_stream = &video_codec.simulcastStream[i];
     RTC_DCHECK_GT(streams[i].width, 0);
@@ -264,6 +260,30 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
 
   RTC_DCHECK_GT(streams[0].max_framerate, 0);
   video_codec.maxFramerate = streams[0].max_framerate;
+
+  if (video_codec.codecType == kVideoCodecVP9) {
+    // If the vector is empty, bitrates will be configured automatically.
+    RTC_DCHECK(config.spatial_layers.empty() ||
+               config.spatial_layers.size() ==
+                   video_codec.VP9()->numberOfSpatialLayers);
+    RTC_DCHECK_LE(video_codec.VP9()->numberOfSpatialLayers,
+                  kMaxSimulcastStreams);
+
+    std::vector<SpatialLayer> spatial_layers;
+    if (!config.spatial_layers.empty()) {
+      spatial_layers = config.spatial_layers;
+    } else {
+      spatial_layers =
+          ConfigureSvcLayering(video_codec.width, video_codec.height,
+                               video_codec.VP9()->numberOfSpatialLayers,
+                               video_codec.VP9()->numberOfTemporalLayers);
+    }
+
+    for (size_t i = 0; i < spatial_layers.size(); ++i) {
+      video_codec.spatialLayers[i] = spatial_layers[i];
+    }
+  }
+
   return video_codec;
 }
 

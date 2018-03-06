@@ -34,9 +34,9 @@ void PacerController::OnCongestionWindow(CongestionWindow congestion_window) {
   }
 }
 
-void PacerController::OnNetworkAvailability(NetworkAvailability msg) {
+void PacerController::OnNetworkAvailability(bool network_available) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  network_available_ = msg.network_available;
+  network_available_ = network_available;
   congested_ = false;
   UpdatePacerState();
 }

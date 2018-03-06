@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "476a59cb_ce59face",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-06T09:41:47Z",
+      "side": 1,
+      "message": "No, my thought was to not mention it precisely because it\u0027s such a rare beast---if we make the style rules too long by loading them up with exotic examples such as this one, they will become painful to read. I think it\u0027s enough to type out the rule that\u0027ll apply in 99% of cases (and make sure it\u0027s friendly and succinct), and simply not mention the 1%.\n\nWe might put a meta rule somewhere near the top where we explain this, but I seriously doubt it\u0027s a good idea to add words for the 1% cases to individual rules.\n\nDoes that make sense?",
+      "parentUuid": "a6badc9b_8210f4e5",
+      "range": {
+        "startLine": 37,
+        "startChar": 15,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "0762d32d96c127eb1ab9ad3989d5866b8ef2feca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c34dfb17_fb79719b",
         "filename": "style-guide.md",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "0762d32d96c127eb1ab9ad3989d5866b8ef2feca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fb18189_da1d59ec",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-06T09:41:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c34dfb17_fb79719b",
+      "range": {
+        "startLine": 48,
+        "startChar": 10,
+        "endLine": 48,
+        "endChar": 11
+      },
+      "revId": "0762d32d96c127eb1ab9ad3989d5866b8ef2feca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

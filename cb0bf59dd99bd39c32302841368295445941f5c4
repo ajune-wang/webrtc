@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "322ac35e_9ae429ba",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-06T18:06:38Z",
+      "side": 1,
+      "message": "This does address the iterator being invalidated, but I believe this could change the order of things.\n\n1. callbacks_ \u003d { A, B }\n2. callbacks is swapped, and we begin executing callback A.\n  2.1 In a we do another getStats(), so callbacks_ \u003d { C }. Because there is a cached result,\n      we start doing DeliverCachedReport() recursively.\n  2.2 callbacks is swapped, so we execute callback C.\n3. Continuing from where we left of, we execute callback B.\n\ngetStats()-order: A, B, C\nCallback execution order: A, C, B\n\nHowever, if you always pop the first element then any recursive call to DeliverCachedReport() finishes the work that was started by the first DeliverCachedReport(), and when you re-enter after the recursion you abort because callbacks_ is empty.",
+      "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

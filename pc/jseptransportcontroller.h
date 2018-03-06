@@ -135,6 +135,7 @@ class JsepTransportController : public sigslot::has_slots<>,
   bool GetStats(const std::string& mid, cricket::TransportStats* stats);
   void SetMetricsObserver(webrtc::MetricsObserverInterface* metrics_observer);
 
+  bool initial_offerer() const { return initial_offerer_ && *initial_offerer_; }
   // All of these signals are fired on the signaling thread.
 
   // If any transport failed => failed,
@@ -209,8 +210,8 @@ class JsepTransportController : public sigslot::has_slots<>,
   const cricket::JsepTransport2* GetJsepTransport(const std::string& mid) const;
   cricket::JsepTransport2* GetJsepTransport(const std::string& mid);
 
-  void MaybeCreateJsepTransport(const std::string& mid,
-                                const cricket::ContentInfo& content_info);
+  RTCError MaybeCreateJsepTransport(const std::string& mid,
+                                    const cricket::ContentInfo& content_info);
   void MaybeDestroyJsepTransport(const std::string& mid);
   void DestroyAllJsepTransports_n();
 
@@ -267,7 +268,7 @@ class JsepTransportController : public sigslot::has_slots<>,
   std::map<std::string, std::unique_ptr<cricket::JsepTransport2>>
       jsep_transports_by_mid_;
 
-  // Aggregate state for TransportChannelImpls.
+  // Aggregate state for Transports.
   cricket::IceConnectionState ice_connection_state_ =
       cricket::kIceConnectionConnecting;
   cricket::IceGatheringState ice_gathering_state_ = cricket::kIceGatheringNew;

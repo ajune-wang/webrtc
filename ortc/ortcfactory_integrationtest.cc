@@ -172,38 +172,6 @@ class OrtcFactoryIntegrationTest : public testing::Test {
                                   RtpTransportControllerPair());
   }
 
-  SrtpTransportPair CreateSrtpTransportPairAndSetKeys(
-      const RtpTransportParameters& parameters,
-      const UdpTransportPair& rtp_udp_transports) {
-    SrtpTransportPair srtp_transports = CreateSrtpTransportPair(
-        parameters, rtp_udp_transports, UdpTransportPair(),
-        RtpTransportControllerPair());
-    EXPECT_TRUE(srtp_transports.first->SetSrtpSendKey(kTestCryptoParams1).ok());
-    EXPECT_TRUE(
-        srtp_transports.first->SetSrtpReceiveKey(kTestCryptoParams2).ok());
-    EXPECT_TRUE(
-        srtp_transports.second->SetSrtpSendKey(kTestCryptoParams2).ok());
-    EXPECT_TRUE(
-        srtp_transports.second->SetSrtpReceiveKey(kTestCryptoParams1).ok());
-    return srtp_transports;
-  }
-
-  SrtpTransportPair CreateSrtpTransportPairAndSetMismatchingKeys(
-      const RtpTransportParameters& parameters,
-      const UdpTransportPair& rtp_udp_transports) {
-    SrtpTransportPair srtp_transports = CreateSrtpTransportPair(
-        parameters, rtp_udp_transports, UdpTransportPair(),
-        RtpTransportControllerPair());
-    EXPECT_TRUE(srtp_transports.first->SetSrtpSendKey(kTestCryptoParams1).ok());
-    EXPECT_TRUE(
-        srtp_transports.first->SetSrtpReceiveKey(kTestCryptoParams2).ok());
-    EXPECT_TRUE(
-        srtp_transports.second->SetSrtpSendKey(kTestCryptoParams1).ok());
-    EXPECT_TRUE(
-        srtp_transports.second->SetSrtpReceiveKey(kTestCryptoParams2).ok());
-    return srtp_transports;
-  }
-
   // Ends up using fake audio capture module, which was passed into OrtcFactory
   // on creation.
   rtc::scoped_refptr<webrtc::AudioTrackInterface> CreateLocalAudioTrack(
@@ -237,7 +205,7 @@ class OrtcFactoryIntegrationTest : public testing::Test {
   // kDefaultNumFrames frames to be received by all RtpReceivers.
   // If |expect_success| is false, simply waits for |kReceivingDuration|, and
   // stores the number of received frames in |received_audio_frame1_| etc.
-  void BasicTwoWayRtpSendersAndReceiversTest(RtpTransportPair srtp_transports,
+  void BasicTwoWayRtpSendersAndReceiversTest(RtpTransportPair rtp_transports,
                                              bool expect_success) {
     received_audio_frames1_ = 0;
     received_audio_frames2_ = 0;
@@ -245,13 +213,13 @@ class OrtcFactoryIntegrationTest : public testing::Test {
     rendered_video_frames2_ = 0;
     // Create all the senders and receivers (four per endpoint).
     auto audio_sender_result1 = ortc_factory1_->CreateRtpSender(
-        cricket::MEDIA_TYPE_AUDIO, srtp_transports.first.get());
+        cricket::MEDIA_TYPE_AUDIO, rtp_transports.first.get());
     auto video_sender_result1 = ortc_factory1_->CreateRtpSender(
-        cricket::MEDIA_TYPE_VIDEO, srtp_transports.first.get());
+        cricket::MEDIA_TYPE_VIDEO, rtp_transports.first.get());
     auto audio_receiver_result1 = ortc_factory1_->CreateRtpReceiver(
-        cricket::MEDIA_TYPE_AUDIO, srtp_transports.first.get());
+        cricket::MEDIA_TYPE_AUDIO, rtp_transports.first.get());
     auto video_receiver_result1 = ortc_factory1_->CreateRtpReceiver(
-        cricket::MEDIA_TYPE_VIDEO, srtp_transports.first.get());
+        cricket::MEDIA_TYPE_VIDEO, rtp_transports.first.get());
     ASSERT_TRUE(audio_sender_result1.ok());
     ASSERT_TRUE(video_sender_result1.ok());
     ASSERT_TRUE(audio_receiver_result1.ok());
@@ -262,13 +230,13 @@ class OrtcFactoryIntegrationTest : public testing::Test {
     auto video_receiver1 = video_receiver_result1.MoveValue();
 
     auto audio_sender_result2 = ortc_factory2_->CreateRtpSender(
-        cricket::MEDIA_TYPE_AUDIO, srtp_transports.second.get());
+        cricket::MEDIA_TYPE_AUDIO, rtp_transports.second.get());
     auto video_sender_result2 = ortc_factory2_->CreateRtpSender(
-        cricket::MEDIA_TYPE_VIDEO, srtp_transports.second.get());
+        cricket::MEDIA_TYPE_VIDEO, rtp_transports.second.get());
     auto audio_receiver_result2 = ortc_factory2_->CreateRtpReceiver(
-        cricket::MEDIA_TYPE_AUDIO, srtp_transports.second.get());
+        cricket::MEDIA_TYPE_AUDIO, rtp_transports.second.get());
     auto video_receiver_result2 = ortc_factory2_->CreateRtpReceiver(
-        cricket::MEDIA_TYPE_VIDEO, srtp_transports.second.get());
+        cricket::MEDIA_TYPE_VIDEO, rtp_transports.second.get());
     ASSERT_TRUE(audio_sender_result2.ok());
     ASSERT_TRUE(video_sender_result2.ok());
     ASSERT_TRUE(audio_receiver_result2.ok());
@@ -488,202 +456,7 @@ TEST_F(OrtcFactoryIntegrationTest,
   BasicTwoWayRtpSendersAndReceiversTest(std::move(rtp_transports),
                                         expect_success);
 }
-
-TEST_F(OrtcFactoryIntegrationTest,
-       BasicTwoWayAudioVideoSrtpSendersAndReceivers) {
-  auto udp_transports = CreateAndConnectUdpTransportPair();
-  auto srtp_transports = CreateSrtpTransportPairAndSetKeys(
-      MakeRtcpMuxParameters(), udp_transports);
-  bool expect_success = true;
-  BasicTwoWayRtpSendersAndReceiversTest(std::move(srtp_transports),
-                                        expect_success);
-}
 #endif
-
-// Tests that the packets cannot be decoded if the keys are mismatched.
-TEST_F(OrtcFactoryIntegrationTest, SrtpSendersAndReceiversWithMismatchingKeys) {
-  auto udp_transports = CreateAndConnectUdpTransportPair();
-  auto srtp_transports = CreateSrtpTransportPairAndSetMismatchingKeys(
-      MakeRtcpMuxParameters(), udp_transports);
-  bool expect_success = false;
-  BasicTwoWayRtpSendersAndReceiversTest(std::move(srtp_transports),
-                                        expect_success);
-  // No frames are expected to be decoded.
-  EXPECT_TRUE(received_audio_frames1_ == 0 && received_audio_frames2_ == 0 &&
-              rendered_video_frames1_ == 0 && rendered_video_frames2_ == 0);
-}
-
-// Tests that the frames cannot be decoded if only one side uses SRTP.
-TEST_F(OrtcFactoryIntegrationTest, OneSideSrtpSenderAndReceiver) {
-  auto rtcp_parameters = MakeRtcpMuxParameters();
-  auto udp_transports = CreateAndConnectUdpTransportPair();
-  auto rtcp_udp_transports = UdpTransportPair();
-  auto transport_controllers = RtpTransportControllerPair();
-  auto transport_result1 = ortc_factory1_->CreateRtpTransport(
-      rtcp_parameters, udp_transports.first.get(),
-      rtcp_udp_transports.first.get(), transport_controllers.first.get());
-  auto transport_result2 = ortc_factory2_->CreateSrtpTransport(
-      rtcp_parameters, udp_transports.second.get(),
-      rtcp_udp_transports.second.get(), transport_controllers.second.get());
-
-  auto rtp_transport = transport_result1.MoveValue();
-  auto srtp_transport = transport_result2.MoveValue();
-  EXPECT_TRUE(srtp_transport->SetSrtpSendKey(kTestCryptoParams1).ok());
-  EXPECT_TRUE(srtp_transport->SetSrtpReceiveKey(kTestCryptoParams2).ok());
-  bool expect_success = false;
-  BasicTwoWayRtpSendersAndReceiversTest(
-      {std::move(rtp_transport), std::move(srtp_transport)}, expect_success);
-
-  // The SRTP side is not expected to decode any audio or video frames.
-  // The RTP side is not expected to decode any video frames while it is
-  // possible that the encrypted audio frames can be accidentally decoded which
-  // is why received_audio_frames1_ is not validated.
-  EXPECT_TRUE(received_audio_frames2_ == 0 && rendered_video_frames1_ == 0 &&
-              rendered_video_frames2_ == 0);
-}
-
-// End-to-end test with two pairs of RTP senders and receivers, for audio and
-// video. Unlike the test above, this attempts to make the parameters as
-// complex as possible. The senders and receivers use the SRTP transport with
-// different keys.
-//
-// Uses non-muxed RTCP, with separate audio/video transports, and a full set of
-// parameters, as would normally be used in a PeerConnection.
-//
-// TODO(deadbeef): Update this test as more audio/video features become
-// supported.
-TEST_F(OrtcFactoryIntegrationTest,
-       FullTwoWayAudioVideoSrtpSendersAndReceivers) {
-  // We want four pairs of UDP transports for this test, for audio/video and
-  // RTP/RTCP.
-  auto audio_rtp_udp_transports = CreateAndConnectUdpTransportPair();
-  auto audio_rtcp_udp_transports = CreateAndConnectUdpTransportPair();
-  auto video_rtp_udp_transports = CreateAndConnectUdpTransportPair();
-  auto video_rtcp_udp_transports = CreateAndConnectUdpTransportPair();
-
-  // Since we have multiple RTP transports on each side, we need an RTP
-  // transport controller.
-  auto transport_controllers = CreateRtpTransportControllerPair();
-
-  RtpTransportParameters audio_rtp_transport_parameters;
-  audio_rtp_transport_parameters.rtcp.mux = false;
-  auto audio_srtp_transports = CreateSrtpTransportPair(
-      audio_rtp_transport_parameters, audio_rtp_udp_transports,
-      audio_rtcp_udp_transports, transport_controllers);
-
-  RtpTransportParameters video_rtp_transport_parameters;
-  video_rtp_transport_parameters.rtcp.mux = false;
-  video_rtp_transport_parameters.rtcp.reduced_size = true;
-  auto video_srtp_transports = CreateSrtpTransportPair(
-      video_rtp_transport_parameters, video_rtp_udp_transports,
-      video_rtcp_udp_transports, transport_controllers);
-
-  // Set keys for SRTP transports.
-  audio_srtp_transports.first->SetSrtpSendKey(kTestCryptoParams1);
-  audio_srtp_transports.first->SetSrtpReceiveKey(kTestCryptoParams2);
-  video_srtp_transports.first->SetSrtpSendKey(kTestCryptoParams3);
-  video_srtp_transports.first->SetSrtpReceiveKey(kTestCryptoParams4);
-
-  audio_srtp_transports.second->SetSrtpSendKey(kTestCryptoParams2);
-  audio_srtp_transports.second->SetSrtpReceiveKey(kTestCryptoParams1);
-  video_srtp_transports.second->SetSrtpSendKey(kTestCryptoParams4);
-  video_srtp_transports.second->SetSrtpReceiveKey(kTestCryptoParams3);
-
-  // Create all the senders and receivers (four per endpoint).
-  auto audio_sender_result1 = ortc_factory1_->CreateRtpSender(
-      cricket::MEDIA_TYPE_AUDIO, audio_srtp_transports.first.get());
-  auto video_sender_result1 = ortc_factory1_->CreateRtpSender(
-      cricket::MEDIA_TYPE_VIDEO, video_srtp_transports.first.get());
-  auto audio_receiver_result1 = ortc_factory1_->CreateRtpReceiver(
-      cricket::MEDIA_TYPE_AUDIO, audio_srtp_transports.first.get());
-  auto video_receiver_result1 = ortc_factory1_->CreateRtpReceiver(
-      cricket::MEDIA_TYPE_VIDEO, video_srtp_transports.first.get());
-  ASSERT_TRUE(audio_sender_result1.ok());
-  ASSERT_TRUE(video_sender_result1.ok());
-  ASSERT_TRUE(audio_receiver_result1.ok());
-  ASSERT_TRUE(video_receiver_result1.ok());
-  auto audio_sender1 = audio_sender_result1.MoveValue();
-  auto video_sender1 = video_sender_result1.MoveValue();
-  auto audio_receiver1 = audio_receiver_result1.MoveValue();
-  auto video_receiver1 = video_receiver_result1.MoveValue();
-
-  auto audio_sender_result2 = ortc_factory2_->CreateRtpSender(
-      cricket::MEDIA_TYPE_AUDIO, audio_srtp_transports.second.get());
-  auto video_sender_result2 = ortc_factory2_->CreateRtpSender(
-      cricket::MEDIA_TYPE_VIDEO, video_srtp_transports.second.get());
-  auto audio_receiver_result2 = ortc_factory2_->CreateRtpReceiver(
-      cricket::MEDIA_TYPE_AUDIO, audio_srtp_transports.second.get());
-  auto video_receiver_result2 = ortc_factory2_->CreateRtpReceiver(
-      cricket::MEDIA_TYPE_VIDEO, video_srtp_transports.second.get());
-  ASSERT_TRUE(audio_sender_result2.ok());
-  ASSERT_TRUE(video_sender_result2.ok());
-  ASSERT_TRUE(audio_receiver_result2.ok());
-  ASSERT_TRUE(video_receiver_result2.ok());
-  auto audio_sender2 = audio_sender_result2.MoveValue();
-  auto video_sender2 = video_sender_result2.MoveValue();
-  auto audio_receiver2 = audio_receiver_result2.MoveValue();
-  auto video_receiver2 = video_receiver_result2.MoveValue();
-
-  RTCError error = audio_sender1->SetTrack(
-      CreateLocalAudioTrack("audio", ortc_factory1_.get()));
-  EXPECT_TRUE(error.ok());
-  error = video_sender1->SetTrack(
-      CreateLocalVideoTrackAndFakeCapturer("video", ortc_factory1_.get()));
-  EXPECT_TRUE(error.ok());
-  error = audio_sender2->SetTrack(
-      CreateLocalAudioTrack("audio", ortc_factory2_.get()));
-  EXPECT_TRUE(error.ok());
-  error = video_sender2->SetTrack(
-      CreateLocalVideoTrackAndFakeCapturer("video", ortc_factory2_.get()));
-  EXPECT_TRUE(error.ok());
-
-  // Use different codecs in different directions for extra challenge.
-  RtpParameters opus_send_parameters = MakeFullOpusParameters();
-  RtpParameters isac_send_parameters = MakeFullIsacParameters();
-  RtpParameters vp8_send_parameters = MakeFullVp8Parameters();
-  RtpParameters vp9_send_parameters = MakeFullVp9Parameters();
-
-  // Remove "payload_type" from receive parameters. Receiver will need to
-  // discern the payload type from packets received.
-  RtpParameters opus_receive_parameters = opus_send_parameters;
-  RtpParameters isac_receive_parameters = isac_send_parameters;
-  RtpParameters vp8_receive_parameters = vp8_send_parameters;
-  RtpParameters vp9_receive_parameters = vp9_send_parameters;
-  opus_receive_parameters.encodings[0].codec_payload_type.reset();
-  isac_receive_parameters.encodings[0].codec_payload_type.reset();
-  vp8_receive_parameters.encodings[0].codec_payload_type.reset();
-  vp9_receive_parameters.encodings[0].codec_payload_type.reset();
-
-  // Configure the senders' and receivers' parameters.
-  //
-  // Note: Intentionally, the top codec in the receive parameters does not
-  // match the codec sent by the other side. If "Receive" is called with a list
-  // of codecs, the receiver should be prepared to receive any of them, not
-  // just the one on top.
-  EXPECT_TRUE(audio_receiver1->Receive(opus_receive_parameters).ok());
-  EXPECT_TRUE(video_receiver1->Receive(vp8_receive_parameters).ok());
-  EXPECT_TRUE(audio_receiver2->Receive(isac_receive_parameters).ok());
-  EXPECT_TRUE(video_receiver2->Receive(vp9_receive_parameters).ok());
-  EXPECT_TRUE(audio_sender1->Send(opus_send_parameters).ok());
-  EXPECT_TRUE(video_sender1->Send(vp8_send_parameters).ok());
-  EXPECT_TRUE(audio_sender2->Send(isac_send_parameters).ok());
-  EXPECT_TRUE(video_sender2->Send(vp9_send_parameters).ok());
-
-  FakeVideoTrackRenderer fake_video_renderer1(
-      static_cast<VideoTrackInterface*>(video_receiver1->GetTrack().get()));
-  FakeVideoTrackRenderer fake_video_renderer2(
-      static_cast<VideoTrackInterface*>(video_receiver2->GetTrack().get()));
-
-  // Senders and receivers are connected and configured; audio and video frames
-  // should be able to flow at this point.
-  EXPECT_TRUE_WAIT(
-      fake_audio_capture_module1_->frames_received() > kDefaultNumFrames &&
-          fake_video_renderer1.num_rendered_frames() > kDefaultNumFrames &&
-          fake_audio_capture_module2_->frames_received() > kDefaultNumFrames &&
-          fake_video_renderer2.num_rendered_frames() > kDefaultNumFrames,
-      kDefaultTimeout);
-}
-
 // TODO(deadbeef): End-to-end test for multiple senders/receivers of the same
 // media type, once that's supported. Currently, it is not because the
 // BaseChannel model relies on there being a single VoiceChannel and

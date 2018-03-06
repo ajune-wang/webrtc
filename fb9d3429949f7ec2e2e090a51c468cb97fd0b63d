@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fe5bd67_1c075d87",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-06T13:19:31Z",
+      "side": 1,
+      "message": "Spelling, \"sent\".",
+      "range": {
+        "startLine": 47,
+        "startChar": 20,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "fb9d3429949f7ec2e2e090a51c468cb97fd0b63d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b0ae981_c99dbce2",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-06T13:19:31Z",
+      "side": 1,
+      "message": "Just a question, is it essential to check this flag here? Do we expect any calls when the network is \"down\"? Or is sufficient to let the flag to enable/disable the periodic packets?\n\nWhat is config_.outgoing_transport expected to do if we call it when the network is down?",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 22
+      },
+      "revId": "fb9d3429949f7ec2e2e090a51c468cb97fd0b63d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72f26fd9_67179620",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-06T13:19:31Z",
+      "side": 1,
+      "message": "Not sure this makes sense. I would expect to either not set it, to have tests rely on the default value in rtcp_transceiver_config.h, or set it to false, based on above comment.",
+      "range": {
+        "startLine": 131,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 38
+      },
+      "revId": "fb9d3429949f7ec2e2e090a51c468cb97fd0b63d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

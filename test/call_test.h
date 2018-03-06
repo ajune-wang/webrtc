@@ -150,8 +150,8 @@ class CallTest : public ::testing::Test {
  private:
   rtc::scoped_refptr<AudioProcessing> apm_send_;
   rtc::scoped_refptr<AudioProcessing> apm_recv_;
-  rtc::scoped_refptr<test::FakeAudioDevice> fake_send_audio_device_;
-  rtc::scoped_refptr<test::FakeAudioDevice> fake_recv_audio_device_;
+  rtc::scoped_refptr<FakeAudioDevice> fake_send_audio_device_;
+  rtc::scoped_refptr<FakeAudioDevice> fake_recv_audio_device_;
 };
 
 class BaseTest : public RtpRtcpObserver {

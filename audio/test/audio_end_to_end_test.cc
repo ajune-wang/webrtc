@@ -44,12 +44,12 @@ size_t AudioEndToEndTest::GetNumFlexfecStreams() const {
 }
 
 std::unique_ptr<test::FakeAudioDevice::Capturer>
-    AudioEndToEndTest::CreateCapturer() {
+AudioEndToEndTest::CreateCapturer() {
   return test::FakeAudioDevice::CreatePulsedNoiseCapturer(32000, kSampleRate);
 }
 
 std::unique_ptr<test::FakeAudioDevice::Renderer>
-    AudioEndToEndTest::CreateRenderer() {
+AudioEndToEndTest::CreateRenderer() {
   return test::FakeAudioDevice::CreateDiscardRenderer(kSampleRate);
 }
 

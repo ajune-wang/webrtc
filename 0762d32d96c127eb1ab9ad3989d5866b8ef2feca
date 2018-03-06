@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c7a5a78f_5bb49f4f",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-06T10:01:27Z",
+      "side": 1,
+      "message": "It makes sense if we think about the document as a *guide*, not a list of rules. \n\nYou could consider adding a bullet under \"General advice\" at the top, saying \"Explaining rare cases where we have reason to violate these guide lines is out of scope for this document.\". But maybe it\u0027s not worth the weight of the additional words.",
+      "parentUuid": "476a59cb_ce59face",
+      "range": {
+        "startLine": 37,
+        "startChar": 15,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "0762d32d96c127eb1ab9ad3989d5866b8ef2feca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c34dfb17_fb79719b",
         "filename": "style-guide.md",
         "patchSetId": 3

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aab39b4c_34c522aa",
+        "filename": "sdk/android/native_api/sdk/jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-07T15:40:07Z",
+      "side": 1,
+      "message": "This code is the same as:\nrtc::InitializeSSL();\nwebrtc::InitAndroid(jvm);\n\nI would rather that webrtc::InitAndroid is shared between SDK and NDK users than introducing this new function that only bundles two function calls into one.\n\nOnJniUnLoad() is similar, we shouldn\u0027t even call jni::FreeGlobalClassReferenceHolder() so the function reduces to rtc::CleanupSSL().",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "4065776352a37cec8fa408c09731d34c981353a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

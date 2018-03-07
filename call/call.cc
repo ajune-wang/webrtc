@@ -268,6 +268,7 @@ class Call : public webrtc::Call,
 
   NetworkState audio_network_state_;
   NetworkState video_network_state_;
+  std::atomic<NetworkState> aggregate_network_state_;
 
   std::unique_ptr<RWLockWrapper> receive_crit_;
   // Audio, Video, and FlexFEC receive streams are owned by the client that
@@ -413,6 +414,7 @@ Call::Call(const Call::Config& config,
       config_(config),
       audio_network_state_(kNetworkDown),
       video_network_state_(kNetworkDown),
+      aggregate_network_state_(kNetworkDown),
       receive_crit_(RWLockWrapper::CreateRWLock()),
       send_crit_(RWLockWrapper::CreateRWLock()),
       event_log_(config.event_log),
@@ -909,7 +911,12 @@ Call::Stats Call::GetStats() const {
       &ssrcs, &recv_bandwidth);
   stats.send_bandwidth_bps = send_bandwidth;
   stats.recv_bandwidth_bps = recv_bandwidth;
-  stats.pacer_delay_ms = transport_send_->GetPacerQueuingDelayMs();
+  // TODO(sete): It is unclear if we only want to report queues if network is
+  // available.
+  bool network_up = aggregate_network_state_ == NetworkState::kNetworkUp;
+  stats.pacer_delay_ms =
+      network_up ? transport_send_->GetPacerQueuingDelayMs() : 0;
+
   stats.rtt_ms = call_stats_->rtcp_rtt_stats()->LastProcessedRtt();
   {
     rtc::CritScope cs(&bitrate_crit_);
@@ -1025,6 +1032,7 @@ void Call::UpdateAggregateNetworkState() {
   RTC_LOG(LS_INFO) << "UpdateAggregateNetworkState: aggregate_state="
                    << (aggregate_state == kNetworkUp ? "up" : "down");
 
+  aggregate_network_state_.store(aggregate_state);
   transport_send_->OnNetworkAvailability(aggregate_state == kNetworkUp);
 }
 

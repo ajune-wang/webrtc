@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e33ddc7a_4482dc79",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-07T16:14:56Z",
+      "side": 1,
+      "message": "This declaration should be moved to the .cc file.",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 27
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8ca8ad3_78b049e7",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-07T16:14:56Z",
+      "side": 1,
+      "message": "I would prefer to have this as a std::unique_ptr\u003cwebrtc::PeerConnectionObserver\u003e and remove the PCObserver declaration from this header file and only have it as an anonymous simple class in the .cc file.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 26
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

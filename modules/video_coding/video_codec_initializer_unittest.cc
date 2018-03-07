@@ -21,6 +21,8 @@ namespace webrtc {
 namespace {
 static const char* kVp8PayloadName = "VP8";
 static const int kVp8PayloadType = 100;
+static const char* kVp9PayloadName = "VP9";
+static const int kVp9PayloadType = 101;
 static const int kDefaultWidth = 1280;
 static const int kDefaultHeight = 720;
 static const int kDefaultFrameRate = 30;
@@ -79,8 +81,15 @@ class VideoCodecInitializerTest : public ::testing::Test {
           webrtc::VideoEncoderConfig::Vp8EncoderSpecificSettings>(vp8_settings);
       settings_.payload_name = kVp8PayloadName;
       settings_.payload_type = kVp8PayloadType;
-    } else if (type == VideoCodecType::kVideoCodecMultiplex) {
-    } else {
+    } else if (type == VideoCodecType::kVideoCodecVP9) {
+      VideoCodecVP9 vp9_settings = VideoEncoder::GetDefaultVp9Settings();
+      vp9_settings.numberOfSpatialLayers = num_spatial_streams;
+      vp9_settings.numberOfTemporalLayers = num_temporal_streams;
+      config_.encoder_specific_settings = new rtc::RefCountedObject<
+          webrtc::VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9_settings);
+      settings_.payload_name = kVp9PayloadName;
+      settings_.payload_type = kVp9PayloadType;
+    } else if (type != VideoCodecType::kVideoCodecMultiplex) {
       ADD_FAILURE() << "Unexpected codec type: " << type;
     }
   }
@@ -261,6 +270,32 @@ TEST_F(VideoCodecInitializerTest, SingleStreamMultiplexCodec) {
   SetUpFor(VideoCodecType::kVideoCodecMultiplex, 1, 1, true);
   streams_.push_back(DefaultStream());
   EXPECT_TRUE(InitializeCodec());
+}
+
+TEST_F(VideoCodecInitializerTest, SvcDefaultLayering) {
+  SetUpFor(VideoCodecType::kVideoCodecVP9, 3, 3, false);
+  VideoStream stream = DefaultStream();
+  stream.num_temporal_layers = 3;
+  streams_.push_back(stream);
+
+  EXPECT_TRUE(InitializeCodec());
+  EXPECT_EQ(codec_out_.VP9()->numberOfSpatialLayers, 3u);
+  EXPECT_EQ(codec_out_.VP9()->numberOfTemporalLayers, 3u);
+}
+
+TEST_F(VideoCodecInitializerTest, SvcAdjustedLayering) {
+  SetUpFor(VideoCodecType::kVideoCodecVP9, 3, 3, false);
+  VideoStream stream = DefaultStream();
+  stream.num_temporal_layers = 3;
+  // Set resolution which is only enough to produce 2 spatial layers.
+  stream.width = kMinVp9SpatialLayerWidth << (*stream.num_temporal_layers - 1);
+  stream.height = kMinVp9SpatialLayerHeight
+                  << (*stream.num_temporal_layers - 1);
+
+  streams_.push_back(stream);
+
+  EXPECT_TRUE(InitializeCodec());
+  EXPECT_EQ(codec_out_.VP9()->numberOfSpatialLayers, 2u);
 }
 
 }  // namespace webrtc

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce44dc9f_039efee6",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-07T11:47:47Z",
+      "side": 1,
+      "message": "I think at least some version of this should probably in some api/ subfolder, something like api/network_control. Not necessarily in the pc api, but at least for using the transport controller send.",
+      "parentUuid": "7a3f68df_81bc87a7",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 36
+      },
+      "revId": "e6a1f1845829eddab2107ccee186a46e3c9f5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01b58f9b_fbf67675",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-07T09:32:01Z",
       "side": 1,
       "message": "controller_factory_ seems pointless here. I take it you plan to inject it in next cl?",
+      "range": {
+        "startLine": 291,
+        "startChar": 6,
+        "endLine": 291,
+        "endChar": 25
+      },
+      "revId": "e6a1f1845829eddab2107ccee186a46e3c9f5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56c0431e_c3965fe7",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-07T11:47:47Z",
+      "side": 1,
+      "message": "Since the construction of GoogCC is delayed it will be constructed here. It will be conditional on bbr experiment in later CLS. Here it just serves to not have to create two factories for initialization of controller and process interval.",
+      "parentUuid": "01b58f9b_fbf67675",
       "range": {
         "startLine": 291,
         "startChar": 6,

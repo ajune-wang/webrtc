@@ -16,6 +16,24 @@
       "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ae5c46e_db119559",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-07T10:40:45Z",
+      "side": 1,
+      "message": "Note that this comment was not resolved before merge.",
+      "parentUuid": "322ac35e_9ae429ba",
+      "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

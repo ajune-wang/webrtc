@@ -34,6 +34,24 @@
       "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9c24d1_020774a5",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-07T18:07:35Z",
+      "side": 1,
+      "message": "Sorry I missed this. I\u0027m not sure it\u0027s a problem, though. Nothing promises the order of \"A, B, C\", per se. And there are things that may be more important than order.\n\nFor one, with the \"pop first element\" approach, the B callback would end up invoked from within the seemingly unrelated A callback. The application may not be prepared for this; it may be in some indeterminate state.\n\nAlso, suppose this happens:\n\n1. Application calls GetStats.\n2. Callback invoked, but for whatever reason it takes longer than 50ms.\n3. Before the callback returns control, GetStats ends up called again. Starts asynchronously producing results.\n4. Callback returns, and the new callback is invoked immediately with the cached report.\n5. Stats collector finishes asynchronously producing results, calls DeliverCachedReport and hits DCHECK(!callbacks_.empty)\n\nMaybe the solution is to AsyncInvoke \"DeliverCachedReport\". I\u0027ll make a proof of concept CL to show what I\u0027m thinking",
+      "parentUuid": "3ae5c46e_db119559",
+      "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

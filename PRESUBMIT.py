@@ -403,6 +403,28 @@ def CheckNoPackageBoundaryViolations(input_api, gn_files, output_api):
         long_text='\n\n'.join(str(err) for err in errors))]
   return []
 
+def CheckNoStringStreamIsAdded(input_api, output_api):
+  """Make sure that no more dependencies on stringstream are added."""
+  files = []
+  pattern = input_api.re.compile(r'#include <sstream>')
+  no_presubmit = input_api.re.compile(r'  // no-presubmit-check')
+  for f in input_api.AffectedSourceFiles(input_api.FilterSourceFile):
+    if f.LocalPath() == 'PRESUBMIT.py':
+      continue
+    for line in f.NewContents():
+      if pattern.search(line) and not no_presubmit.search(line):
+        files.append(f)
+  if files:
+    return [output_api.PresubmitError(
+        'Usage of <sstream> in WebRTC is deprecated.\n'
+        'If you are not adding a dependency on it (e.g. you are just moving '
+        'existing code), you can add a comment next to the inclusion:\n\n'
+        '#include <sstream>  // no-presubmit-check\n\n'
+        'If you are adding the dependency please consider using '
+        'rtc::SimpleStringBuilder (rtc_base/string/string_builder.h).\n'
+        'Affected files:\n', files)]
+  return []
+
 def CheckPublicDepsIsNotUsed(gn_files, output_api):
   result = []
   error_msg = ('public_deps is not allowed in WebRTC BUILD.gn files because '
@@ -732,6 +754,7 @@ def CommonChecks(input_api, output_api):
   results.extend(CheckUsageOfGoogleProtobufNamespace(input_api, output_api))
   results.extend(CheckOrphanHeaders(input_api, output_api))
   results.extend(CheckNewlineAtTheEndOfProtoFiles(input_api, output_api))
+  results.extend(CheckNoStringStreamIsAdded(input_api, output_api))
   return results
 
 

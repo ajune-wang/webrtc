@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5c9226f_77ec741c",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:51:30Z",
+      "side": 1,
+      "message": "Maybe return an optional?\nThe in the code below you can use\nconst size_t num_spatial_layers \u003d GetVp9SpatialLayersFromFieldTrial().valueOr(parameters_.config.rtp.ssrcs.size())",
+      "range": {
+        "startLine": 364,
+        "startChar": 77,
+        "endLine": 365,
+        "endChar": 0
+      },
+      "revId": "3a6be9cffdf6dfa00e0319f2bcb2db052efbe83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708ce90a_230a92fa",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:51:30Z",
+      "side": 1,
+      "message": "When would this become 0? Can we do a CHECK there instead?",
+      "range": {
+        "startLine": 477,
+        "startChar": 75,
+        "endLine": 477,
+        "endChar": 0
+      },
+      "revId": "3a6be9cffdf6dfa00e0319f2bcb2db052efbe83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

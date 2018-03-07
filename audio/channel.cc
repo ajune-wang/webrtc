@@ -111,6 +111,13 @@ class RtcpRttStatsProxy final : public RtcpRttStats {
     return rtcp_rtt_stats_->LastProcessedRtt();
   }
 
+  int64_t MinRttMs() const override {
+    rtc::CritScope lock(&crit_);
+    if (!rtcp_rtt_stats_)
+      return -1;
+    return rtcp_rtt_stats_->MinRttMs();
+  }
+
   void SetRtcpRttStats(RtcpRttStats* rtcp_rtt_stats) {
     rtc::CritScope lock(&crit_);
     rtcp_rtt_stats_ = rtcp_rtt_stats;

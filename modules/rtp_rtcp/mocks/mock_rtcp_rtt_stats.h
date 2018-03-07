@@ -20,6 +20,7 @@ class MockRtcpRttStats : public RtcpRttStats {
  public:
   MOCK_METHOD1(OnRttUpdate, void(int64_t rtt));
   MOCK_CONST_METHOD0(LastProcessedRtt, int64_t());
+  MOCK_CONST_METHOD0(MinRttMs, int64_t());
 };
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_MOCKS_MOCK_RTCP_RTT_STATS_H_

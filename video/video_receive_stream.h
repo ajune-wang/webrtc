@@ -57,6 +57,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
                      PacketRouter* packet_router,
                      VideoReceiveStream::Config config,
                      ProcessThread* process_thread,
+                     rtc::TaskQueue* task_queue,
                      CallStats* call_stats);
   ~VideoReceiveStream() override;
 

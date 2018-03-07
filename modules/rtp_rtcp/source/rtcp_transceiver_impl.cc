@@ -15,6 +15,7 @@
 #include "api/call/transport.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_nack_stats.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
@@ -47,6 +48,8 @@ struct RtcpTransceiverImpl::RemoteSenderState {
   uint8_t fir_sequence_number = 0;
   rtc::Optional<SenderReportTimes> last_received_sender_report;
   std::vector<MediaReceiverRtcpObserver*> observers;
+  RtcpNackStats nack_stats;
+  RtcpPacketTypeCounter packets_counter;
 };
 
 // Helper to put several RTCP packets into lower layer datagram composing
@@ -179,11 +182,26 @@ void RtcpTransceiverImpl::SendNack(uint32_t ssrc,
   RTC_DCHECK(!sequence_numbers.empty());
   if (!ready_to_send_)
     return;
+  if (config_.sent_packet_type_counter_observer) {
+    RemoteSenderState& remote_sender = remote_senders_[ssrc];
+    for (uint16_t packet_id : sequence_numbers)
+      remote_sender.nack_stats.ReportRequest(packet_id);
+    auto& packet_counter = remote_sender.packets_counter;
+    packet_counter.nack_packets++;
+    packet_counter.nack_requests = remote_sender.nack_stats.requests();
+    packet_counter.unique_nack_requests =
+        remote_sender.nack_stats.unique_requests();
+  }
+
   rtcp::Nack nack;
   nack.SetSenderSsrc(config_.feedback_ssrc);
   nack.SetMediaSsrc(ssrc);
   nack.SetPacketIds(std::move(sequence_numbers));
   SendImmediateFeedback(nack);
+
+  if (config_.sent_packet_type_counter_observer)
+    config_.sent_packet_type_counter_observer->RtcpPacketTypesCounterUpdated(
+        ssrc, remote_senders_[ssrc].packets_counter);
 }
 
 void RtcpTransceiverImpl::SendPictureLossIndication(uint32_t ssrc) {
@@ -192,7 +210,15 @@ void RtcpTransceiverImpl::SendPictureLossIndication(uint32_t ssrc) {
   rtcp::Pli pli;
   pli.SetSenderSsrc(config_.feedback_ssrc);
   pli.SetMediaSsrc(ssrc);
+
   SendImmediateFeedback(pli);
+
+  if (config_.sent_packet_type_counter_observer) {
+    auto& packet_counter = remote_senders_[ssrc].packets_counter;
+    packet_counter.pli_packets++;
+    config_.sent_packet_type_counter_observer->RtcpPacketTypesCounterUpdated(
+        ssrc, packet_counter);
+  }
 }
 
 void RtcpTransceiverImpl::SendFullIntraRequest(
@@ -202,9 +228,16 @@ void RtcpTransceiverImpl::SendFullIntraRequest(
     return;
   rtcp::Fir fir;
   fir.SetSenderSsrc(config_.feedback_ssrc);
-  for (uint32_t media_ssrc : ssrcs)
+  for (uint32_t media_ssrc : ssrcs) {
     fir.AddRequestTo(media_ssrc,
                      remote_senders_[media_ssrc].fir_sequence_number++);
+    if (config_.sent_packet_type_counter_observer) {
+      auto& packet_counter = remote_senders_[media_ssrc].packets_counter;
+      packet_counter.fir_packets++;
+      config_.sent_packet_type_counter_observer->RtcpPacketTypesCounterUpdated(
+          media_ssrc, packet_counter);
+    }
+  }
   SendImmediateFeedback(fir);
 }
 
@@ -217,6 +250,9 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
       break;
     case rtcp::SenderReport::kPacketType:
       HandleSenderReport(rtcp_packet_header, now_us);
+      break;
+    case rtcp::Sdes::kPacketType:
+      HandleSdes(rtcp_packet_header);
       break;
     case rtcp::ExtendedReports::kPacketType:
       HandleExtendedReports(rtcp_packet_header, now_us);
@@ -253,6 +289,20 @@ void RtcpTransceiverImpl::HandleSenderReport(
   for (MediaReceiverRtcpObserver* observer : remote_sender.observers)
     observer->OnSenderReport(sender_report.sender_ssrc(), sender_report.ntp(),
                              sender_report.rtp_timestamp());
+}
+
+void RtcpTransceiverImpl::HandleSdes(
+    const rtcp::CommonHeader& rtcp_packet_header) {
+  rtcp::Sdes sdes;
+  if (!sdes.Parse(rtcp_packet_header))
+    return;
+  for (const rtcp::Sdes::Chunk& chunk : sdes.chunks()) {
+    auto it = remote_senders_.find(chunk.ssrc);
+    if (it == remote_senders_.end())
+      continue;
+    for (MediaReceiverRtcpObserver* observer : it->second.observers)
+      observer->OnCname(chunk.ssrc, chunk.cname);
+  }
 }
 
 void RtcpTransceiverImpl::HandleExtendedReports(

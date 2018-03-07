@@ -11,6 +11,7 @@
 #include "modules/rtp_rtcp/source/rtp_sender.h"
 
 #include <algorithm>
+#include <string>
 #include <utility>
 
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.h"
@@ -316,6 +317,9 @@ int RTPSender::RtxStatus() const {
 void RTPSender::SetRtxSsrc(uint32_t ssrc) {
   rtc::CritScope lock(&send_critsect_);
   ssrc_rtx_.emplace(ssrc);
+  if (mid_oracle_) {
+    mid_oracle_->SetSsrcRtx(ssrc);
+  }
 }
 
 uint32_t RTPSender::RtxSsrc() const {
@@ -698,6 +702,9 @@ void RTPSender::OnReceivedNack(
 void RTPSender::OnReceivedRtcpReportBlocks(
     const ReportBlockList& report_blocks) {
   playout_delay_oracle_.OnReceivedRtcpReportBlocks(report_blocks);
+  if (mid_oracle_) {
+    mid_oracle_->OnReceivedRtcpReportBlocks(report_blocks);
+  }
 }
 
 // Called from pacer when we can send the packet.
@@ -1042,6 +1049,9 @@ std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket() const {
     packet->SetExtension<PlayoutDelayLimits>(
         playout_delay_oracle_.playout_delay());
   }
+  if (mid_oracle_ && mid_oracle_->send_mid()) {
+    packet->SetExtension<RtpMid>(mid_oracle_->mid());
+  }
   return packet;
 }
 
@@ -1112,12 +1122,33 @@ void RTPSender::SetSSRC(uint32_t ssrc) {
   if (!sequence_number_forced_) {
     sequence_number_ = random_.Rand(1, kMaxInitRtpSeqNumber);
   }
+  if (mid_oracle_) {
+    mid_oracle_->SetSsrc(ssrc);
+  }
 }
 
 uint32_t RTPSender::SSRC() const {
   rtc::CritScope lock(&send_critsect_);
   RTC_DCHECK(ssrc_);
   return *ssrc_;
+}
+
+void RTPSender::SetMid(const std::string& mid) {
+  // This is configured via the API.
+  rtc::CritScope lock(&send_critsect_);
+  RTC_DCHECK(rtp_header_extension_map_.IsRegistered(kRtpExtensionMid));
+
+  if (mid_oracle_ && mid_oracle_->mid() == mid) {
+    return;  // Since it's the same MID, don't reset anything.
+  }
+
+  mid_oracle_ = rtc::MakeUnique<MidOracle>(mid);
+  if (ssrc_) {
+    mid_oracle_->SetSsrc(*ssrc_);
+  }
+  if (ssrc_rtx_) {
+    mid_oracle_->SetSsrcRtx(*ssrc_rtx_);
+  }
 }
 
 rtc::Optional<uint32_t> RTPSender::FlexfecSsrc() const {
@@ -1203,6 +1234,11 @@ std::unique_ptr<RtpPacketToSend> RTPSender::BuildRtxPacket(
 
     // Replace SSRC.
     rtx_packet->SetSsrc(*ssrc_rtx_);
+
+    // Possibly include the MID header extension.
+    if (mid_oracle_ && mid_oracle_->send_mid_rtx()) {
+      rtx_packet->SetExtension<RtpMid>(mid_oracle_->mid());
+    }
   }
 
   uint8_t* rtx_payload =

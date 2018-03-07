@@ -13,6 +13,7 @@
 
 #include <map>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -23,6 +24,7 @@
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/mid_oracle.h"
 #include "modules/rtp_rtcp/source/playout_delay_oracle.h"
 #include "modules/rtp_rtcp/source/rtp_packet_history.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
@@ -93,6 +95,8 @@ class RTPSender {
   void SetTimestampOffset(uint32_t timestamp);
 
   void SetSSRC(uint32_t ssrc);
+
+  void SetMid(const std::string& mid);
 
   uint16_t SequenceNumber() const;
   void SetSequenceNumber(uint16_t seq);
@@ -284,6 +288,7 @@ class RTPSender {
   // and decides whether the current RTP frame should include the playout
   // delay extension on header.
   PlayoutDelayOracle playout_delay_oracle_;
+  std::unique_ptr<MidOracle> mid_oracle_;
 
   RtpPacketHistory packet_history_;
   // TODO(brandtr): Remove |flexfec_packet_history_| when the FlexfecSender
@@ -305,6 +310,8 @@ class RTPSender {
   RtcEventLog* const event_log_;
   SendPacketObserver* const send_packet_observer_;
   BitrateStatisticsObserver* const bitrate_callback_;
+
+  void MaybeAddMidHeaderExtension(RtpPacketToSend* packet_to_send);
 
   // RTP variables
   uint32_t timestamp_offset_ RTC_GUARDED_BY(send_critsect_);

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6021d0d_555545d4",
+        "filename": "modules/audio_device/include/test_audio_device_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-07T10:33:47Z",
+      "side": 1,
+      "message": "I don\u0027t think you can, because you\u0027re defining stuff here that was declared in the header, and (1) you\u0027re not allowed to use unnamed namespaces in headers, and (2) even if you were, the unnamed namespace in the header would be different from the unnamed namespace here.\n\nWhat you could conceivably do, once the header isn\u0027t #included in any of our API headers anymore, is to get rid of webrtc_impl and just put this in the webrtc namespace. But I would argue that the gain from that is negligible, so that it isn\u0027t worth cluttering the code with a comment like this one.",
+      "revId": "a5f3d22e34058606c18dd2c74ed8d7b8073e3c5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

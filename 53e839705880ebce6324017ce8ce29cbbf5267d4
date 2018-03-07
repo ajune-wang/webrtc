@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ed943d8_03b51fb5",
+        "filename": "modules/congestion_controller/rtp/DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-07T16:45:00Z",
+      "side": 1,
+      "message": "It looks like this will create a DEPS cycle and I think we\u0027re trying to get rid of the ones we have. If you think we need to do this, please run it by phoglund@ first.",
+      "range": {
+        "startLine": 2,
+        "startChar": 4,
+        "endLine": 2,
+        "endChar": 8
+      },
+      "revId": "53e839705880ebce6324017ce8ce29cbbf5267d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39d8bb72_7407a561",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-07T16:45:00Z",
+      "side": 1,
+      "message": "Why do we have to signal this?\nAre we guarnateed that we get a call to SignalNetworkState(kNetworkUp) before the call starts?",
+      "range": {
+        "startLine": 299,
+        "startChar": 2,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "53e839705880ebce6324017ce8ce29cbbf5267d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

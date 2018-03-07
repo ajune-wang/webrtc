@@ -17,6 +17,7 @@
 #include <memory>
 #include <vector>
 
+#include "call/bitrate_constraints.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/congestion_controller/include/send_side_congestion_controller_interface.h"
 #include "modules/congestion_controller/network_control/include/network_control.h"
@@ -59,9 +60,9 @@ class SendSideCongestionController
       public RtcpBandwidthObserver {
  public:
   SendSideCongestionController(const Clock* clock,
-                               NetworkChangedObserver* observer,
                                RtcEventLog* event_log,
-                               PacedSender* pacer);
+                               PacedSender* pacer,
+                               BitrateConstraints constraints);
   ~SendSideCongestionController() override;
 
   void RegisterPacketFeedbackObserver(
@@ -137,12 +138,6 @@ class SendSideCongestionController
   void WaitOnTasks();
 
  private:
-  SendSideCongestionController(
-      const Clock* clock,
-      RtcEventLog* event_log,
-      PacedSender* pacer,
-      NetworkControllerFactoryInterface::uptr controller_factory);
-
   void UpdateStreamsConfig();
   void WaitOnTask(std::function<void()> closure);
   void MaybeUpdateOutstandingData();
@@ -155,6 +150,7 @@ class SendSideCongestionController
 
   const std::unique_ptr<PacerController> pacer_controller_;
   const std::unique_ptr<send_side_cc_internal::ControlHandler> control_handler;
+  const std::unique_ptr<NetworkControllerFactoryInterface> controller_factory_;
   const std::unique_ptr<NetworkControllerInterface> controller_;
 
   TimeDelta process_interval_;

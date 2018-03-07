@@ -39,6 +39,7 @@ rtc_static_library("congestion_controller") {
     "../:congestion_controller",
     "../..:module_api",
     "../../..:webrtc_common",
+    "../../../call:rtp_interfaces",
     "../../../rtc_base:checks",
     "../../../rtc_base:rate_limiter",
     "../../../rtc_base:rtc_task_queue_api",

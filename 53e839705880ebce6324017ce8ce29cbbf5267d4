@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "86fa0a7c_3715e5b7",
+        "filename": "modules/congestion_controller/rtp/DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-07T18:05:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4ed943d8_03b51fb5",
+      "range": {
+        "startLine": 2,
+        "startChar": 4,
+        "endLine": 2,
+        "endChar": 8
+      },
+      "revId": "53e839705880ebce6324017ce8ce29cbbf5267d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39d8bb72_7407a561",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "53e839705880ebce6324017ce8ce29cbbf5267d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43d16a6a_e827119d",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-07T18:05:15Z",
+      "side": 1,
+      "message": "Yes, it was previously signaled by Call before doing anything else. This will be accomplished by initializing into the down state in a later CL.",
+      "parentUuid": "39d8bb72_7407a561",
+      "range": {
+        "startLine": 299,
+        "startChar": 2,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "53e839705880ebce6324017ce8ce29cbbf5267d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

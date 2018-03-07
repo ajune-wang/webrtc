@@ -263,7 +263,6 @@ TEST(RtpTransportTest, SignalHandledRtpPayloadType) {
   rtc::FakePacketTransport fake_rtp("fake_rtp");
   fake_rtp.SetDestination(&fake_rtp, true);
   transport.SetRtpPacketTransport(&fake_rtp);
-  transport.AddHandledPayloadType(0x11);
 
   // An rtp packet.
   const rtc::PacketOptions options;
@@ -271,23 +270,6 @@ TEST(RtpTransportTest, SignalHandledRtpPayloadType) {
   rtc::Buffer rtp_data(kRtpData, kRtpLen);
   fake_rtp.SendPacket(rtp_data.data<char>(), kRtpLen, options, flags);
   EXPECT_EQ(1, observer.rtp_count());
-  EXPECT_EQ(0, observer.rtcp_count());
-}
-
-// Test that SignalPacketReceived does not fire when a RTP packet with an
-// unhandled payload type is received.
-TEST(RtpTransportTest, DontSignalUnhandledRtpPayloadType) {
-  RtpTransport transport(kMuxDisabled);
-  SignalPacketReceivedCounter observer(&transport);
-  rtc::FakePacketTransport fake_rtp("fake_rtp");
-  fake_rtp.SetDestination(&fake_rtp, true);
-  transport.SetRtpPacketTransport(&fake_rtp);
-
-  const rtc::PacketOptions options;
-  const int flags = 0;
-  rtc::Buffer rtp_data(kRtpData, kRtpLen);
-  fake_rtp.SendPacket(rtp_data.data<char>(), kRtpLen, options, flags);
-  EXPECT_EQ(0, observer.rtp_count());
   EXPECT_EQ(0, observer.rtcp_count());
 }
 

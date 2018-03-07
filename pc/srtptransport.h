@@ -16,7 +16,9 @@
 #include <utility>
 #include <vector>
 
+#include "api/ortc/srtptransportinterface.h"
 #include "p2p/base/icetransportinternal.h"
+#include "pc/rtptransport.h"
 #include "pc/rtptransportinternaladapter.h"
 #include "pc/srtpfilter.h"
 #include "pc/srtpsession.h"
@@ -26,11 +28,38 @@ namespace webrtc {
 
 // This class will eventually be a wrapper around RtpTransportInternal
 // that protects and unprotects sent and received RTP packets.
-class SrtpTransport : public RtpTransportInternalAdapter {
+class SrtpTransport : public RtpTransportInternalAdapter,
+                      public SrtpTransportInterface {
  public:
   explicit SrtpTransport(bool rtcp_mux_enabled);
 
-  explicit SrtpTransport(std::unique_ptr<RtpTransportInternal> rtp_transport);
+  explicit SrtpTransport(std::unique_ptr<RtpTransport> rtp_transport);
+
+  // SrtpTransportInterface overrides.
+  PacketTransportInterface* GetRtpPacketTransport() const override {
+    return rtp_transport_->GetRtpPacketTransport();
+  }
+  PacketTransportInterface* GetRtcpPacketTransport() const override {
+    return rtp_transport_->GetRtcpPacketTransport();
+  }
+  // TODO(zstein): Use these RtcpParameters for configuration elsewhere.
+  RTCError SetParameters(const RtpTransportParameters& parameters) override {
+    return rtp_transport_->SetParameters(parameters);
+  }
+  RtpTransportParameters GetParameters() const override {
+    return rtp_transport_->GetParameters();
+  }
+
+  RTCError SetSrtpSendKey(const cricket::CryptoParams& params) override {
+    // TODO(zhihuang): Implement this and remove the RtpTransportAdapter.
+    RTC_NOTREACHED();
+    return RTCError::OK();
+  }
+  RTCError SetSrtpReceiveKey(const cricket::CryptoParams& params) override {
+    // TODO(zhihuang): Implement this and remove the RtpTransportAdapter.
+    RTC_NOTREACHED();
+    return RTCError::OK();
+  }
 
   bool SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
                      const rtc::PacketOptions& options,
@@ -42,7 +71,7 @@ class SrtpTransport : public RtpTransportInternalAdapter {
 
   // The transport becomes active if the send_session_ and recv_session_ are
   // created.
-  bool IsActive() const;
+  bool IsSrtpActive() const override;
 
   // TODO(zstein): Remove this when we remove RtpTransportAdapter.
   RtpTransportAdapter* GetInternal() override { return nullptr; }
@@ -136,7 +165,7 @@ class SrtpTransport : public RtpTransportInternalAdapter {
   bool UnprotectRtcp(void* data, int in_len, int* out_len);
 
   const std::string content_name_;
-  std::unique_ptr<RtpTransportInternal> rtp_transport_;
+  std::unique_ptr<RtpTransport> rtp_transport_;
 
   std::unique_ptr<cricket::SrtpSession> send_session_;
   std::unique_ptr<cricket::SrtpSession> recv_session_;

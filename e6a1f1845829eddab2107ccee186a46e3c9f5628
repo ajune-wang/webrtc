@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a3f68df_81bc87a7",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-07T09:32:01Z",
+      "side": 1,
+      "message": "Any idea on what\u0027s the right place is for this? It\u0027s part of CallConfig, which isn\u0027t quite an api class. Would it be ok to move it to modules/congestion_controller? Or should it be exposed in some way in the peerconnection api?",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 36
+      },
+      "revId": "e6a1f1845829eddab2107ccee186a46e3c9f5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01b58f9b_fbf67675",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-07T09:32:01Z",
+      "side": 1,
+      "message": "controller_factory_ seems pointless here. I take it you plan to inject it in next cl?",
+      "range": {
+        "startLine": 291,
+        "startChar": 6,
+        "endLine": 291,
+        "endChar": 25
+      },
+      "revId": "e6a1f1845829eddab2107ccee186a46e3c9f5628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "582a9ec4_8fc7e093",
+        "filename": "modules/congestion_controller/network_control/include/network_control.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-07T16:32:13Z",
+      "side": 1,
+      "message": "nit: remove extra space",
+      "range": {
+        "startLine": 40,
+        "startChar": 40,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "cef6c99405d473c2b8641784633c3c24fd0e166a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e7ab63_fd384b62",
+        "filename": "modules/congestion_controller/network_control/include/network_control.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-07T16:32:13Z",
+      "side": 1,
+      "message": "Please document how these members are supposed to be interpreted. Other implementations will not be able to use them otherwise.",
+      "range": {
+        "startLine": 43,
+        "startChar": 24,
+        "endLine": 43,
+        "endChar": 35
+      },
+      "revId": "cef6c99405d473c2b8641784633c3c24fd0e166a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "a5f3d22e34058606c18dd2c74ed8d7b8073e3c5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc67f64c_43306388",
+        "filename": "modules/audio_device/include/test_audio_device_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-03-07T11:21:33Z",
+      "side": 1,
+      "message": "I\u0027m planing to remove the test_audio_device_impl.h header after merge implementation with declaration in that file. After that it will be possible to put it into anonymous namespace",
+      "parentUuid": "b6021d0d_555545d4",
+      "revId": "a5f3d22e34058606c18dd2c74ed8d7b8073e3c5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

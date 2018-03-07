@@ -16,6 +16,24 @@
       "revId": "0133d46847430bd9cc93cd99c6da36f0ed49a2a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc92c7a3_b501a698",
+        "filename": "modules/audio_device/include/fake_audio_device.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-03-07T11:21:33Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "1dc0cbb7_e797f6ea",
+      "revId": "0133d46847430bd9cc93cd99c6da36f0ed49a2a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -52,6 +52,24 @@
       "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab6e0c9a_17c852bd",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-07T18:28:13Z",
+      "side": 1,
+      "message": "Here\u0027s a CL: https://webrtc-review.googlesource.com/#/c/src/+/60473",
+      "parentUuid": "2f9c24d1_020774a5",
+      "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

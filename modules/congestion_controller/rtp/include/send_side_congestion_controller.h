@@ -92,8 +92,6 @@ class SendSideCongestionController
   RtcpBandwidthObserver* GetBandwidthObserver() override;
 
   bool AvailableBandwidth(uint32_t* bandwidth) const override;
-  int64_t GetPacerQueuingDelayMs() const override;
-  int64_t GetFirstPacketTimeMs() const override;
 
   TransportFeedbackObserver* GetTransportFeedbackObserver() override;
 

@@ -1,0 +1,399 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "affed003_ca2a197b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "nit: prefer to use same order as in declaration, i.e. destructor after constructor.",
+      "range": {
+        "startLine": 46,
+        "startChar": 73,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da774f6b_44711339",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "taking current time outside the critical section may (in theory) produce situation where later packet added with earlier now time.\n\nMay be current code does support it, but some modification may assume packets are put with increasing now_ms",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3287475f_82bbd1a8",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "nit: may be use rtp_seq_no.\n(yep, std::move doesn\u0027t invalidate packet even when evaluated first, still might be better to avoid using packet same line it is moved)\n\nBonus: two line statement will fit into one line.",
+      "range": {
+        "startLine": 102,
+        "startChar": 30,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8ad3d0a_80508779",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "rtc::Optional already supports straight-forward syntax if you prefer:\nstart_seq_no_ \u003d rtp_seq_no;",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "243732d6_f68ae69d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "can write \npacket.send_time_ms \u003d now_ms;",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c289c527_72bd759f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "may be write \nthis check must be for a retransmission.\n(by default I assume pronoun this refers to current object)",
+      "range": {
+        "startLine": 175,
+        "startChar": 30,
+        "endLine": 175,
+        "endChar": 60
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1546008_6b2fab2d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "return nullptr;",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c06be6a_8b4f2687",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "nit: may be instead of using Optional set min_diff to some large value, e.g. std::numeric_limits\u003csize_t\u003e::max();\nsince every access to optional need an extra check if it is set.",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9fceec2_d3839799",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "may be also need to reset start_seq_no_?",
+      "range": {
+        "startLine": 213,
+        "startChar": 26,
+        "endLine": 214,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d934ce08_af8e0d9f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "what does this check about sent_time_ms ?",
+      "range": {
+        "startLine": 242,
+        "startChar": 48,
+        "endLine": 242,
+        "endChar": 75
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a1d6115_45090931",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 14,
+        "startChar": 15,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef38dae_ad429fb4",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "not yet used (may it would be better not to use it, but that not for this CL to discuss)",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1a537d3_a4bc173d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "i.e. Store at least |number_to_store| last packets?",
+      "range": {
+        "startLine": 35,
+        "startChar": 80,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "423eaeca_9770ccba",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "this comment feels too detailed to be in the interface\n(does the interface promise to keep cleanup rules exactly as they are described here?)\nMay be move into .cc",
+      "range": {
+        "startLine": 40,
+        "startChar": 80,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "058b8b3f_b4c4ccee",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "this is a type too - put it above the constants",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eca1506_29a6e4ab",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "May be write less implmenetation details:\n// If |verift_rtt| is true, doesn\u0027t return packet that was (re)sent too recently.\n\n(probably ok to silently assume Send Time updated only when non-null packet is returned)",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3dc8c2f_910bbc19",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "does it Set Send Time too?",
+      "range": {
+        "startLine": 104,
+        "startChar": 5,
+        "endLine": 104,
+        "endChar": 41
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c52a980_64266f76",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "can \u0027at which\u0027 be replaced with \u0027when\u0027?",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 123,
+        "endChar": 24
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a4250d6_211de756",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-07T13:38:34Z",
+      "side": 1,
+      "message": "looking at return type, this is no longer true.",
+      "range": {
+        "startLine": 141,
+        "startChar": 5,
+        "endLine": 141,
+        "endChar": 24
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

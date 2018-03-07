@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "93daa2b6_effce87d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd778d73_d49049b9",
+      "range": {
+        "startLine": 137,
+        "startChar": 46,
+        "endLine": 138,
+        "endChar": 0
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7d1043b_ca91c5fa",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-06T15:38:59Z",
       "side": 1,
       "message": "why fixed-length type instead of size_t or int?",
+      "range": {
+        "startLine": 46,
+        "startChar": 19,
+        "endLine": 46,
+        "endChar": 27
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2ecc1d9_4951e7f1",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "To match |number_to_store| in SetStorePacketsStatus(), and since rtp sequence numbers limits us to this amount anyway.\nBut let\u0027s change it to uint16_t everywhere and add validation instead.",
+      "parentUuid": "d7d1043b_ca91c5fa",
       "range": {
         "startLine": 46,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "41b83b07_9a1631aa",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08af5d1c_432916b0",
+      "range": {
+        "startLine": 51,
+        "startChar": 26,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b17dd97_f0b175d3",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2018-03-06T15:38:59Z",
       "side": 1,
       "message": "Store or keep?",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 32
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f2e93e3_db3ad913",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "store AND keep! :)",
+      "parentUuid": "7b17dd97_f0b175d3",
       "range": {
         "startLine": 53,
         "startChar": 22,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "15a07bd9_fd218cb1",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a54826f4_a7da5c63",
+      "range": {
+        "startLine": 64,
+        "startChar": 36,
+        "endLine": 64,
+        "endChar": 0
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d4be2e0_5bd7a0fd",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 9
@@ -128,6 +248,30 @@
       "writtenOn": "2018-03-06T15:38:59Z",
       "side": 1,
       "message": "may be fix uint16_t to size_t",
+      "range": {
+        "startLine": 83,
+        "startChar": 47,
+        "endLine": 83,
+        "endChar": 55
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0802f847_854dc2d9",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d4be2e0_5bd7a0fd",
       "range": {
         "startLine": 83,
         "startChar": 47,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "b3e3373f_d6c9b92f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b11a808_60ecd14a",
+      "range": {
+        "startLine": 94,
+        "startChar": 43,
+        "endLine": 94,
+        "endChar": 52
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d822c93_daefa7d9",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 9
@@ -183,6 +351,30 @@
       "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "020921f4_7eeb65d6",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "yeah, this comment is mess of things from various revisions, sorry!\nI\u0027ve rephrased it a bit.",
+      "parentUuid": "6d822c93_daefa7d9",
+      "range": {
+        "startLine": 98,
+        "startChar": 29,
+        "endLine": 98,
+        "endChar": 56
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "b532824d_6e6fc0f4",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "dito",
+      "parentUuid": "05ee32bc_801f5e1b",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 24
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fa67d51_bee375ff",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 9
@@ -229,6 +445,30 @@
       "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db08ada9_c3370356",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "This made it tricky to reuse functionality together with GetPacketAndSetSendTime().\nBut I think it makes sense, I\u0027ve changed it to only share the RTT verification, which is anyway\nthe part that will likely be extended in the future.",
+      "parentUuid": "9fa67d51_bee375ff",
+      "range": {
+        "startLine": 113,
+        "startChar": 61,
+        "endLine": 113,
+        "endChar": 0
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "a4b82c29_94ed90df",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51f1d08a_9ff9d61a",
+      "range": {
+        "startLine": 115,
+        "startChar": 36,
+        "endLine": 115,
+        "endChar": 78
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9660b911_dc1e6cfe",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 9
@@ -266,6 +530,30 @@
       "writtenOn": "2018-03-06T15:38:59Z",
       "side": 1,
       "message": "may be \"excluding\"",
+      "range": {
+        "startLine": 146,
+        "startChar": 42,
+        "endLine": 146,
+        "endChar": 55
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63291cb6_8747aa36",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9660b911_dc1e6cfe",
       "range": {
         "startLine": 146,
         "startChar": 42,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "0f314afb_2425dba1",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acc5664e_b4f9b088",
+      "range": {
+        "startLine": 156,
+        "startChar": 32,
+        "endLine": 157,
+        "endChar": 0
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9822e2ee_7dfe6152",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 9
@@ -321,6 +633,30 @@
       "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3dc9197_44e63eaa",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9822e2ee_7dfe6152",
+      "range": {
+        "startLine": 159,
+        "startChar": 20,
+        "endLine": 159,
+        "endChar": 23
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "aab5740d_67a61f23",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "I removed this entire method instead.",
+      "parentUuid": "e9584fdc_1cc496b4",
+      "range": {
+        "startLine": 163,
+        "startChar": 2,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02cafa01_bbb74fac",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 9
@@ -358,6 +718,30 @@
       "writtenOn": "2018-03-06T15:38:59Z",
       "side": 1,
       "message": "though map seems simpler, I\u0027m not sure it is best container for the history:\nsequence numbers are very ..sequential: new packet will be added in order and most of the time (minus padding) using next sequence number.\nOld packets will be removed mostly in order.\n\nI wonder if better container would be std::vector\u003cStoredPackets\u003e stored_;\nwhere stored_[i] packets has sequence_number start_seqno_ + i, but might be absent (stored_[i].packet \u003d\u003d nullptr).\n\nIt can be searched by sequence number with constant time (just need to be a bit careful of wraparound) and use binary search to find transport sequence number (assuming they are assigned in order too and not caring about few potential cases when transport sequence number ordered slightly differently than rtp sequence number) \n\n\nBut may be safer to do it as separate improvement.",
+      "range": {
+        "startLine": 181,
+        "startChar": 73,
+        "endLine": 181,
+        "endChar": 0
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0b2cfe9_3b420c41",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "I though about this, but decided against for a few reasons.\n\nOne is simply that I think that the map makes for more intuitive code.\n\nThe other is the removal part. At least when I add in the culling part.\nIf network is good, the the history should be kept very small and so the storage overhead shouldn\u0027t be much of an issue.\nIf network is bad on the other hand, removal out of order is going to be fairly common. Especially when entire feedback messages are lost, it means there is going to be potentially long gap as the packets with missing feedback need to time out in order to be removed.\n\nHaving a bunch of stale objects in the history is also going to complicate improvements to GetBestFittingPacket(). Today it\u0027s really dumb an iterates over the entire history for each TimeToSendPadding() call in the pacer, which might potentially be on a 5ms basis...\n\nI\u0027m open to discussing improvements though, but agree we can do that in a follow-up.",
+      "parentUuid": "02cafa01_bbb74fac",
       "range": {
         "startLine": 181,
         "startChar": 73,
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "1b04bd76_3c0a3d1b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37b105a9_103b6089",
+      "range": {
+        "startLine": 24,
+        "startChar": 50,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4cdcfcd_2eb21184",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
         "patchSetId": 9
@@ -416,6 +824,30 @@
     },
     {
       "key": {
+        "uuid": "5b8003a7_270cef22",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "I was just lazy, trying to avoid compiler errors from the change on line 29.\nI can move them down instead.",
+      "parentUuid": "c4cdcfcd_2eb21184",
+      "range": {
+        "startLine": 36,
+        "startChar": 51,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "901410ac_d13a3d75",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
         "patchSetId": 9
@@ -436,6 +868,30 @@
       "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92f35227_4c90889f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-07T09:40:47Z",
+      "side": 1,
+      "message": "I added a longer comment about expected behavior from pacer.\nMade me realize we should probably add some way of indicating that retransmission is pending, so we don\u0027t enqueue multiple retransmissions of the same packet. But let\u0027s do that in a follow up.",
+      "parentUuid": "901410ac_d13a3d75",
+      "range": {
+        "startLine": 204,
+        "startChar": 49,
+        "endLine": 204,
+        "endChar": 53
+      },
+      "revId": "51fa0daa7ba5f1037198056568416fa06d65bf47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

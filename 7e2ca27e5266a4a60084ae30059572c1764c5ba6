@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bb5d39ae_278a1cc3",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-07T12:01:06Z",
+      "side": 1,
+      "message": "Removed this from here in a preparation CL and moved the tracking of network availability to Call class.",
+      "parentUuid": "982816f3_62d42e3c",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 54
+      },
+      "revId": "7e2ca27e5266a4a60084ae30059572c1764c5ba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c674a7a4_c9cc7af6",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "7e2ca27e5266a4a60084ae30059572c1764c5ba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a21717e_07623da6",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-07T12:01:06Z",
+      "side": 1,
+      "message": "Removed this in preparation CL.",
+      "parentUuid": "c674a7a4_c9cc7af6",
+      "range": {
+        "startLine": 429,
+        "startChar": 9,
+        "endLine": 429,
+        "endChar": 34
+      },
+      "revId": "7e2ca27e5266a4a60084ae30059572c1764c5ba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dea26b85_e7427fba",
+        "filename": "rtc_base/buffer_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-07T13:55:23Z",
+      "side": 1,
+      "message": "Ew. I hadn\u0027t realized that you also used `offset` outside the lambda.\n\nI played around with this on godbolt.org, and it seems like you can declare it outside the lambda if you use `static constexpr`: https://godbolt.org/g/uQZp4g",
+      "revId": "beb4c14cc5800d64d7fbd4b316df70e82f4649b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

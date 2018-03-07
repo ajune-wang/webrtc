@@ -105,9 +105,15 @@ static const int PING_PACKET_SIZE = 60 * 8;
 // The next two ping intervals are at the channel level.
 // STRONG_PING_INTERVAL (480ms) is applied when the selected connection is both
 // writable and receiving.
+//
+// This constant is the default value of ice_check_interval_strong_connectivity
+// in IceConfig if set.
 const int STRONG_PING_INTERVAL = 1000 * PING_PACKET_SIZE / 1000;
 // WEAK_PING_INTERVAL (48ms) is applied when the selected connection is either
 // not writable or not receiving.
+//
+// This constant is the default value of ice_check_interval_weak_connectivity in
+// IceConfig if set.
 const int WEAK_PING_INTERVAL = 1000 * PING_PACKET_SIZE / 10000;
 
 // The next two ping intervals are at the connection level.
@@ -526,6 +532,22 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
     config_.default_nomination_mode = config.default_nomination_mode;
     RTC_LOG(LS_INFO) << "Set default nomination mode to "
                      << static_cast<int>(config_.default_nomination_mode);
+  }
+
+  if (config_.ice_check_interval_strong_connectivity !=
+      config.ice_check_interval_strong_connectivity) {
+    config_.ice_check_interval_strong_connectivity =
+        config.ice_check_interval_strong_connectivity;
+    RTC_LOG(LS_INFO) << "Set strong ping interval to "
+                     << *config_.ice_check_interval_strong_connectivity;
+  }
+
+  if (config_.ice_check_interval_weak_connectivity !=
+      config.ice_check_interval_weak_connectivity) {
+    config_.ice_check_interval_weak_connectivity =
+        config.ice_check_interval_weak_connectivity;
+    RTC_LOG(LS_INFO) << "Set weak ping interval to "
+                     << *config_.ice_check_interval_weak_connectivity;
   }
 
   if (config_.ice_check_min_interval != config.ice_check_min_interval) {

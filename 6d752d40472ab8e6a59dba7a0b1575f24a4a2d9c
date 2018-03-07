@@ -1,0 +1,502 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfea55c1_0d7230b7",
+        "filename": "modules/audio_device/android/aaudio_player.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Why is this a warning and not a return -1 or even a DCHECK? I think there\u0027s a push to remove \"unnecessary\" log statements and this seems like it could be one of those.",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06cf0e1a_e8b8e20f",
+        "filename": "modules/audio_device/android/aaudio_player.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Why not?",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7118fbc2_37427e67",
+        "filename": "modules/audio_device/android/aaudio_player.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "\"distortion\". Also... I don\u0027t understand this. Will we just play zeroes for the first 100 bursts? How long is a burst?",
+      "range": {
+        "startLine": 180,
+        "startChar": 67,
+        "endLine": 180,
+        "endChar": 76
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7090e438_00d61981",
+        "filename": "modules/audio_device/android/aaudio_player.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this cast - memset takes a void *. Or do you get warnings without it?",
+      "range": {
+        "startLine": 182,
+        "startChar": 11,
+        "endLine": 182,
+        "endChar": 32
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "801f571e_a232a65e",
+        "filename": "modules/audio_device/android/aaudio_player.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Either RTC_NOTREACHED or, preferably, nothing, remove the default: case and have the compiler scream at you if you add a message to the enum but forget to handle it.",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b2932f9_4c428ec8",
+        "filename": "modules/audio_device/android/aaudio_player.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Why is mono enforced?",
+      "range": {
+        "startLine": 30,
+        "startChar": 33,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9691381_6348c85e",
+        "filename": "modules/audio_device/android/aaudio_player.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "in line",
+      "range": {
+        "startLine": 39,
+        "startChar": 52,
+        "endLine": 39,
+        "endChar": 58
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e595c585_5e2fc64e",
+        "filename": "modules/audio_device/android/aaudio_player.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "The OpenSLES implementation has this as:\n  *available \u003d false;\n  return 0;\n\nDoes it matter?",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 30
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59309bc4_e8d5c01b",
+        "filename": "modules/audio_device/android/aaudio_recorder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Other implementations of these three seem to return -1 if it\u0027s not supported. Shouldn\u0027t the AAudio implementation do that as well?",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fee81c5_4e510984",
+        "filename": "modules/audio_device/android/aaudio_recorder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "No, this is the recorder. It _reads_ from audio_data, right?",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e19a99ce_dc2fb100",
+        "filename": "modules/audio_device/android/aaudio_recorder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "in line",
+      "range": {
+        "startLine": 38,
+        "startChar": 70,
+        "endLine": 38,
+        "endChar": 76
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2865d6ad_77d7df51",
+        "filename": "modules/audio_device/android/aaudio_recorder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "stream\u0027s",
+      "range": {
+        "startLine": 72,
+        "startChar": 18,
+        "endLine": 72,
+        "endChar": 25
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03f47421_e855729d",
+        "filename": "modules/audio_device/android/aaudio_recorder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "function",
+      "range": {
+        "startLine": 76,
+        "startChar": 23,
+        "endLine": 76,
+        "endChar": 32
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5684e71_ee728d46",
+        "filename": "modules/audio_device/android/aaudio_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Why sprintfn and not just use stream operators directly into RTC_LOG()?",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "420f6766_5b56079f",
+        "filename": "modules/audio_device/android/aaudio_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "\"UNKNOWN\" - I mistype that all the time as well :(\n(Also applies to the next three functions)",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ab193f_be552a53",
+        "filename": "modules/audio_device/android/aaudio_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "So what if something returns false here? Will the stream builder not be released?\nReading further it looks like, yes, that\u0027s what\u0027d happen. I _think_ I would make a separate StreamBuilder wrapper class (internal to this file) that does what CreateStreamBuilder does in its constructor, and DeleteStreamBuilder in its destructor. Then the calls that use the stream builder here (and require access to the AAudioWrapper internals) would be builder.OpenStream(this), for example. Then you could remove builder_ from this class as well.",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06a0d5da_60b5bf15",
+        "filename": "modules/audio_device/android/aaudio_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "What\u0027s this!? Just remove the else-block or reinstate the logging.",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0186dcb6_c0712e7e",
+        "filename": "modules/audio_device/android/aaudio_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "stream (or streams use)",
+      "range": {
+        "startLine": 393,
+        "startChar": 67,
+        "endLine": 393,
+        "endChar": 74
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b07d3365_e576cb25",
+        "filename": "modules/audio_device/android/aaudio_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Why not store this unconditionally just after line 486? Looks like it should be set for both input and output and, probably, regardless if setting buffer size succeeded or not.",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ec093f5_2062e552",
+        "filename": "modules/audio_device/android/aaudio_wrapper.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "So this _only_ gets called in case of a fatal error that requires the stream to be restarted?",
+      "range": {
+        "startLine": 36,
+        "startChar": 15,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bcda446_0ec185b4",
+        "filename": "modules/audio_device/android/aaudio_wrapper.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Can AAudio reduce the buffer size while running, as well?",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15af5dd_ef2c4223",
+        "filename": "modules/audio_device/android/audio_device_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "argument",
+      "range": {
+        "startLine": 895,
+        "startChar": 27,
+        "endLine": 895,
+        "endChar": 36
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1d0ff4f_25f79642",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Isn\u0027t the goal to (eventually) always return false?",
+      "range": {
+        "startLine": 42,
+        "startChar": 30,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6df080_966ba518",
+        "filename": "modules/audio_device/fine_audio_buffer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-07T14:47:13Z",
+      "side": 1,
+      "message": "Cache is king!",
+      "range": {
+        "startLine": 71,
+        "startChar": 5,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

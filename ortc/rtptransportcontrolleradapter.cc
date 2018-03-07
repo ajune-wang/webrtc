@@ -97,10 +97,12 @@ RtpTransportControllerAdapter::CreateProxied(
     cricket::ChannelManager* channel_manager,
     webrtc::RtcEventLog* event_log,
     rtc::Thread* signaling_thread,
-    rtc::Thread* worker_thread) {
+    rtc::Thread* worker_thread,
+    rtc::Thread* network_thread) {
   std::unique_ptr<RtpTransportControllerAdapter> wrapped(
       new RtpTransportControllerAdapter(config, channel_manager, event_log,
-                                        signaling_thread, worker_thread));
+                                        signaling_thread, worker_thread,
+                                        network_thread));
   return RtpTransportControllerProxyWithInternal<
       RtpTransportControllerAdapter>::Create(signaling_thread, worker_thread,
                                              std::move(wrapped));
@@ -610,9 +612,11 @@ RtpTransportControllerAdapter::RtpTransportControllerAdapter(
     cricket::ChannelManager* channel_manager,
     webrtc::RtcEventLog* event_log,
     rtc::Thread* signaling_thread,
-    rtc::Thread* worker_thread)
+    rtc::Thread* worker_thread,
+    rtc::Thread* network_thread)
     : signaling_thread_(signaling_thread),
       worker_thread_(worker_thread),
+      network_thread_(network_thread),
       media_config_(config),
       channel_manager_(channel_manager),
       event_log_(event_log),
@@ -877,26 +881,20 @@ void RtpTransportControllerAdapter::OnVideoReceiverDestroyed() {
 
 void RtpTransportControllerAdapter::CreateVoiceChannel() {
   voice_channel_ = channel_manager_->CreateVoiceChannel(
-      call_.get(), media_config_,
-      inner_audio_transport_->GetRtpPacketTransport()->GetInternal(),
-      inner_audio_transport_->GetRtcpPacketTransport()
-          ? inner_audio_transport_->GetRtcpPacketTransport()->GetInternal()
-          : nullptr,
+      call_.get(), media_config_, inner_audio_transport_->GetInternal(),
       signaling_thread_, "audio", false, cricket::AudioOptions());
   RTC_DCHECK(voice_channel_);
   voice_channel_->Enable(true);
+  voice_channel_->SetEncryptionDisabled(true);
 }
 
 void RtpTransportControllerAdapter::CreateVideoChannel() {
   video_channel_ = channel_manager_->CreateVideoChannel(
-      call_.get(), media_config_,
-      inner_video_transport_->GetRtpPacketTransport()->GetInternal(),
-      inner_video_transport_->GetRtcpPacketTransport()
-          ? inner_video_transport_->GetRtcpPacketTransport()->GetInternal()
-          : nullptr,
+      call_.get(), media_config_, inner_video_transport_->GetInternal(),
       signaling_thread_, "video", false, cricket::VideoOptions());
   RTC_DCHECK(video_channel_);
   video_channel_->Enable(true);
+  video_channel_->SetEncryptionDisabled(true);
 }
 
 void RtpTransportControllerAdapter::DestroyVoiceChannel() {

@@ -251,9 +251,6 @@ JsepTransportController::GetRemoteSSLCertChain(
         RTC_FROM_HERE, [&] { return GetRemoteSSLCertChain(transport_name); });
   }
 
-  // Get the certificate from the RTP channel's DTLS handshake. Should be
-  // identical to the RTCP channel's, since they were given the same remote
-  // fingerprint.
   auto dtls = GetDtlsTransport(transport_name);
   if (!dtls) {
     return nullptr;
@@ -289,13 +286,12 @@ RTCError JsepTransportController::AddRemoteCandidates(
     return error;
   }
 
-  cricket::JsepTransport2* jsep_transport = GetJsepTransport(transport_name);
-  if (!jsep_transport) {
-    return RTCError(RTCErrorType::INVALID_PARAMETER,
-                    "The transport doesn't exist.");
+  auto it = jsep_transports_by_mid_.find(transport_name);
+  // Ignore the candidate if the transport is destroyed because of BUNDLE.
+  if (it == jsep_transports_by_mid_.end()) {
+    return RTCError::OK();
   }
-
-  return jsep_transport->AddRemoteCandidates(candidates);
+  return it->second->AddRemoteCandidates(candidates);
 }
 
 RTCError JsepTransportController::RemoveRemoteCandidates(
@@ -427,8 +423,14 @@ JsepTransportController::CreateUnencryptedRtpTransport(
     rtc::PacketTransportInternal* rtp_packet_transport,
     rtc::PacketTransportInternal* rtcp_packet_transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  // TODO(zhihuang): Add support of unencrypted RTP for testing.
-  return nullptr;
+  bool rtcp_mux_enabled = rtcp_packet_transport == nullptr;
+  auto unencrypted_rtp_transport =
+      rtc::MakeUnique<RtpTransport>(rtcp_mux_enabled);
+  unencrypted_rtp_transport->SetRtpPacketTransport(rtp_packet_transport);
+  if (!rtcp_mux_enabled) {
+    unencrypted_rtp_transport->SetRtcpPacketTransport(rtcp_packet_transport);
+  }
+  return unencrypted_rtp_transport;
 }
 
 std::unique_ptr<webrtc::SrtpTransport>
@@ -442,7 +444,7 @@ JsepTransportController::CreateSdesTransport(
       rtc::MakeUnique<webrtc::SrtpTransport>(rtcp_mux_enabled);
   RTC_DCHECK(rtp_packet_transport);
   srtp_transport->SetRtpPacketTransport(rtp_packet_transport);
-  if (rtcp_packet_transport) {
+  if (!rtcp_mux_enabled) {
     srtp_transport->SetRtcpPacketTransport(rtp_packet_transport);
   }
   if (config_.enable_external_auth) {
@@ -535,7 +537,18 @@ RTCError JsepTransportController::ApplyDescription_n(
   }
 
   if (ShouldUpdateBundleGroup(type, description)) {
-    bundle_group_ = *description->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
+    if (!description->HasGroup(cricket::GROUP_TYPE_BUNDLE)) {
+      return RTCError(RTCErrorType::INVALID_PARAMETER,
+                      "Max-BUNDLE is used but no bundle group found.");
+    } else {
+      bundle_group_ = *description->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
+    }
+  }
+
+  RTCError error;
+  error = ValidateBundleGroup(description);
+  if (!error.ok()) {
+    return error;
   }
 
   std::vector<int> merged_encrypted_extension_ids;
@@ -550,7 +563,10 @@ RTCError JsepTransportController::ApplyDescription_n(
         (IsBundled(content_info.name) && content_info.name != *bundled_mid())) {
       continue;
     }
-    MaybeCreateJsepTransport(content_info.name, content_info);
+    error = MaybeCreateJsepTransport(content_info.name, content_info);
+    if (!error.ok()) {
+      return error;
+    }
   }
 
   RTC_DCHECK(description->contents().size() ==
@@ -581,7 +597,6 @@ RTCError JsepTransportController::ApplyDescription_n(
 
     SetIceRole_n(DetermineIceRole(transport, transport_info, type, local));
 
-    RTCError error;
     cricket::JsepTransportDescription jsep_description =
         CreateJsepTransportDescription(content_info, transport_info,
                                        extension_ids);
@@ -602,6 +617,35 @@ RTCError JsepTransportController::ApplyDescription_n(
   return RTCError::OK();
 }
 
+RTCError JsepTransportController::ValidateBundleGroup(
+    const cricket::SessionDescription* description) {
+  RTC_DCHECK(description);
+
+  if (!bundled_mid()) {
+    return RTCError::OK();
+  }
+
+  auto bundled_content = description->GetContentByName(*bundled_mid());
+  if (!bundled_content) {
+    return RTCError(RTCErrorType::INVALID_PARAMETER,
+                    "The content for BUNDLE doesn't exist.");
+  }
+
+  // If the |bundled_content| is rejected, other contents in the bundle group
+  // should be rejected.
+  if (bundled_content->rejected) {
+    for (auto content_name : bundle_group_->content_names()) {
+      bundled_content = description->GetContentByName(content_name);
+      if (!bundled_content->rejected) {
+        return RTCError(RTCErrorType::INVALID_PARAMETER,
+                        "The content:" + content_name + " should be rejected.");
+      }
+    }
+  }
+
+  return RTCError::OK();
+}
+
 void JsepTransportController::HandleRejectedContent(
     const cricket::ContentInfo& content_info) {
   // If the content is rejected, let the
@@ -612,9 +656,25 @@ void JsepTransportController::HandleRejectedContent(
   } else {
     SignalDtlsTransportChanged(content_info.name, nullptr);
   }
-  // Remove the rejected content from the |bundle_group_|.
-  if (IsBundled(content_info.name)) {
+  // The answerer is not supposed to change the bundled MID. If the answerer
+  // rejects the first content, which other contents are bundled on, all the
+  // contents in the bundle group will be rejected.
+  if (content_info.name == bundled_mid()) {
+    for (auto content_name : bundle_group_->content_names()) {
+      if (content_info.type == cricket::MediaProtocolType::kRtp) {
+        SignalRtpTransportChanged(content_name, nullptr);
+      } else {
+        SignalDtlsTransportChanged(content_name, nullptr);
+      }
+    }
+    bundle_group_.reset();
+  } else if (IsBundled(content_info.name)) {
+    // Remove the rejected content from the |bundle_group_|.
     bundle_group_->RemoveContentName(content_info.name);
+    // Reset the bundle group if nothing left.
+    if (!bundle_group_->FirstContentName()) {
+      bundle_group_.reset();
+    }
   }
   MaybeDestroyJsepTransport(content_info.name);
 }
@@ -741,27 +801,29 @@ cricket::JsepTransport2* JsepTransportController::GetJsepTransport(
   return (it == jsep_transports_by_mid_.end()) ? nullptr : it->second.get();
 }
 
-void JsepTransportController::MaybeCreateJsepTransport(
+RTCError JsepTransportController::MaybeCreateJsepTransport(
     const std::string& mid,
     const cricket::ContentInfo& content_info) {
   RTC_DCHECK(network_thread_->IsCurrent());
-
   cricket::JsepTransport2* transport = GetJsepTransport(mid);
   if (transport) {
-    return;
+    return RTCError::OK();
   }
 
   const cricket::MediaContentDescription* content_desc =
       static_cast<const cricket::MediaContentDescription*>(
           content_info.description);
-  bool rtcp_mux_enabled =
-      content_desc->rtcp_mux() ||
-      config_.rtcp_mux_policy == PeerConnectionInterface::kRtcpMuxPolicyRequire;
+  if (certificate_ && !content_desc->cryptos().empty()) {
+    return RTCError(RTCErrorType::INVALID_PARAMETER,
+                    "SDES and DTLS-SRTP cannot be enabled at the same time.");
+  }
+
   std::unique_ptr<cricket::DtlsTransportInternal> rtp_dtls_transport =
-      CreateDtlsTransport(mid, /*rtcp = */ false);
+      CreateDtlsTransport(mid, /*rtcp =*/false);
   std::unique_ptr<cricket::DtlsTransportInternal> rtcp_dtls_transport;
-  if (!rtcp_mux_enabled) {
-    rtcp_dtls_transport = CreateDtlsTransport(mid, /*rtcp = */ true);
+  if (config_.rtcp_mux_policy !=
+      PeerConnectionInterface::kRtcpMuxPolicyRequire) {
+    rtcp_dtls_transport = CreateDtlsTransport(mid, /*rtcp =*/true);
   }
 
   std::unique_ptr<RtpTransport> unencrypted_rtp_transport;
@@ -787,6 +849,8 @@ void JsepTransportController::MaybeCreateJsepTransport(
       this, &JsepTransportController::UpdateAggregateStates_n);
   jsep_transports_by_mid_[mid] = std::move(jsep_transport);
   UpdateAggregateStates_n();
+
+  return RTCError::OK();
 }
 
 void JsepTransportController::MaybeDestroyJsepTransport(
@@ -871,7 +935,7 @@ cricket::IceRole JsepTransportController::DetermineIceRole(
         jsep_transport->local_description()->transport_desc.ice_mode ==
             cricket::ICEMODE_LITE &&
         ice_role_ == cricket::ICEROLE_CONTROLLING &&
-        tdesc.ice_mode == cricket::ICEMODE_LITE) {
+        tdesc.ice_mode == cricket::ICEMODE_FULL) {
       ice_role = cricket::ICEROLE_CONTROLLED;
     }
   }

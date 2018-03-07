@@ -27,13 +27,12 @@ namespace webrtc {
 SrtpTransport::SrtpTransport(bool rtcp_mux_enabled)
     : RtpTransportInternalAdapter(new RtpTransport(rtcp_mux_enabled)) {
   // Own the raw pointer |transport| from the base class.
-  rtp_transport_.reset(transport_);
+  rtp_transport_.reset(static_cast<RtpTransport*>(transport_));
   RTC_DCHECK(rtp_transport_);
   ConnectToRtpTransport();
 }
 
-SrtpTransport::SrtpTransport(
-    std::unique_ptr<RtpTransportInternal> rtp_transport)
+SrtpTransport::SrtpTransport(std::unique_ptr<RtpTransport> rtp_transport)
     : RtpTransportInternalAdapter(rtp_transport.get()),
       rtp_transport_(std::move(rtp_transport)) {
   RTC_DCHECK(rtp_transport_);
@@ -68,7 +67,7 @@ bool SrtpTransport::SendPacket(bool rtcp,
                                rtc::CopyOnWriteBuffer* packet,
                                const rtc::PacketOptions& options,
                                int flags) {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_ERROR)
         << "Failed to send the packet because SRTP transport is inactive.";
     return false;
@@ -140,7 +139,7 @@ bool SrtpTransport::SendPacket(bool rtcp,
 void SrtpTransport::OnPacketReceived(bool rtcp,
                                      rtc::CopyOnWriteBuffer* packet,
                                      const rtc::PacketTime& packet_time) {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING)
         << "Inactive SRTP transport received a packet. Drop it.";
     return;
@@ -181,7 +180,7 @@ void SrtpTransport::OnNetworkRouteChanged(
   // Only append the SRTP overhead when there is a selected network route.
   if (network_route) {
     int srtp_overhead = 0;
-    if (IsActive()) {
+    if (IsSrtpActive()) {
       GetSrtpOverhead(&srtp_overhead);
     }
     network_route->packet_overhead += srtp_overhead;
@@ -266,7 +265,7 @@ bool SrtpTransport::SetRtcpParams(int send_cs,
   return true;
 }
 
-bool SrtpTransport::IsActive() const {
+bool SrtpTransport::IsSrtpActive() const {
   return send_session_ && recv_session_;
 }
 
@@ -288,7 +287,7 @@ void SrtpTransport::CreateSrtpSessions() {
 }
 
 bool SrtpTransport::ProtectRtp(void* p, int in_len, int max_len, int* out_len) {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING) << "Failed to ProtectRtp: SRTP not active";
     return false;
   }
@@ -301,7 +300,7 @@ bool SrtpTransport::ProtectRtp(void* p,
                                int max_len,
                                int* out_len,
                                int64_t* index) {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING) << "Failed to ProtectRtp: SRTP not active";
     return false;
   }
@@ -313,7 +312,7 @@ bool SrtpTransport::ProtectRtcp(void* p,
                                 int in_len,
                                 int max_len,
                                 int* out_len) {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING) << "Failed to ProtectRtcp: SRTP not active";
     return false;
   }
@@ -326,7 +325,7 @@ bool SrtpTransport::ProtectRtcp(void* p,
 }
 
 bool SrtpTransport::UnprotectRtp(void* p, int in_len, int* out_len) {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING) << "Failed to UnprotectRtp: SRTP not active";
     return false;
   }
@@ -335,7 +334,7 @@ bool SrtpTransport::UnprotectRtp(void* p, int in_len, int* out_len) {
 }
 
 bool SrtpTransport::UnprotectRtcp(void* p, int in_len, int* out_len) {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING) << "Failed to UnprotectRtcp: SRTP not active";
     return false;
   }
@@ -350,7 +349,7 @@ bool SrtpTransport::UnprotectRtcp(void* p, int in_len, int* out_len) {
 bool SrtpTransport::GetRtpAuthParams(uint8_t** key,
                                      int* key_len,
                                      int* tag_len) {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING) << "Failed to GetRtpAuthParams: SRTP not active";
     return false;
   }
@@ -360,7 +359,7 @@ bool SrtpTransport::GetRtpAuthParams(uint8_t** key,
 }
 
 bool SrtpTransport::GetSrtpOverhead(int* srtp_overhead) const {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING) << "Failed to GetSrtpOverhead: SRTP not active";
     return false;
   }
@@ -371,7 +370,7 @@ bool SrtpTransport::GetSrtpOverhead(int* srtp_overhead) const {
 }
 
 void SrtpTransport::EnableExternalAuth() {
-  RTC_DCHECK(!IsActive());
+  RTC_DCHECK(!IsSrtpActive());
   external_auth_enabled_ = true;
 }
 
@@ -380,7 +379,7 @@ bool SrtpTransport::IsExternalAuthEnabled() const {
 }
 
 bool SrtpTransport::IsExternalAuthActive() const {
-  if (!IsActive()) {
+  if (!IsSrtpActive()) {
     RTC_LOG(LS_WARNING)
         << "Failed to check IsExternalAuthActive: SRTP not active";
     return false;

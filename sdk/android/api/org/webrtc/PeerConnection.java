@@ -386,6 +386,17 @@ public class PeerConnection {
     public int iceCandidatePoolSize;
     public boolean pruneTurnPorts;
     public boolean presumeWritableWhenFullyRelayed;
+    // The following fields define the interval in milliseconds at which ICE
+    // connectivity checks are sent.
+    //
+    // 1) iceCheckIntervalStrongConnectivityMs defines the interval applied to
+    // candidate pairs that has strong connectivity as defined by ICE,
+    // 2) iceCheckIntervalStrongConnectivityMs defines the counterpart for pairs
+    // with weak connectivity, and
+    // 3) iceCheckMinInterval defines the minimal interval (equivalently maximum
+    // rate) that overrides the above two intervals when either of them is less.
+    public Integer iceCheckIntervalStrongConnectivityMs;
+    public Integer iceCheckIntervalWeakConnectivityMs;
     public Integer iceCheckMinInterval;
     // The interval in milliseconds at which STUN candidates will resend STUN binding requests
     // to keep NAT bindings open.
@@ -437,6 +448,8 @@ public class PeerConnection {
       iceCandidatePoolSize = 0;
       pruneTurnPorts = false;
       presumeWritableWhenFullyRelayed = false;
+      iceCheckIntervalStrongConnectivityMs = null;
+      iceCheckIntervalWeakConnectivityMs = null;
       iceCheckMinInterval = null;
       stunCandidateKeepaliveIntervalMs = null;
       disableIPv6OnWifi = false;
@@ -527,6 +540,16 @@ public class PeerConnection {
     @CalledByNative("RTCConfiguration")
     boolean getPresumeWritableWhenFullyRelayed() {
       return presumeWritableWhenFullyRelayed;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    Integer getIceCheckIntervalStrongConnectivity() {
+      return iceCheckIntervalStrongConnectivityMs;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    Integer getIceCheckIntervalWeakConnectivity() {
+      return iceCheckIntervalWeakConnectivityMs;
     }
 
     @CalledByNative("RTCConfiguration")

@@ -105,9 +105,15 @@ static const int PING_PACKET_SIZE = 60 * 8;
 // The next two ping intervals are at the channel level.
 // STRONG_PING_INTERVAL (480ms) is applied when the selected connection is both
 // writable and receiving.
+//
+// This constant is the default value of ice_check_interval_strong_connectivity
+// in IceConfig if set.
 const int STRONG_PING_INTERVAL = 1000 * PING_PACKET_SIZE / 1000;
 // WEAK_PING_INTERVAL (48ms) is applied when the selected connection is either
 // not writable or not receiving.
+//
+// This constant is the default value of ice_check_interval_weak_connectivity in
+// IceConfig if set.
 const int WEAK_PING_INTERVAL = 1000 * PING_PACKET_SIZE / 10000;
 
 // The next two ping intervals are at the connection level.

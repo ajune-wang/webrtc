@@ -66,7 +66,8 @@ class RtpTransportControllerAdapter : public RtpTransportControllerInterface,
       cricket::ChannelManager* channel_manager,
       webrtc::RtcEventLog* event_log,
       rtc::Thread* signaling_thread,
-      rtc::Thread* worker_thread);
+      rtc::Thread* worker_thread,
+      rtc::Thread* network_thread);
 
   ~RtpTransportControllerAdapter() override;
 
@@ -100,6 +101,7 @@ class RtpTransportControllerAdapter : public RtpTransportControllerInterface,
   // Methods used internally by other "adapter" classes.
   rtc::Thread* signaling_thread() const { return signaling_thread_; }
   rtc::Thread* worker_thread() const { return worker_thread_; }
+  rtc::Thread* network_thread() const { return network_thread_; }
 
   // |parameters.keepalive| will be set for ALL RTP transports in the call.
   RTCError SetRtpTransportParameters(const RtpTransportParameters& parameters,
@@ -131,7 +133,8 @@ class RtpTransportControllerAdapter : public RtpTransportControllerInterface,
                                 cricket::ChannelManager* channel_manager,
                                 webrtc::RtcEventLog* event_log,
                                 rtc::Thread* signaling_thread,
-                                rtc::Thread* worker_thread);
+                                rtc::Thread* worker_thread,
+                                rtc::Thread* network_thread);
   void Init_w();
   void Close_w();
 
@@ -189,6 +192,7 @@ class RtpTransportControllerAdapter : public RtpTransportControllerInterface,
 
   rtc::Thread* signaling_thread_;
   rtc::Thread* worker_thread_;
+  rtc::Thread* network_thread_;
   // |transport_proxies_| and |inner_audio_transport_|/|inner_audio_transport_|
   // are somewhat redundant, but the latter are only set when
   // RtpSenders/RtpReceivers are attached to the transport.

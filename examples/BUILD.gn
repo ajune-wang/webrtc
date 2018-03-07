@@ -27,6 +27,7 @@ group("examples") {
       ":AppRTCMobile",
       ":AppRTCMobileTest",
       ":AppRTCMobileTestStubbedVideoIO",
+      "androidnativeapi:androidnativeapi",
     ]
   }
 

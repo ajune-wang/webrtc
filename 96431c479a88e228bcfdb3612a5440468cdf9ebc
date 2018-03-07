@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d36c76ff_1fca6eaa",
+        "filename": "call/call.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-07T14:23:05Z",
+      "side": 1,
+      "message": "Mispelled \"available\" and \"critical\". And the abbreviation ..._crit_ should be good enough, for consistency with other nearby locks.",
+      "range": {
+        "startLine": 271,
+        "startChar": 51,
+        "endLine": 271,
+        "endChar": 68
+      },
+      "revId": "96431c479a88e228bcfdb3612a5440468cdf9ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df047adc_bd476a6d",
+        "filename": "call/call.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-07T14:23:05Z",
+      "side": 1,
+      "message": "Nit: I\u0027d prefer |aggregate_network_up_| or so. And similar misspelling.",
+      "range": {
+        "startLine": 272,
+        "startChar": 7,
+        "endLine": 272,
+        "endChar": 35
+      },
+      "revId": "96431c479a88e228bcfdb3612a5440468cdf9ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe475e29_96e92eb4",
+        "filename": "call/call.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-07T14:23:05Z",
+      "side": 1,
+      "message": "Simplify to\n\naggregate_network_available_ \u003d ((have_video \u0026\u0026 video_network_state_ \u003d\u003d kNetworkUp) ||\n      (have_audio \u0026\u0026 audio_network_state_ \u003d\u003d kNetworkUp));\n\nProbably no problem holding the lock over the logging call.",
+      "range": {
+        "startLine": 1032,
+        "startChar": 2,
+        "endLine": 1036,
+        "endChar": 0
+      },
+      "revId": "96431c479a88e228bcfdb3612a5440468cdf9ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20e09e23_a5bd35de",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-07T14:23:05Z",
+      "side": 1,
+      "message": "So these are no longer part of the interface. From where are they called? Are they needed at all or do they need to be public?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 47
+      },
+      "revId": "96431c479a88e228bcfdb3612a5440468cdf9ebc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

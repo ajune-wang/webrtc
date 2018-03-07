@@ -165,6 +165,30 @@
       "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eb35942_7a6f9326",
+        "filename": "sdk/android/src/jni/videoframe.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-07T16:24:28Z",
+      "side": 1,
+      "message": "Ok, so for [1], you shouldn\u0027t edit our internal source files. We want to have the power to refactor our internal source code without breaking external projects. You should think about what API you need to be exposed. I\u0027m still confused what Java components you are actually using from us since you are not using our Java API and are directly modifying the JNI C++ code. Do you even need to use our Java code for this? What Java components do you use from the SDK?\n\nFor [2], the problem with that approach is that we do not want to convert the frames to ordinary C++ buffers since that will give a performance hit in other cases. The consumer of these Java frames are supposed to be a Java encoder and a Java renderer, and for this case we want to pass the jobject all the way through WebRTC since this is the cheapest approach. I know now that you modify our JNI source in order to mix and match Java and C++, but that\u0027s not a valid use case.\n\nOne approach would be to write a Java wrapper around MultiplexEncoderFactory, and in this wrapping convert the frames to I420A, but that will require more work from your side. I don\u0027t want to recommend that approach until I understand what you want to accomplish.\n\nIf you don\u0027t have a document describing what you are doing on the Android side, can you send me a link to a CL showing what you are doing?",
+      "parentUuid": "cbcb7cad_9af461de",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 3
+      },
+      "revId": "bf4b728ae573d1046fdd3472e00b787143926911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

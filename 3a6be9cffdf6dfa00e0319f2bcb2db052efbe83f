@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ffe6bebf_5c929048",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-07T15:29:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5c9226f_77ec741c",
+      "range": {
+        "startLine": 364,
+        "startChar": 77,
+        "endLine": 365,
+        "endChar": 0
+      },
+      "revId": "3a6be9cffdf6dfa00e0319f2bcb2db052efbe83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "708ce90a_230a92fa",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "3a6be9cffdf6dfa00e0319f2bcb2db052efbe83f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bad8fe17_dec80fba",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-07T15:29:29Z",
+      "side": 1,
+      "message": "It seems it should not. There is check for emptiness of ssrcs[] in WebRtcVideoSendStream() and corresponding check for value read from field trial. I removed this max(). I didn\u0027t add CHECK here since there are plenty of them in video codec initializer which refers to these parameters.",
+      "parentUuid": "708ce90a_230a92fa",
+      "range": {
+        "startLine": 477,
+        "startChar": 75,
+        "endLine": 477,
+        "endChar": 0
+      },
+      "revId": "3a6be9cffdf6dfa00e0319f2bcb2db052efbe83f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

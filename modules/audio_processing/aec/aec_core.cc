@@ -1872,6 +1872,13 @@ void WebRtcAec_ProcessFrames(AecCore* aec,
       // which should be investigated. Maybe, allow for a non-symmetric
       // rounding, like -16.
       int move_elements = (aec->knownDelay - knownDelay - 32) / PART_LEN;
+
+      // The avaliable space must be at least 1 when ExtractExtendedBlock is
+      // called.
+      move_elements = std::max(
+          move_elements,
+          1 - static_cast<int>(aec->farend_block_buffer_.AvaliableSpace()));
+
       int moved_elements = aec->farend_block_buffer_.AdjustSize(move_elements);
       MaybeLogDelayAdjustment(moved_elements * (aec->sampFreq == 8000 ? 8 : 4),
                               DelaySource::kSystemDelay);

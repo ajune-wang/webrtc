@@ -22,6 +22,30 @@
       "revId": "4065776352a37cec8fa408c09731d34c981353a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76179a0d_302b0dd8",
+        "filename": "sdk/android/native_api/sdk/jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-07T16:11:14Z",
+      "side": 1,
+      "message": "It is true that the approach you suggest would work for now. However, I feel the approach in this CL would be more future-proof.\n\nWe might want to add stuff to OnJniLoad / OnJniUnLoad that we might not want to add to the native API or vice versa. Suppose we bundled some crash reporting framework to the SDK that needs to be initialized at startup but didn\u0027t want to add it for the native API users. Then this would be a natural place to put it. Or we add some component in native API that is not available in the SDK at all. Then we would place it in webrtc::InitAndroid.\n\nAdditionally, it feels unnatural that clients that don\u0027t otherwise use the native API have to use the init method in that is part of the native API. While the include file in this CL is under native_api folder, it is not really part of the native API. It just was the only folder we currently have public available headers in, so I placed it there.",
+      "parentUuid": "aab39b4c_34c522aa",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "4065776352a37cec8fa408c09731d34c981353a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -489,8 +489,24 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // re-determining was removed in ICEbis (ICE v2).
     bool redetermine_role_on_ice_restart = true;
 
+    // If set, the interval in milliseconds at which we will send ICE checks
+    // (STUN pings) when a candidate pair is both writable and receiving (strong
+    // connectivity), overriding the default value of this interval in the ICE
+    // implementation.
+    rtc::Optional<int> ice_check_interval_strong_connectivity;
+
+    // If set, the interval in milliseconds at which we will send ICE checks
+    // (STUN pings) when a candidate pair is either not writable or not
+    // receiving (weak connectivity), overriding the default value of this
+    // interval in the ICE implementation.
+    rtc::Optional<int> ice_check_interval_weak_connectivity;
+
     // If set, the min interval (max rate) at which we will send ICE checks
     // (STUN pings), in milliseconds.
+    //
+    // Note that this parameter overrides both the above check intervals for
+    // candidate pairs with strong or weak connectivity, if either of the above
+    // interval is shorter than the min interval.
     rtc::Optional<int> ice_check_min_interval;
 
     // The interval in milliseconds at which STUN candidates will resend STUN

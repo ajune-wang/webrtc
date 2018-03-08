@@ -70,6 +70,24 @@
       "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25794878_1720f426",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-08T16:48:42Z",
+      "side": 1,
+      "message": "Hmmm, you\u0027re right, the unrelated callbacks firing nestedly would be even more unexpected and obscure, and a much more likely candidate for problems. Nothing in the spec guarantees the order, while unexpected if the order only changes in edge-cases it would seem very unlikely that this would matter to any real application.\n\nThis is more complicated than I anticipated. Hmm, \"3. ... Starts asynchronously producing results [again].\" would not happen because we only start collecting if (!num_pending_partial_reports_), otherwise we rely on the pending collection to return the result of the new callback, so we never hit the DCHECK at 5. (This is not racy because callbacks_ and num_pending_partial_reports_ are only touched on the signaling thread.)\n\nI like your solution with the concept CL. It solves the nested callback weirdness nicely.",
+      "parentUuid": "ab6e0c9a_17c852bd",
+      "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

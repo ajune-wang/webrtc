@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b1bcb05_bf0c4788",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-08T17:18:24Z",
+      "side": 1,
+      "message": "nit: Using\nstd::vector callbacks;\ncallbacks.swap(callbacks_);\nand std::move(callback) for Bind the argument avoids a copy.",
+      "revId": "f8a210392dadbb8aaadb16dfc3c3e83b627739f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f9dca4a_a9aed71c",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-08T17:18:24Z",
+      "side": 1,
+      "message": "nit: std::move(callbacks)",
+      "revId": "f8a210392dadbb8aaadb16dfc3c3e83b627739f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

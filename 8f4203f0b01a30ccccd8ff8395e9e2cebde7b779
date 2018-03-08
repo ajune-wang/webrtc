@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f85e9a9_6d0c9448",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:44:58Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "revId": "8f4203f0b01a30ccccd8ff8395e9e2cebde7b779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da6d65e9_78845945",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:44:58Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 379,
+        "startChar": 2,
+        "endLine": 379,
+        "endChar": 9
+      },
+      "revId": "8f4203f0b01a30ccccd8ff8395e9e2cebde7b779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30640ea7_4e48a484",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:44:58Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 380,
+        "startChar": 2,
+        "endLine": 380,
+        "endChar": 5
+      },
+      "revId": "8f4203f0b01a30ccccd8ff8395e9e2cebde7b779",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

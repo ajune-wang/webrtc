@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a5d4b60_9e567b33",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T21:58:56Z",
+      "side": 1,
+      "message": "Good description, thanks for listening to my nits",
+      "revId": "0c6b2d61833becc9d0235d75848824734892c3c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce9fefe1_d7ed045b",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T21:58:56Z",
+      "side": 1,
+      "message": "Hmm, it looks like some parameters are only processed if non-null. Meaning there\u0027s no way to say \"go back to defaults.\" We may want to fix this later for consistency.",
+      "revId": "0c6b2d61833becc9d0235d75848824734892c3c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

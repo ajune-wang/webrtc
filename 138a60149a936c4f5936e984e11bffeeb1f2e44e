@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "54b58e0e_84d63cb6",
+        "filename": "p2p/base/icetransportinternal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-08T19:01:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "733ed677_6e199250",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d784076_3cf27e85",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fe0ad3d_57da31a4",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-08T19:01:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9d784076_3cf27e85",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4e4e435f_9115cd6c",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-08T19:01:15Z",
+      "side": 1,
+      "message": "Done. Thanks for spotting this! I have fixed other places as well.",
+      "parentUuid": "66e91653_345cfaf1",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6b85cc4_9e1654a3",
         "filename": "p2p/base/p2ptransportchannel.h",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ccff0cf_e9d1f315",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-08T19:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6b85cc4_9e1654a3",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "62eab167_1d1d8c3b",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-08T19:01:15Z",
+      "side": 1,
+      "message": "I agree these two terms can cause confusion and they are quite internal concepts in our implementation. They are not equivalent to ICE states though. I have added a more detailed description, though it exposes the implementation.\n\n\"applied to candidate pairs\" does give the incorrect the description. I will fix it. Thanks!",
+      "parentUuid": "2ee526b7_5046a55d",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2893235_85619a2e",
         "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75204978_31f0a625",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-08T19:01:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e2893235_85619a2e",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b8dde90_487ee6fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "That seems odd.  Why would we do that?",
+      "range": {
+        "startLine": 19,
+        "startChar": 48,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d691509_ee89bbf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "The last part of this sentence doesn\u0027t make sense to me.",
+      "range": {
+        "startLine": 22,
+        "startChar": 67,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ef8ffa_7599fb95",
+        "filename": "ortc/rtptransportadapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "So ORTC can\u0027t use SRTP?  Why is this necessary?",
+      "range": {
+        "startLine": 36,
+        "startChar": 49,
+        "endLine": 37,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af5e18d4_03875490",
+        "filename": "pc/channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "I think you can just remove this method.",
+      "range": {
+        "startLine": 270,
+        "startChar": 40,
+        "endLine": 271,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f3056b_2ad6b22c",
+        "filename": "pc/channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "Hmm... doing a static cast from a normal getter seems dangerous.  I think this is only used for unit tests, so I suggest pushing the cast into the unit tests.",
+      "range": {
+        "startLine": 153,
+        "startChar": 48,
+        "endLine": 154,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdb9ac2f_640cf750",
+        "filename": "pc/channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "Since this is a new public method, we should probably document it.",
+      "range": {
+        "startLine": 176,
+        "startChar": 47,
+        "endLine": 176,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e54efbf_05d35e61",
+        "filename": "pc/channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "Ah, this comment should go on SetEncyptionDisabled.",
+      "range": {
+        "startLine": 364,
+        "startChar": 36,
+        "endLine": 364,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "664c8e29_5a282f1a",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "Can we rename transport_name to mid here?",
+      "range": {
+        "startLine": 275,
+        "startChar": 38,
+        "endLine": 276,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce56939c_dc971388",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-08T23:05:16Z",
+      "side": 1,
+      "message": "I liked it the way it was before.  I\u0027d prefer to remove the rtcp_mux_enabled variable instead.",
+      "range": {
+        "startLine": 447,
+        "startChar": 26,
+        "endLine": 448,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

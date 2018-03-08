@@ -16,6 +16,24 @@
       "revId": "12edf4ce344dd86bbe257539555453f253c014bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255900f2_1cc3fbc4",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-08T16:13:45Z",
+      "side": 0,
+      "message": "Not really (but this is nice side effect). To configure SVC layering we need to know input resolution which is a subject for adjusting in loop that handles streams parameters. I rearranged the order such that codec parameters and SVC layering are handled after stream parameters.",
+      "parentUuid": "e0086856_87e982df",
+      "revId": "12edf4ce344dd86bbe257539555453f253c014bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

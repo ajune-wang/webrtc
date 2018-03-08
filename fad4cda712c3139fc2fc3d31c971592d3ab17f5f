@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0025863d_e1f5e1ce",
+        "filename": "sdk/android/src/jni/pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-08T08:32:30Z",
+      "side": 1,
+      "message": "nit: No need for a new line here.",
+      "revId": "fad4cda712c3139fc2fc3d31c971592d3ab17f5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

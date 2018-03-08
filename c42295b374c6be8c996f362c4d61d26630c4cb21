@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b2df5e2_6319305e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-03-08T08:18:30Z",
+      "side": 1,
+      "message": "what do you think about also looking for e.g. \"std::[io]*stringstream\"?\n\nIt\u0027s tempting to also issue a warning about \"std::[io]+stream\" actually, since we want to catch new additions of functions that use those types. E.g. catch this:\n\nstd::ostream\u0026 MyNewFunction() {\n  return OldFunctionThatCurrentlyUsesOstream();\n}",
+      "range": {
+        "startLine": 409,
+        "startChar": 25,
+        "endLine": 409,
+        "endChar": 32
+      },
+      "revId": "c42295b374c6be8c996f362c4d61d26630c4cb21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

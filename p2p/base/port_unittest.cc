@@ -2559,6 +2559,10 @@ TEST_F(PortTest, TestConnectionPriority) {
 #endif
 }
 
+// TODO(qingsi): Note that the correctness of using constant 500 as an upper
+// bound of RTT in the following test depends on the link rate assumed in
+// VirtualSocketServer::AddPacketToNetwork. Make the test robust to changes of
+// implementation of VirtualSocketServer.
 TEST_F(PortTest, TestWritableState) {
   rtc::ScopedFakeClock clock;
   UDPPort* port1 = CreateUdpPort(kLocalAddr1);
@@ -2615,7 +2619,6 @@ TEST_F(PortTest, TestWritableState) {
   // responses.
   EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE,
                            ch1.conn()->write_state(), kDefaultTimeout, clock);
-
   // Wait long enough for a full timeout (past however long we've already
   // waited).
   for (uint32_t i = 1; i <= CONNECTION_WRITE_CONNECT_FAILURES; ++i) {
@@ -2628,6 +2631,32 @@ TEST_F(PortTest, TestWritableState) {
   // Even if the connection has timed out, the Connection shouldn't block
   // the sending of data.
   EXPECT_EQ(data_size, ch1.conn()->Send(data, data_size, options));
+
+  // Repeat tests of writability states using the configured value to replace
+  // the default value given by |CONNECTION_WRITE_CONNECT_TIMEOUT| and
+  // |CONNECTION_WRITE_CONNECT_FAILURES|.
+  int now = unreliable_timeout_delay + CONNECTION_WRITE_TIMEOUT + 500;
+  EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE,
+                           ch1.conn()->write_state(), kDefaultTimeout, clock);
+  ch1.conn()->set_unwritable_timeout(1000);
+  ch1.conn()->set_unwritable_min_checks(3);
+  for (auto i = 1; i <= ch1.conn()->unwritable_min_checks() - 1; ++i) {
+    ch1.Ping(now + i);
+  }
+  // We have not reached the timeout nor have we sent the minimum number of
+  // checks to change the state to Unreliable.
+  ch1.conn()->UpdateState(now + 999);
+  EXPECT_EQ(Connection::STATE_WRITABLE, ch1.conn()->write_state());
+  // We have not send the minimum number of checks without responses.
+  ch1.conn()->UpdateState(now + 1000 + 500);
+  EXPECT_EQ(Connection::STATE_WRITABLE, ch1.conn()->write_state());
+  ch1.Ping(now + ch1.conn()->unwritable_timeout());
+  // We have not reached the timeout.
+  ch1.conn()->UpdateState(now + 999);
+  EXPECT_EQ(Connection::STATE_WRITABLE, ch1.conn()->write_state());
+  // We should be in the state Unreliable now.
+  ch1.conn()->UpdateState(now + 1000 + 500);
+  EXPECT_EQ(Connection::STATE_WRITE_UNRELIABLE, ch1.conn()->write_state());
 
   ch1.Stop();
   ch2.Stop();

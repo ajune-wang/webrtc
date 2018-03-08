@@ -386,7 +386,35 @@ public class PeerConnection {
     public int iceCandidatePoolSize;
     public boolean pruneTurnPorts;
     public boolean presumeWritableWhenFullyRelayed;
+    // The following fields define intervals in milliseconds at which ICE
+    // connectivity checks are sent.
+    //
+    // We consider ICE is "strongly connected" for an agent when there is at
+    // least one candidate pair that currently succeeds in connectivity check
+    // from its direction i.e. sending a ping and receives a ping response, AND
+    // all candidate pairs have sent a minimum number of pings for connectivity
+    // (this number is implementation-specific). Otherwise, ICE is considered in
+    // "weak connectivity".
+    //
+    // Note that the above notion of strong and weak connectivity is not defined
+    // in RFC 5245, and they apply to our current ICE implementation only.
+    //
+    // 1) iceCheckIntervalStrongConnectivityMs defines the interval applied to
+    // ALL candidate pairs when ICE is strongly connected,
+    // 2) iceCheckIntervalWeakConnectivityMs defines the counterpart for ALL
+    // pairs when ICE is weakly connected, and
+    // 3) iceCheckMinInterval defines the minimal interval (equivalently the
+    // maximum rate) that overrides the above two intervals when either of them
+    // is less.
+    public Integer iceCheckIntervalStrongConnectivityMs;
+    public Integer iceCheckIntervalWeakConnectivityMs;
     public Integer iceCheckMinInterval;
+    // The time period in milliseconds for which a candidate pair must wait for response to
+    // connectivitiy checks before it becomes unwritable.
+    public Integer iceUnwritableTimeMs;
+    // The minimum number of connectivity checks that a candidate pair must sent without receiving
+    // response before it becomes unwritable.
+    public Integer iceUnwritableMinChecks;
     // The interval in milliseconds at which STUN candidates will resend STUN binding requests
     // to keep NAT bindings open.
     // The default value in the implementation is used if this field is null.
@@ -437,7 +465,11 @@ public class PeerConnection {
       iceCandidatePoolSize = 0;
       pruneTurnPorts = false;
       presumeWritableWhenFullyRelayed = false;
+      iceCheckIntervalStrongConnectivityMs = null;
+      iceCheckIntervalWeakConnectivityMs = null;
       iceCheckMinInterval = null;
+      iceUnwritableTimeMs = null;
+      iceUnwritableMinChecks = null;
       stunCandidateKeepaliveIntervalMs = null;
       disableIPv6OnWifi = false;
       maxIPv6Networks = 5;
@@ -530,8 +562,28 @@ public class PeerConnection {
     }
 
     @CalledByNative("RTCConfiguration")
+    Integer getIceCheckIntervalStrongConnectivity() {
+      return iceCheckIntervalStrongConnectivityMs;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    Integer getIceCheckIntervalWeakConnectivity() {
+      return iceCheckIntervalWeakConnectivityMs;
+    }
+
+    @CalledByNative("RTCConfiguration")
     Integer getIceCheckMinInterval() {
       return iceCheckMinInterval;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    Integer getIceUnwritableTimeout() {
+      return iceUnwritableTimeMs;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    Integer getIceUnwritableMinChecks() {
+      return iceUnwritableMinChecks;
     }
 
     @CalledByNative("RTCConfiguration")

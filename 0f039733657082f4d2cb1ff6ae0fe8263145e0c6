@@ -16,6 +16,24 @@
       "revId": "0f039733657082f4d2cb1ff6ae0fe8263145e0c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49e38a46_1d69b36d",
+        "filename": "modules/audio_device/include/test_audio_device_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-08T11:58:12Z",
+      "side": 1,
+      "message": "You\u0027re right---silly of me not to catch that. The three test_audio_device_impl* files should move up one directory, I guess.",
+      "parentUuid": "ac5564c2_ef2af351",
+      "revId": "0f039733657082f4d2cb1ff6ae0fe8263145e0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

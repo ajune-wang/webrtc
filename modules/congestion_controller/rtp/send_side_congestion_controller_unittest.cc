@@ -78,6 +78,7 @@ class SendSideCongestionControllerTest : public ::testing::Test {
     controller_->RegisterNetworkObserver(&observer_);
     controller_->SignalNetworkState(NetworkState::kNetworkUp);
     bandwidth_observer_ = controller_->GetBandwidthObserver();
+    controller_->WaitOnTasks();
     testing::Mock::VerifyAndClearExpectations(pacer_.get());
     testing::Mock::VerifyAndClearExpectations(&observer_);
   }

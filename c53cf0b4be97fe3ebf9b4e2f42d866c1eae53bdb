@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "96738135_fbd26a70",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "affed003_ca2a197b",
+      "range": {
+        "startLine": 46,
+        "startChar": 73,
+        "endLine": 46,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da774f6b_44711339",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 12
@@ -36,6 +60,24 @@
       "writtenOn": "2018-03-07T13:38:34Z",
       "side": 1,
       "message": "taking current time outside the critical section may (in theory) produce situation where later packet added with earlier now time.\n\nMay be current code does support it, but some modification may assume packets are put with increasing now_ms",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76d75baa_e35ecda2",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Good point. Fixed.",
+      "parentUuid": "da774f6b_44711339",
       "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "e4ddb8f6_ec5b2986",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Oops, using it here was part of the reason for temporary.",
+      "parentUuid": "3287475f_82bbd1a8",
+      "range": {
+        "startLine": 102,
+        "startChar": 30,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8ad3d0a_80508779",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 12
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "009a503d_3378e984",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8ad3d0a_80508779",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "243732d6_f68ae69d",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 12
@@ -93,6 +177,24 @@
       "writtenOn": "2018-03-07T13:38:34Z",
       "side": 1,
       "message": "can write \npacket.send_time_ms \u003d now_ms;",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e2c6a6a_55f37de0",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "243732d6_f68ae69d",
       "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "a2df07d3_83ed7f2e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c289c527_72bd759f",
+      "range": {
+        "startLine": 175,
+        "startChar": 30,
+        "endLine": 175,
+        "endChar": 60
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1546008_6b2fab2d",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 12
@@ -139,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "9ae0e2ff_1a04db01",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1546008_6b2fab2d",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c06be6a_8b4f2687",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 12
@@ -150,6 +294,24 @@
       "writtenOn": "2018-03-07T13:38:34Z",
       "side": 1,
       "message": "nit: may be instead of using Optional set min_diff to some large value, e.g. std::numeric_limits\u003csize_t\u003e::max();\nsince every access to optional need an extra check if it is set.",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5de0332_fcf6c3a2",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c06be6a_8b4f2687",
       "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -179,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "0c4155c6_d8ca07db",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "yes, good catch.\nAdded a unit test for it. too.",
+      "parentUuid": "a9fceec2_d3839799",
+      "range": {
+        "startLine": 213,
+        "startChar": 26,
+        "endLine": 214,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d934ce08_af8e0d9f",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 12
@@ -199,6 +385,30 @@
       "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc7c6ece_f040787b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "That was not supposed to be dereferenced. But this was uncaught since already check if it\u0027s set above... Removed this check.",
+      "parentUuid": "d934ce08_af8e0d9f",
+      "range": {
+        "startLine": 242,
+        "startChar": 48,
+        "endLine": 242,
+        "endChar": 75
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -225,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "50f68091_5bf1d598",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a1d6115_45090931",
+      "range": {
+        "startLine": 14,
+        "startChar": 15,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aef38dae_ad429fb4",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 12
@@ -242,6 +476,24 @@
     },
     {
       "key": {
+        "uuid": "9eaeb8a1_5c444334",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef38dae_ad429fb4",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1a537d3_a4bc173d",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 12
@@ -253,6 +505,30 @@
       "writtenOn": "2018-03-07T13:38:34Z",
       "side": 1,
       "message": "i.e. Store at least |number_to_store| last packets?",
+      "range": {
+        "startLine": 35,
+        "startChar": 80,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a1e5245_61770973",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1a537d3_a4bc173d",
       "range": {
         "startLine": 35,
         "startChar": 80,
@@ -288,6 +564,30 @@
     },
     {
       "key": {
+        "uuid": "b87ed339_573e5681",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Since this is exposed mostly for the unit tests, some description would be nice. But I have shortened it to one-liners. OK?",
+      "parentUuid": "423eaeca_9770ccba",
+      "range": {
+        "startLine": 40,
+        "startChar": 80,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "058b8b3f_b4c4ccee",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 12
@@ -311,6 +611,30 @@
     },
     {
       "key": {
+        "uuid": "2edc8a33_294b3f3a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "058b8b3f_b4c4ccee",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8eca1506_29a6e4ab",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 12
@@ -325,6 +649,24 @@
       "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de98f78d_3ecc96ec",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eca1506_29a6e4ab",
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -351,6 +693,30 @@
     },
     {
       "key": {
+        "uuid": "d1314d47_b8d6ed89",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "updated comment",
+      "parentUuid": "a3dc8c2f_910bbc19",
+      "range": {
+        "startLine": 104,
+        "startChar": 5,
+        "endLine": 104,
+        "endChar": 41
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c52a980_64266f76",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 12
@@ -362,6 +728,30 @@
       "writtenOn": "2018-03-07T13:38:34Z",
       "side": 1,
       "message": "can \u0027at which\u0027 be replaced with \u0027when\u0027?",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 123,
+        "endChar": 24
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0db5f536_38a7f763",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Don\u0027t like \u0027when\u0027 there. How about\n// The time of last transmission, including retransmissions.",
+      "parentUuid": "0c52a980_64266f76",
       "range": {
         "startLine": 123,
         "startChar": 16,
@@ -394,6 +784,30 @@
       "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b03605_4df6d477",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-08T10:06:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a4250d6_211de756",
+      "range": {
+        "startLine": 141,
+        "startChar": 5,
+        "endLine": 141,
+        "endChar": 24
+      },
+      "revId": "c53cf0b4be97fe3ebf9b4e2f42d866c1eae53bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

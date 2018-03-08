@@ -34,7 +34,8 @@ class SimplePeerConnection : public webrtc::PeerConnectionObserver,
                                 const int no_of_urls,
                                 const char* username,
                                 const char* credential,
-                                bool is_receiver);
+                                bool is_receiver,
+                                bool audio_spatialization);
   void DeletePeerConnection();
   void AddStreams(bool audio_only);
   bool CreateDataChannel();
@@ -58,6 +59,17 @@ class SimplePeerConnection : public webrtc::PeerConnectionObserver,
   bool AddIceCandidate(const char* sdp,
                        const int sdp_mlineindex,
                        const char* sdp_mid);
+
+  // Spatial audio API functions.
+  bool SetHeadPosition(float x, float y, float z);
+  bool SetHeadRotation(float rx, float ry, float rz, float rw);
+  bool SetRemoteAudioPosition(float x, float y, float z);
+  bool SetRemoteAudioRotation(float rx, float ry, float rz, float rw);
+  bool EnableRoomEffects(bool enable);
+  bool SetRoomProperties(float dimension_x,
+                         float dimension_y,
+                         float dimension_z,
+                         int material);
 
  protected:
   // create a peerconneciton and add the turn servers info to the configuration.

@@ -1,3 +1,7 @@
 include_rules = [
+  "+api/audio",
+  "+audio",
+  "+audio/utility",
+  "+modules/audio_coding",
   "+sdk",
 ]

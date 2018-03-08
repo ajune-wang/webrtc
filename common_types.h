@@ -601,6 +601,10 @@ class BitrateAllocation {
   // Get the sum of all the temporal layer for a specific spatial layer.
   uint32_t GetSpatialLayerSum(size_t spatial_index) const;
 
+  // Get cumulative bitrate for specified temporal layer.
+  uint32_t GetTemporalLayerSum(size_t spatial_index,
+                               size_t temporal_index) const;
+
   uint32_t get_sum_bps() const { return sum_; }  // Sum of all bitrates.
   uint32_t get_sum_kbps() const { return (sum_ + 500) / 1000; }
 

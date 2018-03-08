@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6233381e_f5daa8f3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T02:44:09Z",
+      "side": 1,
+      "message": "What if this is called after some packets were already sent? Then an ack for those packets would turn off \"send_mid\".",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "694e91e6_0dbc65b4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T02:44:09Z",
+      "side": 1,
+      "message": "It\u0027s a corner case admittedly, but happens if the extension gets deregistered afterwards?",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7c846cf_4a4c9b71",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T02:44:09Z",
+      "side": 1,
+      "message": "Are you allowed to change the MID from one value to another? That would break MidOracle\u0027s logic since it could receive an ack for a packet sent with the old MID, when it should be waiting for an ack for a packet sent with the new MID.",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2103a5_1abd4da6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T02:44:09Z",
+      "side": 1,
+      "message": "If this requires the MID extension to be registered beforehand, should probably mention that in a comment.",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

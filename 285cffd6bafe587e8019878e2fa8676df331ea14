@@ -2,6 +2,143 @@
   "comments": [
     {
       "key": {
+        "uuid": "c13f242d_142b80c0",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "no need to duplicated this include specially that there are no extra usage of the std::string",
+      "range": {
+        "startLine": 13,
+        "startChar": 17,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df228d1c_90f3ac60",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "These 3 headers look unused",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41bdb318_f767c68f",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "no blank line between c and c++ headers\nhttps://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "782796b3_fcd804a1",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "what about other repair streams, i.e. flexfec\nMay be instead have one ssrc in the MidOracle, but create MidOracle per ssrc.",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 13
+      },
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "848ccc5d_8f29f3b0",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "may be return const std::string\u0026 to avoid copy",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 13
+      },
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d4d8e1e_acd94aa2",
+        "filename": "modules/rtp_rtcp/source/mid_oracle_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "prefer put everything in test into unnamed namespace, including fixture and TESTs",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2ddcd04_64332a50",
+        "filename": "modules/rtp_rtcp/source/mid_oracle_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "May have instead have a free function that creates appropriate ReportBlocks\nThen fixture can be avoided altogether and TEST will show more directly how object under test supposed to be used.\nhttps://abseil.io/tips/122",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6233381e_f5daa8f3",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2
@@ -36,6 +173,24 @@
     },
     {
       "key": {
+        "uuid": "59f8d164_d10f8d54",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "Might be easier to ignore this corner case:\nFor Video there are no way to unregister extension,\nFor Audio it is wired only through legacy api.",
+      "parentUuid": "694e91e6_0dbc65b4",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7c846cf_4a4c9b71",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2
@@ -47,6 +202,29 @@
       "writtenOn": "2018-03-08T02:44:09Z",
       "side": 1,
       "message": "Are you allowed to change the MID from one value to another? That would break MidOracle\u0027s logic since it could receive an ack for a packet sent with the old MID, when it should be waiting for an ack for a packet sent with the new MID.",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7efaddc1_8d6dea7a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-08T09:35:35Z",
+      "side": 1,
+      "message": "There might be race between this line and OnReceivedRtcpReportBlocks that read mid_oracle_.\n\nMay be variable(s) \nmid_oracle_ GUARDED_BY(send_critsect_)\nwhich also make lock inside MidOracle unneccesary",
+      "range": {
+        "startLine": 1145,
+        "startChar": 48,
+        "endLine": 1145,
+        "endChar": 0
+      },
       "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

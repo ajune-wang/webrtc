@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b9e9db15_729e5aa0",
+        "filename": "examples/androidnativeapi/java/org/webrtc/examples/androidnativeapi/CallClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-08T15:45:31Z",
+      "side": 1,
+      "message": "Discussed offline, agreed that dependency injection might be a little bit over-engineered here since we don\u0027t plan to test this class.",
+      "parentUuid": "ebc8f16a_e1eb9eec",
+      "range": {
+        "startLine": 25,
+        "startChar": 20,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f51f4bb7_840069f7",
         "filename": "examples/androidnativeapi/java/org/webrtc/examples/androidnativeapi/CallClient.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "24198c86545c4c64502e676306532e07b0645255",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fde2c77f_9f356265",
+        "filename": "examples/androidnativeapi/java/org/webrtc/examples/androidnativeapi/CallClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-08T15:45:31Z",
+      "side": 1,
+      "message": "See other discussion.",
+      "parentUuid": "f51f4bb7_840069f7",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0fd0491c_bbe56e1f",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-08T15:45:31Z",
+      "side": 1,
+      "message": "I think we might want to access some other variables in the future from this class.",
+      "parentUuid": "ec2f98db_496b349f",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 43
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68d72d5f_ed56d28b",
         "filename": "examples/androidnativeapi/jni/androidcallclient.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "24198c86545c4c64502e676306532e07b0645255",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f93acd_deb18c30",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-08T15:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d72d5f_ed56d28b",
+      "range": {
+        "startLine": 190,
+        "startChar": 2,
+        "endLine": 190,
+        "endChar": 14
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1f4ecf60_1847c905",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-08T15:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70cd3d09_b9e8c1f7",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 54
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71142b89_0ceb58fe",
         "filename": "examples/androidnativeapi/jni/androidcallclient.h",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "24198c86545c4c64502e676306532e07b0645255",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b6824fb_e4103192",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-08T15:45:31Z",
+      "side": 1,
+      "message": "The threading model is \"don\u0027t worry about it, it\u0027s just a test app\". I think it was probably fine but I added some annotations and locks for good measure.",
+      "parentUuid": "71142b89_0ceb58fe",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

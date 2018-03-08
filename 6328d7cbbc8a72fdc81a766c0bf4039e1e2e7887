@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebae6f9b_f131ad1f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T23:39:42Z",
+      "side": 1,
+      "message": "This causes a compile error for a downstream build, since there\u0027s no implicit conversion from \"std::unique_ptr\u003cRtpPacketToSend\u003e\u0026\u0026\" to \"StoredPacket\" (the StoredPacket constructor is marked explicit).\n\nThe documentation for the std::pair conversion constructor says:\n\n\"This constructor participates in overload resolution only if U1 is implicitly convertible to first_type and U2 is implicitly convertible to second_type.\"\n\nBut in C++17 this changes, and the constructor participates in overload resolution \"if and only if std::is_constructible_v\u003cfirst_type, U1\u0026\u0026\u003e and std::is_constructible_v\u003csecond_type, U2\u0026\u0026\u003e are both true.\"\n\nSo it appears that\u0027s what\u0027s causing the difference.",
+      "revId": "6328d7cbbc8a72fdc81a766c0bf4039e1e2e7887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

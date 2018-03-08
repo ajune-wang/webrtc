@@ -94,6 +94,30 @@
       "revId": "4065776352a37cec8fa408c09731d34c981353a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a3a736_1718be22",
+        "filename": "sdk/android/native_api/sdk/jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T12:20:11Z",
+      "side": 1,
+      "message": "I hear your point, but I think you are preparing for a future problem that does not exist today and might not ever exist. And the downside is that we have to introduce this confusing sdk/android/native_api/sdk/jni.h.",
+      "parentUuid": "e1cf682e_899a4324",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "4065776352a37cec8fa408c09731d34c981353a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

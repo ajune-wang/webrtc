@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "733ed677_6e199250",
+        "filename": "p2p/base/icetransportinternal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T01:49:57Z",
+      "side": 1,
+      "message": "extra newline?",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d784076_3cf27e85",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T01:49:57Z",
+      "side": 1,
+      "message": "Did you mean \"if not set\"?",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e91653_345cfaf1",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T01:49:57Z",
+      "side": 1,
+      "message": "This will crash if it\u0027s being set back to an empty optional (in other words, setting it back to the implicit default). Could do \"value_or\" here too to avoid that.",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b85cc4_9e1654a3",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T01:49:57Z",
+      "side": 1,
+      "message": "Should be \"weak_ping_interval_\", since it appears there\u0027s another thing that affects this interval: the \"WebRTC-StunInterPacketDelay\" field trial.",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ee526b7_5046a55d",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T01:49:57Z",
+      "side": 1,
+      "message": "The ICE standard doesn\u0027t define \"strong connectivity\". So I think we need to describe what it means here. Or just say \"when the ICE transport is connected,\" since the \"Connected\" state is defined by the WebRTC standard, and I think it\u0027s mostly equivalent to \"strongly connected\" (with the \"Disconnected\" state being mostly equivalent to \"weakly connected\").\n\nAlso, \"applied to candidate pairs...\" gives the wrong impression. The ping interval applies to the whole ICE transport, not per-candidate-pair. So if *any* candidate pair is strongly connected, then pings for *all* candidate pairs will be sent with the strong interval.",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2893235_85619a2e",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T01:49:57Z",
+      "side": 1,
+      "message": "I like how you have one comment block here that describes the 3 related fields; can you do this for the C++ comments as well?",
+      "revId": "138a60149a936c4f5936e984e11bffeeb1f2e44e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

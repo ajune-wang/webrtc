@@ -88,6 +88,24 @@
       "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fe21a30_957e5a99",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-08T17:45:14Z",
+      "side": 1,
+      "message": "\u003e Nothing in the spec guarantees the order...\n\nNote that this only affects the native API, since chromium queues a task to fulfill the getStats promise and thus these reentrant calls are impossible.\n\n\u003e Hmm, \"3. ... Starts asynchronously producing results [again].\" would not happen because we only start collecting if (!num_pending_partial_reports_)\n\nBut num_pending_partial_reports_ is 0 here, that\u0027s why the stats callback is being invoked.\n\n\u003e I like your solution with the concept CL.\n\nAlright, let\u0027s go with it then; thanks for reviewing",
+      "parentUuid": "25794878_1720f426",
+      "revId": "cb0bf59dd99bd39c32302841368295445941f5c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

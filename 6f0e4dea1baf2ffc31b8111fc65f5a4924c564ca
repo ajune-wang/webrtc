@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab5baccd_045d484d",
+        "filename": "modules/video_coding/codecs/test/stats.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "What happens if the target_bitrate_kbps value is zero or some undesired value?",
+      "range": {
+        "startLine": 203,
+        "startChar": 9,
+        "endLine": 203,
+        "endChar": 28
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "085faecb_02fd5113",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "Performing the check for the number of spatial layers separately in the horizontal and vertical dimensions is a good idea. Such protects against extreme picture aspect ratios. Well done!",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a86f7e63_4dd5b135",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "What happens if the value of num_temporal_layers is very large (i.e., larger than we can support)?",
+      "range": {
+        "startLine": 44,
+        "startChar": 43,
+        "endLine": 44,
+        "endChar": 62
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33f69fec_c923fc54",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "The formulas look good. Setting min and max thresholds in one place is a good idea.",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 80
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d70a235_f3171c06",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "Excellent algorithm summary. Very minor typo:  \"not enough\" instead of \"no enough\"",
+      "range": {
+        "startLine": 51,
+        "startChar": 67,
+        "endLine": 51,
+        "endChar": 76
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbbbdad8_e1ae8b9f",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "Could you move \"spatial_layer_bitrate_bps[sl_idx] \u003d max_bitrate_bps;\" into the else clause above?",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 83,
+        "endChar": 9
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1174c398_2a04e411",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "If layer_bitrate_is_less_than_required_minimum \u003d\u003d true and num_spatial_layers \u003d\u003d 1, then the while-loop will exit; however, there is not enough rate to support even one spatial layer.\n\nAlso, I don\u0027t recall if \"num_spatial_layers--\" will be executed in this case or not?",
+      "range": {
+        "startLine": 90,
+        "startChar": 13,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e58f93_8fbf0dce",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "Question: is GetPreferredBitrateBps used by VP9?",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 49
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc3cdc36_7c1b4a84",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "I like the fact that you created one function to split the bit rate for both spatial layers and temporal layers.",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 50
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b884a4fd_518bcd9f",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "Would it be better to declare this variable as uint32_t?",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "d18d9fca_eca648f2",
+        "filename": "common_types.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "The type has changed from uint32_t.  Can size_t handle the sum of bit rates?",
+      "range": {
+        "startLine": 192,
+        "startChar": 2,
+        "endLine": 192,
+        "endChar": 8
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70576dbd_7383b883",
         "filename": "common_types.h",
         "patchSetId": 11
@@ -410,6 +433,29 @@
       "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1dee3b1c_51fd2845",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-08T17:54:22Z",
+      "side": 1,
+      "message": "Consider naming this variable to make it clear that the num_layers refers to the number of spatial layers (not temporal layers)",
+      "range": {
+        "startLine": 109,
+        "startChar": 58,
+        "endLine": 109,
+        "endChar": 68
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

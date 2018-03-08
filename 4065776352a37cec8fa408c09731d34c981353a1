@@ -46,6 +46,30 @@
       "revId": "4065776352a37cec8fa408c09731d34c981353a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2efa6f68_7b58400f",
+        "filename": "sdk/android/native_api/sdk/jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T09:26:22Z",
+      "side": 1,
+      "message": "We could still put SDK specific init code in PeerConnectionFactory.initialize().\n\nIt feels confusing for me to have two different native (C++) Android init functions. It\u0027s unfortunate that SDK users need to call a C++ Android init function at all, but if they have to, I think it\u0027s better if it\u0027s one common.",
+      "parentUuid": "76179a0d_302b0dd8",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "4065776352a37cec8fa408c09731d34c981353a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

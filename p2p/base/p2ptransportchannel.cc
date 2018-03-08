@@ -177,6 +177,7 @@ P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
   if (weak_ping_interval) {
     weak_ping_interval_ = static_cast<int>(weak_ping_interval);
   }
+  RTC_DCHECK(ValidateIceConfig());
   ice_event_log_.set_event_log(event_log);
 }
 
@@ -599,10 +600,36 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
     RTC_LOG(LS_INFO) << "Set STUN keepalive interval to "
                      << config.stun_keepalive_interval.value_or(-1);
   }
+
+  RTC_DCHECK(ValidateIceConfig());
 }
 
 const IceConfig& P2PTransportChannel::config() const {
   return config_;
+}
+
+bool P2PTransportChannel::ValidateIceConfig() const {
+  if (config_.ice_check_interval_strong_connectivity.value_or(
+          STRONG_PING_INTERVAL) <
+      config_.ice_check_interval_weak_connectivity.value_or(
+          weak_ping_interval_)) {
+    RTC_LOG(LS_ERROR) << "Ping interval for strong connectivity is short than"
+                      << " that of weak connectivity";
+    return false;
+  }
+  // Note that we always explicitly set the receiving timeout of each candidate
+  // pair in AddConnection, which overrides the default value given by
+  // |WEAK_CONNECTION_RECEIVE_TIMEOUT| when constructing a candidate pair. Hence
+  // we do not check against this constant. Should we remove the explicit setter
+  // in AddConnection, add a rule to check against
+  // |WEAK_CONNECTION_RECEIVE_TIMEOUT| as well.
+  if (!(config_.receiving_timeout >
+        std::max(config_.ice_check_interval_strong_connectivity.value_or(
+                     STRONG_PING_INTERVAL),
+                 config_.ice_check_min_interval.value_or(-1)))) {
+    return false;
+  }
+  return true;
 }
 
 void P2PTransportChannel::SetMetricsObserver(

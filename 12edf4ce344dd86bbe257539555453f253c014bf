@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0086856_87e982df",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 0,
+      "message": "Did you move this block to be more consistent with the declaration order in VideoCodec? I like it!",
+      "revId": "12edf4ce344dd86bbe257539555453f253c014bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

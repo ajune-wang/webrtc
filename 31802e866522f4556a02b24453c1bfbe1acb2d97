@@ -1,0 +1,325 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19f0d223_df6f224c",
+        "filename": "common_types.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "... and then you don\u0027t have to do this.",
+      "range": {
+        "startLine": 184,
+        "startChar": 9,
+        "endLine": 184,
+        "endChar": 35
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70576dbd_7383b883",
+        "filename": "common_types.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "I think it would be better to be consistent with the types here. -\u003e uint32_t.",
+      "range": {
+        "startLine": 605,
+        "startChar": 2,
+        "endLine": 605,
+        "endChar": 8
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cda66e4_12621b7a",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "Is this needed to get it to compile in Chromium (*)? If not, I don\u0027t think we want this exposed in the \"legacy API\", even though it\u0027s in a legacy API folder.\n\n(*) See discuss-webrtc post from kwiberg@ on Jan 11th about change to default visibility.",
+      "range": {
+        "startLine": 445,
+        "startChar": 2,
+        "endLine": 445,
+        "endChar": 22
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2edebf23_ea6dd86f",
+        "filename": "modules/video_coding/codecs/test/test_config.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "RTC_CHECK_EQ(kVideoCodecVP9, codec_settings-\u003ecodecType);\nBetter to crash here, than to get garbage data on L56.",
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ad34de2_3f047d80",
+        "filename": "modules/video_coding/codecs/vp9/svc_layering_config.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "Maybe it\u0027s nicer to do the cast to size_t already here, even though it needs to be done for both |num_layers_fit_horz| and |num_layers_fit_vert| ?",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "702628e6_e989f743",
+        "filename": "modules/video_coding/codecs/vp9/svc_layering_config.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "How about GetSvcConfig, to be consistent with GetSimulcastConfig?",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 46
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7947c7a_a1294831",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "bitrate_allocation",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb6dc35a_5f249927",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "Add RTC_CHECK_EQ(codec_.codecType, kVideoCodecVP9); to ctor.",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6e40ac1_77a66f9d",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "Is this the case for SvcRateAllocator too? (SimulcastRateAllocator takes a TemporalLayersFactory, so there I see the point.)",
+      "range": {
+        "startLine": 101,
+        "startChar": 58,
+        "endLine": 102,
+        "endChar": 13
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38040657_1e646154",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "We usually define everything in the protected: part for tests. (Maybe you want to remove this test fixture all together -- see comment below.)",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 7
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b8a01f9_379c4e42",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "You could make these into regular TEST\u0027s (without a test fixture), and just put Configure as a helper function in an anonymous namespace.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 6
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "175062f2_be56f071",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "Is there a point to keeping this old rate allocation algorithm around? AFAICT, we will always supply a BitrateAllocation from the SvcRateAllocator after this CL?\n\n(Removing it/splitting it out can be done in a followup CL, if we want to do that.)",
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649b3dd6_1a7a16a8",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "Same here. We will always get a std::vector\u003cSpatialLayer\u003e from ConfigureSvc?",
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05a900a1_76689648",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "Not your change, but I don\u0027t understand this comment. Should this be a TODO? Or can we remove the comment?",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 68
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86a94fd9_ab3aa36e",
+        "filename": "modules/video_coding/video_codec_initializer_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-08T09:40:13Z",
+      "side": 1,
+      "message": "Include vp9_globals.h explicitly.",
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

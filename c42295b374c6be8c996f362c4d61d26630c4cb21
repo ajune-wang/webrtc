@@ -22,6 +22,30 @@
       "revId": "c42295b374c6be8c996f362c4d61d26630c4cb21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83724ff0_3960e307",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-03-08T09:16:47Z",
+      "side": 1,
+      "message": "I\u0027m inclined to keep it simple. Your call, Mirko.",
+      "parentUuid": "3b2df5e2_6319305e",
+      "range": {
+        "startLine": 409,
+        "startChar": 25,
+        "endLine": 409,
+        "endChar": 32
+      },
+      "revId": "c42295b374c6be8c996f362c4d61d26630c4cb21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

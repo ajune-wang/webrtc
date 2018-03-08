@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "ebc8f16a_e1eb9eec",
+        "filename": "examples/androidnativeapi/java/org/webrtc/examples/androidnativeapi/CallClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T10:02:43Z",
+      "side": 1,
+      "message": "I would like the ctor to take a Handler instead.",
+      "range": {
+        "startLine": 25,
+        "startChar": 20,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51f4bb7_840069f7",
+        "filename": "examples/androidnativeapi/java/org/webrtc/examples/androidnativeapi/CallClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T10:02:43Z",
+      "side": 1,
+      "message": "You can call handler.getLooper().quitSafely() instead, and remove the |thread| member variable.",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec2f98db_496b349f",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T10:02:43Z",
+      "side": 1,
+      "message": "It looks like you could pass in a rtc::scoped_refptr\u003cwebrtc::PeerConnectionInterface\u003e instead and not having to rely on accessing private variables in AndroidCallClient. That would provide more separation and encapsulation, and you could have these observer classes completely in the cc file as anonymous classes without any ties to AndroidCallClient.",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 43
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d72d5f_ed56d28b",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T10:02:43Z",
+      "side": 1,
+      "message": "Same here, looks like you can pass in a rtc::scoped_refptr\u003cwebrtc::PeerConnectionInterface\u003e instead.",
+      "range": {
+        "startLine": 190,
+        "startChar": 2,
+        "endLine": 190,
+        "endChar": 14
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70cd3d09_b9e8c1f7",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T10:02:43Z",
+      "side": 1,
+      "message": "Can\u0027t you just spawn a new SetLocalSessionDescriptionObserver here instead of keeping it as a member variable?",
+      "range": {
+        "startLine": 191,
+        "startChar": 15,
+        "endLine": 191,
+        "endChar": 54
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71142b89_0ceb58fe",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T10:02:43Z",
+      "side": 1,
+      "message": "What is the threading model for this class with all the callbacks coming in? Can you add threadchecker(s)?",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "24198c86545c4c64502e676306532e07b0645255",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e33ddc7a_4482dc79",
         "filename": "examples/androidnativeapi/jni/androidcallclient.h",
         "patchSetId": 5

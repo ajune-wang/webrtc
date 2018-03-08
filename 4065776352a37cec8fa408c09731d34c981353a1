@@ -70,6 +70,30 @@
       "revId": "4065776352a37cec8fa408c09731d34c981353a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1cf682e_899a4324",
+        "filename": "sdk/android/native_api/sdk/jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-08T10:27:40Z",
+      "side": 1,
+      "message": "Yes, some stuff could be placed in PeerConnectionFactory.initialize but maybe there might be something that we have to initialize before that. Also this doesn\u0027t address we might have some native only component that we want to initialize in webrtc::InitAndroid.\n\nRegular clients won\u0027t have to call any C++ to use the SDK. This method exists only for clients that want to combine all their libraries into a single shared library.\n\nMy point is there are two non-overlapping sets of clients:\n1. Those that will consume the native API and pick-and-choose components. They are then responsible for initializing those components they decide to include.\n2. Clients that will consume the SDK. They will pull in all the components and should have all of them automatically initialized and ready to use.\n\nTo me it makes sense that these two use cases would also have different entry points. Because we want to minimize the binary size for the native API users, that also places limitations on what we can depend on from the webrtc::InitAndroid method. From this OnJniLoad method, we should be able to depend on all of the components.\n\nMaybe the set of users that want to use the SDK and implement their own shared library becomes empty in the future but as long as those exist, I think providing this helper makes sense.",
+      "parentUuid": "2efa6f68_7b58400f",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "4065776352a37cec8fa408c09731d34c981353a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

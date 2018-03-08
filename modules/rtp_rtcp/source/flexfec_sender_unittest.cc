@@ -77,8 +77,9 @@ std::unique_ptr<RtpPacketToSend> GenerateSingleFlexfecPacket(
 TEST(FlexfecSenderTest, Ssrc) {
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kNoRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kNoRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
 
   EXPECT_EQ(kFlexfecSsrc, sender.ssrc());
 }
@@ -86,8 +87,9 @@ TEST(FlexfecSenderTest, Ssrc) {
 TEST(FlexfecSenderTest, NoFecAvailableBeforeMediaAdded) {
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kNoRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kNoRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
 
   EXPECT_FALSE(sender.FecAvailable());
   auto fec_packets = sender.GetFecPackets();
@@ -97,8 +99,9 @@ TEST(FlexfecSenderTest, NoFecAvailableBeforeMediaAdded) {
 TEST(FlexfecSenderTest, ProtectOneFrameWithOneFecPacket) {
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kNoRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kNoRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
   auto fec_packet = GenerateSingleFlexfecPacket(&sender);
 
   EXPECT_EQ(kRtpHeaderSize, fec_packet->headers_size());
@@ -120,8 +123,9 @@ TEST(FlexfecSenderTest, ProtectTwoFramesWithOneFecPacket) {
   constexpr size_t kNumPacketsPerFrame = 2;
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kNoRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kNoRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
   sender.SetFecParameters(params);
 
   AugmentedPacketGenerator packet_generator(kMediaSsrc);
@@ -160,8 +164,9 @@ TEST(FlexfecSenderTest, ProtectTwoFramesWithTwoFecPackets) {
   constexpr size_t kNumPacketsPerFrame = 2;
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kNoRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kNoRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
   sender.SetFecParameters(params);
 
   AugmentedPacketGenerator packet_generator(kMediaSsrc);
@@ -196,8 +201,9 @@ TEST(FlexfecSenderTest, NoRtpHeaderExtensionsForBweByDefault) {
   const std::vector<RtpExtension> kRtpHeaderExtensions{};
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
   auto fec_packet = GenerateSingleFlexfecPacket(&sender);
 
   EXPECT_FALSE(fec_packet->HasExtension<AbsoluteSendTime>());
@@ -210,8 +216,9 @@ TEST(FlexfecSenderTest, RegisterAbsoluteSendTimeRtpHeaderExtension) {
       {RtpExtension::kAbsSendTimeUri, 1}};
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
   auto fec_packet = GenerateSingleFlexfecPacket(&sender);
 
   EXPECT_TRUE(fec_packet->HasExtension<AbsoluteSendTime>());
@@ -224,8 +231,9 @@ TEST(FlexfecSenderTest, RegisterTransmissionOffsetRtpHeaderExtension) {
       {RtpExtension::kTimestampOffsetUri, 1}};
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
   auto fec_packet = GenerateSingleFlexfecPacket(&sender);
 
   EXPECT_FALSE(fec_packet->HasExtension<AbsoluteSendTime>());
@@ -238,8 +246,9 @@ TEST(FlexfecSenderTest, RegisterTransportSequenceNumberRtpHeaderExtension) {
       {RtpExtension::kTransportSequenceNumberUri, 1}};
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
   auto fec_packet = GenerateSingleFlexfecPacket(&sender);
 
   EXPECT_FALSE(fec_packet->HasExtension<AbsoluteSendTime>());
@@ -254,8 +263,9 @@ TEST(FlexfecSenderTest, RegisterAllRtpHeaderExtensionsForBwe) {
       {RtpExtension::kTransportSequenceNumberUri, 3}};
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
   auto fec_packet = GenerateSingleFlexfecPacket(&sender);
 
   EXPECT_TRUE(fec_packet->HasExtension<AbsoluteSendTime>());
@@ -266,8 +276,9 @@ TEST(FlexfecSenderTest, RegisterAllRtpHeaderExtensionsForBwe) {
 TEST(FlexfecSenderTest, MaxPacketOverhead) {
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kNoRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kNoRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, nullptr /* rtp_state */,
+                       &clock);
 
   EXPECT_EQ(kFlexfecMaxHeaderSize, sender.MaxPacketOverhead());
 }
@@ -286,8 +297,9 @@ TEST(FlexfecSenderTest, MaxPacketOverheadWithExtensions) {
       kExtensionHeaderLength + TransmissionOffset::kValueSizeBytes +
       kExtensionHeaderLength + TransportSequenceNumber::kValueSizeBytes);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kRtpHeaderExtensions, RTPSender::FecExtensionSizes(),
-                       nullptr /* rtp_state */, &clock);
+                       rtc::nullopt, kRtpHeaderExtensions,
+                       RTPSender::FecExtensionSizes(), nullptr /* rtp_state */,
+                       &clock);
 
   EXPECT_EQ(kExtensionsTotalSize + kFlexfecMaxHeaderSize,
             sender.MaxPacketOverhead());
@@ -299,8 +311,8 @@ TEST(FlexfecSenderTest, SetsAndGetsRtpState) {
   initial_rtp_state.start_timestamp = 200;
   SimulatedClock clock(kInitialSimulatedClockTime);
   FlexfecSender sender(kFlexfecPayloadType, kFlexfecSsrc, kMediaSsrc,
-                       kNoRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
-                       &initial_rtp_state, &clock);
+                       rtc::nullopt, kNoRtpHeaderExtensions,
+                       kNoRtpHeaderExtensionSizes, &initial_rtp_state, &clock);
 
   auto fec_packet = GenerateSingleFlexfecPacket(&sender);
   EXPECT_EQ(initial_rtp_state.sequence_number, fec_packet->SequenceNumber());

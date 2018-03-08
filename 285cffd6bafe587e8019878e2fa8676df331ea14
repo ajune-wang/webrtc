@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7ca7a498_6e5f7339",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Looks like cpplint insists if there\u0027s any mention of std::string in the file.",
+      "parentUuid": "c13f242d_142b80c0",
+      "range": {
+        "startLine": 13,
+        "startChar": 17,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df228d1c_90f3ac60",
         "filename": "modules/rtp_rtcp/source/mid_oracle.cc",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "6dafc994_9df3b456",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df228d1c_90f3ac60",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41bdb318_f767c68f",
         "filename": "modules/rtp_rtcp/source/mid_oracle.h",
         "patchSetId": 2
@@ -56,6 +98,24 @@
       "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ced9c5e_e0f5607f",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41bdb318_f767c68f",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "61aa803c_b3e59d6f",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Good idea. I changed the MidOracle to only track one SSRC. Also added MidOracle to FlexfexSender.",
+      "parentUuid": "782796b3_fcd804a1",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 13
+      },
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "848ccc5d_8f29f3b0",
         "filename": "modules/rtp_rtcp/source/mid_oracle.h",
         "patchSetId": 2
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "a8fe4072_f8ebdc22",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "848ccc5d_8f29f3b0",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 13
+      },
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d4d8e1e_acd94aa2",
         "filename": "modules/rtp_rtcp/source/mid_oracle_unittest.cc",
         "patchSetId": 2
@@ -116,6 +224,24 @@
       "writtenOn": "2018-03-08T09:35:35Z",
       "side": 1,
       "message": "prefer put everything in test into unnamed namespace, including fixture and TESTs",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01ded59c_162e6e81",
+        "filename": "modules/rtp_rtcp/source/mid_oracle_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d4d8e1e_acd94aa2",
       "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -139,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "21b06113_22278700",
+        "filename": "modules/rtp_rtcp/source/mid_oracle_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2ddcd04_64332a50",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6233381e_f5daa8f3",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2
@@ -153,6 +297,24 @@
       "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "127f700a_8aa94bb9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "I added a DCHECK to ensure the RTPSender is not already sending.",
+      "parentUuid": "6233381e_f5daa8f3",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +353,24 @@
     },
     {
       "key": {
+        "uuid": "8fcbda47_5bed942b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Removed this DCHECK. Now it will just quietly not send the MID at send time.",
+      "parentUuid": "59f8d164_d10f8d54",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7c846cf_4a4c9b71",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2
@@ -205,6 +385,24 @@
       "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c53d957b_87a2a8fb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Added a DCHECK to disallow that.",
+      "parentUuid": "a7c846cf_4a4c9b71",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "837ef911_94319b56",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7efaddc1_8d6dea7a",
+      "range": {
+        "startLine": 1145,
+        "startChar": 48,
+        "endLine": 1145,
+        "endChar": 0
+      },
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b2103a5_1abd4da6",
         "filename": "modules/rtp_rtcp/source/rtp_sender.h",
         "patchSetId": 2
@@ -245,6 +467,24 @@
       "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18e136a5_42ab22e9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-08T23:56:37Z",
+      "side": 1,
+      "message": "Changed it to be a null-opt if the MID header extension is not registered (this is easier to use by the API).",
+      "parentUuid": "7b2103a5_1abd4da6",
+      "revId": "285cffd6bafe587e8019878e2fa8676df331ea14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

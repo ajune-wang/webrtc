@@ -209,8 +209,18 @@ TEST_F(TestVp9Impl, EncoderExplicitLayering) {
 
   codec_settings_.width = 960;
   codec_settings_.height = 540;
-  codec_settings_.spatialLayers[0].targetBitrate = 500;
-  codec_settings_.spatialLayers[1].targetBitrate = 1000;
+  codec_settings_.spatialLayers[0].minBitrate = 200;
+  codec_settings_.spatialLayers[0].maxBitrate = 500;
+  codec_settings_.spatialLayers[0].targetBitrate =
+      (codec_settings_.spatialLayers[0].minBitrate +
+       codec_settings_.spatialLayers[0].maxBitrate) /
+      2;
+  codec_settings_.spatialLayers[1].minBitrate = 400;
+  codec_settings_.spatialLayers[1].maxBitrate = 1500;
+  codec_settings_.spatialLayers[1].targetBitrate =
+      (codec_settings_.spatialLayers[1].minBitrate +
+       codec_settings_.spatialLayers[1].maxBitrate) /
+      2;
 
   codec_settings_.spatialLayers[0].width = codec_settings_.width / 2;
   codec_settings_.spatialLayers[0].height = codec_settings_.height / 2;

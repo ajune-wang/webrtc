@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2af3cd39_6561cff5",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T14:37:32Z",
+      "side": 1,
+      "message": "I think it would be good to add Android to the name, e.g. WebRTC-ExternalAndroidAudioDevice",
+      "range": {
+        "startLine": 104,
+        "startChar": 22,
+        "endLine": 104,
+        "endChar": 33
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c0e9b15_f8f0e9a7",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T14:37:32Z",
+      "side": 1,
+      "message": "Maybe call this target audio_device_interface since it contains two interfaces and no actual code.",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25501f17_c2b99e63",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T14:37:32Z",
+      "side": 1,
+      "message": "I think this code is unnecessary if we remove the AudioDeviceModuleAndroid class.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a8b960_07ccdb63",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T14:37:32Z",
+      "side": 1,
+      "message": "This can be the \u0027rtc::scoped_refptr\u003cAudioDeviceModule\u003e CreateAndroidAudioDeviceModule()\u0027 function directly.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 81
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "785098b7_929a3fe2",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T14:37:32Z",
+      "side": 1,
+      "message": "This first if-statement is unnecessary since it will always be true.",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 64
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2c0f221_db5762f3",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T14:37:32Z",
+      "side": 1,
+      "message": "We could simplify this by immediately returning:\nnew rtc::RefCountedObject\u003cAudioDeviceTemplateAndroid\u003cOpenSLESRecorder, OpenSLESPlayer\u003e\u003e(\n            audio_layer, std::move(audio_manager_android));\nhere and not use the |audio_layer| at all. Similar for the other paths.",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 61
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2593f9_a402b920",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T14:37:32Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to declare any class here and it\u0027s enough to expose a single create function like this:\n\nnamespace webrtc {\n\nrtc::scoped_refptr\u003cAudioDeviceModule\u003e CreateAndroidAudioDeviceModule();\n\n};",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 2
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a15630c_3340b187",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-08T14:37:32Z",
+      "side": 1,
+      "message": "I would like to make a helper function like this:\nstd::unique_ptr\u003cAudioDeviceModule\u003e MaybeCreateAndroidAudioDeviceModule() {\n  return field_trial::IsEnabled(kExternalAudioDeviceFieldTrialName)\n      ? AudioDeviceModuleAndroid::Create()\n      : nullptr; \n}\nthat we can call from the two call places.",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 3
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

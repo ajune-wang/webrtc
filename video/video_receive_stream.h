@@ -84,6 +84,10 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   void AddSecondarySink(RtpPacketSinkInterface* sink) override;
   void RemoveSecondarySink(const RtpPacketSinkInterface* sink) override;
 
+  void IncomingFlexfecPacket(const RTPHeader& header,
+                             size_t packet_length,
+                             bool retransmitted) override;
+
   // Implements rtc::VideoSinkInterface<VideoFrame>.
   void OnFrame(const VideoFrame& video_frame) override;
 

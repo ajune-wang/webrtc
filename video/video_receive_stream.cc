@@ -294,6 +294,12 @@ void VideoReceiveStream::RemoveSecondarySink(
   rtp_video_stream_receiver_.RemoveSecondarySink(sink);
 }
 
+void VideoReceiveStream::IncomingFlexfecPacket(const RTPHeader& header,
+                                               size_t packet_length,
+                                               bool retransmitted) {
+  rtp_receive_statistics_->IncomingPacket(header, packet_length, retransmitted);
+}
+
 // TODO(tommi): This method grabs a lock 6 times.
 void VideoReceiveStream::OnFrame(const VideoFrame& video_frame) {
   int64_t sync_offset_ms;

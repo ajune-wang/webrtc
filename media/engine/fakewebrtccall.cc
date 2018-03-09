@@ -358,6 +358,11 @@ void FakeVideoReceiveStream::RemoveSecondarySink(
   ++num_removed_secondary_sinks_;
 }
 
+void FakeVideoReceiveStream::IncomingFlexfecPacket(
+    const webrtc::RTPHeader& header,
+    size_t packet_length,
+    bool retransmitted) {}
+
 int FakeVideoReceiveStream::GetNumAddedSecondarySinks() const {
   return num_added_secondary_sinks_;
 }

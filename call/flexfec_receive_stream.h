@@ -16,10 +16,11 @@
 #include <string>
 #include <vector>
 
-#include "api/rtp_headers.h"
 #include "api/call/transport.h"
+#include "api/rtp_headers.h"
 #include "api/rtpparameters.h"
 #include "call/rtp_packet_sink_interface.h"
+#include "call/video_receive_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
 
 namespace webrtc {
@@ -27,6 +28,9 @@ namespace webrtc {
 class FlexfecReceiveStream : public RtpPacketSinkInterface {
  public:
   ~FlexfecReceiveStream() override = default;
+
+  // Corresponding VideoReceiveStream
+  VideoReceiveStream* video_receive_stream = nullptr;
 
   struct Stats {
     std::string ToString(int64_t time_ms) const;

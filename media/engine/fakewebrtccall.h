@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 
+#include "api/rtp_headers.h"
 #include "api/video/video_frame.h"
 #include "call/audio_receive_stream.h"
 #include "call/audio_send_stream.h"
@@ -206,6 +207,10 @@ class FakeVideoReceiveStream final : public webrtc::VideoReceiveStream {
 
   void AddSecondarySink(webrtc::RtpPacketSinkInterface* sink) override;
   void RemoveSecondarySink(const webrtc::RtpPacketSinkInterface* sink) override;
+
+  void IncomingFlexfecPacket(const webrtc::RTPHeader& header,
+                             size_t packet_length,
+                             bool retransmitted) override;
 
   int GetNumAddedSecondarySinks() const;
   int GetNumRemovedSecondarySinks() const;

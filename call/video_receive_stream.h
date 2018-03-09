@@ -251,6 +251,10 @@ class VideoReceiveStream {
   virtual void AddSecondarySink(RtpPacketSinkInterface* sink) = 0;
   virtual void RemoveSecondarySink(const RtpPacketSinkInterface* sink) = 0;
 
+  virtual void IncomingFlexfecPacket(const RTPHeader& header,
+                                     size_t packet_length,
+                                     bool retransmitted) = 0;
+
  protected:
   virtual ~VideoReceiveStream() {}
 };

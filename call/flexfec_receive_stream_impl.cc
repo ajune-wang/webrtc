@@ -178,8 +178,9 @@ void FlexfecReceiveStreamImpl::OnRtpPacket(const RtpPacketReceived& packet) {
     packet.GetHeader(&header);
     // FlexFEC packets are never retransmitted.
     const bool kNotRetransmitted = false;
-    rtp_receive_statistics_->IncomingPacket(header, packet.size(),
-                                            kNotRetransmitted);
+    if (video_receive_stream)
+      video_receive_stream->IncomingFlexfecPacket(header, packet.size(),
+                                                  kNotRetransmitted);
   }
 }
 

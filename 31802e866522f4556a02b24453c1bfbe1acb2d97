@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "46482bc2_90457901",
+        "filename": "common_types.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-09T08:33:41Z",
+      "side": 1,
+      "message": "Even if it can, we only return an uint32_t. So maybe better to be explicit about this in the summation too?",
+      "parentUuid": "d18d9fca_eca648f2",
+      "range": {
+        "startLine": 192,
+        "startChar": 2,
+        "endLine": 192,
+        "endChar": 8
+      },
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70576dbd_7383b883",
         "filename": "common_types.h",
         "patchSetId": 11
@@ -582,6 +606,24 @@
       "side": 1,
       "message": "Screen sharing still uses this path.",
       "parentUuid": "175062f2_be56f071",
+      "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8498d1e_de726b33",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-09T08:33:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "492f45bb_6cb283b6",
       "revId": "31802e866522f4556a02b24453c1bfbe1acb2d97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

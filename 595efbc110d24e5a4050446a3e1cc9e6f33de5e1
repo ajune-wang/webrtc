@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45dd30ca_85bd901d",
+        "filename": "modules/rtp_rtcp/include/rtp_payload_registry.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T13:59:51Z",
+      "side": 1,
+      "message": "use RTC_DEPRECATED\nor better, just delete the function",
+      "range": {
+        "startLine": 70,
+        "startChar": 18,
+        "endLine": 70,
+        "endChar": 28
+      },
+      "revId": "595efbc110d24e5a4050446a3e1cc9e6f33de5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

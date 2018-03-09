@@ -599,6 +599,8 @@ RtpCapabilities WebRtcVoiceEngine::GetCapabilities() const {
         webrtc::RtpExtension::kTransportSequenceNumberUri,
         webrtc::RtpExtension::kTransportSequenceNumberDefaultId));
   }
+  capabilities.header_extensions.push_back(webrtc::RtpExtension(
+      webrtc::RtpExtension::kMidUri, webrtc::RtpExtension::kMidDefaultId));
   return capabilities;
 }
 
@@ -789,6 +791,12 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
   void SetRtpExtensions(const std::vector<webrtc::RtpExtension>& extensions) {
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     config_.rtp.extensions = extensions;
+    ReconfigureAudioSendStream();
+  }
+
+  void SetMid(const std::string& mid) {
+    RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+    config_.rtp.mid = mid;
     ReconfigureAudioSendStream();
   }
 
@@ -1293,6 +1301,11 @@ bool WebRtcVoiceMediaChannel::SetSendParameters(
     send_rtp_extensions_.swap(filtered_extensions);
     for (auto& it : send_streams_) {
       it.second->SetRtpExtensions(send_rtp_extensions_);
+    }
+  }
+  if (!params.mid.empty()) {
+    for (auto& it : send_streams_) {
+      it.second->SetMid(params.mid);
     }
   }
 

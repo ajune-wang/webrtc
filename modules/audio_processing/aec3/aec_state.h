@@ -22,9 +22,13 @@
 #include "api/optional.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/delay_estimate.h"
+#include "modules/audio_processing/aec3/echo_model_selector.h"
+#include "modules/audio_processing/aec3/echo_path_strength_detector.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/erl_estimator.h"
 #include "modules/audio_processing/aec3/erle_estimator.h"
+#include "modules/audio_processing/aec3/filter_analyzer.h"
+#include "modules/audio_processing/aec3/render_activity.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
 #include "modules/audio_processing/aec3/suppression_gain_limiter.h"
 #include "rtc_base/constructormagic.h"
@@ -41,7 +45,10 @@ class AecState {
 
   // Returns whether the echo subtractor can be used to determine the residual
   // echo.
-  bool UsableLinearEstimate() const { return usable_linear_estimate_; }
+  bool UseLinearEchoModel() const { return echo_model_selector_.LinearModelSelected(); }
+
+  // Returns whether the echo subtractor output should be used as output.
+  bool UseLinearFilterOutput() const { return use_linear_filter_output_;}
 
   // Returns whether there has been echo leakage detected.
   bool EchoLeakageDetected() const { return echo_leakage_detected_; }
@@ -112,17 +119,22 @@ class AecState {
   // Returns whether the filter adaptation is still in the initial state.
   bool InitialState() const { return initial_state_; }
 
+  // Returns wether a the estimated echo path strength.
+  EchoPathStrengthDetector::Strength EchoPathStrength() const {
+    return echo_path_strength_detector_.GetStrength();
+  }
+
   // Updates the aec state.
   void Update(const rtc::Optional<DelayEstimate>& delay_estimate,
               const std::vector<std::array<float, kFftLengthBy2Plus1>>&
                   adaptive_filter_frequency_response,
               const std::vector<float>& adaptive_filter_impulse_response,
               bool converged_filter,
+              bool diverged_filter,
               const RenderBuffer& render_buffer,
               const std::array<float, kFftLengthBy2Plus1>& E2_main,
               const std::array<float, kFftLengthBy2Plus1>& Y2,
-              const std::array<float, kBlockSize>& s_main,
-              bool echo_leakage_detected);
+              const std::array<float, kBlockSize>& s);
 
  private:
   class EchoAudibility {
@@ -180,6 +192,10 @@ class AecState {
   bool initial_state_ = true;
   const float gain_rampup_increase_;
   SuppressionGainUpperLimiter suppression_gain_limiter_;
+  EchoModelSelector echo_model_selector_;
+  EchoPathStrengthDetector echo_path_strength_detector_;
+  RenderActivity render_activity_;
+  FilterAnalyzer filter_analyzer_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };

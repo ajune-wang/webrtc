@@ -146,13 +146,11 @@ std::unique_ptr<FlexfecSender> MaybeCreateFlexfecSender(
   }
 
   RTC_DCHECK_EQ(1U, config.rtp.flexfec.protected_media_ssrcs.size());
-  // TODO(bugs.webrtc.org/4050): Pass down MID value once it is exposed in the
-  // API.
-  return std::unique_ptr<FlexfecSender>(new FlexfecSender(
+  return rtc::MakeUnique<FlexfecSender>(
       config.rtp.flexfec.payload_type, config.rtp.flexfec.ssrc,
-      config.rtp.flexfec.protected_media_ssrcs[0], /*mid=*/"",
+      config.rtp.flexfec.protected_media_ssrcs[0], config.rtp.mid,
       config.rtp.extensions, RTPSender::FecExtensionSizes(), rtp_state,
-      Clock::GetRealTimeClock()));
+      Clock::GetRealTimeClock());
 }
 
 bool TransportSeqNumExtensionConfigured(const VideoSendStream::Config& config) {
@@ -770,6 +768,12 @@ VideoSendStreamImpl::VideoSendStreamImpl(
 
   ConfigureProtection();
   ConfigureSsrcs();
+
+  if (!config_->rtp.mid.empty()) {
+    for (RtpRtcp* rtp_rtcp : rtp_rtcp_modules_) {
+      rtp_rtcp->SetMid(config_->rtp.mid);
+    }
+  }
 
   // TODO(pbos): Should we set CNAME on all RTP modules?
   rtp_rtcp_modules_.front()->SetCNAME(config_->rtp.c_name.c_str());

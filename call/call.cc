@@ -1246,6 +1246,13 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   }
   parsed_packet.IdentifyExtensions(it->second.extensions);
 
+  std::string mid;
+  if (parsed_packet.GetExtension<RtpMid>(&mid)) {
+    RTC_LOG(LS_INFO) << "HAS_MID";
+  } else {
+    RTC_LOG(LS_INFO) << "NO_MID";
+  }
+
   NotifyBweOfReceivedPacket(parsed_packet, media_type);
 
   // RateCounters expect input parameter as int, save it as int,

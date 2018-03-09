@@ -220,6 +220,7 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   void ChangePlayout(bool playout);
   int CreateVoEChannel();
   bool DeleteVoEChannel(int channel);
+  bool SetMid(const std::string& mid);
   bool SetMaxSendBitrate(int bps);
   webrtc::RTCError ValidateRtpParameters(
       const webrtc::RtpParameters& parameters);
@@ -264,6 +265,7 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   class WebRtcAudioSendStream;
   std::map<uint32_t, WebRtcAudioSendStream*> send_streams_;
   std::vector<webrtc::RtpExtension> send_rtp_extensions_;
+  std::string mid_;
 
   class WebRtcAudioReceiveStream;
   std::map<uint32_t, WebRtcAudioReceiveStream*> recv_streams_;

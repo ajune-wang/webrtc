@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf49aeb7_a414cbac",
+        "filename": "modules/rtp_rtcp/include/flexfec_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "const optional\u003cT\u003e\u0026 is discouraged as parameter type.\neither pass optional by value: rtc::Optional\u003cstd::string\u003e when performance is not critical.\nor pass const T* where nullptr indicates no value,\nOr, in this case, use the fact empty string is not a valid mid and reasonable \u0027no value\u0027 and pass just const std::string\u0026",
+      "range": {
+        "startLine": 43,
+        "startChar": 16,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70302c6a_9d2fb9aa",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "can remove send_mid_ check because already checked above it is true",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7b34e9_a990b81d",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "what this header is used for?",
+      "range": {
+        "startLine": 17,
+        "startChar": 48,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "243a81f2_f5503223",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "no longer needed",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8ca252_f781370e",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "not used either now",
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc93f9f6_e34bee11",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "#include \"rtc_base/constructormagic.h\"",
+      "range": {
+        "startLine": 49,
+        "startChar": 42,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ac9ccf3_8c6cf618",
+        "filename": "modules/rtp_rtcp/source/mid_oracle_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "put usings inside unnamed namespace and use fully-qualified names\nhttps://abseil.io/tips/119",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f02559c1_79069cc8",
+        "filename": "modules/rtp_rtcp/source/mid_oracle_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "look like this test checks 4 behaviors, may be split it into 4:\nSendMidInititally\nIgnoresReportBlockWithUnknownSourceSsrc\nStopSendingMindOnReceivedRtcpReportWithKnownSourceSsrc\nRestartSendingMidOnResettingSsrc\n\nhttps://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html\n(aka go/tott-322)",
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e07327e0_77c6c6eb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-09T11:06:40Z",
+      "side": 1,
+      "message": "move the function above all members\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "revId": "54192569def2dd0b7c4ccd4cb3c3efc7af2ab82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

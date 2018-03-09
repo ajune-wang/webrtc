@@ -117,6 +117,29 @@
     },
     {
       "key": {
+        "uuid": "b389afa1_43eb0ba6",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-09T16:04:42Z",
+      "side": 1,
+      "message": "Proposed comment to explain minBitrate and maxBitrate formulas.\n\n\"minBitrate and maxBitrate formulas were derived to fit VP9 subjective-quality data for bit rate below which video quality is unacceptable and above which additional bits do not provide benefit\"",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5587a40e_3274bd9b",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 17

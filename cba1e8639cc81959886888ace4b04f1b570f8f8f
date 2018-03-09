@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ae91e4d_a75eed50",
+        "filename": "modules/rtp_rtcp/include/rtp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-09T12:45:42Z",
+      "side": 1,
+      "message": "Can this be deleted too? It is used only in modules/rtp_rtcp/test/testAPI/test_api_audio.cc and modules/rtp_rtcp/test/testAPI/test_api_rtcp.cc. If use is just #if:ed out, following tests fail:\n\n[  FAILED  ] RtpRtcpAudioTest.Basic\n[  FAILED  ] RtpRtcpAudioTest.DTMF\n[  FAILED  ] RtpRtcpAudioTest.ComfortNoise\n[  FAILED  ] RtpRtcpRtcpTest.RTCP_CNAME\n[  FAILED  ] RtpRtcpRtcpTest.RemoteRTCPStatRemote",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 32
+      },
+      "revId": "cba1e8639cc81959886888ace4b04f1b570f8f8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

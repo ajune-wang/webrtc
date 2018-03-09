@@ -388,7 +388,7 @@ void SuppressionGain::GetGain(
   const bool saturated_echo = aec_state.SaturatedEcho();
   const bool saturating_echo_path = aec_state.SaturatingEchoPath();
   const float gain_upper_bound = aec_state.SuppressionGainLimit();
-  const bool linear_echo_estimate = aec_state.UsableLinearEstimate();
+  const bool linear_echo_estimate = aec_state.UseLinearEchoModel();
   const bool initial_state = aec_state.InitialState();
 
   bool low_noise_render = low_render_detector_.Detect(render);

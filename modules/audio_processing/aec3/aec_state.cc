@@ -64,15 +64,22 @@ AecState::AecState(const EchoCanceller3Config& config)
       max_render_(config_.filter.main.length_blocks, 0.f),
       reverb_decay_(fabsf(config_.ep_strength.default_len)),
       gain_rampup_increase_(ComputeGainRampupIncrease(config_)),
-      suppression_gain_limiter_(config_) {}
+      suppression_gain_limiter_(config_),
+      echo_model_selector_(),
+      echo_path_strength_detector_(),
+      render_activity_(config_),
+      filter_analyzer_(config_) {}
 
 AecState::~AecState() = default;
 
 void AecState::HandleEchoPathChange(
     const EchoPathVariability& echo_path_variability) {
   const auto full_reset = [&]() {
+    echo_model_selector_.Reset();
+    render_activity_.Reset();
+    echo_path_strength_detector_.Reset();
+    filter_analyzer_.Reset();
     blocks_since_last_saturation_ = 0;
-    usable_linear_estimate_ = false;
     echo_leakage_detected_ = false;
     capture_signal_saturation_ = false;
     echo_saturation_ = false;
@@ -116,14 +123,11 @@ void AecState::Update(
         adaptive_filter_frequency_response,
     const std::vector<float>& adaptive_filter_impulse_response,
     bool converged_filter,
+    bool diverged_filter,
     const RenderBuffer& render_buffer,
     const std::array<float, kFftLengthBy2Plus1>& E2_main,
     const std::array<float, kFftLengthBy2Plus1>& Y2,
-    const std::array<float, kBlockSize>& s,
-    bool echo_leakage_detected) {
-  // Store input parameters.
-  echo_leakage_detected_ = echo_leakage_detected;
-
+    const std::array<float, kBlockSize>& s) {
   // Estimate the filter delay.
   filter_delay_ = EstimateFilterDelay(adaptive_filter_frequency_response);
   const std::vector<float>& x = render_buffer.Block(-filter_delay_)[0];
@@ -176,6 +180,27 @@ void AecState::Update(
       !converged_filter &&
       (blocks_with_active_render_ == 0 ||
        blocks_with_proper_filter_adaptation_ >= 5 * kNumBlocksPerSecond);
+
+  // Track render activity.
+  render_activity_.Update(x, SaturatedCapture());
+
+  // Analyze the filter and set the delay.
+  filter_analyzer_.Update(adaptive_filter_impulse_response,
+                          adaptive_filter_frequency_response, converged_filter,
+                          false);
+
+  // Estimate the quality of the linear filter.
+  echo_model_selector_.Update(
+      echo_saturation_, converged_filter, diverged_filter,
+      render_activity_.NumActiveBlocksWithoutSaturation(),
+      capture_block_counter_);
+
+  // Detect whether a headset is present.
+  echo_path_strength_detector_.Update(
+      delay_estimate, render_activity_.ActiveBlock(),
+      filter_analyzer_.GoodEstimate(), converged_filter);
+
+  use_linear_filter_output_ = return echo_model_selector_.LinearModelSelected() && !TransparentMode();
 }
 
 void AecState::UpdateReverb(const std::vector<float>& impulse_response) {

@@ -186,15 +186,17 @@ void EchoRemoverImpl::ProcessCapture(
   // Update the AEC state information.
   aec_state_.Update(delay_estimate, subtractor_.FilterFrequencyResponse(),
                     subtractor_.FilterImpulseResponse(),
-                    subtractor_.ConvergedFilter(), *render_buffer, E2_main, Y2,
-                    subtractor_output.s_main, echo_leakage_detected_);
+                    subtractor_.ConvergedFilter(), subtractor_.DivergedFilter(),
+                    *render_buffer, E2_main, Y2, subtractor_output.s_main);
 
   // Choose the linear output.
-  output_selector_.FormLinearOutput(!aec_state_.TransparentMode(), e_main, y0);
+  data_dumper_->DumpRaw("aec3_output_linear", e_main);
+  output_selector_.FormLinearOutput(aec_state_.UseLinearFilterOutput(), e_main, y0);
+
   data_dumper_->DumpWav("aec3_output_linear", kBlockSize, &y0[0],
                         LowestBandRate(sample_rate_hz_), 1);
   data_dumper_->DumpRaw("aec3_output_linear", y0);
-  const auto& E2 = output_selector_.UseSubtractorOutput() ? E2_main : Y2;
+  const auto& E2 = aec_state_.UseLinearFilterOutput() ? E2_main : Y2;
 
   // Estimate the residual echo power.
   residual_echo_estimator_.Estimate(aec_state_, *render_buffer, S2_linear, Y2,
@@ -229,7 +231,7 @@ void EchoRemoverImpl::ProcessCapture(
                         rtc::ArrayView<const float>(&y0[0], kBlockSize),
                         LowestBandRate(sample_rate_hz_), 1);
   data_dumper_->DumpRaw("aec3_using_subtractor_output",
-                        output_selector_.UseSubtractorOutput() ? 1 : 0);
+                        aec_state_.UseLinearFilterOutput() ? 1 : 0);
   data_dumper_->DumpRaw("aec3_E2", E2);
   data_dumper_->DumpRaw("aec3_E2_main", E2_main);
   data_dumper_->DumpRaw("aec3_E2_shadow", E2_shadow);
@@ -240,7 +242,7 @@ void EchoRemoverImpl::ProcessCapture(
   data_dumper_->DumpRaw("aec3_erle", aec_state_.Erle());
   data_dumper_->DumpRaw("aec3_erl", aec_state_.Erl());
   data_dumper_->DumpRaw("aec3_usable_linear_estimate",
-                        aec_state_.UsableLinearEstimate());
+                        aec_state_.UseLinearEchoModel());
   data_dumper_->DumpRaw("aec3_filter_delay", aec_state_.FilterDelay());
   data_dumper_->DumpRaw("aec3_capture_saturation",
                         aec_state_.SaturatedCapture() ? 1 : 0);

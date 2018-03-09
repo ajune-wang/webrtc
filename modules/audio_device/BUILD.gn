@@ -94,12 +94,33 @@ if (rtc_include_internal_audio_device && is_ios) {
   }
 }
 
+rtc_source_set("audio_device_interface") {
+  visibility = [ "*" ]
+  sources = [
+    "include/audio_device.h",
+    "include/audio_device_defines.h",
+  ]
+  deps = [
+    "../../:typedefs",
+    "../../rtc_base:checks",
+    "../../rtc_base:deprecation",
+    "../../rtc_base:rtc_base_approved",
+  ]
+  if (!build_with_chromium && is_clang) {
+    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+    suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+  }
+}
+
 rtc_source_set("audio_device_generic") {
   visibility = [
     ":audio_device",
     ":audio_device_ios_objc",
   ]
   public_configs = [ ":audio_device_config" ]
+  public_deps = [
+    ":audio_device_interface",
+  ]
 
   deps = [
     "..:module_api",
@@ -129,8 +150,6 @@ rtc_source_set("audio_device_generic") {
     "dummy/file_audio_device.h",
     "fine_audio_buffer.cc",
     "fine_audio_buffer.h",
-    "include/audio_device.h",
-    "include/audio_device_defines.h",
     "include/fake_audio_device.h",
   ]
 

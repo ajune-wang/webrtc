@@ -87,6 +87,7 @@ rtc::scoped_refptr<AudioDeviceModule> AudioDeviceModule::Create(
   if (audioDevice->AttachAudioBuffer() == -1) {
     return nullptr;
   }
+  RTC_LOG(INFO) << "PHEN created AudioDeviceModuleImpl";
 
   return audioDevice;
 }

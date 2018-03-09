@@ -53,7 +53,7 @@ class RtcEventLogSource : public PacketSource {
   size_t rtp_packet_index_ = 0;
   size_t audio_output_index_ = 0;
 
-  ParsedRtcEventLog parsed_stream_;
+  rtceventlog::ParsedRtcEventLog parsed_stream_;
   std::unique_ptr<RtpHeaderParser> parser_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtcEventLogSource);

@@ -263,6 +263,7 @@ if (rtc_enable_protobuf) {
       ":rtc_event_log_proto",
       ":rtc_stream_config",
       "..:webrtc_common",
+      "../api:libjingle_peerconnection_api",
       "../call:video_stream_api",
       "../modules/audio_coding:audio_network_adaptor",
       "../modules/remote_bitrate_estimator:remote_bitrate_estimator",

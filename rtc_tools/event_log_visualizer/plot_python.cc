@@ -17,7 +17,7 @@
 #include "rtc_base/checks.h"
 
 namespace webrtc {
-namespace plotting {
+namespace rtceventlog {
 
 PythonPlot::PythonPlot() {}
 
@@ -180,5 +180,5 @@ Plot* PythonPlotCollection::AppendNewPlot() {
   return plot;
 }
 
-}  // namespace plotting
+}  // namespace rtceventlog
 }  // namespace webrtc

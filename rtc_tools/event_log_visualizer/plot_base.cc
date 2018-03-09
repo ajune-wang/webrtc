@@ -15,7 +15,7 @@
 #include "rtc_base/checks.h"
 
 namespace webrtc {
-namespace plotting {
+namespace rtceventlog {
 
 void Plot::SetXAxis(float min_value,
                     float max_value,
@@ -85,5 +85,5 @@ void Plot::AppendTimeSeriesIfNotEmpty(TimeSeries&& time_series) {
   }
 }
 
-}  // namespace plotting
+}  // namespace rtceventlog
 }  // namespace webrtc

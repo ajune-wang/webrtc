@@ -12,6 +12,7 @@
 #define MODULES_AUDIO_DEVICE_INCLUDE_AUDIO_DEVICE_DEFINES_H_
 
 #include <stddef.h>
+#include <string>
 
 #include "rtc_base/checks.h"
 #include "rtc_base/deprecation.h"
@@ -142,6 +143,18 @@ class AudioParameters {
     if (sample_rate_ == 0)
       return 0.0;
     return static_cast<double>(frames_per_buffer_) / (sample_rate_);
+  }
+  std::string ToString() const {
+    std::ostringstream os;
+    os << "AudioParameters: "
+       << "sample_rate=" << sample_rate() << ", channels=" << channels()
+       << ", frames_per_buffer=" << frames_per_buffer()
+       << ", frames_per_10ms_buffer=" << frames_per_10ms_buffer()
+       << ", bytes_per_frame=" << GetBytesPerFrame()
+       << ", bytes_per_buffer=" << GetBytesPerBuffer()
+       << ", bytes_per_10ms_buffer=" << GetBytesPer10msBuffer()
+       << ", size_in_ms=" << GetBufferSizeInMilliseconds();
+    return os.str();
   }
 
  private:

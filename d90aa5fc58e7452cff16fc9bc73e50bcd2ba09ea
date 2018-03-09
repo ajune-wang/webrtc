@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "963984c1_ec216fd9",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T23:07:10Z",
+      "side": 1,
+      "message": "I\u0027d prefer returning an error rather than DCHECKing, as mentioned on the other CL",
+      "revId": "d90aa5fc58e7452cff16fc9bc73e50bcd2ba09ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84f0ce8c_1e650079",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T23:07:10Z",
+      "side": 1,
+      "message": "\"shorter\"",
+      "revId": "d90aa5fc58e7452cff16fc9bc73e50bcd2ba09ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cb870c1_70176242",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T23:07:10Z",
+      "side": 1,
+      "message": "Some other things that may make sense to check:\n\n* backup_connection_ping_interval greater than strong interval\n* stable_writable_connection_ping_interval greater than strong interval",
+      "revId": "d90aa5fc58e7452cff16fc9bc73e50bcd2ba09ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

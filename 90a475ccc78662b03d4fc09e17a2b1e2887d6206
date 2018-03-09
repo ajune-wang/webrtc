@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb82c1e7_dff39c0f",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-09T12:34:11Z",
+      "side": 1,
+      "message": "Would this be a case for rtc::MakeUnique?\n\n rtc::MakeUnique\u003cAudioProcessingBuilder\u003e()",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 92,
+        "endChar": 64
+      },
+      "revId": "90a475ccc78662b03d4fc09e17a2b1e2887d6206",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94da9d86_282b06bb",
+        "filename": "modules/audio_processing/test/audioproc_float_main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-09T12:34:11Z",
+      "side": 1,
+      "message": "Again, MakeUnique?",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 47
+      },
+      "revId": "90a475ccc78662b03d4fc09e17a2b1e2887d6206",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

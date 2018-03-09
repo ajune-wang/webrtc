@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bb90729_f78c5165",
+        "filename": "common_types.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "Could you clarify the comment to indicate it\u0027s cumulative for the temporal layers of the given spatial layer only (ie not accumulating lower spatial layers)?",
+      "range": {
+        "startLine": 604,
+        "startChar": 57,
+        "endLine": 604,
+        "endChar": 0
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6b1343d_3a5fe635",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "nit: avoid unnecessary abbreviations, ie spell out horz and vert. num is ok since it\u0027s widespread.\nhttps://google.github.io/styleguide/cppguide.html#General_Naming_Rules",
+      "range": {
+        "startLine": 33,
+        "startChar": 57,
+        "endLine": 33,
+        "endChar": 0
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8a9ba96_a97e5de4",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "nit: maybe even std::min({num_spatial_layers, num_spatial_layers, num_spatial_layers})",
+      "range": {
+        "startLine": 38,
+        "startChar": 78,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "098c8c63_f4db2760",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "maybe num_pixels or something more descriptive than wxh?",
+      "range": {
+        "startLine": 46,
+        "startChar": 17,
+        "endLine": 46,
+        "endChar": 20
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5593b550_ea3f3a00",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "change 360 to kMinVp9SpatialLayerWidth?",
+      "range": {
+        "startLine": 47,
+        "startChar": 53,
+        "endLine": 47,
+        "endChar": 54
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5587a40e_3274bd9b",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "maybe a comment explaining this?",
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "527e1d84_91eb269c",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "nit: not",
+      "range": {
+        "startLine": 51,
+        "startChar": 67,
+        "endLine": 51,
+        "endChar": 69
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aadc2ad7_068a26b4",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "You could initialize this where do declare it.\nOr remove it entirely and just break on line 86?",
+      "range": {
+        "startLine": 61,
+        "startChar": 58,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13ad466a_59f0bf55",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "I think you can just return \nGetAllocation(codec_.maxBitrate * 1000, framerate)\nhere? You don\u0027t have the same issue with state here as the SimulcastRateAllocator.",
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60329825_1edb2c75",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "srf?",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbeb2bae_19f0b426",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-09T10:13:37Z",
+      "side": 1,
+      "message": "Do we really need to read this from file? Seems like files could lead to flakiness in swarming bots.\nThere is a frame generator i webrtc/test.",
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

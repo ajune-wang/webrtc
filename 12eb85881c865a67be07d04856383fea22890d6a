@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5565d8e5_401c74e7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T00:14:51Z",
+      "side": 0,
+      "message": "Having a TODO that links to a bug is preferable, especially since mallinath@ no longer works on WebRTC. This happens again in SetRemoteDescription.",
+      "revId": "12eb85881c865a67be07d04856383fea22890d6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6d231ee_10ea33a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T00:14:51Z",
+      "side": 1,
+      "message": "I\u0027d suggest something like \"Use new TransportController implementation in PeerConnection,\" since people looking at summary commit messages likely don\u0027t know what JsepTransportController/JsepTransport2 are.",
+      "revId": "52a8941fab5779517a06990791234fc51360ebcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0ec9000_af4ae829",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T00:14:51Z",
+      "side": 1,
+      "message": "Meant to say \"is replaced with\"?\n\nIt looks like the remaining changes needed to do this are:\n\n* Enable RTCP muxing in RtpTransport::SetRtpParameters when appropriate\n* Communicate relevant parameters (cname, keepalive config) to RtpTransportControllerAdapter (like SetRtpTransportParameters currently does).\n* Communicate when the transport is destroyed (like SignalDestroyed currently does).\n* Make SrtpTransport actually implement SrtpTransportInterface. Meaning once SetSrtpSendKey and SetRtpReceiveKey are called, call SetRtpParams.\n\nThe only caveat I can see is that RtpTransport is in \"pc/\" and RtpTransportControllerAdapter is in \"ortc/\", so dependency injection may be needed to avoid a circular dependency.\n\nCompared to the rest of this CL, these seem like relatively small changes. So would it be worth doing in this CL, to avoid the disabled tests? Just a thought.",
+      "revId": "52a8941fab5779517a06990791234fc51360ebcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f3287e_fc5e210b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T00:14:51Z",
+      "side": 1,
+      "message": "nit: May be more consistent to call this outside of ConnectToRtpTransport, like UpdateWritableState_n is.",
+      "revId": "52a8941fab5779517a06990791234fc51360ebcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b01e976_cb09d8a0",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T00:14:51Z",
+      "side": 1,
+      "message": "I think this can be removed",
+      "revId": "52a8941fab5779517a06990791234fc51360ebcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d2a9069_1313a56f",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T00:14:51Z",
+      "side": 1,
+      "message": "Since BaseChannel is no longer responsible for RTCP muxing or SRTP, this test should be able to ignore those aspects and focus what BaseChannel does itself (processing codecs and streams, etc.).\n\nSo, this test could just use a \"FakeRtpTransport\" similar to the other fake transport classes. Or a real RtpTransport with FakePacketTransports, I guess there wouldn\u0027t be much difference.\n\nThen the tests in this file that are no longer relevant can be replaced by tests for the object that actually implements that functionality:\n\n* RTCP mux negotiation: JsepTransport2\n* Sending RTCP on the right transport depending on whether muxing is enabled: RtpTransport\n* SignalReadyToSend fires when expected: RtpTransport\n* Enforcing \"RTCP mux required\": JsepTransport2 or JsepTransportController? Looks like this isn\u0027t currently happening.\n* SDES negotiation: JsepTransport2 \n* SRTP itself: SrtpTransport, SrtpSession\n* Encrypted extensions: SrtpTransport, DtlsSrtpTransport (though the JsepTransport2 test you added may be sufficient)\n\nSome things may also make sense as PeerConnection-level tests. For example, testing that applying a non-RTCP-mux answer fails when kRtcpMuxPolicyRequire is used.\n\nThis may sound like a huge amount of work, but I think most of the test coverage is already there, we just need to make sure all the gaps are filled.",
+      "revId": "52a8941fab5779517a06990791234fc51360ebcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

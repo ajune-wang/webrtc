@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f877e79b_6d037c1e",
+        "filename": "ortc/ortcfactory_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T00:14:51Z",
+      "side": 0,
+      "message": "Instead of deleting this code, can we comment it out with a TODO to uncomment it, linking to a bug?",
+      "revId": "4ff5443e4e6191f66ca5b8a9181220b50996d2ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

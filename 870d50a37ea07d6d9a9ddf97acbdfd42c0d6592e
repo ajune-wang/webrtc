@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80b56ad2_70a7930c",
+        "filename": "modules/audio_device/android/java/src/org/webrtc/voiceengine/WebRtcAudioManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-09T16:10:52Z",
+      "side": 1,
+      "message": "Did you really mean to change this one?",
+      "range": {
+        "startLine": 43,
+        "startChar": 63,
+        "endLine": 43,
+        "endChar": 68
+      },
+      "revId": "870d50a37ea07d6d9a9ddf97acbdfd42c0d6592e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

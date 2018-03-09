@@ -79,6 +79,9 @@ class RTPSenderVideo {
   int SelectiveRetransmissions() const;
   void SetSelectiveRetransmissions(uint8_t settings);
 
+  // Feedback to decide when to stop sending the MID header extension.
+  void OnReceivedRtcpReportBlocks(const ReportBlockList& report_blocks);
+
  protected:
   static uint8_t GetTemporalId(const RTPVideoHeader& header);
   StorageType GetStorageType(uint8_t temporal_id,

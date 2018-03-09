@@ -83,6 +83,7 @@ class RtpTransportControllerSend : public RtpTransportControllerSendInterface,
   const Clock* const clock_;
   PacketRouter packet_router_;
   PacedSender pacer_;
+  bool task_queue_controller_;
   const std::unique_ptr<SendSideCongestionControllerInterface> send_side_cc_;
   RtpKeepAliveConfig keepalive_;
   RtpBitrateConfigurator bitrate_configurator_;

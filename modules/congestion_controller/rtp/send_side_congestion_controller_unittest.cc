@@ -50,7 +50,7 @@ class SendSideCongestionControllerForTest
   ~SendSideCongestionControllerForTest() {}
   using SendSideCongestionController::WaitOnTasks;
   void Process() override {
-    SendSideCongestionController::Process();
+    SendSideCongestionController::PostProcessTasks();
     SendSideCongestionController::WaitOnTasks();
   }
 };

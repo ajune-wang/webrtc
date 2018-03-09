@@ -139,9 +139,14 @@ class SendSideCongestionController
  protected:
   // Waits long enough that any outstanding tasks should be finished.
   void WaitOnTasks();
+  void PostProcessTasks();
 
  private:
   void MaybeCreateControllers();
+  void StartProcess();
+  void ProcessTask();
+  void StartPacerQueueUpdate();
+  void PacerQueueUpdateTask();
 
   void UpdateStreamsConfig();
   void MaybeUpdateOutstandingData();
@@ -164,7 +169,6 @@ class SendSideCongestionController
       RTC_GUARDED_BY(task_queue_);
 
   TimeDelta process_interval_;
-  int64_t last_process_update_ms_ = 0;
 
   std::map<uint32_t, RTCPReportBlock> last_report_blocks_;
   Timestamp last_report_block_time_;

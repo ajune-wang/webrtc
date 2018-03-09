@@ -18,6 +18,7 @@
 #include "api/optional.h"
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -67,10 +68,9 @@ class RTPPayloadRegistry {
     last_received_media_payload_type_ = -1;
   }
 
-  // This sets the payload type of the packets being received from the network
-  // on the media SSRC. For instance if packets are encapsulated with RED, this
-  // payload type will be the RED payload type.
-  void SetIncomingPayloadType(const RTPHeader& header);
+  // TODO(nisse): Delete once downstream calls are deleted.
+  RTC_DEPRECATED
+  void SetIncomingPayloadType(const RTPHeader& header) {}
 
   // Returns true if the new media payload type has not changed.
   bool ReportMediaPayloadType(uint8_t media_payload_type);
@@ -105,7 +105,6 @@ class RTPPayloadRegistry {
 
   rtc::CriticalSection crit_sect_;
   std::map<int, RtpUtility::Payload> payload_type_map_;
-  int8_t incoming_payload_type_;
   int8_t last_received_payload_type_;
   int8_t last_received_media_payload_type_;
   bool rtx_;

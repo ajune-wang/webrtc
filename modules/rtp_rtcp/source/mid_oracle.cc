@@ -10,6 +10,8 @@
 
 #include "modules/rtp_rtcp/source/mid_oracle.h"
 
+#include "rtc_base/logging.h"
+
 namespace webrtc {
 
 MidOracle::MidOracle(const std::string& mid) : mid_(mid) {}
@@ -18,6 +20,7 @@ MidOracle::~MidOracle() = default;
 
 void MidOracle::OnReceivedRtcpReportBlocks(
     const ReportBlockList& report_blocks) {
+  RTC_LOG(LS_INFO) << "OnReceivedRtcpReportBlocks";
   if (!send_mid_) {
     return;
   }

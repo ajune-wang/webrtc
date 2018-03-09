@@ -1059,7 +1059,7 @@ std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket() const {
   }
   if (mid_oracle_ && mid_oracle_->send_mid()) {
     // This is a no-op if the MID header extension is not registered.
-    packet->SetExtension<RtpMid>(mid_oracle_->mid());
+    RTC_DCHECK(packet->SetExtension<RtpMid>(mid_oracle_->mid()));
   }
   return packet;
 }

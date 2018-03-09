@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3c572ab_fdcbcbcd",
+        "filename": "modules/congestion_controller/rtp/pacer_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-09T09:51:41Z",
+      "side": 1,
+      "message": "remove {} to keep style consistent within the file.",
+      "revId": "72d4915dbdd6bfddc446e9e5b9c3580c7a2c9807",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2891426a_dd018ebf",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-09T09:51:41Z",
+      "side": 1,
+      "message": "if (paused_ || Congested()) {\n  ...\n}\n\nand remove the if block below",
+      "revId": "72d4915dbdd6bfddc446e9e5b9c3580c7a2c9807",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45ebc0cd_2c7d7c8f",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-09T09:51:41Z",
+      "side": 1,
+      "message": "int",
+      "revId": "72d4915dbdd6bfddc446e9e5b9c3580c7a2c9807",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

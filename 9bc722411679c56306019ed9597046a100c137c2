@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c9a9972_0535ec26",
+        "filename": "pc/rtcstats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T23:37:19Z",
+      "side": 1,
+      "message": "Would be nice to add a comment briefly describing the reasoning for this test, like what\u0027s written in the design doc. For example, could mention that it\u0027s an integration test instead of a unit test so that we won\u0027t have to worry about updating it every time a new ID reference is added.",
+      "revId": "9bc722411679c56306019ed9597046a100c137c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2d3d025_18272790",
+        "filename": "pc/rtcstatstraversal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T23:37:19Z",
+      "side": 1,
+      "message": "May want to mention somewhere that this is meant to be used to implement stats selectors.",
+      "revId": "9bc722411679c56306019ed9597046a100c137c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e773c63f_481f539c",
+        "filename": "pc/rtcstatstraversal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T23:37:19Z",
+      "side": 1,
+      "message": "nit: Why \"NeighborIds\" instead of \"ReferencedIds\"? One might assume \"neighbor\" to mean \"other objects of the same type\", or \"other objects in the same group\" (like other candidate pairs for the same IceTransport).",
+      "revId": "9bc722411679c56306019ed9597046a100c137c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c49b6e4_bd6f9b44",
+        "filename": "pc/rtcstatstraversal_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T23:37:19Z",
+      "side": 1,
+      "message": "Thanks for the diagrams, great idea",
+      "revId": "9bc722411679c56306019ed9597046a100c137c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ab66d4d_a2749b60",
+        "filename": "pc/rtcstatstraversal_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-09T23:37:19Z",
+      "side": 1,
+      "message": "Another idea: MultipleStartsLeadingToSameNode\n\n  //           start:candidate-pair\n  //\n  //\n  // start:local-candidate    start:remote-candidate\n  //                  |        |\n  //                  v        v\n  //                   transport",
+      "revId": "9bc722411679c56306019ed9597046a100c137c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,7 @@
 #include "modules/rtp_rtcp/source/forward_error_correction.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/ptr_util.h"
 
 namespace webrtc {
 
@@ -38,7 +39,7 @@ const int kMsToRtpTimestamp = kVideoPayloadTypeFrequency / 1000;
 // How often to log the generated FEC packets to the text log.
 constexpr int64_t kPacketLogIntervalMs = 10000;
 
-RtpHeaderExtensionMap RegisterBweExtensions(
+RtpHeaderExtensionMap RegisterSupportedExtensions(
     const std::vector<RtpExtension>& rtp_header_extensions) {
   RtpHeaderExtensionMap map;
   for (const auto& extension : rtp_header_extensions) {
@@ -48,10 +49,12 @@ RtpHeaderExtensionMap RegisterBweExtensions(
       map.Register<AbsoluteSendTime>(extension.id);
     } else if (extension.uri == TransmissionOffset::kUri) {
       map.Register<TransmissionOffset>(extension.id);
+    } else if (extension.uri == RtpMid::kUri) {
+      map.Register<RtpMid>(extension.id);
     } else {
       RTC_LOG(LS_INFO)
           << "FlexfecSender only supports RTP header extensions for "
-          << "BWE, so the extension " << extension.ToString()
+          << "BWE and MID, so the extension " << extension.ToString()
           << " will not be used.";
     }
   }
@@ -64,6 +67,7 @@ FlexfecSender::FlexfecSender(
     int payload_type,
     uint32_t ssrc,
     uint32_t protected_media_ssrc,
+    const std::string& mid,
     const std::vector<RtpExtension>& rtp_header_extensions,
     rtc::ArrayView<const RtpExtensionSize> extension_sizes,
     const RtpState* rtp_state,
@@ -83,12 +87,17 @@ FlexfecSender::FlexfecSender(
                          : random_.Rand(1, kMaxInitRtpSeqNumber)),
       ulpfec_generator_(
           ForwardErrorCorrection::CreateFlexfec(ssrc, protected_media_ssrc)),
-      rtp_header_extension_map_(RegisterBweExtensions(rtp_header_extensions)),
+      rtp_header_extension_map_(
+          RegisterSupportedExtensions(rtp_header_extensions)),
       header_extensions_size_(
           rtp_header_extension_map_.GetTotalLengthInBytes(extension_sizes)) {
   // This object should not have been instantiated if FlexFEC is disabled.
   RTC_DCHECK_GE(payload_type, 0);
   RTC_DCHECK_LE(payload_type, 127);
+  if (!mid.empty()) {
+    mid_oracle_ = rtc::MakeUnique<MidOracle>(mid);
+    mid_oracle_->SetSsrc(ssrc);
+  }
 }
 
 FlexfecSender::~FlexfecSender() = default;
@@ -134,6 +143,10 @@ std::vector<std::unique_ptr<RtpPacketToSend>> FlexfecSender::GetFecPackets() {
     fec_packet_to_send->ReserveExtension<AbsoluteSendTime>();
     fec_packet_to_send->ReserveExtension<TransmissionOffset>();
     fec_packet_to_send->ReserveExtension<TransportSequenceNumber>();
+    if (mid_oracle_ && mid_oracle_->send_mid()) {
+      // This is a no-op if the MID header extension is not registered.
+      fec_packet_to_send->SetExtension<RtpMid>(mid_oracle_->mid());
+    }
 
     // RTP payload.
     uint8_t* payload = fec_packet_to_send->AllocatePayload(fec_packet->length);
@@ -165,6 +178,13 @@ RtpState FlexfecSender::GetRtpState() {
   rtp_state.sequence_number = seq_num_;
   rtp_state.start_timestamp = timestamp_offset_;
   return rtp_state;
+}
+
+void FlexfecSender::OnReceivedRtcpReportBlocks(
+    const ReportBlockList& report_blocks) {
+  if (mid_oracle_) {
+    mid_oracle_->OnReceivedRtcpReportBlocks(report_blocks);
+  }
 }
 
 }  // namespace webrtc

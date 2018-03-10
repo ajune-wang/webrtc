@@ -159,11 +159,15 @@ void JavaToNativeRTCConfiguration(
   rtc_config->audio_jitter_buffer_fast_accelerate =
       Java_RTCConfiguration_getAudioJitterBufferFastAccelerate(jni,
                                                                j_rtc_config);
-  rtc_config->ice_connection_receiving_timeout =
+  ScopedJavaLocalRef<jobject> j_ice_connection_receiving_timeout =
       Java_RTCConfiguration_getIceConnectionReceivingTimeout(jni, j_rtc_config);
-  rtc_config->ice_backup_candidate_pair_ping_interval =
+  rtc_config->ice_connection_receiving_timeout =
+      JavaToNativeOptionalInt(jni, j_ice_connection_receiving_timeout);
+  ScopedJavaLocalRef<jobject> j_ice_backup_candidate_pair_ping_interval =
       Java_RTCConfiguration_getIceBackupCandidatePairPingInterval(jni,
                                                                   j_rtc_config);
+  rtc_config->ice_backup_candidate_pair_ping_interval =
+      JavaToNativeOptionalInt(jni, j_ice_backup_candidate_pair_ping_interval);
   rtc_config->continual_gathering_policy =
       JavaToNativeContinualGatheringPolicy(jni, j_continual_gathering_policy);
   rtc_config->ice_candidate_pool_size =

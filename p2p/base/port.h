@@ -650,7 +650,8 @@ class Connection : public CandidatePairInterface,
     remote_ice_mode_ = mode;
   }
 
-  void set_receiving_timeout(int receiving_timeout_ms) {
+  int receiving_timeout() const;
+  void set_receiving_timeout(rtc::Optional<int> receiving_timeout_ms) {
     receiving_timeout_ = receiving_timeout_ms;
   }
 
@@ -835,7 +836,7 @@ class Connection : public CandidatePairInterface,
   bool reported_;
   IceCandidatePairState state_;
   // Time duration to switch from receiving to not receiving.
-  int receiving_timeout_;
+  rtc::Optional<int> receiving_timeout_;
   int64_t time_created_ms_;
   int num_pings_sent_ = 0;
 

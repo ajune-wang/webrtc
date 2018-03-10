@@ -113,7 +113,7 @@ enum { MSG_ADD_CANDIDATES, MSG_REMOVE_CANDIDATES };
 cricket::IceConfig CreateIceConfig(
     int receiving_timeout,
     cricket::ContinualGatheringPolicy continual_gathering_policy,
-    int backup_ping_interval = -1) {
+    rtc::Optional<int> backup_ping_interval = rtc::nullopt) {
   cricket::IceConfig config;
   config.receiving_timeout = receiving_timeout;
   config.continual_gathering_policy = continual_gathering_policy;

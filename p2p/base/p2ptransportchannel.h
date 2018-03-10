@@ -138,9 +138,11 @@ class P2PTransportChannel : public IceTransportInternal,
   IceMode remote_ice_mode() const { return remote_ice_mode_; }
 
   void PruneAllPorts();
-  int receiving_timeout() const { return config_.receiving_timeout; }
-  int check_receiving_interval() const { return check_receiving_interval_; }
-
+  int receiving_timeout() const;
+  int check_receiving_interval() const;
+  int backup_connection_ping_interval() const;
+  int stable_writable_connection_ping_interval() const;
+  int regather_on_failed_networks_interval() const;
   rtc::Optional<rtc::NetworkRoute> network_route() const override;
 
   // Helper method used only in unittest.
@@ -405,7 +407,7 @@ class P2PTransportChannel : public IceTransportInternal,
   // Used to generate random intervals for regather_all_networks_interval_range.
   webrtc::Random rand_;
 
-  int check_receiving_interval_;
+  rtc::Optional<int> check_receiving_interval_;
   int64_t last_ping_sent_ms_ = 0;
   int weak_ping_interval_ = WEAK_PING_INTERVAL;
   IceTransportState state_ = IceTransportState::STATE_INIT;

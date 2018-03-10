@@ -654,8 +654,8 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     CandidateNetworkPolicy candidate_network_policy;
     int audio_jitter_buffer_max_packets;
     bool audio_jitter_buffer_fast_accelerate;
-    int ice_connection_receiving_timeout;
-    int ice_backup_candidate_pair_ping_interval;
+    rtc::Optional<int> ice_connection_receiving_timeout;
+    rtc::Optional<int> ice_backup_candidate_pair_ping_interval;
     ContinualGatheringPolicy continual_gathering_policy;
     bool prioritize_most_likely_ice_candidate_pairs;
     struct cricket::MediaConfig media_config;

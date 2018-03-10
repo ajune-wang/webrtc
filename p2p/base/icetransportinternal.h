@@ -70,10 +70,10 @@ enum class NominationMode {
 // -1.
 struct IceConfig {
   // The ICE connection receiving timeout value in milliseconds.
-  int receiving_timeout = -1;
+  rtc::Optional<int> receiving_timeout;
   // Time interval in milliseconds to ping a backup connection when the ICE
   // channel is strongly connected.
-  int backup_connection_ping_interval = -1;
+  rtc::Optional<int> backup_connection_ping_interval;
 
   ContinualGatheringPolicy continual_gathering_policy = GATHER_ONCE;
 
@@ -87,7 +87,7 @@ struct IceConfig {
   bool prioritize_most_likely_candidate_pairs = false;
 
   // Writable connections are pinged at a slower rate once stablized.
-  int stable_writable_connection_ping_interval = -1;
+  rtc::Optional<int> stable_writable_connection_ping_interval;
 
   // If set to true, this means the ICE transport should presume TURN-to-TURN
   // candidate pairs will succeed, even before a binding response is received.

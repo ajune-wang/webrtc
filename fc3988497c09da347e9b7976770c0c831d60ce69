@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93c524ec_8fea9855",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-10T20:09:12Z",
+      "side": 1,
+      "message": "I\u0027d say yes on all three counts---it\u0027ll be efficient (if using rvalues) and obvious.\n\nAdditionally, consider also defining\n\n    operator std::string() const\u0026;\n    operator std::string() \u0026\u0026;\n\nso that you get implicit conversion *from* StringBuilder *to* std::string. Again, it\u0027ll be efficient and obvious.",
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e3fa889_cfcfe9ba",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-10T20:09:12Z",
+      "side": 1,
+      "message": "This one ought to be called Release() or something now.",
+      "range": {
+        "startLine": 217,
+        "startChar": 14,
+        "endLine": 217,
+        "endChar": 18
+      },
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d1da06d_1385c927",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-10T20:09:12Z",
+      "side": 1,
+      "message": "Use the GCC printf format attribute. It\u0027ll catch format string errors at compile time.",
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5bb62b5_0cc1573f",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-10T20:09:12Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 7
+      },
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd04de7_ebb3e573",
+        "filename": "rtc_base/strings/string_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-10T20:09:12Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 230,
+        "startChar": 6,
+        "endLine": 230,
+        "endChar": 12
+      },
+      "revId": "fc3988497c09da347e9b7976770c0c831d60ce69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -12,6 +12,7 @@
 #define MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
 
 #include <algorithm>
+#include <limits>
 #include <memory>
 #include <vector>
 
@@ -19,11 +20,19 @@
 #include "api/audio/echo_canceller3_config.h"
 #include "api/optional.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
+#include "modules/audio_processing/aec3/clock_drift_detector.h"
 #include "modules/audio_processing/aec3/delay_estimate.h"
+#include "modules/audio_processing/aec3/echo_audibility.h"
+#include "modules/audio_processing/aec3/echo_model_selector.h"
+#include "modules/audio_processing/aec3/echo_path_strength_detector.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
+#include "modules/audio_processing/aec3/echo_saturation_detector.h"
 #include "modules/audio_processing/aec3/erl_estimator.h"
 #include "modules/audio_processing/aec3/erle_estimator.h"
+#include "modules/audio_processing/aec3/filter_analyzer.h"
+#include "modules/audio_processing/aec3/render_activity.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
+#include "modules/audio_processing/aec3/suppression_gain_limiter.h"
 #include "rtc_base/constructormagic.h"
 
 namespace webrtc {
@@ -38,13 +47,12 @@ class AecState {
 
   // Returns whether the echo subtractor can be used to determine the residual
   // echo.
-  bool UsableLinearEstimate() const { return usable_linear_estimate_; }
-
-  // Returns whether there has been echo leakage detected.
-  bool EchoLeakageDetected() const { return echo_leakage_detected_; }
+  bool LinearEchoModelFeasible() const {
+    return echo_model_selector_.LinearModelSelected();
+  }
 
   // Returns whether the render signal is currently active.
-  bool ActiveRender() const { return blocks_with_active_render_ > 200; }
+  bool ActiveRender() const { return render_activity_.NumActiveBlocks() > 200; }
 
   // Returns the ERLE.
   const std::array<float, kFftLengthBy2Plus1>& Erle() const {
@@ -63,24 +71,20 @@ class AecState {
   float ErlTimeDomain() const { return erl_estimator_.ErlTimeDomain(); }
 
   // Returns the delay estimate based on the linear filter.
-  int FilterDelay() const { return filter_delay_; }
+  int FilterDelay() const { return filter_analyzer_.DelayBlocks(); }
 
   // Returns whether the capture signal is saturated.
   bool SaturatedCapture() const { return capture_signal_saturation_; }
 
   // Returns whether the echo signal is saturated.
-  bool SaturatedEcho() const { return echo_saturation_; }
-
-  // Returns whether the echo path can saturate.
-  bool SaturatingEchoPath() const { return saturating_echo_path_; }
+  bool SaturatedEcho() const {
+    return echo_saturation_detector_.SaturationDetected();
+  }
 
   // Updates the capture signal saturation.
   void UpdateCaptureSaturation(bool capture_signal_saturation) {
     capture_signal_saturation_ = capture_signal_saturation;
   }
-
-  // Returns whether the transparent mode is active
-  bool TransparentMode() const { return transparent_mode_; }
 
   // Takes appropriate action at an echo path change.
   void HandleEchoPathChange(const EchoPathVariability& echo_path_variability);
@@ -89,23 +93,39 @@ class AecState {
   float ReverbDecay() const { return reverb_decay_; }
 
   // Returns the upper limit for the echo suppression gain.
-  float SuppressionGainLimit() const { return suppressor_gain_limit_; }
-
-  // Returns whether the echo in the capture signal is audible.
-  bool InaudibleEcho() const { return echo_audibility_.InaudibleEcho(); }
-
-  // Updates the aec state with the AEC output signal.
-  void UpdateWithOutput(rtc::ArrayView<const float> e) {
-    echo_audibility_.UpdateWithOutput(e);
+  float SuppressionGainLimit() const {
+    return suppression_gain_limiter_.Limit();
   }
 
-  // Returns whether the linear filter should have been able to properly adapt.
-  bool FilterHasHadTimeToConverge() const {
-    return filter_has_had_time_to_converge_;
+  // Returns whether the linear filter adaptation has recently started.
+  bool StartupPhase() const { return startup_phase_; }
+
+  // Returns wether a the estimated echo path strength.
+  EchoPathStrengthDetector::Strength EchoPathStrength() const {
+    return echo_path_strength_detector_.GetStrength();
+  }
+
+  // Returns the echo path gain.
+  const rtc::Optional<float>& EchoPathGain() const {
+    return filter_analyzer_.Gain();
   }
 
   // Returns whether the filter adaptation is still in the initial state.
   bool InitialState() const { return initial_state_; }
+
+  // Returns whether the setup has clock_drift_.
+  bool ClockDrift() const { return clock_drift_detector_.HasClockDrift(); }
+
+  // Returns the appropriate scaling of the residual echo to match the
+  // audibility.
+  float ResidualEchoScaling() const {
+    return echo_audibility_.ResidualEchoScaling();
+  };
+
+  // Returns the number of upcoming non-audible echo blocks.
+  size_t NumNonAudibleBlocks() const {
+    return echo_audibility_.NumNonAudibleBlocks();
+  };
 
   // Updates the aec state.
   void Update(const rtc::Optional<DelayEstimate>& delay_estimate,
@@ -113,64 +133,37 @@ class AecState {
                   adaptive_filter_frequency_response,
               const std::vector<float>& adaptive_filter_impulse_response,
               bool converged_filter,
+              bool diverged_filter,
               const RenderBuffer& render_buffer,
               const std::array<float, kFftLengthBy2Plus1>& E2_main,
               const std::array<float, kFftLengthBy2Plus1>& Y2,
-              const std::array<float, kBlockSize>& s_main,
-              bool echo_leakage_detected);
+              const std::array<float, kBlockSize>& s);
 
  private:
-  class EchoAudibility {
-   public:
-    void Update(rtc::ArrayView<const float> x,
-                const std::array<float, kBlockSize>& s,
-                bool converged_filter);
-    void UpdateWithOutput(rtc::ArrayView<const float> e);
-    bool InaudibleEcho() const { return inaudible_echo_; }
-
-   private:
-    float max_nearend_ = 0.f;
-    size_t max_nearend_counter_ = 0;
-    size_t low_farend_counter_ = 0;
-    bool inaudible_echo_ = false;
-  };
-
   void UpdateReverb(const std::vector<float>& impulse_response);
-  bool DetectActiveRender(rtc::ArrayView<const float> x) const;
-  void UpdateSuppressorGainLimit(bool render_activity);
-  bool DetectEchoSaturation(rtc::ArrayView<const float> x);
 
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
+  const EchoCanceller3Config config_;
   ErlEstimator erl_estimator_;
   ErleEstimator erle_estimator_;
   size_t capture_block_counter_ = 0;
-  size_t blocks_with_proper_filter_adaptation_ = 0;
-  size_t blocks_with_active_render_ = 0;
-  bool usable_linear_estimate_ = false;
-  bool echo_leakage_detected_ = false;
   bool capture_signal_saturation_ = false;
-  bool echo_saturation_ = false;
-  bool transparent_mode_ = false;
-  float previous_max_sample_ = 0.f;
-  bool render_received_ = false;
-  int realignment_counter_ = 0;
-  float suppressor_gain_limit_ = 1.f;
-  bool active_render_seen_ = false;
-  int filter_delay_ = 0;
-  size_t blocks_since_last_saturation_ = 1000;
+  bool recent_reset_ = true;
   float reverb_decay_to_test_ = 0.9f;
   float reverb_decay_candidate_ = 0.f;
   float reverb_decay_candidate_residual_ = -1.f;
-  EchoAudibility echo_audibility_;
-  const EchoCanceller3Config config_;
-  std::vector<float> max_render_;
   float reverb_decay_;
-  bool saturating_echo_path_ = false;
-  bool filter_has_had_time_to_converge_ = false;
+  EchoPathStrengthDetector echo_path_strength_detector_;
+  EchoModelSelector echo_model_selector_;
+  EchoSaturationDetector echo_saturation_detector_;
+  RenderActivity render_activity_;
+  FilterAnalyzer filter_analyzer_;
+  ClockDriftDetector clock_drift_detector_;
+  SuppressionGainUpperLimiter suppression_gain_limiter_;
+  EchoAudibility echo_audibility_;
+  bool startup_phase_ = true;
   bool initial_state_ = true;
-  const float gain_rampup_increase_;
-
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };
 

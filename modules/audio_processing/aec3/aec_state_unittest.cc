@@ -49,28 +49,28 @@ TEST(AecState, NormalUsage) {
 
   // Verify that linear AEC usability is false when the filter is diverged.
   state.Update(delay_estimate, diverged_filter_frequency_response,
-               impulse_response, true, *render_delay_buffer->GetRenderBuffer(),
-               E2_main, Y2, s, false);
-  EXPECT_FALSE(state.UsableLinearEstimate());
+               impulse_response, true, false,
+               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+  EXPECT_FALSE(state.LinearEchoModelFeasible());
 
   // Verify that linear AEC usability is true when the filter is converged
   std::fill(x[0].begin(), x[0].end(), 101.f);
   for (int k = 0; k < 3000; ++k) {
     render_delay_buffer->Insert(x);
-    state.Update(
-        delay_estimate, converged_filter_frequency_response, impulse_response,
-        true, *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s, false);
+    state.Update(delay_estimate, converged_filter_frequency_response,
+                 impulse_response, true, false,
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
-  EXPECT_TRUE(state.UsableLinearEstimate());
+  EXPECT_TRUE(state.LinearEchoModelFeasible());
 
   // Verify that linear AEC usability becomes false after an echo path change is
   // reported
   state.HandleEchoPathChange(EchoPathVariability(
       true, EchoPathVariability::DelayAdjustment::kNone, false));
   state.Update(delay_estimate, converged_filter_frequency_response,
-               impulse_response, true, *render_delay_buffer->GetRenderBuffer(),
-               E2_main, Y2, s, false);
-  EXPECT_FALSE(state.UsableLinearEstimate());
+               impulse_response, true, false,
+               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
+  EXPECT_FALSE(state.LinearEchoModelFeasible());
 
   // Verify that the active render detection works as intended.
   std::fill(x[0].begin(), x[0].end(), 101.f);
@@ -78,28 +78,17 @@ TEST(AecState, NormalUsage) {
   state.HandleEchoPathChange(EchoPathVariability(
       true, EchoPathVariability::DelayAdjustment::kNewDetectedDelay, false));
   state.Update(delay_estimate, converged_filter_frequency_response,
-               impulse_response, true, *render_delay_buffer->GetRenderBuffer(),
-               E2_main, Y2, s, false);
+               impulse_response, true, false,
+               *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   EXPECT_FALSE(state.ActiveRender());
 
   for (int k = 0; k < 1000; ++k) {
     render_delay_buffer->Insert(x);
-    state.Update(
-        delay_estimate, converged_filter_frequency_response, impulse_response,
-        true, *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s, false);
+    state.Update(delay_estimate, converged_filter_frequency_response,
+                 impulse_response, true, false,
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
   EXPECT_TRUE(state.ActiveRender());
-
-  // Verify that echo leakage is properly reported.
-  state.Update(delay_estimate, converged_filter_frequency_response,
-               impulse_response, true, *render_delay_buffer->GetRenderBuffer(),
-               E2_main, Y2, s, false);
-  EXPECT_FALSE(state.EchoLeakageDetected());
-
-  state.Update(delay_estimate, converged_filter_frequency_response,
-               impulse_response, true, *render_delay_buffer->GetRenderBuffer(),
-               E2_main, Y2, s, true);
-  EXPECT_TRUE(state.EchoLeakageDetected());
 
   // Verify that the ERL is properly estimated
   for (auto& x_k : x) {
@@ -118,12 +107,12 @@ TEST(AecState, NormalUsage) {
 
   Y2.fill(10.f * 10000.f * 10000.f);
   for (size_t k = 0; k < 1000; ++k) {
-    state.Update(
-        delay_estimate, converged_filter_frequency_response, impulse_response,
-        true, *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s, false);
+    state.Update(delay_estimate, converged_filter_frequency_response,
+                 impulse_response, true, false,
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
 
-  ASSERT_TRUE(state.UsableLinearEstimate());
+  ASSERT_TRUE(state.LinearEchoModelFeasible());
   const std::array<float, kFftLengthBy2Plus1>& erl = state.Erl();
   EXPECT_EQ(erl[0], erl[1]);
   for (size_t k = 1; k < erl.size() - 1; ++k) {
@@ -135,11 +124,11 @@ TEST(AecState, NormalUsage) {
   E2_main.fill(1.f * 10000.f * 10000.f);
   Y2.fill(10.f * E2_main[0]);
   for (size_t k = 0; k < 1000; ++k) {
-    state.Update(
-        delay_estimate, converged_filter_frequency_response, impulse_response,
-        true, *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s, false);
+    state.Update(delay_estimate, converged_filter_frequency_response,
+                 impulse_response, true, false,
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
-  ASSERT_TRUE(state.UsableLinearEstimate());
+  ASSERT_TRUE(state.LinearEchoModelFeasible());
   {
     const auto& erle = state.Erle();
     EXPECT_EQ(erle[0], erle[1]);
@@ -156,12 +145,12 @@ TEST(AecState, NormalUsage) {
   E2_main.fill(1.f * 10000.f * 10000.f);
   Y2.fill(5.f * E2_main[0]);
   for (size_t k = 0; k < 1000; ++k) {
-    state.Update(
-        delay_estimate, converged_filter_frequency_response, impulse_response,
-        true, *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s, false);
+    state.Update(delay_estimate, converged_filter_frequency_response,
+                 impulse_response, true, false,
+                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
 
-  ASSERT_TRUE(state.UsableLinearEstimate());
+  ASSERT_TRUE(state.LinearEchoModelFeasible());
   {
     const auto& erle = state.Erle();
     EXPECT_EQ(erle[0], erle[1]);
@@ -190,7 +179,11 @@ TEST(AecState, ConvergedFilterDelay) {
   EchoPathVariability echo_path_variability(
       false, EchoPathVariability::DelayAdjustment::kNone, false);
   std::array<float, kBlockSize> s;
+  std::array<float, kBlockSize> e;
+  std::array<float, kBlockSize> y;
   s.fill(100.f);
+  e.fill(100.f);
+  y.fill(100.f);
   x.fill(0.f);
 
   std::vector<std::array<float, kFftLengthBy2Plus1>> frequency_response(
@@ -208,8 +201,8 @@ TEST(AecState, ConvergedFilterDelay) {
     frequency_response[k][0] = 0.f;
     state.HandleEchoPathChange(echo_path_variability);
     state.Update(delay_estimate, frequency_response, impulse_response, true,
-                 *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s,
-                 false);
+                 false, *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
+                 s);
     if (k != (kFilterLength - 1)) {
       EXPECT_EQ(k, state.FilterDelay());
     }

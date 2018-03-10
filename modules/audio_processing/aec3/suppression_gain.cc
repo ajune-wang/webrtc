@@ -114,6 +114,7 @@ void UpdateMaxGainIncrease(
     bool low_noise_render,
     bool initial_state,
     bool linear_echo_estimate,
+    size_t num_no_echo_blocks,
     const std::array<float, kFftLengthBy2Plus1>& last_echo,
     const std::array<float, kFftLengthBy2Plus1>& echo,
     const std::array<float, kFftLengthBy2Plus1>& last_gain,
@@ -164,6 +165,22 @@ void UpdateMaxGainIncrease(
     min_decreasing = param.saturation.min_dec;
   }
 
+  if (num_no_echo_blocks > 4) {
+    max_increasing = 8;
+    max_decreasing = 8;
+    rate_increasing = 2;
+    rate_decreasing = 2;
+    min_increasing = 2;
+    min_decreasing = 2;
+  } else if (num_no_echo_blocks > 2) {
+    max_increasing = 6;
+    max_decreasing = 6;
+    rate_increasing = 2;
+    rate_decreasing = 2;
+    min_increasing = 2;
+    min_decreasing = 2;
+  }
+
   for (size_t k = 0; k < new_gain.size(); ++k) {
     if (echo[k] > last_echo[k]) {
       (*gain_increase)[k] =
@@ -184,7 +201,6 @@ void GainToNoAudibleEcho(
     const EchoCanceller3Config& config,
     bool low_noise_render,
     bool saturated_echo,
-    bool saturating_echo_path,
     bool linear_echo_estimate,
     const std::array<float, kFftLengthBy2Plus1>& nearend,
     const std::array<float, kFftLengthBy2Plus1>& echo,
@@ -286,9 +302,9 @@ void SuppressionGain::LowerBandGain(
     bool low_noise_render,
     const rtc::Optional<int>& narrow_peak_band,
     bool saturated_echo,
-    bool saturating_echo_path,
     bool initial_state,
     bool linear_echo_estimate,
+    size_t num_no_echo_blocks,
     const std::array<float, kFftLengthBy2Plus1>& nearend,
     const std::array<float, kFftLengthBy2Plus1>& echo,
     const std::array<float, kFftLengthBy2Plus1>& comfort_noise,
@@ -334,8 +350,8 @@ void SuppressionGain::LowerBandGain(
     std::array<float, kFftLengthBy2Plus1> masker;
     MaskingPower(config_, nearend, comfort_noise, last_masker_, *gain, &masker);
     GainToNoAudibleEcho(config_, low_noise_render, saturated_echo,
-                        saturating_echo_path, linear_echo_estimate, nearend,
-                        echo, masker, min_gain, max_gain, one_by_echo, gain);
+                        linear_echo_estimate, nearend, echo, masker, min_gain,
+                        max_gain, one_by_echo, gain);
     AdjustForExternalFilters(gain);
     if (narrow_peak_band) {
       NarrowBandAttenuation(*narrow_peak_band, gain);
@@ -346,9 +362,10 @@ void SuppressionGain::LowerBandGain(
   AdjustNonConvergedFrequencies(gain);
 
   // Update the allowed maximum gain increase.
+  // TODO(peah): Consider moving this to before the gain computation.
   UpdateMaxGainIncrease(config_, no_saturation_counter_, low_noise_render,
-                        initial_state, linear_echo_estimate, last_echo_, echo,
-                        last_gain_, *gain, &gain_increase_);
+                        initial_state, linear_echo_estimate, num_no_echo_blocks,
+                        last_echo_, echo, last_gain_, *gain, &gain_increase_);
 
   // Adjust gain dynamics.
   const float gain_bound =
@@ -386,10 +403,10 @@ void SuppressionGain::GetGain(
   RTC_DCHECK(low_band_gain);
 
   const bool saturated_echo = aec_state.SaturatedEcho();
-  const bool saturating_echo_path = aec_state.SaturatingEchoPath();
   const float gain_upper_bound = aec_state.SuppressionGainLimit();
-  const bool linear_echo_estimate = aec_state.UsableLinearEstimate();
+  const bool linear_echo_estimate = aec_state.LinearEchoModelFeasible();
   const bool initial_state = aec_state.InitialState();
+  const size_t num_no_echo_blocks = aec_state.NumNonAudibleBlocks();
 
   bool low_noise_render = low_render_detector_.Detect(render);
 
@@ -397,7 +414,7 @@ void SuppressionGain::GetGain(
   const rtc::Optional<int> narrow_peak_band =
       render_signal_analyzer.NarrowPeakBand();
   LowerBandGain(low_noise_render, narrow_peak_band, saturated_echo,
-                saturating_echo_path, initial_state, linear_echo_estimate,
+                initial_state, linear_echo_estimate, num_no_echo_blocks,
                 nearend, echo, comfort_noise, low_band_gain);
 
   if (gain_upper_bound < 1.f) {

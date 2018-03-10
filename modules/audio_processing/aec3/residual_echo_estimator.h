@@ -24,6 +24,8 @@
 
 namespace webrtc {
 
+class ApmDataDumper;
+
 class ResidualEchoEstimator {
  public:
   explicit ResidualEchoEstimator(const EchoCanceller3Config& config);
@@ -48,13 +50,10 @@ class ResidualEchoEstimator {
 
   // Estimates the residual echo power based on the estimate of the echo path
   // gain.
-  void NonLinearEstimate(bool sufficient_filter_updates,
-                         bool saturated_echo,
-                         bool bounded_erl,
-                         bool transparent_mode,
-                         const std::array<float, kFftLengthBy2Plus1>& X2,
-                         const std::array<float, kFftLengthBy2Plus1>& Y2,
-                         std::array<float, kFftLengthBy2Plus1>* R2);
+  void NonLinearEstimate(const AecState& aec_state,
+                         rtc::ArrayView<const float> X2,
+                         rtc::ArrayView<const float> Y2,
+                         rtc::ArrayView<float> R2);
 
   // Adds the estimated unmodelled echo power to the residual echo power
   // estimate.
@@ -63,14 +62,16 @@ class ResidualEchoEstimator {
                      size_t delay,
                      float reverb_decay_factor,
                      std::array<float, kFftLengthBy2Plus1>* R2);
+
+  static int instance_count_;
+  std::unique_ptr<ApmDataDumper> data_dumper_;
+
   const EchoCanceller3Config config_;
   std::array<float, kFftLengthBy2Plus1> R2_old_;
   std::array<int, kFftLengthBy2Plus1> R2_hold_counter_;
   std::array<float, kFftLengthBy2Plus1> R2_reverb_;
   int S2_old_index_ = 0;
   std::vector<std::array<float, kFftLengthBy2Plus1>> S2_old_;
-  std::array<float, kFftLengthBy2Plus1> X2_noise_floor_;
-  std::array<int, kFftLengthBy2Plus1> X2_noise_floor_counter_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(ResidualEchoEstimator);
 };

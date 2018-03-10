@@ -271,7 +271,7 @@ TEST(AdaptiveFirFilter, NullDataDumper) {
   EXPECT_DEATH(AdaptiveFirFilter(9, DetectOptimization(), nullptr), "");
 }
 
-// Verifies that the check for non-null filter output works.
+// Verifies that the check for non-null filter outp ut works.
 TEST(AdaptiveFirFilter, NullFilterOutput) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, DetectOptimization(), &data_dumper);
@@ -389,8 +389,8 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       aec_state.HandleEchoPathChange(EchoPathVariability(
           false, EchoPathVariability::DelayAdjustment::kNone, false));
       aec_state.Update(delay_estimate, filter.FilterFrequencyResponse(),
-                       filter.FilterImpulseResponse(), true, *render_buffer,
-                       E2_main, Y2, s, false);
+                       filter.FilterImpulseResponse(), true, false,
+                       *render_buffer, E2_main, Y2, s);
     }
     // Verify that the filter is able to perform well.
     EXPECT_LT(1000 * std::inner_product(e.begin(), e.end(), e.begin(), 0.f),

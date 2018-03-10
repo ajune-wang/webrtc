@@ -21,68 +21,40 @@
 #include "rtc_base/checks.h"
 
 namespace webrtc {
-namespace {
-
-// Computes delay of the adaptive filter.
-int EstimateFilterDelay(
-    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-        adaptive_filter_frequency_response) {
-  const auto& H2 = adaptive_filter_frequency_response;
-  constexpr size_t kUpperBin = kFftLengthBy2 - 5;
-  RTC_DCHECK_GE(kMaxAdaptiveFilterLength, H2.size());
-  std::array<int, kMaxAdaptiveFilterLength> delays;
-  delays.fill(0);
-  for (size_t k = 1; k < kUpperBin; ++k) {
-    // Find the maximum of H2[j].
-    size_t peak = 0;
-    for (size_t j = 0; j < H2.size(); ++j) {
-      if (H2[j][k] > H2[peak][k]) {
-        peak = j;
-      }
-    }
-    ++delays[peak];
-  }
-
-  return std::distance(delays.begin(),
-                       std::max_element(delays.begin(), delays.end()));
-}
-
-float ComputeGainRampupIncrease(const EchoCanceller3Config& config) {
-  const auto& c = config.echo_removal_control.gain_rampup;
-  return powf(1.f / c.first_non_zero_gain, 1.f / c.non_zero_gain_blocks);
-}
-
-}  // namespace
 
 int AecState::instance_count_ = 0;
 
 AecState::AecState(const EchoCanceller3Config& config)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
-      erle_estimator_(config.erle.min, config.erle.max_l, config.erle.max_h),
       config_(config),
-      max_render_(config_.filter.main.length_blocks, 0.f),
+      erle_estimator_(config_.erle.min, config_.erle.max_l, config_.erle.max_h),
       reverb_decay_(config_.ep_strength.default_len),
-      gain_rampup_increase_(ComputeGainRampupIncrease(config_)) {}
+      echo_path_strength_detector_(),
+      echo_model_selector_(),
+      echo_saturation_detector_(config_),
+      render_activity_(config_),
+      filter_analyzer_(config_),
+      clock_drift_detector_(config_),
+      suppression_gain_limiter_(config_) {}
 
 AecState::~AecState() = default;
 
 void AecState::HandleEchoPathChange(
     const EchoPathVariability& echo_path_variability) {
   const auto full_reset = [&]() {
-    blocks_since_last_saturation_ = 0;
-    usable_linear_estimate_ = false;
-    echo_leakage_detected_ = false;
+    echo_path_strength_detector_.Reset();
+    echo_model_selector_.Reset();
+    echo_saturation_detector_.Reset();
+    render_activity_.Reset();
+    filter_analyzer_.Reset();
+    clock_drift_detector_.Reset();
+    suppression_gain_limiter_.Reset();
     capture_signal_saturation_ = false;
-    echo_saturation_ = false;
-    previous_max_sample_ = 0.f;
-    std::fill(max_render_.begin(), max_render_.end(), 0.f);
-    blocks_with_proper_filter_adaptation_ = 0;
     capture_block_counter_ = 0;
-    filter_has_had_time_to_converge_ = false;
-    render_received_ = false;
-    blocks_with_active_render_ = 0;
+    startup_phase_ = true;
     initial_state_ = true;
+    recent_reset_ = true;
   };
 
   // TODO(peah): Refine the reset scheme according to the type of gain and
@@ -96,7 +68,6 @@ void AecState::HandleEchoPathChange(
     full_reset();
   } else if (echo_path_variability.delay_change !=
              EchoPathVariability::DelayAdjustment::kBufferFlush) {
-    active_render_seen_ = false;
     full_reset();
   } else if (echo_path_variability.delay_change !=
              EchoPathVariability::DelayAdjustment::kDelayReset) {
@@ -115,71 +86,97 @@ void AecState::Update(
         adaptive_filter_frequency_response,
     const std::vector<float>& adaptive_filter_impulse_response,
     bool converged_filter,
+    bool diverged_filter,
     const RenderBuffer& render_buffer,
     const std::array<float, kFftLengthBy2Plus1>& E2_main,
     const std::array<float, kFftLengthBy2Plus1>& Y2,
-    const std::array<float, kBlockSize>& s,
-    bool echo_leakage_detected) {
-  // Store input parameters.
-  echo_leakage_detected_ = echo_leakage_detected;
-
-  // Estimate the filter delay.
-  filter_delay_ = EstimateFilterDelay(adaptive_filter_frequency_response);
-  const std::vector<float>& x = render_buffer.Block(-filter_delay_)[0];
-
-  // Update counters.
+    const std::array<float, kBlockSize>& s) {
   ++capture_block_counter_;
-  const bool active_render_block = DetectActiveRender(x);
-  blocks_with_active_render_ += active_render_block ? 1 : 0;
-  blocks_with_proper_filter_adaptation_ +=
-      active_render_block && !SaturatedCapture() ? 1 : 0;
+
+  // Detect clock drift.
+  clock_drift_detector_.Update(adaptive_filter_impulse_response, delay_estimate,
+                               converged_filter);
+
+  // Analyze the filter and set the delay.
+  filter_analyzer_.Update(adaptive_filter_impulse_response,
+                          adaptive_filter_frequency_response, converged_filter,
+                          clock_drift_detector_.HasClockDrift());
+  const std::vector<float>& x =
+      render_buffer.Block(-filter_analyzer_.DelayBlocks())[0];
+
+  // Update the echo audibility evaluator.
+  echo_audibility_.Update(render_buffer, FilterDelay(), s);
+
+  // Track render activity.
+  render_activity_.Update(x, SaturatedCapture());
 
   // Update the limit on the echo suppression after an echo path change to avoid
   // an initial echo burst.
-  UpdateSuppressorGainLimit(render_buffer.GetRenderActivity());
+  suppression_gain_limiter_.Update(render_buffer.GetRenderActivity());
 
   // Update the ERL and ERLE measures.
-  if (converged_filter && capture_block_counter_ >= 2 * kNumBlocksPerSecond) {
-    const auto& X2 = render_buffer.Spectrum(filter_delay_);
-    erle_estimator_.Update(X2, Y2, E2_main);
-    erl_estimator_.Update(X2, Y2);
-  }
+  const auto& X2 = render_buffer.Spectrum(filter_analyzer_.DelayBlocks());
+  erle_estimator_.Update(X2, Y2, E2_main);
+  erl_estimator_.Update(X2, Y2);
 
-  // Update the echo audibility evaluator.
-  echo_audibility_.Update(x, s, converged_filter);
+  // Flag whether the echo removal is in its startup phase.
+  startup_phase_ = render_activity_.NumActiveBlocksWithoutSaturation() >=
+                   1.5f * kNumBlocksPerSecond;
 
-  // Detect and flag echo saturation.
-  // TODO(peah): Add the delay in this computation to ensure that the render and
-  // capture signals are properly aligned.
-  if (config_.ep_strength.echo_can_saturate) {
-    echo_saturation_ = DetectEchoSaturation(x);
-  }
+  // Determine whether the initial state is active.
+  initial_state_ = render_activity_.NumActiveBlocksWithoutSaturation() <
+                   5 * kNumBlocksPerSecond;
 
-  // TODO(peah): Move?
-  filter_has_had_time_to_converge_ =
-      blocks_with_proper_filter_adaptation_ >= 1.5f * kNumBlocksPerSecond;
+  // Detect echo saturation.
+  echo_saturation_detector_.Update(x, SaturatedCapture(),
+                                   filter_analyzer_.Gain(),
+                                   filter_analyzer_.GoodEstimate());
 
-  initial_state_ =
-      blocks_with_proper_filter_adaptation_ < 5 * kNumBlocksPerSecond;
+  // Estimate the quality of the linear filter.
+  echo_model_selector_.Update(
+      echo_saturation_detector_.SaturationDetected(), converged_filter,
+      diverged_filter, render_activity_.NumActiveBlocksWithoutSaturation(),
+      capture_block_counter_);
 
-  // Flag whether the linear filter estimate is usable.
-  usable_linear_estimate_ =
-      !echo_saturation_ &&
-      (converged_filter && filter_has_had_time_to_converge_) &&
-      capture_block_counter_ >= 1.f * kNumBlocksPerSecond && !TransparentMode();
+  // Detect whether a headset is present.
+  echo_path_strength_detector_.Update(
+      delay_estimate, render_activity_.ActiveBlock(),
+      filter_analyzer_.GoodEstimate(), converged_filter);
 
-  // After an amount of active render samples for which an echo should have been
-  // detected in the capture signal if the ERL was not infinite, flag that a
-  // transparent mode should be entered.
-  transparent_mode_ =
-      !converged_filter &&
-      (blocks_with_active_render_ == 0 ||
-       blocks_with_proper_filter_adaptation_ >= 5 * kNumBlocksPerSecond);
+  data_dumper_->DumpRaw("aec3_erle", Erle());
+  data_dumper_->DumpRaw("aec3_erl", Erl());
+  data_dumper_->DumpRaw("aec3_erle_time_domain", ErleTimeDomain());
+  data_dumper_->DumpRaw("aec3_erl_time_domain", ErlTimeDomain());
+  data_dumper_->DumpRaw("aec3_linear_echo_model_selected",
+                        LinearEchoModelFeasible());
+  data_dumper_->DumpRaw("aec3_filter_delay", FilterDelay());
+  data_dumper_->DumpRaw("aec3_filter_gain", filter_analyzer_.Gain()
+                                                ? *filter_analyzer_.Gain()
+                                                : 0.f);
+  data_dumper_->DumpRaw("aec3_good_filter_estimate",
+                        filter_analyzer_.GoodEstimate());
+  data_dumper_->DumpRaw("aec3_suppression_gain_limit",
+                        SuppressionGainLimit());
+  data_dumper_->DumpRaw("aec3_reverb_decay", ReverbDecay());
+  data_dumper_->DumpRaw("aec3_capture_saturation", SaturatedCapture());
+  data_dumper_->DumpRaw("aec3_initial_state", InitialState());
+  data_dumper_->DumpRaw(
+      "aec3_echo_path_strength",
+      static_cast<int16_t>(echo_path_strength_detector_.GetStrength()));
+  data_dumper_->DumpRaw("aec3_startup_phase", StartupPhase());
+  data_dumper_->DumpRaw("aec3_echo_saturation",
+                        echo_saturation_detector_.SaturationDetected());
+  data_dumper_->DumpRaw("aec3_reset", recent_reset_);
+  data_dumper_->DumpRaw("aec3_converged_filter", converged_filter);
+  data_dumper_->DumpRaw("aec3_diverged_filter", diverged_filter);
+
+  recent_reset_ = false;
 }
 
 void AecState::UpdateReverb(const std::vector<float>& impulse_response) {
-  if ((!(filter_delay_ && usable_linear_estimate_)) ||
-      (filter_delay_ >
+  if ((!(filter_analyzer_.DelayBlocks() &&
+         echo_model_selector_.LinearModelSelected())) ||
+      (filter_analyzer_.DelayBlocks() >
        static_cast<int>(config_.filter.main.length_blocks) - 4)) {
     return;
   }
@@ -258,109 +255,6 @@ void AecState::UpdateReverb(const std::vector<float>& impulse_response) {
   }
   data_dumper_->DumpRaw("aec3_reverb_decay", reverb_decay_);
   data_dumper_->DumpRaw("aec3_tail_power", tail_power);
-}
-
-bool AecState::DetectActiveRender(rtc::ArrayView<const float> x) const {
-  const float x_energy = std::inner_product(x.begin(), x.end(), x.begin(), 0.f);
-  return x_energy > (config_.render_levels.active_render_limit *
-                     config_.render_levels.active_render_limit) *
-                        kFftLengthBy2;
-}
-
-// Updates the suppressor gain limit.
-void AecState::UpdateSuppressorGainLimit(bool render_activity) {
-  const auto& rampup_conf = config_.echo_removal_control.gain_rampup;
-  if (!active_render_seen_ && render_activity) {
-    active_render_seen_ = true;
-    realignment_counter_ = rampup_conf.full_gain_blocks;
-  } else if (realignment_counter_ > 0) {
-    --realignment_counter_;
-  }
-
-  if (realignment_counter_ <= 0) {
-    suppressor_gain_limit_ = 1.f;
-    return;
-  }
-
-  if (realignment_counter_ > rampup_conf.non_zero_gain_blocks) {
-    suppressor_gain_limit_ = 0.f;
-    return;
-  }
-
-  if (realignment_counter_ == rampup_conf.non_zero_gain_blocks) {
-    suppressor_gain_limit_ = rampup_conf.first_non_zero_gain;
-    return;
-  }
-
-  RTC_DCHECK_LT(0.f, suppressor_gain_limit_);
-  suppressor_gain_limit_ =
-      std::min(1.f, suppressor_gain_limit_ * gain_rampup_increase_);
-  RTC_DCHECK_GE(1.f, suppressor_gain_limit_);
-}
-
-bool AecState::DetectEchoSaturation(rtc::ArrayView<const float> x) {
-  RTC_DCHECK_LT(0, x.size());
-  const float max_sample = fabs(*std::max_element(
-      x.begin(), x.end(), [](float a, float b) { return a * a < b * b; }));
-  previous_max_sample_ = max_sample;
-
-  // Set flag for potential presence of saturated echo
-  blocks_since_last_saturation_ =
-      previous_max_sample_ > 200.f && SaturatedCapture()
-          ? 0
-          : blocks_since_last_saturation_ + 1;
-
-  return blocks_since_last_saturation_ < 20;
-}
-
-void AecState::EchoAudibility::Update(rtc::ArrayView<const float> x,
-                                      const std::array<float, kBlockSize>& s,
-                                      bool converged_filter) {
-  auto result_x = std::minmax_element(x.begin(), x.end());
-  auto result_s = std::minmax_element(s.begin(), s.end());
-  const float x_abs =
-      std::max(fabsf(*result_x.first), fabsf(*result_x.second));
-  const float s_abs =
-      std::max(fabsf(*result_s.first), fabsf(*result_s.second));
-
-  if (converged_filter) {
-    if (x_abs < 20.f) {
-      ++low_farend_counter_;
-    } else {
-      low_farend_counter_ = 0;
-    }
-  } else {
-    if (x_abs < 100.f) {
-      ++low_farend_counter_;
-    } else {
-      low_farend_counter_ = 0;
-    }
-  }
-
-  // The echo is deemed as not audible if the echo estimate is on the level of
-  // the quantization noise in the FFTs and the nearend level is sufficiently
-  // strong to mask that by ensuring that the playout and AGC gains do not boost
-  // any residual echo that is below the quantization noise level. Furthermore,
-  // cases where the render signal is very close to zero are also identified as
-  // not producing audible echo.
-  inaudible_echo_ = (max_nearend_ > 500 && s_abs < 30.f) ||
-                    (!converged_filter && x_abs < 500);
-  inaudible_echo_ = inaudible_echo_ || low_farend_counter_ > 20;
-}
-
-void AecState::EchoAudibility::UpdateWithOutput(rtc::ArrayView<const float> e) {
-  const float e_max = *std::max_element(e.begin(), e.end());
-  const float e_min = *std::min_element(e.begin(), e.end());
-  const float e_abs = std::max(fabsf(e_max), fabsf(e_min));
-
-  if (max_nearend_ < e_abs) {
-    max_nearend_ = e_abs;
-    max_nearend_counter_ = 0;
-  } else {
-    if (++max_nearend_counter_ > 5 * kNumBlocksPerSecond) {
-      max_nearend_ *= 0.995f;
-    }
-  }
 }
 
 }  // namespace webrtc

@@ -1363,13 +1363,10 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
     return expectations_correct;
   }
 
-  void TestGcmNegotiationUsesCipherSuite(bool local_gcm_enabled,
-                                         bool remote_gcm_enabled,
-                                         int expected_cipher_suite) {
-    PeerConnectionFactory::Options caller_options;
-    caller_options.crypto_options.enable_gcm_crypto_suites = local_gcm_enabled;
-    PeerConnectionFactory::Options callee_options;
-    callee_options.crypto_options.enable_gcm_crypto_suites = remote_gcm_enabled;
+  void TestNegotiatedCipherSuite(
+      const PeerConnectionFactory::Options& caller_options,
+      const PeerConnectionFactory::Options& callee_options,
+      int expected_cipher_suite) {
     ASSERT_TRUE(CreatePeerConnectionWrappersWithOptions(caller_options,
                                                         callee_options));
     rtc::scoped_refptr<webrtc::FakeMetricsObserver> caller_observer =
@@ -1386,6 +1383,17 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
         1, caller_observer->GetEnumCounter(webrtc::kEnumCounterAudioSrtpCipher,
                                            expected_cipher_suite));
     caller()->pc()->RegisterUMAObserver(nullptr);
+  }
+
+  void TestGcmNegotiationUsesCipherSuite(bool local_gcm_enabled,
+                                         bool remote_gcm_enabled,
+                                         int expected_cipher_suite) {
+    PeerConnectionFactory::Options caller_options;
+    caller_options.crypto_options.enable_gcm_crypto_suites = local_gcm_enabled;
+    PeerConnectionFactory::Options callee_options;
+    callee_options.crypto_options.enable_gcm_crypto_suites = remote_gcm_enabled;
+    TestNegotiatedCipherSuite(caller_options, callee_options,
+                              expected_cipher_suite);
   }
 
  protected:
@@ -2596,6 +2604,40 @@ TEST_P(PeerConnectionIntegrationTest, CallerDtls10ToCalleeDtls12) {
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
+}
+
+TEST_F(PeerConnectionIntegrationTest,
+       Aes128Sha1_32_CipherNotUsedWhenOnlyCallerSupported) {
+  ASSERT_NE(rtc::SRTP_AES128_CM_SHA1_32, kDefaultSrtpCryptoSuite);
+  PeerConnectionFactory::Options caller_options;
+  caller_options.crypto_options.enable_aes128_sha1_32_crypto_cipher = true;
+  PeerConnectionFactory::Options callee_options;
+  callee_options.crypto_options.enable_aes128_sha1_32_crypto_cipher = false;
+  int expected_cipher_suite = kDefaultSrtpCryptoSuite;
+  TestNegotiatedCipherSuite(caller_options, callee_options,
+                            expected_cipher_suite);
+}
+
+TEST_F(PeerConnectionIntegrationTest,
+       Aes128Sha1_32_CipherNotUsedWhenOnlyCalleeSupported) {
+  ASSERT_NE(rtc::SRTP_AES128_CM_SHA1_32, kDefaultSrtpCryptoSuite);
+  PeerConnectionFactory::Options caller_options;
+  caller_options.crypto_options.enable_aes128_sha1_32_crypto_cipher = false;
+  PeerConnectionFactory::Options callee_options;
+  callee_options.crypto_options.enable_aes128_sha1_32_crypto_cipher = true;
+  int expected_cipher_suite = kDefaultSrtpCryptoSuite;
+  TestNegotiatedCipherSuite(caller_options, callee_options,
+                            expected_cipher_suite);
+}
+
+TEST_F(PeerConnectionIntegrationTest, Aes128Sha1_32_CipherUsedWhenSupported) {
+  PeerConnectionFactory::Options caller_options;
+  caller_options.crypto_options.enable_aes128_sha1_32_crypto_cipher = true;
+  PeerConnectionFactory::Options callee_options;
+  callee_options.crypto_options.enable_aes128_sha1_32_crypto_cipher = true;
+  int expected_cipher_suite = rtc::SRTP_AES128_CM_SHA1_32;
+  TestNegotiatedCipherSuite(caller_options, callee_options,
+                            expected_cipher_suite);
 }
 
 // Test that a non-GCM cipher is used if both sides only support non-GCM.

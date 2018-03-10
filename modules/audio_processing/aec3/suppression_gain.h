@@ -42,6 +42,7 @@ class SuppressionGain {
                      bool saturating_echo_path,
                      bool initial_state,
                      bool linear_echo_estimate,
+                     size_t num_no_echo_blocks,
                      const std::array<float, kFftLengthBy2Plus1>& nearend,
                      const std::array<float, kFftLengthBy2Plus1>& echo,
                      const std::array<float, kFftLengthBy2Plus1>& comfort_noise,

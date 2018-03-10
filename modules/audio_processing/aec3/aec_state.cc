@@ -139,6 +139,9 @@ void AecState::Update(
   // an initial echo burst.
   suppression_gain_limiter_.Update(render_buffer.GetRenderActivity());
 
+  // Update the echo audibility evaluator.
+  echo_audibility_.Update(render_buffer, FilterDelay(), s);
+
   // Update the ERL and ERLE measures.
   if (converged_filter && capture_block_counter_ >= 2 * kNumBlocksPerSecond) {
     const auto& X2 = render_buffer.Spectrum(filter_delay_);
@@ -146,8 +149,6 @@ void AecState::Update(
     erl_estimator_.Update(X2, Y2);
   }
 
-  // Update the echo audibility evaluator.
-  echo_audibility_.Update(x, s, converged_filter);
 
   // Detect and flag echo saturation.
   // TODO(peah): Add the delay in this computation to ensure that the render and
@@ -384,54 +385,6 @@ bool AecState::DetectEchoSaturation(rtc::ArrayView<const float> x) {
           : blocks_since_last_saturation_ + 1;
 
   return blocks_since_last_saturation_ < 20;
-}
-
-void AecState::EchoAudibility::Update(rtc::ArrayView<const float> x,
-                                      const std::array<float, kBlockSize>& s,
-                                      bool converged_filter) {
-  auto result_x = std::minmax_element(x.begin(), x.end());
-  auto result_s = std::minmax_element(s.begin(), s.end());
-  const float x_abs = std::max(fabsf(*result_x.first), fabsf(*result_x.second));
-  const float s_abs = std::max(fabsf(*result_s.first), fabsf(*result_s.second));
-
-  if (converged_filter) {
-    if (x_abs < 20.f) {
-      ++low_farend_counter_;
-    } else {
-      low_farend_counter_ = 0;
-    }
-  } else {
-    if (x_abs < 100.f) {
-      ++low_farend_counter_;
-    } else {
-      low_farend_counter_ = 0;
-    }
-  }
-
-  // The echo is deemed as not audible if the echo estimate is on the level of
-  // the quantization noise in the FFTs and the nearend level is sufficiently
-  // strong to mask that by ensuring that the playout and AGC gains do not boost
-  // any residual echo that is below the quantization noise level. Furthermore,
-  // cases where the render signal is very close to zero are also identified as
-  // not producing audible echo.
-  inaudible_echo_ = (max_nearend_ > 500 && s_abs < 30.f) ||
-                    (!converged_filter && x_abs < 500);
-  inaudible_echo_ = inaudible_echo_ || low_farend_counter_ > 20;
-}
-
-void AecState::EchoAudibility::UpdateWithOutput(rtc::ArrayView<const float> e) {
-  const float e_max = *std::max_element(e.begin(), e.end());
-  const float e_min = *std::min_element(e.begin(), e.end());
-  const float e_abs = std::max(fabsf(e_max), fabsf(e_min));
-
-  if (max_nearend_ < e_abs) {
-    max_nearend_ = e_abs;
-    max_nearend_counter_ = 0;
-  } else {
-    if (++max_nearend_counter_ > 5 * kNumBlocksPerSecond) {
-      max_nearend_ *= 0.995f;
-    }
-  }
 }
 
 }  // namespace webrtc

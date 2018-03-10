@@ -22,6 +22,7 @@
 #include "api/optional.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/delay_estimate.h"
+#include "modules/audio_processing/aec3/echo_audibility.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/erl_estimator.h"
 #include "modules/audio_processing/aec3/erle_estimator.h"
@@ -48,6 +49,17 @@ class AecState {
 
   // Returns whether the render signal is currently active.
   bool ActiveRender() const { return blocks_with_active_render_ > 200; }
+
+  // Returns the appropriate scaling of the residual echo to match the
+  // audibility.
+  float ResidualEchoScaling() const {
+    return echo_audibility_.ResidualEchoScaling();
+  };
+
+  // Returns the number of upcoming non-audible echo blocks.
+  size_t NumNonAudibleBlocks() const {
+    return echo_audibility_.NumNonAudibleBlocks();
+  };
 
   // Returns the ERLE.
   const std::array<float, kFftLengthBy2Plus1>& Erle() const {
@@ -96,14 +108,6 @@ class AecState {
     return suppression_gain_limiter_.Limit();
   }
 
-  // Returns whether the echo in the capture signal is audible.
-  bool InaudibleEcho() const { return echo_audibility_.InaudibleEcho(); }
-
-  // Updates the aec state with the AEC output signal.
-  void UpdateWithOutput(rtc::ArrayView<const float> e) {
-    echo_audibility_.UpdateWithOutput(e);
-  }
-
   // Returns whether the linear filter should have been able to properly adapt.
   bool FilterHasHadTimeToConverge() const {
     return filter_has_had_time_to_converge_;
@@ -125,21 +129,6 @@ class AecState {
               bool echo_leakage_detected);
 
  private:
-  class EchoAudibility {
-   public:
-    void Update(rtc::ArrayView<const float> x,
-                const std::array<float, kBlockSize>& s,
-                bool converged_filter);
-    void UpdateWithOutput(rtc::ArrayView<const float> e);
-    bool InaudibleEcho() const { return inaudible_echo_; }
-
-   private:
-    float max_nearend_ = 0.f;
-    size_t max_nearend_counter_ = 0;
-    size_t low_farend_counter_ = 0;
-    bool inaudible_echo_ = false;
-  };
-
   void UpdateReverb(const std::vector<float>& impulse_response);
   bool DetectActiveRender(rtc::ArrayView<const float> x) const;
   void UpdateSuppressorGainLimit(bool render_activity);

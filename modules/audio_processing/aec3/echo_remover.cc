@@ -213,9 +213,6 @@ void EchoRemoverImpl::ProcessCapture(
   // Update the metrics.
   metrics_.Update(aec_state_, cng_.NoiseSpectrum(), G);
 
-  // Update the aec state with the aec output characteristics.
-  aec_state_.UpdateWithOutput(y0);
-
   // Debug outputs for the purpose of development and analysis.
   data_dumper_->DumpWav("aec3_echo_estimate", kBlockSize,
                         &subtractor_output.s_main[0],

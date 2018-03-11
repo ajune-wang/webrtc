@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "611db21c_b7ca4381",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-11T10:43:11Z",
+      "side": 1,
+      "message": "I\u0027m not fond of introducing one-off abbreviations like this, although I\u0027m sure I do it as well...\n\nWhat about just saying \"event\". Seeing as you\u0027d see that it\u0027s an AudioNetworkAdaptationEvent from context, and you would not know what \"ana\" mean without context anyway.",
+      "range": {
+        "startLine": 145,
+        "startChar": 49,
+        "endLine": 145,
+        "endChar": 52
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af4af35f_19b955a2",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-11T10:43:11Z",
+      "side": 1,
+      "message": "Using classes as namespaces makes it harder to restructure code later on. Now any code requiring access to AlrStateEvent also needs to know about ParsedRtcEventLog. But seeing as this seems to be the pattern here already, I\u0027ll mark this as resolved.",
+      "range": {
+        "startLine": 58,
+        "startChar": 9,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c1fc53b_4b6bf4cb",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-11T10:43:11Z",
+      "side": 1,
+      "message": "What is the difference between incoming and outgoing packet. They look identical. Would code handling an incoming packet fail to handle an outgoing packet? If it\u0027s just for type safety, what about having a common ancestor RtpPacket and just inherit from that?\n\n(Tip, you can the use Using RtpPacket::Rtppacket; to inherit the constructor.)",
+      "range": {
+        "startLine": 121,
+        "startChar": 9,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "575214fb_d4b732a2",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-11T10:43:11Z",
+      "side": 1,
+      "message": "Name overloading makes it confusing here, what are the differences, why are they different, etc. Since there are so many arguments it is not instantly obvious what the signature difference is. What about GetRtpHeaderByIndex and GetRtpHeaderByEvent? Another way would be to use a return struct instead of output arguments. Might make the code easier to understand.",
+      "range": {
+        "startLine": 286,
+        "startChar": 39,
+        "endLine": 286,
+        "endChar": 51
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfeefbb2_db774362",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-11T10:43:11Z",
+      "side": 1,
+      "message": "I think there should be a comment indicating the difference in function between this and the indexed version above.",
+      "range": {
+        "startLine": 293,
+        "startChar": 39,
+        "endLine": 293,
+        "endChar": 51
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbbcf6f5_80cac06e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-11T10:43:11Z",
+      "side": 1,
+      "message": "nacks",
+      "range": {
+        "startLine": 464,
+        "startChar": 37,
+        "endLine": 464,
+        "endChar": 41
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "287a313b_b74dca3f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-11T10:43:11Z",
+      "side": 1,
+      "message": "remote_bitrate_reports?",
+      "range": {
+        "startLine": 469,
+        "startChar": 37,
+        "endLine": 469,
+        "endChar": 41
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

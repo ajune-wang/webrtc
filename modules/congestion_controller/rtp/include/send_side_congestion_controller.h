@@ -141,8 +141,9 @@ class SendSideCongestionController
   void WaitOnTasks();
 
  private:
+  void MaybeCreateControllers();
+
   void UpdateStreamsConfig();
-  void WaitOnTask(std::function<void()> closure);
   void MaybeUpdateOutstandingData();
   void OnReceivedRtcpReceiverReportBlocks(const ReportBlockList& report_blocks,
                                           int64_t now_ms);
@@ -152,9 +153,15 @@ class SendSideCongestionController
   TransportFeedbackAdapter transport_feedback_adapter_;
 
   const std::unique_ptr<NetworkControllerFactoryInterface> controller_factory_;
-  const std::unique_ptr<PacerController> pacer_controller_;
-  const std::unique_ptr<send_side_cc_internal::ControlHandler> control_handler;
-  const std::unique_ptr<NetworkControllerInterface> controller_;
+
+  const std::unique_ptr<PacerController> pacer_controller_
+      RTC_GUARDED_BY(task_queue_);
+
+  std::unique_ptr<send_side_cc_internal::ControlHandler> control_handler_
+      RTC_GUARDED_BY(task_queue_);
+
+  std::unique_ptr<NetworkControllerInterface> controller_
+      RTC_GUARDED_BY(task_queue_);
 
   TimeDelta process_interval_;
   int64_t last_process_update_ms_ = 0;
@@ -162,10 +169,13 @@ class SendSideCongestionController
   std::map<uint32_t, RTCPReportBlock> last_report_blocks_;
   Timestamp last_report_block_time_;
 
+  NetworkChangedObserver* observer_ RTC_GUARDED_BY(task_queue_);
+  NetworkControllerConfig initial_config_ RTC_GUARDED_BY(task_queue_);
+
   StreamsConfig streams_config_;
   const bool send_side_bwe_with_overhead_;
   std::atomic<size_t> transport_overhead_bytes_per_packet_;
-  std::atomic<bool> network_available_;
+  bool network_available_ RTC_GUARDED_BY(task_queue_);
 
   rtc::RaceChecker worker_race_;
 

@@ -458,6 +458,24 @@
     },
     {
       "key": {
+        "uuid": "a85a1b8b_8b157e7e",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:53:25Z",
+      "side": 1,
+      "message": "Having the getter in the public interface and the setter in an internal interface effectively makes it readonly for clients. I don\u0027t have a strong opinion whether we need to hide set_stream_ids, but if no one plans to use it then keeping it internal would reduce the public API surface.",
+      "parentUuid": "e84ec2c6_6ac9f38e",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdfc322d_abf5f192",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 3

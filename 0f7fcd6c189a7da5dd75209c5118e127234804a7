@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd9e2082_22de8249",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1462,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:53:25Z",
+      "side": 1,
+      "message": "nit: need",
+      "range": {
+        "startLine": 1462,
+        "startChar": 19,
+        "endLine": 1462,
+        "endChar": 26
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24e10d7b_9f0b902c",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3929,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:53:25Z",
+      "side": 1,
+      "message": "nit: might as well do params.stream_ids().empty() and params.stream_ids()[0]",
+      "range": {
+        "startLine": 3929,
+        "startChar": 35,
+        "endLine": 3929,
+        "endChar": 67
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92b9ab2d_6267a78e",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:53:25Z",
+      "side": 1,
+      "message": "nit: \u0027use a default\u0027",
+      "range": {
+        "startLine": 623,
+        "startChar": 12,
+        "endLine": 623,
+        "endChar": 26
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06147717_bf3bfe82",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:53:25Z",
+      "side": 1,
+      "message": "Leaving it up to you whether it\u0027s worth changing. I might suggest a more orthogonal test case would be:\n\n- audio track with 1 msid line\n- audio track with 2 msid lines\n- audio track with 1 msid line with the special \"-\" marker\n\nSince both audio and video are treated the same in the parsing/serialization code I don\u0027t think it\u0027s that important to test that it works for video too.",
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed33d5a_27f252dd",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:53:25Z",
+      "side": 1,
+      "message": "2 now",
+      "range": {
+        "startLine": 594,
+        "startChar": 23,
+        "endLine": 594,
+        "endChar": 24
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4391e9f_41b68433",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:53:25Z",
+      "side": 1,
+      "message": "nit: \u0027using both a\u003dmsid and a\u003dssrc msid\u0027",
+      "range": {
+        "startLine": 597,
+        "startChar": 64,
+        "endLine": 598,
+        "endChar": 28
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

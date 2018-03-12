@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea6d22fd_4c702b63",
+        "filename": "modules/video_coding/codecs/test/stats.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "I added check for zero. I think zero is the only undesired value here. There is possibility to specify RC thresholds, including threshold for mismatch between target and encoded bitrates, in test (see tests in modules/video_coding/codecs/test/videoprocessor_integrationtest_libvpx.cc). This provides clear definition of undesired value. The checks based on those thresholds are done in VerifyVideoStatistic().",
+      "parentUuid": "ab5baccd_045d484d",
+      "range": {
+        "startLine": 203,
+        "startChar": 9,
+        "endLine": 203,
+        "endChar": 28
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "085faecb_02fd5113",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 15
@@ -45,6 +69,30 @@
       "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b652f57e_8931cfce",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "085faecb_02fd5113",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ff33d83c_53995deb",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "This place doesn\u0027t really care about maximum value. There are such checks on other layers such as video codec initialized and enc wrapper.",
+      "parentUuid": "a86f7e63_4dd5b135",
+      "range": {
+        "startLine": 44,
+        "startChar": 43,
+        "endLine": 44,
+        "endChar": 62
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33f69fec_c923fc54",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 15
@@ -91,6 +163,30 @@
       "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b25c3cf_bdaea79f",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "33f69fec_c923fc54",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 80
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "e22289da_95b02d56",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Fixed. Thanks.",
+      "parentUuid": "9d70a235_f3171c06",
+      "range": {
+        "startLine": 51,
+        "startChar": 67,
+        "endLine": 51,
+        "endChar": 76
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbbbdad8_e1ae8b9f",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 15
@@ -137,6 +257,30 @@
       "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7a5ca9e_46311ebd",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbbbdad8_e1ae8b9f",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 83,
+        "endChar": 9
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "e1c21e63_d5315548",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "I think this function should always configure at least one layer. An upper layer should stop encoding if available bitrate is less than required minimum. I think there is such mechanism. I will double check.\n\nI changed external loop to _for_. num_spatial_layers-- is now part of the afterthought.",
+      "parentUuid": "1174c398_2a04e411",
+      "range": {
+        "startLine": 90,
+        "startChar": 13,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33e58f93_8fbf0dce",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 15
@@ -183,6 +351,30 @@
       "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b62e82c1_f7265d75",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "The value returned by this function is used for reporting maximum bitrate of codec, including VP9, to stats. See VideoStreamEncoder::ReconfigureEncoder().",
+      "parentUuid": "33e58f93_8fbf0dce",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 49
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "f3b6d44b_d1830b67",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bc3cdc36_7c1b4a84",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 50
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b884a4fd_518bcd9f",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.h",
         "patchSetId": 15
@@ -229,6 +445,30 @@
       "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a14abce1_e16556a5",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "In general usage of size_t might provide better performance on 64-bits platforms because its capacity is aligned with capacity of general purpose register.",
+      "parentUuid": "b884a4fd_518bcd9f",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "6f0e4dea1baf2ffc31b8111fc65f5a4924c564ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

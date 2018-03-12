@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "28722b1f_845dc986",
+        "filename": "common_types.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "// Sum of bitrates of temporal layers from layer 0 to |temporal_index|\n// inclusive of given spatial layer |spatial_index|. Bitrates of lower\n// spatial layers are not included.",
+      "parentUuid": "9bb90729_f78c5165",
+      "range": {
+        "startLine": 604,
+        "startChar": 57,
+        "endLine": 604,
+        "endChar": 0
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6b1343d_3a5fe635",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 17
@@ -45,6 +69,30 @@
       "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9fdaead_4e9e5d4d",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6b1343d_3a5fe635",
+      "range": {
+        "startLine": 33,
+        "startChar": 57,
+        "endLine": 33,
+        "endChar": 0
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b9b49b28_2ed988d3",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8a9ba96_a97e5de4",
+      "range": {
+        "startLine": 38,
+        "startChar": 78,
+        "endLine": 38,
+        "endChar": 0
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "098c8c63_f4db2760",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 17
@@ -91,6 +163,30 @@
       "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb881c7_a70c6d48",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "098c8c63_f4db2760",
+      "range": {
+        "startLine": 46,
+        "startChar": 17,
+        "endLine": 46,
+        "endChar": 20
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "496d930a_38b28955",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Added.\nIt would be nice to mention in the comment PSNR/SSIM value we observed at encoding particular video to min/max bitrate. Added todo.",
+      "parentUuid": "b389afa1_43eb0ba6",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97e6a2bd_152b6daa",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "I think this is coincidental match.",
+      "parentUuid": "5593b550_ea3f3a00",
+      "range": {
+        "startLine": 47,
+        "startChar": 53,
+        "endLine": 47,
+        "endChar": 54
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5587a40e_3274bd9b",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 17
@@ -154,6 +298,24 @@
       "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9e5f56a_033b893a",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "// At screen sharing bitrate allocation is handled by VP9 encoder wrapper.",
+      "parentUuid": "5587a40e_3274bd9b",
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "8d14be94_e9dc3504",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "527e1d84_91eb269c",
+      "range": {
+        "startLine": 51,
+        "startChar": 67,
+        "endLine": 51,
+        "endChar": 69
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aadc2ad7_068a26b4",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 17
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "3db52d61_8e41ab4e",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "I changed external loop from _do/while_ to _for_ loop. The declaration of layer_bitrate_is_less_than_required_minimum is moved inside the loop.",
+      "parentUuid": "aadc2ad7_068a26b4",
+      "range": {
+        "startLine": 61,
+        "startChar": 58,
+        "endLine": 61,
+        "endChar": 0
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13ad466a_59f0bf55",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 17
@@ -217,6 +427,24 @@
       "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78c4c2f4_7f4168f7",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Right. Thanks.",
+      "parentUuid": "13ad466a_59f0bf55",
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "62bcfc9e_24a27782",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Likely means scale_rate_factor. I removed that suffix since it doesn\u0027t bring any value here.",
+      "parentUuid": "60329825_1edb2c75",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbeb2bae_19f0b426",
         "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
         "patchSetId": 17
@@ -257,6 +509,24 @@
       "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e743c3b7_d8a041f0",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-12T13:12:55Z",
+      "side": 1,
+      "message": "Switched VideoCodecUnitTest to frame generator.",
+      "parentUuid": "fbeb2bae_19f0b426",
+      "revId": "f616ab7ed86664d2675ae0ebf5cf0ae631c3ed5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

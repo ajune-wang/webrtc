@@ -1,0 +1,455 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6ded400_f7842c3e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "May be a bit too optimistic :)",
+      "range": {
+        "startLine": 1157,
+        "startChar": 68,
+        "endLine": 1157,
+        "endChar": 77
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18897b9c_620ee9a0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Probably don\u0027t need this local variable.",
+      "range": {
+        "startLine": 1355,
+        "startChar": 27,
+        "endLine": 1355,
+        "endChar": 37
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b395616_0f2342cb",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1464,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "May I suggest revising to something like: With Plan B semantics, we internally must always have one stream, so generate a random stream ID if not specified.",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28427129_b40b7129",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2281,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Why can\u0027t we just have zero streams in this case?",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37787984_92d06c7b",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "nit: Put these above the caller/callee constructor.",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13ce418e_c10fd106",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Supposed to be commented?",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c2c9318_28ca4b07",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Also say that we expect the Plan B endpoint to end up with exactly one stream.",
+      "range": {
+        "startLine": 1088,
+        "startChar": 61,
+        "endLine": 1088,
+        "endChar": 64
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "071382d3_dab9f60e",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Should these be used below? If they are only used once I would vote to just remove these.",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "539c3d5e_b8a209c9",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3bf5a36_4c08edaf",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Also verify that the stream is the first one (kStreamId1),",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81e98e51_9206e0e6",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Can you add a comment to the RtpSenderInterface clarifying what the stream ids are used for? (e.g., signaled in SDP so the remote side can correlate tracks).",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f20fa03_19b22270",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "This is duplicated from RtpSenderInterface and can be removed here.",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdfc322d_abf5f192",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think \"Default\" really fits here. There\u0027s only one representation for the empty stream. My suggestion: kNoStreamMsid",
+      "range": {
+        "startLine": 127,
+        "startChar": 19,
+        "endLine": 127,
+        "endChar": 26
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0afa924c_87e0b79f",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "nit: Just |stream_ids \u003d msid_stream_ids| ?",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a450d2cc_74c874c4",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Isn\u0027t this just |else| ?",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99cb2103_9d5ef4e7",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1492,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "May be also say that the appdata stays the same for each line (that\u0027s what the spec says, right?)",
+      "range": {
+        "startLine": 1492,
+        "startChar": 21,
+        "endLine": 1492,
+        "endChar": 28
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58489c39_9dcd52e9",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "nit: use |stream_ids| here",
+      "range": {
+        "startLine": 1498,
+        "startChar": 10,
+        "endLine": 1498,
+        "endChar": 28
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c98b19f_2510ba5f",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2215,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Maybe update this link too?",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68ee6a75_3b46c238",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "nit: lines",
+      "range": {
+        "startLine": 592,
+        "startChar": 32,
+        "endLine": 592,
+        "endChar": 36
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d8482ca_d367fec5",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "nit: stream",
+      "range": {
+        "startLine": 596,
+        "startChar": 23,
+        "endLine": 596,
+        "endChar": 30
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f96dacb_547ae924",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 597,
+        "startChar": 38,
+        "endLine": 597,
+        "endChar": 39
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec7e5bb_53937ff6",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "Can we say a\u003dmsid and a\u003dssrc ... msid instead of Unified Plan semantics and Plan B semantics?",
+      "range": {
+        "startLine": 597,
+        "startChar": 73,
+        "endLine": 598,
+        "endChar": 45
+      },
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e2bcbcc_4389adea",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T21:17:43Z",
+      "side": 1,
+      "message": "In my opinion, I don\u0027t think you need to test more than two streams. I think it\u0027s reasonable to assume that if it works for two streams then it will work for more than that.",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

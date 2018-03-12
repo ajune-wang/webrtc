@@ -5324,6 +5324,9 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create voice channel.");
     }
+    if (factory_->options().disable_encryption) {
+      voice_channel->SetEncryptionDisabled(true);
+    }
     GetAudioTransceiver()->internal()->SetChannel(voice_channel);
   }
 
@@ -5337,6 +5340,9 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create video channel.");
     }
+    if (factory_->options().disable_encryption) {
+      video_channel->SetEncryptionDisabled(true);
+    }
     GetVideoTransceiver()->internal()->SetChannel(video_channel);
   }
 
@@ -5347,6 +5353,9 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
                                            data->name, bundle_group))) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create data channel.");
+    }
+    if (rtp_data_channel_ && factory_->options().disable_encryption) {
+      rtp_data_channel_->SetEncryptionDisabled(true);
     }
   }
 

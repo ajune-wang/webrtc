@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ea2ce32_72823abc",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-12T16:32:55Z",
+      "side": 1,
+      "message": "Can this upper-bound change in the future somewhere else in the code? If so, we would start collecting lower values incorrectly. If keeping a hard-coded value is ok, then add a comment and explain. Otherwise add a constexpr (if not there yet) to grab this value from the place where the number of max incoming active streams is actually enforced.",
+      "range": {
+        "startLine": 272,
+        "startChar": 43,
+        "endLine": 272,
+        "endChar": 44
+      },
+      "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb4c8a13_964c85f7",
+        "filename": "modules/audio_mixer/frame_combiner.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-12T16:32:55Z",
+      "side": 1,
+      "message": "Maybe \"const std::vector\u003cconst AudioFrame*\u003e\u0026\"?\n                         ^",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d7712b4_22464617",
+        "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-12T16:32:55Z",
+      "side": 1,
+      "message": "Is it hard to pass these values to the InterpolatedGainCurve ctor? I would at least add a TODO.",
+      "range": {
+        "startLine": 74,
+        "startChar": 30,
+        "endLine": 74,
+        "endChar": 73
+      },
+      "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac9eedcf_42462641",
+        "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-12T16:32:55Z",
+      "side": 1,
+      "message": "I\u0027d like to suggest a slightly more complex metric that can be more informative and that tells us for how long the limiter ends up working in the same region for adjacent frames. This can be done by counting the number of consecutive frames during which |region| doesn\u0027t change and logging that number before |region| changes (as WebRTC.Audio.AGC2.FixedDigitalGainCurveRegion.\u003cregion_name\u003e). Stats on those time intervals (BTW, we should map # of frames to ms) inform us on whether the gains may not be correctly set and/or if the time constants of the limiter are not appropriate. WDYT?",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 3
+      },
+      "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

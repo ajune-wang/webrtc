@@ -22,6 +22,7 @@
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
 #include "rtc_base/thread_annotations.h"
+#include "test/frame_generator.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -29,7 +30,8 @@ namespace webrtc {
 class VideoCodecUnitTest : public ::testing::Test {
  public:
   VideoCodecUnitTest()
-      : encode_complete_callback_(this),
+      : last_input_frame_timestamp_(0),
+        encode_complete_callback_(this),
         decode_complete_callback_(this),
         encoded_frame_event_(false /* manual reset */,
                              false /* initially signaled */),
@@ -74,9 +76,12 @@ class VideoCodecUnitTest : public ::testing::Test {
 
   virtual std::unique_ptr<VideoEncoder> CreateEncoder() = 0;
   virtual std::unique_ptr<VideoDecoder> CreateDecoder() = 0;
-  virtual VideoCodec codec_settings() = 0;
 
   void SetUp() override;
+
+  virtual void ModifyCodecSettings(VideoCodec* codec_settings);
+
+  VideoFrame* NextInputFrame();
 
   // Helper method for waiting a single encoded frame.
   bool WaitForEncodedFrame(EncodedImage* frame,
@@ -94,16 +99,16 @@ class VideoCodecUnitTest : public ::testing::Test {
   bool WaitForDecodedFrame(std::unique_ptr<VideoFrame>* frame,
                            rtc::Optional<uint8_t>* qp);
 
-  // Populated by InitCodecs().
   VideoCodec codec_settings_;
-
-  std::unique_ptr<VideoFrame> input_frame_;
 
   std::unique_ptr<VideoEncoder> encoder_;
   std::unique_ptr<VideoDecoder> decoder_;
 
  private:
   void InitCodecs();
+
+  std::unique_ptr<test::FrameGenerator> input_frame_generator_;
+  size_t last_input_frame_timestamp_;
 
   FakeEncodeCompleteCallback encode_complete_callback_;
   FakeDecodeCompleteCallback decode_complete_callback_;

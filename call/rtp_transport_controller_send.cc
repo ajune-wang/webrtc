@@ -119,11 +119,9 @@ void RtpTransportControllerSend::DeRegisterPacketFeedbackObserver(
 
 void RtpTransportControllerSend::RegisterTargetTransferRateObserver(
     TargetTransferRateObserver* observer) {
-  {
-    rtc::CritScope cs(&observer_crit_);
-    RTC_DCHECK(observer_ == nullptr);
-    observer_ = observer;
-  }
+  rtc::CritScope cs(&observer_crit_);
+  RTC_DCHECK(observer_ == nullptr);
+  observer_ = observer;
   send_side_cc_->RegisterNetworkObserver(this);
 }
 void RtpTransportControllerSend::OnNetworkRouteChanged(

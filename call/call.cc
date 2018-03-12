@@ -229,7 +229,7 @@ class Call : public webrtc::Call,
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
   // Implements TargetTransferRateObserver,
-  void OnTargetTransferRate(TargetTransferRate msg) override;
+  void OnTargetTransferRate(TargetTransferRate) override;
 
   // Implements BitrateAllocator::LimitObserver.
   void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,

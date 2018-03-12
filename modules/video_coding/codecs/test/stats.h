@@ -59,8 +59,11 @@ struct FrameStatistics {
   int qp = -1;
 
   // Quality.
-  float psnr = 0.0;
-  float ssim = 0.0;
+  float psnr_y = 0.0f;
+  float psnr_u = 0.0f;
+  float psnr_v = 0.0f;
+  float psnr = 0.0f;
+  float ssim = 0.0f;
 };
 
 struct VideoStatistics {
@@ -91,6 +94,9 @@ struct VideoStatistics {
   float avg_delta_frame_size_bytes = 0.0f;
   float avg_qp = 0.0f;
 
+  float avg_psnr_y = 0.0f;
+  float avg_psnr_u = 0.0f;
+  float avg_psnr_v = 0.0f;
   float avg_psnr = 0.0f;
   float min_psnr = 0.0f;
   float avg_ssim = 0.0f;

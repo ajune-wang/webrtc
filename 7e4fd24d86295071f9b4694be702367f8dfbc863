@@ -22,6 +22,30 @@
       "revId": "7e4fd24d86295071f9b4694be702367f8dfbc863",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f261bf1d_4d1dfc29",
+        "filename": "examples/androidnativeapi/jni/androidcallclient.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-12T13:30:26Z",
+      "side": 1,
+      "message": "It is not.",
+      "parentUuid": "0dc3bb65_80a4fadc",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 10
+      },
+      "revId": "7e4fd24d86295071f9b4694be702367f8dfbc863",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

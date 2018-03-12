@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a46e09c2_a0b018f2",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-12T10:38:47Z",
+      "side": 1,
+      "message": "This methods deserves a comment explaining it\u0027s purpose and why it\u0027s needed.\n\nAs I understood you, it\u0027s preferable to do some or all of this on construction, but there were some obstacles? Do you have a plan for how to eliminate this logic? If so, add a TODO with brief outline and/or reference to corresponding bug explaining what\u0027s going on.",
+      "range": {
+        "startLine": 294,
+        "startChar": 5,
+        "endLine": 294,
+        "endChar": 60
+      },
+      "revId": "b127ea2e60656c9768e9b0d9611b08dce83fcf0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2b05d7c_e15477ec",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-12T10:38:47Z",
+      "side": 1,
+      "message": "I think you should either check |observer_initialized_|, or delete that flag.",
+      "range": {
+        "startLine": 296,
+        "startChar": 45,
+        "endLine": 296,
+        "endChar": 54
+      },
+      "revId": "b127ea2e60656c9768e9b0d9611b08dce83fcf0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

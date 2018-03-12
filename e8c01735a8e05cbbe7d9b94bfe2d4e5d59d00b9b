@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b32ad58d_42805315",
+        "filename": "modules/congestion_controller/network_control/include/network_control.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-12T16:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c56b0dca_cd9d1971",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 50
+      },
+      "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a142a6f_1e789af8",
         "filename": "modules/congestion_controller/network_control/include/network_control.h",
         "patchSetId": 25
@@ -45,6 +69,30 @@
       "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "652942ce_cd810901",
+        "filename": "modules/congestion_controller/network_control/include/network_control.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-12T16:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a142a6f_1e789af8",
+      "range": {
+        "startLine": 53,
+        "startChar": 56,
+        "endLine": 53,
+        "endChar": 59
+      },
+      "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7dd876f7_a066b7ce",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-12T16:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5e4372e_0c7fe859",
+      "range": {
+        "startLine": 298,
+        "startChar": 22,
+        "endLine": 298,
+        "endChar": 32
+      },
+      "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e869299f_1da6ccd2",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 25
@@ -91,6 +163,30 @@
       "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f545a6_41047697",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-12T16:07:59Z",
+      "side": 1,
+      "message": "This is needed since controller_ etc. is protected by access guards forcing access to the task queue. I guess it would be nice if the lambda post task case was detected automatically.",
+      "parentUuid": "e869299f_1da6ccd2",
+      "range": {
+        "startLine": 389,
+        "startChar": 4,
+        "endLine": 389,
+        "endChar": 41
+      },
+      "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "bd0c4758_cf96cdc4",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-12T16:07:59Z",
+      "side": 1,
+      "message": "It should not be called before we have a controller. However, you have a point, if it happens we probably don\u0027t want to just crash. Added checks for all accesses to be safe.",
+      "parentUuid": "4615cdf0_cd0f46c3",
+      "range": {
+        "startLine": 561,
+        "startChar": 6,
+        "endLine": 561,
+        "endChar": 17
+      },
+      "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfbe6fdd_f6eeed51",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 25
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "4eeaff1c_391a0076",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-12T16:07:59Z",
+      "side": 1,
+      "message": "pacer_controller_ is const, so it\u0027s always safe to call.",
+      "parentUuid": "dfbe6fdd_f6eeed51",
+      "range": {
+        "startLine": 572,
+        "startChar": 4,
+        "endLine": 572,
+        "endChar": 21
+      },
+      "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba7f4651_a470d859",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 25
@@ -160,6 +304,30 @@
       "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0858f2e8_37c675e7",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-12T16:07:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ba7f4651_a470d859",
+      "range": {
+        "startLine": 617,
+        "startChar": 4,
+        "endLine": 617,
+        "endChar": 15
+      },
+      "revId": "e8c01735a8e05cbbe7d9b94bfe2d4e5d59d00b9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -42,6 +42,8 @@ const cricket::VideoCodec kH264SvcCodec(99, "H264-SVC");
 const cricket::DataCodec kGoogleDataCodec(101, "google-data");
 const uint32_t kSsrc1 = 0x1111;
 const uint32_t kSsrc2 = 0x2222;
+const uint32_t kSsrc3 = 0x3333;
+const uint32_t kSsrc4 = 0x4444;
 const int kAudioPts[] = {0, 8};
 const int kVideoPts[] = {97, 99};
 enum class NetworkIsWorker { Yes, No };
@@ -275,6 +277,14 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     }
     if (flags2 & SSRC_MUX) {
       AddLegacyStreamInContent(kSsrc2, flags2, &remote_media_content2_);
+    }
+
+    if (!(flags1 & DTLS) && !(flags1 & SECURE)) {
+      channel1_->SetEncryptionDisabled(true);
+    }
+
+    if (!(flags2 & DTLS) && !(flags2 & SECURE)) {
+      channel2_->SetEncryptionDisabled(true);
     }
   }
   std::unique_ptr<typename T::Channel> CreateChannel(
@@ -692,6 +702,7 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(CheckCustomRtp2(kSsrc1, 0));
 
     // Let channel 2 update the content by sending |stream2| and enable SRTP.
+    channel2_->SetEncryptionDisabled(false);
     typename T::Content content3;
     CreateContent(SECURE, kPcmuCodec, kH264Codec, &content3);
     content3.AddStream(stream2);
@@ -704,6 +715,7 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_EQ(stream2, media_channel1_->recv_streams()[0]);
 
     // Channel 1 replies but stop sending stream1.
+    channel1_->SetEncryptionDisabled(false);
     typename T::Content content4;
     CreateContent(SECURE, kPcmuCodec, kH264Codec, &content4);
     EXPECT_TRUE(channel1_->SetLocalContent(&content4, SdpType::kAnswer, NULL));
@@ -1623,13 +1635,13 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(CheckNoRtp1());
     EXPECT_TRUE(CheckNoRtp2());
 
-    // RTCP test
-    SendCustomRtp1(kSsrc1, ++sequence_number1_1, pl_type2);
-    SendCustomRtp2(kSsrc2, ++sequence_number2_2, pl_type2);
+    SendCustomRtp1(kSsrc3, ++sequence_number1_1, pl_type2);
+    SendCustomRtp2(kSsrc4, ++sequence_number2_2, pl_type2);
     WaitForThreads();
-    EXPECT_FALSE(CheckCustomRtp2(kSsrc1, sequence_number1_1, pl_type2));
-    EXPECT_FALSE(CheckCustomRtp1(kSsrc2, sequence_number2_2, pl_type2));
+    EXPECT_FALSE(CheckCustomRtp2(kSsrc3, sequence_number1_1, pl_type2));
+    EXPECT_FALSE(CheckCustomRtp1(kSsrc4, sequence_number2_2, pl_type2));
 
+    // RTCP test
     SendCustomRtcp1(kSsrc1);
     SendCustomRtcp2(kSsrc2);
     WaitForThreads();

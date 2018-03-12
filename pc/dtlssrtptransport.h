@@ -85,9 +85,8 @@ class DtlsSrtpTransport : public RtpTransportInternalAdapter {
                    cricket::DtlsTransportState state);
   void OnWritableState(bool writable);
   void OnSentPacket(const rtc::SentPacket& sent_packet);
-  void OnPacketReceived(bool rtcp,
-                        rtc::CopyOnWriteBuffer* packet,
-                        const rtc::PacketTime& packet_time);
+  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+                            const rtc::PacketTime& packet_time);
   void OnReadyToSend(bool ready);
   void OnNetworkRouteChanged(rtc::Optional<rtc::NetworkRoute> network_route);
 

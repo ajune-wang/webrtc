@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "p2p/base/icetransportinternal.h"
+#include "pc/rtptransport.h"
 #include "pc/rtptransportinternaladapter.h"
 #include "pc/srtpfilter.h"
 #include "pc/srtpsession.h"
@@ -30,7 +31,7 @@ class SrtpTransport : public RtpTransportInternalAdapter {
  public:
   explicit SrtpTransport(bool rtcp_mux_enabled);
 
-  explicit SrtpTransport(std::unique_ptr<RtpTransportInternal> rtp_transport);
+  explicit SrtpTransport(std::unique_ptr<RtpTransport> rtp_transport);
 
   bool SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
                      const rtc::PacketOptions& options,
@@ -106,10 +107,10 @@ class SrtpTransport : public RtpTransportInternalAdapter {
                   rtc::CopyOnWriteBuffer* packet,
                   const rtc::PacketOptions& options,
                   int flags);
-
-  void OnPacketReceived(bool rtcp,
-                        rtc::CopyOnWriteBuffer* packet,
-                        const rtc::PacketTime& packet_time);
+  void OnRtpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+                           const rtc::PacketTime& packet_time);
+  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+                            const rtc::PacketTime& packet_time);
   void OnReadyToSend(bool ready) { SignalReadyToSend(ready); }
   void OnNetworkRouteChanged(rtc::Optional<rtc::NetworkRoute> network_route);
 
@@ -136,7 +137,7 @@ class SrtpTransport : public RtpTransportInternalAdapter {
   bool UnprotectRtcp(void* data, int in_len, int* out_len);
 
   const std::string content_name_;
-  std::unique_ptr<RtpTransportInternal> rtp_transport_;
+  std::unique_ptr<RtpTransport> rtp_transport_;
 
   std::unique_ptr<cricket::SrtpSession> send_session_;
   std::unique_ptr<cricket::SrtpSession> recv_session_;

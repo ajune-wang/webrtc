@@ -67,12 +67,17 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     return transport_->SendRtcpPacket(packet, options, flags);
   }
 
-  bool HandlesPayloadType(int payload_type) const override {
-    return transport_->HandlesPayloadType(payload_type);
+  void RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
+                              RtpPacketSinkInterface* sink) override {
+    transport_->RegisterRtpDemuxerSink(criteria, sink);
   }
 
-  void AddHandledPayloadType(int payload_type) override {
-    return transport_->AddHandledPayloadType(payload_type);
+  void UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) override {
+    transport_->UnregisterRtpDemuxerSink(sink);
+  }
+
+  void SetEncryptionDisabled(bool encryption_disabled) override {
+    transport_->SetEncryptionDisabled(encryption_disabled);
   }
 
   // RtpTransportInterface overrides.

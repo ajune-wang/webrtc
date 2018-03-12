@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d1f2d655_e0caedff",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:16:22Z",
+      "side": 1,
+      "message": "Looking at it again, it might be a bit simpler to take the MID on construction. But I\u0027m thinking that ORTC will want to be able to change the MID on-the-fly, so maybe it\u0027s worth keeping it this way?",
+      "parentUuid": "1c99ae86_868ba9b4",
+      "revId": "9f64cddcff5949a326f87406772671d29a918207",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04d8c38e_2666e0ac",
         "filename": "media/engine/webrtcvoiceengine.cc",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9977999a_ed5de02b",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04d8c38e_2666e0ac",
+      "revId": "9f64cddcff5949a326f87406772671d29a918207",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40540e26_072b4194",
         "filename": "media/engine/webrtcvoiceengine.h",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "9f64cddcff5949a326f87406772671d29a918207",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e11857ca_fd721dea",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-12T23:16:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40540e26_072b4194",
+      "revId": "9f64cddcff5949a326f87406772671d29a918207",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -480,91 +480,6 @@ static const char kPlanBSdpFullString[] =
     "a=ssrc:6 mslabel:local_stream_2\r\n"
     "a=ssrc:6 label:video_track_id_3\r\n";
 
-// Plan B SDP reference string, with 2 streams, 2 audio tracks and 3 video
-// tracks, but with the unified plan "a=msid" attribute.
-static const char kPlanBSdpFullStringWithMsid[] =
-    "v=0\r\n"
-    "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
-    "s=-\r\n"
-    "t=0 0\r\n"
-    "a=msid-semantic: WMS local_stream_1 local_stream_2\r\n"
-    "m=audio 2345 RTP/SAVPF 111 103 104\r\n"
-    "c=IN IP4 74.125.127.126\r\n"
-    "a=rtcp:2347 IN IP4 74.125.127.126\r\n"
-    "a=candidate:a0+B/1 1 udp 2130706432 192.168.1.5 1234 typ host "
-    "generation 2\r\n"
-    "a=candidate:a0+B/1 2 udp 2130706432 192.168.1.5 1235 typ host "
-    "generation 2\r\n"
-    "a=candidate:a0+B/2 1 udp 2130706432 ::1 1238 typ host "
-    "generation 2\r\n"
-    "a=candidate:a0+B/2 2 udp 2130706432 ::1 1239 typ host "
-    "generation 2\r\n"
-    "a=candidate:a0+B/3 1 udp 2130706432 74.125.127.126 2345 typ srflx "
-    "raddr 192.168.1.5 rport 2346 "
-    "generation 2\r\n"
-    "a=candidate:a0+B/3 2 udp 2130706432 74.125.127.126 2347 typ srflx "
-    "raddr 192.168.1.5 rport 2348 "
-    "generation 2\r\n"
-    "a=ice-ufrag:ufrag_voice\r\na=ice-pwd:pwd_voice\r\n"
-    "a=mid:audio_content_name\r\n"
-    "a=msid:local_stream_1 audio_track_id_1\r\n"
-    "a=sendrecv\r\n"
-    "a=rtcp-mux\r\n"
-    "a=rtcp-rsize\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
-    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
-    "dummy_session_params\r\n"
-    "a=rtpmap:111 opus/48000/2\r\n"
-    "a=rtpmap:103 ISAC/16000\r\n"
-    "a=rtpmap:104 ISAC/32000\r\n"
-    "a=ssrc:1 cname:stream_1_cname\r\n"
-    "a=ssrc:1 msid:local_stream_1 audio_track_id_1\r\n"
-    "a=ssrc:1 mslabel:local_stream_1\r\n"
-    "a=ssrc:1 label:audio_track_id_1\r\n"
-    "a=ssrc:4 cname:stream_2_cname\r\n"
-    "a=ssrc:4 msid:local_stream_2 audio_track_id_2\r\n"
-    "a=ssrc:4 mslabel:local_stream_2\r\n"
-    "a=ssrc:4 label:audio_track_id_2\r\n"
-    "m=video 3457 RTP/SAVPF 120\r\n"
-    "c=IN IP4 74.125.224.39\r\n"
-    "a=rtcp:3456 IN IP4 74.125.224.39\r\n"
-    "a=candidate:a0+B/1 2 udp 2130706432 192.168.1.5 1236 typ host "
-    "generation 2\r\n"
-    "a=candidate:a0+B/1 1 udp 2130706432 192.168.1.5 1237 typ host "
-    "generation 2\r\n"
-    "a=candidate:a0+B/2 2 udp 2130706432 ::1 1240 typ host "
-    "generation 2\r\n"
-    "a=candidate:a0+B/2 1 udp 2130706432 ::1 1241 typ host "
-    "generation 2\r\n"
-    "a=candidate:a0+B/4 2 udp 2130706432 74.125.224.39 3456 typ relay "
-    "generation 2\r\n"
-    "a=candidate:a0+B/4 1 udp 2130706432 74.125.224.39 3457 typ relay "
-    "generation 2\r\n"
-    "a=ice-ufrag:ufrag_video\r\na=ice-pwd:pwd_video\r\n"
-    "a=mid:video_content_name\r\n"
-    "a=msid:local_stream_1 video_track_id_1\r\n"
-    "a=sendrecv\r\n"
-    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
-    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
-    "a=rtpmap:120 VP8/90000\r\n"
-    "a=ssrc-group:FEC 2 3\r\n"
-    "a=ssrc:2 cname:stream_1_cname\r\n"
-    "a=ssrc:2 msid:local_stream_1 video_track_id_1\r\n"
-    "a=ssrc:2 mslabel:local_stream_1\r\n"
-    "a=ssrc:2 label:video_track_id_1\r\n"
-    "a=ssrc:3 cname:stream_1_cname\r\n"
-    "a=ssrc:3 msid:local_stream_1 video_track_id_1\r\n"
-    "a=ssrc:3 mslabel:local_stream_1\r\n"
-    "a=ssrc:3 label:video_track_id_1\r\n"
-    "a=ssrc:5 cname:stream_2_cname\r\n"
-    "a=ssrc:5 msid:local_stream_2 video_track_id_2\r\n"
-    "a=ssrc:5 mslabel:local_stream_2\r\n"
-    "a=ssrc:5 label:video_track_id_2\r\n"
-    "a=ssrc:6 cname:stream_2_cname\r\n"
-    "a=ssrc:6 msid:local_stream_2 video_track_id_3\r\n"
-    "a=ssrc:6 mslabel:local_stream_2\r\n"
-    "a=ssrc:6 label:video_track_id_3\r\n";
-
 // Unified Plan SDP reference string, with 2 streams, 2 audio tracks and 3 video
 // tracks.
 static const char kUnifiedPlanSdpFullString[] =
@@ -672,6 +587,141 @@ static const char kUnifiedPlanSdpFullString[] =
     "a=rtpmap:120 VP8/90000\r\n"
     "a=ssrc:6 cname:stream_2_cname\r\n";
 
+// Unified Plan SDP reference string:
+// - audio track 1 has 1 a=msid lines
+// - audio track 2 has 2 a=msid line
+// - video track 1 has 1 a=msid line
+// - video track 2 has 3 a=msid lines
+// - video track 3 has 1 a=msid line with the special "-" marker signifying that
+//   there are 0 media streams ids.
+// This Unified Plan SDP represents a  SDP that signals the msid in both Unified
+// Plan semantics as well as Plan B semantics.
+static const char kUnifiedPlanSdpFullStringWithSpecialMsid[] =
+    "v=0\r\n"
+    "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
+    "s=-\r\n"
+    "t=0 0\r\n"
+    "a=msid-semantic: WMS local_stream_1\r\n"
+    // Audio track 1, stream 1 (with candidates).
+    "m=audio 2345 RTP/SAVPF 111 103 104\r\n"
+    "c=IN IP4 74.125.127.126\r\n"
+    "a=rtcp:2347 IN IP4 74.125.127.126\r\n"
+    "a=candidate:a0+B/1 1 udp 2130706432 192.168.1.5 1234 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/1 2 udp 2130706432 192.168.1.5 1235 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/2 1 udp 2130706432 ::1 1238 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/2 2 udp 2130706432 ::1 1239 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/3 1 udp 2130706432 74.125.127.126 2345 typ srflx "
+    "raddr 192.168.1.5 rport 2346 "
+    "generation 2\r\n"
+    "a=candidate:a0+B/3 2 udp 2130706432 74.125.127.126 2347 typ srflx "
+    "raddr 192.168.1.5 rport 2348 "
+    "generation 2\r\n"
+    "a=ice-ufrag:ufrag_voice\r\na=ice-pwd:pwd_voice\r\n"
+    "a=mid:audio_content_name\r\n"
+    "a=msid:local_stream_1 audio_track_id_1\r\n"
+    "a=sendrecv\r\n"
+    "a=rtcp-mux\r\n"
+    "a=rtcp-rsize\r\n"
+    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
+    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
+    "dummy_session_params\r\n"
+    "a=rtpmap:111 opus/48000/2\r\n"
+    "a=rtpmap:103 ISAC/16000\r\n"
+    "a=rtpmap:104 ISAC/32000\r\n"
+    "a=ssrc:1 cname:stream_1_cname\r\n"
+    "a=ssrc:1 msid:local_stream_1 audio_track_id_1\r\n"
+    "a=ssrc:1 mslabel:local_stream_1\r\n"
+    "a=ssrc:1 label:audio_track_id_1\r\n"
+    // Video track 1, stream 1 (with candidates).
+    "m=video 3457 RTP/SAVPF 120\r\n"
+    "c=IN IP4 74.125.224.39\r\n"
+    "a=rtcp:3456 IN IP4 74.125.224.39\r\n"
+    "a=candidate:a0+B/1 2 udp 2130706432 192.168.1.5 1236 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/1 1 udp 2130706432 192.168.1.5 1237 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/2 2 udp 2130706432 ::1 1240 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/2 1 udp 2130706432 ::1 1241 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/4 2 udp 2130706432 74.125.224.39 3456 typ relay "
+    "generation 2\r\n"
+    "a=candidate:a0+B/4 1 udp 2130706432 74.125.224.39 3457 typ relay "
+    "generation 2\r\n"
+    "a=ice-ufrag:ufrag_video\r\na=ice-pwd:pwd_video\r\n"
+    "a=mid:video_content_name\r\n"
+    "a=msid:local_stream_1 video_track_id_1\r\n"
+    "a=sendrecv\r\n"
+    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
+    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
+    "a=rtpmap:120 VP8/90000\r\n"
+    "a=ssrc-group:FEC 2 3\r\n"
+    "a=ssrc:2 cname:stream_1_cname\r\n"
+    "a=ssrc:2 msid:local_stream_1 video_track_id_1\r\n"
+    "a=ssrc:2 mslabel:local_stream_1\r\n"
+    "a=ssrc:2 label:video_track_id_1\r\n"
+    "a=ssrc:3 cname:stream_1_cname\r\n"
+    "a=ssrc:3 msid:local_stream_1 video_track_id_1\r\n"
+    "a=ssrc:3 mslabel:local_stream_1\r\n"
+    "a=ssrc:3 label:video_track_id_1\r\n"
+    // Audio track 2, stream 2.
+    "m=audio 9 RTP/SAVPF 111 103 104\r\n"
+    "c=IN IP4 0.0.0.0\r\n"
+    "a=rtcp:9 IN IP4 0.0.0.0\r\n"
+    "a=ice-ufrag:ufrag_voice_2\r\na=ice-pwd:pwd_voice_2\r\n"
+    "a=mid:audio_content_name_2\r\n"
+    "a=msid:local_stream_2 audio_track_id_2\r\n"
+    "a=msid:local_stream_3 audio_track_id_2\r\n"
+    "a=sendrecv\r\n"
+    "a=rtcp-mux\r\n"
+    "a=rtcp-rsize\r\n"
+    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
+    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
+    "dummy_session_params\r\n"
+    "a=rtpmap:111 opus/48000/2\r\n"
+    "a=rtpmap:103 ISAC/16000\r\n"
+    "a=rtpmap:104 ISAC/32000\r\n"
+    "a=ssrc:4 cname:stream_2_cname\r\n"
+    "a=ssrc:4 msid:local_stream_2 audio_track_id_2\r\n"
+    "a=ssrc:4 mslabel:local_stream_2\r\n"
+    "a=ssrc:4 label:audio_track_id_2\r\n"
+    // Video track 2, stream 2.
+    "m=video 9 RTP/SAVPF 120\r\n"
+    "c=IN IP4 0.0.0.0\r\n"
+    "a=rtcp:9 IN IP4 0.0.0.0\r\n"
+    "a=ice-ufrag:ufrag_video_2\r\na=ice-pwd:pwd_video_2\r\n"
+    "a=mid:video_content_name_2\r\n"
+    "a=msid:local_stream_2 video_track_id_2\r\n"
+    "a=msid:local_stream_3 video_track_id_2\r\n"
+    "a=msid:local_stream_4 video_track_id_2\r\n"
+    "a=sendrecv\r\n"
+    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
+    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
+    "a=rtpmap:120 VP8/90000\r\n"
+    "a=ssrc:5 cname:stream_2_cname\r\n"
+    // The support for Plan B msid signaling only includes the
+    // first media stream id "local_stream_2."
+    "a=ssrc:5 msid:local_stream_2 video_track_id_2\r\n"
+    "a=ssrc:5 mslabel:local_stream_2\r\n"
+    "a=ssrc:5 label:video_track_id_2\r\n"
+    // Video track 3, stream 2.
+    "m=video 9 RTP/SAVPF 120\r\n"
+    "c=IN IP4 0.0.0.0\r\n"
+    "a=rtcp:9 IN IP4 0.0.0.0\r\n"
+    "a=ice-ufrag:ufrag_video_3\r\na=ice-pwd:pwd_video_3\r\n"
+    "a=mid:video_content_name_3\r\n"
+    "a=msid:- video_track_id_3\r\n"
+    "a=sendrecv\r\n"
+    "a=crypto:1 AES_CM_128_HMAC_SHA1_80 "
+    "inline:d0RmdmcmVCspeEc3QGZiNWpVLFJhQX1cfHAwJSoj|2^20|1:32\r\n"
+    "a=rtpmap:120 VP8/90000\r\n"
+    // TODO(shampson): Make sure that this should be here.
+    "a=ssrc:6 cname:stream_2_cname\r\n";
+
 // One candidate reference string as per W3c spec.
 // candidate:<blah> not a=candidate:<blah>CRLF
 static const char kRawCandidate[] =
@@ -757,6 +807,10 @@ static const char kVideoTrackId2[] = "video_track_id_2";
 static const uint32_t kVideoTrack2Ssrc = 5;
 static const char kVideoTrackId3[] = "video_track_id_3";
 static const uint32_t kVideoTrack3Ssrc = 6;
+
+// Extra streams for multiple stream id msid signaling.
+static const char kStreamId3[] = "local_stream_3";
+static const char kStreamId4[] = "local_stream_4";
 
 // DataChannel
 static const char kDataChannelLabel[] = "data_channel";
@@ -1140,6 +1194,45 @@ class WebRtcSdpTest : public testing::Test {
     audio->AddCodec(AudioCodec(103, "ISAC", 16000, 0, 1));
     audio->AddCodec(AudioCodec(104, "ISAC", 32000, 0, 1));
     return audio;
+  }
+
+  // Turns the existing reference description into a unified plan description,
+  // with 2 audio tracks and 3 video tracks. This unified plan description also
+  // contains MediaContentDescriptions with special StreamParams that contain 0
+  // or multiple stream ids:
+  // - audio track 1 has 1 media stream id
+  // - audio track 2 has 2 media stream ids
+  // - video track 1 has 1 media stream id
+  // - video track 2 has 3 media stream ids
+  // - video track 3 has 0 media stream ids
+  void MakeUnifiedPlanDescriptionMultipleStreamIds() {
+    MakeUnifiedPlanDescription();
+    // Update audio track 2.
+    cricket::StreamParamsVec& audio_2_streams =
+        desc_.GetContentByName(kAudioContentName2)
+            ->media_description()
+            ->mutable_streams();
+    ASSERT_EQ(audio_2_streams.size(), 1u);
+    audio_2_streams[0].set_stream_ids({kStreamId2, kStreamId3});
+
+    // Update video track 2.
+    cricket::StreamParamsVec& video_2_streams =
+        desc_.GetContentByName(kVideoContentName2)
+            ->media_description()
+            ->mutable_streams();
+    ASSERT_EQ(video_2_streams.size(), 1u);
+    video_2_streams[0].set_stream_ids({kStreamId2, kStreamId3, kStreamId4});
+
+    // Update video track 3, which doesn't have any streams.
+    cricket::StreamParamsVec& video_3_streams =
+        desc_.GetContentByName(kVideoContentName3)
+            ->media_description()
+            ->mutable_streams();
+    ASSERT_EQ(video_3_streams.size(), 1u);
+    video_3_streams[0].set_stream_ids({});
+
+    ASSERT_TRUE(jdesc_.Initialize(desc_.Copy(), jdesc_.session_id(),
+                                  jdesc_.session_version()));
   }
 
   // Creates a video content description with no streams, and some default
@@ -3281,20 +3374,6 @@ TEST_F(WebRtcSdpTest, SerializePlanBSessionDescription) {
   TestSerialize(jdesc_);
 }
 
-// Some WebRTC endpoints include the msid in both the Plan B and Unified Plan
-// ways, to make SDP that's compatible with both Plan B and Unified Plan (to
-// some extent). If we parse this, the Plan B msid attribute (which is more
-// specific, since it's at the SSRC level) should take priority.
-TEST_F(WebRtcSdpTest, DeserializePlanBSessionDescriptionWithMsid) {
-  MakePlanBDescription();
-
-  JsepSessionDescription deserialized_description(kDummyType);
-  EXPECT_TRUE(
-      SdpDeserialize(kPlanBSdpFullStringWithMsid, &deserialized_description));
-
-  EXPECT_TRUE(CompareSessionDescription(jdesc_, deserialized_description));
-}
-
 TEST_F(WebRtcSdpTest, DeserializeUnifiedPlanSessionDescription) {
   MakeUnifiedPlanDescription();
 
@@ -3307,6 +3386,26 @@ TEST_F(WebRtcSdpTest, DeserializeUnifiedPlanSessionDescription) {
 
 TEST_F(WebRtcSdpTest, SerializeUnifiedPlanSessionDescription) {
   MakeUnifiedPlanDescription();
+  TestSerialize(jdesc_);
+}
+
+// This tests deserializing a Unified Plan SDP that is compatible with both
+// Unified Plan and Plan B style SDP. It tests the case for audio/video tracks
+// with no stream ids and multiple stream ids. For parsing this, the Unified
+// Plan a=msid lines should take priority, because the Plan B style a=ssrc msid
+// lines do not support multiple stream ids and no stream ids.
+TEST_F(WebRtcSdpTest, DeserializeUnifiedPlanSessionDescriptionSpecialMsid) {
+  MakeUnifiedPlanDescriptionMultipleStreamIds();
+
+  JsepSessionDescription deserialized_description(kDummyType);
+  EXPECT_TRUE(SdpDeserialize(kUnifiedPlanSdpFullStringWithSpecialMsid,
+                             &deserialized_description));
+
+  EXPECT_TRUE(CompareSessionDescription(jdesc_, deserialized_description));
+}
+
+TEST_F(WebRtcSdpTest, SerializeUnifiedPlanSessionDescriptionSpecialMsid) {
+  MakeUnifiedPlanDescriptionMultipleStreamIds();
   TestSerialize(jdesc_);
 }
 

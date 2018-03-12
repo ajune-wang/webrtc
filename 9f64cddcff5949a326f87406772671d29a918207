@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c99ae86_868ba9b4",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-12T22:14:27Z",
+      "side": 1,
+      "message": "It may be simpler for the MediaChannel subclasses to just take the MID on construction, since it should never change afterwards. Did you look into this (I recall you mentioning it)?",
+      "revId": "9f64cddcff5949a326f87406772671d29a918207",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04d8c38e_2666e0ac",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-12T22:14:27Z",
+      "side": 1,
+      "message": "no-op if MID isn\u0027t changing?",
+      "revId": "9f64cddcff5949a326f87406772671d29a918207",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40540e26_072b4194",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-12T22:14:27Z",
+      "side": 1,
+      "message": "I think you can remove this",
+      "revId": "9f64cddcff5949a326f87406772671d29a918207",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

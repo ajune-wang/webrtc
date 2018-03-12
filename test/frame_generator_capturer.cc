@@ -100,13 +100,6 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::Create(
 
   return capturer.release();
 }
-
-FrameGeneratorCapturer* FrameGeneratorCapturer::Create(int width,
-                                                       int height,
-                                                       int num_squares,
-                                                       int target_fps,
-                                                       Clock* clock) {
-  return Create(width, height, rtc::nullopt, num_squares, target_fps, clock);
 }
 
 FrameGeneratorCapturer* FrameGeneratorCapturer::CreateFromYuvFile(

@@ -1129,12 +1129,6 @@ RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
     LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
                          "Track has invalid kind: " + track->kind());
   }
-  // TODO(bugs.webrtc.org/7932): Support adding a track to multiple streams.
-  if (stream_ids.size() > 1u) {
-    LOG_AND_RETURN_ERROR(
-        RTCErrorType::UNSUPPORTED_OPERATION,
-        "AddTrack with more than one stream is not currently supported.");
-  }
   if (IsClosed()) {
     LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_STATE,
                          "PeerConnection is closed.");
@@ -1144,18 +1138,9 @@ RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
         RTCErrorType::INVALID_PARAMETER,
         "Sender already exists for track " + track->id() + ".");
   }
-  // TODO(bugs.webrtc.org/7933): MediaSession expects the sender to have exactly
-  // one stream. AddTrackInternal will return an error if there is more than one
-  // stream, but if the caller specifies none then we need to generate a random
-  // stream id.
-  std::vector<std::string> adjusted_stream_ids = stream_ids;
-  if (stream_ids.empty()) {
-    adjusted_stream_ids.push_back(rtc::CreateRandomUuid());
-  }
-  RTC_DCHECK_EQ(1, adjusted_stream_ids.size());
   auto sender_or_error =
-      (IsUnifiedPlan() ? AddTrackUnifiedPlan(track, adjusted_stream_ids)
-                       : AddTrackPlanB(track, adjusted_stream_ids));
+      (IsUnifiedPlan() ? AddTrackUnifiedPlan(track, stream_ids)
+                       : AddTrackPlanB(track, stream_ids));
   if (sender_or_error.ok()) {
     observer_->OnRenegotiationNeeded();
     stats_->AddTrack(track);
@@ -1167,17 +1152,26 @@ RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>
 PeerConnection::AddTrackPlanB(
     rtc::scoped_refptr<MediaStreamTrackInterface> track,
     const std::vector<std::string>& stream_ids) {
+  if (stream_ids.size() > 1u) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::UNSUPPORTED_OPERATION,
+                         "AddTrack with more than one stream is not currently "
+                         "supported with Plan B semantics.");
+  }
+  std::vector<std::string> adjusted_stream_ids = stream_ids;
+  if (adjusted_stream_ids.empty()) {
+    adjusted_stream_ids.push_back(rtc::CreateRandomUuid());
+  }
   cricket::MediaType media_type =
       (track->kind() == MediaStreamTrackInterface::kAudioKind
            ? cricket::MEDIA_TYPE_AUDIO
            : cricket::MEDIA_TYPE_VIDEO);
-  auto new_sender = CreateSender(media_type, track, stream_ids);
+  auto new_sender = CreateSender(media_type, track, adjusted_stream_ids);
   if (track->kind() == MediaStreamTrackInterface::kAudioKind) {
     new_sender->internal()->SetVoiceMediaChannel(voice_media_channel());
     GetAudioTransceiver()->internal()->AddSender(new_sender);
     const RtpSenderInfo* sender_info =
         FindSenderInfo(local_audio_sender_infos_,
-                       new_sender->internal()->stream_id(), track->id());
+                       new_sender->internal()->stream_ids()[0], track->id());
     if (sender_info) {
       new_sender->internal()->SetSsrc(sender_info->first_ssrc);
     }
@@ -1187,7 +1181,7 @@ PeerConnection::AddTrackPlanB(
     GetVideoTransceiver()->internal()->AddSender(new_sender);
     const RtpSenderInfo* sender_info =
         FindSenderInfo(local_video_sender_infos_,
-                       new_sender->internal()->stream_id(), track->id());
+                       new_sender->internal()->stream_ids()[0], track->id());
     if (sender_info) {
       new_sender->internal()->SetSsrc(sender_info->first_ssrc);
     }
@@ -1358,13 +1352,7 @@ PeerConnection::AddTransceiver(
 
   // TODO(bugs.webrtc.org/7600): Verify init.
 
-  if (init.stream_ids.size() > 1u) {
-    LOG_AND_RETURN_ERROR(RTCErrorType::UNSUPPORTED_PARAMETER,
-                         "More than one stream is not yet supported.");
-  }
-
-  std::vector<std::string> stream_ids = {
-      !init.stream_ids.empty() ? init.stream_ids[0] : rtc::CreateRandomUuid()};
+  std::vector<std::string> stream_ids = init.stream_ids;
 
   auto sender = CreateSender(media_type, track, stream_ids);
   auto receiver = CreateReceiver(media_type, rtc::CreateRandomUuid());
@@ -1473,8 +1461,11 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
     return nullptr;
   }
 
+  // Plan B semantics doesn't support specifying no stream ids.
   std::vector<std::string> stream_ids;
-  if (!stream_id.empty()) {
+  if (stream_id.empty()) {
+    stream_ids.push_back(rtc::CreateRandomUuid());
+  } else {
     stream_ids.push_back(stream_id);
   }
 
@@ -2276,28 +2267,36 @@ RTCError PeerConnection::ApplyRemoteDescription(
       // the RTCSessionDescription: If direction is sendrecv or recvonly, and
       // transceiver's current direction is neither sendrecv nor recvonly,
       // process the addition of a remote track for the media description.
-      //
-      // Create a sync label in the case of an unsignalled msid.
-      std::string sync_label = rtc::CreateRandomUuid();
+      std::vector<std::string> stream_ids;
       if (!media_desc->streams().empty()) {
+        // TODO(bugs.webrtc.org/7932): Currently stream ids are all populated
+        // within StreamParams. When they are updated to be stored within the
+        // MediaContentDescription, change the logic here.
         const cricket::StreamParams& stream_params = media_desc->streams()[0];
         if (!stream_params.stream_ids().empty()) {
-          sync_label = stream_params.stream_ids()[0];
+          stream_ids = stream_params.stream_ids();
         }
+      } else {
+        // Create a sync label in the case of an unsignalled msid.
+        stream_ids.push_back(rtc::CreateRandomUuid());
       }
       if (RtpTransceiverDirectionHasRecv(local_direction) &&
           (!transceiver->current_direction() ||
            !RtpTransceiverDirectionHasRecv(
                *transceiver->current_direction()))) {
-        rtc::scoped_refptr<MediaStreamInterface> stream =
-            remote_streams_->find(sync_label);
-        if (!stream) {
-          stream = MediaStreamProxy::Create(rtc::Thread::Current(),
-                                            MediaStream::Create(sync_label));
-          remote_streams_->AddStream(stream);
-          added_streams.push_back(stream);
+        std::vector<rtc::scoped_refptr<MediaStreamInterface>> media_streams;
+        for (const std::string& stream_id : stream_ids) {
+          rtc::scoped_refptr<MediaStreamInterface> stream =
+              remote_streams_->find(stream_id);
+          if (!stream) {
+            stream = MediaStreamProxy::Create(rtc::Thread::Current(),
+                                              MediaStream::Create(stream_id));
+            remote_streams_->AddStream(stream);
+            added_streams.push_back(stream);
+          }
+          media_streams.push_back(stream);
         }
-        transceiver->internal()->receiver_internal()->SetStreams({stream});
+        transceiver->internal()->receiver_internal()->SetStreams(media_streams);
         receiving_transceivers.push_back(transceiver);
       }
       // If direction is sendonly or inactive, and transceiver's current
@@ -3226,7 +3225,7 @@ void PeerConnection::AddAudioTrack(AudioTrackInterface* track,
   if (sender) {
     // We already have a sender for this track, so just change the stream_id
     // so that it's correct in the next call to CreateOffer.
-    sender->internal()->set_stream_id(stream->label());
+    sender->internal()->set_stream_ids({stream->label()});
     return;
   }
 
@@ -3269,7 +3268,7 @@ void PeerConnection::AddVideoTrack(VideoTrackInterface* track,
   if (sender) {
     // We already have a sender for this track, so just change the stream_id
     // so that it's correct in the next call to CreateOffer.
-    sender->internal()->set_stream_id(stream->label());
+    sender->internal()->set_stream_ids({stream->label()});
     return;
   }
 
@@ -3900,6 +3899,8 @@ void PeerConnection::UpdateRemoteSendersList(
     bool default_sender_needed,
     cricket::MediaType media_type,
     StreamCollection* new_streams) {
+  RTC_DCHECK(!IsUnifiedPlan());
+
   std::vector<RtpSenderInfo>* current_senders =
       GetRemoteSenderInfos(media_type);
 
@@ -3925,10 +3926,10 @@ void PeerConnection::UpdateRemoteSendersList(
   // Find new and active senders.
   for (const cricket::StreamParams& params : streams) {
     // |params.id| is the sender id and the stream id uses the first of
-    // |params.stream_ids|.
-    // TODO(bugs.webrtc.org/7932): Add support for multiple stream ids.
-    const std::string& stream_id =
-        (!params.stream_ids().empty() ? params.stream_ids()[0] : "");
+    // |params.stream_ids|. The remote description could come from a Unified
+    // Plan endpoint, with multiple stream_ids() signalled. Since this is not
+    // supported in Plan B, we just take the first here.
+    const std::string& stream_id = params.first_stream_id();
     const std::string& sender_id = params.id;
     uint32_t ssrc = params.first_ssrc();
 
@@ -4089,7 +4090,7 @@ void PeerConnection::OnLocalSenderAdded(const RtpSenderInfo& sender_info,
     return;
   }
 
-  sender->internal()->set_stream_id(sender_info.stream_id);
+  sender->internal()->set_stream_ids({sender_info.stream_id});
   sender->internal()->SetSsrc(sender_info.first_ssrc);
 }
 

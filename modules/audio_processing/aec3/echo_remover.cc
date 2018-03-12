@@ -23,6 +23,7 @@
 #include "modules/audio_processing/aec3/echo_remover_metrics.h"
 #include "modules/audio_processing/aec3/fft_data.h"
 #include "modules/audio_processing/aec3/output_selector.h"
+#include "modules/audio_processing/aec3/refined_delay_estimator.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/aec3/residual_echo_estimator.h"
@@ -88,6 +89,7 @@ class EchoRemoverImpl final : public EchoRemover {
   AecState aec_state_;
   EchoRemoverMetrics metrics_;
   bool initial_state_ = true;
+  RefinedDelayEstimator refined_delay_estimator_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(EchoRemoverImpl);
 };
@@ -107,7 +109,8 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       cng_(optimization_),
       suppression_filter_(sample_rate_hz_),
       residual_echo_estimator_(config_),
-      aec_state_(config_) {
+      aec_state_(config_),
+      refined_delay_estimator_(config_, data_dumper_.get(), optimization_) {
   RTC_DCHECK(ValidFullBandRate(sample_rate_hz));
 }
 
@@ -169,6 +172,14 @@ void EchoRemoverImpl::ProcessCapture(
   // Analyze the render signal.
   render_signal_analyzer_.Update(*render_buffer, aec_state_.FilterDelay());
 
+  // Perform refined dela estimation.
+  refined_delay_estimator_.Update(*render_buffer, y0, render_signal_analyzer_,
+                                  aec_state_);
+  auto refined_delay = refined_delay_estimator_.DelayBlocks();
+
+  data_dumper_->DumpRaw("aec3_refined_delay",
+                        refined_delay ? *refined_delay : -1);
+
   // Perform linear echo cancellation.
   if (initial_state_ && !aec_state_.InitialState()) {
     subtractor_.ExitInitialState();
@@ -186,15 +197,18 @@ void EchoRemoverImpl::ProcessCapture(
   // Update the AEC state information.
   aec_state_.Update(delay_estimate, subtractor_.FilterFrequencyResponse(),
                     subtractor_.FilterImpulseResponse(),
-                    subtractor_.ConvergedFilter(), *render_buffer, E2_main, Y2,
-                    subtractor_output.s_main, echo_leakage_detected_);
+                    subtractor_.ConvergedFilter(), subtractor_.DivergedFilter(),
+                    *render_buffer, E2_main, Y2, subtractor_output.s_main);
 
   // Choose the linear output.
-  output_selector_.FormLinearOutput(!aec_state_.TransparentMode(), e_main, y0);
+  data_dumper_->DumpRaw("aec3_output_linear", e_main);
+  output_selector_.FormLinearOutput(aec_state_.UseLinearFilterOutput(), e_main,
+                                    y0);
+
   data_dumper_->DumpWav("aec3_output_linear", kBlockSize, &y0[0],
                         LowestBandRate(sample_rate_hz_), 1);
   data_dumper_->DumpRaw("aec3_output_linear", y0);
-  const auto& E2 = output_selector_.UseSubtractorOutput() ? E2_main : Y2;
+  const auto& E2 = aec_state_.UseLinearFilterOutput() ? E2_main : Y2;
 
   // Estimate the residual echo power.
   residual_echo_estimator_.Estimate(aec_state_, *render_buffer, S2_linear, Y2,
@@ -229,7 +243,7 @@ void EchoRemoverImpl::ProcessCapture(
                         rtc::ArrayView<const float>(&y0[0], kBlockSize),
                         LowestBandRate(sample_rate_hz_), 1);
   data_dumper_->DumpRaw("aec3_using_subtractor_output",
-                        output_selector_.UseSubtractorOutput() ? 1 : 0);
+                        aec_state_.UseLinearFilterOutput() ? 1 : 0);
   data_dumper_->DumpRaw("aec3_E2", E2);
   data_dumper_->DumpRaw("aec3_E2_main", E2_main);
   data_dumper_->DumpRaw("aec3_E2_shadow", E2_shadow);
@@ -240,7 +254,7 @@ void EchoRemoverImpl::ProcessCapture(
   data_dumper_->DumpRaw("aec3_erle", aec_state_.Erle());
   data_dumper_->DumpRaw("aec3_erl", aec_state_.Erl());
   data_dumper_->DumpRaw("aec3_usable_linear_estimate",
-                        aec_state_.UsableLinearEstimate());
+                        aec_state_.UseLinearEchoModel());
   data_dumper_->DumpRaw("aec3_filter_delay", aec_state_.FilterDelay());
   data_dumper_->DumpRaw("aec3_capture_saturation",
                         aec_state_.SaturatedCapture() ? 1 : 0);

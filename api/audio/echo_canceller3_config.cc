@@ -12,5 +12,8 @@
 namespace webrtc {
 
 EchoCanceller3Config::EchoCanceller3Config() = default;
+EchoCanceller3Config::Delay::Delay() = default;
+EchoCanceller3Config::EchoCanceller3Config(const EchoCanceller3Config& e) =
+    default;
 
 }  // namespace webrtc

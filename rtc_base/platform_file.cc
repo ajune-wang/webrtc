@@ -23,17 +23,21 @@
 
 namespace rtc {
 
+FILE* FdopenPlatformFileForWriting(PlatformFile file) {
+  return FdopenPlatformFile(file, "w");
+}
+
 #if defined(WEBRTC_WIN)
 const PlatformFile kInvalidPlatformFileValue = INVALID_HANDLE_VALUE;
 
-FILE* FdopenPlatformFileForWriting(PlatformFile file) {
+FILE* FdopenPlatformFile(PlatformFile file, const char* modes) {
   if (file == kInvalidPlatformFileValue)
     return nullptr;
   int fd = _open_osfhandle(reinterpret_cast<intptr_t>(file), 0);
   if (fd < 0)
     return nullptr;
 
-  return _fdopen(fd, "w");
+  return _fdopen(fd, modes);
 }
 
 bool ClosePlatformFile(PlatformFile file) {
@@ -58,8 +62,8 @@ PlatformFile CreatePlatformFile(const std::string& path) {
 
 const PlatformFile kInvalidPlatformFileValue = -1;
 
-FILE* FdopenPlatformFileForWriting(PlatformFile file) {
-  return fdopen(file, "w");
+FILE* FdopenPlatformFile(PlatformFile file, const char* modes) {
+  return fdopen(file, modes);
 }
 
 bool ClosePlatformFile(PlatformFile file) {

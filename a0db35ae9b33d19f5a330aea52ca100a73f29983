@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5e723ad_a4fcbc30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-03-13T13:11:34Z",
+      "side": 1,
+      "message": "Can you please explain more about how this works?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "a0db35ae9b33d19f5a330aea52ca100a73f29983",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21a9c25e_246f39e8",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-03-13T13:11:34Z",
+      "side": 1,
+      "message": "I think this would cause media packets belong to the same frame interleave with fec packets. As ULP packets are sent in the same stream as the corresponding media packets, this would results in the media frame can not be decoded.",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 56
+      },
+      "revId": "a0db35ae9b33d19f5a330aea52ca100a73f29983",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

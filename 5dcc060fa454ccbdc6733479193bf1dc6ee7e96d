@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d814476_0f3bc734",
+        "filename": "pc/dtlssrtptransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-13T18:28:43Z",
+      "side": 1,
+      "message": "Same comment here as in SrtpTransportTest",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e9a8186_0a67574d",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-13T18:28:43Z",
+      "side": 1,
+      "message": "One concern I have is that when removing the sink from the RtpDemuxer it clears out all the state it has tracked related to that sink. It\u0027s not a particular issue right now since one can demux packets by payload type without state, but for MID demuxing this means we\u0027ll clear out the MID -\u003e SSRC mapping each time a SLD or SRD is done.\n\nI think maybe the right approach here is to not use RemoveSink and just repeatedly call AddSink on every SLD and SRD. This would require changing the RtpDemuxer\u0027s CriteriaWouldConflict method to not reject new criteria if it conflicts as long as the conflicting criteria is for the same sink (i.e., so you can call AddSink repeatedly for the same sink without getting an error).\n\nWhat do you think?",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f4cd380_895473c4",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-13T18:28:43Z",
+      "side": 1,
+      "message": "Identify extensions in a follow-up CL?",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "732bc686_9fc2392d",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-13T18:28:43Z",
+      "side": 1,
+      "message": "Maybe clarify that ReceiveDecryptedPacket will get called by the SrtpTransport.",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "043f7c17_1eda5829",
+        "filename": "pc/rtptransportinternal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-13T18:28:43Z",
+      "side": 1,
+      "message": "Just include the call/rtp_demuxer.h ?",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59e9dab1_35c433ba",
+        "filename": "pc/srtptransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-13T18:28:43Z",
+      "side": 1,
+      "message": "Might as well use the same RtpDemuxerCriteria object if it is the same criteria for both.\n\nAlso, does this work?\n\ndemuxer_criteria1_.payload_types \u003d {0x00, 0xc9};",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c72540_223f19ae",
+        "filename": "pc/srtptransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-13T18:28:43Z",
+      "side": 1,
+      "message": "Can the demuxer criteria just be local variables?",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

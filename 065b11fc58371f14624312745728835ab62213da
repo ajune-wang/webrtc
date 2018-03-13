@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4d96875_169297de",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-03-13T12:11:52Z",
+      "side": 1,
+      "message": "Since it\u0027s not 100% obvious what\u0027s happening here, can we perhaps add a comment saying \"If generation fails for any packet in the payload, discard all packets in this payload\"?",
+      "revId": "065b11fc58371f14624312745728835ab62213da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6bdc24b_bb43625a",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-03-13T12:11:52Z",
+      "side": 1,
+      "message": "For diagnosing the problem further - can you add logging of max_payload_len_ and, if this is the last packet, last_packet_reduction_len_?",
+      "revId": "065b11fc58371f14624312745728835ab62213da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

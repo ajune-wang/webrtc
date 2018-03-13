@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd4ce323_869731dc",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1462,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-13T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd9e2082_22de8249",
+      "range": {
+        "startLine": 1462,
+        "startChar": 19,
+        "endLine": 1462,
+        "endChar": 26
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24e10d7b_9f0b902c",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a792af5d_2031a2c5",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3929,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-13T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24e10d7b_9f0b902c",
+      "range": {
+        "startLine": 3929,
+        "startChar": 35,
+        "endLine": 3929,
+        "endChar": 67
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "14d7993e_d7c3d82c",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-13T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92b9ab2d_6267a78e",
+      "range": {
+        "startLine": 623,
+        "startChar": 12,
+        "endLine": 623,
+        "endChar": 26
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06147717_bf3bfe82",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 4
@@ -85,6 +157,24 @@
       "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "811f4073_6277f45b",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-13T16:56:23Z",
+      "side": 1,
+      "message": "I liked this idea and decided to do it. It was harder to create the SessionDescription, but it does a better job of testing the specific behavior we want and being more explicit.",
+      "parentUuid": "06147717_bf3bfe82",
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "8c2b1f35_a368d33b",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-13T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ed33d5a_27f252dd",
+      "range": {
+        "startLine": 594,
+        "startChar": 23,
+        "endLine": 594,
+        "endChar": 24
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4391e9f_41b68433",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 4
@@ -131,6 +245,30 @@
       "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2d699b5_abff2f91",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-13T16:56:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4391e9f_41b68433",
+      "range": {
+        "startLine": 597,
+        "startChar": 64,
+        "endLine": 598,
+        "endChar": 28
+      },
+      "revId": "0f7fcd6c189a7da5dd75209c5118e127234804a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

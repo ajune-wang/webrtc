@@ -36,6 +36,16 @@ FILE* FdopenPlatformFileForWriting(PlatformFile file) {
   return _fdopen(fd, "w");
 }
 
+FILE* FdopenPlatformFile(PlatformFile file, const char* modes) {
+  if (file == kInvalidPlatformFileValue)
+    return nullptr;
+  int fd = _open_osfhandle(reinterpret_cast<intptr_t>(file), 0);
+  if (fd < 0)
+    return nullptr;
+
+  return _fdopen(fd, modes);
+}
+
 bool ClosePlatformFile(PlatformFile file) {
   return CloseHandle(file) != 0;
 }
@@ -60,6 +70,10 @@ const PlatformFile kInvalidPlatformFileValue = -1;
 
 FILE* FdopenPlatformFileForWriting(PlatformFile file) {
   return fdopen(file, "w");
+}
+
+FILE* FdopenPlatformFile(PlatformFile file, const char* modes) {
+  return fdopen(file, modes);
 }
 
 bool ClosePlatformFile(PlatformFile file) {

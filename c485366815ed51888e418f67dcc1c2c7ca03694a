@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d4efa5f_3e48393b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-13T14:08:39Z",
+      "side": 1,
+      "message": "Please use a shorter first line in the commit message. IIRC the recommendation is 70 columns. If this causes too much abbreviation, supply the details in the commit message body.",
+      "revId": "c485366815ed51888e418f67dcc1c2c7ca03694a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

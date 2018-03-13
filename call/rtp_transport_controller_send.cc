@@ -24,7 +24,7 @@ using TaskQueueController = webrtc::webrtc_cc::SendSideCongestionController;
 
 bool TaskQueueExperimentEnabled() {
   std::string trial = webrtc::field_trial::FindFullName(kTaskQueueExperiment);
-  return trial.find("Enable") == 0;
+  return trial.find("Disable") != 0;
 }
 
 std::unique_ptr<SendSideCongestionControllerInterface> CreateController(

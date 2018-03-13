@@ -13,7 +13,7 @@
 
 #include <string>
 
-#include "pc/bundlefilter.h"
+#include "call/rtp_demuxer.h"
 #include "pc/rtptransportinternal.h"
 #include "rtc_base/sigslot.h"
 
@@ -66,9 +66,27 @@ class RtpTransport : public RtpTransportInternal {
                       const rtc::PacketOptions& options,
                       int flags) override;
 
-  bool HandlesPayloadType(int payload_type) const override;
+  void RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
+                              RtpPacketSinkInterface* sink) override;
 
-  void AddHandledPayloadType(int payload_type) override;
+  void UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) override;
+
+  void SetEncryptionDisabled(bool encryption_disabled) override {
+    encryption_disabled_ = encryption_disabled;
+  }
+
+  // If the packet is encrypted, it will be forwarded to the SrtpTransport and
+  // this method will be called once the packet is successfully decrypted.
+  // If the encryption is disabled, this method will be called internally.
+  // In this method, the packet will be parsed and forwarded to the
+  // corresponding BaseChannel through the RtpDemuxer.
+  void ReceiveDecryptedPacket(rtc::CopyOnWriteBuffer* packet,
+                              const rtc::PacketTime& time);
+
+  // Forward the encrypted RTP packet to the SRTP transport through the signal
+  // for decryption.
+  sigslot::signal2<rtc::CopyOnWriteBuffer*, const rtc::PacketTime&>
+      SignalRtpPacketReceived;
 
  protected:
   // TODO(zstein): Remove this when we remove RtpTransportAdapter.
@@ -101,8 +119,6 @@ class RtpTransport : public RtpTransportInternal {
                     const rtc::PacketTime& packet_time,
                     int flags);
 
-  bool WantsPacket(bool rtcp, const rtc::CopyOnWriteBuffer* packet);
-
   bool rtcp_mux_enabled_;
 
   rtc::PacketTransportInternal* rtp_packet_transport_ = nullptr;
@@ -112,9 +128,9 @@ class RtpTransport : public RtpTransportInternal {
   bool rtp_ready_to_send_ = false;
   bool rtcp_ready_to_send_ = false;
 
+  bool encryption_disabled_ = false;
   RtpTransportParameters parameters_;
-
-  cricket::BundleFilter bundle_filter_;
+  RtpDemuxer rtp_demuxer_;
 };
 
 }  // namespace webrtc

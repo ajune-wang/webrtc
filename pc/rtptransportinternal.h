@@ -26,6 +26,9 @@ struct PacketTime;
 
 namespace webrtc {
 
+class RtpPacketSinkInterface;
+struct RtpDemuxerCriteria;
+
 // This represents the internal interface beneath RtpTransportInterface;
 // it is not accessible to API consumers but is accessible to internal classes
 // in order to send and receive RTP and RTCP packets belonging to a single RTP
@@ -51,11 +54,11 @@ class RtpTransportInternal : public RtpTransportInterface,
   // than just "writable"; it means the last send didn't return ENOTCONN.
   sigslot::signal1<bool> SignalReadyToSend;
 
-  // TODO(zstein): Consider having two signals - RtpPacketReceived and
-  // RtcpPacketReceived.
-  // The first argument is true for RTCP packets and false for RTP packets.
-  sigslot::signal3<bool, rtc::CopyOnWriteBuffer*, const rtc::PacketTime&>
-      SignalPacketReceived;
+  // Called whenever an RTCP packet is received. There is no equivalent signal
+  // for RTP packets because they would be forwarded to the BaseChannel through
+  // the RtpDemuxer callback.
+  sigslot::signal2<rtc::CopyOnWriteBuffer*, const rtc::PacketTime&>
+      SignalRtcpPacketReceived;
 
   // Called whenever the network route of the P2P layer transport changes.
   // The argument is an optional network route.
@@ -79,9 +82,14 @@ class RtpTransportInternal : public RtpTransportInterface,
                               const rtc::PacketOptions& options,
                               int flags) = 0;
 
-  virtual bool HandlesPayloadType(int payload_type) const = 0;
+  virtual void RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
+                                      RtpPacketSinkInterface* sink) = 0;
 
-  virtual void AddHandledPayloadType(int payload_type) = 0;
+  virtual void UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) = 0;
+
+  // If |encryption_disabled| is true, the packet will be demuxed without
+  // decryption. This should used for testing only.
+  virtual void SetEncryptionDisabled(bool encryption_disabled) = 0;
 };
 
 }  // namespace webrtc

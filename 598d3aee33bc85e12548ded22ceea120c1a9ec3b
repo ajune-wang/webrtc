@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1132df4f_f412b586",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-13T07:41:30Z",
+      "side": 1,
+      "message": "You can account this on webrtc:8448.",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "598d3aee33bc85e12548ded22ceea120c1a9ec3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa6b95e4_130d29df",
+        "filename": "modules/video_coding/codecs/test/stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-13T07:41:30Z",
+      "side": 1,
+      "message": "Add comment describing how this is calculcated. (Something like \"255/(mse_y + mse_u + mse_v) [dB]\").",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 12
+      },
+      "revId": "598d3aee33bc85e12548ded22ceea120c1a9ec3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb62050_f2342d07",
+        "filename": "modules/video_coding/codecs/test/stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-13T07:41:30Z",
+      "side": 1,
+      "message": "For this too please. libyuv weights the y, u, v differently:\nhttps://cs.chromium.org/chromium/src/third_party/libyuv/source/compare.cc?l\u003d423\u0026rcl\u003d98a0a157dcf5dee0882b2dfcc9578ab1f44afb12,\nwhich is not the case for |psnr| above.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 12
+      },
+      "revId": "598d3aee33bc85e12548ded22ceea120c1a9ec3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "549cf281_a9f6debb",
+        "filename": "modules/video_coding/codecs/test/videoprocessor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-13T07:41:30Z",
+      "side": 1,
+      "message": "Should this be\n(dec_buffer.width() + 1) / 2\n?\n\nHere and below.\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video/i420_buffer.cc?l\u003d56\u0026rcl\u003d207a75d8f3fae1dc47aa20dda0636e88f6b8d2b3",
+      "revId": "598d3aee33bc85e12548ded22ceea120c1a9ec3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

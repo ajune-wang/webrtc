@@ -179,6 +179,30 @@
     },
     {
       "key": {
+        "uuid": "c4962691_da4e08cd",
+        "filename": "modules/audio_device/android/aaudio_player.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-03-13T11:50:57Z",
+      "side": 1,
+      "message": "I am using it as an initial experiment. Don\u0027t expect all parts to be perfect the first round.",
+      "parentUuid": "88e6f409_a259cbeb",
+      "range": {
+        "startLine": 180,
+        "startChar": 67,
+        "endLine": 180,
+        "endChar": 76
+      },
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7090e438_00d61981",
         "filename": "modules/audio_device/android/aaudio_player.cc",
         "patchSetId": 6
@@ -910,6 +934,24 @@
       "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91ffef64_6e883276",
+        "filename": "modules/audio_device/android/aaudio_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-03-13T11:50:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b07d3365_e576cb25",
+      "revId": "6d752d40472ab8e6a59dba7a0b1575f24a4a2d9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

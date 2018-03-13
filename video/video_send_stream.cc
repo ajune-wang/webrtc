@@ -254,6 +254,57 @@ CpuOveruseOptions GetCpuOveruseOptions(const VideoSendStream::Config& config) {
   return options;
 }
 
+int CalculateMaxHeaderSize(VideoSendStream::Config::Rtp config) {
+  int header_size = 12;  // Fixed header size.
+  int extensions_size = 0;
+  int fec_extensions_size = 0;
+  if (config.extensions.size() > 0) {
+    for (RtpExtension& extension : config.extensions) {
+      if (extension.uri == TransmissionOffset::kUri) {
+        extensions_size += 1 + TransmissionOffset::kValueSizeBytes;
+        fec_extensions_size += 1 + TransmissionOffset::kValueSizeBytes;
+      } else if (extension.uri == AbsoluteSendTime::kUri) {
+        extensions_size += 1 + AbsoluteSendTime::kValueSizeBytes;
+        fec_extensions_size += 1 + AbsoluteSendTime::kValueSizeBytes;
+      } else if (extension.uri == TransportSequenceNumber::kUri) {
+        extensions_size += 1 + TransportSequenceNumber::kValueSizeBytes;
+        fec_extensions_size += 1 + TransportSequenceNumber::kValueSizeBytes;
+      } else if (extension.uri == VideoOrientation::kUri) {
+        extensions_size += 1 + VideoOrientation::kValueSizeBytes;
+      } else if (extension.uri == PlayoutDelayLimits::kUri) {
+        extensions_size += 1 + PlayoutDelayLimits::kValueSizeBytes;
+        fec_extensions_size += 1 + PlayoutDelayLimits::kValueSizeBytes;
+      } else if (extension.uri == VideoContentTypeExtension::kUri) {
+        extensions_size += 1 + VideoContentTypeExtension::kValueSizeBytes;
+      } else if (extension.uri == VideoTimingExtension::kUri) {
+        extensions_size += 1 + VideoTimingExtension::kValueSizeBytes;
+      }
+    }
+
+    // One fixed word for extensions header, plus required amount of words to
+    // cover all extensions.
+    extensions_size = 4 + 4 * ((extensions_size + 3) / 4);
+    fec_extensions_size = 4 + 4 * ((fec_extensions_size + 3) / 4);
+  }
+  header_size += extensions_size;
+  if (config.flexfec.payload_type >= 0) {
+    // All extensions again plus maximum FlexFec overhead.
+    header_size += fec_extensions_size + 32;
+  } else {
+    if (config.ulpfec.ulpfec_payload_type >= 0) {
+      // Header with all the extensions will be repeated plus 18 maximum
+      // ULP FEC overhead.
+      header_size += fec_extensions_size + 18;
+    }
+    if (config.ulpfec.red_payload_type >= 0) {
+      header_size += 1;  // RED header.
+    }
+  }
+  // Additional room for Rtx.
+  header_size += 2;
+  return header_size;
+}
+
 }  // namespace
 
 namespace internal {
@@ -584,9 +635,10 @@ void VideoSendStream::ReconfigureVideoEncoder(VideoEncoderConfig config) {
   // ReconfigureVideoEncoder from the network thread.
   // RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(content_type_ == config.content_type);
-  video_stream_encoder_->ConfigureEncoder(std::move(config),
-                                          config_.rtp.max_packet_size,
-                                          config_.rtp.nack.rtp_history_ms > 0);
+  video_stream_encoder_->ConfigureEncoder(
+      std::move(config),
+      config_.rtp.max_packet_size - CalculateMaxHeaderSize(config_.rtp),
+      config_.rtp.nack.rtp_history_ms > 0);
 }
 
 VideoSendStream::Stats VideoSendStream::GetStats() {

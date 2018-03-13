@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "18774a51_c5880505",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T00:46:38Z",
+      "side": 1,
+      "message": "I think we could just remove the stream ID from RtpSenderInfo and only look up by track ID. That seems better than treating the first ID specially.",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18897b9c_620ee9a0",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -163,6 +180,40 @@
       "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3cc9efa_6bca6887",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4093,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T00:46:38Z",
+      "side": 1,
+      "message": "Could DCHECK(!IsUnifiedPlan()) in this method too; that way we know it\u0027s safe to set a single stream ID",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4b1fafa_53a306ad",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T00:46:38Z",
+      "side": 1,
+      "message": "nit: EXPECT_EQ here",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -558,6 +609,23 @@
     },
     {
       "key": {
+        "uuid": "8aa9b674_0ad948f3",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T00:46:38Z",
+      "side": 1,
+      "message": "nit: Seems like this could be:\n\nif {\n  ...\n} else if {\n  ...\n} else if {\n  ...\n} else {\n  ...\n}",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a450d2cc_74c874c4",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 3
@@ -590,6 +658,23 @@
       "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56fd02a2_25d2ffab",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T00:46:38Z",
+      "side": 1,
+      "message": "Should use a versioned link, in case it changes again (it\u0027s possible \u003cmsid-appdata\u003e will go away, see https://github.com/rtcweb-wg/jsep/issues/842#issuecomment-364840604)",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -719,6 +804,23 @@
       "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce233fd8_6a01362d",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2235,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T00:46:38Z",
+      "side": 1,
+      "message": "nit: Typically spelled \"m\u003d section\"",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -907,6 +1009,40 @@
       "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea4a647f_3df6689f",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T00:46:38Z",
+      "side": 1,
+      "message": "nit: I think this test could use an existing SDP string and use \"InjectAfter\" rather than adding a new SDP string. This could help make the test logic self-contained rather than spread throughout the file. For example:\n\n  // Make reference description, with extra stream ID.\n  MakeUnifiedPlanDescription();\n  cricket::StreamParamsVec\u0026 video_2_streams \u003d\n      desc_.GetContentByName(kVideoContentName2)\n          -\u003emedia_description()\n          -\u003emutable_streams();\n  ASSERT_EQ(video_2_streams.size(), 1u);\n  video_2_streams[0].set_stream_ids({kStreamId2, kStreamId3});\n  ASSERT_TRUE(jdesc_.Initialize(desc_.Copy(), jdesc_.session_id(),\n                                jdesc_.session_version()));\n\n  // Add stream ID to reference SDP and parse.\n  JsepSessionDescription jdesc_multi_stream(kDummyType);\n  std::string sdp_multi_stream \u003d kUnifiedPlanSdpFullString;\n  InjectAfter(\"a\u003dmsid:local_stream_2 video_track_id_2\\r\\n\",\n              \"a\u003dmsid:local_stream_3 video_track_id_2\\r\\n\",\n              \u0026sdp_multi_stream);\n  EXPECT_TRUE(SdpDeserialize(sdp_multi_stream, \u0026jdesc_multi_stream));\n\n  // Compare.\n  EXPECT_TRUE(CompareSessionDescription(jdesc_, jdesc_multi_stream));\n\nThough if you don\u0027t feel this is worth the effort, feel free to leave it.",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f25728ab_45bf6f2c",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T00:46:38Z",
+      "side": 1,
+      "message": "\"stream\" part of these comments is out of date",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

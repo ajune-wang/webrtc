@@ -10,7 +10,10 @@
 
 #include "pc/rtptransport.h"
 
+#include <utility>
+
 #include "media/base/rtputils.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/packettransportinterface.h"
 #include "rtc_base/checks.h"
@@ -134,16 +137,14 @@ bool RtpTransport::SendPacket(bool rtcp,
   return true;
 }
 
-bool RtpTransport::HandlesPacket(const uint8_t* data, size_t len) {
-  return bundle_filter_.DemuxPacket(data, len);
+void RtpTransport::RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
+                                          RtpPacketSinkInterface* sink) {
+  rtp_demuxer_.RemoveSink(sink);
+  rtp_demuxer_.AddSink(criteria, sink);
 }
 
-bool RtpTransport::HandlesPayloadType(int payload_type) const {
-  return bundle_filter_.FindPayloadType(payload_type);
-}
-
-void RtpTransport::AddHandledPayloadType(int payload_type) {
-  bundle_filter_.AddPayloadType(payload_type);
+void RtpTransport::UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) {
+  rtp_demuxer_.RemoveSink(sink);
 }
 
 PacketTransportInterface* RtpTransport::GetRtpPacketTransport() const {
@@ -178,6 +179,21 @@ RTCError RtpTransport::SetParameters(const RtpTransportParameters& parameters) {
 
 RtpTransportParameters RtpTransport::GetParameters() const {
   return parameters_;
+}
+
+void RtpTransport::ReceiveDecryptedPacket(rtc::CopyOnWriteBuffer* packet,
+                                          const rtc::PacketTime& time) {
+  webrtc::RtpPacketReceived parsed_packet;
+  if (!parsed_packet.Parse(std::move(*packet))) {
+    RTC_LOG(LS_ERROR)
+        << "Failed to parse the incoming RTP packet before demxuing. Drop it.";
+    return;
+  }
+
+  if (time.timestamp != -1) {
+    parsed_packet.set_arrival_time_ms((time.timestamp + 500) / 1000);
+  }
+  rtp_demuxer_.OnRtpPacket(parsed_packet);
 }
 
 RtpTransportAdapter* RtpTransport::GetInternal() {
@@ -256,28 +272,29 @@ void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
               IsRtcp(data, static_cast<int>(len));
   rtc::CopyOnWriteBuffer packet(data, len);
 
-  if (!WantsPacket(rtcp, &packet)) {
-    return;
-  }
-  // This mutates |packet| if it is protected.
-  SignalPacketReceived(rtcp, &packet, packet_time);
-}
-
-bool RtpTransport::WantsPacket(bool rtcp,
-                               const rtc::CopyOnWriteBuffer* packet) {
   // Protect ourselves against crazy data.
-  if (!packet || !cricket::IsValidRtpRtcpPacketSize(rtcp, packet->size())) {
+  if (!cricket::IsValidRtpRtcpPacketSize(rtcp, packet.size())) {
     RTC_LOG(LS_ERROR) << "Dropping incoming "
                       << cricket::RtpRtcpStringLiteral(rtcp)
-                      << " packet: wrong size=" << packet->size();
-    return false;
+                      << " packet: wrong size=" << packet.size();
+    return;
   }
+
+  // If it is an RTCP packet, forward it to uppper layer through the signal.
   if (rtcp) {
-    // Permit all (seemingly valid) RTCP packets.
-    return true;
+    SignalRtcpPacketReceived(&packet, packet_time);
+    return;
   }
-  // Check whether we handle this payload.
-  return HandlesPacket(packet->data(), packet->size());
+
+  // If it is an unencrypted packet, forward it to upper layer through the
+  // RtpDemuxer.
+  if (encryption_disabled_) {
+    ReceiveDecryptedPacket(&packet, packet_time);
+  } else {
+    // If it is an encrypted packet, forward it to SrtpTransport for decryption
+    // first. This mutates |packet|.
+    SignalRtpPacketReceived(&packet, packet_time);
+  }
 }
 
 }  // namespace webrtc

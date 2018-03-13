@@ -33,45 +33,21 @@ using webrtc::RtpTransport;
 
 const int kRtpAuthTagLen = 10;
 
-class TransportObserver : public sigslot::has_slots<> {
- public:
-  void OnPacketReceived(bool rtcp,
-                        rtc::CopyOnWriteBuffer* packet,
-                        const rtc::PacketTime& packet_time) {
-    rtcp ? last_recv_rtcp_packet_ = *packet : last_recv_rtp_packet_ = *packet;
-  }
-
-  void OnReadyToSend(bool ready) { ready_to_send_ = ready; }
-
-  rtc::CopyOnWriteBuffer last_recv_rtp_packet() {
-    return last_recv_rtp_packet_;
-  }
-
-  rtc::CopyOnWriteBuffer last_recv_rtcp_packet() {
-    return last_recv_rtcp_packet_;
-  }
-
-  bool ready_to_send() { return ready_to_send_; }
-
- private:
-  rtc::CopyOnWriteBuffer last_recv_rtp_packet_;
-  rtc::CopyOnWriteBuffer last_recv_rtcp_packet_;
-  bool ready_to_send_ = false;
-};
-
 class DtlsSrtpTransportTest : public testing::Test,
                               public sigslot::has_slots<> {
  protected:
   DtlsSrtpTransportTest() {}
+
+  ~DtlsSrtpTransportTest() {
+    dtls_srtp_transport1_->UnregisterRtpDemuxerSink(&transport_observer1_);
+    dtls_srtp_transport2_->UnregisterRtpDemuxerSink(&transport_observer2_);
+  }
 
   std::unique_ptr<DtlsSrtpTransport> MakeDtlsSrtpTransport(
       FakeDtlsTransport* rtp_dtls,
       FakeDtlsTransport* rtcp_dtls,
       bool rtcp_mux_enabled) {
     auto rtp_transport = rtc::MakeUnique<RtpTransport>(rtcp_mux_enabled);
-
-    rtp_transport->AddHandledPayloadType(0x00);
-    rtp_transport->AddHandledPayloadType(0xc9);
 
     auto srtp_transport =
         rtc::MakeUnique<SrtpTransport>(std::move(rtp_transport));
@@ -93,15 +69,27 @@ class DtlsSrtpTransportTest : public testing::Test,
     dtls_srtp_transport2_ =
         MakeDtlsSrtpTransport(rtp_dtls2, rtcp_dtls2, rtcp_mux_enabled);
 
-    dtls_srtp_transport1_->SignalPacketReceived.connect(
-        &transport_observer1_, &TransportObserver::OnPacketReceived);
+    dtls_srtp_transport1_->SignalRtcpPacketReceived.connect(
+        &transport_observer1_,
+        &webrtc::TransportObserver::OnRtcpPacketReceived);
     dtls_srtp_transport1_->SignalReadyToSend.connect(
-        &transport_observer1_, &TransportObserver::OnReadyToSend);
+        &transport_observer1_, &webrtc::TransportObserver::OnReadyToSend);
 
-    dtls_srtp_transport2_->SignalPacketReceived.connect(
-        &transport_observer2_, &TransportObserver::OnPacketReceived);
+    dtls_srtp_transport2_->SignalRtcpPacketReceived.connect(
+        &transport_observer2_,
+        &webrtc::TransportObserver::OnRtcpPacketReceived);
     dtls_srtp_transport2_->SignalReadyToSend.connect(
-        &transport_observer2_, &TransportObserver::OnReadyToSend);
+        &transport_observer2_, &webrtc::TransportObserver::OnReadyToSend);
+
+    demuxer_criteria1_.payload_types.insert(static_cast<uint8_t>(0x00));
+    demuxer_criteria1_.payload_types.insert(static_cast<uint8_t>(0xc9));
+    demuxer_criteria2_.payload_types.insert(static_cast<uint8_t>(0x00));
+    demuxer_criteria2_.payload_types.insert(static_cast<uint8_t>(0xc9));
+
+    dtls_srtp_transport1_->RegisterRtpDemuxerSink(demuxer_criteria1_,
+                                                  &transport_observer1_);
+    dtls_srtp_transport2_->RegisterRtpDemuxerSink(demuxer_criteria2_,
+                                                  &transport_observer2_);
   }
 
   void CompleteDtlsHandshake(FakeDtlsTransport* fake_dtls1,
@@ -251,8 +239,10 @@ class DtlsSrtpTransportTest : public testing::Test,
 
   std::unique_ptr<DtlsSrtpTransport> dtls_srtp_transport1_;
   std::unique_ptr<DtlsSrtpTransport> dtls_srtp_transport2_;
-  TransportObserver transport_observer1_;
-  TransportObserver transport_observer2_;
+  webrtc::TransportObserver transport_observer1_;
+  webrtc::TransportObserver transport_observer2_;
+  webrtc::RtpDemuxerCriteria demuxer_criteria1_;
+  webrtc::RtpDemuxerCriteria demuxer_criteria2_;
 
   int sequence_number_ = 0;
 };

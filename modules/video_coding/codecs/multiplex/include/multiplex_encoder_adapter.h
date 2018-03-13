@@ -15,6 +15,7 @@
 #include <memory>
 #include <vector>
 
+#include "rtc_base/criticalsection.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
@@ -72,10 +73,11 @@ class MultiplexEncoderAdapter : public VideoEncoder {
 
   uint16_t picture_index_ = 0;
   std::vector<uint8_t> multiplex_dummy_planes_;
+    
+    std::unique_ptr<TemporalLayersFactory> tl_factory_;
 
   int key_frame_interval_;
   EncodedImage combined_image_;
-
   rtc::CriticalSection crit_;
 };
 

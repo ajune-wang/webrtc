@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d6732985_ef8db438",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-13T01:27:59Z",
+      "side": 1,
+      "message": "That\u0027s a good point. Though, by the time the ORTC API needs to support that, I\u0027d suspect it wouldn\u0027t be going through MediaChannel any more.",
+      "parentUuid": "d1f2d655_e0caedff",
+      "revId": "9f64cddcff5949a326f87406772671d29a918207",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04d8c38e_2666e0ac",
         "filename": "media/engine/webrtcvoiceengine.cc",
         "patchSetId": 4

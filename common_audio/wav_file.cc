@@ -18,6 +18,7 @@
 #include "common_audio/include/audio_util.h"
 #include "common_audio/wav_header.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
@@ -116,6 +117,27 @@ WavWriter::WavWriter(const std::string& filename, int sample_rate,
       num_channels_(num_channels),
       num_samples_(0),
       file_handle_(fopen(filename.c_str(), "wb")) {
+  RTC_CHECK(file_handle_) << "Could not open wav file for writing.";
+  RTC_CHECK(CheckWavParameters(num_channels_, sample_rate_, kWavFormat,
+                               kBytesPerSample, num_samples_));
+
+  // Write a blank placeholder header, since we need to know the total number
+  // of samples before we can fill in the real data.
+  static const uint8_t blank_header[kWavHeaderSize] = {0};
+  RTC_CHECK_EQ(1, fwrite(blank_header, kWavHeaderSize, 1, file_handle_));
+}
+
+WavWriter::WavWriter(rtc::PlatformFile file,
+                     int sample_rate,
+                     size_t num_channels)
+    : sample_rate_(sample_rate), num_channels_(num_channels), num_samples_(0) {
+  // Handle errors from the CreatePlatformFile call in above constructor.
+  if (file == rtc::kInvalidPlatformFileValue) {
+    RTC_LOG(LS_ERROR) << "Invalid file. Could not create wav file.";
+    return;
+  }
+  file_handle_ = rtc::FdopenPlatformFile(file, "wb");
+
   RTC_CHECK(file_handle_) << "Could not open wav file for writing.";
   RTC_CHECK(CheckWavParameters(num_channels_, sample_rate_, kWavFormat,
                                kBytesPerSample, num_samples_));

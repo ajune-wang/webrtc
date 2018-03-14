@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee65cf54_0375830f",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-14T22:11:03Z",
+      "side": 1,
+      "message": "I am wondering if it would be a better idea to remove the following getters to IceConfig itself? I was originally favor the current version since the implementation of P2PTransportChannel controls the default values. While I am working on the other CL adding sanity checks to validate configuration parameters, I start to feel moving these getters to IceConfig as part of its properties may make more sense. Any ideas?",
+      "range": {
+        "startLine": 141,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 25
+      },
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

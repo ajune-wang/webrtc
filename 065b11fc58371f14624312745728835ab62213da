@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6d2a8814_15e826d0",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-03-14T09:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4d96875_169297de",
+      "revId": "065b11fc58371f14624312745728835ab62213da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6bdc24b_bb43625a",
         "filename": "modules/rtp_rtcp/source/rtp_format_h264.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "065b11fc58371f14624312745728835ab62213da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c4a587_98fd5f28",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-03-14T09:34:57Z",
+      "side": 1,
+      "message": "Done. Just reporting max_payload_len_ is enough here, because in that case we can see if there was any reduction of the size and how much was it.",
+      "parentUuid": "f6bdc24b_bb43625a",
+      "revId": "065b11fc58371f14624312745728835ab62213da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "037ce10e_2dc3a1c3",
+        "filename": "modules/video_coding/codecs/test/stats.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2018-03-14T13:11:29Z",
+      "side": 1,
+      "message": "Does it make sense to weight Y, U, and V equally?",
+      "range": {
+        "startLine": 65,
+        "startChar": 25,
+        "endLine": 65,
+        "endChar": 67
+      },
+      "revId": "8d3758e6104d2198477d1317454308bf3a12c85d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

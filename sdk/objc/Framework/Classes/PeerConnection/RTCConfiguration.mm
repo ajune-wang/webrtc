@@ -80,9 +80,14 @@
     _disableLinkLocalNetworks = config.disable_link_local_networks;
     _audioJitterBufferMaxPackets = config.audio_jitter_buffer_max_packets;
     _audioJitterBufferFastAccelerate = config.audio_jitter_buffer_fast_accelerate;
-    _iceConnectionReceivingTimeout = config.ice_connection_receiving_timeout;
-    _iceBackupCandidatePairPingInterval =
-        config.ice_backup_candidate_pair_ping_interval;
+    if (config.ice_connection_receiving_timeout) {
+      _iceConnectionReceivingTimeout =
+          [NSNumber numberWithInt:*config.ice_connection_receiving_timeout];
+    }
+    if (config.ice_backup_candidate_pair_ping_interval) {
+      _iceBackupCandidatePairPingInterval =
+          [NSNumber numberWithInt:*config.ice_backup_candidate_pair_ping_interval];
+    }
     _keyType = RTCEncryptionKeyTypeECDSA;
     _iceCandidatePoolSize = config.ice_candidate_pool_size;
     _shouldPruneTurnPorts = config.prune_turn_ports;

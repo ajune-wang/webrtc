@@ -379,8 +379,8 @@ public class PeerConnection {
     public CandidateNetworkPolicy candidateNetworkPolicy;
     public int audioJitterBufferMaxPackets;
     public boolean audioJitterBufferFastAccelerate;
-    public int iceConnectionReceivingTimeout;
-    public int iceBackupCandidatePairPingInterval;
+    public Integer iceConnectionReceivingTimeout;
+    public Integer iceBackupCandidatePairPingInterval;
     public KeyType keyType;
     public ContinualGatheringPolicy continualGatheringPolicy;
     public int iceCandidatePoolSize;
@@ -458,8 +458,8 @@ public class PeerConnection {
       this.iceServers = iceServers;
       audioJitterBufferMaxPackets = 50;
       audioJitterBufferFastAccelerate = false;
-      iceConnectionReceivingTimeout = -1;
-      iceBackupCandidatePairPingInterval = -1;
+      iceConnectionReceivingTimeout = null;
+      iceBackupCandidatePairPingInterval = null;
       keyType = KeyType.ECDSA;
       continualGatheringPolicy = ContinualGatheringPolicy.GATHER_ONCE;
       iceCandidatePoolSize = 0;
@@ -527,12 +527,12 @@ public class PeerConnection {
     }
 
     @CalledByNative("RTCConfiguration")
-    int getIceConnectionReceivingTimeout() {
+    Integer getIceConnectionReceivingTimeout() {
       return iceConnectionReceivingTimeout;
     }
 
     @CalledByNative("RTCConfiguration")
-    int getIceBackupCandidatePairPingInterval() {
+    Integer getIceBackupCandidatePairPingInterval() {
       return iceBackupCandidatePairPingInterval;
     }
 

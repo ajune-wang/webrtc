@@ -300,7 +300,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
         bundle_policy = kBundlePolicyMaxBundle;
         rtcp_mux_policy = kRtcpMuxPolicyRequire;
         ice_connection_receiving_timeout =
-            kAggressiveIceConnectionReceivingTimeout;
+            static_cast<int>(kAggressiveIceConnectionReceivingTimeout);
 
         // These parameters are not defined in Java or IOS configuration,
         // so their values will not be overwritten.
@@ -438,7 +438,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // Timeout in milliseconds before an ICE candidate pair is considered to be
     // "not receiving", after which a lower priority candidate pair may be
     // selected.
-    int ice_connection_receiving_timeout = kUndefined;
+    rtc::Optional<int> ice_connection_receiving_timeout;
 
     // Interval in milliseconds at which an ICE "backup" candidate pair will be
     // pinged. This is a candidate pair which is not actively in use, but may
@@ -447,7 +447,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // This is relevant mainly to Wi-Fi/cell handoff; the application may not
     // want this backup cellular candidate pair pinged frequently, since it
     // consumes data/battery.
-    int ice_backup_candidate_pair_ping_interval = kUndefined;
+    rtc::Optional<int> ice_backup_candidate_pair_ping_interval;
 
     // Can be used to enable continual gathering, which means new candidates
     // will be gathered as network interfaces change. Note that if continual

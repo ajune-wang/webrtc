@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62c4e166_d28b2296",
+        "filename": "style-guide/h-cc-pairs.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-14T12:38:53Z",
+      "side": 1,
+      "message": "any suggestion which one? \nthe one with the BUILD.gn file (most likely path/to),\nthe one with most files (most likely path/to/source),\nthe one that doesn\u0027t require adding new include allowance rules (most likely path/to/include)\nor rely on (common) sense.\n\nOriginal rule suggest 1st option, may be repeat it\n\"the same directory as BUILD.gn file, which is usually `path/to`\"",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a8935ac_e8283c0f",
+        "filename": "style-guide/h-cc-pairs.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-14T12:38:53Z",
+      "side": 1,
+      "message": "how common platform specific code in webrtc?\nIf it is not, may be mention adding it is discouraged.\nIt feels to me this kind of code should only be allowed in rtc_base",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3c49968b_fd7d585f",
+        "filename": "style-guide/h-cc-pairs.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-14T12:56:04Z",
+      "side": 1,
+      "message": "My personal preference is to put them in the same directory as the BUILD.gn file, but that\u0027s orthogonal to this rule, really. Maybe we can add a separate rule about that?",
+      "parentUuid": "62c4e166_d28b2296",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a8935ac_e8283c0f",
         "filename": "style-guide/h-cc-pairs.md",
         "patchSetId": 8
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "right, I forgot that there is lot\u0027s of code that deal with audio/video devices to capture/render.\nI guess that one has to be platform dependent.\nignore my initial comment.",
       "parentUuid": "f440858a_8df979dd",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "931c8142_fd682bbd",
+        "filename": "style-guide/h-cc-pairs.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-14T12:56:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9b5c53ac_422104a2",
       "range": {
         "startLine": 18,
         "startChar": 17,

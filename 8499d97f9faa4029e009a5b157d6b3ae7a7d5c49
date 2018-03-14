@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c77133f_c1c68dbc",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-03-14T11:30:49Z",
+      "side": 1,
+      "message": "Good point. Yes, there is a constant for this. Done.",
+      "parentUuid": "7ea2ce32_72823abc",
+      "range": {
+        "startLine": 272,
+        "startChar": 43,
+        "endLine": 272,
+        "endChar": 44
+      },
+      "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb4c8a13_964c85f7",
         "filename": "modules/audio_mixer/frame_combiner.h",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9744b671_71b6f216",
+        "filename": "modules/audio_mixer/frame_combiner.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-03-14T11:30:49Z",
+      "side": 1,
+      "message": "Would be nice, but doesn\u0027t work. In ::Combine we have a \u0027vector\u003cAudioFrame*\u003e\u0027. We would have to make a new \u0027vector\u003cconst AudioFrame*\u003e\u0027 from it to pass to LogMixingStats.",
+      "parentUuid": "cb4c8a13_964c85f7",
+      "range": {
+        "startLine": 47,
+        "startChar": 22,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cbf446e3_389df217",
+        "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-03-14T11:30:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2d7712b4_22464617",
+      "range": {
+        "startLine": 74,
+        "startChar": 30,
+        "endLine": 74,
+        "endChar": 73
+      },
+      "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac9eedcf_42462641",
         "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
         "patchSetId": 13
@@ -91,6 +163,30 @@
       "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abec5e18_e84354a7",
+        "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-03-14T11:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac9eedcf_42462641",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 3
+      },
+      "revId": "8499d97f9faa4029e009a5b157d6b3ae7a7d5c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

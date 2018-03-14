@@ -69,6 +69,30 @@
       "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b5c53ac_422104a2",
+        "filename": "style-guide/h-cc-pairs.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-14T12:45:08Z",
+      "side": 1,
+      "message": "right, I forgot that there is lot\u0027s of code that deal with audio/video devices to capture/render.\nI guess that one has to be platform dependent.\nignore my initial comment.",
+      "parentUuid": "f440858a_8df979dd",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,7 +16,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/random.h"
 #include "rtc_base/timeutils.h"
-#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -107,9 +106,31 @@ class PayloadRouter::RtpPayloadParams final {
   ~RtpPayloadParams() {}
 
   void Set(RTPVideoHeader* rtp_video_header) {
+    // TODO(nisse): Move out of the codec-specific sub structs, to
+    // avoid duplication.
     if (rtp_video_header->codec == kRtpVideoVp8 &&
         rtp_video_header->codecHeader.VP8.pictureId != kNoPictureId) {
+      if (rtp_video_header->codecHeader.VP8.tl0PicIdx != kNoTemporalIdx) {
+        rtp_video_header->codecHeader.VP8.tl0PicIdx =
+            (state_.picture_id +
+             // TODO(nisse): Since this diff is all we use from the
+             // encoder's meta data, update it to produce a relative
+             // tl0PicIdx and no picture id.
+             rtp_video_header->codecHeader.VP8.tl0PicIdx -
+             rtp_video_header->codecHeader.VP8.pictureId) & 0x7fff;
+      }
       rtp_video_header->codecHeader.VP8.pictureId = state_.picture_id;
+      state_.picture_id = (state_.picture_id + 1) & 0x7FFF;
+    }
+    if (rtp_video_header->codec == kRtpVideoVp9 &&
+        rtp_video_header->codecHeader.VP9.picture_id != kNoPictureId) {
+      if (rtp_video_header->codecHeader.VP9.tl0_pic_idx != kNoTemporalIdx) {
+        rtp_video_header->codecHeader.VP9.tl0_pic_idx =
+            (state_.picture_id +
+             rtp_video_header->codecHeader.VP9.tl0_pic_idx -
+             rtp_video_header->codecHeader.VP9.picture_id) & 0x7fff;
+      }
+      rtp_video_header->codecHeader.VP9.picture_id = state_.picture_id;
       state_.picture_id = (state_.picture_id + 1) & 0x7FFF;
     }
   }
@@ -129,9 +150,7 @@ PayloadRouter::PayloadRouter(const std::vector<RtpRtcp*>& rtp_modules,
                              const std::map<uint32_t, RtpPayloadState>& states)
     : active_(false),
       rtp_modules_(rtp_modules),
-      payload_type_(payload_type),
-      forced_fallback_enabled_((webrtc::field_trial::IsEnabled(
-          "WebRTC-VP8-Forced-Fallback-Encoder-v2"))) {
+      payload_type_(payload_type) {
   RTC_DCHECK_EQ(ssrcs.size(), rtp_modules.size());
   // SSRCs are assumed to be sorted in the same order as |rtp_modules|.
   for (uint32_t ssrc : ssrcs) {
@@ -221,12 +240,12 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
 
   int stream_index = rtp_video_header.simulcastIdx;
   RTC_DCHECK_LT(stream_index, rtp_modules_.size());
-  if (forced_fallback_enabled_) {
-    // Sets picture id. The SW and HW encoder have separate picture id
-    // sequences, set picture id to not cause sequence discontinuties at encoder
-    // changes.
-    params_[stream_index].Set(&rtp_video_header);
-  }
+
+  // Sets picture id, and update tl0PicIdx accordingly. The SW and HW
+  // encoder have separate picture id sequences, set picture id to not
+  // cause sequence discontinuties at encoder changes.
+  params_[stream_index].Set(&rtp_video_header);
+
   uint32_t frame_id;
   if (!rtp_modules_[stream_index]->Sending()) {
     // The payload router could be active but this module isn't sending.

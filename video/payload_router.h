@@ -73,7 +73,6 @@ class PayloadRouter : public EncodedImageCallback {
   const std::vector<RtpRtcp*> rtp_modules_;
   const int payload_type_;
 
-  const bool forced_fallback_enabled_;
   std::vector<RtpPayloadParams> params_ RTC_GUARDED_BY(crit_);
 
   RTC_DISALLOW_COPY_AND_ASSIGN(PayloadRouter);

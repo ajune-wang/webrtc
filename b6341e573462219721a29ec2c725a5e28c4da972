@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cef1ae94_4b393eb4",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-14T10:15:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90940498_8bd74179",
+      "range": {
+        "startLine": 379,
+        "startChar": 9,
+        "endLine": 379,
+        "endChar": 32
+      },
+      "revId": "b6341e573462219721a29ec2c725a5e28c4da972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70cf134e_329c904e",
         "filename": "media/engine/webrtcvideoengine.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "b6341e573462219721a29ec2c725a5e28c4da972",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed45d6f5_030ece98",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-14T10:15:19Z",
+      "side": 1,
+      "message": "I would prefer to keep these. They make code more readable.",
+      "parentUuid": "70cf134e_329c904e",
+      "range": {
+        "startLine": 467,
+        "startChar": 19,
+        "endLine": 467,
+        "endChar": 45
+      },
+      "revId": "b6341e573462219721a29ec2c725a5e28c4da972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

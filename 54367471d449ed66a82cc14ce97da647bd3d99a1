@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c83a09f_d5ae5b9e",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-03-14T00:09:23Z",
+      "side": 1,
+      "message": "It looks like this condition should be:\nif ((first_time || new_ids.mid !\u003d old_ids.mid) \u0026\u0026 new_config.rtp.mid.empty()) {",
+      "revId": "54367471d449ed66a82cc14ce97da647bd3d99a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

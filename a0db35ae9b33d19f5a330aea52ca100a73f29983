@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cf83ae32_c45602de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2018-03-14T06:28:07Z",
+      "side": 1,
+      "message": "I use FlexFec in my project. I will first explain FlexFec case for you.\n\nFor FlexFec:\n\n 1. FlexfecSender::GetFecPackets() get the FEC packets and set_capture_time_ms based on the current TimeInMilliseconds. So FEC capture_time_ms should be newer than the media capture_time_ms.\n 2. Then the FEC packets and media packets is inserted to Pacer buffer. The pacer buffer is a priority queue. My project is WebRTC M61, where the capture_time_ms is a factor for the priority. So for M61, the media packets have older capture_time_ms, and the pacer will pop and send them first.\n But it seems changed for the master branch now, the capture_time_ms is no longer a factor for the priority. TODO(xiong): I need to look more in detail to make sure media packets are sent before FEC packets.\n\n\nFor UlpFec:\n\nThe FEC capture_time_ms is copied from the media packets. So probably FEC packets are send interleaved with media packets.\nTODO(xiong): I will update to you after reading more related source code. Maybe I need change the source code to make sure media packets are send before FEC packets.",
+      "parentUuid": "d5e723ad_a4fcbc30",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "a0db35ae9b33d19f5a330aea52ca100a73f29983",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21a9c25e_246f39e8",
         "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-13T13:11:34Z",
       "side": 1,
       "message": "I think this would cause media packets belong to the same frame interleave with fec packets. As ULP packets are sent in the same stream as the corresponding media packets, this would results in the media frame can not be decoded.",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 56
+      },
+      "revId": "a0db35ae9b33d19f5a330aea52ca100a73f29983",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b032b07c_dd1cdb3f",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 6880
+      },
+      "writtenOn": "2018-03-14T06:28:07Z",
+      "side": 1,
+      "message": "For FlexFec, FEC packets are send in different stream(different SSRC and seqnum), so it is OK for the JitterBuffer and decoder.\n\nTODO(xiong): For UlpFec, I will update to you after reading more details in the source code.",
+      "parentUuid": "21a9c25e_246f39e8",
       "range": {
         "startLine": 162,
         "startChar": 2,

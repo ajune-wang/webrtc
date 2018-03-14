@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "360a1e1e_228b530d",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_armeval.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-14T14:46:40Z",
+      "side": 1,
+      "message": "Single-threaded runs.",
+      "revId": "d38d4995bdf5f49bbc93eedb09ec7452e06512cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0570ee44_3caae20a",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_integrationtest_armeval.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-14T14:46:40Z",
+      "side": 1,
+      "message": "All tests are using default WebRTC settings:\n\nVP8 CPU speed: -8\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp8/vp8_impl.cc?l\u003d634\u0026rcl\u003d8861da8356ee9b395027e1f4878dd6af5ce339c7\n\nVP9 CPU speed: 8\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp9/vp9_impl.cc?l\u003d41\u0026rcl\u003d8861da8356ee9b395027e1f4878dd6af5ce339c7",
+      "revId": "d38d4995bdf5f49bbc93eedb09ec7452e06512cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

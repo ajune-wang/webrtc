@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4666984f_9fc84bfd",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-14T19:03:52Z",
+      "side": 1,
+      "message": "How about just\n\n  RTC_CHECK_NE(file, rtc::kInvalidPlatformFileValue);",
+      "revId": "9b681572300236c777b681c0e30c680cb186fba9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "458fea1f_a4f574b0",
+        "filename": "common_audio/wav_file.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-14T19:03:52Z",
+      "side": 1,
+      "message": "Note that the WavWriter object takes over ownership of `file`? Also, this doesn\u0027t open a new file, does it?",
+      "revId": "9b681572300236c777b681c0e30c680cb186fba9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e1d0957_2cbaa112",
+        "filename": "common_audio/wav_file.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-14T19:03:52Z",
+      "side": 1,
+      "message": "Again, we just take over a previously opened file---right?",
+      "revId": "9b681572300236c777b681c0e30c680cb186fba9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

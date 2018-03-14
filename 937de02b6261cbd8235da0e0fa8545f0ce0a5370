@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f9f51459_98475c6f",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-14T12:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acb193c7_d5c8a1f5",
+      "revId": "937de02b6261cbd8235da0e0fa8545f0ce0a5370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "905eb38b_7c630bae",
         "filename": "video/payload_router.cc",
         "patchSetId": 6
@@ -30,6 +48,47 @@
       "writtenOn": "2018-03-14T11:44:26Z",
       "side": 1,
       "message": "Add \\n here, to match code above. Or delete the \\n above.",
+      "revId": "937de02b6261cbd8235da0e0fa8545f0ce0a5370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7cb065_5273b348",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-14T12:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "905eb38b_7c630bae",
+      "revId": "937de02b6261cbd8235da0e0fa8545f0ce0a5370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29c85623_ef9ddbae",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-14T12:22:21Z",
+      "side": 1,
+      "message": "Not entirely sure that the static cast is needed. Trying to wear a language lawyer hat, I was worried that\n\n1. 0x7fff + 1 is undefined if done as an operation on int16_t.\n\n2. Even if it overflows in the expected way, giving -0x8000, not sure if bitwise and is well defined on negative numbers.\n\nIf everything is automatically promoted to int, and int is 32 bits as usual, there\u0027s no problem, we just get the positive int value 0x8000 \u0026 0x7fff \u003d\u003d 0. However, the C standard allows int to be as small as 16 bits, so maybe we shouldn\u0027t rely on that promotion.",
+      "range": {
+        "startLine": 130,
+        "startChar": 25,
+        "endLine": 130,
+        "endChar": 69
+      },
       "revId": "937de02b6261cbd8235da0e0fa8545f0ce0a5370",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -56,6 +115,30 @@
       "revId": "937de02b6261cbd8235da0e0fa8545f0ce0a5370",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "050aae6c_c596181e",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-14T12:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41b7866e_19352b48",
+      "range": {
+        "startLine": 239,
+        "startChar": 38,
+        "endLine": 241,
+        "endChar": 48
+      },
+      "revId": "937de02b6261cbd8235da0e0fa8545f0ce0a5370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

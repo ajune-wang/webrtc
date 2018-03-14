@@ -45,6 +45,30 @@
       "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f440858a_8df979dd",
+        "filename": "style-guide/h-cc-pairs.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-03-14T12:41:17Z",
+      "side": 1,
+      "message": "\u003e how common platform specific code in webrtc?\n\nWe have something in:\n- rtc_base (as you mentioned)\n- https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_device/\n- https://cs.chromium.org/chromium/src/third_party/webrtc/test/\n\nAnd probably somewhere else but I don\u0027t remember where. :)",
+      "parentUuid": "8a8935ac_e8283c0f",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

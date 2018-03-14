@@ -35,6 +35,11 @@ extern const PlatformFile kInvalidPlatformFileValue;
 // the PlatformFile should no longer be used.
 FILE* FdopenPlatformFileForWriting(PlatformFile file);
 
+// Associates a standard FILE stream with an existing PlatformFile.
+// Note that after this function has returned a valid FILE stream,
+// the PlatformFile should no longer be used.
+FILE* FdopenPlatformFile(PlatformFile file, const char* modes);
+
 // Closes a PlatformFile. Returns true on success, false on failure.
 // Don't use ClosePlatformFile to close a file opened with FdopenPlatformFile.
 // Use fclose instead.

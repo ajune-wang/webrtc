@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e067aba8_ac412a2e",
+        "filename": "style-guide/h-cc-pairs.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-03-14T13:04:27Z",
+      "side": 1,
+      "message": "Yes, probably we can add a separate rule for this. But I also agree that the same directory as the BUILD.gn file is perfect. Because it is the easiest thing to do (in order to avoid too many ways of organizing code in sub-directories).",
+      "parentUuid": "3c49968b_fd7d585f",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "ad596ec0c31c181318ed2a300185a6257c8a3b3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a8935ac_e8283c0f",
         "filename": "style-guide/h-cc-pairs.md",
         "patchSetId": 8

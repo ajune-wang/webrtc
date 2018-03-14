@@ -16,7 +16,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/random.h"
 #include "rtc_base/timeutils.h"
-#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -93,9 +92,8 @@ void CopyCodecSpecific(const CodecSpecificInfo* info, RTPVideoHeader* rtp) {
 
 }  // namespace
 
-// Currently only used if forced fallback for VP8 is enabled.
-// Consider adding tl0idx and set for VP8 and VP9.
-// Make picture id not codec specific.
+// State for setting picture id and tl0 pic idx, for VP8 and VP9
+// TODO(nisse): Make these properties not codec specific.
 class PayloadRouter::RtpPayloadParams final {
  public:
   RtpPayloadParams(const uint32_t ssrc, const RtpPayloadState* state)
@@ -103,15 +101,33 @@ class PayloadRouter::RtpPayloadParams final {
     Random random(rtc::TimeMicros());
     state_.picture_id =
         state ? state->picture_id : (random.Rand<int16_t>() & 0x7FFF);
+    state_.tl0_pic_idx =
+        state ? state->tl0_pic_idx : (random.Rand<uint8_t>());
   }
   ~RtpPayloadParams() {}
 
   void Set(RTPVideoHeader* rtp_video_header) {
-    if (rtp_video_header->codec == kRtpVideoVp8 &&
-        rtp_video_header->codecHeader.VP8.pictureId != kNoPictureId) {
+    // Always set picture id. Set tl0_pic_idx iff temporal index is set.
+    if (rtp_video_header->codec == kRtpVideoVp8) {
       rtp_video_header->codecHeader.VP8.pictureId = state_.picture_id;
-      state_.picture_id = (state_.picture_id + 1) & 0x7FFF;
+
+      if (rtp_video_header->codecHeader.VP8.temporalIdx != kNoTemporalIdx) {
+        if (rtp_video_header->codecHeader.VP8.temporalIdx == 0) {
+          state_.tl0_pic_idx++;
+        }
+        rtp_video_header->codecHeader.VP8.tl0PicIdx = state_.tl0_pic_idx;
+      }
     }
+    if (rtp_video_header->codec == kRtpVideoVp9) {
+      rtp_video_header->codecHeader.VP9.picture_id = state_.picture_id;
+      if (rtp_video_header->codecHeader.VP9.temporal_idx != kNoTemporalIdx) {
+        if (rtp_video_header->codecHeader.VP9.temporal_idx == 0) {
+          state_.tl0_pic_idx++;
+        }
+        rtp_video_header->codecHeader.VP9.tl0_pic_idx = state_.tl0_pic_idx;
+      }
+    }
+    state_.picture_id = (static_cast<uint16_t>(state_.picture_id) + 1) & 0x7FFF;
   }
 
   uint32_t ssrc() const { return ssrc_; }
@@ -129,9 +145,7 @@ PayloadRouter::PayloadRouter(const std::vector<RtpRtcp*>& rtp_modules,
                              const std::map<uint32_t, RtpPayloadState>& states)
     : active_(false),
       rtp_modules_(rtp_modules),
-      payload_type_(payload_type),
-      forced_fallback_enabled_((webrtc::field_trial::IsEnabled(
-          "WebRTC-VP8-Forced-Fallback-Encoder-v2"))) {
+      payload_type_(payload_type) {
   RTC_DCHECK_EQ(ssrcs.size(), rtp_modules.size());
   // SSRCs are assumed to be sorted in the same order as |rtp_modules|.
   for (uint32_t ssrc : ssrcs) {
@@ -221,12 +235,12 @@ EncodedImageCallback::Result PayloadRouter::OnEncodedImage(
 
   int stream_index = rtp_video_header.simulcastIdx;
   RTC_DCHECK_LT(stream_index, rtp_modules_.size());
-  if (forced_fallback_enabled_) {
-    // Sets picture id. The SW and HW encoder have separate picture id
-    // sequences, set picture id to not cause sequence discontinuties at encoder
-    // changes.
-    params_[stream_index].Set(&rtp_video_header);
-  }
+
+  // Sets picture id and tl0 pic idx. The SW and HW encoder have
+  // separate picture id sequences, set picture id to not cause
+  // sequence discontinuties at encoder changes.
+  params_[stream_index].Set(&rtp_video_header);
+
   uint32_t frame_id;
   if (!rtp_modules_[stream_index]->Sending()) {
     // The payload router could be active but this module isn't sending.

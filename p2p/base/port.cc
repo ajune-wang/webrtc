@@ -1691,6 +1691,19 @@ void Connection::OnMessage(rtc::Message *pmsg) {
   delete this;
 }
 
+// TODO(qingsi): Remove the error log and add a rule in ValidateIceConfig when
+// there is a corresponding configurable parameter assuming
+// |CONNECTION_WRITE_TIMEOUT| as its default value.
+void Connection::set_unwritable_timeout(const rtc::Optional<int>& value_ms) {
+  if (value_ms.value_or(-1) > CONNECTION_WRITE_TIMEOUT) {
+    RTC_LOG(LS_ERROR) << "The timeout period for the writability state to "
+                      << "become UNRELIABLE is longer than that to become "
+                      << "TIMEOUT. The value of timeout period is unchanged.";
+    return;
+  }
+  unwritable_timeout_ = value_ms;
+}
+
 int64_t Connection::last_received() const {
   return std::max(last_data_received_,
              std::max(last_ping_received_, last_ping_response_received_));

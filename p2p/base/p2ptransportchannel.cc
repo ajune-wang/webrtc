@@ -177,6 +177,11 @@ P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
   if (weak_ping_interval) {
     weak_ping_interval_ = static_cast<int>(weak_ping_interval);
   }
+  // Validate IceConfig even for mostly built-in constant in case we change
+  // their value.
+  if (!ValidateIceConfig(config_)) {
+    RTC_LOG(LS_ERROR) << "IceConfig validation failed.";
+  }
   ice_event_log_.set_event_log(event_log);
 }
 
@@ -608,10 +613,89 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
     RTC_LOG(LS_INFO) << "Set STUN keepalive interval to "
                      << config.stun_keepalive_interval.value_or(-1);
   }
+
+  if (!ValidateIceConfig(config_)) {
+    RTC_LOG(LS_ERROR) << "IceConfig validation failed.";
+  }
 }
 
 const IceConfig& P2PTransportChannel::config() const {
   return config_;
+}
+
+bool P2PTransportChannel::ValidateIceConfig(const IceConfig& config) {
+  if (config.regather_all_networks_interval_range &&
+      config.continual_gathering_policy == GATHER_ONCE) {
+    RTC_LOG(LS_ERROR) << "ice_regather_interval_range specified but continual "
+                      << "gathering policy is GATHER_ONCE";
+  }
+
+  uint32_t weak_ping_interval = ::strtoul(
+      webrtc::field_trial::FindFullName("WebRTC-StunInterPacketDelay").c_str(),
+      nullptr, 10);
+  if (!weak_ping_interval) {
+    weak_ping_interval = WEAK_PING_INTERVAL;
+  }
+  // For reference, we quote the definition below used in RTCConfiguration and
+  // IceConfig for strong and weak connectivity, which we define in the ICE
+  // implementation. See also the method OnCheckAndPing.
+  //
+  // We consider ICE is "strongly connected" for an agent when there is at least
+  // one candidate pair that currently succeeds in connectivity check from its
+  // direction i.e. sending a STUN ping and receives a STUN ping response, AND
+  // all candidate pairs have sent a minimum number of pings for connectivity
+  // (this number is implementation-specific). Otherwise, ICE is considered in
+  // "weak connectivity".
+  if (config.ice_check_interval_strong_connectivity.value_or(
+          STRONG_PING_INTERVAL) <
+      config.ice_check_interval_weak_connectivity.value_or(
+          weak_ping_interval)) {
+    RTC_LOG(LS_ERROR) << "Ping interval of candidate pairs is shorter when ICE "
+                      << "is strongly connected than that when ICE is weakly "
+                      << "connected";
+    return false;
+  }
+  // Note that we always explicitly set the receiving timeout of each candidate
+  // pair in AddConnection using IceConfig, which overrides the default value
+  // given by |WEAK_CONNECTION_RECEIVE_TIMEOUT| in port.h of the member
+  // variable |receiving_timeout_| in Connection. Hence we do not check against
+  // |WEAK_CONNECTION_RECEIVE_TIMEOUT|, but rather
+  // |MIN_CHECK_RECEIVING_INTERVAL| * 50, which is the default value we use for
+  // IceConfig. Note also that WEAK_CONNECTION_RECEIVE_TIMEOUT =
+  // MIN_CHECK_RECEIVING_INTERVAL * 50 in the current implementation. Should we
+  // remove the explicit setter in AddConnection or change the value of either
+  // of the above constants, add a rule to check against
+  // |WEAK_CONNECTION_RECEIVE_TIMEOUT| as well.
+  if (config.receiving_timeout.value_or(MIN_CHECK_RECEIVING_INTERVAL * 50) <
+      std::max(config.ice_check_interval_strong_connectivity.value_or(
+                   STRONG_PING_INTERVAL),
+               config.ice_check_min_interval.value_or(-1))) {
+    RTC_LOG(LS_ERROR)
+        << "Receiving timeout is shorter than the minimal ping interval.";
+    return false;
+  }
+
+  if (config.backup_connection_ping_interval.value_or(
+          DEFAULT_BACKUP_CONNECTION_PING_INTERVAL) <
+      config.ice_check_interval_strong_connectivity.value_or(
+          STRONG_PING_INTERVAL)) {
+    RTC_LOG(LS_ERROR) << "Ping interval of backup candidate pairs is shorter "
+                      << "than that of candidate pairs when ICE is strongly "
+                      << "connected";
+    return false;
+  }
+
+  if (config.stable_writable_connection_ping_interval.value_or(
+          STRONG_AND_STABLE_WRITABLE_CONNECTION_PING_INTERVAL) <
+      config.ice_check_interval_strong_connectivity.value_or(
+          STRONG_PING_INTERVAL)) {
+    RTC_LOG(LS_ERROR) << "Ping interval of stable and writable candidate pairs "
+                      << "is shorter than that of candidate pairs when ICE is "
+                      << "strongly connected";
+    return false;
+  }
+
+  return true;
 }
 
 int P2PTransportChannel::receiving_timeout() const {

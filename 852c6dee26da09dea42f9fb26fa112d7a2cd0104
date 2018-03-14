@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68bf9a85_aeb24af3",
+        "filename": "video/payload_router.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-14T16:14:21Z",
+      "side": 1,
+      "message": "Is this how it is supposed to work? I bit confusing.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 65
+      },
+      "revId": "852c6dee26da09dea42f9fb26fa112d7a2cd0104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

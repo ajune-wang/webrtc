@@ -1,0 +1,118 @@
+# Copyright (c) 2018 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../webrtc.gni")
+assert(rtc_enable_protobuf)
+import("//third_party/protobuf/proto_library.gni")
+
+group("rnn_vad") {
+  testonly = true
+  deps = [
+    ":rnn_vad_tool",
+    "../../api:array_view",
+  ]
+}
+
+rtc_executable("rnn_vad_tool") {
+  testonly = true
+  sources = [
+    "rnn_vad_tool.cc",
+  ]
+  deps = [
+    ":lib",
+    ":lib_test",
+    "../../rtc_base:rtc_base_approved",
+    "../../test:test_support",
+    "//api:array_view",
+    "//common_audio:common_audio",
+  ]
+}
+
+# proto_library("rnn_vad_data_proto") {
+#   sources = ["rnn_data.proto"]
+#   proto_out_dir = "common_audio/rnn_vad"
+# }
+
+rtc_static_library("lib") {
+  sources = [
+    "biquad.cc",
+    "biquad.h",
+    "common.h",
+    "downsample.cc",
+    "downsample.h",
+    "features_extraction.cc",
+    "features_extraction.h",
+    "lp_residual.cc",
+    "lp_residual.h",
+    "pitch_search.cc",
+    "pitch_search.h",
+    "rnn_vad.cc",
+    "rnn_vad.h",
+    "rnn_vad_fft.cc",
+    "rnn_vad_fft.h",
+    "rnn_vad_weights.h",
+    "sequence_buffer.h",
+  ]
+  deps = [
+    "../..:webrtc_common",
+    "../../:typedefs",
+    "../../api:array_view",
+    "../../common_audio",
+    "../../rtc_base:checks",
+    "../../rtc_base:rtc_base_approved",
+    "//system_wrappers:system_wrappers",
+  ]
+}
+
+rtc_static_library("lib_test") {
+  testonly = true
+  sources = [
+    "test_utils.cc",
+    "test_utils.h",
+  ]
+  deps = [
+    "../..:webrtc_common",
+    "../../:typedefs",
+    "../../api:array_view",
+    "../../rtc_base:checks",
+    "../../rtc_base:rtc_base_approved",
+    "../../test:test_support",
+    "//system_wrappers:system_wrappers",
+  ]
+  visibility = [ ":*" ]  # Only targets in this file can depend on this.
+}
+
+rtc_source_set("unittest") {
+  testonly = true
+  sources = [
+    "biquad_unittest.cc",
+    "feature_extraction_unittest.cc",
+    "lp_residual_unittest.cc",
+    "pitch_search_unittest.cc",
+    "rnn_vad_fft_unittest.cc",
+    "rnn_vad_unittest.cc",
+    "sequence_buffer_unittest.cc",
+  ]
+  deps = [
+    ":lib",
+    ":lib_test",
+    "../..:webrtc_common",
+    "../../:typedefs",
+    "../../api:array_view",
+    "../../api:optional",
+    "../../common_audio",
+    "../../rtc_base:checks",
+
+    # "../../rtc_base:protobuf_utils",
+    "../../rtc_base:rtc_base_approved",
+    "../../test:floating_point_except_observer",
+    "../../test:test_support",
+
+    # ":rnn_vad_data_proto",
+  ]
+}

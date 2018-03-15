@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "881551e4_8a186a30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-15T18:54:18Z",
+      "side": 1,
+      "message": "Yes, do you have a clearer way to formulate it?\n\nSure, I\u0027ll make it final.",
+      "parentUuid": "e22d7e13_f8945594",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 9
+      },
+      "revId": "eeb74d5ccfb74a10c936c4303c0e09923f590eee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b15ce07_a0a8f6b8",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-15T15:59:46Z",
       "side": 1,
       "message": "I know you\u0027re not fond of the reuse-task pattern, but I think you should consider it. For an example, see RtcpTransceiverImpl::SchedulePeriodicCompoundPackets.\n\nAlso, I find it a bit confusing with the methods named FooTask/DelayFooTask, and you don\u0027t save much boiler plate compared to a local class explicitly implementing rtc::QueuedTask.",
+      "range": {
+        "startLine": 524,
+        "startChar": 8,
+        "endLine": 524,
+        "endChar": 24
+      },
+      "revId": "eeb74d5ccfb74a10c936c4303c0e09923f590eee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5bde26a_cb77e112",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-15T18:54:18Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll look into doing that.",
+      "parentUuid": "9b15ce07_a0a8f6b8",
       "range": {
         "startLine": 524,
         "startChar": 8,

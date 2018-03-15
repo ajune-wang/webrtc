@@ -24,6 +24,7 @@
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/test/fake_recording_device.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/flags.h"
 #include "rtc_base/json.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
@@ -32,6 +33,10 @@
 namespace webrtc {
 namespace test {
 namespace {
+
+DEFINE_int(ed_sampling_rate,
+           100,
+           "How often to sample the echo likelihood metrics.");
 
 void ReadParam(const Json::Value& root, std::string param_name, bool* param) {
   RTC_CHECK(param);
@@ -333,6 +338,36 @@ AudioProcessingSimulator::~AudioProcessingSimulator() {
     WriteEchoLikelihoodGraphFileFooter(&residual_echo_likelihood_graph_writer_);
     residual_echo_likelihood_graph_writer_.close();
   }
+  // Calculate percentiles.
+  if (echo_likelihood_values_.size() == 0) {
+    std::cout << "ERROR: Cannot calculate percentiles without data."
+              << std::endl;
+    return;
+  }
+
+  if (echo_likelihood_values_.size() < 10) {
+    std::cout << "Warning: Calculating percentiles, but there is not much data "
+                 "(less than 10 data points)."
+              << std::endl;
+  }
+  std::sort(echo_likelihood_values_.begin(), echo_likelihood_values_.end());
+
+  std::cout << "<echo_likelihood_percentiles>";
+  for (int percentile : {10, 20, 30, 40, 50, 60, 70, 80, 90}) {
+    int index = percentile * echo_likelihood_values_.size() / 100;
+    std::cout << echo_likelihood_values_[index] << " ";
+  }
+  std::cout << std::endl;
+
+  std::sort(echo_likelihood_recent_max_values_.begin(),
+            echo_likelihood_recent_max_values_.end());
+
+  std::cout << "<echo_likelihood_recent_max_percentiles>";
+  for (int percentile : {10, 20, 30, 40, 50, 60, 70, 80, 90}) {
+    int index = percentile * echo_likelihood_recent_max_values_.size() / 100;
+    std::cout << echo_likelihood_recent_max_values_[index] << " ";
+  }
+  std::cout << std::endl;
 }
 
 AudioProcessingSimulator::ScopedTimer::~ScopedTimer() {
@@ -400,6 +435,13 @@ void AudioProcessingSimulator::ProcessStream(bool fixed_interface) {
     auto stats = ap_->GetStatistics();
     residual_echo_likelihood_graph_writer_ << stats.residual_echo_likelihood
                                            << ", ";
+  }
+  if (num_process_stream_calls_ % FLAG_ed_sampling_rate ==
+      FLAG_ed_sampling_rate - 1) {
+    auto stats = ap_->GetStatistics(true);
+    echo_likelihood_values_.push_back(*stats.residual_echo_likelihood);
+    echo_likelihood_recent_max_values_.push_back(
+        *stats.residual_echo_likelihood_recent_max);
   }
 
   ++num_process_stream_calls_;

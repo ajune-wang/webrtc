@@ -22,45 +22,10 @@ import org.webrtc.VideoFrame.TextureBuffer;
  * an active EGL context, and only be used from that thread.
  */
 public class YuvConverter {
-  // Vertex coordinates in Normalized Device Coordinates, i.e.
-  // (-1, -1) is bottom-left and (1, 1) is top-right.
-  private static final FloatBuffer DEVICE_RECTANGLE = GlUtil.createFloatBuffer(new float[] {
-      -1.0f, -1.0f, // Bottom left.
-      1.0f, -1.0f, // Bottom right.
-      -1.0f, 1.0f, // Top left.
-      1.0f, 1.0f, // Top right.
-  });
-
-  // Texture coordinates - (0, 0) is bottom-left and (1, 1) is top-right.
-  private static final FloatBuffer TEXTURE_RECTANGLE = GlUtil.createFloatBuffer(new float[] {
-      0.0f, 0.0f, // Bottom left.
-      1.0f, 0.0f, // Bottom right.
-      0.0f, 1.0f, // Top left.
-      1.0f, 1.0f // Top right.
-  });
-
-  // clang-format off
-  private static final String VERTEX_SHADER =
-        "varying vec2 interp_tc;\n"
-      + "attribute vec4 in_pos;\n"
-      + "attribute vec4 in_tc;\n"
-      + "\n"
-      + "uniform mat4 texMatrix;\n"
-      + "\n"
-      + "void main() {\n"
-      + "    gl_Position = in_pos;\n"
-      + "    interp_tc = (texMatrix * in_tc).xy;\n"
-      + "}\n";
-
-  private static final String OES_FRAGMENT_SHADER =
-        "#extension GL_OES_EGL_image_external : require\n"
-      + "precision mediump float;\n"
-      + "varying vec2 interp_tc;\n"
-      + "\n"
-      + "uniform samplerExternalOES tex;\n"
+  private static final String FRAGMENT_SHADER =
       // Difference in texture coordinate corresponding to one
       // sub-pixel in the x direction.
-      + "uniform vec2 xUnit;\n"
+      "uniform vec2 xUnit;\n"
       // Color conversion coefficients, including constant term
       + "uniform vec4 coeffs;\n"
       + "\n"
@@ -72,43 +37,15 @@ public class YuvConverter {
       // try to do it as a vec3 x mat3x4, followed by an add in of a
       // constant vector.
       + "  gl_FragColor.r = coeffs.a + dot(coeffs.rgb,\n"
-      + "      texture2D(tex, interp_tc - 1.5 * xUnit).rgb);\n"
+      + "      sample(tc - 1.5 * xUnit).rgb);\n"
       + "  gl_FragColor.g = coeffs.a + dot(coeffs.rgb,\n"
-      + "      texture2D(tex, interp_tc - 0.5 * xUnit).rgb);\n"
+      + "      sample(tc - 0.5 * xUnit).rgb);\n"
       + "  gl_FragColor.b = coeffs.a + dot(coeffs.rgb,\n"
-      + "      texture2D(tex, interp_tc + 0.5 * xUnit).rgb);\n"
+      + "      sample(tc + 0.5 * xUnit).rgb);\n"
       + "  gl_FragColor.a = coeffs.a + dot(coeffs.rgb,\n"
-      + "      texture2D(tex, interp_tc + 1.5 * xUnit).rgb);\n"
+      + "      sample(tc + 1.5 * xUnit).rgb);\n"
       + "}\n";
-
-  private static final String RGB_FRAGMENT_SHADER =
-        "precision mediump float;\n"
-      + "varying vec2 interp_tc;\n"
-      + "\n"
-      + "uniform sampler2D tex;\n"
-      // Difference in texture coordinate corresponding to one
-      // sub-pixel in the x direction.
-      + "uniform vec2 xUnit;\n"
-      // Color conversion coefficients, including constant term
-      + "uniform vec4 coeffs;\n"
-      + "\n"
-      + "void main() {\n"
-      // Since the alpha read from the texture is always 1, this could
-      // be written as a mat4 x vec4 multiply. However, that seems to
-      // give a worse framerate, possibly because the additional
-      // multiplies by 1.0 consume resources. TODO(nisse): Could also
-      // try to do it as a vec3 x mat3x4, followed by an add in of a
-      // constant vector.
-      + "  gl_FragColor.r = coeffs.a + dot(coeffs.rgb,\n"
-      + "      texture2D(tex, interp_tc - 1.5 * xUnit).rgb);\n"
-      + "  gl_FragColor.g = coeffs.a + dot(coeffs.rgb,\n"
-      + "      texture2D(tex, interp_tc - 0.5 * xUnit).rgb);\n"
-      + "  gl_FragColor.b = coeffs.a + dot(coeffs.rgb,\n"
-      + "      texture2D(tex, interp_tc + 0.5 * xUnit).rgb);\n"
-      + "  gl_FragColor.a = coeffs.a + dot(coeffs.rgb,\n"
-      + "      texture2D(tex, interp_tc + 1.5 * xUnit).rgb);\n"
-      + "}\n";
-  // clang-format on
+  private static final GlShaderBuilder SHADER_BUILDER = new GlShaderBuilder(FRAGMENT_SHADER);
 
   private final ThreadUtils.ThreadChecker threadChecker = new ThreadUtils.ThreadChecker();
   private final GlTextureFrameBuffer textureFrameBuffer;
@@ -180,31 +117,25 @@ public class YuvConverter {
       shader.release();
     }
 
-    final String fragmentShader;
+    final GlShaderBuilder.ShaderType shaderType;
     switch (textureType) {
       case OES:
-        fragmentShader = OES_FRAGMENT_SHADER;
+        shaderType = GlShaderBuilder.ShaderType.OES;
         break;
       case RGB:
-        fragmentShader = RGB_FRAGMENT_SHADER;
+        shaderType = GlShaderBuilder.ShaderType.RGB;
         break;
       default:
         throw new IllegalArgumentException("Unsupported texture type.");
     }
 
     shaderTextureType = textureType;
-    shader = new GlShader(VERTEX_SHADER, fragmentShader);
-    shader.useProgram();
-    texMatrixLoc = shader.getUniformLocation("texMatrix");
+    shader = SHADER_BUILDER.createShader(shaderType);
+
+    texMatrixLoc = shader.getUniformLocation(GlShaderBuilder.TEXTURE_MATRIX_NAME);
     xUnitLoc = shader.getUniformLocation("xUnit");
     coeffsLoc = shader.getUniformLocation("coeffs");
-    GLES20.glUniform1i(shader.getUniformLocation("tex"), 0);
     GlUtil.checkNoGLES2Error("Initialize fragment shader uniform values.");
-    // Initialize vertex shader attributes.
-    shader.setVertexAttribArray("in_pos", 2, DEVICE_RECTANGLE);
-    // If the width is not a multiple of 4 pixels, the texture
-    // will be scaled up slightly and clipped at the right border.
-    shader.setVertexAttribArray("in_tc", 2, TEXTURE_RECTANGLE);
   }
 
   private void convert(ByteBuffer buf, int width, int height, int stride, int srcTextureId,

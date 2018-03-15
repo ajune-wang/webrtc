@@ -388,11 +388,13 @@ int32_t RtpReceiverImpl::CheckPayloadChanged(const RTPHeader& rtp_header,
   }  // End critsect.
 
   if (re_initialize_decoder) {
+#if 0
     if (-1 ==
         rtp_media_receiver_->InvokeOnInitializeDecoder(
             cb_rtp_feedback_, payload_type, payload_name, *specific_payload)) {
       return -1;  // Wrong payload type.
     }
+#endif
   }
   return 0;
 }

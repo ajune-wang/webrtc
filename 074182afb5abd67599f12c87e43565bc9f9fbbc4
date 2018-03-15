@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "525156b4_c4d06dce",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-15T00:20:31Z",
+      "side": 1,
+      "message": "This is an edit I should have done in an upstream CL. Fix the issue here.",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 579,
+        "endChar": 66
+      },
+      "revId": "074182afb5abd67599f12c87e43565bc9f9fbbc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf3f000_d424025d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-15T00:20:31Z",
+      "side": 1,
+      "message": "The parallel parameters are also checked in IceConfig. I kept them here in case we consider RTCConfiguration.ice_regather_interval_range is in general not equivalent to IceConfig.regather_all_networks_interval_range, and may be used to set different and new IceConfig parameters in the future, for example, IceConfig.regather_on_failed_networks_interval.",
+      "range": {
+        "startLine": 1025,
+        "startChar": 0,
+        "endLine": 1026,
+        "endChar": 0
+      },
+      "revId": "074182afb5abd67599f12c87e43565bc9f9fbbc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

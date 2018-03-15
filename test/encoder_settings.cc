@@ -94,17 +94,17 @@ void FillEncoderConfiguration(size_t num_streams,
 }
 
 VideoReceiveStream::Decoder CreateMatchingDecoder(
-    const VideoSendStream::Config::EncoderSettings& encoder_settings) {
+    const VideoSendStream::Config& config) {
   VideoReceiveStream::Decoder decoder;
-  decoder.payload_type = encoder_settings.payload_type;
-  decoder.payload_name = encoder_settings.payload_name;
-  if (encoder_settings.payload_name == "H264") {
+  decoder.payload_type = config.rtp.payload_type;
+  decoder.payload_name = config.rtp.payload_name;
+  if (config.rtp.payload_name == "H264") {
     decoder.decoder = H264Decoder::Create().release();
-  } else if (encoder_settings.payload_name == "VP8") {
+  } else if (config.rtp.payload_name == "VP8") {
     decoder.decoder = VP8Decoder::Create().release();
-  } else if (encoder_settings.payload_name == "VP9") {
+  } else if (config.rtp.payload_name == "VP9") {
     decoder.decoder = VP9Decoder::Create().release();
-  } else if (encoder_settings.payload_name == "multiplex") {
+  } else if (config.rtp.payload_name == "multiplex") {
     decoder.decoder = new MultiplexDecoderAdapter(
         new InternalDecoderFactory(), SdpVideoFormat(cricket::kVp9CodecName));
   } else {

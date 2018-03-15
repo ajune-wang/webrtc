@@ -194,8 +194,8 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
   RTC_DCHECK_LE(num_video_streams + num_used_ssrcs, kNumSsrcs);
   *video_config = VideoSendStream::Config(send_transport);
   video_config->encoder_settings.encoder = &fake_encoder_;
-  video_config->encoder_settings.payload_name = "FAKE";
-  video_config->encoder_settings.payload_type = kFakeVideoSendPayloadType;
+  video_config->rtp.payload_name = "FAKE";
+  video_config->rtp.payload_type = kFakeVideoSendPayloadType;
   video_config->rtp.extensions.push_back(
       RtpExtension(RtpExtension::kTransportSequenceNumberUri,
                    kTransportSequenceNumberExtensionId));
@@ -257,7 +257,7 @@ CallTest::CreateMatchingVideoReceiveConfigs(
   video_config.renderer = &fake_renderer_;
   for (size_t i = 0; i < video_send_config.rtp.ssrcs.size(); ++i) {
     VideoReceiveStream::Decoder decoder =
-        test::CreateMatchingDecoder(video_send_config.encoder_settings);
+        test::CreateMatchingDecoder(video_send_config);
     allocated_decoders_.push_back(
         std::unique_ptr<VideoDecoder>(decoder.decoder));
     video_config.decoders.clear();

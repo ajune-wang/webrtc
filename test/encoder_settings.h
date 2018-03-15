@@ -49,7 +49,7 @@ void FillEncoderConfiguration(size_t num_streams,
                               VideoEncoderConfig* configuration);
 
 VideoReceiveStream::Decoder CreateMatchingDecoder(
-    const VideoSendStream::Config::EncoderSettings& encoder_settings);
+    const VideoSendStream::Config& config);
 }  // namespace test
 }  // namespace webrtc
 

@@ -422,7 +422,7 @@ VideoStreamEncoder::VideoStreamEncoder(
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     overuse_detector_->StartCheckForOveruse(this);
     video_sender_.RegisterExternalEncoder(
-        settings_.encoder, settings_.payload_type, settings_.internal_source);
+        settings_.encoder, /* XXX payload_type */ 0, settings_.internal_source);
   });
 }
 
@@ -440,7 +440,7 @@ void VideoStreamEncoder::Stop() {
     overuse_detector_->StopCheckForOveruse();
     rate_allocator_.reset();
     bitrate_observer_ = nullptr;
-    video_sender_.RegisterExternalEncoder(nullptr, settings_.payload_type,
+    video_sender_.RegisterExternalEncoder(nullptr, /* XXX payload_type */ 0,
                                           false);
     quality_scaler_ = nullptr;
     shutdown_event_.Set();
@@ -566,12 +566,12 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   crop_height_ = last_frame_info_->height - highest_stream_height;
 
   VideoCodec codec;
-  if (!VideoCodecInitializer::SetupCodec(encoder_config_, settings_, streams,
-                                         nack_enabled_, &codec,
-                                         &rate_allocator_)) {
+  if (!VideoCodecInitializer::SetupCodec(
+          encoder_config_, streams, nack_enabled_, &codec, &rate_allocator_)) {
     RTC_LOG(LS_ERROR) << "Failed to create encoder configuration.";
   }
-
+  // TODO(nisse): This currently gives us a codec with codec.plType == 0.
+  // We must purge dependency on payload_type from VCMEncoderDataBase.
   codec.startBitrate =
       std::max(encoder_start_bitrate_bps_ / 1000, codec.minBitrate);
   codec.startBitrate = std::min(codec.startBitrate, codec.maxBitrate);

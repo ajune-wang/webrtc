@@ -130,6 +130,9 @@ DEFINE_bool(pythonplot,
             "Generates a python script for plotting the delay profile");
 DEFINE_bool(help, false, "Prints this message");
 DEFINE_bool(concealment_events, false, "Prints concealment events");
+DEFINE_bool(concealment_events_agg,
+            false,
+            "Prints aggregated concealment events statistic");
 
 // Maps a codec type to a printable name string.
 std::string CodecName(NetEqDecoder codec) {
@@ -370,7 +373,9 @@ class StatsGetter : public NetEqGetAudioCallback {
       stats_.push_back(stats);
     }
     const auto lifetime_stat = neteq->GetLifetimeStatistics();
-    if (current_concealment_event_ != lifetime_stat.concealment_events) {
+    if (current_concealment_event_ != lifetime_stat.concealment_events &&
+        voice_concealed_samples_until_last_event_ <
+            lifetime_stat.voice_concealed_samples) {
       if (last_event_end_time_ms_ > 0) {
         // Do not account for the first event to avoid start of the call
         // skewing.
@@ -726,6 +731,90 @@ int RunTest(int argc, char* argv[]) {
       std::cout << concealment_event;
     std::cout << " end of concealment_events_ms\n";
   }
+  if (FLAG_concealment_events_agg) {
+    constexpr int kFullRecoveryTimeMs = 300;
+    constexpr int kMaxPlcTimeMs = 200;
+    int64_t total_voice_plc_dur_ms = 0;
+    int64_t accounted_voice_plc_events = 0;
+    int64_t recoverable_plc_ms = 0;
+    int64_t recoverable_plc_events = 0;
+    int64_t partially_recoverable_events_duration_ms = 0;
+    int64_t partially_recoverable_events_plc_duration_ms = 0;
+
+    for (auto concealment_event : stats_getter.concealment_events()) {
+      total_voice_plc_dur_ms += concealment_event.duration_ms;
+      accounted_voice_plc_events++;
+      if (concealment_event.time_from_previous_event_end_ms +
+              partially_recoverable_events_duration_ms +
+              concealment_event.duration_ms <
+          kFullRecoveryTimeMs) {
+        partially_recoverable_events_duration_ms +=
+            concealment_event.duration_ms +
+            concealment_event.time_from_previous_event_end_ms;
+        partially_recoverable_events_plc_duration_ms +=
+            concealment_event.duration_ms;
+      } else {
+        int64_t total_plc_in_kFullRecoveryTimeMs =
+            partially_recoverable_events_plc_duration_ms +
+            concealment_event.duration_ms;
+        if (total_plc_in_kFullRecoveryTimeMs <= kMaxPlcTimeMs) {
+          recoverable_plc_ms += total_plc_in_kFullRecoveryTimeMs;
+          recoverable_plc_events++;
+          partially_recoverable_events_duration_ms = 0;
+          partially_recoverable_events_plc_duration_ms = 0;
+        } else {
+          if (partially_recoverable_events_plc_duration_ms > 0 &&
+              partially_recoverable_events_plc_duration_ms <= kMaxPlcTimeMs &&
+              concealment_event.time_from_previous_event_end_ms +
+                      partially_recoverable_events_duration_ms >=
+                  kFullRecoveryTimeMs) {
+            recoverable_plc_ms += partially_recoverable_events_plc_duration_ms;
+            recoverable_plc_events++;
+
+            partially_recoverable_events_duration_ms =
+                concealment_event.duration_ms +
+                concealment_event.time_from_previous_event_end_ms -
+                (kFullRecoveryTimeMs -
+                 partially_recoverable_events_duration_ms);
+            partially_recoverable_events_plc_duration_ms =
+                concealment_event.duration_ms;
+            if (partially_recoverable_events_duration_ms >=
+                kFullRecoveryTimeMs) {
+              recoverable_plc_ms +=
+                  partially_recoverable_events_plc_duration_ms;
+              recoverable_plc_events++;
+              partially_recoverable_events_duration_ms = 0;
+              partially_recoverable_events_plc_duration_ms = 0;
+            }
+          } else {
+            partially_recoverable_events_duration_ms = 0;
+            partially_recoverable_events_plc_duration_ms = 0;
+          }
+        }
+      }
+    }
+    if (accounted_voice_plc_events > 0) {
+      int64_t avg_plc_event_dur_ms =
+          total_voice_plc_dur_ms / accounted_voice_plc_events;
+      int64_t avg_recoverable_plc_ms =
+          recoverable_plc_ms / recoverable_plc_events;
+      float recoverable_plc_dur_pct =
+          (float)recoverable_plc_ms / test_duration_ms;
+      float plc_dur_pct = (float)total_voice_plc_dur_ms / test_duration_ms;
+      std::cout << "concealment events aggregated stats - "
+                   "accounted_voice_plc_events:"
+                << accounted_voice_plc_events
+                << " total_voice_plc_dur_ms:" << total_voice_plc_dur_ms
+                << " avg_plc_event_dur_ms:" << avg_plc_event_dur_ms
+                << " recoverable_plc_ms:" << recoverable_plc_ms
+                << " recoverable_plc_events:" << recoverable_plc_events
+                << " avg_recoverable_plc_ms:" << avg_recoverable_plc_ms
+                << " recoverable_plc_dur_pct:" << recoverable_plc_dur_pct
+                << " total_plc_dur_pct:" << plc_dur_pct
+                << " call_duration_ms:" << test_duration_ms << "\n";
+    }
+  }
+
   return 0;
 }
 

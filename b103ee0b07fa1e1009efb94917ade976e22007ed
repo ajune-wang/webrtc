@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc3e6885_7a189c85",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-15T14:54:59Z",
+      "side": 1,
+      "message": "Try to think of a better name. I think we want to kill the video_coding namespace at some point, so don\u0027t rely on that to provide uniqueness or context.",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "b103ee0b07fa1e1009efb94917ade976e22007ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba1cfb86_1e2da704",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-15T14:54:59Z",
+      "side": 1,
+      "message": "Do you need the default constructor? It\u0027s nicer if all instances are properly initialized. If you need to initialize it to some \"unset\" values where used in EncodedFrame, you could initialize them explicitly in that class\u0027 constructor.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "b103ee0b07fa1e1009efb94917ade976e22007ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

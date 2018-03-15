@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "53a49b8d_007057eb",
+        "filename": "video/payload_router_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-15T10:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9e1d946_30706827",
+      "range": {
+        "startLine": 330,
+        "startChar": 2,
+        "endLine": 330,
+        "endChar": 58
+      },
+      "revId": "cd9c117c46fc1351303b553928c2732a34e5d76e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e870e3a9_9bb7c91b",
         "filename": "video/payload_router_unittest.cc",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "cd9c117c46fc1351303b553928c2732a34e5d76e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea431170_17340063",
+        "filename": "video/payload_router_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-15T10:54:22Z",
+      "side": 1,
+      "message": "Done. Also consistently set and check both members of the state.",
+      "parentUuid": "e870e3a9_9bb7c91b",
+      "range": {
+        "startLine": 476,
+        "startChar": 23,
+        "endLine": 476,
+        "endChar": 46
+      },
+      "revId": "cd9c117c46fc1351303b553928c2732a34e5d76e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

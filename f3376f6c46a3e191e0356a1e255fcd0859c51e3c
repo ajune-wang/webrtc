@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18eaf2d9_31c8000f",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-15T11:54:27Z",
+      "side": 1,
+      "message": "nit: implicitly",
+      "range": {
+        "startLine": 721,
+        "startChar": 44,
+        "endLine": 721,
+        "endChar": 55
+      },
+      "revId": "f3376f6c46a3e191e0356a1e255fcd0859c51e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00ceaca1_d1edb4d7",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-15T11:54:27Z",
+      "side": 1,
+      "message": "Don\u0027t we a constant for something like this?\nAnd if not, should we?",
+      "range": {
+        "startLine": 728,
+        "startChar": 40,
+        "endLine": 728,
+        "endChar": 0
+      },
+      "revId": "f3376f6c46a3e191e0356a1e255fcd0859c51e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

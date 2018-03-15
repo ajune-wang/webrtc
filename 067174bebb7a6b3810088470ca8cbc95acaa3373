@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7156ee7_fb268f0a",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-15T13:27:19Z",
+      "side": 1,
+      "message": "The code you are adding in this if statement seems very specific to one particular use case. Is it conceivable that you instead write a script that calculates the desired information from the output with FLAG_concealment_events set?",
+      "range": {
+        "startLine": 734,
+        "startChar": 2,
+        "endLine": 734,
+        "endChar": 36
+      },
+      "revId": "067174bebb7a6b3810088470ca8cbc95acaa3373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45805d05_4e49ee6d",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-15T13:27:19Z",
+      "side": 1,
+      "message": "kFullRecoveryTimeMs",
+      "range": {
+        "startLine": 735,
+        "startChar": 18,
+        "endLine": 735,
+        "endChar": 39
+      },
+      "revId": "067174bebb7a6b3810088470ca8cbc95acaa3373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c2b1a1b_aea7824a",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-15T13:27:19Z",
+      "side": 1,
+      "message": "kMaxPlcTimeMs",
+      "range": {
+        "startLine": 736,
+        "startChar": 18,
+        "endLine": 736,
+        "endChar": 34
+      },
+      "revId": "067174bebb7a6b3810088470ca8cbc95acaa3373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

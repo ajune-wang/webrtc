@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "afa8141a_c1cb1a20",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T16:52:45Z",
+      "side": 1,
+      "message": "Not needed, removed.",
+      "parentUuid": "7c623a01_004e7ef3",
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7526e644_e65e7445",
         "filename": "api/video/video_stream_decoder.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e9138d7d_7f43e9f2",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T16:52:45Z",
+      "side": 1,
+      "message": "This is pretty much a convenience struct to make the |decoded_callback_| type cleaner, and we pretty much forward the result from DecodedImageCallback::Decoded. Using ints sounds better though.",
+      "parentUuid": "7526e644_e65e7445",
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75720f6b_d643c97f",
         "filename": "api/video/video_stream_decoder.h",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-03-15T15:10:50Z",
       "side": 1,
       "message": "Does creating a video stream decoder really consume a factory?",
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca8b6a93_92a65252",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T16:52:45Z",
+      "side": 1,
+      "message": "Yeah... There has been a misunderstanding during the design phase regarding this. This should not be a unique_ptr, changed.",
+      "parentUuid": "75720f6b_d643c97f",
       "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "c92ac82c_e0ed28aa",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T16:52:45Z",
+      "side": 1,
+      "message": "I know std::function is on the banned list, but I wanted to use them anyway with the explicit intent of avoiding using callbacks defined by interfaces. I think it\u0027s easier if we talk about why offline :)",
+      "parentUuid": "78bc9993_2d409739",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 19
+      },
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80064fc3_d2b95ca1",
         "filename": "video/BUILD.gn",
         "patchSetId": 2
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "8dbd555f_175d38dc",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T16:52:45Z",
+      "side": 1,
+      "message": "Yes, in this case I need it for some of the dependencies.",
+      "parentUuid": "80064fc3_d2b95ca1",
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1bc27ae5_c998e518",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 2
@@ -104,6 +200,30 @@
       "writtenOn": "2018-03-15T15:10:50Z",
       "side": 1,
       "message": "Wait---webrtc::Create()? That sounds a bit too generic... I assume you mean webrtc::VideoStreamDecoder::Create()? Did you compile this?",
+      "range": {
+        "startLine": 17,
+        "startChar": 36,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7740d7e0_587461ad",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T16:52:45Z",
+      "side": 1,
+      "message": "It compiles, but yes, it should be webrtc::VideoStreamDecoder::Create().",
+      "parentUuid": "1bc27ae5_c998e518",
       "range": {
         "startLine": 17,
         "startChar": 36,
@@ -136,6 +256,30 @@
       "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "871faad9_40c4c87b",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T16:52:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78b37cc5_34b78ce6",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 67
+      },
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

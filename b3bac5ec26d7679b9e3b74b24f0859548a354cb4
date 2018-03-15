@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba875a70_f6de4944",
+        "filename": "pc/rtcstatscollector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-15T15:55:08Z",
+      "side": 0,
+      "message": "Independent of my change: The comment about recursive calls is obsolete since all stats are delivered asynchronously as of recently.",
+      "revId": "b3bac5ec26d7679b9e3b74b24f0859548a354cb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "44b21414_b836b34f",
+        "filename": "pc/dtlssrtptransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-15T04:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d814476_0f3bc734",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e9a8186_0a67574d",
         "filename": "pc/rtptransport.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2a89e42_d0e4783f",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-15T04:11:16Z",
+      "side": 1,
+      "message": "Just realized that |RemoveSink| doesn\u0027t clear the |mid_by_ssrc_|. This should be fine I guess.",
+      "parentUuid": "2e9a8186_0a67574d",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "17533a55_8b021404",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-15T04:11:16Z",
+      "side": 1,
+      "message": "Implemented it in this CL. \nMore tests could be added in a follow-up CL though, after the change in api/rtpparameter.h landed.",
+      "parentUuid": "6f4cd380_895473c4",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732bc686_9fc2392d",
         "filename": "pc/rtptransport.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e27962a_1df7baf4",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-15T04:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "732bc686_9fc2392d",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5f08362c_73f9bdd2",
+        "filename": "pc/rtptransportinternal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-15T04:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "043f7c17_1eda5829",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59e9dab1_35c433ba",
         "filename": "pc/srtptransport_unittest.cc",
         "patchSetId": 4
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "78f3d982_e60d72e0",
+        "filename": "pc/srtptransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-15T04:11:16Z",
+      "side": 1,
+      "message": "Yes, it works.",
+      "parentUuid": "59e9dab1_35c433ba",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5c72540_223f19ae",
         "filename": "pc/srtptransport_unittest.cc",
         "patchSetId": 4
@@ -118,6 +226,24 @@
       "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3792f69_07b696eb",
+        "filename": "pc/srtptransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-15T04:11:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5c72540_223f19ae",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

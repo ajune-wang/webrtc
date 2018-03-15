@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "091338fc_7e9b8acd",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T14:00:05Z",
+      "side": 1,
+      "message": "It is up to the application to decide what to do with this info, but I would guess the most typical use case is simply to collect stats.\n\nI know the VideoSinkInterface is the typical way of delivering a decoded frame, but in this class we want to avoid callbacks defined by interfaces.",
+      "parentUuid": "ad408762_384bc3df",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "b5ca29c8c435d47b3ba9d40c6c2fde4e05794bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "916dfc0c_54ddc26c",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d8c24d8e_b4725985",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T14:00:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "916dfc0c_54ddc26c",
+      "range": {
+        "startLine": 25,
+        "startChar": 34,
+        "endLine": 25,
+        "endChar": 50
+      },
+      "revId": "b5ca29c8c435d47b3ba9d40c6c2fde4e05794bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24b3960c_906bb6f2",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "b5ca29c8c435d47b3ba9d40c6c2fde4e05794bde",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6f826be_d179925e",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-15T14:00:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24b3960c_906bb6f2",
+      "range": {
+        "startLine": 36,
+        "startChar": 24,
+        "endLine": 36,
+        "endChar": 40
+      },
+      "revId": "b5ca29c8c435d47b3ba9d40c6c2fde4e05794bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

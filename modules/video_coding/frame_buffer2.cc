@@ -186,8 +186,8 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
           // these conditions.
           RTC_LOG(LS_WARNING)
               << "Frame with (timestamp:picture_id:spatial_id) ("
-              << frame->timestamp << ":" << frame->picture_id << ":"
-              << static_cast<int>(frame->spatial_layer) << ")"
+              << frame->timestamp << ":" << frame->key.picture_id << ":"
+              << static_cast<int>(frame->key.spatial_layer) << ")"
               << " sent to decoder after frame with"
               << " (timestamp:picture_id:spatial_id) ("
               << last_decoded_frame_timestamp_ << ":"
@@ -263,11 +263,11 @@ void FrameBuffer::UpdateRtt(int64_t rtt_ms) {
 }
 
 bool FrameBuffer::ValidReferences(const EncodedFrame& frame) const {
-  if (frame.picture_id < 0)
+  if (frame.key.picture_id < 0)
     return false;
 
   for (size_t i = 0; i < frame.num_references; ++i) {
-    if (frame.references[i] < 0 || frame.references[i] >= frame.picture_id)
+    if (frame.references[i] < 0 || frame.references[i] >= frame.key.picture_id)
       return false;
 
     for (size_t j = i + 1; j < frame.num_references; ++j) {
@@ -276,7 +276,7 @@ bool FrameBuffer::ValidReferences(const EncodedFrame& frame) const {
     }
   }
 
-  if (frame.inter_layer_predicted && frame.spatial_layer == 0)
+  if (frame.inter_layer_predicted && frame.key.spatial_layer == 0)
     return false;
 
   return true;
@@ -301,7 +301,7 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
   if (stats_callback_)
     stats_callback_->OnCompleteFrame(frame->is_keyframe(), frame->size(),
                                      frame->contentType());
-  FrameKey key(frame->picture_id, frame->spatial_layer);
+  const FrameKey& key = frame->key;
 
   rtc::CritScope lock(&crit_);
 
@@ -482,7 +482,7 @@ void FrameBuffer::AdvanceLastDecodedFrame(FrameMap::iterator decoded) {
 bool FrameBuffer::UpdateFrameInfoWithIncomingFrame(const EncodedFrame& frame,
                                                    FrameMap::iterator info) {
   TRACE_EVENT0("webrtc", "FrameBuffer::UpdateFrameInfoWithIncomingFrame");
-  FrameKey key(frame.picture_id, frame.spatial_layer);
+  const FrameKey& key = frame.key;
   info->second.num_missing_continuous = frame.num_references;
   info->second.num_missing_decodable = frame.num_references;
 
@@ -491,7 +491,7 @@ bool FrameBuffer::UpdateFrameInfoWithIncomingFrame(const EncodedFrame& frame,
 
   // Check how many dependencies that have already been fulfilled.
   for (size_t i = 0; i < frame.num_references; ++i) {
-    FrameKey ref_key(frame.references[i], frame.spatial_layer);
+    FrameKey ref_key(frame.references[i], frame.key.spatial_layer);
     auto ref_info = frames_.find(ref_key);
 
     // Does |frame| depend on a frame earlier than the last decoded frame?
@@ -541,7 +541,7 @@ bool FrameBuffer::UpdateFrameInfoWithIncomingFrame(const EncodedFrame& frame,
     ++info->second.num_missing_continuous;
     ++info->second.num_missing_decodable;
 
-    FrameKey ref_key(frame.picture_id, frame.spatial_layer - 1);
+    FrameKey ref_key(frame.key.picture_id, frame.key.spatial_layer - 1);
     // Gets or create the FrameInfo for the referenced frame.
     auto ref_info = frames_.insert(std::make_pair(ref_key, FrameInfo())).first;
     if (ref_info->second.continuous)

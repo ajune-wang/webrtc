@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "12bf7926_6c4571b2",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-15T15:33:04Z",
+      "side": 1,
+      "message": "Good point! I did not think of that. I added a constexpr",
+      "parentUuid": "960dc21c_4b86b3df",
+      "range": {
+        "startLine": 97,
+        "startChar": 57,
+        "endLine": 97,
+        "endChar": 62
+      },
+      "revId": "0ed1806fe4ab7833c57d2ed37ea1f494d9c1c458",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2c4de86_9184814a",
         "filename": "modules/audio_processing/aec3/echo_path_delay_estimator_unittest.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-15T14:02:34Z",
       "side": 1,
       "message": "Why is this needed? estimated_delay_samples is already an optional so why not always do this assignment (like it was previously).",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 20
+      },
+      "revId": "0ed1806fe4ab7833c57d2ed37ea1f494d9c1c458",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5288e919_46c25479",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-15T15:33:04Z",
+      "side": 1,
+      "message": "It is needed as the estimator.EstimateDelay(.) with the updates in this CL may again report nonsignificant value due to the resetting of the correlator state. In that case the tests on lines 95+ may (and do) fail.",
+      "parentUuid": "c2c4de86_9184814a",
       "range": {
         "startLine": 90,
         "startChar": 12,

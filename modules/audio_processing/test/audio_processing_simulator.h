@@ -188,6 +188,9 @@ class AudioProcessingSimulator {
   int analog_mic_level_;
   FakeRecordingDevice fake_recording_device_;
 
+  std::vector<float> echo_likelihood_values_;
+  std::vector<float> echo_likelihood_recent_max_values_;
+
   rtc::TaskQueue worker_queue_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(AudioProcessingSimulator);

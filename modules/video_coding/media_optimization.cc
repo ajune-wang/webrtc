@@ -12,6 +12,7 @@
 
 #include <limits>
 
+#include "rtc_base/logging.h"
 #include "modules/video_coding/utility/frame_dropper.h"
 #include "system_wrappers/include/clock.h"
 
@@ -110,7 +111,11 @@ bool MediaOptimization::DropFrame() {
   UpdateIncomingFrameRate();
   // Leak appropriate number of bytes.
   frame_dropper_->Leak((uint32_t)(InputFrameRateInternal() + 0.5f));
-  return frame_dropper_->DropFrame();
+  bool result = frame_dropper_->DropFrame();
+    if (result) {
+    //    RTC_LOG(LS_ERROR)<<"MediaOpt Decides to Drop A Frame, But let it go.";
+    }
+    return false;
 }
 
 void MediaOptimization::UpdateIncomingFrameRate() {

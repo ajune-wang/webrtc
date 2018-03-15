@@ -31,7 +31,9 @@ id<RTCVideoFrameBuffer> nativeToRtcFrameBuffer(
 }
 
 @synthesize buffer = _buffer;
+@synthesize depth_buffer = _depth_buffer;
 @synthesize timeStamp;
+@synthesize time_used = _time_used;
 
 - (int)width {
   return _buffer.width;
@@ -87,6 +89,20 @@ id<RTCVideoFrameBuffer> nativeToRtcFrameBuffer(
                    timeStampNs:(int64_t)timeStampNs {
   if (self = [super init]) {
     _buffer = buffer;
+    _rotation = rotation;
+    _timeStampNs = timeStampNs;
+  }
+
+  return self;
+}
+
+- (instancetype)initWithBuffer:(id<RTCVideoFrameBuffer>)buffer
+               withDepthBuffer:(id<RTCVideoFrameBuffer>)depth_buffer
+                      rotation:(RTCVideoRotation)rotation
+                   timeStampNs:(int64_t)timeStampNs{
+  if (self = [super init]) {
+    _buffer = buffer;
+    _depth_buffer = depth_buffer;
     _rotation = rotation;
     _timeStampNs = timeStampNs;
   }

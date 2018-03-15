@@ -15,9 +15,12 @@
 #include "common_video/include/video_frame.h"
 #include "common_video/include/video_frame_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
+#include "media/base/mediaconstants.h"
 #include "modules/include/module_common_types.h"
 #include "rtc_base/keep_ref_until_done.h"
 #include "rtc_base/logging.h"
+
+#include "modules/video_coding/codecs/vp8/temporal_layers.h"
 
 namespace webrtc {
 
@@ -67,33 +70,40 @@ int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
             0x80);
 
   RTC_DCHECK_EQ(kVideoCodecMultiplex, inst->codecType);
-  VideoCodec settings = *inst;
-  settings.codecType = PayloadStringToCodecType(associated_format_.name);
+    VideoCodec settings[2];
+    settings[0] = *inst;
+  settings[0].codecType = PayloadStringToCodecType(associated_format_.name);
 
   // Take over the key frame interval at adapter level, because we have to
   // sync the key frames for both sub-encoders.
-  switch (settings.codecType) {
+  switch (settings[0].codecType) {
     case kVideoCodecVP8:
-      key_frame_interval_ = settings.VP8()->keyFrameInterval;
-      settings.VP8()->keyFrameInterval = 0;
+      key_frame_interval_ = settings[0].VP8()->keyFrameInterval;
+      settings[0].VP8()->keyFrameInterval = 0;
       break;
     case kVideoCodecVP9:
-      key_frame_interval_ = settings.VP9()->keyFrameInterval;
-      settings.VP9()->keyFrameInterval = 0;
+      key_frame_interval_ = settings[0].VP9()->keyFrameInterval;
+      settings[0].VP9()->keyFrameInterval = 0;
       break;
     case kVideoCodecH264:
-      key_frame_interval_ = settings.H264()->keyFrameInterval;
-      settings.H264()->keyFrameInterval = 0;
+      key_frame_interval_ = settings[0].H264()->keyFrameInterval;
+      settings[0].H264()->keyFrameInterval = 0;
       break;
     default:
       break;
   }
-
+    settings[1]=settings[0];
+    settings[1].codecType=kVideoCodecVP8;
+    *(settings[1].VP8()) = VideoEncoder::GetDefaultVp8Settings();
+    settings[1].VP8()->keyFrameInterval = 0;
+    tl_factory_.reset(new TemporalLayersFactory());
+    settings[1].VP8()->tl_factory = tl_factory_.get();
+    
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoEncoder> encoder =
-        factory_->CreateVideoEncoder(associated_format_);
+      factory_->CreateVideoEncoder(i==0?associated_format_:SdpVideoFormat(cricket::kVp8CodecName));
     const int rv =
-        encoder->InitEncode(&settings, number_of_cores, max_payload_size);
+        encoder->InitEncode(&settings[i], number_of_cores, max_payload_size);
     if (rv) {
       RTC_LOG(LS_ERROR) << "Failed to create multiplex codec index " << i;
       return rv;
@@ -122,6 +132,7 @@ int MultiplexEncoderAdapter::Encode(
   }
   const bool has_alpha = input_image.video_frame_buffer()->type() ==
                          VideoFrameBuffer::Type::kI420A;
+
   {
     rtc::CritScope cs(&crit_);
     stashed_images_.emplace(
@@ -134,8 +145,10 @@ int MultiplexEncoderAdapter::Encode(
   ++picture_index_;
 
   // Encode YUV
-  int rv = encoders_[kYUVStream]->Encode(input_image, codec_specific_info,
+    int rv = 0;
+    rv = encoders_[kYUVStream]->Encode(input_image, codec_specific_info,
                                          &adjusted_frame_types);
+    
   // If we do not receive an alpha frame, we send a single frame for this
   // |picture_index_|. The receiver will receive |frame_count| as 1 which
   // soecifies this case.
@@ -153,6 +166,7 @@ int MultiplexEncoderAdapter::Encode(
                      rtc::KeepRefUntilDone(input_image.video_frame_buffer()));
   VideoFrame alpha_image(alpha_buffer, input_image.timestamp(),
                          input_image.render_time_ms(), input_image.rotation());
+
   rv = encoders_[kAXXStream]->Encode(alpha_image, codec_specific_info,
                                      &adjusted_frame_types);
   return rv;
@@ -196,6 +210,7 @@ int MultiplexEncoderAdapter::Release() {
   }
   encoders_.clear();
   adapter_callbacks_.clear();
+
   rtc::CritScope cs(&crit_);
   for (auto& stashed_image : stashed_images_) {
     for (auto& image_component : stashed_image.second.image_components) {
@@ -244,8 +259,9 @@ EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(
          iter != stashed_images_.end() && iter != stashed_image_next_itr;
          iter++) {
       // No image at all, skip.
-      if (iter->second.image_components.size() == 0)
-        continue;
+        if (iter->second.image_components.size() == 0){
+            continue;
+        }
 
       // We have to send out those stashed frames, otherwise the delta frame
       // dependency chain is broken.
@@ -259,6 +275,7 @@ EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(
       codec_info.codecSpecific.generic.simulcast_idx = 0;
       encoded_complete_callback_->OnEncodedImage(combined_image_, &codec_info,
                                                  fragmentation);
+
     }
 
     stashed_images_.erase(stashed_images_.begin(), stashed_image_next_itr);

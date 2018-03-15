@@ -12,6 +12,9 @@
 
 static dispatch_queue_t kAudioSessionQueue = nil;
 static dispatch_queue_t kCaptureSessionQueue = nil;
+static dispatch_queue_t kProcessQueue = nil;
+static dispatch_queue_t kProcessQueue2 = nil;
+static dispatch_queue_t kPostProcessQueue = nil;
 
 @implementation RTCDispatcher
 
@@ -24,6 +27,15 @@ static dispatch_queue_t kCaptureSessionQueue = nil;
     kCaptureSessionQueue = dispatch_queue_create(
         "org.webrtc.RTCDispatcherCaptureSession",
         DISPATCH_QUEUE_SERIAL);
+    kProcessQueue = dispatch_queue_create(
+        "org.webrtc.RTCDispatcherProcess",
+        DISPATCH_QUEUE_CONCURRENT);
+    kProcessQueue2 = dispatch_queue_create(
+        "org.webrtc.RTCDispatcherProcess2",
+        DISPATCH_QUEUE_SERIAL);
+    kPostProcessQueue = dispatch_queue_create(
+      "org.webrtc.RTCDispatcherPostProcess",
+      DISPATCH_QUEUE_SERIAL);
   });
 }
 
@@ -54,6 +66,12 @@ static dispatch_queue_t kCaptureSessionQueue = nil;
       return kCaptureSessionQueue;
     case RTCDispatcherTypeAudioSession:
       return kAudioSessionQueue;
+    case RTCDispatcherTypeProcess:
+      return kProcessQueue;
+    case RTCDispatcherTypeProcess2:
+      return kProcessQueue2;
+    case RTCDispatcherTypePostProcess:
+      return kPostProcessQueue;
   }
 }
 

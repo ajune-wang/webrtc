@@ -27,6 +27,7 @@
 #import "WebRTC/RTCVideoSource.h"
 #import "WebRTC/RTCVideoTrack.h"
 
+#import "ARDARVideoCapturer.h"
 #import "ARDAppEngineClient.h"
 #import "ARDJoinResponse.h"
 #import "ARDMessageResponse.h"
@@ -712,7 +713,7 @@ static int const kKbpsMultiplier = 1000;
   RTCVideoSource *source = [_factory videoSource];
 
 #if !TARGET_IPHONE_SIMULATOR
-  RTCCameraVideoCapturer *capturer = [[RTCCameraVideoCapturer alloc] initWithDelegate:source];
+  ARDARVideoCapturer *capturer = [[ARDARVideoCapturer alloc] initWithDelegate:source];
   [_delegate appClient:self didCreateLocalCapturer:capturer];
 
 #else

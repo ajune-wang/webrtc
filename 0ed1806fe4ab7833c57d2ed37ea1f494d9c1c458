@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "960dc21c_4b86b3df",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-03-15T14:02:34Z",
+      "side": 1,
+      "message": "This is not super-important, but I\u0027m pretty sure the compiler would optimize a division here to the same code (if kNumBlocksPerSecond is a constexpr).",
+      "range": {
+        "startLine": 97,
+        "startChar": 57,
+        "endLine": 97,
+        "endChar": 62
+      },
+      "revId": "0ed1806fe4ab7833c57d2ed37ea1f494d9c1c458",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2c4de86_9184814a",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-03-15T14:02:34Z",
+      "side": 1,
+      "message": "Why is this needed? estimated_delay_samples is already an optional so why not always do this assignment (like it was previously).",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 20
+      },
+      "revId": "0ed1806fe4ab7833c57d2ed37ea1f494d9c1c458",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "a83bd1320da0ffe08594076461216e90300cd1c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c250862a_ff03863b",
+        "filename": "audio/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-03-15T10:14:13Z",
+      "side": 1,
+      "message": "I don\u0027t know why audio_dtx16 is here, it never changes.\nHowever, the default non-perf run of low_bandwidth_audio_test.cc does depend on audio_tiny16.wav.\n\nSo in summary, I\n* removed unused audio_dtx16.wav\n* moved all resources from low_bandwidth_audio_test to low_bandwidth_audio_perf_test\n* re-added audio_tiny16.wav to low_bandwidth_audio_test",
+      "parentUuid": "a1f4550f_6b9a04f8",
+      "range": {
+        "startLine": 191,
+        "startChar": 40,
+        "endLine": 191,
+        "endChar": 45
+      },
+      "revId": "a83bd1320da0ffe08594076461216e90300cd1c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

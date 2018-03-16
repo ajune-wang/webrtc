@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1c701304_23e93e7b",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T13:01:01Z",
+      "side": 1,
+      "message": "Prefer to not have more namespaces.",
+      "parentUuid": "c9cae261_bf45f131",
+      "range": {
+        "startLine": 58,
+        "startChar": 9,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c1fc53b_4b6bf4cb",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -463,6 +487,30 @@
       "side": 1,
       "message": "I think we should probably try to not use the abbrevation in other places either, but if it is the current state of things it\u0027s reasonable to remb here as well.\n\nYes on adding s, consistency beats grammar in code. Person[] persons  is better than Person[] people. I sometimes use _list or _vector when I think using s suffix gets confusing.\n\nMaybe remb_reports?",
       "parentUuid": "6dffee43_bdb32b1e",
+      "range": {
+        "startLine": 469,
+        "startChar": 37,
+        "endLine": 469,
+        "endChar": 41
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92dcb8c7_cde82ba4",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T13:01:01Z",
+      "side": 1,
+      "message": "\u003e Yes on adding s, consistency beats grammar in code.\n\nEnglish grammar is too inconsistent? Please see http://users.monash.edu/~damian/papers/HTML/Perligata.html, starting with Table 1 ;-)",
+      "parentUuid": "14991b0b_48f7a95f",
       "range": {
         "startLine": 469,
         "startChar": 37,

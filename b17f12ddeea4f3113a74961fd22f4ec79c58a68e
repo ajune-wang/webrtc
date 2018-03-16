@@ -46,6 +46,30 @@
       "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc12c691_5fabcdfc",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T11:30:44Z",
+      "side": 1,
+      "message": "Thanks for the explanation.",
+      "parentUuid": "b97bfdb9_6caced2e",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 68
+      },
+      "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

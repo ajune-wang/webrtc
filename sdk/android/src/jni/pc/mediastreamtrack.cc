@@ -68,5 +68,17 @@ static jboolean JNI_MediaStreamTrack_SetEnabled(JNIEnv* jni,
       enabled);
 }
 
+static ScopedJavaLocalRef<jstring> JNI_MediaStreamTrack_KindAudio(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&) {
+  return NativeToJavaString(jni, webrtc::MediaStreamTrackInterface::kAudioKind);
+}
+
+static ScopedJavaLocalRef<jstring> JNI_MediaStreamTrack_KindVideo(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&) {
+  return NativeToJavaString(jni, webrtc::MediaStreamTrackInterface::kVideoKind);
+}
+
 }  // namespace jni
 }  // namespace webrtc

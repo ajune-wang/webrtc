@@ -22,6 +22,30 @@
       "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b97bfdb9_6caced2e",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-16T11:05:15Z",
+      "side": 1,
+      "message": "This removes const \u0026 from the type, so if we try to construct it with a const ref, we\u0027ll still store a copy.\n\nOtherwise we\u0027d get the instantiation (with Closure \u003d\u003d int):\nclass PeriodicTask { const int\u0026 closure_; }\nrather than\nclass PeriodicTask { int closure_; }\n\nThe former would obviously not be what we want, since the const ref would be invalid as soon as we exit the scope where it belongs. This kind of depends on the magic that c++ will make a copy if you assign to a non-ref type.",
+      "parentUuid": "44c87f45_82cb7854",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 68
+      },
+      "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

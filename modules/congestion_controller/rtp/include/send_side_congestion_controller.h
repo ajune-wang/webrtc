@@ -139,10 +139,9 @@ class SendSideCongestionController
 
  private:
   void MaybeCreateControllers();
-  void StartProcess() RTC_RUN_ON(task_queue_);
-  void ProcessTask();
-  void StartPacerQueueUpdate();
-  void PacerQueueUpdateTask();
+  void StartDelayedTasks() RTC_RUN_ON(task_queue_);
+  void ProcessTask() RTC_RUN_ON(task_queue_);
+  void PacerQueueUpdateTask() RTC_RUN_ON(task_queue_);
 
   void UpdateStreamsConfig() RTC_RUN_ON(task_queue_);
   void MaybeUpdateOutstandingData();

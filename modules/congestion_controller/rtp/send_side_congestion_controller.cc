@@ -38,6 +38,7 @@ namespace webrtc_cc {
 namespace {
 
 const char kPacerPushbackExperiment[] = "WebRTC-PacerPushbackExperiment";
+const TimeDelta PacerQueueUpdateInterval = TimeDelta::ms(25);
 
 bool IsPacerPushbackExperimentEnabled() {
   return webrtc::field_trial::IsEnabled(kPacerPushbackExperiment) ||
@@ -96,6 +97,22 @@ TargetRateConstraints ConvertConstraints(int min_bitrate_bps,
                                           : DataRate::Infinity();
   return msg;
 }
+
+class PeriodicTask : public rtc::QueuedTask {
+ public:
+  PeriodicTask(std::function<void()> closure, TimeDelta period)
+      : closure_(closure), period_ms_(period.ms()) {}
+  bool Run() override {
+    closure_();
+    rtc::TaskQueue::Current()->PostDelayedTask(rtc::WrapUnique(this),
+                                               period_ms_);
+    return false;
+  }
+
+ private:
+  const std::function<void()> closure_;
+  const int64_t period_ms_;
+};
 }  // namespace
 
 namespace send_side_cc_internal {
@@ -314,7 +331,7 @@ void SendSideCongestionController::MaybeCreateControllers() {
   controller_ =
       controller_factory_->Create(control_handler_.get(), initial_config_);
   UpdateStreamsConfig();
-  StartProcess();
+  StartDelayedTasks();
 }
 
 SendSideCongestionController::~SendSideCongestionController() {
@@ -506,18 +523,16 @@ void SendSideCongestionController::Process() {
   // Ignored, using task queue to process.
 }
 
-void SendSideCongestionController::StartProcess() {
-  task_queue_->PostDelayedTask(
-      [this]() {
-        RTC_DCHECK_RUN_ON(task_queue_.get());
-        ProcessTask();
-        StartProcess();
-      },
-      process_interval_.ms());
+void SendSideCongestionController::StartDelayedTasks() {
+  task_queue_->PostTask(rtc::MakeUnique<PeriodicTask>(
+      std::bind(&SendSideCongestionController::ProcessTask, this),
+      process_interval_));
+  task_queue_->PostTask(rtc::MakeUnique<PeriodicTask>(
+      std::bind(&SendSideCongestionController::PacerQueueUpdateTask, this),
+      PacerQueueUpdateInterval));
 }
 
 void SendSideCongestionController::ProcessTask() {
-  RTC_DCHECK_RUN_ON(task_queue_.get());
   if (controller_) {
     ProcessInterval msg;
     msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
@@ -526,7 +541,6 @@ void SendSideCongestionController::ProcessTask() {
 }
 
 void SendSideCongestionController::PacerQueueUpdateTask() {
-  RTC_DCHECK_RUN_ON(task_queue_.get());
   if (control_handler_) {
     PacerQueueUpdate msg;
     msg.expected_queue_time = TimeDelta::ms(pacer_->ExpectedQueueTimeMs());
@@ -593,6 +607,7 @@ SendSideCongestionController::GetTransportFeedbackVector() const {
 
 void SendSideCongestionController::PostDelayedTasksForTest() {
   task_queue_->PostTask([this]() {
+    RTC_DCHECK_RUN_ON(task_queue_.get());
     ProcessTask();
     PacerQueueUpdateTask();
   });

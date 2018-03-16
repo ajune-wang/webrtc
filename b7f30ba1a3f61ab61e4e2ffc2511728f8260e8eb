@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "33c7275f_36c2ef48",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T22:12:17Z",
+      "side": 1,
+      "message": "Do you think logging \"-1\" or the default value that\u0027s actually used is more helpful?",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115ed776_ac44495c",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T22:12:17Z",
+      "side": 1,
+      "message": "Could replace check_receiving_interval_ with a helper function, since it\u0027s determined entirely from other variables.\n\nint check_receiving_interval() const {\n  return std::max(MIN_CHECK_RECEIVING_INTERVAL,\n                  config_.receiving_timeout.value_or(DEFAULT_RECEIVING_TIMEOUT) / 10);\n}",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91d3e0b6_0aee2de4",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T22:12:17Z",
+      "side": 1,
+      "message": "What about this and the two fields below?",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7beb91f_b4c6a298",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T22:12:17Z",
+      "side": 1,
+      "message": "Would it be a good idea to add standalone \"DEFAULT_RECEIVING_TIMEOUT\" and \"DEFAULT_CHECK_RECEIVING_INTERVAL\" defines?",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee65cf54_0375830f",
         "filename": "p2p/base/p2ptransportchannel.h",
         "patchSetId": 3
@@ -19,6 +87,47 @@
         "endLine": 141,
         "endChar": 25
       },
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed5a6baa_fca12fae",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T22:12:17Z",
+      "side": 1,
+      "message": "Moving them to IceConfig SGTM.",
+      "parentUuid": "ee65cf54_0375830f",
+      "range": {
+        "startLine": 141,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 25
+      },
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c6354f4_07fa0f10",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T22:12:17Z",
+      "side": 1,
+      "message": "Hmm, why is this called \"WEAK_CONNECTION_RECEIVE_TIMEOUT\" instead of \"DEFAULT_CONNECTION_RECEIVE_TIMEOUT\"? What makes it \"weak\"-specific?",
       "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

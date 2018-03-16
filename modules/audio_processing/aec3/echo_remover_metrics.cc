@@ -231,7 +231,7 @@ void EchoRemoverMetrics::Update(
       case kMetricsCollectionBlocks + 9:
         RTC_HISTOGRAM_BOOLEAN(
             "WebRTC.Audio.EchoCanceller.UsableLinearEstimate",
-            static_cast<int>(aec_state.UsableLinearEstimate() ? 1 : 0));
+            static_cast<int>(aec_state.UseLinearEchoModel() ? 1 : 0));
         RTC_HISTOGRAM_BOOLEAN(
             "WebRTC.Audio.EchoCanceller.ActiveRender",
             static_cast<int>(

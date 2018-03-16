@@ -322,6 +322,7 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
   AecState aec_state(EchoCanceller3Config{});
   RenderSignalAnalyzer render_signal_analyzer;
   rtc::Optional<DelayEstimate> delay_estimate;
+  rtc::Optional<int> refined_delay;
   std::vector<float> e(kBlockSize, 0.f);
   std::array<float, kFftLength> s_scratch;
   std::array<float, kBlockSize> s;
@@ -388,9 +389,10 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       filter.Adapt(*render_buffer, G);
       aec_state.HandleEchoPathChange(EchoPathVariability(
           false, EchoPathVariability::DelayAdjustment::kNone, false));
-      aec_state.Update(delay_estimate, filter.FilterFrequencyResponse(),
-                       filter.FilterImpulseResponse(), true, *render_buffer,
-                       E2_main, Y2, s, false);
+      aec_state.Update(delay_estimate, refined_delay,
+                       filter.FilterFrequencyResponse(),
+                       filter.FilterImpulseResponse(), true, false,
+                       *render_buffer, E2_main, Y2, s);
     }
     // Verify that the filter is able to perform well.
     EXPECT_LT(1000 * std::inner_product(e.begin(), e.end(), e.begin(), 0.f),

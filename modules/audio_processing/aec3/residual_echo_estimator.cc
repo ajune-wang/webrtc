@@ -95,7 +95,7 @@ void ResidualEchoEstimator::Estimate(
   RenderNoisePower(render_buffer, &X2_noise_floor_, &X2_noise_floor_counter_);
 
   // Estimate the residual echo power.
-  if (aec_state.UsableLinearEstimate()) {
+  if (aec_state.UseLinearEchoModel()) {
     LinearEstimate(S2_linear, aec_state.Erle(), aec_state.FilterDelay(), R2);
     AddEchoReverb(S2_linear, aec_state.SaturatedEcho(), aec_state.FilterDelay(),
                   aec_state.ReverbDecay(), R2);

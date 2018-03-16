@@ -78,23 +78,6 @@ class FrameBuffer {
   void UpdateRtt(int64_t rtt_ms);
 
  private:
-  struct FrameKey {
-    FrameKey() : picture_id(-1), spatial_layer(0) {}
-    FrameKey(int64_t picture_id, uint8_t spatial_layer)
-        : picture_id(picture_id), spatial_layer(spatial_layer) {}
-
-    bool operator<(const FrameKey& rhs) const {
-      if (picture_id == rhs.picture_id)
-        return spatial_layer < rhs.spatial_layer;
-      return picture_id < rhs.picture_id;
-    }
-
-    bool operator<=(const FrameKey& rhs) const { return !(rhs < *this); }
-
-    int64_t picture_id;
-    uint8_t spatial_layer;
-  };
-
   struct FrameInfo {
     // The maximum number of frames that can depend on this frame.
     static constexpr size_t kMaxNumDependentFrames = 8;

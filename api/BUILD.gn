@@ -250,6 +250,20 @@ rtc_source_set("encoded_frame_api") {
   ]
 }
 
+rtc_source_set("video_stream_decoder") {
+  visibility = [ "*" ]
+  sources = [
+    "video/video_stream_decoder.h",
+  ]
+
+  deps = [
+    ":encoded_frame_api",
+    ":optional",
+    ":video_frame_api",
+    "../api/video_codecs:video_codecs_api",
+  ]
+}
+
 rtc_source_set("video_frame_api_i420") {
   visibility = [ "*" ]
   sources = [

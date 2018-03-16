@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d4604fb_11ae95e0",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-16T18:40:54Z",
+      "side": 1,
+      "message": "Put this in SetRtpTransportParameters instead?",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f442f207_4a681393",
+        "filename": "pc/rtptransportinternal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-16T18:40:54Z",
+      "side": 1,
+      "message": "If we only update this in the local content description, what if the remote side doesn\u0027t negotiate MID for example? Can we update it in both the local and remote content description instead?\n\nIt looks right now that if the offerer has the MID header extension and the answerer doesn\u0027t, then we\u0027ll still set the MID header extension (and send MIDs) even though the recipient can\u0027t handle them.",
+      "range": {
+        "startLine": 86,
+        "startChar": 34,
+        "endLine": 86,
+        "endChar": 59
+      },
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

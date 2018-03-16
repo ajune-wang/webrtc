@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "186e13e7_e13771e3",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-16T18:40:54Z",
+      "side": 1,
+      "message": "That\u0027s awesome. Then we don\u0027t have to worry about this issue at all and can just RemoteSink then AddSink to change the criteria.",
+      "parentUuid": "b2a89e42_d0e4783f",
+      "revId": "5dcc060fa454ccbdc6733479193bf1dc6ee7e96d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f4cd380_895473c4",
         "filename": "pc/rtptransport.cc",
         "patchSetId": 4

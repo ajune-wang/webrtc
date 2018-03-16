@@ -302,6 +302,30 @@
     },
     {
       "key": {
+        "uuid": "0120836c_cc3fe891",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:47:22Z",
+      "side": 1,
+      "message": "It\u0027s always possible to break these cycles. In this case, I guess you need the interface and the create function to be in separate api build targets?\n\nIf the declaration and the definition aren\u0027t in the same target, each of the two targets need to depend on the other---the definition needs to #include the declaration and GN forces you to have a dependency to go with that, and the declaration needs to depend on the definition since otherwise GN cannot prevent linker errors for users that forget to manually depend on the definition as well as the declaration.",
+      "parentUuid": "6a7dbca5_fc1f7a79",
+      "range": {
+        "startLine": 17,
+        "startChar": 36,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78b37cc5_34b78ce6",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 2

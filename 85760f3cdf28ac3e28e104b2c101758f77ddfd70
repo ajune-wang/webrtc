@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b2df684_9e64553d",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:47:22Z",
+      "side": 1,
+      "message": "Did you decide to not use int for these?",
+      "range": {
+        "startLine": 43,
+        "startChar": 46,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "85760f3cdf28ac3e28e104b2c101758f77ddfd70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1482fdb4_6619435e",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:47:22Z",
+      "side": 1,
+      "message": "Use unique_ptr here, to avoid manual lifetime management?",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "85760f3cdf28ac3e28e104b2c101758f77ddfd70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dac18fe_c44df8c7",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:47:22Z",
+      "side": 1,
+      "message": "Do you need to save the factory pointer here? I thought you would only use it somewhere in the Create() call?",
+      "revId": "85760f3cdf28ac3e28e104b2c101758f77ddfd70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

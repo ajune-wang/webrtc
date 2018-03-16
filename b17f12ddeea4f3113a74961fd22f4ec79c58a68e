@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c2b98073_9dc77afd",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T12:13:11Z",
+      "side": 1,
+      "message": "It\u0027s somewhat obscure. Returning false below means we claim ownership, (otherwise, the task queue would destroy us on return). WrapUnique signals that we passes ownership back to the task queue (which happens to be the same, but the pattern works fine also for posting to any other task queue).\n\nConceptually we\u0027d like |this| to be a unique_ptr, but we can\u0027t have that.",
+      "parentUuid": "8f5c18ec_67493a13",
+      "range": {
+        "startLine": 111,
+        "startChar": 52,
+        "endLine": 111,
+        "endChar": 62
+      },
+      "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44c87f45_82cb7854",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 4

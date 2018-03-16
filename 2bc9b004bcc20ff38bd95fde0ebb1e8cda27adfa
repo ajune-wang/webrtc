@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "c9cae261_bf45f131",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-16T12:47:43Z",
+      "side": 1,
+      "message": "I think all structs strictly used for log parsing should have something in their name to separate them from common names. It will make it easier to follow code that deals with both and easier to search in the code for uses of either.\n\nFor instance it could be:\nLogAlrStateEvent, AlrStateEventLogMessage, LoggedAlrStateEvent, AlrStateEventLog\n\nUsing class names or namespaces to avoid name collisions makes for confusing code. Clarity is usually better than brevity (people tend to read more code than they write)",
+      "parentUuid": "78997a3e_b19f25c6",
+      "range": {
+        "startLine": 58,
+        "startChar": 9,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c1fc53b_4b6bf4cb",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "They are conceptually different types and written in different protobuf messages. Moreover, there are both existing and planned differences between the incoming and outgoing protobuf messages.\n\nI\u0027ll have to look into the \"common ancestor\" approach a bit more. The difficulty is that we want to be able to process both vector\u003cT\u003e and map\u003cuint32_t, vector\u003cT\u003e\u003e, and maybe multimap\u003cint64_t, T\u003e where T can be either the Ancestor type or the Derived type. Adding a bunch of View objects that can be either of the derived type seems a bit cumbersome.\n\nYou are referring to the RtpPacket class in modules/rtp_rtcp/source/rtp_packet.h? I don\u0027t think we don\u0027t want to use it since we care about, and want to be in control of, memory usage.",
       "parentUuid": "2c1fc53b_4b6bf4cb",
+      "range": {
+        "startLine": 121,
+        "startChar": 9,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be9e888e_021bc4c1",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-16T12:47:43Z",
+      "side": 1,
+      "message": "RtpPacket was just a name based on the names here. LogRtpPacket would probably be more appropriate, see comment above.",
+      "parentUuid": "a97ea93a_3ac7e0ae",
       "range": {
         "startLine": 121,
         "startChar": 9,
@@ -190,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "e4194a16_a4aa591b",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-16T12:47:43Z",
+      "side": 1,
+      "message": "Ok, seems in order, might be good to add a comment or todo describing this?",
+      "parentUuid": "f8af4322_4cd141a5",
+      "range": {
+        "startLine": 286,
+        "startChar": 39,
+        "endLine": 286,
+        "endChar": 51
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfeefbb2_db774362",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -234,6 +306,30 @@
       "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5547ba18_9fa0899e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-16T12:47:43Z",
+      "side": 1,
+      "message": "If we don\u0027t want new uses of them and they can be made private I think that is the right thing to do. My expectations of clarity in private functions are lower as well, so then I think it\u0027s fine to have them be similar.",
+      "parentUuid": "bf6c4794_f1e77976",
+      "range": {
+        "startLine": 293,
+        "startChar": 39,
+        "endLine": 293,
+        "endChar": 51
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -284,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "f6b3620c_91b99995",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-16T12:47:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0cc92452_750d1a8f",
+      "range": {
+        "startLine": 464,
+        "startChar": 37,
+        "endLine": 464,
+        "endChar": 41
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "287a313b_b74dca3f",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -319,6 +439,30 @@
       "side": 1,
       "message": "It we wanted to expand the acronym, it should be receiver_estimated_maximum_bitrate_reports(), but I think this is too long. We just call it remb elsewhere in the code (e.g. RtcpPacketRemb),  so I think sticking with this name is good enough.\n\nDo you think \"remb\" should have an \u0027s\u0027 in plural form?",
       "parentUuid": "287a313b_b74dca3f",
+      "range": {
+        "startLine": 469,
+        "startChar": 37,
+        "endLine": 469,
+        "endChar": 41
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14991b0b_48f7a95f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-16T12:47:43Z",
+      "side": 1,
+      "message": "I think we should probably try to not use the abbrevation in other places either, but if it is the current state of things it\u0027s reasonable to remb here as well.\n\nYes on adding s, consistency beats grammar in code. Person[] persons  is better than Person[] people. I sometimes use _list or _vector when I think using s suffix gets confusing.\n\nMaybe remb_reports?",
+      "parentUuid": "6dffee43_bdb32b1e",
       "range": {
         "startLine": 469,
         "startChar": 37,

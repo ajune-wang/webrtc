@@ -1,0 +1,440 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d54f86af_309f0e8b",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "Please end the sentence with a . (https://google.github.io/styleguide/cppguide.html#Punctuation,_Spelling_and_Grammar)",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3db6788_4e51ebf1",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "Please re-add \ndata_dumper_-\u003eDumpRaw(\"aec3_erl\", aec_state_.Erl());\nas this is independent of the ERLE.",
+      "range": {
+        "startLine": 243,
+        "startChar": 25,
+        "endLine": 243,
+        "endChar": 40
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf8de104_41865c75",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "Please put the output parameters after the input parameters (https://google.github.io/styleguide/cppguide.html#Output_Parameters)\n\nAlso, it is not allowed to use a reference as an output variable (https://google.github.io/styleguide/cppguide.html#Output_Parameters). All references need to be const, and an output parameter needs to be a pointer.\n\nMy suggestion for this case is to return the value from the lambda method instead of using an input-output parameter.",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf536a0_7b296b0e",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "104 and 100 are related in that they assume the onset is 4 blocks, right?\n\nTo ensure that that is maintained during any future refactoring, and to make it more explicit I suggest solidifying that using constants, e.g.,\n\nconstexpr int kOnsetSizeBlocks \u003d 4;\nconstexpr int kErleHold \u003d 100;\nconstexpr int kErleOnsetHold \u003d kErleHold + kOnsetSizeBlocks;\n\nThat will also ensure that the two values of 100 remain identical in upcoming tunings.",
+      "range": {
+        "startLine": 63,
+        "startChar": 34,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94dc1f81_202fcf1f",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "I think that it is ensure that erle_[k] is above min_erle_ since erle_onsets_ is above min_erle.\n\nTo make that more explicit, and ensure that it stays so, I\u0027d suggest adding a\nRTC_DCHECK_LE(min_erle_, erle_[k+1]);",
+      "range": {
+        "startLine": 85,
+        "startChar": 44,
+        "endLine": 85,
+        "endChar": 45
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9daa5f9a_0713caa1",
+        "filename": "modules/audio_processing/aec3/erle_estimator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "Please add a comment describing what the method returns. Furthermore, in this case it is probably also good to mention that it is only used for logging and testing purposes.",
+      "range": {
+        "startLine": 35,
+        "startChar": 26,
+        "endLine": 35,
+        "endChar": 44
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75584009_a86e2136",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "There is no reason to namespace the local methods explicitly. Please use the anonymous namespace for those instead.\n\nRegarding the tests, is there a strong reason for creating a separate namespace for them? Otherwise I\u0027d suggest to keep them in the webrtc namespace.",
+      "range": {
+        "startLine": 16,
+        "startChar": 10,
+        "endLine": 16,
+        "endChar": 23
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "321b15d5_d13f7837",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "Constants need to be named in camel-casing with leading k.(https://google.github.io/styleguide/cppguide.html#Constant_Names)",
+      "range": {
+        "startLine": 19,
+        "startChar": 16,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f00af8d_85d13f47",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "I don\u0027t think there is a need to make this static.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 6
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90aaa02d_fcbc91e4",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "I don\u0027t think there is a need to make this static.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e61009e_458bed09",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "The method name needs to start with a capital letter. Also, I\u0027d suggest a verb in the name in this case that describes what is done, e.g., FormFarendFrame(...).\n\nThe output parameters are not allowed to be referenses (https://google.github.io/styleguide/cppguide.html#Output_Parameters). You\u0027ll need to change them to pointers.",
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09cf433_63e12b05",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "The output parameters are not allowed to be referenses (https://google.github.io/styleguide/cppguide.html#Output_Parameters). You\u0027ll need to change them to pointers.",
+      "range": {
+        "startLine": 53,
+        "startChar": 36,
+        "endLine": 53,
+        "endChar": 41
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20c93d00_b8ee9dfe",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "The method name needs to start with a capital letter. Also, I\u0027d suggest a verb in the name in this case that describes what is done, e.g., FormNearendFrame(...)",
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b00e7f47_b8d770f2",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "Nit.: It is not the environment that is verified, so I\u0027d instead suggest.\n\nVerifyErleTracking, or something similar.",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0180774_392e37b4",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "What about VerifyIncreasingErle or VerifyErleIncrease? With that change that name would be a correct sentence.\n\nAlso, the reference parameters need to be const.",
+      "range": {
+        "startLine": 88,
+        "startChar": 12,
+        "endLine": 88,
+        "endChar": 30
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2952da0d_d9b33332",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "What about VerifyErleHold or VerifyErleHoldBehavior?",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 26
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84e73c3c_eade7a9d",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "All the references need to be const (https://google.github.io/styleguide/cppguide.html#Output_Parameters).",
+      "range": {
+        "startLine": 101,
+        "startChar": 27,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50075847_cf850271",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "What about VerifyNoUpdateDuringLowActivity? That is more verbose, but more correct I think.",
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d5650cf_fcda8018",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "The reference parameters need to be const",
+      "range": {
+        "startLine": 114,
+        "startChar": 22,
+        "endLine": 114,
+        "endChar": 40
+      },
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6808fbf_ac2151b0",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-16T14:27:12Z",
+      "side": 1,
+      "message": "I think the separation of the tests into sub-tests is super. But I think it would make sense to then go the full way and make them separate gtest tests, e.g.,\n\nTEST(ErleEstimator, VerifyErleIncrease) {\n...\n\nas it is now, each method is basically already a separate test.",
+      "revId": "db66b7179b8d1fbb8737593943676e639096654f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

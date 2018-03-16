@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a3b12075_c059706b",
+        "filename": "pc/rtcstatscollector.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T22:26:28Z",
+      "side": 1,
+      "message": "Could just DCHECK that |selector| is non-null and count on PeerConnection to call it correctly.",
+      "revId": "ddb9e2342d5e17b507d2356911298c877cc1103f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8cfae177_9466eca2",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 5

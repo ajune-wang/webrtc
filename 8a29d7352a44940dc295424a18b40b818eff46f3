@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "e90d9cb2_fc24fcb8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "It looks like when RTCP packets are received today, when audio and video are bundled, they\u0027ll end up being routed through both BaseChannels. Then Call::DeliverRtcp will be called twice, once with MediaType::AUDIO and once with MediaType::VIDEO.\n\nThis is already a problem, because it means \"received_bytes_per_second_counter_\" will be incremented twice. But with Unified Plan, and multiple BaseChannels of the same media type, it will become more of a problem... It will cause RTCP packets to be delivered to the same Audio/VideoReceiveStreams multiple times.\n\nTo fix this, could we have RtpTransport deliver RTCP packets directly to Call with MediaType::ANY? This could be tracked in a separate bug/fixed in separate CL, but we shouldn\u0027t forget about it.",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1dc381c_f862d267",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "Calling DisconnectFromRtpTransport here may be more future-proof, in case more \"disconnect\" steps are added later.",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61bf7a00_f7bd0a45",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "Is this called any more?",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1ff5f4_514d987f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "Don\u0027t really need to subtract 500. Adding 500 and dividing by 1000 is just a trick to round to the nearest millisecond.\n\nFor example, (2200 + 500) / 1000 \u003d 2. Should the reconstructed time be 2000 or 1500?",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d4604fb_11ae95e0",
         "filename": "pc/channel.cc",
         "patchSetId": 6
@@ -19,6 +87,91 @@
     },
     {
       "key": {
+        "uuid": "288bea33_634b7704",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1638,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "Why did this require a new SSRC?",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85a67cd8_8570969a",
+        "filename": "pc/dtlssrtptransport_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "nit: Check if null just to be safe?",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13be5673_14606185",
+        "filename": "pc/dtlssrtptransport_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "Don\u0027t think we need 0xc9. And can you leave a comment mentioning that \"0\" is the payload type used in kPcmuFrame, used for this test? Same goes for srtptransport_unittest.cc",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b1bfd25_d16c5d2e",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "\"demuxing\"",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a8bff93_7a275164",
+        "filename": "pc/rtptransport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "This isn\u0027t the most ideal design. RtpTransport now needs to be SRTP-aware, which negates some of the benefit of it being its own class. And the per-packet path now bounces between RtpTransport and SrtpTransport, which makes it harder to follow.\n\nCan you think of any cleaner ways to do this? I have a few ideas, but before I write them up, what do you think?",
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f442f207_4a681393",
         "filename": "pc/rtptransportinternal.h",
         "patchSetId": 6
@@ -30,6 +183,30 @@
       "writtenOn": "2018-03-16T18:40:54Z",
       "side": 1,
       "message": "If we only update this in the local content description, what if the remote side doesn\u0027t negotiate MID for example? Can we update it in both the local and remote content description instead?\n\nIt looks right now that if the offerer has the MID header extension and the answerer doesn\u0027t, then we\u0027ll still set the MID header extension (and send MIDs) even though the recipient can\u0027t handle them.",
+      "range": {
+        "startLine": 86,
+        "startChar": 34,
+        "endLine": 86,
+        "endChar": 59
+      },
+      "revId": "8a29d7352a44940dc295424a18b40b818eff46f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "198ac5b7_572c30c0",
+        "filename": "pc/rtptransportinternal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T20:54:29Z",
+      "side": 1,
+      "message": "This is only for receiving (in order to demux packets by MID), so only updating it when setting a local content description is fine.",
+      "parentUuid": "f442f207_4a681393",
       "range": {
         "startLine": 86,
         "startChar": 34,

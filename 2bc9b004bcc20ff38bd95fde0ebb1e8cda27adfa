@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1963db7e_f20d2c13",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T12:16:44Z",
+      "side": 1,
+      "message": "We already use |event| earlier in the fucntion. Changed to \"parsed_event\".",
+      "parentUuid": "611db21c_b7ca4381",
+      "range": {
+        "startLine": 145,
+        "startChar": 49,
+        "endLine": 145,
+        "endChar": 52
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af4af35f_19b955a2",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-11T10:43:11Z",
       "side": 1,
       "message": "Using classes as namespaces makes it harder to restructure code later on. Now any code requiring access to AlrStateEvent also needs to know about ParsedRtcEventLog. But seeing as this seems to be the pattern here already, I\u0027ll mark this as resolved.",
+      "range": {
+        "startLine": 58,
+        "startChar": 9,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78997a3e_b19f25c6",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T12:16:44Z",
+      "side": 1,
+      "message": "If you agree with placing the entire ParsedEventLog (and related analysis code) in a separate \"rtceventlog\" namespace, then I could move it out of the class. Wdyt?",
+      "parentUuid": "af4af35f_19b955a2",
       "range": {
         "startLine": 58,
         "startChar": 9,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a97ea93a_3ac7e0ae",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T12:16:44Z",
+      "side": 1,
+      "message": "They are conceptually different types and written in different protobuf messages. Moreover, there are both existing and planned differences between the incoming and outgoing protobuf messages.\n\nI\u0027ll have to look into the \"common ancestor\" approach a bit more. The difficulty is that we want to be able to process both vector\u003cT\u003e and map\u003cuint32_t, vector\u003cT\u003e\u003e, and maybe multimap\u003cint64_t, T\u003e where T can be either the Ancestor type or the Derived type. Adding a bunch of View objects that can be either of the derived type seems a bit cumbersome.\n\nYou are referring to the RtpPacket class in modules/rtp_rtcp/source/rtp_packet.h? I don\u0027t think we don\u0027t want to use it since we care about, and want to be in control of, memory usage.",
+      "parentUuid": "2c1fc53b_4b6bf4cb",
+      "range": {
+        "startLine": 121,
+        "startChar": 9,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "575214fb_d4b732a2",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-03-11T10:43:11Z",
       "side": 1,
       "message": "Name overloading makes it confusing here, what are the differences, why are they different, etc. Since there are so many arguments it is not instantly obvious what the signature difference is. What about GetRtpHeaderByIndex and GetRtpHeaderByEvent? Another way would be to use a return struct instead of output arguments. Might make the code easier to understand.",
+      "range": {
+        "startLine": 286,
+        "startChar": 39,
+        "endLine": 286,
+        "endChar": 51
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8af4322_4cd141a5",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T12:16:44Z",
+      "side": 1,
+      "message": "I agree, and this CL adds a return struct which is used by the new rtp_packets\u003cDirection\u003e type. We will eventually deprecate all old getters that use indices or references, and only use (vectors of) return structs.",
+      "parentUuid": "575214fb_d4b732a2",
       "range": {
         "startLine": 286,
         "startChar": 39,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "bf6c4794_f1e77976",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T12:16:44Z",
+      "side": 1,
+      "message": "The indexed function above is retained for legacy reasons, and it now forwards the call to the reference version. I could make the reference functions private, if you think it would help? The downside is that it will further obscure the similarity between the functions. Wdyt?",
+      "parentUuid": "bfeefbb2_db774362",
+      "range": {
+        "startLine": 293,
+        "startChar": 39,
+        "endLine": 293,
+        "endChar": 51
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbbcf6f5_80cac06e",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "0cc92452_750d1a8f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T12:16:44Z",
+      "side": 1,
+      "message": "ack\nI mean done. :D",
+      "parentUuid": "cbbcf6f5_80cac06e",
+      "range": {
+        "startLine": 464,
+        "startChar": 37,
+        "endLine": 464,
+        "endChar": 41
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "287a313b_b74dca3f",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -151,6 +295,30 @@
       "writtenOn": "2018-03-11T10:43:11Z",
       "side": 1,
       "message": "remote_bitrate_reports?",
+      "range": {
+        "startLine": 469,
+        "startChar": 37,
+        "endLine": 469,
+        "endChar": 41
+      },
+      "revId": "2bc9b004bcc20ff38bd95fde0ebb1e8cda27adfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dffee43_bdb32b1e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T12:16:44Z",
+      "side": 1,
+      "message": "It we wanted to expand the acronym, it should be receiver_estimated_maximum_bitrate_reports(), but I think this is too long. We just call it remb elsewhere in the code (e.g. RtcpPacketRemb),  so I think sticking with this name is good enough.\n\nDo you think \"remb\" should have an \u0027s\u0027 in plural form?",
+      "parentUuid": "287a313b_b74dca3f",
       "range": {
         "startLine": 469,
         "startChar": 37,

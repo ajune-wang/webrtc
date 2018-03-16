@@ -284,8 +284,8 @@ class VideoStreamEncoderTest : public ::testing::Test {
     metrics::Reset();
     video_send_config_ = VideoSendStream::Config(nullptr);
     video_send_config_.encoder_settings.encoder = &fake_encoder_;
-    video_send_config_.encoder_settings.payload_name = "FAKE";
-    video_send_config_.encoder_settings.payload_type = 125;
+    video_send_config_.rtp.payload_name = "FAKE";
+    video_send_config_.rtp.payload_type = 125;
 
     VideoEncoderConfig video_encoder_config;
     test::FillEncoderConfiguration(1, &video_encoder_config);
@@ -325,7 +325,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
                     unsigned char num_spatial_layers,
                     bool nack_enabled,
                     bool screenshare) {
-    video_send_config_.encoder_settings.payload_name = payload_name;
+    video_send_config_.rtp.payload_name = payload_name;
 
     VideoEncoderConfig video_encoder_config;
     video_encoder_config.number_of_streams = num_streams;

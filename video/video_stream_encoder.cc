@@ -565,12 +565,12 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   crop_height_ = last_frame_info_->height - highest_stream_height;
 
   VideoCodec codec;
-  if (!VideoCodecInitializer::SetupCodec(encoder_config_, settings_, streams,
-                                         nack_enabled_, &codec,
-                                         &rate_allocator_)) {
+  if (!VideoCodecInitializer::SetupCodec(
+          encoder_config_, streams, nack_enabled_, &codec, &rate_allocator_)) {
     RTC_LOG(LS_ERROR) << "Failed to create encoder configuration.";
   }
-
+  // TODO(nisse): This currently gives us a codec with codec.plType == 0.
+  // We must purge dependency on payload_type from VCMEncoderDataBase.
   codec.startBitrate =
       std::max(encoder_start_bitrate_bps_ / 1000, codec.minBitrate);
   codec.startBitrate = std::min(codec.startBitrate, codec.maxBitrate);

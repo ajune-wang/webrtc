@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44c87f45_82cb7854",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T10:51:42Z",
+      "side": 1,
+      "message": "Can you explain what this does?\n\nI see it\u0027s also taken from ClosureTask",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 68
+      },
+      "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

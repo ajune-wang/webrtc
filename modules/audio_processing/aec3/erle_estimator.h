@@ -32,10 +32,15 @@ class ErleEstimator {
 
   // Returns the most recent ERLE estimate.
   const std::array<float, kFftLengthBy2Plus1>& Erle() const { return erle_; }
+  const std::array<float, kFftLengthBy2Plus1>& ErleOnsets() const {
+    return erle_onsets_;
+  }
   float ErleTimeDomain() const { return erle_time_domain_; }
 
  private:
   std::array<float, kFftLengthBy2Plus1> erle_;
+  std::array<float, kFftLengthBy2Plus1> erle_onsets_;
+  std::array<bool, kFftLengthBy2Minus1> coming_onset_;
   std::array<int, kFftLengthBy2Minus1> hold_counters_;
   float erle_time_domain_;
   int hold_counter_time_domain_;

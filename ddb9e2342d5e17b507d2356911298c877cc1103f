@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cfae177_9466eca2",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1907,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-03-16T15:50:39Z",
+      "side": 1,
+      "message": "Since you have all this nice code for dealing with null selectors, please exercise them.\n\nPerhaps refactor the setup of the stats tree into a separate function, so that you can do sender selector, receiver selector and the two null selectors as separate tests?",
+      "revId": "ddb9e2342d5e17b507d2356911298c877cc1103f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

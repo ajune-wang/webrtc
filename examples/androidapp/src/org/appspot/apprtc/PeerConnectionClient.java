@@ -104,6 +104,8 @@ public class PeerConnectionClient {
       "WebRTC-H264HighProfile/Enabled/";
   private static final String DISABLE_WEBRTC_AGC_FIELDTRIAL =
       "WebRTC-Audio-MinimizeResamplingOnMobile/Enabled/";
+  private static final String EXTERNAL_ANDROID_AUDIO_DEVICE_FIELDTRIAL =
+      "WebRTC-ExternalAndroidAudioDevice/Enabled/";
   private static final String AUDIO_CODEC_PARAM_BITRATE = "maxaveragebitrate";
   private static final String AUDIO_ECHO_CANCELLATION_CONSTRAINT = "googEchoCancellation";
   private static final String AUDIO_AUTO_GAIN_CONTROL_CONSTRAINT = "googAutoGainControl";
@@ -402,6 +404,7 @@ public class PeerConnectionClient {
       fieldTrials += DISABLE_WEBRTC_AGC_FIELDTRIAL;
       Log.d(TAG, "Disable WebRTC AGC field trial.");
     }
+    fieldTrials += EXTERNAL_ANDROID_AUDIO_DEVICE_FIELDTRIAL;
 
     // Check preferred video codec.
     preferredVideoCodec = VIDEO_CODEC_VP8;

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d925b135_66348c11",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-16T10:01:13Z",
+      "side": 1,
+      "message": "I would like this target to be named native_api_audio_device_module.",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 35
+      },
+      "revId": "f623004c47bb5e0014b6d3fa99674cbb1dc90ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f583e62_b9e3f674",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-16T10:01:13Z",
+      "side": 1,
+      "message": "We should add the audio_device_module into this group.",
+      "range": {
+        "startLine": 881,
+        "startChar": 7,
+        "endLine": 881,
+        "endChar": 17
+      },
+      "revId": "f623004c47bb5e0014b6d3fa99674cbb1dc90ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6670d75_47cb2ea2",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-16T10:01:13Z",
+      "side": 1,
+      "message": "I realize now these public static functions are part of the public API. So either these files need to be placed under API, or we add a new class AudioDeviceModule.java that contains these static functions that delegate into the src files.\n\nLong term I would prefer to not use global static methods in our API, but that\u0027s outside the scope of this project.",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 66
+      },
+      "revId": "f623004c47bb5e0014b6d3fa99674cbb1dc90ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b4be201_57ee015e",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-16T10:01:13Z",
+      "side": 0,
+      "message": "I\u0027m afraid we need to keep this dependency for backwards compatibility for a while. Clients still call static functions in the old Java files so we need to keep them around.",
+      "range": {
+        "startLine": 625,
+        "startChar": 10,
+        "endLine": 625,
+        "endChar": 11
+      },
+      "revId": "a0319eb7fa5418d4f462eef145840914b876129d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ad1483_b65c5c31",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-16T10:01:13Z",
+      "side": 0,
+      "message": "Same here, I think this dependency should be untouched.",
+      "range": {
+        "startLine": 752,
+        "startChar": 4,
+        "endLine": 752,
+        "endChar": 50
+      },
+      "revId": "a0319eb7fa5418d4f462eef145840914b876129d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

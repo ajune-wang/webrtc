@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1464816b_a9e759a0",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-16T11:37:31Z",
+      "side": 1,
+      "message": "Just realized it is somewhat confusing to have Id as part of the name since picture_id is one of its members. I think FrameKey is better than FrameId because of that.",
+      "parentUuid": "66f348b8_7a7cd02a",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 15
+      },
+      "revId": "b103ee0b07fa1e1009efb94917ade976e22007ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba1cfb86_1e2da704",
         "filename": "api/video/encoded_frame.h",
         "patchSetId": 3
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I\u0027d suggest still taking it out from the api. You can add a |: frame_key_(-1, 0)| to the EncodedFrame constructor, if you need to construct it before these things are known.",
       "parentUuid": "bb3f9d3b_dd53dd9a",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "b103ee0b07fa1e1009efb94917ade976e22007ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a46a3d99_c442560a",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-16T11:37:31Z",
+      "side": 1,
+      "message": "It is used internally, added a TODO about it.",
+      "parentUuid": "ab2410f5_39a40de2",
       "range": {
         "startLine": 21,
         "startChar": 2,

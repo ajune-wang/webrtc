@@ -278,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "6a7dbca5_fc1f7a79",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-16T13:05:15Z",
+      "side": 1,
+      "message": "Not really possible in this case I think. The problem is that we get a dependency cycle since //api:video_stream_decoder would have to depend on //video:video_stream_decoder_impl to be able to #include \"video/video_stream_decoder_impl.h\" in the .cc file.",
+      "parentUuid": "1188b1fc_22ac8f2a",
+      "range": {
+        "startLine": 17,
+        "startChar": 36,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "de1c2945099351ef6dd4ac024288b905dad3c100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78b37cc5_34b78ce6",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 2

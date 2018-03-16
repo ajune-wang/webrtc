@@ -1,0 +1,365 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e4f4729_6af44cb9",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "I would call this \"the std::FILE interface\", or possibly \"the C streams interface\". (Docs: http://en.cppreference.com/w/cpp/io/c)",
+      "range": {
+        "startLine": 177,
+        "startChar": 34,
+        "endLine": 177,
+        "endChar": 63
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f79fc18_943449cf",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "constexpr?",
+      "range": {
+        "startLine": 181,
+        "startChar": 9,
+        "endLine": 181,
+        "endChar": 14
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6f72e62_b2e2ee38",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "constexpr?\n\nMore const below can be constexpr.",
+      "range": {
+        "startLine": 193,
+        "startChar": 9,
+        "endLine": 193,
+        "endChar": 14
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80dac023_0aff4202",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "Suggested formatting:\n\n  static const uint8_t kExpectedContents[] \u003d {\n      // clang-format off\n      \u0027R\u0027, \u0027I\u0027, \u0027F\u0027, \u0027F\u0027,\n      42, 0, 0, 0,       // size of whole file - 8: 6 + 44 - 8\n      \u0027W\u0027, \u0027A\u0027, \u0027V\u0027, \u0027E\u0027,\n      \u0027f\u0027, \u0027m\u0027, \u0027t\u0027, \u0027 \u0027,\n      16, 0, 0, 0,       // size of fmt block - 8: 24 - 8\n      1, 0,              // format: PCM (1)\n      1, 0,              // channels: 1\n      0x13, 0x37, 0, 0,  // sample rate: 14099\n      0x26, 0x6e, 0, 0,  // byte rate: 2 * 14099\n      2, 0,              // block align: NumChannels * BytesPerSample\n      16, 0,             // bits per sample: 2 * 8\n      \u0027d\u0027, \u0027a\u0027, \u0027t\u0027, \u0027a\u0027,\n      6, 0, 0, 0,        // size of payload: 6\n      0, 0,              // first sample: 0.0\n      10, 0,             // second sample: 10.0\n      0xff, 0x7f,        // third sample: 4e4 (saturated)\n      kMetadata[0], kMetadata[1],\n      // clang-format on\n  };",
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f715b315_b7aec99a",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "If you don\u0027t really have anything to say (and one often doesn\u0027t), just use an empty message. (C++17 will make the message optional, and once we chan use that I\u0027m hoping someone will auto-rewrite all the static_asserts with empty messages to have no messages.)",
+      "range": {
+        "startLine": 256,
+        "startChar": 60,
+        "endLine": 256,
+        "endChar": 72
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b67eafed_0a014a22",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 258,
+        "startChar": 2,
+        "endLine": 258,
+        "endChar": 9
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0653c32e_949e7649",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "It\u0027s not 2014 anymore.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9ecef0_1cd1065e",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 13
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc87f386_42bdce87",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 14
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ebe269_b64d0858",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 8
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52be10b7_af90fe78",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "const?\n\n..and in several more places below...",
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5151e33_42240d54",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "nullptr",
+      "range": {
+        "startLine": 36,
+        "startChar": 22,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f04e8163_d7364132",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "You don\u0027t delete the file.",
+      "range": {
+        "startLine": 41,
+        "startChar": 34,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a94428b_722e01ab",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "You do this twice. Turn it into a subroutine?",
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "889f1a5a_d16e81e1",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "This comment isn\u0027t accurate.",
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "806d8f1b_55a266f6",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "Just 0u will work, I think.",
+      "range": {
+        "startLine": 71,
+        "startChar": 37,
+        "endLine": 71,
+        "endChar": 59
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a1d0b4e_8ca61af3",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-16T13:31:40Z",
+      "side": 1,
+      "message": "Can\u0027t you implement this one simply by caling TempFilename and then removing the file?",
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

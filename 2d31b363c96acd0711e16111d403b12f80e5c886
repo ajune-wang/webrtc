@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca782839_bf1d2484",
+        "filename": "pc/rtcstatscollector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-03-16T09:48:32Z",
+      "side": 1,
+      "message": "As a matter of style, I like having the const arguments first and the result second, even when the results are in the form of a callback.",
+      "revId": "2d31b363c96acd0711e16111d403b12f80e5c886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1ead3fa_9e96b69e",
+        "filename": "pc/rtcstatscollector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-03-16T09:48:32Z",
+      "side": 1,
+      "message": "Why is this a struct and not a const class?\nSeems less dangerous to me if it\u0027s a class that can\u0027t be changed after creation; I think of structs as a bad habit.",
+      "revId": "2d31b363c96acd0711e16111d403b12f80e5c886",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

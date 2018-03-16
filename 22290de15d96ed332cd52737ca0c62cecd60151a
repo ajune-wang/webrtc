@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c01b220d_ec9654c2",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T10:09:33Z",
+      "side": 1,
+      "message": "Looks neat!\n\n1. Consider moving to task_queue.h, it looks generally useful.\n\n2. You could maybe use the same pattern as for ClosureTask, with a template type instead of std::function.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 45
+      },
+      "revId": "22290de15d96ed332cd52737ca0c62cecd60151a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aae47a92_115f60ff",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T10:09:33Z",
+      "side": 1,
+      "message": "Should maybe be |\u0026\u0026 closure| (looking at what ClosureTask does).",
+      "range": {
+        "startLine": 103,
+        "startChar": 37,
+        "endLine": 103,
+        "endChar": 44
+      },
+      "revId": "22290de15d96ed332cd52737ca0c62cecd60151a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f1dca76_86408dd3",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T10:09:33Z",
+      "side": 1,
+      "message": "Probably first use of TimeDelta in non-test code. Please keep it simple.",
+      "range": {
+        "startLine": 103,
+        "startChar": 46,
+        "endLine": 103,
+        "endChar": 55
+      },
+      "revId": "22290de15d96ed332cd52737ca0c62cecd60151a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8059b306_9fe38f57",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T10:09:33Z",
+      "side": 1,
+      "message": "I guess rtc::Bind would be more appropriate (but I don\u0027t understand the fine details).",
+      "range": {
+        "startLine": 528,
+        "startChar": 6,
+        "endLine": 528,
+        "endChar": 15
+      },
+      "revId": "22290de15d96ed332cd52737ca0c62cecd60151a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e520147d_d1d30768",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T10:09:33Z",
+      "side": 1,
+      "message": "I think this and the next method should be renamed to read like verbs rather than nouns.\n\nOr inline as lambdas directly in the PostTask calls, if they\u0027re not called from anywhere else?",
+      "range": {
+        "startLine": 535,
+        "startChar": 35,
+        "endLine": 535,
+        "endChar": 46
+      },
+      "revId": "22290de15d96ed332cd52737ca0c62cecd60151a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb5dfc43_78587ac3",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-16T10:09:33Z",
+      "side": 1,
+      "message": "If this really is needed, I think it deserves a comment.",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 0
+      },
+      "revId": "22290de15d96ed332cd52737ca0c62cecd60151a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

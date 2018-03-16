@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8f5c18ec_67493a13",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T11:49:44Z",
+      "side": 1,
+      "message": "I can\u0027t follow the ownership of the delayed tasks. Intuitively, it seems dangerous to repeatedly call WrapUnique on the same object.",
+      "range": {
+        "startLine": 111,
+        "startChar": 52,
+        "endLine": 111,
+        "endChar": 62
+      },
+      "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44c87f45_82cb7854",
         "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
         "patchSetId": 4
@@ -70,6 +93,29 @@
       "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d5257e7_8e877619",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-03-16T11:49:44Z",
+      "side": 1,
+      "message": "I\u0027d prefer to keep the Process name since WebRTC has a long convention of using it for periodic processing. How about StartProcessPeriodicTasks (or StartProcessDelayedTasks, StartProcessTasks)?",
+      "range": {
+        "startLine": 539,
+        "startChar": 35,
+        "endLine": 539,
+        "endChar": 52
+      },
+      "revId": "b17f12ddeea4f3113a74961fd22f4ec79c58a68e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

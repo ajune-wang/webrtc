@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3f5acb28_517c4bc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T21:46:30Z",
+      "side": 1,
+      "message": "Should mention how the CL implements \"a\u003dmsid:-\" to indicate \"no stream\".",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6ded400_f7842c3e",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -78,6 +95,24 @@
       "side": 1,
       "message": "Or possibly look up by ssrc? It sounds like track ID could be removed down the road..\n\nIt looks like the stream_id in RtpSenderInfo is used in a few other places outside of just lookups:\n-UpdateLocalSenders()/OnLocalSenderAdded() - using it to see if the the stream_id has changed and adding it approriately to a RtpSender\n-UpdateRemoteSendersList()/OnRemoteSenderAdded() - Using it to find the remote stream associated with the remote sender. \n\nDo you mean to change to lookup remote_streams_ by track id as well? I think this would work in Plan B mode because we know that a track will never have more than one stream. Let me know if you wanna discuss this offline.",
       "parentUuid": "18774a51_c5880505",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09cf12ce_6367a4fa",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-16T21:46:30Z",
+      "side": 1,
+      "message": "Looking up by SSRC wouldn\u0027t make sense; this lookup how the RtpSender learns what SSRC the track will use, it doesn\u0027t know beforehand.\n\nI do see there are uses of RtpSenderInfo::stream_id we probably don\u0027t want to remove. So we could just remove the stream_id parameter of FindSenderInfo for now. Can you see if any tests break if you do that?",
+      "parentUuid": "c5b10e75_ddcdd4cb",
       "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

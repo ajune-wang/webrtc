@@ -21,8 +21,7 @@
 
 namespace webrtc {
 
-MultiStreamTester::MultiStreamTester(
-    test::SingleThreadedTaskQueueForTesting* task_queue)
+MultiStreamTester::MultiStreamTester(rtc::test::TaskQueueForTest* task_queue)
     : task_queue_(task_queue) {
   // TODO(sprang): Cleanup when msvc supports explicit initializers for array.
   codec_settings[0] = {1, 640, 480};
@@ -138,13 +137,13 @@ void MultiStreamTester::UpdateReceiveConfig(
     VideoReceiveStream::Config* receive_config) {}
 
 test::DirectTransport* MultiStreamTester::CreateSendTransport(
-    test::SingleThreadedTaskQueueForTesting* task_queue,
+    rtc::test::TaskQueueForTest* task_queue,
     Call* sender_call) {
   return new test::DirectTransport(task_queue, sender_call, payload_type_map_);
 }
 
 test::DirectTransport* MultiStreamTester::CreateReceiveTransport(
-    test::SingleThreadedTaskQueueForTesting* task_queue,
+    rtc::test::TaskQueueForTest* task_queue,
     Call* receiver_call) {
   return new test::DirectTransport(task_queue, receiver_call,
                                    payload_type_map_);

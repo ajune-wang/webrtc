@@ -131,7 +131,7 @@ class TransportFeedbackProxy : public TransportFeedbackObserver {
 
   void SetTransportFeedbackObserver(
       TransportFeedbackObserver* feedback_observer) {
-    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    RTC_DCHECK(sequence_checker_.CalledSequentially());
     rtc::CritScope lock(&crit_);
     feedback_observer_ = feedback_observer;
   }
@@ -156,7 +156,7 @@ class TransportFeedbackProxy : public TransportFeedbackObserver {
 
  private:
   rtc::CriticalSection crit_;
-  rtc::ThreadChecker thread_checker_;
+  rtc::SequencedTaskChecker sequence_checker_;
   rtc::ThreadChecker pacer_thread_;
   rtc::ThreadChecker network_thread_;
   TransportFeedbackObserver* feedback_observer_ RTC_GUARDED_BY(&crit_);
@@ -170,7 +170,7 @@ class TransportSequenceNumberProxy : public TransportSequenceNumberAllocator {
 
   void SetSequenceNumberAllocator(
       TransportSequenceNumberAllocator* seq_num_allocator) {
-    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    RTC_DCHECK(sequence_checker_.CalledSequentially());
     rtc::CritScope lock(&crit_);
     seq_num_allocator_ = seq_num_allocator;
   }
@@ -186,7 +186,7 @@ class TransportSequenceNumberProxy : public TransportSequenceNumberAllocator {
 
  private:
   rtc::CriticalSection crit_;
-  rtc::ThreadChecker thread_checker_;
+  rtc::SequencedTaskChecker sequence_checker_;
   rtc::ThreadChecker pacer_thread_;
   TransportSequenceNumberAllocator* seq_num_allocator_ RTC_GUARDED_BY(&crit_);
 };
@@ -196,7 +196,7 @@ class RtpPacketSenderProxy : public RtpPacketSender {
   RtpPacketSenderProxy() : rtp_packet_sender_(nullptr) {}
 
   void SetPacketSender(RtpPacketSender* rtp_packet_sender) {
-    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    RTC_DCHECK(sequence_checker_.CalledSequentially());
     rtc::CritScope lock(&crit_);
     rtp_packet_sender_ = rtp_packet_sender;
   }
@@ -220,7 +220,7 @@ class RtpPacketSenderProxy : public RtpPacketSender {
   }
 
  private:
-  rtc::ThreadChecker thread_checker_;
+  rtc::SequencedTaskChecker sequence_checker_;
   rtc::CriticalSection crit_;
   RtpPacketSender* rtp_packet_sender_ RTC_GUARDED_BY(&crit_);
 };
@@ -673,7 +673,7 @@ void Channel::Init() {
 }
 
 void Channel::Terminate() {
-  RTC_DCHECK(construction_thread_.CalledOnValidThread());
+  RTC_DCHECK(construction_sequence_.CalledSequentially());
   // Must be called on the same thread as Init().
   rtp_receive_statistics_->RegisterRtcpStatisticsCallback(NULL);
 

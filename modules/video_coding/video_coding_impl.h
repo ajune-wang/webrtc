@@ -199,7 +199,7 @@ class VideoReceiver : public Module {
   // In builds where DCHECKs aren't enabled, it will return true.
   bool IsDecoderThreadRunning();
 
-  rtc::ThreadChecker construction_thread_checker_;
+  rtc::SequencedTaskChecker construction_sequence_checker_;
   rtc::ThreadChecker decoder_thread_checker_;
   rtc::ThreadChecker module_thread_checker_;
   Clock* const clock_;
@@ -239,7 +239,7 @@ class VideoReceiver : public Module {
   // to be non-null on the module and decoder threads.
   ProcessThread* process_thread_ = nullptr;
   bool is_attached_to_process_thread_
-      RTC_GUARDED_BY(construction_thread_checker_) = false;
+      RTC_GUARDED_BY(construction_sequence_checker_) = false;
 #if RTC_DCHECK_IS_ON
   bool decoder_thread_is_running_ = false;
 #endif

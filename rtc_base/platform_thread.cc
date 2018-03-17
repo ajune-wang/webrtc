@@ -60,7 +60,7 @@ PlatformThread::PlatformThread(ThreadRunFunction func,
 }
 
 PlatformThread::~PlatformThread() {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+// RTC_DCHECK(sequence_checker_.CalledSequentially());
 #if defined(WEBRTC_WIN)
   RTC_DCHECK(!thread_);
   RTC_DCHECK(!thread_id_);
@@ -85,7 +85,7 @@ void* PlatformThread::StartThread(void* param) {
 #endif  // defined(WEBRTC_WIN)
 
 void PlatformThread::Start() {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  // RTC_DCHECK(sequence_checker_.CalledSequentially());
   RTC_DCHECK(!thread_) << "Thread already started?";
 #if defined(WEBRTC_WIN)
   stop_ = false;
@@ -106,7 +106,7 @@ void PlatformThread::Start() {
 }
 
 bool PlatformThread::IsRunning() const {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+// RTC_DCHECK(sequence_checker_.CalledSequentially());
 #if defined(WEBRTC_WIN)
   return thread_ != nullptr;
 #else
@@ -123,7 +123,7 @@ PlatformThreadRef PlatformThread::GetThreadRef() const {
 }
 
 void PlatformThread::Stop() {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  // RTC_DCHECK(sequence_checker_.CalledSequentially());
   if (!IsRunning())
     return;
 
@@ -221,12 +221,12 @@ bool PlatformThread::SetPriority(ThreadPriority priority) {
   if (run_function_) {
     // The non-deprecated way of how this function gets called, is that it must
     // be called on the worker thread itself.
-    RTC_DCHECK(!thread_checker_.CalledOnValidThread());
+    // RTC_DCHECK(!sequence_checker_.CalledSequentially());
     RTC_DCHECK(spawned_thread_checker_.CalledOnValidThread());
   } else {
     // In the case of deprecated use of this method, it must be called on the
     // same thread as the PlatformThread object is constructed on.
-    RTC_DCHECK(thread_checker_.CalledOnValidThread());
+    // RTC_DCHECK(sequence_checker_.CalledSequentially());
     RTC_DCHECK(IsRunning());
   }
 #endif
@@ -284,7 +284,7 @@ bool PlatformThread::SetPriority(ThreadPriority priority) {
 
 #if defined(WEBRTC_WIN)
 bool PlatformThread::QueueAPC(PAPCFUNC function, ULONG_PTR data) {
-  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+  // RTC_DCHECK(sequence_checker_.CalledSequentially());
   RTC_DCHECK(IsRunning());
 
   return QueueUserAPC(function, thread_, data) != FALSE;

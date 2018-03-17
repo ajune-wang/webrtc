@@ -14,15 +14,16 @@
 #include <memory>
 #include <vector>
 
+#include "call/video_send_stream.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/constants.h"
 #include "test/direct_transport.h"
 #include "test/gtest.h"
 #include "typedefs.h"  // NOLINT(build/include)
-#include "call/video_send_stream.h"
 
 namespace {
 const int kShortTimeoutMs = 500;
@@ -32,7 +33,6 @@ namespace webrtc {
 namespace test {
 
 class PacketTransport;
-class SingleThreadedTaskQueueForTesting;
 
 class RtpRtcpObserver {
  public:
@@ -92,7 +92,7 @@ class PacketTransport : public test::DirectTransport {
  public:
   enum TransportType { kReceiver, kSender };
 
-  PacketTransport(SingleThreadedTaskQueueForTesting* task_queue,
+  PacketTransport(rtc::test::TaskQueueForTest* task_queue,
                   Call* send_call,
                   RtpRtcpObserver* observer,
                   TransportType transport_type,
@@ -105,8 +105,9 @@ class PacketTransport : public test::DirectTransport {
         observer_(observer),
         transport_type_(transport_type) {}
 
-  PacketTransport(SingleThreadedTaskQueueForTesting* task_queue,
-                  Call* send_call, RtpRtcpObserver* observer,
+  PacketTransport(rtc::test::TaskQueueForTest* task_queue,
+                  Call* send_call,
+                  RtpRtcpObserver* observer,
                   TransportType transport_type,
                   std::unique_ptr<FakeNetworkPipe> nw_pipe)
       : test::DirectTransport(task_queue, std::move(nw_pipe), send_call),

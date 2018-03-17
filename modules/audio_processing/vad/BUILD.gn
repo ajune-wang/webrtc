@@ -35,7 +35,6 @@ rtc_static_library("vad") {
     "voice_gmm_tables.h",
   ]
   deps = [
-    "../..:module_api",
     "../../..:typedefs",
     "../../../audio/utility:audio_frame_operations",
     "../../../common_audio",
@@ -60,7 +59,6 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":vad",
-      "../..:module_api",
       "../../../common_audio",
       "../../../test:test_support",
       "//testing/gmock",

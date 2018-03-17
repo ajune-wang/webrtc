@@ -102,7 +102,6 @@ rtc_source_set("audio_device_generic") {
   public_configs = [ ":audio_device_config" ]
 
   deps = [
-    "..:module_api",
     "../..:webrtc_common",
     "../../:typedefs",
     "../../api:array_view",

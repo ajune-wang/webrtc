@@ -376,6 +376,7 @@ if (rtc_include_tests) {
 
     sources = [
       "array_view_unittest.cc",
+#      "audio/audio_frame_unittest.cc",
       "optional_unittest.cc",
       "ortc/mediadescription_unittest.cc",
       "ortc/sessiondescription_unittest.cc",
@@ -398,6 +399,7 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_base_tests_utils",
       "../test:test_support",
+      "audio:audio_frame_api",
     ]
   }
 }

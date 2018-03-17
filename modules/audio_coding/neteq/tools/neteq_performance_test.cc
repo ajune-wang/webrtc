@@ -10,13 +10,13 @@
 
 #include "modules/audio_coding/neteq/tools/neteq_performance_test.h"
 
+#include "api/audio/audio_frame.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/pcm16b/pcm16b.h"
 #include "modules/audio_coding/neteq/include/neteq.h"
 #include "modules/audio_coding/neteq/tools/audio_loop.h"
 #include "modules/audio_coding/neteq/tools/rtp_generator.h"
-#include "modules/include/module_common_types.h"
 #include "rtc_base/checks.h"
 #include "system_wrappers/include/clock.h"
 #include "test/testsupport/fileutils.h"

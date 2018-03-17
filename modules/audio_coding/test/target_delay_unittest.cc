@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "api/audio/audio_frame.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/pcm16b/pcm16b.h"
 #include "modules/audio_coding/include/audio_coding_module.h"

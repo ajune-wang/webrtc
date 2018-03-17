@@ -36,6 +36,7 @@ void ObjCVideoTrackSource::OnCapturedFrame(RTCVideoFrame *frame) {
   int crop_height;
   int crop_x;
   int crop_y;
+  bool drop_frame = false;
   if (!AdaptFrame(frame.width,
                   frame.height,
                   timestamp_us,
@@ -44,7 +45,9 @@ void ObjCVideoTrackSource::OnCapturedFrame(RTCVideoFrame *frame) {
                   &crop_width,
                   &crop_height,
                   &crop_x,
-                  &crop_y)) {
+                  &crop_y,
+                  &drop_frame)) {
+    if (drop_frame) OnDiscardedFrame();
     return;
   }
 

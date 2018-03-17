@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "api/videosourceproxy.h"
+#include "rtc_base/event.h"
 #include "rtc_base/logging.h"
 #include "sdk/android/generated_video_jni/jni/AndroidVideoTrackSourceObserver_jni.h"
 #include "sdk/android/generated_video_jni/jni/VideoSource_jni.h"
@@ -60,6 +61,9 @@ void AndroidVideoTrackSource::SetState(SourceState state) {
     return;
   }
 
+  if (state == AndroidVideoTrackSource::SourceState::kLive && !task_queue_)
+    task_queue_.reset(new rtc::TaskQueue("AndroidVideoTrackSource"));
+
   if (state_ != state) {
     state_ = state;
     FireOnChanged();
@@ -85,9 +89,12 @@ void AndroidVideoTrackSource::OnByteBufferFrameCaptured(const void* frame_data,
   int crop_x;
   int crop_y;
 
+  bool drop_frame = false;
   if (!AdaptFrame(width, height, camera_time_us, &adapted_width,
-                  &adapted_height, &crop_width, &crop_height, &crop_x,
-                  &crop_y)) {
+                  &adapted_height, &crop_width, &crop_height, &crop_x, &crop_y,
+                  &drop_frame)) {
+    if (drop_frame)
+      OnDiscardedFrame();
     return;
   }
 
@@ -136,10 +143,13 @@ void AndroidVideoTrackSource::OnTextureFrameCaptured(
   int crop_x;
   int crop_y;
 
+  bool drop_frame = false;
   if (!AdaptFrame(width, height, camera_time_us, &adapted_width,
-                  &adapted_height, &crop_width, &crop_height, &crop_x,
-                  &crop_y)) {
+                  &adapted_height, &crop_width, &crop_height, &crop_x, &crop_y,
+                  &drop_frame)) {
     surface_texture_helper_->ReturnTextureFrame();
+    if (drop_frame)
+      OnDiscardedFrame();
     return;
   }
 
@@ -186,9 +196,12 @@ void AndroidVideoTrackSource::OnFrameCaptured(
   int crop_x;
   int crop_y;
 
+  bool drop_frame = false;
   if (!AdaptFrame(width, height, camera_time_us, &adapted_width,
-                  &adapted_height, &crop_width, &crop_height, &crop_x,
-                  &crop_y)) {
+                  &adapted_height, &crop_width, &crop_height, &crop_x, &crop_y,
+                  &drop_frame)) {
+    if (drop_frame)
+      OnDiscardedFrame();
     return;
   }
 
@@ -211,6 +224,26 @@ void AndroidVideoTrackSource::OnOutputFormatRequest(int width,
   cricket::VideoFormat format(width, height,
                               cricket::VideoFormat::FpsToInterval(fps), 0);
   video_adapter()->OnOutputFormatRequest(format);
+}
+
+void AndroidVideoTrackSource::OnFrame(const webrtc::VideoFrame& frame) {
+  if (!task_queue_)
+    return;
+
+  rtc::Event done(false, false);
+  task_queue_->PostTask([&frame, &done, this]() {
+    rtc::AdaptedVideoTrackSource::OnFrame(frame);
+    done.Set();
+  });
+  done.Wait(rtc::Event::kForever);
+}
+
+void AndroidVideoTrackSource::OnDiscardedFrame() {
+  if (!task_queue_)
+    return;
+
+  task_queue_->PostTask(
+      [this]() { rtc::AdaptedVideoTrackSource::OnDiscardedFrame(); });
 }
 
 static void JNI_AndroidVideoTrackSourceObserver_OnByteBufferFrameCaptured(

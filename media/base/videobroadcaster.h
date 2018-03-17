@@ -19,6 +19,7 @@
 #include "api/videosinkinterface.h"
 #include "media/base/videosourcebase.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/thread_checker.h"
 
 namespace rtc {
@@ -59,6 +60,7 @@ class VideoBroadcaster : public VideoSourceBase,
       int height) RTC_EXCLUSIVE_LOCKS_REQUIRED(sinks_and_wants_lock_);
 
   ThreadChecker thread_checker_;
+  SequencedTaskChecker frame_sequence_checker_;
   rtc::CriticalSection sinks_and_wants_lock_;
 
   VideoSinkWants current_wants_ RTC_GUARDED_BY(sinks_and_wants_lock_);

@@ -15,11 +15,13 @@
 #include "api/video/i420_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/task_queue.h"
 
 namespace rtc {
 
 VideoBroadcaster::VideoBroadcaster() {
   thread_checker_.DetachFromThread();
+  frame_sequence_checker_.Detach();
 }
 
 void VideoBroadcaster::AddOrUpdateSink(
@@ -42,16 +44,22 @@ void VideoBroadcaster::RemoveSink(
 }
 
 bool VideoBroadcaster::frame_wanted() const {
+  // RTC_DCHECK(rtc::TaskQueue::Current());
+  // RTC_DCHECK(frame_sequence_checker_.CalledSequentially());
   rtc::CritScope cs(&sinks_and_wants_lock_);
   return !sink_pairs().empty();
 }
 
 VideoSinkWants VideoBroadcaster::wants() const {
+  // RTC_CHECK(rtc::TaskQueue::Current());
+  // RTC_DCHECK(frame_sequence_checker_.CalledSequentially());
   rtc::CritScope cs(&sinks_and_wants_lock_);
   return current_wants_;
 }
 
 void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
+  RTC_DCHECK(rtc::TaskQueue::Current());
+  RTC_DCHECK(frame_sequence_checker_.CalledSequentially());
   rtc::CritScope cs(&sinks_and_wants_lock_);
   for (auto& sink_pair : sink_pairs()) {
     if (sink_pair.wants.rotation_applied &&
@@ -74,6 +82,8 @@ void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
 }
 
 void VideoBroadcaster::OnDiscardedFrame() {
+  RTC_DCHECK(rtc::TaskQueue::Current());
+  RTC_DCHECK(frame_sequence_checker_.CalledSequentially());
   for (auto& sink_pair : sink_pairs()) {
     sink_pair.sink->OnDiscardedFrame();
   }
@@ -117,6 +127,8 @@ void VideoBroadcaster::UpdateWants() {
 
 const rtc::scoped_refptr<webrtc::VideoFrameBuffer>&
 VideoBroadcaster::GetBlackFrameBuffer(int width, int height) {
+  RTC_DCHECK(rtc::TaskQueue::Current());
+  RTC_DCHECK(frame_sequence_checker_.CalledSequentially());
   if (!black_frame_buffer_ || black_frame_buffer_->width() != width ||
       black_frame_buffer_->height() != height) {
     rtc::scoped_refptr<webrtc::I420Buffer> buffer =

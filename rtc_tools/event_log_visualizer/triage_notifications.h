@@ -14,7 +14,7 @@
 #include <string>
 
 namespace webrtc {
-namespace plotting {
+namespace rtceventlog {
 
 class TriageNotification {
  public:
@@ -147,7 +147,7 @@ class OutgoingHighLoss : public TriageNotification {
   double avg_loss_fraction_;
 };
 
-}  // namespace plotting
+}  // namespace rtceventlog
 }  // namespace webrtc
 
 #endif  // RTC_TOOLS_EVENT_LOG_VISUALIZER_TRIAGE_NOTIFICATIONS_H_

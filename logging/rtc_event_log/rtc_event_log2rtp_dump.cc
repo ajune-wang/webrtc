@@ -25,7 +25,7 @@
 
 namespace {
 
-using MediaType = webrtc::ParsedRtcEventLog::MediaType;
+using MediaType = webrtc::rtceventlog::ParsedRtcEventLog::MediaType;
 
 DEFINE_bool(
     audio,
@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
     RTC_CHECK(ParseSsrc(FLAG_ssrc, &ssrc_filter))
         << "Flag verification has failed.";
 
-  webrtc::ParsedRtcEventLog parsed_stream;
+  webrtc::rtceventlog::ParsedRtcEventLog parsed_stream;
   if (!parsed_stream.ParseFile(input_file)) {
     std::cerr << "Error while parsing input file: " << input_file << std::endl;
     return -1;
@@ -127,10 +127,10 @@ int main(int argc, char* argv[]) {
     // some required fields and we attempt to access them. We could consider
     // a softer failure option, but it does not seem useful to generate
     // RTP dumps based on broken event logs.
-    if (FLAG_rtp &&
-        parsed_stream.GetEventType(i) == webrtc::ParsedRtcEventLog::RTP_EVENT) {
+    if (FLAG_rtp && parsed_stream.GetEventType(i) ==
+                        webrtc::rtceventlog::ParsedRtcEventLog::RTP_EVENT) {
       webrtc::test::RtpPacket packet;
-      webrtc::PacketDirection direction;
+      webrtc::rtceventlog::PacketDirection direction;
       parsed_stream.GetRtpHeader(i, &direction, packet.data, &packet.length,
                                  &packet.original_length, nullptr);
       if (packet.original_length > packet.length)
@@ -141,7 +141,7 @@ int main(int argc, char* argv[]) {
                                                      packet.length);
 
       // TODO(terelius): Maybe add a flag to dump outgoing traffic instead?
-      if (direction == webrtc::kOutgoingPacket)
+      if (direction == webrtc::rtceventlog::kOutgoingPacket)
         continue;
 
       webrtc::RTPHeader parsed_header;
@@ -166,9 +166,9 @@ int main(int argc, char* argv[]) {
       rtp_counter++;
     }
     if (FLAG_rtcp && parsed_stream.GetEventType(i) ==
-                         webrtc::ParsedRtcEventLog::RTCP_EVENT) {
+                         webrtc::rtceventlog::ParsedRtcEventLog::RTCP_EVENT) {
       webrtc::test::RtpPacket packet;
-      webrtc::PacketDirection direction;
+      webrtc::rtceventlog::PacketDirection direction;
       parsed_stream.GetRtcpPacket(i, &direction, packet.data, &packet.length);
       // For RTCP packets the original_length should be set to 0 in the
       // RTPdump format.
@@ -176,7 +176,7 @@ int main(int argc, char* argv[]) {
       packet.time_ms = parsed_stream.GetTimestamp(i) / 1000;
 
       // TODO(terelius): Maybe add a flag to dump outgoing traffic instead?
-      if (direction == webrtc::kOutgoingPacket)
+      if (direction == webrtc::rtceventlog::kOutgoingPacket)
         continue;
 
       // Note that |packet_ssrc| is the sender SSRC. An RTCP message may contain

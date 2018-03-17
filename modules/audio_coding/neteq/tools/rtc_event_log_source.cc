@@ -40,15 +40,15 @@ std::unique_ptr<Packet> RtcEventLogSource::NextPacket() {
   for (; rtp_packet_index_ < parsed_stream_.GetNumberOfEvents();
        rtp_packet_index_++) {
     if (parsed_stream_.GetEventType(rtp_packet_index_) ==
-        ParsedRtcEventLog::RTP_EVENT) {
-      PacketDirection direction;
+        rtceventlog::ParsedRtcEventLog::RTP_EVENT) {
+      rtceventlog::PacketDirection direction;
       size_t header_length;
       size_t packet_length;
       uint64_t timestamp_us = parsed_stream_.GetTimestamp(rtp_packet_index_);
       parsed_stream_.GetRtpHeader(rtp_packet_index_, &direction, nullptr,
                                   &header_length, &packet_length, nullptr);
 
-      if (direction != kIncomingPacket) {
+      if (direction != rtceventlog::kIncomingPacket) {
         continue;
       }
 
@@ -66,7 +66,7 @@ std::unique_ptr<Packet> RtcEventLogSource::NextPacket() {
       }
 
       if (parsed_stream_.GetMediaType(packet->header().ssrc, direction) !=
-          webrtc::ParsedRtcEventLog::MediaType::AUDIO) {
+          rtceventlog::ParsedRtcEventLog::MediaType::AUDIO) {
         continue;
       }
 
@@ -84,13 +84,11 @@ std::unique_ptr<Packet> RtcEventLogSource::NextPacket() {
 int64_t RtcEventLogSource::NextAudioOutputEventMs() {
   while (audio_output_index_ < parsed_stream_.GetNumberOfEvents()) {
     if (parsed_stream_.GetEventType(audio_output_index_) ==
-        ParsedRtcEventLog::AUDIO_PLAYOUT_EVENT) {
-      uint64_t timestamp_us = parsed_stream_.GetTimestamp(audio_output_index_);
-      // We call GetAudioPlayout only to check that the protobuf event is
-      // well-formed.
-      parsed_stream_.GetAudioPlayout(audio_output_index_, nullptr);
+        rtceventlog::ParsedRtcEventLog::AUDIO_PLAYOUT_EVENT) {
+      rtceventlog::LoggedAudioPlayoutEvent playout_event =
+          parsed_stream_.GetAudioPlayout(audio_output_index_);
       audio_output_index_++;
-      return timestamp_us / 1000;
+      return playout_event.timestamp / 1000;
     }
     audio_output_index_++;
   }

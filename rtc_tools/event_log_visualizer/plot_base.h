@@ -16,7 +16,7 @@
 #include <vector>
 
 namespace webrtc {
-namespace plotting {
+namespace rtceventlog {
 
 enum class LineStyle {
   kNone,  // No line connecting the points. Used to create scatter plots.
@@ -173,7 +173,7 @@ class PlotCollection {
   std::vector<std::unique_ptr<Plot> > plots_;
 };
 
-}  // namespace plotting
+}  // namespace rtceventlog
 }  // namespace webrtc
 
 #endif  // RTC_TOOLS_EVENT_LOG_VISUALIZER_PLOT_BASE_H_

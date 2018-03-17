@@ -489,7 +489,6 @@ rtc_source_set("direct_transport") {
     "../call:call_interfaces",
     "../modules/rtp_rtcp",
     "../rtc_base:rtc_base_approved",
-    "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
   ]
   public_deps = [
@@ -592,8 +591,6 @@ rtc_source_set("test_common") {
     "../modules/video_coding:webrtc_vp9",
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
-    "../rtc_base:rtc_task_queue",
-    "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
     "../system_wrappers:field_trial_api",
     "../system_wrappers:runtime_enabled_features_api",

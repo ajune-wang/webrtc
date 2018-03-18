@@ -18,8 +18,9 @@ namespace webrtc {
 // Configuration struct for EchoCanceller3
 struct EchoCanceller3Config {
   EchoCanceller3Config();
-
+  EchoCanceller3Config(const EchoCanceller3Config& e);
   struct Delay {
+    Delay();
     size_t default_delay = 5;
     size_t down_sampling_factor = 4;
     size_t num_filters = 5;
@@ -30,6 +31,10 @@ struct EchoCanceller3Config {
     size_t hysteresis_limit_2_blocks = 1;
     size_t skew_hysteresis_blocks = 1;
   } delay;
+
+  struct RefinedDelay {
+    bool use_refined_estimator = false;
+  } refined_delay;
 
   struct Filter {
     struct MainConfiguration {
@@ -51,6 +56,8 @@ struct EchoCanceller3Config {
 
     MainConfiguration main_initial = {12, 0.05f, 5.f, 0.001f, 20075344.f};
     ShadowConfiguration shadow_initial = {12, 0.9f, 20075344.f};
+
+    ShadowConfiguration refined_delay = {40, 1.f, 20075344.f};
 
     size_t config_change_duration_blocks = 250;
   } filter;

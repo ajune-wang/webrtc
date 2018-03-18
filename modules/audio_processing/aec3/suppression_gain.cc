@@ -220,7 +220,7 @@ void SuppressionGain::LowerBandGain(
     std::array<float, kFftLengthBy2Plus1>* gain) {
   const bool saturated_echo = aec_state.SaturatedEcho();
   const bool saturating_echo_path = aec_state.SaturatingEchoPath();
-  const bool linear_echo_estimate = aec_state.UsableLinearEstimate();
+  const bool linear_echo_estimate = aec_state.UseLinearEchoModel();
 
   // Count the number of blocks since saturation.
   no_saturation_counter_ = saturated_echo ? 0 : no_saturation_counter_ + 1;

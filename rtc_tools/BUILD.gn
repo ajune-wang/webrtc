@@ -80,6 +80,7 @@ rtc_executable("frame_analyzer") {
   deps = [
     ":command_line_parser",
     ":video_quality_analysis",
+    "../rtc_base:rtc_task_queue_impl",
     "../test:perf_test",
     "//build/win:default_exe_manifest",
   ]

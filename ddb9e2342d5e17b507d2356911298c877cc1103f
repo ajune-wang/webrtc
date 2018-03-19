@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7abdffe5_5da3811a",
+        "filename": "pc/rtcstatscollector.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-19T12:58:13Z",
+      "side": 1,
+      "message": "I don\u0027t want to do that because...\n1. Invoking getStats() with a sender/receiver that is not listed amongst the PCs current set of senders/receivers is a valid use case (e.g. with Plan B having removed it even if it was created with this PC).\n2. The RTCStatsCollectorCallback does not contain an OnFailure callback and I don\u0027t want to add one or duplicate \"return empty report asynchronously\" code.\n\nMy follow-up CL makes use of the null sender/receiver path and this is by design, see that CL.",
+      "parentUuid": "a3b12075_c059706b",
+      "revId": "ddb9e2342d5e17b507d2356911298c877cc1103f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8cfae177_9466eca2",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "ddb9e2342d5e17b507d2356911298c877cc1103f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c676a7d_6abdb1c1",
+        "filename": "pc/rtcstatscollector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1907,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-19T12:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cfae177_9466eca2",
+      "revId": "ddb9e2342d5e17b507d2356911298c877cc1103f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

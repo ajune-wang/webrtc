@@ -24,6 +24,7 @@
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
+#include "rtc_base/ptr_util.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/system/fallthrough.h"
 #include "rtc_base/timeutils.h"
@@ -95,30 +96,6 @@ bool IsFramerateScalingEnabled(
 }
 
 }  //  namespace
-
-class VideoStreamEncoder::ConfigureEncoderTask : public rtc::QueuedTask {
- public:
-  ConfigureEncoderTask(VideoStreamEncoder* video_stream_encoder,
-                       VideoEncoderConfig config,
-                       size_t max_data_payload_length,
-                       bool nack_enabled)
-      : video_stream_encoder_(video_stream_encoder),
-        config_(std::move(config)),
-        max_data_payload_length_(max_data_payload_length),
-        nack_enabled_(nack_enabled) {}
-
- private:
-  bool Run() override {
-    video_stream_encoder_->ConfigureEncoderOnTaskQueue(
-        std::move(config_), max_data_payload_length_, nack_enabled_);
-    return true;
-  }
-
-  VideoStreamEncoder* const video_stream_encoder_;
-  VideoEncoderConfig config_;
-  size_t max_data_payload_length_;
-  bool nack_enabled_;
-};
 
 class VideoStreamEncoder::EncodeTask : public rtc::QueuedTask {
  public:
@@ -510,9 +487,12 @@ void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
 void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                                           size_t max_data_payload_length,
                                           bool nack_enabled) {
+  rtc::MoveOnCopy<VideoEncoderConfig> copymovable_config(std::move(config));
   encoder_queue_.PostTask(
-      std::unique_ptr<rtc::QueuedTask>(new ConfigureEncoderTask(
-          this, std::move(config), max_data_payload_length, nack_enabled)));
+      [this, copymovable_config, max_data_payload_length, nack_enabled]() {
+        ConfigureEncoderOnTaskQueue(copymovable_config.Get(),
+                                    max_data_payload_length, nack_enabled);
+      });
 }
 
 void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(

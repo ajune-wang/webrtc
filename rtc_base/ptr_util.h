@@ -77,6 +77,28 @@ template <typename T, typename... Args>
 typename internal::MakeUniqueResult<T>::Invalid MakeUnique(Args&&... args) =
     delete;
 
+// Class to wrap a movable only type in a way that does move on copy. This
+// breaks constness in ugly ways, but enables moving things into lambdas pre
+// c++14, which is useful.
+// TODO(srte): Remove this when it's possible to use the C++14 feature to move
+// into lambdas.
+template <typename T>
+class MoveOnCopy {
+ public:
+  MoveOnCopy(T&& resource) : resource_(std::move(resource)) {}
+  MoveOnCopy(const MoveOnCopy& other) : resource_(std::move(other.resource_)) {
+    other.valid_ = false;
+  }
+  ~MoveOnCopy() = default;
+  T&& Get() const {
+    RTC_DCHECK(valid_);
+    return std::move(resource_);
+  }
+
+ private:
+  mutable T resource_;
+  mutable bool valid_ = true;
+};
 }  // namespace rtc
 
 #endif  // RTC_BASE_PTR_UTIL_H_

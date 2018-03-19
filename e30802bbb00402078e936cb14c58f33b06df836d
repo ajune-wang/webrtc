@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bccce34_b15d9e76",
+        "filename": "common_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T12:38:44Z",
+      "side": 1,
+      "message": "tl_factory?",
+      "revId": "e30802bbb00402078e936cb14c58f33b06df836d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5477c75f_9b53317d",
+        "filename": "common_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T12:38:44Z",
+      "side": 1,
+      "message": "automaticResizeOn?",
+      "revId": "e30802bbb00402078e936cb14c58f33b06df836d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04f67a77_30f99634",
+        "filename": "common_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T12:38:44Z",
+      "side": 1,
+      "message": "Let memcmp handle the length 0 case internally?",
+      "revId": "e30802bbb00402078e936cb14c58f33b06df836d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

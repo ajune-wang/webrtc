@@ -816,6 +816,7 @@ group("native_api") {
     ":native_api_base",
     ":native_api_codecs",
     ":native_api_jni",
+    ":native_api_peerconnection",
     ":native_api_video",
   ]
 }
@@ -902,6 +903,31 @@ rtc_static_library("native_api_codecs") {
     "//api/video_codecs:video_codecs_api",
     "//rtc_base:checks",
     "//rtc_base:rtc_base_approved",
+  ]
+}
+
+# API for creating Java PeerConnectionFactory from C++ equivalents.
+rtc_static_library("native_api_peerconnection") {
+  visibility = [ "*" ]
+  sources = [
+    "native_api/peerconnection/peerconnectionfactory.cc",
+    "native_api/peerconnection/peerconnectionfactory.h",
+  ]
+
+  if (is_clang) {
+    # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
+    suppressed_configs += [
+      "//build/config/clang:extra_warnings",
+      "//build/config/clang:find_bad_constructs",
+    ]
+  }
+
+  deps = [
+    ":base_jni",
+    ":peerconnection_jni",
+    "//api:libjingle_peerconnection_api",
+    "//api/video_codecs:video_codecs_api",
+    "//rtc_base:rtc_base",
   ]
 }
 

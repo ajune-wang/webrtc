@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddba7aa2_2535d859",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 33
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-03-19T09:22:59Z",
+      "side": 1,
+      "message": "I am not sure this is needed anymore. Can you build frame_analyzer if you remove this dependency?\n\nI am asking because we are probably going towards a solution that uses rtc_link_task_queue_impl\u003dTrue/False in order to avoid to link the default implementation. This means that probably we only want to depend on rtc_link_task_queue (but looking at frame_analyzer/frame_analyzer.cc #include that is not needed too).",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "6ba4fdd210ffafb51b7bac927c480630e2665946",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -208,7 +208,7 @@ int32_t FileAudioDevice::StartPlayout() {
   // PLAYOUT
   if (!_outputFilename.empty() &&
       !_outputFile.OpenFile(_outputFilename.c_str(), false)) {
-    RTC_LOG(LS_ERROR) << "Failed to open playout file: " << _outputFilename;
+    NLOG(LS_ERROR, "Failed to open playout file: ", _outputFilename);
     _playing = false;
     delete[] _playoutBuffer;
     _playoutBuffer = NULL;
@@ -220,8 +220,7 @@ int32_t FileAudioDevice::StartPlayout() {
   _ptrThreadPlay->Start();
   _ptrThreadPlay->SetPriority(rtc::kRealtimePriority);
 
-  RTC_LOG(LS_INFO) << "Started playout capture to output file: "
-                   << _outputFilename;
+  NLOG(LS_INFO, "Started playout capture to output file: ", _outputFilename);
   return 0;
 }
 
@@ -244,8 +243,7 @@ int32_t FileAudioDevice::StopPlayout() {
   _playoutBuffer = NULL;
   _outputFile.CloseFile();
 
-  RTC_LOG(LS_INFO) << "Stopped playout capture to output file: "
-                   << _outputFilename;
+  NLOG(LS_INFO, "Stopped playout capture to output file: ", _outputFilename);
   return 0;
 }
 
@@ -265,7 +263,7 @@ int32_t FileAudioDevice::StartRecording() {
 
   if (!_inputFilename.empty() &&
       !_inputFile.OpenFile(_inputFilename.c_str(), true)) {
-    RTC_LOG(LS_ERROR) << "Failed to open audio input file: " << _inputFilename;
+    NLOG(LS_ERROR, "Failed to open audio input file: ", _inputFilename);
     _recording = false;
     delete[] _recordingBuffer;
     _recordingBuffer = NULL;
@@ -278,7 +276,7 @@ int32_t FileAudioDevice::StartRecording() {
   _ptrThreadRec->Start();
   _ptrThreadRec->SetPriority(rtc::kRealtimePriority);
 
-  RTC_LOG(LS_INFO) << "Started recording from input file: " << _inputFilename;
+  NLOG(LS_INFO, "Started recording from input file: ", _inputFilename);
 
   return 0;
 }
@@ -302,7 +300,7 @@ int32_t FileAudioDevice::StopRecording() {
   }
   _inputFile.CloseFile();
 
-  RTC_LOG(LS_INFO) << "Stopped recording from input file: " << _inputFilename;
+  NLOG(LS_INFO, "Stopped recording from input file: ", _inputFilename);
   return 0;
 }
 

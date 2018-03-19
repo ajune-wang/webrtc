@@ -265,8 +265,8 @@ bool StunMessage::AddMessageIntegrity(const char* key,
                                       hmac, sizeof(hmac));
   RTC_DCHECK(ret == sizeof(hmac));
   if (ret != sizeof(hmac)) {
-    RTC_LOG(LS_ERROR) << "HMAC computation failed. Message-Integrity "
-                      << "has dummy value.";
+    NLOG(LS_ERROR, "HMAC computation failed. Message-Integrity ",
+         "has dummy value.");
     return false;
   }
 
@@ -600,7 +600,7 @@ bool StunAddressAttribute::Read(ByteBufferReader* buf) {
 bool StunAddressAttribute::Write(ByteBufferWriter* buf) const {
   StunAddressFamily address_family = family();
   if (address_family == STUN_ADDRESS_UNDEF) {
-    RTC_LOG(LS_ERROR) << "Error writing address attribute: unknown family.";
+    NLOG(LS_ERROR, "Error writing address attribute: unknown family.");
     return false;
   }
   buf->WriteUInt8(0);
@@ -688,7 +688,7 @@ bool StunXorAddressAttribute::Read(ByteBufferReader* buf) {
 bool StunXorAddressAttribute::Write(ByteBufferWriter* buf) const {
   StunAddressFamily address_family = family();
   if (address_family == STUN_ADDRESS_UNDEF) {
-    RTC_LOG(LS_ERROR) << "Error writing xor-address attribute: unknown family.";
+    NLOG(LS_ERROR, "Error writing xor-address attribute: unknown family.");
     return false;
   }
   rtc::IPAddress xored_ip = GetXoredIP();
@@ -884,7 +884,7 @@ bool StunErrorCodeAttribute::Read(ByteBufferReader* buf) {
     return false;
 
   if ((val >> 11) != 0)
-    RTC_LOG(LS_ERROR) << "error-code bits not zero";
+    NLOG(LS_ERROR, "error-code bits not zero");
 
   class_ = ((val >> 8) & 0x7);
   number_ = (val & 0xff);

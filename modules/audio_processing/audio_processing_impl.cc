@@ -448,10 +448,10 @@ AudioProcessingImpl::AudioProcessingImpl(
     // implemented.
     private_submodules_->gain_controller2.reset(new GainController2());
 
-    RTC_LOG(LS_INFO) << "Capture post processor activated: "
-                     << !!private_submodules_->capture_post_processor
-                     << "\nRender pre processor activated: "
-                     << !!private_submodules_->render_pre_processor;
+    NLOG(LS_INFO, "Capture post processor activated: ",
+         !!private_submodules_->capture_post_processor,
+         "\nRender pre processor activated: ",
+         !!private_submodules_->render_pre_processor);
   }
 
   SetExtraOptions(config);
@@ -708,10 +708,11 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
 
   bool config_ok = LevelController::Validate(config_.level_controller);
   if (!config_ok) {
-    RTC_LOG(LS_ERROR) << "AudioProcessing module config error\n"
-                         "level_controller: "
-                      << LevelController::ToString(config_.level_controller)
-                      << "\nReverting to default parameter set";
+    NLOG(LS_ERROR,
+         "AudioProcessing module config error\n"
+         "level_controller: ",
+         LevelController::ToString(config_.level_controller),
+         "\nReverting to default parameter set");
     config_.level_controller = AudioProcessing::Config::LevelController();
   }
 
@@ -729,28 +730,29 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
     // the level controller regardless of whether it is enabled or not.
     InitializeLevelController();
   }
-  RTC_LOG(LS_INFO) << "Level controller activated: "
-                   << capture_nonlocked_.level_controller_enabled;
+  NLOG(LS_INFO, "Level controller activated: ",
+       capture_nonlocked_.level_controller_enabled);
 
   private_submodules_->level_controller->ApplyConfig(config_.level_controller);
 
   InitializeLowCutFilter();
 
-  RTC_LOG(LS_INFO) << "Highpass filter activated: "
-                   << config_.high_pass_filter.enabled;
+  NLOG(LS_INFO,
+       "Highpass filter activated: ", config_.high_pass_filter.enabled);
 
   config_ok = GainController2::Validate(config_.gain_controller2);
   if (!config_ok) {
-    RTC_LOG(LS_ERROR) << "AudioProcessing module config error\n"
-                         "Gain Controller 2: "
-                      << GainController2::ToString(config_.gain_controller2)
-                      << "\nReverting to default parameter set";
+    NLOG(LS_ERROR,
+         "AudioProcessing module config error\n"
+         "Gain Controller 2: ",
+         GainController2::ToString(config_.gain_controller2),
+         "\nReverting to default parameter set");
     config_.gain_controller2 = AudioProcessing::Config::GainController2();
   }
   InitializeGainController2();
   private_submodules_->gain_controller2->ApplyConfig(config_.gain_controller2);
-  RTC_LOG(LS_INFO) << "Gain Controller 2 activated: "
-                   << config_.gain_controller2.enabled;
+  NLOG(LS_INFO,
+       "Gain Controller 2 activated: ", config_.gain_controller2.enabled);
 }
 
 void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {

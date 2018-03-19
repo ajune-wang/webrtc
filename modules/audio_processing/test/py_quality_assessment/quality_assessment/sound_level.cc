@@ -46,24 +46,22 @@ int main(int argc, char* argv[]) {
 
   // Check parameters.
   if (FLAG_f < 1 || FLAG_f > kMaxFrameLenMs) {
-    RTC_LOG(LS_ERROR) << "Invalid frame length (min: 1, max: " << kMaxFrameLenMs
-                      << ")";
+    NLOG(LS_ERROR, "Invalid frame length (min: 1, max: ", kMaxFrameLenMs, ")");
     return 1;
   }
   if (FLAG_a < 0 || FLAG_d < 0) {
-    RTC_LOG(LS_ERROR) << "Attack and decay must be non-negative";
+    NLOG(LS_ERROR, "Attack and decay must be non-negative");
     return 1;
   }
 
   // Open wav input file and check properties.
   WavReader wav_reader(FLAG_i);
   if (wav_reader.num_channels() != 1) {
-    RTC_LOG(LS_ERROR) << "Only mono wav files supported";
+    NLOG(LS_ERROR, "Only mono wav files supported");
     return 1;
   }
   if (wav_reader.sample_rate() > kMaxSampleRate) {
-    RTC_LOG(LS_ERROR) << "Beyond maximum sample rate (" << kMaxSampleRate
-                      << ")";
+    NLOG(LS_ERROR, "Beyond maximum sample rate (", kMaxSampleRate, ")");
     return 1;
   }
 

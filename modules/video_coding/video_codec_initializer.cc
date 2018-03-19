@@ -38,7 +38,7 @@ bool VideoCodecInitializer::SetupCodec(
         CodecTypeToPayloadString(kVideoCodecVP9);
     if (!SetupCodec(config, associated_codec_settings, streams, nack_enabled,
                     codec, bitrate_allocator)) {
-      RTC_LOG(LS_ERROR) << "Failed to create stereo encoder configuration.";
+      NLOG(LS_ERROR, "Failed to create stereo encoder configuration.");
       return false;
     }
     codec->codecType = kVideoCodecMultiplex;
@@ -139,8 +139,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       RTC_DCHECK_GE(video_codec.VP8()->numberOfTemporalLayers, 1);
 
       if (nack_enabled && video_codec.VP8()->numberOfTemporalLayers == 1) {
-        RTC_LOG(LS_INFO)
-            << "No temporal layers and nack enabled -> resilience off";
+        NLOG(LS_INFO, "No temporal layers and nack enabled -> resilience off");
         video_codec.VP8()->resilience = kResilienceOff;
       }
       break;
@@ -165,8 +164,8 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
 
       if (nack_enabled && video_codec.VP9()->numberOfTemporalLayers == 1 &&
           video_codec.VP9()->numberOfSpatialLayers == 1) {
-        RTC_LOG(LS_INFO) << "No temporal or spatial layers and nack enabled -> "
-                         << "resilience off";
+        NLOG(LS_INFO, "No temporal or spatial layers and nack enabled -> ",
+             "resilience off");
         video_codec.VP9()->resilienceOn = false;
       }
       break;

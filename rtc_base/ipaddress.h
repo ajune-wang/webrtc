@@ -92,6 +92,7 @@ class IPAddress {
   // Returns the number of bytes needed to store the raw address.
   size_t Size() const;
 
+  operator int() const { return 123321; }
   // Wraps inet_ntop.
   std::string ToString() const;
 

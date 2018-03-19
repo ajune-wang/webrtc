@@ -67,10 +67,11 @@ int32_t VCMGenericEncoder::InitEncode(const VideoCodec* settings,
   vcm_encoded_frame_callback_->OnFrameRateChanged(settings->maxFramerate);
 
   if (encoder_->InitEncode(settings, number_of_cores, max_payload_size) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize the encoder associated with "
-                         "codec type: "
-                      << CodecTypeToPayloadString(settings->codecType)
-                      << " (" << settings->codecType <<")";
+    NLOG(LS_ERROR,
+         "Failed to initialize the encoder associated with "
+         "codec type: ",
+         CodecTypeToPayloadString(settings->codecType), " (",
+         settings->codecType, ")");
     return -1;
   }
   vcm_encoded_frame_callback_->Reset();
@@ -112,19 +113,18 @@ void VCMGenericEncoder::SetEncoderParameters(const EncoderParameters& params) {
   if (channel_parameters_have_changed) {
     int res = encoder_->SetChannelParameters(params.loss_rate, params.rtt);
     if (res != 0) {
-      RTC_LOG(LS_WARNING) << "Error set encoder parameters (loss = "
-                          << params.loss_rate << ", rtt = " << params.rtt
-                          << "): " << res;
+      NLOG(LS_WARNING,
+           "Error set encoder parameters (loss = ", params.loss_rate,
+           ", rtt = ", params.rtt, "): ", res);
     }
   }
   if (rates_have_changed) {
     int res = encoder_->SetRateAllocation(params.target_bitrate,
                                           params.input_frame_rate);
     if (res != 0) {
-      RTC_LOG(LS_WARNING) << "Error set encoder rate (total bitrate bps = "
-                          << params.target_bitrate.get_sum_bps()
-                          << ", framerate = " << params.input_frame_rate
-                          << "): " << res;
+      NLOG(LS_WARNING, "Error set encoder rate (total bitrate bps = ",
+           params.target_bitrate.get_sum_bps(),
+           ", framerate = ", params.input_frame_rate, "): ", res);
     }
     vcm_encoded_frame_callback_->OnFrameRateChanged(params.input_frame_rate);
     for (size_t i = 0; i < streams_or_svc_num_; ++i) {
@@ -247,11 +247,13 @@ void VCMEncodedFrameCallback::OnEncodeStarted(uint32_t rtp_timestamp,
     ++stalled_encoder_logged_messages_;
     if (stalled_encoder_logged_messages_ <= kMessagesThrottlingThreshold ||
         stalled_encoder_logged_messages_ % kThrottleRatio == 0) {
-      RTC_LOG(LS_WARNING) << "Too many frames in the encode_start_list."
-                             " Did encoder stall?";
+      NLOG(LS_WARNING,
+           "Too many frames in the encode_start_list."
+           " Did encoder stall?");
       if (stalled_encoder_logged_messages_ == kMessagesThrottlingThreshold) {
-        RTC_LOG(LS_WARNING) << "Too many log messages. Further stalled encoder"
-                               "warnings will be throttled.";
+        NLOG(LS_WARNING,
+             "Too many log messages. Further stalled encoder"
+             "warnings will be throttled.");
       }
     }
     post_encode_callback_->OnDroppedFrame(DropReason::kDroppedByEncoder);
@@ -317,12 +319,12 @@ EncodedImageCallback::Result VCMEncodedFrameCallback::OnEncodedImage(
           if (incorrect_capture_time_logged_messages_ <=
                   kMessagesThrottlingThreshold ||
               incorrect_capture_time_logged_messages_ % kThrottleRatio == 0) {
-            RTC_LOG(LS_WARNING)
-                << "Encoder is not preserving capture timestamps.";
+            NLOG(LS_WARNING, "Encoder is not preserving capture timestamps.");
             if (incorrect_capture_time_logged_messages_ ==
                 kMessagesThrottlingThreshold) {
-              RTC_LOG(LS_WARNING) << "Too many log messages. Further incorrect "
-                                     "timestamps warnings will be throttled.";
+              NLOG(LS_WARNING,
+                   "Too many log messages. Further incorrect "
+                   "timestamps warnings will be throttled.");
             }
           }
         }
@@ -331,14 +333,15 @@ EncodedImageCallback::Result VCMEncodedFrameCallback::OnEncodedImage(
         ++reordered_frames_logged_messages_;
         if (reordered_frames_logged_messages_ <= kMessagesThrottlingThreshold ||
             reordered_frames_logged_messages_ % kThrottleRatio == 0) {
-          RTC_LOG(LS_WARNING)
-              << "Frame with no encode started time recordings. "
-                 "Encoder may be reordering frames "
-                 "or not preserving RTP timestamps.";
+          NLOG(LS_WARNING,
+               "Frame with no encode started time recordings. "
+               "Encoder may be reordering frames "
+               "or not preserving RTP timestamps.");
           if (reordered_frames_logged_messages_ ==
               kMessagesThrottlingThreshold) {
-            RTC_LOG(LS_WARNING) << "Too many log messages. Further frames "
-                                   "reordering warnings will be throttled.";
+            NLOG(LS_WARNING,
+                 "Too many log messages. Further frames "
+                 "reordering warnings will be throttled.");
           }
         }
       }

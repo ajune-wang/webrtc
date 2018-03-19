@@ -120,8 +120,8 @@ void SlotSimulcastMaxResolution(size_t max_layers, int* width, int* height) {
   int index = FindSimulcastFormatIndex(*width, *height, max_layers);
   *width = kSimulcastFormats[index].width;
   *height = kSimulcastFormats[index].height;
-  RTC_LOG(LS_INFO) << "SlotSimulcastMaxResolution to width:" << *width
-                   << " height:" << *height;
+  NLOG(LS_INFO, "SlotSimulcastMaxResolution to width:", *width,
+       " height:", *height);
 }
 
 void BoostMaxSimulcastLayer(int max_bitrate_bps,
@@ -301,9 +301,10 @@ ScreenshareLayerConfig ScreenshareLayerConfig::GetDefault() {
   ScreenshareLayerConfig config(kScreenshareDefaultTl0BitrateKbps,
                                 kScreenshareDefaultTl1BitrateKbps);
   if (!group.empty() && !FromFieldTrialGroup(group, &config)) {
-    RTC_LOG(LS_WARNING) << "Unable to parse WebRTC-ScreenshareLayerRates"
-                           " field trial group: '"
-                        << group << "'.";
+    NLOG(LS_WARNING,
+         "Unable to parse WebRTC-ScreenshareLayerRates"
+         " field trial group: '",
+         group, "'.");
   }
   return config;
 }

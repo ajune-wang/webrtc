@@ -50,7 +50,7 @@ std::unique_ptr<VideoDecoder> InternalDecoderFactory::CreateVideoDecoder(
     return H264Decoder::Create();
 #endif
 
-  RTC_LOG(LS_ERROR) << "Trying to create decoder for unsupported format";
+  NLOG(LS_ERROR, "Trying to create decoder for unsupported format");
   return nullptr;
 }
 

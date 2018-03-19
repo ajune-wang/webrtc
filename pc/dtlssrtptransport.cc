@@ -66,13 +66,13 @@ void DtlsSrtpTransport::SetDtlsTransports(
       << "Setting RTCP for DTLS/SRTP after the DTLS is active "
          "should never happen.";
 
-  RTC_LOG(LS_INFO) << "Setting RTCP Transport on " << transport_name
-                   << " transport " << rtcp_dtls_transport;
+  NLOG(LS_INFO, "Setting RTCP Transport on ", transport_name, " transport ",
+       *rtcp_dtls_transport);
   SetRtcpDtlsTransport(rtcp_dtls_transport);
   SetRtcpPacketTransport(rtcp_dtls_transport);
 
-  RTC_LOG(LS_INFO) << "Setting RTP Transport on " << transport_name
-                   << " transport " << rtp_dtls_transport;
+  NLOG(LS_INFO, "Setting RTP Transport on ", transport_name, " transport ",
+       *rtp_dtls_transport);
   SetRtpDtlsTransport(rtp_dtls_transport);
   SetRtpPacketTransport(rtp_dtls_transport);
 
@@ -176,7 +176,7 @@ void DtlsSrtpTransport::SetupRtpDtlsSrtp() {
           selected_crypto_suite, &recv_key[0],
           static_cast<int>(recv_key.size()), recv_extension_ids)) {
     SignalDtlsSrtpSetupFailure(this, /*rtcp=*/false);
-    RTC_LOG(LS_WARNING) << "DTLS-SRTP key installation for RTP failed";
+    NLOG(LS_WARNING, "DTLS-SRTP key installation for RTP failed");
   }
 }
 
@@ -208,7 +208,7 @@ void DtlsSrtpTransport::SetupRtcpDtlsSrtp() {
           selected_crypto_suite, &rtcp_recv_key[0],
           static_cast<int>(rtcp_recv_key.size()), recv_extension_ids)) {
     SignalDtlsSrtpSetupFailure(this, /*rtcp=*/true);
-    RTC_LOG(LS_WARNING) << "DTLS-SRTP key installation for RTCP failed";
+    NLOG(LS_WARNING, "DTLS-SRTP key installation for RTCP failed");
   }
 }
 
@@ -222,19 +222,18 @@ bool DtlsSrtpTransport::ExtractParams(
   }
 
   if (!dtls_transport->GetSrtpCryptoSuite(selected_crypto_suite)) {
-    RTC_LOG(LS_ERROR) << "No DTLS-SRTP selected crypto suite";
+    NLOG(LS_ERROR, "No DTLS-SRTP selected crypto suite");
     return false;
   }
 
-  RTC_LOG(LS_INFO) << "Extracting keys from transport: "
-                   << dtls_transport->transport_name();
+  NLOG(LS_INFO,
+       "Extracting keys from transport: ", dtls_transport->transport_name());
 
   int key_len;
   int salt_len;
   if (!rtc::GetSrtpKeyAndSaltLengths((*selected_crypto_suite), &key_len,
                                      &salt_len)) {
-    RTC_LOG(LS_ERROR) << "Unknown DTLS-SRTP crypto suite"
-                      << selected_crypto_suite;
+    NLOG(LS_ERROR, "Unknown DTLS-SRTP crypto suite", *selected_crypto_suite);
     return false;
   }
 
@@ -245,7 +244,7 @@ bool DtlsSrtpTransport::ExtractParams(
   if (!dtls_transport->ExportKeyingMaterial(kDtlsSrtpExporterLabel, NULL, 0,
                                             false, &dtls_buffer[0],
                                             dtls_buffer.size())) {
-    RTC_LOG(LS_WARNING) << "DTLS-SRTP key export failed";
+    NLOG(LS_WARNING, "DTLS-SRTP key export failed");
     RTC_NOTREACHED();  // This should never happen
     return false;
   }
@@ -264,7 +263,7 @@ bool DtlsSrtpTransport::ExtractParams(
 
   rtc::SSLRole role;
   if (!dtls_transport->GetDtlsRole(&role)) {
-    RTC_LOG(LS_WARNING) << "Failed to get the DTLS role.";
+    NLOG(LS_WARNING, "Failed to get the DTLS role.");
     return false;
   }
 

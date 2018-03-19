@@ -113,7 +113,7 @@ LRESULT Win32Window::WndProc(HWND hwnd,
     if (WM_DESTROY == uMsg) {
       for (HWND child = ::GetWindow(hwnd, GW_CHILD); child;
            child = ::GetWindow(child, GW_HWNDNEXT)) {
-        RTC_LOG(LS_INFO) << "Child window: " << static_cast<void*>(child);
+        NLOG(LS_INFO, "Child window: ", static_cast<void*>(child));
       }
     }
     if (WM_NCDESTROY == uMsg) {

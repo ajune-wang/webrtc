@@ -117,8 +117,8 @@ void BlockProcessorImpl::ProcessCapture(
     echo_path_variability.delay_change =
         EchoPathVariability::DelayAdjustment::kBufferFlush;
     delay_controller_->Reset();
-    RTC_LOG(LS_WARNING) << "Reset due to render buffer overrun at block  "
-                        << capture_call_counter_;
+    NLOG(LS_WARNING, "Reset due to render buffer overrun at block  ",
+         capture_call_counter_);
   }
 
   // Update the render buffers with any newly arrived render blocks and prepare
@@ -136,8 +136,8 @@ void BlockProcessorImpl::ProcessCapture(
       capture_properly_started_ = false;
       render_properly_started_ = false;
 
-      RTC_LOG(LS_WARNING) << "Reset due to render buffer underrrun at block "
-                          << capture_call_counter_;
+      NLOG(LS_WARNING, "Reset due to render buffer underrrun at block ",
+           capture_call_counter_);
     }
   } else if (render_event_ == RenderDelayBuffer::BufferingEvent::kApiCallSkew) {
     // There have been too many render calls in a row. Reset to avoid noncausal
@@ -147,8 +147,8 @@ void BlockProcessorImpl::ProcessCapture(
     delay_controller_->Reset();
     capture_properly_started_ = false;
     render_properly_started_ = false;
-    RTC_LOG(LS_WARNING) << "Reset due to render buffer api skew at block "
-                        << capture_call_counter_;
+    NLOG(LS_WARNING, "Reset due to render buffer api skew at block ",
+         capture_call_counter_);
   }
 
   data_dumper_->DumpWav("aec3_processblock_capture_input2", kBlockSize,
@@ -164,8 +164,8 @@ void BlockProcessorImpl::ProcessCapture(
     if (render_buffer_->CausalDelay(estimated_delay_->delay)) {
       bool delay_change = render_buffer_->SetDelay(estimated_delay_->delay);
       if (delay_change) {
-        RTC_LOG(LS_WARNING) << "Delay changed to " << estimated_delay_->delay
-                            << " at block " << capture_call_counter_;
+        NLOG(LS_WARNING, "Delay changed to ", estimated_delay_->delay,
+             " at block ", capture_call_counter_);
         echo_path_variability.delay_change =
             EchoPathVariability::DelayAdjustment::kNewDetectedDelay;
       }
@@ -180,8 +180,8 @@ void BlockProcessorImpl::ProcessCapture(
         render_buffer_->Reset();
         capture_properly_started_ = false;
         render_properly_started_ = false;
-        RTC_LOG(LS_WARNING) << "Reset due to noncausal delay at block "
-                            << capture_call_counter_;
+        NLOG(LS_WARNING, "Reset due to noncausal delay at block ",
+             capture_call_counter_);
       }
     }
   }

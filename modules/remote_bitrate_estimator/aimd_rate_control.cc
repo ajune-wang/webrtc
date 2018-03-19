@@ -42,15 +42,16 @@ float ReadTrendlineFilterWindowSize() {
       sscanf(experiment_string.c_str(), "Enabled-%f", &backoff_factor);
   if (parsed_values == 1) {
     if (backoff_factor >= 1.0f) {
-      RTC_LOG(WARNING) << "Back-off factor must be less than 1.";
+      NLOG(WARNING, "Back-off factor must be less than 1.");
     } else if (backoff_factor <= 0.0f) {
-      RTC_LOG(WARNING) << "Back-off factor must be greater than 0.";
+      NLOG(WARNING, "Back-off factor must be greater than 0.");
     } else {
       return backoff_factor;
     }
   }
-  RTC_LOG(LS_WARNING) << "Failed to parse parameters for AimdRateControl "
-                         "experiment from field trial string. Using default.";
+  NLOG(LS_WARNING,
+       "Failed to parse parameters for AimdRateControl "
+       "experiment from field trial string. Using default.");
   return kDefaultBackoffFactor;
 }
 
@@ -72,7 +73,7 @@ AimdRateControl::AimdRateControl()
       in_experiment_(!AdaptiveThresholdExperimentIsDisabled()),
       smoothing_experiment_(
           webrtc::field_trial::IsEnabled("WebRTC-Audio-BandwidthSmoothing")) {
-  RTC_LOG(LS_INFO) << "Using aimd rate control with back off factor " << beta_;
+  NLOG(LS_INFO, "Using aimd rate control with back off factor ", beta_);
 }
 
 AimdRateControl::~AimdRateControl() {}

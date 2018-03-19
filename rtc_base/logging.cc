@@ -19,6 +19,8 @@
 #undef ERROR  // wingdi.h
 #endif
 
+#include <iostream>
+
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS)
 #include <CoreServices/CoreServices.h>
 #elif defined(WEBRTC_ANDROID)
@@ -36,6 +38,8 @@ static const int kMaxLogLineSize = 1024 - 60;
 #include <iomanip>
 #include <ostream>
 #include <vector>
+
+#include <cstdint>
 
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/logging.h"
@@ -355,8 +359,6 @@ void LogMessage::OutputToDebug(const std::string& str,
                                LoggingSeverity severity,
                                const char* tag) {
 #else
-void LogMessage::OutputToDebug(const std::string& str,
-                               LoggingSeverity severity) {
 #endif
   bool log_to_stderr = log_to_stderr_;
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS) && defined(NDEBUG)
@@ -468,6 +470,35 @@ void LogMessage::FinishPrintStream() {
   if (!extra_.empty())
     print_stream_ << " : " << extra_;
   print_stream_ << std::endl;
+}
+
+__attribute__((noinline)) void RealLog(const char* file,
+                                       int line,
+                                       LoggingSeverity sev,
+                                       const std::uint8_t* tags,
+                                       ...) {
+  // build the string
+  std::string s = "THIS SHOULDNT BE HERE";
+  va_list vl;
+  va_start(vl, tags);
+
+  for (; *tags != 0; tags++) {
+    switch (*tags) {
+      case 1:
+        s += std::to_string(va_arg(vl, int));
+        break;
+      case 2:
+        s += va_arg(vl, const char*);
+        break;
+      case 3:
+        s += *va_arg(vl, std::string*);
+        break;
+    }
+  }
+  va_end(vl);
+
+  // print the thing
+  rtc::LogMessage(file, line, sev).stream() << s;
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -93,7 +93,7 @@ void PacedSender::Pause() {
   {
     rtc::CritScope cs(&critsect_);
     if (!paused_)
-      RTC_LOG(LS_INFO) << "PacedSender paused.";
+      NLOG(LS_INFO, "PacedSender paused.");
     paused_ = true;
     packets_->SetPauseState(true, clock_->TimeInMilliseconds());
   }
@@ -108,7 +108,7 @@ void PacedSender::Resume() {
   {
     rtc::CritScope cs(&critsect_);
     if (paused_)
-      RTC_LOG(LS_INFO) << "PacedSender resumed.";
+      NLOG(LS_INFO, "PacedSender resumed.");
     paused_ = false;
     packets_->SetPauseState(false, clock_->TimeInMilliseconds());
   }
@@ -127,7 +127,7 @@ void PacedSender::SetProbingEnabled(bool enabled) {
 
 void PacedSender::SetEstimatedBitrate(uint32_t bitrate_bps) {
   if (bitrate_bps == 0)
-    RTC_LOG(LS_ERROR) << "PacedSender is not designed to handle 0 bitrate.";
+    NLOG(LS_ERROR, "PacedSender is not designed to handle 0 bitrate.");
   rtc::CritScope cs(&critsect_);
   estimated_bitrate_bps_ = bitrate_bps;
   padding_budget_->set_target_rate_kbps(
@@ -241,9 +241,8 @@ void PacedSender::Process() {
   time_last_process_us_ = now_us;
   int64_t elapsed_time_ms = (now_us - last_send_time_us_ + 500) / 1000;
   if (elapsed_time_ms > kMaxElapsedTimeMs) {
-    RTC_LOG(LS_WARNING) << "Elapsed time (" << elapsed_time_ms
-                        << " ms) longer than expected, limiting to "
-                        << kMaxElapsedTimeMs << " ms";
+    NLOG(LS_WARNING, "Elapsed time (", elapsed_time_ms,
+         " ms) longer than expected, limiting to ", kMaxElapsedTimeMs, " ms");
     elapsed_time_ms = kMaxElapsedTimeMs;
   }
   // When paused we send a padding packet every 500 ms to ensure we won't get
@@ -332,7 +331,7 @@ void PacedSender::Process() {
 }
 
 void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
-  RTC_LOG(LS_INFO) << "ProcessThreadAttached 0x" << std::hex << process_thread;
+  NLOG(LS_INFO, "ProcessThreadAttached 0x", (int)process_thread);
   rtc::CritScope cs(&process_thread_lock_);
   process_thread_ = process_thread;
 }

@@ -46,10 +46,10 @@ class StunBindingRequest : public StunRequest {
     const StunAddressAttribute* addr_attr =
         response->GetAddress(STUN_ATTR_MAPPED_ADDRESS);
     if (!addr_attr) {
-      RTC_LOG(LS_ERROR) << "Binding response missing mapped address.";
+      NLOG(LS_ERROR, "Binding response missing mapped address.");
     } else if (addr_attr->family() != STUN_ADDRESS_IPV4 &&
                addr_attr->family() != STUN_ADDRESS_IPV6) {
-      RTC_LOG(LS_ERROR) << "Binding address has bad family";
+      NLOG(LS_ERROR, "Binding address has bad family");
     } else {
       rtc::SocketAddress addr(addr_attr->ipaddr(), addr_attr->port());
       port_->OnStunBindingRequestSucceeded(this->Elapsed(), server_addr_, addr);
@@ -66,12 +66,10 @@ class StunBindingRequest : public StunRequest {
   void OnErrorResponse(StunMessage* response) override {
     const StunErrorCodeAttribute* attr = response->GetErrorCode();
     if (!attr) {
-      RTC_LOG(LS_ERROR) << "Missing binding response error code.";
+      NLOG(LS_ERROR, "Missing binding response error code.");
     } else {
-      RTC_LOG(LS_ERROR) << "Binding error response:"
-                        << " class=" << attr->eclass()
-                        << " number=" << attr->number() << " reason='"
-                        << attr->reason() << "'";
+      NLOG(LS_ERROR, "Binding error response:", " class=", attr->eclass(),
+           " number=", attr->number(), " reason='", attr->reason(), "'");
     }
 
     port_->OnStunBindingOrResolveRequestFailed(server_addr_);
@@ -85,9 +83,9 @@ class StunBindingRequest : public StunRequest {
     }
   }
   void OnTimeout() override {
-    RTC_LOG(LS_ERROR) << "Binding request timed out from "
-                      << port_->GetLocalAddress().ToSensitiveString() << " ("
-                      << port_->Network()->name() << ")";
+    NLOG(LS_ERROR, "Binding request timed out from ",
+         port_->GetLocalAddress().ToSensitiveString(), " (",
+         port_->Network()->name(), ")");
 
     port_->OnStunBindingOrResolveRequestFailed(server_addr_);
   }
@@ -430,7 +428,7 @@ void UDPPort::SendStunBindingRequest(const rtc::SocketAddress& stun_addr) {
     } else {
       // Since we can't send stun messages to the server, we should mark this
       // port ready.
-      RTC_LOG(LS_WARNING) << "STUN server address is incompatible.";
+      NLOG(LS_WARNING, "STUN server address is incompatible.");
       OnStunBindingOrResolveRequestFailed(stun_addr);
     }
   }

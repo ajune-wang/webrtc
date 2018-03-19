@@ -516,12 +516,12 @@ class PosixSignalDeliveryTest : public testing::Test {
 
   bool ExpectSignal(int signum) {
     if (signals_received_.empty()) {
-      RTC_LOG(LS_ERROR) << "ExpectSignal(): No signal received";
+      NLOG(LS_ERROR, "ExpectSignal(): No signal received");
       return false;
     }
     if (signals_received_[0] != signum) {
-      RTC_LOG(LS_ERROR) << "ExpectSignal(): Received signal "
-                        << signals_received_[0] << ", expected " << signum;
+      NLOG(LS_ERROR, "ExpectSignal(): Received signal ", signals_received_[0],
+           ", expected ", signum);
       return false;
     }
     signals_received_.erase(signals_received_.begin());
@@ -531,8 +531,8 @@ class PosixSignalDeliveryTest : public testing::Test {
   bool ExpectNone() {
     bool ret = signals_received_.empty();
     if (!ret) {
-      RTC_LOG(LS_ERROR) << "ExpectNone(): Received signal "
-                        << signals_received_[0] << ", expected none";
+      NLOG(LS_ERROR, "ExpectNone(): Received signal ", signals_received_[0],
+           ", expected none");
     }
     return ret;
   }

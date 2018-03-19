@@ -309,8 +309,8 @@ std::vector<std::string> TurnPort::GetTlsEllipticCurves() const {
 void TurnPort::PrepareAddress() {
   if (credentials_.username.empty() ||
       credentials_.password.empty()) {
-    RTC_LOG(LS_ERROR) << "Allocation can't be started without setting the"
-                      << " TURN server credentials for the user.";
+    NLOG(LS_ERROR, "Allocation can't be started without setting the",
+         " TURN server credentials for the user.");
     OnAllocateError();
     return;
   }
@@ -325,9 +325,9 @@ void TurnPort::PrepareAddress() {
   } else {
     // If protocol family of server address doesn't match with local, return.
     if (!IsCompatibleAddress(server_address_.address)) {
-      RTC_LOG(LS_ERROR) << "IP address family does not match: "
-                        << "server: " << server_address_.address.family()
-                        << " local: " << Network()->GetBestIP().family();
+      NLOG(LS_ERROR, "IP address family does not match: ", "server: ",
+           server_address_.address.family(),
+           " local: ", Network()->GetBestIP().family());
       OnAllocateError();
       return;
     }
@@ -339,7 +339,7 @@ void TurnPort::PrepareAddress() {
                          << ProtoToString(server_address_.proto) << " @ "
                          << server_address_.address.ToSensitiveString();
     if (!CreateTurnClientSocket()) {
-      RTC_LOG(LS_ERROR) << "Failed to create TURN client socket";
+      NLOG(LS_ERROR, "Failed to create TURN client socket");
       OnAllocateError();
       return;
     }
@@ -439,24 +439,22 @@ void TurnPort::OnSocketConnect(rtc::AsyncPacketSocket* socket) {
   if (std::find(desired_addresses.begin(), desired_addresses.end(),
                 socket_address.ipaddr()) == desired_addresses.end()) {
     if (socket->GetLocalAddress().IsLoopbackIP()) {
-      RTC_LOG(LS_WARNING) << "Socket is bound to the address:"
-                          << socket_address.ipaddr().ToString()
-                          << ", rather than an address associated with network:"
-                          << Network()->ToString()
-                          << ". Still allowing it since it's localhost.";
+      NLOG(LS_WARNING, "Socket is bound to the address:",
+           socket_address.ipaddr().ToString(),
+           ", rather than an address associated with network:",
+           Network()->ToString(), ". Still allowing it since it's localhost.");
     } else if (IPIsAny(Network()->GetBestIP())) {
-      RTC_LOG(LS_WARNING)
-          << "Socket is bound to the address:"
-          << socket_address.ipaddr().ToString()
-          << ", rather than an address associated with network:"
-          << Network()->ToString()
-          << ". Still allowing it since it's the 'any' address"
-          << ", possibly caused by multiple_routes being disabled.";
+      NLOG(LS_WARNING, "Socket is bound to the address:",
+           socket_address.ipaddr().ToString(),
+           ", rather than an address associated with network:",
+           Network()->ToString(),
+           ". Still allowing it since it's the 'any' address",
+           ", possibly caused by multiple_routes being disabled.");
     } else {
-      RTC_LOG(LS_WARNING) << "Socket is bound to the address:"
-                          << socket_address.ipaddr().ToString()
-                          << ", rather than an address associated with network:"
-                          << Network()->ToString() << ". Discarding TURN port.";
+      NLOG(LS_WARNING, "Socket is bound to the address:",
+           socket_address.ipaddr().ToString(),
+           ", rather than an address associated with network:",
+           Network()->ToString(), ". Discarding TURN port.");
       OnAllocateError();
       return;
     }
@@ -467,8 +465,8 @@ void TurnPort::OnSocketConnect(rtc::AsyncPacketSocket* socket) {
     server_address_.address = socket_->GetRemoteAddress();
   }
 
-  RTC_LOG(LS_INFO) << "TurnPort connected to " << socket->GetRemoteAddress()
-                   << " using tcp.";
+  NLOG(LS_INFO, "TurnPort connected to ", socket->GetRemoteAddress(),
+       " using tcp.");
   SendRequest(new TurnAllocateRequest(this), 0);
 }
 
@@ -580,7 +578,7 @@ int TurnPort::SendTo(const void* data, size_t size,
   // Try to find an entry for this specific address; we should have one.
   TurnEntry* entry = FindEntry(addr);
   if (!entry) {
-    RTC_LOG(LS_ERROR) << "Did not find the TurnEntry for address " << addr;
+    NLOG(LS_ERROR, "Did not find the TurnEntry for address ", addr);
     return 0;
   }
 
@@ -709,8 +707,8 @@ bool TurnPort::SetAlternateServer(const rtc::SocketAddress& address) {
 
   // If protocol family of server address doesn't match with local, return.
   if (!IsCompatibleAddress(address)) {
-    RTC_LOG(LS_WARNING) << "Server IP address family does not match with "
-                        << "local host address family type";
+    NLOG(LS_WARNING, "Server IP address family does not match with ",
+         "local host address family type");
     return false;
   }
 
@@ -1042,8 +1040,8 @@ bool TurnPort::UpdateNonce(StunMessage* response) {
   const StunByteStringAttribute* realm_attr =
       response->GetByteString(STUN_ATTR_REALM);
   if (!realm_attr) {
-    RTC_LOG(LS_ERROR) << "Missing STUN_ATTR_REALM attribute in "
-                      << "stale nonce error response.";
+    NLOG(LS_ERROR, "Missing STUN_ATTR_REALM attribute in ",
+         "stale nonce error response.");
     return false;
   }
   set_realm(realm_attr->GetString());
@@ -1051,8 +1049,8 @@ bool TurnPort::UpdateNonce(StunMessage* response) {
   const StunByteStringAttribute* nonce_attr =
       response->GetByteString(STUN_ATTR_NONCE);
   if (!nonce_attr) {
-    RTC_LOG(LS_ERROR) << "Missing STUN_ATTR_NONCE attribute in "
-                      << "stale nonce error response.";
+    NLOG(LS_ERROR, "Missing STUN_ATTR_NONCE attribute in ",
+         "stale nonce error response.");
     return false;
   }
   set_nonce(nonce_attr->GetString());

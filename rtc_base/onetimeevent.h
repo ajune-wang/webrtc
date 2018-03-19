@@ -21,7 +21,7 @@ namespace webrtc {
 //   OneTimeEvent firstFrame;
 //   ...
 //   if (firstFrame()) {
-//     RTC_LOG(LS_INFO) << "This is the first frame".
+//     NLOG(LS_INFO  , "This is the first frame");
 //   }
 class OneTimeEvent {
  public:

@@ -60,6 +60,10 @@ bool operator==(const SdpAudioFormat& a, const SdpAudioFormat& b) {
          a.parameters == b.parameters;
 }
 
+SdpAudioFormat::operator std::string() const {
+  return "hi!";
+}
+
 void swap(SdpAudioFormat& a, SdpAudioFormat& b) {
   using std::swap;
   swap(a.name, b.name);

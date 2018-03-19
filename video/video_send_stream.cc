@@ -119,23 +119,24 @@ std::unique_ptr<FlexfecSender> MaybeCreateFlexfecSender(
   RTC_DCHECK_GE(config.rtp.flexfec.payload_type, 0);
   RTC_DCHECK_LE(config.rtp.flexfec.payload_type, 127);
   if (config.rtp.flexfec.ssrc == 0) {
-    RTC_LOG(LS_WARNING) << "FlexFEC is enabled, but no FlexFEC SSRC given. "
-                           "Therefore disabling FlexFEC.";
+    NLOG(LS_WARNING,
+         "FlexFEC is enabled, but no FlexFEC SSRC given. "
+         "Therefore disabling FlexFEC.");
     return nullptr;
   }
   if (config.rtp.flexfec.protected_media_ssrcs.empty()) {
-    RTC_LOG(LS_WARNING)
-        << "FlexFEC is enabled, but no protected media SSRC given. "
-           "Therefore disabling FlexFEC.";
+    NLOG(LS_WARNING,
+         "FlexFEC is enabled, but no protected media SSRC given. "
+         "Therefore disabling FlexFEC.");
     return nullptr;
   }
 
   if (config.rtp.flexfec.protected_media_ssrcs.size() > 1) {
-    RTC_LOG(LS_WARNING)
-        << "The supplied FlexfecConfig contained multiple protected "
-           "media streams, but our implementation currently only "
-           "supports protecting a single media stream. "
-           "To avoid confusion, disabling FlexFEC completely.";
+    NLOG(LS_WARNING,
+         "The supplied FlexfecConfig contained multiple protected "
+         "media streams, but our implementation currently only "
+         "supports protecting a single media stream. "
+         "To avoid confusion, disabling FlexFEC completely.");
     return nullptr;
   }
 
@@ -540,7 +541,7 @@ VideoSendStream::~VideoSendStream() {
 void VideoSendStream::UpdateActiveSimulcastLayers(
     const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
+  NLOG(LS_INFO, "VideoSendStream::UpdateActiveSimulcastLayers");
   VideoSendStreamImpl* send_stream = send_stream_.get();
   worker_queue_->PostTask([this, send_stream, active_layers] {
     send_stream->UpdateActiveSimulcastLayers(active_layers);
@@ -552,7 +553,7 @@ void VideoSendStream::UpdateActiveSimulcastLayers(
 
 void VideoSendStream::Start() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::Start";
+  NLOG(LS_INFO, "VideoSendStream::Start");
   VideoSendStreamImpl* send_stream = send_stream_.get();
   worker_queue_->PostTask([this, send_stream] {
     send_stream->Start();
@@ -567,7 +568,7 @@ void VideoSendStream::Start() {
 
 void VideoSendStream::Stop() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::Stop";
+  NLOG(LS_INFO, "VideoSendStream::Stop");
   VideoSendStreamImpl* send_stream = send_stream_.get();
   worker_queue_->PostTask([send_stream] { send_stream->Stop(); });
 }
@@ -703,7 +704,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       overhead_bytes_per_packet_(0),
       transport_overhead_bytes_per_packet_(0) {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "VideoSendStreamInternal: " << config_->ToString();
+  NLOG(LS_INFO, "VideoSendStreamInternal: ", config_->ToString());
   weak_ptr_ = weak_ptr_factory_.GetWeakPtr();
   module_process_thread_checker_.DetachFromThread();
 
@@ -827,7 +828,7 @@ VideoSendStreamImpl::~VideoSendStreamImpl() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_DCHECK(!payload_router_.IsActive())
       << "VideoSendStreamImpl::Stop not called";
-  RTC_LOG(LS_INFO) << "~VideoSendStreamInternal: " << config_->ToString();
+  NLOG(LS_INFO, "~VideoSendStreamInternal: ", config_->ToString());
   if (fec_controller_->UseLossVectorMask()) {
     transport_->DeRegisterPacketFeedbackObserver(this);
   }
@@ -849,7 +850,7 @@ void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
     const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_DCHECK_EQ(rtp_rtcp_modules_.size(), active_layers.size());
-  RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
+  NLOG(LS_INFO, "VideoSendStream::UpdateActiveSimulcastLayers");
   bool previously_active = payload_router_.IsActive();
   payload_router_.SetActiveModules(active_layers);
   if (!payload_router_.IsActive() && previously_active) {
@@ -863,7 +864,7 @@ void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
 
 void VideoSendStreamImpl::Start() {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::Start";
+  NLOG(LS_INFO, "VideoSendStream::Start");
   if (payload_router_.IsActive())
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Start");
@@ -892,7 +893,7 @@ void VideoSendStreamImpl::StartupVideoSendStream() {
 
 void VideoSendStreamImpl::Stop() {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::Stop";
+  NLOG(LS_INFO, "VideoSendStream::Stop");
   if (!payload_router_.IsActive())
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Stop");
@@ -917,7 +918,7 @@ void VideoSendStreamImpl::SignalEncoderTimedOut() {
   // is supposed to, deregister as BitrateAllocatorObserver. This can happen
   // if a camera stops producing frames.
   if (encoder_target_rate_bps_ > 0) {
-    RTC_LOG(LS_INFO) << "SignalEncoderTimedOut, Encoder timed out.";
+    NLOG(LS_INFO, "SignalEncoderTimedOut, Encoder timed out.");
     bitrate_allocator_->RemoveObserver(this);
   }
 }
@@ -929,7 +930,7 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
 
 void VideoSendStreamImpl::SignalEncoderActive() {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "SignalEncoderActive, Encoder is active.";
+  NLOG(LS_INFO, "SignalEncoderActive, Encoder is active.");
   bitrate_allocator_->AddObserver(
       this, encoder_min_bitrate_bps_, encoder_max_bitrate_bps_,
       max_padding_bitrate_, !config_->suspend_below_min_bitrate,
@@ -1056,7 +1057,7 @@ void VideoSendStreamImpl::ConfigureProtection() {
   auto DisableUlpfec = [&]() { ulpfec_payload_type = -1; };
 
   if (webrtc::field_trial::IsEnabled("WebRTC-DisableUlpFecExperiment")) {
-    RTC_LOG(LS_INFO) << "Experiment to disable sending ULPFEC is enabled.";
+    NLOG(LS_INFO, "Experiment to disable sending ULPFEC is enabled.");
     DisableUlpfec();
   }
 
@@ -1066,12 +1067,12 @@ void VideoSendStreamImpl::ConfigureProtection() {
     // we know that it has a receiver without the RED/RTX workaround.
     // See http://crbug.com/webrtc/6650 for more information.
     if (IsRedEnabled()) {
-      RTC_LOG(LS_INFO) << "Both FlexFEC and RED are configured. Disabling RED.";
+      NLOG(LS_INFO, "Both FlexFEC and RED are configured. Disabling RED.");
       DisableRed();
     }
     if (IsUlpfecEnabled()) {
-      RTC_LOG(LS_INFO)
-          << "Both FlexFEC and ULPFEC are configured. Disabling ULPFEC.";
+      NLOG(LS_INFO,
+           "Both FlexFEC and ULPFEC are configured. Disabling ULPFEC.");
       DisableUlpfec();
     }
   }
@@ -1083,10 +1084,10 @@ void VideoSendStreamImpl::ConfigureProtection() {
   if (nack_enabled && IsUlpfecEnabled() &&
       !PayloadTypeSupportsSkippingFecPackets(
           config_->encoder_settings.payload_name)) {
-    RTC_LOG(LS_WARNING)
-        << "Transmitting payload type without picture ID using "
-           "NACK+ULPFEC is a waste of bandwidth since ULPFEC packets "
-           "also have to be retransmitted. Disabling ULPFEC.";
+    NLOG(LS_WARNING,
+         "Transmitting payload type without picture ID using "
+         "NACK+ULPFEC is a waste of bandwidth since ULPFEC packets "
+         "also have to be retransmitted. Disabling ULPFEC.");
     DisableUlpfec();
   }
 
@@ -1106,8 +1107,8 @@ void VideoSendStreamImpl::ConfigureProtection() {
     RTC_DCHECK_GE(ulpfec_payload_type, 0);
     RTC_DCHECK_LE(ulpfec_payload_type, 127);
     if (!IsRedEnabled()) {
-      RTC_LOG(LS_WARNING)
-          << "ULPFEC is enabled but RED is disabled. Disabling ULPFEC.";
+      NLOG(LS_WARNING,
+           "ULPFEC is enabled but RED is disabled. Disabling ULPFEC.");
       DisableUlpfec();
     }
   }
@@ -1315,7 +1316,7 @@ void VideoSendStreamImpl::OnOverheadChanged(size_t overhead_bytes_per_packet) {
 void VideoSendStreamImpl::SetTransportOverhead(
     size_t transport_overhead_bytes_per_packet) {
   if (transport_overhead_bytes_per_packet >= static_cast<int>(kPathMTU)) {
-    RTC_LOG(LS_ERROR) << "Transport overhead exceeds size of ethernet frame";
+    NLOG(LS_ERROR, "Transport overhead exceeds size of ethernet frame");
     return;
   }
 
@@ -1344,8 +1345,9 @@ void VideoSendStreamImpl::OnPacketAdded(uint32_t ssrc, uint16_t seq_num) {
   if (std::find(ssrcs.begin(), ssrcs.end(), ssrc) != ssrcs.end()) {
     feedback_packet_seq_num_set_.insert(seq_num);
     if (feedback_packet_seq_num_set_.size() > kSendSideSeqNumSetMaxSize) {
-      RTC_LOG(LS_WARNING) << "Feedback packet sequence number set exceed it's "
-                             "max size', will get reset.";
+      NLOG(LS_WARNING,
+           "Feedback packet sequence number set exceed it's "
+           "max size', will get reset.");
       feedback_packet_seq_num_set_.clear();
     }
   }

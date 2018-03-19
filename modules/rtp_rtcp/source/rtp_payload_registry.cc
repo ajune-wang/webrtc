@@ -92,8 +92,8 @@ bool IsPayloadTypeValid(int8_t payload_type) {
     case 77:        //  205 Transport layer FB message.
     case 78:        //  206 Payload-specific FB message.
     case 79:        //  207 Extended report.
-      RTC_LOG(LS_ERROR) << "Can't register invalid receiver payload type: "
-                        << payload_type;
+      NLOG(LS_ERROR,
+           "Can't register invalid receiver payload type: ", payload_type);
       return false;
     default:
       return true;
@@ -158,7 +158,7 @@ int32_t RTPPayloadRegistry::RegisterReceivePayload(
       it->second.typeSpecific.audio_payload().rate = 0;
       return 0;
     }
-    RTC_LOG(LS_ERROR) << "Payload type already registered: " << payload_type;
+    NLOG(LS_ERROR, "Payload type already registered: ", payload_type);
     return -1;
   }
 
@@ -195,8 +195,8 @@ int32_t RTPPayloadRegistry::RegisterReceivePayload(
     // have. If same, ignore sending an error.
     if (PayloadIsCompatible(it->second, video_codec))
       return 0;
-    RTC_LOG(LS_ERROR) << "Payload type already registered: "
-                      << static_cast<int>(video_codec.plType);
+    NLOG(LS_ERROR, "Payload type already registered: ",
+         static_cast<int>(video_codec.plType));
     return -1;
   }
 
@@ -287,7 +287,7 @@ void RTPPayloadRegistry::SetRtxPayloadType(int payload_type,
                                            int associated_payload_type) {
   rtc::CritScope cs(&crit_sect_);
   if (payload_type < 0) {
-    RTC_LOG(LS_ERROR) << "Invalid RTX payload type: " << payload_type;
+    NLOG(LS_ERROR, "Invalid RTX payload type: ", payload_type);
     return;
   }
 

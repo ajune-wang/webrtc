@@ -457,9 +457,9 @@ AudioCodingModuleImpl::AudioCodingModuleImpl(
       codec_histogram_bins_log_(),
       number_of_consecutive_empty_packets_(0) {
   if (InitializeReceiverSafe() < 0) {
-    RTC_LOG(LS_ERROR) << "Cannot initialize receiver";
+    NLOG(LS_ERROR, "Cannot initialize receiver");
   }
-  RTC_LOG(LS_INFO) << "Created";
+  NLOG(LS_INFO, "Created");
 }
 
 AudioCodingModuleImpl::~AudioCodingModuleImpl() = default;
@@ -630,7 +630,7 @@ int AudioCodingModuleImpl::SendFrequency() const {
   rtc::CritScope lock(&acm_crit_sect_);
 
   if (!encoder_stack_) {
-    RTC_LOG(LS_ERROR) << "SendFrequency Failed, no codec is registered";
+    NLOG(LS_ERROR, "SendFrequency Failed, no codec is registered");
     return -1;
   }
 
@@ -665,26 +665,26 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
                                                InputData* input_data) {
   if (audio_frame.samples_per_channel_ == 0) {
     assert(false);
-    RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, payload length is zero";
+    NLOG(LS_ERROR, "Cannot Add 10 ms audio, payload length is zero");
     return -1;
   }
 
   if (audio_frame.sample_rate_hz_ > 48000) {
     assert(false);
-    RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, input frequency not valid";
+    NLOG(LS_ERROR, "Cannot Add 10 ms audio, input frequency not valid");
     return -1;
   }
 
   // If the length and frequency matches. We currently just support raw PCM.
   if (static_cast<size_t>(audio_frame.sample_rate_hz_ / 100) !=
       audio_frame.samples_per_channel_) {
-    RTC_LOG(LS_ERROR)
-        << "Cannot Add 10 ms audio, input frequency and length doesn't match";
+    NLOG(LS_ERROR,
+         "Cannot Add 10 ms audio, input frequency and length doesn't match");
     return -1;
   }
 
   if (audio_frame.num_channels_ != 1 && audio_frame.num_channels_ != 2) {
-    RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, invalid number of channels.";
+    NLOG(LS_ERROR, "Cannot Add 10 ms audio, invalid number of channels.");
     return -1;
   }
 
@@ -757,8 +757,8 @@ int AudioCodingModuleImpl::PreprocessToAddData(const AudioFrame& in_frame,
     expected_codec_ts_ = in_frame.timestamp_;
     first_10ms_data_ = true;
   } else if (in_frame.timestamp_ != expected_in_ts_) {
-    RTC_LOG(LS_WARNING) << "Unexpected input timestamp: " << in_frame.timestamp_
-                        << ", expected: " << expected_in_ts_;
+    NLOG(LS_WARNING, "Unexpected input timestamp: ", in_frame.timestamp_,
+         ", expected: ", expected_in_ts_);
     expected_codec_ts_ +=
         (in_frame.timestamp_ - expected_in_ts_) *
         static_cast<uint32_t>(
@@ -816,7 +816,7 @@ int AudioCodingModuleImpl::PreprocessToAddData(const AudioFrame& in_frame,
         dest_ptr_audio);
 
     if (samples_per_channel < 0) {
-      RTC_LOG(LS_ERROR) << "Cannot add 10 ms audio, resampling failed";
+      NLOG(LS_ERROR, "Cannot add 10 ms audio, resampling failed");
       return -1;
     }
     preprocess_frame_.samples_per_channel_ =
@@ -853,7 +853,7 @@ int AudioCodingModuleImpl::SetREDStatus(bool enable_red) {
     encoder_stack_ = encoder_factory_->rent_a_codec.RentEncoderStack(sp);
   return 0;
 #else
-  RTC_LOG(LS_WARNING) << "  WEBRTC_CODEC_RED is undefined";
+  NLOG(LS_WARNING, "  WEBRTC_CODEC_RED is undefined");
   return -1;
 #endif
 }
@@ -1080,7 +1080,7 @@ int AudioCodingModuleImpl::IncomingPacket(const uint8_t* incoming_payload,
 // Minimum playout delay (Used for lip-sync).
 int AudioCodingModuleImpl::SetMinimumPlayoutDelay(int time_ms) {
   if ((time_ms < 0) || (time_ms > 10000)) {
-    RTC_LOG(LS_ERROR) << "Delay must be in the range of 0-10000 milliseconds.";
+    NLOG(LS_ERROR, "Delay must be in the range of 0-10000 milliseconds.");
     return -1;
   }
   return receiver_.SetMinimumDelay(time_ms);
@@ -1088,7 +1088,7 @@ int AudioCodingModuleImpl::SetMinimumPlayoutDelay(int time_ms) {
 
 int AudioCodingModuleImpl::SetMaximumPlayoutDelay(int time_ms) {
   if ((time_ms < 0) || (time_ms > 10000)) {
-    RTC_LOG(LS_ERROR) << "Delay must be in the range of 0-10000 milliseconds.";
+    NLOG(LS_ERROR, "Delay must be in the range of 0-10000 milliseconds.");
     return -1;
   }
   return receiver_.SetMaximumDelay(time_ms);
@@ -1101,7 +1101,7 @@ int AudioCodingModuleImpl::PlayoutData10Ms(int desired_freq_hz,
                                            bool* muted) {
   // GetAudio always returns 10 ms, at the requested sample rate.
   if (receiver_.GetAudio(desired_freq_hz, audio_frame, muted) != 0) {
-    RTC_LOG(LS_ERROR) << "PlayoutData failed, RecOut Failed";
+    NLOG(LS_ERROR, "PlayoutData failed, RecOut Failed");
     return -1;
   }
   return 0;
@@ -1127,7 +1127,7 @@ int AudioCodingModuleImpl::GetNetworkStatistics(NetworkStatistics* statistics) {
 }
 
 int AudioCodingModuleImpl::RegisterVADCallback(ACMVADCallback* vad_callback) {
-  RTC_LOG(LS_VERBOSE) << "RegisterVADCallback()";
+  NLOG(LS_VERBOSE, "RegisterVADCallback()");
   rtc::CritScope lock(&callback_crit_sect_);
   vad_callback_ = vad_callback;
   return 0;
@@ -1201,7 +1201,7 @@ int AudioCodingModuleImpl::TargetDelayMs() const {
 
 bool AudioCodingModuleImpl::HaveValidEncoder(const char* caller_name) const {
   if (!encoder_stack_) {
-    RTC_LOG(LS_ERROR) << caller_name << " failed: No send codec is registered.";
+    NLOG(LS_ERROR, caller_name, " failed: No send codec is registered.");
     return false;
   }
   return true;
@@ -1336,7 +1336,7 @@ int AudioCodingModule::Codec(const char* payload_name,
 bool AudioCodingModule::IsCodecValid(const CodecInst& codec) {
   bool valid = acm2::RentACodec::IsCodecValid(codec);
   if (!valid)
-    RTC_LOG(LS_ERROR) << "Invalid codec setting";
+    NLOG(LS_ERROR, "Invalid codec setting");
   return valid;
 }
 

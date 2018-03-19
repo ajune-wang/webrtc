@@ -355,8 +355,8 @@ int DecoderDatabase::CheckPayloadTypes(const PacketList& packet_list) const {
   for (it = packet_list.begin(); it != packet_list.end(); ++it) {
     if (!GetDecoderInfo(it->payload_type)) {
       // Payload type is not found.
-      RTC_LOG(LS_WARNING) << "CheckPayloadTypes: unknown RTP payload type "
-                          << static_cast<int>(it->payload_type);
+      NLOG(LS_WARNING, "CheckPayloadTypes: unknown RTP payload type ",
+           static_cast<int>(it->payload_type));
       return kDecoderNotFound;
     }
   }

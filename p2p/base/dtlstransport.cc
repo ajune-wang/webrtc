@@ -195,8 +195,8 @@ rtc::scoped_refptr<rtc::RTCCertificate> DtlsTransport::GetLocalCertificate()
 
 bool DtlsTransport::SetSslMaxProtocolVersion(rtc::SSLProtocolVersion version) {
   if (dtls_active_) {
-    RTC_LOG(LS_ERROR) << "Not changing max. protocol version "
-                      << "while DTLS is negotiating";
+    NLOG(LS_ERROR, "Not changing max. protocol version ",
+         "while DTLS is negotiating");
     return false;
   }
 
@@ -208,8 +208,7 @@ bool DtlsTransport::SetDtlsRole(rtc::SSLRole role) {
   if (dtls_) {
     RTC_DCHECK(dtls_role_);
     if (*dtls_role_ != role) {
-      RTC_LOG(LS_ERROR)
-          << "SSL Role can't be reversed after the session is setup.";
+      NLOG(LS_ERROR, "SSL Role can't be reversed after the session is setup.");
       return false;
     }
     return true;

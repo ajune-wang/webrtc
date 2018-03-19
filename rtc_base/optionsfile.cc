@@ -106,7 +106,7 @@ bool OptionsFile::IsLegalName(const std::string &name) {
   for (size_t pos = 0; pos < name.length(); ++pos) {
     if (name[pos] == '\n' || name[pos] == '\\' || name[pos] == '=') {
       // Illegal character.
-      RTC_LOG(LS_WARNING) << "Ignoring operation for illegal option " << name;
+      NLOG(LS_WARNING, "Ignoring operation for illegal option ", name);
       return false;
     }
   }
@@ -117,7 +117,7 @@ bool OptionsFile::IsLegalValue(const std::string &value) {
   for (size_t pos = 0; pos < value.length(); ++pos) {
     if (value[pos] == '\n' || value[pos] == '\\') {
       // Illegal character.
-      RTC_LOG(LS_WARNING) << "Ignoring operation for illegal value " << value;
+      NLOG(LS_WARNING, "Ignoring operation for illegal value ", value);
       return false;
     }
   }
@@ -126,7 +126,7 @@ bool OptionsFile::IsLegalValue(const std::string &value) {
 
 bool OptionsFile::GetStringValue(const std::string& option,
                                  std::string *out_val) const {
-  RTC_LOG(LS_VERBOSE) << "OptionsFile::GetStringValue " << option;
+  NLOG(LS_VERBOSE, "OptionsFile::GetStringValue ", option);
   if (!IsLegalName(option)) {
     return false;
   }
@@ -140,7 +140,7 @@ bool OptionsFile::GetStringValue(const std::string& option,
 
 bool OptionsFile::GetIntValue(const std::string& option,
                               int *out_val) const {
-  RTC_LOG(LS_VERBOSE) << "OptionsFile::GetIntValue " << option;
+  NLOG(LS_VERBOSE, "OptionsFile::GetIntValue ", option);
   if (!IsLegalName(option)) {
     return false;
   }
@@ -153,8 +153,7 @@ bool OptionsFile::GetIntValue(const std::string& option,
 
 bool OptionsFile::SetStringValue(const std::string& option,
                                  const std::string& value) {
-  RTC_LOG(LS_VERBOSE) << "OptionsFile::SetStringValue " << option << ":"
-                      << value;
+  NLOG(LS_VERBOSE, "OptionsFile::SetStringValue ", option, ":", value);
   if (!IsLegalName(option) || !IsLegalValue(value)) {
     return false;
   }
@@ -164,7 +163,7 @@ bool OptionsFile::SetStringValue(const std::string& option,
 
 bool OptionsFile::SetIntValue(const std::string& option,
                               int value) {
-  RTC_LOG(LS_VERBOSE) << "OptionsFile::SetIntValue " << option << ":" << value;
+  NLOG(LS_VERBOSE, "OptionsFile::SetIntValue ", option, ":", value);
   if (!IsLegalName(option)) {
     return false;
   }
@@ -172,7 +171,7 @@ bool OptionsFile::SetIntValue(const std::string& option,
 }
 
 bool OptionsFile::RemoveValue(const std::string& option) {
-  RTC_LOG(LS_VERBOSE) << "OptionsFile::RemoveValue " << option;
+  NLOG(LS_VERBOSE, "OptionsFile::RemoveValue ", option);
   if (!IsLegalName(option)) {
     return false;
   }

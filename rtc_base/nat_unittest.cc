@@ -215,7 +215,7 @@ void TestPhysicalInternal(const SocketAddress& int_addr) {
                                 }),
                  networks.end());
   if (networks.empty()) {
-    RTC_LOG(LS_WARNING) << "Not enough network adapters for test.";
+    NLOG(LS_WARNING, "Not enough network adapters for test.");
     return;
   }
 
@@ -232,11 +232,11 @@ void TestPhysicalInternal(const SocketAddress& int_addr) {
     }
   }
   if (ext_addr2.IsNil()) {
-    RTC_LOG(LS_WARNING) << "No available IP of same family as " << int_addr;
+    NLOG(LS_WARNING, "No available IP of same family as ", int_addr);
     return;
   }
 
-  RTC_LOG(LS_INFO) << "selected ip " << ext_addr2.ipaddr();
+  NLOG(LS_INFO, "selected ip ", ext_addr2.ipaddr());
 
   SocketAddress ext_addrs[4] = {
       SocketAddress(ext_addr1),
@@ -260,7 +260,7 @@ TEST(NatTest, TestPhysicalIPv6) {
   if (HasIPv6Enabled()) {
     TestPhysicalInternal(SocketAddress("::1", 0));
   } else {
-    RTC_LOG(LS_WARNING) << "No IPv6, skipping";
+    NLOG(LS_WARNING, "No IPv6, skipping");
   }
 }
 
@@ -300,7 +300,7 @@ TEST(NatTest, TestVirtualIPv6) {
   if (HasIPv6Enabled()) {
     TestVirtualInternal(AF_INET6);
   } else {
-    RTC_LOG(LS_WARNING) << "No IPv6, skipping";
+    NLOG(LS_WARNING, "No IPv6, skipping");
   }
 }
 

@@ -123,8 +123,9 @@ GoogCcNetworkController::GoogCcNetworkController(
   delay_based_bwe_->SetMinBitrate(congestion_controller::GetMinBitrateBps());
   if (in_cwnd_experiment_ &&
       !ReadCwndExperimentParameter(&accepted_queue_ms_)) {
-    RTC_LOG(LS_WARNING) << "Failed to parse parameters for CwndExperiment "
-                           "from field trial string. Experiment disabled.";
+    NLOG(LS_WARNING,
+         "Failed to parse parameters for CwndExperiment "
+         "from field trial string. Experiment disabled.");
     in_cwnd_experiment_ = false;
   }
 }
@@ -315,8 +316,8 @@ void GoogCcNetworkController::MaybeUpdateCongestionWindow() {
   msg.enabled = true;
   msg.data_window = std::max(kMinCwnd, data_window);
   observer_->OnCongestionWindow(msg);
-  RTC_LOG(LS_INFO) << "Feedback rtt: " << *min_feedback_rtt_ms_
-                   << " Bitrate: " << last_estimate_->bandwidth.bps();
+  NLOG(LS_INFO, "Feedback rtt: ", *min_feedback_rtt_ms_,
+       " Bitrate: ", last_estimate_->bandwidth.bps());
 }
 
 void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(Timestamp at_time) {

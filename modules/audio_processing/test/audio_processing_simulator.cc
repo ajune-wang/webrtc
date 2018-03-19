@@ -100,7 +100,7 @@ AudioProcessingSimulator::AudioProcessingSimulator(
   }
 
   if (settings_.simulate_mic_gain)
-    RTC_LOG(LS_VERBOSE) << "Simulating analog mic gain";
+    NLOG(LS_VERBOSE, "Simulating analog mic gain");
 }
 
 AudioProcessingSimulator::~AudioProcessingSimulator() {

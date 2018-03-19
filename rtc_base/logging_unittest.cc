@@ -76,8 +76,8 @@ TEST(LogTest, SingleStream) {
   LogMessage::AddLogToStream(&stream, LS_INFO);
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream));
 
-  RTC_LOG(LS_INFO) << "INFO";
-  RTC_LOG(LS_VERBOSE) << "VERBOSE";
+  NLOG(LS_INFO, "INFO");
+  NLOG(LS_VERBOSE, "VERBOSE");
   EXPECT_NE(std::string::npos, str.find("INFO"));
   EXPECT_EQ(std::string::npos, str.find("VERBOSE"));
 
@@ -100,8 +100,8 @@ TEST(LogTest, MultipleStreams) {
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream1));
   EXPECT_EQ(LS_VERBOSE, LogMessage::GetLogToStream(&stream2));
 
-  RTC_LOG(LS_INFO) << "INFO";
-  RTC_LOG(LS_VERBOSE) << "VERBOSE";
+  NLOG(LS_INFO, "INFO");
+  NLOG(LS_VERBOSE, "VERBOSE");
 
   EXPECT_NE(std::string::npos, str1.find("INFO"));
   EXPECT_EQ(std::string::npos, str1.find("VERBOSE"));
@@ -126,7 +126,7 @@ class LogThread {
  private:
   void Run() {
     // LS_SENSITIVE by default to avoid cluttering up any real logging going on.
-    RTC_LOG(LS_SENSITIVE) << "RTC_LOG";
+    NLOG(LS_SENSITIVE, "RTC_LOG");
   }
 
   static void ThreadEntry(void* p) { static_cast<LogThread*>(p)->Run(); }
@@ -235,8 +235,8 @@ TEST(LogTest, Perf) {
   stream.Close();
 
   EXPECT_EQ(str.size(), (message.size() + logging_overhead) * kRepetitions);
-  RTC_LOG(LS_INFO) << "Total log time: " << TimeDiff(finish, start) << " ms "
-                   << " total bytes logged: " << str.size();
+  NLOG(LS_INFO, "Total log time: ", TimeDiff(finish, start), " ms ",
+       " total bytes logged: ", str.size());
 }
 
 }  // namespace rtc

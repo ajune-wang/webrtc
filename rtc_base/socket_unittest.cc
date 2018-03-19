@@ -60,7 +60,7 @@ void SocketTest::TestConnectWithDnsLookupIPv4() {
 
 void SocketTest::TestConnectWithDnsLookupIPv6() {
   // TODO: Enable this when DNS resolution supports IPv6.
-  RTC_LOG(LS_INFO) << "Skipping IPv6 DNS test";
+  NLOG(LS_INFO, "Skipping IPv6 DNS test");
   // ConnectWithDnsLookupInternal(kIPv6Loopback, "localhost6");
 }
 
@@ -970,8 +970,8 @@ void SocketTest::UdpReadyToSend(const IPAddress& loopback) {
     if (ret != test_packet_size) {
       error = client->GetError();
       if (error == expected_error) {
-        RTC_LOG(LS_INFO) << "Got expected error code after sending "
-                         << sent_packet_num << " packets.";
+        NLOG(LS_INFO, "Got expected error code after sending ", sent_packet_num,
+             " packets.");
         break;
       }
     }
@@ -979,7 +979,7 @@ void SocketTest::UdpReadyToSend(const IPAddress& loopback) {
   EXPECT_EQ(expected_error, error);
   EXPECT_FALSE(client->ready_to_send());
   EXPECT_TRUE_WAIT(client->ready_to_send(), kTimeout);
-  RTC_LOG(LS_INFO) << "Got SignalReadyToSend";
+  NLOG(LS_INFO, "Got SignalReadyToSend");
 }
 
 void SocketTest::GetSetOptionsInternal(const IPAddress& loopback) {

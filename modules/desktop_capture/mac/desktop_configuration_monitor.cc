@@ -24,7 +24,7 @@ DesktopConfigurationMonitor::DesktopConfigurationMonitor()
   CGError err = CGDisplayRegisterReconfigurationCallback(
       DesktopConfigurationMonitor::DisplaysReconfiguredCallback, this);
   if (err != kCGErrorSuccess) {
-    RTC_LOG(LS_ERROR) << "CGDisplayRegisterReconfigurationCallback " << err;
+    NLOG(LS_ERROR, "CGDisplayRegisterReconfigurationCallback ", err);
     abort();
   }
   display_configuration_capture_event_->Set();
@@ -37,7 +37,7 @@ DesktopConfigurationMonitor::~DesktopConfigurationMonitor() {
   CGError err = CGDisplayRemoveReconfigurationCallback(
       DesktopConfigurationMonitor::DisplaysReconfiguredCallback, this);
   if (err != kCGErrorSuccess)
-    RTC_LOG(LS_ERROR) << "CGDisplayRemoveReconfigurationCallback " << err;
+    NLOG(LS_ERROR, "CGDisplayRemoveReconfigurationCallback ", err);
 }
 
 void DesktopConfigurationMonitor::Lock() {

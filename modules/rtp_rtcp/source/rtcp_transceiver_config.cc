@@ -24,59 +24,56 @@ RtcpTransceiverConfig::~RtcpTransceiverConfig() = default;
 
 bool RtcpTransceiverConfig::Validate() const {
   if (feedback_ssrc == 0)
-    RTC_LOG(LS_WARNING)
-        << debug_id
-        << "Ssrc 0 may be treated by some implementation as invalid.";
+    NLOG(LS_WARNING, debug_id,
+         "Ssrc 0 may be treated by some implementation as invalid.");
   if (cname.empty())
-    RTC_LOG(LS_WARNING) << debug_id << "missing cname for ssrc "
-                        << feedback_ssrc;
+    NLOG(LS_WARNING, debug_id, "missing cname for ssrc ", feedback_ssrc);
   if (cname.size() > 255) {
-    RTC_LOG(LS_ERROR) << debug_id << "cname can be maximum 255 characters.";
+    NLOG(LS_ERROR, debug_id, "cname can be maximum 255 characters.");
     return false;
   }
   if (max_packet_size < 100) {
-    RTC_LOG(LS_ERROR) << debug_id << "max packet size " << max_packet_size
-                      << " is too small.";
+    NLOG(LS_ERROR, debug_id, "max packet size ", max_packet_size,
+         " is too small.");
     return false;
   }
   if (max_packet_size > IP_PACKET_SIZE) {
-    RTC_LOG(LS_ERROR) << debug_id << "max packet size " << max_packet_size
-                      << " more than " << IP_PACKET_SIZE << " is unsupported.";
+    NLOG(LS_ERROR, debug_id, "max packet size ", max_packet_size, " more than ",
+         IP_PACKET_SIZE, " is unsupported.");
     return false;
   }
   if (!outgoing_transport) {
-    RTC_LOG(LS_ERROR) << debug_id << "outgoing transport must be set";
+    NLOG(LS_ERROR, debug_id, "outgoing transport must be set");
     return false;
   }
   if (initial_report_delay_ms < 0) {
-    RTC_LOG(LS_ERROR) << debug_id << "delay " << initial_report_delay_ms
-                      << "ms before first report shouldn't be negative.";
+    NLOG(LS_ERROR, debug_id, "delay ", initial_report_delay_ms,
+         "ms before first report shouldn't be negative.");
     return false;
   }
   if (report_period_ms <= 0) {
-    RTC_LOG(LS_ERROR) << debug_id << "period " << report_period_ms
-                      << "ms between reports should be positive.";
+    NLOG(LS_ERROR, debug_id, "period ", report_period_ms,
+         "ms between reports should be positive.");
     return false;
   }
   if (schedule_periodic_compound_packets && !task_queue) {
-    RTC_LOG(LS_ERROR) << debug_id
-                      << "missing task queue for periodic compound packets";
+    NLOG(LS_ERROR, debug_id,
+         "missing task queue for periodic compound packets");
     return false;
   }
   if (rtcp_mode != RtcpMode::kCompound && rtcp_mode != RtcpMode::kReducedSize) {
-    RTC_LOG(LS_ERROR) << debug_id << "unsupported rtcp mode";
+    NLOG(LS_ERROR, debug_id, "unsupported rtcp mode");
     return false;
   }
   if (non_sender_rtt_measurement && !rtt_observer)
-    RTC_LOG(LS_WARNING) << debug_id
-                        << "Enabled special feature to calculate rtt, but no "
-                           "rtt observer is provided.";
+    NLOG(LS_WARNING, debug_id,
+         "Enabled special feature to calculate rtt, but no "
+         "rtt observer is provided.");
   // TODO(danilchap): Remove or update the warning when RtcpTransceiver supports
   // send-only sessions.
   if (receive_statistics == nullptr)
-    RTC_LOG(LS_WARNING)
-        << debug_id
-        << "receive statistic should be set to generate rtcp report blocks.";
+    NLOG(LS_WARNING, debug_id,
+         "receive statistic should be set to generate rtcp report blocks.");
   return true;
 }
 

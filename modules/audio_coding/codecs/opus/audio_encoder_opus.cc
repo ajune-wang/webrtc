@@ -150,13 +150,13 @@ int CalculateBitrate(int max_playback_rate_hz,
           std::max(AudioEncoderOpusConfig::kMinBitrateBps,
                    std::min(*bitrate, AudioEncoderOpusConfig::kMaxBitrateBps));
       if (bitrate != chosen_bitrate) {
-        RTC_LOG(LS_WARNING) << "Invalid maxaveragebitrate " << *bitrate
-                            << " clamped to " << chosen_bitrate;
+        NLOG(LS_WARNING, "Invalid maxaveragebitrate ", *bitrate, " clamped to ",
+             chosen_bitrate);
       }
       return chosen_bitrate;
     }
-    RTC_LOG(LS_WARNING) << "Invalid maxaveragebitrate \"" << *bitrate_param
-                        << "\" replaced by default bitrate " << default_bitrate;
+    NLOG(LS_WARNING, "Invalid maxaveragebitrate \"", *bitrate_param,
+         "\" replaced by default bitrate ", default_bitrate);
   }
 
   return default_bitrate;
@@ -550,9 +550,9 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     ApplyAudioNetworkAdaptor();
   } else if (send_side_bwe_with_overhead_) {
     if (!overhead_bytes_per_packet_) {
-      RTC_LOG(LS_INFO)
-          << "AudioEncoderOpusImpl: Overhead unknown, target audio bitrate "
-          << target_audio_bitrate_bps << " bps is ignored.";
+      NLOG(LS_INFO,
+           "AudioEncoderOpusImpl: Overhead unknown, target audio bitrate ",
+           target_audio_bitrate_bps, " bps is ignored.");
       return;
     }
     const int overhead_bps = static_cast<int>(

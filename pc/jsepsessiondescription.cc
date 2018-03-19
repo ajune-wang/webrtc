@@ -131,10 +131,11 @@ SdpType SessionDescriptionInterface::GetType() const {
   if (maybe_type) {
     return *maybe_type;
   } else {
-    RTC_LOG(LS_WARNING) << "Default implementation of "
-                           "SessionDescriptionInterface::GetType does not "
-                           "recognize the result from type(), returning "
-                           "kOffer.";
+    NLOG(LS_WARNING,
+         "Default implementation of "
+         "SessionDescriptionInterface::GetType does not "
+         "recognize the result from type(), returning "
+         "kOffer.");
     return SdpType::kOffer;
   }
 }
@@ -174,9 +175,9 @@ JsepSessionDescription::JsepSessionDescription(const std::string& type) {
   if (maybe_type) {
     type_ = *maybe_type;
   } else {
-    RTC_LOG(LS_WARNING)
-        << "JsepSessionDescription constructed with invalid type string: "
-        << type << ". Assuming it is an offer.";
+    NLOG(LS_WARNING,
+         "JsepSessionDescription constructed with invalid type string: ", type,
+         ". Assuming it is an offer.");
     type_ = SdpType::kOffer;
   }
 }

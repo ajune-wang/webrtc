@@ -73,9 +73,9 @@ DeviceInfoDS::DeviceInfoDS()
       // Details: hr = 0x80010106 <=> "Cannot change thread mode after it is
       // set".
       //
-      RTC_LOG(LS_INFO) << __FUNCTION__
-                       << ": CoInitializeEx(NULL, COINIT_APARTMENTTHREADED)"
-                       << " => RPC_E_CHANGED_MODE, error 0x" << std::hex << hr;
+      NLOG(LS_INFO, __FUNCTION__,
+           ": CoInitializeEx(NULL, COINIT_APARTMENTTHREADED)",
+           " => RPC_E_CHANGED_MODE, error 0x", std::hex, hr);
     }
   }
 }
@@ -92,8 +92,8 @@ int32_t DeviceInfoDS::Init() {
   HRESULT hr = CoCreateInstance(CLSID_SystemDeviceEnum, NULL, CLSCTX_INPROC,
                                 IID_ICreateDevEnum, (void**)&_dsDevEnum);
   if (hr != NOERROR) {
-    RTC_LOG(LS_INFO) << "Failed to create CLSID_SystemDeviceEnum, error 0x"
-                     << std::hex << hr;
+    NLOG(LS_INFO, "Failed to create CLSID_SystemDeviceEnum, error 0x", std::hex,
+         hr);
     return -1;
   }
   return 0;
@@ -131,8 +131,8 @@ int32_t DeviceInfoDS::GetDeviceInfo(uint32_t deviceNumber,
   HRESULT hr = _dsDevEnum->CreateClassEnumerator(CLSID_VideoInputDeviceCategory,
                                                  &_dsMonikerDevEnum, 0);
   if (hr != NOERROR) {
-    RTC_LOG(LS_INFO) << "Failed to enumerate CLSID_SystemDeviceEnum, error 0x"
-                     << std::hex << hr << ". No webcam exist?";
+    NLOG(LS_INFO, "Failed to enumerate CLSID_SystemDeviceEnum, error 0x",
+         std::hex, hr, ". No webcam exist?");
     return 0;
   }
 
@@ -163,8 +163,8 @@ int32_t DeviceInfoDS::GetDeviceInfo(uint32_t deviceNumber,
                                                (char*)deviceNameUTF8,
                                                deviceNameLength, NULL, NULL);
               if (convResult == 0) {
-                RTC_LOG(LS_INFO) << "Failed to convert device name to UTF8, "
-                                 << "error = " << GetLastError();
+                NLOG(LS_INFO, "Failed to convert device name to UTF8, ",
+                     "error = ", GetLastError());
                 return -1;
               }
             }
@@ -173,17 +173,15 @@ int32_t DeviceInfoDS::GetDeviceInfo(uint32_t deviceNumber,
               if (FAILED(hr)) {
                 strncpy_s((char*)deviceUniqueIdUTF8, deviceUniqueIdUTF8Length,
                           (char*)deviceNameUTF8, convResult);
-                RTC_LOG(LS_INFO) << "Failed to get "
-                                 << "deviceUniqueIdUTF8 using "
-                                 << "deviceNameUTF8";
+                NLOG(LS_INFO, "Failed to get ", "deviceUniqueIdUTF8 using ",
+                     "deviceNameUTF8");
               } else {
                 convResult = WideCharToMultiByte(
                     CP_UTF8, 0, varName.bstrVal, -1, (char*)deviceUniqueIdUTF8,
                     deviceUniqueIdUTF8Length, NULL, NULL);
                 if (convResult == 0) {
-                  RTC_LOG(LS_INFO)
-                      << "Failed to convert device "
-                      << "name to UTF8, error = " << GetLastError();
+                  NLOG(LS_INFO, "Failed to convert device ",
+                       "name to UTF8, error = ", GetLastError());
                   return -1;
                 }
                 if (productUniqueIdUTF8 && productUniqueIdUTF8Length > 0) {
@@ -202,7 +200,7 @@ int32_t DeviceInfoDS::GetDeviceInfo(uint32_t deviceNumber,
     }
   }
   if (deviceNameLength) {
-    RTC_LOG(LS_INFO) << __FUNCTION__ << " " << deviceNameUTF8;
+    NLOG(LS_INFO, __FUNCTION__, " ", deviceNameUTF8);
   }
   return index;
 }
@@ -213,7 +211,7 @@ IBaseFilter* DeviceInfoDS::GetDeviceFilter(const char* deviceUniqueIdUTF8,
   const int32_t deviceUniqueIdUTF8Length = (int32_t)strlen(
       (char*)deviceUniqueIdUTF8);  // UTF8 is also NULL terminated
   if (deviceUniqueIdUTF8Length > kVideoCaptureUniqueNameLength) {
-    RTC_LOG(LS_INFO) << "Device name too long";
+    NLOG(LS_INFO, "Device name too long");
     return NULL;
   }
 
@@ -222,8 +220,8 @@ IBaseFilter* DeviceInfoDS::GetDeviceFilter(const char* deviceUniqueIdUTF8,
   HRESULT hr = _dsDevEnum->CreateClassEnumerator(CLSID_VideoInputDeviceCategory,
                                                  &_dsMonikerDevEnum, 0);
   if (hr != NOERROR) {
-    RTC_LOG(LS_INFO) << "Failed to enumerate CLSID_SystemDeviceEnum, error 0x"
-                     << std::hex << hr << ". No webcam exist?";
+    NLOG(LS_INFO, "Failed to enumerate CLSID_SystemDeviceEnum, error 0x",
+         std::hex, hr, ". No webcam exist?");
     return 0;
   }
   _dsMonikerDevEnum->Reset();
@@ -261,8 +259,8 @@ IBaseFilter* DeviceInfoDS::GetDeviceFilter(const char* deviceUniqueIdUTF8,
                 pM->BindToObject(0, 0, IID_IBaseFilter, (void**)&captureFilter);
             if
               FAILED(hr) {
-                RTC_LOG(LS_ERROR) << "Failed to bind to the selected "
-                                  << "capture device " << hr;
+                NLOG(LS_ERROR, "Failed to bind to the selected ",
+                     "capture device ", hr);
               }
 
             if (productUniqueIdUTF8 &&
@@ -305,11 +303,10 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
   const int32_t deviceUniqueIdUTF8Length =
       (int32_t)strlen((char*)deviceUniqueIdUTF8);
   if (deviceUniqueIdUTF8Length > kVideoCaptureUniqueNameLength) {
-    RTC_LOG(LS_INFO) << "Device name too long";
+    NLOG(LS_INFO, "Device name too long");
     return -1;
   }
-  RTC_LOG(LS_INFO) << "CreateCapabilityMap called for device "
-                   << deviceUniqueIdUTF8;
+  NLOG(LS_INFO, "CreateCapabilityMap called for device ", deviceUniqueIdUTF8);
 
   char productId[kVideoCaptureProductIdLength];
   IBaseFilter* captureDevice = DeviceInfoDS::GetDeviceFilter(
@@ -318,7 +315,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
     return -1;
   IPin* outputCapturePin = GetOutputPin(captureDevice, GUID_NULL);
   if (!outputCapturePin) {
-    RTC_LOG(LS_INFO) << "Failed to get capture device output pin";
+    NLOG(LS_INFO, "Failed to get capture device output pin");
     RELEASE_AND_CLEAR(captureDevice);
     return -1;
   }
@@ -326,7 +323,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
   HRESULT hr =
       captureDevice->QueryInterface(IID_IAMExtDevice, (void**)&extDevice);
   if (SUCCEEDED(hr) && extDevice) {
-    RTC_LOG(LS_INFO) << "This is an external device";
+    NLOG(LS_INFO, "This is an external device");
     extDevice->Release();
   }
 
@@ -334,8 +331,8 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
   hr = outputCapturePin->QueryInterface(IID_IAMStreamConfig,
                                         (void**)&streamConfig);
   if (FAILED(hr)) {
-    RTC_LOG(LS_INFO) << "Failed to get IID_IAMStreamConfig interface "
-                     << "from capture device";
+    NLOG(LS_INFO, "Failed to get IID_IAMStreamConfig interface ",
+         "from capture device");
     return -1;
   }
 
@@ -344,7 +341,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
   HRESULT hrVC = captureDevice->QueryInterface(IID_IAMVideoControl,
                                                (void**)&videoControlConfig);
   if (FAILED(hrVC)) {
-    RTC_LOG(LS_INFO) << "IID_IAMVideoControl Interface NOT SUPPORTED";
+    NLOG(LS_INFO, "IID_IAMVideoControl Interface NOT SUPPORTED");
   }
 
   AM_MEDIA_TYPE* pmt = NULL;
@@ -353,7 +350,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
 
   hr = streamConfig->GetNumberOfCapabilities(&count, &size);
   if (FAILED(hr)) {
-    RTC_LOG(LS_INFO) << "Failed to GetNumberOfCapabilities";
+    NLOG(LS_INFO, "Failed to GetNumberOfCapabilities");
     RELEASE_AND_CLEAR(videoControlConfig);
     RELEASE_AND_CLEAR(streamConfig);
     RELEASE_AND_CLEAR(outputCapturePin);
@@ -374,7 +371,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
     if (!FAILED(hr)) {
       if (pmt->majortype == MEDIATYPE_Video &&
           pmt->formattype == FORMAT_VideoInfo2) {
-        RTC_LOG(LS_INFO) << "Device support FORMAT_VideoInfo2";
+        NLOG(LS_INFO, "Device support FORMAT_VideoInfo2");
         supportFORMAT_VideoInfo2 = true;
         VIDEOINFOHEADER2* h =
             reinterpret_cast<VIDEOINFOHEADER2*>(pmt->pbFormat);
@@ -385,7 +382,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
       }
       if (pmt->majortype == MEDIATYPE_Video &&
           pmt->formattype == FORMAT_VideoInfo) {
-        RTC_LOG(LS_INFO) << "Device support FORMAT_VideoInfo2";
+        NLOG(LS_INFO, "Device support FORMAT_VideoInfo2");
         supportFORMAT_VideoInfo = true;
       }
     }
@@ -401,7 +398,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
   for (int32_t tmp = 0; tmp < count; ++tmp) {
     hr = streamConfig->GetStreamCaps(tmp, &pmt, reinterpret_cast<BYTE*>(&caps));
     if (FAILED(hr)) {
-      RTC_LOG(LS_INFO) << "Failed to GetStreamCaps";
+      NLOG(LS_INFO, "Failed to GetStreamCaps");
       RELEASE_AND_CLEAR(videoControlConfig);
       RELEASE_AND_CLEAR(streamConfig);
       RELEASE_AND_CLEAR(outputCapturePin);
@@ -459,7 +456,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
           capability.supportFrameRateControl = true;
         } else  // use existing method
         {
-          RTC_LOG(LS_INFO) << "GetMaxAvailableFrameRate NOT SUPPORTED";
+          NLOG(LS_INFO, "GetMaxAvailableFrameRate NOT SUPPORTED");
           if (avgTimePerFrame > 0)
             capability.maxFPS = static_cast<int>(10000000 / avgTimePerFrame);
           else
@@ -502,23 +499,22 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
                                      // BT. 709 color. Not entiry correct to use
                                      // UYVY. http://en.wikipedia.org/wiki/YCbCr
       {
-        RTC_LOG(LS_INFO) << "Device support HDYC.";
+        NLOG(LS_INFO, "Device support HDYC.");
         capability.videoType = VideoType::kUYVY;
       } else {
         WCHAR strGuid[39];
         StringFromGUID2(pmt->subtype, strGuid, 39);
-        RTC_LOG(LS_WARNING)
-            << "Device support unknown media type " << strGuid << ", width "
-            << capability.width << ", height " << capability.height;
+        NLOG(LS_WARNING, "Device support unknown media type ", strGuid,
+             ", width ", capability.width, ", height ", capability.height);
         continue;
       }
 
       _captureCapabilities.push_back(capability);
       _captureCapabilitiesWindows.push_back(capability);
-      RTC_LOG(LS_INFO) << "Camera capability, width:" << capability.width
-                       << " height:" << capability.height
-                       << " type:" << static_cast<int>(capability.videoType)
-                       << " fps:" << capability.maxFPS;
+      NLOG(LS_INFO, "Camera capability, width:", capability.width,
+           " height:", capability.height,
+           " type:", static_cast<int>(capability.videoType),
+           " fps:", capability.maxFPS);
     }
     DeleteMediaType(pmt);
     pmt = NULL;
@@ -534,7 +530,7 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
       (char*)realloc(_lastUsedDeviceName, _lastUsedDeviceNameLength + 1);
   memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8,
          _lastUsedDeviceNameLength + 1);
-  RTC_LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
+  NLOG(LS_INFO, "CreateCapabilityMap ", _captureCapabilities.size());
 
   return static_cast<int32_t>(_captureCapabilities.size());
 }
@@ -553,7 +549,7 @@ void DeviceInfoDS::GetProductId(const char* devicePath,
   char* startPos = strstr((char*)devicePath, "\\\\?\\");
   if (!startPos) {
     strncpy_s((char*)productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
-    RTC_LOG(LS_INFO) << "Failed to get the product Id";
+    NLOG(LS_INFO, "Failed to get the product Id");
     return;
   }
   startPos += 4;
@@ -561,7 +557,7 @@ void DeviceInfoDS::GetProductId(const char* devicePath,
   char* pos = strchr(startPos, '&');
   if (!pos || pos >= (char*)devicePath + strlen((char*)devicePath)) {
     strncpy_s((char*)productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
-    RTC_LOG(LS_INFO) << "Failed to get the product Id";
+    NLOG(LS_INFO, "Failed to get the product Id");
     return;
   }
   // Find the second occurrence.
@@ -573,7 +569,7 @@ void DeviceInfoDS::GetProductId(const char* devicePath,
               (char*)startPos, bytesToCopy);
   } else {
     strncpy_s((char*)productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
-    RTC_LOG(LS_INFO) << "Failed to get the product Id";
+    NLOG(LS_INFO, "Failed to get the product Id");
   }
 }
 

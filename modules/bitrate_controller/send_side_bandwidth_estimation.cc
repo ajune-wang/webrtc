@@ -95,8 +95,9 @@ bool ReadBweLossExperimentParameters(float* low_loss_threshold,
         << "Bitrate must be smaller enough to avoid overflows.";
     return true;
   }
-  RTC_LOG(LS_WARNING) << "Failed to parse parameters for BweLossExperiment "
-                         "experiment from field trial string. Using default.";
+  NLOG(LS_WARNING,
+       "Failed to parse parameters for BweLossExperiment "
+       "experiment from field trial string. Using default.");
   *low_loss_threshold = kDefaultLowLossThreshold;
   *high_loss_threshold = kDefaultHighLossThreshold;
   *bitrate_threshold_kbps = kDefaultBitrateThresholdKbps;
@@ -140,9 +141,9 @@ SendSideBandwidthEstimation::SendSideBandwidthEstimation(RtcEventLog* event_log)
     if (ReadBweLossExperimentParameters(&low_loss_threshold_,
                                         &high_loss_threshold_,
                                         &bitrate_threshold_kbps)) {
-      RTC_LOG(LS_INFO) << "Enabled BweLossExperiment with parameters "
-                       << low_loss_threshold_ << ", " << high_loss_threshold_
-                       << ", " << bitrate_threshold_kbps;
+      NLOG(LS_INFO, "Enabled BweLossExperiment with parameters ",
+           low_loss_threshold_, ", ", high_loss_threshold_, ", ",
+           bitrate_threshold_kbps);
       bitrate_threshold_bps_ = bitrate_threshold_kbps * 1000;
     }
   }
@@ -369,8 +370,8 @@ void SendSideBandwidthEstimation::UpdateEstimate(int64_t now_ms) {
              (last_timeout_ms_ == -1 ||
               now_ms - last_timeout_ms_ > kTimeoutIntervalMs)) {
     if (in_timeout_experiment_) {
-      RTC_LOG(LS_WARNING) << "Feedback timed out (" << time_since_feedback_ms
-                          << " ms), reducing bitrate.";
+      NLOG(LS_WARNING, "Feedback timed out (", time_since_feedback_ms,
+           " ms), reducing bitrate.");
       new_bitrate *= 0.8;
       // Reset accumulators since we've already acted on missing feedback and
       // shouldn't to act again on these old lost packets.
@@ -422,10 +423,9 @@ void SendSideBandwidthEstimation::CapBitrateToThresholds(int64_t now_ms,
   if (bitrate_bps < min_bitrate_configured_) {
     if (last_low_bitrate_log_ms_ == -1 ||
         now_ms - last_low_bitrate_log_ms_ > kLowBitrateLogPeriodMs) {
-      RTC_LOG(LS_WARNING) << "Estimated available bandwidth "
-                          << bitrate_bps / 1000
-                          << " kbps is below configured min bitrate "
-                          << min_bitrate_configured_ / 1000 << " kbps.";
+      NLOG(LS_WARNING, "Estimated available bandwidth ", bitrate_bps / 1000,
+           " kbps is below configured min bitrate ",
+           min_bitrate_configured_ / 1000, " kbps.");
       last_low_bitrate_log_ms_ = now_ms;
     }
     bitrate_bps = min_bitrate_configured_;

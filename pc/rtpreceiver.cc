@@ -78,8 +78,7 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
   RTC_DCHECK_LE(volume, 10);
   cached_volume_ = volume;
   if (!media_channel_ || !ssrc_) {
-    RTC_LOG(LS_ERROR)
-        << "AudioRtpReceiver::OnSetVolume: No audio channel exists.";
+    NLOG(LS_ERROR, "AudioRtpReceiver::OnSetVolume: No audio channel exists.");
     return;
   }
   // When the track is disabled, the volume of the source, which is the
@@ -126,8 +125,8 @@ void AudioRtpReceiver::Stop() {
 
 void AudioRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR)
-        << "AudioRtpReceiver::SetupMediaChannel: No audio channel exists.";
+    NLOG(LS_ERROR,
+         "AudioRtpReceiver::SetupMediaChannel: No audio channel exists.");
     return;
   }
   if (ssrc_ == ssrc) {
@@ -185,8 +184,7 @@ std::vector<RtpSource> AudioRtpReceiver::GetSources() const {
 void AudioRtpReceiver::Reconfigure() {
   RTC_DCHECK(!stopped_);
   if (!media_channel_ || !ssrc_) {
-    RTC_LOG(LS_ERROR)
-        << "AudioRtpReceiver::Reconfigure: No audio channel exists.";
+    NLOG(LS_ERROR, "AudioRtpReceiver::Reconfigure: No audio channel exists.");
     return;
   }
   if (!SetOutputVolume(track_->enabled() ? cached_volume_ : 0)) {
@@ -272,7 +270,7 @@ void VideoRtpReceiver::Stop() {
   source_->SetState(MediaSourceInterface::kEnded);
   source_->OnSourceDestroyed();
   if (!media_channel_ || !ssrc_) {
-    RTC_LOG(LS_WARNING) << "VideoRtpReceiver::Stop: No video channel exists.";
+    NLOG(LS_WARNING, "VideoRtpReceiver::Stop: No video channel exists.");
   } else {
     // Allow that SetSink fail. This is the normal case when the underlying
     // media channel has already been deleted.
@@ -283,8 +281,8 @@ void VideoRtpReceiver::Stop() {
 
 void VideoRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR)
-        << "VideoRtpReceiver::SetupMediaChannel: No video channel exists.";
+    NLOG(LS_ERROR,
+         "VideoRtpReceiver::SetupMediaChannel: No video channel exists.");
   }
   if (ssrc_ == ssrc) {
     return;

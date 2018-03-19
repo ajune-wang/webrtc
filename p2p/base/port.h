@@ -541,6 +541,8 @@ class Connection : public CandidatePairInterface,
   Port* port() { return port_; }
   const Port* port() const { return port_; }
 
+  operator std::string() const;
+
   // Implementation of virtual methods in CandidatePairInterface.
   // Returns the description of the local port
   const Candidate& local_candidate() const override;

@@ -126,9 +126,8 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
   } else if (msg->type() == GetStunErrorResponseType(request->type())) {
     request->OnErrorResponse(msg);
   } else {
-    RTC_LOG(LERROR) << "Received response with wrong type: " << msg->type()
-                    << " (expecting "
-                    << GetStunSuccessResponseType(request->type()) << ")";
+    NLOG(LERROR, "Received response with wrong type: ", msg->type(),
+         " (expecting ", GetStunSuccessResponseType(request->type()), ")");
     return false;
   }
 
@@ -158,8 +157,7 @@ bool StunRequestManager::CheckResponse(const char* data, size_t size) {
   rtc::ByteBufferReader buf(data, size);
   std::unique_ptr<StunMessage> response(iter->second->msg_->CreateNew());
   if (!response->Read(&buf)) {
-    RTC_LOG(LS_WARNING) << "Failed to read STUN response "
-                        << rtc::hex_encode(id);
+    NLOG(LS_WARNING, "Failed to read STUN response ", rtc::hex_encode(id));
     return false;
   }
 

@@ -30,13 +30,13 @@ int64_t GetProcessResidentSizeBytes() {
 #if defined(WEBRTC_LINUX)
   FILE* file = fopen("/proc/self/statm", "r");
   if (file == nullptr) {
-    RTC_LOG(LS_ERROR) << "Failed to open /proc/self/statm";
+    NLOG(LS_ERROR, "Failed to open /proc/self/statm");
     return -1;
   }
   int result = -1;
   if (fscanf(file, "%*s%d", &result) != 1) {
     fclose(file);
-    RTC_LOG(LS_ERROR) << "Failed to parse /proc/self/statm";
+    NLOG(LS_ERROR, "Failed to parse /proc/self/statm");
     return -1;
   }
   fclose(file);

@@ -316,9 +316,10 @@ RTCError JsepTransportController::RemoveRemoteCandidates(
     if (!cand.transport_name().empty()) {
       candidates_by_transport_name[cand.transport_name()].push_back(cand);
     } else {
-      RTC_LOG(LS_ERROR) << "Not removing candidate because it does not have a "
-                           "transport name set: "
-                        << cand.ToString();
+      NLOG(LS_ERROR,
+           "Not removing candidate because it does not have a "
+           "transport name set: ",
+           cand.ToString());
     }
   }
 
@@ -882,9 +883,8 @@ cricket::IceRole JsepTransportController::DetermineIceRole(
 void JsepTransportController::OnTransportWritableState_n(
     rtc::PacketTransportInternal* transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  RTC_LOG(LS_INFO) << " Transport " << transport->transport_name()
-                   << " writability changed to " << transport->writable()
-                   << ".";
+  NLOG(LS_INFO, " Transport ", transport->transport_name(),
+       " writability changed to ", transport->writable(), ".");
   UpdateAggregateStates_n();
 }
 
@@ -952,9 +952,8 @@ void JsepTransportController::OnTransportRoleConflict_n(
 void JsepTransportController::OnTransportStateChanged_n(
     cricket::IceTransportInternal* transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  RTC_LOG(LS_INFO) << transport->transport_name() << " Transport "
-                   << transport->component()
-                   << " state changed. Check if state is complete.";
+  NLOG(LS_INFO, transport->transport_name(), " Transport ",
+       transport->component(), " state changed. Check if state is complete.");
   UpdateAggregateStates_n();
 }
 

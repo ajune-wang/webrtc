@@ -356,7 +356,7 @@ void NetworkManagerBase::MergeNetworkList(const NetworkList& new_networks,
       if (pref > 0) {
         --pref;
       } else {
-        RTC_LOG(LS_ERROR) << "Too many network interfaces to handle!";
+        NLOG(LS_ERROR, "Too many network interfaces to handle!");
         break;
       }
     }
@@ -417,7 +417,7 @@ BasicNetworkManager::~BasicNetworkManager() {
 }
 
 void BasicNetworkManager::OnNetworksChanged() {
-  RTC_LOG(LS_INFO) << "Network change was observed";
+  NLOG(LS_INFO, "Network change was observed");
   UpdateNetworksOnce();
 }
 
@@ -426,7 +426,7 @@ void BasicNetworkManager::OnNetworksChanged() {
 bool BasicNetworkManager::CreateNetworks(bool include_ignored,
                                          NetworkList* networks) const {
   RTC_NOTREACHED();
-  RTC_LOG(LS_WARNING) << "BasicNetworkManager doesn't work on NaCl yet";
+  NLOG(LS_WARNING, "BasicNetworkManager doesn't work on NaCl yet");
   return false;
 }
 
@@ -686,9 +686,8 @@ bool BasicNetworkManager::CreateNetworks(bool include_ignored,
 bool IsDefaultRoute(const std::string& network_name) {
   FileStream fs;
   if (!fs.Open("/proc/net/route", "r", nullptr)) {
-    RTC_LOG(LS_WARNING)
-        << "Couldn't read /proc/net/route, skipping default "
-        << "route check (assuming everything is a default route).";
+    NLOG(LS_WARNING, "Couldn't read /proc/net/route, skipping default ",
+         "route check (assuming everything is a default route).");
     return true;
   } else {
     std::string line;
@@ -835,7 +834,7 @@ IPAddress BasicNetworkManager::QueryDefaultLocalAddress(int family) const {
         && socket->GetError() != EHOSTUNREACH) {
       // Ignore the expected case of "host/net unreachable" - which happens if
       // the network is V4- or V6-only.
-      RTC_LOG(LS_INFO) << "Connect failed with " << socket->GetError();
+      NLOG(LS_INFO, "Connect failed with ", socket->GetError());
     }
     return IPAddress();
   }
@@ -873,11 +872,11 @@ void BasicNetworkManager::UpdateNetworksContinually() {
 void BasicNetworkManager::DumpNetworks() {
   NetworkList list;
   GetNetworks(&list);
-  RTC_LOG(LS_INFO) << "NetworkManager detected " << list.size() << " networks:";
+  NLOG(LS_INFO, "NetworkManager detected ", list.size(), " networks:");
   for (const Network* network : list) {
-    RTC_LOG(LS_INFO) << network->ToString() << ": " << network->description()
-                     << ", active ? " << network->active()
-                     << ((network->ignored()) ? ", Ignored" : "");
+    NLOG(LS_INFO, network->ToString(), ": ", network->description(),
+         ", active ? ", network->active(),
+         ((network->ignored()) ? ", Ignored" : ""));
   }
 }
 

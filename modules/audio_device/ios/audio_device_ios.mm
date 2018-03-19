@@ -80,21 +80,21 @@ static bool DeviceIsSimulator() {
 
 // Helper method that logs essential device information strings.
 static void LogDeviceInfo() {
-  RTC_LOG(LS_INFO) << "LogDeviceInfo";
+  NLOG(LS_INFO, "LogDeviceInfo");
   @autoreleasepool {
-    RTC_LOG(LS_INFO) << " system name: " << ios::GetSystemName();
-    RTC_LOG(LS_INFO) << " system version: " << ios::GetSystemVersionAsString();
-    RTC_LOG(LS_INFO) << " device type: " << ios::GetDeviceType();
-    RTC_LOG(LS_INFO) << " device name: " << ios::GetDeviceName();
-    RTC_LOG(LS_INFO) << " process name: " << ios::GetProcessName();
-    RTC_LOG(LS_INFO) << " process ID: " << ios::GetProcessID();
-    RTC_LOG(LS_INFO) << " OS version: " << ios::GetOSVersionString();
-    RTC_LOG(LS_INFO) << " processing cores: " << ios::GetProcessorCount();
-    RTC_LOG(LS_INFO) << " low power mode: " << ios::GetLowPowerModeEnabled();
+    NLOG(LS_INFO, " system name: ", ios::GetSystemName());
+    NLOG(LS_INFO, " system version: ", ios::GetSystemVersionAsString());
+    NLOG(LS_INFO, " device type: ", ios::GetDeviceType());
+    NLOG(LS_INFO, " device name: ", ios::GetDeviceName());
+    NLOG(LS_INFO, " process name: ", ios::GetProcessName());
+    NLOG(LS_INFO, " process ID: ", ios::GetProcessID());
+    NLOG(LS_INFO, " OS version: ", ios::GetOSVersionString());
+    NLOG(LS_INFO, " processing cores: ", ios::GetProcessorCount());
+    NLOG(LS_INFO, " low power mode: ", ios::GetLowPowerModeEnabled());
 #if TARGET_IPHONE_SIMULATOR
-    RTC_LOG(LS_INFO) << " TARGET_IPHONE_SIMULATOR is defined";
+    NLOG(LS_INFO, " TARGET_IPHONE_SIMULATOR is defined");
 #endif
-    RTC_LOG(LS_INFO) << " DeviceIsSimulator: " << DeviceIsSimulator();
+    NLOG(LS_INFO, " DeviceIsSimulator: ", DeviceIsSimulator());
   }
 }
 #endif  // !defined(NDEBUG)
@@ -230,7 +230,7 @@ int32_t AudioDeviceIOS::StartPlayout() {
       RTCLogError(@"StartPlayout failed to start audio unit.");
       return -1;
     }
-    RTC_LOG(LS_INFO) << "Voice-Processing I/O audio unit is now started";
+    NLOG(LS_INFO, "Voice-Processing I/O audio unit is now started");
   }
   rtc::AtomicOps::ReleaseStore(&playing_, 1);
   num_playout_callbacks_ = 0;
@@ -279,7 +279,7 @@ int32_t AudioDeviceIOS::StartRecording() {
       RTCLogError(@"StartRecording failed to start audio unit.");
       return -1;
     }
-    RTC_LOG(LS_INFO) << "Voice-Processing I/O audio unit is now started";
+    NLOG(LS_INFO, "Voice-Processing I/O audio unit is now started");
   }
   rtc::AtomicOps::ReleaseStore(&recording_, 1);
   return 0;
@@ -668,7 +668,7 @@ void AudioDeviceIOS::SetupAudioBuffersForActiveAudioSession() {
   // 16kHz.
   RTCAudioSessionConfiguration* webRTCConfig = [RTCAudioSessionConfiguration webRTCConfiguration];
   if (sample_rate != webRTCConfig.sampleRate) {
-    RTC_LOG(LS_WARNING) << "Unable to set the preferred sample rate";
+    NLOG(LS_WARNING, "Unable to set the preferred sample rate");
   }
 
   // Crash reports indicates that it can happen in rare cases that the reported
@@ -691,8 +691,8 @@ void AudioDeviceIOS::SetupAudioBuffersForActiveAudioSession() {
   RTC_DCHECK(playout_parameters_.is_complete());
   record_parameters_.reset(sample_rate, record_parameters_.channels(), io_buffer_duration);
   RTC_DCHECK(record_parameters_.is_complete());
-  RTC_LOG(LS_INFO) << " frames per I/O buffer: " << playout_parameters_.frames_per_buffer();
-  RTC_LOG(LS_INFO) << " bytes per I/O buffer: " << playout_parameters_.GetBytesPerBuffer();
+  NLOG(LS_INFO, " frames per I/O buffer: ", playout_parameters_.frames_per_buffer());
+  NLOG(LS_INFO, " bytes per I/O buffer: ", playout_parameters_.GetBytesPerBuffer());
   RTC_DCHECK_EQ(playout_parameters_.GetBytesPerBuffer(), record_parameters_.GetBytesPerBuffer());
 
   // Update the ADB parameters since the sample rate might have changed.

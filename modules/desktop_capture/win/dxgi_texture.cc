@@ -49,9 +49,10 @@ bool DxgiTexture::CopyFrom(const DXGI_OUTDUPL_FRAME_INFO& frame_info,
       __uuidof(ID3D11Texture2D),
       reinterpret_cast<void**>(texture.GetAddressOf()));
   if (error.Error() != S_OK || !texture) {
-    RTC_LOG(LS_ERROR) << "Failed to convert IDXGIResource to ID3D11Texture2D, "
-                         "error "
-                      << error.ErrorMessage() << ", code " << error.Error();
+    NLOG(LS_ERROR,
+         "Failed to convert IDXGIResource to ID3D11Texture2D, "
+         "error ",
+         error.ErrorMessage(), ", code ", error.Error());
     return false;
   }
 

@@ -39,7 +39,7 @@ DllHandle InternalLoadDll(const char dll_name[]) {
 #error Not implemented
 #endif
   if (handle == kInvalidDllHandle) {
-    RTC_LOG(LS_WARNING) << "Can't load " << dll_name << " : " << GetDllError();
+    NLOG(LS_WARNING, "Can't load ", dll_name, " : ", GetDllError());
   }
   return handle;
 }
@@ -55,7 +55,7 @@ void InternalUnloadDll(DllHandle handle) {
 // https://code.google.com/p/address-sanitizer/issues/detail?id=89
 #if !defined(ADDRESS_SANITIZER)
   if (dlclose(handle) != 0) {
-    RTC_LOG(LS_ERROR) << GetDllError();
+    NLOG(LS_ERROR, GetDllError());
   }
 #endif  // !defined(ADDRESS_SANITIZER)
 #else
@@ -70,10 +70,10 @@ static bool LoadSymbol(DllHandle handle,
   *symbol = dlsym(handle, symbol_name);
   char* err = dlerror();
   if (err) {
-    RTC_LOG(LS_ERROR) << "Error loading symbol " << symbol_name << " : " << err;
+    NLOG(LS_ERROR, "Error loading symbol ", symbol_name, " : ", err);
     return false;
   } else if (!*symbol) {
-    RTC_LOG(LS_ERROR) << "Symbol " << symbol_name << " is NULL";
+    NLOG(LS_ERROR, "Symbol ", symbol_name, " is NULL");
     return false;
   }
   return true;

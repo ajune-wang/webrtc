@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "45d300a8_d84ef90d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "I reverted this change in the new patch.",
+      "parentUuid": "7b8dde90_487ee6fc",
+      "range": {
+        "startLine": 19,
+        "startChar": 48,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d691509_ee89bbf2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd31424_bd8ec331",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Oh, it\u0027s a typo. I meant to say\" before the RtpTransportAdapter is replaced with RtpTransport and SrtpTransport\".",
+      "parentUuid": "7d691509_ee89bbf2",
+      "range": {
+        "startLine": 22,
+        "startChar": 67,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9e40f087_4fe984c7",
+        "filename": "ortc/rtptransportadapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "I made major refactoring here to support ORTC.",
+      "parentUuid": "18ef8ffa_7599fb95",
+      "range": {
+        "startLine": 36,
+        "startChar": 49,
+        "endLine": 37,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af5e18d4_03875490",
         "filename": "pc/channel.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d120bdef_fdeb2450",
+        "filename": "pc/channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "af5e18d4_03875490",
+      "range": {
+        "startLine": 270,
+        "startChar": 40,
+        "endLine": 271,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ecfc3225_c84c8f47",
+        "filename": "pc/channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Right, I agree.",
+      "parentUuid": "b6f3056b_2ad6b22c",
+      "range": {
+        "startLine": 153,
+        "startChar": 48,
+        "endLine": 154,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdb9ac2f_640cf750",
         "filename": "pc/channel.h",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f0e268_c9772b4a",
+        "filename": "pc/channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdb9ac2f_640cf750",
+      "range": {
+        "startLine": 176,
+        "startChar": 47,
+        "endLine": 176,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "f26a648c_9b35240e",
+        "filename": "pc/channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e54efbf_05d35e61",
+      "range": {
+        "startLine": 364,
+        "startChar": 36,
+        "endLine": 364,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff97ab57_5b5f2270",
         "filename": "pc/channelmanager_unittest.cc",
         "patchSetId": 5
@@ -177,6 +345,24 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c645badd_88dae6d9",
+        "filename": "pc/channelmanager_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Yeah, I agree. The BaseChannel channel doesn\u0027t care about the specific type of the RtpTransport.",
+      "parentUuid": "ff97ab57_5b5f2270",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +383,24 @@
     },
     {
       "key": {
+        "uuid": "e47e797e_7d83aec7",
+        "filename": "pc/jseptransport2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5f62f0_166967f9",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0506a5c9_40705a93",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 5
@@ -211,6 +415,24 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9096b87d_363f36b7",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Ah, I named it mid in the header but forgot to update the cc file.",
+      "parentUuid": "0506a5c9_40705a93",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +453,24 @@
     },
     {
       "key": {
+        "uuid": "1b8a27a5_16f1156f",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "This is a good catch! I noticed this issue when running some ICE related tests. \nHaving two separate methods is a good idea.",
+      "parentUuid": "9f6f503d_a406ac5b",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d246947a_f185c2a7",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 5
@@ -245,6 +485,24 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5d695f8_f02ab509",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d246947a_f185c2a7",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -295,6 +553,30 @@
     },
     {
       "key": {
+        "uuid": "2828a318_e731cd25",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Right.  the |mid| is more like a PC layer thing and |transport_name| is a P2P layer concept. \nI like the idea of making two separate jseptransport getters.",
+      "parentUuid": "bc18ae5e_72309c4c",
+      "range": {
+        "startLine": 275,
+        "startChar": 38,
+        "endLine": 276,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06bcc2ce_34360562",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 5
@@ -312,6 +594,24 @@
     },
     {
       "key": {
+        "uuid": "7c69192d_5505bbbc",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06bcc2ce_34360562",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "505f9dad_d61331e2",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 5
@@ -326,6 +626,24 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e8cc207_78679ec7",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "505f9dad_d61331e2",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -352,6 +670,30 @@
     },
     {
       "key": {
+        "uuid": "ca8a5c99_5d9b87e5",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce56939c_dc971388",
+      "range": {
+        "startLine": 447,
+        "startChar": 26,
+        "endLine": 448,
+        "endChar": 0
+      },
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a19164c1_a195dac5",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 5
@@ -366,6 +708,24 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3d79044_cfc171d8",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a19164c1_a195dac5",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -386,6 +746,24 @@
     },
     {
       "key": {
+        "uuid": "8cf8f910_0efa8347",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59dec29c_f2133162",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6043af9a_95f51f7f",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 5
@@ -400,6 +778,24 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd68513_185d4f1f",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Yeah, I was thinking about that bug but looks like it\u0027s not closely related the code here though. I\u0027ll just remove it.",
+      "parentUuid": "6043af9a_95f51f7f",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -420,6 +816,24 @@
     },
     {
       "key": {
+        "uuid": "fdcfb803_26684604",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Yeah, we can do this:\n\nif (config_.rtcp_mux_policy !\u003d\n      PeerConnectionInterface::kRtcpMuxPolicyRequire\n   \u0026\u0026 content_info.type \u003d\u003d cricket::MediaProtocolType::kRtp) {\n  // Create RTCP dtls transport.\n}",
+      "parentUuid": "9d0154cc_0f0f96ef",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "394a6600_d816316c",
         "filename": "pc/jseptransportcontroller_unittest.cc",
         "patchSetId": 5
@@ -434,6 +848,24 @@
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7266a4e_8562f23a",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "394a6600_d816316c",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -454,6 +886,24 @@
     },
     {
       "key": {
+        "uuid": "84e5dc22_43950e30",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4600,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b691addd_35fdcae5",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bbd621d_747dd2c8",
         "filename": "pc/peerconnection.h",
         "patchSetId": 5
@@ -471,6 +921,24 @@
     },
     {
       "key": {
+        "uuid": "9dfde965_f818a1d1",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bbd621d_747dd2c8",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2ba4b66_f774c0a9",
         "filename": "pc/peerconnection_bundle_unittest.cc",
         "patchSetId": 5
@@ -482,6 +950,24 @@
       "writtenOn": "2018-03-09T00:14:51Z",
       "side": 1,
       "message": "Is this new behavior? Did we fail before only when applying a non-bundle offer, not when applying a non-bundle answer?",
+      "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92749b81_92a3c09c",
+        "filename": "pc/peerconnection_bundle_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 1,
+      "message": "It\u0027s not a new behavior. We just don\u0027t have end-to-end test to cover this case before and it will fail if the SDP is explicitly modified.",
+      "parentUuid": "e2ba4b66_f774c0a9",
       "revId": "19375ed3a5a3ae86e0c7258f3c6985f5e1dc55d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

@@ -16,6 +16,24 @@
       "revId": "12eb85881c865a67be07d04856383fea22890d6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ed03d16_648b1844",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-19T18:44:39Z",
+      "side": 0,
+      "message": "I have no idea what I was thinking and why I made this change. :) I don\u0027t even know this guy.",
+      "parentUuid": "5565d8e5_401c74e7",
+      "revId": "12eb85881c865a67be07d04856383fea22890d6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

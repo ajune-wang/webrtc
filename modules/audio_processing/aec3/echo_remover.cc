@@ -23,6 +23,7 @@
 #include "modules/audio_processing/aec3/echo_remover_metrics.h"
 #include "modules/audio_processing/aec3/fft_data.h"
 #include "modules/audio_processing/aec3/output_selector.h"
+#include "modules/audio_processing/aec3/refined_delay_estimator.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/aec3/residual_echo_estimator.h"
@@ -49,8 +50,7 @@ void LinearEchoPower(const FftData& E,
 // Class for removing the echo from the capture signal.
 class EchoRemoverImpl final : public EchoRemover {
  public:
-  explicit EchoRemoverImpl(const EchoCanceller3Config& config,
-                           int sample_rate_hz);
+  EchoRemoverImpl(const EchoCanceller3Config& config, int sample_rate_hz);
   ~EchoRemoverImpl() override;
 
   void GetMetrics(EchoControl::Metrics* metrics) const override;
@@ -63,6 +63,9 @@ class EchoRemoverImpl final : public EchoRemover {
                       const rtc::Optional<DelayEstimate>& delay_estimate,
                       RenderBuffer* render_buffer,
                       std::vector<std::vector<float>>* capture) override;
+
+  // Returns the delay estimate in blocks.
+  rtc::Optional<int> Delay() const override { return delay_blocks_; }
 
   // Updates the status on whether echo leakage is detected in the output of the
   // echo remover.
@@ -88,6 +91,9 @@ class EchoRemoverImpl final : public EchoRemover {
   AecState aec_state_;
   EchoRemoverMetrics metrics_;
   bool initial_state_ = true;
+  RefinedDelayEstimator refined_delay_estimator_;
+  rtc::Optional<int> delay_blocks_;
+  rtc::Optional<DelayEstimate> last_delay_estimate_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(EchoRemoverImpl);
 };
@@ -108,7 +114,8 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       suppression_filter_(sample_rate_hz_),
       render_signal_analyzer_(config_),
       residual_echo_estimator_(config_),
-      aec_state_(config_) {
+      aec_state_(config_),
+      refined_delay_estimator_(config_, data_dumper_.get(), optimization_) {
   RTC_DCHECK(ValidFullBandRate(sample_rate_hz));
 }
 
@@ -177,8 +184,29 @@ void EchoRemoverImpl::ProcessCapture(
     suppression_gain_.SetInitialState(false);
     initial_state_ = false;
   }
-  subtractor_.Process(*render_buffer, y0, render_signal_analyzer_, aec_state_,
-                      &subtractor_output);
+
+  rtc::Optional<int> refined_delay;
+  if (delay_estimate) {
+    // If the delay is known, use the echo subtractor.
+    subtractor_.Process(*render_buffer, y0, render_signal_analyzer_, aec_state_,
+                        &subtractor_output);
+    refined_delay_estimator_.DumpFilter();
+  } else {
+    // If the delay is unknown, activate the refined delay estimator.
+    if (last_delay_estimate_) {
+      refined_delay_estimator_.Reset();
+    }
+    refined_delay_estimator_.Update(*render_buffer, y0, render_signal_analyzer_,
+                                    aec_state_);
+    refined_delay = refined_delay_estimator_.DelayBlocks();
+    subtractor_.DumpFilters();
+  }
+  last_delay_estimate_ = delay_estimate;
+
+  data_dumper_->DumpRaw("aec3_refined_delay",
+                        refined_delay ? *refined_delay : -1);
+  data_dumper_->DumpRaw("aec3_external_delay",
+                        delay_estimate ? delay_estimate->delay : -1);
 
   // Compute spectra.
   // fft_.ZeroPaddedFft(y0, Aec3Fft::Window::kHanning, &Y);
@@ -187,17 +215,23 @@ void EchoRemoverImpl::ProcessCapture(
   Y.Spectrum(optimization_, Y2);
 
   // Update the AEC state information.
-  aec_state_.Update(delay_estimate, subtractor_.FilterFrequencyResponse(),
+  aec_state_.Update(delay_estimate, refined_delay,
+                    subtractor_.FilterFrequencyResponse(),
                     subtractor_.FilterImpulseResponse(),
-                    subtractor_.ConvergedFilter(), *render_buffer, E2_main, Y2,
-                    subtractor_output.s_main, echo_leakage_detected_);
+                    subtractor_.ConvergedFilter(), subtractor_.DivergedFilter(),
+                    *render_buffer, E2_main, Y2, subtractor_output.s_main);
+
+  delay_blocks_ = aec_state_.RefinedDelay();
 
   // Choose the linear output.
-  output_selector_.FormLinearOutput(!aec_state_.TransparentMode(), e_main, y0);
+  data_dumper_->DumpRaw("aec3_output_linear", e_main);
+  output_selector_.FormLinearOutput(aec_state_.UseLinearFilterOutput(), e_main,
+                                    y0);
+
   data_dumper_->DumpWav("aec3_output_linear", kBlockSize, &y0[0],
                         LowestBandRate(sample_rate_hz_), 1);
   data_dumper_->DumpRaw("aec3_output_linear", y0);
-  const auto& E2 = output_selector_.UseSubtractorOutput() ? E2_main : Y2;
+  const auto& E2 = aec_state_.UseLinearFilterOutput() ? E2_main : Y2;
 
   // Estimate the residual echo power.
   residual_echo_estimator_.Estimate(aec_state_, *render_buffer, S2_linear, Y2,
@@ -232,7 +266,7 @@ void EchoRemoverImpl::ProcessCapture(
                         rtc::ArrayView<const float>(&y0[0], kBlockSize),
                         LowestBandRate(sample_rate_hz_), 1);
   data_dumper_->DumpRaw("aec3_using_subtractor_output",
-                        output_selector_.UseSubtractorOutput() ? 1 : 0);
+                        aec_state_.UseLinearFilterOutput() ? 1 : 0);
   data_dumper_->DumpRaw("aec3_E2", E2);
   data_dumper_->DumpRaw("aec3_E2_main", E2_main);
   data_dumper_->DumpRaw("aec3_E2_shadow", E2_shadow);

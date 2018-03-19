@@ -49,6 +49,7 @@ float RunSubtractorTest(int num_blocks_to_process,
   std::array<float, kFftLengthBy2Plus1> E2_main;
   std::array<float, kFftLengthBy2Plus1> E2_shadow;
   AecState aec_state(config);
+  rtc::Optional<int> refined_delay;
   x_old.fill(0.f);
   Y2.fill(0.f);
   E2_main.fill(0.f);
@@ -83,11 +84,11 @@ float RunSubtractorTest(int num_blocks_to_process,
 
     aec_state.HandleEchoPathChange(EchoPathVariability(
         false, EchoPathVariability::DelayAdjustment::kNone, false));
-    aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
-                     subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(),
-                     *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
-                     output.s_main, false);
+    aec_state.Update(
+        delay_estimate, refined_delay, subtractor.FilterFrequencyResponse(),
+        subtractor.FilterImpulseResponse(), subtractor.ConvergedFilter(),
+        subtractor.DivergedFilter(), *render_delay_buffer->GetRenderBuffer(),
+        E2_main, Y2, output.s_main);
   }
 
   const float output_power = std::inner_product(

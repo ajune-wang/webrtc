@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9c20987_45ccec1f",
+        "filename": "call/receive_time_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-19T10:05:50Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "4ee098bdb71abfdd32916be9cf414b3b6c301000",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

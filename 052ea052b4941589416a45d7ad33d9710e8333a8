@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a564030_41edee84",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-19T16:52:29Z",
+      "side": 1,
+      "message": "I think the null checks are still required.",
+      "range": {
+        "startLine": 473,
+        "startChar": 4,
+        "endLine": 473,
+        "endChar": 60
+      },
+      "revId": "052ea052b4941589416a45d7ad33d9710e8333a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -59,11 +59,11 @@ void BitrateProber::SetEnabled(bool enable) {
   if (enable) {
     if (probing_state_ == ProbingState::kDisabled) {
       probing_state_ = ProbingState::kInactive;
-      RTC_LOG(LS_INFO) << "Bandwidth probing enabled, set to inactive";
+      NLOG(LS_INFO, "Bandwidth probing enabled, set to inactive");
     }
   } else {
     probing_state_ = ProbingState::kDisabled;
-    RTC_LOG(LS_INFO) << "Bandwidth probing disabled";
+    NLOG(LS_INFO, "Bandwidth probing disabled");
   }
 }
 
@@ -105,10 +105,10 @@ void BitrateProber::CreateProbeCluster(int bitrate_bps, int64_t now_ms) {
         cluster.pace_info.probe_cluster_min_probes,
         cluster.pace_info.probe_cluster_min_bytes));
 
-  RTC_LOG(LS_INFO) << "Probe cluster (bitrate:min bytes:min packets): ("
-                   << cluster.pace_info.send_bitrate_bps << ":"
-                   << cluster.pace_info.probe_cluster_min_bytes << ":"
-                   << cluster.pace_info.probe_cluster_min_probes << ")";
+  NLOG(LS_INFO, "Probe cluster (bitrate:min bytes:min packets): (",
+       cluster.pace_info.send_bitrate_bps, ":",
+       cluster.pace_info.probe_cluster_min_bytes, ":",
+       cluster.pace_info.probe_cluster_min_probes, ")");
   // If we are already probing, continue to do so. Otherwise set it to
   // kInactive and wait for OnIncomingPacket to start the probing.
   if (probing_state_ != ProbingState::kActive)
@@ -124,9 +124,8 @@ int BitrateProber::TimeUntilNextProbe(int64_t now_ms) {
   if (next_probe_time_ms_ >= 0) {
     time_until_probe_ms = next_probe_time_ms_ - now_ms;
     if (time_until_probe_ms < -kMaxProbeDelayMs) {
-      RTC_LOG(LS_WARNING)<<"Probe delay too high"<<
-                           " (next_ms:"<<next_probe_time_ms_<<
-                           ", now_ms: "<<now_ms<<")";
+      NLOG(LS_WARNING, "Probe delay too high",
+           " (next_ms:", next_probe_time_ms_, ", now_ms: ", now_ms, ")");
       return -1;
     }
   }

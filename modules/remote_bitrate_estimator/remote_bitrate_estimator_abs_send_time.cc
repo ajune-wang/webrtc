@@ -93,7 +93,7 @@ bool RemoteBitrateEstimatorAbsSendTime::IsWithinClusterBounds(
         uma_recorded_(false) {
     RTC_DCHECK(clock_);
     RTC_DCHECK(observer_);
-    RTC_LOG(LS_INFO) << "RemoteBitrateEstimatorAbsSendTime: Instantiating.";
+    NLOG(LS_INFO, "RemoteBitrateEstimatorAbsSendTime: Instantiating.");
 }
 
 void RemoteBitrateEstimatorAbsSendTime::ComputeClusters(
@@ -155,11 +155,11 @@ RemoteBitrateEstimatorAbsSendTime::FindBestProbe(
     } else {
       int send_bitrate_bps = it->mean_size * 8 * 1000 / it->send_mean_ms;
       int recv_bitrate_bps = it->mean_size * 8 * 1000 / it->recv_mean_ms;
-      RTC_LOG(LS_INFO) << "Probe failed, sent at " << send_bitrate_bps
-                       << " bps, received at " << recv_bitrate_bps
-                       << " bps. Mean send delta: " << it->send_mean_ms
-                       << " ms, mean recv delta: " << it->recv_mean_ms
-                       << " ms, num probes: " << it->count;
+      NLOG(LS_INFO, "Probe failed, sent at ", send_bitrate_bps,
+           " bps, received at ", recv_bitrate_bps,
+           " bps. Mean send delta: ", it->send_mean_ms,
+           " ms, mean recv delta: ", it->recv_mean_ms,
+           " ms, num probes: ", it->count);
       break;
     }
   }
@@ -185,12 +185,11 @@ RemoteBitrateEstimatorAbsSendTime::ProcessClusters(int64_t now_ms) {
     // Make sure that a probe sent on a lower bitrate than our estimate can't
     // reduce the estimate.
     if (IsBitrateImproving(probe_bitrate_bps)) {
-      RTC_LOG(LS_INFO) << "Probe successful, sent at "
-                       << best_it->GetSendBitrateBps() << " bps, received at "
-                       << best_it->GetRecvBitrateBps()
-                       << " bps. Mean send delta: " << best_it->send_mean_ms
-                       << " ms, mean recv delta: " << best_it->recv_mean_ms
-                       << " ms, num probes: " << best_it->count;
+      NLOG(LS_INFO, "Probe successful, sent at ", best_it->GetSendBitrateBps(),
+           " bps, received at ", best_it->GetRecvBitrateBps(),
+           " bps. Mean send delta: ", best_it->send_mean_ms,
+           " ms, mean recv delta: ", best_it->recv_mean_ms,
+           " ms, num probes: ", best_it->count);
       remote_rate_.SetEstimate(probe_bitrate_bps, now_ms);
       return ProbeResult::kBitrateUpdated;
     }
@@ -218,9 +217,9 @@ void RemoteBitrateEstimatorAbsSendTime::IncomingPacket(
     const RTPHeader& header) {
   RTC_DCHECK_RUNS_SERIALIZED(&network_race_);
   if (!header.extension.hasAbsoluteSendTime) {
-    RTC_LOG(LS_WARNING)
-        << "RemoteBitrateEstimatorAbsSendTimeImpl: Incoming packet "
-           "is missing absolute send time extension!";
+    NLOG(LS_WARNING,
+         "RemoteBitrateEstimatorAbsSendTimeImpl: Incoming packet "
+         "is missing absolute send time extension!");
     return;
   }
   IncomingPacketInfo(arrival_time_ms, header.extension.absoluteSendTime,
@@ -293,10 +292,10 @@ void RemoteBitrateEstimatorAbsSendTime::IncomingPacketInfo(
           send_delta_ms = send_time_ms - probes_.back().send_time_ms;
           recv_delta_ms = arrival_time_ms - probes_.back().recv_time_ms;
         }
-        RTC_LOG(LS_INFO) << "Probe packet received: send time=" << send_time_ms
-                         << " ms, recv time=" << arrival_time_ms
-                         << " ms, send delta=" << send_delta_ms
-                         << " ms, recv delta=" << recv_delta_ms << " ms.";
+        NLOG(LS_INFO, "Probe packet received: send time=", send_time_ms,
+             " ms, recv time=", arrival_time_ms,
+             " ms, send delta=", send_delta_ms,
+             " ms, recv delta=", recv_delta_ms, " ms.");
       }
       probes_.push_back(Probe(send_time_ms, arrival_time_ms, payload_size));
       ++total_probes_received_;

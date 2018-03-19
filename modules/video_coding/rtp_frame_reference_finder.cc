@@ -206,10 +206,9 @@ RtpFrameReferenceFinder::ManageFrameGeneric(RtpFrameObject* frame,
   // that this frame indirectly references.
   auto seq_num_it = last_seq_num_gop_.upper_bound(frame->last_seq_num());
   if (seq_num_it == last_seq_num_gop_.begin()) {
-    RTC_LOG(LS_WARNING) << "Generic frame with packet range ["
-                        << frame->first_seq_num() << ", "
-                        << frame->last_seq_num()
-                        << "] has no GoP, dropping frame.";
+    NLOG(LS_WARNING, "Generic frame with packet range [",
+         frame->first_seq_num(), ", ", frame->last_seq_num(),
+         "] has no GoP, dropping frame.");
     return kDrop;
   }
   seq_num_it--;
@@ -247,8 +246,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
     RtpFrameObject* frame) {
   rtc::Optional<RTPVideoTypeHeader> rtp_codec_header = frame->GetCodecHeader();
   if (!rtp_codec_header) {
-    RTC_LOG(LS_WARNING)
-        << "Failed to get codec header from frame, dropping frame.";
+    NLOG(LS_WARNING, "Failed to get codec header from frame, dropping frame.");
     return kDrop;
   }
 
@@ -355,11 +353,9 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
 
     if (!(AheadOf<uint16_t, kPicIdLength>(frame->picture_id,
                                           layer_info_it->second[layer]))) {
-      RTC_LOG(LS_WARNING) << "Frame with picture id " << frame->picture_id
-                          << " and packet range [" << frame->first_seq_num()
-                          << ", " << frame->last_seq_num()
-                          << "] already received, "
-                          << " dropping frame.";
+      NLOG(LS_WARNING, "Frame with picture id ", frame->picture_id,
+           " and packet range [", frame->first_seq_num(), ", ",
+           frame->last_seq_num(), "] already received, ", " dropping frame.");
       return kDrop;
     }
 
@@ -401,8 +397,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
     RtpFrameObject* frame) {
   rtc::Optional<RTPVideoTypeHeader> rtp_codec_header = frame->GetCodecHeader();
   if (!rtp_codec_header) {
-    RTC_LOG(LS_WARNING)
-        << "Failed to get codec header from frame, dropping frame.";
+    NLOG(LS_WARNING, "Failed to get codec header from frame, dropping frame.");
     return kDrop;
   }
 
@@ -437,9 +432,9 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
   if (codec_header.ss_data_available) {
     // Scalability structures can only be sent with tl0 frames.
     if (codec_header.temporal_idx != 0) {
-      RTC_LOG(LS_WARNING)
-          << "Received scalability structure on a non base layer"
-             " frame. Scalability structure ignored.";
+      NLOG(LS_WARNING,
+           "Received scalability structure on a non base layer"
+           " frame. Scalability structure ignored.");
     } else {
       current_ss_idx_ = Add<kMaxGofSaved>(current_ss_idx_, 1);
       scalability_structures_[current_ss_idx_] = codec_header.gof;
@@ -459,7 +454,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
   if (frame->frame_type() == kVideoFrameKey) {
     // When using GOF all keyframes must include the scalability structure.
     if (!codec_header.ss_data_available)
-      RTC_LOG(LS_WARNING) << "Received keyframe without scalability structure";
+      NLOG(LS_WARNING, "Received keyframe without scalability structure");
 
     frame->num_references = 0;
     GofInfo info = gof_info_.find(codec_header.tl0_pic_idx)->second;
@@ -571,8 +566,8 @@ void RtpFrameReferenceFinder::FrameReceivedVp9(uint16_t picture_id,
 
       size_t temporal_idx = info->gof->temporal_idx[gof_idx];
       if (temporal_idx >= kMaxTemporalLayers) {
-        RTC_LOG(LS_WARNING) << "At most " << kMaxTemporalLayers << " temporal "
-                            << "layers are supported.";
+        NLOG(LS_WARNING, "At most ", kMaxTemporalLayers, " temporal ",
+             "layers are supported.");
         return;
       }
 
@@ -589,8 +584,8 @@ void RtpFrameReferenceFinder::FrameReceivedVp9(uint16_t picture_id,
 
     size_t temporal_idx = info->gof->temporal_idx[gof_idx];
     if (temporal_idx >= kMaxTemporalLayers) {
-      RTC_LOG(LS_WARNING) << "At most " << kMaxTemporalLayers << " temporal "
-                          << "layers are supported.";
+      NLOG(LS_WARNING, "At most ", kMaxTemporalLayers, " temporal ",
+           "layers are supported.");
       return;
     }
 

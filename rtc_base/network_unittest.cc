@@ -900,10 +900,10 @@ TEST_F(NetworkTest, TestIgnoreNonDefaultRoutes) {
   NetworkManager::NetworkList list;
   list = GetNetworks(manager, false);
   bool found_dummy = false;
-  RTC_LOG(LS_INFO) << "Looking for dummy network: ";
+  NLOG(LS_INFO, "Looking for dummy network: ");
   for (NetworkManager::NetworkList::iterator it = list.begin();
        it != list.end(); ++it) {
-    RTC_LOG(LS_INFO) << "  Network name: " << (*it)->name();
+    NLOG(LS_INFO, "  Network name: ", (*it)->name());
     found_dummy |= (*it)->name().find("dummy0") != std::string::npos;
   }
   for (NetworkManager::NetworkList::iterator it = list.begin();
@@ -911,16 +911,16 @@ TEST_F(NetworkTest, TestIgnoreNonDefaultRoutes) {
     delete (*it);
   }
   if (!found_dummy) {
-    RTC_LOG(LS_INFO) << "No dummy found, quitting.";
+    NLOG(LS_INFO, "No dummy found, quitting.");
     return;
   }
-  RTC_LOG(LS_INFO) << "Found dummy, running again while ignoring non-default "
-                   << "routes.";
+  NLOG(LS_INFO, "Found dummy, running again while ignoring non-default ",
+       "routes.");
   manager.set_ignore_non_default_routes(true);
   list = GetNetworks(manager, false);
   for (NetworkManager::NetworkList::iterator it = list.begin();
        it != list.end(); ++it) {
-    RTC_LOG(LS_INFO) << "  Network name: " << (*it)->name();
+    NLOG(LS_INFO, "  Network name: ", (*it)->name());
     EXPECT_TRUE((*it)->name().find("dummy0") == std::string::npos);
   }
   for (NetworkManager::NetworkList::iterator it = list.begin();

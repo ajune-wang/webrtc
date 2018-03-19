@@ -492,16 +492,15 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
   if (pattern_idx_ == temporal_ids_.size()) {
     // All non key-frame buffers should be updated each pattern cycle.
     if (!last_.is_keyframe && !last_.is_updated_this_cycle) {
-      RTC_LOG(LS_ERROR) << "Last buffer was not updated during pattern cycle.";
+      NLOG(LS_ERROR, "Last buffer was not updated during pattern cycle.");
       return false;
     }
     if (!arf_.is_keyframe && !arf_.is_updated_this_cycle) {
-      RTC_LOG(LS_ERROR) << "Arf buffer was not updated during pattern cycle.";
+      NLOG(LS_ERROR, "Arf buffer was not updated during pattern cycle.");
       return false;
     }
     if (!golden_.is_keyframe && !golden_.is_updated_this_cycle) {
-      RTC_LOG(LS_ERROR)
-          << "Golden buffer was not updated during pattern cycle.";
+      NLOG(LS_ERROR, "Golden buffer was not updated during pattern cycle.");
       return false;
     }
     last_.is_updated_this_cycle = false;
@@ -511,9 +510,9 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
   }
   uint8_t expected_tl_idx = temporal_ids_[pattern_idx_];
   if (frame_config.packetizer_temporal_idx != expected_tl_idx) {
-    RTC_LOG(LS_ERROR) << "Frame has an incorrect temporal index. Expected: "
-                      << static_cast<int>(expected_tl_idx) << " Actual: "
-                      << static_cast<int>(frame_config.packetizer_temporal_idx);
+    NLOG(LS_ERROR, "Frame has an incorrect temporal index. Expected: ",
+         static_cast<int>(expected_tl_idx),
+         " Actual: ", static_cast<int>(frame_config.packetizer_temporal_idx));
     return false;
   }
 
@@ -554,8 +553,9 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
   }
 
   if (need_sync != frame_config.layer_sync) {
-    RTC_LOG(LS_ERROR) << "Sync bit is set incorrectly on a frame. Expected: "
-                      << need_sync << " Actual: " << frame_config.layer_sync;
+    NLOG(LS_ERROR,
+         "Sync bit is set incorrectly on a frame. Expected: ", need_sync,
+         " Actual: ", frame_config.layer_sync);
     return false;
   }
 
@@ -564,11 +564,11 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
     for (i = 0; i < dependencies.size(); ++i) {
       if (temporal_dependencies_[pattern_idx_].find(dependencies[i]) ==
           temporal_dependencies_[pattern_idx_].end()) {
-        RTC_LOG(LS_ERROR)
-            << "Illegal temporal dependency out of defined pattern "
-               "from position "
-            << static_cast<int>(pattern_idx_) << " to position "
-            << static_cast<int>(dependencies[i]);
+        NLOG(LS_ERROR,
+             "Illegal temporal dependency out of defined pattern "
+             "from position ",
+             static_cast<int>(pattern_idx_), " to position ",
+             static_cast<int>(dependencies[i]));
         return false;
       }
     }

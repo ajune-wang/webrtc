@@ -231,6 +231,9 @@ config("common_config") {
 
     if (is_clang) {
       cflags += [
+        #        "-save-temps",
+        #        "-S",
+        #        "-O2",
         "-Wc++11-narrowing",
         "-Wimplicit-fallthrough",
         "-Wthread-safety",

@@ -243,16 +243,6 @@ class LogMessage {
   RTC_DISALLOW_COPY_AND_ASSIGN(LogMessage);
 };
 
-//////////////////////////////////////////////////////////////////////
-// Logging Helpers
-//////////////////////////////////////////////////////////////////////
-
-// The following non-obvious technique for implementation of a
-// conditional log stream was stolen from google3/base/logging.h.
-
-// This class is used to explicitly ignore values in the conditional
-// logging macros.  This avoids compiler warnings like "value computed
-// is not used" and "statement has no effect".
 
 class LogMessageVoidify {
  public:
@@ -267,10 +257,55 @@ class LogMessageVoidify {
     ? (void) 0 \
     : rtc::LogMessageVoidify() &
 
+template <typename T, std::uint8_t N>
+struct Val {
+  enum : std::uint8_t { type_num = N };
+  const T val;
+};
+
+inline Val<int, 1> MakeVal(int x) {
+  return {x};
+}
+inline Val<const char*, 2> MakeVal(const char* x) {
+  return {x};
+}
+inline Val<const std::string*, 3> MakeVal(const std::string& x) {
+  return {&x};
+}
+
+__attribute__((noinline)) void RealLog(const char* file,
+                                       int line,
+                                       LoggingSeverity sev,
+                                       const std::uint8_t* tags,
+                                       ...);
+
+template <typename... Args>
+inline __attribute__((__always_inline__)) void Log(const char* file,
+                                                   int line,
+                                                   LoggingSeverity sev,
+                                                   const Args&... args) {
+  static constexpr std::uint8_t t[] = {
+      decltype(MakeVal(std::declval<Args>()))::type_num..., 0};
+  RealLog(file, line, sev, t, MakeVal(args).val...);
+}
+
+#define NLOG(sev, args...)                 \
+  if (rtc::LogMessage::Loggable(rtc::sev)) \
+  rtc::Log(__FILE__, __LINE__, rtc::sev, args)
+
+//////////////////////////////////////////////////////////////////////
+// Logging Helpers
+//////////////////////////////////////////////////////////////////////
+
+// The following non-obvious technique for implementation of a
+// conditional log stream was stolen from google3/base/logging.h.
+
+// This class is used to explicitly ignore values in the conditional
+// logging macros.  This avoids compiler warnings like "value computed
+// is not used" and "statement has no effect".
 #define RTC_LOG(sev) \
   RTC_LOG_SEVERITY_PRECONDITION(rtc::sev) \
     rtc::LogMessage(__FILE__, __LINE__, rtc::sev).stream()
-
 // The _V version is for when a variable is passed in.  It doesn't do the
 // namespace concatenation.
 #define RTC_LOG_V(sev) \

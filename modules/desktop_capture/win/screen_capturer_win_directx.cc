@@ -136,27 +136,28 @@ void ScreenCapturerWinDirectx::CaptureFrame() {
 
   using DuplicateResult = DxgiDuplicatorController::Result;
   if (result != DuplicateResult::SUCCEEDED) {
-    RTC_LOG(LS_ERROR) << "DxgiDuplicatorController failed to capture desktop, "
-                         "error code "
-                      << DxgiDuplicatorController::ResultName(result);
+    NLOG(LS_ERROR,
+         "DxgiDuplicatorController failed to capture desktop, "
+         "error code ",
+         DxgiDuplicatorController::ResultName(result));
   }
   switch (result) {
     case DuplicateResult::UNSUPPORTED_SESSION: {
-      RTC_LOG(LS_ERROR)
-          << "Current binary is running on a session not supported "
-             "by DirectX screen capturer.";
+      NLOG(LS_ERROR,
+           "Current binary is running on a session not supported "
+           "by DirectX screen capturer.");
       callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
       break;
     }
     case DuplicateResult::FRAME_PREPARE_FAILED: {
-      RTC_LOG(LS_ERROR) << "Failed to allocate a new DesktopFrame.";
+      NLOG(LS_ERROR, "Failed to allocate a new DesktopFrame.");
       // This usually means we do not have enough memory or SharedMemoryFactory
       // cannot work correctly.
       callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
       break;
     }
     case DuplicateResult::INVALID_MONITOR_ID: {
-      RTC_LOG(LS_ERROR) << "Invalid monitor id " << current_screen_id_;
+      NLOG(LS_ERROR, "Invalid monitor id ", current_screen_id_);
       callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
       break;
     }

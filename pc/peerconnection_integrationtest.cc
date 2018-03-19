@@ -664,7 +664,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   }
 
   void HandleIncomingOffer(const std::string& msg) {
-    RTC_LOG(LS_INFO) << debug_name_ << ": HandleIncomingOffer";
+    NLOG(LS_INFO, debug_name_, ": HandleIncomingOffer");
     std::unique_ptr<SessionDescriptionInterface> desc =
         webrtc::CreateSessionDescription(SdpType::kOffer, msg);
     if (received_sdp_munger_) {
@@ -684,7 +684,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   }
 
   void HandleIncomingAnswer(const std::string& msg) {
-    RTC_LOG(LS_INFO) << debug_name_ << ": HandleIncomingAnswer";
+    NLOG(LS_INFO, debug_name_, ": HandleIncomingAnswer");
     std::unique_ptr<SessionDescriptionInterface> desc =
         webrtc::CreateSessionDescription(SdpType::kAnswer, msg);
     if (received_sdp_munger_) {
@@ -734,7 +734,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       std::unique_ptr<SessionDescriptionInterface> desc) {
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
         new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
-    RTC_LOG(LS_INFO) << debug_name_ << ": SetLocalDescriptionAndSendSdpMessage";
+    NLOG(LS_INFO, debug_name_, ": SetLocalDescriptionAndSendSdpMessage");
     SdpType type = desc->GetType();
     std::string sdp;
     EXPECT_TRUE(desc->ToString(&sdp));
@@ -752,7 +752,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
         new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
-    RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";
+    NLOG(LS_INFO, debug_name_, ": SetRemoteDescription");
     pc()->SetRemoteDescription(observer, desc.release());
     if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
       RemoveUnusedVideoRenderers();
@@ -848,7 +848,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   void ReceiveIceMessage(const std::string& sdp_mid,
                          int sdp_mline_index,
                          const std::string& msg) override {
-    RTC_LOG(LS_INFO) << debug_name_ << ": ReceiveIceMessage";
+    NLOG(LS_INFO, debug_name_, ": ReceiveIceMessage");
     std::unique_ptr<webrtc::IceCandidateInterface> candidate(
         webrtc::CreateIceCandidate(sdp_mid, sdp_mline_index, msg, nullptr));
     EXPECT_TRUE(pc()->AddIceCandidate(candidate.get()));
@@ -891,7 +891,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     ice_gathering_state_history_.push_back(new_state);
   }
   void OnIceCandidate(const webrtc::IceCandidateInterface* candidate) override {
-    RTC_LOG(LS_INFO) << debug_name_ << ": OnIceCandidate";
+    NLOG(LS_INFO, debug_name_, ": OnIceCandidate");
 
     std::string ice_sdp;
     EXPECT_TRUE(candidate->ToString(&ice_sdp));
@@ -903,7 +903,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   }
   void OnDataChannel(
       rtc::scoped_refptr<DataChannelInterface> data_channel) override {
-    RTC_LOG(LS_INFO) << debug_name_ << ": OnDataChannel";
+    NLOG(LS_INFO, debug_name_, ": OnDataChannel");
     data_channel_ = data_channel;
     data_observer_.reset(new MockDataChannelObserver(data_channel));
   }
@@ -3196,13 +3196,13 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
   for (const auto& caller_address : CallerAddresses()) {
     firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
   }
-  RTC_LOG(LS_INFO) << "Firewall rules applied";
+  NLOG(LS_INFO, "Firewall rules applied");
   ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
                  caller()->ice_connection_state(), kDefaultTimeout);
 
   // Let ICE re-establish by removing the firewall rules.
   firewall()->ClearRules();
-  RTC_LOG(LS_INFO) << "Firewall rules cleared";
+  NLOG(LS_INFO, "Firewall rules cleared");
   ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
                  caller()->ice_connection_state(), kDefaultTimeout);
 
@@ -3213,7 +3213,7 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
   for (const auto& caller_address : CallerAddresses()) {
     firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
   }
-  RTC_LOG(LS_INFO) << "Firewall rules applied again";
+  NLOG(LS_INFO, "Firewall rules applied again");
   ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionFailed,
                  caller()->ice_connection_state(), kConsentTimeout);
 }

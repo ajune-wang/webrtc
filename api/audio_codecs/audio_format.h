@@ -54,6 +54,8 @@ struct SdpAudioFormat {
     return !(a == b);
   }
 
+  operator std::string() const;
+
   std::string name;
   int clockrate_hz;
   size_t num_channels;

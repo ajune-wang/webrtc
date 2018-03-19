@@ -120,18 +120,16 @@ bool DtmfSender::InsertDtmf(const std::string& tones, int duration,
   if (duration > kDtmfMaxDurationMs ||
       duration < kDtmfMinDurationMs ||
       inter_tone_gap < kDtmfMinGapMs) {
-    RTC_LOG(LS_ERROR)
-        << "InsertDtmf is called with invalid duration or tones gap. "
-           "The duration cannot be more than "
-        << kDtmfMaxDurationMs << "ms or less than " << kDtmfMinDurationMs
-        << "ms. The gap between tones must be at least "
-        << kDtmfMinGapMs << "ms.";
+    NLOG(LS_ERROR,
+         "InsertDtmf is called with invalid duration or tones gap. "
+         "The duration cannot be more than ",
+         kDtmfMaxDurationMs, "ms or less than ", kDtmfMinDurationMs,
+         "ms. The gap between tones must be at least ", kDtmfMinGapMs, "ms.");
     return false;
   }
 
   if (!CanInsertDtmf()) {
-    RTC_LOG(LS_ERROR)
-        << "InsertDtmf is called on DtmfSender that can't send DTMF.";
+    NLOG(LS_ERROR, "InsertDtmf is called on DtmfSender that can't send DTMF.");
     return false;
   }
 
@@ -204,13 +202,13 @@ void DtmfSender::DoInsertDtmf() {
     tone_gap = kDtmfTwoSecondInMs;
   } else {
     if (!provider_) {
-      RTC_LOG(LS_ERROR) << "The DtmfProvider has been destroyed.";
+      NLOG(LS_ERROR, "The DtmfProvider has been destroyed.");
       return;
     }
     // The provider starts playout of the given tone on the
     // associated RTP media stream, using the appropriate codec.
     if (!provider_->InsertDtmf(code, duration_)) {
-      RTC_LOG(LS_ERROR) << "The DtmfProvider can no longer send DTMF.";
+      NLOG(LS_ERROR, "The DtmfProvider can no longer send DTMF.");
       return;
     }
     // Wait for the number of milliseconds specified by |duration_|.
@@ -231,7 +229,7 @@ void DtmfSender::DoInsertDtmf() {
 }
 
 void DtmfSender::OnProviderDestroyed() {
-  RTC_LOG(LS_INFO) << "The Dtmf provider is deleted. Clear the sending queue.";
+  NLOG(LS_INFO, "The Dtmf provider is deleted. Clear the sending queue.");
   StopSending();
   provider_ = NULL;
 }

@@ -222,9 +222,8 @@ rtc::Optional<DelayEstimate> RenderDelayControllerImpl::GetDelay(
           : rtc::nullopt;
   previous_offset_blocks_ = offset_blocks;
   if (skew_shift) {
-    RTC_LOG(LS_WARNING) << "API call skew shift of " << *skew_shift
-                        << " blocks detected at capture block "
-                        << capture_call_counter_;
+    NLOG(LS_WARNING, "API call skew shift of ", *skew_shift,
+         " blocks detected at capture block ", capture_call_counter_);
     skew_shift_reporting_counter_ = 3 * kNumBlocksPerSecond;
   }
 

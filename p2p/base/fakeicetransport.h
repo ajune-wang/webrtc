@@ -148,7 +148,7 @@ class FakeIceTransport : public IceTransportInternal {
     auto it = std::find(remote_candidates_.begin(), remote_candidates_.end(),
                         candidate);
     if (it == remote_candidates_.end()) {
-      RTC_LOG(LS_INFO) << "Trying to remove a candidate which doesn't exist.";
+      NLOG(LS_INFO, "Trying to remove a candidate which doesn't exist.");
       return;
     }
 
@@ -234,7 +234,7 @@ class FakeIceTransport : public IceTransportInternal {
     if (writable_ == writable) {
       return;
     }
-    RTC_LOG(INFO) << "Change writable_ to " << writable;
+    NLOG(INFO, "Change writable_ to ", writable);
     writable_ = writable;
     if (writable_) {
       SignalReadyToSend(this);

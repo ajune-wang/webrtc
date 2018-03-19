@@ -171,20 +171,19 @@ int AgcManagerDirect::Initialize() {
   // example, what happens when we change devices.
 
   if (gctrl_->set_mode(GainControl::kFixedDigital) != 0) {
-    RTC_LOG(LS_ERROR) << "set_mode(GainControl::kFixedDigital) failed.";
+    NLOG(LS_ERROR, "set_mode(GainControl::kFixedDigital) failed.");
     return -1;
   }
   if (gctrl_->set_target_level_dbfs(2) != 0) {
-    RTC_LOG(LS_ERROR) << "set_target_level_dbfs(2) failed.";
+    NLOG(LS_ERROR, "set_target_level_dbfs(2) failed.");
     return -1;
   }
   if (gctrl_->set_compression_gain_db(kDefaultCompressionGain) != 0) {
-    RTC_LOG(LS_ERROR)
-        << "set_compression_gain_db(kDefaultCompressionGain) failed.";
+    NLOG(LS_ERROR, "set_compression_gain_db(kDefaultCompressionGain) failed.");
     return -1;
   }
   if (gctrl_->enable_limiter(true) != 0) {
-    RTC_LOG(LS_ERROR) << "enable_limiter(true) failed.";
+    NLOG(LS_ERROR, "enable_limiter(true) failed.");
     return -1;
   }
   return 0;
@@ -265,8 +264,7 @@ void AgcManagerDirect::SetLevel(int new_level) {
     return;
   }
   if (voe_level < 0 || voe_level > kMaxMicLevel) {
-    RTC_LOG(LS_ERROR) << "VolumeCallbacks returned an invalid level="
-                      << voe_level;
+    NLOG(LS_ERROR, "VolumeCallbacks returned an invalid level=", voe_level);
     return;
   }
 
@@ -340,8 +338,7 @@ int AgcManagerDirect::CheckVolumeAndReset() {
     return 0;
   }
   if (level < 0 || level > kMaxMicLevel) {
-    RTC_LOG(LS_ERROR) << "[agc] VolumeCallbacks returned an invalid level="
-                      << level;
+    NLOG(LS_ERROR, "[agc] VolumeCallbacks returned an invalid level=", level);
     return -1;
   }
   RTC_DLOG(LS_INFO) << "[agc] Initial GetMicVolume()=" << level;
@@ -444,8 +441,7 @@ void AgcManagerDirect::UpdateCompressor() {
     compression_ = new_compression;
     compression_accumulator_ = new_compression;
     if (gctrl_->set_compression_gain_db(compression_) != 0) {
-      RTC_LOG(LS_ERROR) << "set_compression_gain_db(" << compression_
-                        << ") failed.";
+      NLOG(LS_ERROR, "set_compression_gain_db(", compression_, ") failed.");
     }
   }
 }

@@ -93,24 +93,22 @@ TEST(WindowFinderTest, FindDrawerWindow) {
 #endif
   std::unique_ptr<WindowFinder> finder = WindowFinder::Create(options);
   if (!finder) {
-    RTC_LOG(LS_WARNING)
-        << "No WindowFinder implementation for current platform.";
+    NLOG(LS_WARNING, "No WindowFinder implementation for current platform.");
     return;
   }
 
   std::unique_ptr<ScreenDrawer> drawer = ScreenDrawer::Create();
   if (!drawer) {
-    RTC_LOG(LS_WARNING)
-        << "No ScreenDrawer implementation for current platform.";
+    NLOG(LS_WARNING, "No ScreenDrawer implementation for current platform.");
     return;
   }
 
   if (drawer->window_id() == kNullWindowId) {
     // TODO(zijiehe): WindowFinderTest can use a dedicated window without
     // relying on ScreenDrawer.
-    RTC_LOG(LS_WARNING)
-        << "ScreenDrawer implementation for current platform does "
-           "create a window.";
+    NLOG(LS_WARNING,
+         "ScreenDrawer implementation for current platform does "
+         "create a window.");
     return;
   }
 
@@ -118,9 +116,9 @@ TEST(WindowFinderTest, FindDrawerWindow) {
   // several spots, at least one of them should succeed.
   const DesktopRect region = drawer->DrawableRegion();
   if (region.is_empty()) {
-    RTC_LOG(LS_WARNING)
-        << "ScreenDrawer::DrawableRegion() is too small for the "
-           "WindowFinderTest.";
+    NLOG(LS_WARNING,
+         "ScreenDrawer::DrawableRegion() is too small for the "
+         "WindowFinderTest.");
     return;
   }
 
@@ -149,8 +147,7 @@ TEST(WindowFinderTest, ShouldReturnNullWindowIfSpotIsOutOfScreen) {
 #endif
   std::unique_ptr<WindowFinder> finder = WindowFinder::Create(options);
   if (!finder) {
-    RTC_LOG(LS_WARNING)
-        << "No WindowFinder implementation for current platform.";
+    NLOG(LS_WARNING, "No WindowFinder implementation for current platform.");
     return;
   }
 

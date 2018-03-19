@@ -43,7 +43,7 @@ rtc::SocketAddress UdpTransport::GetLocalAddress() const {
 bool UdpTransport::SetRemoteAddress(const rtc::SocketAddress& addr) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
   if (!addr.IsComplete()) {
-    RTC_LOG(LS_WARNING) << "Remote address not complete.";
+    NLOG(LS_WARNING, "Remote address not complete.");
     return false;
   }
   // TODO(johan): check for ipv4, other settings.
@@ -84,14 +84,14 @@ int UdpTransport::SendPacket(const char* data,
                              int flags) {
   // No thread_checker in high frequency network function.
   if (remote_address_.IsNil()) {
-    RTC_LOG(LS_WARNING) << "Remote address not set.";
+    NLOG(LS_WARNING, "Remote address not set.");
     send_error_ = ENOTCONN;
     return -1;
   }
   int result =
       socket_->SendTo((const void*)data, len, remote_address_, options);
   if (result <= 0) {
-    RTC_LOG(LS_VERBOSE) << "SendPacket() " << result;
+    NLOG(LS_VERBOSE, "SendPacket() ", result);
   }
   return result;
 }

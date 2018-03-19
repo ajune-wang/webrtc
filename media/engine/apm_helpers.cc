@@ -49,16 +49,14 @@ void SetAgcConfig(AudioProcessing* apm,
   RTC_DCHECK(apm);
   GainControl* gc = apm->gain_control();
   if (gc->set_target_level_dbfs(config.targetLeveldBOv) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to set target level: "
-                      << config.targetLeveldBOv;
+    NLOG(LS_ERROR, "Failed to set target level: ", config.targetLeveldBOv);
   }
   if (gc->set_compression_gain_db(config.digitalCompressionGaindB) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to set compression gain: "
-                      << config.digitalCompressionGaindB;
+    NLOG(LS_ERROR,
+         "Failed to set compression gain: ", config.digitalCompressionGaindB);
   }
   if (gc->enable_limiter(config.limiterEnable) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to set limiter on/off: "
-                      << config.limiterEnable;
+    NLOG(LS_ERROR, "Failed to set limiter on/off: ", config.limiterEnable);
   }
 }
 
@@ -72,14 +70,14 @@ void SetAgcStatus(AudioProcessing* apm,
 #endif
   GainControl* gc = apm->gain_control();
   if (gc->set_mode(agc_mode) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to set AGC mode: " << agc_mode;
+    NLOG(LS_ERROR, "Failed to set AGC mode: ", agc_mode);
     return;
   }
   if (gc->Enable(enable) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to enable/disable AGC: " << enable;
+    NLOG(LS_ERROR, "Failed to enable/disable AGC: ", enable);
     return;
   }
-  RTC_LOG(LS_INFO) << "AGC set to " << enable << " with mode " << agc_mode;
+  NLOG(LS_INFO, "AGC set to ", enable, " with mode ", agc_mode);
 }
 
 void SetEcStatus(AudioProcessing* apm,
@@ -92,40 +90,40 @@ void SetEcStatus(AudioProcessing* apm,
   if (mode == kEcConference) {
     // Disable the AECM before enabling the AEC.
     if (enable && ecm->is_enabled() && ecm->Enable(false) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to disable AECM.";
+      NLOG(LS_ERROR, "Failed to disable AECM.");
       return;
     }
     if (ec->Enable(enable) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to enable/disable AEC: " << enable;
+      NLOG(LS_ERROR, "Failed to enable/disable AEC: ", enable);
       return;
     }
     if (ec->set_suppression_level(EchoCancellation::kHighSuppression)
         != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to set high AEC aggressiveness.";
+      NLOG(LS_ERROR, "Failed to set high AEC aggressiveness.");
       return;
     }
   } else {
     // Disable the AEC before enabling the AECM.
     if (enable && ec->is_enabled() && ec->Enable(false) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to disable AEC.";
+      NLOG(LS_ERROR, "Failed to disable AEC.");
       return;
     }
     if (ecm->Enable(enable) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to enable/disable AECM: " << enable;
+      NLOG(LS_ERROR, "Failed to enable/disable AECM: ", enable);
       return;
     }
   }
-  RTC_LOG(LS_INFO) << "Echo control set to " << enable << " with mode " << mode;
+  NLOG(LS_INFO, "Echo control set to ", enable, " with mode ", mode);
 }
 
 void SetEcMetricsStatus(AudioProcessing* apm, bool enable) {
   RTC_DCHECK(apm);
   if ((apm->echo_cancellation()->enable_metrics(enable) != 0) ||
       (apm->echo_cancellation()->enable_delay_logging(enable) != 0)) {
-    RTC_LOG(LS_ERROR) << "Failed to enable/disable EC metrics: " << enable;
+    NLOG(LS_ERROR, "Failed to enable/disable EC metrics: ", enable);
     return;
   }
-  RTC_LOG(LS_INFO) << "EC metrics set to " << enable;
+  NLOG(LS_INFO, "EC metrics set to ", enable);
 }
 
 void SetAecmMode(AudioProcessing* apm, bool enable) {
@@ -133,38 +131,38 @@ void SetAecmMode(AudioProcessing* apm, bool enable) {
   EchoControlMobile* ecm = apm->echo_control_mobile();
   RTC_DCHECK_EQ(EchoControlMobile::kSpeakerphone, ecm->routing_mode());
   if (ecm->enable_comfort_noise(enable) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to enable/disable CNG: " << enable;
+    NLOG(LS_ERROR, "Failed to enable/disable CNG: ", enable);
     return;
   }
-  RTC_LOG(LS_INFO) << "CNG set to " << enable;
+  NLOG(LS_INFO, "CNG set to ", enable);
 }
 
 void SetNsStatus(AudioProcessing* apm, bool enable) {
   RTC_DCHECK(apm);
   NoiseSuppression* ns = apm->noise_suppression();
   if (ns->set_level(NoiseSuppression::kHigh) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to set high NS level.";
+    NLOG(LS_ERROR, "Failed to set high NS level.");
     return;
   }
   if (ns->Enable(enable) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to enable/disable NS: " << enable;
+    NLOG(LS_ERROR, "Failed to enable/disable NS: ", enable);
     return;
   }
-  RTC_LOG(LS_INFO) << "NS set to " << enable;
+  NLOG(LS_INFO, "NS set to ", enable);
 }
 
 void SetTypingDetectionStatus(AudioProcessing* apm, bool enable) {
   RTC_DCHECK(apm);
   VoiceDetection* vd = apm->voice_detection();
   if (vd->Enable(enable)) {
-    RTC_LOG(LS_ERROR) << "Failed to enable/disable VAD: " << enable;
+    NLOG(LS_ERROR, "Failed to enable/disable VAD: ", enable);
     return;
   }
   if (vd->set_likelihood(VoiceDetection::kVeryLowLikelihood)) {
-    RTC_LOG(LS_ERROR) << "Failed to set low VAD likelihood.";
+    NLOG(LS_ERROR, "Failed to set low VAD likelihood.");
     return;
   }
-  RTC_LOG(LS_INFO) << "VAD set to " << enable << " for typing detection.";
+  NLOG(LS_INFO, "VAD set to ", enable, " for typing detection.");
 }
 }  // namespace apm_helpers
 }  // namespace webrtc

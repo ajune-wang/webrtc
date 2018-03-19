@@ -33,6 +33,8 @@ class PacketTransportInternal : public virtual webrtc::PacketTransportInterface,
  public:
   virtual const std::string& transport_name() const = 0;
 
+  operator int() const { return 0; }
+
   // The transport has been established.
   virtual bool writable() const = 0;
 

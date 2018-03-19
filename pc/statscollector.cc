@@ -940,7 +940,7 @@ void StatsCollector::ExtractMediaInfo() {
     for (auto it = voice_channel_infos.begin(); it != voice_channel_infos.end();
          /* incremented manually */) {
       if (!it->voice_media_channel->GetStats(&it->voice_media_info)) {
-        RTC_LOG(LS_ERROR) << "Failed to get voice channel stats";
+        NLOG(LS_ERROR, "Failed to get voice channel stats");
         it = voice_channel_infos.erase(it);
         continue;
       }
@@ -949,7 +949,7 @@ void StatsCollector::ExtractMediaInfo() {
     for (auto it = video_channel_infos.begin(); it != video_channel_infos.end();
          /* incremented manually */) {
       if (!it->video_media_channel->GetStats(&it->video_media_info)) {
-        RTC_LOG(LS_ERROR) << "Failed to get video channel stats";
+        NLOG(LS_ERROR, "Failed to get video channel stats");
         it = video_channel_infos.erase(it);
         continue;
       }
@@ -1059,7 +1059,7 @@ void StatsCollector::UpdateStatsFromExistingLocalAudioTracks(
     if (report == NULL) {
       // This can happen if a local audio track is added to a stream on the
       // fly and the report has not been set up yet. Do nothing in this case.
-      RTC_LOG(LS_ERROR) << "Stats report does not exist for ssrc " << ssrc;
+      NLOG(LS_ERROR, "Stats report does not exist for ssrc ", ssrc);
       continue;
     }
 
@@ -1104,15 +1104,15 @@ bool StatsCollector::GetTrackIdBySsrc(uint32_t ssrc,
   RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
   if (direction == StatsReport::kSend) {
     if (!pc_->GetLocalTrackIdBySsrc(ssrc, track_id)) {
-      RTC_LOG(LS_WARNING) << "The SSRC " << ssrc
-                          << " is not associated with a sending track";
+      NLOG(LS_WARNING, "The SSRC ", ssrc,
+           " is not associated with a sending track");
       return false;
     }
   } else {
     RTC_DCHECK(direction == StatsReport::kReceive);
     if (!pc_->GetRemoteTrackIdBySsrc(ssrc, track_id)) {
-      RTC_LOG(LS_WARNING) << "The SSRC " << ssrc
-                          << " is not associated with a receiving track";
+      NLOG(LS_WARNING, "The SSRC ", ssrc,
+           " is not associated with a receiving track");
       return false;
     }
   }

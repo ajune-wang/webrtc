@@ -656,9 +656,8 @@ VCMFrameBufferEnum VCMJitterBuffer::InsertPacket(const VCMPacket& packet,
     FindAndInsertContinuousFramesWithState(last_decoded_state_);
 
     if (num_consecutive_old_packets_ > kMaxConsecutiveOldPackets) {
-      RTC_LOG(LS_WARNING)
-          << num_consecutive_old_packets_
-          << " consecutive old packets received. Flushing the jitter buffer.";
+      NLOG(LS_WARNING, num_consecutive_old_packets_,
+           " consecutive old packets received. Flushing the jitter buffer.");
       Flush();
       return kFlushIndicator;
     }
@@ -1053,13 +1052,12 @@ bool VCMJitterBuffer::UpdateNackList(uint16_t sequence_number) {
                            "seqnum", i);
     }
     if (TooLargeNackList() && !HandleTooLargeNackList()) {
-      RTC_LOG(LS_WARNING) << "Requesting key frame due to too large NACK list.";
+      NLOG(LS_WARNING, "Requesting key frame due to too large NACK list.");
       return false;
     }
     if (MissingTooOldPacket(sequence_number) &&
         !HandleTooOldPackets(sequence_number)) {
-      RTC_LOG(LS_WARNING)
-          << "Requesting key frame due to missing too old packets";
+      NLOG(LS_WARNING, "Requesting key frame due to missing too old packets");
       return false;
     }
   } else {
@@ -1165,7 +1163,7 @@ bool VCMJitterBuffer::RecycleFramesUntilKeyFrame() {
   }
   TRACE_EVENT_INSTANT0("webrtc", "JB::RecycleFramesUntilKeyFrame");
   if (key_frame_found) {
-    RTC_LOG(LS_INFO) << "Found key frame while dropping frames.";
+    NLOG(LS_INFO, "Found key frame while dropping frames.");
     // Reset last decoded state to make sure the next frame decoded is a key
     // frame, and start NACKing from here.
     last_decoded_state_.Reset();
@@ -1197,7 +1195,7 @@ void VCMJitterBuffer::CountFrame(const VCMFrameBuffer& frame) {
     if (frame.FrameType() == kVideoFrameKey) {
       ++receive_statistics_.key_frames;
       if (receive_statistics_.key_frames == 1) {
-        RTC_LOG(LS_INFO) << "Received first complete key frame";
+        NLOG(LS_INFO, "Received first complete key frame");
       }
     } else {
       ++receive_statistics_.delta_frames;

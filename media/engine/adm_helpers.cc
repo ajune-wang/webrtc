@@ -40,40 +40,40 @@ void Init(AudioDeviceModule* adm) {
   // Playout device.
   {
     if (adm->SetPlayoutDevice(AUDIO_DEVICE_ID) != 0) {
-      RTC_LOG(LS_ERROR) << "Unable to set playout device.";
+      NLOG(LS_ERROR, "Unable to set playout device.");
       return;
     }
     if (adm->InitSpeaker() != 0) {
-      RTC_LOG(LS_ERROR) << "Unable to access speaker.";
+      NLOG(LS_ERROR, "Unable to access speaker.");
     }
 
     // Set number of channels
     bool available = false;
     if (adm->StereoPlayoutIsAvailable(&available) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to query stereo playout.";
+      NLOG(LS_ERROR, "Failed to query stereo playout.");
     }
     if (adm->SetStereoPlayout(available) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to set stereo playout mode.";
+      NLOG(LS_ERROR, "Failed to set stereo playout mode.");
     }
   }
 
   // Recording device.
   {
     if (adm->SetRecordingDevice(AUDIO_DEVICE_ID) != 0) {
-      RTC_LOG(LS_ERROR) << "Unable to set recording device.";
+      NLOG(LS_ERROR, "Unable to set recording device.");
       return;
     }
     if (adm->InitMicrophone() != 0) {
-      RTC_LOG(LS_ERROR) << "Unable to access microphone.";
+      NLOG(LS_ERROR, "Unable to access microphone.");
     }
 
     // Set number of channels
     bool available = false;
     if (adm->StereoRecordingIsAvailable(&available) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to query stereo recording.";
+      NLOG(LS_ERROR, "Failed to query stereo recording.");
     }
     if (adm->SetStereoRecording(available) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to set stereo recording mode.";
+      NLOG(LS_ERROR, "Failed to set stereo recording mode.");
     }
   }
 }

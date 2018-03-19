@@ -215,10 +215,8 @@ RenderDelayBuffer::BufferingEvent RenderDelayBufferImpl::Insert(
     } else {
       if (++num_api_calls_in_a_row_ > max_observed_jitter_) {
         max_observed_jitter_ = num_api_calls_in_a_row_;
-        RTC_LOG(LS_INFO)
-            << "New max number api jitter observed at render block "
-            << render_call_counter_ << ":  " << num_api_calls_in_a_row_
-            << " blocks";
+        NLOG(LS_INFO, "New max number api jitter observed at render block ",
+             render_call_counter_, ":  ", num_api_calls_in_a_row_, " blocks");
       }
     }
   }
@@ -263,10 +261,8 @@ RenderDelayBufferImpl::PrepareCaptureProcessing() {
     } else {
       if (++num_api_calls_in_a_row_ > max_observed_jitter_) {
         max_observed_jitter_ = num_api_calls_in_a_row_;
-        RTC_LOG(LS_INFO)
-            << "New max number api jitter observed at capture block "
-            << capture_call_counter_ << ":  " << num_api_calls_in_a_row_
-            << " blocks";
+        NLOG(LS_INFO, "New max number api jitter observed at capture block ",
+             capture_call_counter_, ":  ", num_api_calls_in_a_row_, " blocks");
       }
     }
   }

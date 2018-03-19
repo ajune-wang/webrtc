@@ -404,7 +404,7 @@ bool RtpDepacketizerH264::Parse(ParsedPayload* parsed_payload,
                                 size_t payload_data_length) {
   RTC_CHECK(parsed_payload != nullptr);
   if (payload_data_length == 0) {
-    RTC_LOG(LS_ERROR) << "Empty payload.";
+    NLOG(LS_ERROR, "Empty payload.");
     return false;
   }
 
@@ -451,12 +451,12 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
   if (nal_type == H264::NaluType::kStapA) {
     // Skip the StapA header (StapA NAL type + length).
     if (length_ <= kStapAHeaderSize) {
-      RTC_LOG(LS_ERROR) << "StapA header truncated.";
+      NLOG(LS_ERROR, "StapA header truncated.");
       return false;
     }
 
     if (!ParseStapAStartOffsets(nalu_start, nalu_length, &nalu_start_offsets)) {
-      RTC_LOG(LS_ERROR) << "StapA packet with incorrect NALU packet lengths.";
+      NLOG(LS_ERROR, "StapA packet with incorrect NALU packet lengths.");
       return false;
     }
 
@@ -476,7 +476,7 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
     // so remove that from this units length.
     size_t end_offset = nalu_start_offsets[i + 1] - kLengthFieldSize;
     if (end_offset - start_offset < H264::kNaluTypeSize) {
-      RTC_LOG(LS_ERROR) << "STAP-A packet too short";
+      NLOG(LS_ERROR, "STAP-A packet too short");
       return false;
     }
 
@@ -505,10 +505,10 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
         switch (result) {
           case SpsVuiRewriter::ParseResult::kVuiRewritten:
             if (modified_buffer_) {
-              RTC_LOG(LS_WARNING)
-                  << "More than one H264 SPS NAL units needing "
-                     "rewriting found within a single STAP-A packet. "
-                     "Keeping the first and rewriting the last.";
+              NLOG(LS_WARNING,
+                   "More than one H264 SPS NAL units needing "
+                   "rewriting found within a single STAP-A packet. "
+                   "Keeping the first and rewriting the last.");
             }
 
             // Rewrite length field to new SPS size.
@@ -556,7 +556,7 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
           parsed_payload->type.Video.height = sps->height;
           nalu.sps_id = sps->id;
         } else {
-          RTC_LOG(LS_WARNING) << "Failed to parse SPS id from SPS slice.";
+          NLOG(LS_WARNING, "Failed to parse SPS id from SPS slice.");
         }
         parsed_payload->frame_type = kVideoFrameKey;
         break;
@@ -570,8 +570,7 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
           nalu.pps_id = pps_id;
           nalu.sps_id = sps_id;
         } else {
-          RTC_LOG(LS_WARNING)
-              << "Failed to parse PPS id and SPS id from PPS slice.";
+          NLOG(LS_WARNING, "Failed to parse PPS id and SPS id from PPS slice.");
         }
         break;
       }
@@ -584,8 +583,8 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
         if (pps_id) {
           nalu.pps_id = *pps_id;
         } else {
-          RTC_LOG(LS_WARNING) << "Failed to parse PPS id from slice of type: "
-                              << static_cast<int>(nalu.type);
+          NLOG(LS_WARNING, "Failed to parse PPS id from slice of type: ",
+               static_cast<int>(nalu.type));
         }
         break;
       }
@@ -598,14 +597,14 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
         break;
       case H264::NaluType::kStapA:
       case H264::NaluType::kFuA:
-        RTC_LOG(LS_WARNING) << "Unexpected STAP-A or FU-A received.";
+        NLOG(LS_WARNING, "Unexpected STAP-A or FU-A received.");
         return false;
     }
     RTPVideoHeaderH264* h264 = &parsed_payload->type.Video.codecHeader.H264;
     if (h264->nalus_length == kMaxNalusPerPacket) {
-      RTC_LOG(LS_WARNING)
-          << "Received packet containing more than " << kMaxNalusPerPacket
-          << " NAL units. Will not keep track sps and pps ids for all of them.";
+      NLOG(LS_WARNING, "Received packet containing more than ",
+           kMaxNalusPerPacket,
+           " NAL units. Will not keep track sps and pps ids for all of them.");
     } else {
       h264->nalus[h264->nalus_length++] = nalu;
     }
@@ -618,7 +617,7 @@ bool RtpDepacketizerH264::ParseFuaNalu(
     RtpDepacketizer::ParsedPayload* parsed_payload,
     const uint8_t* payload_data) {
   if (length_ < kFuAHeaderSize) {
-    RTC_LOG(LS_ERROR) << "FU-A NAL units truncated.";
+    NLOG(LS_ERROR, "FU-A NAL units truncated.");
     return false;
   }
   uint8_t fnri = payload_data[0] & (kFBit | kNriMask);
@@ -636,10 +635,10 @@ bool RtpDepacketizerH264::ParseFuaNalu(
     if (pps_id) {
       nalu.pps_id = *pps_id;
     } else {
-      RTC_LOG(LS_WARNING)
-          << "Failed to parse PPS from first fragment of FU-A NAL "
-             "unit with original type: "
-          << static_cast<int>(nalu.type);
+      NLOG(LS_WARNING,
+           "Failed to parse PPS from first fragment of FU-A NAL "
+           "unit with original type: ",
+           static_cast<int>(nalu.type));
     }
     uint8_t original_nal_header = fnri | original_nal_type;
     modified_buffer_.reset(new rtc::Buffer());

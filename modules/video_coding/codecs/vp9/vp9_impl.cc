@@ -132,8 +132,9 @@ bool VP9EncoderImpl::SetSvcRates() {
 
   if (ExplicitlyConfiguredSpatialLayers()) {
     if (num_temporal_layers_ > 1) {
-      RTC_LOG(LS_ERROR) << "Multiple temporal layers when manually specifying "
-                           "spatial layers not implemented yet!";
+      NLOG(LS_ERROR,
+           "Multiple temporal layers when manually specifying "
+           "spatial layers not implemented yet!");
       return false;
     }
     int total_bitrate_bps = 0;
@@ -154,7 +155,7 @@ bool VP9EncoderImpl::SetSvcRates() {
     for (i = 0; i < num_spatial_layers_; ++i) {
       if (svc_params_.scaling_factor_num[i] <= 0 ||
           svc_params_.scaling_factor_den[i] <= 0) {
-        RTC_LOG(LS_ERROR) << "Scaling factors not specified!";
+        NLOG(LS_ERROR, "Scaling factors not specified!");
         return false;
       }
       rate_ratio[i] =
@@ -182,8 +183,8 @@ bool VP9EncoderImpl::SetSvcRates() {
         config_->layer_target_bitrate[i * num_temporal_layers_ + 2] =
             config_->ss_target_bitrate[i];
       } else {
-        RTC_LOG(LS_ERROR) << "Unsupported number of temporal layers: "
-                          << num_temporal_layers_;
+        NLOG(LS_ERROR,
+             "Unsupported number of temporal layers: ", num_temporal_layers_);
         return false;
       }
     }
@@ -893,8 +894,8 @@ VP9DecoderImpl::~VP9DecoderImpl() {
     // The frame buffers are reference counted and frames are exposed after
     // decoding. There may be valid usage cases where previous frames are still
     // referenced after ~VP9DecoderImpl that is not a leak.
-    RTC_LOG(LS_INFO) << num_buffers_in_use << " Vp9FrameBuffers are still "
-                     << "referenced during ~VP9DecoderImpl.";
+    NLOG(LS_INFO, num_buffers_in_use, " Vp9FrameBuffers are still ",
+         "referenced during ~VP9DecoderImpl.");
   }
 }
 

@@ -402,8 +402,8 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
         RTC_HISTOGRAMS_COUNTS_200(kIndex, uma_prefix_ + "Encoded.Qp.Vp8.S2",
                                   qp_vp8);
       } else {
-        RTC_LOG(LS_WARNING)
-            << "QP stats not recorded for VP8 spatial idx " << spatial_idx;
+        NLOG(LS_WARNING, "QP stats not recorded for VP8 spatial idx ",
+             spatial_idx);
       }
     }
     int qp_vp9 = it.second.vp9.Avg(kMinRequiredMetricsSamples);
@@ -422,8 +422,8 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
         RTC_HISTOGRAMS_COUNTS_500(kIndex, uma_prefix_ + "Encoded.Qp.Vp9.S2",
                                   qp_vp9);
       } else {
-        RTC_LOG(LS_WARNING)
-            << "QP stats not recorded for VP9 spatial layer " << spatial_idx;
+        NLOG(LS_WARNING, "QP stats not recorded for VP9 spatial layer ",
+             spatial_idx);
       }
     }
     int qp_h264 = it.second.h264.Avg(kMinRequiredMetricsSamples);
@@ -620,7 +620,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
   RTC_HISTOGRAMS_COUNTS_1000(kIndex, uma_prefix_ + "DroppedFrames.Ratelimiter",
                              current_stats.frames_dropped_by_rate_limiter);
 
-  RTC_LOG(LS_INFO) << log_stream.str();
+  NLOG(LS_INFO, log_stream.str());
 }
 
 void SendStatisticsProxy::OnEncoderReconfigured(
@@ -871,9 +871,8 @@ void SendStatisticsProxy::OnSendEncodedImage(
   }
 
   if (simulcast_idx >= rtp_config_.ssrcs.size()) {
-    RTC_LOG(LS_ERROR) << "Encoded image outside simulcast range ("
-                      << simulcast_idx << " >= " << rtp_config_.ssrcs.size()
-                      << ").";
+    NLOG(LS_ERROR, "Encoded image outside simulcast range (", simulcast_idx,
+         " >= ", rtp_config_.ssrcs.size(), ").");
     return;
   }
   uint32_t ssrc = rtp_config_.ssrcs[simulcast_idx];

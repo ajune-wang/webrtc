@@ -105,11 +105,11 @@ NetEqImpl::NetEqImpl(const NetEq::Config& config,
       enable_fast_accelerate_(config.enable_fast_accelerate),
       nack_enabled_(false),
       enable_muted_state_(config.enable_muted_state) {
-  RTC_LOG(LS_INFO) << "NetEq config: " << config.ToString();
+  NLOG(LS_INFO, "NetEq config: ", config.ToString());
   int fs = config.sample_rate_hz;
   if (fs != 8000 && fs != 16000 && fs != 32000 && fs != 48000) {
-    RTC_LOG(LS_ERROR) << "Sample rate " << fs << " Hz not supported. "
-                      << "Changing to 8000 Hz.";
+    NLOG(LS_ERROR, "Sample rate ", fs, " Hz not supported. ",
+         "Changing to 8000 Hz.");
     fs = 8000;
   }
   delay_manager_->SetMaximumDelay(config.max_delay_ms);
@@ -228,9 +228,8 @@ int NetEqImpl::RegisterPayloadType(NetEqDecoder codec,
                                    const std::string& name,
                                    uint8_t rtp_payload_type) {
   rtc::CritScope lock(&crit_sect_);
-  RTC_LOG(LS_VERBOSE) << "RegisterPayloadType "
-                      << static_cast<int>(rtp_payload_type) << " "
-                      << static_cast<int>(codec);
+  NLOG(LS_VERBOSE, "RegisterPayloadType ", static_cast<int>(rtp_payload_type),
+       " ", static_cast<int>(codec));
   if (decoder_database_->RegisterPayload(rtp_payload_type, codec, name) !=
       DecoderDatabase::kOK) {
     return kFail;
@@ -243,11 +242,10 @@ int NetEqImpl::RegisterExternalDecoder(AudioDecoder* decoder,
                                        const std::string& codec_name,
                                        uint8_t rtp_payload_type) {
   rtc::CritScope lock(&crit_sect_);
-  RTC_LOG(LS_VERBOSE) << "RegisterExternalDecoder "
-                      << static_cast<int>(rtp_payload_type) << " "
-                      << static_cast<int>(codec);
+  NLOG(LS_VERBOSE, "RegisterExternalDecoder ",
+       static_cast<int>(rtp_payload_type), " ", static_cast<int>(codec));
   if (!decoder) {
-    RTC_LOG(LS_ERROR) << "Cannot register external decoder with NULL pointer";
+    NLOG(LS_ERROR, "Cannot register external decoder with NULL pointer");
     assert(false);
     return kFail;
   }
@@ -260,8 +258,8 @@ int NetEqImpl::RegisterExternalDecoder(AudioDecoder* decoder,
 
 bool NetEqImpl::RegisterPayloadType(int rtp_payload_type,
                                     const SdpAudioFormat& audio_format) {
-  RTC_LOG(LS_VERBOSE) << "NetEqImpl::RegisterPayloadType: payload type "
-                      << rtp_payload_type << ", codec " << audio_format;
+  NLOG(LS_VERBOSE, "NetEqImpl::RegisterPayloadType: payload type ",
+       rtp_payload_type, ", codec ", audio_format);
   rtc::CritScope lock(&crit_sect_);
   return decoder_database_->RegisterPayload(rtp_payload_type, audio_format) ==
          DecoderDatabase::kOK;
@@ -474,7 +472,7 @@ int NetEqImpl::SetTargetSampleRate() {
 
 void NetEqImpl::FlushBuffers() {
   rtc::CritScope lock(&crit_sect_);
-  RTC_LOG(LS_VERBOSE) << "FlushBuffers";
+  NLOG(LS_VERBOSE, "FlushBuffers");
   packet_buffer_->Flush();
   assert(sync_buffer_.get());
   assert(expand_.get());
@@ -684,7 +682,7 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
     const DecoderDatabase::DecoderInfo* info =
         decoder_database_->GetDecoderInfo(packet.payload_type);
     if (!info) {
-      RTC_LOG(LS_WARNING) << "SplitAudio unknown payload type";
+      NLOG(LS_WARNING, "SplitAudio unknown payload type");
       return kUnknownRtpPayloadType;
     }
 
@@ -956,7 +954,7 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame, bool* muted) {
       break;
     }
     case kUndefined: {
-      RTC_LOG(LS_ERROR) << "Invalid operation kUndefined.";
+      NLOG(LS_ERROR, "Invalid operation kUndefined.");
       assert(false);  // This should not happen.
       last_mode_ = kModeError;
       return kInvalidOperation;
@@ -978,10 +976,9 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame, bool* muted) {
   size_t num_output_samples_per_channel = output_size_samples_;
   size_t num_output_samples = output_size_samples_ * sync_buffer_->Channels();
   if (num_output_samples > AudioFrame::kMaxDataSizeSamples) {
-    RTC_LOG(LS_WARNING) << "Output array is too short. "
-                        << AudioFrame::kMaxDataSizeSamples << " < "
-                        << output_size_samples_ << " * "
-                        << sync_buffer_->Channels();
+    NLOG(LS_WARNING, "Output array is too short. ",
+         AudioFrame::kMaxDataSizeSamples, " < ", output_size_samples_, " * ",
+         sync_buffer_->Channels());
     num_output_samples = AudioFrame::kMaxDataSizeSamples;
     num_output_samples_per_channel =
         AudioFrame::kMaxDataSizeSamples / sync_buffer_->Channels();
@@ -1000,10 +997,9 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame, bool* muted) {
                                  missing_lookahead_samples);
   }
   if (audio_frame->samples_per_channel_ != output_size_samples_) {
-    RTC_LOG(LS_ERROR) << "audio_frame->samples_per_channel_ ("
-                      << audio_frame->samples_per_channel_
-                      << ") != output_size_samples_ (" << output_size_samples_
-                      << ")";
+    NLOG(LS_ERROR, "audio_frame->samples_per_channel_ (",
+         audio_frame->samples_per_channel_, ") != output_size_samples_ (",
+         output_size_samples_, ")");
     // TODO(minyue): treatment of under-run, filling zeros
     audio_frame->Mute();
     return kSampleUnderrun;
@@ -1165,7 +1161,7 @@ int NetEqImpl::GetDecision(Operations* operation,
       timestamp_ = dtmf_event->timestamp;
     } else {
       if (!packet) {
-        RTC_LOG(LS_ERROR) << "Packet missing where it shouldn't.";
+        NLOG(LS_ERROR, "Packet missing where it shouldn't.");
         return -1;
       }
       timestamp_ = packet->timestamp;
@@ -1343,8 +1339,8 @@ int NetEqImpl::Decode(PacketList* packet_list, Operations* operation,
       decoder = decoder_database_->GetDecoder(payload_type);
       assert(decoder);
       if (!decoder) {
-        RTC_LOG(LS_WARNING)
-            << "Unknown payload type " << static_cast<int>(payload_type);
+        NLOG(LS_WARNING, "Unknown payload type ",
+             static_cast<int>(payload_type));
         packet_list->clear();
         return kDecoderNotFound;
       }
@@ -1356,8 +1352,8 @@ int NetEqImpl::Decode(PacketList* packet_list, Operations* operation,
             ->GetDecoderInfo(payload_type);
         assert(decoder_info);
         if (!decoder_info) {
-          RTC_LOG(LS_WARNING)
-              << "Unknown payload type " << static_cast<int>(payload_type);
+          NLOG(LS_WARNING, "Unknown payload type ",
+               static_cast<int>(payload_type));
           packet_list->clear();
           return kDecoderNotFound;
         }
@@ -1414,11 +1410,11 @@ int NetEqImpl::Decode(PacketList* packet_list, Operations* operation,
     if (error_code != 0) {
       // Got some error code from the decoder.
       return_value = kDecoderErrorCode;
-      RTC_LOG(LS_WARNING) << "Decoder returned error code: " << error_code;
+      NLOG(LS_WARNING, "Decoder returned error code: ", error_code);
     } else {
       // Decoder does not implement error codes. Return generic error.
       return_value = kOtherDecoderError;
-      RTC_LOG(LS_WARNING) << "Decoder error (no error code)";
+      NLOG(LS_WARNING, "Decoder error (no error code)");
     }
     *operation = kExpand;  // Do expansion to get data instead.
   }
@@ -1451,13 +1447,13 @@ int NetEqImpl::DecodeCng(AudioDecoder* decoder, int* decoded_length,
       *decoded_length += length;
     } else {
       // Error.
-      RTC_LOG(LS_WARNING) << "Failed to decode CNG";
+      NLOG(LS_WARNING, "Failed to decode CNG");
       *decoded_length = -1;
       break;
     }
     if (*decoded_length > static_cast<int>(decoded_buffer_length_)) {
       // Guard against overflow.
-      RTC_LOG(LS_WARNING) << "Decoded too much CNG.";
+      NLOG(LS_WARNING, "Decoded too much CNG.");
       return kDecodedTooMuch;
     }
   }
@@ -1499,14 +1495,14 @@ int NetEqImpl::DecodeLoop(PacketList* packet_list, const Operations& operation,
     } else {
       // Error.
       // TODO(ossu): What to put here?
-      RTC_LOG(LS_WARNING) << "Decode error";
+      NLOG(LS_WARNING, "Decode error");
       *decoded_length = -1;
       packet_list->clear();
       break;
     }
     if (*decoded_length > rtc::dchecked_cast<int>(decoded_buffer_length_)) {
       // Guard against overflow.
-      RTC_LOG(LS_WARNING) << "Decoded too much.";
+      NLOG(LS_WARNING, "Decoded too much.");
       packet_list->clear();
       return kDecodedTooMuch;
     }
@@ -1762,7 +1758,7 @@ int NetEqImpl::DoRfc3389Cng(PacketList* packet_list, bool play_dtmf) {
     assert(packet_list->size() == 1);
     const Packet& packet = packet_list->front();
     if (!decoder_database_->IsComfortNoise(packet.payload_type)) {
-      RTC_LOG(LS_ERROR) << "Trying to decode non-CNG payload as CNG.";
+      NLOG(LS_ERROR, "Trying to decode non-CNG payload as CNG.");
       return kOtherError;
     }
     if (comfort_noise_->UpdateParameters(packet) ==
@@ -1779,8 +1775,8 @@ int NetEqImpl::DoRfc3389Cng(PacketList* packet_list, bool play_dtmf) {
     dtmf_tone_generator_->Reset();
   }
   if (cn_return == ComfortNoise::kInternalError) {
-    RTC_LOG(LS_WARNING) << "Comfort noise generator returned error code: "
-                        << comfort_noise_->internal_error_code();
+    NLOG(LS_WARNING, "Comfort noise generator returned error code: ",
+         comfort_noise_->internal_error_code());
     return kComfortNoiseErrorCode;
   } else if (cn_return == ComfortNoise::kUnknownPayloadType) {
     return kUnknownRtpPayloadType;
@@ -1861,7 +1857,7 @@ int NetEqImpl::DoDtmf(const DtmfEvent& dtmf_event, bool* play_dtmf) {
   //    // Not adapted for multi-channel yet.
   //    assert(algorithm_buffer_->Channels() == 1);
   //    if (algorithm_buffer_->Channels() != 1) {
-  //      RTC_LOG(LS_WARNING) << "DTMF not supported for more than one channel";
+  //      NLOG(LS_WARNING  , "DTMF not supported for more than one channel");
   //      return kStereoNotSupported;
   //    }
   //    // Shuffle the remaining data to the beginning of algorithm buffer.
@@ -1940,7 +1936,7 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
   const Packet* next_packet = packet_buffer_->PeekNextPacket();
   RTC_DCHECK(next_packet);
   if (!next_packet) {
-    RTC_LOG(LS_ERROR) << "Packet buffer unexpectedly empty.";
+    NLOG(LS_ERROR, "Packet buffer unexpectedly empty.");
     return -1;
   }
   uint32_t first_timestamp = next_packet->timestamp;
@@ -1953,7 +1949,7 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
     // |next_packet| may be invalid after the |packet_buffer_| operation.
     next_packet = nullptr;
     if (!packet) {
-      RTC_LOG(LS_ERROR) << "Should always be able to extract a packet here";
+      NLOG(LS_ERROR, "Should always be able to extract a packet here");
       assert(false);  // Should always be able to extract a packet here.
       return -1;
     }
@@ -1986,8 +1982,8 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
             rtc::dchecked_cast<int>(packet_duration));
       }
     } else if (!has_cng_packet) {
-      RTC_LOG(LS_WARNING) << "Unknown payload type "
-                          << static_cast<int>(packet->payload_type);
+      NLOG(LS_WARNING, "Unknown payload type ",
+           static_cast<int>(packet->payload_type));
       RTC_NOTREACHED();
     }
 
@@ -2040,8 +2036,7 @@ void NetEqImpl::UpdatePlcComponents(int fs_hz, size_t channels) {
 }
 
 void NetEqImpl::SetSampleRateAndChannels(int fs_hz, size_t channels) {
-  RTC_LOG(LS_VERBOSE) << "SetSampleRateAndChannels " << fs_hz << " "
-                      << channels;
+  NLOG(LS_VERBOSE, "SetSampleRateAndChannels ", fs_hz, " ", channels);
   // TODO(hlundin): Change to an enumerator and skip assert.
   assert(fs_hz == 8000 || fs_hz == 16000 || fs_hz ==  32000 || fs_hz == 48000);
   assert(channels > 0);

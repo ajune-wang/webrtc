@@ -184,8 +184,7 @@ webrtc::RTCError JsepTransport2::SetLocalJsepTransportDescription(
 
   if (needs_ice_restart_ && ice_restarting) {
     needs_ice_restart_ = false;
-    RTC_LOG(LS_VERBOSE) << "needs-ice-restart flag cleared for transport "
-                        << mid();
+    NLOG(LS_VERBOSE, "needs-ice-restart flag cleared for transport ", mid());
   }
 
   return webrtc::RTCError::OK();
@@ -271,7 +270,7 @@ webrtc::RTCError JsepTransport2::AddRemoteCandidates(
 void JsepTransport2::SetNeedsIceRestartFlag() {
   if (!needs_ice_restart_) {
     needs_ice_restart_ = true;
-    RTC_LOG(LS_VERBOSE) << "needs-ice-restart flag set for transport " << mid();
+    NLOG(LS_VERBOSE, "needs-ice-restart flag set for transport ", mid());
   }
 }
 
@@ -444,7 +443,7 @@ bool JsepTransport2::SetSdes(const std::vector<CryptoParams>& cryptos,
           static_cast<int>(sdes_negotiator_.recv_key().size()),
           *(recv_extension_ids_));
     } else {
-      RTC_LOG(LS_INFO) << "No crypto keys are provided for SDES.";
+      NLOG(LS_INFO, "No crypto keys are provided for SDES.");
       if (type == SdpType::kAnswer) {
         // Explicitly reset the |sdes_transport_| if no crypto param is
         // provided in the answer. No need to call |ResetParams()| for

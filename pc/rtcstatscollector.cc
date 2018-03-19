@@ -525,9 +525,9 @@ void ProduceSenderMediaTrackStats(
         if (sender_info) {
           voice_sender_info = sender_info;
         } else {
-          RTC_LOG(LS_INFO)
-              << "RTCStatsCollector: No voice sender info for sender with ssrc "
-              << sender->ssrc();
+          NLOG(LS_INFO,
+               "RTCStatsCollector: No voice sender info for sender with ssrc ",
+               sender->ssrc());
         }
       }
       std::unique_ptr<RTCMediaStreamTrackStats> audio_track_stats =
@@ -553,8 +553,8 @@ void ProduceSenderMediaTrackStats(
         if (sender_info) {
           video_sender_info = sender_info;
         } else {
-          RTC_LOG(LS_INFO) << "No video sender info for sender with ssrc "
-                           << sender->ssrc();
+          NLOG(LS_INFO, "No video sender info for sender with ssrc ",
+               sender->ssrc());
         }
       }
       std::unique_ptr<RTCMediaStreamTrackStats> video_track_stats =
@@ -1309,12 +1309,12 @@ RTCStatsCollector::PrepareTransceiverStatsInfos_s() const {
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     for (const auto& entry : voice_stats) {
       if (!entry.first->GetStats(entry.second.get())) {
-        RTC_LOG(LS_WARNING) << "Failed to get voice stats.";
+        NLOG(LS_WARNING, "Failed to get voice stats.");
       }
     }
     for (const auto& entry : video_stats) {
       if (!entry.first->GetStats(entry.second.get())) {
-        RTC_LOG(LS_WARNING) << "Failed to get video stats.";
+        NLOG(LS_WARNING, "Failed to get video stats.");
       }
     }
   });

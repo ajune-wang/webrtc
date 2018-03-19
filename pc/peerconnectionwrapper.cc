@@ -191,7 +191,7 @@ bool PeerConnectionWrapper::ExchangeOfferAnswerWith(
     const PeerConnectionInterface::RTCOfferAnswerOptions& answer_options) {
   RTC_DCHECK(answerer);
   if (answerer == this) {
-    RTC_LOG(LS_ERROR) << "Cannot exchange offer/answer with ourself!";
+    NLOG(LS_ERROR, "Cannot exchange offer/answer with ourself!");
     return false;
   }
   auto offer = CreateOffer(offer_options);

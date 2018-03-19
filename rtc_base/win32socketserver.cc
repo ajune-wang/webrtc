@@ -125,8 +125,8 @@ LPCSTR WSAErrorToString(int error, LPCSTR *description_result) {
 void ReportWSAError(LPCSTR context, int error, const SocketAddress& address) {
   LPCSTR description_string;
   LPCSTR error_string = WSAErrorToString(error, &description_string);
-  RTC_LOG(LS_INFO) << context << " = " << error << " (" << error_string << ":"
-                   << description_string << ") [" << address.ToString() << "]";
+  NLOG(LS_INFO, context, " = ", error, " (", error_string, ":",
+       description_string, ") [", address.ToString(), "]");
 }
 #else
 void ReportWSAError(LPCSTR context, int error, const SocketAddress& address) {}
@@ -215,8 +215,9 @@ bool Win32Socket::EventSink::OnDnsNotify(WPARAM wParam, LPARAM lParam,
 
 void Win32Socket::EventSink::OnNcDestroy() {
   if (parent_) {
-    RTC_LOG(LS_ERROR) << "EventSink hwnd is being destroyed, but the event sink"
-                         " hasn't yet been disposed.";
+    NLOG(LS_ERROR,
+         "EventSink hwnd is being destroyed, but the event sink"
+         " hasn't yet been disposed.");
   } else {
     delete this;
   }
@@ -286,8 +287,8 @@ SocketAddress Win32Socket::GetLocalAddress() const {
   if (result >= 0) {
     SocketAddressFromSockAddrStorage(addr, &address);
   } else {
-    RTC_LOG(LS_WARNING) << "GetLocalAddress: unable to get local addr, socket="
-                        << socket_;
+    NLOG(LS_WARNING,
+         "GetLocalAddress: unable to get local addr, socket=", socket_);
   }
   return address;
 }
@@ -301,8 +302,8 @@ SocketAddress Win32Socket::GetRemoteAddress() const {
   if (result >= 0) {
     SocketAddressFromSockAddrStorage(addr, &address);
   } else {
-    RTC_LOG(LS_WARNING)
-        << "GetRemoteAddress: unable to get remote addr, socket=" << socket_;
+    NLOG(LS_WARNING,
+         "GetRemoteAddress: unable to get remote addr, socket=", socket_);
   }
   return address;
 }
@@ -589,7 +590,7 @@ int Win32Socket::TranslateOption(Option opt, int* slevel, int* sopt) {
       *sopt = TCP_NODELAY;
       break;
     case OPT_DSCP:
-      RTC_LOG(LS_WARNING) << "Socket::OPT_DSCP not supported.";
+      NLOG(LS_WARNING, "Socket::OPT_DSCP not supported.");
       return -1;
     default:
       RTC_NOTREACHED();
@@ -610,8 +611,8 @@ void Win32Socket::OnSocketNotify(SOCKET socket, int event, int error) {
         ReportWSAError("WSAAsync:connect notify", error, addr_);
 #if !defined(NDEBUG)
         int64_t duration = TimeSince(connect_time_);
-        RTC_LOG(LS_INFO) << "WSAAsync:connect error (" << duration
-                         << " ms), faking close";
+        NLOG(LS_INFO, "WSAAsync:connect error (", duration,
+             " ms), faking close");
 #endif
         state_ = CS_CLOSED;
         // If you get an error connecting, close doesn't really do anything
@@ -623,7 +624,7 @@ void Win32Socket::OnSocketNotify(SOCKET socket, int event, int error) {
       } else {
 #if !defined(NDEBUG)
         int64_t duration = TimeSince(connect_time_);
-        RTC_LOG(LS_INFO) << "WSAAsync:connect (" << duration << " ms)";
+        NLOG(LS_INFO, "WSAAsync:connect (", duration, " ms)");
 #endif
         state_ = CS_CONNECTED;
         SignalConnectEvent(this);

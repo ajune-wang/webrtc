@@ -532,9 +532,8 @@ void MessageQueue::Dispatch(Message *pmsg) {
   int64_t end_time = TimeMillis();
   int64_t diff = TimeDiff(end_time, start_time);
   if (diff >= kSlowDispatchLoggingThreshold) {
-    RTC_LOG(LS_INFO) << "Message took " << diff
-                     << "ms to dispatch. Posted from: "
-                     << pmsg->posted_from.ToString();
+    NLOG(LS_INFO, "Message took ", diff,
+         "ms to dispatch. Posted from: ", pmsg->posted_from.ToString());
   }
 }
 

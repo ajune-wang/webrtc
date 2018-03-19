@@ -400,7 +400,7 @@ class BasicPortAllocatorTestBase : public testing::Test,
   BasicPortAllocator& allocator() { return *allocator_; }
 
   void OnPortReady(PortAllocatorSession* ses, PortInterface* port) {
-    RTC_LOG(LS_INFO) << "OnPortReady: " << port->ToString();
+    NLOG(LS_INFO, "OnPortReady: ", port->ToString());
     ports_.push_back(port);
     // Make sure the new port is added to ReadyPorts.
     auto ready_ports = ses->ReadyPorts();
@@ -409,7 +409,7 @@ class BasicPortAllocatorTestBase : public testing::Test,
   }
   void OnPortsPruned(PortAllocatorSession* ses,
                      const std::vector<PortInterface*>& pruned_ports) {
-    RTC_LOG(LS_INFO) << "Number of ports pruned: " << pruned_ports.size();
+    NLOG(LS_INFO, "Number of ports pruned: ", pruned_ports.size());
     auto ready_ports = ses->ReadyPorts();
     auto new_end = ports_.end();
     for (PortInterface* port : pruned_ports) {
@@ -424,7 +424,7 @@ class BasicPortAllocatorTestBase : public testing::Test,
   void OnCandidatesReady(PortAllocatorSession* ses,
                          const std::vector<Candidate>& candidates) {
     for (const Candidate& candidate : candidates) {
-      RTC_LOG(LS_INFO) << "OnCandidatesReady: " << candidate.ToString();
+      NLOG(LS_INFO, "OnCandidatesReady: ", candidate.ToString());
       // Sanity check that the ICE component is set.
       EXPECT_EQ(ICE_CANDIDATE_COMPONENT_RTP, candidate.component());
       candidates_.push_back(candidate);

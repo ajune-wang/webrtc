@@ -252,8 +252,8 @@ bool ControlHandler::HasNetworkParametersToReportChanged(
                    last_reported_rtt_ms_ != rtt_ms));
   if (changed &&
       (last_reported_target_bitrate_bps_ == 0 || target_bitrate_bps == 0)) {
-    RTC_LOG(LS_INFO) << "Bitrate estimate state changed, BWE: "
-                     << target_bitrate_bps << " bps.";
+    NLOG(LS_INFO, "Bitrate estimate state changed, BWE: ", target_bitrate_bps,
+         " bps.");
   }
   last_reported_target_bitrate_bps_ = target_bitrate_bps;
   last_reported_fraction_loss_ = fraction_loss;
@@ -404,8 +404,7 @@ SendSideCongestionController::GetTransportFeedbackObserver() {
 }
 
 void SendSideCongestionController::SignalNetworkState(NetworkState state) {
-  RTC_LOG(LS_INFO) << "SignalNetworkState "
-                   << (state == kNetworkUp ? "Up" : "Down");
+  NLOG(LS_INFO, "SignalNetworkState ", (state == kNetworkUp ? "Up" : "Down"));
   NetworkAvailability msg;
   msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
   msg.network_available = state == kNetworkUp;

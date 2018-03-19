@@ -225,8 +225,8 @@ class DtlsTestClient : public sigslot::has_slots<> {
 
   // Transport callbacks
   void OnTransportWritableState(rtc::PacketTransportInternal* transport) {
-    RTC_LOG(LS_INFO) << name_ << ": Transport '" << transport->transport_name()
-                     << "' is writable";
+    NLOG(LS_INFO, name_, ": Transport '", transport->transport_name(),
+         "' is writable");
   }
 
   void OnTransportReadPacket(rtc::PacketTransportInternal* transport,
@@ -368,7 +368,7 @@ class DtlsTransportTestBase {
   }
 
   void TestTransfer(size_t size, size_t count, bool srtp) {
-    RTC_LOG(LS_INFO) << "Expect packets, size=" << size;
+    NLOG(LS_INFO, "Expect packets, size=", size);
     client2_.ExpectPackets(size);
     client1_.SendPackets(size, count, srtp);
     EXPECT_EQ_SIMULATED_WAIT(count, client2_.NumPacketsReceived(), kTimeout,

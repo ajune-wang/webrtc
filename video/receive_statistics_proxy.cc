@@ -455,7 +455,7 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
                              static_cast<int>(100 * *qp_fraction));
   }
 
-  RTC_LOG(LS_INFO) << log_stream.str();
+  NLOG(LS_INFO, log_stream.str());
 }
 
 void ReceiveStatisticsProxy::QualitySample() {
@@ -489,34 +489,32 @@ void ReceiveStatisticsProxy::QualitySample() {
   bool any_bad = fps_bad || qp_bad || variance_bad;
 
   if (!prev_any_bad && any_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (any) start: " << now;
+    NLOG(LS_INFO, "Bad call (any) start: ", now);
   } else if (prev_any_bad && !any_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (any) end: " << now;
+    NLOG(LS_INFO, "Bad call (any) end: ", now);
   }
 
   if (!prev_fps_bad && fps_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (fps) start: " << now;
+    NLOG(LS_INFO, "Bad call (fps) start: ", now);
   } else if (prev_fps_bad && !fps_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (fps) end: " << now;
+    NLOG(LS_INFO, "Bad call (fps) end: ", now);
   }
 
   if (!prev_qp_bad && qp_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (qp) start: " << now;
+    NLOG(LS_INFO, "Bad call (qp) start: ", now);
   } else if (prev_qp_bad && !qp_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (qp) end: " << now;
+    NLOG(LS_INFO, "Bad call (qp) end: ", now);
   }
 
   if (!prev_variance_bad && variance_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (variance) start: " << now;
+    NLOG(LS_INFO, "Bad call (variance) start: ", now);
   } else if (prev_variance_bad && !variance_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (variance) end: " << now;
+    NLOG(LS_INFO, "Bad call (variance) end: ", now);
   }
 
-  RTC_LOG(LS_VERBOSE) << "SAMPLE: sample_length: " << (now - last_sample_time_)
-                      << " fps: " << fps << " fps_bad: " << fps_bad
-                      << " qp: " << qp << " qp_bad: " << qp_bad
-                      << " variance_bad: " << variance_bad
-                      << " fps_variance: " << fps_variance;
+  NLOG(LS_VERBOSE, "SAMPLE: sample_length: ", (now - last_sample_time_),
+       " fps: ", fps, " fps_bad: ", fps_bad, " qp: ", qp, " qp_bad: ", qp_bad,
+       " variance_bad: ", variance_bad, " fps_variance: ", fps_variance);
 
   last_sample_time_ = now;
   qp_sample_.Reset();
@@ -682,8 +680,8 @@ void ReceiveStatisticsProxy::OnDecodedFrame(rtc::Optional<uint8_t> qp,
   if (qp) {
     if (!stats_.qp_sum) {
       if (stats_.frames_decoded != 1) {
-        RTC_LOG(LS_WARNING)
-            << "Frames decoded was not 1 when first qp value was received.";
+        NLOG(LS_WARNING,
+             "Frames decoded was not 1 when first qp value was received.");
         stats_.frames_decoded = 1;
       }
       stats_.qp_sum = 0;
@@ -691,8 +689,7 @@ void ReceiveStatisticsProxy::OnDecodedFrame(rtc::Optional<uint8_t> qp,
     *stats_.qp_sum += *qp;
     content_specific_stats->qp_counter.Add(*qp);
   } else if (stats_.qp_sum) {
-    RTC_LOG(LS_WARNING)
-        << "QP sum was already set and no QP was given for a frame.";
+    NLOG(LS_WARNING, "QP sum was already set and no QP was given for a frame.");
     stats_.qp_sum = rtc::nullopt;
   }
   last_content_type_ = content_type;

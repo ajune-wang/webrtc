@@ -356,9 +356,8 @@ void TransportController::DestroyDtlsTransport_n(
   RTC_DCHECK(network_thread_->IsCurrent());
   auto it = GetChannelIterator_n(transport_name, component);
   if (it == channels_.end()) {
-    RTC_LOG(LS_WARNING) << "Attempting to delete " << transport_name
-                        << " TransportChannel " << component
-                        << ", which doesn't exist.";
+    NLOG(LS_WARNING, "Attempting to delete ", transport_name,
+         " TransportChannel ", component, ", which doesn't exist.");
     return;
   }
   // Release one reference to the RefCountedChannel, and do additional cleanup
@@ -397,9 +396,8 @@ webrtc::SrtpTransport* TransportController::CreateSdesTransport(
     // non-null and |dtls_srtp_transport| is expected to be a nullptr.
     if (!existing_rtp_transport->srtp_transport ||
         existing_rtp_transport->dtls_srtp_transport) {
-      RTC_LOG(LS_ERROR)
-          << "Failed to create an RTP transport for SDES using name: "
-          << transport_name << " because the type doesn't match.";
+      NLOG(LS_ERROR, "Failed to create an RTP transport for SDES using name: ",
+           transport_name, " because the type doesn't match.");
       return nullptr;
     }
     existing_rtp_transport->AddRef();
@@ -449,9 +447,9 @@ webrtc::DtlsSrtpTransport* TransportController::CreateDtlsSrtpTransport(
     // be non-null and |srtp_transport| is expected to be a nullptr.
     if (existing_rtp_transport->srtp_transport ||
         !existing_rtp_transport->dtls_srtp_transport) {
-      RTC_LOG(LS_ERROR)
-          << "Failed to create an RTP transport for DTLS-SRTP using name: "
-          << transport_name << " because the type doesn't match.";
+      NLOG(LS_ERROR,
+           "Failed to create an RTP transport for DTLS-SRTP using name: ",
+           transport_name, " because the type doesn't match.");
       return nullptr;
     }
     existing_rtp_transport->AddRef();
@@ -497,8 +495,8 @@ void TransportController::DestroyTransport(const std::string& transport_name) {
 
   auto existing_rtp_transport = FindRtpTransport(transport_name);
   if (!existing_rtp_transport) {
-    RTC_LOG(LS_WARNING) << "Attempting to delete " << transport_name
-                        << " transport , which doesn't exist.";
+    NLOG(LS_WARNING, "Attempting to delete ", transport_name,
+         " transport , which doesn't exist.");
     return;
   }
   if (existing_rtp_transport->Release() ==
@@ -803,7 +801,7 @@ bool TransportController::SetLocalTransportDescription_n(
     SetIceRole(new_ice_role);
   }
 
-  RTC_LOG(LS_INFO) << "Set local transport description on " << transport_name;
+  NLOG(LS_INFO, "Set local transport description on ", transport_name);
   return transport->SetLocalTransportDescription(tdesc, type, err);
 }
 
@@ -840,7 +838,7 @@ bool TransportController::SetRemoteTransportDescription_n(
     SetIceRole_n(ICEROLE_CONTROLLED);
   }
 
-  RTC_LOG(LS_INFO) << "Set remote transport description on " << transport_name;
+  NLOG(LS_INFO, "Set remote transport description on ", transport_name);
   return transport->SetRemoteTransportDescription(tdesc, type, err);
 }
 
@@ -895,9 +893,10 @@ bool TransportController::RemoveRemoteCandidates_n(const Candidates& candidates,
     if (!cand.transport_name().empty()) {
       candidates_by_transport_name[cand.transport_name()].push_back(cand);
     } else {
-      RTC_LOG(LS_ERROR) << "Not removing candidate because it does not have a "
-                           "transport name set: "
-                        << cand.ToString();
+      NLOG(LS_ERROR,
+           "Not removing candidate because it does not have a "
+           "transport name set: ",
+           cand.ToString());
     }
   }
 
@@ -956,9 +955,8 @@ void TransportController::SetMetricsObserver_n(
 void TransportController::OnChannelWritableState_n(
     rtc::PacketTransportInternal* transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  RTC_LOG(LS_INFO) << " Transport " << transport->transport_name()
-                   << " writability changed to " << transport->writable()
-                   << ".";
+  NLOG(LS_INFO, " Transport ", transport->transport_name(),
+       " writability changed to ", transport->writable(), ".");
   UpdateAggregateStates_n();
 }
 
@@ -1025,9 +1023,8 @@ void TransportController::OnChannelRoleConflict_n(
 void TransportController::OnChannelStateChanged_n(
     IceTransportInternal* channel) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  RTC_LOG(LS_INFO) << channel->transport_name() << " TransportChannel "
-                   << channel->component()
-                   << " state changed. Check if state is complete.";
+  NLOG(LS_INFO, channel->transport_name(), " TransportChannel ",
+       channel->component(), " state changed. Check if state is complete.");
   UpdateAggregateStates_n();
 }
 

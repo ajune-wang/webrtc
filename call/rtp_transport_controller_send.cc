@@ -100,7 +100,7 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
     const rtc::NetworkRoute& network_route) {
   // Check if the network route is connected.
   if (!network_route.connected) {
-    RTC_LOG(LS_INFO) << "Transport " << transport_name << " is disconnected";
+    NLOG(LS_INFO, "Transport ", transport_name, " is disconnected");
     // TODO(honghaiz): Perhaps handle this in SignalChannelNetworkState and
     // consider merging these two methods.
     return;
@@ -118,16 +118,12 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
   if (kv->second != network_route) {
     kv->second = network_route;
     BitrateConstraints bitrate_config = bitrate_configurator_.GetConfig();
-    RTC_LOG(LS_INFO) << "Network route changed on transport " << transport_name
-                     << ": new local network id "
-                     << network_route.local_network_id
-                     << " new remote network id "
-                     << network_route.remote_network_id
-                     << " Reset bitrates to min: "
-                     << bitrate_config.min_bitrate_bps
-                     << " bps, start: " << bitrate_config.start_bitrate_bps
-                     << " bps,  max: " << bitrate_config.max_bitrate_bps
-                     << " bps.";
+    NLOG(LS_INFO, "Network route changed on transport ", transport_name,
+         ": new local network id ", network_route.local_network_id,
+         " new remote network id ", network_route.remote_network_id,
+         " Reset bitrates to min: ", bitrate_config.min_bitrate_bps,
+         " bps, start: ", bitrate_config.start_bitrate_bps,
+         " bps,  max: ", bitrate_config.max_bitrate_bps, " bps.");
     RTC_DCHECK_GT(bitrate_config.start_bitrate_bps, 0);
     send_side_cc_->OnNetworkRouteChanged(
         network_route, bitrate_config.start_bitrate_bps,
@@ -167,9 +163,9 @@ void RtpTransportControllerSend::SetSdpBitrateParameters(
                                   updated->start_bitrate_bps,
                                   updated->max_bitrate_bps);
   } else {
-    RTC_LOG(LS_VERBOSE)
-        << "WebRTC.RtpTransportControllerSend.SetSdpBitrateParameters: "
-        << "nothing to update";
+    NLOG(LS_VERBOSE,
+         "WebRTC.RtpTransportControllerSend.SetSdpBitrateParameters: ",
+         "nothing to update");
   }
 }
 
@@ -182,9 +178,9 @@ void RtpTransportControllerSend::SetClientBitratePreferences(
                                   updated->start_bitrate_bps,
                                   updated->max_bitrate_bps);
   } else {
-    RTC_LOG(LS_VERBOSE)
-        << "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: "
-        << "nothing to update";
+    NLOG(LS_VERBOSE,
+         "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: ",
+         "nothing to update");
   }
 }
 }  // namespace webrtc

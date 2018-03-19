@@ -360,8 +360,8 @@ static bool ParseFailed(const std::string& message,
     error->line = first_line;
     error->description = description;
   }
-  RTC_LOG(LS_ERROR) << "Failed to parse: \"" << first_line
-                    << "\". Reason: " << description;
+  NLOG(LS_ERROR, "Failed to parse: \"", first_line,
+       "\". Reason: ", description);
   return false;
 }
 
@@ -1485,9 +1485,9 @@ void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
       os << kSdpDelimiterColon << stream_id << kSdpDelimiterSpace << track.id;
       AddLine(os.str(), message);
     } else if (streams.size() > 1u) {
-      RTC_LOG(LS_WARNING)
-          << "Trying to serialize Unified Plan SDP with more than "
-             "one track in a media section. Omitting 'a=msid'.";
+      NLOG(LS_WARNING,
+           "Trying to serialize Unified Plan SDP with more than "
+           "one track in a media section. Omitting 'a=msid'.");
     }
   }
 
@@ -1698,7 +1698,7 @@ bool AddSctpDataCodec(DataContentDescription* media_desc,
   cricket::DataCodec codec_port(cricket::kGoogleSctpDataCodecPlType,
                                 cricket::kGoogleSctpDataCodecName);
   codec_port.SetParam(cricket::kCodecParamPort, sctp_port);
-  RTC_LOG(INFO) << "AddSctpDataCodec: Got SCTP Port Number " << sctp_port;
+  NLOG(INFO, "AddSctpDataCodec: Got SCTP Port Number ", sctp_port);
   media_desc->AddCodec(codec_port);
   return true;
 }
@@ -2447,7 +2447,7 @@ bool ParseMediaDescription(const std::string& message,
         }
       }
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported media type: " << line;
+      NLOG(LS_WARNING, "Unsupported media type: ", line);
       continue;
     }
     if (!content.get()) {
@@ -2776,7 +2776,7 @@ bool ParseContent(const std::string& message,
 
     if (!IsLineType(line, kLineTypeAttributes)) {
       // TODO(deadbeef): Handle other lines if needed.
-      RTC_LOG(LS_INFO) << "Ignored line: " << line;
+      NLOG(LS_INFO, "Ignored line: ", line);
       continue;
     }
 
@@ -2913,7 +2913,7 @@ bool ParseContent(const std::string& message,
       }
     } else {
       // Only parse lines that we are interested of.
-      RTC_LOG(LS_INFO) << "Ignored line: " << line;
+      NLOG(LS_INFO, "Ignored line: ", line);
       continue;
     }
   }
@@ -3183,9 +3183,10 @@ bool ParseRtpmapAttribute(const std::string& line,
 
   if (std::find(payload_types.begin(), payload_types.end(), payload_type) ==
       payload_types.end()) {
-    RTC_LOG(LS_WARNING) << "Ignore rtpmap line that did not appear in the "
-                           "<fmt> of the m-line: "
-                        << line;
+    NLOG(LS_WARNING,
+         "Ignore rtpmap line that did not appear in the "
+         "<fmt> of the m-line: ",
+         line);
     return true;
   }
   const std::string& encoder = fields[1];

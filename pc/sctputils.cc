@@ -35,7 +35,7 @@ bool IsOpenMessage(const rtc::CopyOnWriteBuffer& payload) {
   // Format defined at
   // http://tools.ietf.org/html/draft-jesup-rtcweb-data-protocol-04
   if (payload.size() < 1) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message type.";
+    NLOG(LS_WARNING, "Could not read OPEN message type.");
     return false;
   }
 
@@ -52,48 +52,47 @@ bool ParseDataChannelOpenMessage(const rtc::CopyOnWriteBuffer& payload,
   rtc::ByteBufferReader buffer(payload.data<char>(), payload.size());
   uint8_t message_type;
   if (!buffer.ReadUInt8(&message_type)) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message type.";
+    NLOG(LS_WARNING, "Could not read OPEN message type.");
     return false;
   }
   if (message_type != DATA_CHANNEL_OPEN_MESSAGE_TYPE) {
-    RTC_LOG(LS_WARNING) << "Data Channel OPEN message of unexpected type: "
-                        << message_type;
+    NLOG(LS_WARNING,
+         "Data Channel OPEN message of unexpected type: ", message_type);
     return false;
   }
 
   uint8_t channel_type;
   if (!buffer.ReadUInt8(&channel_type)) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message channel type.";
+    NLOG(LS_WARNING, "Could not read OPEN message channel type.");
     return false;
   }
 
   uint16_t priority;
   if (!buffer.ReadUInt16(&priority)) {
-    RTC_LOG(LS_WARNING)
-        << "Could not read OPEN message reliabilility prioirty.";
+    NLOG(LS_WARNING, "Could not read OPEN message reliabilility prioirty.");
     return false;
   }
   uint32_t reliability_param;
   if (!buffer.ReadUInt32(&reliability_param)) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message reliabilility param.";
+    NLOG(LS_WARNING, "Could not read OPEN message reliabilility param.");
     return false;
   }
   uint16_t label_length;
   if (!buffer.ReadUInt16(&label_length)) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message label length.";
+    NLOG(LS_WARNING, "Could not read OPEN message label length.");
     return false;
   }
   uint16_t protocol_length;
   if (!buffer.ReadUInt16(&protocol_length)) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message protocol length.";
+    NLOG(LS_WARNING, "Could not read OPEN message protocol length.");
     return false;
   }
   if (!buffer.ReadString(label, (size_t) label_length)) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message label";
+    NLOG(LS_WARNING, "Could not read OPEN message label");
     return false;
   }
   if (!buffer.ReadString(&config->protocol, protocol_length)) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN message protocol.";
+    NLOG(LS_WARNING, "Could not read OPEN message protocol.");
     return false;
   }
 
@@ -122,14 +121,14 @@ bool ParseDataChannelOpenMessage(const rtc::CopyOnWriteBuffer& payload,
 
 bool ParseDataChannelOpenAckMessage(const rtc::CopyOnWriteBuffer& payload) {
   if (payload.size() < 1) {
-    RTC_LOG(LS_WARNING) << "Could not read OPEN_ACK message type.";
+    NLOG(LS_WARNING, "Could not read OPEN_ACK message type.");
     return false;
   }
 
   uint8_t message_type = payload[0];
   if (message_type != DATA_CHANNEL_OPEN_ACK_MESSAGE_TYPE) {
-    RTC_LOG(LS_WARNING) << "Data Channel OPEN_ACK message of unexpected type: "
-                        << message_type;
+    NLOG(LS_WARNING,
+         "Data Channel OPEN_ACK message of unexpected type: ", message_type);
     return false;
   }
   return true;

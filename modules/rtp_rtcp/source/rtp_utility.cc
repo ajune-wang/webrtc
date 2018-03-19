@@ -316,28 +316,26 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
     }
 
     if (id == 15) {
-      RTC_LOG(LS_VERBOSE)
-          << "RTP extension header 15 encountered. Terminate parsing.";
+      NLOG(LS_VERBOSE,
+           "RTP extension header 15 encountered. Terminate parsing.");
       return;
     }
 
     if (ptrRTPDataExtensionEnd - ptr < (len + 1)) {
-      RTC_LOG(LS_WARNING) << "Incorrect one-byte extension len: " << (len + 1)
-                          << ", bytes left in buffer: "
-                          << (ptrRTPDataExtensionEnd - ptr);
+      NLOG(LS_WARNING, "Incorrect one-byte extension len: ", (len + 1),
+           ", bytes left in buffer: ", (ptrRTPDataExtensionEnd - ptr));
       return;
     }
 
     RTPExtensionType type = ptrExtensionMap->GetType(id);
     if (type == RtpHeaderExtensionMap::kInvalidType) {
       // If we encounter an unknown extension, just skip over it.
-      RTC_LOG(LS_WARNING) << "Failed to find extension id: " << id;
+      NLOG(LS_WARNING, "Failed to find extension id: ", id);
     } else {
       switch (type) {
         case kRtpExtensionTransmissionTimeOffset: {
           if (len != 2) {
-            RTC_LOG(LS_WARNING)
-                << "Incorrect transmission time offset len: " << len;
+            NLOG(LS_WARNING, "Incorrect transmission time offset len: ", len);
             return;
           }
           //  0                   1                   2                   3
@@ -353,7 +351,7 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         }
         case kRtpExtensionAudioLevel: {
           if (len != 0) {
-            RTC_LOG(LS_WARNING) << "Incorrect audio level len: " << len;
+            NLOG(LS_WARNING, "Incorrect audio level len: ", len);
             return;
           }
           //  0                   1
@@ -369,7 +367,7 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         }
         case kRtpExtensionAbsoluteSendTime: {
           if (len != 2) {
-            RTC_LOG(LS_WARNING) << "Incorrect absolute send time len: " << len;
+            NLOG(LS_WARNING, "Incorrect absolute send time len: ", len);
             return;
           }
           //  0                   1                   2                   3
@@ -385,8 +383,8 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         }
         case kRtpExtensionVideoRotation: {
           if (len != 0) {
-            RTC_LOG(LS_WARNING)
-                << "Incorrect coordination of video coordination len: " << len;
+            NLOG(LS_WARNING,
+                 "Incorrect coordination of video coordination len: ", len);
             return;
           }
           //  0                   1
@@ -401,8 +399,7 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         }
         case kRtpExtensionTransportSequenceNumber: {
           if (len != 1) {
-            RTC_LOG(LS_WARNING)
-                << "Incorrect transport sequence number len: " << len;
+            NLOG(LS_WARNING, "Incorrect transport sequence number len: ", len);
             return;
           }
           //   0                   1                   2
@@ -419,7 +416,7 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         }
         case kRtpExtensionPlayoutDelay: {
           if (len != 2) {
-            RTC_LOG(LS_WARNING) << "Incorrect playout delay len: " << len;
+            NLOG(LS_WARNING, "Incorrect playout delay len: ", len);
             return;
           }
           //   0                   1                   2                   3
@@ -438,7 +435,7 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         }
         case kRtpExtensionVideoContentType: {
           if (len != 0) {
-            RTC_LOG(LS_WARNING) << "Incorrect video content type len: " << len;
+            NLOG(LS_WARNING, "Incorrect video content type len: ", len);
             return;
           }
           //    0                   1
@@ -456,7 +453,7 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
         }
         case kRtpExtensionVideoTiming: {
           if (len != VideoTimingExtension::kValueSizeBytes - 1) {
-            RTC_LOG(LS_WARNING) << "Incorrect video timing len: " << len;
+            NLOG(LS_WARNING, "Incorrect video timing len: ", len);
             return;
           }
           header->extension.has_video_timing = true;

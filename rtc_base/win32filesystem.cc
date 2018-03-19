@@ -34,7 +34,7 @@
 namespace rtc {
 
 bool Win32Filesystem::DeleteFile(const Pathname &filename) {
-  RTC_LOG(LS_INFO) << "Deleting file " << filename.pathname();
+  NLOG(LS_INFO, "Deleting file ", filename.pathname());
   if (!IsFile(filename)) {
     RTC_DCHECK(IsFile(filename));
     return false;
@@ -48,8 +48,7 @@ bool Win32Filesystem::MoveFile(const Pathname &old_path,
     RTC_DCHECK(IsFile(old_path));
     return false;
   }
-  RTC_LOG(LS_INFO) << "Moving " << old_path.pathname() << " to "
-                   << new_path.pathname();
+  NLOG(LS_INFO, "Moving ", old_path.pathname(), " to ", new_path.pathname());
   return ::MoveFile(ToUtf16(old_path.pathname()).c_str(),
                     ToUtf16(new_path.pathname()).c_str()) != 0;
 }

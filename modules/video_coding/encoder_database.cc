@@ -95,7 +95,7 @@ bool VCMEncoderDataBase::SetSendCodec(const VideoCodec* send_codec,
   encoded_frame_callback_->SetInternalSource(internal_source_);
   if (ptr_encoder_->InitEncode(&send_codec_, number_of_cores_,
                                max_payload_size_) < 0) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize video encoder.";
+    NLOG(LS_ERROR, "Failed to initialize video encoder.");
     DeleteEncoder();
     return false;
   }

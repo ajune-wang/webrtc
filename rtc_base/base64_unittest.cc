@@ -351,7 +351,7 @@ size_t Base64Unescape(const char *src, size_t szsrc, std::string *s) {
 }
 
 TEST(Base64, EncodeDecodeBattery) {
-  RTC_LOG(LS_VERBOSE) << "Testing base-64";
+  NLOG(LS_VERBOSE, "Testing base-64");
 
   size_t i;
 
@@ -363,7 +363,7 @@ TEST(Base64, EncodeDecodeBattery) {
     size_t decode_length;
     size_t cypher_length;
 
-    RTC_LOG(LS_VERBOSE) << "B64: " << base64_tests[i].cyphertext;
+    NLOG(LS_VERBOSE, "B64: ", base64_tests[i].cyphertext);
 
     const unsigned char* unsigned_plaintext =
       reinterpret_cast<const unsigned char*>(base64_tests[i].plaintext);
@@ -896,7 +896,7 @@ const char SpecificTest[] =
 static std::string gCommandLine;
 
 TEST(Base64, LargeSample) {
-  RTC_LOG(LS_VERBOSE) << "Testing specific base64 file";
+  NLOG(LS_VERBOSE, "Testing specific base64 file");
 
   char unescaped[64 * 1024];
 

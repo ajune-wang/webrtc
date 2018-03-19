@@ -302,9 +302,8 @@ class OverdoseInjector : public OveruseFrameDetector::ProcessingUsage {
         last_toggling_ms_(-1) {
     RTC_DCHECK_GT(overuse_period_ms, 0);
     RTC_DCHECK_GT(normal_period_ms, 0);
-    RTC_LOG(LS_INFO) << "Simulating overuse with intervals " << normal_period_ms
-                     << "ms normal mode, " << overuse_period_ms
-                     << "ms overuse mode.";
+    NLOG(LS_INFO, "Simulating overuse with intervals ", normal_period_ms,
+         "ms normal mode, ", overuse_period_ms, "ms overuse mode.");
   }
 
   ~OverdoseInjector() override {}
@@ -342,21 +341,21 @@ class OverdoseInjector : public OveruseFrameDetector::ProcessingUsage {
           if (now_ms > last_toggling_ms_ + normal_period_ms_) {
             state_ = State::kOveruse;
             last_toggling_ms_ = now_ms;
-            RTC_LOG(LS_INFO) << "Simulating CPU overuse.";
+            NLOG(LS_INFO, "Simulating CPU overuse.");
           }
           break;
         case State::kOveruse:
           if (now_ms > last_toggling_ms_ + overuse_period_ms_) {
             state_ = State::kUnderuse;
             last_toggling_ms_ = now_ms;
-            RTC_LOG(LS_INFO) << "Simulating CPU underuse.";
+            NLOG(LS_INFO, "Simulating CPU underuse.");
           }
           break;
         case State::kUnderuse:
           if (now_ms > last_toggling_ms_ + underuse_period_ms_) {
             state_ = State::kNormal;
             last_toggling_ms_ = now_ms;
-            RTC_LOG(LS_INFO) << "Actual CPU overuse measurements in effect.";
+            NLOG(LS_INFO, "Actual CPU overuse measurements in effect.");
           }
           break;
       }
@@ -414,11 +413,10 @@ CpuOveruseOptions::CpuOveruseOptions()
   if (kr != KERN_SUCCESS) {
     // If we couldn't get # of physical CPUs, don't panic. Assume we have 1.
     n_physical_cores = 1;
-    RTC_LOG(LS_ERROR)
-        << "Failed to determine number of physical cores, assuming 1";
+    NLOG(LS_ERROR, "Failed to determine number of physical cores, assuming 1");
   } else {
     n_physical_cores = hbi.physical_cpu;
-    RTC_LOG(LS_INFO) << "Number of physical cores:" << n_physical_cores;
+    NLOG(LS_INFO, "Number of physical cores:", n_physical_cores);
   }
 
   // Change init list default for few core systems. The assumption here is that
@@ -463,14 +461,13 @@ OveruseFrameDetector::CreateProcessingUsage(
             std::move(instance), normal_period_ms,
             overuse_period_ms, underuse_period_ms);
       } else {
-        RTC_LOG(LS_WARNING)
-            << "Invalid (non-positive) normal/overuse/underuse periods: "
-            << normal_period_ms << " / " << overuse_period_ms << " / "
-            << underuse_period_ms;
+        NLOG(LS_WARNING,
+             "Invalid (non-positive) normal/overuse/underuse periods: ",
+             normal_period_ms, " / ", overuse_period_ms, " / ",
+             underuse_period_ms);
       }
     } else {
-      RTC_LOG(LS_WARNING) << "Malformed toggling interval: "
-                          << toggling_interval;
+      NLOG(LS_WARNING, "Malformed toggling interval: ", toggling_interval);
     }
   }
   return instance;
@@ -663,10 +660,9 @@ void OveruseFrameDetector::CheckForOveruse(
   int rampup_delay =
       in_quick_rampup_ ? kQuickRampUpDelayMs : current_rampup_delay_ms_;
 
-  RTC_LOG(LS_VERBOSE) << " Frame stats: "
-                      << " encode usage " << metrics_->encode_usage_percent
-                      << " overuse detections " << num_overuse_detections_
-                      << " rampup delay " << rampup_delay;
+  NLOG(LS_VERBOSE, " Frame stats: ", " encode usage ",
+       metrics_->encode_usage_percent, " overuse detections ",
+       num_overuse_detections_, " rampup delay ", rampup_delay);
 }
 
 bool OveruseFrameDetector::IsOverusing(const CpuOveruseMetrics& metrics) {

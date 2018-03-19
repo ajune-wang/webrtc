@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7dc7b6d5_15146de7",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T14:23:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6df07d11_d7034e94",
+      "revId": "06dc33ead5936d808e2fd03348cd3620de929c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad4547ca_76e55b2f",
         "filename": "api/video/encoded_frame.h",
         "patchSetId": 7
@@ -69,6 +87,24 @@
       "revId": "06dc33ead5936d808e2fd03348cd3620de929c40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f96cd92_31c74557",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T14:23:39Z",
+      "side": 1,
+      "message": "Right. You negate *and* flip the operand order...\n\nNote that when you define all six, you can make it a bit simpler:\n\n  a\u003d\u003db: the hard way\n  a!\u003db: !(a\u003d\u003db)\n  a\u003cb:  the hard way\n  a\u003eb:  b\u003ca\n  a\u003e\u003db: !(a\u003cb)\n  a\u003c\u003db: b\u003e\u003da\n\nNow, none of the definitions both negate and flip.",
+      "parentUuid": "a6e8f4d2_091791d9",
+      "revId": "06dc33ead5936d808e2fd03348cd3620de929c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -551,12 +551,7 @@ class Connection : public CandidatePairInterface,
   int rtt() const { return rtt_; }
 
   int unwritable_timeout() const;
-  void set_unwritable_timeout(const rtc::Optional<int>& value_ms) {
-    // TODO(qingsi): Validate configuration parameters in
-    // PeerConnection::ValidateConfiguration.
-    RTC_CHECK_LT(value_ms.value_or(-1), CONNECTION_WRITE_TIMEOUT);
-    unwritable_timeout_ = value_ms;
-  }
+  void set_unwritable_timeout(const rtc::Optional<int>& value_ms);
   int unwritable_min_checks() const;
   void set_unwritable_min_checks(const rtc::Optional<int>& value) {
     unwritable_min_checks_ = value;

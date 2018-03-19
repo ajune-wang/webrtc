@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "502ad7c5_7c047733",
+        "filename": "common_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-19T12:53:21Z",
+      "side": 1,
+      "message": "Intentionally no (as mentioned in the comment). It is created based on codec-\u003emode (in VideoCodecInitializer::SetupCodec), and isn\u0027t an independent setting. We don\u0027t want to consider the codec different just because the tl factory was recreated.\n\nIn addition, Erik is working on deleting that field.",
+      "parentUuid": "1bccce34_b15d9e76",
+      "revId": "e30802bbb00402078e936cb14c58f33b06df836d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5477c75f_9b53317d",
         "filename": "common_types.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2bbb846f_478d6edb",
+        "filename": "common_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-19T12:53:21Z",
+      "side": 1,
+      "message": "Good catch. Done.",
+      "parentUuid": "5477c75f_9b53317d",
+      "revId": "e30802bbb00402078e936cb14c58f33b06df836d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04f67a77_30f99634",
         "filename": "common_types.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2018-03-19T12:38:44Z",
       "side": 1,
       "message": "Let memcmp handle the length 0 case internally?",
+      "revId": "e30802bbb00402078e936cb14c58f33b06df836d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a2b683_bb905168",
+        "filename": "common_types.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-19T12:53:21Z",
+      "side": 1,
+      "message": "I\u0027d like to, but according to the discussion on https://stackoverflow.com/questions/5243012/is-it-guaranteed-to-be-safe-to-perform-memcpy0-0-0, the C standard seems to require valid non-null pointers even when the size is zero. Which is silly.\n\nDo you think it\u0027s safe enough to drop the checks?\n\n(A related sillyness: memcpy(p, p, sizeof(*p)) is invalid, since src and dst mustn\u0027t overlap in any way. Which means that a compiler turning a struct assignment into a memcpy call would need to either be prove that src and dst can never be the same, or rely on an extension in the C library implementation, or generate code to check for that case at run time).",
+      "parentUuid": "04f67a77_30f99634",
       "revId": "e30802bbb00402078e936cb14c58f33b06df836d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

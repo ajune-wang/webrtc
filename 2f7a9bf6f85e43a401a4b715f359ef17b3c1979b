@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c26ed95_fa683cce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-19T08:02:53Z",
+      "side": 1,
+      "message": "\"pointing to\" sounds like there\u0027s a std::unique_ptr\u003c\u003e*. Please rephrase.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85bd9c93_3b772980",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-19T08:02:53Z",
+      "side": 1,
+      "message": "Should also be RTC_RUN_ON(task_queue_) ? (And then the DCHECK should perhaps be deleted).",
+      "range": {
+        "startLine": 141,
+        "startChar": 7,
+        "endLine": 141,
+        "endChar": 29
+      },
+      "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5228840_42d28519",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-19T08:02:53Z",
+      "side": 1,
+      "message": "Looks like this is used exclusively for DCHECKs, which don\u0027t look that useful? Any chance they can be deleted instead?",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 191,
+        "endChar": 30
+      },
+      "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7bd3793_2bf62658",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-19T08:02:53Z",
+      "side": 1,
+      "message": "I associate that name with a different hack (used when we sometimes have a borrowed reference, and sometimes create it ourselves). I\u0027d prefer\n\nstd::unique_ptr\u003crtc::TaskQueue\u003e task_queue_;\nrtc::TaskQueue* task_queue_raw_;  // Caches task_queue_.get(), to avoid racing with destructor.",
+      "range": {
+        "startLine": 198,
+        "startChar": 34,
+        "endLine": 198,
+        "endChar": 52
+      },
+      "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

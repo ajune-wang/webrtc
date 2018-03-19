@@ -92,6 +92,7 @@ rtc_source_set("rtp_sender") {
     "rtp_transport_controller_send.h",
   ]
   deps = [
+    ":bitrate_allocator",
     ":bitrate_configurator",
     ":rtp_interfaces",
     "..:webrtc_common",

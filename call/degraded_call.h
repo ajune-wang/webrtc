@@ -62,10 +62,6 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
 
   Stats GetStats() const override;
 
-  void SetBitrateAllocationStrategy(
-      std::unique_ptr<rtc::BitrateAllocationStrategy>
-          bitrate_allocation_strategy) override;
-
   void SignalChannelNetworkState(MediaType media, NetworkState state) override;
 
   void OnTransportOverheadChanged(MediaType media,

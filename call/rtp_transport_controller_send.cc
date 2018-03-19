@@ -12,6 +12,7 @@
 #include "call/rtp_transport_controller_send.h"
 #include "modules/congestion_controller/include/send_side_congestion_controller.h"
 #include "modules/congestion_controller/rtp/include/send_side_congestion_controller.h"
+#include "rtc_base/bind.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ptr_util.h"
@@ -55,6 +56,7 @@ RtpTransportControllerSend::RtpTransportControllerSend(
     : clock_(clock),
       pacer_(clock, &packet_router_, event_log),
       bitrate_configurator_(bitrate_config),
+      bitrate_allocator_(this),
       process_thread_(ProcessThread::Create("SendControllerThread")),
       observer_(nullptr),
       send_side_cc_(CreateController(clock,
@@ -78,6 +80,10 @@ void RtpTransportControllerSend::OnNetworkChanged(uint32_t bitrate_bps,
                                                   uint8_t fraction_loss,
                                                   int64_t rtt_ms,
                                                   int64_t probing_interval_ms) {
+  worker_queue_.PostTask(rtc::Bind(&BitrateAllocator::OnNetworkChanged,
+                                   &bitrate_allocator_, bitrate_bps,
+                                   fraction_loss, rtt_ms, probing_interval_ms));
+
   // TODO(srte): Skip this step when old SendSideCongestionController is
   // deprecated.
   TargetTransferRate msg;
@@ -117,11 +123,14 @@ const RtpKeepAliveConfig& RtpTransportControllerSend::keepalive_config() const {
   return keepalive_;
 }
 
-void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
-    int min_send_bitrate_bps,
-    int max_padding_bitrate_bps,
-    int max_total_bitrate_bps) {
+void RtpTransportControllerSend::OnAllocationLimitsChanged(
+    uint32_t min_send_bitrate_bps,
+    uint32_t max_padding_bitrate_bps,
+    uint32_t max_total_bitrate_bps) {
   send_side_cc_->SetAllocatedSendBitrateLimits(
+      min_send_bitrate_bps, max_padding_bitrate_bps, max_total_bitrate_bps);
+  rtc::CritScope cs(&observer_crit_);
+  bitrate_allocation_limit_observer_->OnAllocationLimitsChanged(
       min_send_bitrate_bps, max_padding_bitrate_bps, max_total_bitrate_bps);
 }
 
@@ -137,6 +146,14 @@ void RtpTransportControllerSend::SetQueueTimeLimit(int limit_ms) {
 }
 CallStatsObserver* RtpTransportControllerSend::GetCallStatsObserver() {
   return send_side_cc_.get();
+}
+BitrateAllocator* RtpTransportControllerSend::GetBitrateAllocator() {
+  return &bitrate_allocator_;
+}
+void RtpTransportControllerSend::RegisterBitrateAllocationLimitObserver(
+    BitrateAllocatorLimitObserver* observer) {
+  rtc::CritScope cs(&observer_crit_);
+  bitrate_allocation_limit_observer_ = observer;
 }
 void RtpTransportControllerSend::RegisterPacketFeedbackObserver(
     PacketFeedbackObserver* observer) {
@@ -244,5 +261,23 @@ void RtpTransportControllerSend::SetClientBitratePreferences(
         << "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: "
         << "nothing to update";
   }
+}
+
+void RtpTransportControllerSend::SetBitrateAllocationStrategy(
+    std::unique_ptr<rtc::BitrateAllocationStrategy>
+        bitrate_allocation_strategy) {
+  if (!worker_queue_.IsCurrent()) {
+    rtc::BitrateAllocationStrategy* strategy_raw =
+        bitrate_allocation_strategy.release();
+    auto functor = [this, strategy_raw]() {
+      SetBitrateAllocationStrategy(
+          rtc::WrapUnique<rtc::BitrateAllocationStrategy>(strategy_raw));
+    };
+    worker_queue_.PostTask([functor] { functor(); });
+    return;
+  }
+  RTC_DCHECK_RUN_ON(&worker_queue_);
+  bitrate_allocator_.SetBitrateAllocationStrategy(
+      std::move(bitrate_allocation_strategy));
 }
 }  // namespace webrtc

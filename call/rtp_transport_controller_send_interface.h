@@ -13,10 +13,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <memory>
 #include <string>
 
 #include "api/optional.h"
 #include "call/bitrate_constraints.h"
+#include "rtc_base/bitrateallocationstrategy.h"
 
 namespace rtc {
 struct SentPacket;
@@ -25,6 +27,8 @@ class TaskQueue;
 }  // namespace rtc
 namespace webrtc {
 
+class BitrateAllocator;
+class BitrateAllocatorLimitObserver;
 class CallStatsObserver;
 class TargetTransferRateObserver;
 class Module;
@@ -70,23 +74,13 @@ class RtpTransportControllerSendInterface {
   virtual RtpPacketSender* packet_sender() = 0;
   virtual const RtpKeepAliveConfig& keepalive_config() const = 0;
 
-  // SetAllocatedSendBitrateLimits sets bitrates limits imposed by send codec
-  // settings.
-  // |min_send_bitrate_bps| is the total minimum send bitrate required by all
-  // sending streams.  This is the minimum bitrate the PacedSender will use.
-  // Note that SendSideCongestionController::OnNetworkChanged can still be
-  // called with a lower bitrate estimate. |max_padding_bitrate_bps| is the max
-  // bitrate the send streams request for padding. This can be higher than the
-  // current network estimate and tells the PacedSender how much it should max
-  // pad unless there is real packets to send.
-  virtual void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                             int max_padding_bitrate_bps,
-                                             int total_bitrate_bps) = 0;
-
   virtual void SetPacingFactor(float pacing_factor) = 0;
   virtual void SetQueueTimeLimit(int limit_ms) = 0;
 
   virtual CallStatsObserver* GetCallStatsObserver() = 0;
+  virtual BitrateAllocator* GetBitrateAllocator() = 0;
+  virtual void RegisterBitrateAllocationLimitObserver(
+      BitrateAllocatorLimitObserver* observer) = 0;
 
   virtual void RegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) = 0;
@@ -108,6 +102,10 @@ class RtpTransportControllerSendInterface {
       const BitrateConstraints& constraints) = 0;
   virtual void SetClientBitratePreferences(
       const BitrateConstraintsMask& preferences) = 0;
+
+  virtual void SetBitrateAllocationStrategy(
+      std::unique_ptr<rtc::BitrateAllocationStrategy>
+          bitrate_allocation_strategy) = 0;
 };
 
 }  // namespace webrtc

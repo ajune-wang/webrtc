@@ -218,9 +218,6 @@ class Call : public webrtc::Call,
   // Implements RecoveredPacketReceiver.
   void OnRecoveredPacket(const uint8_t* packet, size_t length) override;
 
-  void SetBitrateAllocationStrategy(
-      std::unique_ptr<rtc::BitrateAllocationStrategy>
-          bitrate_allocation_strategy) override;
 
   void SignalChannelNetworkState(MediaType media, NetworkState state) override;
 
@@ -261,7 +258,6 @@ class Call : public webrtc::Call,
   const int num_cpu_cores_;
   const std::unique_ptr<ProcessThread> module_process_thread_;
   const std::unique_ptr<CallStats> call_stats_;
-  const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
   rtc::SequencedTaskChecker configuration_sequence_checker_;
 
@@ -413,7 +409,6 @@ Call::Call(const Call::Config& config,
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
       module_process_thread_(ProcessThread::Create("ModuleProcessThread")),
       call_stats_(new CallStats(clock_)),
-      bitrate_allocator_(new BitrateAllocator(this)),
       config_(config),
       audio_network_state_(kNetworkDown),
       video_network_state_(kNetworkDown),
@@ -436,6 +431,7 @@ Call::Call(const Call::Config& config,
       start_ms_(clock_->TimeInMilliseconds()) {
   RTC_DCHECK(config.event_log != nullptr);
   transport_send->RegisterTargetTransferRateObserver(this);
+  transport_send->RegisterBitrateAllocationLimitObserver(this);
   transport_send_ = std::move(transport_send);
 
   call_stats_->RegisterStatsObserver(&receive_side_cc_);
@@ -582,8 +578,9 @@ webrtc::AudioSendStream* Call::CreateAudioSendStream(
   AudioSendStream* send_stream = new AudioSendStream(
       config, config_.audio_state, transport_send_->GetWorkerQueue(),
       module_process_thread_.get(), transport_send_.get(),
-      bitrate_allocator_.get(), event_log_, call_stats_->rtcp_rtt_stats(),
-      suspended_rtp_state, &sent_rtp_audio_timer_ms_);
+      transport_send_->GetBitrateAllocator(), event_log_,
+      call_stats_->rtcp_rtt_stats(), suspended_rtp_state,
+      &sent_rtp_audio_timer_ms_);
   {
     WriteLockScoped write_lock(*send_crit_);
     RTC_DCHECK(audio_send_ssrcs_.find(config.rtp.ssrc) ==
@@ -710,7 +707,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   VideoSendStream* send_stream = new VideoSendStream(
       num_cpu_cores_, module_process_thread_.get(),
       transport_send_->GetWorkerQueue(), call_stats_.get(),
-      transport_send_.get(), bitrate_allocator_.get(),
+      transport_send_.get(), transport_send_->GetBitrateAllocator(),
       video_send_delay_stats_.get(), event_log_, std::move(config),
       std::move(encoder_config), suspended_video_send_ssrcs_,
       suspended_video_payload_states_, std::move(fec_controller),
@@ -932,24 +929,6 @@ Call::Stats Call::GetStats() const {
   return stats;
 }
 
-void Call::SetBitrateAllocationStrategy(
-    std::unique_ptr<rtc::BitrateAllocationStrategy>
-        bitrate_allocation_strategy) {
-  if (!transport_send_->GetWorkerQueue()->IsCurrent()) {
-    rtc::BitrateAllocationStrategy* strategy_raw =
-        bitrate_allocation_strategy.release();
-    auto functor = [this, strategy_raw]() {
-      SetBitrateAllocationStrategy(
-          rtc::WrapUnique<rtc::BitrateAllocationStrategy>(strategy_raw));
-    };
-    transport_send_->GetWorkerQueue()->PostTask([functor] { functor(); });
-    return;
-  }
-  RTC_DCHECK_RUN_ON(transport_send_->GetWorkerQueue());
-  bitrate_allocator_->SetBitrateAllocationStrategy(
-      std::move(bitrate_allocation_strategy));
-}
-
 void Call::SignalChannelNetworkState(MediaType media, NetworkState state) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
   switch (media) {
@@ -1057,11 +1036,6 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
   }
   RTC_DCHECK_RUN_ON(transport_send_->GetWorkerQueue());
   uint32_t target_bitrate_bps = msg.target_rate.bps();
-  int loss_ratio_255 = msg.network_estimate.loss_rate_ratio * 255;
-  uint8_t fraction_loss =
-      rtc::dchecked_cast<uint8_t>(rtc::SafeClamp(loss_ratio_255, 0, 255));
-  int64_t rtt_ms = msg.network_estimate.round_trip_time.ms();
-  int64_t probing_interval_ms = msg.network_estimate.bwe_period.ms();
   uint32_t bandwidth_bps = msg.network_estimate.bandwidth.bps();
   {
     rtc::CritScope cs(&last_bandwidth_bps_crit_);
@@ -1070,8 +1044,6 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
   retransmission_rate_limiter_.SetMaxRate(bandwidth_bps);
   // For controlling the rate of feedback messages.
   receive_side_cc_.OnBitrateChanged(target_bitrate_bps);
-  bitrate_allocator_->OnNetworkChanged(target_bitrate_bps, fraction_loss,
-                                       rtt_ms, probing_interval_ms);
 
   // Ignore updates if bitrate is zero (the aggregate network state is down).
   if (target_bitrate_bps == 0) {
@@ -1104,11 +1076,8 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
 void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                      uint32_t max_padding_bitrate_bps,
                                      uint32_t total_bitrate_bps) {
-  // TODO(srte): We should not mix signed and unsigned types for bitrates.
-  transport_send_->SetAllocatedSendBitrateLimits(
-      rtc::dchecked_cast<int>(min_send_bitrate_bps),
-      rtc::dchecked_cast<int>(max_padding_bitrate_bps),
-      rtc::dchecked_cast<int>(total_bitrate_bps));
+  // TODO(srte): Replace this callback with a way to get cached values from rtp
+  // transport controller send.
   rtc::CritScope lock(&bitrate_crit_);
   min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;
   configured_max_padding_bitrate_bps_ = max_padding_bitrate_bps;

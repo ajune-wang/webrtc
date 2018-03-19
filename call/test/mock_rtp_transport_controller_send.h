@@ -11,6 +11,7 @@
 #ifndef CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_
 #define CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_
 
+#include <memory>
 #include <string>
 
 #include "call/bitrate_constraints.h"
@@ -23,19 +24,30 @@
 #include "test/gmock.h"
 
 namespace webrtc {
+namespace mock_rtp_controller_internal {
+// This dummy is because the MOCK macros can't handle noncopyable unique_ptr.
+class DummyRtpTransportControllerSend
+    : public RtpTransportControllerSendInterface {
+  void SetBitrateAllocationStrategy(
+      std::unique_ptr<rtc::BitrateAllocationStrategy>
+          bitrate_allocation_strategy) override {}
+};
+}  // namespace  mock_rtp_controller_internal
 
 class MockRtpTransportControllerSend
-    : public RtpTransportControllerSendInterface {
+    : public mock_rtp_controller_internal::DummyRtpTransportControllerSend {
  public:
   MOCK_METHOD0(GetWorkerQueue, rtc::TaskQueue*());
   MOCK_METHOD0(packet_router, PacketRouter*());
   MOCK_METHOD0(transport_feedback_observer, TransportFeedbackObserver*());
   MOCK_METHOD0(packet_sender, RtpPacketSender*());
   MOCK_CONST_METHOD0(keepalive_config, RtpKeepAliveConfig&());
-  MOCK_METHOD3(SetAllocatedSendBitrateLimits, void(int, int, int));
   MOCK_METHOD1(SetPacingFactor, void(float));
   MOCK_METHOD1(SetQueueTimeLimit, void(int));
   MOCK_METHOD0(GetCallStatsObserver, CallStatsObserver*());
+  MOCK_METHOD0(GetBitrateAllocator, BitrateAllocator*());
+  MOCK_METHOD1(RegisterBitrateAllocationLimitObserver,
+               void(BitrateAllocatorLimitObserver*));
   MOCK_METHOD1(RegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
   MOCK_METHOD1(DeRegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
   MOCK_METHOD1(RegisterTargetTransferRateObserver,

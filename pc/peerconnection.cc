@@ -2957,14 +2957,15 @@ void PeerConnection::SetBitrateAllocationStrategy(
     rtc::BitrateAllocationStrategy* strategy_raw =
         bitrate_allocation_strategy.release();
     auto functor = [this, strategy_raw]() {
-      call_->SetBitrateAllocationStrategy(
+      call_->GetTransportControllerSend()->SetBitrateAllocationStrategy(
           rtc::WrapUnique<rtc::BitrateAllocationStrategy>(strategy_raw));
     };
     worker_thread->Invoke<void>(RTC_FROM_HERE, functor);
     return;
   }
   RTC_DCHECK(call_.get());
-  call_->SetBitrateAllocationStrategy(std::move(bitrate_allocation_strategy));
+  call_->GetTransportControllerSend()->SetBitrateAllocationStrategy(
+      std::move(bitrate_allocation_strategy));
 }
 
 void PeerConnection::SetAudioPlayout(bool playout) {

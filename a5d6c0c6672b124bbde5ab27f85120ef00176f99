@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "015d39e4_364919da",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-19T17:40:50Z",
+      "side": 1,
+      "message": "Can you also add |media_channel_ \u003d nullptr| here as well?",
+      "revId": "a5d6c0c6672b124bbde5ab27f85120ef00176f99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

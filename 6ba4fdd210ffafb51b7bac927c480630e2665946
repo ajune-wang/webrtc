@@ -22,6 +22,30 @@
       "revId": "6ba4fdd210ffafb51b7bac927c480630e2665946",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08ec7650_1a4cad0f",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 33
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-03-19T09:38:54Z",
+      "side": 1,
+      "message": "Thanks - indeed this isn\u0027t needed. Removed.",
+      "parentUuid": "ddba7aa2_2535d859",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "6ba4fdd210ffafb51b7bac927c480630e2665946",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

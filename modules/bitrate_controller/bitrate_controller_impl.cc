@@ -201,6 +201,14 @@ void BitrateControllerImpl::OnReceivedRtcpReceiverReport(
             report_block.extended_highest_sequence_number - seq_num_it->second;
       }
 
+      if (number_of_packets < 0) {
+        RTC_LOG(LS_WARNING)
+            << "Received report block for ssrc " << report_block.source_ssrc
+            << " where extended high sequence number goes backwards from "
+            << seq_num_it->second << " to "
+            << report_block.extended_highest_sequence_number << ", ignoring.";
+      }
+
       fraction_lost_aggregate += number_of_packets * report_block.fraction_lost;
       total_number_of_packets += number_of_packets;
 
@@ -209,9 +217,6 @@ void BitrateControllerImpl::OnReceivedRtcpReceiverReport(
           report_block.extended_highest_sequence_number;
     }
     if (total_number_of_packets < 0) {
-      RTC_LOG(LS_WARNING)
-          << "Received report block where extended high sequence "
-             "number goes backwards, ignoring.";
       return;
     }
     if (total_number_of_packets == 0)

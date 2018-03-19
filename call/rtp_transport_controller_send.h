@@ -24,6 +24,7 @@
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/bitrateallocationstrategy.h"
 #include "rtc_base/constructormagic.h"
+#include "rtc_base/criticalsection.h"
 #include "rtc_base/networkroute.h"
 #include "rtc_base/task_queue.h"
 
@@ -78,8 +79,6 @@ class RtpTransportControllerSend final
   void SetQueueTimeLimit(int limit_ms) override;
   CallStatsObserver* GetCallStatsObserver() override;
   BitrateAllocator* GetBitrateAllocator() override;
-  void RegisterBitrateAllocationLimitObserver(
-      BitrateAllocatorLimitObserver* observer) override;
   void RegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) override;
   void DeRegisterPacketFeedbackObserver(
@@ -102,7 +101,10 @@ class RtpTransportControllerSend final
       std::unique_ptr<rtc::BitrateAllocationStrategy>
           bitrate_allocation_strategy) override;
 
+  RtpTransportSendStats GetCurrentStats() const override;
+
  private:
+  void UpdateStats(const RtpTransportSendStats& stats_update);
   const Clock* const clock_;
   PacketRouter packet_router_;
   PacedSender pacer_;
@@ -113,9 +115,10 @@ class RtpTransportControllerSend final
   std::map<std::string, rtc::NetworkRoute> network_routes_;
   const std::unique_ptr<ProcessThread> process_thread_;
   rtc::CriticalSection observer_crit_;
-  BitrateAllocatorLimitObserver* bitrate_allocation_limit_observer_
-      RTC_GUARDED_BY(observer_crit_);
   TargetTransferRateObserver* observer_ RTC_GUARDED_BY(observer_crit_);
+
+  rtc::CriticalSection stats_crit_;
+  RtpTransportSendStats stats_ RTC_GUARDED_BY(stats_crit_);
   // Declared last since it will issue callbacks from a task queue. Declaring it
   // last ensures that it is destroyed first.
   const std::unique_ptr<SendSideCongestionControllerInterface> send_side_cc_;

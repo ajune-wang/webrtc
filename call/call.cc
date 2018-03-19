@@ -168,8 +168,7 @@ namespace internal {
 class Call : public webrtc::Call,
              public PacketReceiver,
              public RecoveredPacketReceiver,
-             public TargetTransferRateObserver,
-             public BitrateAllocatorLimitObserver {
+             public TargetTransferRateObserver {
  public:
   Call(const Call::Config& config,
        std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
@@ -228,11 +227,6 @@ class Call : public webrtc::Call,
 
   // Implements TargetTransferRateObserver,
   void OnTargetTransferRate(TargetTransferRate msg) override;
-
-  // Implements BitrateAllocatorLimitObserver.
-  void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                 uint32_t max_padding_bitrate_bps,
-                                 uint32_t total_bitrate_bps) override;
 
  private:
   DeliveryStatus DeliverRtcp(MediaType media_type, const uint8_t* packet,
@@ -344,13 +338,7 @@ class Call : public webrtc::Call,
   rtc::Optional<int64_t> last_received_rtp_video_ms_;
   TimeInterval sent_rtp_audio_timer_ms_;
 
-  rtc::CriticalSection last_bandwidth_bps_crit_;
-  uint32_t last_bandwidth_bps_ RTC_GUARDED_BY(&last_bandwidth_bps_crit_);
-  // TODO(holmer): Remove this lock once BitrateController no longer calls
-  // OnNetworkChanged from multiple threads.
   rtc::CriticalSection bitrate_crit_;
-  uint32_t min_allocated_send_bitrate_bps_ RTC_GUARDED_BY(&bitrate_crit_);
-  uint32_t configured_max_padding_bitrate_bps_ RTC_GUARDED_BY(&bitrate_crit_);
   AvgCounter estimated_send_bitrate_kbps_counter_
       RTC_GUARDED_BY(&bitrate_crit_);
   AvgCounter pacer_bitrate_kbps_counter_ RTC_GUARDED_BY(&bitrate_crit_);
@@ -420,9 +408,6 @@ Call::Call(const Call::Config& config,
       received_audio_bytes_per_second_counter_(clock_, nullptr, true),
       received_video_bytes_per_second_counter_(clock_, nullptr, true),
       received_rtcp_bytes_per_second_counter_(clock_, nullptr, true),
-      last_bandwidth_bps_(0),
-      min_allocated_send_bitrate_bps_(0),
-      configured_max_padding_bitrate_bps_(0),
       estimated_send_bitrate_kbps_counter_(clock_, nullptr, true),
       pacer_bitrate_kbps_counter_(clock_, nullptr, true),
       retransmission_rate_limiter_(clock_, kRetransmitWindowSizeMs),
@@ -431,7 +416,6 @@ Call::Call(const Call::Config& config,
       start_ms_(clock_->TimeInMilliseconds()) {
   RTC_DCHECK(config.event_log != nullptr);
   transport_send->RegisterTargetTransferRateObserver(this);
-  transport_send->RegisterBitrateAllocationLimitObserver(this);
   transport_send_ = std::move(transport_send);
 
   call_stats_->RegisterStatsObserver(&receive_side_cc_);
@@ -908,10 +892,9 @@ Call::Stats Call::GetStats() const {
   receive_side_cc_.GetRemoteBitrateEstimator(false)->LatestEstimate(
       &ssrcs, &recv_bandwidth);
 
-  {
-    rtc::CritScope cs(&last_bandwidth_bps_crit_);
-    stats.send_bandwidth_bps = last_bandwidth_bps_;
-  }
+  RtpTransportSendStats send_stats = transport_send_->GetCurrentStats();
+
+  stats.send_bandwidth_bps = send_stats.send_bandwidth_bps.value_or(0);
   stats.recv_bandwidth_bps = recv_bandwidth;
   // TODO(srte): It is unclear if we only want to report queues if network is
   // available.
@@ -921,11 +904,11 @@ Call::Stats Call::GetStats() const {
         aggregate_network_up_ ? transport_send_->GetPacerQueuingDelayMs() : 0;
   }
 
+  // TODO(srte): We might want to use the value from from the send stats.
   stats.rtt_ms = call_stats_->rtcp_rtt_stats()->LastProcessedRtt();
-  {
-    rtc::CritScope cs(&bitrate_crit_);
-    stats.max_padding_bitrate_bps = configured_max_padding_bitrate_bps_;
-  }
+  stats.max_padding_bitrate_bps =
+      send_stats.max_padding_bitrate_bps.value_or(0);
+
   return stats;
 }
 
@@ -1029,19 +1012,9 @@ void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {
 }
 
 void Call::OnTargetTransferRate(TargetTransferRate msg) {
-  if (!transport_send_->GetWorkerQueue()->IsCurrent()) {
-    transport_send_->GetWorkerQueue()->PostTask(
-        [this, msg] { OnTargetTransferRate(msg); });
-    return;
-  }
   RTC_DCHECK_RUN_ON(transport_send_->GetWorkerQueue());
   uint32_t target_bitrate_bps = msg.target_rate.bps();
-  uint32_t bandwidth_bps = msg.network_estimate.bandwidth.bps();
-  {
-    rtc::CritScope cs(&last_bandwidth_bps_crit_);
-    last_bandwidth_bps_ = bandwidth_bps;
-  }
-  retransmission_rate_limiter_.SetMaxRate(bandwidth_bps);
+  retransmission_rate_limiter_.SetMaxRate(msg.network_estimate.bandwidth.bps());
   // For controlling the rate of feedback messages.
   receive_side_cc_.OnBitrateChanged(target_bitrate_bps);
 
@@ -1067,20 +1040,14 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
     return;
   }
   estimated_send_bitrate_kbps_counter_.Add(target_bitrate_bps / 1000);
+
+  RtpTransportSendStats send_stats = transport_send_->GetCurrentStats();
+  uint32_t min_allocated_send_bitrate_bps = rtc::dchecked_cast<uint32_t>(
+      send_stats.min_allocated_send_bitrate_bps.value_or(0));
   // Pacer bitrate may be higher than bitrate estimate if enforcing min bitrate.
   uint32_t pacer_bitrate_bps =
-      std::max(target_bitrate_bps, min_allocated_send_bitrate_bps_);
+      std::max(target_bitrate_bps, min_allocated_send_bitrate_bps);
   pacer_bitrate_kbps_counter_.Add(pacer_bitrate_bps / 1000);
-}
-
-void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                     uint32_t max_padding_bitrate_bps,
-                                     uint32_t total_bitrate_bps) {
-  // TODO(srte): Replace this callback with a way to get cached values from rtp
-  // transport controller send.
-  rtc::CritScope lock(&bitrate_crit_);
-  min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;
-  configured_max_padding_bitrate_bps_ = max_padding_bitrate_bps;
 }
 
 void Call::ConfigureSync(const std::string& sync_group) {

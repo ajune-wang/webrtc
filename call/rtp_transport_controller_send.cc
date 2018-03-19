@@ -96,10 +96,18 @@ void RtpTransportControllerSend::OnNetworkChanged(uint32_t bitrate_bps,
     msg.network_estimate.bandwidth = DataRate::bps(bandwidth_bps);
   msg.network_estimate.loss_rate_ratio = fraction_loss / 255.0;
   msg.network_estimate.round_trip_time = TimeDelta::ms(rtt_ms);
-  rtc::CritScope cs(&observer_crit_);
-  // We wont register as observer until we have an observer.
-  RTC_DCHECK(observer_ != nullptr);
-  observer_->OnTargetTransferRate(msg);
+
+  RtpTransportSendStats stats_update;
+  stats_update.send_bandwidth_bps = bandwidth_bps;
+  stats_update.target_send_bitrate_bps = bitrate_bps;
+  stats_update.round_trip_time_ms = rtt_ms;
+  worker_queue_.PostTask([this, msg, stats_update]() {
+    UpdateStats(stats_update);
+    rtc::CritScope cs(&observer_crit_);
+    // We wont register as observer until we have an observer.
+    RTC_DCHECK(observer_ != nullptr);
+    observer_->OnTargetTransferRate(msg);
+  });
 }
 
 rtc::TaskQueue* RtpTransportControllerSend::GetWorkerQueue() {
@@ -129,9 +137,11 @@ void RtpTransportControllerSend::OnAllocationLimitsChanged(
     uint32_t max_total_bitrate_bps) {
   send_side_cc_->SetAllocatedSendBitrateLimits(
       min_send_bitrate_bps, max_padding_bitrate_bps, max_total_bitrate_bps);
-  rtc::CritScope cs(&observer_crit_);
-  bitrate_allocation_limit_observer_->OnAllocationLimitsChanged(
-      min_send_bitrate_bps, max_padding_bitrate_bps, max_total_bitrate_bps);
+
+  RtpTransportSendStats stats_update;
+  stats_update.max_padding_bitrate_bps = max_padding_bitrate_bps;
+  stats_update.min_allocated_send_bitrate_bps = min_send_bitrate_bps;
+  UpdateStats(stats_update);
 }
 
 void RtpTransportControllerSend::SetKeepAliveConfig(
@@ -149,11 +159,6 @@ CallStatsObserver* RtpTransportControllerSend::GetCallStatsObserver() {
 }
 BitrateAllocator* RtpTransportControllerSend::GetBitrateAllocator() {
   return &bitrate_allocator_;
-}
-void RtpTransportControllerSend::RegisterBitrateAllocationLimitObserver(
-    BitrateAllocatorLimitObserver* observer) {
-  rtc::CritScope cs(&observer_crit_);
-  bitrate_allocation_limit_observer_ = observer;
 }
 void RtpTransportControllerSend::RegisterPacketFeedbackObserver(
     PacketFeedbackObserver* observer) {
@@ -279,5 +284,16 @@ void RtpTransportControllerSend::SetBitrateAllocationStrategy(
   RTC_DCHECK_RUN_ON(&worker_queue_);
   bitrate_allocator_.SetBitrateAllocationStrategy(
       std::move(bitrate_allocation_strategy));
+}
+
+RtpTransportSendStats RtpTransportControllerSend::GetCurrentStats() const {
+  rtc::CritScope cs(&stats_crit_);
+  return stats_;
+}
+
+void RtpTransportControllerSend::UpdateStats(
+    const RtpTransportSendStats& stats_update) {
+  rtc::CritScope cs(&stats_crit_);
+  stats_.UpdateWith(stats_update);
 }
 }  // namespace webrtc

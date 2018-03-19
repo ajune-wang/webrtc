@@ -18,6 +18,7 @@
 
 #include "api/optional.h"
 #include "call/bitrate_constraints.h"
+#include "call/rtp_transport_send_stats.h"
 #include "rtc_base/bitrateallocationstrategy.h"
 
 namespace rtc {
@@ -28,7 +29,6 @@ class TaskQueue;
 namespace webrtc {
 
 class BitrateAllocator;
-class BitrateAllocatorLimitObserver;
 class CallStatsObserver;
 class TargetTransferRateObserver;
 class Module;
@@ -79,8 +79,6 @@ class RtpTransportControllerSendInterface {
 
   virtual CallStatsObserver* GetCallStatsObserver() = 0;
   virtual BitrateAllocator* GetBitrateAllocator() = 0;
-  virtual void RegisterBitrateAllocationLimitObserver(
-      BitrateAllocatorLimitObserver* observer) = 0;
 
   virtual void RegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) = 0;
@@ -106,6 +104,7 @@ class RtpTransportControllerSendInterface {
   virtual void SetBitrateAllocationStrategy(
       std::unique_ptr<rtc::BitrateAllocationStrategy>
           bitrate_allocation_strategy) = 0;
+  virtual RtpTransportSendStats GetCurrentStats() const = 0;
 };
 
 }  // namespace webrtc

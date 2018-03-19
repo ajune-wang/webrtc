@@ -46,8 +46,6 @@ class MockRtpTransportControllerSend
   MOCK_METHOD1(SetQueueTimeLimit, void(int));
   MOCK_METHOD0(GetCallStatsObserver, CallStatsObserver*());
   MOCK_METHOD0(GetBitrateAllocator, BitrateAllocator*());
-  MOCK_METHOD1(RegisterBitrateAllocationLimitObserver,
-               void(BitrateAllocatorLimitObserver*));
   MOCK_METHOD1(RegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
   MOCK_METHOD1(DeRegisterPacketFeedbackObserver, void(PacketFeedbackObserver*));
   MOCK_METHOD1(RegisterTargetTransferRateObserver,
@@ -63,6 +61,7 @@ class MockRtpTransportControllerSend
   MOCK_METHOD1(SetSdpBitrateParameters, void(const BitrateConstraints&));
   MOCK_METHOD1(SetClientBitratePreferences,
                void(const BitrateConstraintsMask&));
+  MOCK_CONST_METHOD0(GetCurrentStats, RtpTransportSendStats());
 };
 }  // namespace webrtc
 #endif  // CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_

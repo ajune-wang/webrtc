@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e63cb8ca_b1c776c0",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 34
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T09:54:24Z",
+      "side": 1,
+      "message": "You can get rid of this line if you replace +\u003d with just \u003d below. (This isn\u0027t just to reduce the number of lines---SSA is easier on the brain than mutable state.)",
+      "revId": "b3538dccad97d92e9968353a7d9c9a547738ef43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b0bc4a8_748b1076",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 34
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T09:54:24Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "b3538dccad97d92e9968353a7d9c9a547738ef43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "024028e0_1b78dece",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 34
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T09:54:24Z",
+      "side": 1,
+      "message": "Can you restrict the visibility of this target to just :rtc_task_queue_impl? (And same question for the mac and windows TQ implementations below.)",
+      "revId": "b3538dccad97d92e9968353a7d9c9a547738ef43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "351529b9_228c29e6",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 34
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T09:54:24Z",
+      "side": 1,
+      "message": "You can avoid mutation here too.",
+      "revId": "b3538dccad97d92e9968353a7d9c9a547738ef43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

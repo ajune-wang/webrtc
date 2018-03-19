@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25cfdf7f_541084fb",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T13:49:58Z",
+      "side": 1,
+      "message": "You should really use the // clang-format off/on stuff here---otherwise, the formatting will get screwed up the next time someone touches this.\n\nAnd consider aligning the comments on the same column like in my example.",
+      "revId": "3d90ccd54c9ade523b81aaf42927881de871cad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f589dd_5081bbe4",
+        "filename": "rtc_base/platform_file_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T13:49:58Z",
+      "side": 1,
+      "message": "It\u0027s possible to use ASSERT_* in other places than the top-level test function, but it requires you to remember to call some function whose name I don\u0027t recall offhand in order to propagate the error at each call site.\n\nMy recommendation is always to stick to EXPECT_*.",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "3d90ccd54c9ade523b81aaf42927881de871cad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ecc806d_6e849d08",
+        "filename": "test/testsupport/fileutils.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T13:49:58Z",
+      "side": 1,
+      "message": "Actually, you don\u0027t want this one to be const. :-) That prevents it from being a RVO candidate. Not that performance is a high priority here, but it\u0027s good to get into the habit.",
+      "range": {
+        "startLine": 220,
+        "startChar": 2,
+        "endLine": 220,
+        "endChar": 7
+      },
+      "revId": "3d90ccd54c9ade523b81aaf42927881de871cad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

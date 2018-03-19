@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "21aa79e9_eaec24cc",
+        "filename": "common_audio/wav_file_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T13:49:58Z",
+      "side": 1,
+      "message": "No, I meant the pointer can be const:\n\n  FILE* const f \u003d ...\n\n(There are several places in your CL where you can do this.)",
+      "parentUuid": "3c43fcde_7d9e1505",
+      "range": {
+        "startLine": 258,
+        "startChar": 2,
+        "endLine": 258,
+        "endChar": 9
+      },
+      "revId": "40fbfba43f48121a1c867180551817a9c7d0e579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0653c32e_949e7649",
         "filename": "rtc_base/platform_file_unittest.cc",
         "patchSetId": 17

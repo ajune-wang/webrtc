@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6e48344f_a89ca122",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-19T16:40:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2af3cd39_6561cff5",
+      "range": {
+        "startLine": 104,
+        "startChar": 22,
+        "endLine": 104,
+        "endChar": 33
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c0e9b15_f8f0e9a7",
         "filename": "modules/audio_device/BUILD.gn",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6d7ddbf_8ef0e1a6",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-19T16:40:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c0e9b15_f8f0e9a7",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ff18c233_a8251653",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-19T16:40:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25501f17_c2b99e63",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4a8b960_07ccdb63",
         "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "717ead4f_d1eafae5",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-19T16:40:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4a8b960_07ccdb63",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 81
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "05732f4f_e91128d9",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-19T16:40:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "785098b7_929a3fe2",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 64
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2c0f221_db5762f3",
         "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "44b5bcbf_4d9ee5e5",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-19T16:40:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2c0f221_db5762f3",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 61
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de2593f9_a402b920",
         "filename": "sdk/android/native_api/audio_device_module/audio_device_android.h",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542511b2_055b0cb4",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-19T16:40:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de2593f9_a402b920",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 2
+      },
+      "revId": "849b91ec3c30438c4a257e6b168e5713cf98a4c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

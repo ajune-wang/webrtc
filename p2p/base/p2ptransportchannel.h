@@ -106,6 +106,7 @@ class P2PTransportChannel : public IceTransportInternal,
   // TODO(deadbeef): Use rtc::Optional instead of negative values.
   void SetIceConfig(const IceConfig& config) override;
   const IceConfig& config() const;
+  static bool ValidateIceConfig(const IceConfig& config);
   void SetMetricsObserver(webrtc::MetricsObserverInterface* observer) override;
 
   // From TransportChannel:

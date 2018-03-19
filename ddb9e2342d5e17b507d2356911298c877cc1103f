@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "20f3fb8e_2b691bbf",
+        "filename": "pc/rtcstatscollector.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-03-19T14:38:27Z",
+      "side": 1,
+      "message": "Clarifying:\n\nI will DCHECK that PeerConnection::GetStats() is called with non-null taking RtpSenderInterface as the selector, but the RTCStatsCollector::GetStats() takes RtpSenderInternal, and the sender interface -\u003e sender internal lookup can fail if the sender has been removed from the PC, in which case I invoke the collector with null selector.\n\nThe alternative would be to static_cast\u003c\u003e the sender interface to a proxy and fetch the internal instead of iterating senders. Then I can DCHECK non-null in both places but I introduce a static_cast.",
+      "parentUuid": "7abdffe5_5da3811a",
+      "revId": "ddb9e2342d5e17b507d2356911298c877cc1103f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8cfae177_9466eca2",
         "filename": "pc/rtcstatscollector_unittest.cc",
         "patchSetId": 5

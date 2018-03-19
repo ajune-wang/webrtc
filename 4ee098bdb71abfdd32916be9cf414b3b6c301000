@@ -22,6 +22,30 @@
       "revId": "4ee098bdb71abfdd32916be9cf414b3b6c301000",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adffd5ce_d97e812f",
+        "filename": "call/receive_time_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-19T15:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9c20987_45ccec1f",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "4ee098bdb71abfdd32916be9cf414b3b6c301000",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

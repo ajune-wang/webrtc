@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abe79b1a_2b499d66",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T12:17:46Z",
+      "side": 1,
+      "message": "Consider doing this before landing this CL, so that you don\u0027t have to change the API twice.",
+      "revId": "06dc33ead5936d808e2fd03348cd3620de929c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad4547ca_76e55b2f",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T12:17:46Z",
+      "side": 1,
+      "message": "It looks like you\u0027re implementing \u003e\u003d, not \u003c\u003d.",
+      "revId": "06dc33ead5936d808e2fd03348cd3620de929c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "615e6d04_5c74a772",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-19T12:17:46Z",
+      "side": 1,
+      "message": "Consider providing all six comparison operators.",
+      "revId": "06dc33ead5936d808e2fd03348cd3620de929c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

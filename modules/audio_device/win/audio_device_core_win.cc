@@ -171,7 +171,7 @@ class MediaBufferImpl : public IMediaBuffer {
 // ----------------------------------------------------------------------------
 
 bool AudioDeviceWindowsCore::CoreAudioIsSupported() {
-  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_LOG(LS_INFO) << __FUNCTION__;
 
   bool MMDeviceIsAvailable(false);
   bool coreAudioIsSupported(false);
@@ -617,6 +617,7 @@ int32_t AudioDeviceWindowsCore::ActiveAudioLayer(
 // ----------------------------------------------------------------------------
 
 AudioDeviceGeneric::InitStatus AudioDeviceWindowsCore::Init() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   rtc::CritScope lock(&_critSect);
 
   if (_initialized) {
@@ -626,8 +627,8 @@ AudioDeviceGeneric::InitStatus AudioDeviceWindowsCore::Init() {
   // Enumerate all audio rendering and capturing endpoint devices.
   // Note that, some of these will not be able to select by the user.
   // The complete collection is for internal use only.
-  _EnumerateEndpointDevicesAll(eRender);
-  _EnumerateEndpointDevicesAll(eCapture);
+  // _EnumerateEndpointDevicesAll(eRender);
+  // _EnumerateEndpointDevicesAll(eCapture);
 
   _initialized = true;
 
@@ -639,6 +640,7 @@ AudioDeviceGeneric::InitStatus AudioDeviceWindowsCore::Init() {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::Terminate() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   rtc::CritScope lock(&_critSect);
 
   if (!_initialized) {
@@ -678,6 +680,7 @@ bool AudioDeviceWindowsCore::Initialized() const {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::InitSpeaker() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   rtc::CritScope lock(&_critSect);
 
   if (_playing) {
@@ -747,6 +750,7 @@ int32_t AudioDeviceWindowsCore::InitSpeaker() {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::InitMicrophone() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   rtc::CritScope lock(&_critSect);
 
   if (_recording) {
@@ -1189,6 +1193,7 @@ int32_t AudioDeviceWindowsCore::StereoRecordingIsAvailable(bool& available) {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::SetStereoRecording(bool enable) {
+  RTC_DLOG(INFO) << "SetStereoRecording(" << enable << ")";
   rtc::CritScope lock(&_critSect);
 
   if (enable) {
@@ -1231,6 +1236,7 @@ int32_t AudioDeviceWindowsCore::StereoPlayoutIsAvailable(bool& available) {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::SetStereoPlayout(bool enable) {
+  RTC_DLOG(INFO) << "SetStereoPlayout(" << enable << ")";
   rtc::CritScope lock(&_critSect);
 
   if (enable) {
@@ -1422,6 +1428,7 @@ int16_t AudioDeviceWindowsCore::PlayoutDevices() {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::SetPlayoutDevice(uint16_t index) {
+  RTC_DLOG(INFO) << "SetPlayoutDevice(" << index << ")";
   if (_playIsInitialized) {
     return -1;
   }
@@ -1685,6 +1692,7 @@ int16_t AudioDeviceWindowsCore::RecordingDevices() {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::SetRecordingDevice(uint16_t index) {
+  RTC_DLOG(INFO) << "SetRecordingDevice(" << index << ")";
   if (_recIsInitialized) {
     return -1;
   }
@@ -1823,6 +1831,7 @@ int32_t AudioDeviceWindowsCore::RecordingIsAvailable(bool& available) {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::InitPlayout() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   rtc::CritScope lock(&_critSect);
 
   if (_playing) {
@@ -2138,6 +2147,7 @@ int32_t AudioDeviceWindowsCore::InitRecordingDMO() {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::InitRecording() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   rtc::CritScope lock(&_critSect);
 
   if (_recording) {
@@ -2352,6 +2362,7 @@ Exit:
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::StartRecording() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   if (!_recIsInitialized) {
     return -1;
   }
@@ -2412,6 +2423,7 @@ int32_t AudioDeviceWindowsCore::StartRecording() {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::StopRecording() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   int32_t err = 0;
 
   if (!_recIsInitialized) {
@@ -2508,6 +2520,7 @@ bool AudioDeviceWindowsCore::PlayoutIsInitialized() const {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::StartPlayout() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   if (!_playIsInitialized) {
     return -1;
   }
@@ -2552,6 +2565,7 @@ int32_t AudioDeviceWindowsCore::StartPlayout() {
 // ----------------------------------------------------------------------------
 
 int32_t AudioDeviceWindowsCore::StopPlayout() {
+  RTC_DLOG(INFO) << __FUNCTION__;
   if (!_playIsInitialized) {
     return 0;
   }
@@ -2826,9 +2840,11 @@ DWORD AudioDeviceWindowsCore::DoRenderThread() {
       UINT32 padding = 0;
       hr = _ptrClientOut->GetCurrentPadding(&padding);
       EXIT_ON_ERROR(hr);
+      // RTC_DLOG(LS_VERBOSE) << "GetCurrentPadding: " << padding;
 
       // Derive the amount of available space in the output buffer
       uint32_t framesAvailable = bufferLength - padding;
+      // RTC_DLOG(LS_VERBOSE) << "framesAvailable: " << framesAvailable;
 
       // Do we have 10 ms available in the render buffer?
       if (framesAvailable < _playBlockSize) {
@@ -3295,7 +3311,7 @@ DWORD AudioDeviceWindowsCore::DoCaptureThread() {
                                                _recBlockSize);
             _ptrAudioBuffer->SetVQEData(sndCardPlayDelay, sndCardRecDelay);
 
-            _ptrAudioBuffer->SetTypingStatus(KeyPressed());
+            // _ptrAudioBuffer->SetTypingStatus(KeyPressed());
 
             _UnLock();  // release lock while making the callback
             _ptrAudioBuffer->DeliverRecordedData();

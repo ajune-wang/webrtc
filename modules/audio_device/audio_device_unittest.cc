@@ -123,7 +123,7 @@ int IndexToMilliseconds(size_t index, size_t frames_per_10ms_buffer) {
 class FifoAudioStream : public AudioStream {
  public:
   void Write(rtc::ArrayView<const int16_t> source, size_t channels) override {
-    EXPECT_EQ(channels, 1u);
+    // EXPECT_EQ(channels, 1u);
     RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
     const size_t size = [&] {
       rtc::CritScope lock(&lock_);
@@ -141,7 +141,7 @@ class FifoAudioStream : public AudioStream {
   }
 
   void Read(rtc::ArrayView<int16_t> destination, size_t channels) override {
-    EXPECT_EQ(channels, 1u);
+    // EXPECT_EQ(channels, 1u);
     rtc::CritScope lock(&lock_);
     if (fifo_.empty()) {
       std::fill(destination.begin(), destination.end(), 0);
@@ -375,7 +375,7 @@ class MockAudioTransport : public test::MockAudioTransport {
                                const size_t channels,
                                const uint32_t sample_rate,
                                void* audio_buffer,
-                               size_t& samples_per_channel_out,
+                               size_t& samples_out,
                                int64_t* elapsed_time_ms,
                                int64_t* ntp_time_ms) {
     EXPECT_TRUE(play_mode()) << "No test is expecting these callbacks.";
@@ -395,7 +395,7 @@ class MockAudioTransport : public test::MockAudioTransport {
                 playout_parameters_.frames_per_10ms_buffer());
     }
     play_count_++;
-    samples_per_channel_out = samples_per_channel;
+    samples_out = samples_per_channel * channels;
     // Read audio data from audio stream object if one has been injected.
     if (audio_stream_) {
       audio_stream_->Read(
@@ -457,7 +457,7 @@ class AudioDeviceTest : public ::testing::Test {
   AudioDeviceTest() : event_(false, false) {
 #if !defined(ADDRESS_SANITIZER) && !defined(MEMORY_SANITIZER) && \
     !defined(WEBRTC_DUMMY_AUDIO_BUILD)
-    rtc::LogMessage::LogToDebug(rtc::LS_INFO);
+    rtc::LogMessage::LogToDebug(rtc::LS_VERBOSE);
     // Add extra logging fields here if needed for debugging.
     // rtc::LogMessage::LogTimestamps();
     // rtc::LogMessage::LogThreads();
@@ -696,8 +696,8 @@ TEST_F(AudioDeviceTest, RunPlayoutAndRecordingInFullDuplex) {
   // Run both sides in mono to make the loopback packet handling less complex.
   // The test works for stereo as well; the only requirement is that both sides
   // use the same configuration.
-  EXPECT_EQ(0, audio_device()->SetStereoPlayout(false));
-  EXPECT_EQ(0, audio_device()->SetStereoRecording(false));
+  EXPECT_EQ(0, audio_device()->SetStereoPlayout(true));
+  EXPECT_EQ(0, audio_device()->SetStereoRecording(true));
   StartPlayout();
   StartRecording();
   event()->Wait(static_cast<int>(

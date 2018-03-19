@@ -250,6 +250,7 @@ void AudioRtpSender::Stop() {
       stats_->RemoveLocalAudioTrack(track_.get(), ssrc_);
     }
   }
+  media_channel_ = nullptr;
   stopped_ = true;
 }
 

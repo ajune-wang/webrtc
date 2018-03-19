@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a3711b1_2a37a8e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-19T08:52:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c26ed95_fa683cce",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85bd9c93_3b772980",
         "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5900d751_3ffb9ac7",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-19T08:52:00Z",
+      "side": 1,
+      "message": "Yes, thank you for spotting.",
+      "parentUuid": "85bd9c93_3b772980",
+      "range": {
+        "startLine": 141,
+        "startChar": 7,
+        "endLine": 141,
+        "endChar": 29
+      },
+      "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "69f28405_0160bc7f",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-19T08:52:00Z",
+      "side": 1,
+      "message": "The DCHECKS are needed for the RTC_GUARDED_BY macros. Son indirectly the ptr is needed for those.",
+      "parentUuid": "f5228840_42d28519",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 191,
+        "endChar": 30
+      },
+      "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7bd3793_2bf62658",
         "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b75c7f_457b4696",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-19T08:52:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d7bd3793_2bf62658",
+      "range": {
+        "startLine": 198,
+        "startChar": 34,
+        "endLine": 198,
+        "endChar": 52
+      },
+      "revId": "2f7a9bf6f85e43a401a4b715f359ef17b3c1979b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

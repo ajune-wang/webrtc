@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d8c32694_a833b489",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-19T21:16:33Z",
+      "side": 1,
+      "message": "Hmm, should have used the actually defaults and thanks for the suggestion. Fixed now that we have helper getters in IceConfig.",
+      "parentUuid": "33c7275f_36c2ef48",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "115ed776_ac44495c",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "642d39a1_4c39455e",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-19T21:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "115ed776_ac44495c",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a6cb6d9b_076c4c92",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-19T21:16:33Z",
+      "side": 1,
+      "message": "I missed them in the last round. Thanks for spotting this! Fixed.",
+      "parentUuid": "91d3e0b6_0aee2de4",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7beb91f_b4c6a298",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44368291_1e256375",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-19T21:16:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7beb91f_b4c6a298",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "1e6fcb06_4f92d70f",
+        "filename": "p2p/base/p2ptransportchannel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-19T21:16:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ed5a6baa_fca12fae",
+      "range": {
+        "startLine": 141,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 25
+      },
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c6354f4_07fa0f10",
         "filename": "p2p/base/port.cc",
         "patchSetId": 3
@@ -128,6 +224,24 @@
       "writtenOn": "2018-03-16T22:12:17Z",
       "side": 1,
       "message": "Hmm, why is this called \"WEAK_CONNECTION_RECEIVE_TIMEOUT\" instead of \"DEFAULT_CONNECTION_RECEIVE_TIMEOUT\"? What makes it \"weak\"-specific?",
+      "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11803c04_4a7dd328",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-19T21:16:33Z",
+      "side": 1,
+      "message": "I am guessing it was probably named so when defining concepts given by helpers like active(), weak(), dead() at the \"connection level\" (Connection) like in the legacy comments, which are not quite consolidated with similar concepts defined at the \"channel level\" (P2PTransportChannel). There is also DEAD_CONNECTION_RECEIVE_TIMEOUT for example.",
+      "parentUuid": "2c6354f4_07fa0f10",
       "revId": "b7f30ba1a3f61ab61e4e2ffc2511728f8260e8eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

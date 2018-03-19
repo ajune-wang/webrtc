@@ -19,7 +19,8 @@
 #   include <arpa/inet.h>
 #endif
 
-#include "audio_coding_module.h"
+#include "modules/audio_coding/include/audio_coding_module.h"
+#include "modules/include/module_common_types.h"
 #include "system_wrappers/include/rw_lock_wrapper.h"
 // TODO(tlegrand): Consider removing usage of gtest.
 #include "test/gtest.h"

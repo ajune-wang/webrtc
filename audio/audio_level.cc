@@ -8,10 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "api/audio/audio_frame.h"
 #include "audio/audio_level.h"
-
 #include "common_audio/signal_processing/include/signal_processing_library.h"
-#include "modules/include/module_common_types.h"
 
 namespace webrtc {
 namespace voe {

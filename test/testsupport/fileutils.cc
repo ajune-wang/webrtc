@@ -215,6 +215,28 @@ std::string TempFilename(const std::string &dir, const std::string &prefix) {
 #endif
 }
 
+std::string GenerateTempFilename(const std::string& dir,
+                                 const std::string& prefix) {
+#ifdef WIN32
+  wchar_t filename[MAX_PATH];
+  if (::GetTempFileName(rtc::ToUtf16(dir).c_str(), rtc::ToUtf16(prefix).c_str(),
+                        0, filename) != 0) {
+    std::string out = rtc::ToUtf8(filename);
+    if (RemoveFile(out))
+      return out;
+  }
+  assert(false);
+  return "";
+#else
+  int len = dir.size() + prefix.size() + 2 + 6;
+  std::unique_ptr<char[]> tempname(new char[len]);
+
+  snprintf(tempname.get(), len, "%s/%sXXXXXX", dir.c_str(), prefix.c_str());
+  std::string ret(tempname.get());
+  return ret;
+#endif
+}
+
 rtc::Optional<std::vector<std::string>> ReadDirectory(std::string path) {
   if (path.length() == 0)
     return rtc::Optional<std::vector<std::string>>();

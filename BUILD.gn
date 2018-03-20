@@ -471,6 +471,7 @@ if (rtc_include_tests) {
       "call:call_tests",
       "modules/video_capture",
       "rtc_base:rtc_base_tests_utils",
+      "rtc_base:rtc_task_queue_for_test",
       "test:test_common",
       "test:test_main",
       "test:video_test_common",

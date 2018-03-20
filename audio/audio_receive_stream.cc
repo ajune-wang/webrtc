@@ -112,7 +112,7 @@ AudioReceiveStream::AudioReceiveStream(
   RTC_DCHECK(audio_state_);
   RTC_DCHECK(channel_proxy_);
 
-  module_process_thread_checker_.DetachFromThread();
+  module_process_thread_checker_.Detach();
 
   channel_proxy_->SetRtcEventLog(event_log);
   channel_proxy_->RegisterTransport(config.rtcp_send_transport);
@@ -140,7 +140,7 @@ AudioReceiveStream::~AudioReceiveStream() {
 
 void AudioReceiveStream::Reconfigure(
     const webrtc::AudioReceiveStream::Config& config) {
-  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK(worker_thread_checker_.CalledSequentially());
   ConfigureStream(this, config, false);
 }
 
@@ -313,7 +313,7 @@ bool AudioReceiveStream::DeliverRtcp(const uint8_t* packet, size_t length) {
   // TODO(solenberg): Tests call this function on a network thread, libjingle
   // calls on the worker thread. We should move towards always using a network
   // thread. Then this check can be enabled.
-  // RTC_DCHECK(!thread_checker_.CalledOnValidThread());
+  // RTC_DCHECK(!thread_checker_.CalledSequentially());
   return channel_proxy_->ReceivedRTCPPacket(packet, length);
 }
 
@@ -321,7 +321,7 @@ void AudioReceiveStream::OnRtpPacket(const RtpPacketReceived& packet) {
   // TODO(solenberg): Tests call this function on a network thread, libjingle
   // calls on the worker thread. We should move towards always using a network
   // thread. Then this check can be enabled.
-  // RTC_DCHECK(!thread_checker_.CalledOnValidThread());
+  // RTC_DCHECK(!thread_checker_.CalledSequentially());
   channel_proxy_->OnRtpPacket(packet);
 }
 

@@ -25,6 +25,7 @@
 #include "rtc_base/numerics/moving_max_counter.h"
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/ratetracker.h"
+#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
 #include "video/quality_threshold.h"
@@ -199,7 +200,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   rtc::Optional<int> num_unique_frames_ RTC_GUARDED_BY(crit_);
   rtc::ThreadChecker decode_thread_;
   rtc::ThreadChecker network_thread_;
-  rtc::ThreadChecker main_thread_;
+  rtc::SequencedTaskChecker main_sequence_;
 };
 
 }  // namespace webrtc

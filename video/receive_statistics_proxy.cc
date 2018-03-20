@@ -123,7 +123,7 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(
 }
 
 ReceiveStatisticsProxy::~ReceiveStatisticsProxy() {
-  RTC_DCHECK_RUN_ON(&main_thread_);
+  RTC_DCHECK_RUN_ON(&main_sequence_);
   // In case you're reading this wondering "hmm... we're on the main thread but
   // calling a method that needs to be called on the decoder thread...", then
   // here's what's going on:
@@ -855,11 +855,11 @@ void ReceiveStatisticsProxy::OnRttUpdate(int64_t avg_rtt_ms,
 }
 
 void ReceiveStatisticsProxy::DecoderThreadStarting() {
-  RTC_DCHECK_RUN_ON(&main_thread_);
+  RTC_DCHECK_RUN_ON(&main_sequence_);
 }
 
 void ReceiveStatisticsProxy::DecoderThreadStopped() {
-  RTC_DCHECK_RUN_ON(&main_thread_);
+  RTC_DCHECK_RUN_ON(&main_sequence_);
   decode_thread_.DetachFromThread();
 }
 

@@ -35,6 +35,7 @@ void RunTest(const std::vector<int16_t>& input_samples,
   EXPECT_EQ(TestAudioDeviceModule::SamplesPerFrame(kSampleRate),
             kSamplesPerFrame);
 
+  // Test through file name API.
   {
     std::unique_ptr<TestAudioDeviceModule::Renderer> writer =
         TestAudioDeviceModule::CreateBoundedWavFileWriter(output_filename, 800);
@@ -48,6 +49,31 @@ void RunTest(const std::vector<int16_t>& input_samples,
 
   {
     WavReader reader(output_filename);
+    std::vector<int16_t> read_samples(expected_samples.size());
+    EXPECT_EQ(expected_samples.size(),
+              reader.ReadSamples(read_samples.size(), read_samples.data()));
+    EXPECT_EQ(expected_samples, read_samples);
+
+    EXPECT_EQ(0u, reader.ReadSamples(read_samples.size(), read_samples.data()));
+  }
+
+  remove(output_filename.c_str());
+
+  // Test through rtc::PlatformFile API.
+  {
+    std::unique_ptr<TestAudioDeviceModule::Renderer> writer =
+        TestAudioDeviceModule::CreateBoundedWavFileWriter(
+            rtc::CreatePlatformFile(output_filename), 800);
+
+    for (size_t i = 0; i < input_samples.size(); i += kSamplesPerFrame) {
+      EXPECT_TRUE(writer->Render(rtc::ArrayView<const int16_t>(
+          &input_samples[i],
+          std::min(kSamplesPerFrame, input_samples.size() - i))));
+    }
+  }
+
+  {
+    WavReader reader(rtc::CreatePlatformFile(output_filename));
     std::vector<int16_t> read_samples(expected_samples.size());
     EXPECT_EQ(expected_samples.size(),
               reader.ReadSamples(read_samples.size(), read_samples.data()));

@@ -383,6 +383,10 @@ class BaseChannel
   // for DtlsSrtpTransport.
   void ActivateRtcpMux();
 
+  // Adds this StreamParam that was signaled without ssrcs to the media channel.
+  // This isn't supported with the data media channel.
+  void AddUnsignaledStream_w(const StreamParams& sp);
+
   rtc::Thread* const worker_thread_;
   rtc::Thread* const network_thread_;
   rtc::Thread* const signaling_thread_;

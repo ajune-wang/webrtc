@@ -2267,15 +2267,12 @@ RTCError PeerConnection::ApplyRemoteDescription(
       // the RTCSessionDescription: If direction is sendrecv or recvonly, and
       // transceiver's current direction is neither sendrecv nor recvonly,
       // process the addition of a remote track for the media description.
+      //
       std::vector<std::string> stream_ids;
       if (!media_desc->streams().empty()) {
-        // TODO(bugs.webrtc.org/7932): Currently stream ids are all populated
-        // within StreamParams. When they are updated to be stored within the
-        // MediaContentDescription, change the logic here.
-        const cricket::StreamParams& stream_params = media_desc->streams()[0];
-        if (!stream_params.stream_ids().empty()) {
-          stream_ids = stream_params.stream_ids();
-        }
+        // If the description has streams that means that at some point that
+        // transceiver has send and the stream_ids should be signaled.
+        stream_ids = media_desc->streams()[0].stream_ids();
       }
       if (RtpTransceiverDirectionHasRecv(local_direction) &&
           (!transceiver->current_direction() ||
@@ -2314,7 +2311,8 @@ RTCError PeerConnection::ApplyRemoteDescription(
           RtpTransceiverDirectionHasRecv(local_direction)) {
         // Set ssrc to 0 in the case of an unsignalled ssrc.
         uint32_t ssrc = 0;
-        if (!media_desc->streams().empty()) {
+        if (!media_desc->streams().empty() &&
+            media_desc->streams()[0].has_ssrcs()) {
           ssrc = media_desc->streams()[0].first_ssrc();
         }
         transceiver->internal()->receiver_internal()->SetupMediaChannel(ssrc);
@@ -3931,9 +3929,14 @@ void PeerConnection::UpdateRemoteSendersList(
     // Plan endpoint, with multiple or no stream_ids() signalled. Since this is
     // not supported in Plan B, we just take the first here and generate one if
     // none is sepecified.
-    const std::string& stream_id = params.stream_ids().empty()
-                                       ? rtc::CreateRandomUuid()
-                                       : params.stream_ids()[0];
+    //
+    // TODO(bugs.webrtc.org/<number>): When we support sending unsignaled ssrcs,
+    // we should check here if the params doesn't contain ssrcs and skip to
+    // creating the default. This could be the case if the other endpoint is a
+    // Unified Plan endpoint that isn't signaling ssrcs (but contains a=msid
+    // lines).
+    const std::string& stream_id =
+        params.stream_ids().empty() ? "" : params.stream_ids()[0];
     const std::string& sender_id = params.id;
     uint32_t ssrc = params.first_ssrc();
 

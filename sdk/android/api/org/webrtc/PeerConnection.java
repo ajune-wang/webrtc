@@ -13,6 +13,7 @@ package org.webrtc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * Java-land version of the PeerConnection APIs; wraps the C++ API
@@ -115,17 +116,17 @@ public class PeerConnection {
     // List of URIs associated with this server. Valid formats are described
     // in RFC7064 and RFC7065, and more may be added in the future. The "host"
     // part of the URI may contain either an IP address or a hostname.
-    @Deprecated public final String uri;
-    public final List<String> urls;
-    public final String username;
-    public final String password;
+    @Nullable @Deprecated public final String uri;
+    @Nullable public final List<String> urls;
+    @Nullable public final String username;
+    @Nullable public final String password;
     public final TlsCertPolicy tlsCertPolicy;
 
     // If the URIs in |urls| only contain IP addresses, this field can be used
     // to indicate the hostname, which may be necessary for TLS (using the SNI
     // extension). If |urls| itself contains the hostname, this isn't
     // necessary.
-    public final String hostname;
+    @Nullable public final String hostname;
 
     // List of protocols to be used in the TLS ALPN extension.
     public final List<String> tlsAlpnProtocols;
@@ -157,9 +158,9 @@ public class PeerConnection {
           null);
     }
 
-    private IceServer(String uri, List<String> urls, String username, String password,
-        TlsCertPolicy tlsCertPolicy, String hostname, List<String> tlsAlpnProtocols,
-        List<String> tlsEllipticCurves) {
+    private IceServer(@Nullable String uri, @Nullable List<String> urls, @Nullable String username,
+        @Nullable String password, TlsCertPolicy tlsCertPolicy, @Nullable String hostname,
+        List<String> tlsAlpnProtocols, List<String> tlsEllipticCurves) {
       if (uri == null || urls == null || urls.isEmpty()) {
         throw new IllegalArgumentException("uri == null || urls == null || urls.isEmpty()");
       }
@@ -202,7 +203,7 @@ public class PeerConnection {
     }
 
     public static class Builder {
-      private final List<String> urls;
+      @Nullable private final List<String> urls;
       private String username = "";
       private String password = "";
       private TlsCertPolicy tlsCertPolicy = TlsCertPolicy.TLS_CERT_POLICY_SECURE;
@@ -210,7 +211,7 @@ public class PeerConnection {
       private List<String> tlsAlpnProtocols;
       private List<String> tlsEllipticCurves;
 
-      private Builder(List<String> urls) {
+      private Builder(@Nullable List<String> urls) {
         if (urls == null || urls.isEmpty()) {
           throw new IllegalArgumentException("urls == null || urls.isEmpty(): " + urls);
         }
@@ -254,16 +255,19 @@ public class PeerConnection {
     }
 
     @CalledByNative("IceServer")
+    @Nullable
     List<String> getUrls() {
       return urls;
     }
 
     @CalledByNative("IceServer")
+    @Nullable
     String getUsername() {
       return username;
     }
 
     @CalledByNative("IceServer")
+    @Nullable
     String getPassword() {
       return password;
     }
@@ -274,6 +278,7 @@ public class PeerConnection {
     }
 
     @CalledByNative("IceServer")
+    @Nullable
     String getHostname() {
       return hostname;
     }
@@ -406,19 +411,19 @@ public class PeerConnection {
     // 3) iceCheckMinInterval defines the minimal interval (equivalently the
     // maximum rate) that overrides the above two intervals when either of them
     // is less.
-    public Integer iceCheckIntervalStrongConnectivityMs;
-    public Integer iceCheckIntervalWeakConnectivityMs;
-    public Integer iceCheckMinInterval;
+    @Nullable public Integer iceCheckIntervalStrongConnectivityMs;
+    @Nullable public Integer iceCheckIntervalWeakConnectivityMs;
+    @Nullable public Integer iceCheckMinInterval;
     // The time period in milliseconds for which a candidate pair must wait for response to
     // connectivitiy checks before it becomes unwritable.
-    public Integer iceUnwritableTimeMs;
+    @Nullable public Integer iceUnwritableTimeMs;
     // The minimum number of connectivity checks that a candidate pair must sent without receiving
     // response before it becomes unwritable.
-    public Integer iceUnwritableMinChecks;
+    @Nullable public Integer iceUnwritableMinChecks;
     // The interval in milliseconds at which STUN candidates will resend STUN binding requests
     // to keep NAT bindings open.
     // The default value in the implementation is used if this field is null.
-    public Integer stunCandidateKeepaliveIntervalMs;
+    @Nullable public Integer stunCandidateKeepaliveIntervalMs;
     public boolean disableIPv6OnWifi;
     // By default, PeerConnection will use a limited number of IPv6 network
     // interfaces, in order to avoid too many ICE candidate pairs being created
@@ -426,7 +431,7 @@ public class PeerConnection {
     //
     // Can be set to Integer.MAX_VALUE to effectively disable the limit.
     public int maxIPv6Networks;
-    public IntervalRange iceRegatherIntervalRange;
+    @Nullable public IntervalRange iceRegatherIntervalRange;
 
     // These values will be overridden by MediaStream constraints if deprecated constraints-based
     // create peerconnection interface is used.
@@ -435,16 +440,16 @@ public class PeerConnection {
     public boolean enableCpuOveruseDetection;
     public boolean enableRtpDataChannel;
     public boolean suspendBelowMinBitrate;
-    public Integer screencastMinBitrate;
-    public Boolean combinedAudioVideoBwe;
-    public Boolean enableDtlsSrtp;
+    @Nullable public Integer screencastMinBitrate;
+    @Nullable public Boolean combinedAudioVideoBwe;
+    @Nullable public Boolean enableDtlsSrtp;
     // Use "Unknown" to represent no preference of adapter types, not the
     // preference of adapters of unknown types.
     public AdapterType networkPreference;
     public SdpSemantics sdpSemantics;
 
     // This is an optional wrapper for the C++ webrtc::TurnCustomizer.
-    public TurnCustomizer turnCustomizer;
+    @Nullable public TurnCustomizer turnCustomizer;
 
     // TODO(deadbeef): Instead of duplicating the defaults here, we should do
     // something to pick up the defaults from C++. The Objective-C equivalent
@@ -562,31 +567,37 @@ public class PeerConnection {
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Integer getIceCheckIntervalStrongConnectivity() {
       return iceCheckIntervalStrongConnectivityMs;
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Integer getIceCheckIntervalWeakConnectivity() {
       return iceCheckIntervalWeakConnectivityMs;
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Integer getIceCheckMinInterval() {
       return iceCheckMinInterval;
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Integer getIceUnwritableTimeout() {
       return iceUnwritableTimeMs;
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Integer getIceUnwritableMinChecks() {
       return iceUnwritableMinChecks;
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Integer getStunCandidateKeepaliveInterval() {
       return stunCandidateKeepaliveIntervalMs;
     }
@@ -602,11 +613,13 @@ public class PeerConnection {
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     IntervalRange getIceRegatherIntervalRange() {
       return iceRegatherIntervalRange;
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     TurnCustomizer getTurnCustomizer() {
       return turnCustomizer;
     }
@@ -637,16 +650,19 @@ public class PeerConnection {
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Integer getScreencastMinBitrate() {
       return screencastMinBitrate;
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Boolean getCombinedAudioVideoBwe() {
       return combinedAudioVideoBwe;
     }
 
     @CalledByNative("RTCConfiguration")
+    @Nullable
     Boolean getEnableDtlsSrtp() {
       return enableDtlsSrtp;
     }
@@ -869,7 +885,7 @@ public class PeerConnection {
     return addTrack(track, Collections.emptyList());
   }
 
-  public RtpSender addTrack(MediaStreamTrack track, List<String> streamIds) {
+  public RtpSender addTrack(@Nullable MediaStreamTrack track, @Nullable List<String> streamIds) {
     if (track == null || streamIds == null) {
       throw new NullPointerException("No MediaStreamTrack specified in addTrack.");
     }
@@ -886,7 +902,7 @@ public class PeerConnection {
    * calls to createOffer will mark the m section for the corresponding transceiver as
    * receive only or inactive, as defined in JSEP. Returns true on success.
    */
-  public boolean removeTrack(RtpSender sender) {
+  public boolean removeTrack(@Nullable RtpSender sender) {
     if (sender == null) {
       throw new NullPointerException("No RtpSender specified for removeTrack.");
     }
@@ -923,7 +939,7 @@ public class PeerConnection {
   }
 
   public RtpTransceiver addTransceiver(
-      MediaStreamTrack track, RtpTransceiver.RtpTransceiverInit init) {
+      @Nullable MediaStreamTrack track, @Nullable RtpTransceiver.RtpTransceiverInit init) {
     if (track == null) {
       throw new NullPointerException("No MediaStreamTrack specified for addTransceiver.");
     }
@@ -942,8 +958,8 @@ public class PeerConnection {
     return addTransceiver(mediaType, new RtpTransceiver.RtpTransceiverInit());
   }
 
-  public RtpTransceiver addTransceiver(
-      MediaStreamTrack.MediaType mediaType, RtpTransceiver.RtpTransceiverInit init) {
+  public RtpTransceiver addTransceiver(@Nullable MediaStreamTrack.MediaType mediaType,
+      @Nullable RtpTransceiver.RtpTransceiverInit init) {
     if (mediaType == null) {
       throw new NullPointerException("No MediaType specified for addTransceiver.");
     }
@@ -960,7 +976,7 @@ public class PeerConnection {
 
   // Older, non-standard implementation of getStats.
   @Deprecated
-  public boolean getStats(StatsObserver observer, MediaStreamTrack track) {
+  public boolean getStats(StatsObserver observer, @Nullable MediaStreamTrack track) {
     return nativeOldGetStats(observer, (track == null) ? 0 : track.nativeTrack);
   }
 

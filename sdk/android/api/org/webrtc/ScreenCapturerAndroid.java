@@ -18,6 +18,7 @@ import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
+import javax.annotation.Nullable;
 import android.view.Surface;
 
 /**
@@ -44,13 +45,13 @@ public class ScreenCapturerAndroid
 
   private int width;
   private int height;
-  private VirtualDisplay virtualDisplay;
-  private SurfaceTextureHelper surfaceTextureHelper;
-  private CapturerObserver capturerObserver;
+  @Nullable private VirtualDisplay virtualDisplay;
+  @Nullable private SurfaceTextureHelper surfaceTextureHelper;
+  @Nullable private CapturerObserver capturerObserver;
   private long numCapturedFrames = 0;
-  private MediaProjection mediaProjection;
+  @Nullable private MediaProjection mediaProjection;
   private boolean isDisposed = false;
-  private MediaProjectionManager mediaProjectionManager;
+  @Nullable private MediaProjectionManager mediaProjectionManager;
 
   /**
    * Constructs a new Screen Capturer.
@@ -76,8 +77,9 @@ public class ScreenCapturerAndroid
   @Override
   // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
   @SuppressWarnings("NoSynchronizedMethodCheck")
-  public synchronized void initialize(final SurfaceTextureHelper surfaceTextureHelper,
-      final Context applicationContext, final VideoCapturer.CapturerObserver capturerObserver) {
+  public synchronized void initialize(@Nullable final SurfaceTextureHelper surfaceTextureHelper,
+      final Context applicationContext,
+      @Nullable final VideoCapturer.CapturerObserver capturerObserver) {
     checkNotDisposed();
 
     if (capturerObserver == null) {

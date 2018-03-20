@@ -18,6 +18,7 @@ import android.opengl.GLES20;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
+import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
 import java.util.concurrent.Callable;
 import org.webrtc.EglBase;
@@ -62,6 +63,7 @@ public class SurfaceTextureHelper {
     // Therefore, in order to control the callback thread on API lvl < 21, the SurfaceTextureHelper
     // is constructed on the |handler| thread.
     return ThreadUtils.invokeAtFrontUninterruptibly(handler, new Callable<SurfaceTextureHelper>() {
+      @Nullable
       @Override
       public SurfaceTextureHelper call() {
         try {
@@ -81,14 +83,15 @@ public class SurfaceTextureHelper {
   private YuvConverter yuvConverter;
 
   // These variables are only accessed from the |handler| thread.
-  private OnTextureFrameAvailableListener listener;
+  @Nullable private OnTextureFrameAvailableListener listener;
   // The possible states of this class.
   private boolean hasPendingTexture = false;
   private volatile boolean isTextureInUse = false;
   private boolean isQuitting = false;
   // |pendingListener| is set in setListener() and the runnable is posted to the handler thread.
   // setListener() is not allowed to be called again before stopListening(), so this is thread safe.
-  private OnTextureFrameAvailableListener pendingListener;
+  @Nullable private OnTextureFrameAvailableListener pendingListener;
+  @Nullable
   final Runnable setListenerRunnable = new Runnable() {
     @Override
     public void run() {

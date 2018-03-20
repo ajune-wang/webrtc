@@ -10,9 +10,10 @@
 
 package org.webrtc;
 
+import java.nio.ByteBuffer;
+import javax.annotation.Nullable;
 // Explicit imports necessary for JNI generation.
 import org.webrtc.VideoEncoder;
-import java.nio.ByteBuffer;
 
 /**
  * This class contains the Java glue code for JNI generation of VideoEncoder.
@@ -24,11 +25,13 @@ class VideoEncoderWrapper {
   }
 
   @CalledByNative
+  @Nullable
   static Integer getScalingSettingsLow(VideoEncoder.ScalingSettings scalingSettings) {
     return scalingSettings.low;
   }
 
   @CalledByNative
+  @Nullable
   static Integer getScalingSettingsHigh(VideoEncoder.ScalingSettings scalingSettings) {
     return scalingSettings.high;
   }

@@ -11,6 +11,7 @@
 package org.webrtc;
 
 import android.media.MediaRecorder;
+import javax.annotation.Nullable;
 
 /**
  * Base interface for camera1 and camera2 implementations. Extends VideoCapturer with a
@@ -97,11 +98,12 @@ public interface CameraVideoCapturer extends VideoCapturer {
     private final static int CAMERA_OBSERVER_PERIOD_MS = 2000;
     private final static int CAMERA_FREEZE_REPORT_TIMOUT_MS = 4000;
 
-    private final SurfaceTextureHelper surfaceTextureHelper;
+    @Nullable private final SurfaceTextureHelper surfaceTextureHelper;
     private final CameraEventsHandler eventsHandler;
     private int frameCount;
     private int freezePeriodCount;
     // Camera observer - monitors camera framerate. Observer is executed on camera thread.
+    @Nullable
     private final Runnable cameraObserver = new Runnable() {
       @Override
       public void run() {
@@ -129,7 +131,7 @@ public interface CameraVideoCapturer extends VideoCapturer {
     };
 
     public CameraStatistics(
-        SurfaceTextureHelper surfaceTextureHelper, CameraEventsHandler eventsHandler) {
+        @Nullable SurfaceTextureHelper surfaceTextureHelper, CameraEventsHandler eventsHandler) {
       if (surfaceTextureHelper == null) {
         throw new IllegalArgumentException("SurfaceTextureHelper is null");
       }

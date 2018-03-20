@@ -222,9 +222,9 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
 
   SendStatisticsProxy* const stats_proxy_;
   rtc::VideoSinkInterface<VideoFrame>* const pre_encode_callback_;
-  // |thread_checker_| checks that public methods that are related to lifetime
-  // of VideoStreamEncoder are called on the same thread.
-  rtc::ThreadChecker thread_checker_;
+  // |sequence_checker_| checks that public methods that are related to lifetime
+  // of VideoStreamEncoder are called on the same thread/task queue.
+  rtc::SequencedTaskChecker sequence_checker_;
 
   VideoEncoderConfig encoder_config_ RTC_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<VideoBitrateAllocator> rate_allocator_

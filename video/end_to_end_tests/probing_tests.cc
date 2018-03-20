@@ -120,9 +120,8 @@ TEST_P(ProbingEndToEndTest, TriggerMidCallProbing) {
 
   class TriggerMidCallProbingTest : public ProbingTest {
    public:
-    TriggerMidCallProbingTest(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
-        bool* success)
+    TriggerMidCallProbingTest(rtc::test::TaskQueueForTest* task_queue,
+                              bool* success)
         : ProbingTest(300000), success_(success), task_queue_(task_queue) {}
 
     void PerformTest() override {
@@ -173,7 +172,7 @@ TEST_P(ProbingEndToEndTest, TriggerMidCallProbing) {
    private:
     const int kTimeoutMs = 5000;
     bool* const success_;
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    rtc::test::TaskQueueForTest* const task_queue_;
   };
 
   bool success = false;

@@ -24,6 +24,7 @@
 #include "rtc_base/bitrateallocationstrategy.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ptr_util.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/metrics_default.h"
 #include "test/call_test.h"
@@ -36,7 +37,6 @@
 #include "test/frame_generator_capturer.h"
 #include "test/gtest.h"
 #include "test/rtp_rtcp_observer.h"
-#include "test/single_threaded_task_queue.h"
 #include "test/testsupport/fileutils.h"
 #include "test/testsupport/perf_test.h"
 #include "video/transport_adapter.h"
@@ -343,7 +343,7 @@ void CallPerfTest::TestCaptureNtpTime(const FakeNetworkPipe::Config& net_config,
 
    private:
     test::PacketTransport* CreateSendTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
+        rtc::test::TaskQueueForTest* task_queue,
         Call* sender_call) override {
       return new test::PacketTransport(task_queue, sender_call, this,
                                        test::PacketTransport::kSender,
@@ -351,7 +351,7 @@ void CallPerfTest::TestCaptureNtpTime(const FakeNetworkPipe::Config& net_config,
     }
 
     test::PacketTransport* CreateReceiveTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue) override {
+        rtc::test::TaskQueueForTest* task_queue) override {
       return new test::PacketTransport(task_queue, nullptr, this,
                                        test::PacketTransport::kReceiver,
                                        payload_type_map_, net_config_);
@@ -834,7 +834,7 @@ void CallPerfTest::TestMinAudioVideoBitrate(
     }
 
     test::PacketTransport* CreateSendTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
+        rtc::test::TaskQueueForTest* task_queue,
         Call* sender_call) override {
       return send_transport_ = new test::PacketTransport(
                  task_queue, sender_call, this, test::PacketTransport::kSender,
@@ -842,7 +842,7 @@ void CallPerfTest::TestMinAudioVideoBitrate(
     }
 
     test::PacketTransport* CreateReceiveTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue) override {
+        rtc::test::TaskQueueForTest* task_queue) override {
       return receive_transport_ = new test::PacketTransport(
                  task_queue, nullptr, this, test::PacketTransport::kReceiver,
                  test::CallTest::payload_type_map_, GetFakeNetworkPipeConfig());

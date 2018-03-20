@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "92cad367_e2fbb881",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-20T18:37:24Z",
+      "side": 1,
+      "message": "It\u0027ll actually not fail in unpredictable ways in larger calls; the docs for AudioEncoderFactory and AudioDecoderFactory say\n\n  //                                             The `codec_pair_id` argument\n  // is used to link encoders and decoders that talk to the same remote entity;\n  // if a MakeAudioEncoder() and a MakeAudioDecoder() call receive non-null IDs\n  // that compare equal, the factory implementations may assume that the\n  // encoder and decoder form a pair.\n  //\n  // Note: Implementations need to be robust against combinations other than\n  // one encoder, one decoder getting the same ID; such encoders must still\n  // work.\n\nAs for AssociateSendStream() and per-SSRC codec pair IDs: solenberg@ and I discussed this last month, and as I recall we concluded that that wouldn\u0027t work. I\u0027m a bit fuzzy on the details though. :-(",
+      "parentUuid": "3088b9b6_41a75e84",
+      "revId": "c809f497e91b100f8c7771e23e76ff0fa04370e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8deaf4ae_53d147f3",
         "filename": "modules/audio_coding/neteq/packet_buffer_unittest.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-03-20T15:46:51Z",
       "side": 1,
       "message": "Why do you need an extra instance of nullopt_t?",
+      "revId": "c809f497e91b100f8c7771e23e76ff0fa04370e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82b7f458_15d282dd",
+        "filename": "modules/audio_coding/neteq/packet_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-20T18:37:24Z",
+      "side": 1,
+      "message": "Must have been left over from a previous refactoring. Removed.\n\n(The IDs used to be non-optional, so tests had to supply actual IDs. But they don\u0027t anymore.)",
+      "parentUuid": "8deaf4ae_53d147f3",
       "revId": "c809f497e91b100f8c7771e23e76ff0fa04370e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

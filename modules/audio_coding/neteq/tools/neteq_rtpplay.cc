@@ -336,15 +336,6 @@ class StatsGetter : public NetEqGetAudioCallback {
     uint64_t duration_ms;
     size_t concealment_event_number;
     int64_t time_from_previous_event_end_ms;
-
-    friend std::ostream& operator<<(std::ostream& stream,
-                                    const ConcealmentEvent& concealment_event) {
-      stream << "ConcealmentEvent duration_ms:" << concealment_event.duration_ms
-             << " event_number:" << concealment_event.concealment_event_number
-             << " time_from_previous_event_end_ms:"
-             << concealment_event.time_from_previous_event_end_ms << "\n";
-      return stream;
-    }
   };
 
   // Takes a pointer to another callback object, which will be invoked after

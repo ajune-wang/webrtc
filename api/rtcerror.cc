@@ -93,9 +93,4 @@ void RTCError::set_message(std::string&& message) {
   }
 }
 
-std::ostream& operator<<(std::ostream& stream, RTCErrorType error) {
-  int index = static_cast<int>(error);
-  return stream << kRTCErrorTypeNames[index];
-}
-
 }  // namespace webrtc

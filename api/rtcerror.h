@@ -139,12 +139,6 @@ class RTCError {
   bool have_string_message_ = false;
 };
 
-// Outputs the error as a friendly string. Update this method when adding a new
-// error type.
-//
-// Only intended to be used for logging/disagnostics.
-std::ostream& operator<<(std::ostream& stream, RTCErrorType error);
-
 // Helper macro that can be used by implementations to create an error with a
 // message and log it. |message| should be a string literal or movable
 // std::string.

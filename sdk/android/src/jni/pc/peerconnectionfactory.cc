@@ -13,7 +13,6 @@
 #include <memory>
 #include <utility>
 
-#include "api/peerconnectioninterface.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/base/mediaengine.h"
@@ -93,6 +92,26 @@ void PeerConnectionFactorySignalingThreadReady() {
   RTC_LOG(LS_INFO) << "Signaling thread JavaCallback";
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   Java_PeerConnectionFactory_onSignalingThreadReady(env);
+}
+
+jobject NativeToJavaPeerConnectionFactory(
+    JNIEnv* jni,
+    rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pcf,
+    std::unique_ptr<rtc::Thread> network_thread,
+    std::unique_ptr<rtc::Thread> worker_thread,
+    std::unique_ptr<rtc::Thread> signaling_thread,
+    cricket::WebRtcVideoEncoderFactory* legacy_encoder_factory,
+    cricket::WebRtcVideoDecoderFactory* legacy_decoder_factory,
+    rtc::NetworkMonitorFactory* network_monitor_factory) {
+  jni::OwnedFactoryAndThreads* owned_factory = new jni::OwnedFactoryAndThreads(
+      std::move(network_thread), std::move(worker_thread),
+      std::move(signaling_thread), legacy_encoder_factory,
+      legacy_decoder_factory, network_monitor_factory, pcf.release());
+  owned_factory->InvokeJavaCallbacksOnFactoryThreads();
+
+  jclass cls = org_webrtc_PeerConnectionFactory_clazz(jni);
+  jmethodID ctor = jni->GetMethodID(cls, "<init>", "(J)V");
+  return jni->NewObject(cls, ctor, jlongFromPointer(owned_factory));
 }
 
 static void JNI_PeerConnectionFactory_InitializeAndroidGlobals(

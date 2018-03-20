@@ -25,6 +25,7 @@
 #include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/erl_estimator.h"
 #include "modules/audio_processing/aec3/erle_estimator.h"
+#include "modules/audio_processing/aec3/filter_analyzer.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
 #include "modules/audio_processing/aec3/suppression_gain_limiter.h"
 #include "rtc_base/constructormagic.h"
@@ -42,6 +43,9 @@ class AecState {
   // Returns whether the echo subtractor can be used to determine the residual
   // echo.
   bool UsableLinearEstimate() const { return usable_linear_estimate_; }
+
+  // Returns whether the echo subtractor output should be used as output.
+  bool UseLinearFilterOutput() const { return use_linear_filter_output_; }
 
   // Returns whether there has been echo leakage detected.
   bool EchoLeakageDetected() const { return echo_leakage_detected_; }
@@ -67,6 +71,9 @@ class AecState {
 
   // Returns the delay estimate based on the linear filter.
   int FilterDelay() const { return filter_delay_; }
+
+  // Returns the internal delay estimate based on the linear filter.
+  rtc::Optional<int> InternalDelay() const { return internal_delay_; }
 
   // Returns whether the capture signal is saturated.
   bool SaturatedCapture() const { return capture_signal_saturation_; }
@@ -114,15 +121,16 @@ class AecState {
 
   // Updates the aec state.
   void Update(const rtc::Optional<DelayEstimate>& delay_estimate,
+              const rtc::Optional<int>& internal_delay_blocks,
               const std::vector<std::array<float, kFftLengthBy2Plus1>>&
                   adaptive_filter_frequency_response,
               const std::vector<float>& adaptive_filter_impulse_response,
               bool converged_filter,
+              bool diverged_filter,
               const RenderBuffer& render_buffer,
               const std::array<float, kFftLengthBy2Plus1>& E2_main,
               const std::array<float, kFftLengthBy2Plus1>& Y2,
-              const std::array<float, kBlockSize>& s_main,
-              bool echo_leakage_detected);
+              const std::array<float, kBlockSize>& s);
 
  private:
   class EchoAudibility {
@@ -150,6 +158,7 @@ class AecState {
   ErlEstimator erl_estimator_;
   ErleEstimator erle_estimator_;
   size_t capture_block_counter_ = 0;
+  size_t blocks_since_reset_ = 0;
   size_t blocks_with_proper_filter_adaptation_ = 0;
   size_t blocks_with_active_render_ = 0;
   bool usable_linear_estimate_ = false;
@@ -180,6 +189,14 @@ class AecState {
   bool initial_state_ = true;
   const float gain_rampup_increase_;
   SuppressionGainUpperLimiter suppression_gain_limiter_;
+  FilterAnalyzer filter_analyzer_;
+  bool use_linear_filter_output_ = false;
+  rtc::Optional<int> internal_delay_;
+  size_t diverged_blocks_ = 0;
+  bool filter_should_have_converged_ = false;
+  size_t blocks_since_converged_filter_;
+  size_t blocks_since_consistent_filter_estimate_;
+  bool converged_filter_seen_ = false;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AecState);
 };

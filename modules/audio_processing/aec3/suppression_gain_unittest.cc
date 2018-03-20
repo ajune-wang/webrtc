@@ -66,6 +66,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
       RenderDelayBuffer::Create(config, 3));
   rtc::Optional<DelayEstimate> delay_estimate;
+  rtc::Optional<int> refined_delay;
 
   // Ensure that a strong noise is detected to mask any echoes.
   E2.fill(10.f);
@@ -76,17 +77,19 @@ TEST(SuppressionGain, BasicGainComputation) {
 
   // Ensure that the gain is no longer forced to zero.
   for (int k = 0; k <= kNumBlocksPerSecond / 5 + 1; ++k) {
-    aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
+    aec_state.Update(delay_estimate, refined_delay,
+                     subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
+                     subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
   }
 
   for (int k = 0; k < 100; ++k) {
-    aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
+    aec_state.Update(delay_estimate, refined_delay,
+                     subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
+                     subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
     suppression_gain.GetGain(E2, R2, N2, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }
@@ -99,10 +102,11 @@ TEST(SuppressionGain, BasicGainComputation) {
   R2.fill(0.1f);
   N2.fill(0.f);
   for (int k = 0; k < 100; ++k) {
-    aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
+    aec_state.Update(delay_estimate, refined_delay,
+                     subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s, false);
+                     subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, s);
     suppression_gain.GetGain(E2, R2, N2, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }

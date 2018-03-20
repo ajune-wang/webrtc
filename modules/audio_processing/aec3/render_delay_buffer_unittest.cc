@@ -79,8 +79,7 @@ TEST(RenderDelayBuffer, SetDelay) {
   for (size_t delay = config.delay.min_echo_path_delay_blocks + 1; delay < 20;
        ++delay) {
     delay_buffer->SetDelay(delay);
-    ASSERT_TRUE(delay_buffer->Delay());
-    EXPECT_EQ(delay, *delay_buffer->Delay());
+    EXPECT_EQ(delay, delay_buffer->Delay());
   }
 }
 

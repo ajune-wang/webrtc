@@ -155,6 +155,24 @@
     },
     {
       "key": {
+        "uuid": "8f631950_d7b45357",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-20T00:18:48Z",
+      "side": 1,
+      "message": "If I understand correctly, previously this would result in an \"OnAddTrack\" with no \"OnRemoveTrack\", but now you\u0027ll get both. So that seems like an improvement, if anything.\n\nFor extra credit, you could add a \"remote stream ID changes, track ID and SSRC stay the same\" test (in peerconnection_rtp_unittest.cc?). Which would verify that for Plan B, you get \"OnRemoveTrack\"/\"OnAddTrack\" callbacks, and for Unified Plan, RtpReceiverInterface::streams starts returning an updated set of streams. Changing the stream ID may be a corner case but it would make me feel better if we had at least one test for it.",
+      "parentUuid": "80ccd55e_d430622c",
+      "revId": "af368bb1be9d6f45f8f3b1b45f36bd18669f977c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18897b9c_620ee9a0",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3

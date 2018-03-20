@@ -26,7 +26,6 @@
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
-#include "rtc_base/bitrateallocationstrategy.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/networkroute.h"
 #include "rtc_base/platform_file.h"
@@ -157,10 +156,6 @@ class Call {
   // Returns the call statistics, such as estimated send and receive bandwidth,
   // pacing delay, etc.
   virtual Stats GetStats() const = 0;
-
-  virtual void SetBitrateAllocationStrategy(
-      std::unique_ptr<rtc::BitrateAllocationStrategy>
-          bitrate_allocation_strategy) = 0;
 
   // TODO(skvlad): When the unbundled case with multiple streams for the same
   // media type going over different networks is supported, track the state

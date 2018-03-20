@@ -15,12 +15,14 @@
 #include <memory>
 #include <string>
 
+#include "call/bitrate_allocator.h"
 #include "call/rtp_bitrate_configurator.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/congestion_controller/include/send_side_congestion_controller_interface.h"
 #include "modules/pacing/packet_router.h"
 #include "modules/utility/include/process_thread.h"
+#include "rtc_base/bitrateallocationstrategy.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/networkroute.h"
 #include "rtc_base/task_queue.h"
@@ -34,7 +36,8 @@ class RtcEventLog;
 // per transport, sharing the same congestion controller.
 class RtpTransportControllerSend final
     : public RtpTransportControllerSendInterface,
-      public NetworkChangedObserver {
+      public NetworkChangedObserver,
+      public BitrateAllocatorLimitObserver {
  public:
   RtpTransportControllerSend(Clock* clock,
                              RtcEventLog* event_log,
@@ -47,6 +50,20 @@ class RtpTransportControllerSend final
                         int64_t rtt_ms,
                         int64_t probing_interval_ms) override;
 
+  // Implements BitrateAllocatorLimitObserver interface.
+  // OnAllocationLimitsChanged sets bitrates limits imposed by send codec
+  // settings.
+  // |min_send_bitrate_bps| is the total minimum send bitrate required by all
+  // sending streams.  This is the minimum bitrate the PacedSender will use.
+  // Note that SendSideCongestionController::OnNetworkChanged can still be
+  // called with a lower bitrate estimate. |max_padding_bitrate_bps| is the max
+  // bitrate the send streams request for padding. This can be higher than the
+  // current network estimate and tells the PacedSender how much it should max
+  // pad unless there is real packets to send.
+  void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
+                                 uint32_t max_padding_bitrate_bps,
+                                 uint32_t total_bitrate_bps) override;
+
   // Implements RtpTransportControllerSendInterface
   rtc::TaskQueue* GetWorkerQueue() override;
   PacketRouter* packet_router() override;
@@ -55,14 +72,14 @@ class RtpTransportControllerSend final
   RtpPacketSender* packet_sender() override;
   const RtpKeepAliveConfig& keepalive_config() const override;
 
-  void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                     int max_padding_bitrate_bps,
-                                     int max_total_bitrate_bps) override;
 
   void SetKeepAliveConfig(const RtpKeepAliveConfig& config);
   void SetPacingFactor(float pacing_factor) override;
   void SetQueueTimeLimit(int limit_ms) override;
   CallStatsObserver* GetCallStatsObserver() override;
+  BitrateAllocator* GetBitrateAllocator() override;
+  void RegisterBitrateAllocationLimitObserver(
+      BitrateAllocatorLimitObserver* observer) override;
   void RegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) override;
   void DeRegisterPacketFeedbackObserver(
@@ -81,16 +98,23 @@ class RtpTransportControllerSend final
   void SetSdpBitrateParameters(const BitrateConstraints& constraints) override;
   void SetClientBitratePreferences(
       const BitrateConstraintsMask& preferences) override;
+  void SetBitrateAllocationStrategy(
+      std::unique_ptr<rtc::BitrateAllocationStrategy>
+          bitrate_allocation_strategy) override;
 
  private:
   const Clock* const clock_;
   PacketRouter packet_router_;
   PacedSender pacer_;
+
   RtpKeepAliveConfig keepalive_;
   RtpBitrateConfigurator bitrate_configurator_;
+  BitrateAllocator bitrate_allocator_;
   std::map<std::string, rtc::NetworkRoute> network_routes_;
   const std::unique_ptr<ProcessThread> process_thread_;
   rtc::CriticalSection observer_crit_;
+  BitrateAllocatorLimitObserver* bitrate_allocation_limit_observer_
+      RTC_GUARDED_BY(observer_crit_);
   TargetTransferRateObserver* observer_ RTC_GUARDED_BY(observer_crit_);
   // Declared last since it will issue callbacks from a task queue. Declaring it
   // last ensures that it is destroyed first.

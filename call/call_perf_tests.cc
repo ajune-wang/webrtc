@@ -895,7 +895,7 @@ void CallPerfTest::TestMinAudioVideoBitrate(
       sender_call->GetTransportControllerSend()->SetSdpBitrateParameters(
           bitrate_config);
       if (use_bitrate_allocation_strategy_) {
-        sender_call->SetBitrateAllocationStrategy(
+        sender_call->GetTransportControllerSend()->SetBitrateAllocationStrategy(
             std::move(allocation_strategy_));
       }
     }

@@ -326,6 +326,7 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
   AecState aec_state(EchoCanceller3Config{});
   RenderSignalAnalyzer render_signal_analyzer(config);
   rtc::Optional<DelayEstimate> delay_estimate;
+  rtc::Optional<int> echo_remover_delay;
   std::vector<float> e(kBlockSize, 0.f);
   std::array<float, kFftLength> s_scratch;
   std::array<float, kBlockSize> s;
@@ -351,7 +352,7 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
     CascadedBiQuadFilter y_hp_filter(kHighPassFilterCoefficients, 1);
 
     SCOPED_TRACE(ProduceDebugText(delay_samples));
-    for (size_t k = 0; k < kNumBlocksToProcess; ++k) {
+    for (size_t j = 0; j < kNumBlocksToProcess; ++j) {
       RandomizeSampleVector(&random_generator, x[0]);
       delay_buffer.Delay(x[0], y);
 
@@ -365,7 +366,7 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       y_hp_filter.Process(y);
 
       render_delay_buffer->Insert(x);
-      if (k == 0) {
+      if (j == 0) {
         render_delay_buffer->Reset();
       }
       render_delay_buffer->PrepareCaptureProcessing();
@@ -392,15 +393,15 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       filter.Adapt(*render_buffer, G);
       aec_state.HandleEchoPathChange(EchoPathVariability(
           false, EchoPathVariability::DelayAdjustment::kNone, false));
-      aec_state.Update(delay_estimate, filter.FilterFrequencyResponse(),
-                       filter.FilterImpulseResponse(), true, *render_buffer,
-                       E2_main, Y2, s, false);
+
+      aec_state.Update(delay_estimate, echo_remover_delay,
+                       filter.FilterFrequencyResponse(),
+                       filter.FilterImpulseResponse(), true, false,
+                       *render_buffer, E2_main, Y2, s);
     }
     // Verify that the filter is able to perform well.
     EXPECT_LT(1000 * std::inner_product(e.begin(), e.end(), e.begin(), 0.f),
               std::inner_product(y.begin(), y.end(), y.begin(), 0.f));
-    EXPECT_EQ(delay_samples / kBlockSize,
-              static_cast<size_t>(aec_state.FilterDelay()));
   }
 }
 }  // namespace aec3

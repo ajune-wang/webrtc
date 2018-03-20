@@ -457,7 +457,17 @@ if (rtc_include_tests) {
       "../rtc_base:rtc_base_tests_utils",
       "../system_wrappers:cpu_features_api",
       "../test:test_main",
+      "rnn_vad:unittest",
       "//testing/gtest",
+    ]
+
+    data = [
+      "../resources/common_audio/rnn_vad/band_energies.dat",
+      "../resources/common_audio/rnn_vad/features.out",
+      "../resources/common_audio/rnn_vad/fft.dat",
+      "../resources/common_audio/rnn_vad/lp_res.dat",
+      "../resources/common_audio/rnn_vad/samples.pcm",
+      "../resources/common_audio/rnn_vad/vad_prob.out",
     ]
 
     if (is_android) {

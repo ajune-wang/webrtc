@@ -54,6 +54,11 @@ class AecState {
     return erle_estimator_.Erle();
   }
 
+  // Returns the ERLE estimated for onsets.
+  const std::array<float, kFftLengthBy2Plus1>& ErleOnsets() const {
+    return erle_estimator_.ErleOnsets();
+  }
+
   // Returns the time-domain ERLE.
   float ErleTimeDomain() const { return erle_estimator_.ErleTimeDomain(); }
 

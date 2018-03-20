@@ -25,62 +25,21 @@
 namespace webrtc {
 
 SrtpTransport::SrtpTransport(bool rtcp_mux_enabled)
-    : RtpTransportInternalAdapter(new RtpTransport(rtcp_mux_enabled)) {
-  // Own the raw pointer |transport| from the base class.
-  rtp_transport_.reset(transport_);
-  RTC_DCHECK(rtp_transport_);
-  ConnectToRtpTransport();
-}
-
-SrtpTransport::SrtpTransport(
-    std::unique_ptr<RtpTransportInternal> rtp_transport)
-    : RtpTransportInternalAdapter(rtp_transport.get()),
-      rtp_transport_(std::move(rtp_transport)) {
-  RTC_DCHECK(rtp_transport_);
-  ConnectToRtpTransport();
-}
-
-void SrtpTransport::ConnectToRtpTransport() {
-  rtp_transport_->SignalPacketReceived.connect(
-      this, &SrtpTransport::OnPacketReceived);
-  rtp_transport_->SignalReadyToSend.connect(this,
-                                            &SrtpTransport::OnReadyToSend);
-  rtp_transport_->SignalNetworkRouteChanged.connect(
-      this, &SrtpTransport::OnNetworkRouteChanged);
-  rtp_transport_->SignalWritableState.connect(this,
-                                              &SrtpTransport::OnWritableState);
-  rtp_transport_->SignalSentPacket.connect(this, &SrtpTransport::OnSentPacket);
-}
+    : RtpTransport(rtcp_mux_enabled) {}
 
 bool SrtpTransport::SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
                                   const rtc::PacketOptions& options,
                                   int flags) {
-  return SendPacket(false, packet, options, flags);
-}
-
-bool SrtpTransport::SendRtcpPacket(rtc::CopyOnWriteBuffer* packet,
-                                   const rtc::PacketOptions& options,
-                                   int flags) {
-  return SendPacket(true, packet, options, flags);
-}
-
-bool SrtpTransport::SendPacket(bool rtcp,
-                               rtc::CopyOnWriteBuffer* packet,
-                               const rtc::PacketOptions& options,
-                               int flags) {
   if (!IsActive()) {
     RTC_LOG(LS_ERROR)
         << "Failed to send the packet because SRTP transport is inactive.";
     return false;
   }
-
   rtc::PacketOptions updated_options = options;
-  rtc::CopyOnWriteBuffer cp = *packet;
   TRACE_EVENT0("webrtc", "SRTP Encode");
   bool res;
   uint8_t* data = packet->data();
   int len = static_cast<int>(packet->size());
-  if (!rtcp) {
 // If ENABLE_EXTERNAL_AUTH flag is on then packet authentication is not done
 // inside libsrtp for a RTP packet. A external HMAC module will be writing
 // a fake HMAC value. This is ONLY done for a RTP packet.
@@ -120,60 +79,107 @@ bool SrtpTransport::SendPacket(bool rtcp,
                         << ", seqnum=" << seq_num << ", SSRC=" << ssrc;
       return false;
     }
-  } else {
-    res = ProtectRtcp(data, len, static_cast<int>(packet->capacity()), &len);
-    if (!res) {
-      int type = -1;
-      cricket::GetRtcpType(data, len, &type);
-      RTC_LOG(LS_ERROR) << "Failed to protect RTCP packet: size=" << len
-                        << ", type=" << type;
-      return false;
-    }
-  }
 
-  // Update the length of the packet now that we've added the auth tag.
-  packet->SetSize(len);
-  return rtcp ? rtp_transport_->SendRtcpPacket(packet, updated_options, flags)
-              : rtp_transport_->SendRtpPacket(packet, updated_options, flags);
+    // Update the length of the packet now that we've added the auth tag.
+    packet->SetSize(len);
+    return SendPacket(/*rtcp=*/false, packet, updated_options, flags);
 }
 
-void SrtpTransport::OnPacketReceived(bool rtcp,
-                                     rtc::CopyOnWriteBuffer* packet,
-                                     const rtc::PacketTime& packet_time) {
+bool SrtpTransport::SendRtcpPacket(rtc::CopyOnWriteBuffer* packet,
+                                   const rtc::PacketOptions& options,
+                                   int flags) {
   if (!IsActive()) {
-    RTC_LOG(LS_WARNING)
-        << "Inactive SRTP transport received a packet. Drop it.";
+    RTC_LOG(LS_ERROR)
+        << "Failed to send the packet because SRTP transport is inactive.";
+    return false;
+  }
+
+  TRACE_EVENT0("webrtc", "SRTP Encode");
+  uint8_t* data = packet->data();
+  int len = static_cast<int>(packet->size());
+  if (!ProtectRtcp(data, len, static_cast<int>(packet->capacity()), &len)) {
+    int type = -1;
+    cricket::GetRtcpType(data, len, &type);
+    RTC_LOG(LS_ERROR) << "Failed to protect RTCP packet: size=" << len
+                      << ", type=" << type;
+    return false;
+  }
+  // Update the length of the packet now that we've added the auth tag.
+  packet->SetSize(len);
+
+  return SendPacket(/*rtcp=*/true, packet, options, flags);
+}
+
+void SrtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
+                                 const char* data,
+                                 size_t len,
+                                 const rtc::PacketTime& packet_time,
+                                 int flags) {
+  TRACE_EVENT0("webrtc", "RtpTransport::OnReadPacket");
+
+  // When using RTCP multiplexing we might get RTCP packets on the RTP
+  // transport. We check the RTP payload type to determine if it is RTCP.
+  bool rtcp = transport == rtcp_packet_transport() ||
+              cricket::IsRtcp(data, static_cast<int>(len));
+  rtc::CopyOnWriteBuffer packet(data, len);
+
+  // Protect ourselves against crazy data.
+  if (!cricket::IsValidRtpRtcpPacketSize(rtcp, packet.size())) {
+    RTC_LOG(LS_ERROR) << "Dropping incoming "
+                      << cricket::RtpRtcpStringLiteral(rtcp)
+                      << " packet: wrong size=" << packet.size();
     return;
   }
 
+  if (rtcp) {
+    OnRtcpPacketReceived(&packet, packet_time);
+  } else {
+    OnRtpPacketReceived(&packet, packet_time);
+  }
+}
+
+void SrtpTransport::OnRtpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+                                        const rtc::PacketTime& packet_time) {
+  if (!IsActive()) {
+    RTC_LOG(LS_WARNING)
+        << "Inactive SRTP transport received an RTP packet. Drop it.";
+    return;
+  }
   TRACE_EVENT0("webrtc", "SRTP Decode");
   char* data = packet->data<char>();
   int len = static_cast<int>(packet->size());
-  bool res;
-  if (!rtcp) {
-    res = UnprotectRtp(data, len, &len);
-    if (!res) {
-      int seq_num = -1;
-      uint32_t ssrc = 0;
-      cricket::GetRtpSeqNum(data, len, &seq_num);
-      cricket::GetRtpSsrc(data, len, &ssrc);
-      RTC_LOG(LS_ERROR) << "Failed to unprotect RTP packet: size=" << len
-                        << ", seqnum=" << seq_num << ", SSRC=" << ssrc;
-      return;
-    }
-  } else {
-    res = UnprotectRtcp(data, len, &len);
-    if (!res) {
-      int type = -1;
-      cricket::GetRtcpType(data, len, &type);
-      RTC_LOG(LS_ERROR) << "Failed to unprotect RTCP packet: size=" << len
-                        << ", type=" << type;
-      return;
-    }
+  if (!UnprotectRtp(data, len, &len)) {
+    int seq_num = -1;
+    uint32_t ssrc = 0;
+    cricket::GetRtpSeqNum(data, len, &seq_num);
+    cricket::GetRtpSsrc(data, len, &ssrc);
+    RTC_LOG(LS_ERROR) << "Failed to unprotect RTP packet: size=" << len
+                      << ", seqnum=" << seq_num << ", SSRC=" << ssrc;
+    return;
   }
-
   packet->SetSize(len);
-  SignalPacketReceived(rtcp, packet, packet_time);
+  DemuxPacket(packet, packet_time);
+}
+
+void SrtpTransport::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+                                         const rtc::PacketTime& packet_time) {
+  if (!IsActive()) {
+    RTC_LOG(LS_WARNING)
+        << "Inactive SRTP transport received an RTCP packet. Drop it.";
+    return;
+  }
+  TRACE_EVENT0("webrtc", "SRTP Decode");
+  char* data = packet->data<char>();
+  int len = static_cast<int>(packet->size());
+  if (!UnprotectRtcp(data, len, &len)) {
+    int type = -1;
+    cricket::GetRtcpType(data, len, &type);
+    RTC_LOG(LS_ERROR) << "Failed to unprotect RTCP packet: size=" << len
+                      << ", type=" << type;
+    return;
+  }
+  packet->SetSize(len);
+  SignalRtcpPacketReceived(packet, packet_time);
 }
 
 void SrtpTransport::OnNetworkRouteChanged(

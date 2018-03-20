@@ -46,6 +46,30 @@
       "revId": "c62b539faf6239616bac862efe6d0a7319e841bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fa1b0ad_a5912a49",
+        "filename": "modules/congestion_controller/rtp/send_side_congestion_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-20T12:03:30Z",
+      "side": 1,
+      "message": "Never mind, I didn\u0027t check carefully that you were subclassing SendSideCongestionController here. So I thought this was some magic way of avoiding the protected\u0027ness of the method.",
+      "parentUuid": "d3cc6f3b_3662d0b4",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 59
+      },
+      "revId": "c62b539faf6239616bac862efe6d0a7319e841bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

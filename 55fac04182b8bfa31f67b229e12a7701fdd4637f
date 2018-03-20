@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c73e1355_0221140f",
+        "filename": "call/receive_time_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-20T15:59:55Z",
+      "side": 1,
+      "message": "We basically set this once. Probably good enough for the start, but would there be any benefit in low-pass filtering? E.g, say that at the arrival of the first packet, we load this part of the executable from a slow disk, and therefore unusually late with our call to read the system clock.\n\nDoes it matter if we get a constant offset of a few dozen ms? Is it conceivable to get frequency drift between the two involved clocks?",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 62
+      },
+      "revId": "55fac04182b8bfa31f67b229e12a7701fdd4637f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eceaa8c4_b0aa9152",
+        "filename": "call/receive_time_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-20T15:59:55Z",
+      "side": 1,
+      "message": "Apply absolute value?",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 54
+      },
+      "revId": "55fac04182b8bfa31f67b229e12a7701fdd4637f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4f4da4e_02f4ec7d",
+        "filename": "call/receive_time_calculator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-20T15:59:55Z",
+      "side": 1,
+      "message": "\"delta diff\" is reasonably clear when reading the implementation, but still a somewhat puzzling name...",
+      "range": {
+        "startLine": 34,
+        "startChar": 58,
+        "endLine": 34,
+        "endChar": 68
+      },
+      "revId": "55fac04182b8bfa31f67b229e12a7701fdd4637f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c44f178d_d4081cfd",
+        "filename": "call/receive_time_calculator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-20T15:59:55Z",
+      "side": 1,
+      "message": "Use rtc::Optional.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 38
+      },
+      "revId": "55fac04182b8bfa31f67b229e12a7701fdd4637f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

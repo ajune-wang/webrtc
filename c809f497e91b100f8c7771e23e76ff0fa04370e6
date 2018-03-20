@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3088b9b6_41a75e84",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-20T15:46:51Z",
+      "side": 1,
+      "message": "That\u0027s a good question. How did the AssociateSendStream stuff factor into this?\nI guess for this to work optimally, send and receive streams should somehow be paired. If not, it\u0027ll probably only work when you\u0027re in a one-on-one call (which I guess is the intended use-case) but may fail in unpredictable ways when in bigger calls.",
+      "revId": "c809f497e91b100f8c7771e23e76ff0fa04370e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8deaf4ae_53d147f3",
+        "filename": "modules/audio_coding/neteq/packet_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-20T15:46:51Z",
+      "side": 1,
+      "message": "Why do you need an extra instance of nullopt_t?",
+      "revId": "c809f497e91b100f8c7771e23e76ff0fa04370e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

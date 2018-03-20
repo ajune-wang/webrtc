@@ -11,6 +11,7 @@
 package org.webrtc;
 
 import android.content.Context;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -28,9 +29,9 @@ public class PeerConnectionFactory {
   private final long nativeFactory;
   private static volatile boolean internalTracerInitialized = false;
   private static Context applicationContext;
-  private static Thread networkThread;
-  private static Thread workerThread;
-  private static Thread signalingThread;
+  @Nullable private static Thread networkThread;
+  @Nullable private static Thread workerThread;
+  @Nullable private static Thread signalingThread;
   private EglBase localEglbase;
   private EglBase remoteEglbase;
 
@@ -128,7 +129,7 @@ public class PeerConnectionFactory {
     private Options options;
     private VideoEncoderFactory encoderFactory;
     private VideoDecoderFactory decoderFactory;
-    private AudioProcessingFactory audioProcessingFactory;
+    @Nullable private AudioProcessingFactory audioProcessingFactory;
     private FecControllerFactoryFactoryInterface fecControllerFactoryFactory;
 
     private Builder() {}
@@ -148,7 +149,8 @@ public class PeerConnectionFactory {
       return this;
     }
 
-    public Builder setAudioProcessingFactory(AudioProcessingFactory audioProcessingFactory) {
+    public Builder setAudioProcessingFactory(
+        @Nullable AudioProcessingFactory audioProcessingFactory) {
       if (audioProcessingFactory == null) {
         throw new NullPointerException(
             "PeerConnectionFactory builder does not accept a null AudioProcessingFactory.");
@@ -264,8 +266,8 @@ public class PeerConnectionFactory {
   }
 
   private PeerConnectionFactory(Options options, VideoEncoderFactory encoderFactory,
-      VideoDecoderFactory decoderFactory, AudioProcessingFactory audioProcessingFactory,
-      FecControllerFactoryFactoryInterface fecControllerFactoryFactory) {
+      VideoDecoderFactory decoderFactory, @Nullable AudioProcessingFactory audioProcessingFactory,
+      @Nullable FecControllerFactoryFactoryInterface fecControllerFactoryFactory) {
     checkInitializeHasBeenCalled();
     nativeFactory = nativeCreatePeerConnectionFactory(options, encoderFactory, decoderFactory,
         audioProcessingFactory == null ? 0 : audioProcessingFactory.createNative(),
@@ -279,6 +281,7 @@ public class PeerConnectionFactory {
    * Deprecated. PeerConnection constraints are deprecated. Supply values in rtcConfig struct
    * instead and use the method without constraints in the signature.
    */
+  @Nullable
   @Deprecated
   public PeerConnection createPeerConnection(PeerConnection.RTCConfiguration rtcConfig,
       MediaConstraints constraints, PeerConnection.Observer observer) {
@@ -298,6 +301,7 @@ public class PeerConnectionFactory {
    * Deprecated. PeerConnection constraints are deprecated. Supply values in rtcConfig struct
    * instead and use the method without constraints in the signature.
    */
+  @Nullable
   @Deprecated
   public PeerConnection createPeerConnection(List<PeerConnection.IceServer> iceServers,
       MediaConstraints constraints, PeerConnection.Observer observer) {
@@ -305,12 +309,14 @@ public class PeerConnectionFactory {
     return createPeerConnection(rtcConfig, constraints, observer);
   }
 
+  @Nullable
   public PeerConnection createPeerConnection(
       List<PeerConnection.IceServer> iceServers, PeerConnection.Observer observer) {
     PeerConnection.RTCConfiguration rtcConfig = new PeerConnection.RTCConfiguration(iceServers);
     return createPeerConnection(rtcConfig, observer);
   }
 
+  @Nullable
   public PeerConnection createPeerConnection(
       PeerConnection.RTCConfiguration rtcConfig, PeerConnection.Observer observer) {
     return createPeerConnection(rtcConfig, null /* constraints */, observer);
@@ -411,7 +417,7 @@ public class PeerConnectionFactory {
     return nativeFactory;
   }
 
-  private static void printStackTrace(Thread thread, String threadName) {
+  private static void printStackTrace(@Nullable Thread thread, String threadName) {
     if (thread != null) {
       StackTraceElement[] stackTraces = thread.getStackTrace();
       if (stackTraces.length > 0) {

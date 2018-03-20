@@ -69,6 +69,7 @@ void RunFilterUpdateTest(int num_blocks_to_process,
   AecState aec_state(config);
   RenderSignalAnalyzer render_signal_analyzer(config);
   rtc::Optional<DelayEstimate> delay_estimate;
+  rtc::Optional<int> echo_remover_delay;
   std::array<float, kFftLength> s_scratch;
   std::array<float, kBlockSize> s;
   FftData S;
@@ -114,7 +115,7 @@ void RunFilterUpdateTest(int num_blocks_to_process,
     render_delay_buffer->PrepareCaptureProcessing();
 
     render_signal_analyzer.Update(*render_delay_buffer->GetRenderBuffer(),
-                                  aec_state.FilterDelay());
+                                  aec_state.FilterDelayBlocks());
 
     // Apply the main filter.
     main_filter.Filter(*render_delay_buffer->GetRenderBuffer(), &S);
@@ -161,10 +162,10 @@ void RunFilterUpdateTest(int num_blocks_to_process,
     // Update the delay.
     aec_state.HandleEchoPathChange(EchoPathVariability(
         false, EchoPathVariability::DelayAdjustment::kNone, false));
-    aec_state.Update(delay_estimate, main_filter.FilterFrequencyResponse(),
-                     main_filter.FilterImpulseResponse(), true,
-                     *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s,
-                     false);
+    aec_state.Update(delay_estimate, echo_remover_delay,
+                     main_filter.FilterFrequencyResponse(),
+                     main_filter.FilterImpulseResponse(), true, false,
+                     *render_delay_buffer->GetRenderBuffer(), E2_main, Y2, s);
   }
 
   std::copy(e_main.begin(), e_main.end(), e_last_block->begin());

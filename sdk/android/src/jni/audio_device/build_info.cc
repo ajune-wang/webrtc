@@ -19,7 +19,7 @@ namespace android_adm {
 BuildInfo::BuildInfo()
     : j_environment_(JVM::GetInstance()->environment()),
       j_build_info_(
-          JVM::GetInstance()->GetClass("org/webrtc/voiceengine/BuildInfo")) {}
+          JVM::GetInstance()->GetClass("org/webrtc/audio/BuildInfo")) {}
 
 std::string BuildInfo::GetStringFromJava(const char* name) {
   jmethodID id = j_build_info_.GetStaticMethodId(name, "()Ljava/lang/String;");

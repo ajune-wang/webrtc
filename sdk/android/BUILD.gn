@@ -809,6 +809,7 @@ rtc_android_library("libjingle_peerconnection_java") {
     "src/java/org/webrtc/WrappedNativeI420Buffer.java",
     "src/java/org/webrtc/WrappedNativeVideoEncoder.java",
     "src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+    "src/java/org/webrtc/audio/BuildInfo.java",
     "src/java/org/webrtc/audio/WebRtcAudioEffects.java",
     "src/java/org/webrtc/audio/WebRtcAudioManager.java",
     "src/java/org/webrtc/audio/WebRtcAudioRecord.java",

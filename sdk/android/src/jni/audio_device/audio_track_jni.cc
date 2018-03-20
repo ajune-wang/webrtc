@@ -81,7 +81,7 @@ AudioTrackJni::AudioTrackJni(AudioManager* audio_manager)
       {"nativeGetPlayoutData", "(IJ)V",
        reinterpret_cast<void*>(&AudioTrackJni::GetPlayoutData)}};
   j_native_registration_ = j_environment_->RegisterNatives(
-      "org/webrtc/voiceengine/WebRtcAudioTrack", native_methods,
+      "org/webrtc/audio/WebRtcAudioTrack", native_methods,
       arraysize(native_methods));
   j_audio_track_.reset(
       new JavaAudioTrack(j_native_registration_.get(),

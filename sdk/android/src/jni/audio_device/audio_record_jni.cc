@@ -104,7 +104,7 @@ AudioRecordJni::AudioRecordJni(AudioManager* audio_manager)
       {"nativeDataIsRecorded", "(IJ)V",
        reinterpret_cast<void*>(&AudioRecordJni::DataIsRecorded)}};
   j_native_registration_ = j_environment_->RegisterNatives(
-      "org/webrtc/voiceengine/WebRtcAudioRecord", native_methods,
+      "org/webrtc/audio/WebRtcAudioRecord", native_methods,
       arraysize(native_methods));
   j_audio_record_.reset(
       new JavaAudioRecord(j_native_registration_.get(),

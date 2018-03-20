@@ -27,7 +27,7 @@ namespace android_adm {
 
 // Implements 16-bit mono PCM audio input support for Android using the Java
 // AudioRecord interface. Most of the work is done by its Java counterpart in
-// WebRtcAudioRecord.java. This class is created and lives on a thread in
+// AudioRecord.java. This class is created and lives on a thread in
 // C++-land, but recorded audio buffers are delivered on a high-priority
 // thread managed by the Java class.
 //
@@ -90,7 +90,7 @@ class AudioRecordJni {
   // Called from Java side so we can cache the address of the Java-manged
   // |byte_buffer| in |direct_buffer_address_|. The size of the buffer
   // is also stored in |direct_buffer_capacity_in_bytes_|.
-  // This method will be called by the WebRtcAudioRecord constructor, i.e.,
+  // This method will be called by the AudioRecord constructor, i.e.,
   // on the same thread that this object is created on.
   static void JNICALL CacheDirectBufferAddress(JNIEnv* env,
                                                jobject obj,
@@ -98,7 +98,7 @@ class AudioRecordJni {
                                                jlong nativeAudioRecord);
   void OnCacheDirectBufferAddress(JNIEnv* env, jobject byte_buffer);
 
-  // Called periodically by the Java based WebRtcAudioRecord object when
+  // Called periodically by the Java based AudioRecord object when
   // recording has started. Each call indicates that there are |length| new
   // bytes recorded in the memory area |direct_buffer_address_| and it is
   // now time to send these to the consumer.

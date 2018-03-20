@@ -25,10 +25,10 @@ import org.webrtc.Logging;
 // effects are: AcousticEchoCanceler (AEC) and NoiseSuppressor (NS).
 // Calling enable() will active all effects that are
 // supported by the device if the corresponding |shouldEnableXXX| member is set.
-class WebRtcAudioEffects {
+class AudioEffects {
   private static final boolean DEBUG = false;
 
-  private static final String TAG = "WebRtcAudioEffects";
+  private static final String TAG = "AudioEffects";
 
   // UUIDs for Software Audio Effects that we want to avoid using.
   // The implementor field will be set to "The Android Open Source Project".
@@ -75,7 +75,7 @@ class WebRtcAudioEffects {
 
   // Returns true if the device is blacklisted for HW AEC usage.
   public static boolean isAcousticEchoCancelerBlacklisted() {
-    List<String> blackListedModels = WebRtcAudioUtils.getBlackListedModelsForAecUsage();
+    List<String> blackListedModels = AudioUtils.getBlackListedModelsForAecUsage();
     boolean isBlacklisted = blackListedModels.contains(Build.MODEL);
     if (isBlacklisted) {
       Logging.w(TAG, Build.MODEL + " is blacklisted for HW AEC usage!");
@@ -85,7 +85,7 @@ class WebRtcAudioEffects {
 
   // Returns true if the device is blacklisted for HW NS usage.
   public static boolean isNoiseSuppressorBlacklisted() {
-    List<String> blackListedModels = WebRtcAudioUtils.getBlackListedModelsForNsUsage();
+    List<String> blackListedModels = AudioUtils.getBlackListedModelsForNsUsage();
     boolean isBlacklisted = blackListedModels.contains(Build.MODEL);
     if (isBlacklisted) {
       Logging.w(TAG, Build.MODEL + " is blacklisted for HW NS usage!");
@@ -134,8 +134,8 @@ class WebRtcAudioEffects {
   // It will not be possible to enable the HW AEC if this method returns false.
   public static boolean canUseAcousticEchoCanceler() {
     boolean canUseAcousticEchoCanceler = isAcousticEchoCancelerSupported()
-        && !WebRtcAudioUtils.useWebRtcBasedAcousticEchoCanceler()
-        && !isAcousticEchoCancelerBlacklisted() && !isAcousticEchoCancelerExcludedByUUID();
+        && !AudioUtils.useWebRtcBasedAcousticEchoCanceler() && !isAcousticEchoCancelerBlacklisted()
+        && !isAcousticEchoCancelerExcludedByUUID();
     Logging.d(TAG, "canUseAcousticEchoCanceler: " + canUseAcousticEchoCanceler);
     return canUseAcousticEchoCanceler;
   }
@@ -144,18 +144,18 @@ class WebRtcAudioEffects {
   // It will not be possible to enable the HW NS if this method returns false.
   public static boolean canUseNoiseSuppressor() {
     boolean canUseNoiseSuppressor = isNoiseSuppressorSupported()
-        && !WebRtcAudioUtils.useWebRtcBasedNoiseSuppressor() && !isNoiseSuppressorBlacklisted()
+        && !AudioUtils.useWebRtcBasedNoiseSuppressor() && !isNoiseSuppressorBlacklisted()
         && !isNoiseSuppressorExcludedByUUID();
     Logging.d(TAG, "canUseNoiseSuppressor: " + canUseNoiseSuppressor);
     return canUseNoiseSuppressor;
   }
 
-  public static WebRtcAudioEffects create() {
-    return new WebRtcAudioEffects();
+  public static AudioEffects create() {
+    return new AudioEffects();
   }
 
-  private WebRtcAudioEffects() {
-    Logging.d(TAG, "ctor" + WebRtcAudioUtils.getThreadInfo());
+  private AudioEffects() {
+    Logging.d(TAG, "ctor" + AudioUtils.getThreadInfo());
   }
 
   // Call this method to enable or disable the platform AEC. It modifies
@@ -277,7 +277,7 @@ class WebRtcAudioEffects {
   // AutomaticGainControl.isAvailable() returns false.
   @TargetApi(18)
   private boolean effectTypeIsVoIP(UUID type) {
-    if (!WebRtcAudioUtils.runningOnJellyBeanMR2OrHigher())
+    if (!AudioUtils.runningOnJellyBeanMR2OrHigher())
       return false;
 
     return (AudioEffect.EFFECT_TYPE_AEC.equals(type) && isAcousticEchoCancelerSupported())

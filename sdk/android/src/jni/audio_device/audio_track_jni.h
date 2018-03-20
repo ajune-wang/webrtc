@@ -28,7 +28,7 @@ namespace android_adm {
 
 // Implements 16-bit mono PCM audio output support for Android using the Java
 // AudioTrack interface. Most of the work is done by its Java counterpart in
-// WebRtcAudioTrack.java. This class is created and lives on a thread in
+// AudioTrack.java. This class is created and lives on a thread in
 // C++-land, but decoded audio buffers are requested on a high-priority
 // thread managed by the Java class.
 //
@@ -97,7 +97,7 @@ class AudioTrackJni {
                                                jlong nativeAudioTrack);
   void OnCacheDirectBufferAddress(JNIEnv* env, jobject byte_buffer);
 
-  // Called periodically by the Java based WebRtcAudioTrack object when
+  // Called periodically by the Java based AudioTrack object when
   // playout has started. Each call indicates that |length| new bytes should
   // be written to the memory area |direct_buffer_address_| for playout.
   // This method is called on a high-priority thread from Java. The name of

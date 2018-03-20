@@ -23,7 +23,7 @@ import java.util.TimerTask;
 import org.webrtc.ContextUtils;
 import org.webrtc.Logging;
 
-// WebRtcAudioManager handles tasks that uses android.media.AudioManager.
+// AudioManager handles tasks that uses android.media.AudioManager.
 // At construction, storeAudioParameters() is called and it retrieves
 // fundamental audio parameters like native sample rate and number of channels.
 // The result is then provided to the caller by nativeCacheAudioParameters().
@@ -32,10 +32,10 @@ import org.webrtc.Logging;
 // dispose(). This class can also be used without calling init() if the user
 // prefers to set up the audio environment separately. However, it is
 // recommended to always use AudioManager.MODE_IN_COMMUNICATION.
-class WebRtcAudioManager {
+class AudioManager {
   private static final boolean DEBUG = false;
 
-  private static final String TAG = "WebRtcAudioManager";
+  private static final String TAG = "AudioManager";
 
   // TODO(bugs.webrtc.org/8914): disabled by default until AAudio support has
   // been completed. Goal is to always return false on Android O MR1 and higher.
@@ -49,7 +49,7 @@ class WebRtcAudioManager {
   private static boolean blacklistDeviceForOpenSLESUsageIsOverridden = false;
 
   // Call this method to override the default list of blacklisted devices
-  // specified in WebRtcAudioUtils.BLACKLISTED_OPEN_SL_ES_MODELS.
+  // specified in AudioUtils.BLACKLISTED_OPEN_SL_ES_MODELS.
   // Allows an app to take control over which devices to exclude from using
   // the OpenSL ES audio output path
   // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
@@ -170,35 +170,35 @@ class WebRtcAudioManager {
 
   private final VolumeLogger volumeLogger;
 
-  WebRtcAudioManager(long nativeAudioManager) {
-    Logging.d(TAG, "ctor" + WebRtcAudioUtils.getThreadInfo());
+  AudioManager(long nativeAudioManager) {
+    Logging.d(TAG, "ctor" + AudioUtils.getThreadInfo());
     this.nativeAudioManager = nativeAudioManager;
     audioManager =
         (AudioManager) ContextUtils.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
     if (DEBUG) {
-      WebRtcAudioUtils.logDeviceInfo(TAG);
+      AudioUtils.logDeviceInfo(TAG);
     }
     volumeLogger = new VolumeLogger(audioManager);
     storeAudioParameters();
     nativeCacheAudioParameters(sampleRate, outputChannels, inputChannels, hardwareAEC, hardwareAGC,
         hardwareNS, lowLatencyOutput, lowLatencyInput, proAudio, aAudio, outputBufferSize,
         inputBufferSize, nativeAudioManager);
-    WebRtcAudioUtils.logAudioState(TAG);
+    AudioUtils.logAudioState(TAG);
   }
 
   private boolean init() {
-    Logging.d(TAG, "init" + WebRtcAudioUtils.getThreadInfo());
+    Logging.d(TAG, "init" + AudioUtils.getThreadInfo());
     if (initialized) {
       return true;
     }
-    Logging.d(TAG, "audio mode is: " + WebRtcAudioUtils.modeToString(audioManager.getMode()));
+    Logging.d(TAG, "audio mode is: " + AudioUtils.modeToString(audioManager.getMode()));
     initialized = true;
     volumeLogger.start();
     return true;
   }
 
   private void dispose() {
-    Logging.d(TAG, "dispose" + WebRtcAudioUtils.getThreadInfo());
+    Logging.d(TAG, "dispose" + AudioUtils.getThreadInfo());
     if (!initialized) {
       return;
     }
@@ -212,7 +212,7 @@ class WebRtcAudioManager {
   private boolean isDeviceBlacklistedForOpenSLESUsage() {
     boolean blacklisted = blacklistDeviceForOpenSLESUsageIsOverridden
         ? blacklistDeviceForOpenSLESUsage
-        : WebRtcAudioUtils.deviceIsBlacklistedForOpenSLESUsage();
+        : AudioUtils.deviceIsBlacklistedForOpenSLESUsage();
     if (blacklisted) {
       Logging.d(TAG, Build.MODEL + " is blacklisted for OpenSL ES usage!");
     }
@@ -258,14 +258,14 @@ class WebRtcAudioManager {
     // as well. The NDK doc states that: "As of API level 21, lower latency
     // audio input is supported on select devices. To take advantage of this
     // feature, first confirm that lower latency output is available".
-    return WebRtcAudioUtils.runningOnLollipopOrHigher() && isLowLatencyOutputSupported();
+    return AudioUtils.runningOnLollipopOrHigher() && isLowLatencyOutputSupported();
   }
 
   // Returns true if the device has professional audio level of functionality
   // and therefore supports the lowest possible round-trip latency.
   @TargetApi(23)
   private boolean isProAudioSupported() {
-    return WebRtcAudioUtils.runningOnMarshmallowOrHigher()
+    return AudioUtils.runningOnMarshmallowOrHigher()
         && ContextUtils.getApplicationContext().getPackageManager().hasSystemFeature(
                PackageManager.FEATURE_AUDIO_PRO);
   }
@@ -276,32 +276,31 @@ class WebRtcAudioManager {
     if (blacklistDeviceForAAudioUsage) {
       Logging.w(TAG, "AAudio support is currently disabled on all devices!");
     }
-    return !blacklistDeviceForAAudioUsage && WebRtcAudioUtils.runningOnOreoMR1OrHigher();
+    return !blacklistDeviceForAAudioUsage && AudioUtils.runningOnOreoMR1OrHigher();
   }
 
   // Returns the native output sample rate for this device's output stream.
   private int getNativeOutputSampleRate() {
     // Override this if we're running on an old emulator image which only
     // supports 8 kHz and doesn't support PROPERTY_OUTPUT_SAMPLE_RATE.
-    if (WebRtcAudioUtils.runningOnEmulator()) {
+    if (AudioUtils.runningOnEmulator()) {
       Logging.d(TAG, "Running emulator, overriding sample rate to 8 kHz.");
       return 8000;
     }
-    // Default can be overriden by WebRtcAudioUtils.setDefaultSampleRateHz().
+    // Default can be overriden by AudioUtils.setDefaultSampleRateHz().
     // If so, use that value and return here.
-    if (WebRtcAudioUtils.isDefaultSampleRateOverridden()) {
+    if (AudioUtils.isDefaultSampleRateOverridden()) {
       Logging.d(TAG,
-          "Default sample rate is overriden to " + WebRtcAudioUtils.getDefaultSampleRateHz()
-              + " Hz");
-      return WebRtcAudioUtils.getDefaultSampleRateHz();
+          "Default sample rate is overriden to " + AudioUtils.getDefaultSampleRateHz() + " Hz");
+      return AudioUtils.getDefaultSampleRateHz();
     }
     // No overrides available. Deliver best possible estimate based on default
     // Android AudioManager APIs.
     final int sampleRateHz;
-    if (WebRtcAudioUtils.runningOnJellyBeanMR1OrHigher()) {
+    if (AudioUtils.runningOnJellyBeanMR1OrHigher()) {
       sampleRateHz = getSampleRateOnJellyBeanMR10OrHigher();
     } else {
-      sampleRateHz = WebRtcAudioUtils.getDefaultSampleRateHz();
+      sampleRateHz = AudioUtils.getDefaultSampleRateHz();
     }
     Logging.d(TAG, "Sample rate is set to " + sampleRateHz + " Hz");
     return sampleRateHz;
@@ -310,7 +309,7 @@ class WebRtcAudioManager {
   @TargetApi(17)
   private int getSampleRateOnJellyBeanMR10OrHigher() {
     String sampleRateString = audioManager.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
-    return (sampleRateString == null) ? WebRtcAudioUtils.getDefaultSampleRateHz()
+    return (sampleRateString == null) ? AudioUtils.getDefaultSampleRateHz()
                                       : Integer.parseInt(sampleRateString);
   }
 
@@ -318,7 +317,7 @@ class WebRtcAudioManager {
   @TargetApi(17)
   private int getLowLatencyOutputFramesPerBuffer() {
     assertTrue(isLowLatencyOutputSupported());
-    if (!WebRtcAudioUtils.runningOnJellyBeanMR1OrHigher()) {
+    if (!AudioUtils.runningOnJellyBeanMR1OrHigher()) {
       return DEFAULT_FRAME_PER_BUFFER;
     }
     String framesPerBuffer =
@@ -333,10 +332,10 @@ class WebRtcAudioManager {
   // 3) the device must not be blacklisted for use of the effect, and
   // 4) the UUID of the effect must be approved (some UUIDs can be excluded).
   private static boolean isAcousticEchoCancelerSupported() {
-    return WebRtcAudioEffects.canUseAcousticEchoCanceler();
+    return AudioEffects.canUseAcousticEchoCanceler();
   }
   private static boolean isNoiseSuppressorSupported() {
-    return WebRtcAudioEffects.canUseNoiseSuppressor();
+    return AudioEffects.canUseNoiseSuppressor();
   }
 
   // Returns the minimum output buffer size for Java based audio (AudioTrack).

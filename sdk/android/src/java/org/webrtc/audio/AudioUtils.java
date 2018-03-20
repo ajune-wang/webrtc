@@ -32,8 +32,8 @@ import java.util.List;
 import org.webrtc.ContextUtils;
 import org.webrtc.Logging;
 
-final class WebRtcAudioUtils {
-  private static final String TAG = "WebRtcAudioUtils";
+final class AudioUtils {
+  private static final String TAG = "AudioUtils";
 
   // List of devices where we have seen issues (e.g. bad audio quality) using
   // the low latency output mode in combination with OpenSL ES.
@@ -41,7 +41,7 @@ final class WebRtcAudioUtils {
   private static final String[] BLACKLISTED_OPEN_SL_ES_MODELS = new String[] {
       // It is recommended to maintain a list of blacklisted models outside
       // this package and instead call
-      // WebRtcAudioManager.setBlacklistDeviceForOpenSLESUsage(true)
+      // AudioManager.setBlacklistDeviceForOpenSLESUsage(true)
       // from the client for devices where OpenSL ES shall be disabled.
   };
 
@@ -125,10 +125,10 @@ final class WebRtcAudioUtils {
   // 3) the device must not be blacklisted for use of the effect, and
   // 4) the UUID of the effect must be approved (some UUIDs can be excluded).
   public static boolean isAcousticEchoCancelerSupported() {
-    return WebRtcAudioEffects.canUseAcousticEchoCanceler();
+    return AudioEffects.canUseAcousticEchoCanceler();
   }
   public static boolean isNoiseSuppressorSupported() {
-    return WebRtcAudioEffects.canUseNoiseSuppressor();
+    return AudioEffects.canUseNoiseSuppressor();
   }
   // TODO(henrika): deprecated; remove when no longer used by any client.
   public static boolean isAutomaticGainControlSupported() {
@@ -159,11 +159,11 @@ final class WebRtcAudioUtils {
   }
 
   public static List<String> getBlackListedModelsForAecUsage() {
-    return Arrays.asList(WebRtcAudioUtils.BLACKLISTED_AEC_MODELS);
+    return Arrays.asList(AudioUtils.BLACKLISTED_AEC_MODELS);
   }
 
   public static List<String> getBlackListedModelsForNsUsage() {
-    return Arrays.asList(WebRtcAudioUtils.BLACKLISTED_NS_MODELS);
+    return Arrays.asList(AudioUtils.BLACKLISTED_NS_MODELS);
   }
 
   public static boolean runningOnJellyBeanMR1OrHigher() {
@@ -267,7 +267,7 @@ final class WebRtcAudioUtils {
         AudioManager.STREAM_SYSTEM};
     Logging.d(tag, "Audio State: ");
     boolean fixedVolume = false;
-    if (WebRtcAudioUtils.runningOnLollipopOrHigher()) {
+    if (AudioUtils.runningOnLollipopOrHigher()) {
       fixedVolume = audioManager.isVolumeFixed();
       // Some devices may not have volume controls and might use a fixed volume.
       Logging.d(tag, "  fixed volume=" + fixedVolume);
@@ -287,14 +287,14 @@ final class WebRtcAudioUtils {
   @TargetApi(23)
   private static void logIsStreamMute(
       String tag, AudioManager audioManager, int stream, StringBuilder info) {
-    if (WebRtcAudioUtils.runningOnMarshmallowOrHigher()) {
+    if (AudioUtils.runningOnMarshmallowOrHigher()) {
       info.append(", muted=").append(audioManager.isStreamMute(stream));
     }
   }
 
   @TargetApi(23)
   private static void logAudioDeviceInfo(String tag, AudioManager audioManager) {
-    if (!WebRtcAudioUtils.runningOnMarshmallowOrHigher()) {
+    if (!AudioUtils.runningOnMarshmallowOrHigher()) {
       return;
     }
     final AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_ALL);

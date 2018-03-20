@@ -76,7 +76,7 @@ AudioManager::AudioManager()
       {"nativeCacheAudioParameters", "(IIIZZZZZZZIIJ)V",
        reinterpret_cast<void*>(&AudioManager::CacheAudioParameters)}};
   j_native_registration_ = j_environment_->RegisterNatives(
-      "org/webrtc/audio/WebRtcAudioManager", native_methods,
+      "org/webrtc/audio/AudioManager", native_methods,
       arraysize(native_methods));
   j_audio_manager_.reset(
       new JavaAudioManager(j_native_registration_.get(),

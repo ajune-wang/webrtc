@@ -10,10 +10,10 @@
 
 package org.webrtc.audio;
 
-import org.webrtc.audio.WebRtcAudioManager;
-import org.webrtc.audio.WebRtcAudioRecord;
-import org.webrtc.audio.WebRtcAudioTrack;
-import org.webrtc.audio.WebRtcAudioUtils;
+import org.webrtc.audio.AudioManager;
+import org.webrtc.audio.AudioRecord;
+import org.webrtc.audio.AudioTrack;
+import org.webrtc.audio.AudioUtils;
 
 /**
  * Public API for Java audio methods.
@@ -25,11 +25,11 @@ public class AudioDeviceModule {
 
   /* AudioManager */
   public static void setBlacklistDeviceForOpenSLESUsage(boolean enable) {
-    WebRtcAudioManager.setBlacklistDeviceForOpenSLESUsage(enable);
+    AudioManager.setBlacklistDeviceForOpenSLESUsage(enable);
   }
 
   public static void setStereoInput(boolean enable) {
-    WebRtcAudioManager.setStereoInput(enable);
+    AudioManager.setStereoInput(enable);
   }
 
   /* AudioRecord */
@@ -40,13 +40,13 @@ public class AudioDeviceModule {
   }
 
   public static interface AudioRecordErrorCallback {
-    void onWebRtcAudioRecordInitError(String errorMessage);
-    void onWebRtcAudioRecordStartError(AudioRecordStartErrorCode errorCode, String errorMessage);
-    void onWebRtcAudioRecordError(String errorMessage);
+    void onAudioRecordInitError(String errorMessage);
+    void onAudioRecordStartError(AudioRecordStartErrorCode errorCode, String errorMessage);
+    void onAudioRecordError(String errorMessage);
   }
 
   public static void setErrorCallback(AudioRecordErrorCallback errorCallback) {
-    WebRtcAudioRecord.setErrorCallback(errorCallback);
+    AudioRecord.setErrorCallback(errorCallback);
   }
 
   /* AudioTrack */
@@ -56,22 +56,22 @@ public class AudioDeviceModule {
     AUDIO_TRACK_START_STATE_MISMATCH,
   }
   public static interface AudioTrackErrorCallback {
-    void onWebRtcAudioTrackInitError(String errorMessage);
-    void onWebRtcAudioTrackStartError(AudioTrackStartErrorCode errorCode, String errorMessage);
-    void onWebRtcAudioTrackError(String errorMessage);
+    void onAudioTrackInitError(String errorMessage);
+    void onAudioTrackStartError(AudioTrackStartErrorCode errorCode, String errorMessage);
+    void onAudioTrackError(String errorMessage);
   }
 
   public static void setErrorCallback(AudioTrackErrorCallback errorCallback) {
-    WebRtcAudioTrack.setErrorCallback(errorCallback);
+    AudioTrack.setErrorCallback(errorCallback);
   }
 
   /* AudioUtils */
   public static void setWebRtcBasedAcousticEchoCanceler(boolean enable) {
-    WebRtcAudioUtils.setWebRtcBasedAcousticEchoCanceler(enable);
+    AudioUtils.setWebRtcBasedAcousticEchoCanceler(enable);
   }
 
   public static void setWebRtcBasedNoiseSuppressor(boolean enable) {
-    WebRtcAudioUtils.setWebRtcBasedNoiseSuppressor(enable);
+    AudioUtils.setWebRtcBasedNoiseSuppressor(enable);
   }
 
   // Returns true if the device supports an audio effect (AEC or NS).
@@ -81,10 +81,10 @@ public class AudioDeviceModule {
   // 3) the device must not be blacklisted for use of the effect, and
   // 4) the UUID of the effect must be approved (some UUIDs can be excluded).
   public static boolean isAcousticEchoCancelerSupported() {
-    return WebRtcAudioEffects.canUseAcousticEchoCanceler();
+    return AudioEffects.canUseAcousticEchoCanceler();
   }
   public static boolean isNoiseSuppressorSupported() {
-    return WebRtcAudioEffects.canUseNoiseSuppressor();
+    return AudioEffects.canUseNoiseSuppressor();
   }
 
   // Call this method if the default handling of querying the native sample
@@ -92,7 +92,7 @@ public class AudioDeviceModule {
   // available Android APIs are known to return invalid results.
   // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
   public static void setDefaultSampleRateHz(int sampleRateHz) {
-    WebRtcAudioUtils.setDefaultSampleRateHz(sampleRateHz);
+    AudioUtils.setDefaultSampleRateHz(sampleRateHz);
   }
 
   /**
@@ -134,10 +134,10 @@ public class AudioDeviceModule {
 
   /** Called when new audio samples are ready. This should only be set for debug purposes */
   public static interface SamplesReadyCallback {
-    void onWebRtcAudioRecordSamplesReady(AudioSamples samples);
+    void onAudioRecordSamplesReady(AudioSamples samples);
   }
 
   public static void setOnAudioSamplesReady(SamplesReadyCallback callback) {
-    WebRtcAudioRecord.setOnAudioSamplesReady(callback);
+    AudioRecord.setOnAudioSamplesReady(callback);
   }
 }

@@ -104,7 +104,7 @@ class AudioManager {
   bool IsLowLatencyRecordSupported() const;
 
   // Returns true if the device supports (and has been configured for) stereo.
-  // Call the Java API WebRtcAudioManager.setStereoOutput/Input() with true as
+  // Call the Java API AudioManager.setStereoOutput/Input() with true as
   // paramter to enable stereo. Default is mono in both directions and the
   // setting is set once and for all when the audio manager object is created.
   // TODO(henrika): stereo is not supported in combination with OpenSL ES.
@@ -126,7 +126,7 @@ class AudioManager {
 
  private:
   // Called from Java side so we can cache the native audio parameters.
-  // This method will be called by the WebRtcAudioManager constructor, i.e.
+  // This method will be called by the AudioManager constructor, i.e.
   // on the same thread that this object is created on.
   static void JNICALL CacheAudioParameters(JNIEnv* env,
                                            jobject obj,

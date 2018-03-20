@@ -493,8 +493,9 @@ UnsignalledSsrcHandler::Action DefaultUnsignalledSsrcHandler::OnUnsignalledSsrc(
     channel->RemoveRecvStream(*default_recv_ssrc);
   }
 
-  StreamParams sp;
+  StreamParams sp = channel->unsignaled_stream_params();
   sp.ssrcs.push_back(ssrc);
+
   RTC_LOG(LS_INFO) << "Creating default receive stream for SSRC=" << ssrc
                    << ".";
   if (!channel->AddRecvStream(sp, true)) {
@@ -1192,6 +1193,13 @@ bool WebRtcVideoChannel::AddRecvStream(const StreamParams& sp,
   RTC_LOG(LS_INFO) << "AddRecvStream"
                    << (default_stream ? " (default stream)" : "") << ": "
                    << sp.ToString();
+  if (!sp.has_ssrcs()) {
+    // This is a StreamParam with unsignaled ssrcs. Store it, so it can be used
+    // later when we know the ssrc on the first packet arrival.
+    set_unsignaled_stream_params(sp);
+    return true;
+  }
+
   if (!ValidateStreamParams(sp))
     return false;
 

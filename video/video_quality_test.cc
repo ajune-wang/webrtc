@@ -1397,9 +1397,9 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
     }
     video_send_configs_[video_idx].encoder_settings.encoder =
         video_encoders_[video_idx].get();
-    video_send_configs_[video_idx].encoder_settings.payload_name =
+    video_send_configs_[video_idx].rtp.payload_name =
         params_.video[video_idx].codec;
-    video_send_configs_[video_idx].encoder_settings.payload_type = payload_type;
+    video_send_configs_[video_idx].rtp.payload_type = payload_type;
     video_send_configs_[video_idx].rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
     video_send_configs_[video_idx].rtp.rtx.payload_type = kSendRtxPayloadType;
     for (size_t i = 0; i < num_video_substreams; ++i) {
@@ -1474,10 +1474,8 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
           i != params_.ss[video_idx].selected_stream) {
         VideoReceiveStream::Decoder decoder;
         decoder.decoder = new test::FakeDecoder();
-        decoder.payload_type =
-            video_send_configs_[video_idx].encoder_settings.payload_type;
-        decoder.payload_name =
-            video_send_configs_[video_idx].encoder_settings.payload_name;
+        decoder.payload_type = video_send_configs_[video_idx].rtp.payload_type;
+        decoder.payload_name = video_send_configs_[video_idx].rtp.payload_name;
         new_receive_configs[i].decoders.clear();
         allocated_decoders_.emplace_back(decoder.decoder);
         new_receive_configs[i].decoders.push_back(decoder);
@@ -1612,9 +1610,8 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
     thumbnail_send_config.rtp.ssrcs.push_back(kThumbnailSendSsrcStart + i);
     thumbnail_send_config.encoder_settings.encoder =
         thumbnail_encoders_.back().get();
-    thumbnail_send_config.encoder_settings.payload_name =
-        params_.video[0].codec;
-    thumbnail_send_config.encoder_settings.payload_type = kPayloadTypeVP8;
+    thumbnail_send_config.rtp.payload_name = params_.video[0].codec;
+    thumbnail_send_config.rtp.payload_type = kPayloadTypeVP8;
     thumbnail_send_config.rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
     thumbnail_send_config.rtp.rtx.payload_type = kSendRtxPayloadType;
     thumbnail_send_config.rtp.rtx.ssrcs.push_back(kThumbnailRtxSsrcStart + i);
@@ -1655,7 +1652,7 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
     thumbnail_receive_config.renderer = &fake_renderer_;
 
     VideoReceiveStream::Decoder decoder =
-        test::CreateMatchingDecoder(thumbnail_send_config.encoder_settings);
+        test::CreateMatchingDecoder(thumbnail_send_config);
     allocated_decoders_.push_back(
         std::unique_ptr<VideoDecoder>(decoder.decoder));
     thumbnail_receive_config.decoders.clear();

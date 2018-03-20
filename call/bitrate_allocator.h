@@ -89,8 +89,7 @@ class BitrateAllocator {
                    bool enforce_min_bitrate,
                    std::string track_id,
                    double bitrate_priority,
-                   // TODO(srte): Remove default when callers have been fixed.
-                   bool has_packet_feedback = false);
+                   bool has_packet_feedback);
 
   // Removes a previously added observer, but will not trigger a new bitrate
   // allocation.

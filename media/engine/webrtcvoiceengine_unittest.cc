@@ -2538,6 +2538,27 @@ TEST_F(WebRtcVoiceEngineTestFake, RecvUnsignaled) {
                                                      sizeof(kPcmuFrame)));
 }
 
+// Tests that when we add a stream without ssrcs, but contains a stream_id
+// that it is stored and its stream id is later used when the first packet
+// arrives to properly create a receive stream with a sync label.
+TEST_F(WebRtcVoiceEngineTestFake, RecvUnsignaledSsrcWithSignaledStreamId) {
+  const char kSyncLabel[] = "sync_label";
+  EXPECT_TRUE(SetupChannel());
+  cricket::StreamParams unsignaled_stream;
+  unsignaled_stream.set_stream_ids({kSyncLabel});
+  channel_->AddRecvStream(unsignaled_stream);
+  // The stream shouldn't have been created at this point because it doesn't
+  // have any ssrcs.
+  EXPECT_EQ(0, call_.GetAudioReceiveStreams().size());
+
+  DeliverPacket(kPcmuFrame, sizeof(kPcmuFrame));
+
+  EXPECT_EQ(1, call_.GetAudioReceiveStreams().size());
+  EXPECT_TRUE(
+      GetRecvStream(kSsrc1).VerifyLastPacket(kPcmuFrame, sizeof(kPcmuFrame)));
+  EXPECT_EQ(kSyncLabel, GetRecvStream(kSsrc1).GetConfig().sync_group);
+}
+
 // Test that receiving N unsignaled stream works (streams will be created), and
 // that packets are forwarded to them all.
 TEST_F(WebRtcVoiceEngineTestFake, RecvMultipleUnsignaled) {

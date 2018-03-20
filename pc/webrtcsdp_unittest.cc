@@ -675,6 +675,42 @@ static const char kUnifiedPlanSdpFullStringWithSpecialMsid[] =
     "a=rtpmap:104 ISAC/32000\r\n"
     "a=ssrc:7 cname:stream_2_cname\r\n";
 
+static const char kUnifiedPlanSdpNoSsrcSignaling[] =
+    "v=0\r\n"
+    "o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\r\n"
+    "s=-\r\n"
+    "t=0 0\r\n"
+    "a=msid-semantic: WMS local_stream_1\r\n"
+    "m=audio 2345 RTP/SAVPF 111 103 104\r\n"
+    "c=IN IP4 74.125.127.126\r\n"
+    "a=rtcp:2347 IN IP4 74.125.127.126\r\n"
+    "a=candidate:a0+B/1 1 udp 2130706432 192.168.1.5 1234 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/1 2 udp 2130706432 192.168.1.5 1235 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/2 1 udp 2130706432 ::1 1238 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/2 2 udp 2130706432 ::1 1239 typ host "
+    "generation 2\r\n"
+    "a=candidate:a0+B/3 1 udp 2130706432 74.125.127.126 2345 typ srflx "
+    "raddr 192.168.1.5 rport 2346 "
+    "generation 2\r\n"
+    "a=candidate:a0+B/3 2 udp 2130706432 74.125.127.126 2347 typ srflx "
+    "raddr 192.168.1.5 rport 2348 "
+    "generation 2\r\n"
+    "a=ice-ufrag:ufrag_voice\r\na=ice-pwd:pwd_voice\r\n"
+    "a=mid:audio_content_name\r\n"
+    "a=msid:local_stream_1 audio_track_id_1\r\n"
+    "a=sendrecv\r\n"
+    "a=rtcp-mux\r\n"
+    "a=rtcp-rsize\r\n"
+    "a=crypto:1 AES_CM_128_HMAC_SHA1_32 "
+    "inline:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 "
+    "dummy_session_params\r\n"
+    "a=rtpmap:111 opus/48000/2\r\n"
+    "a=rtpmap:103 ISAC/16000\r\n"
+    "a=rtpmap:104 ISAC/32000\r\n";
+
 // One candidate reference string as per W3c spec.
 // candidate:<blah> not a=candidate:<blah>CRLF
 static const char kRawCandidate[] =
@@ -1187,6 +1223,28 @@ class WebRtcSdpTest : public testing::Test {
     // Make sure to create both a=msid lines.
     desc_.set_msid_signaling(cricket::kMsidSignalingMediaSection |
                              cricket::kMsidSignalingSsrcAttribute);
+    ASSERT_TRUE(jdesc_.Initialize(desc_.Copy(), jdesc_.session_id(),
+                                  jdesc_.session_version()));
+  }
+
+  // Turns the existing reference description into a unified plan description
+  // with one audio MediaContentDescription that contains one StreamParams with
+  // 0 ssrcs.
+  void MakeUnifiedPlanDescriptionNoSsrcSignaling() {
+    desc_.RemoveContentByName(kVideoContentName);
+    desc_.RemoveContentByName(kAudioContentName);
+    desc_.RemoveTransportInfoByName(kVideoContentName);
+    RemoveVideoCandidates();
+
+    AudioContentDescription* audio_desc = CreateAudioContentDescription();
+    StreamParams audio_track;
+    audio_track.id = kAudioTrackId1;
+    audio_track.set_stream_ids({kStreamId1});
+    audio_desc->AddStream(audio_track);
+    desc_.AddContent(kAudioContentName, MediaProtocolType::kRtp, audio_desc);
+
+    // Enable signaling a=msid lines.
+    desc_.set_msid_signaling(cricket::kMsidSignalingMediaSection);
     ASSERT_TRUE(jdesc_.Initialize(desc_.Copy(), jdesc_.session_id(),
                                   jdesc_.session_version()));
   }
@@ -3362,6 +3420,26 @@ TEST_F(WebRtcSdpTest, DeserializeUnifiedPlanSessionDescriptionSpecialMsid) {
 
 TEST_F(WebRtcSdpTest, SerializeUnifiedPlanSessionDescriptionSpecialMsid) {
   MakeUnifiedPlanDescriptionMultipleStreamIds();
+  TestSerialize(jdesc_);
+}
+
+// This tests that a Unified Plan SDP with no a=ssrc lines is
+// serialized/deserialized appropriately. In this case the
+// MediaContentDescription will contain a StreamParams object that doesn't have
+// any ssrcs. Vice versa, this will be created upon deserializing an SDP with no
+// ssrc lines.
+TEST_F(WebRtcSdpTest, DeserializeUnifiedPlanSessionDescriptionNoSsrcSignaling) {
+  MakeUnifiedPlanDescriptionNoSsrcSignaling();
+
+  JsepSessionDescription deserialized_description(kDummyType);
+  EXPECT_TRUE(SdpDeserialize(kUnifiedPlanSdpNoSsrcSignaling,
+                             &deserialized_description));
+
+  EXPECT_TRUE(CompareSessionDescription(jdesc_, deserialized_description));
+}
+
+TEST_F(WebRtcSdpTest, SerializeUnifiedPlanSessionDescriptionNoSsrcSignaling) {
+  MakeUnifiedPlanDescriptionNoSsrcSignaling();
   TestSerialize(jdesc_);
 }
 

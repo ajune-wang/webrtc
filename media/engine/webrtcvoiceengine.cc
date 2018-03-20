@@ -1822,6 +1822,13 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_LOG(LS_INFO) << "AddRecvStream: " << sp.ToString();
 
+  if (!sp.has_ssrcs()) {
+    // This is a StreamParam with unsignaled ssrcs. Store it, so it can be used
+    // later when we know the ssrc on the first packet arrival.
+    set_unsignaled_stream_params(sp);
+    return true;
+  }
+
   if (!ValidateStreamParams(sp)) {
     return false;
   }
@@ -1973,7 +1980,7 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(
       unsignaled_recv_ssrcs_.end(), ssrc) == unsignaled_recv_ssrcs_.end());
 
   // Add new stream.
-  StreamParams sp;
+  StreamParams sp = unsignaled_stream_params();
   sp.ssrcs.push_back(ssrc);
   RTC_LOG(LS_INFO) << "Creating unsignaled receive stream for SSRC=" << ssrc;
   if (!AddRecvStream(sp)) {

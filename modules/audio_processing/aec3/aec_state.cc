@@ -23,34 +23,13 @@
 namespace webrtc {
 namespace {
 
-// Computes delay of the adaptive filter.
-int EstimateFilterDelay(
-    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-        adaptive_filter_frequency_response) {
-  const auto& H2 = adaptive_filter_frequency_response;
-  constexpr size_t kUpperBin = kFftLengthBy2 - 5;
-  RTC_DCHECK_GE(kMaxAdaptiveFilterLength, H2.size());
-  std::array<int, kMaxAdaptiveFilterLength> delays;
-  delays.fill(0);
-  for (size_t k = 1; k < kUpperBin; ++k) {
-    // Find the maximum of H2[j].
-    size_t peak = 0;
-    for (size_t j = 0; j < H2.size(); ++j) {
-      if (H2[j][k] > H2[peak][k]) {
-        peak = j;
-      }
-    }
-    ++delays[peak];
-  }
-
-  return std::distance(delays.begin(),
-                       std::max_element(delays.begin(), delays.end()));
-}
-
 float ComputeGainRampupIncrease(const EchoCanceller3Config& config) {
   const auto& c = config.echo_removal_control.gain_rampup;
   return powf(1.f / c.first_non_zero_gain, 1.f / c.non_zero_gain_blocks);
 }
+
+constexpr size_t kBlocksSinceConvergencedFilterInit = 10000;
+constexpr size_t kBlocksSinceConsistentEstimateInit = 10000;
 
 }  // namespace
 
@@ -64,27 +43,32 @@ AecState::AecState(const EchoCanceller3Config& config)
       max_render_(config_.filter.main.length_blocks, 0.f),
       reverb_decay_(fabsf(config_.ep_strength.default_len)),
       gain_rampup_increase_(ComputeGainRampupIncrease(config_)),
-      suppression_gain_limiter_(config_) {}
+      suppression_gain_limiter_(config_),
+      blocks_since_converged_filter_(kBlocksSinceConvergencedFilterInit),
+      blocks_since_consistent_filter_estimate_(
+          kBlocksSinceConsistentEstimateInit) {}
 
 AecState::~AecState() = default;
 
 void AecState::HandleEchoPathChange(
     const EchoPathVariability& echo_path_variability) {
   const auto full_reset = [&]() {
+    filter_analyzer_.Reset();
     blocks_since_last_saturation_ = 0;
     usable_linear_estimate_ = false;
-    echo_leakage_detected_ = false;
     capture_signal_saturation_ = false;
     echo_saturation_ = false;
     previous_max_sample_ = 0.f;
     std::fill(max_render_.begin(), max_render_.end(), 0.f);
     blocks_with_proper_filter_adaptation_ = 0;
-    capture_block_counter_ = 0;
+    blocks_since_reset_ = 0;
     filter_has_had_time_to_converge_ = false;
     render_received_ = false;
     blocks_with_active_render_ = 0;
     initial_state_ = true;
     suppression_gain_limiter_.Reset();
+    blocks_since_converged_filter_ = kBlocksSinceConvergencedFilterInit;
+    diverged_blocks_ = 0;
   };
 
   // TODO(peah): Refine the reset scheme according to the type of gain and
@@ -106,30 +90,39 @@ void AecState::HandleEchoPathChange(
              EchoPathVariability::DelayAdjustment::kNewDetectedDelay) {
     full_reset();
   } else if (echo_path_variability.gain_change) {
-    capture_block_counter_ = kNumBlocksPerSecond;
+    blocks_since_reset_ = kNumBlocksPerSecond;
   }
 }
 
 void AecState::Update(
-    const rtc::Optional<DelayEstimate>& delay_estimate,
+    const rtc::Optional<DelayEstimate>& external_delay,
+    const rtc::Optional<int>& internal_delay,
     const std::vector<std::array<float, kFftLengthBy2Plus1>>&
         adaptive_filter_frequency_response,
     const std::vector<float>& adaptive_filter_impulse_response,
     bool converged_filter,
+    bool diverged_filter,
     const RenderBuffer& render_buffer,
     const std::array<float, kFftLengthBy2Plus1>& E2_main,
     const std::array<float, kFftLengthBy2Plus1>& Y2,
-    const std::array<float, kBlockSize>& s,
-    bool echo_leakage_detected) {
-  // Store input parameters.
-  echo_leakage_detected_ = echo_leakage_detected;
+    const std::array<float, kBlockSize>& s) {
+  // Analyze the filter and compute the delays.
+  filter_analyzer_.Update(adaptive_filter_impulse_response, converged_filter);
 
-  // Estimate the filter delay.
-  filter_delay_ = EstimateFilterDelay(adaptive_filter_frequency_response);
-  const std::vector<float>& x = render_buffer.Block(-filter_delay_)[0];
+  filter_delay_blocks_ = filter_analyzer_.DelayBlocks();
+  const std::vector<float>& x = render_buffer.Block(-filter_delay_blocks_)[0];
+
+  if (internal_delay) {
+    internal_delay_ = internal_delay;
+  } else if (filter_analyzer_.Consistent()) {
+    internal_delay_ = filter_analyzer_.DelayBlocks();
+  } else {
+    internal_delay_ = rtc::nullopt;
+  }
 
   // Update counters.
   ++capture_block_counter_;
+  ++blocks_since_reset_;
   const bool active_render_block = DetectActiveRender(x);
   blocks_with_active_render_ += active_render_block ? 1 : 0;
   blocks_with_proper_filter_adaptation_ +=
@@ -137,11 +130,12 @@ void AecState::Update(
 
   // Update the limit on the echo suppression after an echo path change to avoid
   // an initial echo burst.
-  suppression_gain_limiter_.Update(render_buffer.GetRenderActivity());
+  suppression_gain_limiter_.Update(render_buffer.GetRenderActivity(),
+                                   transparent_mode_);
 
   // Update the ERL and ERLE measures.
-  if (converged_filter && capture_block_counter_ >= 2 * kNumBlocksPerSecond) {
-    const auto& X2 = render_buffer.Spectrum(filter_delay_);
+  if (converged_filter && blocks_since_reset_ >= 2 * kNumBlocksPerSecond) {
+    const auto& X2 = render_buffer.Spectrum(filter_delay_blocks_);
     erle_estimator_.Update(X2, Y2, E2_main);
     erl_estimator_.Update(X2, Y2);
   }
@@ -156,26 +150,92 @@ void AecState::Update(
     echo_saturation_ = DetectEchoSaturation(x);
   }
 
-  // TODO(peah): Move?
-  filter_has_had_time_to_converge_ =
+  bool filter_has_had_time_to_converge =
       blocks_with_proper_filter_adaptation_ >= 1.5f * kNumBlocksPerSecond;
 
+  if (!filter_should_have_converged_) {
+    filter_should_have_converged_ =
+        blocks_with_proper_filter_adaptation_ > 3 * kNumBlocksPerSecond ||
+        capture_block_counter_ > 30 * kNumBlocksPerSecond;
+  }
+
+  // Flag whether the initial state is still active.
   initial_state_ =
       blocks_with_proper_filter_adaptation_ < 5 * kNumBlocksPerSecond;
 
-  // Flag whether the linear filter estimate is usable.
-  usable_linear_estimate_ =
-      !echo_saturation_ &&
-      (converged_filter && filter_has_had_time_to_converge_) &&
-      capture_block_counter_ >= 1.f * kNumBlocksPerSecond && !TransparentMode();
+  // Update counters for the filter divergence and convergence.
+  diverged_blocks_ = diverged_filter ? diverged_blocks_ + 1 : 0;
+  if (diverged_blocks_ <= 10) {
+    blocks_since_converged_filter_ = kBlocksSinceConvergencedFilterInit;
+  } else {
+    blocks_since_converged_filter_ =
+        converged_filter ? 0 : blocks_since_converged_filter_ + 1;
+  }
+  bool recently_converged_filter =
+      blocks_since_converged_filter_ < 300 * kNumBlocksPerSecond;
+  bool strongly_diverged_filter = diverged_blocks_ > 4;
+
+  blocks_since_consistent_filter_estimate_ =
+      filter_analyzer_.Consistent()
+          ? 0
+          : blocks_since_consistent_filter_estimate_ + 1;
+
+  bool consistent_filter_estimate_not_seen =
+      blocks_since_consistent_filter_estimate_ > 5 * kNumBlocksPerSecond;
+
+  converged_filter_seen_ = converged_filter_seen_ || converged_filter;
 
   // After an amount of active render samples for which an echo should have been
   // detected in the capture signal if the ERL was not infinite, flag that a
   // transparent mode should be entered.
+  transparent_mode_ = !config_.ep_strength.bounded_erl;
   transparent_mode_ =
-      !converged_filter &&
-      (blocks_with_active_render_ == 0 ||
-       blocks_with_proper_filter_adaptation_ >= 5 * kNumBlocksPerSecond);
+      transparent_mode_ &&
+      (consistent_filter_estimate_not_seen || !converged_filter_seen_);
+  transparent_mode_ = transparent_mode_ && filter_should_have_converged_;
+
+  usable_linear_estimate_ = !echo_saturation_;
+  usable_linear_estimate_ =
+      usable_linear_estimate_ && filter_has_had_time_to_converge;
+  usable_linear_estimate_ =
+      usable_linear_estimate_ && recently_converged_filter;
+  usable_linear_estimate_ =
+      usable_linear_estimate_ && !strongly_diverged_filter;
+  usable_linear_estimate_ = usable_linear_estimate_ && external_delay;
+
+  use_linear_filter_output_ = usable_linear_estimate_ && !TransparentMode();
+
+  data_dumper_->DumpRaw("aec3_erle", Erle());
+  data_dumper_->DumpRaw("aec3_erl", Erl());
+  data_dumper_->DumpRaw("aec3_erle_time_domain", ErleTimeDomain());
+  data_dumper_->DumpRaw("aec3_erl_time_domain", ErlTimeDomain());
+  data_dumper_->DumpRaw("aec3_usable_linear_estimate", UsableLinearEstimate());
+  data_dumper_->DumpRaw("aec3_transparent_mode", transparent_mode_);
+  data_dumper_->DumpRaw("aec3_state_internal_delay",
+                        internal_delay_ ? *internal_delay_ : -1);
+  data_dumper_->DumpRaw("aec3_filter_delay", filter_analyzer_.DelayBlocks());
+
+  data_dumper_->DumpRaw("aec3_consistent_filter",
+                        filter_analyzer_.Consistent());
+  data_dumper_->DumpRaw("aec3_suppression_gain_limit", SuppressionGainLimit());
+  data_dumper_->DumpRaw("aec3_initial_state", InitialState());
+  data_dumper_->DumpRaw("aec3_capture_saturation", SaturatedCapture());
+  data_dumper_->DumpRaw("aec3_echo_saturation", echo_saturation_);
+  data_dumper_->DumpRaw("aec3_converged_filter", converged_filter);
+  data_dumper_->DumpRaw("aec3_diverged_filter", diverged_filter);
+
+  data_dumper_->DumpRaw("aec3_external_delay_avaliable",
+                        external_delay ? 1 : 0);
+  data_dumper_->DumpRaw("aec3_consistent_filter_estimate_not_seen",
+                        consistent_filter_estimate_not_seen);
+  data_dumper_->DumpRaw("aec3_filter_should_have_converged",
+                        filter_should_have_converged_);
+  data_dumper_->DumpRaw("aec3_filter_has_had_time_to_converge",
+                        filter_has_had_time_to_converge);
+  data_dumper_->DumpRaw("aec3_recently_converged_filter",
+                        recently_converged_filter);
+  data_dumper_->DumpRaw("aec3_strongly_diverged_filter",
+                        strongly_diverged_filter);
 }
 
 void AecState::UpdateReverb(const std::vector<float>& impulse_response) {
@@ -184,8 +244,8 @@ void AecState::UpdateReverb(const std::vector<float>& impulse_response) {
     return;
   }
 
-  if ((!(filter_delay_ && usable_linear_estimate_)) ||
-      (filter_delay_ >
+  if ((!(filter_delay_blocks_ && usable_linear_estimate_)) ||
+      (filter_delay_blocks_ >
        static_cast<int>(config_.filter.main.length_blocks) - 4)) {
     return;
   }

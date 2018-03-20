@@ -49,6 +49,7 @@ float RunSubtractorTest(int num_blocks_to_process,
   std::array<float, kFftLengthBy2Plus1> E2_main;
   std::array<float, kFftLengthBy2Plus1> E2_shadow;
   AecState aec_state(config);
+  rtc::Optional<int> echo_remover_delay;
   x_old.fill(0.f);
   Y2.fill(0.f);
   E2_main.fill(0.f);
@@ -68,7 +69,7 @@ float RunSubtractorTest(int num_blocks_to_process,
     }
     render_delay_buffer->PrepareCaptureProcessing();
     render_signal_analyzer.Update(*render_delay_buffer->GetRenderBuffer(),
-                                  aec_state.FilterDelay());
+                                  aec_state.FilterDelayBlocks());
 
     // Handle echo path changes.
     if (std::find(blocks_with_echo_path_changes.begin(),
@@ -83,11 +84,12 @@ float RunSubtractorTest(int num_blocks_to_process,
 
     aec_state.HandleEchoPathChange(EchoPathVariability(
         false, EchoPathVariability::DelayAdjustment::kNone, false));
-    aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
+    aec_state.Update(delay_estimate, echo_remover_delay,
+                     subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     subtractor.ConvergedFilter(),
+                     subtractor.ConvergedFilter(), subtractor.DivergedFilter(),
                      *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
-                     output.s_main, false);
+                     output.s_main);
   }
 
   const float output_power = std::inner_product(

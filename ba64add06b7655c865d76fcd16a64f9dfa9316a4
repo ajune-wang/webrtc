@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d6c5800_283bbba8",
+        "filename": "call/test/mock_rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-20T13:23:36Z",
+      "side": 1,
+      "message": "You are right. I tried to do that and got compiler errors, but I just realized it was due to using the override keyword for SetBitrateAllocationStrategy, using virtual instead it compiles. Thanks!",
+      "parentUuid": "256969a1_503dab1a",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 50
+      },
+      "revId": "ba64add06b7655c865d76fcd16a64f9dfa9316a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53cb0cee_4772b8f7",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-20T12:46:33Z",
       "side": 1,
       "message": "Ideally, Peerconnection should own the RtpTransportControllerSend, and just lend out a reference to Call. Not sure how far we are from that change, though.",
+      "range": {
+        "startLine": 2967,
+        "startChar": 2,
+        "endLine": 2967,
+        "endChar": 37
+      },
+      "revId": "ba64add06b7655c865d76fcd16a64f9dfa9316a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975c6cb6_ba1ba5a0",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2967,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-20T13:23:36Z",
+      "side": 1,
+      "message": "Yes, I think that should be the plan. It would probably not be hard to fix for the API, but we have a bunch of CallTests that assumes the current structure. I think it might make sense to wait with that refactor until we have come further along with the transport controller. structure. When it\u0027s don I figure it will be easy to replace GetTransportControllerSend() with the owned instance. WDYT?",
+      "parentUuid": "53cb0cee_4772b8f7",
       "range": {
         "startLine": 2967,
         "startChar": 2,

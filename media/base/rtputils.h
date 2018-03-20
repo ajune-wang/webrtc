@@ -55,6 +55,9 @@ bool SetRtpHeader(void* data, size_t len, const RtpHeader& header);
 
 bool IsRtpPacket(const void* data, size_t len);
 
+// Check the RTP payload type.  If 63 < payload type < 96, it's RTCP.
+// For additional details, see http://tools.ietf.org/html/rfc5761.
+bool IsRtcp(const char* data, int len);
 // True if |payload type| is 0-127.
 bool IsValidRtpPayloadType(int payload_type);
 

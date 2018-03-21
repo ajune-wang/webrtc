@@ -16,6 +16,24 @@
       "revId": "53c37db023064bffa69953df8e62a2389979e1af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38336e69_1b4e2004",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-21T10:25:34Z",
+      "side": 1,
+      "message": "No. This change (and many others like it) just replaces\n\n  \"some string literal \" \u003c\u003c \"another string literal\"\n\nwith\n\n  \"some string literal \" \"another string literal\"\n\nwhich the compiler treats identically to\n\n  \"some string literal another string literal\"\n\nThis leads to fewer emitted instructions at each call site (and probably also makes the code faster, although we don\u0027t really care).",
+      "parentUuid": "8374f65e_e41188ef",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64234460_ef0697e8",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-21T11:56:21Z",
+      "side": 1,
+      "message": "I really don\u0027t like this, but I couldn\u0027t come up with a better idea. I considered injecting the SSCC, but that has larger effects on the interface and is more complicated. Suggestions are welcome.",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "ce97913dfba8fd15cf0954a2cbbcd9be1a69074c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a82cff39_3d2bbd42",
+        "filename": "sdk/android/native_unittests/peerconnection/peerconnectionfactory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-21T14:09:01Z",
+      "side": 1,
+      "message": "Can we not depend on internal JNI code from the test? I suggest creating a factory like this:\n\n  std::unique_ptr\u003ccricket::MediaEngineInterface\u003e media_engine \u003d\n      cricket::WebRtcMediaEngineFactory::Create(\n          nullptr /* adm */, webrtc::CreateBuiltinAudioEncoderFactory(),\n          webrtc::CreateBuiltinAudioDecoderFactory(),\n          rtc::MakeUnique\u003cwebrtc::InternalEncoderFactory\u003e(),\n          rtc::MakeUnique\u003cwebrtc::InternalDecoderFactory\u003e(),\n          nullptr /* audio_mixer */, webrtc::AudioProcessingBuilder().Create());\n  RTC_LOG(LS_INFO) \u003c\u003c \"Media engine created: \" \u003c\u003c media_engine.get();\n\n  pcf_ \u003d CreateModularPeerConnectionFactory(\n      network_thread, worker_thread, signaling_thread,\n      std::move(media_engine), webrtc::CreateCallFactory(),\n      webrtc::CreateRtcEventLogFactory());\n  RTC_LOG(LS_INFO) \u003c\u003c \"PeerConnectionFactory created: \" \u003c\u003c pcf_;",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 41
+      },
+      "revId": "73a46e2b650cb0b3ca7825086e32508f10602099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c07c269a_1649117c",
+        "filename": "sdk/android/native_unittests/peerconnection/peerconnectionfactory_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-21T14:09:01Z",
+      "side": 1,
+      "message": "Can we use JNI generation here as well?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 53
+      },
+      "revId": "73a46e2b650cb0b3ca7825086e32508f10602099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a91be098_ad43c379",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-21T14:09:01Z",
+      "side": 1,
+      "message": "nit: Literal comments.",
+      "range": {
+        "startLine": 106,
+        "startChar": 35,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "73a46e2b650cb0b3ca7825086e32508f10602099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e0b9912_12ba5b98",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-21T14:09:01Z",
+      "side": 1,
+      "message": "Use NativeToJavaPointer",
+      "range": {
+        "startLine": 111,
+        "startChar": 48,
+        "endLine": 111,
+        "endChar": 64
+      },
+      "revId": "73a46e2b650cb0b3ca7825086e32508f10602099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

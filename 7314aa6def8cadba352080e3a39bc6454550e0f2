@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af87c918_82d362cb",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T13:01:32Z",
+      "side": 1,
+      "message": "I think some may want to implement it one way and some may want to implement it the other, but I would expect us to want to implement it this way (same object receiving all callbacks).",
+      "parentUuid": "701b826b_574fe95d",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "7314aa6def8cadba352080e3a39bc6454550e0f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7178f659_9cdc308e",
         "filename": "api/video/video_stream_decoder.h",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a55535b4_9385e0c3",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T13:01:32Z",
+      "side": 1,
+      "message": "EncodedFrame is an interface, so we can\u0027t really make copy it.",
+      "parentUuid": "7178f659_9cdc308e",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "7314aa6def8cadba352080e3a39bc6454550e0f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "359816da_d9775f67",
         "filename": "api/video/video_stream_decoder_create.cc",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2018-03-21T12:10:56Z",
       "side": 1,
       "message": "Are you sure this is fixed at construction time, with no need to add payload types later?\n\nThe mapping needs some documentation, in particular, it\u0027s unclear to me what the second int (in the value type) represents.",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 66
+      },
+      "revId": "7314aa6def8cadba352080e3a39bc6454550e0f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dba807a_ffe2c8ba",
+        "filename": "api/video/video_stream_decoder_create.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T13:01:32Z",
+      "side": 1,
+      "message": "This is fixed at construction time. You can look at the |config_| member of VideoReceiveStream, which today holds all decoders/payload types as the object is instantiated.\n\nAdded comments.",
+      "parentUuid": "359816da_d9775f67",
       "range": {
         "startLine": 20,
         "startChar": 4,

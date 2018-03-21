@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42bd3931_dd66e1ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:24:49Z",
+      "side": 1,
+      "message": "May want to append the commit message with a brief description of the other cleanup you did",
+      "revId": "e471bdf96172ef00fc52075f18d9c51611ba71c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -550,6 +550,41 @@ TEST_F(PeerConnectionRtpObserverTest,
   EXPECT_TRUE_WAIT(srd2_callback_called, kDefaultTimeout);
 }
 
+// Tests that a remote track is created with the signaled MSIDs when they are
+// communicated with a=msid and no SSRCs are signaled at all (i.e., no a=ssrc
+// lines).
+TEST_F(PeerConnectionRtpObserverTest, UnsignaledSsrcCreatesReceiverStreams) {
+  auto caller = CreatePeerConnectionWithUnifiedPlan();
+  auto callee = CreatePeerConnectionWithUnifiedPlan();
+  const char kStreamId1[] = "stream1";
+  const char kStreamId2[] = "stream2";
+  caller->AddTrack(caller->CreateAudioTrack("audio_track1"),
+                   {kStreamId1, kStreamId2});
+
+  auto offer = caller->CreateOfferAndSetAsLocal();
+  // Munge the offer to take out everything but the stream_ids.
+  auto contents = offer->description()->contents();
+  ASSERT_TRUE(!contents.empty());
+  std::vector<std::string> stream_ids;
+  ASSERT_TRUE(!contents[0].media_description()->streams().empty());
+  stream_ids = contents[0].media_description()->streams()[0].stream_ids();
+  contents[0].media_description()->mutable_streams().clear();
+  cricket::StreamParams new_stream;
+  new_stream.set_stream_ids(stream_ids);
+  contents[0].media_description()->AddStream(new_stream);
+
+  // Set the remote description and verify that the streams were added to the
+  // receiver correctly.
+  ASSERT_TRUE(
+      callee->SetRemoteDescription(CloneSessionDescription(offer.get()),
+                                   static_cast<webrtc::RTCError*>(nullptr)));
+  auto receivers = callee->pc()->GetReceivers();
+  ASSERT_EQ(receivers.size(), 1u);
+  ASSERT_EQ(receivers[0]->streams().size(), 2u);
+  EXPECT_EQ(receivers[0]->streams()[0]->id(), kStreamId1);
+  EXPECT_EQ(receivers[0]->streams()[1]->id(), kStreamId2);
+}
+
 // Tests that with Unified Plan if the the stream id changes for a track when
 // when setting a new remote description, that the media stream is updated
 // appropriately for the receiver.

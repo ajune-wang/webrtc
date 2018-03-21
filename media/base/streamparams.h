@@ -158,6 +158,8 @@ struct StreamParams {
   std::string groupid;
   // Unique per-groupid, not across all groupids
   std::string id;
+  // There may be no ssrcs stored in unsignaled case when stream_ids are
+  // signaled with a=msid lines.
   std::vector<uint32_t> ssrcs;         // All SSRCs for this source
   std::vector<SsrcGroup> ssrc_groups;  // e.g. FID, FEC, SIM
   // Examples: "camera", "screencast"

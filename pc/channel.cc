@@ -927,7 +927,7 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
   bool ret = true;
   for (StreamParamsVec::const_iterator it = local_streams_.begin();
        it != local_streams_.end(); ++it) {
-    if (!GetStreamBySsrc(streams, it->first_ssrc())) {
+    if (it->has_ssrcs() && !GetStreamBySsrc(streams, it->first_ssrc())) {
       if (!media_channel()->RemoveSendStream(it->first_ssrc())) {
         std::ostringstream desc;
         desc << "Failed to remove send stream with ssrc "
@@ -940,7 +940,7 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
   // Check for new streams.
   for (StreamParamsVec::const_iterator it = streams.begin();
        it != streams.end(); ++it) {
-    if (!GetStreamBySsrc(local_streams_, it->first_ssrc())) {
+    if (it->has_ssrcs() && !GetStreamBySsrc(local_streams_, it->first_ssrc())) {
       if (media_channel()->AddSendStream(*it)) {
         RTC_LOG(LS_INFO) << "Add send stream ssrc: " << it->ssrcs[0];
       } else {
@@ -963,7 +963,7 @@ bool BaseChannel::UpdateRemoteStreams_w(
   bool ret = true;
   for (StreamParamsVec::const_iterator it = remote_streams_.begin();
        it != remote_streams_.end(); ++it) {
-    if (!GetStreamBySsrc(streams, it->first_ssrc())) {
+    if (it->has_ssrcs() && !GetStreamBySsrc(streams, it->first_ssrc())) {
       if (!RemoveRecvStream_w(it->first_ssrc())) {
         std::ostringstream desc;
         desc << "Failed to remove remote stream with ssrc "
@@ -976,9 +976,12 @@ bool BaseChannel::UpdateRemoteStreams_w(
   // Check for new streams.
   for (StreamParamsVec::const_iterator it = streams.begin();
       it != streams.end(); ++it) {
+    // We don't check for the StreamParams containing ssrcs, because
+    // in the unsignaled ssrc case we cache the unsignaled stream to be added
+    // later, by calling AddRecvStream.
     if (!GetStreamBySsrc(remote_streams_, it->first_ssrc())) {
       if (AddRecvStream_w(*it)) {
-        RTC_LOG(LS_INFO) << "Add remote ssrc: " << it->ssrcs[0];
+        RTC_LOG(LS_INFO) << "Add remote ssrc: " << it->first_ssrc();
       } else {
         std::ostringstream desc;
         desc << "Failed to add remote stream ssrc: " << it->first_ssrc();

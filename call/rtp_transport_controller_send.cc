@@ -205,6 +205,7 @@ int64_t RtpTransportControllerSend::GetFirstPacketTimeMs() const {
 }
 void RtpTransportControllerSend::SetPerPacketFeedbackAvailable(bool available) {
   send_side_cc_->SetPerPacketFeedbackAvailable(available);
+  has_packet_feedback_for_test_ = available;
 }
 void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
   send_side_cc_->EnablePeriodicAlrProbing(enable);
@@ -242,5 +243,9 @@ void RtpTransportControllerSend::SetClientBitratePreferences(
         << "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: "
         << "nothing to update";
   }
+}
+
+bool RtpTransportControllerSend::GetHasPacketFeedbackForTest() {
+  return has_packet_feedback_for_test_;
 }
 }  // namespace webrtc

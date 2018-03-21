@@ -81,6 +81,8 @@ class RtpTransportControllerSend final
   void SetClientBitratePreferences(
       const BitrateConstraintsMask& preferences) override;
 
+  bool GetHasPacketFeedbackForTest();
+
  private:
   const Clock* const clock_;
   PacketRouter packet_router_;
@@ -94,6 +96,7 @@ class RtpTransportControllerSend final
   // Declared last since it will issue callbacks from a task queue. Declaring it
   // last ensures that it is destroyed first.
   const std::unique_ptr<SendSideCongestionControllerInterface> send_side_cc_;
+  bool has_packet_feedback_for_test_ = false;
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpTransportControllerSend);
 };
 

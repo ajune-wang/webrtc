@@ -508,4 +508,145 @@ TEST_P(TransportFeedbackEndToEndTest, TransportSeqNumOnAudioAndVideo) {
   // message when the test fail.
   test.ExpectSuccessful();
 }
+
+TEST_P(TransportFeedbackEndToEndTest, UpdatesTransportFeedbackAvailability) {
+  static constexpr int kExtensionId = 8;
+  static constexpr int kDisableVideoUnderBps = 30000;
+  class TransportSequenceNumberTest : public test::EndToEndTest {
+   public:
+    class TestSequenceState : public test::BaseTest {
+     public:
+      explicit TestSequenceState(TransportSequenceNumberTest* test_runner)
+          : test_runner_(test_runner) {}
+      virtual bool EnterState() { return false; }
+      virtual ~TestSequenceState() = default;
+      // Not used
+      void PerformTest() override {}
+      bool ShouldCreateReceivers() const override { return false; }
+      TransportSequenceNumberTest* test_runner_;
+    };
+
+    struct WaitingForFirstVideoPacket : TestSequenceState {
+      using TestSequenceState::TestSequenceState;
+      Action OnSendRtp(const uint8_t* packet, size_t length) override {
+        RTPHeader header;
+        EXPECT_TRUE(parser_->Parse(packet, length, &header));
+        if (header.ssrc == kVideoSendSsrcs[0]) {
+          EXPECT_TRUE(header.extension.hasTransportSequenceNumber);
+          test_runner_->NextState();
+        }
+        return SEND_PACKET;
+      }
+    };
+    struct EnsureHasPacketFeedback : TestSequenceState {
+      using TestSequenceState::TestSequenceState;
+      Action OnSendRtp(const uint8_t* packet, size_t length) override {
+        bool has_packet_feedback =
+            test_runner_->transport_controller_->GetHasPacketFeedbackForTest();
+        if (has_packet_feedback)
+          test_runner_->NextState();
+        return SEND_PACKET;
+      }
+    };
+    struct DisableVideoStream : TestSequenceState {
+      using TestSequenceState::TestSequenceState;
+      bool EnterState() override {
+        BitrateConstraintsMask constraints;
+        constraints.max_bitrate_bps = kDisableVideoUnderBps / 2;
+        test_runner_->transport_controller_->SetClientBitratePreferences(
+            constraints);
+        return true;
+      }
+    };
+    struct WaitForNoPacketFeedback : TestSequenceState {
+      using TestSequenceState::TestSequenceState;
+      Action OnSendRtp(const uint8_t* packet, size_t length) override {
+        bool has_packet_feedback =
+            test_runner_->transport_controller_->GetHasPacketFeedbackForTest();
+        if (!has_packet_feedback)
+          test_runner_->NextState();
+        return SEND_PACKET;
+      }
+    };
+    struct EnableVideoStream : TestSequenceState {
+      using TestSequenceState::TestSequenceState;
+      bool EnterState() override {
+        BitrateConstraintsMask constraints;
+        constraints.max_bitrate_bps = kDisableVideoUnderBps * 2;
+        test_runner_->transport_controller_->SetClientBitratePreferences(
+            constraints);
+        return true;
+      }
+    };
+
+    TransportSequenceNumberTest() : EndToEndTest(kDefaultTimeoutMs) {
+      parser_->RegisterRtpHeaderExtension(kRtpExtensionTransportSequenceNumber,
+                                          kExtensionId);
+      test_states_.push_back(rtc::MakeUnique<WaitingForFirstVideoPacket>(this));
+      test_states_.push_back(rtc::MakeUnique<EnsureHasPacketFeedback>(this));
+      test_states_.push_back(rtc::MakeUnique<DisableVideoStream>(this));
+      test_states_.push_back(rtc::MakeUnique<WaitForNoPacketFeedback>(this));
+      test_states_.push_back(rtc::MakeUnique<EnableVideoStream>(this));
+      test_states_.push_back(rtc::MakeUnique<EnsureHasPacketFeedback>(this));
+      current_state_ = test_states_[0].get();
+    }
+
+    void NextState() {
+      rtc::CritScope cs(&state_crit_);
+      current_state_index_++;
+      if (current_state_index_ < test_states_.size()) {
+        RTC_LOG(LS_INFO) << "State:" << current_state_index_ << "\n";
+        current_state_ = test_states_[current_state_index_].get();
+        if (current_state_->EnterState())
+          NextState();
+      } else {
+        observation_complete_.Set();
+      }
+    }
+
+    Action OnSendRtp(const uint8_t* packet, size_t length) override {
+      return current_state_->OnSendRtp(packet, length);
+    }
+
+    size_t GetNumVideoStreams() const override { return 1; }
+    size_t GetNumAudioStreams() const override { return 1; }
+
+    void ModifyAudioConfigs(
+        AudioSendStream::Config* send_config,
+        std::vector<AudioReceiveStream::Config>* receive_configs) override {
+      // Ensure that no feedback is used for Audio.
+      send_config->rtp.extensions.clear();
+      /* send_config->rtp.extensions.push_back(RtpExtension(
+          RtpExtension::kTransportSequenceNumberUri, kExtensionId));*/
+      (*receive_configs)[0].rtp.extensions.clear();
+      (*receive_configs)[0].rtp.extensions = send_config->rtp.extensions;
+    }
+
+    void ModifyVideoConfigs(
+        VideoSendStream::Config* send_config,
+        std::vector<VideoReceiveStream::Config>* receive_configs,
+        VideoEncoderConfig* encoder_config) override {
+      send_config->suspend_below_min_bitrate = true;
+    }
+
+    void OnRtpTransportControllerSendCreated(
+        RtpTransportControllerSend* controller) override {
+      transport_controller_ = controller;
+    }
+
+    void PerformTest() override {
+      EXPECT_TRUE(Wait()) << "Timed out while waiting.";
+    }
+    RtpTransportControllerSend* transport_controller_;
+
+   private:
+    rtc::CriticalSection state_crit_;
+    std::vector<std::unique_ptr<TestSequenceState>> test_states_;
+    size_t current_state_index_ = 0;
+    TestSequenceState* current_state_;
+  } test;
+
+  RunBaseTest(&test);
+}
+
 }  // namespace webrtc

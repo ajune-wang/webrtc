@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6c06c4f_f9d377e4",
+        "filename": "ortc/rtptransportadapter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "Need to pass through to transport_?",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d06a5d_5d76b71e",
+        "filename": "ortc/rtptransportadapter.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "I don\u0027t think this or the two methods below are needed. See comments for rtptransportcontrolleradapter.cc.",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e652969f_0a180e3f",
+        "filename": "ortc/rtptransportcontrolleradapter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "This isn\u0027t necessary any more. Previously it was necessary because the code below creates the BaseChannel and sets a description, which needed to contain the CryptoParams if using SRTP. But now that BaseChannel doesn\u0027t process the CryptoParams it should be fine to set them afterwards.",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f52c2d7b_309e0c4c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "It looks like this is the only place (besides a DCHECK) where encryption_disabled_ is used, and it\u0027s used to avoid prematurely attempting to send media before SRTP is set up.\n\nThis wouldn\u0027t be necessary if SrtpTransport::IsWritable was implemented as \"transport_-\u003eIsWritable() \u0026\u0026 IsActive()\", which would be the right thing to do based on how we define \"writable\". So I\u0027d suggest doing that and removing encryption_disabled_.",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3af45187_491b4831",
+        "filename": "pc/dtlssrtptransport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "Should return error or do RTC_NOTREACHED, since this class is meant to only use the key from the DTLS handshake.",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7a3008_8c48f270",
+        "filename": "pc/jseptransport2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "For this test to be robust, it should do something to ensure that the packet was actually received and OnReadPacket1/2 was called (previously \"CheckCustomRtp\" accomplished this). You could store a \"received packet\" count and make sure it\u0027s incremented, for example.",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e20902a7_bf45042c",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "Comment appears misplaced",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd563b34_90015d53",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "Should zero out the send_key_/recv_key_ memory afterwards; see https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8897",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15ec194c_f6abe4d4",
+        "filename": "pc/srtptransport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T01:11:49Z",
+      "side": 1,
+      "message": "Is this needed just for \"crypto_options\"? Since the crypto options are a PeerConnection-wide thing, there are cleaner ways to get them to BaseChannel. They could be passed into CreateVoiceChannel/etc. directly, for example.",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

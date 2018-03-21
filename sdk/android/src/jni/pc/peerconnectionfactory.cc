@@ -28,6 +28,7 @@
 #include "sdk/android/generated_peerconnection_jni/jni/PeerConnectionFactory_jni.h"
 #include "sdk/android/native_api/audio_device_module/audio_device_android.h"
 #include "sdk/android/native_api/jni/java_types.h"
+#include "sdk/android/src/jni/audio_device/audio_manager.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "sdk/android/src/jni/pc/androidnetworkmonitor.h"
 #include "sdk/android/src/jni/pc/audio.h"
@@ -102,7 +103,6 @@ void PeerConnectionFactorySignalingThreadReady() {
 static void JNI_PeerConnectionFactory_InitializeAndroidGlobals(
     JNIEnv* jni,
     const JavaParamRef<jclass>&,
-    const JavaParamRef<jobject>& context,
     jboolean video_hw_acceleration) {
   video_hw_acceleration_enabled = video_hw_acceleration;
   if (!factory_static_initialized) {
@@ -173,6 +173,7 @@ static void JNI_PeerConnectionFactory_ShutdownInternalTracer(
 
 jlong CreatePeerConnectionFactoryForJava(
     JNIEnv* jni,
+    const JavaParamRef<jobject>& jcontext,
     const JavaParamRef<jobject>& joptions,
     const JavaParamRef<jobject>& jencoder_factory,
     const JavaParamRef<jobject>& jdecoder_factory,
@@ -215,9 +216,11 @@ jlong CreatePeerConnectionFactoryForJava(
     rtc::NetworkMonitorFactory::SetFactory(network_monitor_factory);
   }
 
+  // TODO(magjed): A Java ADM should be passed in instead.
   rtc::scoped_refptr<AudioDeviceModule> adm =
       field_trial::IsEnabled(kExternalAndroidAudioDeviceFieldTrialName)
-          ? CreateAndroidAudioDeviceModule()
+          ? android_adm::AudioManager::CreateAudioDeviceModule(jni, jcontext,
+                                                               true, true)
           : nullptr;
   rtc::scoped_refptr<AudioMixer> audio_mixer = nullptr;
   std::unique_ptr<CallFactoryInterface> call_factory(CreateCallFactory());
@@ -295,6 +298,7 @@ jlong CreatePeerConnectionFactoryForJava(
 static jlong JNI_PeerConnectionFactory_CreatePeerConnectionFactory(
     JNIEnv* jni,
     const JavaParamRef<jclass>&,
+    const JavaParamRef<jobject>& jcontext,
     const JavaParamRef<jobject>& joptions,
     const JavaParamRef<jobject>& jencoder_factory,
     const JavaParamRef<jobject>& jdecoder_factory,
@@ -306,7 +310,7 @@ static jlong JNI_PeerConnectionFactory_CreatePeerConnectionFactory(
       reinterpret_cast<FecControllerFactoryInterface*>(
           native_fec_controller_factory));
   return CreatePeerConnectionFactoryForJava(
-      jni, joptions, jencoder_factory, jdecoder_factory,
+      jni, jcontext, joptions, jencoder_factory, jdecoder_factory,
       audio_processor ? audio_processor : CreateAudioProcessing(),
       std::move(fec_controller_factory));
 }

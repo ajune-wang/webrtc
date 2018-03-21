@@ -305,6 +305,12 @@ struct PortConfiguration : public rtc::MessageData {
 class UDPPort;
 class TurnPort;
 
+enum class PortAllocationResult {
+  SUCCESS = 0,
+  FAILURE_INFEASIBLE_CONFIG,
+  FAILURE_CREATION_ERROR,
+};
+
 // Performs the allocation of ports, in a sequenced (timed) manner, for a given
 // network and IP address.
 class AllocationSequence : public rtc::MessageHandler,
@@ -357,17 +363,17 @@ class AllocationSequence : public rtc::MessageHandler,
 
  protected:
   // For testing.
-  void CreateTurnPort(const RelayServerConfig& config);
+  PortAllocationResult CreateTurnPort(const RelayServerConfig& config);
 
  private:
   typedef std::vector<ProtocolType> ProtocolList;
 
   bool IsFlagSet(uint32_t flag) { return ((flags_ & flag) != 0); }
-  void CreateUDPPorts();
-  void CreateTCPPorts();
-  void CreateStunPorts();
-  void CreateRelayPorts();
-  void CreateGturnPort(const RelayServerConfig& config);
+  PortAllocationResult CreateUDPPorts();
+  PortAllocationResult CreateTCPPorts();
+  PortAllocationResult CreateStunPorts();
+  PortAllocationResult CreateRelayPorts();
+  PortAllocationResult CreateGturnPort(const RelayServerConfig& config);
 
   void OnReadPacket(rtc::AsyncPacketSocket* socket,
                     const char* data,
@@ -391,6 +397,7 @@ class AllocationSequence : public rtc::MessageHandler,
   UDPPort* udp_port_;
   std::vector<Port*> relay_ports_;
   int phase_;
+  int port_allocation_retries_ = 0;
 };
 
 }  // namespace cricket

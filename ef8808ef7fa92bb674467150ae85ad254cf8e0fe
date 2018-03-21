@@ -16,6 +16,24 @@
       "revId": "ef8808ef7fa92bb674467150ae85ad254cf8e0fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83168eab_97d12d97",
+        "filename": "sdk/android/api/org/webrtc/audio/AudioDeviceModule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-21T10:39:58Z",
+      "side": 1,
+      "message": "I see, I was a bit sloppy when I added this. I reordered it now.",
+      "parentUuid": "c543209a_5f3a9c18",
+      "revId": "ef8808ef7fa92bb674467150ae85ad254cf8e0fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

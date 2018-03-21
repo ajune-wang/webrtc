@@ -46,6 +46,30 @@
       "revId": "ce97913dfba8fd15cf0954a2cbbcd9be1a69074c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47dbbddc_74f9d4dc",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-21T13:25:00Z",
+      "side": 1,
+      "message": "In the end the expected effect will be that BBR will be used over GoogCC if feedback is available. This could be tested when the BBR experiment has landed.\n\nCurrently RtpTransportControllerSend is declared final to ensure that the vtable is valid in the destructor, so it wouldn\u0027t be possible to inherit from it.",
+      "parentUuid": "261f406d_49177a5f",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "ce97913dfba8fd15cf0954a2cbbcd9be1a69074c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

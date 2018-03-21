@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31ad2730_7485be44",
+        "filename": "sdk/android/api/org/webrtc/CameraVideoCapturer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "It looks like this.surfaceTextureHelper is not really nullable since this check is in place.",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 137,
+        "endChar": 55
+      },
+      "revId": "d0f3fb6a48d240fe989da5e4d5375b53c79673fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

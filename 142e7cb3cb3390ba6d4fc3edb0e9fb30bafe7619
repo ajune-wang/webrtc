@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6489f091_30c6f2cc",
+        "filename": "sdk/android/api/org/webrtc/CameraVideoCapturer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "I think this.surfaceTextureHelper will never be null due to this check.",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 137,
+        "endChar": 55
+      },
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88c9b0da_7df37025",
+        "filename": "sdk/android/api/org/webrtc/JavaI420Buffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "No longer used.",
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "109a1b3b_989080db",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "http://go/java-practices/null#collection\n\nThese do not have to be nullable as they get initialized to non-null values in the constructor.",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 45
+      },
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32514859_519a6ad2",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "uri and urls are not Nullable, so these checks should not be necessary.",
+      "range": {
+        "startLine": 164,
+        "startChar": 10,
+        "endLine": 164,
+        "endChar": 37
+      },
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc2de9ec_71fd4e51",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "This is not allowed to be null in the setter.",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 68
+      },
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e443302a_b64464de",
+        "filename": "sdk/android/api/org/webrtc/ScreenCapturerAndroid.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "This check is unnecessary now.",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 35
+      },
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9088ec22_90bf8ef7",
+        "filename": "sdk/android/api/org/webrtc/ScreenCapturerAndroid.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "Can we make the surfaceTextureHelper parameter non-nullable to skip this check?",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 39
+      },
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fd8bf4d_c69d30e0",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "Buffer is not allowed to be null in constructor.",
+      "range": {
+        "startLine": 123,
+        "startChar": 2,
+        "endLine": 123,
+        "endChar": 40
+      },
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf908f49_cf117b84",
+        "filename": "sdk/android/api/org/webrtc/VideoFrame.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T15:28:53Z",
+      "side": 1,
+      "message": "If buffer is not Nullable this is not needed either.",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 140,
+        "endChar": 11
+      },
+      "revId": "142e7cb3cb3390ba6d4fc3edb0e9fb30bafe7619",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

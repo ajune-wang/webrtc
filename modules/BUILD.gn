@@ -271,9 +271,9 @@ if (rtc_include_tests) {
       deps += [ "desktop_capture:desktop_capture_unittests" ]
     }
 
-    if (!build_with_mozilla) {
-      deps += [ "video_capture" ]
-    }
+    # if (!build_with_mozilla) {
+    #   deps += [ "video_capture" ]
+    # }
 
     data = modules_unittests_resources
 

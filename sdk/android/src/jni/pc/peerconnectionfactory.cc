@@ -13,7 +13,6 @@
 #include <memory>
 #include <utility>
 
-#include "api/peerconnectioninterface.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/base/mediaengine.h"
@@ -93,6 +92,24 @@ void PeerConnectionFactorySignalingThreadReady() {
   RTC_LOG(LS_INFO) << "Signaling thread JavaCallback";
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   Java_PeerConnectionFactory_onSignalingThreadReady(env);
+}
+
+jobject NativeToJavaPeerConnectionFactory(
+    JNIEnv* jni,
+    rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pcf,
+    std::unique_ptr<rtc::Thread> network_thread,
+    std::unique_ptr<rtc::Thread> worker_thread,
+    std::unique_ptr<rtc::Thread> signaling_thread,
+    rtc::NetworkMonitorFactory* network_monitor_factory) {
+  jni::OwnedFactoryAndThreads* owned_factory = new jni::OwnedFactoryAndThreads(
+      std::move(network_thread), std::move(worker_thread),
+      std::move(signaling_thread), nullptr, nullptr, network_monitor_factory,
+      pcf.release());
+  owned_factory->InvokeJavaCallbacksOnFactoryThreads();
+
+  return Java_PeerConnectionFactory_Constructor(jni,
+                                                jlongFromPointer(owned_factory))
+      .Release();
 }
 
 static void JNI_PeerConnectionFactory_InitializeAndroidGlobals(

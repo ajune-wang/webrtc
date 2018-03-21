@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99b1a5e6_858d1a49",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-21T13:32:45Z",
+      "side": 1,
+      "message": "The style guide wants this to be `class`: https://google.github.io/styleguide/cppguide.html#Structs_vs._Classes",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "89d9fd5918823c2ec5f5083b4d702e85d0503ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d53f6a0_0c56f195",
+        "filename": "api/video/video_stream_decoder_create.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-21T13:32:45Z",
+      "side": 1,
+      "message": "Move this comment to the declaration instead? (In the .h file.)",
+      "revId": "89d9fd5918823c2ec5f5083b4d702e85d0503ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

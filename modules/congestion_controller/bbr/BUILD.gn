@@ -10,11 +10,14 @@ import("../../../webrtc.gni")
 
 rtc_static_library("bbr") {
   sources = [
+    "data_transfer_tracker.cc",
+    "data_transfer_tracker.h",
     "rtt_stats.cc",
     "rtt_stats.h",
   ]
 
   deps = [
+    "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
     "../network_control",
   ]
@@ -25,6 +28,7 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
+      "data_transfer_tracker_unittest.cc",
       "rtt_stats_unittest.cc",
     ]
     deps = [

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3a7602b_ab5641b1",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-21T10:18:19Z",
+      "side": 1,
+      "message": "How can the caller affect this if we set it to zero here?",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 181,
+        "endChar": 13
+      },
+      "revId": "2d700ca2c9a1be17fe0c375b056fa86fa1a82429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

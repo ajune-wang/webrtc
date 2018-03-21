@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2abae293_455fa788",
+        "filename": "call/receive_time_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-21T08:38:36Z",
+      "side": 1,
+      "message": "Thanks for the explanation. I\u0027d appreciate a comment mentioning that important case.",
+      "parentUuid": "6a7b5ba4_8312a3c7",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 54
+      },
+      "revId": "55fac04182b8bfa31f67b229e12a7701fdd4637f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4f4da4e_02f4ec7d",
         "filename": "call/receive_time_calculator.h",
         "patchSetId": 3

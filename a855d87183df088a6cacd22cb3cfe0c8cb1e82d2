@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16d7d0ac_143db428",
+        "filename": "media/base/rtputils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T20:57:41Z",
+      "side": 1,
+      "message": "Maybe move the payload type comments to the .cc file (since it\u0027s an implementation detail).",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "294a9390_99efa3bc",
+        "filename": "pc/channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T20:57:41Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK(rtp_transport_);\n\n(Here and in RegisterRtpDemuxerSink)",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b49639ec_c4078971",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 5328,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T20:57:41Z",
+      "side": 1,
+      "message": "These should go in the CreateVoiceChannel/CreateVideoChannel/CreateDataChannel methods. Then they will also work for Unified Plan.",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6676e5b0_00f6ff99",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T20:57:41Z",
+      "side": 1,
+      "message": "Report an error if AddSink fails?",
+      "range": {
+        "startLine": 148,
+        "startChar": 2,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfd6f09c_9c2c03ca",
+        "filename": "pc/rtptransport_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T20:57:41Z",
+      "side": 1,
+      "message": "\u003d {0x11};",
+      "range": {
+        "startLine": 258,
+        "startChar": 32,
+        "endLine": 258,
+        "endChar": 67
+      },
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53da02c0_823e884a",
+        "filename": "pc/rtptransport_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T20:57:41Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 282,
+        "startChar": 32,
+        "endLine": 282,
+        "endChar": 67
+      },
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

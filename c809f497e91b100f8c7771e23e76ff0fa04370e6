@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "bd0172dd_38c452ff",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-03-21T11:11:10Z",
+      "side": 1,
+      "message": "Yes, that sounds like what we talked about. The code in this CL will make pairing work in the single-connection-per-WebRtcVoiceEngine-instance case, and won\u0027t break other cases (but pairing won\u0027t work there).",
+      "parentUuid": "f3556b5a_c77640ac",
+      "revId": "c809f497e91b100f8c7771e23e76ff0fa04370e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8deaf4ae_53d147f3",
         "filename": "modules/audio_coding/neteq/packet_buffer_unittest.cc",
         "patchSetId": 2

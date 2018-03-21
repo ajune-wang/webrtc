@@ -30,9 +30,9 @@ TEST(RtpPayloadRegistryTest,
   const uint8_t payload_type = 97;
   VideoCodec video_codec;
   video_codec.codecType = kVideoCodecVP8;
-  video_codec.plType = payload_type;
 
-  EXPECT_EQ(0, rtp_payload_registry.RegisterReceivePayload(video_codec));
+  EXPECT_EQ(0, rtp_payload_registry.RegisterReceivePayload(payload_type,
+                                                           video_codec));
 
   const auto retrieved_payload =
       rtp_payload_registry.PayloadTypeToPayload(payload_type);

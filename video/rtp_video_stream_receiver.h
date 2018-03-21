@@ -76,7 +76,8 @@ class RtpVideoStreamReceiver : public RtpData,
       video_coding::OnCompleteFrameCallback* complete_frame_callback);
   ~RtpVideoStreamReceiver();
 
-  bool AddReceiveCodec(const VideoCodec& video_codec,
+  bool AddReceiveCodec(int payload_type,
+                       const VideoCodec& video_codec,
                        const std::map<std::string, std::string>& codec_params);
   uint32_t GetRemoteSsrc() const;
   int GetCsrcs(uint32_t* csrcs) const;
@@ -148,7 +149,7 @@ class RtpVideoStreamReceiver : public RtpData,
   void RemoveSecondarySink(const RtpPacketSinkInterface* sink);
 
  private:
-  bool AddReceiveCodec(const VideoCodec& video_codec);
+  bool AddReceiveCodec(int payload_type, const VideoCodec& video_codec);
   void ReceivePacket(const uint8_t* packet,
                      size_t packet_length,
                      const RTPHeader& header);

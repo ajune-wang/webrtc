@@ -70,6 +70,8 @@ void UpdateAvgRttMs(std::list<CallStats::RttTime>* reports, int64_t* avg_rtt) {
 }
 }  // namespace
 
+// TODO(tommi): Seems like CallStats might as well just implement this
+// interface.
 class RtcpObserver : public RtcpRttStats {
  public:
   explicit RtcpObserver(CallStats* owner) : owner_(owner) {}
@@ -80,6 +82,7 @@ class RtcpObserver : public RtcpRttStats {
   }
 
   // Returns the average RTT.
+  // TODO(tommi): Seems to be called from random threads.
   virtual int64_t LastProcessedRtt() const {
     return owner_->avg_rtt_ms();
   }
@@ -98,24 +101,32 @@ CallStats::CallStats(Clock* clock)
       avg_rtt_ms_(-1),
       sum_avg_rtt_ms_(0),
       num_avg_rtt_(0),
-      time_of_first_rtt_ms_(-1) {}
+      time_of_first_rtt_ms_(-1) {
+  process_thread_checker_.DetachFromThread();
+}
 
 CallStats::~CallStats() {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK(!process_thread_);
   RTC_DCHECK(observers_.empty());
+
   UpdateHistograms();
 }
 
 int64_t CallStats::TimeUntilNextProcess() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   return last_process_time_ + kUpdateIntervalMs - clock_->TimeInMilliseconds();
 }
 
 void CallStats::Process() {
-  rtc::CritScope cs(&crit_);
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   int64_t now = clock_->TimeInMilliseconds();
   if (now < last_process_time_ + kUpdateIntervalMs)
     return;
 
   last_process_time_ = now;
+
+  rtc::CritScope cs(&crit_);
 
   RemoveOldReports(now, &reports_);
   max_rtt_ms_ = GetMaxRttMs(&reports_);
@@ -134,6 +145,11 @@ void CallStats::Process() {
   }
 }
 
+void CallStats::ProcessThreadAttached(ProcessThread* process_thread) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  process_thread_ = process_thread;
+}
+
 int64_t CallStats::avg_rtt_ms() const {
   rtc::CritScope cs(&crit_);
   return avg_rtt_ms_;
@@ -144,6 +160,7 @@ RtcpRttStats* CallStats::rtcp_rtt_stats() const {
 }
 
 void CallStats::RegisterStatsObserver(CallStatsObserver* observer) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtc::CritScope cs(&crit_);
   for (std::list<CallStatsObserver*>::iterator it = observers_.begin();
        it != observers_.end(); ++it) {
@@ -154,6 +171,7 @@ void CallStats::RegisterStatsObserver(CallStatsObserver* observer) {
 }
 
 void CallStats::DeregisterStatsObserver(CallStatsObserver* observer) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtc::CritScope cs(&crit_);
   for (std::list<CallStatsObserver*>::iterator it = observers_.begin();
        it != observers_.end(); ++it) {
@@ -165,6 +183,8 @@ void CallStats::DeregisterStatsObserver(CallStatsObserver* observer) {
 }
 
 void CallStats::OnRttUpdate(int64_t rtt) {
+  // RTC_DCHECK(process_thread_);// TODO(tommi): Can't check this unless its
+  // const.
   rtc::CritScope cs(&crit_);
   int64_t now_ms = clock_->TimeInMilliseconds();
   reports_.push_back(RttTime(rtt, now_ms));
@@ -173,7 +193,13 @@ void CallStats::OnRttUpdate(int64_t rtt) {
 }
 
 void CallStats::UpdateHistograms() {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK(!process_thread_);
+  // TODO(tommi): This is called from the dtor. Can we assume that other threads
+  // are not making calls into this module now?  At least assume the process
+  // thread isn't attached?
   rtc::CritScope cs(&crit_);
+
   if (time_of_first_rtt_ms_ == -1 || num_avg_rtt_ < 1)
     return;
 

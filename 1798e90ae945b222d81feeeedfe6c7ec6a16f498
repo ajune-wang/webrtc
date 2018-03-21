@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "e6da0f69_dfd5f559",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T21:12:37Z",
+      "side": 1,
+      "message": "I think that would be a good idea since it would also make AddRecvStream/RemoveRecvStream symmetrical for the unsignaled case.",
+      "parentUuid": "88f3ce63_c7a4dc07",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ddc7eacd_aae12b2f",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -115,6 +133,86 @@
       "writtenOn": "2018-03-21T17:23:36Z",
       "side": 1,
       "message": "The code below only adds an audio track though",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06cb4abe_1590b6b0",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T21:12:37Z",
+      "side": 1,
+      "message": "Move this below to where it is assigned.",
+      "range": {
+        "startLine": 568,
+        "startChar": 2,
+        "endLine": 568,
+        "endChar": 37
+      },
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86145b81_9ee9518c",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T21:12:37Z",
+      "side": 1,
+      "message": "Don\u0027t need this (same below).",
+      "range": {
+        "startLine": 580,
+        "startChar": 35,
+        "endLine": 580,
+        "endChar": 74
+      },
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53bd41eb_bd8b9148",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T21:12:37Z",
+      "side": 1,
+      "message": "EXPECT_EQ({kStreamId1, kStreamId2}, receivers[0]-\u003estreams());",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffab0519_549f3742",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-21T21:12:37Z",
+      "side": 1,
+      "message": "EXPECT_EQ({kStreamId2}, receivers[0]-\u003estreams());",
       "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

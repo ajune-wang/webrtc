@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3831af0e_2c08fe28",
+        "filename": "call/receive_time_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-03-21T08:33:25Z",
+      "side": 1,
+      "message": "Only potential problem I can see with such slight async (as before there was no sync at all) is in log/bug analysis because clocks readings may now appear to come from same clock, but they actually do not. That may be confusing.",
+      "parentUuid": "c73e1355_0221140f",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 62
+      },
+      "revId": "55fac04182b8bfa31f67b229e12a7701fdd4637f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eceaa8c4_b0aa9152",
         "filename": "call/receive_time_calculator.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-20T15:59:55Z",
       "side": 1,
       "message": "Apply absolute value?",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 54
+      },
+      "revId": "55fac04182b8bfa31f67b229e12a7701fdd4637f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a7b5ba4_8312a3c7",
+        "filename": "call/receive_time_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-03-21T08:33:25Z",
+      "side": 1,
+      "message": "No abs. safe_delta_us may make a big skip due to app backgrounding (this is reason we use socket readings in the first place). We do not want to reset in this case.",
+      "parentUuid": "eceaa8c4_b0aa9152",
       "range": {
         "startLine": 51,
         "startChar": 44,

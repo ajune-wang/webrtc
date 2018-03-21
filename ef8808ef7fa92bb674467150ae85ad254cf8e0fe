@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c543209a_5f3a9c18",
+        "filename": "sdk/android/api/org/webrtc/audio/AudioDeviceModule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-21T08:16:02Z",
+      "side": 1,
+      "message": "The AudioDeviceModule class is currently ordered by which of the WebRtcAudio classes it calls, so if we want to preserve that these should be put under /* AudioRecord */. Otherwise the ordering comments should be removed.",
+      "revId": "ef8808ef7fa92bb674467150ae85ad254cf8e0fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

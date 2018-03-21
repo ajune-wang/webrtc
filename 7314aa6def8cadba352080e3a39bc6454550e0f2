@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "701b826b_574fe95d",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-21T12:10:56Z",
+      "side": 1,
+      "message": "Do you expect the same object to want all the callbacks? Lumping them all together in a single interface makes sense for a start, but longer term, I\u0027d imagine we might want different paths for frame data, control signals, and stats.",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "7314aa6def8cadba352080e3a39bc6454550e0f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7178f659_9cdc308e",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-21T12:10:56Z",
+      "side": 1,
+      "message": "I take it it needs ownership for buffering?\n\nOn the encode side, things are organized differently, a small class VideoFrame, usually passed by const reference, but cheap to copy. This holds a reference to a large and reference counted object VideoFrameBuffer.",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "7314aa6def8cadba352080e3a39bc6454550e0f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "359816da_d9775f67",
+        "filename": "api/video/video_stream_decoder_create.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-21T12:10:56Z",
+      "side": 1,
+      "message": "Are you sure this is fixed at construction time, with no need to add payload types later?\n\nThe mapping needs some documentation, in particular, it\u0027s unclear to me what the second int (in the value type) represents.",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 66
+      },
+      "revId": "7314aa6def8cadba352080e3a39bc6454550e0f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -85,20 +85,6 @@ void swap(SdpAudioFormat& a, SdpAudioFormat& b) {
   swap(a.parameters, b.parameters);
 }
 
-std::ostream& operator<<(std::ostream& os, const SdpAudioFormat& saf) {
-  os << "{name: " << saf.name;
-  os << ", clockrate_hz: " << saf.clockrate_hz;
-  os << ", num_channels: " << saf.num_channels;
-  os << ", parameters: {";
-  const char* sep = "";
-  for (const auto& kv : saf.parameters) {
-    os << sep << kv.first << ": " << kv.second;
-    sep = ", ";
-  }
-  os << "}}";
-  return os;
-}
-
 AudioCodecInfo::AudioCodecInfo(int sample_rate_hz,
                                size_t num_channels,
                                int bitrate_bps)
@@ -139,18 +125,6 @@ std::string AudioCodecInfo::ToString() const {
   return sb.str();
 }
 
-std::ostream& operator<<(std::ostream& os, const AudioCodecInfo& aci) {
-  os << "{sample_rate_hz: " << aci.sample_rate_hz;
-  os << ", num_channels: " << aci.num_channels;
-  os << ", default_bitrate_bps: " << aci.default_bitrate_bps;
-  os << ", min_bitrate_bps: " << aci.min_bitrate_bps;
-  os << ", max_bitrate_bps: " << aci.max_bitrate_bps;
-  os << ", allow_comfort_noise: " << aci.allow_comfort_noise;
-  os << ", supports_network_adaption: " << aci.supports_network_adaption;
-  os << "}";
-  return os;
-}
-
 std::string AudioCodecSpec::ToString() const {
   char sb_buf[1024];
   rtc::SimpleStringBuilder sb(sb_buf);
@@ -158,13 +132,6 @@ std::string AudioCodecSpec::ToString() const {
   sb << ", info: " << info.ToString();
   sb << "}";
   return sb.str();
-}
-
-std::ostream& operator<<(std::ostream& os, const AudioCodecSpec& acs) {
-  os << "{format: " << acs.format;
-  os << ", info: " << acs.info;
-  os << "}";
-  return os;
 }
 
 }  // namespace webrtc

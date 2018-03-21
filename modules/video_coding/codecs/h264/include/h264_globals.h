@@ -40,19 +40,6 @@ enum class H264PacketizationMode {
 // This function is declared inline because it is not clear which
 // .cc file it should belong to.
 // TODO(hta): Refactor. https://bugs.webrtc.org/6842
-inline std::ostream& operator<<(std::ostream& stream,
-                                H264PacketizationMode mode) {
-  switch (mode) {
-    case H264PacketizationMode::NonInterleaved:
-      stream << "NonInterleaved";
-      break;
-    case H264PacketizationMode::SingleNalUnit:
-      stream << "SingleNalUnit";
-      break;
-  }
-  return stream;
-}
-
 inline std::string ToString(H264PacketizationMode mode) {
   if(mode == H264PacketizationMode::NonInterleaved) {
     return "NonInterleaved";

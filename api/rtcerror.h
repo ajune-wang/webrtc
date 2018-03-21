@@ -143,8 +143,6 @@ class RTCError {
 // error type.
 //
 // Only intended to be used for logging/disagnostics.
-std::ostream& operator<<(std::ostream& stream, RTCErrorType error);
-
 std::string ToString(RTCErrorType error);
 
 // Helper macro that can be used by implementations to create an error with a

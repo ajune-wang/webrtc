@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa99f836_6be4fad5",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-03-21T14:47:50Z",
+      "side": 1,
+      "message": "strongly_diverged_filter will be the same as diverged_filter?\ndiverged_blocks_ is only zero if diverged_filter it false.",
+      "revId": "1043a79388a615ec5ad9de81f3841d0cb2efe3aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "170a637b_a16a80ab",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-03-21T14:47:50Z",
+      "side": 1,
+      "message": "|| true? :-)",
+      "revId": "1043a79388a615ec5ad9de81f3841d0cb2efe3aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

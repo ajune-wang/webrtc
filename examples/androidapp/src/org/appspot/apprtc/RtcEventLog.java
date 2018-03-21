@@ -12,6 +12,7 @@ package org.appspot.apprtc;
 
 import android.content.Context;
 import android.os.ParcelFileDescriptor;
+import javax.annotation.Nullable;
 import android.util.Log;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import org.webrtc.PeerConnection;
 public class RtcEventLog {
   private static final String TAG = "RtcEventLog";
   private static final int OUTPUT_FILE_MAX_BYTES = 10_000_000;
+  @Nullable
   private final PeerConnection peerConnection;
   private RtcEventLogState state = RtcEventLogState.INACTIVE;
 
@@ -29,7 +31,7 @@ public class RtcEventLog {
     STOPPED,
   }
 
-  public RtcEventLog(PeerConnection peerConnection) {
+  public RtcEventLog(@Nullable PeerConnection peerConnection) {
     if (peerConnection == null) {
       throw new NullPointerException("The peer connection is null.");
     }

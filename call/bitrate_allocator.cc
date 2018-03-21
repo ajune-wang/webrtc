@@ -59,6 +59,7 @@ BitrateAllocator::BitrateAllocator(LimitObserver* limit_observer)
       last_bwe_log_time_(0),
       total_requested_padding_bitrate_(0),
       total_requested_min_bitrate_(0),
+      total_requested_max_bitrate_(0),
       has_packet_feedback_(false),
       bitrate_allocation_strategy_(nullptr),
       transmission_max_bitrate_multiplier_(
@@ -212,12 +213,14 @@ void BitrateAllocator::UpdateAllocationLimits() {
 
   if (total_requested_padding_bitrate == total_requested_padding_bitrate_ &&
       total_requested_min_bitrate == total_requested_min_bitrate_ &&
+      total_requested_bitrate == total_requested_max_bitrate_&&
       has_packet_feedback == has_packet_feedback_) {
     return;
   }
 
   total_requested_min_bitrate_ = total_requested_min_bitrate;
   total_requested_padding_bitrate_ = total_requested_padding_bitrate;
+  total_requested_max_bitrate_ = total_requested_bitrate;
   has_packet_feedback_ = has_packet_feedback;
 
   RTC_LOG(LS_INFO) << "UpdateAllocationLimits : total_requested_min_bitrate: "

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "18cb8892_f7eb01cc",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-21T23:31:33Z",
+      "side": 1,
+      "message": "Thanks! That is a great find! I\u0027ll correct that.",
+      "parentUuid": "aa99f836_6be4fad5",
+      "revId": "1043a79388a615ec5ad9de81f3841d0cb2efe3aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "170a637b_a16a80ab",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 22
@@ -33,6 +51,24 @@
       "revId": "1043a79388a615ec5ad9de81f3841d0cb2efe3aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4aaf059_331ea57f",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-21T23:31:33Z",
+      "side": 1,
+      "message": "That was definitely not a correct expression. I\u0027ve removed the code that was made reduntant by this.",
+      "parentUuid": "170a637b_a16a80ab",
+      "revId": "1043a79388a615ec5ad9de81f3841d0cb2efe3aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

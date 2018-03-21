@@ -18,8 +18,9 @@ namespace webrtc {
 // Configuration struct for EchoCanceller3
 struct EchoCanceller3Config {
   EchoCanceller3Config();
-
+  EchoCanceller3Config(const EchoCanceller3Config& e);
   struct Delay {
+    Delay();
     size_t default_delay = 5;
     size_t down_sampling_factor = 4;
     size_t num_filters = 5;
@@ -30,6 +31,10 @@ struct EchoCanceller3Config {
     size_t hysteresis_limit_2_blocks = 1;
     size_t skew_hysteresis_blocks = 1;
   } delay;
+
+  struct EchoRemoverDelay {
+    bool use_echo_remover_delay_filter = true;
+  } echo_remover_delay;
 
   struct Filter {
     struct MainConfiguration {
@@ -52,19 +57,21 @@ struct EchoCanceller3Config {
     MainConfiguration main_initial = {12, 0.05f, 5.f, 0.001f, 20075344.f};
     ShadowConfiguration shadow_initial = {12, 0.9f, 20075344.f};
 
+    ShadowConfiguration echo_remover_delay_filter = {40, 1.f, 200753440.f};
+
     size_t config_change_duration_blocks = 250;
   } filter;
 
   struct Erle {
     float min = 1.f;
-    float max_l = 8.f;
+    float max_l = 4.f;
     float max_h = 1.5f;
   } erle;
 
   struct EpStrength {
-    float lf = 10.f;
-    float mf = 10.f;
-    float hf = 10.f;
+    float lf = 2.f;
+    float mf = 2.f;
+    float hf = 2.f;
     float default_len = 0.f;
     bool echo_can_saturate = true;
     bool bounded_erl = false;

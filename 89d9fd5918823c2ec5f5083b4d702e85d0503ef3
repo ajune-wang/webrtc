@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da9be3e5_22dac3d0",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99b1a5e6_858d1a49",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "89d9fd5918823c2ec5f5083b4d702e85d0503ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d53f6a0_0c56f195",
         "filename": "api/video/video_stream_decoder_create.cc",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "89d9fd5918823c2ec5f5083b4d702e85d0503ef3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0ac3c81_0e182417",
+        "filename": "api/video/video_stream_decoder_create.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T14:25:24Z",
+      "side": 1,
+      "message": "Oops, done :)",
+      "parentUuid": "0d53f6a0_0c56f195",
+      "revId": "89d9fd5918823c2ec5f5083b4d702e85d0503ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

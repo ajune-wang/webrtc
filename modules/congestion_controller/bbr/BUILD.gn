@@ -14,6 +14,7 @@ rtc_static_library("bbr") {
     "data_transfer_tracker.h",
     "rtt_stats.cc",
     "rtt_stats.h",
+    "windowed_filter.h",
   ]
 
   deps = [
@@ -30,6 +31,7 @@ if (rtc_include_tests) {
     sources = [
       "data_transfer_tracker_unittest.cc",
       "rtt_stats_unittest.cc",
+      "windowed_filter_unittest.cc",
     ]
     deps = [
       ":bbr",

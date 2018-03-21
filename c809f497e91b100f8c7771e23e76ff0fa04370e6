@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f3556b5a_c77640ac",
+        "filename": "media/engine/webrtcvoiceengine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-03-21T10:38:43Z",
+      "side": 1,
+      "message": "I wonder: could there be a case where you\u0027d have two sending streams (to different peers) and two receiving streams (from different peers) in the same WebRtcVoiceEngine? Then, without any sort of grouping, there\u0027s a 50/50 chance the encoders and decoders are paired incorrectly. Perhaps one is on 3G and the other on Gigabit Ethernet.\n\nPerhaps you\u0027d only have one single peer at the far end in each WebRtcVoiceEngine instance (either a peer or a server that routes the media)? Then it probably won\u0027t matter as much, since at least there\u0027ll only be one \"network\" between the two sides.",
+      "parentUuid": "92cad367_e2fbb881",
+      "revId": "c809f497e91b100f8c7771e23e76ff0fa04370e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8deaf4ae_53d147f3",
         "filename": "modules/audio_coding/neteq/packet_buffer_unittest.cc",
         "patchSetId": 2

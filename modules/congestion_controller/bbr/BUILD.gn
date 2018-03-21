@@ -23,11 +23,17 @@ rtc_static_library("rtt_stats") {
   sources = [
     "rtt_stats.cc",
     "rtt_stats.h",
+    "windowed_filter.h",
   ]
   deps = [
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
     "../network_control",
+  ]
+}
+rtc_static_library("windowed_filter") {
+  sources = [
+    "windowed_filter.h",
   ]
 }
 if (rtc_include_tests) {
@@ -36,10 +42,12 @@ if (rtc_include_tests) {
     sources = [
       "data_transfer_tracker_unittest.cc",
       "rtt_stats_unittest.cc",
+      "windowed_filter_unittest.cc",
     ]
     deps = [
       ":data_transfer_tracker",
       ":rtt_stats",
+      ":windowed_filter",
       "../../../test:test_support",
       "../network_control",
     ]

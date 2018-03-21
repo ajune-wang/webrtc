@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edbd4554_e9b5ffc0",
+        "filename": "modules/congestion_controller/bbr/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T14:21:06Z",
+      "side": 1,
+      "message": "We are moving towards having more fine grained target, so RttStats should have it\u0027s own target.",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2ffd0c3_a3f2c300",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T14:21:06Z",
+      "side": 1,
+      "message": "Remove comment",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1294b232_aa697743",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T14:21:06Z",
+      "side": 1,
+      "message": "Maybe implement a copy ctor for TimeDelta?",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d90953_4aeaa70c",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-21T14:21:06Z",
+      "side": 1,
+      "message": "Trying to set a negative RTT is a programmer error, right? In that case use RTC_CHECK instead.",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

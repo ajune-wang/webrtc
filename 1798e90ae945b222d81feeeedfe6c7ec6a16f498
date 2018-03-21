@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "470cd071_2fd38e79",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "uber nit: Prefer capitalizing \"SSRCs\"/\"SSRC\" in comments",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88f3ce63_c7a4dc07",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "Do we ever need to remove the \"unsignaled stream params\"? For example, if a new description is set with no \"a\u003dmsid\" at all, or with \"a\u003dssrc\"s?",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddc7eacd_aae12b2f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "I\u0027d rephrase this comment as: \"We allow a StreamParams with an empty list of SSRCs, in which case the MediaChannel will cache the parameters and use them for any unsignaled stream received later.\"",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be24215e_35ed09a1",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "Right now, this will always evaluate to \"true\" when SSRCs are absent because first_ssrc() will return 0, and \"GetStreamBySsrc(remote_streams_, 0)\" calls \"has_ssrc(0)\" which will always be false.\n\nAssuming this is intentional, I\u0027d suggest making this more explicit by doing:\n\nif (!it-\u003ehas_ssrcs() || !GetStreamBySsrc(remote_streams_, it-\u003efirst_ssrc()))",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc874a48_08c4df3d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3929,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "The code below seems to use an empty stream ID rather than generating one",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "182e81c1_f279ea68",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3935,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "Is this comment effectively saying \"we should skip to creating the default stream/track if params.ssrcs is empty\"? Could that be done in this CL?",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1956f9e8_82900535",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "The code below only adds an audio track though",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa5f4bf_60a12960",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2966,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "nit: SCTP and RTP are typically capitalized in comments too",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c689d8_8fa2cf4b",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-21T17:23:36Z",
+      "side": 1,
+      "message": "As with https://webrtc-review.googlesource.com/c/src/+/61341, I think the test could be easier to understand/maintain if it used an existing reference description, removing an SSRC line (with Replace) and doing \"audio_desc-\u003emutable_streams()[0].ssrcs.clear()\" in the test body itself. The advantages being:\n\n* Less code (I\u0027d assume)\n* More self-contained; all code specific to the test would be in the test body itself.\n* Easier to verify the correctness of the test. All you need to see is that the modifications made to the reference SDP and reference description match, rather than verifying that the entirety of kUnifiedPlanSdpNoSsrcSignaling matches the \"base\" reference description + MakeUnifiedPlanDescriptionNoSsrcSignaling.\n\nYou don\u0027t have to rewrite it, but I\u0027d recommend at least considering this sort of thing in the future.",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

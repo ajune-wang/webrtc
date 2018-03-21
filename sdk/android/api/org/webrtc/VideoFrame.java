@@ -14,6 +14,7 @@ import android.graphics.Matrix;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import java.nio.ByteBuffer;
+import javax.annotation.Nullable;
 
 /**
  * Java version of webrtc::VideoFrame and webrtc::VideoFrameBuffer. A difference from the C++
@@ -39,7 +40,7 @@ public class VideoFrame {
      * conversion will take place. All implementations must provide a fallback to I420 for
      * compatibility with e.g. the internal WebRTC software encoders.
      */
-    @CalledByNative("Buffer") I420Buffer toI420();
+    @Nullable @CalledByNative("Buffer") I420Buffer toI420();
 
     /**
      * Reference counting is needed since a video buffer can be shared between multiple VideoSinks,
@@ -52,6 +53,7 @@ public class VideoFrame {
      * Crops a region defined by |cropx|, |cropY|, |cropWidth| and |cropHeight|. Scales it to size
      * |scaleWidth| x |scaleHeight|.
      */
+    @Nullable
     @CalledByNative("Buffer")
     Buffer cropAndScale(
         int cropX, int cropY, int cropWidth, int cropHeight, int scaleWidth, int scaleHeight);
@@ -118,7 +120,7 @@ public class VideoFrame {
     public Matrix getTransformMatrix();
   }
 
-  private final Buffer buffer;
+  @Nullable private final Buffer buffer;
   private final int rotation;
   private final long timestampNs;
 
@@ -135,6 +137,7 @@ public class VideoFrame {
     this.timestampNs = timestampNs;
   }
 
+  @Nullable
   @CalledByNative
   public Buffer getBuffer() {
     return buffer;

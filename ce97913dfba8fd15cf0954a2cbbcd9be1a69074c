@@ -22,6 +22,30 @@
       "revId": "ce97913dfba8fd15cf0954a2cbbcd9be1a69074c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "261f406d_49177a5f",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-21T13:05:13Z",
+      "side": 1,
+      "message": "For an end to end test, there really has to be some observable effect of this flag.\n\nAn accessor GetPerPacketFeedbackAvailable on SSCC would be more natural, but I\u0027m not sure if it would help this test.\n\nI take it this flag is used to check calls to RtpTransportControllerSend::SetPerPacketFeedbackAvailable. Could the test be organized to inject some subclass of RtpTransportControllerSend where you are in control of this method? If I\u0027ve understood things correctly, end-to-end tests use Call, and it makes sense to inject RtpTransportControllerSend  in Call.",
+      "parentUuid": "64234460_ef0697e8",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "ce97913dfba8fd15cf0954a2cbbcd9be1a69074c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

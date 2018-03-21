@@ -22,6 +22,30 @@
       "revId": "2d700ca2c9a1be17fe0c375b056fa86fa1a82429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20a69978_0eba3f5d",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-21T11:50:01Z",
+      "side": 1,
+      "message": "This function returns the object, and the caller needs to modify the return value if it needs plType to be set.\n\nNow, the codec is passed to CreateBitrateAllocator with plType still zero (and it\u0027s not used). The other call is from VideoStreamEncoder, which passes the codec on to vcm::VideoSender::RegisterSendCodec, which no longer cares about the codec type.\n\nI\u0027ll update the comment to say that callers don\u0027t use it.",
+      "parentUuid": "c3a7602b_ab5641b1",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 181,
+        "endChar": 13
+      },
+      "revId": "2d700ca2c9a1be17fe0c375b056fa86fa1a82429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

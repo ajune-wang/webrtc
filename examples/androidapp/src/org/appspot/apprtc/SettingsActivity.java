@@ -206,7 +206,8 @@ public class SettingsActivity extends Activity implements OnSharedPreferenceChan
   }
 
   @Override
-  public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+  public void onSharedPreferenceChanged(
+      SharedPreferences sharedPreferences, String key) {
     // clang-format off
     if (key.equals(keyprefResolution)
         || key.equals(keyprefFps)

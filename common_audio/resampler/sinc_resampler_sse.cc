@@ -15,12 +15,16 @@
 
 #include <xmmintrin.h>
 
+#include "rtc_base/checks.h"
+
 namespace webrtc {
 
 float SincResampler::Convolve_SSE(const float* input_ptr, const float* k1,
                                   const float* k2,
                                   double kernel_interpolation_factor) {
   __m128 m_input;
+  RTC_DCHECK((reinterpret_cast<uintptr_t>(&m_input) & 0x0F) == 0);
+
   __m128 m_sums1 = _mm_setzero_ps();
   __m128 m_sums2 = _mm_setzero_ps();
 

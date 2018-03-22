@@ -36,6 +36,40 @@
     },
     {
       "key": {
+        "uuid": "df861591_bc14efd0",
+        "filename": "pc/channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T00:12:44Z",
+      "side": 1,
+      "message": "Should say DtlsSrtpTransport",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3707924_25ec6b74",
+        "filename": "pc/dtlssrtptransport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T00:12:44Z",
+      "side": 1,
+      "message": "Should update the comments above the classes",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b49639ec_c4078971",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 10
@@ -70,6 +104,40 @@
         "endLine": 148,
         "endChar": 14
       },
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e24de9d_10f687bb",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T00:12:44Z",
+      "side": 1,
+      "message": "Is encryption_disabled_ still needed now?",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3543cbb7_6b5efb5a",
+        "filename": "pc/rtptransport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T00:12:44Z",
+      "side": 1,
+      "message": "How are these being overridden if they\u0027re private? I must be missing something...",
       "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -116,6 +184,40 @@
         "endLine": 282,
         "endChar": 67
       },
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddfcc999_288e7de0",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T00:12:44Z",
+      "side": 1,
+      "message": "Level of indentation can be removed",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78712056_8d92bdbc",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T00:12:44Z",
+      "side": 1,
+      "message": "Would be slightly better if this chunk of code wasn\u0027t duplicated. One way would be to make \"OnRt[c]pPacketReceived\" virtual instead of OnReadPacket, with the implementation in the base class just demuxing/signaling it directly.",
       "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

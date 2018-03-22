@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c17f7f57_1d38b06a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T09:23:00Z",
+      "side": 1,
+      "message": "nit: I suggest: Add support for creating Java PCF from native one.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "e72034c66d1bcfc31eca9f062071b56f26caa438",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2808f5e7_353bd514",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T09:23:00Z",
+      "side": 1,
+      "message": "Hmm, why is this dependency necessary?",
+      "range": {
+        "startLine": 994,
+        "startChar": 4,
+        "endLine": 994,
+        "endChar": 36
+      },
+      "revId": "e72034c66d1bcfc31eca9f062071b56f26caa438",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

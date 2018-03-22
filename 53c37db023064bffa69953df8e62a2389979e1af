@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "da19dbf6_2826d225",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T17:44:19Z",
+      "side": 1,
+      "message": "Can you briefly describe the motivation for these changes and add a bug ID?",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d43c3cec_d84781d5",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T17:44:19Z",
+      "side": 1,
+      "message": "We can remove \"Jingle:\"; it refers to a pre-WebRTC protocol.\n\nAlso, why \"this-\u003eToString()\" instead of just \"ToString()\"?",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8374f65e_e41188ef",
         "filename": "p2p/base/dtlstransport.cc",
         "patchSetId": 3
@@ -31,6 +65,23 @@
       "side": 1,
       "message": "No. This change (and many others like it) just replaces\n\n  \"some string literal \" \u003c\u003c \"another string literal\"\n\nwith\n\n  \"some string literal \" \"another string literal\"\n\nwhich the compiler treats identically to\n\n  \"some string literal another string literal\"\n\nThis leads to fewer emitted instructions at each call site (and probably also makes the code faster, although we don\u0027t really care).",
       "parentUuid": "8374f65e_e41188ef",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "057b079e_94bfc74b",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T17:44:19Z",
+      "side": 1,
+      "message": "As long as you\u0027re here, can you remove \"DTLSTransportChannelWrapper: \" from these log statements? It\u0027s an outdated name of the class, and is redundant since ToString already says \"DtlsTransport\".",
       "revId": "53c37db023064bffa69953df8e62a2389979e1af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

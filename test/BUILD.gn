@@ -329,6 +329,7 @@ if (rtc_include_tests) {
       "../system_wrappers",
     ]
     sources = [
+      "direct_transport_unittest.cc",
       "frame_generator_unittest.cc",
       "rtp_file_reader_unittest.cc",
       "rtp_file_writer_unittest.cc",

@@ -176,6 +176,10 @@ void AecState::Update(
       !converged_filter &&
       (blocks_with_active_render_ == 0 ||
        blocks_with_proper_filter_adaptation_ >= 5 * kNumBlocksPerSecond);
+
+  data_dumper_->DumpRaw("aec3_erle", Erle());
+  data_dumper_->DumpRaw("aec3_erle_onset", erle_estimator_.ErleOnsets());
+  data_dumper_->DumpRaw("aec3_erl", Erl());
 }
 
 void AecState::UpdateReverb(const std::vector<float>& impulse_response) {

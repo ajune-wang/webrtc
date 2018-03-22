@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad341178_f1763371",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T08:56:20Z",
+      "side": 1,
+      "message": "Please add a TODO to investigate why this check doesn\u0027t work with Chromium builds.",
+      "range": {
+        "startLine": 1384,
+        "startChar": 4,
+        "endLine": 1384,
+        "endChar": 31
+      },
+      "revId": "133726e065b689afe8dff8b5419a17f59995b53c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4fa1892_a88f3068",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2177,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-22T17:12:16Z",
+      "side": 1,
+      "message": "Is it necessary to also have a test for IceControlled?",
+      "range": {
+        "startLine": 2177,
+        "startChar": 40,
+        "endLine": 2177,
+        "endChar": 54
+      },
+      "revId": "ba15c067e415387dda219a00a2bae95325a90391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

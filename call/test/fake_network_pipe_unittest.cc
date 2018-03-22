@@ -107,6 +107,7 @@ TEST_F(FakeNetworkPipeTest, CapacityTest) {
   fake_clock_.AdvanceTimeMilliseconds(kPacketTimeMs);
   EXPECT_CALL(*demuxer, DeliverPacket(_, _)).Times(1);
   pipe->Process();
+  testing::Mock::VerifyAndClearExpectations(demuxer);
 
   // Release all but one packet
   fake_clock_.AdvanceTimeMilliseconds(9 * kPacketTimeMs - 1);

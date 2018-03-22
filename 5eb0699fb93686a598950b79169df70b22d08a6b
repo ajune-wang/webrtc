@@ -45,6 +45,30 @@
       "revId": "5eb0699fb93686a598950b79169df70b22d08a6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "274d9476_ea0ec7b0",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-22T11:20:34Z",
+      "side": 1,
+      "message": "Yes, the actual implementation of these functions will be made into CLs shortly :)",
+      "parentUuid": "055e772c_a1413ffe",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 57
+      },
+      "revId": "5eb0699fb93686a598950b79169df70b22d08a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

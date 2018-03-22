@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b24ce31_a4f050da",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-22T01:19:09Z",
+      "side": 1,
+      "message": "I briefly looked around our RTCP implementation, and it appears that a report block is not generated for an SSRC that has not received an RTP packet (see ReceiveStatisticsImpl). So I think we would only end up in this if branch if the other side had actually received a packet with the MID.",
+      "parentUuid": "0587216c_6e243dae",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 41
+      },
+      "revId": "c490535800449073a5d6879353d4c65762ef48ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "90272c58_463ca3e1",
         "filename": "modules/rtp_rtcp/source/mid_oracle.h",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-21T08:03:00Z",
       "side": 1,
       "message": "nit: What is an RTCP ack? I assume we are using \"extended highest sequence number received\" of the report block, in that case I think it would be good to mention that here too.",
+      "range": {
+        "startLine": 23,
+        "startChar": 40,
+        "endLine": 23,
+        "endChar": 59
+      },
+      "revId": "c490535800449073a5d6879353d4c65762ef48ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ef02e2a_a8b0f61a",
+        "filename": "modules/rtp_rtcp/source/mid_oracle.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-22T01:19:09Z",
+      "side": 1,
+      "message": "Clarified that the acknowledgment is in the form of a RTCP report block. I don\u0027t think we need to be strict about the extended highest sequence number received since any kind of receiving is sufficient (the MID does not change on the fly).",
+      "parentUuid": "90272c58_463ca3e1",
       "range": {
         "startLine": 23,
         "startChar": 40,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0cf5d7ca_74efbd6f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-22T01:19:09Z",
+      "side": 1,
+      "message": "Good point, it\u0027s not marked with RTC_GUARDED_BY. Looks like in general RtpSenderVideo does it\u0027s own synchronization, but it doesn\u0027t synchronize access to flexfec_sender_ (which is what ends up getting called here). I don\u0027t think we can get by without synchronization at all -- however I also don\u0027t see where such synchronization should happen. Any thoughts?",
+      "parentUuid": "953bc6d8_4a3135a5",
+      "range": {
+        "startLine": 749,
+        "startChar": 0,
+        "endLine": 751,
+        "endChar": 3
+      },
+      "revId": "c490535800449073a5d6879353d4c65762ef48ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4fceb22_fb639c39",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 10
@@ -82,6 +154,30 @@
       "writtenOn": "2018-03-21T08:03:00Z",
       "side": 1,
       "message": "Do you want to add MID to these packets as well? I don\u0027t think they will have it now, but I haven\u0027t looked in detail.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 68
+      },
+      "revId": "c490535800449073a5d6879353d4c65762ef48ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9bcf886_713446a2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-03-22T01:19:09Z",
+      "side": 1,
+      "message": "I think it will get the MID since it looks like UlpfecGenerator::GetUlpfecPacketsAsRed will copy the RTP header from the media packet (and the media packet should have the MID).",
+      "parentUuid": "a4fceb22_fb639c39",
       "range": {
         "startLine": 175,
         "startChar": 0,

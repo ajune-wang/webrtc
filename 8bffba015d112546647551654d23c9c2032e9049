@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "123af83e_4ed6c531",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T22:05:36Z",
+      "side": 1,
+      "message": "For new constants, we should use \"kMixedCase\" naming, see https://google.github.io/styleguide/cppguide.html#Constant_Names",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3b9374a_e17b3c8b",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T22:05:36Z",
+      "side": 1,
+      "message": "Can include \"ms\" in the name (\"kPortAllocationRetryIntervalMs\"), so that you don\u0027t need to look at the declaration to remember the units",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "856ed971_6b3c65aa",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T22:05:36Z",
+      "side": 1,
+      "message": "\"At least one success\" may not mean much. If creating an \"active\" TCPPort, it\u0027s possible that no socket will actually be created until an outgoing connection is made, so the creation of the TCPPort itself will always succeed.",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7328e9_2fd10939",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T22:05:36Z",
+      "side": 1,
+      "message": "LOG_J(LS_INFO, network_), so you know which network interface allocation failed for.",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b99c7c7_42a2119d",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-22T22:05:36Z",
+      "side": 1,
+      "message": "What if udp_socket_ is null? Something to keep in mind is that PORTALLOCATOR_ENABLE_SHARED_SOCKET is the default everywhere; https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8283",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

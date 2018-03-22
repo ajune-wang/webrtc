@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "ed4324f0_d5436252",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-22T08:23:21Z",
+      "side": 1,
+      "message": "I can\u0027t see how it would help to call this from within send_critsect_ anyway if we don\u0027t do all calls to flexfec_sender_ from that crit. Perhaps what you should do is add thread checks to flexfec_sender_ to figure out what threads are involved and clarify the threading model?",
+      "parentUuid": "0cf5d7ca_74efbd6f",
+      "range": {
+        "startLine": 749,
+        "startChar": 0,
+        "endLine": 751,
+        "endChar": 3
+      },
+      "revId": "c490535800449073a5d6879353d4c65762ef48ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4fceb22_fb639c39",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 10

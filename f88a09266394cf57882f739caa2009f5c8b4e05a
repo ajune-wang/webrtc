@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65ce9d45_35d869a5",
+        "filename": "modules/congestion_controller/bbr/data_transfer_tracker.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-22T13:38:52Z",
+      "side": 1,
+      "message": "nit: .",
+      "revId": "f88a09266394cf57882f739caa2009f5c8b4e05a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec1b24fe_4093ebaa",
+        "filename": "modules/congestion_controller/bbr/data_transfer_tracker.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-22T13:38:52Z",
+      "side": 1,
+      "message": ".",
+      "revId": "f88a09266394cf57882f739caa2009f5c8b4e05a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ea02eac_75ded55b",
+        "filename": "modules/congestion_controller/bbr/data_transfer_tracker_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-22T13:38:52Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "f88a09266394cf57882f739caa2009f5c8b4e05a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

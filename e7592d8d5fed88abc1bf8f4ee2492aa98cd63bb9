@@ -22,6 +22,30 @@
       "revId": "e7592d8d5fed88abc1bf8f4ee2492aa98cd63bb9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18c73723_f5a8f65e",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T14:54:44Z",
+      "side": 1,
+      "message": "I manually ran the recipe bots and they seemed to pass?",
+      "parentUuid": "ecae631d_c8d636f1",
+      "range": {
+        "startLine": 847,
+        "startChar": 2,
+        "endLine": 847,
+        "endChar": 12
+      },
+      "revId": "e7592d8d5fed88abc1bf8f4ee2492aa98cd63bb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

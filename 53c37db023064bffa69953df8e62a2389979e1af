@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "985d184a_0fcda50e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-22T17:56:17Z",
+      "side": 1,
+      "message": "+1 to adding a description and a bug id linked to a more detailed request in the webrtc bug tracker. Linking to the bug tracker also helps documentation in our release notes.",
+      "parentUuid": "da19dbf6_2826d225",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d43c3cec_d84781d5",
         "filename": "p2p/base/dtlstransport.cc",
         "patchSetId": 3

@@ -18,6 +18,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import javax.annotation.Nullable;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -214,6 +215,7 @@ public class ConnectActivity extends Activity {
    * Get a value from the shared preference or from the intent, if it does not
    * exist the default is used.
    */
+  @Nullable
   private String sharedPrefGetString(
       int attributeId, String intentName, int defaultId, boolean useFromIntent) {
     String defaultValue = getString(defaultId);

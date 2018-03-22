@@ -31,6 +31,10 @@ struct PacketArrivalTimeComparator {
     return p1.arrival_time() < p2.arrival_time();
   }
 };
+
+int64_t UsToMs(int64_t us) {
+  return (us + 500) / 1000;
+}
 }  // namespace
 
 NetworkPacket::NetworkPacket(rtc::CopyOnWriteBuffer packet,
@@ -120,10 +124,10 @@ FakeNetworkPipe::FakeNetworkPipe(Clock* clock,
       config_(),
       dropped_packets_(0),
       sent_packets_(0),
-      total_packet_delay_(0),
+      total_packet_delay_us_(0),
       bursting_(false),
-      next_process_time_(clock_->TimeInMilliseconds()),
-      last_log_time_(clock_->TimeInMilliseconds()) {
+      next_process_time_us_(clock_->TimeInMicroseconds()),
+      last_log_time_us_(clock_->TimeInMicroseconds()) {
   SetConfig(config);
 }
 
@@ -137,10 +141,10 @@ FakeNetworkPipe::FakeNetworkPipe(Clock* clock,
       config_(),
       dropped_packets_(0),
       sent_packets_(0),
-      total_packet_delay_(0),
+      total_packet_delay_us_(0),
       bursting_(false),
-      next_process_time_(clock_->TimeInMilliseconds()),
-      last_log_time_(clock_->TimeInMilliseconds()) {
+      next_process_time_us_(clock_->TimeInMicroseconds()),
+      last_log_time_us_(clock_->TimeInMicroseconds()) {
   SetConfig(config);
 }
 
@@ -226,12 +230,13 @@ bool FakeNetworkPipe::EnqueuePacket(rtc::CopyOnWriteBuffer packet,
     return false;
   }
 
-  int64_t time_now = clock_->TimeInMilliseconds();
+  int64_t time_now_us = clock_->TimeInMicroseconds();
 
   // Delay introduced by the link capacity.
   int64_t capacity_delay_ms = 0;
   if (config.link_capacity_kbps > 0) {
-    const int bytes_per_millisecond = config.link_capacity_kbps / 8;
+    // Using bytes per millisecond to avoid losing precision.
+    const int64_t bytes_per_millisecond = config.link_capacity_kbps / 8;
     // To round to the closest millisecond we add half a milliseconds worth of
     // bytes to the delay calculation.
     capacity_delay_ms = (packet.size() + capacity_delay_error_bytes_ +
@@ -240,7 +245,7 @@ bool FakeNetworkPipe::EnqueuePacket(rtc::CopyOnWriteBuffer packet,
     capacity_delay_error_bytes_ +=
         packet.size() - capacity_delay_ms * bytes_per_millisecond;
   }
-  int64_t network_start_time = time_now;
+  int64_t network_start_time = time_now_us;
 
   // Check if there already are packets on the link and change network start
   // time forward if there is.
@@ -248,8 +253,8 @@ bool FakeNetworkPipe::EnqueuePacket(rtc::CopyOnWriteBuffer packet,
       network_start_time < capacity_link_.back().arrival_time())
     network_start_time = capacity_link_.back().arrival_time();
 
-  int64_t arrival_time = network_start_time + capacity_delay_ms;
-  capacity_link_.emplace(std::move(packet), time_now, arrival_time, options,
+  int64_t arrival_time = network_start_time + capacity_delay_ms * 1000;
+  capacity_link_.emplace(std::move(packet), time_now_us, arrival_time, options,
                          is_rtcp, media_type, packet_time);
   return true;
 }
@@ -268,7 +273,7 @@ int FakeNetworkPipe::AverageDelay() {
   if (sent_packets_ == 0)
     return 0;
 
-  return static_cast<int>(total_packet_delay_ /
+  return static_cast<int>(UsToMs(total_packet_delay_us_) /
                           static_cast<int64_t>(sent_packets_));
 }
 
@@ -283,7 +288,7 @@ size_t FakeNetworkPipe::SentPackets() {
 }
 
 void FakeNetworkPipe::Process() {
-  int64_t time_now = clock_->TimeInMilliseconds();
+  int64_t time_now_us = clock_->TimeInMicroseconds();
   std::queue<NetworkPacket> packets_to_deliver;
   Config config;
   double prob_loss_bursting;
@@ -296,13 +301,13 @@ void FakeNetworkPipe::Process() {
   }
   {
     rtc::CritScope crit(&process_lock_);
-    if (time_now - last_log_time_ > 5000) {
-      int64_t queueing_delay_ms = 0;
+    if (time_now_us - last_log_time_us_ > 5000) {
+      int64_t queueing_delay_us = 0;
       if (!capacity_link_.empty()) {
-        queueing_delay_ms = time_now - capacity_link_.front().send_time();
+        queueing_delay_us = time_now_us - capacity_link_.front().send_time();
       }
-      RTC_LOG(LS_INFO) << "Network queue: " << queueing_delay_ms << " ms.";
-      last_log_time_ = time_now;
+      RTC_LOG(LS_INFO) << "Network queue: " << queueing_delay_us << " us.";
+      last_log_time_us_ = time_now_us;
     }
 
     // Check the capacity link first.
@@ -311,7 +316,7 @@ void FakeNetworkPipe::Process() {
           delay_link_.empty() ? -1 : delay_link_.back().arrival_time();
       bool needs_sort = false;
       while (!capacity_link_.empty() &&
-             time_now >= capacity_link_.front().arrival_time()) {
+             time_now_us >= capacity_link_.front().arrival_time()) {
         // Time to get this packet.
         NetworkPacket packet = std::move(capacity_link_.front());
         capacity_link_.pop();
@@ -326,8 +331,10 @@ void FakeNetworkPipe::Process() {
           bursting_ = false;
         }
 
-        int arrival_time_jitter = random_.Gaussian(
-            config.queue_delay_ms, config.delay_standard_deviation_ms);
+        int64_t arrival_time_jitter =
+            random_.Gaussian(config.queue_delay_ms,
+                             config.delay_standard_deviation_ms) *
+            1000;
 
         // If reordering is not allowed then adjust arrival_time_jitter
         // to make sure all packets are sent in order.
@@ -353,14 +360,14 @@ void FakeNetworkPipe::Process() {
 
     // Check the extra delay queue.
     while (!delay_link_.empty() &&
-           time_now >= delay_link_.front().arrival_time()) {
+           time_now_us >= delay_link_.front().arrival_time()) {
       // Deliver this packet.
       NetworkPacket packet(std::move(delay_link_.front()));
       delay_link_.pop_front();
       // |time_now| might be later than when the packet should have arrived, due
       // to NetworkProcess being called too late. For stats, use the time it
       // should have been on the link.
-      total_packet_delay_ += packet.arrival_time() - packet.send_time();
+      total_packet_delay_us_ += packet.arrival_time() - packet.send_time();
       packets_to_deliver.push(std::move(packet));
     }
     sent_packets_ += packets_to_deliver.size();
@@ -373,9 +380,9 @@ void FakeNetworkPipe::Process() {
     DeliverPacket(&packet);
   }
 
-  next_process_time_ = !delay_link_.empty()
-                           ? delay_link_.begin()->arrival_time()
-                           : time_now + kDefaultProcessIntervalMs;
+  next_process_time_us_ = !delay_link_.empty()
+                              ? delay_link_.begin()->arrival_time()
+                              : time_now_us + kDefaultProcessIntervalMs * 1000;
 }
 
 void FakeNetworkPipe::DeliverPacket(NetworkPacket* packet) {
@@ -393,7 +400,7 @@ void FakeNetworkPipe::DeliverPacket(NetworkPacket* packet) {
     if (packet_time.timestamp != -1) {
       int64_t queue_time = packet->arrival_time() - packet->send_time();
       RTC_CHECK(queue_time >= 0);
-      packet_time.timestamp += (queue_time * 1000);
+      packet_time.timestamp += queue_time;
     }
     receiver_->DeliverPacket(packet->media_type(),
                              std::move(*packet->raw_packet()), packet_time);
@@ -402,8 +409,8 @@ void FakeNetworkPipe::DeliverPacket(NetworkPacket* packet) {
 
 int64_t FakeNetworkPipe::TimeUntilNextProcess() {
   rtc::CritScope crit(&process_lock_);
-  return std::max<int64_t>(next_process_time_ - clock_->TimeInMilliseconds(),
-                           0);
+  return std::max<int64_t>(
+      UsToMs(next_process_time_us_ - clock_->TimeInMicroseconds()), 0);
 }
 
 bool FakeNetworkPipe::HasTransport() const {
@@ -425,7 +432,7 @@ void FakeNetworkPipe::ResetStats() {
   rtc::CritScope crit(&process_lock_);
   dropped_packets_ = 0;
   sent_packets_ = 0;
-  total_packet_delay_ = 0;
+  total_packet_delay_us_ = 0;
 }
 
 int FakeNetworkPipe::GetConfigCapacityKbps() const {
@@ -443,25 +450,25 @@ void FakeNetworkPipe::AddToPacketSentCount(int count) {
   sent_packets_ += count;
 }
 
-void FakeNetworkPipe::AddToTotalDelay(int delay_ms) {
+void FakeNetworkPipe::AddToTotalDelay(int delay_us) {
   rtc::CritScope crit(&process_lock_);
-  total_packet_delay_ += delay_ms;
+  total_packet_delay_us_ += delay_us;
 }
 
-int64_t FakeNetworkPipe::GetTimeInMilliseconds() const {
-  return clock_->TimeInMilliseconds();
+int64_t FakeNetworkPipe::GetTimeInMicroseconds() const {
+  return clock_->TimeInMicroseconds();
 }
 
 bool FakeNetworkPipe::IsRandomLoss(double prob_loss) {
   return random_.Rand<double>() < prob_loss;
 }
 
-bool FakeNetworkPipe::ShouldProcess(int64_t time_now) const {
-  return time_now >= next_process_time_;
+bool FakeNetworkPipe::ShouldProcess(int64_t time_now_us) const {
+  return time_now_us >= next_process_time_us_;
 }
 
-void FakeNetworkPipe::SetTimeToNextProcess(int64_t skip_ms) {
-  next_process_time_ += skip_ms;
+void FakeNetworkPipe::SetTimeToNextProcess(int64_t skip_us) {
+  next_process_time_us_ += skip_us;
 }
 
 }  // namespace webrtc

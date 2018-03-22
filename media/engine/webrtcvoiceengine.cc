@@ -684,7 +684,7 @@ AudioCodecs WebRtcVoiceEngine::CollectCodecs(
       }
     } else {
       RTC_LOG(LS_ERROR) << "Unable to assign payload type to format: "
-                        << format;
+                        << format.ToString();
     }
 
     return opt_codec;
@@ -1503,7 +1503,7 @@ bool WebRtcVoiceMediaChannel::SetRecvCodecs(
     auto format = AudioCodecToSdpAudioFormat(codec);
     if (!IsCodec(codec, "cn") && !IsCodec(codec, "telephone-event") &&
         !engine()->decoder_factory_->IsSupportedDecoder(format)) {
-      RTC_LOG(LS_ERROR) << "Unsupported codec: " << format;
+      RTC_LOG(LS_ERROR) << "Unsupported codec: " << format.ToString();
       return false;
     }
     // We allow adding new codecs but don't allow changing the payload type of

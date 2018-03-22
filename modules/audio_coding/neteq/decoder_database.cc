@@ -85,7 +85,7 @@ AudioDecoder* DecoderDatabase::DecoderInfo::GetDecoder() const {
     RTC_DCHECK(factory_);
     decoder_ = factory_->MakeAudioDecoder(audio_format_, rtc::nullopt);
   }
-  RTC_DCHECK(decoder_) << "Failed to create: " << audio_format_;
+  RTC_DCHECK(decoder_) << "Failed to create: " << audio_format_.ToString();
   return decoder_.get();
 }
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bab7f712_58eedb0c",
+        "filename": "modules/utility/include/helpers_android.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T17:37:48Z",
+      "side": 1,
+      "message": "I think we should only do this for x86 since it is the only platform with the problem.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 67
+      },
+      "revId": "6433bf0ed04f0e4e4d949309044989e11cd403be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

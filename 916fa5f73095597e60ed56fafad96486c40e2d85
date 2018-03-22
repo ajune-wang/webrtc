@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6efbe904_f1e02f1d",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-03-22T12:47:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0d0314e_9b686088",
+      "range": {
+        "startLine": 57,
+        "startChar": 32,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "916fa5f73095597e60ed56fafad96486c40e2d85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0a77f1d_d3af3adc",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "553e252d_ae8e8757",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-03-22T12:47:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0a77f1d_d3af3adc",
+      "range": {
+        "startLine": 245,
+        "startChar": 54,
+        "endLine": 245,
+        "endChar": 64
+      },
+      "revId": "916fa5f73095597e60ed56fafad96486c40e2d85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "641f02b6_75c1b8e9",
         "filename": "modules/audio_processing/aec3/erle_estimator.cc",
         "patchSetId": 9
@@ -68,6 +116,30 @@
       "revId": "916fa5f73095597e60ed56fafad96486c40e2d85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57fa6490_3f611a82",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2018-03-22T12:47:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "641f02b6_75c1b8e9",
+      "range": {
+        "startLine": 83,
+        "startChar": 17,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "916fa5f73095597e60ed56fafad96486c40e2d85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

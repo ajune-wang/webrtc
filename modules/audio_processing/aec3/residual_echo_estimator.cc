@@ -133,6 +133,16 @@ void ResidualEchoEstimator::Estimate(
     }
   }
 
+  // Scale the echo according to echo audibility.
+  if (aec_state.ResidualEchoScaling() < 1.f) {
+    for (auto& r2 : *R2) {
+      r2 *= aec_state.ResidualEchoScaling();
+    }
+    if (aec_state.ResidualEchoScaling() == 0.f) {
+      R2_hold_counter_.fill(0.f);
+    }
+  }
+
   // If the echo is deemed inaudible, set the residual echo to zero.
   if (aec_state.TransparentMode()) {
     R2->fill(0.f);

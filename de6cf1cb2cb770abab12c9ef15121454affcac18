@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c25f636a_e3c6db99",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-22T13:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "359a5dcf_85d3777b",
+      "revId": "de6cf1cb2cb770abab12c9ef15121454affcac18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16152eb2_252bbc98",
         "filename": "modules/congestion_controller/bbr/rtt_stats.h",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-03-22T13:06:25Z",
       "side": 1,
       "message": "Why two checks?",
+      "revId": "de6cf1cb2cb770abab12c9ef15121454affcac18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72668300_0bf0e809",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-22T13:17:11Z",
+      "side": 1,
+      "message": "The first is only a DCHECK, the second will be used in release. Do you want another structure?",
+      "parentUuid": "16152eb2_252bbc98",
       "revId": "de6cf1cb2cb770abab12c9ef15121454affcac18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

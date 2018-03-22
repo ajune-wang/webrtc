@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "47688f58_32514a41",
+        "filename": "modules/congestion_controller/bbr/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-22T13:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edbd4554_e9b5ffc0",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2ffd0c3_a3f2c300",
         "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "603c182c32329a471250d24dfb486406cc210c69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bdf8142_cfdbc270",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-22T13:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2ffd0c3_a3f2c300",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4ccb2749_f92d1378",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-22T13:17:11Z",
+      "side": 1,
+      "message": "In this case it was for the due to the division operator not existing. Added one and fixed the line.",
+      "parentUuid": "1294b232_aa697743",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20d90953_4aeaa70c",
         "filename": "modules/congestion_controller/bbr/rtt_stats.h",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "603c182c32329a471250d24dfb486406cc210c69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb215d49_d6982111",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-22T13:17:11Z",
+      "side": 1,
+      "message": "In the QUIC implementation (where this is ported from) it is set by a config that\u0027s probably why it is not CHECKed there. Not sure if it is good to CHECK it for us. Currently we aren\u0027t using the feature, but we probably will want to, and then crashing the program for a bad value doesn\u0027t seem safe. I added an extra DCHECK to detect errors in debug.",
+      "parentUuid": "20d90953_4aeaa70c",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

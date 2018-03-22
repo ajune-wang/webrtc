@@ -272,6 +272,7 @@ bool RtpReceiverImpl::GetLatestTimestamps(uint32_t* timestamp,
 // Implementation note: must not hold critsect when called.
 void RtpReceiverImpl::CheckSSRCChanged(const RTPHeader& rtp_header) {
   bool new_ssrc = false;
+  // TODO(nisse): This is unused, delete any corresponding dead code.
   rtc::Optional<AudioPayload> reinitialize_audio_payload;
 
   {
@@ -313,16 +314,6 @@ void RtpReceiverImpl::CheckSSRCChanged(const RTPHeader& rtp_header) {
     // We need to do this outside critical section.
     cb_rtp_feedback_->OnIncomingSSRCChanged(rtp_header.ssrc);
   }
-
-  if (reinitialize_audio_payload) {
-    if (-1 == cb_rtp_feedback_->OnInitializeDecoder(
-                  rtp_header.payloadType, reinitialize_audio_payload->format,
-                  reinitialize_audio_payload->rate)) {
-      // New stream, same codec.
-      RTC_LOG(LS_ERROR) << "Failed to create decoder for payload type: "
-                        << static_cast<int>(rtp_header.payloadType);
-    }
-  }
 }
 
 // Implementation note: must not hold critsect when called.
@@ -335,6 +326,8 @@ void RtpReceiverImpl::CheckSSRCChanged(const RTPHeader& rtp_header) {
 int32_t RtpReceiverImpl::CheckPayloadChanged(const RTPHeader& rtp_header,
                                              const int8_t first_payload_byte,
                                              PayloadUnion* specific_payload) {
+  // TODO(nisse): re_initialize_decoder is unused, and most or all of
+  // this code can likely be deleted.
   bool re_initialize_decoder = false;
 
   char payload_name[RTP_PAYLOAD_NAME_SIZE];
@@ -387,13 +380,6 @@ int32_t RtpReceiverImpl::CheckPayloadChanged(const RTPHeader& rtp_header,
     }
   }  // End critsect.
 
-  if (re_initialize_decoder) {
-    if (-1 ==
-        rtp_media_receiver_->InvokeOnInitializeDecoder(
-            cb_rtp_feedback_, payload_type, payload_name, *specific_payload)) {
-      return -1;  // Wrong payload type.
-    }
-  }
   return 0;
 }
 

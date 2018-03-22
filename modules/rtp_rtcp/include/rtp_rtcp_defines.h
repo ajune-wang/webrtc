@@ -450,6 +450,7 @@ class NullRtpFeedback : public RtpFeedback {
  public:
   ~NullRtpFeedback() override {}
 
+  // TODO(nisse): Unused, delete.
   int32_t OnInitializeDecoder(int payload_type,
                               const SdpAudioFormat& audio_format,
                               uint32_t rate) override;

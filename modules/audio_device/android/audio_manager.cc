@@ -236,6 +236,7 @@ int AudioManager::GetDelayEstimateInMilliseconds() const {
   return delay_estimate_in_milliseconds_;
 }
 
+JNI_FUNCTION_ALIGN
 void JNICALL AudioManager::CacheAudioParameters(JNIEnv* env,
                                                 jobject obj,
                                                 jint sample_rate,
@@ -259,6 +260,7 @@ void JNICALL AudioManager::CacheAudioParameters(JNIEnv* env,
       pro_audio, a_audio, output_buffer_size, input_buffer_size);
 }
 
+JNI_FUNCTION_ALIGN
 void AudioManager::OnCacheAudioParameters(JNIEnv* env,
                                           jint sample_rate,
                                           jint output_channels,

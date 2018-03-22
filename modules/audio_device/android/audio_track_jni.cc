@@ -204,6 +204,7 @@ void AudioTrackJni::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {
   audio_device_buffer_->SetPlayoutChannels(channels);
 }
 
+JNI_FUNCTION_ALIGN
 void JNICALL AudioTrackJni::CacheDirectBufferAddress(JNIEnv* env,
                                                      jobject obj,
                                                      jobject byte_buffer,
@@ -213,6 +214,7 @@ void JNICALL AudioTrackJni::CacheDirectBufferAddress(JNIEnv* env,
   this_object->OnCacheDirectBufferAddress(env, byte_buffer);
 }
 
+JNI_FUNCTION_ALIGN
 void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
                                                jobject byte_buffer) {
   RTC_LOG(INFO) << "OnCacheDirectBufferAddress";
@@ -227,6 +229,7 @@ void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
   RTC_LOG(INFO) <<  "frames_per_buffer: " << frames_per_buffer_;
 }
 
+JNI_FUNCTION_ALIGN
 void JNICALL AudioTrackJni::GetPlayoutData(JNIEnv* env,
                                            jobject obj,
                                            jint length,

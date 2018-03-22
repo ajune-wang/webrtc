@@ -229,6 +229,7 @@ int32_t AudioRecordJni::EnableBuiltInNS(bool enable) {
   return j_audio_record_->EnableBuiltInNS(enable) ? 0 : -1;
 }
 
+JNI_FUNCTION_ALIGN
 void JNICALL AudioRecordJni::CacheDirectBufferAddress(JNIEnv* env,
                                                       jobject obj,
                                                       jobject byte_buffer,
@@ -238,6 +239,7 @@ void JNICALL AudioRecordJni::CacheDirectBufferAddress(JNIEnv* env,
   this_object->OnCacheDirectBufferAddress(env, byte_buffer);
 }
 
+JNI_FUNCTION_ALIGN
 void AudioRecordJni::OnCacheDirectBufferAddress(JNIEnv* env,
                                                 jobject byte_buffer) {
   RTC_LOG(INFO) << "OnCacheDirectBufferAddress";
@@ -249,6 +251,7 @@ void AudioRecordJni::OnCacheDirectBufferAddress(JNIEnv* env,
   direct_buffer_capacity_in_bytes_ = static_cast<size_t>(capacity);
 }
 
+JNI_FUNCTION_ALIGN
 void JNICALL AudioRecordJni::DataIsRecorded(JNIEnv* env,
                                             jobject obj,
                                             jint length,

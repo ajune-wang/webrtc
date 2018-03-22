@@ -249,6 +249,9 @@ void AecState::Update(
                         filter_has_had_time_to_converge);
   data_dumper_->DumpRaw("aec3_recently_converged_filter",
                         recently_converged_filter);
+  data_dumper_->DumpRaw("aec3_erle", Erle());
+  data_dumper_->DumpRaw("aec3_erle_onset", erle_estimator_.ErleOnsets());
+  data_dumper_->DumpRaw("aec3_erl", Erl());
 }
 
 void AecState::UpdateReverb(const std::vector<float>& impulse_response) {

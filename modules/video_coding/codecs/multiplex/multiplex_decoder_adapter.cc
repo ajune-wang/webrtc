@@ -18,6 +18,7 @@
 #include "rtc_base/keep_ref_until_done.h"
 #include "rtc_base/logging.h"
 
+#include "media/engine/internaldecoderfactory.h"
 namespace {
 void KeepBufferRefs(rtc::scoped_refptr<webrtc::VideoFrameBuffer>,
                     rtc::scoped_refptr<webrtc::VideoFrameBuffer>) {}
@@ -82,7 +83,9 @@ struct MultiplexDecoderAdapter::DecodedImageData {
 MultiplexDecoderAdapter::MultiplexDecoderAdapter(
     VideoDecoderFactory* factory,
     const SdpVideoFormat& associated_format)
-    : factory_(factory), associated_format_(associated_format) {}
+    : factory_(factory), associated_format_(associated_format) {
+  internal_factory_.reset(new InternalDecoderFactory());
+}
 
 MultiplexDecoderAdapter::~MultiplexDecoderAdapter() {
   Release();
@@ -94,16 +97,30 @@ int32_t MultiplexDecoderAdapter::InitDecode(const VideoCodec* codec_settings,
   VideoCodec settings = *codec_settings;
   settings.codecType = PayloadStringToCodecType(associated_format_.name);
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
-    std::unique_ptr<VideoDecoder> decoder =
-        factory_->CreateVideoDecoder(associated_format_);
-    const int32_t rv = decoder->InitDecode(&settings, number_of_cores);
-    if (rv)
-      return rv;
-    adapter_callbacks_.emplace_back(
-        new MultiplexDecoderAdapter::AdapterDecodedImageCallback(
-            this, static_cast<AlphaCodecStream>(i)));
-    decoder->RegisterDecodeCompleteCallback(adapter_callbacks_.back().get());
-    decoders_.emplace_back(std::move(decoder));
+    if (i==0) {
+      std::unique_ptr<VideoDecoder> decoder =
+          factory_->CreateVideoDecoder(associated_format_);
+      const int32_t rv = decoder->InitDecode(&settings, number_of_cores);
+      if (rv)
+        return rv;
+      adapter_callbacks_.emplace_back(
+          new MultiplexDecoderAdapter::AdapterDecodedImageCallback(
+              this, static_cast<AlphaCodecStream>(i)));
+      decoder->RegisterDecodeCompleteCallback(adapter_callbacks_.back().get());
+      decoders_.emplace_back(std::move(decoder));
+    }
+    else {
+      std::unique_ptr<VideoDecoder> decoder =
+          internal_factory_->CreateVideoDecoder(associated_format_);
+      const int32_t rv = decoder->InitDecode(&settings, number_of_cores);
+      if (rv)
+        return rv;
+      adapter_callbacks_.emplace_back(
+          new MultiplexDecoderAdapter::AdapterDecodedImageCallback(
+              this, static_cast<AlphaCodecStream>(i)));
+      decoder->RegisterDecodeCompleteCallback(adapter_callbacks_.back().get());
+      decoders_.emplace_back(std::move(decoder));
+    }
   }
   return WEBRTC_VIDEO_CODEC_OK;
 }

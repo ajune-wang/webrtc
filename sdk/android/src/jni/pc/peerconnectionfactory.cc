@@ -42,6 +42,8 @@
 // clients should be able to provide their own implementation.
 #include "system_wrappers/include/field_trial_default.h"  // nogncheck
 
+#include "media/engine/multiplexcodecfactory.h"
+
 namespace webrtc {
 namespace jni {
 
@@ -253,6 +255,8 @@ jlong CreatePeerConnectionFactoryForJava(
       video_encoder_factory = std::unique_ptr<VideoEncoderFactory>(
           CreateVideoEncoderFactory(jni, jencoder_factory));
     }
+    video_encoder_factory = std::unique_ptr<VideoEncoderFactory>(
+            new MultiplexEncoderFactory(std::move(video_encoder_factory)));
 
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory = nullptr;
     if (jdecoder_factory.is_null()) {
@@ -265,6 +269,8 @@ jlong CreatePeerConnectionFactoryForJava(
       video_decoder_factory = std::unique_ptr<VideoDecoderFactory>(
           CreateVideoDecoderFactory(jni, jdecoder_factory));
     }
+    video_decoder_factory = std::unique_ptr<VideoDecoderFactory>(
+            new MultiplexDecoderFactory(std::move(video_decoder_factory)));
 
     media_engine.reset(CreateMediaEngine(
         adm, audio_encoder_factory, audio_decoder_factory,

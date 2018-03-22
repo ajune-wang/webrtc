@@ -61,6 +61,7 @@ class MultiplexDecoderAdapter : public VideoDecoder {
                         const rtc::Optional<uint8_t>& multiplex_qp);
 
   VideoDecoderFactory* const factory_;
+  std::unique_ptr<VideoDecoderFactory> internal_factory_;
   const SdpVideoFormat associated_format_;
   std::vector<std::unique_ptr<VideoDecoder>> decoders_;
   std::vector<std::unique_ptr<AdapterDecodedImageCallback>> adapter_callbacks_;

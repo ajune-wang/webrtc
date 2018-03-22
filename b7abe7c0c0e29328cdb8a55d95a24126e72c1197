@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "13cd8381_b84eec87",
+        "filename": "ortc/rtptransportadapter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "The SetParameter method in RtpTransport doesn\u0027t really doing anything but caching it.\nCurrently we rely on this wrapper to pass the parameters to RtpTransportControllerAdapter. We can switch to use signals once this adapter is removed.",
+      "parentUuid": "f6c06c4f_f9d377e4",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2d06a5d_5d76b71e",
         "filename": "ortc/rtptransportadapter.h",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9bb50ed_c48ad38a",
+        "filename": "ortc/rtptransportadapter.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2d06a5d_5d76b71e",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ea6bbcf4_b61c6510",
+        "filename": "ortc/rtptransportcontrolleradapter.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "OK I see. Then some of the SrtpTransport tests can be removed as well.",
+      "parentUuid": "e652969f_0a180e3f",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f52c2d7b_309e0c4c",
         "filename": "pc/channel.cc",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b3ab5a8_ece69be5",
+        "filename": "pc/channel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f52c2d7b_309e0c4c",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ffa097ea_17eb675b",
+        "filename": "pc/dtlssrtptransport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3af45187_491b4831",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a7a3008_8c48f270",
         "filename": "pc/jseptransport2_unittest.cc",
         "patchSetId": 9
@@ -101,6 +191,24 @@
       "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1fb8566_a9873973",
+        "filename": "pc/jseptransport2_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a7a3008_8c48f270",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "5a339c02_52e224a2",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "I meant to delete this comment. Looks like the code here can be self-documented.",
+      "parentUuid": "e20902a7_bf45042c",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd563b34_90015d53",
         "filename": "pc/srtptransport.cc",
         "patchSetId": 9
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "35b6ee81_8f4d58a4",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "I think replacing the Buffer with rtc::ZeroOnFreeBuffer\u003cuint8_t\u003e should fix the issue.",
+      "parentUuid": "bd563b34_90015d53",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15ec194c_f6abe4d4",
         "filename": "pc/srtptransport.h",
         "patchSetId": 9
@@ -152,6 +296,24 @@
       "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbb9297d_923ac558",
+        "filename": "pc/srtptransport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "Right. Your suggestion would make it much cleaner!",
+      "parentUuid": "15ec194c_f6abe4d4",
+      "revId": "b7abe7c0c0e29328cdb8a55d95a24126e72c1197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

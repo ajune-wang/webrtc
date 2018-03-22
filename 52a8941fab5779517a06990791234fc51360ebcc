@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "fadf4063_76e9ea98",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14f3287e_fc5e210b",
+      "revId": "52a8941fab5779517a06990791234fc51360ebcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b01e976_cb09d8a0",
         "filename": "pc/channel.cc",
         "patchSetId": 3
@@ -85,6 +103,24 @@
       "revId": "52a8941fab5779517a06990791234fc51360ebcc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961015f5_b2eda8c3",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b01e976_cb09d8a0",
+      "revId": "52a8941fab5779517a06990791234fc51360ebcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -120,6 +156,24 @@
       "revId": "52a8941fab5779517a06990791234fc51360ebcc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da6413bc_b91e6099",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-22T20:49:41Z",
+      "side": 1,
+      "message": "RTCP mux negotiation:\nJsepTransport2 test covers the basic RTCP negotiation process. The tests in BaseChannel looks kind of overkill to me since almost all the users are using RTCP-mux.\n\nSending RTCP on the right transport:\nAdded to RtpTransport tests.\n\nSignalReadyToSend fires when expected: RtpTransport:\nShould be covered by current RtpTransport tests.\n\nEnforcing \"RTCP mux required\": JsepTransport2 or JsepTransportController:\nAdded a JsepTransportController test to verify the RtcpPacketTransport will not be created if RTCP-mux is required.\n\nSDES negotiate:\nShould be covered by JsepTransport2 tests.\n\nSRTP itself:\nShould be covered.\n\nEncrypted extensions:\nShould be covered.\n\nApplying non-RTCP-mux answer with kRtcpMuxPolicyRequire is covered by JsepTransportController tests.",
+      "parentUuid": "b922c3dd_22349bc6",
+      "revId": "52a8941fab5779517a06990791234fc51360ebcc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

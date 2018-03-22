@@ -45,6 +45,30 @@
       "revId": "e72034c66d1bcfc31eca9f062071b56f26caa438",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82bfa0f3_472f7e64",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-03-22T10:04:47Z",
+      "side": 1,
+      "message": "To get generated JNI header for PeerConnectionFactoryInitializationHelper",
+      "parentUuid": "2808f5e7_353bd514",
+      "range": {
+        "startLine": 994,
+        "startChar": 4,
+        "endLine": 994,
+        "endChar": 36
+      },
+      "revId": "e72034c66d1bcfc31eca9f062071b56f26caa438",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

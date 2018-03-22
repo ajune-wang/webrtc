@@ -50,6 +50,7 @@ class MultiplexEncoderAdapter : public VideoEncoder {
                         uint32_t new_framerate) override;
   int Release() override;
   const char* ImplementationName() const override;
+  bool SupportsNativeHandle() const override;
 
   EncodedImageCallback::Result OnEncodedImage(
       AlphaCodecStream stream_idx,
@@ -62,8 +63,10 @@ class MultiplexEncoderAdapter : public VideoEncoder {
   class AdapterEncodedImageCallback;
 
   VideoEncoderFactory* const factory_;
+  std::unique_ptr<VideoEncoderFactory> internal_factory_;
   const SdpVideoFormat associated_format_;
   std::vector<std::unique_ptr<VideoEncoder>> encoders_;
+  VideoEncoderFactory::CodecInfo associated_codec_info_;
   std::vector<std::unique_ptr<AdapterEncodedImageCallback>> adapter_callbacks_;
   EncodedImageCallback* encoded_complete_callback_;
 

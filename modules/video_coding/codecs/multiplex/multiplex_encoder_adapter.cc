@@ -19,6 +19,8 @@
 #include "rtc_base/keep_ref_until_done.h"
 #include "rtc_base/logging.h"
 
+#include "media/engine/internalencoderfactory.h"
+
 namespace webrtc {
 
 // Callback wrapper that helps distinguish returned results from |encoders_|
@@ -50,7 +52,14 @@ MultiplexEncoderAdapter::MultiplexEncoderAdapter(
     const SdpVideoFormat& associated_format)
     : factory_(factory),
       associated_format_(associated_format),
-      encoded_complete_callback_(nullptr) {}
+      encoded_complete_callback_(nullptr) {
+  internal_factory_.reset(new InternalEncoderFactory());
+  associated_codec_info_ = factory -> QueryVideoEncoder(
+        associated_format);
+    RTC_LOG(LS_ERROR)<< "StereoEncoderAdapter HW Support "
+        << associated_format.name << " = "
+        << associated_codec_info_.is_hardware_accelerated;
+}
 
 MultiplexEncoderAdapter::~MultiplexEncoderAdapter() {
   Release();
@@ -90,18 +99,34 @@ int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
   }
 
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
-    std::unique_ptr<VideoEncoder> encoder =
-        factory_->CreateVideoEncoder(associated_format_);
-    const int rv =
-        encoder->InitEncode(&settings, number_of_cores, max_payload_size);
-    if (rv) {
-      RTC_LOG(LS_ERROR) << "Failed to create multiplex codec index " << i;
-      return rv;
+    if (i==0) {
+      std::unique_ptr<VideoEncoder> encoder =
+          factory_->CreateVideoEncoder(associated_format_);
+      const int rv =
+          encoder->InitEncode(&settings, number_of_cores, max_payload_size);
+      if (rv) {
+        RTC_LOG(LS_ERROR) << "Failed to create multiplex codec index " << i;
+        return rv;
+      }
+      adapter_callbacks_.emplace_back(new AdapterEncodedImageCallback(
+          this, static_cast<AlphaCodecStream>(i)));
+      encoder->RegisterEncodeCompleteCallback(adapter_callbacks_.back().get());
+      encoders_.emplace_back(std::move(encoder));
     }
-    adapter_callbacks_.emplace_back(new AdapterEncodedImageCallback(
-        this, static_cast<AlphaCodecStream>(i)));
-    encoder->RegisterEncodeCompleteCallback(adapter_callbacks_.back().get());
-    encoders_.emplace_back(std::move(encoder));
+    else {
+      std::unique_ptr<VideoEncoder> encoder =
+          internal_factory_->CreateVideoEncoder(associated_format_);
+      const int rv =
+          encoder->InitEncode(&settings, number_of_cores, max_payload_size);
+      if (rv) {
+        RTC_LOG(LS_ERROR) << "Failed to create multiplex codec index " << i;
+        return rv;
+      }
+      adapter_callbacks_.emplace_back(new AdapterEncodedImageCallback(
+          this, static_cast<AlphaCodecStream>(i)));
+      encoder->RegisterEncodeCompleteCallback(adapter_callbacks_.back().get());
+      encoders_.emplace_back(std::move(encoder));
+    }
   }
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -120,8 +145,18 @@ int MultiplexEncoderAdapter::Encode(
   } else {
     adjusted_frame_types.push_back(kVideoFrameDelta);
   }
-  const bool has_alpha = input_image.video_frame_buffer()->type() ==
+
+  const bool has_soft_alpha = input_image.video_frame_buffer()->type() ==
                          VideoFrameBuffer::Type::kI420A;
+
+  rtc::scoped_refptr<I420BufferInterface> alpha_buffer = input_image.video_frame_buffer()->MaskI420();
+
+  const bool has_hard_alpha = input_image.video_frame_buffer()->type() ==
+                           VideoFrameBuffer::Type::kNative && (alpha_buffer != nullptr);
+
+  RTC_LOG(LS_ERROR)<<"QiangChen: hard_alpha: " << has_hard_alpha;
+
+  const bool has_alpha = has_soft_alpha || has_hard_alpha;
   {
     rtc::CritScope cs(&crit_);
     stashed_images_.emplace(
@@ -143,16 +178,20 @@ int MultiplexEncoderAdapter::Encode(
     return rv;
 
   // Encode AXX
-  const I420ABufferInterface* yuva_buffer =
-      input_image.video_frame_buffer()->GetI420A();
-  rtc::scoped_refptr<I420BufferInterface> alpha_buffer =
-      WrapI420Buffer(input_image.width(), input_image.height(),
-                     yuva_buffer->DataA(), yuva_buffer->StrideA(),
-                     multiplex_dummy_planes_.data(), yuva_buffer->StrideU(),
-                     multiplex_dummy_planes_.data(), yuva_buffer->StrideV(),
-                     rtc::KeepRefUntilDone(input_image.video_frame_buffer()));
+  if (has_soft_alpha) {
+    const I420ABufferInterface* yuva_buffer =
+        input_image.video_frame_buffer()->GetI420A();
+    alpha_buffer =
+        WrapI420Buffer(input_image.width(), input_image.height(),
+                       yuva_buffer->DataA(), yuva_buffer->StrideA(),
+                       multiplex_dummy_planes_.data(), yuva_buffer->StrideU(),
+                       multiplex_dummy_planes_.data(), yuva_buffer->StrideV(),
+                       rtc::KeepRefUntilDone(input_image.video_frame_buffer()));
+  }
+
   VideoFrame alpha_image(alpha_buffer, input_image.timestamp(),
                          input_image.render_time_ms(), input_image.rotation());
+
   rv = encoders_[kAXXStream]->Encode(alpha_image, codec_specific_info,
                                      &adjusted_frame_types);
   return rv;
@@ -212,6 +251,11 @@ int MultiplexEncoderAdapter::Release() {
 
 const char* MultiplexEncoderAdapter::ImplementationName() const {
   return "MultiplexEncoderAdapter";
+}
+
+bool MultiplexEncoderAdapter::SupportsNativeHandle() const {
+  return true;
+  //return associated_codec_info_.is_hardware_accelerated;
 }
 
 EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(

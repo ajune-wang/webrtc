@@ -131,6 +131,8 @@ class AndroidVideoBuffer : public AndroidVideoFrameBuffer {
                                                       int scale_width,
                                                       int scale_height);
 
+  rtc::scoped_refptr<I420BufferInterface> MaskI420() override;
+
  protected:
   // Should not be called directly. Adopts the Java VideoFrame.Buffer. Use
   // Create() or Adopt() instead for clarity.

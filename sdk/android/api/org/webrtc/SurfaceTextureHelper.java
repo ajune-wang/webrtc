@@ -326,4 +326,18 @@ public class SurfaceTextureHelper {
           }
         });
   }
+  
+
+  public TextureBuffer createTextureBuffer(int texture_id, TextureBuffer.Type texture_type,
+      int width, int height, Matrix transformMatrix) {
+    return new TextureBufferImpl(width, height, TextureBuffer.Type.OES, oesTextureId, texture_type,
+    // Following Debug line plug the mask texture as color texture to display.
+    //return new TextureBufferImpl(width, height, texture_type, texture_id, texture_type,
+        texture_id, transformMatrix, this, new Runnable() {
+          @Override
+          public void run() {
+            returnTextureFrame();
+          }
+        });
+  }
 }

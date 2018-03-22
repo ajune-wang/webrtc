@@ -25,6 +25,7 @@
 #include "sdk/android/src/jni/wrapped_native_i420_buffer.h"
 #include "system_wrappers/include/aligned_malloc.h"
 #include "third_party/libyuv/include/libyuv/scale.h"
+#include "sdk/android/native_api/jni/class_loader.h"
 
 namespace webrtc {
 namespace jni {
@@ -353,6 +354,34 @@ rtc::scoped_refptr<I420BufferInterface> AndroidVideoBuffer::ToI420() {
   // We don't need to retain the buffer because toI420 returns a new object that
   // we are assumed to take the ownership of.
   return AndroidVideoI420Buffer::Adopt(jni, width_, height_, j_i420_buffer);
+}
+
+rtc::scoped_refptr<I420BufferInterface> AndroidVideoBuffer::MaskI420() {
+  JNIEnv* jni = AttachCurrentThreadIfNeeded();
+  ScopedLocalRefFrame local_ref_frame(jni);
+
+  //jclass j_texture_buffer_class = jni->FindClass("org/webrtc/TextureBufferImpl");
+  ScopedJavaLocalRef<jclass> j_texture_buffer_class =
+        GetClass(jni, "org/webrtc/TextureBufferImpl");
+
+  if (!jni->IsInstanceOf(j_video_frame_buffer_.obj(), j_texture_buffer_class.obj())) {
+    return nullptr;
+  }
+
+  jmethodID j_mask_i420_method = jni->GetMethodID(j_texture_buffer_class.obj(),
+                                  "maskI420",
+                                  "()Lorg/webrtc/VideoFrame$I420Buffer;");
+
+  jobject j_i420_buffer = jni->CallObjectMethod(j_video_frame_buffer_.obj(),
+                                                j_mask_i420_method);
+  if (jni->ExceptionCheck()) {
+      jni->ExceptionDescribe(); jni->ExceptionClear();
+      return nullptr;
+  }
+
+  if (j_i420_buffer == nullptr) return nullptr;
+
+  return AndroidVideoI420Buffer::Adopt(jni, width_, height_, JavaParamRef<jobject>(j_i420_buffer));
 }
 
 AndroidVideoFrameBuffer::AndroidType AndroidVideoBuffer::android_type() {

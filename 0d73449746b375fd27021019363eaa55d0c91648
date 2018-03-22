@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9aa73af_acc5189b",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/AppRTCAudioManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-22T08:19:02Z",
+      "side": 1,
+      "message": "This is always set in the constructor.",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 0
+      },
+      "revId": "0d73449746b375fd27021019363eaa55d0c91648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00f041f3_874046dc",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/ConnectActivity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-22T08:19:02Z",
+      "side": 1,
+      "message": "This seems to always return at least a default value.",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 11
+      },
+      "revId": "0d73449746b375fd27021019363eaa55d0c91648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33d7033a_38a21b4a",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-22T08:19:02Z",
+      "side": 1,
+      "message": "No longer used, revert file.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "0d73449746b375fd27021019363eaa55d0c91648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc71dead_307108df",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-22T08:19:02Z",
+      "side": 1,
+      "message": "Revert file",
+      "range": {
+        "startLine": 209,
+        "startChar": 2,
+        "endLine": 210,
+        "endChar": 56
+      },
+      "revId": "0d73449746b375fd27021019363eaa55d0c91648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

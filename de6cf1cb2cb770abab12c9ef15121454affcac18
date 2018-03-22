@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "359a5dcf_85d3777b",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-22T13:06:25Z",
+      "side": 1,
+      "message": "nit: TimeDelta rtt_sample \u003d send_delta;",
+      "revId": "de6cf1cb2cb770abab12c9ef15121454affcac18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16152eb2_252bbc98",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-22T13:06:25Z",
+      "side": 1,
+      "message": "Why two checks?",
+      "revId": "de6cf1cb2cb770abab12c9ef15121454affcac18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

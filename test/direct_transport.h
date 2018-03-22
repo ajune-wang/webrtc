@@ -27,6 +27,15 @@ class Clock;
 class PacketReceiver;
 
 namespace test {
+class Demuxer {
+ public:
+  explicit Demuxer(const std::map<uint8_t, MediaType>& payload_type_map);
+  ~Demuxer() = default;
+  MediaType GetMediaType(const uint8_t* packet_data,
+                         const size_t packet_length) const;
+  const std::map<uint8_t, MediaType> payload_type_map_;
+  RTC_DISALLOW_COPY_AND_ASSIGN(Demuxer);
+};
 
 // Objects of this class are expected to be allocated and destroyed  on the
 // same task-queue - the one that's passed in via the constructor.
@@ -67,6 +76,7 @@ class DirectTransport : public Transport {
 
  private:
   void SendPackets();
+  void SendPacket(const uint8_t* data, size_t length);
   void Start();
 
   Call* const send_call_;
@@ -76,7 +86,8 @@ class DirectTransport : public Transport {
   SingleThreadedTaskQueueForTesting::TaskId next_scheduled_task_
       RTC_GUARDED_BY(&sequence_checker_);
 
-  std::unique_ptr<FakeNetworkPipe> fake_network_;
+  const std::unique_ptr<Demuxer> demuxer_;
+  const std::unique_ptr<FakeNetworkPipe> fake_network_;
 
   rtc::SequencedTaskChecker sequence_checker_;
 };

@@ -204,17 +204,19 @@ void AudioTrackJni::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {
   audio_device_buffer_->SetPlayoutChannels(channels);
 }
 
-void JNICALL AudioTrackJni::CacheDirectBufferAddress(JNIEnv* env,
-                                                     jobject obj,
-                                                     jobject byte_buffer,
-                                                     jlong nativeAudioTrack) {
+JNI_FUNCTION_ALIGN void JNICALL
+AudioTrackJni::CacheDirectBufferAddress(JNIEnv* env,
+                                        jobject obj,
+                                        jobject byte_buffer,
+                                        jlong nativeAudioTrack) {
   webrtc::AudioTrackJni* this_object =
       reinterpret_cast<webrtc::AudioTrackJni*>(nativeAudioTrack);
   this_object->OnCacheDirectBufferAddress(env, byte_buffer);
 }
 
-void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
-                                               jobject byte_buffer) {
+JNI_FUNCTION_ALIGN void AudioTrackJni::OnCacheDirectBufferAddress(
+    JNIEnv* env,
+    jobject byte_buffer) {
   RTC_LOG(INFO) << "OnCacheDirectBufferAddress";
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(!direct_buffer_address_);
@@ -227,10 +229,11 @@ void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
   RTC_LOG(INFO) <<  "frames_per_buffer: " << frames_per_buffer_;
 }
 
-void JNICALL AudioTrackJni::GetPlayoutData(JNIEnv* env,
-                                           jobject obj,
-                                           jint length,
-                                           jlong nativeAudioTrack) {
+JNI_FUNCTION_ALIGN void JNICALL
+AudioTrackJni::GetPlayoutData(JNIEnv* env,
+                              jobject obj,
+                              jint length,
+                              jlong nativeAudioTrack) {
   webrtc::AudioTrackJni* this_object =
       reinterpret_cast<webrtc::AudioTrackJni*>(nativeAudioTrack);
   this_object->OnGetPlayoutData(static_cast<size_t>(length));

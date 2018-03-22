@@ -236,21 +236,22 @@ int AudioManager::GetDelayEstimateInMilliseconds() const {
   return delay_estimate_in_milliseconds_;
 }
 
-void JNICALL AudioManager::CacheAudioParameters(JNIEnv* env,
-                                                jobject obj,
-                                                jint sample_rate,
-                                                jint output_channels,
-                                                jint input_channels,
-                                                jboolean hardware_aec,
-                                                jboolean hardware_agc,
-                                                jboolean hardware_ns,
-                                                jboolean low_latency_output,
-                                                jboolean low_latency_input,
-                                                jboolean pro_audio,
-                                                jboolean a_audio,
-                                                jint output_buffer_size,
-                                                jint input_buffer_size,
-                                                jlong native_audio_manager) {
+JNI_FUNCTION_ALIGN void JNICALL
+AudioManager::CacheAudioParameters(JNIEnv* env,
+                                   jobject obj,
+                                   jint sample_rate,
+                                   jint output_channels,
+                                   jint input_channels,
+                                   jboolean hardware_aec,
+                                   jboolean hardware_agc,
+                                   jboolean hardware_ns,
+                                   jboolean low_latency_output,
+                                   jboolean low_latency_input,
+                                   jboolean pro_audio,
+                                   jboolean a_audio,
+                                   jint output_buffer_size,
+                                   jint input_buffer_size,
+                                   jlong native_audio_manager) {
   webrtc::AudioManager* this_object =
       reinterpret_cast<webrtc::AudioManager*>(native_audio_manager);
   this_object->OnCacheAudioParameters(
@@ -259,19 +260,20 @@ void JNICALL AudioManager::CacheAudioParameters(JNIEnv* env,
       pro_audio, a_audio, output_buffer_size, input_buffer_size);
 }
 
-void AudioManager::OnCacheAudioParameters(JNIEnv* env,
-                                          jint sample_rate,
-                                          jint output_channels,
-                                          jint input_channels,
-                                          jboolean hardware_aec,
-                                          jboolean hardware_agc,
-                                          jboolean hardware_ns,
-                                          jboolean low_latency_output,
-                                          jboolean low_latency_input,
-                                          jboolean pro_audio,
-                                          jboolean a_audio,
-                                          jint output_buffer_size,
-                                          jint input_buffer_size) {
+JNI_FUNCTION_ALIGN void AudioManager::OnCacheAudioParameters(
+    JNIEnv* env,
+    jint sample_rate,
+    jint output_channels,
+    jint input_channels,
+    jboolean hardware_aec,
+    jboolean hardware_agc,
+    jboolean hardware_ns,
+    jboolean low_latency_output,
+    jboolean low_latency_input,
+    jboolean pro_audio,
+    jboolean a_audio,
+    jint output_buffer_size,
+    jint input_buffer_size) {
   RTC_LOG(INFO)
       << "OnCacheAudioParameters: "
       << "hardware_aec: " << static_cast<bool>(hardware_aec)

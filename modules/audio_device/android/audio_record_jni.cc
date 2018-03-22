@@ -229,17 +229,19 @@ int32_t AudioRecordJni::EnableBuiltInNS(bool enable) {
   return j_audio_record_->EnableBuiltInNS(enable) ? 0 : -1;
 }
 
-void JNICALL AudioRecordJni::CacheDirectBufferAddress(JNIEnv* env,
-                                                      jobject obj,
-                                                      jobject byte_buffer,
-                                                      jlong nativeAudioRecord) {
+JNI_FUNCTION_ALIGN void JNICALL
+AudioRecordJni::CacheDirectBufferAddress(JNIEnv* env,
+                                         jobject obj,
+                                         jobject byte_buffer,
+                                         jlong nativeAudioRecord) {
   webrtc::AudioRecordJni* this_object =
       reinterpret_cast<webrtc::AudioRecordJni*>(nativeAudioRecord);
   this_object->OnCacheDirectBufferAddress(env, byte_buffer);
 }
 
-void AudioRecordJni::OnCacheDirectBufferAddress(JNIEnv* env,
-                                                jobject byte_buffer) {
+JNI_FUNCTION_ALIGN void AudioRecordJni::OnCacheDirectBufferAddress(
+    JNIEnv* env,
+    jobject byte_buffer) {
   RTC_LOG(INFO) << "OnCacheDirectBufferAddress";
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(!direct_buffer_address_);
@@ -249,10 +251,11 @@ void AudioRecordJni::OnCacheDirectBufferAddress(JNIEnv* env,
   direct_buffer_capacity_in_bytes_ = static_cast<size_t>(capacity);
 }
 
-void JNICALL AudioRecordJni::DataIsRecorded(JNIEnv* env,
-                                            jobject obj,
-                                            jint length,
-                                            jlong nativeAudioRecord) {
+JNI_FUNCTION_ALIGN void JNICALL
+AudioRecordJni::DataIsRecorded(JNIEnv* env,
+                               jobject obj,
+                               jint length,
+                               jlong nativeAudioRecord) {
   webrtc::AudioRecordJni* this_object =
       reinterpret_cast<webrtc::AudioRecordJni*>(nativeAudioRecord);
   this_object->OnDataIsRecorded(length);

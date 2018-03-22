@@ -20,6 +20,8 @@
   RTC_CHECK(!jni->ExceptionCheck()) \
       << (jni->ExceptionDescribe(), jni->ExceptionClear(), "")
 
+#define JNI_FUNCTION_ALIGN __attribute__((force_align_arg_pointer))
+
 namespace webrtc {
 
 // Return a |JNIEnv*| usable on this thread or NULL if this thread is detached.

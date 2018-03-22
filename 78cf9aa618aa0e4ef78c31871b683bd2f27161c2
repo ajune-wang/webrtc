@@ -16,6 +16,24 @@
       "revId": "78cf9aa618aa0e4ef78c31871b683bd2f27161c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a02cd51_005bcb04",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-22T08:27:38Z",
+      "side": 1,
+      "message": "I\u0027ll make another patchset deleting this method too.",
+      "parentUuid": "aef6be46_60f40211",
+      "revId": "78cf9aa618aa0e4ef78c31871b683bd2f27161c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

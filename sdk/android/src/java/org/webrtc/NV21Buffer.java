@@ -11,6 +11,7 @@
 package org.webrtc;
 
 import java.nio.ByteBuffer;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @JNINamespace("webrtc::jni")
 public class NV21Buffer implements VideoFrame.Buffer {
@@ -18,15 +19,14 @@ public class NV21Buffer implements VideoFrame.Buffer {
   private final int width;
   private final int height;
   private final Runnable releaseCallback;
-  private final Object refCountLock = new Object();
-
-  private int refCount = 1;
+  private final AtomicInteger refCount;
 
   public NV21Buffer(byte[] data, int width, int height, Runnable releaseCallback) {
     this.data = data;
     this.width = width;
     this.height = height;
     this.releaseCallback = releaseCallback;
+    this.refCount = new AtomicInteger(1);
   }
 
   @Override
@@ -48,17 +48,13 @@ public class NV21Buffer implements VideoFrame.Buffer {
 
   @Override
   public void retain() {
-    synchronized (refCountLock) {
-      ++refCount;
-    }
+    refCount.incrementAndGet();
   }
 
   @Override
   public void release() {
-    synchronized (refCountLock) {
-      if (--refCount == 0 && releaseCallback != null) {
-        releaseCallback.run();
-      }
+    if (refCount.decrementAndGet() == 0 && releaseCallback != null) {
+      releaseCallback.run();
     }
   }
 

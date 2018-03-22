@@ -11,6 +11,7 @@
 package org.webrtc;
 
 import java.nio.ByteBuffer;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.webrtc.VideoFrame.I420Buffer;
 
 /** Implementation of VideoFrame.I420Buffer backed by Java direct byte buffers. */
@@ -24,9 +25,7 @@ public class JavaI420Buffer implements VideoFrame.I420Buffer {
   private final int strideU;
   private final int strideV;
   private final Runnable releaseCallback;
-  private final Object refCountLock = new Object();
-
-  private int refCount;
+  private final AtomicInteger refCount;
 
   private JavaI420Buffer(int width, int height, ByteBuffer dataY, int strideY, ByteBuffer dataU,
       int strideU, ByteBuffer dataV, int strideV, Runnable releaseCallback) {
@@ -39,8 +38,7 @@ public class JavaI420Buffer implements VideoFrame.I420Buffer {
     this.strideU = strideU;
     this.strideV = strideV;
     this.releaseCallback = releaseCallback;
-
-    this.refCount = 1;
+    this.refCount = new AtomicInteger(1);
   }
 
   /** Wraps existing ByteBuffers into JavaI420Buffer object without copying the contents. */
@@ -155,17 +153,13 @@ public class JavaI420Buffer implements VideoFrame.I420Buffer {
 
   @Override
   public void retain() {
-    synchronized (refCountLock) {
-      ++refCount;
-    }
+    refCount.incrementAndGet();
   }
 
   @Override
   public void release() {
-    synchronized (refCountLock) {
-      if (--refCount == 0 && releaseCallback != null) {
-        releaseCallback.run();
-      }
+    if (refCount.decrementAndGet() == 0 && releaseCallback != null) {
+      releaseCallback.run();
     }
   }
 

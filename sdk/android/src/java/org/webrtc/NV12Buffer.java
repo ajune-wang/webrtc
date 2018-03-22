@@ -11,6 +11,7 @@
 package org.webrtc;
 
 import java.nio.ByteBuffer;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @JNINamespace("webrtc::jni")
 public class NV12Buffer implements VideoFrame.Buffer {
@@ -20,9 +21,7 @@ public class NV12Buffer implements VideoFrame.Buffer {
   private final int sliceHeight;
   private final ByteBuffer buffer;
   private final Runnable releaseCallback;
-  private final Object refCountLock = new Object();
-
-  private int refCount;
+  private final AtomicInteger refCount;
 
   public NV12Buffer(int width, int height, int stride, int sliceHeight, ByteBuffer buffer,
       Runnable releaseCallback) {
@@ -32,8 +31,7 @@ public class NV12Buffer implements VideoFrame.Buffer {
     this.sliceHeight = sliceHeight;
     this.buffer = buffer;
     this.releaseCallback = releaseCallback;
-
-    refCount = 1;
+    this.refCount = new AtomicInteger(1);
   }
 
   @Override
@@ -53,17 +51,13 @@ public class NV12Buffer implements VideoFrame.Buffer {
 
   @Override
   public void retain() {
-    synchronized (refCountLock) {
-      ++refCount;
-    }
+    refCount.incrementAndGet();
   }
 
   @Override
   public void release() {
-    synchronized (refCountLock) {
-      if (--refCount == 0 && releaseCallback != null) {
-        releaseCallback.run();
-      }
+    if (refCount.decrementAndGet() == 0 && releaseCallback != null) {
+      releaseCallback.run();
     }
   }
 

@@ -22,6 +22,8 @@ class TextureBufferImpl implements VideoFrame.TextureBuffer {
   private final int height;
   private final Type type;
   private final int id;
+  private final Type mask_type;
+  private final int mask_id;
   private final Matrix transformMatrix;
   private final SurfaceTextureHelper surfaceTextureHelper;
   private final Runnable releaseCallback;
@@ -34,6 +36,24 @@ class TextureBufferImpl implements VideoFrame.TextureBuffer {
     this.height = height;
     this.type = type;
     this.id = id;
+    this.mask_type = Type.RGB;
+    this.mask_id = -1;
+    this.transformMatrix = transformMatrix;
+    this.surfaceTextureHelper = surfaceTextureHelper;
+    this.releaseCallback = releaseCallback;
+    this.refCount = 1; // Creator implicitly holds a reference.
+  }
+  
+  public TextureBufferImpl(int width, int height, Type type, int id, Type mask_type, int mask_id,
+      Matrix transformMatrix, SurfaceTextureHelper surfaceTextureHelper, Runnable releaseCallback) {
+    this.width = width;
+    this.height = height;
+    this.type = type;
+    this.id = id;
+    
+    this.mask_type = mask_type;
+    this.mask_id = mask_id;
+    
     this.transformMatrix = transformMatrix;
     this.surfaceTextureHelper = surfaceTextureHelper;
     this.releaseCallback = releaseCallback;
@@ -67,7 +87,18 @@ class TextureBufferImpl implements VideoFrame.TextureBuffer {
 
   @Override
   public VideoFrame.I420Buffer toI420() {
+    if (mask_id > 0) {
+      Logging.e("TextureBufferImpl","toI420 truncates the alpha part.");
+    }
     return surfaceTextureHelper.textureToYuv(this);
+  }
+  
+  public VideoFrame.I420Buffer maskI420() {
+    if (mask_id < 0) return null;
+    
+    VideoFrame.TextureBuffer mask_texture_buffer = new TextureBufferImpl(
+        width, height, mask_type, mask_id, transformMatrix, surfaceTextureHelper, null);
+    return surfaceTextureHelper.textureToYuv(mask_texture_buffer);
   }
 
   @Override
@@ -95,7 +126,7 @@ class TextureBufferImpl implements VideoFrame.TextureBuffer {
     newMatrix.postTranslate(cropX / (float) width, cropY / (float) height);
 
     return new TextureBufferImpl(
-        scaleWidth, scaleHeight, type, id, newMatrix, surfaceTextureHelper, new Runnable() {
+        scaleWidth, scaleHeight, type, id, mask_type, mask_id, newMatrix, surfaceTextureHelper, new Runnable() {
           @Override
           public void run() {
             release();

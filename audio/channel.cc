@@ -399,7 +399,7 @@ int32_t Channel::OnInitializeDecoder(int payload_type,
                                      uint32_t rate) {
   if (!audio_coding_->RegisterReceiveCodec(payload_type, audio_format)) {
     RTC_DLOG(LS_WARNING) << "Channel::OnInitializeDecoder() invalid codec (pt="
-                         << payload_type << ", " << audio_format
+                         << payload_type << ", " << audio_format.ToString()
                          << ") received -1";
     return -1;
   }

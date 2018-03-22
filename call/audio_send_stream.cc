@@ -67,7 +67,7 @@ std::string AudioSendStream::Config::SendCodecSpec::ToString() const {
   ss << ", cng_payload_type: "
      << (cng_payload_type ? rtc::ToString(*cng_payload_type) : "<unset>");
   ss << ", payload_type: " << payload_type;
-  ss << ", format: " << format;
+  ss << ", format: " << format.ToString();
   ss << '}';
   return ss.str();
 }

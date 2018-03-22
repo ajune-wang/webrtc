@@ -51,6 +51,7 @@ class SuppressionGain {
   void UpdateGainIncrease(
       bool low_noise_render,
       bool linear_echo_estimate,
+      size_t num_no_echo_blocks,
       const std::array<float, kFftLengthBy2Plus1>& echo,
       const std::array<float, kFftLengthBy2Plus1>& new_gain);
 

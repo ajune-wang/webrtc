@@ -140,6 +140,16 @@ void ResidualEchoEstimator::Estimate(
     R2_hold_counter_.fill(0.f);
   }
 
+  // Scale the echo according to echo audibility.
+  if (aec_state.ResidualEchoScaling() < 1.f) {
+    for (auto& r2 : *R2) {
+      r2 *= aec_state.ResidualEchoScaling();
+    }
+    if (aec_state.ResidualEchoScaling() == 0.f) {
+      R2_hold_counter_.fill(0.f);
+    }
+  }
+
   std::copy(R2->begin(), R2->end(), R2_old_.begin());
 }
 

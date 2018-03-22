@@ -335,6 +335,8 @@ void RtpReceiverImpl::CheckSSRCChanged(const RTPHeader& rtp_header) {
 int32_t RtpReceiverImpl::CheckPayloadChanged(const RTPHeader& rtp_header,
                                              const int8_t first_payload_byte,
                                              PayloadUnion* specific_payload) {
+  // TODO(nisse): re_initialize_decoder is unused, and most or all of
+  // this code can likely be deleted.
   bool re_initialize_decoder = false;
 
   char payload_name[RTP_PAYLOAD_NAME_SIZE];
@@ -387,13 +389,6 @@ int32_t RtpReceiverImpl::CheckPayloadChanged(const RTPHeader& rtp_header,
     }
   }  // End critsect.
 
-  if (re_initialize_decoder) {
-    if (-1 ==
-        rtp_media_receiver_->InvokeOnInitializeDecoder(
-            cb_rtp_feedback_, payload_type, payload_name, *specific_payload)) {
-      return -1;  // Wrong payload type.
-    }
-  }
   return 0;
 }
 

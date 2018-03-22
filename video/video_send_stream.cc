@@ -147,10 +147,13 @@ std::unique_ptr<FlexfecSender> MaybeCreateFlexfecSender(
   }
 
   RTC_DCHECK_EQ(1U, config.rtp.flexfec.protected_media_ssrcs.size());
+  // TODO(bugs.webrtc.org/4050): Pass down MID value once it is exposed in the
+  // API.
   return std::unique_ptr<FlexfecSender>(new FlexfecSender(
       config.rtp.flexfec.payload_type, config.rtp.flexfec.ssrc,
-      config.rtp.flexfec.protected_media_ssrcs[0], config.rtp.extensions,
-      RTPSender::FecExtensionSizes(), rtp_state, Clock::GetRealTimeClock()));
+      config.rtp.flexfec.protected_media_ssrcs[0], /*mid=*/"",
+      config.rtp.extensions, RTPSender::FecExtensionSizes(), rtp_state,
+      Clock::GetRealTimeClock()));
 }
 
 bool TransportSeqNumExtensionConfigured(const VideoSendStream::Config& config) {

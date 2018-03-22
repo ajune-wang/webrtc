@@ -455,6 +455,13 @@ void RTPSenderVideo::SetSelectiveRetransmissions(uint8_t settings) {
   retransmission_settings_ = settings;
 }
 
+void RTPSenderVideo::OnReceivedRtcpReportBlocks(
+    const ReportBlockList& report_blocks) {
+  if (flexfec_sender_) {
+    flexfec_sender_->OnReceivedRtcpReportBlocks(report_blocks);
+  }
+}
+
 StorageType RTPSenderVideo::GetStorageType(
     uint8_t temporal_id,
     int32_t retransmission_settings,

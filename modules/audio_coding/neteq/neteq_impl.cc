@@ -261,7 +261,8 @@ int NetEqImpl::RegisterExternalDecoder(AudioDecoder* decoder,
 bool NetEqImpl::RegisterPayloadType(int rtp_payload_type,
                                     const SdpAudioFormat& audio_format) {
   RTC_LOG(LS_VERBOSE) << "NetEqImpl::RegisterPayloadType: payload type "
-                      << rtp_payload_type << ", codec " << audio_format;
+                      << rtp_payload_type << ", codec "
+                      << audio_format.ToString();
   rtc::CritScope lock(&crit_sect_);
   return decoder_database_->RegisterPayload(rtp_payload_type, audio_format) ==
          DecoderDatabase::kOK;

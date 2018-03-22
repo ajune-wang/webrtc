@@ -499,7 +499,8 @@ bool AudioSendStream::SetupSendCodec(AudioSendStream* stream,
                                                    spec.format, rtc::nullopt);
 
   if (!encoder) {
-    RTC_DLOG(LS_ERROR) << "Unable to create encoder for " << spec.format;
+    RTC_DLOG(LS_ERROR) << "Unable to create encoder for "
+                       << spec.format.ToString();
     return false;
   }
   // If a bitrate has been specified for the codec, use it over the

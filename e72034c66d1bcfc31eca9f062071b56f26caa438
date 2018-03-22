@@ -69,6 +69,30 @@
       "revId": "e72034c66d1bcfc31eca9f062071b56f26caa438",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dcebfe8_427efc5e",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T11:26:42Z",
+      "side": 1,
+      "message": "Can you instead add audio_jni, media_jni and video_jni targets separately?",
+      "parentUuid": "82bfa0f3_472f7e64",
+      "range": {
+        "startLine": 994,
+        "startChar": 4,
+        "endLine": 994,
+        "endChar": 36
+      },
+      "revId": "e72034c66d1bcfc31eca9f062071b56f26caa438",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

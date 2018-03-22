@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef69eb55_2ea18cf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T11:26:42Z",
+      "side": 1,
+      "message": "nit: PCF",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "56b8c20819d54bd02df0c96e32630a25fff617ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

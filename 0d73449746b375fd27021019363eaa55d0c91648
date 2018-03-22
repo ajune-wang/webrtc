@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf604169_ce19933a",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/AppRTCAudioManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T12:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9aa73af_acc5189b",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 0
+      },
+      "revId": "0d73449746b375fd27021019363eaa55d0c91648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00f041f3_874046dc",
         "filename": "examples/androidapp/src/org/appspot/apprtc/ConnectActivity.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "0d73449746b375fd27021019363eaa55d0c91648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04cc6355_c66af1bd",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/ConnectActivity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T12:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00f041f3_874046dc",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 11
+      },
+      "revId": "0d73449746b375fd27021019363eaa55d0c91648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "22d112fa_ce22fe95",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RtcEventLog.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T12:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33d7033a_38a21b4a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "0d73449746b375fd27021019363eaa55d0c91648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc71dead_307108df",
         "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "0d73449746b375fd27021019363eaa55d0c91648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52ea7472_46aa2237",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/SettingsActivity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-22T12:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc71dead_307108df",
+      "range": {
+        "startLine": 209,
+        "startChar": 2,
+        "endLine": 210,
+        "endChar": 56
+      },
+      "revId": "0d73449746b375fd27021019363eaa55d0c91648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

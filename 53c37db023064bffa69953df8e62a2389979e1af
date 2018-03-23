@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "6aa61492_3dffecdc",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-03-23T17:09:11Z",
+      "side": 1,
+      "message": "Sorry for causing the confusion and you can remove \"Jingle:\" safely. We have other ways to filter and process the text logs.",
+      "parentUuid": "e39254c0_02bf9958",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8374f65e_e41188ef",
         "filename": "p2p/base/dtlstransport.cc",
         "patchSetId": 3

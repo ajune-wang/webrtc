@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d76f8f8_6c60857a",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-23T14:02:44Z",
+      "side": 1,
+      "message": "Move this to after the if-else clause.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 64
+      },
+      "revId": "11185a59c5f0d68ce384f76ba5132e16b2d3d58e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

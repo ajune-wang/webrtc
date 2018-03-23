@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8be524f2_afc5614b",
+        "filename": "p2p/base/icetransportinternal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "I am planning to keep them as long as we keep implementation defaults. They are also used in the sanity checks, making sure configs are not buggy and we don\u0027t hardcode problematic defaults.",
+      "parentUuid": "09b2ef6e_2939f28d",
+      "range": {
+        "startLine": 161,
+        "startChar": 78,
+        "endLine": 161,
+        "endChar": 0
+      },
+      "revId": "fc8dd013febdd91b187a457d9863b5a7a497e165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72778479_4572fb19",
         "filename": "p2p/base/p2pconstants.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "fc8dd013febdd91b187a457d9863b5a7a497e165",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4fc3a68_ae61c2fc",
+        "filename": "p2p/base/p2pconstants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Sure, this is clearer than the legacy channel name. Will fix it before landing.",
+      "parentUuid": "72778479_4572fb19",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 57,
+        "endChar": 0
+      },
+      "revId": "fc8dd013febdd91b187a457d9863b5a7a497e165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

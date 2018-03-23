@@ -8,16 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_AUDIO_DEVICE_TEMPLATE_ANDROID_H_
-#define SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_AUDIO_DEVICE_TEMPLATE_ANDROID_H_
+#include "sdk/android/src/jni/audio_device/audio_device_module.h"
 
-#include <memory>
+#include <utility>
 
-#include "modules/audio_device/audio_device_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/refcountedobject.h"
 #include "rtc_base/thread_checker.h"
-#include "sdk/android/src/jni/audio_device/audio_manager.h"
 #include "system_wrappers/include/metrics.h"
 
 #define CHECKinitialized_() \
@@ -38,6 +36,8 @@ namespace webrtc {
 
 namespace android_adm {
 
+namespace {
+
 // InputType/OutputType can be any class that implements the capturing/rendering
 // part of the AudioDeviceGeneric API.
 // Construction and destruction must be done on one and the same thread. Each
@@ -47,9 +47,7 @@ namespace android_adm {
 // It is possible to call the two static methods (SetAndroidAudioDeviceObjects
 // and ClearAndroidAudioDeviceObjects) from a different thread but both will
 // RTC_CHECK that the calling thread is attached to a Java VM.
-
-template <class InputType, class OutputType>
-class AudioDeviceTemplateAndroid : public AudioDeviceModule {
+class AndroidAudioDeviceModule : public AudioDeviceModule {
  public:
   // For use with UMA logging. Must be kept in sync with histograms.xml in
   // Chrome, located at
@@ -62,17 +60,22 @@ class AudioDeviceTemplateAndroid : public AudioDeviceModule {
     NUM_STATUSES = 4
   };
 
-  AudioDeviceTemplateAndroid(JNIEnv* env,
-                             const JavaParamRef<jobject>& application_context,
-                             AudioDeviceModule::AudioLayer audio_layer)
+  AndroidAudioDeviceModule(
+      JNIEnv* env,
+      const JavaParamRef<jobject>& application_context,
+      AudioDeviceModule::AudioLayer audio_layer,
+      std::unique_ptr<AudioInputFactory> audio_input_factory,
+      std::unique_ptr<AudioOutputFactory> audio_output_factory)
       : audio_layer_(audio_layer),
         audio_manager_(env, audio_layer, application_context),
+        audio_input_factory_(std::move(audio_input_factory)),
+        audio_output_factory_(std::move(audio_output_factory)),
         initialized_(false) {
     RTC_LOG(INFO) << __FUNCTION__;
     thread_checker_.DetachFromThread();
   }
 
-  virtual ~AudioDeviceTemplateAndroid() { RTC_LOG(INFO) << __FUNCTION__; }
+  virtual ~AndroidAudioDeviceModule() { RTC_LOG(INFO) << __FUNCTION__; }
 
   int32_t ActiveAudioLayer(
       AudioDeviceModule::AudioLayer* audioLayer) const override {
@@ -89,8 +92,8 @@ class AudioDeviceTemplateAndroid : public AudioDeviceModule {
   int32_t Init() override {
     RTC_LOG(INFO) << __FUNCTION__;
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
-    output_ = rtc::MakeUnique<OutputType>(&audio_manager_);
-    input_ = rtc::MakeUnique<InputType>(&audio_manager_);
+    output_ = audio_output_factory_->CreateAudioOutput(&audio_manager_);
+    input_ = audio_input_factory_->CreateAudioInput(&audio_manager_);
     audio_device_buffer_ = rtc::MakeUnique<AudioDeviceBuffer>();
     AttachAudioBuffer();
     if (initialized_) {
@@ -646,15 +649,29 @@ class AudioDeviceTemplateAndroid : public AudioDeviceModule {
   const AudioDeviceModule::AudioLayer audio_layer_;
 
   AudioManager audio_manager_;
-  std::unique_ptr<OutputType> output_;
-  std::unique_ptr<InputType> input_;
+
+  const std::unique_ptr<AudioInputFactory> audio_input_factory_;
+  const std::unique_ptr<AudioOutputFactory> audio_output_factory_;
+  std::unique_ptr<AudioOutput> output_;
+  std::unique_ptr<AudioInput> input_;
   std::unique_ptr<AudioDeviceBuffer> audio_device_buffer_;
 
   bool initialized_;
 };
 
+}  // namespace
+
+rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModuleFromInputAndOutput(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& application_context,
+    AudioDeviceModule::AudioLayer audio_layer,
+    std::unique_ptr<AudioInputFactory> audio_input_factory,
+    std::unique_ptr<AudioOutputFactory> audio_output_factory) {
+  return new rtc::RefCountedObject<AndroidAudioDeviceModule>(
+      env, application_context, audio_layer, std::move(audio_input_factory),
+      std::move(audio_output_factory));
+}
+
 }  // namespace android_adm
 
 }  // namespace webrtc
-
-#endif  // SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_AUDIO_DEVICE_TEMPLATE_ANDROID_H_

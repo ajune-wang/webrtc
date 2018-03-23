@@ -28,7 +28,7 @@
 #include "sdk/android/src/jni/audio_device/aaudio_player.h"
 #include "sdk/android/src/jni/audio_device/aaudio_recorder.h"
 #endif
-#include "sdk/android/src/jni/audio_device/audio_device_template_android.h"
+#include "sdk/android/src/jni/audio_device/audio_device_module.h"
 #include "sdk/android/src/jni/audio_device/audio_manager.h"
 #include "sdk/android/src/jni/audio_device/audio_record_jni.h"
 #include "sdk/android/src/jni/audio_device/audio_track_jni.h"
@@ -45,9 +45,9 @@ AudioManager::CreateAAudioAudioDeviceModule(
     JNIEnv* env,
     const JavaParamRef<jobject>& application_context) {
   RTC_LOG(INFO) << __FUNCTION__;
-  return new rtc::RefCountedObject<android_adm::AudioDeviceTemplateAndroid<
-      android_adm::AAudioRecorder, android_adm::AAudioPlayer>>(
-      env, application_context, AudioDeviceModule::kAndroidAAudioAudio);
+  return CreateAudioDeviceModuleFromInputAndOutput(
+      env, application_context, AudioDeviceModule::kAndroidAAudioAudio,
+      CreateAAudioRecorderFactory(), CreateAAudioPlayerFactory());
 }
 #endif
 
@@ -71,30 +71,14 @@ rtc::scoped_refptr<AudioDeviceModule> AudioManager::CreateAudioDeviceModule(
     bool use_opensles_input,
     bool use_opensles_output) {
   RTC_LOG(INFO) << __FUNCTION__;
-
-  if (use_opensles_output) {
-    if (use_opensles_input) {
-      // Use OpenSL ES for both playout and recording.
-      return new rtc::RefCountedObject<android_adm::AudioDeviceTemplateAndroid<
-          android_adm::OpenSLESRecorder, android_adm::OpenSLESPlayer>>(
-          env, application_context, AudioDeviceModule::kAndroidOpenSLESAudio);
-    } else {
-      // Use OpenSL ES for output and AudioRecord API for input. This
-      // combination provides low-latency output audio and at the same
-      // time support for HW AEC using the AudioRecord Java API.
-      return new rtc::RefCountedObject<android_adm::AudioDeviceTemplateAndroid<
-          android_adm::AudioRecordJni, android_adm::OpenSLESPlayer>>(
-          env, application_context,
-          AudioDeviceModule::kAndroidJavaInputAndOpenSLESOutputAudio);
-    }
-  } else {
-    RTC_DCHECK(!use_opensles_input)
-        << "Combination of OpenSLES input and Java-based output not supported";
-    // Use Java-based audio in both directions.
-    return new rtc::RefCountedObject<android_adm::AudioDeviceTemplateAndroid<
-        android_adm::AudioRecordJni, android_adm::AudioTrackJni>>(
-        env, application_context, AudioDeviceModule::kAndroidJavaAudio);
-  }
+  RTC_DCHECK(use_opensles_output || !use_opensles_input)
+      << "Combination of OpenSLES input and Java-based output not supported";
+  return CreateAudioDeviceModuleFromInputAndOutput(
+      env, application_context, AudioDeviceModule::kAndroidOpenSLESAudio,
+      use_opensles_input ? CreateOpenSLESRecorderFactory()
+                         : CreateAudioRecordJniFactory(),
+      use_opensles_output ? CreateOpenSLESPlayerFactory()
+                          : CreateAudioTrackJniFactory());
 }
 
 // AudioManager implementation

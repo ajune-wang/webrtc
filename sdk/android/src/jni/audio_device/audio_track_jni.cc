@@ -25,6 +25,21 @@ namespace webrtc {
 
 namespace android_adm {
 
+namespace {
+
+class OpenSLESPlayerFactory : public AudioOutputFactory {
+  std::unique_ptr<AudioOutput> CreateAudioOutput(
+      AudioManager* audio_manager) override {
+    return rtc::MakeUnique<AudioTrackJni>(audio_manager);
+  }
+};
+
+}  // namespace
+
+std::unique_ptr<AudioOutputFactory> CreateAudioTrackJniFactory() {
+  return rtc::MakeUnique<OpenSLESPlayerFactory>();
+}
+
 // TODO(henrika): possible extend usage of AudioManager and add it as member.
 AudioTrackJni::AudioTrackJni(AudioManager* audio_manager)
     : env_(AttachCurrentThreadIfNeeded()),

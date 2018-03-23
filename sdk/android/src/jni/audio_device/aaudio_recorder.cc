@@ -22,6 +22,21 @@ namespace webrtc {
 
 namespace android_adm {
 
+namespace {
+
+class AAudioRecorderFactory : public AudioInputFactory {
+  std::unique_ptr<AudioInput> CreateAudioInput(
+      AudioManager* audio_manager) override {
+    return rtc::MakeUnique<AAudioRecorder>(audio_manager);
+  }
+};
+
+}  // namespace
+
+std::unique_ptr<AudioInputFactory> CreateAAudioRecorderFactory() {
+  return rtc::MakeUnique<AAudioRecorderFactory>();
+}
+
 enum AudioDeviceMessageType : uint32_t {
   kMessageInputStreamDisconnected,
 };

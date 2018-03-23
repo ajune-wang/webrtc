@@ -43,6 +43,21 @@ namespace webrtc {
 
 namespace android_adm {
 
+namespace {
+
+class OpenSLESRecorderFactory : public AudioInputFactory {
+  std::unique_ptr<AudioInput> CreateAudioInput(
+      AudioManager* audio_manager) override {
+    return rtc::MakeUnique<OpenSLESRecorder>(audio_manager);
+  }
+};
+
+}  // namespace
+
+std::unique_ptr<AudioInputFactory> CreateOpenSLESRecorderFactory() {
+  return rtc::MakeUnique<OpenSLESRecorderFactory>();
+}
+
 OpenSLESRecorder::OpenSLESRecorder(AudioManager* audio_manager)
     : audio_manager_(audio_manager),
       audio_parameters_(audio_manager->GetRecordAudioParameters()),

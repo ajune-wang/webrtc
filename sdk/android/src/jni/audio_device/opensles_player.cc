@@ -42,6 +42,21 @@ namespace webrtc {
 
 namespace android_adm {
 
+namespace {
+
+class OpenSLESPlayerFactory : public AudioOutputFactory {
+  std::unique_ptr<AudioOutput> CreateAudioOutput(
+      AudioManager* audio_manager) override {
+    return rtc::MakeUnique<OpenSLESPlayer>(audio_manager);
+  }
+};
+
+}  // namespace
+
+std::unique_ptr<AudioOutputFactory> CreateOpenSLESPlayerFactory() {
+  return rtc::MakeUnique<OpenSLESPlayerFactory>();
+}
+
 OpenSLESPlayer::OpenSLESPlayer(AudioManager* audio_manager)
     : audio_manager_(audio_manager),
       audio_parameters_(audio_manager->GetPlayoutAudioParameters()),

@@ -45,7 +45,19 @@ class ScopedHistogramTimer {
   const std::string histogram_name_;
   int64_t start_time_ms_;
 };
+
+class AudioRecordJniFactory : public AudioInputFactory {
+  std::unique_ptr<AudioInput> CreateAudioInput(
+      AudioManager* audio_manager) override {
+    return rtc::MakeUnique<AudioRecordJni>(audio_manager);
+  }
+};
+
 }  // namespace
+
+std::unique_ptr<AudioInputFactory> CreateAudioRecordJniFactory() {
+  return rtc::MakeUnique<AudioRecordJniFactory>();
+}
 
 // AudioRecordJni implementation.
 AudioRecordJni::AudioRecordJni(AudioManager* audio_manager)

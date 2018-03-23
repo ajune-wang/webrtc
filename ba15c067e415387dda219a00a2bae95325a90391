@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "f0bf57b8_0a1f806d",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2175,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:21:45Z",
+      "side": 1,
+      "message": "Can you add a comment like:\n\n\"Test that role conflict error responses are sent as expected when receiving a ping from an unknown address over a TURN connection. Regression test for crbug.com/webrtc/9034.\"",
+      "revId": "ba15c067e415387dda219a00a2bae95325a90391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4fa1892_a88f3068",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 3
@@ -46,6 +63,64 @@
       "revId": "ba15c067e415387dda219a00a2bae95325a90391",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fbf2112_60ff356a",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2177,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:21:45Z",
+      "side": 1,
+      "message": "Given how specific this issue already is, I\u0027d say one test is enough.",
+      "parentUuid": "62782eae_33d2cfd8",
+      "range": {
+        "startLine": 2177,
+        "startChar": 40,
+        "endLine": 2177,
+        "endChar": 54
+      },
+      "revId": "ba15c067e415387dda219a00a2bae95325a90391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9132fc0e_a74fb2b2",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2202,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:21:45Z",
+      "side": 1,
+      "message": "Is setting the default IceConfig necessary?",
+      "revId": "ba15c067e415387dda219a00a2bae95325a90391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60bf7cc2_962b8d37",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2212,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:21:45Z",
+      "side": 1,
+      "message": "ASSERT_NE, so that test aborts if there\u0027s no selected connection, and doesn\u0027t crash from dereferencing it below",
+      "revId": "ba15c067e415387dda219a00a2bae95325a90391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

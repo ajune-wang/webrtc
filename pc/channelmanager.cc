@@ -488,6 +488,7 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel(
 
 void ChannelManager::DestroyRtpDataChannel(RtpDataChannel* data_channel) {
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyRtpDataChannel");
+  RTC_LOG(INFO) << "DestroyRtpDataChannel";
   if (!data_channel) {
     return;
   }
@@ -507,7 +508,7 @@ void ChannelManager::DestroyRtpDataChannel(RtpDataChannel* data_channel) {
   if (it == data_channels_.end()) {
     return;
   }
-
+  RTC_LOG(INFO) << "earse it.";
   data_channels_.erase(it);
 }
 

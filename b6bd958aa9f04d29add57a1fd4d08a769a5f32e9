@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60e7313b_47c03751",
+        "filename": "rtc_base/socketaddress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5241
+      },
+      "writtenOn": "2018-03-23T12:47:45Z",
+      "side": 1,
+      "message": "I\u0027ll defer to others to review usage of this class, since I\u0027m not familiar with that.",
+      "revId": "b6bd958aa9f04d29add57a1fd4d08a769a5f32e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

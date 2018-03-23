@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6267f84_1c2814ad",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-03-23T13:55:21Z",
+      "side": 0,
+      "message": "When loop_at_end_ is true, after a loop has occured, current_pos will have a low value. If a negative jump happens at that point, new_pos will get a negative value. So new_pos should be allowed to have a negative value when loop_at_end_ is true.",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 26
+      },
+      "revId": "3dc0125cf7e8df6e60222fc5b69f08c52486a959",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

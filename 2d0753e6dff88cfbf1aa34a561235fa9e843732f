@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65c2354f_712356fe",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-23T00:41:59Z",
+      "side": 1,
+      "message": "Except it doesn\u0027t fail.  Instead it logs an error and moves on.  Should we have an Init or Start method that takes the config and can fail and require users to use that?  We already require calling MaybeStartGathering.  Perhaps we could just rename that.",
+      "range": {
+        "startLine": 142,
+        "startChar": 56,
+        "endLine": 142,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e86b24e5_cff63ca2",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-23T00:41:59Z",
+      "side": 1,
+      "message": "return false?",
+      "range": {
+        "startLine": 584,
+        "startChar": 69,
+        "endLine": 584,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fbedecc_27b35742",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-23T00:41:59Z",
+      "side": 1,
+      "message": "Should we return an RTCError and let the caller decide what to do with the error message?",
+      "range": {
+        "startLine": 585,
+        "startChar": 3,
+        "endLine": 585,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7501572_3881a5b8",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-23T00:41:59Z",
+      "side": 1,
+      "message": "I don\u0027t like that that this is duplicated.  Perhaps we also need a \"FillIceConfigDefaults\" method that can be called in both places.",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede70360_a64fd74d",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 5660
+      },
+      "writtenOn": "2018-03-23T00:41:59Z",
+      "side": 1,
+      "message": "If it can fail, we should rename it SetUnwritableTimeout and return a bool or RTCError",
+      "range": {
+        "startLine": 1697,
+        "startChar": 77,
+        "endLine": 1697,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

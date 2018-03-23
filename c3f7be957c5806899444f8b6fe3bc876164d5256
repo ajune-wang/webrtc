@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e55c0e9_8fa753af",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-23T12:25:49Z",
+      "side": 1,
+      "message": "nit: no need to initialize here",
+      "range": {
+        "startLine": 408,
+        "startChar": 25,
+        "endLine": 408,
+        "endChar": 0
+      },
+      "revId": "c3f7be957c5806899444f8b6fe3bc876164d5256",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

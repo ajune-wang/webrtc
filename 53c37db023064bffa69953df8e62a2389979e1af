@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4a2675ff_9c1baf9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-03-23T12:27:50Z",
+      "side": 1,
+      "message": "That sounds like a good idea, will do.",
+      "parentUuid": "985d184a_0fcda50e",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d43c3cec_d84781d5",
         "filename": "p2p/base/dtlstransport.cc",
         "patchSetId": 3
@@ -48,6 +66,24 @@
       "writtenOn": "2018-03-22T17:44:19Z",
       "side": 1,
       "message": "We can remove \"Jingle:\"; it refers to a pre-WebRTC protocol.\n\nAlso, why \"this-\u003eToString()\" instead of just \"ToString()\"?",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e39254c0_02bf9958",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-03-23T12:27:50Z",
+      "side": 1,
+      "message": "Can we remove it everywhere, and should I add something else in its place? Qingsi mentiones that it was useful for log filtering.\nI\u0027ll remove the redundant this-\u003e instances, that\u0027s what I get for mindlessly inlining macros.",
+      "parentUuid": "d43c3cec_d84781d5",
       "revId": "53c37db023064bffa69953df8e62a2389979e1af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -100,6 +136,24 @@
       "writtenOn": "2018-03-22T17:44:19Z",
       "side": 1,
       "message": "As long as you\u0027re here, can you remove \"DTLSTransportChannelWrapper: \" from these log statements? It\u0027s an outdated name of the class, and is redundant since ToString already says \"DtlsTransport\".",
+      "revId": "53c37db023064bffa69953df8e62a2389979e1af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fb3d8d7_6ad72d5d",
+        "filename": "p2p/base/dtlstransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-03-23T12:27:50Z",
+      "side": 1,
+      "message": "Thanks! I\u0027ll do that.",
+      "parentUuid": "057b079e_94bfc74b",
       "revId": "53c37db023064bffa69953df8e62a2389979e1af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

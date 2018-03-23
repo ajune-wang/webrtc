@@ -181,6 +181,8 @@ rtc_source_set("platform_thread") {
 
 rtc_source_set("rtc_event") {
   if (build_with_chromium) {
+    # Dependency on chromium's waitable_event (in //base).
+    deps += [ "//base:base" ]
     sources = [
       "../../webrtc_overrides/rtc_base/event.cc",
       "../../webrtc_overrides/rtc_base/event.h",

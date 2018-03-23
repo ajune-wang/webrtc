@@ -16,6 +16,24 @@
       "revId": "79688adec940a3ad4a801a3f00d976dc4c1f56ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3f248e8_2e3bef1e",
+        "filename": "modules/utility/include/helpers_android.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-03-23T08:49:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76400a6c_efa455d3",
+      "revId": "79688adec940a3ad4a801a3f00d976dc4c1f56ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

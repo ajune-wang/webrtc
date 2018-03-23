@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "240c071a_ffa7e449",
+        "filename": "modules/rtp_rtcp/source/rtp_receiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-23T15:00:33Z",
+      "side": 0,
+      "message": "Early return for this case is delete, instead, we always update |ssrc_|.\n\nSeems unlikely to break things, but who knows...",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 11
+      },
+      "revId": "bc01047ecedd5c75b52f17f1ab02523ecf88b7d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

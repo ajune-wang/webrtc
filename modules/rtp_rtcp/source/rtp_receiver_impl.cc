@@ -326,10 +326,6 @@ void RtpReceiverImpl::CheckSSRCChanged(const RTPHeader& rtp_header) {
 int32_t RtpReceiverImpl::CheckPayloadChanged(const RTPHeader& rtp_header,
                                              const int8_t first_payload_byte,
                                              PayloadUnion* specific_payload) {
-  // TODO(nisse): re_initialize_decoder is unused, and most or all of
-  // this code can likely be deleted.
-  bool re_initialize_decoder = false;
-
   int8_t payload_type = rtp_header.payloadType;
 
   {
@@ -357,22 +353,6 @@ int32_t RtpReceiverImpl::CheckPayloadChanged(const RTPHeader& rtp_header,
         return -1;
       }
       rtp_payload_registry_->set_last_received_payload_type(payload_type);
-
-      re_initialize_decoder = true;
-
-      rtp_media_receiver_->SetLastMediaSpecificPayload(payload->typeSpecific);
-      rtp_media_receiver_->GetLastMediaSpecificPayload(specific_payload);
-
-      if (!payload->typeSpecific.is_audio()) {
-        bool media_type_unchanged =
-            rtp_payload_registry_->ReportMediaPayloadType(payload_type);
-        if (media_type_unchanged) {
-          // Only reset the decoder if the media codec type has changed.
-          re_initialize_decoder = false;
-        }
-      }
-    } else {
-      rtp_media_receiver_->GetLastMediaSpecificPayload(specific_payload);
     }
   }  // End critsect.
 

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9db99ec4_6a9536c0",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-23T12:55:34Z",
+      "side": 1,
+      "message": "I don\u0027t understand why we cannot keep RTC_CHECK_EQ. The printout that you get from using RTC_CHECK is not as good as from *_EQ.",
+      "range": {
+        "startLine": 340,
+        "startChar": 4,
+        "endLine": 340,
+        "endChar": 13
+      },
+      "revId": "b6bd958aa9f04d29add57a1fd4d08a769a5f32e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60e7313b_47c03751",
         "filename": "rtc_base/socketaddress.cc",
         "patchSetId": 2

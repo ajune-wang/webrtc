@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2e26e002_146b7b45",
+        "filename": "media/base/rtputils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16d7d0ac_143db428",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "294a9390_99efa3bc",
         "filename": "pc/channel.cc",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d92ad012_3d0a595f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "294a9390_99efa3bc",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "eef5335c_aef1c090",
+        "filename": "pc/channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df861591_bc14efd0",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3707924_25ec6b74",
         "filename": "pc/dtlssrtptransport.h",
         "patchSetId": 10
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "38e0a81f_03d3193a",
+        "filename": "pc/dtlssrtptransport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3707924_25ec6b74",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b49639ec_c4078971",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 10
@@ -84,6 +156,24 @@
       "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd78da6c_b8fa1fd2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 5328,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "We don\u0027t actually need this any more. Removed.",
+      "parentUuid": "b49639ec_c4078971",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "bc9b7856_cc3c2b0f",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6676e5b0_00f6ff99",
+      "range": {
+        "startLine": 148,
+        "startChar": 2,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e24de9d_10f687bb",
         "filename": "pc/rtptransport.cc",
         "patchSetId": 10
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "2f85e9f2_7ec76a9c",
+        "filename": "pc/rtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "No, this can be removed.",
+      "parentUuid": "9e24de9d_10f687bb",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3543cbb7_6b5efb5a",
         "filename": "pc/rtptransport.h",
         "patchSetId": 10
@@ -141,6 +273,24 @@
       "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c44752_a2a8f687",
+        "filename": "pc/rtptransport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Private methods are allowed to be overridden.(https://stackoverflow.com/questions/2170688/private-virtual-method-in-c)\nI guess the compiler doesn\u0027t complain because these methods are called internally by the signals.\n\nI can make them protected to be less confusing.",
+      "parentUuid": "3543cbb7_6b5efb5a",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -167,6 +317,30 @@
     },
     {
       "key": {
+        "uuid": "88e835a4_e5fd7d9a",
+        "filename": "pc/rtptransport_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfd6f09c_9c2c03ca",
+      "range": {
+        "startLine": 258,
+        "startChar": 32,
+        "endLine": 258,
+        "endChar": 67
+      },
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53da02c0_823e884a",
         "filename": "pc/rtptransport_unittest.cc",
         "patchSetId": 10
@@ -190,6 +364,30 @@
     },
     {
       "key": {
+        "uuid": "4081a2d0_bd7aa678",
+        "filename": "pc/rtptransport_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53da02c0_823e884a",
+      "range": {
+        "startLine": 282,
+        "startChar": 32,
+        "endLine": 282,
+        "endChar": 67
+      },
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddfcc999_288e7de0",
         "filename": "pc/srtptransport.cc",
         "patchSetId": 10
@@ -207,6 +405,24 @@
     },
     {
       "key": {
+        "uuid": "217cf76e_c0982f07",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Looks like \"git cl format\" doesn\u0027t work well in this case. Done.",
+      "parentUuid": "ddfcc999_288e7de0",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78712056_8d92bdbc",
         "filename": "pc/srtptransport.cc",
         "patchSetId": 10
@@ -221,6 +437,24 @@
       "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aab46945_28f4c79a",
+        "filename": "pc/srtptransport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-23T00:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78712056_8d92bdbc",
+      "revId": "a855d87183df088a6cacd22cb3cfe0c8cb1e82d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

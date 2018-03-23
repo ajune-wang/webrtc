@@ -25,6 +25,47 @@
     },
     {
       "key": {
+        "uuid": "1f8949a8_e183170a",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:57:27Z",
+      "side": 1,
+      "message": "This is just validating that the default config constructed above is validated. So I\u0027d suggest putting it in a DCHECK.",
+      "parentUuid": "65c2354f_712356fe",
+      "range": {
+        "startLine": 142,
+        "startChar": 56,
+        "endLine": 142,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dfd1cef_2a933977",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:57:27Z",
+      "side": 1,
+      "message": "I\u0027d suggest putting this in a DCHECK as well, since validation should have already been done before this method is called.",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e86b24e5_cff63ca2",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 9
@@ -42,6 +83,23 @@
         "endLine": 584,
         "endChar": 0
       },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f69142c_7b97afcf",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:57:27Z",
+      "side": 1,
+      "message": "nit: Should avoid extra \"\u003c\u003c\" between strings",
       "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -88,6 +146,57 @@
     },
     {
       "key": {
+        "uuid": "ae069d21_cafd417a",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:57:27Z",
+      "side": 1,
+      "message": "nit: Given that you can just follow \"ice_check_interval_strong_connectivity_or_default\" to get to this comment, I don\u0027t think duplicating it here is necessary.",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff79e47b_47de101c",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:57:27Z",
+      "side": 1,
+      "message": "Given that you\u0027re using the \"or_default\" helpers now, I think this comment could be removed.",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "045f2ad5_475ee3d0",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1696,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:57:27Z",
+      "side": 1,
+      "message": "This TODO can be resolved now.",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ede70360_a64fd74d",
         "filename": "p2p/base/port.cc",
         "patchSetId": 9
@@ -99,6 +208,30 @@
       "writtenOn": "2018-03-23T00:41:59Z",
       "side": 1,
       "message": "If it can fail, we should rename it SetUnwritableTimeout and return a bool or RTCError",
+      "range": {
+        "startLine": 1697,
+        "startChar": 77,
+        "endLine": 1697,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0744ad5e_4ee1bbf2",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T20:57:27Z",
+      "side": 1,
+      "message": "Can just do a DCHECK like before, assuming the TODO above is resolved in this CL.",
+      "parentUuid": "ede70360_a64fd74d",
       "range": {
         "startLine": 1697,
         "startChar": 77,

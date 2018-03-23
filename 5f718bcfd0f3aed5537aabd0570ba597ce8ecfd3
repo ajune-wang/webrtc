@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bcfc97e_c9cf8727",
+        "filename": "pc/channel.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T22:37:23Z",
+      "side": 1,
+      "message": "Check error here as well? This actually may be a problem with the JsepTransportController CL, since this happens in response to \"SignalRtpTransportChanged\", and there\u0027s no way to propagate the error back...",
+      "revId": "5f718bcfd0f3aed5537aabd0570ba597ce8ecfd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b66d907c_f9708ec0",
+        "filename": "pc/channel.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T22:37:23Z",
+      "side": 1,
+      "message": "It would be slightly safer to do this on the network thread (like it was before), to ensure there are no currently-executing tasks (Clear doesn\u0027t handle those).",
+      "revId": "5f718bcfd0f3aed5537aabd0570ba597ce8ecfd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a423d2e_f0aa2325",
+        "filename": "pc/channel.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-23T22:37:23Z",
+      "side": 1,
+      "message": "Would be good to have some error message, like \"Failed to set up audio demuxing\"",
+      "revId": "5f718bcfd0f3aed5537aabd0570ba597ce8ecfd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

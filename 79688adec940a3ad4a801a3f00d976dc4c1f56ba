@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76400a6c_efa455d3",
+        "filename": "modules/utility/include/helpers_android.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-23T08:18:02Z",
+      "side": 1,
+      "message": "nit: Add a comment with link to to the bug to explain why this is needed.",
+      "revId": "79688adec940a3ad4a801a3f00d976dc4c1f56ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

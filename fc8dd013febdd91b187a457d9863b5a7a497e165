@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09b2ef6e_2939f28d",
+        "filename": "p2p/base/icetransportinternal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-23T00:46:07Z",
+      "side": 1,
+      "message": "Do we plan to keep these forever or are they temporary?",
+      "range": {
+        "startLine": 161,
+        "startChar": 78,
+        "endLine": 161,
+        "endChar": 0
+      },
+      "revId": "fc8dd013febdd91b187a457d9863b5a7a497e165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72778479_4572fb19",
+        "filename": "p2p/base/p2pconstants.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-23T00:46:07Z",
+      "side": 1,
+      "message": "Should probably say \"IceTransport level\" instead of \"channel\".",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 57,
+        "endChar": 0
+      },
+      "revId": "fc8dd013febdd91b187a457d9863b5a7a497e165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "56afe656_472656bb",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-23T11:15:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4ccb2749_f92d1378",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20d90953_4aeaa70c",
         "filename": "modules/congestion_controller/bbr/rtt_stats.h",
         "patchSetId": 1
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "In the QUIC implementation (where this is ported from) it is set by a config that\u0027s probably why it is not CHECKed there. Not sure if it is good to CHECK it for us. Currently we aren\u0027t using the feature, but we probably will want to, and then crashing the program for a bad value doesn\u0027t seem safe. I added an extra DCHECK to detect errors in debug.",
       "parentUuid": "20d90953_4aeaa70c",
+      "revId": "603c182c32329a471250d24dfb486406cc210c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bd9c21c_be0d822d",
+        "filename": "modules/congestion_controller/bbr/rtt_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-23T11:15:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb215d49_d6982111",
       "revId": "603c182c32329a471250d24dfb486406cc210c69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

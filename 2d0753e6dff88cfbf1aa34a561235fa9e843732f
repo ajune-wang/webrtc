@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "86e0f1de_8874b641",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "Same as below. Returning RTCError to callers + DCHECK here.",
+      "parentUuid": "1f8949a8_e183170a",
+      "range": {
+        "startLine": 142,
+        "startChar": 56,
+        "endLine": 142,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6dfd1cef_2a933977",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 9
@@ -63,6 +87,24 @@
       "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c7dd942_95294682",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "I found returning RTCError to callers and handling it here using DCHECK may allow the most flexibility.",
+      "parentUuid": "6dfd1cef_2a933977",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +148,48 @@
     },
     {
       "key": {
+        "uuid": "118cc8ff_5f68d597",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f69142c_7b97afcf",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3df6a1_e429e9f5",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "Ack. Sorry I missed that.",
+      "parentUuid": "e86b24e5_cff63ca2",
+      "range": {
+        "startLine": 584,
+        "startChar": 69,
+        "endLine": 584,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fbedecc_27b35742",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 9
@@ -129,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "aea8d6e0_a1be3ec5",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "I agree. This seems the best way to accommodate PeerConnection::ValidateConfiguration and also internal stacks that do not use PeerConnection.",
+      "parentUuid": "9fbedecc_27b35742",
+      "range": {
+        "startLine": 585,
+        "startChar": 3,
+        "endLine": 585,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7501572_3881a5b8",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 9
@@ -143,6 +251,24 @@
       "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efb35c3d_cbeb3365",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "Called it GetWeakPingIntervalInFieldTrial. We have internal defaults from the config.",
+      "parentUuid": "f7501572_3881a5b8",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "f46ce996_68afcd0a",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ae069d21_cafd417a",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff79e47b_47de101c",
         "filename": "p2p/base/p2ptransportchannel.cc",
         "patchSetId": 9
@@ -177,6 +321,24 @@
       "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a800e621_45c6a6e0",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ff79e47b_47de101c",
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +394,30 @@
       "side": 1,
       "message": "Can just do a DCHECK like before, assuming the TODO above is resolved in this CL.",
       "parentUuid": "ede70360_a64fd74d",
+      "range": {
+        "startLine": 1697,
+        "startChar": 77,
+        "endLine": 1697,
+        "endChar": 0
+      },
+      "revId": "2d0753e6dff88cfbf1aa34a561235fa9e843732f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23e02255_81bc59b6",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-03-24T00:32:12Z",
+      "side": 1,
+      "message": "The above TODO is not resolved yet. We have a config parameter take CONNECTION_WRITE_CONNECT_TIMEOUT as default, which is 5 seconds, after which the state transits to unreliable from writable. CONNECTION_WRITE_TIMEOUT is the much longer one, 15 seconds, and the state transits to timeout after this period. It\u0027s not configurable yet. I changed to return a RTCError for the moment. If we decide to resolve it in this CL, I will fix that.",
+      "parentUuid": "0744ad5e_4ee1bbf2",
       "range": {
         "startLine": 1697,
         "startChar": 77,

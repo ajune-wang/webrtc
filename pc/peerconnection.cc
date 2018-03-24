@@ -846,6 +846,7 @@ PeerConnection::~PeerConnection() {
 }
 
 void PeerConnection::DestroyAllChannels() {
+  RTC_LOG(INFO) << "DestroyAllChannels";
   // Destroy video channels first since they may have a pointer to a voice
   // channel.
   for (auto transceiver : transceivers_) {
@@ -6096,6 +6097,8 @@ void PeerConnection::DestroyTransceiverChannel(
   RTC_DCHECK(transceiver);
 
   cricket::BaseChannel* channel = transceiver->internal()->channel();
+  RTC_LOG(INFO) << "DestroyTransceiverChannel:" << channel->transport_name();
+  RTC_LOG(INFO) << "Channel:" << channel;
   if (channel) {
     transceiver->internal()->SetChannel(nullptr);
     DestroyBaseChannel(channel);
@@ -6124,12 +6127,14 @@ void PeerConnection::DestroyDataChannel() {
 
 void PeerConnection::DestroyBaseChannel(cricket::BaseChannel* channel) {
   RTC_DCHECK(channel);
-  RTC_DCHECK(channel->rtp_dtls_transport());
-
   // Need to cache these before destroying the base channel so that we do not
   // access uninitialized memory.
-  const std::string transport_name =
-      channel->rtp_dtls_transport()->transport_name();
+  RTC_LOG(INFO) << "DestroyBaseChannel_content_name:"
+                << channel->content_name();
+  RTC_LOG(INFO) << "DestroyBaseChannel:" << channel->transport_name();
+  const std::string transport_name = channel->transport_name();
+  RTC_LOG(INFO) << "DestroyBaseChannel channel->rtcp_dtls_transport():"
+                << channel->rtcp_dtls_transport();
   const bool need_to_delete_rtcp = (channel->rtcp_dtls_transport() != nullptr);
 
   switch (channel->media_type()) {

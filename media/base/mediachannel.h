@@ -170,18 +170,19 @@ class MediaChannel : public sigslot::has_slots<> {
                           const rtc::PacketOptions& options) = 0;
     virtual int SetOption(SocketType type, rtc::Socket::Option opt,
                           int option) = 0;
-    virtual ~NetworkInterface() {}
+    virtual ~NetworkInterface() { RTC_LOG(INFO) << "~NetworkInterface"; }
   };
 
   explicit MediaChannel(const MediaConfig& config)
       : enable_dscp_(config.enable_dscp), network_interface_(NULL) {}
   MediaChannel() : enable_dscp_(false), network_interface_(NULL) {}
-  virtual ~MediaChannel() {}
+  virtual ~MediaChannel() { RTC_LOG(INFO) << "~MediaChannel"; }
 
   // Sets the abstract interface class for sending RTP/RTCP data.
   virtual void SetInterface(NetworkInterface *iface) {
     rtc::CritScope cs(&network_interface_crit_);
     network_interface_ = iface;
+    RTC_LOG(INFO) << "Setting interface:" << network_interface_;
     SetDscp(enable_dscp_ ? PreferredDscp() : rtc::DSCP_DEFAULT);
   }
   virtual rtc::DiffServCodePoint PreferredDscp() const {

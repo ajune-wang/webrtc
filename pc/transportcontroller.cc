@@ -367,6 +367,7 @@ void TransportController::DestroyDtlsTransport_n(
   if ((*it)->Release() == rtc::RefCountReleaseStatus::kOtherRefsRemained) {
     return;
   }
+  RTC_LOG(INFO) << "Destroying:" << transport_name;
   channels_.erase(it);
 
   JsepTransport* t = GetJsepTransport(transport_name);
@@ -458,15 +459,11 @@ webrtc::DtlsSrtpTransport* TransportController::CreateDtlsSrtpTransport(
     return existing_rtp_transport->dtls_srtp_transport;
   }
 
-  auto new_srtp_transport =
-      rtc::MakeUnique<webrtc::SrtpTransport>(rtcp_mux_enabled);
-
-#if defined(ENABLE_EXTERNAL_AUTH)
-  new_srtp_transport->EnableExternalAuth();
-#endif
-
   auto new_dtls_srtp_transport =
-      rtc::MakeUnique<webrtc::DtlsSrtpTransport>(std::move(new_srtp_transport));
+      rtc::MakeUnique<webrtc::DtlsSrtpTransport>(rtcp_mux_enabled);
+#if defined(ENABLE_EXTERNAL_AUTH)
+  new_dtls_srtp_transport->EnableExternalAuth();
+#endif
 
   auto rtp_dtls_transport = CreateDtlsTransport_n(
       transport_name, cricket::ICE_CANDIDATE_COMPONENT_RTP);

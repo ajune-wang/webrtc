@@ -1028,6 +1028,13 @@ RTCError PeerConnection::ValidateConfiguration(
                     "ice_regather_interval_range specified but continual "
                     "gathering policy is GATHER_ONCE");
   }
+  auto ice_config_validation_result =
+      cricket::P2PTransportChannel::ValidateIceConfig(ParseIceConfig(config));
+  if (!ice_config_validation_result.ok()) {
+    return RTCError(RTCErrorType::INVALID_PARAMETER,
+                    "RTCConfiguration does not generate valid IceConfig: " +
+                        std::string(ice_config_validation_result.message()));
+  }
   return RTCError::OK();
 }
 

@@ -147,6 +147,9 @@ const int64_t kForgetPacketAfter = 30000;  // 30 seconds
 
 namespace cricket {
 
+using webrtc::RTCErrorType;
+using webrtc::RTCError;
+
 // TODO(ronghuawu): Use "local", "srflx", "prflx" and "relay". But this requires
 // the signaling part be updated correspondingly as well.
 const char LOCAL_PORT_TYPE[] = "local";
@@ -1690,6 +1693,20 @@ void Connection::OnMessage(rtc::Message *pmsg) {
                    << num_pings_sent_;
   SignalDestroyed(this);
   delete this;
+}
+
+// TODO(qingsi): Remove the RTCError and add a rule in ValidateIceConfig when
+// there is a corresponding configurable parameter assuming
+// |CONNECTION_WRITE_TIMEOUT| as its default value.
+RTCError Connection::SetUnwritableTimeout(const rtc::Optional<int>& value_ms) {
+  if (value_ms.value_or(-1) > CONNECTION_WRITE_TIMEOUT) {
+    return RTCError(RTCErrorType::INVALID_PARAMETER,
+                    "The timeout period for the writability state to become "
+                    "UNRELIABLE is longer than that to become TIMEOUT. The "
+                    "value of timeout period is unchanged.");
+  }
+  unwritable_timeout_ = value_ms;
+  return RTCError::OK();
 }
 
 int64_t Connection::last_received() const {

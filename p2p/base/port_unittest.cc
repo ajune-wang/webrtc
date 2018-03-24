@@ -2673,7 +2673,7 @@ TEST_F(PortTest, TestWritableStateWithConfiguredThreshold) {
   EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE,
                            ch1.conn()->write_state(), kDefaultTimeout, clock);
 
-  ch1.conn()->set_unwritable_timeout(1000);
+  RTC_DCHECK(ch1.conn()->SetUnwritableTimeout(1000).ok());
   ch1.conn()->set_unwritable_min_checks(3);
   // Send two checks.
   ch1.Ping(1);

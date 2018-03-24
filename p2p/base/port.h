@@ -19,6 +19,7 @@
 
 #include "api/candidate.h"
 #include "api/optional.h"
+#include "api/rtcerror.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 #include "logging/rtc_event_log/icelogger.h"
@@ -551,12 +552,7 @@ class Connection : public CandidatePairInterface,
   int rtt() const { return rtt_; }
 
   int unwritable_timeout() const;
-  void set_unwritable_timeout(const rtc::Optional<int>& value_ms) {
-    // TODO(qingsi): Validate configuration parameters in
-    // PeerConnection::ValidateConfiguration.
-    RTC_CHECK_LT(value_ms.value_or(-1), CONNECTION_WRITE_TIMEOUT);
-    unwritable_timeout_ = value_ms;
-  }
+  webrtc::RTCError SetUnwritableTimeout(const rtc::Optional<int>& value_ms);
   int unwritable_min_checks() const;
   void set_unwritable_min_checks(const rtc::Optional<int>& value) {
     unwritable_min_checks_ = value;

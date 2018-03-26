@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ab830bb_75eebc91",
+        "filename": "rtc_base/openssladapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2018-03-26T22:13:22Z",
+      "side": 1,
+      "message": "Should this return reference instead?",
+      "range": {
+        "startLine": 192,
+        "startChar": 2,
+        "endLine": 192,
+        "endChar": 20
+      },
+      "revId": "fdf2d02361581cf6d8fcf6e6d77b126a7a87304e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

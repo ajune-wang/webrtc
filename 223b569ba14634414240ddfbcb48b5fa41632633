@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b646477b_302912f3",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-26T21:36:49Z",
+      "side": 1,
+      "message": "Oh, interesting. Maybe the rules have been changed. Yes, do whatever presubmit checks ask.",
+      "parentUuid": "60d75fa8_98d0edf4",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b84036bd_92232f09",
         "filename": "modules/desktop_capture/mac/screen_capturer_mac.h",
         "patchSetId": 1
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "Problem is that it is used in the header. And if I got either error: reference to \u0027DisplayStreamManager\u0027 is ambiguous or I can ignore git cl upload error:\nDo not use unnamed namespaces in header files.  See https://google.github.io/styleguide/cppguide.html#Namespaces for more information.  [build/namespaces] [4]",
       "parentUuid": "031f343c_517c6fb1",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 28
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ce30fe_a0945301",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-26T21:36:49Z",
+      "side": 1,
+      "message": "I mean *before* the anonymous namespace, but still in the webrtc namespace.",
+      "parentUuid": "e65b5c4d_c8074b7d",
       "range": {
         "startLine": 192,
         "startChar": 0,

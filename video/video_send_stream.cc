@@ -589,8 +589,10 @@ void VideoSendStream::Start() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
   VideoSendStreamImpl* send_stream = send_stream_.get();
-  worker_queue_->PostTask([this, send_stream] {
-    send_stream->Start();
+  worker_queue_->PostTask([send_stream] { send_stream->Start(); });
+
+  video_stream_encoder_->CallbackOnEncoderAvailable([this]() {
+    RTC_LOG(LS_INFO) << "DEBUG:   encoder up";
     thread_sync_event_.Set();
   });
 

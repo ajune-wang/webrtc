@@ -16,6 +16,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <functional>
 
 #include "api/video/video_rotation.h"
 #include "api/video_codecs/video_encoder.h"
@@ -105,6 +106,9 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
   void OnBitrateUpdated(uint32_t bitrate_bps,
                         uint8_t fraction_lost,
                         int64_t round_trip_time_ms);
+
+  void CallbackOnEncoderAvailable(
+      std::function<void()> encoder_available_callback);
 
  protected:
   // Used for testing. For example the |ScalingObserverInterface| methods must
@@ -245,6 +249,8 @@ class VideoStreamEncoder : public rtc::VideoSinkInterface<VideoFrame>,
   bool nack_enabled_ RTC_GUARDED_BY(&encoder_queue_);
   uint32_t last_observed_bitrate_bps_ RTC_GUARDED_BY(&encoder_queue_);
   bool encoder_paused_and_dropped_frame_ RTC_GUARDED_BY(&encoder_queue_);
+  std::function<void()> encoder_available_callback_
+      RTC_GUARDED_BY(&encoder_queue_);
   Clock* const clock_;
   // Counters used for deciding if the video resolution or framerate is
   // currently restricted, and if so, why, on a per degradation preference

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05e204f6_171adac6",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-03-26T14:42:35Z",
+      "side": 1,
+      "message": "I know this is not due to your change, but I find it extremely confusing that class has two \"DeliverPacket\" members, where one is public and used to pass a packet into the pipe, and the other is private and used to pass a packet from the pipe to the receiver.",
+      "range": {
+        "startLine": 184,
+        "startChar": 2,
+        "endLine": 184,
+        "endChar": 43
+      },
+      "revId": "1e9cd76e7ed9475d44d1ed0b1de29f6e3a670edd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

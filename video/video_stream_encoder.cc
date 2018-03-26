@@ -883,12 +883,30 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
   bool video_is_suspended = bitrate_bps == 0;
   bool video_suspension_changed = video_is_suspended != EncoderPaused();
   last_observed_bitrate_bps_ = bitrate_bps;
+  if (encoder_available_callback_ && last_observed_bitrate_bps_ > 0) {
+    encoder_available_callback_();
+    encoder_available_callback_ = nullptr;
+  }
 
   if (video_suspension_changed) {
     RTC_LOG(LS_INFO) << "Video suspend state changed to: "
                      << (video_is_suspended ? "suspended" : "not suspended");
     stats_proxy_->OnSuspendChange(video_is_suspended);
   }
+}
+
+void webrtc::VideoStreamEncoder::CallbackOnEncoderAvailable(
+    std::function<void()> encoder_available_callback) {
+  RTC_DCHECK(!encoder_queue_.IsCurrent());
+  encoder_queue_.PostTask([this, encoder_available_callback]() {
+    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_DCHECK(!encoder_available_callback_);
+    if (last_observed_bitrate_bps_ > 0) {
+      encoder_available_callback();
+    } else {
+      encoder_available_callback_ = encoder_available_callback;
+    }
+  });
 }
 
 void VideoStreamEncoder::AdaptDown(AdaptReason reason) {

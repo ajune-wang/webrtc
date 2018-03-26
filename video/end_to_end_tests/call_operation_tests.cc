@@ -154,16 +154,7 @@ TEST_P(CallOperationEndToEndTest, RendersSingleDelayedFrame) {
   });
 }
 
-// TODO(bugs.webrtc.org/9060): Re-enable this test with the TaskQueue when it
-// is no longer flaky.
-class CallOperationEndToEndTestNoTaskQueueCongestionControl
-    : public CallOperationEndToEndTest {};
-INSTANTIATE_TEST_CASE_P(FieldTrials,
-                        CallOperationEndToEndTestNoTaskQueueCongestionControl,
-                        ::testing::Values("WebRTC-RoundRobinPacing/Disabled/",
-                                          "WebRTC-RoundRobinPacing/Enabled/"));
-TEST_P(CallOperationEndToEndTestNoTaskQueueCongestionControl,
-       TransmitsFirstFrame) {
+TEST_P(CallOperationEndToEndTest, TransmitsFirstFrame) {
   class Renderer : public rtc::VideoSinkInterface<VideoFrame> {
    public:
     Renderer() : event_(false, false) {}

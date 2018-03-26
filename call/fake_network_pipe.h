@@ -126,6 +126,8 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
 
   virtual ~FakeNetworkPipe();
 
+  void SetClockOffset(int64_t offset_ms);
+
   // Sets a new configuration. This won't affect packets already in the pipe.
   void SetConfig(const FakeNetworkPipe::Config& config);
 
@@ -199,6 +201,8 @@ class FakeNetworkPipe : public Transport, public PacketReceiver, public Module {
   Random random_;
 
   std::deque<NetworkPacket> delay_link_;
+
+  int64_t clock_offset_ms_;
 
   // Link configuration.
   Config config_ RTC_GUARDED_BY(config_lock_);

@@ -64,7 +64,7 @@ TEST(ascii_string_compareTest, Equal) {
   EXPECT_EQ(0, ascii_string_compare(L"TeSt", "tEsT", 5, tolowercase));
 }
 
-// Tests comparing a smller string to a larger one.
+// Tests comparing a smaller string to a larger one.
 TEST(ascii_string_compareTest, LessThan) {
   EXPECT_EQ(-1, ascii_string_compare(L"abc", "abd", 4, identity));
   EXPECT_EQ(-1, ascii_string_compare(L"ABC", "abD", 5, tolowercase));
@@ -75,7 +75,7 @@ TEST(ascii_string_compareTest, GreaterThan) {
   EXPECT_EQ(1, ascii_string_compare(L"xyz", "xy", 5, identity));
   EXPECT_EQ(1, ascii_string_compare(L"abc", "ABB", 5, tolowercase));
 }
-#endif  // WEBRTC_WIN 
+#endif  // WEBRTC_WIN
 
 TEST(string_trim_Test, Trimming) {
   EXPECT_EQ("temp", string_trim("\n\r\t temp \n\r\t"));
@@ -103,6 +103,16 @@ TEST(string_endsTest, EndsWith) {
   EXPECT_FALSE(ends_with("foobar", "foo"));
   EXPECT_FALSE(ends_with("foobar", "foobarbaz"));
   EXPECT_FALSE(ends_with("", "f"));
+}
+
+TEST(ToUpperTest, BasicConversions) {
+  EXPECT_EQ('A', ToUpper('a'));
+  EXPECT_EQ('Z', ToUpper('z'));
+}
+
+TEST(ToLowerTest, BasicConversions) {
+  EXPECT_EQ('a', ToLower('A'));
+  EXPECT_EQ('z', ToLower('Z'));
 }
 
 } // namespace rtc

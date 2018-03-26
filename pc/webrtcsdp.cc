@@ -551,9 +551,9 @@ static bool GetValue(const std::string& message, const std::string& attribute,
 
 static bool CaseInsensitiveFind(std::string str1, std::string str2) {
   std::transform(str1.begin(), str1.end(), str1.begin(),
-                 ::tolower);
+                 rtc::ToLower);
   std::transform(str2.begin(), str2.end(), str2.begin(),
-                 ::tolower);
+                 rtc::ToLower);
   return str1.find(str2) != std::string::npos;
 }
 
@@ -2164,7 +2164,7 @@ static bool ParseFingerprintAttribute(const std::string& line,
   // Downcase the algorithm. Note that we don't need to downcase the
   // fingerprint because hex_decode can handle upper-case.
   std::transform(algorithm.begin(), algorithm.end(), algorithm.begin(),
-                 ::tolower);
+                 rtc::ToLower);
 
   // The second field is the digest value. De-hexify it.
   *fingerprint = rtc::SSLFingerprint::CreateFromRfc4572(

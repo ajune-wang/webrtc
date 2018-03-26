@@ -32,10 +32,13 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/openssl.h"
-#include "rtc_base/sslroots.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"
+
+#ifndef WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES
+#include "rtc_base/sslroots.h"
+#endif
 
 #ifndef OPENSSL_IS_BORINGSSL
 
@@ -226,6 +229,8 @@ OpenSSLAdapter::OpenSSLAdapter(AsyncSocket* socket,
     RTC_DCHECK(ssl_ctx_);
     // Note: if using OpenSSL, requires version 1.1.0 or later.
     SSL_CTX_up_ref(ssl_ctx_);
+    // Load the trusted root certificates from the factory.
+    trusted_root_certs_ = factory_->GetTrustedRootCertificates();
   }
 }
 
@@ -249,6 +254,12 @@ void OpenSSLAdapter::SetMode(SSLMode mode) {
   RTC_DCHECK(!ssl_ctx_);
   RTC_DCHECK(state_ == SSL_NONE);
   ssl_mode_ = mode;
+}
+
+void OpenSSLAdapter::SetTrustedRootCertificates(
+    const RawSSLCertificates& certs) {
+  RTC_CHECK(!certs.empty());
+  trusted_root_certs_ = certs;
 }
 
 void OpenSSLAdapter::SetIdentity(SSLIdentity* identity) {
@@ -308,7 +319,12 @@ int OpenSSLAdapter::BeginSSL() {
   // need to create one, and specify |false| to disable session caching.
   if (!factory_) {
     RTC_DCHECK(!ssl_ctx_);
-    ssl_ctx_ = CreateContext(ssl_mode_, false);
+    // If we don't have trusted roots attempt to use the defaults.
+    if (trusted_root_certs_.empty()) {
+      ssl_ctx_ = CreateContext(ssl_mode_, false);
+    } else {
+      ssl_ctx_ = CreateContext(ssl_mode_, false, trusted_root_certs_);
+    }
   }
   if (!ssl_ctx_) {
     err = -1;
@@ -966,20 +982,19 @@ int OpenSSLAdapter::NewSSLSessionCallback(SSL* ssl, SSL_SESSION* session) {
   return 1;  // We've taken ownership of the session; OpenSSL shouldn't free it.
 }
 
-bool OpenSSLAdapter::ConfigureTrustedRootCertificates(SSL_CTX* ctx) {
-  // Add the root cert that we care about to the SSL context
-  int count_of_added_certs = 0;
-  for (size_t i = 0; i < arraysize(kSSLCertCertificateList); i++) {
-    const unsigned char* cert_buffer = kSSLCertCertificateList[i];
-    size_t cert_buffer_len = kSSLCertCertificateSizeList[i];
+bool OpenSSLAdapter::ConfigureTrustedRootCertificates(
+    SSL_CTX* ctx,
+    const RawSSLCertificates& trusted_root_certs) {
+  size_t count_of_added_certs = 0;
+  for (const auto& cert_view : trusted_root_certs) {
+    const unsigned char* cert_buffer = cert_view.data();
     X509* cert =
-        d2i_X509(nullptr, &cert_buffer, checked_cast<long>(cert_buffer_len));
-    if (cert) {
-      int return_value = X509_STORE_add_cert(SSL_CTX_get_cert_store(ctx), cert);
-      if (return_value == 0) {
-        RTC_LOG(LS_WARNING) << "Unable to add certificate.";
-      } else {
+        d2i_X509(nullptr, &cert_buffer, checked_cast<long>(cert_view.size()));
+    if (cert != nullptr) {
+      if (X509_STORE_add_cert(SSL_CTX_get_cert_store(ctx), cert)) {
         count_of_added_certs++;
+      } else {
+        RTC_LOG(LS_WARNING) << "Unable to add certificate.";
       }
       X509_free(cert);
     }
@@ -988,6 +1003,14 @@ bool OpenSSLAdapter::ConfigureTrustedRootCertificates(SSL_CTX* ctx) {
 }
 
 SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
+  const RawSSLCertificates root_certs = GetDefaultTrustedSSLRootCertificates();
+  return CreateContext(mode, enable_cache, root_certs);
+}
+
+SSL_CTX* OpenSSLAdapter::CreateContext(
+    SSLMode mode,
+    bool enable_cache,
+    const RawSSLCertificates& trusted_root_certs) {
   // Use (D)TLS 1.2.
   // Note: BoringSSL supports a range of versions by setting max/min version
   // (Default V1.0 to V1.2). However (D)TLSv1_2_client_method functions used
@@ -1006,7 +1029,7 @@ SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
                         << "(error=" << error << ')';
     return nullptr;
   }
-  if (!ConfigureTrustedRootCertificates(ctx)) {
+  if (!ConfigureTrustedRootCertificates(ctx, trusted_root_certs)) {
     SSL_CTX_free(ctx);
     return nullptr;
   }
@@ -1034,6 +1057,26 @@ SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
   }
 
   return ctx;
+}
+
+const RawSSLCertificates
+OpenSSLAdapter::GetDefaultTrustedSSLRootCertificates() {
+#ifdef WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES
+  return {};
+#else
+  // Convert the auto generated SSL Roots array into a RawSSLCertificates type.
+  // Note this isn't a deep copy, it assumes the references are to static
+  // arrays.
+  RawSSLCertificates certificates;
+  certificates.reserve(arraysize(kSSLCertCertificateList));
+
+  for (size_t i = 0; i < arraysize(kSSLCertCertificateList); i++) {
+    const unsigned char* cert_buffer = kSSLCertCertificateList[i];
+    const size_t cert_buffer_len = kSSLCertCertificateSizeList[i];
+    certificates.emplace_back(cert_buffer, cert_buffer_len);
+  }
+  return certificates;
+#endif
 }
 
 std::string TransformAlpnProtocols(
@@ -1071,6 +1114,12 @@ OpenSSLAdapterFactory::~OpenSSLAdapterFactory() {
   SSL_CTX_free(ssl_ctx_);
 }
 
+void OpenSSLAdapterFactory::SetTrustedRootCertificates(
+    const RawSSLCertificates& certs) {
+  RTC_CHECK(!certs.empty());
+  trusted_root_certs_ = certs;
+}
+
 void OpenSSLAdapterFactory::SetMode(SSLMode mode) {
   RTC_DCHECK(!ssl_ctx_);
   ssl_mode_ = mode;
@@ -1079,12 +1128,18 @@ void OpenSSLAdapterFactory::SetMode(SSLMode mode) {
 OpenSSLAdapter* OpenSSLAdapterFactory::CreateAdapter(AsyncSocket* socket) {
   if (!ssl_ctx_) {
     bool enable_cache = true;
-    ssl_ctx_ = OpenSSLAdapter::CreateContext(ssl_mode_, enable_cache);
+    // Use the default built in trusted ssl root certificate list.
+    if (trusted_root_certs_.empty()) {
+      ssl_ctx_ = OpenSSLAdapter::CreateContext(ssl_mode_, enable_cache);
+      // Use the injected trusted ssl root certificate list.
+    } else {
+      ssl_ctx_ = OpenSSLAdapter::CreateContext(ssl_mode_, enable_cache,
+                                               trusted_root_certs_);
+    }
     if (!ssl_ctx_) {
       return nullptr;
     }
   }
-
   return new OpenSSLAdapter(socket, this);
 }
 
@@ -1098,6 +1153,10 @@ void OpenSSLAdapterFactory::AddSession(const std::string& hostname,
   SSL_SESSION* old_session = LookupSession(hostname);
   SSL_SESSION_free(old_session);
   sessions_[hostname] = new_session;
+}
+
+RawSSLCertificates OpenSSLAdapterFactory::GetTrustedRootCertificates() const {
+  return trusted_root_certs_;
 }
 
 } // namespace rtc

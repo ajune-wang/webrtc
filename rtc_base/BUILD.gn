@@ -938,6 +938,10 @@ rtc_static_library("rtc_base_generic") {
     configs += [ ":external_ssl_library" ]
   }
 
+  if (rtc_disable_builtin_ssl_root_certificates) {
+    defines += [ "WEBRTC_DISABLE_BUILT_IN_SSL_ROOT_CERTIFICATES" ]
+  }
+
   if (is_android) {
     sources += [
       "ifaddrs-android.cc",

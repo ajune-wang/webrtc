@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "78026b00_7f92a451",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-26T12:49:23Z",
+      "side": 1,
+      "message": "And frame_buffer_ will only return decodable frames, and, e.g., never return a non-keyframe as the first frame for a new payload type?",
+      "parentUuid": "3d4076be_b1fadd23",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 49
+      },
+      "revId": "fcd32bfd1fb971930a6309915f8d4264c051e839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e5e2e15_cb1c3482",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 2
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "Not exactly sure why a comment would be motivated for |decoder_|. Shouldn\u0027t |current_payload_type_| also have a comment then?",
       "parentUuid": "1c06b6f8_8e717ce3",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "fcd32bfd1fb971930a6309915f8d4264c051e839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e219949_bcff5ba5",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-26T12:49:23Z",
+      "side": 1,
+      "message": "They should be documented together.",
+      "parentUuid": "3deb6612_9226d51d",
       "range": {
         "startLine": 67,
         "startChar": 0,

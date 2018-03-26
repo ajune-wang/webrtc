@@ -394,6 +394,25 @@ class StatsGetter : public NetEqGetAudioCallback {
       current_concealment_event_ = lifetime_stat.concealment_events;
     }
 
+    if (audio_frame.speech_type_ == AudioFrame::kPLC ||
+      audio_frame.speech_type_ == AudioFrame::kPLCCNG) {
+      plc_active_ = true;
+    } else {
+      if (plc_active_) {
+        ConcealmentEvent ce;
+        ce.duration_ms = (lifetime_stat.concealed_samples - last_event_end_samples_) /
+          (audio_frame.sample_rate_hz_ / 1000);
+        ce.concealment_event_number = lifetime_stat.concealment_events;
+        ce.time_from_previous_event_end_ms = recover_time_ms_;
+        concealment_events2_.emplace_back(ce);
+        recover_time_ms_ = 0;
+        last_event_end_samples_ = lifetime_stat.concealed_samples;
+      }
+      recover_time_ms_ += 10;
+      plc_active_ = false;
+    }
+
+
     if (other_callback_) {
       other_callback_->AfterGetAudio(time_now_ms, audio_frame, muted, neteq);
     }
@@ -412,6 +431,12 @@ class StatsGetter : public NetEqGetAudioCallback {
     // Do not account for the last concealment event to avoid potential end
     // call skewing.
     return concealment_events_;
+  }
+
+  const std::vector<ConcealmentEvent>& concealment_events2() {
+    // Do not account for the last concealment event to avoid potential end
+    // call skewing.
+    return concealment_events2_;
   }
 
   Stats AverageStats() const {
@@ -466,7 +491,11 @@ class StatsGetter : public NetEqGetAudioCallback {
   size_t current_concealment_event_ = 1;
   uint64_t voice_concealed_samples_until_last_event_ = 0;
   std::vector<ConcealmentEvent> concealment_events_;
+  std::vector<ConcealmentEvent> concealment_events2_;
   int64_t last_event_end_time_ms_ = 0;
+  bool plc_active_ = false;
+  int64_t recover_time_ms_ = 0;
+  uint64_t last_event_end_samples_ = 0;
 };
 
 int RunTest(int argc, char* argv[]) {
@@ -726,6 +755,47 @@ int RunTest(int argc, char* argv[]) {
       std::cout << concealment_event;
     std::cout << " end of concealment_events_ms\n";
   }
+  if (FLAG_concealment_events_agg) {
+    constexpr int kFullRecoveryTimeMs = 300;
+
+    // hlundin hack
+    const auto evs = stats_getter.concealment_events2();
+    size_t hl_accounted_voice_plc_events = evs.size();
+    int64_t hl_total_voice_plc_dur_ms = std::accumulate(evs.begin(), evs.end(),
+      0, [](const int64_t a, const StatsGetter::ConcealmentEvent b) {
+        return a + b.duration_ms;
+      });
+    int64_t hl_avg_plc_event_dur_ms =
+          hl_total_voice_plc_dur_ms / hl_accounted_voice_plc_events;
+    auto rec_ev = [](StatsGetter::ConcealmentEvent e) -> bool {
+      return e.time_from_previous_event_end_ms >= kFullRecoveryTimeMs;
+    };
+    int64_t hl_recoverable_plc_ms = std::accumulate(evs.begin(), evs.end(),
+      0, [rec_ev](const int64_t a, const StatsGetter::ConcealmentEvent b){
+        return rec_ev(b) ? b.duration_ms + a : a;
+      });
+    size_t hl_recoverable_plc_events = std::count_if(
+      evs.begin(), evs.end(), rec_ev);
+    int64_t hl_avg_recoverable_plc_ms =
+          hl_recoverable_plc_ms / hl_recoverable_plc_events;
+    // NOTE: this is not percent.
+    float hl_recoverable_plc_dur_pct =
+        static_cast<float>(hl_recoverable_plc_ms) / test_duration_ms;
+    float hl_plc_dur_pct = static_cast<float>(hl_total_voice_plc_dur_ms / test_duration_ms);
+
+    std::cout << "concealment events aggregated stats - "
+                   "accounted_voice_plc_events:"
+                << hl_accounted_voice_plc_events
+                << " total_voice_plc_dur_ms:" << hl_total_voice_plc_dur_ms
+                << " avg_plc_event_dur_ms:" << hl_avg_plc_event_dur_ms
+                << " recoverable_plc_ms:" << hl_recoverable_plc_ms
+                << " recoverable_plc_events:" << hl_recoverable_plc_events
+                << " avg_recoverable_plc_ms:" << hl_avg_recoverable_plc_ms
+                << " recoverable_plc_dur_pct:" << hl_recoverable_plc_dur_pct
+                << " total_plc_dur_pct:" << hl_plc_dur_pct
+                << " call_duration_ms:" << test_duration_ms << "\n";
+  }
+
   return 0;
 }
 

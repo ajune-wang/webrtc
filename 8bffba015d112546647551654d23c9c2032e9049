@@ -36,6 +36,75 @@
     },
     {
       "key": {
+        "uuid": "30ad9e54_9b9229f8",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "How do we know this is long enough?   It seems like this should be infrequent enough that being more conservative with the value would be safer (say.... 500ms).  But it would be even better to have data around how long is needed.",
+      "range": {
+        "startLine": 42,
+        "startChar": 53,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7d07c2_3156130c",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1267,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "I like how you did it below without a map.  A lambda here that updates the bools instead of a map would also be nice to be more readable so you can write something like RecordResult(CreateXPorts());",
+      "range": {
+        "startLine": 1266,
+        "startChar": 60,
+        "endLine": 1267,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43aadb6e_91a51d13",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "This is a big else block now.  Can we move this into a separate method?",
+      "range": {
+        "startLine": 1293,
+        "startChar": 61,
+        "endLine": 1293,
+        "endChar": 65
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "856ed971_6b3c65aa",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 3
@@ -47,6 +116,24 @@
       "writtenOn": "2018-03-22T22:05:36Z",
       "side": 1,
       "message": "\"At least one success\" may not mean much. If creating an \"active\" TCPPort, it\u0027s possible that no socket will actually be created until an outgoing connection is made, so the creation of the TCPPort itself will always succeed.",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6b75246_e5afa01e",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "Good point.  What else can we use, though?",
+      "parentUuid": "856ed971_6b3c65aa",
       "revId": "8bffba015d112546647551654d23c9c2032e9049",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -81,6 +168,121 @@
       "writtenOn": "2018-03-22T22:05:36Z",
       "side": 1,
       "message": "What if udp_socket_ is null? Something to keep in mind is that PORTALLOCATOR_ENABLE_SHARED_SOCKET is the default everywhere; https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d8283",
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78ca7e03_1c6d0324",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "Can you move this up to an early return to make it more readable?  Something like:\n\nif (!port) {\n  return PortAllocationResult::FAILURE_CREATION_ERROR;\n}\n\nSame in a few places below.",
+      "range": {
+        "startLine": 1368,
+        "startChar": 54,
+        "endLine": 1369,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f3378c8_0a43c799",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1445,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "The way you did it below without a map seemed cleaner.  Why not do the same here?  Why do you need the map?  Sure, it might be two if statements, but that seems fine.",
+      "range": {
+        "startLine": 1444,
+        "startChar": 64,
+        "endLine": 1445,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa2eb833_f43172d9",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "It succeeds if *any* of the configs work?  That should be documented somewhere.",
+      "range": {
+        "startLine": 1568,
+        "startChar": 41,
+        "endLine": 1569,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81085483_b272681e",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1574,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "This would read a little easier like so:\n\nif (!tried_creation_with_feasible_config) {\n  return PortAllocationResult::FAILURE_INFEASIBLE_CONFIG;\n}\nif (!created_valid_port) {\n  return PortAllocationResult::FAILURE_CREATION_ERROR;\n}\nreturn PortAllocationResult::SUCCESS;",
+      "range": {
+        "startLine": 1573,
+        "startChar": 57,
+        "endLine": 1574,
+        "endChar": 0
+      },
+      "revId": "8bffba015d112546647551654d23c9c2032e9049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a96890b4_0c714400",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2018-03-26T19:57:53Z",
+      "side": 1,
+      "message": "These could use some comments as to what they mean.",
+      "range": {
+        "startLine": 311,
+        "startChar": 25,
+        "endLine": 311,
+        "endChar": 0
+      },
       "revId": "8bffba015d112546647551654d23c9c2032e9049",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

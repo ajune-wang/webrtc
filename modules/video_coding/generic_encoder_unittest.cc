@@ -208,6 +208,44 @@ TEST(TestVCMEncodedFrameCallback, NoTimingFrameIfNoEncodeStartTime) {
   EXPECT_FALSE(sink.WasTimingFrame());
 }
 
+TEST(TestVCMEncodedFrameCallback, AdjustsCaptureTimeForInternalSourceEncoder) {
+  EncodedImage image;
+  CodecSpecificInfo codec_specific;
+  const int64_t kEncodeStartDelayMs = 2;
+  const int64_t kEncodeFinishDelayMs = 10;
+  int64_t timestamp = 1;
+  image._length = 500;
+  image.capture_time_ms_ = timestamp;
+  image._timeStamp = static_cast<uint32_t>(timestamp * 90);
+  codec_specific.codecType = kVideoCodecGeneric;
+  codec_specific.codecSpecific.generic.simulcast_idx = 0;
+  FakeEncodedImageCallback sink;
+  VCMEncodedFrameCallback callback(&sink, nullptr);
+  callback.SetInternalSource(true);
+  VideoCodec::TimingFrameTriggerThresholds thresholds;
+  thresholds.delay_ms = 1;  // Make all frames timing frames.
+  callback.SetTimingFramesThresholds(thresholds);
+  callback.OnTargetBitrateChanged(500, 0);
+
+  // Verify a single frame without encode timestamps isn't a timing frame.
+  callback.OnEncodedImage(image, &codec_specific, nullptr);
+  EXPECT_FALSE(sink.WasTimingFrame());
+
+  // New frame, but this time with encode timestamps set in timing_.
+  // This should be a timing frame.
+  image.capture_time_ms_ = ++timestamp;
+  image._timeStamp = static_cast<uint32_t>(timestamp * 90);
+  image.timing_.encode_start_ms = timestamp + kEncodeStartDelayMs;
+  image.timing_.encode_finish_ms = timestamp + kEncodeFinishDelayMs;
+  callback.OnEncodedImage(image, &codec_specific, nullptr);
+  EXPECT_TRUE(sink.WasTimingFrame());
+  // Frame is captured kEncodeFinishDelayMs before it's encoded, so restored
+  // capture timestamp should be kEncodeFinishDelayMs in the past.
+  // 1ms of error is allowed due to clock tick passing.
+  EXPECT_NEAR(sink.GetLastCaptureTimestamp(),
+              rtc::TimeMillis() - kEncodeFinishDelayMs, 1);
+}
+
 TEST(TestVCMEncodedFrameCallback, NotifiesAboutDroppedFrames) {
   EncodedImage image;
   CodecSpecificInfo codec_specific;

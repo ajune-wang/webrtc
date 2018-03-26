@@ -285,73 +285,77 @@ EncodedImageCallback::Result VCMEncodedFrameCallback::OnEncodedImage(
   rtc::Optional<int64_t> encode_start_ms;
   size_t num_simulcast_svc_streams = 1;
   uint8_t timing_flags = TimingFrameFlags::kNotTriggered;
-  if (!internal_source_) {
+  {
     rtc::CritScope crit(&timing_params_lock_);
 
-    // Encoders with internal sources do not call OnEncodeStarted and
-    // OnFrameRateChanged. |timing_frames_info_| may be not filled here.
-    num_simulcast_svc_streams = timing_frames_info_.size();
-    if (simulcast_svc_idx < num_simulcast_svc_streams) {
-      auto encode_start_list =
-          &timing_frames_info_[simulcast_svc_idx].encode_start_list;
-      // Skip frames for which there was OnEncodeStarted but no OnEncodedImage
-      // call. These are dropped by encoder internally.
-      // Because some hardware encoders don't preserve capture timestamp we use
-      // RTP timestamps here.
-      while (!encode_start_list->empty() &&
-             IsNewerTimestamp(image_copy._timeStamp,
-                              encode_start_list->front().rtp_timestamp)) {
-        post_encode_callback_->OnDroppedFrame(DropReason::kDroppedByEncoder);
-        encode_start_list->pop_front();
-      }
-      if (encode_start_list->size() > 0 &&
-          encode_start_list->front().rtp_timestamp == image_copy._timeStamp) {
-        encode_start_ms.emplace(
-            encode_start_list->front().encode_start_time_ms);
-        if (image_copy.capture_time_ms_ !=
-            encode_start_list->front().capture_time_ms) {
-          // Force correct capture timestamp.
-          image_copy.capture_time_ms_ =
-              encode_start_list->front().capture_time_ms;
-          ++incorrect_capture_time_logged_messages_;
-          if (incorrect_capture_time_logged_messages_ <=
+    // Encoders with internal sources do not call OnEncodeStarted
+    // |timing_frames_info_| may be not filled here.
+    if (!internal_source_) {
+      num_simulcast_svc_streams = timing_frames_info_.size();
+      if (simulcast_svc_idx < num_simulcast_svc_streams) {
+        auto encode_start_list =
+            &timing_frames_info_[simulcast_svc_idx].encode_start_list;
+        // Skip frames for which there was OnEncodeStarted but no OnEncodedImage
+        // call. These are dropped by encoder internally.
+        // Because some hardware encoders don't preserve capture timestamp we
+        // use RTP timestamps here.
+        while (!encode_start_list->empty() &&
+               IsNewerTimestamp(image_copy._timeStamp,
+                                encode_start_list->front().rtp_timestamp)) {
+          post_encode_callback_->OnDroppedFrame(DropReason::kDroppedByEncoder);
+          encode_start_list->pop_front();
+        }
+        if (encode_start_list->size() > 0 &&
+            encode_start_list->front().rtp_timestamp == image_copy._timeStamp) {
+          encode_start_ms.emplace(
+              encode_start_list->front().encode_start_time_ms);
+          if (image_copy.capture_time_ms_ !=
+              encode_start_list->front().capture_time_ms) {
+            // Force correct capture timestamp.
+            image_copy.capture_time_ms_ =
+                encode_start_list->front().capture_time_ms;
+            ++incorrect_capture_time_logged_messages_;
+            if (incorrect_capture_time_logged_messages_ <=
+                    kMessagesThrottlingThreshold ||
+                incorrect_capture_time_logged_messages_ % kThrottleRatio == 0) {
+              RTC_LOG(LS_WARNING)
+                  << "Encoder is not preserving capture timestamps.";
+              if (incorrect_capture_time_logged_messages_ ==
+                  kMessagesThrottlingThreshold) {
+                RTC_LOG(LS_WARNING)
+                    << "Too many log messages. Further incorrect "
+                       "timestamps warnings will be throttled.";
+              }
+            }
+          }
+          encode_start_list->pop_front();
+        } else {
+          ++reordered_frames_logged_messages_;
+          if (reordered_frames_logged_messages_ <=
                   kMessagesThrottlingThreshold ||
-              incorrect_capture_time_logged_messages_ % kThrottleRatio == 0) {
+              reordered_frames_logged_messages_ % kThrottleRatio == 0) {
             RTC_LOG(LS_WARNING)
-                << "Encoder is not preserving capture timestamps.";
-            if (incorrect_capture_time_logged_messages_ ==
+                << "Frame with no encode started time recordings. "
+                   "Encoder may be reordering frames "
+                   "or not preserving RTP timestamps.";
+            if (reordered_frames_logged_messages_ ==
                 kMessagesThrottlingThreshold) {
-              RTC_LOG(LS_WARNING) << "Too many log messages. Further incorrect "
-                                     "timestamps warnings will be throttled.";
+              RTC_LOG(LS_WARNING) << "Too many log messages. Further frames "
+                                     "reordering warnings will be throttled.";
             }
           }
         }
-        encode_start_list->pop_front();
-      } else {
-        ++reordered_frames_logged_messages_;
-        if (reordered_frames_logged_messages_ <= kMessagesThrottlingThreshold ||
-            reordered_frames_logged_messages_ % kThrottleRatio == 0) {
-          RTC_LOG(LS_WARNING)
-              << "Frame with no encode started time recordings. "
-                 "Encoder may be reordering frames "
-                 "or not preserving RTP timestamps.";
-          if (reordered_frames_logged_messages_ ==
-              kMessagesThrottlingThreshold) {
-            RTC_LOG(LS_WARNING) << "Too many log messages. Further frames "
-                                   "reordering warnings will be throttled.";
-          }
-        }
       }
+    }  // if (!internal_source_)
 
-      size_t target_bitrate =
-          timing_frames_info_[simulcast_svc_idx].target_bitrate_bytes_per_sec;
-      if (framerate_ > 0 && target_bitrate > 0) {
-        // framerate and target bitrate were reported by encoder.
-        size_t average_frame_size = target_bitrate / framerate_;
-        outlier_frame_size.emplace(
-            average_frame_size *
-            timing_frames_thresholds_.outlier_ratio_percent / 100);
-      }
+    size_t target_bitrate =
+        timing_frames_info_[simulcast_svc_idx].target_bitrate_bytes_per_sec;
+    if (framerate_ > 0 && target_bitrate > 0) {
+      // framerate and target bitrate were reported by encoder.
+      size_t average_frame_size = target_bitrate / framerate_;
+      outlier_frame_size.emplace(
+          average_frame_size * timing_frames_thresholds_.outlier_ratio_percent /
+          100);
     }
 
     // Check if it's time to send a timing frame.
@@ -372,6 +376,21 @@ EncodedImageCallback::Result VCMEncodedFrameCallback::OnEncodedImage(
     if (outlier_frame_size && image_copy._length >= *outlier_frame_size) {
       timing_flags |= TimingFrameFlags::kTriggeredBySize;
     }
+  }  // rtc::CritScope crit(&timing_params_lock_);
+
+  int64_t now_ms = rtc::TimeMillis();
+  // Workaround for chromoting encoder: it passes encode start and finished
+  // timestamps in |timing_| field, but they (together with capture timestamp)
+  // are not in the WebRTC clock.
+  if (internal_source_ && image_copy.timing_.encode_finish_ms > 0 &&
+      image_copy.timing_.encode_start_ms > 0) {
+    int64_t clock_offset_ms = now_ms - image_copy.timing_.encode_finish_ms;
+    // Translate capture timestamp to local WebRTC clock.
+    image_copy.capture_time_ms_ += clock_offset_ms;
+    image_copy._timeStamp =
+        static_cast<uint32_t>(image_copy.capture_time_ms_ * 90);
+    encode_start_ms.emplace(image_copy.timing_.encode_start_ms +
+                            clock_offset_ms);
   }
 
   // If encode start is not available that means that encoder uses internal
@@ -380,7 +399,7 @@ EncodedImageCallback::Result VCMEncodedFrameCallback::OnEncodedImage(
   // because to being sent in the network capture time required to be less than
   // all the other timestamps.
   if (encode_start_ms) {
-    image_copy.SetEncodeTime(*encode_start_ms, rtc::TimeMillis());
+    image_copy.SetEncodeTime(*encode_start_ms, now_ms);
     image_copy.timing_.flags = timing_flags;
   } else {
     image_copy.timing_.flags = TimingFrameFlags::kInvalid;

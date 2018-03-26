@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34a4a69a_e218453d",
+        "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-26T12:27:09Z",
+      "side": 1,
+      "message": "Remove this",
+      "revId": "55d1f7a6cfbe92c56dc86b53ace8f34271702f2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

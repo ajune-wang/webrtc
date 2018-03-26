@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ecc39eb_e6670ceb",
+        "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-03-26T12:34:02Z",
+      "side": 1,
+      "message": "The 10 ms frame duration assumption is encoded in kFrameDurationMs from agc2_common.h.\nIt\u0027s already included here, use it.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 60
+      },
+      "revId": "4241118e80bfc29879306e6ac0242bca1d8734ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e577b1d_865613bd",
+        "filename": "modules/audio_processing/agc2/interpolated_gain_curve.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-03-26T12:34:02Z",
+      "side": 1,
+      "message": "Basically a switch, adhere to:\nhttps://google.github.io/styleguide/cppguide.html#Loops_and_Switch_Statements",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 3
+      },
+      "revId": "4241118e80bfc29879306e6ac0242bca1d8734ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/agc2/interpolated_gain_curve.h"
 
+#include <iostream>
+
 #include "modules/audio_processing/agc2/agc2_common.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/checks.h"
@@ -20,19 +22,21 @@ namespace webrtc {
 namespace {
 void LogRegionStats(const InterpolatedGainCurve::Stats& stats) {
   using Region = InterpolatedGainCurve::GainCurveRegion;
+  const int duration_s = stats.region_duration_frames / 100;
 
-  std::string histogram_name = "WebRTC.Audio.Agc2.FixedDigitalGainCurveRegion.";
   if (stats.region == Region::kIdentity) {
-    histogram_name += "Identity";
+    RTC_HISTOGRAM_COUNTS_10000(
+        "WebRTC.Audio.Agc2.FixedDigitalGainCurveRegion.Identity", duration_s);
   } else if (stats.region == Region::kKnee) {
-    histogram_name += "Knee";
+    RTC_HISTOGRAM_COUNTS_10000(
+        "WebRTC.Audio.Agc2.FixedDigitalGainCurveRegion.Knee", duration_s);
   } else if (stats.region == Region::kLimiter) {
-    histogram_name += "Limiter";
+    RTC_HISTOGRAM_COUNTS_10000(
+        "WebRTC.Audio.Agc2.FixedDigitalGainCurveRegion.Limiter", duration_s);
   } else {
-    histogram_name += "Saturation";
+    RTC_HISTOGRAM_COUNTS_10000(
+        "WebRTC.Audio.Agc2.FixedDigitalGainCurveRegion.Saturation", duration_s);
   }
-  RTC_HISTOGRAM_COUNTS_10000(histogram_name,
-                             stats.region_duration_frames / 100);
 }
 }  // namespace
 

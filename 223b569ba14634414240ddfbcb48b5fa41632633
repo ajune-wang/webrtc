@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbaf8d4e_3a29ddc1",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-26T20:20:57Z",
+      "side": 1,
+      "message": "Put this line after \u003cmemory\u003e.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b84036bd_92232f09",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-26T20:20:57Z",
+      "side": 1,
+      "message": "If you do not plan to override this class, make it final.",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f82d90_44090931",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-26T20:20:57Z",
+      "side": 1,
+      "message": "Add a TODO to remove Init() function as the secondary initialization, a static creator can be used.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "031f343c_517c6fb1",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-26T20:20:57Z",
+      "side": 1,
+      "message": "I think you can move this class before\nnamespace {\nin line 42 to reduce the diff.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 28
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bec8fddd_45b80dc2",
+        "filename": "modules/desktop_capture/screen_capturer_darwin.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-26T20:20:57Z",
+      "side": 1,
+      "message": "Though it\u0027s not required, in WebRTC, a pair of brackets is usually preferred for a single line condition statement.",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

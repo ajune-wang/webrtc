@@ -10,26 +10,15 @@
 
 #include <stddef.h>
 
-#include <memory>
 #include <set>
 #include <utility>
 
 #include <ApplicationServices/ApplicationServices.h>
 #include <Cocoa/Cocoa.h>
-#include <CoreGraphics/CoreGraphics.h>
 #include <dlfcn.h>
 
-#include "modules/desktop_capture/desktop_capture_options.h"
-#include "modules/desktop_capture/desktop_capturer.h"
-#include "modules/desktop_capture/desktop_frame.h"
-#include "modules/desktop_capture/desktop_geometry.h"
-#include "modules/desktop_capture/desktop_region.h"
-#include "modules/desktop_capture/mac/desktop_configuration.h"
-#include "modules/desktop_capture/mac/desktop_configuration_monitor.h"
-#include "modules/desktop_capture/mac/scoped_pixel_buffer_object.h"
-#include "modules/desktop_capture/screen_capture_frame_queue.h"
-#include "modules/desktop_capture/screen_capturer_helper.h"
-#include "modules/desktop_capture/shared_desktop_frame.h"
+#include "modules/desktop_capture/mac/screen_capturer_mac.h"
+
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/logging.h"
@@ -38,8 +27,6 @@
 #include "sdk/objc/Framework/Classes/Common/scoped_cftyperef.h"
 
 namespace webrtc {
-
-namespace {
 
 // CGDisplayStreamRefs need to be destroyed asynchronously after receiving a
 // kCGDisplayStreamFrameStatusStopped callback from CoreGraphics. This may
@@ -107,6 +94,8 @@ class DisplayStreamManager {
   int unique_id_generator_ = 0;
   bool ready_for_self_destruction_ = false;
 };
+
+namespace {
 
 // Standard Mac displays have 72dpi, but we report 96dpi for
 // consistency with Windows and Linux.
@@ -239,81 +228,6 @@ CGImageRef CreateExcludedWindowRegionImage(const DesktopRect& pixel_bounds,
       window_bounds, window_list, kCGWindowImageDefault);
 }
 
-// A class to perform video frame capturing for mac.
-class ScreenCapturerMac : public DesktopCapturer {
- public:
-  explicit ScreenCapturerMac(
-      rtc::scoped_refptr<DesktopConfigurationMonitor> desktop_config_monitor,
-      bool detect_updated_region);
-  ~ScreenCapturerMac() override;
-
-  bool Init();
-
-  // DesktopCapturer interface.
-  void Start(Callback* callback) override;
-  void CaptureFrame() override;
-  void SetExcludedWindow(WindowId window) override;
-  bool GetSourceList(SourceList* screens) override;
-  bool SelectSource(SourceId id) override;
-
- private:
-  // Returns false if the selected screen is no longer valid.
-  bool CgBlit(const DesktopFrame& frame, const DesktopRegion& region);
-
-  // Called when the screen configuration is changed.
-  void ScreenConfigurationChanged();
-
-  bool RegisterRefreshAndMoveHandlers();
-  void UnregisterRefreshAndMoveHandlers();
-
-  void ScreenRefresh(CGRectCount count,
-                     const CGRect *rect_array,
-                     DesktopVector display_origin);
-  void ReleaseBuffers();
-
-  std::unique_ptr<DesktopFrame> CreateFrame();
-
-  const bool detect_updated_region_;
-
-  Callback* callback_ = nullptr;
-
-  ScopedPixelBufferObject pixel_buffer_object_;
-
-  // Queue of the frames buffers.
-  ScreenCaptureFrameQueue<SharedDesktopFrame> queue_;
-
-  // Current display configuration.
-  MacDesktopConfiguration desktop_config_;
-
-  // Currently selected display, or 0 if the full desktop is selected. On OS X
-  // 10.6 and before, this is always 0.
-  CGDirectDisplayID current_display_ = 0;
-
-  // The physical pixel bounds of the current screen.
-  DesktopRect screen_pixel_bounds_;
-
-  // The dip to physical pixel scale of the current screen.
-  float dip_to_pixel_scale_ = 1.0f;
-
-  // A thread-safe list of invalid rectangles, and the size of the most
-  // recently captured screen.
-  ScreenCapturerHelper helper_;
-
-  // Contains an invalid region from the previous capture.
-  DesktopRegion last_invalid_region_;
-
-  // Monitoring display reconfiguration.
-  rtc::scoped_refptr<DesktopConfigurationMonitor> desktop_config_monitor_;
-
-  CGWindowID excluded_window_ = 0;
-
-  // A self-owned object that will destroy itself after ScreenCapturerMac and
-  // all display streams have been destroyed..
-  DisplayStreamManager* display_stream_manager_;
-
-  RTC_DISALLOW_COPY_AND_ASSIGN(ScreenCapturerMac);
-};
-
 // DesktopFrame wrapper that flips wrapped frame upside down by inverting
 // stride.
 class InvertedDesktopFrame : public DesktopFrame {
@@ -334,6 +248,8 @@ class InvertedDesktopFrame : public DesktopFrame {
 
   RTC_DISALLOW_COPY_AND_ASSIGN(InvertedDesktopFrame);
 };
+
+}  // namespace
 
 ScreenCapturerMac::ScreenCapturerMac(
     rtc::scoped_refptr<DesktopConfigurationMonitor> desktop_config_monitor,
@@ -741,23 +657,6 @@ std::unique_ptr<DesktopFrame> ScreenCapturerMac::CreateFrame() {
   frame->set_dpi(DesktopVector(kStandardDPI * dip_to_pixel_scale_,
                                kStandardDPI * dip_to_pixel_scale_));
   return frame;
-}
-
-}  // namespace
-
-// static
-std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawScreenCapturer(
-    const DesktopCaptureOptions& options) {
-  if (!options.configuration_monitor())
-    return nullptr;
-
-  std::unique_ptr<ScreenCapturerMac> capturer(new ScreenCapturerMac(
-      options.configuration_monitor(), options.detect_updated_region()));
-  if (!capturer.get()->Init()) {
-    return nullptr;
-  }
-
-  return capturer;
 }
 
 }  // namespace webrtc

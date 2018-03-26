@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5891d49f_00a5ce9a",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-26T21:58:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b646477b_302912f3",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b84036bd_92232f09",
         "filename": "modules/desktop_capture/mac/screen_capturer_mac.h",
         "patchSetId": 1
@@ -235,6 +259,30 @@
       "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "569fa0ef_494b6d64",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-26T21:58:35Z",
+      "side": 1,
+      "message": "Ah got it, thx!",
+      "parentUuid": "e5ce30fe_a0945301",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 28
+      },
+      "revId": "223b569ba14634414240ddfbcb48b5fa41632633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

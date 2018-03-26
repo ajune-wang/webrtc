@@ -1509,6 +1509,7 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
 
 void WebRtcVideoChannel::SetInterface(NetworkInterface* iface) {
   MediaChannel::SetInterface(iface);
+  RTC_LOG(INFO) << "~WebRtcVideoChannel::SetInterface";
   // Set the RTP recv/send buffer to a bigger size
   MediaChannel::SetOption(NetworkInterface::ST_RTP,
                           rtc::Socket::OPT_RCVBUF,

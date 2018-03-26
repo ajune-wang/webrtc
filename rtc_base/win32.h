@@ -19,6 +19,12 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+// Undefine NOGDI if set. Some build environments set it, whereas some of our
+// own headers require GDI.
+#ifdef NOGDI
+#undef NOGDI
+#endif
+
 // Make sure we don't get min/max macros
 #ifndef NOMINMAX
 #define NOMINMAX

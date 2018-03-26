@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ed7601b_0be6552e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-26T13:26:03Z",
+      "side": 1,
+      "message": "Great CL description, thanks.",
+      "range": {
+        "startLine": 21,
+        "startChar": 43,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "e679a94ff2dc5377ffc6f5c25afd388844e03097",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

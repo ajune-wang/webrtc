@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5230aa51_c4093f0a",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-26T11:26:44Z",
+      "side": 1,
+      "message": "At codec switch, I imagine there\u0027s no use switching decoder until we see a keyframe for the new codec (it\u0027s better to keep the old one, to be able to decode any late frames).\n\nWill the caller be responsible for that, or should we have an is_keyframe argument or the like here?",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 49
+      },
+      "revId": "fcd32bfd1fb971930a6309915f8d4264c051e839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e5e2e15_cb1c3482",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-26T11:26:44Z",
+      "side": 1,
+      "message": "Can be shortened to current_payload_type_ \u003d\u003d payload_type.",
+      "range": {
+        "startLine": 71,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 69
+      },
+      "revId": "fcd32bfd1fb971930a6309915f8d4264c051e839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca2a04d0_accf9ee4",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-26T11:26:44Z",
+      "side": 1,
+      "message": "BTW, I dislike the InitEncode and InitDecode functions. It ought to be the responsibility of the factory to produce a decoder that is ready to be used. But not for this cl to change.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 64
+      },
+      "revId": "fcd32bfd1fb971930a6309915f8d4264c051e839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f77ca9d_14a4b099",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-26T11:26:44Z",
+      "side": 1,
+      "message": "Depending on how it\u0027s used, might be clearer to name it GetDecoder and let it return the pointer.",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "fcd32bfd1fb971930a6309915f8d4264c051e839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c06b6f8_8e717ce3",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-03-26T11:26:44Z",
+      "side": 1,
+      "message": "We will always have at most one instantiated decoder? Might be motivated with a comment explaining when and how this is set.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "fcd32bfd1fb971930a6309915f8d4264c051e839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

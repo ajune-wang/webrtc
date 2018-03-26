@@ -11,10 +11,15 @@
 #ifndef RTC_BASE_SSLADAPTER_H_
 #define RTC_BASE_SSLADAPTER_H_
 
+#include <vector>
+
+#include "api/array_view.h"
 #include "rtc_base/asyncsocket.h"
 #include "rtc_base/sslstreamadapter.h"
 
 namespace rtc {
+
+typedef std::vector<ArrayView<const unsigned char>> RawSSLCertificates;
 
 class SSLAdapter;
 
@@ -26,8 +31,15 @@ class SSLAdapter;
 class SSLAdapterFactory {
  public:
   virtual ~SSLAdapterFactory() {}
+
   // Specifies whether TLS or DTLS is to be used for the SSL adapters.
   virtual void SetMode(SSLMode mode) = 0;
+
+  // Specifies a custom set of trusted root certificates other than the
+  // defaults compiled into the binary. This usually isn't required unless the
+  // default certificates have been left out of the build to save space.
+  virtual void SetTrustedRootCertificates(const RawSSLCertificates& certs) = 0;
+
   // Creates a new SSL adapter, but from a shared context.
   virtual SSLAdapter* CreateAdapter(AsyncSocket* socket) = 0;
 
@@ -50,10 +62,16 @@ class SSLAdapter : public AsyncSocketAdapter {
   virtual void SetIgnoreBadCert(bool ignore) = 0;
 
   virtual void SetAlpnProtocols(const std::vector<std::string>& protos) = 0;
+
   virtual void SetEllipticCurves(const std::vector<std::string>& curves) = 0;
 
   // Do DTLS or TLS (default is TLS, if unspecified)
   virtual void SetMode(SSLMode mode) = 0;
+
+  // Specifies a custom set of trusted root certificates other than the
+  // defaults compiled into the binary. This usually isn't required unless the
+  // default certificates have been left out of the build to save space.
+  virtual void SetTrustedRootCertificates(const RawSSLCertificates& certs) = 0;
 
   // Set the certificate this socket will present to incoming clients.
   virtual void SetIdentity(SSLIdentity* identity) = 0;

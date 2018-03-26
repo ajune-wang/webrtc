@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "942cd0a2_007b578a",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-26T13:45:36Z",
+      "side": 1,
+      "message": "I don\u0027t think this one calculates the right things.\n\nlifetime_stat.concealment_events will increment on the start of a concealment event.\nlifetime_stat.voice_concealed_samples will continue to increment throughout that event.\n\nSo, this means that the event will be registered after about 10 ms of it has happened, but with a duration that is (approximately) the duration of the last event. Is this what is intended?\n\nAlso, why lifetime_stat.voice_concealed_samples and not lifetime_stat.concealed_samples?",
+      "range": {
+        "startLine": 383,
+        "startChar": 17,
+        "endLine": 383,
+        "endChar": 51
+      },
+      "revId": "ab9610dec6b1c56ee8170d88fbebfe3ce14c9943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a70d96_c47a193b",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-26T13:45:36Z",
+      "side": 1,
+      "message": "This is a very weird variable name.",
+      "range": {
+        "startLine": 757,
+        "startChar": 16,
+        "endLine": 757,
+        "endChar": 48
+      },
+      "revId": "ab9610dec6b1c56ee8170d88fbebfe3ce14c9943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45f3fea1_d28697bd",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2018-03-26T13:45:36Z",
+      "side": 1,
+      "message": "These were already incremented on lines 771-772.",
+      "range": {
+        "startLine": 783,
+        "startChar": 14,
+        "endLine": 785,
+        "endChar": 39
+      },
+      "revId": "ab9610dec6b1c56ee8170d88fbebfe3ce14c9943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

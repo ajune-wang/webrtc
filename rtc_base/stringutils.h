@@ -47,6 +47,14 @@ namespace rtc {
 // Ex: string_match("www.TEST.GOOGLE.COM", "www.*.com") -> true
 bool string_match(const char* target, const char* pattern);
 
+inline char ToUpper(char ch) {
+  return ::toupper(static_cast<unsigned char>(ch));
+}
+
+inline char ToLower(char ch) {
+  return ::tolower(static_cast<unsigned char>(ch));
+}
+
 }  // namespace rtc
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -17,6 +17,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/messagedigest.h"
 #include "rtc_base/stringencode.h"
+#include "rtc_base/stringutils.h"
 
 namespace rtc {
 
@@ -99,7 +100,7 @@ std::string SSLFingerprint::GetRfc4572Fingerprint() const {
   std::string fingerprint =
       rtc::hex_encode_with_delimiter(digest.data<char>(), digest.size(), ':');
   std::transform(fingerprint.begin(), fingerprint.end(),
-                 fingerprint.begin(), ::toupper);
+                 fingerprint.begin(), ToUpper);
   return fingerprint;
 }
 

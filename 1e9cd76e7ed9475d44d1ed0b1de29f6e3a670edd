@@ -22,6 +22,30 @@
       "revId": "1e9cd76e7ed9475d44d1ed0b1de29f6e3a670edd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "818ccca4_e6964b46",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-26T16:02:01Z",
+      "side": 1,
+      "message": "Yeah, this came about since this was here already and then I bolted the PacketReceiver interface to this class as well. This should split into a common base class and two implementations for the two different transport interfaces. But not in this CL.",
+      "parentUuid": "05e204f6_171adac6",
+      "range": {
+        "startLine": 184,
+        "startChar": 2,
+        "endLine": 184,
+        "endChar": 43
+      },
+      "revId": "1e9cd76e7ed9475d44d1ed0b1de29f6e3a670edd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

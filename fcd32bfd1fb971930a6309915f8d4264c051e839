@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "aa9ee2fe_762f76c0",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-26T13:01:36Z",
+      "side": 1,
+      "message": "The |frame_buffer_| does not take payload type into consideration, but if the codec switch is done properly (no jumps in picture id, tl0, etc) then it will only return decodable frames.",
+      "parentUuid": "78026b00_7f92a451",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 49
+      },
+      "revId": "fcd32bfd1fb971930a6309915f8d4264c051e839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e5e2e15_cb1c3482",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 2

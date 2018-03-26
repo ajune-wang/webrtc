@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f99b1af_9f9f0776",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-26T19:01:58Z",
+      "side": 1,
+      "message": "Code in a DCHECK is only executed in a debug build, which isn\u0027t what you want here.",
+      "revId": "7af469eadf2ff3d4f5843b16721fab581c1e7824",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb1c1761_219ae47a",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2676,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-26T19:01:58Z",
+      "side": 1,
+      "message": "Again, code in a DCHECK is only executed in debug builds",
+      "revId": "7af469eadf2ff3d4f5843b16721fab581c1e7824",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5df88d0e_90389512",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-26T19:01:58Z",
+      "side": 1,
+      "message": "Could just forward the error along (\"return std::move(result);\")",
+      "revId": "7af469eadf2ff3d4f5843b16721fab581c1e7824",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

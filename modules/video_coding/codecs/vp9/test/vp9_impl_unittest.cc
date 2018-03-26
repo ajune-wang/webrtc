@@ -14,10 +14,6 @@
 
 namespace webrtc {
 
-namespace {
-constexpr uint32_t kTimestampIncrementPerFrame = 3000;
-}  // namespace
-
 class TestVp9Impl : public VideoCodecUnitTest {
  protected:
   std::unique_ptr<VideoEncoder> CreateEncoder() override {
@@ -36,14 +32,10 @@ class TestVp9Impl : public VideoCodecUnitTest {
     return codec_settings;
   }
 
-  void ExpectFrameWith(int16_t picture_id,
-                       int tl0_pic_idx,
-                       uint8_t temporal_idx) {
+  void ExpectFrameWith(uint8_t temporal_idx) {
     EncodedImage encoded_frame;
     CodecSpecificInfo codec_specific_info;
     ASSERT_TRUE(WaitForEncodedFrame(&encoded_frame, &codec_specific_info));
-    EXPECT_EQ(picture_id, codec_specific_info.codecSpecific.VP9.picture_id);
-    EXPECT_EQ(tl0_pic_idx, codec_specific_info.codecSpecific.VP9.tl0_pic_idx);
     EXPECT_EQ(temporal_idx, codec_specific_info.codecSpecific.VP9.temporal_idx);
   }
 };
@@ -119,87 +111,6 @@ TEST_F(TestVp9Impl, ParserQpEqualsEncodedQp) {
   ASSERT_TRUE(vp9::GetQp(encoded_frame._buffer, encoded_frame._length, &qp));
 
   EXPECT_EQ(encoded_frame.qp_, qp);
-}
-
-TEST_F(TestVp9Impl, EncoderRetainsRtpStateAfterRelease) {
-  // Override default settings.
-  codec_settings_.VP9()->numberOfTemporalLayers = 2;
-  // Tl0PidIdx is only used in non-flexible mode.
-  codec_settings_.VP9()->flexibleMode = false;
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->InitEncode(&codec_settings_, 1 /* number of cores */,
-                                 0 /* max payload size (unused) */));
-
-  // Temporal layer 0.
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->Encode(*input_frame_, nullptr, nullptr));
-  EncodedImage encoded_frame;
-  CodecSpecificInfo codec_specific_info;
-  ASSERT_TRUE(WaitForEncodedFrame(&encoded_frame, &codec_specific_info));
-  int16_t picture_id = codec_specific_info.codecSpecific.VP9.picture_id;
-  int tl0_pic_idx = codec_specific_info.codecSpecific.VP9.tl0_pic_idx;
-  EXPECT_EQ(0, codec_specific_info.codecSpecific.VP9.temporal_idx);
-
-  // Temporal layer 1.
-  input_frame_->set_timestamp(input_frame_->timestamp() +
-                              kTimestampIncrementPerFrame);
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->Encode(*input_frame_, nullptr, nullptr));
-  ExpectFrameWith((picture_id + 1) % (1 << 15), tl0_pic_idx, 1);
-
-  // Temporal layer 0.
-  input_frame_->set_timestamp(input_frame_->timestamp() +
-                              kTimestampIncrementPerFrame);
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->Encode(*input_frame_, nullptr, nullptr));
-  ExpectFrameWith((picture_id + 2) % (1 << 15), (tl0_pic_idx + 1) % (1 << 8),
-                  0);
-
-  // Temporal layer 1.
-  input_frame_->set_timestamp(input_frame_->timestamp() +
-                              kTimestampIncrementPerFrame);
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->Encode(*input_frame_, nullptr, nullptr));
-  ExpectFrameWith((picture_id + 3) % (1 << 15), (tl0_pic_idx + 1) % (1 << 8),
-                  1);
-
-  // Reinit.
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, encoder_->Release());
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->InitEncode(&codec_settings_, 1 /* number of cores */,
-                                 0 /* max payload size (unused) */));
-
-  // Temporal layer 0.
-  input_frame_->set_timestamp(input_frame_->timestamp() +
-                              kTimestampIncrementPerFrame);
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->Encode(*input_frame_, nullptr, nullptr));
-  ExpectFrameWith((picture_id + 4) % (1 << 15), (tl0_pic_idx + 2) % (1 << 8),
-                  0);
-
-  // Temporal layer 1.
-  input_frame_->set_timestamp(input_frame_->timestamp() +
-                              kTimestampIncrementPerFrame);
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->Encode(*input_frame_, nullptr, nullptr));
-  ExpectFrameWith((picture_id + 5) % (1 << 15), (tl0_pic_idx + 2) % (1 << 8),
-                  1);
-
-  // Temporal layer 0.
-  input_frame_->set_timestamp(input_frame_->timestamp() +
-                              kTimestampIncrementPerFrame);
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->Encode(*input_frame_, nullptr, nullptr));
-  ExpectFrameWith((picture_id + 6) % (1 << 15), (tl0_pic_idx + 3) % (1 << 8),
-                  0);
-
-  // Temporal layer 1.
-  input_frame_->set_timestamp(input_frame_->timestamp() +
-                              kTimestampIncrementPerFrame);
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            encoder_->Encode(*input_frame_, nullptr, nullptr));
-  ExpectFrameWith((picture_id + 7) % (1 << 15), (tl0_pic_idx + 3) % (1 << 8),
-                  1);
 }
 
 TEST_F(TestVp9Impl, EncoderExplicitLayering) {

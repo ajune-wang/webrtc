@@ -652,15 +652,6 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
     frames_since_kf_ = 0;
   }
 
-  vp9_info->picture_id = picture_id_;
-
-  if (!vp9_info->flexible_mode) {
-    if (layer_id.temporal_layer_id == 0 && layer_id.spatial_layer_id == 0) {
-      tl0_pic_idx_++;
-    }
-    vp9_info->tl0_pic_idx = tl0_pic_idx_;
-  }
-
   // Always populate this, so that the packetizer can properly set the marker
   // bit.
   vp9_info->num_spatial_layers = num_spatial_layers_;

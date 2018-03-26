@@ -209,11 +209,6 @@ LibvpxVp8Encoder::LibvpxVp8Encoder()
       rc_max_intra_target_(0),
       key_frame_request_(kMaxSimulcastStreams, false) {
   Random random(rtc::TimeMicros());
-  picture_id_.reserve(kMaxSimulcastStreams);
-  for (int i = 0; i < kMaxSimulcastStreams; ++i) {
-    picture_id_.push_back(random.Rand<uint16_t>() & 0x7FFF);
-    tl0_pic_idx_.push_back(random.Rand<uint8_t>());
-  }
   temporal_layers_.reserve(kMaxSimulcastStreams);
   temporal_layers_checkers_.reserve(kMaxSimulcastStreams);
   raw_images_.reserve(kMaxSimulcastStreams);
@@ -252,9 +247,6 @@ int LibvpxVp8Encoder::Release() {
   while (!raw_images_.empty()) {
     vpx_img_free(&raw_images_.back());
     raw_images_.pop_back();
-  }
-  for (size_t i = 0; i < temporal_layers_.size(); ++i) {
-    tl0_pic_idx_[i] = temporal_layers_[i]->Tl0PicIdx();
   }
   temporal_layers_.clear();
   temporal_layers_checkers_.clear();
@@ -347,9 +339,9 @@ void LibvpxVp8Encoder::SetupTemporalLayers(int num_streams,
   RTC_DCHECK(temporal_layers_.empty());
   for (int i = 0; i < num_streams; ++i) {
     temporal_layers_.emplace_back(
-        TemporalLayers::CreateTemporalLayers(codec, i, tl0_pic_idx_[i]));
+        TemporalLayers::CreateTemporalLayers(codec, i));
     temporal_layers_checkers_.emplace_back(
-        TemporalLayers::CreateTemporalLayersChecker(codec, i, tl0_pic_idx_[i]));
+        TemporalLayers::CreateTemporalLayersChecker(codec, i));
   }
 }
 
@@ -871,15 +863,12 @@ void LibvpxVp8Encoder::PopulateCodecSpecific(
   codec_specific->codecType = kVideoCodecVP8;
   codec_specific->codec_name = ImplementationName();
   CodecSpecificInfoVP8* vp8Info = &(codec_specific->codecSpecific.VP8);
-  vp8Info->pictureId = picture_id_[stream_idx];
   vp8Info->simulcastIdx = stream_idx;
   vp8Info->keyIdx = kNoKeyIdx;  // TODO(hlundin) populate this
   vp8Info->nonReference = (pkt.data.frame.flags & VPX_FRAME_IS_DROPPABLE) != 0;
   temporal_layers_[stream_idx]->PopulateCodecSpecific(
       (pkt.data.frame.flags & VPX_FRAME_IS_KEY) != 0, tl_config, vp8Info,
       timestamp);
-  // Prepare next.
-  picture_id_[stream_idx] = (picture_id_[stream_idx] + 1) & 0x7FFF;
 }
 
 int LibvpxVp8Encoder::GetEncodedPartitions(

@@ -89,13 +89,14 @@ void VCMEncodedFrame::Reset() {
   _rotation_set = false;
 }
 
+// TODO(nisse): Should we use CodecSpecificInfo for htis?
 void VCMEncodedFrame::CopyCodecSpecific(const RTPVideoHeader* header) {
+#if 0
   if (header) {
     switch (header->codec) {
       case kRtpVideoVp8: {
         if (_codecSpecificInfo.codecType != kVideoCodecVP8) {
           // This is the first packet for this frame.
-          _codecSpecificInfo.codecSpecific.VP8.pictureId = -1;
           _codecSpecificInfo.codecSpecific.VP8.temporalIdx = 0;
           _codecSpecificInfo.codecSpecific.VP8.layerSync = false;
           _codecSpecificInfo.codecSpecific.VP8.keyIdx = -1;
@@ -197,6 +198,7 @@ void VCMEncodedFrame::CopyCodecSpecific(const RTPVideoHeader* header) {
       }
     }
   }
+#endif
 }
 
 void VCMEncodedFrame::VerifyAndAllocate(size_t minimumSize) {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7c21b7b_9c49ed2a",
+        "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-27T11:44:49Z",
+      "side": 1,
+      "message": "I think you need to update this member somewhere? Right now it is identically zero.",
+      "range": {
+        "startLine": 93,
+        "startChar": 6,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "bee518225cf720b5f1b7bf5a625e870f5ea638ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2253ad0_2677084c",
+        "filename": "modules/video_coding/codecs/multiplex/test/multiplex_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-27T13:21:12Z",
+      "side": 1,
+      "message": "Will this still work?",
+      "range": {
+        "startLine": 138,
+        "startChar": 56,
+        "endLine": 138,
+        "endChar": 58
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

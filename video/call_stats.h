@@ -36,18 +36,18 @@ class CallStats : public RtcpRttStats {
   CallStats(Clock* clock,
             rtc::TaskQueue* task_queue,
             int64_t update_interval = kDefaultUpdateIntervalMs);
-  ~CallStats();
+  ~CallStats() override;
 
   // Registers/deregisters a new observer to receive statistics updates.
   // Must be called from the construction thread.
-  void RegisterStatsObserver(CallStatsObserver* observer);
+  void RegisterStatsObserver(CallStatsObserver* observer) override;
 
   // TODO(tommi): The semantics of this method are currently that the object
   // can be deleted straight after DeregisterStatsObserver has completed.
   // This is not ideal since it requires synchronization between threads
   // (RegisterStatsObserver can complete asynchronously).
   // Figure out a way to make this function non blocking.
-  void DeregisterStatsObserver(CallStatsObserver* observer);
+  void DeregisterStatsObserver(CallStatsObserver* observer) override;
 
   // Expose |LastProcessedRtt()| from RtcpRttStats to the public interface, as
   // it is the part of the API that is needed by direct users of CallStats.
@@ -81,6 +81,9 @@ class CallStats : public RtcpRttStats {
   // This method must only be called when the process thread is not
   // running, and from the construction thread.
   void UpdateHistograms();
+
+  void RegisterStatsObserverOnTQ(CallStatsObserver* observer);
+  void DeregisterStatsObserverOnTQ(CallStatsObserver* observer);
 
   Clock* const clock_;
   const int64_t update_interval_;

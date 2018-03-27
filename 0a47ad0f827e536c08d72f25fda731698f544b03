@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "568e1106_5fa3b321",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-27T14:03:43Z",
+      "side": 1,
+      "message": "It would be nice to keep supplying a simple function to create an ADM requiring just the jni and jcontext, especially since only one AudioLayer type is supported right now.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 3
+      },
+      "revId": "0a47ad0f827e536c08d72f25fda731698f544b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

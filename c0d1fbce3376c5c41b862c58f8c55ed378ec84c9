@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a7bbdc1_1a0a2d34",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-27T21:28:51Z",
+      "side": 1,
+      "message": "Please keep the pair of brackets.",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 25
+      },
+      "revId": "c0d1fbce3376c5c41b862c58f8c55ed378ec84c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

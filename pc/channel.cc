@@ -133,7 +133,8 @@ BaseChannel::~BaseChannel() {
 
 void BaseChannel::ConnectToRtpTransport() {
   RTC_DCHECK(rtp_transport_);
-  RTC_DCHECK(RegisterRtpDemuxerSink());
+  bool success = RegisterRtpDemuxerSink();
+  RTC_DCHECK(success);
   rtp_transport_->SignalReadyToSend.connect(
       this, &BaseChannel::OnTransportReadyToSend);
   rtp_transport_->SignalRtcpPacketReceived.connect(

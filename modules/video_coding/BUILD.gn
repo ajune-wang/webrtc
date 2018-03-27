@@ -601,8 +601,7 @@ if (rtc_include_tests) {
     ]
   }
 
-  video_coding_modules_tests_resources = [ "../../resources/paris_qcif.yuv" ]
-
+  video_coding_modules_tests_resources = []
   if (!(is_ios || is_android)) {
     video_coding_modules_tests_resources += [
       "../../resources/FourPeople_1280x720_30.yuv",
@@ -610,13 +609,16 @@ if (rtc_include_tests) {
     ]
   }
 
-  if (is_ios || is_mac) {
-    bundle_data("video_coding_modules_tests_resources_bundle_data") {
-      testonly = true
-      sources = video_coding_modules_tests_resources
-      outputs = [
-        "{{bundle_resources_dir}}/{{source_file_part}}",
-      ]
+  if (is_ios) {
+    bundle_resources = false
+    if (bundle_resources) {
+      bundle_data("video_coding_modules_tests_resources_bundle_data") {
+        testonly = true
+        sources = video_coding_modules_tests_resources
+        outputs = [
+          "{{bundle_resources_dir}}/{{source_file_part}}",
+        ]
+      }
     }
   }
 

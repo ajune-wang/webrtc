@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e29ed536_92174e6a",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-27T09:37:12Z",
+      "side": 1,
+      "message": "Are there any decoder warm-up/early creation in webrtcvideoengine.cc or similar which we should move here, or does that only exist for encoders?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 57
+      },
+      "revId": "3d4372a30d65b75ad07d225f32be4d158f5cb503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "200946bb_990a22c6",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-03-27T09:37:12Z",
+      "side": 1,
+      "message": "Could you please update these to decoded_frame or something like that?",
+      "range": {
+        "startLine": 45,
+        "startChar": 30,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "3d4372a30d65b75ad07d225f32be4d158f5cb503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ff9763c_8d3f9022",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-27T11:11:37Z",
+      "side": 1,
+      "message": "I would call this UpdateEstimation()",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 62,
+        "endChar": 41
+      },
+      "revId": "0198133df979947d39e0425860c39794fde117c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe1c3539_746403a5",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-27T11:11:37Z",
+      "side": 1,
+      "message": "Maybe \"has\"? By looking at the code, the presence of noise does not imply the absence of speech.",
+      "range": {
+        "startLine": 67,
+        "startChar": 50,
+        "endLine": 67,
+        "endChar": 52
+      },
+      "revId": "0198133df979947d39e0425860c39794fde117c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f3964c7_7aebb593",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-27T11:11:37Z",
+      "side": 1,
+      "message": "has_noise if you address the prev comment",
+      "range": {
+        "startLine": 68,
+        "startChar": 13,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "0198133df979947d39e0425860c39794fde117c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b57598d_471b45ca",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-27T11:11:37Z",
+      "side": 1,
+      "message": "I expected the noise level estimator to analyze the whole frame and also decide whether noise is present. Whereas it looks like it only gets features to update the estimated noise level. Why not hiding instead the whole level estimation inside the noise level estimator?",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 72
+      },
+      "revId": "0198133df979947d39e0425860c39794fde117c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9364f58_5e2e6fdd",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-27T11:11:37Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "0198133df979947d39e0425860c39794fde117c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a66c0a1_a4b9bded",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-27T11:11:37Z",
+      "side": 1,
+      "message": "not used",
+      "revId": "0198133df979947d39e0425860c39794fde117c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6b580e_a55b158d",
+        "filename": "modules/audio_processing/agc2/noise_level_estimator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-27T11:11:37Z",
+      "side": 1,
+      "message": "Check my comment to the caller of this method. I think it\u0027s better to pass a view on the audio frame. or you follow the same structure of speech level (estimator + updater). WDYT?",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "0198133df979947d39e0425860c39794fde117c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

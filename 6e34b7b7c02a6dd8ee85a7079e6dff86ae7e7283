@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "06eaa6fb_7ffddc16",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-27T17:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb70a9a7_6c629e53",
+      "range": {
+        "startLine": 216,
+        "startChar": 60,
+        "endLine": 216,
+        "endChar": 62
+      },
+      "revId": "6e34b7b7c02a6dd8ee85a7079e6dff86ae7e7283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e61ac27b_25d7cef0",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-27T09:43:05Z",
       "side": 1,
       "message": "Why is this called total_requested_max_bitrate_ and not total_requested_bitrate_? Confusing to me",
+      "range": {
+        "startLine": 223,
+        "startChar": 2,
+        "endLine": 223,
+        "endChar": 57
+      },
+      "revId": "6e34b7b7c02a6dd8ee85a7079e6dff86ae7e7283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8561467_be77c978",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-03-27T17:46:59Z",
+      "side": 1,
+      "message": "Good point, fixed to use total_requested_max_bitrate consistently.",
+      "parentUuid": "e61ac27b_25d7cef0",
       "range": {
         "startLine": 223,
         "startChar": 2,

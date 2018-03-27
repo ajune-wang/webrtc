@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e49f697_69144aa3",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-03-27T08:54:06Z",
+      "side": 1,
+      "message": "This name confused me. It\u0027s a setter method right, so maybe SetEncoderAvailableCallback()?\nWould also like a comment here what it does and the expected lifetime of the callback.",
+      "revId": "05c2e05a79dc1c631ef716af504d2942ee065a3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

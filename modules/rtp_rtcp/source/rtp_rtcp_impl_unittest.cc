@@ -45,6 +45,12 @@ class RtcpRttStatsTestImpl : public RtcpRttStats {
   ~RtcpRttStatsTestImpl() override = default;
 
   void OnRttUpdate(int64_t rtt_ms) override { rtt_ms_ = rtt_ms; }
+  void RegisterStatsObserver(CallStatsObserver* observer) override {
+    RTC_NOTREACHED();
+  }
+  void DeregisterStatsObserver(CallStatsObserver* observer) override {
+    RTC_NOTREACHED();
+  }
   int64_t LastProcessedRtt() const override { return rtt_ms_; }
   int64_t rtt_ms_;
 };

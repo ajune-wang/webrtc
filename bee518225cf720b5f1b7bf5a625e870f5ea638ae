@@ -22,6 +22,30 @@
       "revId": "bee518225cf720b5f1b7bf5a625e870f5ea638ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32b7e783_a03e518d",
+        "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-27T12:57:19Z",
+      "side": 1,
+      "message": "Good catch. Thanks!",
+      "parentUuid": "f7c21b7b_9c49ed2a",
+      "range": {
+        "startLine": 93,
+        "startChar": 6,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "bee518225cf720b5f1b7bf5a625e870f5ea638ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

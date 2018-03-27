@@ -11,6 +11,11 @@
 #include "system_wrappers/include/cpu_info.h"
 
 #if defined(WEBRTC_WIN)
+// TODO(bugs.webrtc.org/9073): Some build environments implicitly define NOGDI,
+// whereas some of our own headers require GDI.
+#ifdef NOGDI
+#undef NOGDI
+#endif
 #include <windows.h>
 #include <winsock2.h>
 #ifndef EXCLUDE_D3D9

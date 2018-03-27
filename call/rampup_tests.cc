@@ -447,17 +447,13 @@ Call::Config RampUpDownUpTester::GetReceiverCallConfig() {
 std::string RampUpDownUpTester::GetModifierString() const {
   std::string str("_");
   if (num_video_streams_ > 0) {
-    std::ostringstream s;
-    s << num_video_streams_;
-    str += s.str();
+    str += std::to_string(num_video_streams_);
     str += "stream";
     str += (num_video_streams_ > 1 ? "s" : "");
     str += "_";
   }
   if (num_audio_streams_ > 0) {
-    std::ostringstream s;
-    s << num_audio_streams_;
-    str += s.str();
+    str += std::to_string(num_audio_streams_);
     str += "stream";
     str += (num_audio_streams_ > 1 ? "s" : "");
     str += "_";

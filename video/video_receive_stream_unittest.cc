@@ -21,6 +21,7 @@
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "system_wrappers/include/clock.h"
 #include "test/field_trial.h"
 #include "video/call_stats.h"
@@ -70,7 +71,7 @@ class VideoReceiveStreamTest : public testing::Test {
       : process_thread_(ProcessThread::Create("TestThread")),
         override_field_trials_(kNewJitterBufferFieldTrialEnabled),
         config_(&mock_transport_),
-        call_stats_(Clock::GetRealTimeClock(), process_thread_.get()) {}
+        call_stats_(Clock::GetRealTimeClock(), &task_queue_) {}
 
   void SetUp() {
     constexpr int kDefaultNumCpuCores = 2;
@@ -97,6 +98,7 @@ class VideoReceiveStreamTest : public testing::Test {
 
  protected:
   std::unique_ptr<ProcessThread> process_thread_;
+  rtc::test::TaskQueueForTest task_queue_{"VideoReceiveStreamTest"};
   webrtc::test::ScopedFieldTrials override_field_trials_;
   VideoReceiveStream::Config config_;
   CallStats call_stats_;

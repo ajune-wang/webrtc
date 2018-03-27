@@ -22,6 +22,30 @@
       "revId": "6b28e20257821c46966f4b91bea5dfb88ff0ab72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb8a4ecc_dad08e90",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-27T15:17:05Z",
+      "side": 0,
+      "message": "I would expect to get error from encoder if it can\u0027t handle strides not multiple to 16 bytes. The fact that tests passed without errors means that encoder is fine with such strides.",
+      "parentUuid": "52372aa9_f3d5eb6b",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "6b28e20257821c46966f4b91bea5dfb88ff0ab72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

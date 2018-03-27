@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b5c35d0_063c8040",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-27T13:54:14Z",
+      "side": 1,
+      "message": "good!",
+      "range": {
+        "startLine": 22,
+        "startChar": 24,
+        "endLine": 22,
+        "endChar": 29
+      },
+      "revId": "090c9d4fe95d17dd9b8312eb5b73caf64b01a4bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

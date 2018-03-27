@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d80d53bb_e6aa382f",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-27T12:15:18Z",
+      "side": 1,
+      "message": "It only exist for encoders.",
+      "parentUuid": "e29ed536_92174e6a",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 57
+      },
+      "revId": "3d4372a30d65b75ad07d225f32be4d158f5cb503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "200946bb_990a22c6",
         "filename": "video/video_stream_decoder_impl.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-27T09:37:12Z",
       "side": 1,
       "message": "Could you please update these to decoded_frame or something like that?",
+      "range": {
+        "startLine": 45,
+        "startChar": 30,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "3d4372a30d65b75ad07d225f32be4d158f5cb503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06e29696_e0020250",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-27T12:15:18Z",
+      "side": 1,
+      "message": "Was planing to do that in part 4 where the the Decoded functions will be implemented.",
+      "parentUuid": "200946bb_990a22c6",
       "range": {
         "startLine": 45,
         "startChar": 30,

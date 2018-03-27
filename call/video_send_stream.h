@@ -21,6 +21,7 @@
 #include "api/rtp_headers.h"
 #include "api/videosinkinterface.h"
 #include "api/videosourceinterface.h"
+#include "api/video_codecs/video_encoder_factory.h"
 #include "call/rtp_config.h"
 #include "call/video_config.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -112,25 +113,15 @@ class VideoSendStream {
 
     struct EncoderSettings {
       EncoderSettings() = default;
-      explicit EncoderSettings(VideoEncoder* encoder) : encoder(encoder) {}
       std::string ToString() const;
-
-      // TODO(sophiechang): Delete this field when no one is using internal
-      // sources anymore.
-      bool internal_source = false;
-
-      // Allow 100% encoder utilization. Used for HW encoders where CPU isn't
-      // expected to be the limiting factor, but a chip could be running at
-      // 30fps (for example) exactly.
-      bool full_overuse_time = false;
 
       // Enables the new method to estimate the cpu load from encoding, used for
       // cpu adaptation.
       bool experiment_cpu_load_estimator = false;
 
-      // Uninitialized VideoEncoder instance to be used for encoding. Will be
-      // initialized from inside the VideoSendStream.
-      VideoEncoder* encoder = nullptr;
+      // Ownership stays with
+      // PeerConnectionFactory/MediaEngine/ChannelManager.
+      VideoEncoderFactory* encoder_factory = nullptr;
     } encoder_settings;
 
     static const size_t kDefaultMaxPacketSize = 1500 - 40;  // TCP over IPv4.

@@ -1397,8 +1397,9 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       RTC_NOTREACHED() << "Codec not supported!";
       return;
     }
-    video_send_configs_[video_idx].encoder_settings.encoder =
-        video_encoders_[video_idx].get();
+    // TODO(nisse): XXX = video_encoders_[video_idx].get();
+    video_send_configs_[video_idx].encoder_settings.encoder_factory = nullptr;
+
     video_send_configs_[video_idx].rtp.payload_name =
         params_.video[video_idx].codec;
     video_send_configs_[video_idx].rtp.payload_type = payload_type;
@@ -1613,8 +1614,8 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
     // sender_call.
     VideoSendStream::Config thumbnail_send_config(recv_transport);
     thumbnail_send_config.rtp.ssrcs.push_back(kThumbnailSendSsrcStart + i);
-    thumbnail_send_config.encoder_settings.encoder =
-        thumbnail_encoders_.back().get();
+    // TODO(nisse): XXX = thumbnail_encoders_.back().get();
+    thumbnail_send_config.encoder_settings.encoder_factory = nullptr;
     thumbnail_send_config.rtp.payload_name = params_.video[0].codec;
     thumbnail_send_config.rtp.payload_type = kPayloadTypeVP8;
     thumbnail_send_config.rtp.nack.rtp_history_ms = kNackRtpHistoryMs;

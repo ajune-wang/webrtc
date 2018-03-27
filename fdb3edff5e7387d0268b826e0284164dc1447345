@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10ac167e_60ceab05",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-03-27T14:00:52Z",
+      "side": 1,
+      "message": "Not seen this coding style before and I can\u0027t find anything in the style guide. I think you should remove these two using directives.",
+      "revId": "fdb3edff5e7387d0268b826e0284164dc1447345",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

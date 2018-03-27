@@ -12,7 +12,10 @@
 #define RTC_BASE_OPENSSLADAPTER_H_
 
 #include <map>
+#include <memory>
 #include <string>
+#include <vector>
+
 #include "rtc_base/buffer.h"
 #include "rtc_base/messagehandler.h"
 #include "rtc_base/messagequeue.h"
@@ -42,6 +45,7 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   void SetEllipticCurves(const std::vector<std::string>& curves) override;
 
   void SetMode(SSLMode mode) override;
+  void SetTrustedRootCertificates(const RawSSLCertificates& certs) override;
   void SetIdentity(SSLIdentity* identity) override;
   void SetRole(SSLRole role) override;
   AsyncSocket* Accept(SocketAddress* paddr) override;
@@ -62,10 +66,25 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   // Creates a new SSL_CTX object, configured for client-to-server usage
   // with SSLMode |mode|, and if |enable_cache| is true, with support for
   // storing successful sessions so that they can be later resumed.
+  //
   // OpenSSLAdapterFactory will call this method to create its own internal
   // SSL_CTX, and OpenSSLAdapter will also call this when used without a
   // factory.
   static SSL_CTX* CreateContext(SSLMode mode, bool enable_cache);
+
+  // Same as above except the trusted root certificates are manually injected.
+  // This allows for custom SSLCertificates to be provided instead of those
+  // built in with the webrtc binary.
+  static SSL_CTX* CreateContext(SSLMode mode,
+                                bool enable_cache,
+                                const RawSSLCertificates& trusted_root_certs);
+
+  // Returns a vector of the default trusted ssl root certificates that are
+  // built directly into webrtc. In certain builds the trusted ssl roots are not
+  // directly built in. In these cases this function will return an empty vector
+  // and it is expected that if the OpenSSLAdapter is used it will set its own
+  // trusted root certificates.
+  static const RawSSLCertificates GetDefaultTrustedSSLRootCertificates();
 
  protected:
   void OnConnectEvent(AsyncSocket* socket) override;
@@ -107,7 +126,10 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   // to allow its SSL_SESSION* to be cached for later resumption.
   static int NewSSLSessionCallback(SSL* ssl, SSL_SESSION* session);
 
-  static bool ConfigureTrustedRootCertificates(SSL_CTX* ctx);
+  // Configures the provided SSL_CTX with the set of certificates passed in.
+  static bool ConfigureTrustedRootCertificates(
+      SSL_CTX* ctx,
+      const RawSSLCertificates& trusted_root_certs);
 
   // Parent object that maintains shared state.
   // Can be null if state sharing is not needed.
@@ -132,6 +154,8 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   std::string ssl_host_name_;
   // Do DTLS or not
   SSLMode ssl_mode_;
+  // Custom trusted roots.
+  RawSSLCertificates trusted_root_certs_;
   // If true, the server certificate need not match the configured hostname.
   bool ignore_bad_cert_;
   // List of protocols to be used in the TLS ALPN extension.
@@ -151,6 +175,9 @@ class OpenSSLAdapterFactory : public SSLAdapterFactory {
   ~OpenSSLAdapterFactory() override;
 
   void SetMode(SSLMode mode) override;
+
+  void SetTrustedRootCertificates(const RawSSLCertificates& certs) override;
+
   OpenSSLAdapter* CreateAdapter(AsyncSocket* socket) override;
 
   static OpenSSLAdapterFactory* Create();
@@ -162,8 +189,18 @@ class OpenSSLAdapterFactory : public SSLAdapterFactory {
   // Adds a session to the cache, and up_refs it. Any existing session with the
   // same hostname is replaced.
   void AddSession(const std::string& hostname, SSL_SESSION* session);
+
+  // Returns the trusted root certificates, if not set just returns the
+  // uninitialized trusted_root_certs_ member variable.
+  RawSSLCertificates GetTrustedRootCertificates() const;
+
   friend class OpenSSLAdapter;
 
+  // The trusted root certificates to use when creating the SSL_CTX. This only
+  // has to be set on builds with the default root certificates not built in
+  // by default.
+  RawSSLCertificates trusted_root_certs_;
+  // DTLS enabled or not.
   SSLMode ssl_mode_;
   // Holds the shared SSL_CTX for all created adapters.
   SSL_CTX* ssl_ctx_;

@@ -601,7 +601,7 @@ if (rtc_include_tests) {
     ]
   }
 
-  video_coding_modules_tests_resources = [ "../../resources/paris_qcif.yuv" ]
+  video_coding_modules_tests_resources = [ "../../resources/foreman_cif.yuv" ]
 
   if (!(is_ios || is_android)) {
     video_coding_modules_tests_resources += [

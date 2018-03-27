@@ -22,6 +22,30 @@
       "revId": "b0c04acf8cbb5f4e0410ce5c38bd81bd65959db6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed259d08_3af8c731",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-27T15:08:29Z",
+      "side": 1,
+      "message": "Done, had to modify the code a little to make the compiler understand this.",
+      "parentUuid": "a9c39c44_69268839",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 0
+      },
+      "revId": "b0c04acf8cbb5f4e0410ce5c38bd81bd65959db6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

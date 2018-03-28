@@ -24,6 +24,8 @@ namespace webrtc {
 // methods.
 class RtpTransportInternalAdapter : public RtpTransportInternal {
  public:
+  RtpTransportInternalAdapter() {}
+
   explicit RtpTransportInternalAdapter(RtpTransportInternal* transport)
       : transport_(transport) {
     RTC_DCHECK(transport_);
@@ -51,6 +53,8 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     transport_->SetRtcpPacketTransport(rtcp);
   }
 
+  bool IsReadyToSend() const override { return transport_->IsReadyToSend(); }
+
   bool IsWritable(bool rtcp) const override {
     return transport_->IsWritable(rtcp);
   }
@@ -72,17 +76,13 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     transport_->UpdateRtpHeaderExtensionMap(header_extensions);
   }
 
-  void RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
+  bool RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
                               RtpPacketSinkInterface* sink) override {
-    transport_->RegisterRtpDemuxerSink(criteria, sink);
+    return transport_->RegisterRtpDemuxerSink(criteria, sink);
   }
 
-  void UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) override {
-    transport_->UnregisterRtpDemuxerSink(sink);
-  }
-
-  void SetEncryptionDisabled(bool encryption_disabled) override {
-    transport_->SetEncryptionDisabled(encryption_disabled);
+  bool UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) override {
+    return transport_->UnregisterRtpDemuxerSink(sink);
   }
 
   // RtpTransportInterface overrides.
@@ -102,6 +102,8 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
     return transport_->GetParameters();
   }
 
+  RtpTransportAdapter* GetInternal() override { return nullptr; }
+
   void SetMetricsObserver(
       rtc::scoped_refptr<MetricsObserverInterface> metrics_observer) override {
     transport_->SetMetricsObserver(metrics_observer);
@@ -109,7 +111,7 @@ class RtpTransportInternalAdapter : public RtpTransportInternal {
 
  protected:
   // Owned by the subclasses.
-  RtpTransportInternal* transport_;
+  RtpTransportInternal* transport_ = nullptr;
 };
 
 }  // namespace webrtc

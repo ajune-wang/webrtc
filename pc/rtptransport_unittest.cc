@@ -60,9 +60,19 @@ TEST(RtpTransportTest, SetRtpTransportKeepAliveNotSupported) {
 class SignalObserver : public sigslot::has_slots<> {
  public:
   explicit SignalObserver(RtpTransport* transport) {
+    transport_ = transport;
     transport->SignalReadyToSend.connect(this, &SignalObserver::OnReadyToSend);
     transport->SignalNetworkRouteChanged.connect(
         this, &SignalObserver::OnNetworkRouteChanged);
+    if (transport->rtp_packet_transport()) {
+      transport->rtp_packet_transport()->SignalSentPacket.connect(
+          this, &SignalObserver::OnSentPacket);
+    }
+
+    if (transport->rtcp_packet_transport()) {
+      transport->rtcp_packet_transport()->SignalSentPacket.connect(
+          this, &SignalObserver::OnSentPacket);
+    }
   }
 
   bool ready() const { return ready_; }
@@ -73,7 +83,24 @@ class SignalObserver : public sigslot::has_slots<> {
     network_route_ = std::move(network_route);
   }
 
+  void OnSentPacket(rtc::PacketTransportInternal* packet_transport,
+                    const rtc::SentPacket& sent_packet) {
+    if (packet_transport == transport_->rtp_packet_transport()) {
+      rtp_transport_sent_count_++;
+    } else {
+      ASSERT_EQ(transport_->rtcp_packet_transport(), packet_transport);
+      rtcp_transport_sent_count_++;
+    }
+  }
+
+  int rtp_transport_sent_count() { return rtp_transport_sent_count_; }
+
+  int rtcp_transport_sent_count() { return rtcp_transport_sent_count_; }
+
  private:
+  int rtp_transport_sent_count_ = 0;
+  int rtcp_transport_sent_count_ = 0;
+  RtpTransport* transport_ = nullptr;
   bool ready_ = false;
   rtc::Optional<rtc::NetworkRoute> network_route_;
 };
@@ -195,6 +222,32 @@ TEST(RtpTransportTest, SetRtcpTransportWithNetworkRouteChanged) {
   // Set a null RTCP transport.
   transport.SetRtcpPacketTransport(nullptr);
   EXPECT_FALSE(observer.network_route());
+}
+
+// Test that RTCP packets are sent over correct transport based on the RTCP-mux
+// status.
+TEST(RtpTransportTest, RtcpPacketSentOverCorrectTransport) {
+  // If the RTCP-mux is not enabled, RTCP packets are expected to be sent over
+  // the RtcpPacketTransport.
+  RtpTransport transport(kMuxDisabled);
+  rtc::FakePacketTransport fake_rtcp("fake_rtcp");
+  rtc::FakePacketTransport fake_rtp("fake_rtp");
+  transport.SetRtcpPacketTransport(&fake_rtcp);  // rtcp ready
+  transport.SetRtpPacketTransport(&fake_rtp);    // rtp ready
+  SignalObserver observer(&transport);
+
+  fake_rtp.SetDestination(&fake_rtp, true);
+  fake_rtcp.SetDestination(&fake_rtcp, true);
+
+  rtc::CopyOnWriteBuffer packet;
+  EXPECT_TRUE(transport.SendRtcpPacket(&packet, rtc::PacketOptions(), 0));
+  EXPECT_EQ(1, observer.rtcp_transport_sent_count());
+
+  // The RTCP packets are expected to be sent over RtpPacketTransport if
+  // RTCP-mux is enabled.
+  transport.SetRtcpMuxEnabled(true);
+  EXPECT_TRUE(transport.SendRtcpPacket(&packet, rtc::PacketOptions(), 0));
+  EXPECT_EQ(1, observer.rtp_transport_sent_count());
 }
 
 TEST(RtpTransportTest, ChangingReadyToSendStateOnlySignalsWhenChanged) {

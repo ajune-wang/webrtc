@@ -16,10 +16,12 @@
 #include <utility>
 #include <vector>
 
+#include "api/ortc/srtptransportinterface.h"
+#include "p2p/base/dtlstransportinternal.h"
 #include "p2p/base/icetransportinternal.h"
 #include "pc/rtptransport.h"
-#include "pc/srtpfilter.h"
 #include "pc/srtpsession.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -31,6 +33,12 @@ class SrtpTransport : public RtpTransport {
  public:
   explicit SrtpTransport(bool rtcp_mux_enabled);
 
+  virtual ~SrtpTransport() {}
+
+  // SrtpTransportInterface specific implementation.
+  RTCError SetSrtpSendKey(const cricket::CryptoParams& params) override;
+  RTCError SetSrtpReceiveKey(const cricket::CryptoParams& params) override;
+
   bool SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
                      const rtc::PacketOptions& options,
                      int flags) override;
@@ -39,22 +47,13 @@ class SrtpTransport : public RtpTransport {
                       const rtc::PacketOptions& options,
                       int flags) override;
 
-  // SrtpTransportInterface override.
-  // TODO(zhihuang): Implement these methods and replace the RtpTransportAdapter
-  // object.
-  RTCError SetSrtpSendKey(const cricket::CryptoParams& params) override {
-    return RTCError::OK();
-  }
-  RTCError SetSrtpReceiveKey(const cricket::CryptoParams& params) override {
-    return RTCError::OK();
-  }
-
   // The transport becomes active if the send_session_ and recv_session_ are
   // created.
-  bool IsActive() const;
+  bool IsSrtpActive() const override;
 
-  // TODO(zstein): Remove this when we remove RtpTransportAdapter.
-  RtpTransportAdapter* GetInternal() override { return nullptr; }
+  bool IsWritable(bool rtcp) const override {
+    return IsSrtpActive() && RtpTransport::IsWritable(rtcp);
+  }
 
   // Create new send/recv sessions and set the negotiated crypto keys for RTP
   // packet encryption. The keys can either come from SDES negotiation or DTLS
@@ -137,12 +136,22 @@ class SrtpTransport : public RtpTransport {
 
   bool UnprotectRtcp(void* data, int in_len, int* out_len);
 
+  bool MaybeSetKeyParams();
+  bool ParseKeyParams(const std::string& key_params, uint8_t* key, size_t len);
+
   const std::string content_name_;
 
   std::unique_ptr<cricket::SrtpSession> send_session_;
   std::unique_ptr<cricket::SrtpSession> recv_session_;
   std::unique_ptr<cricket::SrtpSession> send_rtcp_session_;
   std::unique_ptr<cricket::SrtpSession> recv_rtcp_session_;
+
+  rtc::Optional<cricket::CryptoParams> send_params_;
+  rtc::Optional<cricket::CryptoParams> recv_params_;
+  rtc::Optional<int> send_cipher_suite_;
+  rtc::Optional<int> recv_cipher_suite_;
+  rtc::ZeroOnFreeBuffer<uint8_t> send_key_;
+  rtc::ZeroOnFreeBuffer<uint8_t> recv_key_;
 
   bool external_auth_enabled_ = false;
 

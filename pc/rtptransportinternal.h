@@ -20,6 +20,7 @@
 #include "pc/sessiondescription.h"
 #include "rtc_base/networkroute.h"
 #include "rtc_base/sigslot.h"
+#include "rtc_base/sslstreamadapter.h"
 
 namespace rtc {
 class CopyOnWriteBuffer;
@@ -48,6 +49,8 @@ class RtpTransportInternal : public SrtpTransportInterface,
 
   virtual rtc::PacketTransportInternal* rtcp_packet_transport() const = 0;
   virtual void SetRtcpPacketTransport(rtc::PacketTransportInternal* rtcp) = 0;
+
+  virtual bool IsReadyToSend() const = 0;
 
   // Called whenever a transport's ready-to-send state changes. The argument
   // is true if all used transports are ready to send. This is more specific
@@ -81,6 +84,8 @@ class RtpTransportInternal : public SrtpTransportInterface,
   virtual bool SendRtcpPacket(rtc::CopyOnWriteBuffer* packet,
                               const rtc::PacketOptions& options,
                               int flags) = 0;
+
+  virtual bool IsSrtpActive() const = 0;
 
   // This method updates the RTP header extension map so that the RTP transport
   // can parse the received packets and identify the MID. This is called by the

@@ -160,14 +160,6 @@ bool RtpTransport::UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) {
   return true;
 }
 
-PacketTransportInterface* RtpTransport::GetRtpPacketTransport() const {
-  return rtp_packet_transport_;
-}
-
-PacketTransportInterface* RtpTransport::GetRtcpPacketTransport() const {
-  return rtcp_packet_transport_;
-}
-
 RTCError RtpTransport::SetParameters(const RtpTransportParameters& parameters) {
   if (parameters_.rtcp.mux && !parameters.rtcp.mux) {
     LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_STATE,

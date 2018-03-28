@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69dd0f3a_48ef6342",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-28T16:03:02Z",
+      "side": 1,
+      "message": "Don\u0027t you need to set active_blocks_since_converged_filter_ \u003d 0 when the expression is true?\nI haven\u0027t thoroughly checked all the interactions between variables, but resetting converged_filter_seen_ and finite_erl_ does not guarantee that converged_filter (line 170) is true and that therefore active_blocks_since_converged_filter_ becomes 0. If this happens then in the next iteration the expression in line 209 is again true leading to another (maybe unwanted) reset.",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 209,
+        "endChar": 70
+      },
+      "revId": "c48b12d4c4d6bdfe61b6a71018a57a6a9eb012bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

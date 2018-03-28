@@ -22,6 +22,30 @@
       "revId": "0a47ad0f827e536c08d72f25fda731698f544b03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "335ceb7b_0d1c0f69",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-28T13:50:52Z",
+      "side": 1,
+      "message": "We supply such a function in sdk/android/native_api/audio_device_module/audio_device_android.h:\n\nrtc::scoped_refptr\u003cAudioDeviceModule\u003e CreateJavaAudioDeviceModule(\n    JNIEnv* env,\n    jobject application_context);\n\nThe reason I can\u0027t use it here is for build target dependency reasons. Also, this code is going away in a follow-up CL that introduces the AudioDeviceModule interface. Part of that interface will be \u0027long getNativeAudioDeviceModule()\u0027, and this code here will just call that function.",
+      "parentUuid": "568e1106_5fa3b321",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 3
+      },
+      "revId": "0a47ad0f827e536c08d72f25fda731698f544b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

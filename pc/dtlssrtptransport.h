@@ -28,6 +28,8 @@ class DtlsSrtpTransport : public SrtpTransport {
  public:
   explicit DtlsSrtpTransport(bool rtcp_mux_enabled);
 
+  ~DtlsSrtpTransport() override {}
+
   // Set P2P layer RTP/RTCP DtlsTransports. When using RTCP-muxing,
   // |rtcp_dtls_transport| is null.
   void SetDtlsTransports(cricket::DtlsTransportInternal* rtp_dtls_transport,

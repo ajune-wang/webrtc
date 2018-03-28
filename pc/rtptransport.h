@@ -37,6 +37,8 @@ class RtpTransport : public RtpTransportInternal {
   explicit RtpTransport(bool rtcp_mux_enabled)
       : rtcp_mux_enabled_(rtcp_mux_enabled) {}
 
+  virtual ~RtpTransport();
+
   bool rtcp_mux_enabled() const override { return rtcp_mux_enabled_; }
   void SetRtcpMuxEnabled(bool enable) override;
 
@@ -111,6 +113,10 @@ class RtpTransport : public RtpTransportInternal {
                     size_t len,
                     const rtc::PacketTime& packet_time,
                     int flags);
+
+  void ConnectToPacketTransport(rtc::PacketTransportInternal* packet_transport);
+  void DisconnectFromPacketTransport(
+      rtc::PacketTransportInternal* packet_transport);
 
   // Updates "ready to send" for an individual channel and fires
   // SignalReadyToSend.

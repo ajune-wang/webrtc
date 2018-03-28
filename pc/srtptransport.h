@@ -31,6 +31,8 @@ class SrtpTransport : public RtpTransport {
  public:
   explicit SrtpTransport(bool rtcp_mux_enabled);
 
+  ~SrtpTransport() override {}
+
   bool SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
                      const rtc::PacketOptions& options,
                      int flags) override;

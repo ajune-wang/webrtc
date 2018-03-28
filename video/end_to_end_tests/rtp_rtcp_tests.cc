@@ -495,7 +495,8 @@ TEST_F(RtpRtcpEndToEndTest, TestFlexfecRtpStatePreservation) {
     CreateSendConfig(kNumVideoStreams, 0, kNumFlexfecStreams,
                      send_transport.get());
     encoder = VP8Encoder::Create();
-    video_send_config_.encoder_settings.encoder = encoder.get();
+    // TODO(nisse): XXX = encoder.get();
+    video_send_config_.encoder_settings.encoder_factory = nullptr;
     video_send_config_.rtp.payload_name = "VP8";
     video_send_config_.rtp.payload_type = kVideoSendPayloadType;
     video_send_config_.rtp.nack.rtp_history_ms = kNackRtpHistoryMs;

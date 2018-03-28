@@ -375,6 +375,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       pre_encode_callback_(pre_encode_callback),
       max_framerate_(-1),
       pending_encoder_reconfiguration_(false),
+      pending_encoder_creation_(false),
       encoder_start_bitrate_bps_(0),
       max_data_payload_length_(0),
       nack_enabled_(false),
@@ -397,8 +398,6 @@ VideoStreamEncoder::VideoStreamEncoder(
   encoder_queue_.PostTask([this] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     overuse_detector_->StartCheckForOveruse(this);
-    video_sender_.RegisterExternalEncoder(
-        settings_.encoder, settings_.internal_source);
   });
 }
 
@@ -512,9 +511,12 @@ void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
 
   max_data_payload_length_ = max_data_payload_length;
   nack_enabled_ = nack_enabled;
+  pending_encoder_creation_ =
+      (!encoder_ || encoder_config_.video_format != config.video_format);
   encoder_config_ = std::move(config);
   pending_encoder_reconfiguration_ = true;
 
+#if 0
   // Reconfigure the encoder now if the encoder has an internal source or
   // if the frame resolution is known. Otherwise, the reconfiguration is
   // deferred until the next frame to minimize the number of reconfigurations.
@@ -525,6 +527,7 @@ void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
     last_frame_info_ = VideoFrameInfo(176, 144, false);
     ReconfigureEncoder();
   }
+#endif
 }
 
 // TODO(bugs.webrtc.org/8807): Currently this always does a hard
@@ -564,6 +567,30 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   max_framerate_ = codec.maxFramerate;
   RTC_DCHECK_LE(max_framerate_, kMaxFramerateFps);
 
+  // Keep the same encoder, as long as the video_format is unchanged.
+  if (pending_encoder_creation_) {
+    pending_encoder_creation_ = false;
+    encoder_ = settings_.encoder_factory->CreateVideoEncoder(
+        encoder_config_.video_format);
+    const webrtc::VideoEncoderFactory::CodecInfo info =
+        settings_.encoder_factory->QueryVideoEncoder(
+            encoder_config_.video_format);
+#if 0
+    // TODO(nisse): Need some interface to tweak this. Ideally, we
+    // should pass a flag with each frame to tell the overuse detector
+    // if the frame used hardware or software resources.
+
+    // Allow 100% encoder utilization. Used for HW encoders where CPU isn't
+    // expected to be the limiting factor, but a chip could be running at
+    // 30fps (for example) exactly.
+    overuse_detector_->SetFullOverUseTime(info.is_hardware_accelerated);
+#endif
+
+    video_sender_.RegisterExternalEncoder(
+        encoder_.get(), info.has_internal_source);
+  }
+  // RegisterSendCodec implies an unconditional call to
+  // encoder_->InitEncode().
   bool success = video_sender_.RegisterSendCodec(
                      &codec, number_of_cores_,
                      static_cast<uint32_t>(max_data_payload_length_)) == VCM_OK;
@@ -605,6 +632,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
 void VideoStreamEncoder::ConfigureQualityScaler() {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
+#if 0
   const auto scaling_settings = settings_.encoder->GetScalingSettings();
   const bool quality_scaling_allowed =
       IsResolutionScalingEnabled(degradation_preference_) &&
@@ -627,6 +655,7 @@ void VideoStreamEncoder::ConfigureQualityScaler() {
 
   stats_proxy_->SetAdaptationStats(GetActiveCounts(kCpu),
                                    GetActiveCounts(kQuality));
+#endif
 }
 
 void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
@@ -944,6 +973,7 @@ void VideoStreamEncoder::AdaptDown(AdaptReason reason) {
     }
     case VideoSendStream::DegradationPreference::kMaintainFramerate: {
       // Scale down resolution.
+#if 0
       bool min_pixels_reached = false;
       if (!source_proxy_->RequestResolutionLowerThan(
               adaptation_request.input_pixel_count_,
@@ -953,6 +983,7 @@ void VideoStreamEncoder::AdaptDown(AdaptReason reason) {
           stats_proxy_->OnMinPixelLimitReached();
         return;
       }
+#endif
       GetAdaptCounter().IncrementResolution(reason);
       break;
     }

@@ -78,7 +78,8 @@ TEST_F(LogEndToEndTest, LogsEncodedFramesWhenRequested) {
 
       send_config->post_encode_callback = this;
       send_config->rtp.payload_name = "VP8";
-      send_config->encoder_settings.encoder = encoder_.get();
+      // TODO(nisse): XXX Create encoder factory for vp8.
+      send_config->encoder_settings.encoder_factory = nullptr;
 
       (*receive_configs)[0].decoders.resize(1);
       (*receive_configs)[0].decoders[0].payload_type =

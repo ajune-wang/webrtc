@@ -244,10 +244,12 @@ int CalculatePacketRate(uint32_t bitrate_bps, size_t packet_size_bytes) {
 CpuOveruseOptions GetCpuOveruseOptions(const VideoSendStream::Config& config) {
   CpuOveruseOptions options;
 
+#if 0
   if (config.encoder_settings.full_overuse_time) {
     options.low_encode_usage_threshold_percent = 150;
     options.high_encode_usage_threshold_percent = 200;
   }
+#endif
   if (config.encoder_settings.experiment_cpu_load_estimator) {
     options.filter_time_ms = 5 * rtc::kNumMillisecsPerSec;
   }
@@ -843,7 +845,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     transport_->RegisterPacketFeedbackObserver(this);
   }
 
-  RTC_DCHECK(config_->encoder_settings.encoder);
+  RTC_DCHECK(config_->encoder_settings.encoder_factory);
   RTC_DCHECK_GE(config_->rtp.payload_type, 0);
   RTC_DCHECK_LE(config_->rtp.payload_type, 127);
 

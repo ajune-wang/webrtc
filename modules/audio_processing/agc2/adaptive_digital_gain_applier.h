@@ -29,7 +29,11 @@ class AdaptiveDigitalGainApplier {
       AudioFrameView<float> float_frame);
 
  private:
+  // GainApplier gain_applier_;
+  float last_gain_linear_ = 1.f;
   float last_gain_db_ = 0.f;
+  float target_gain_db_ = 0.f;
+  bool gain_change_up_allowed_ = true;
   ApmDataDumper* apm_data_dumper_ = nullptr;
 };
 }  // namespace webrtc

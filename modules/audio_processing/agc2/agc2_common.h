@@ -27,6 +27,17 @@ constexpr size_t kMaximalNumberOfSamplesPerChannel = 480;
 
 constexpr float kAttackFilterConstant = 0.f;
 
+// Adaptive Mode below.
+constexpr float kMaxGainChangePerSecondDb = 3.f;
+constexpr float kMaxGainChangePerFrameDb =
+    kMaxGainChangePerSecondDb * kFrameDurationMs / 1000.f;
+constexpr float kHeadroomDbfs = 1.f;
+constexpr float kMaxGainDb = 40.f;  // Maybe make a wee bit smaller?
+                                    // 40.f is a lot! It's a factor of
+                                    // 100!
+// TODO(aleloi): tune this one! Level Controller had equivalent to -50.
+constexpr float kMaxNoiseLevelDbfs = -45.f;
+
 // Used in the Level Estimator for deciding when to update the speech
 // level estimate.
 constexpr float kVadConfidenceThreshold = 0.9f;

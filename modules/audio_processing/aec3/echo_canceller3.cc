@@ -13,6 +13,7 @@
 
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomicops.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -27,6 +28,255 @@ bool DetectSaturation(rtc::ArrayView<const float> y) {
     }
   }
   return false;
+}
+
+// Overrides the default parameters for the main filter parameters with a new
+// parameter set. Any of the nondefault parameters are kept.
+EchoCanceller3Config::Filter::MainConfiguration OverrideDefaultParams(
+    const EchoCanceller3Config::Filter::MainConfiguration& config_to_override,
+    const EchoCanceller3Config::Filter::MainConfiguration& overriding_config) {
+  const EchoCanceller3Config::Filter::MainConfiguration default_cfg{};
+  EchoCanceller3Config::Filter::MainConfiguration overridden_cfg =
+      config_to_override;
+
+  if (config_to_override.length_blocks == default_cfg.length_blocks) {
+    overridden_cfg.length_blocks = overriding_config.length_blocks;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding length_blocks";
+  }
+  if (config_to_override.leakage_converged == default_cfg.leakage_converged) {
+    overridden_cfg.leakage_converged = overriding_config.leakage_converged;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding leakage_converged";
+  }
+  if (config_to_override.leakage_diverged == default_cfg.leakage_diverged) {
+    overridden_cfg.leakage_diverged = overriding_config.leakage_diverged;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding leakage_diverged";
+  }
+  if (config_to_override.error_floor == default_cfg.error_floor) {
+    overridden_cfg.error_floor = overriding_config.error_floor;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding error_floor";
+  }
+  if (config_to_override.noise_gate == default_cfg.noise_gate) {
+    overridden_cfg.noise_gate = overriding_config.noise_gate;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding noise_gate";
+  }
+
+  return overridden_cfg;
+}
+
+// Overrides the default parameters for the shadow filter parameters with a new
+// parameter set. Any of the nondefault parameters are kept.
+EchoCanceller3Config::Filter::ShadowConfiguration OverrideDefaultParams(
+    const EchoCanceller3Config::Filter::ShadowConfiguration& config_to_override,
+    const EchoCanceller3Config::Filter::ShadowConfiguration&
+        overriding_config) {
+  const EchoCanceller3Config::Filter::ShadowConfiguration default_cfg{};
+  EchoCanceller3Config::Filter::ShadowConfiguration overridden_cfg =
+      config_to_override;
+
+  if (config_to_override.length_blocks == default_cfg.length_blocks) {
+    overridden_cfg.length_blocks = overriding_config.length_blocks;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding length_blocks";
+  }
+  if (config_to_override.rate == default_cfg.rate) {
+    overridden_cfg.rate = overriding_config.rate;
+  } else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding rate";
+  }
+  if (config_to_override.noise_gate == default_cfg.noise_gate) {
+    overridden_cfg.noise_gate = overriding_config.noise_gate;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding noise_gate";
+  }
+
+  return overridden_cfg;
+}
+
+// Overrides the default parameters for the echo path strength parameters with a
+// new parameter set. Any of the nondefault parameters are kept.
+EchoCanceller3Config::EpStrength OverrideDefaultParams(
+    const EchoCanceller3Config::EpStrength& config_to_override,
+    const EchoCanceller3Config::EpStrength& overriding_config) {
+  const EchoCanceller3Config::EpStrength default_cfg{};
+  EchoCanceller3Config::EpStrength overridden_cfg = config_to_override;
+
+  if (config_to_override.lf == default_cfg.lf) {
+    overridden_cfg.lf = overriding_config.lf;
+  } else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding lf";
+  }
+  if (config_to_override.mf == default_cfg.mf) {
+    overridden_cfg.mf = overriding_config.mf;
+  } else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding hf";
+  }
+  if (config_to_override.hf == default_cfg.hf) {
+    overridden_cfg.hf = overriding_config.hf;
+  } else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding hf";
+  }
+  if (config_to_override.default_len == default_cfg.default_len) {
+    overridden_cfg.default_len = overriding_config.default_len;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding default_len";
+  }
+  if (config_to_override.echo_can_saturate == default_cfg.echo_can_saturate) {
+    overridden_cfg.echo_can_saturate = overriding_config.echo_can_saturate;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding echo_can_saturate";
+  }
+  if (config_to_override.bounded_erl == default_cfg.bounded_erl) {
+    overridden_cfg.bounded_erl = overriding_config.bounded_erl;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding bounded_erl";
+  }
+
+  return overridden_cfg;
+}
+
+// Overrides the default parameters for the echo model parameters with a
+// new parameter set. Any of the nondefault parameters are kept.
+EchoCanceller3Config::EchoModel OverrideDefaultParams(
+    const EchoCanceller3Config::EchoModel& config_to_override,
+    const EchoCanceller3Config::EchoModel& overriding_config) {
+  const EchoCanceller3Config::EchoModel default_cfg{};
+  EchoCanceller3Config::EchoModel overridden_cfg = config_to_override;
+
+  if (config_to_override.noise_floor_hold == default_cfg.noise_floor_hold) {
+    overridden_cfg.noise_floor_hold = overriding_config.noise_floor_hold;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding noise_floor_hold";
+  }
+
+  if (config_to_override.min_noise_floor_power ==
+      default_cfg.min_noise_floor_power) {
+    overridden_cfg.min_noise_floor_power =
+        overriding_config.min_noise_floor_power;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding min_noise_floor_power";
+  }
+
+  if (config_to_override.stationary_gate_slope ==
+      default_cfg.stationary_gate_slope) {
+    overridden_cfg.stationary_gate_slope =
+        overriding_config.stationary_gate_slope;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding stationary_gate_slope";
+  }
+
+  if (config_to_override.noise_gate_power == default_cfg.noise_gate_power) {
+    overridden_cfg.noise_gate_power = overriding_config.noise_gate_power;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding noise_gate_power";
+  }
+
+  if (config_to_override.noise_gate_slope == default_cfg.noise_gate_slope) {
+    overridden_cfg.noise_gate_slope = overriding_config.noise_gate_slope;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding noise_gate_slope";
+  }
+
+  if (config_to_override.render_pre_window_size ==
+      default_cfg.render_pre_window_size) {
+    overridden_cfg.render_pre_window_size =
+        overriding_config.render_pre_window_size;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding render_pre_window_size";
+  }
+
+  if (config_to_override.render_post_window_size ==
+      default_cfg.render_post_window_size) {
+    overridden_cfg.render_post_window_size =
+        overriding_config.render_post_window_size;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding render_post_window_size";
+  }
+
+  if (config_to_override.nonlinear_hold == default_cfg.nonlinear_hold) {
+    overridden_cfg.nonlinear_hold = overriding_config.nonlinear_hold;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding nonlinear_hold";
+  }
+
+  if (config_to_override.nonlinear_release == default_cfg.nonlinear_release) {
+    overridden_cfg.nonlinear_release = overriding_config.nonlinear_release;
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "NonDefault parameter set, not overriding nonlinear_release";
+  }
+
+  return overridden_cfg;
+}
+
+// Method for adjusting config parameter dependencies..
+EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
+  EchoCanceller3Config adjusted_cfg = config;
+
+  // Use customized parameters when the system has clock-drift.
+  if (config.echo_removal_control.has_clock_drift) {
+    if (config.ep_strength.bounded_erl) {
+      adjusted_cfg.ep_strength.default_len = 0.85f;
+      adjusted_cfg.ep_strength.lf = 0.01f;
+      adjusted_cfg.ep_strength.mf = 0.01f;
+      adjusted_cfg.ep_strength.hf = 0.01f;
+      adjusted_cfg.echo_model.render_pre_window_size = 1;
+      adjusted_cfg.echo_model.render_post_window_size = 1;
+      adjusted_cfg.echo_model.nonlinear_hold = 3;
+      adjusted_cfg.echo_model.nonlinear_release = 0.001f;
+    } else {
+      adjusted_cfg.ep_strength.bounded_erl = true;
+      adjusted_cfg.ep_strength.default_len = 0.8f;
+      adjusted_cfg.ep_strength.lf = 0.01f;
+      adjusted_cfg.ep_strength.mf = 0.01f;
+      adjusted_cfg.ep_strength.hf = 0.01f;
+      adjusted_cfg.filter.main = {30, 0.1, 0.8, 0.001, 20075344};
+      adjusted_cfg.filter.shadow = {30, 0.7, 20075344};
+      adjusted_cfg.filter.main_initial = {30, 0.1, 1.5, 0.001, 20075344};
+      adjusted_cfg.filter.shadow_initial = {30, 0.9, 20075344};
+      adjusted_cfg.echo_model.render_pre_window_size = 2;
+      adjusted_cfg.echo_model.render_post_window_size = 2;
+      adjusted_cfg.echo_model.nonlinear_hold = 3;
+      adjusted_cfg.echo_model.nonlinear_release = 0.6f;
+    }
+  }
+
+  adjusted_cfg.filter.main =
+      OverrideDefaultParams(config.filter.main, adjusted_cfg.filter.main);
+  adjusted_cfg.filter.main_initial = OverrideDefaultParams(
+      config.filter.main_initial, adjusted_cfg.filter.main_initial);
+  adjusted_cfg.filter.shadow =
+      OverrideDefaultParams(config.filter.shadow, adjusted_cfg.filter.shadow);
+  adjusted_cfg.filter.shadow_initial = OverrideDefaultParams(
+      config.filter.shadow_initial, adjusted_cfg.filter.shadow_initial);
+
+  adjusted_cfg.ep_strength =
+      OverrideDefaultParams(config.ep_strength, adjusted_cfg.ep_strength);
+  adjusted_cfg.echo_model =
+      OverrideDefaultParams(config.echo_model, adjusted_cfg.echo_model);
+  return adjusted_cfg;
 }
 
 void FillSubFrameView(AudioBuffer* frame,
@@ -209,11 +459,12 @@ int EchoCanceller3::instance_count_ = 0;
 EchoCanceller3::EchoCanceller3(const EchoCanceller3Config& config,
                                int sample_rate_hz,
                                bool use_highpass_filter)
-    : EchoCanceller3(config,
-                     sample_rate_hz,
-                     use_highpass_filter,
-                     std::unique_ptr<BlockProcessor>(
-                         BlockProcessor::Create(config, sample_rate_hz))) {}
+    : EchoCanceller3(
+          AdjustConfig(config),
+          sample_rate_hz,
+          use_highpass_filter,
+          std::unique_ptr<BlockProcessor>(
+              BlockProcessor::Create(AdjustConfig(config), sample_rate_hz))) {}
 EchoCanceller3::EchoCanceller3(const EchoCanceller3Config& config,
                                int sample_rate_hz,
                                bool use_highpass_filter,

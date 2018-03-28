@@ -42,7 +42,7 @@ CallTest::CallTest()
       num_audio_streams_(0),
       num_flexfec_streams_(0),
       decoder_factory_(CreateBuiltinAudioDecoderFactory()),
-      encoder_factory_(CreateBuiltinAudioEncoderFactory()),
+      audio_encoder_factory_(CreateBuiltinAudioEncoderFactory()),
       task_queue_("CallTestTaskQueue") {}
 
 CallTest::~CallTest() {
@@ -193,7 +193,8 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
                                      Transport* send_transport) {
   RTC_DCHECK_LE(num_video_streams + num_used_ssrcs, kNumSsrcs);
   *video_config = VideoSendStream::Config(send_transport);
-  video_config->encoder_settings.encoder = &fake_encoder_;
+  // TODO(nisse): XXX = &fake_encoder_;
+  video_config->encoder_settings.encoder_factory = nullptr;
   video_config->rtp.payload_name = "FAKE";
   video_config->rtp.payload_type = kFakeVideoSendPayloadType;
   video_config->rtp.extensions.push_back(
@@ -220,7 +221,7 @@ void CallTest::CreateAudioAndFecSendConfigs(size_t num_audio_streams,
     audio_send_config_.rtp.ssrc = kAudioSendSsrc;
     audio_send_config_.send_codec_spec = AudioSendStream::Config::SendCodecSpec(
         kAudioSendPayloadType, {"opus", 48000, 2, {{"stereo", "1"}}});
-    audio_send_config_.encoder_factory = encoder_factory_;
+    audio_send_config_.encoder_factory = audio_encoder_factory_;
   }
 
   // TODO(brandtr): Update this when we support multistream protection.

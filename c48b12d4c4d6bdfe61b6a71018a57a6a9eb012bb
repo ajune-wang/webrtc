@@ -22,6 +22,30 @@
       "revId": "c48b12d4c4d6bdfe61b6a71018a57a6a9eb012bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2228699_972b7802",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-03-28T16:14:52Z",
+      "side": 1,
+      "message": "That is fine. Converged filter is not part of the state and is received by the linear filter. It is true if the linear filter has converged.\n\nI\u0027m not that keen on setting active_blocks_since_converged_filter_ to 0 here, as that would introduce a distributed updating of that (now it is only updated around lines 170).\n\nSince active_blocks_since_converged_filter_  is a size_t there is no problems updating it \"infitely\"",
+      "parentUuid": "69dd0f3a_48ef6342",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 209,
+        "endChar": 70
+      },
+      "revId": "c48b12d4c4d6bdfe61b6a71018a57a6a9eb012bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

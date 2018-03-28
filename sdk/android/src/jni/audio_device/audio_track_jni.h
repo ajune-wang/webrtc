@@ -20,7 +20,6 @@
 #include "rtc_base/thread_checker.h"
 #include "sdk/android/src/jni/audio_device/audio_common.h"
 #include "sdk/android/src/jni/audio_device/audio_device_module.h"
-#include "sdk/android/src/jni/audio_device/audio_manager.h"
 
 namespace webrtc {
 
@@ -41,7 +40,10 @@ namespace android_adm {
 // guarantees that no other (possibly non attached) thread is used.
 class AudioTrackJni : public AudioOutput {
  public:
-  explicit AudioTrackJni(AudioManager* audio_manager);
+  // AudioTrackJni(AudioManager* audio_manager, const JavaRef<jobject>&
+  // j_context);
+  AudioTrackJni(const AudioParameters& audio_parameters,
+                const JavaRef<jobject>& jaudio_track);
   ~AudioTrackJni() override;
 
   int32_t Init() override;

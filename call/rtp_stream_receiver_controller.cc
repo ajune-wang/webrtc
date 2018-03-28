@@ -35,7 +35,12 @@ RtpStreamReceiverController::Receiver::~Receiver() {
   controller_->RemoveSink(sink_);
 }
 
-RtpStreamReceiverController::RtpStreamReceiverController() = default;
+RtpStreamReceiverController::RtpStreamReceiverController() {
+  // At this level the demuxer is only configured to demux by SSRC , so don't
+  // worry about unknown MIDs (this behavior is enforced by upper layers).
+  demuxer_.set_allow_unknown_mids(true);
+}
+
 RtpStreamReceiverController::~RtpStreamReceiverController() = default;
 
 std::unique_ptr<RtpStreamReceiverInterface>

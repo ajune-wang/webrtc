@@ -137,6 +137,11 @@ class RtpDemuxer {
   // Deprecated: Use the above method.
   void DeregisterRsidResolutionObserver(const SsrcBindingObserver* observer);
 
+  // The BUNDLE specification requires that packets with unknown MIDs must be
+  // dropped, even if the packet could be demuxed in other ways. This setting
+  // allows applications to disable this behavior which is on by default.
+  void set_allow_unknown_mids(bool allow) { allow_unknown_mids_ = allow; }
+
  private:
   // Returns true if adding a sink with the given criteria would cause conflicts
   // with the existing criteria and should be rejected.
@@ -197,6 +202,8 @@ class RtpDemuxer {
   // Observers which will be notified when an RSID association to an SSRC is
   // resolved by this object.
   std::vector<SsrcBindingObserver*> ssrc_binding_observers_;
+
+  bool allow_unknown_mids_ = false;
 };
 
 }  // namespace webrtc

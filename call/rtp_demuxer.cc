@@ -177,7 +177,8 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
 
   // The BUNDLE spec says to drop any packets with unknown MIDs, even if the
   // SSRC is known/latched.
-  if (has_mid && known_mids_.find(packet_mid) == known_mids_.end()) {
+  if (!allow_unknown_mids_ && has_mid &&
+      known_mids_.find(packet_mid) == known_mids_.end()) {
     return nullptr;
   }
 
@@ -237,7 +238,9 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
     // At this point, there is at least one sink added for this MID and an RSID
     // but either the packet does not have an RSID or it is for a different
     // RSID. This falls outside the BUNDLE spec so drop the packet.
-    return nullptr;
+    if (!allow_unknown_mids_) {
+      return nullptr;
+    }
   }
 
   // RSID can be used without MID as long as they are unique.

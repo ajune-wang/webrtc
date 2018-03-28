@@ -7,4 +7,7 @@ specific_include_rules = {
   "screen_capturer_mac\.mm": [
     "+sdk/objc",
   ],
+  "display_surface_cgimage\.h": [
+    "+sdk/objc",
+  ],
 }

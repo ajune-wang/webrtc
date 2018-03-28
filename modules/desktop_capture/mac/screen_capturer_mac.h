@@ -22,6 +22,7 @@
 #include "modules/desktop_capture/desktop_region.h"
 #include "modules/desktop_capture/mac/desktop_configuration.h"
 #include "modules/desktop_capture/mac/desktop_configuration_monitor.h"
+#include "modules/desktop_capture/mac/display_surface_provider.h"
 #include "modules/desktop_capture/screen_capture_frame_queue.h"
 #include "modules/desktop_capture/screen_capturer_helper.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
@@ -100,6 +101,9 @@ class ScreenCapturerMac final : public DesktopCapturer {
   // A self-owned object that will destroy itself after ScreenCapturerMac and
   // all display streams have been destroyed..
   DisplayStreamManager* display_stream_manager_;
+
+  // Container to get and set surfaces of type DisplaySurface.
+  std::unique_ptr<DisplaySurfaceProvider> display_surface_provider_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(ScreenCapturerMac);
 };

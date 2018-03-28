@@ -12,6 +12,7 @@
 
 #include "modules/desktop_capture/mac/screen_capturer_mac.h"
 
+#include "modules/desktop_capture/mac/display_surface_provider_cgimage.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/logging.h"
@@ -216,7 +217,8 @@ ScreenCapturerMac::ScreenCapturerMac(
     rtc::scoped_refptr<DesktopConfigurationMonitor> desktop_config_monitor,
     bool detect_updated_region)
     : detect_updated_region_(detect_updated_region),
-      desktop_config_monitor_(desktop_config_monitor) {
+      desktop_config_monitor_(desktop_config_monitor),
+      display_surface_provider_(new DisplaySurfaceProviderCGImage) {
   display_stream_manager_ = new DisplayStreamManager;
 }
 
@@ -405,32 +407,26 @@ bool ScreenCapturerMac::CgBlit(const DesktopFrame& frame, const DesktopRegion& r
       }
     }
 
-    // Create an image containing a snapshot of the display.
-    rtc::ScopedCFTypeRef<CGImageRef> image(CGDisplayCreateImage(display_config.id));
-    if (!image) {
+    rtc::scoped_refptr<DisplaySurface> surface =
+        display_surface_provider_->GetSurfaceForDisplay(display_config.id);
+    if (!surface) {
       continue;
     }
 
     // Verify that the image has 32-bit depth.
-    int bits_per_pixel = CGImageGetBitsPerPixel(image.get());
-    if (bits_per_pixel / 8 != DesktopFrame::kBytesPerPixel) {
-      RTC_LOG(LS_ERROR) << "CGDisplayCreateImage() returned imaged with " << bits_per_pixel
-                        << " bits per pixel. Only 32-bit depth is supported.";
+    int bytes_per_pixel = surface->bytes_per_pixel();
+    if (bytes_per_pixel != DesktopFrame::kBytesPerPixel) {
+      RTC_LOG(LS_ERROR) << "CGDisplayCreateImage() returned imaged with " << bytes_per_pixel
+                        << " bytes per pixel. Only 32-bit depth is supported.";
       return false;
     }
 
-    // Request access to the raw pixel data via the image's DataProvider.
-    CGDataProviderRef provider = CGImageGetDataProvider(image.get());
-    rtc::ScopedCFTypeRef<CFDataRef> data(CGDataProviderCopyData(provider));
-    RTC_DCHECK(data);
-
-    const uint8_t* display_base_address = CFDataGetBytePtr(data.get());
-    int src_bytes_per_row = CGImageGetBytesPerRow(image.get());
+    const uint8_t* display_base_address = surface->data();
+    int src_bytes_per_row = surface->bytes_per_row();
 
     // |image| size may be different from display_bounds in case the screen was
     // resized recently.
-    copy_region.IntersectWith(
-        DesktopRect::MakeWH(CGImageGetWidth(image.get()), CGImageGetHeight(image.get())));
+    copy_region.IntersectWith(DesktopRect::MakeWH(surface->width(), surface->height()));
 
     // Copy the dirty region from the display buffer into our desktop buffer.
     uint8_t* out_ptr = frame.GetFrameDataAtPos(display_bounds.top_left());
@@ -532,6 +528,8 @@ bool ScreenCapturerMac::RegisterRefreshAndMoveHandlers() {
         // CGDisplayStreamStop() from within the callback.
         ScreenRefresh(count, rects, display_origin);
       }
+
+      display_surface_provider_->SetSurfaceForDisplay(display_id, nullptr);
     };
 
     rtc::ScopedCFTypeRef<CFDictionaryRef> properties_dict(

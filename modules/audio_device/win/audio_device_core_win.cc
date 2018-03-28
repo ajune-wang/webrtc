@@ -2635,7 +2635,15 @@ int32_t AudioDeviceWindowsCore::PlayoutDelay(uint16_t& delayMS) const {
 }
 
 bool AudioDeviceWindowsCore::BuiltInAECIsAvailable() const {
-  return _dmo != nullptr;
+  // TODO(bugs.webrtc.org/9080) support of built-in AEC is currently disabled.
+  RTC_LOG(LS_WARNING) << "Acoustic echo cancellation (AEC) is not supported!";
+  return false;
+}
+
+int32_t AudioDeviceWindowsCore::EnableBuiltInAEC(bool enable) {
+  // TODO(bugs.webrtc.org/9080) support of built-in AEC is currently disabled.
+  RTC_NOTREACHED() << "Acoustic echo cancellation (AEC) is not supported!";
+  return -1;
 }
 
 // ----------------------------------------------------------------------------
@@ -3381,23 +3389,6 @@ Exit:
   }
 
   return (DWORD)hr;
-}
-
-int32_t AudioDeviceWindowsCore::EnableBuiltInAEC(bool enable) {
-  if (_recIsInitialized) {
-    RTC_LOG(LS_ERROR)
-        << "Attempt to set Windows AEC with recording already initialized";
-    return -1;
-  }
-
-  if (_dmo == NULL) {
-    RTC_LOG(LS_ERROR)
-        << "Built-in AEC DMO was not initialized properly at create time";
-    return -1;
-  }
-
-  _builtInAecEnabled = enable;
-  return 0;
 }
 
 int AudioDeviceWindowsCore::SetDMOProperties() {

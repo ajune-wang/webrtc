@@ -21,8 +21,11 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
 import android.media.AudioRecordingConfiguration;
 import android.media.MediaRecorder.AudioSource;
+import android.media.AudioFormat;
 import android.os.Build;
 import android.os.Process;
 import java.lang.Thread;
@@ -31,125 +34,19 @@ import java.util.Iterator;
 import java.util.List;
 import org.webrtc.ContextUtils;
 import org.webrtc.Logging;
+import org.webrtc.CalledByNative;
 
+/**
+ * This class contains a bunch of static helper functions for enumerating audio capabilities.
+ */
 final class WebRtcAudioUtils {
   private static final String TAG = "WebRtcAudioUtils";
 
-  // List of devices where it has been verified that the built-in effect
-  // bad and where it makes sense to avoid using it and instead rely on the
-  // native WebRTC version instead. The device name is given by Build.MODEL.
-  private static final String[] BLACKLISTED_AEC_MODELS = new String[] {
-      // It is recommended to maintain a list of blacklisted models outside
-      // this package and instead call setWebRtcBasedAcousticEchoCanceler(true)
-      // from the client for devices where the built-in AEC shall be disabled.
-  };
-  private static final String[] BLACKLISTED_NS_MODELS = new String[] {
-      // It is recommended to maintain a list of blacklisted models outside
-      // this package and instead call setWebRtcBasedNoiseSuppressor(true)
-      // from the client for devices where the built-in NS shall be disabled.
-  };
-
-  // Use 16kHz as the default sample rate. A higher sample rate might prevent
-  // us from supporting communication mode on some older (e.g. ICS) devices.
   private static final int DEFAULT_SAMPLE_RATE_HZ = 16000;
-  private static int defaultSampleRateHz = DEFAULT_SAMPLE_RATE_HZ;
-  // Set to true if setDefaultSampleRateHz() has been called.
-  private static boolean isDefaultSampleRateOverridden = false;
-
-  // By default, utilize hardware based audio effects for AEC and NS when
-  // available.
-  private static boolean useWebRtcBasedAcousticEchoCanceler = false;
-  private static boolean useWebRtcBasedNoiseSuppressor = false;
-
-  // Call these methods if any hardware based effect shall be replaced by a
-  // software based version provided by the WebRTC stack instead.
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized void setWebRtcBasedAcousticEchoCanceler(boolean enable) {
-    useWebRtcBasedAcousticEchoCanceler = enable;
-  }
-
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized void setWebRtcBasedNoiseSuppressor(boolean enable) {
-    useWebRtcBasedNoiseSuppressor = enable;
-  }
-
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized void setWebRtcBasedAutomaticGainControl(boolean enable) {
-    // TODO(henrika): deprecated; remove when no longer used by any client.
-    Logging.w(TAG, "setWebRtcBasedAutomaticGainControl() is deprecated");
-  }
-
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized boolean useWebRtcBasedAcousticEchoCanceler() {
-    if (useWebRtcBasedAcousticEchoCanceler) {
-      Logging.w(TAG, "Overriding default behavior; now using WebRTC AEC!");
-    }
-    return useWebRtcBasedAcousticEchoCanceler;
-  }
-
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized boolean useWebRtcBasedNoiseSuppressor() {
-    if (useWebRtcBasedNoiseSuppressor) {
-      Logging.w(TAG, "Overriding default behavior; now using WebRTC NS!");
-    }
-    return useWebRtcBasedNoiseSuppressor;
-  }
-
-  // TODO(henrika): deprecated; remove when no longer used by any client.
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized boolean useWebRtcBasedAutomaticGainControl() {
-    // Always return true here to avoid trying to use any built-in AGC.
-    return true;
-  }
-
-  // Returns true if the device supports an audio effect (AEC or NS).
-  // Four conditions must be fulfilled if functions are to return true:
-  // 1) the platform must support the built-in (HW) effect,
-  // 2) explicit use (override) of a WebRTC based version must not be set,
-  // 3) the device must not be blacklisted for use of the effect, and
-  // 4) the UUID of the effect must be approved (some UUIDs can be excluded).
-  public static boolean isAcousticEchoCancelerSupported() {
-    return WebRtcAudioEffects.canUseAcousticEchoCanceler();
-  }
-  public static boolean isNoiseSuppressorSupported() {
-    return WebRtcAudioEffects.canUseNoiseSuppressor();
-  }
-
-  // Call this method if the default handling of querying the native sample
-  // rate shall be overridden. Can be useful on some devices where the
-  // available Android APIs are known to return invalid results.
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized void setDefaultSampleRateHz(int sampleRateHz) {
-    isDefaultSampleRateOverridden = true;
-    defaultSampleRateHz = sampleRateHz;
-  }
-
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized boolean isDefaultSampleRateOverridden() {
-    return isDefaultSampleRateOverridden;
-  }
-
-  // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
-  @SuppressWarnings("NoSynchronizedMethodCheck")
-  public static synchronized int getDefaultSampleRateHz() {
-    return defaultSampleRateHz;
-  }
-
-  public static List<String> getBlackListedModelsForAecUsage() {
-    return Arrays.asList(WebRtcAudioUtils.BLACKLISTED_AEC_MODELS);
-  }
-
-  public static List<String> getBlackListedModelsForNsUsage() {
-    return Arrays.asList(WebRtcAudioUtils.BLACKLISTED_NS_MODELS);
-  }
+  // Default audio data format is PCM 16 bit per sample.
+  // Guaranteed to be supported by all devices.
+  private static final int BITS_PER_SAMPLE = 16;
+  private static final int DEFAULT_FRAME_PER_BUFFER = 256;
 
   public static boolean runningOnJellyBeanMR1OrHigher() {
     // November 2012: Android 4.2. API Level 17.
@@ -397,5 +294,102 @@ final class WebRtcAudioUtils {
   private static boolean hasMicrophone() {
     return ContextUtils.getApplicationContext().getPackageManager().hasSystemFeature(
         PackageManager.FEATURE_MICROPHONE);
+  }
+
+  @CalledByNative
+  static AudioManager getAudioManager(Context context) {
+    return (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+  }
+
+  // Returns true if low-latency audio output is supported.
+  private static boolean isLowLatencyOutputSupported(Context context) {
+    return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUDIO_LOW_LATENCY);
+  }
+
+  // Returns true if low-latency audio input is supported.
+  // TODO(henrika): remove the hardcoded false return value when OpenSL ES
+  // input performance has been evaluated and tested more.
+  private static boolean isLowLatencyInputSupported(Context context) {
+    // TODO(henrika): investigate if some sort of device list is needed here
+    // as well. The NDK doc states that: "As of API level 21, lower latency
+    // audio input is supported on select devices. To take advantage of this
+    // feature, first confirm that lower latency output is available".
+    return WebRtcAudioUtils.runningOnLollipopOrHigher() && isLowLatencyOutputSupported(context);
+  }
+
+  /**
+   * Returns the native output sample rate for this device's output stream.
+   */
+  // @CalledByNative
+  public static int getSampleRate(AudioManager audioManager) {
+    // Override this if we're running on an old emulator image which only
+    // supports 8 kHz and doesn't support PROPERTY_OUTPUT_SAMPLE_RATE.
+    if (WebRtcAudioUtils.runningOnEmulator()) {
+      Logging.d(TAG, "Running emulator, overriding sample rate to 8 kHz.");
+      return 8000;
+    }
+    // Deliver best possible estimate based on default Android AudioManager APIs.
+    final int sampleRateHz = WebRtcAudioUtils.runningOnJellyBeanMR1OrHigher()
+        ? getSampleRateOnJellyBeanMR10OrHigher(audioManager)
+        : DEFAULT_SAMPLE_RATE_HZ;
+    Logging.d(TAG, "Sample rate is set to " + sampleRateHz + " Hz");
+    return sampleRateHz;
+  }
+
+  @TargetApi(17)
+  private static int getSampleRateOnJellyBeanMR10OrHigher(AudioManager audioManager) {
+    String sampleRateString = audioManager.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
+    return (sampleRateString == null) ? DEFAULT_SAMPLE_RATE_HZ : Integer.parseInt(sampleRateString);
+  }
+
+  // Returns the native output buffer size for low-latency output streams.
+  @TargetApi(17)
+  private static int getLowLatencyFramesPerBuffer(AudioManager audioManager) {
+    if (!WebRtcAudioUtils.runningOnJellyBeanMR1OrHigher()) {
+      return DEFAULT_FRAME_PER_BUFFER;
+    }
+    String framesPerBuffer =
+        audioManager.getProperty(AudioManager.PROPERTY_OUTPUT_FRAMES_PER_BUFFER);
+    return framesPerBuffer == null ? DEFAULT_FRAME_PER_BUFFER : Integer.parseInt(framesPerBuffer);
+  }
+
+  @CalledByNative
+  static int getOutputBufferSize(
+      Context context, AudioManager audioManager, int sampleRate, int numberOfOutputChannels) {
+    return isLowLatencyOutputSupported(context)
+        ? getLowLatencyFramesPerBuffer(audioManager)
+        : getMinOutputFrameSize(sampleRate, numberOfOutputChannels);
+  }
+
+  @CalledByNative
+  static int getInputBufferSize(
+      Context context, AudioManager audioManager, int sampleRate, int numberOfInputChannels) {
+    return isLowLatencyInputSupported(context)
+        ? getLowLatencyFramesPerBuffer(audioManager)
+        : getMinInputFrameSize(sampleRate, numberOfInputChannels);
+  }
+
+  // Returns the minimum output buffer size for Java based audio (AudioTrack).
+  // This size can also be used for OpenSL ES implementations on devices that
+  // lacks support of low-latency output.
+  private static int getMinOutputFrameSize(int sampleRateInHz, int numChannels) {
+    final int bytesPerFrame = numChannels * (BITS_PER_SAMPLE / 8);
+    final int channelConfig =
+        (numChannels == 1 ? AudioFormat.CHANNEL_OUT_MONO : AudioFormat.CHANNEL_OUT_STEREO);
+    return AudioTrack.getMinBufferSize(
+               sampleRateInHz, channelConfig, AudioFormat.ENCODING_PCM_16BIT)
+        / bytesPerFrame;
+  }
+
+  // Returns the minimum input buffer size for Java based audio (AudioRecord).
+  // This size can calso be used for OpenSL ES implementations on devices that
+  // lacks support of low-latency input.
+  private static int getMinInputFrameSize(int sampleRateInHz, int numChannels) {
+    final int bytesPerFrame = numChannels * (BITS_PER_SAMPLE / 8);
+    final int channelConfig =
+        (numChannels == 1 ? AudioFormat.CHANNEL_IN_MONO : AudioFormat.CHANNEL_IN_STEREO);
+    return AudioRecord.getMinBufferSize(
+               sampleRateInHz, channelConfig, AudioFormat.ENCODING_PCM_16BIT)
+        / bytesPerFrame;
   }
 }

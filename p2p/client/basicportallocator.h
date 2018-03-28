@@ -305,6 +305,22 @@ struct PortConfiguration : public rtc::MessageData {
 class UDPPort;
 class TurnPort;
 
+enum class PortAllocationType {
+  UDP,
+  STUN,
+  RELAY_GTURN,
+  RELAY_TURN,
+  TCP,
+};
+
+struct PortAllocationMessage : public rtc::MessageData {
+  PortAllocationMessage(PortAllocationType type,
+                        cricket::RelayServerConfig* config)
+      : type(type), config(config) {}
+  const PortAllocationType type;
+  cricket::RelayServerConfig* config;
+};
+
 // Performs the allocation of ports, in a sequenced (timed) manner, for a given
 // network and IP address.
 class AllocationSequence : public rtc::MessageHandler,
@@ -360,13 +376,20 @@ class AllocationSequence : public rtc::MessageHandler,
   void CreateTurnPort(const RelayServerConfig& config);
 
  private:
-  typedef std::vector<ProtocolType> ProtocolList;
+  void StartAllocationPacer();
+  int64_t GetNextAllocationStartingTime();
+  int64_t GetDelayOfNextAllocationFromNow();
 
   bool IsFlagSet(uint32_t flag) { return ((flags_ & flag) != 0); }
-  void CreateUDPPorts();
-  void CreateTCPPorts();
-  void CreateStunPorts();
-  void CreateRelayPorts();
+  void ScheduleAllocatingUDPPorts();
+  void ScheduleAllocatingStunPorts();
+  void ScheduleAllocatingRelayPorts();
+  void ScheduleAllocatingTCPPorts();
+
+  void CreatePort(const PortAllocationMessage& msg);
+  void CreateUDPPort();
+  void CreateTCPPort();
+  void CreateStunPort();
   void CreateGturnPort(const RelayServerConfig& config);
 
   void OnReadPacket(rtc::AsyncPacketSocket* socket,
@@ -385,12 +408,15 @@ class AllocationSequence : public rtc::MessageHandler,
   PortConfiguration* config_;
   State state_;
   uint32_t flags_;
-  ProtocolList protocols_;
   std::unique_ptr<rtc::AsyncPacketSocket> udp_socket_;
   // There will be only one udp port per AllocationSequence.
   UDPPort* udp_port_;
   std::vector<Port*> relay_ports_;
-  int phase_;
+  bool pacer_started_ = false;
+  int64_t last_allocation_started_at_;
+  int total_scheduled_port_allocation_;
+  int total_ports_allocated_;
+  bool is_first_allocation_ = false;
 };
 
 }  // namespace cricket

@@ -36,16 +36,12 @@ enum {
   MSG_CONFIG_START,
   MSG_CONFIG_READY,
   MSG_ALLOCATE,
-  MSG_ALLOCATION_PHASE,
+  MSG_SCHEDULE_ALLOCATION,
+  MSG_ALLOCATE_PORT,
+  MSG_ALLOCATION_DONE,
   MSG_SEQUENCEOBJECTS_CREATED,
   MSG_CONFIG_STOP,
 };
-
-const int PHASE_UDP = 0;
-const int PHASE_RELAY = 1;
-const int PHASE_TCP = 2;
-
-const int kNumPhases = 3;
 
 // Gets protocol priority: UDP > TCP > SSLTCP == TLS.
 int GetProtocolPriority(cricket::ProtocolType protocol) {
@@ -1139,9 +1135,7 @@ AllocationSequence::AllocationSequence(BasicPortAllocatorSession* session,
       state_(kInit),
       flags_(flags),
       udp_socket_(),
-      udp_port_(NULL),
-      phase_(0) {
-}
+      udp_port_(NULL) {}
 
 void AllocationSequence::Init() {
   if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {
@@ -1230,7 +1224,8 @@ void AllocationSequence::DisableEquivalentPhases(rtc::Network* network,
 
 void AllocationSequence::Start() {
   state_ = kRunning;
-  session_->network_thread()->Post(RTC_FROM_HERE, this, MSG_ALLOCATION_PHASE);
+  session_->network_thread()->Post(RTC_FROM_HERE, this,
+                                   MSG_SCHEDULE_ALLOCATION);
   // Take a snapshot of the best IP, so that when DisableEquivalentPhases is
   // called next time, we enable all phases if the best IP has since changed.
   previous_best_ip_ = network_->GetBestIP();
@@ -1240,58 +1235,85 @@ void AllocationSequence::Stop() {
   // If the port is completed, don't set it to stopped.
   if (state_ == kRunning) {
     state_ = kStopped;
-    session_->network_thread()->Clear(this, MSG_ALLOCATION_PHASE);
+    session_->network_thread()->Clear(this, MSG_SCHEDULE_ALLOCATION);
+    session_->network_thread()->Clear(this, MSG_ALLOCATE_PORT);
   }
 }
 
 void AllocationSequence::OnMessage(rtc::Message* msg) {
   RTC_DCHECK(rtc::Thread::Current() == session_->network_thread());
-  RTC_DCHECK(msg->message_id == MSG_ALLOCATION_PHASE);
-
-  const char* const PHASE_NAMES[kNumPhases] = {"Udp", "Relay", "Tcp"};
-
-  // Perform all of the phases in the current step.
-  LOG_J(LS_INFO, network_) << "Allocation Phase="
-                           << PHASE_NAMES[phase_];
-
-  switch (phase_) {
-    case PHASE_UDP:
-      CreateUDPPorts();
-      CreateStunPorts();
+  switch (msg->message_id) {
+    case MSG_SCHEDULE_ALLOCATION:
+      StartAllocationPacer();
+      ScheduleAllocatingUDPPorts();
+      ScheduleAllocatingStunPorts();
+      ScheduleAllocatingRelayPorts();
+      ScheduleAllocatingTCPPorts();
       break;
-
-    case PHASE_RELAY:
-      CreateRelayPorts();
+    case MSG_ALLOCATE_PORT: {
+      PortAllocationMessage* allocation_msg =
+          static_cast<PortAllocationMessage*>(msg->pdata);
+      CreatePort(*allocation_msg);
       break;
-
-    case PHASE_TCP:
-      CreateTCPPorts();
+    }
+    case MSG_ALLOCATION_DONE: {
       state_ = kCompleted;
+      // If all phases in AllocationSequence are completed, no allocation
+      // steps needed further. Canceling  pending signal.
+      session_->network_thread()->Clear(this, MSG_SCHEDULE_ALLOCATION);
+      session_->network_thread()->Clear(this, MSG_ALLOCATE_PORT);
+      SignalPortAllocationComplete(this);
       break;
-
+    }
     default:
       RTC_NOTREACHED();
   }
+}
 
-  if (state() == kRunning) {
-    ++phase_;
-    session_->network_thread()->PostDelayed(RTC_FROM_HERE,
-                                            session_->allocator()->step_delay(),
-                                            this, MSG_ALLOCATION_PHASE);
-  } else {
-    // If all phases in AllocationSequence are completed, no allocation
-    // steps needed further. Canceling  pending signal.
-    session_->network_thread()->Clear(this, MSG_ALLOCATION_PHASE);
-    SignalPortAllocationComplete(this);
+void AllocationSequence::CreatePort(const PortAllocationMessage& msg) {
+  PortAllocationType type = msg.type;
+  switch (type) {
+    case PortAllocationType::UDP:
+      RTC_DCHECK(state() == kRunning);
+      CreateUDPPort();
+      break;
+    case PortAllocationType::STUN:
+      RTC_DCHECK(state() == kRunning);
+      CreateStunPort();
+      break;
+    case PortAllocationType::RELAY_GTURN:
+      RTC_DCHECK(state() == kRunning);
+      CreateGturnPort(*(msg.config));
+      break;
+    case PortAllocationType::RELAY_TURN:
+      RTC_LOG(INFO) << "state = " << state();
+      RTC_DCHECK(state() == kRunning);
+      CreateTurnPort(*(msg.config));
+      break;
+    case PortAllocationType::TCP:
+      CreateTCPPort();
+      break;
+    default:
+      RTC_NOTREACHED();
+  }
+  ++total_ports_allocated_;
+  if (total_ports_allocated_ == total_scheduled_port_allocation_) {
+    session_->network_thread()->Post(RTC_FROM_HERE, this, MSG_ALLOCATION_DONE);
   }
 }
 
-void AllocationSequence::CreateUDPPorts() {
+void AllocationSequence::ScheduleAllocatingUDPPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_UDP)) {
     RTC_LOG(LS_VERBOSE) << "AllocationSequence: UDP ports disabled, skipping.";
     return;
   }
+  session_->network_thread()->PostDelayed(
+      RTC_FROM_HERE, GetDelayOfNextAllocationFromNow(), this, MSG_ALLOCATE_PORT,
+      new PortAllocationMessage(PortAllocationType::UDP, nullptr));
+  ++total_scheduled_port_allocation_;
+}
 
+void AllocationSequence::CreateUDPPort() {
   // TODO(mallinath) - Remove UDPPort creating socket after shared socket
   // is enabled completely.
   UDPPort* port = NULL;
@@ -1334,12 +1356,18 @@ void AllocationSequence::CreateUDPPorts() {
   }
 }
 
-void AllocationSequence::CreateTCPPorts() {
+void AllocationSequence::ScheduleAllocatingTCPPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_TCP)) {
     RTC_LOG(LS_VERBOSE) << "AllocationSequence: TCP ports disabled, skipping.";
     return;
   }
+  session_->network_thread()->PostDelayed(
+      RTC_FROM_HERE, GetDelayOfNextAllocationFromNow(), this, MSG_ALLOCATE_PORT,
+      new PortAllocationMessage(PortAllocationType::TCP, nullptr));
+  ++total_scheduled_port_allocation_;
+}
 
+void AllocationSequence::CreateTCPPort() {
   Port* port = TCPPort::Create(
       session_->network_thread(), session_->socket_factory(), network_,
       session_->allocator()->min_port(), session_->allocator()->max_port(),
@@ -1352,7 +1380,7 @@ void AllocationSequence::CreateTCPPorts() {
   }
 }
 
-void AllocationSequence::CreateStunPorts() {
+void AllocationSequence::ScheduleAllocatingStunPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
     RTC_LOG(LS_VERBOSE) << "AllocationSequence: STUN ports disabled, skipping.";
     return;
@@ -1367,7 +1395,13 @@ void AllocationSequence::CreateStunPorts() {
         << "AllocationSequence: No STUN server configured, skipping.";
     return;
   }
+  session_->network_thread()->PostDelayed(
+      RTC_FROM_HERE, GetDelayOfNextAllocationFromNow(), this, MSG_ALLOCATE_PORT,
+      new PortAllocationMessage(PortAllocationType::STUN, nullptr));
+  ++total_scheduled_port_allocation_;
+}
 
+void AllocationSequence::CreateStunPort() {
   StunPort* port = StunPort::Create(
       session_->network_thread(), session_->socket_factory(), network_,
       session_->allocator()->min_port(), session_->allocator()->max_port(),
@@ -1381,7 +1415,7 @@ void AllocationSequence::CreateStunPorts() {
   }
 }
 
-void AllocationSequence::CreateRelayPorts() {
+void AllocationSequence::ScheduleAllocatingRelayPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_RELAY)) {
     RTC_LOG(LS_VERBOSE)
         << "AllocationSequence: Relay ports disabled, skipping.";
@@ -1399,13 +1433,18 @@ void AllocationSequence::CreateRelayPorts() {
   }
 
   for (RelayServerConfig& relay : config_->relays) {
+    PortAllocationType type;
     if (relay.type == RELAY_GTURN) {
-      CreateGturnPort(relay);
+      type = PortAllocationType::RELAY_GTURN;
     } else if (relay.type == RELAY_TURN) {
-      CreateTurnPort(relay);
+      type = PortAllocationType::RELAY_TURN;
     } else {
       RTC_NOTREACHED();
     }
+    session_->network_thread()->PostDelayed(
+        RTC_FROM_HERE, GetDelayOfNextAllocationFromNow(), this,
+        MSG_ALLOCATE_PORT, new PortAllocationMessage(type, &relay));
+    ++total_scheduled_port_allocation_;
   }
 }
 
@@ -1561,6 +1600,34 @@ void AllocationSequence::OnPortDestroyed(PortInterface* port) {
     RTC_LOG(LS_ERROR) << "Unexpected OnPortDestroyed for nonexistent port.";
     RTC_NOTREACHED();
   }
+}
+
+void AllocationSequence::StartAllocationPacer() {
+  pacer_started_ = true;
+  last_allocation_started_at_ = rtc::TimeMillis();
+  total_scheduled_port_allocation_ = 0;
+  total_ports_allocated_ = 0;
+  is_first_allocation_ = true;
+}
+
+int64_t AllocationSequence::GetNextAllocationStartingTime() {
+  if (!pacer_started_) {
+    StartAllocationPacer();
+  }
+
+  if (is_first_allocation_) {
+    is_first_allocation_ = false;
+    last_allocation_started_at_ = rtc::TimeMillis();
+    return last_allocation_started_at_;
+  }
+  last_allocation_started_at_ =
+      std::max(last_allocation_started_at_, rtc::TimeMillis()) +
+      session_->allocator()->step_delay();
+  return last_allocation_started_at_;
+}
+
+int64_t AllocationSequence::GetDelayOfNextAllocationFromNow() {
+  return std::max(GetNextAllocationStartingTime() - rtc::TimeMillis(), 0l);
 }
 
 // PortConfiguration

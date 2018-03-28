@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1757be61_1a6b538e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-03-28T07:56:45Z",
+      "side": 1,
+      "message": "Can you please add test describing scenario where MID can change.\nCan packets be send before mid is changed?\nif not, may be added a DCHECK here\nIf they can, may be make it safe: follow pattern of playout delay oracle and remember sequence_number used to send mid and watch for it in receiver report response.",
+      "revId": "607d63fc59203aa4205019982960c80b710e4cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

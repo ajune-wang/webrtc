@@ -1,0 +1,7 @@
+p2p/base/p2ptransportchannel.cc:                     return this->IsPingable(conn, now);
+p2p/base/port.cc:  this->candidate = candidate;
+p2p/base/port.cc:  RTC_LOG(LS_WARNING) << "Jingle:" << this->ToString()
+p2p/base/port.cc:  RTC_LOG(LS_INFO) << this->ToString()
+p2p/base/port.cc:>>>>>>> more 'this->ToString' -> 'ToString' replacements
+p2p/base/stunport.cc:      port_->OnStunBindingRequestSucceeded(this->Elapsed(), server_addr_, addr);
+p2p/stunprober/stunprober_unittest.cc:                    this->StopCallback(prober, result);

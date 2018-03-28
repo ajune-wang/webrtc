@@ -11,7 +11,7 @@
 #include "system_wrappers/include/cpu_info.h"
 
 #if defined(WEBRTC_WIN)
-#include <windows.h>
+#include "rtc_base/windows.h"
 #include <winsock2.h>
 #ifndef EXCLUDE_D3D9
 #include <d3d9.h>

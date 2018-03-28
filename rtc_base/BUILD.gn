@@ -1118,6 +1118,12 @@ rtc_source_set("rtc_task_queue_for_test") {
   ]
 }
 
+rtc_source_set("windows") {
+  sources = [
+    "windows.h",
+  ]
+}
+
 if (rtc_include_tests) {
   rtc_source_set("rtc_base_tests_main") {
     testonly = true

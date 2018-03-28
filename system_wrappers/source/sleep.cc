@@ -13,7 +13,7 @@
 
 #ifdef _WIN32
 // For Sleep()
-#include <windows.h>
+#include "rtc_base/windows.h"
 #else
 // For nanosleep()
 #include <time.h>

@@ -11,7 +11,7 @@
 #ifndef SYSTEM_WRAPPERS_SOURCE_EVENT_WIN_H_
 #define SYSTEM_WRAPPERS_SOURCE_EVENT_WIN_H_
 
-#include <windows.h>
+#include "rtc_base/windows.h"
 
 #include "system_wrappers/include/event_wrapper.h"
 

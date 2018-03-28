@@ -47,6 +47,15 @@ class DtlsSrtpTransport : public SrtpTransport {
 
   sigslot::signal2<DtlsSrtpTransport*, bool> SignalDtlsSrtpSetupFailure;
 
+  RTCError SetSrtpSendKey(const cricket::CryptoParams& params) override {
+    return RTCError(RTCErrorType::UNSUPPORTED_OPERATION,
+                    "Set SRTP keys for DTLS-SRTP is not supported.");
+  }
+  RTCError SetSrtpReceiveKey(const cricket::CryptoParams& params) override {
+    return RTCError(RTCErrorType::UNSUPPORTED_OPERATION,
+                    "Set SRTP keys for DTLS-SRTP is not supported.");
+  }
+
  private:
   bool IsDtlsActive();
   bool IsDtlsConnected();

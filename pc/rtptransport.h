@@ -50,12 +50,18 @@ class RtpTransport : public RtpTransportInternal {
   }
   void SetRtcpPacketTransport(rtc::PacketTransportInternal* rtcp) override;
 
-  PacketTransportInterface* GetRtpPacketTransport() const override;
-  PacketTransportInterface* GetRtcpPacketTransport() const override;
+  PacketTransportInterface* GetRtpPacketTransport() const override {
+    return rtp_packet_transport_;
+  }
+  PacketTransportInterface* GetRtcpPacketTransport() const override {
+    return rtcp_packet_transport_;
+  }
 
   // TODO(zstein): Use these RtcpParameters for configuration elsewhere.
   RTCError SetParameters(const RtpTransportParameters& parameters) override;
   RtpTransportParameters GetParameters() const override;
+
+  bool IsReadyToSend() const override { return ready_to_send_; }
 
   bool IsWritable(bool rtcp) const override;
 
@@ -66,6 +72,8 @@ class RtpTransport : public RtpTransportInternal {
   bool SendRtcpPacket(rtc::CopyOnWriteBuffer* packet,
                       const rtc::PacketOptions& options,
                       int flags) override;
+
+  bool IsSrtpActive() const override { return false; }
 
   void UpdateRtpHeaderExtensionMap(
       const cricket::RtpHeaderExtensions& header_extensions) override;

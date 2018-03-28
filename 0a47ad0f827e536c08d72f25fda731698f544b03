@@ -46,6 +46,30 @@
       "revId": "0a47ad0f827e536c08d72f25fda731698f544b03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f782d6b_d531962a",
+        "filename": "sdk/android/src/jni/pc/peerconnectionfactory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-28T14:00:31Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "335ceb7b_0d1c0f69",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 3
+      },
+      "revId": "0a47ad0f827e536c08d72f25fda731698f544b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -43,8 +43,8 @@ using ::testing::UnorderedElementsAre;
 const uint32_t kDefaultTimeout = 10000u;
 
 template <typename MethodFunctor>
-class OnSuccessObserver : public rtc::RefCountedObject<
-                              webrtc::SetRemoteDescriptionObserverInterface> {
+class OnSuccessObserver
+    : public webrtc::SetRemoteDescriptionObserverInterface {
  public:
   explicit OnSuccessObserver(MethodFunctor on_success)
       : on_success_(std::move(on_success)) {}
@@ -497,10 +497,12 @@ TEST_F(PeerConnectionRtpObserverTest,
   // when the first callback is invoked.
   callee->pc()->SetRemoteDescription(
       std::move(srd1_sdp),
-      new OnSuccessObserver<decltype(srd1_callback)>(srd1_callback));
+      new rtc::RefCountedObject<OnSuccessObserver<decltype(srd1_callback)>>(
+          srd1_callback));
   callee->pc()->SetRemoteDescription(
       std::move(srd2_sdp),
-      new OnSuccessObserver<decltype(srd2_callback)>(srd2_callback));
+      new rtc::RefCountedObject<OnSuccessObserver<decltype(srd2_callback)>>(
+          srd2_callback));
   EXPECT_TRUE_WAIT(srd1_callback_called, kDefaultTimeout);
   EXPECT_TRUE_WAIT(srd2_callback_called, kDefaultTimeout);
 }

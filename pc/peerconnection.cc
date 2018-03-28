@@ -620,7 +620,7 @@ rtc::Optional<int> RTCConfigurationToIceConfigOptionalInt(
 // PeerConnectionInterface::SetRemoteDescription() that takes a
 // SetSessionDescriptionObserver as an argument.
 class PeerConnection::SetRemoteDescriptionObserverAdapter
-    : public rtc::RefCountedObject<SetRemoteDescriptionObserverInterface> {
+    : public SetRemoteDescriptionObserverInterface {
  public:
   SetRemoteDescriptionObserverAdapter(
       rtc::scoped_refptr<PeerConnection> pc,
@@ -1011,10 +1011,12 @@ bool PeerConnection::Initialize(
   if (!IsUnifiedPlan()) {
     transceivers_.push_back(
         RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
-            signaling_thread(), new RtpTransceiver(cricket::MEDIA_TYPE_AUDIO)));
+            signaling_thread(), new rtc::RefCountedObject<RtpTransceiver>(
+                cricket::MEDIA_TYPE_AUDIO)));
     transceivers_.push_back(
         RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
-            signaling_thread(), new RtpTransceiver(cricket::MEDIA_TYPE_VIDEO)));
+            signaling_thread(), new rtc::RefCountedObject<RtpTransceiver>(
+                cricket::MEDIA_TYPE_VIDEO)));
   }
 
   return true;
@@ -1401,18 +1403,20 @@ PeerConnection::CreateSender(
                (track->kind() == MediaStreamTrackInterface::kAudioKind));
     sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(),
-        new AudioRtpSender(worker_thread(),
-                           static_cast<AudioTrackInterface*>(track.get()),
-                           stream_ids, stats_.get()));
+        new rtc::RefCountedObject<AudioRtpSender>(
+            worker_thread(),
+            static_cast<AudioTrackInterface*>(track.get()),
+            stream_ids, stats_.get()));
   } else {
     RTC_DCHECK_EQ(media_type, cricket::MEDIA_TYPE_VIDEO);
     RTC_DCHECK(!track ||
                (track->kind() == MediaStreamTrackInterface::kVideoKind));
     sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(),
-        new VideoRtpSender(worker_thread(),
-                           static_cast<VideoTrackInterface*>(track.get()),
-                           stream_ids));
+        new rtc::RefCountedObject<VideoRtpSender>(
+            worker_thread(),
+            static_cast<VideoTrackInterface*>(track.get()),
+            stream_ids));
   }
   sender->internal()->set_stream_ids(stream_ids);
   return sender;
@@ -1426,12 +1430,16 @@ PeerConnection::CreateReceiver(cricket::MediaType media_type,
   if (media_type == cricket::MEDIA_TYPE_AUDIO) {
     receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
         signaling_thread(),
-        new AudioRtpReceiver(worker_thread(), receiver_id, {}));
+        new rtc::RefCountedObject<AudioRtpReceiver>(
+            worker_thread(), receiver_id,
+            std::vector<rtc::scoped_refptr<MediaStreamInterface>>{}));
   } else {
     RTC_DCHECK_EQ(media_type, cricket::MEDIA_TYPE_VIDEO);
     receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
         signaling_thread(),
-        new VideoRtpReceiver(worker_thread(), receiver_id, {}));
+        new rtc::RefCountedObject<VideoRtpReceiver>(
+            worker_thread(), receiver_id,
+            std::vector<rtc::scoped_refptr<MediaStreamInterface>>{}));
   }
   return receiver;
 }
@@ -1442,7 +1450,8 @@ PeerConnection::CreateAndAddTransceiver(
     rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
         receiver) {
   auto transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
-      signaling_thread(), new RtpTransceiver(sender, receiver));
+      signaling_thread(),
+      new rtc::RefCountedObject<RtpTransceiver>(sender, receiver));
   transceivers_.push_back(transceiver);
   transceiver->internal()->SignalNegotiationNeeded.connect(
       this, &PeerConnection::OnNegotiationNeeded);
@@ -1494,14 +1503,16 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> new_sender;
   if (kind == MediaStreamTrackInterface::kAudioKind) {
     auto* audio_sender =
-        new AudioRtpSender(worker_thread(), nullptr, stream_ids, stats_.get());
+        new rtc::RefCountedObject<AudioRtpSender>(
+            worker_thread(), nullptr, stream_ids, stats_.get());
     audio_sender->SetVoiceMediaChannel(voice_media_channel());
     new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(), audio_sender);
     GetAudioTransceiver()->internal()->AddSender(new_sender);
   } else if (kind == MediaStreamTrackInterface::kVideoKind) {
     auto* video_sender =
-        new VideoRtpSender(worker_thread(), nullptr, stream_ids);
+        new rtc::RefCountedObject<VideoRtpSender>(
+            worker_thread(), nullptr, stream_ids);
     video_sender->SetVideoMediaChannel(video_media_channel());
     new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(), video_sender);
@@ -2133,7 +2144,8 @@ void PeerConnection::SetRemoteDescription(
   SetRemoteDescription(
       std::unique_ptr<SessionDescriptionInterface>(desc),
       rtc::scoped_refptr<SetRemoteDescriptionObserverInterface>(
-          new SetRemoteDescriptionObserverAdapter(this, observer)));
+          new rtc::RefCountedObject<SetRemoteDescriptionObserverAdapter>(
+              this, observer)));
 }
 
 void PeerConnection::SetRemoteDescription(
@@ -3256,7 +3268,8 @@ void PeerConnection::CreateAudioReceiver(
     const RtpSenderInfo& remote_sender_info) {
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams;
   streams.push_back(rtc::scoped_refptr<MediaStreamInterface>(stream));
-  auto* audio_receiver = new AudioRtpReceiver(
+
+  auto* audio_receiver = new rtc::RefCountedObject<AudioRtpReceiver>(
       worker_thread(), remote_sender_info.sender_id, streams);
   audio_receiver->SetVoiceMediaChannel(voice_media_channel());
   audio_receiver->SetupMediaChannel(remote_sender_info.first_ssrc);
@@ -3271,7 +3284,7 @@ void PeerConnection::CreateVideoReceiver(
     const RtpSenderInfo& remote_sender_info) {
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams;
   streams.push_back(rtc::scoped_refptr<MediaStreamInterface>(stream));
-  auto* video_receiver = new VideoRtpReceiver(
+  auto* video_receiver = new rtc::RefCountedObject<VideoRtpReceiver>(
       worker_thread(), remote_sender_info.sender_id, streams);
   video_receiver->SetVideoMediaChannel(video_media_channel());
   video_receiver->SetupMediaChannel(remote_sender_info.first_ssrc);

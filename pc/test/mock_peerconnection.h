@@ -25,12 +25,11 @@
 namespace webrtc {
 
 // The factory isn't really used; it just satisfies the base PeerConnection.
-class FakePeerConnectionFactory
-    : public rtc::RefCountedObject<webrtc::PeerConnectionFactory> {
+class FakePeerConnectionFactory : public webrtc::PeerConnectionFactory {
  public:
   explicit FakePeerConnectionFactory(
       std::unique_ptr<cricket::MediaEngineInterface> media_engine)
-      : rtc::RefCountedObject<webrtc::PeerConnectionFactory>(
+      : webrtc::PeerConnectionFactory(
             rtc::Thread::Current(),
             rtc::Thread::Current(),
             rtc::Thread::Current(),
@@ -39,15 +38,14 @@ class FakePeerConnectionFactory
             std::unique_ptr<RtcEventLogFactoryInterface>()) {}
 };
 
-class MockPeerConnection
-    : public rtc::RefCountedObject<webrtc::PeerConnection> {
+class MockPeerConnection : public webrtc::PeerConnection {
  public:
   // TODO(nisse): Valid overrides commented out, because the gmock
   // methods don't use any override declarations, and we want to avoid
   // warnings from -Winconsistent-missing-override. See
   // http://crbug.com/428099.
   explicit MockPeerConnection(PeerConnectionFactory* factory)
-      : rtc::RefCountedObject<webrtc::PeerConnection>(
+      : webrtc::PeerConnection(
             factory,
             std::unique_ptr<RtcEventLog>(),
             std::unique_ptr<Call>()) {}

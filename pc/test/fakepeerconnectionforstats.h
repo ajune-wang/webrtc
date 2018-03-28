@@ -348,7 +348,8 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
       }
     }
     auto transceiver = RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
-        signaling_thread_, new RtpTransceiver(media_type));
+        signaling_thread_,
+        new rtc::RefCountedObject<RtpTransceiver>(media_type));
     transceivers_.push_back(transceiver);
     return transceiver;
   }

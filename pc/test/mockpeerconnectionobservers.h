@@ -278,7 +278,7 @@ class MockSetSessionDescriptionObserver
 };
 
 class MockSetRemoteDescriptionObserver
-    : public rtc::RefCountedObject<SetRemoteDescriptionObserverInterface> {
+    : public SetRemoteDescriptionObserverInterface {
  public:
   bool called() const { return error_.has_value(); }
   RTCError& error() {

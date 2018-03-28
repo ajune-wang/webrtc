@@ -11,6 +11,7 @@
 #include "ortc/ortcrtpreceiveradapter.h"
 
 #include <utility>
+#include <vector>
 
 #include "media/base/mediaconstants.h"
 #include "ortc/rtptransportadapter.h"
@@ -152,8 +153,10 @@ void OrtcRtpReceiverAdapter::MaybeRecreateInternalReceiver() {
   switch (kind_) {
     case cricket::MEDIA_TYPE_AUDIO: {
       auto* audio_receiver =
-          new AudioRtpReceiver(rtp_transport_controller_->worker_thread(),
-                               rtc::CreateRandomUuid(), {});
+          new rtc::RefCountedObject<AudioRtpReceiver>(
+              rtp_transport_controller_->worker_thread(),
+              rtc::CreateRandomUuid(),
+              std::vector<rtc::scoped_refptr<MediaStreamInterface>>{});
       auto* voice_channel = rtp_transport_controller_->voice_channel();
       RTC_DCHECK(voice_channel);
       audio_receiver->SetVoiceMediaChannel(voice_channel->media_channel());
@@ -162,8 +165,10 @@ void OrtcRtpReceiverAdapter::MaybeRecreateInternalReceiver() {
     }
     case cricket::MEDIA_TYPE_VIDEO: {
       auto* video_receiver =
-          new VideoRtpReceiver(rtp_transport_controller_->worker_thread(),
-                               rtc::CreateRandomUuid(), {});
+          new rtc::RefCountedObject<VideoRtpReceiver>(
+              rtp_transport_controller_->worker_thread(),
+              rtc::CreateRandomUuid(),
+              std::vector<rtc::scoped_refptr<MediaStreamInterface>>{});
       auto* video_channel = rtp_transport_controller_->video_channel();
       RTC_DCHECK(video_channel);
       video_receiver->SetVideoMediaChannel(video_channel->media_channel());

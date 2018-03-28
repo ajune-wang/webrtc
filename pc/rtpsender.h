@@ -92,7 +92,7 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
 
 class AudioRtpSender : public DtmfProviderInterface,
                        public ObserverInterface,
-                       public rtc::RefCountedObject<RtpSenderInternal> {
+                       public RtpSenderInternal {
  public:
   // StatsCollector provided so that Add/RemoveLocalAudioTrack can be called
   // at the appropriate times.
@@ -194,8 +194,7 @@ class AudioRtpSender : public DtmfProviderInterface,
   int attachment_id_ = 0;
 };
 
-class VideoRtpSender : public ObserverInterface,
-                       public rtc::RefCountedObject<RtpSenderInternal> {
+class VideoRtpSender : public ObserverInterface, public RtpSenderInternal {
  public:
   // Construct a VideoRtpSender with a null track, a single, randomly generated
   // stream id, and a randomly generated ID.

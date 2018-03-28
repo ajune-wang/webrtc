@@ -23,7 +23,8 @@ int GainController2::instance_count_ = 0;
 GainController2::GainController2()
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
-      gain_controller_(data_dumper_.get()) {}
+      gain_controller_(data_dumper_.get()),
+      adaptive_agc_(data_dumper_.get()) {}
 
 GainController2::~GainController2() = default;
 
@@ -40,6 +41,7 @@ void GainController2::Initialize(int sample_rate_hz) {
 void GainController2::Process(AudioBuffer* audio) {
   AudioFrameView<float> float_frame(audio->channels_f(), audio->num_channels(),
                                     audio->num_frames());
+  adaptive_agc_.Process(float_frame);
   gain_controller_.Process(float_frame);
 }
 
@@ -48,7 +50,6 @@ void GainController2::ApplyConfig(
   RTC_DCHECK(Validate(config));
   config_ = config;
   gain_controller_.SetGain(config_.fixed_gain_db);
-  gain_controller_.EnableLimiter(config_.enable_limiter);
 }
 
 bool GainController2::Validate(
@@ -60,8 +61,7 @@ std::string GainController2::ToString(
     const AudioProcessing::Config::GainController2& config) {
   std::stringstream ss;
   ss << "{enabled: " << (config.enabled ? "true" : "false") << ", "
-     << "fixed_gain_dB: " << config.fixed_gain_db << ", "
-     << "enable_limiter: " << (config.enable_limiter ? "true" : "false") << "}";
+     << "fixed_gain_dB: " << config.fixed_gain_db << "}";
   return ss.str();
 }
 

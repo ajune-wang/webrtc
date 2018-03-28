@@ -1178,26 +1178,23 @@ void RTPSender::SetMid(const std::string& mid) {
   // This is configured via the API.
   rtc::CritScope lock(&send_critsect_);
 
-  // Cannot change MID once sending.
-  RTC_DCHECK(!sending_media_);
+  // Note: It is not entirely safe to change the MID for an active RTP stream
+  // since the MidOracle will not verify that the received report blocks are for
+  // packets that have the new MID. It is expected that in practice this won't
+  // really matter since active RTP streams can be demuxed by SSRC.
 
-  // Cannot change the MID if it is already set.
-  if (mid_oracle_) {
-    RTC_DCHECK_EQ(mid_oracle_->mid(), mid);
-    return;
-  }
-  if (mid_oracle_rtx_) {
-    RTC_DCHECK_EQ(mid_oracle_rtx_->mid(), mid);
-    return;
+  if (!mid_oracle_ || mid != mid_oracle_->mid()) {
+    mid_oracle_ = rtc::MakeUnique<MidOracle>(mid);
+    if (ssrc_) {
+      mid_oracle_->SetSsrc(*ssrc_);
+    }
   }
 
-  mid_oracle_ = rtc::MakeUnique<MidOracle>(mid);
-  if (ssrc_) {
-    mid_oracle_->SetSsrc(*ssrc_);
-  }
-  mid_oracle_rtx_ = rtc::MakeUnique<MidOracle>(mid);
-  if (ssrc_rtx_) {
-    mid_oracle_rtx_->SetSsrc(*ssrc_rtx_);
+  if (!mid_oracle_rtx_ || mid != mid_oracle_rtx_->mid()) {
+    mid_oracle_rtx_ = rtc::MakeUnique<MidOracle>(mid);
+    if (ssrc_rtx_) {
+      mid_oracle_rtx_->SetSsrc(*ssrc_rtx_);
+    }
   }
 }
 

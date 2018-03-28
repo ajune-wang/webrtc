@@ -46,6 +46,30 @@
       "revId": "c48b12d4c4d6bdfe61b6a71018a57a6a9eb012bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cdfbdfd_8971d558",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-03-28T16:50:15Z",
+      "side": 1,
+      "message": "Ok. As per offline discussion I mark this as solved.",
+      "parentUuid": "b2228699_972b7802",
+      "range": {
+        "startLine": 209,
+        "startChar": 6,
+        "endLine": 209,
+        "endChar": 70
+      },
+      "revId": "c48b12d4c4d6bdfe61b6a71018a57a6a9eb012bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

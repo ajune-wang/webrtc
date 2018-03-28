@@ -204,10 +204,12 @@ class MediaChannel : public sigslot::has_slots<> {
   virtual bool AddSendStream(const StreamParams& sp) = 0;
   // Removes an outgoing media stream.
   // ssrc must be the first SSRC of the media stream if the stream uses
-  // multiple SSRCs.
+  // multiple SSRCs. In the case of an ssrc of 0, the possibly cached
+  // StreamParameters is removed.
   virtual bool RemoveSendStream(uint32_t ssrc) = 0;
-  // Creates a new incoming media stream with SSRCs and CNAME as described
-  // by sp.
+  // Creates a new incoming media stream with SSRCs, CNAME as described
+  // by sp. In the case of a sp without SSRCs, the unsignaled sp is cached
+  // to be used later for unsignaled streams received.
   virtual bool AddRecvStream(const StreamParams& sp) = 0;
   // Removes an incoming media stream.
   // ssrc must be the first SSRC of the media stream if the stream uses

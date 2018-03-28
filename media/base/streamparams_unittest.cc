@@ -96,6 +96,17 @@ TEST(StreamParams, GetSsrcGroup) {
   EXPECT_EQ(&sp.ssrc_groups[0], sp.get_ssrc_group("XYZ"));
 }
 
+TEST(StreamParams, HasUnsignaledStream) {
+  cricket::StreamParams sp_1 = cricket::StreamParams::CreateLegacy(kSsrcs1[0]);
+  cricket::StreamParams sp_2 = cricket::StreamParams::CreateLegacy(kSsrcs2[0]);
+  std::vector<cricket::StreamParams> streams({sp_1, sp_2});
+  EXPECT_FALSE(HasUnsignaledStream(streams));
+
+  cricket::StreamParams unsignaled_stream;
+  streams.push_back(unsignaled_stream);
+  EXPECT_TRUE(HasUnsignaledStream(streams));
+}
+
 TEST(StreamParams, EqualNotEqual) {
   cricket::StreamParams l1 = cricket::StreamParams::CreateLegacy(1);
   cricket::StreamParams l2 = cricket::StreamParams::CreateLegacy(2);

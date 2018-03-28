@@ -46,6 +46,115 @@
       "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee216010_b01d0c8b",
+        "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-28T07:35:58Z",
+      "side": 1,
+      "message": "If possible (which it is not, see below), I would move this to the ctor of the test fixture instead. Then you could make |input_frame_generator_| const.\n\nhttps://github.com/google/googletest/blob/master/googletest/docs/FAQ.md#should-i-use-the-constructordestructor-of-the-test-fixture-or-the-set-uptear-down-function",
+      "range": {
+        "startLine": 61,
+        "startChar": 25,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e020a1ed_5db49210",
+        "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-28T07:35:58Z",
+      "side": 1,
+      "message": "... but due to this call, we would violate the style guide by following my advice above:\nhttps://google.github.io/styleguide/cppguide.html#Doing_Work_in_Constructors\n\nSo best to keep it as is.",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 40
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "236e8ffb_92041af7",
+        "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-28T07:35:58Z",
+      "side": 1,
+      "message": "You could use uint32_t here and for |last_input_frame_timestamp_|. Then everything will wrap naturally, and you don\u0027t have to do the static_cast below.",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 14
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61cae757_9cbdbd38",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-28T07:35:58Z",
+      "side": 1,
+      "message": "Is this intentionally not 176? Maybe add a comment about that in that case.",
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ceb06df_a39f94e8",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-28T07:35:58Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 244,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 63
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

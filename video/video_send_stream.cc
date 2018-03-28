@@ -1177,6 +1177,15 @@ void VideoSendStreamImpl::ConfigureProtection() {
     rtp_rtcp->SetUlpfecConfig(red_payload_type, ulpfec_payload_type);
   }
 
+  // Experiment that enables FlexFEC negotiation
+  // but disable actual sending FlexFEC
+  if (flexfec_enabled &&
+      webrtc::field_trial::IsEnabled("WebRTC-FlexFECSendDisable")) {
+    RTC_LOG(LS_INFO) << "Experiment to disable sending FlexFEC is enabled.";
+    fec_controller_->SetProtectionMethod(false, nack_enabled);
+    return;
+  }
+
   // Currently, both ULPFEC and FlexFEC use the same FEC rate calculation logic,
   // so enable that logic if either of those FEC schemes are enabled.
   fec_controller_->SetProtectionMethod(flexfec_enabled || IsUlpfecEnabled(),

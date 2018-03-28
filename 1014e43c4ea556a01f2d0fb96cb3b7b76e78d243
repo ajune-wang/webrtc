@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f91b0858_ac4cbab0",
+        "filename": "modules/audio_device/include/audio_device_defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-03-28T13:07:12Z",
+      "side": 1,
+      "message": "nit, \u0027has to\u0027 or \u0027must\u0027",
+      "revId": "1014e43c4ea556a01f2d0fb96cb3b7b76e78d243",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

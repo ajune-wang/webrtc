@@ -225,6 +225,24 @@
     },
     {
       "key": {
+        "uuid": "3402c693_3fe4718b",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-03-28T09:16:17Z",
+      "side": 1,
+      "message": "Yes, that makes sense. I was thinking maybe the tests intentionally used 172, and then using the remaining pixels as padding due to the stride alignment.",
+      "parentUuid": "067ffd37_daa2f5c8",
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ceb06df_a39f94e8",
         "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
         "patchSetId": 7

@@ -243,6 +243,7 @@ void BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
   if (rtp_transport_) {
     DisconnectFromRtpTransport();
   }
+
   rtp_transport_ = rtp_transport;
   RTC_LOG(LS_INFO) << "Setting the RtpTransport for " << content_name();
   ConnectToRtpTransport();
@@ -793,7 +794,6 @@ void BaseChannel::EnableSdes_n() {
   // DtlsSrtpTransport and SrtpTransport shouldn't be enabled at the same
   // time.
   RTC_DCHECK(!dtls_srtp_transport_);
-
   sdes_transport_ = rtc::MakeUnique<webrtc::SrtpTransport>(rtcp_mux_required_);
 #if defined(ENABLE_EXTERNAL_AUTH)
   sdes_transport_->EnableExternalAuth();
@@ -802,7 +802,11 @@ void BaseChannel::EnableSdes_n() {
       rtp_transport_->rtp_packet_transport());
   sdes_transport_->SetRtcpPacketTransport(
       rtp_transport_->rtcp_packet_transport());
+  sdes_transport_->SetRtcpMuxEnabled(rtp_transport_->rtcp_mux_enabled());
   SetRtpTransport(sdes_transport_.get());
+
+  dtls_srtp_transport_.reset();
+  unencrypted_rtp_transport_.reset();
   RTC_LOG(LS_INFO) << "SrtpTransport is created for SDES.";
 }
 
@@ -820,7 +824,6 @@ void BaseChannel::EnableDtlsSrtp_n() {
   dtls_srtp_transport_->EnableExternalAuth();
 #endif
 
-  SetRtpTransport(dtls_srtp_transport_.get());
   if (cached_send_extension_ids_) {
     dtls_srtp_transport_->UpdateSendEncryptedHeaderExtensionIds(
         *cached_send_extension_ids_);
@@ -832,8 +835,13 @@ void BaseChannel::EnableDtlsSrtp_n() {
   // Set the DtlsTransport and the |dtls_srtp_transport_| will handle the DTLS
   // relate signal internally.
   RTC_DCHECK(rtp_dtls_transport_);
+  dtls_srtp_transport_->SetRtcpMuxEnabled(rtp_transport_->rtcp_mux_enabled());
+  SetRtpTransport(dtls_srtp_transport_.get());
+
   dtls_srtp_transport_->SetDtlsTransports(rtp_dtls_transport_,
                                           rtcp_dtls_transport_);
+  sdes_transport_.reset();
+  unencrypted_rtp_transport_.reset();
   RTC_LOG(LS_INFO) << "DtlsSrtpTransport is created for DTLS-SRTP.";
 }
 

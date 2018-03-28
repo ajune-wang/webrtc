@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a52f9e3_c1dc7861",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-03-28T10:46:44Z",
+      "side": 1,
+      "message": "personal nit: It\u0027s confusing to have a member \u0027gain_controller_\u0027 in GainController2. Should perhaps be named \u0027fixed_gain_controller_\u0027.",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 38
+      },
+      "revId": "d63591d5896778f123a3c4bfea61bd805b76f3f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9d379dc_a1c14c13",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-03-28T10:46:44Z",
+      "side": 0,
+      "message": "If all the routing to call this disappears, we might as well remove this function, too. If there are no plans to use it.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 57
+      },
+      "revId": "1e48e8095c8bb4daf6554233e8bc3d36563c817a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

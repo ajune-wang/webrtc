@@ -143,7 +143,10 @@ DtlsTransport::DtlsTransport(
   ConnectToIceTransport();
 }
 
-DtlsTransport::~DtlsTransport() = default;
+DtlsTransport::~DtlsTransport() {
+  RTC_LOG(LS_ERROR) << "~DtlsTransport:" << transport_name_
+                    << " address:" << this;
+}
 
 const rtc::CryptoOptions& DtlsTransport::crypto_options() const {
   return crypto_options_;

@@ -367,6 +367,8 @@ void TransportController::DestroyDtlsTransport_n(
   if ((*it)->Release() == rtc::RefCountReleaseStatus::kOtherRefsRemained) {
     return;
   }
+  RTC_LOG(LS_ERROR) << "DestroyDtlsTransport_n:" << transport_name
+                    << " component :" << component;
   channels_.erase(it);
 
   JsepTransport* t = GetJsepTransport(transport_name);

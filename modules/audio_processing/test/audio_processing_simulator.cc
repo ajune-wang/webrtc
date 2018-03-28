@@ -244,9 +244,32 @@ EchoCanceller3Config ParseAec3Parameters(const std::string& filename) {
       ReadParam(subsection, "full_gain_blocks",
                 &cfg.echo_removal_control.gain_rampup.full_gain_blocks);
     }
-    ReadParam(section, "has_clock_drift",
+    ReadParam(subsection, "has_clock_drift",
               &cfg.echo_removal_control.has_clock_drift);
   }
+
+  if (rtc::GetValueFromJsonObject(root, "echo_model", &section)) {
+    Json::Value subsection;
+    ReadParam(section, "noise_floor_hold",
+              &cfg.echo_model.noise_floor_hold);
+    ReadParam(section, "min_noise_floor_power",
+              &cfg.echo_model.min_noise_floor_power);
+    ReadParam(section, "stationary_gate_slope",
+              &cfg.echo_model.stationary_gate_slope);
+    ReadParam(section, "noise_gate_power",
+              &cfg.echo_model.noise_gate_power);
+    ReadParam(section, "noise_gate_slope",
+              &cfg.echo_model.noise_gate_slope);
+    ReadParam(section, "render_pre_window_size",
+              &cfg.echo_model.render_pre_window_size);
+    ReadParam(section, "render_post_window_size",
+              &cfg.echo_model.render_post_window_size);
+    ReadParam(section, "nonlinear_hold",
+              &cfg.echo_model.nonlinear_hold);
+    ReadParam(section, "nonlinear_release",
+              &cfg.echo_model.nonlinear_release);
+  }
+
 
   std::cout << std::endl;
   return cfg;

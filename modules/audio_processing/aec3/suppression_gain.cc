@@ -457,7 +457,7 @@ bool SuppressionGain::LowNoiseRenderDetector::Detect(
     x2_max = std::max(x2_max, x2);
   }
 
-  constexpr float kThreshold = 50.f * 50.f * 64.f;
+  constexpr float kThreshold = 350.f * 350.f * 64.f;
   const bool low_noise_render =
       average_power_ < kThreshold && x2_max < 3 * average_power_;
   average_power_ = average_power_ * 0.9f + x2_sum * 0.1f;

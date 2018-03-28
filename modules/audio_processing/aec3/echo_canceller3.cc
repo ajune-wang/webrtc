@@ -13,6 +13,7 @@
 
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomicops.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -27,6 +28,106 @@ bool DetectSaturation(rtc::ArrayView<const float> y) {
     }
   }
   return false;
+}
+
+// Overrides the default parameters for the main filter parameters with a new parameter set. Any the nondefault parameters are kept.
+EchoCanceller3Config::Filter::MainConfiguration OverrideDefaultParams(
+    const EchoCanceller3Config::Filter::MainConfiguration& config_to_override,
+    const EchoCanceller3Config::Filter::MainConfiguration& overriding_config) {
+  const EchoCanceller3Config::Filter::MainConfiguration default_cfg{};
+  EchoCanceller3Config::Filter::MainConfiguration overridden_cfg = config_to_override;
+
+  if (config_to_override.length_blocks != default_cfg.length_blocks) {
+    overridden_cfg.length_blocks = overriding_config.length_blocks;
+  }
+  else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding length_blocks";
+  }
+  if (config_to_override.leakage_converged != default_cfg.leakage_converged) {
+    overridden_cfg.leakage_converged = overriding_config.leakage_converged;
+  }
+  else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding leakage_converged";
+  }
+  if (config_to_override.leakage_diverged != default_cfg.leakage_diverged) {
+    overridden_cfg.leakage_diverged = overriding_config.leakage_diverged;
+  }
+  else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding leakage_diverged";
+  }
+  if (config_to_override.error_floor != default_cfg.error_floor) {
+    overridden_cfg.error_floor = overriding_config.error_floor;
+  }
+  else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding error_floor";
+  }
+  if (config_to_override.noise_gate != default_cfg.noise_gate) {
+    overridden_cfg.noise_gate = overriding_config.noise_gate;
+  }
+  else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding noise_gate";
+  }
+
+  return overridden_cfg;
+}
+
+// Overrides the default parameters for the shadow filter parameters with a new parameter set. Any the nondefault parameters are kept.
+EchoCanceller3Config::Filter::ShadowConfiguration OverrideDefaultParams(
+    const EchoCanceller3Config::Filter::ShadowConfiguration& config_to_override,
+    const EchoCanceller3Config::Filter::ShadowConfiguration& overriding_config) {
+  const EchoCanceller3Config::Filter::ShadowConfiguration default_cfg{};
+  EchoCanceller3Config::Filter::ShadowConfiguration overridden_cfg = config_to_override;
+
+  if (config_to_override.length_blocks != default_cfg.length_blocks) {
+    overridden_cfg.length_blocks = overriding_config.length_blocks;
+  }
+  else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding length_blocks";
+  }
+  if (config_to_override.rate != default_cfg.rate) {
+    overridden_cfg.rate = overriding_config.rate;
+  }
+  else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding rate";
+  }
+  if (config_to_override.noise_gate != default_cfg.noise_gate) {
+    overridden_cfg.noise_gate = overriding_config.noise_gate;
+  }
+  else {
+    RTC_LOG(LS_WARNING) << "NonDefault parameter set, not overriding noise_gate";
+  }
+
+  return overridden_cfg;
+}
+
+// Method for adjusting config parameter dependencies..
+EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
+  EchoCanceller3Config custom_cfg = config;
+
+  // Use customized parameters when the system has clock-drift.
+  if (config.echo_removal_control.has_clock_drift) {
+    if (config.ep_strength.bounded_erl) {
+      custom_cfg.filter.main = {30, 0.005, 0.1, 0.001, 20075344};
+      custom_cfg.filter.shadow = {30, 0.5, 20075344};
+      custom_cfg.filter.main_initial = {30, 0.1, 1.5, 0.001, 20075344};
+      custom_cfg.filter.shadow_initial = {30, 0.9, 20075344};
+    }
+    else  {
+      custom_cfg.filter.main = {30, 0.005, 0.1, 0.001, 20075344};
+      custom_cfg.filter.shadow = {30, 0.5, 20075344};
+      custom_cfg.filter.main_initial = {30, 0.1, 1.5, 0.001, 20075344};
+      custom_cfg.filter.shadow_initial = {30, 0.9, 20075344};
+    }
+  }
+
+  custom_cfg.filter.main = OverrideDefaultParams(config.filter.main, custom_cfg.filter.main);
+  custom_cfg.filter.main_initial =
+      OverrideDefaultParams(config.filter.main_initial, custom_cfg.filter.main_initial);
+  custom_cfg.filter.shadow =
+      OverrideDefaultParams(config.filter.shadow, custom_cfg.filter.shadow);
+  custom_cfg.filter.shadow_initial = OverrideDefaultParams(config.filter.shadow_initial,
+                                                           custom_cfg.filter.shadow_initial);
+  return custom_cfg;
 }
 
 void FillSubFrameView(AudioBuffer* frame,
@@ -209,11 +310,11 @@ int EchoCanceller3::instance_count_ = 0;
 EchoCanceller3::EchoCanceller3(const EchoCanceller3Config& config,
                                int sample_rate_hz,
                                bool use_highpass_filter)
-    : EchoCanceller3(config,
+    : EchoCanceller3(AdjustConfig(config),
                      sample_rate_hz,
                      use_highpass_filter,
                      std::unique_ptr<BlockProcessor>(
-                         BlockProcessor::Create(config, sample_rate_hz))) {}
+                         BlockProcessor::Create(AdjustConfig(config), sample_rate_hz))) {}
 EchoCanceller3::EchoCanceller3(const EchoCanceller3Config& config,
                                int sample_rate_hz,
                                bool use_highpass_filter,

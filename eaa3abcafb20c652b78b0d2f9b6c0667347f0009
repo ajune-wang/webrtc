@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cd352430_87cd619c",
+        "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-28T09:11:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ee216010_b01d0c8b",
+      "range": {
+        "startLine": 61,
+        "startChar": 25,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e020a1ed_5db49210",
         "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
         "patchSetId": 7
@@ -83,6 +107,30 @@
       "writtenOn": "2018-03-28T07:35:58Z",
       "side": 1,
       "message": "... but due to this call, we would violate the style guide by following my advice above:\nhttps://google.github.io/styleguide/cppguide.html#Doing_Work_in_Constructors\n\nSo best to keep it as is.",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 40
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102421e9_de337699",
+        "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-28T09:11:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e020a1ed_5db49210",
       "range": {
         "startLine": 70,
         "startChar": 2,
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "44b691eb_c5ba1411",
+        "filename": "modules/video_coding/codecs/test/video_codec_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-28T09:11:40Z",
+      "side": 1,
+      "message": "Changed to uint32_t.",
+      "parentUuid": "236e8ffb_92041af7",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 14
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61cae757_9cbdbd38",
         "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
         "patchSetId": 7
@@ -132,6 +204,24 @@
       "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "067ffd37_daa2f5c8",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-28T09:11:40Z",
+      "side": 1,
+      "message": "This looks like misprint. These unit tests used paris_qcif which is 176x144. I.e. frame size in tests did\u0027t match actual frame size in YUV file.\nAfter switching to frame generator it is not critical which value to use. But I think it would be better to use some standard resolution. I changed width to 176.",
+      "parentUuid": "61cae757_9cbdbd38",
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +245,30 @@
       "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93a2f550_0425462a",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-03-28T09:11:40Z",
+      "side": 1,
+      "message": "Yes, I think so. We want to check that timestamps pass through both encoder and decoder. It makes sense to use specific values and do not rely on default ones (set by some other layer).",
+      "parentUuid": "5ceb06df_a39f94e8",
+      "range": {
+        "startLine": 244,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 63
+      },
+      "revId": "eaa3abcafb20c652b78b0d2f9b6c0667347f0009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8fabd0a_0736e528",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-28T21:02:45Z",
+      "side": 1,
+      "message": "Should briefly explain the motivation for this (how demuxing currently happens in two layers and only the upper layer knows about MIDs).",
+      "revId": "e3d505d5295caec1d1b4111a3d5429a09b41e7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

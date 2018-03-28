@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31455162_d7054645",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/RecordedAudioToFileController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-03-28T09:19:20Z",
+      "side": 1,
+      "message": "Move this comment to the relevant code, or add something about the isRunning check to make the comment relevant for the whole synchronized block.",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 126,
+        "endChar": 41
+      },
+      "revId": "e45a7125b6e7b299a95fe7c83517056fbc692970",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

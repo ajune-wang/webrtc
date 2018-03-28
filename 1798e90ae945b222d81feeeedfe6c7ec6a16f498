@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "187802d1_582c5ef8",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "470cd071_2fd38e79",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88f3ce63_c7a4dc07",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "a367b871_a8f5280c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "It\u0027s an edge case, but I agree it makes since to have the symmetry here. I added it in and added a small helper function in streamparams.h with this change, and updated the tests to reflect the change. Let me know what you guys think.",
+      "parentUuid": "e6da0f69_dfd5f559",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddc7eacd_aae12b2f",
         "filename": "pc/channel.cc",
         "patchSetId": 4
@@ -68,6 +104,24 @@
       "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b136f56_62a22b47",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddc7eacd_aae12b2f",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "df103618_9fd9852c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "As mentioned in my other comment, I added a small helper function in streamparams.h for this.",
+      "parentUuid": "be24215e_35ed09a1",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc874a48_08c4df3d",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -102,6 +174,24 @@
       "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df114d97_d122e234",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3929,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "Good catch on the comment. I originally generated one here, but then after talking about this offline with Steve, we decided it would be best to keep the empty stream ID. That way if the caller side specifies no stream ids, then the callee doesn\u0027t generate a new stream ID every time it sets the remote description (which makes it seem that the sender\u0027s stream id is changing).\n\nSince we are already using kDefaultStreamId here, I opted to use this instead of \"\". This could be a reason that Chrome is having a failing test with my upstream CL landing. Investigating this now.",
+      "parentUuid": "bc874a48_08c4df3d",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "32227d2e_7aa45e34",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3935,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "I made this small change and added a test. Although this will only happen with munged SDPs, because we always signal SSRCs to support.",
+      "parentUuid": "182e81c1_f279ea68",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1956f9e8_82900535",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 4
@@ -136,6 +244,24 @@
       "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71967ba6_42f446c7",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "Copied from above. Removed. Thanks for the catch. Also fixed the comment below.",
+      "parentUuid": "1956f9e8_82900535",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +288,30 @@
     },
     {
       "key": {
+        "uuid": "fbfebd9d_6c831f70",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06cb4abe_1590b6b0",
+      "range": {
+        "startLine": 568,
+        "startChar": 2,
+        "endLine": 568,
+        "endChar": 37
+      },
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86145b81_9ee9518c",
         "filename": "pc/peerconnection_rtp_unittest.cc",
         "patchSetId": 4
@@ -185,6 +335,30 @@
     },
     {
       "key": {
+        "uuid": "ef897d43_8d99c6c0",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "Seems that other parts in this test needed updating to so I went ahead and fixed it throughout.",
+      "parentUuid": "86145b81_9ee9518c",
+      "range": {
+        "startLine": 580,
+        "startChar": 35,
+        "endLine": 580,
+        "endChar": 74
+      },
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53bd41eb_bd8b9148",
         "filename": "pc/peerconnection_rtp_unittest.cc",
         "patchSetId": 4
@@ -199,6 +373,24 @@
       "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41cbcdd9_2fb88dcd",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "I kept this the same because receivers[0]-\u003estreams() gives a vector of MediaStreamInterface, not a vector of stream IDs.\n\nAs a side note I also found out that macros interpret every comma inside to be another function argument, so the line you suggested would be interpreted as 3 arguments and not compile.",
+      "parentUuid": "53bd41eb_bd8b9148",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +411,24 @@
     },
     {
       "key": {
+        "uuid": "70573636_402277e8",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "Same as mentioned in above comment.",
+      "parentUuid": "ffab0519_549f3742",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfa5f4bf_60a12960",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 4
@@ -236,6 +446,24 @@
     },
     {
       "key": {
+        "uuid": "71670f0a_e0b4ce27",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2966,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "Done, and updated my other comments in here from ssrc to SSRC throughout the CL.",
+      "parentUuid": "cfa5f4bf_60a12960",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5c689d8_8fa2cf4b",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 4
@@ -250,6 +478,24 @@
       "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "073de52b_f0137a44",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-03-28T18:19:43Z",
+      "side": 1,
+      "message": "I took your advice here and made the change.",
+      "parentUuid": "f5c689d8_8fa2cf4b",
+      "revId": "1798e90ae945b222d81feeeedfe6c7ec6a16f498",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

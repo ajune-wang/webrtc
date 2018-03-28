@@ -13,8 +13,11 @@
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-
 #include "third_party/libyuv/include/libyuv.h"
+
+#if !defined(NDEBUG)
+#import <CoreImage/CoreImage.h>
+#endif
 
 @implementation RTCCVPixelBuffer {
   int _width;
@@ -235,6 +238,16 @@
 
   return i420Buffer;
 }
+
+#pragma mark - Debugging
+
+#if !defined(NDEBUG)
+- (id)debugQuickLookObject {
+  return [CIImage imageWithCVPixelBuffer:_pixelBuffer];
+}
+#endif
+
+#pragma mark - Private
 
 - (void)cropAndScaleNV12To:(CVPixelBufferRef)outputPixelBuffer withTempBuffer:(uint8_t*)tmpBuffer {
   // Prepare output pointers.

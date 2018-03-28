@@ -170,6 +170,10 @@ if (is_ios || is_mac) {
         "//third_party/libyuv",
       ]
       configs += [ "..:common_objc" ]
+      libs = []
+      if (is_debug) {
+        libs += [ "CoreImage.framework" ]
+      }
     }
 
     rtc_static_library("video_objc") {

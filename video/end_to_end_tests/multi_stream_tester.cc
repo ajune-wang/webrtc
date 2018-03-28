@@ -71,7 +71,8 @@ void MultiStreamTester::RunTest() {
 
       VideoSendStream::Config send_config(sender_transport.get());
       send_config.rtp.ssrcs.push_back(ssrc);
-      send_config.encoder_settings.encoder = encoders[i].get();
+      // TODO(nisse): XXX = encoders[i].get();
+      send_config.encoder_settings.encoder_factory = nullptr;
       send_config.rtp.payload_name = "VP8";
       send_config.rtp.payload_type = kVideoPayloadType;
       VideoEncoderConfig encoder_config;

@@ -260,7 +260,8 @@ bool AcmReceiver::AddCodec(int rtp_payload_type,
       neteq_->RegisterPayloadType(rtp_payload_type, audio_format);
   if (!success) {
     RTC_LOG(LERROR) << "AcmReceiver::AddCodec failed for payload type "
-                    << rtp_payload_type << ", decoder format " << audio_format;
+                    << rtp_payload_type << ", decoder format "
+                    << audio_format.ToString();
   }
   return success;
 }

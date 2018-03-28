@@ -131,7 +131,6 @@ class FakeMouseMonitor : public MouseCursorMonitor {
       callback_->OnMouseCursor(new MouseCursor(image.release(), hotspot_));
     }
 
-    callback_->OnMouseCursorPosition(state_, position_);
     callback_->OnMouseCursorPosition(position_);
   }
 
@@ -167,16 +166,13 @@ void VerifyFrame(const DesktopFrame& frame,
 
 }  // namespace
 
-template <bool use_desktop_relative_cursor_position>
 class DesktopAndCursorComposerTest : public testing::Test,
                                      public DesktopCapturer::Callback {
  public:
   DesktopAndCursorComposerTest()
       : fake_screen_(new FakeScreenCapturer()),
         fake_cursor_(new FakeMouseMonitor()),
-        blender_(fake_screen_,
-                 fake_cursor_,
-                 use_desktop_relative_cursor_position) {
+        blender_(fake_screen_, fake_cursor_) {
     blender_.Start(this);
   }
 
@@ -195,73 +191,7 @@ class DesktopAndCursorComposerTest : public testing::Test,
   std::unique_ptr<DesktopFrame> frame_;
 };
 
-using DesktopAndCursorComposerWithRelativePositionTest =
-    DesktopAndCursorComposerTest<false>;
-
-// Verify DesktopAndCursorComposer can handle the case when the screen capturer
-// fails.
-TEST_F(DesktopAndCursorComposerWithRelativePositionTest, Error) {
-  fake_cursor_->SetHotspot(DesktopVector());
-  fake_cursor_->SetState(MouseCursorMonitor::INSIDE, DesktopVector());
-  fake_screen_->SetNextFrame(nullptr);
-
-  blender_.CaptureFrame();
-
-  EXPECT_FALSE(frame_);
-}
-
-TEST_F(DesktopAndCursorComposerWithRelativePositionTest, Blend) {
-  struct {
-    int x, y;
-    int hotspot_x, hotspot_y;
-    bool inside;
-  } tests[] = {
-    {0, 0, 0, 0, true},
-    {50, 50, 0, 0, true},
-    {100, 50, 0, 0, true},
-    {50, 100, 0, 0, true},
-    {100, 100, 0, 0, true},
-    {0, 0, 2, 5, true},
-    {1, 1, 2, 5, true},
-    {50, 50, 2, 5, true},
-    {100, 100, 2, 5, true},
-    {0, 0, 5, 2, true},
-    {50, 50, 5, 2, true},
-    {100, 100, 5, 2, true},
-    {0, 0, 0, 0, false},
-  };
-
-  for (size_t i = 0; i < arraysize(tests); i++) {
-    SCOPED_TRACE(i);
-
-    DesktopVector hotspot(tests[i].hotspot_x, tests[i].hotspot_y);
-    fake_cursor_->SetHotspot(hotspot);
-
-    MouseCursorMonitor::CursorState state = tests[i].inside
-                                                ? MouseCursorMonitor::INSIDE
-                                                : MouseCursorMonitor::OUTSIDE;
-    DesktopVector pos(tests[i].x, tests[i].y);
-    fake_cursor_->SetState(state, pos);
-
-    std::unique_ptr<SharedDesktopFrame> frame(
-        SharedDesktopFrame::Wrap(CreateTestFrame()));
-    fake_screen_->SetNextFrame(frame->Share());
-
-    blender_.CaptureFrame();
-
-    VerifyFrame(*frame_, state, pos);
-
-    // Verify that the cursor is erased before the frame buffer is returned to
-    // the screen capturer.
-    frame_.reset();
-    VerifyFrame(*frame, MouseCursorMonitor::OUTSIDE, DesktopVector());
-  }
-}
-
-using DesktopAndCursorComposerWithAbsolutePositionTest =
-    DesktopAndCursorComposerTest<true>;
-
-TEST_F(DesktopAndCursorComposerWithAbsolutePositionTest,
+TEST_F(DesktopAndCursorComposerTest,
        CursorShouldBeIgnoredIfItIsOutOfDesktopFrame) {
   std::unique_ptr<SharedDesktopFrame> frame(
       SharedDesktopFrame::Wrap(CreateTestFrame()));
@@ -298,8 +228,7 @@ TEST_F(DesktopAndCursorComposerWithAbsolutePositionTest,
   }
 }
 
-TEST_F(DesktopAndCursorComposerWithAbsolutePositionTest,
-       IsOccludedShouldBeConsidered) {
+TEST_F(DesktopAndCursorComposerTest, IsOccludedShouldBeConsidered) {
   std::unique_ptr<SharedDesktopFrame> frame(
       SharedDesktopFrame::Wrap(CreateTestFrame()));
   frame->set_top_left(DesktopVector(100, 200));
@@ -329,7 +258,7 @@ TEST_F(DesktopAndCursorComposerWithAbsolutePositionTest,
   }
 }
 
-TEST_F(DesktopAndCursorComposerWithAbsolutePositionTest, CursorIncluded) {
+TEST_F(DesktopAndCursorComposerTest, CursorIncluded) {
   std::unique_ptr<SharedDesktopFrame> frame(
       SharedDesktopFrame::Wrap(CreateTestFrame()));
   frame->set_top_left(DesktopVector(100, 200));

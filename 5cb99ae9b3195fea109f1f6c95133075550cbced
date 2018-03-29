@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "76a0fb2e_f6b95f2d",
+        "filename": "modules/desktop_capture/desktop_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T19:05:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d9c8224_c52eb8b9",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "5cb99ae9b3195fea109f1f6c95133075550cbced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ecff3de_06dfd911",
         "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.mm",
         "patchSetId": 10

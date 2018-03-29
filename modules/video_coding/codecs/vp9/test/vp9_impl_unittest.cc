@@ -262,4 +262,47 @@ TEST_F(TestVp9Impl, EnableDisableSpatialLayers) {
   }
 }
 
+TEST_F(TestVp9Impl, EndOfSuperframe) {
+  codec_settings_.VP9()->numberOfTemporalLayers = 1;
+  codec_settings_.VP9()->numberOfSpatialLayers = 2;
+
+  codec_settings_.spatialLayers[0].width = codec_settings_.width / 2;
+  codec_settings_.spatialLayers[0].height = codec_settings_.height / 2;
+  codec_settings_.spatialLayers[1].width = codec_settings_.width;
+  codec_settings_.spatialLayers[1].height = codec_settings_.height;
+
+  codec_settings_.spatialLayers[0].targetBitrate = 500;
+  codec_settings_.spatialLayers[1].targetBitrate = 1000;
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->InitEncode(&codec_settings_, 1 /* number of cores */,
+                                 0 /* max payload size (unused) */));
+
+  // Encode both base and upper layers. Check that end-of-superframe flag is
+  // set on upper layer frame but not on base layer frame.
+  SetWaitForEncodedFramesThreshold(2);
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+
+  std::vector<EncodedImage> frames;
+  std::vector<CodecSpecificInfo> codec_specific;
+  ASSERT_TRUE(WaitForEncodedFrames(&frames, &codec_specific));
+  EXPECT_FALSE(codec_specific[0].codecSpecific.VP9.end_of_superframe);
+  EXPECT_TRUE(codec_specific[1].codecSpecific.VP9.end_of_superframe);
+
+  // Encode only base layer. Check that end-of-superframe flag is
+  // set on base layer frame.
+  codec_settings_.spatialLayers[1].targetBitrate = 0;
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->InitEncode(&codec_settings_, 1 /* number of cores */,
+                                 0 /* max payload size (unused) */));
+
+  SetWaitForEncodedFramesThreshold(1);
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+
+  ASSERT_TRUE(WaitForEncodedFrames(&frames, &codec_specific));
+  EXPECT_EQ(codec_specific[0].codecSpecific.VP9.spatial_idx, 0);
+  EXPECT_TRUE(codec_specific[0].codecSpecific.VP9.end_of_superframe);
+}
+
 }  // namespace webrtc

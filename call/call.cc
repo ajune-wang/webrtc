@@ -261,7 +261,6 @@ class Call : public webrtc::Call,
 
   const int num_cpu_cores_;
   const std::unique_ptr<ProcessThread> module_process_thread_;
-  const std::unique_ptr<CallStats> call_stats_;
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
   rtc::SequencedTaskChecker configuration_sequence_checker_;
@@ -371,8 +370,9 @@ class Call : public webrtc::Call,
   // TODO(perkj): |worker_queue_| is supposed to replace
   // |module_process_thread_|.
   // |worker_queue| is defined last to ensure all pending tasks are cancelled
-  // and deleted before any other members.
+  // and deleted before any other members (except for |call_stats_|).
   rtc::TaskQueue worker_queue_;
+  const std::unique_ptr<CallStats> call_stats_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(Call);
 };
@@ -420,7 +420,6 @@ Call::Call(const Call::Config& config,
     : clock_(Clock::GetRealTimeClock()),
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
       module_process_thread_(ProcessThread::Create("ModuleProcessThread")),
-      call_stats_(new CallStats(clock_, module_process_thread_.get())),
       bitrate_allocator_(new BitrateAllocator(this)),
       config_(config),
       audio_network_state_(kNetworkDown),
@@ -443,7 +442,8 @@ Call::Call(const Call::Config& config,
       receive_time_calculator_(ReceiveTimeCalculator::CreateFromFieldTrial()),
       video_send_delay_stats_(new SendDelayStats(clock_)),
       start_ms_(clock_->TimeInMilliseconds()),
-      worker_queue_("call_worker_queue") {
+      worker_queue_("call_worker_queue"),
+      call_stats_(new CallStats(clock_, &worker_queue_)) {
   RTC_DCHECK(config.event_log != nullptr);
   transport_send->RegisterTargetTransferRateObserver(this);
   transport_send_ = std::move(transport_send);
@@ -453,7 +453,6 @@ Call::Call(const Call::Config& config,
 
   module_process_thread_->RegisterModule(
       receive_side_cc_.GetRemoteBitrateEstimator(true), RTC_FROM_HERE);
-  module_process_thread_->RegisterModule(call_stats_.get(), RTC_FROM_HERE);
   module_process_thread_->RegisterModule(&receive_side_cc_, RTC_FROM_HERE);
   module_process_thread_->Start();
 }
@@ -470,7 +469,6 @@ Call::~Call() {
   module_process_thread_->DeRegisterModule(
       receive_side_cc_.GetRemoteBitrateEstimator(true));
   module_process_thread_->DeRegisterModule(&receive_side_cc_);
-  module_process_thread_->DeRegisterModule(call_stats_.get());
   module_process_thread_->Stop();
   call_stats_->DeregisterStatsObserver(&receive_side_cc_);
   call_stats_->DeregisterStatsObserver(transport_send_->GetCallStatsObserver());

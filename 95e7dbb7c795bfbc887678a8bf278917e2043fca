@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aff4353f_80755c88",
+        "filename": "pc/channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 0,
+      "message": "In an earlier comment I suggested making \"writable\" become \"ICE writable *and* SRTP active\", making the \"srtp_active()\" check here unnecessary.\n\nI see that SrtpTransport::IsWritable was updated. But BaseChannel still needs to call it in UpdateWritableState_n. And SrtpTransport::OnWritableState(writable) should take it into account too, by doing \"SignalWritableState(writable \u0026\u0026 IsSrtpActive())\"\n\nThat will ensure that \"SetSend(true)\" isn\u0027t called prematurely, resulting in the media engine trying to send packets before SRTP is active.",
+      "revId": "95e7dbb7c795bfbc887678a8bf278917e2043fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4153f9b_4b02b5fa",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 0,
+      "message": "nit: This comment is still relevant",
+      "revId": "95e7dbb7c795bfbc887678a8bf278917e2043fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

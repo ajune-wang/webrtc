@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3359ff1_c42fe893",
+        "filename": "ortc/rtptransportcontroller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "It\u0027s not clear how this relates to the test; can you remove this or explain in the comment? Is it because of \"SetRtpPacketTransport(nullptr)\" in BaseChannel::Deinit? If so, see the other comment about that",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a55437c6_d9a7bb97",
+        "filename": "pc/channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "Given that the BaseChannels share ownership of the RtpTransport now, it doesn\u0027t seem appropriate to do this. For example, what happens if audio/video are bundled together, then the video m\u003d section is rejected later? I thought we had a test for this; if we don\u0027t, it would be a good idea.\n\nAssuming this is indeed an issue, the solution would be to just call DisconnectFromRtpTransport instead.",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5794e849_118f4a0b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "As mentioned in the other CL, it would be safer to do this inside the Invoke. Suppose for example that this happens:\n\n1. Something triggers AsyncInvoke on network thread.\n2. Immediately afterwards, the Invoke here is executed.\n3. The AsyncInvoked operation begins.\n4. network_thread_-\u003eClear called, but it\u0027s too late.",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e235f666_5918c844",
+        "filename": "pc/channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "Do we need to check for rtp_transport_ being null here?",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f3f5c2d_8f87eaa1",
+        "filename": "pc/channel.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "\"rtp_transport_ \u0026\u0026 rtp_transport_-\u003eIsSrtpActive()\", for when rtp_transport_ is null",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46047618_c63ee9ca",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like SDES is used except for in CreateMediaContentWithStream. And none of the tests that use that seem to actually require SDES. So I think it can be removed too.",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8621f264_74e7aaf7",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "nit: Add comment mentioning that this is done because the default policy is \"mux required\"",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "612e2c0b_91a0e37b",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "nit: \"ApplyNonRtcpMuxAnswerWhenMuxingRequired\"\n\nAlso, test for applying an offer as well?",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80d3635d_5bc48a32",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "nit: Although it\u0027s unlikely the default would ever change, setting kRtcpMuxPolicyRequire explicitly here (like in GetDtlsTransportWithRtcpMux) would be preferable.",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

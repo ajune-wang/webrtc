@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1bea2c_1365279a",
+        "filename": "ortc/srtptransport_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "In place of these tests verifying \"creating sender before setting keys isn\u0027t supported\", can you add a test that verifies that it *is* now supported? Meaning a variant of \"BasicOneWayAudioRtpSenderAndReceiver\" that uses SRTP and sets keys after creating the sender/receiver.",
+      "revId": "b50a15c346592d0e67a90ee9e73464bf454176b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35dc1918_a844f237",
+        "filename": "pc/channel.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-29T22:05:58Z",
+      "side": 1,
+      "message": "It would be more future-proof to leave Deinit called by the subclasses. Why? Because it may result in a virtual method being called, indirectly. For example, Deinit calls FlushRtcpMessages_n, which calls SendPacket... Which could theoretically call a virtual method like media_type.",
+      "revId": "b50a15c346592d0e67a90ee9e73464bf454176b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -369,16 +369,14 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
   // without copying the underlying buffer.
   if (av_frame_->width != i420_buffer->width() ||
       av_frame_->height != i420_buffer->height()) {
-    rtc::scoped_refptr<VideoFrameBuffer> cropped_buf(
-        new rtc::RefCountedObject<WrappedI420Buffer>(
-            av_frame_->width, av_frame_->height,
-            i420_buffer->DataY(), i420_buffer->StrideY(),
-            i420_buffer->DataU(), i420_buffer->StrideU(),
-            i420_buffer->DataV(), i420_buffer->StrideV(),
-            rtc::KeepRefUntilDone(i420_buffer)));
-    VideoFrame cropped_frame(
-        cropped_buf, video_frame->timestamp(), video_frame->render_time_ms(),
-        video_frame->rotation());
+    rtc::scoped_refptr<I420BufferInterface> cropped_buf = WrapI420Buffer(
+        av_frame_->width, av_frame_->height, i420_buffer->CodedWidth(),
+        i420_buffer->CodedHeight() i420_buffer->DataY(), i420_buffer->StrideY(),
+        i420_buffer->DataU(), i420_buffer->StrideU(), i420_buffer->DataV(),
+        i420_buffer->StrideV(), rtc::KeepRefUntilDone(i420_buffer));
+    VideoFrame cropped_frame(cropped_buf, video_frame->timestamp(),
+                             video_frame->render_time_ms(),
+                             video_frame->rotation());
     // TODO(nisse): Timestamp and rotation are all zero here. Change decoder
     // interface to pass a VideoFrameBuffer instead of a VideoFrame?
     decoded_image_callback_->Decoded(cropped_frame, rtc::nullopt, qp);

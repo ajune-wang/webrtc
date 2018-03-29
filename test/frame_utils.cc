@@ -71,12 +71,11 @@ bool FrameBufsEqual(const rtc::scoped_refptr<webrtc::VideoFrameBuffer>& f1,
 }
 
 rtc::scoped_refptr<I420Buffer> ReadI420Buffer(int width, int height, FILE *f) {
-  int half_width = (width + 1) / 2;
   rtc::scoped_refptr<I420Buffer> buffer(
       // Explicit stride, no padding between rows.
-      I420Buffer::Create(width, height, width, half_width, half_width));
+      I420Buffer::CreateWithNoPadding(width, height));
   size_t size_y = static_cast<size_t>(width) * height;
-  size_t size_uv = static_cast<size_t>(half_width) * ((height + 1) / 2);
+  size_t size_uv = static_cast<size_t>(buffer->StrideU()) * ((height + 1) / 2);
 
   if (fread(buffer->MutableDataY(), 1, size_y, f) < size_y)
     return nullptr;

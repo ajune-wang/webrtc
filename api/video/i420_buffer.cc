@@ -34,27 +34,38 @@ int I420DataSize(int height, int stride_y, int stride_u, int stride_v) {
 }  // namespace
 
 I420Buffer::I420Buffer(int width, int height)
-    : I420Buffer(width, height, width, (width + 1) / 2, (width + 1) / 2) {
-}
+    : I420Buffer(width,
+                 height,
+                 (width + 1) & ~1,
+                 (height + 1) & ~1,
+                 (width + 1) & ~1,
+                 (width + 1) / 2,
+                 (width + 1) / 2) {}
 
 I420Buffer::I420Buffer(int width,
                        int height,
+                       int coded_width,
+                       int coded_height,
                        int stride_y,
                        int stride_u,
                        int stride_v)
     : width_(width),
       height_(height),
+      coded_width_(coded_width),
+      coded_height_(coded_height),
       stride_y_(stride_y),
       stride_u_(stride_u),
       stride_v_(stride_v),
       data_(static_cast<uint8_t*>(AlignedMalloc(
-          I420DataSize(height, stride_y, stride_u, stride_v),
+          I420DataSize(coded_height_, stride_y, stride_u, stride_v),
           kBufferAlignment))) {
   RTC_DCHECK_GT(width, 0);
   RTC_DCHECK_GT(height, 0);
-  RTC_DCHECK_GE(stride_y, width);
-  RTC_DCHECK_GE(stride_u, (width + 1) / 2);
-  RTC_DCHECK_GE(stride_v, (width + 1) / 2);
+  RTC_DCHECK_GE(coded_width_, width);
+  RTC_DCHECK_GE(coded_height_, height);
+  RTC_DCHECK_GE(stride_y, coded_width_);
+  RTC_DCHECK_GE(stride_u, (coded_width_ + 1) / 2);
+  RTC_DCHECK_GE(stride_v, (coded_width_ + 1) / 2);
 }
 
 I420Buffer::~I420Buffer() {
@@ -66,13 +77,10 @@ rtc::scoped_refptr<I420Buffer> I420Buffer::Create(int width, int height) {
 }
 
 // static
-rtc::scoped_refptr<I420Buffer> I420Buffer::Create(int width,
-                                                  int height,
-                                                  int stride_y,
-                                                  int stride_u,
-                                                  int stride_v) {
+rtc::scoped_refptr<I420Buffer> I420Buffer::CreateWithNoPadding(int width,
+                                                               int height) {
   return new rtc::RefCountedObject<I420Buffer>(
-      width, height, stride_y, stride_u, stride_v);
+      width, height, width, height, width, (width + 1) / 2, (width + 1) / 2);
 }
 
 // static
@@ -134,7 +142,7 @@ rtc::scoped_refptr<I420Buffer> I420Buffer::Rotate(
 
 void I420Buffer::InitializeData() {
   memset(data_.get(), 0,
-         I420DataSize(height_, stride_y_, stride_u_, stride_v_));
+         I420DataSize(coded_height_, stride_y_, stride_u_, stride_v_));
 }
 
 int I420Buffer::width() const {
@@ -143,6 +151,14 @@ int I420Buffer::width() const {
 
 int I420Buffer::height() const {
   return height_;
+}
+
+int I420Buffer::CodedWidth() const {
+  return coded_width_;
+}
+
+int I420Buffer::CodedHeight() const {
+  return coded_height_;
 }
 
 const uint8_t* I420Buffer::DataY() const {

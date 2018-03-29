@@ -145,12 +145,12 @@ int MultiplexEncoderAdapter::Encode(
   // Encode AXX
   const I420ABufferInterface* yuva_buffer =
       input_image.video_frame_buffer()->GetI420A();
-  rtc::scoped_refptr<I420BufferInterface> alpha_buffer =
-      WrapI420Buffer(input_image.width(), input_image.height(),
-                     yuva_buffer->DataA(), yuva_buffer->StrideA(),
-                     multiplex_dummy_planes_.data(), yuva_buffer->StrideU(),
-                     multiplex_dummy_planes_.data(), yuva_buffer->StrideV(),
-                     rtc::KeepRefUntilDone(input_image.video_frame_buffer()));
+  rtc::scoped_refptr<I420BufferInterface> alpha_buffer = WrapI420Buffer(
+      input_image.width(), input_image.height(), yuva_buffer->CodedWidth(),
+      yuva_buffer->CodedHeight(), yuva_buffer->DataA(), yuva_buffer->StrideA(),
+      multiplex_dummy_planes_.data(), yuva_buffer->StrideU(),
+      multiplex_dummy_planes_.data(), yuva_buffer->StrideV(),
+      rtc::KeepRefUntilDone(input_image.video_frame_buffer()));
   VideoFrame alpha_image(alpha_buffer, input_image.timestamp(),
                          input_image.render_time_ms(), input_image.rotation());
   rv = encoders_[kAXXStream]->Encode(alpha_image, codec_specific_info,

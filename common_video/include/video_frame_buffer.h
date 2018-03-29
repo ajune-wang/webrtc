@@ -59,6 +59,8 @@ class WrappedI420Buffer : public I420BufferInterface {
 rtc::scoped_refptr<I420BufferInterface> WrapI420Buffer(
     int width,
     int height,
+    int coded_width,
+    int coded_height,
     const uint8_t* y_plane,
     int y_stride,
     const uint8_t* u_plane,
@@ -81,6 +83,8 @@ rtc::scoped_refptr<I444BufferInterface> WrapI444Buffer(
 rtc::scoped_refptr<I420ABufferInterface> WrapI420ABuffer(
     int width,
     int height,
+    int coded_width,
+    int coded_height,
     const uint8_t* y_plane,
     int y_stride,
     const uint8_t* u_plane,

@@ -23,11 +23,10 @@ namespace webrtc {
 class I420Buffer : public I420BufferInterface {
  public:
   static rtc::scoped_refptr<I420Buffer> Create(int width, int height);
-  static rtc::scoped_refptr<I420Buffer> Create(int width,
-                                               int height,
-                                               int stride_y,
-                                               int stride_u,
-                                               int stride_v);
+  // Tightly packed buffer, no padding between rows. CodedWidth() and
+  // CodedWidth() may be odd.
+  static rtc::scoped_refptr<I420Buffer> CreateWithNoPadding(int width,
+                                                            int height);
 
   // Create a new buffer and copy the pixel data.
   static rtc::scoped_refptr<I420Buffer> Copy(const I420BufferInterface& buffer);
@@ -64,6 +63,8 @@ class I420Buffer : public I420BufferInterface {
 
   int width() const override;
   int height() const override;
+  int CodedWidth() const override;
+  int CodedHeight() const override;
   const uint8_t* DataY() const override;
   const uint8_t* DataU() const override;
   const uint8_t* DataV() const override;
@@ -93,13 +94,21 @@ class I420Buffer : public I420BufferInterface {
 
  protected:
   I420Buffer(int width, int height);
-  I420Buffer(int width, int height, int stride_y, int stride_u, int stride_v);
+  I420Buffer(int width,
+             int height,
+             int coded_width,
+             int coded_height,
+             int stride_y,
+             int stride_u,
+             int stride_v);
 
   ~I420Buffer() override;
 
  private:
   const int width_;
   const int height_;
+  const int coded_width_;
+  const int coded_height_;
   const int stride_y_;
   const int stride_u_;
   const int stride_v_;

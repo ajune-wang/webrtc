@@ -57,6 +57,13 @@ class VideoFrameBuffer : public rtc::RefCountInterface {
   virtual int width() const = 0;
   virtual int height() const = 0;
 
+  // Width and height of the video frame buffer, in pixels. This must include
+  // pixel data for the whole image; i.e. in the case that the visible portion
+  // of the image does not line up on a sample boundary, it must be rounded up
+  // appropriately and the pixel data provided for the odd pixels.
+  virtual int CodedWidth() const;
+  virtual int CodedHeight() const;
+
   // Returns a memory-backed frame buffer in I420 format. If the pixel data is
   // in another format, a conversion will take place. All implementations must
   // provide a fallback to I420 for compatibility with e.g. the internal WebRTC

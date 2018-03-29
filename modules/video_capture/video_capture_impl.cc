@@ -140,8 +140,6 @@ int32_t VideoCaptureImpl::IncomingFrame(uint8_t* videoFrame,
     return -1;
   }
 
-  int stride_y = width;
-  int stride_uv = (width + 1) / 2;
   int target_width = width;
   int target_height = height;
 
@@ -162,8 +160,8 @@ int32_t VideoCaptureImpl::IncomingFrame(uint8_t* videoFrame,
   // Setting a negative source height, inverts the image (within LibYuv).
 
   // TODO(nisse): Use a pool?
-  rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(
-      target_width, abs(target_height), stride_y, stride_uv, stride_uv);
+  rtc::scoped_refptr<I420Buffer> buffer =
+      I420Buffer::Create(target_width, abs(target_height));
 
   libyuv::RotationMode rotation_mode = libyuv::kRotate0;
   if (apply_rotation) {

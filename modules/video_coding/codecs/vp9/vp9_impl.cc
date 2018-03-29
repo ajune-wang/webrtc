@@ -986,16 +986,15 @@ int VP9DecoderImpl::ReturnFrame(const vpx_image_t* img,
       static_cast<Vp9FrameBufferPool::Vp9FrameBuffer*>(img->fb_priv);
   // The buffer can be used directly by the VideoFrame (without copy) by
   // using a WrappedI420Buffer.
-  rtc::scoped_refptr<WrappedI420Buffer> img_wrapped_buffer(
-      new rtc::RefCountedObject<webrtc::WrappedI420Buffer>(
-          img->d_w, img->d_h, img->planes[VPX_PLANE_Y],
-          img->stride[VPX_PLANE_Y], img->planes[VPX_PLANE_U],
-          img->stride[VPX_PLANE_U], img->planes[VPX_PLANE_V],
-          img->stride[VPX_PLANE_V],
-          // WrappedI420Buffer's mechanism for allowing the release of its frame
-          // buffer is through a callback function. This is where we should
-          // release |img_buffer|.
-          rtc::KeepRefUntilDone(img_buffer)));
+  rtc::scoped_refptr<I420BufferInterface> img_wrapped_buffer = WrapI420Buffer(
+      img->d_w, img->d_h, img->w, img->h, img->planes[VPX_PLANE_Y],
+      img->stride[VPX_PLANE_Y], img->planes[VPX_PLANE_U],
+      img->stride[VPX_PLANE_U], img->planes[VPX_PLANE_V],
+      img->stride[VPX_PLANE_V],
+      // WrappedI420Buffer's mechanism for allowing the release of its frame
+      // buffer is through a callback function. This is where we should
+      // release |img_buffer|.
+      rtc::KeepRefUntilDone(img_buffer));
 
   VideoFrame decoded_image(img_wrapped_buffer, timestamp,
                            0 /* render_time_ms */, webrtc::kVideoRotation_0);

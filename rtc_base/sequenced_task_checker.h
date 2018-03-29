@@ -75,13 +75,24 @@ class RTC_SCOPED_LOCKABLE SequencedTaskCheckerScope {
   explicit SequencedTaskCheckerScope(const SequencedTaskChecker* checker)
       RTC_EXCLUSIVE_LOCK_FUNCTION(checker);
   ~SequencedTaskCheckerScope() RTC_UNLOCK_FUNCTION();
+
+  bool condition_met() const { return condition_met_; }
+ private:
+  const bool condition_met_;
 };
 
 }  // namespace internal
 
-#define RTC_DCHECK_CALLED_SEQUENTIALLY(x) \
-  rtc::internal::SequencedTaskCheckerScope checker(x)
-
+#if RTC_DCHECK_IS_ON
+#define INTERNAL_MAKE_CHECKER_NAME(x, y) x##y
+#define RTC_DCHECK_CALLED_SEQUENTIALLY(x)                             \
+  rtc::internal::SequencedTaskCheckerScope                            \
+      INTERNAL_MAKE_CHECKER_NAME(checker, __LINE__)(x);               \
+  if (!INTERNAL_MAKE_CHECKER_NAME(checker, __LINE__).condition_met()) \
+    rtc_FatalMessage(__FILE__, __LINE__, "Expected sequence: " #x);
+#else
+#define RTC_DCHECK_CALLED_SEQUENTIALLY(x)
+#endif
 #undef ENABLE_SEQUENCED_TASK_CHECKER
 
 }  // namespace rtc

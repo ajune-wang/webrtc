@@ -25,7 +25,20 @@ DesktopFrame::DesktopFrame(DesktopSize size,
                            uint8_t* data,
                            SharedMemory* shared_memory)
     : data_(data),
+      const_data_(data),
       shared_memory_(shared_memory),
+      size_(size),
+      stride_(stride),
+      capture_time_ms_(0),
+      capturer_id_(DesktopCapturerId::kUnknown) {
+  RTC_DCHECK(size_.width() >= 0);
+  RTC_DCHECK(size_.height() >= 0);
+}
+
+DesktopFrame::DesktopFrame(DesktopSize size, int stride, const uint8_t* data)
+    : data_(nullptr),
+      const_data_(data),
+      shared_memory_(nullptr),
       size_(size),
       stride_(stride),
       capture_time_ms_(0),
@@ -64,6 +77,12 @@ DesktopRect DesktopFrame::rect() const {
 
 uint8_t* DesktopFrame::GetFrameDataAtPos(const DesktopVector& pos) const {
   return data() + stride() * pos.y() + DesktopFrame::kBytesPerPixel * pos.x();
+}
+
+const uint8_t* DesktopFrame::GetConstFrameDataAtPos(
+    const DesktopVector& pos) const {
+  return const_data() + stride() * pos.y() +
+         DesktopFrame::kBytesPerPixel * pos.x();
 }
 
 void DesktopFrame::CopyFrameInfoFrom(const DesktopFrame& other) {

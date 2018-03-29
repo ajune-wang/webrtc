@@ -45,8 +45,11 @@ class DesktopFrame {
   // Distance in the buffer between two neighboring rows in bytes.
   int stride() const { return stride_; }
 
-  // Data buffer used for the frame.
+  // Data buffer used for the frame or NULL if the frame is read-only.
   uint8_t* data() const { return data_; }
+
+  // Read-only data buffer used for the frame,
+  const uint8_t* const_data() const { return const_data_; }
 
   // SharedMemory used for the buffer or NULL if memory is allocated on the
   // heap. The result is guaranteed to be deleted only after the frame is
@@ -76,7 +79,12 @@ class DesktopFrame {
                       const DesktopRect& dest_rect);
 
   // A helper to return the data pointer of a frame at the specified position.
+  // Return NULL if the frame is read-only.
   uint8_t* GetFrameDataAtPos(const DesktopVector& pos) const;
+
+  // A helper to return the read-only data pointer of a frame at the specified
+  // position.
+  const uint8_t* GetConstFrameDataAtPos(const DesktopVector& pos) const;
 
   // The DesktopCapturer implementation which generates current DesktopFrame.
   // Not all DesktopCapturer implementations set this field; it's set to
@@ -109,11 +117,13 @@ class DesktopFrame {
                int stride,
                uint8_t* data,
                SharedMemory* shared_memory);
+  DesktopFrame(DesktopSize size, int stride, const uint8_t* data);
 
   // Ownership of the buffers is defined by the classes that inherit from this
   // class. They must guarantee that the buffer is not deleted before the frame
   // is deleted.
   uint8_t* const data_;
+  const uint8_t* const const_data_;
   SharedMemory* const shared_memory_;
 
  private:

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e60a737_5598bf3e",
+        "filename": "modules/desktop_capture/desktop_and_cursor_composer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:20:50Z",
+      "side": 0,
+      "message": "It looks like this test is still useful.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 0
+      },
+      "revId": "1a18e0ac461c5cec6781149746673df2083305f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

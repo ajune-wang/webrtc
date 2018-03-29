@@ -83,7 +83,6 @@ class IPAddress {
   bool operator!=(const IPAddress& other) const;
   bool operator <(const IPAddress& other) const;
   bool operator >(const IPAddress& other) const;
-  friend std::ostream& operator<<(std::ostream& os, const IPAddress& addr);
 
   int family() const { return family_; }
   in_addr ipv4_address() const;
@@ -141,8 +140,6 @@ class InterfaceAddress : public IPAddress {
   bool operator!=(const InterfaceAddress& other) const;
 
   int ipv6_flags() const { return ipv6_flags_; }
-  friend std::ostream& operator<<(std::ostream& os,
-                                  const InterfaceAddress& addr);
 
   std::string ToString() const;
 

@@ -19,6 +19,25 @@ TimeDelta TimeDelta::operator*(double scalar) const {
 DataSize DataSize::operator*(double scalar) const {
   return DataSize::bytes(std::round(bytes() * scalar));
 }
+double TimeDelta::SecondsAsDouble() const {
+  if (*this == kPlusInfinity) {
+    return std::numeric_limits<double>::infinity();
+  } else if (*this == kMinusInfinity) {
+    return -std::numeric_limits<double>::infinity();
+  } else {
+    return us() * 1e-6;
+  }
+}
+
+double Timestamp::SecondsAsDouble() const {
+  if (*this == kPlusInfinity) {
+    return std::numeric_limits<double>::infinity();
+  } else if (*this == kNotInitialized) {
+    return std::numeric_limits<double>::signaling_NaN();
+  } else {
+    return us() * 1e-6;
+  }
+}
 
 DataRate DataRate::operator*(double scalar) const {
   return DataRate::bytes_per_second(std::round(bytes_per_second() * scalar));

@@ -14,7 +14,6 @@
 #include "modules/audio_device/fine_audio_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "sdk/android/src/jni/audio_device/audio_manager.h"
 
 namespace webrtc {
 

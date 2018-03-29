@@ -29,8 +29,6 @@ import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordStartErrorCode;
 import org.webrtc.audio.JavaAudioDeviceModule.SamplesReadyCallback;
 
 class WebRtcAudioRecord {
-  private static final boolean DEBUG = false;
-
   private static final String TAG = "WebRtcAudioRecord";
 
   // Default audio data format is PCM 16 bit per sample.
@@ -55,30 +53,22 @@ class WebRtcAudioRecord {
   private static final int DEFAULT_AUDIO_SOURCE = getDefaultAudioSource();
   private static int audioSource = DEFAULT_AUDIO_SOURCE;
 
-  private final long nativeAudioRecord;
+  private long nativeAudioRecord;
 
-  private @Nullable WebRtcAudioEffects effects = null;
+  private final WebRtcAudioEffects effects;
 
   private @Nullable ByteBuffer byteBuffer;
 
   private @Nullable AudioRecord audioRecord = null;
   private @Nullable AudioRecordThread audioThread = null;
 
-  private static volatile boolean microphoneMute = false;
+  private volatile boolean microphoneMute = false;
   private byte[] emptyBytes;
 
-  private static @Nullable AudioRecordErrorCallback errorCallback = null;
-
-  public static void setErrorCallback(AudioRecordErrorCallback errorCallback) {
-    Logging.d(TAG, "Set error callback");
-    WebRtcAudioRecord.errorCallback = errorCallback;
-  }
-
-  private static @Nullable SamplesReadyCallback audioSamplesReadyCallback = null;
-
-  public static void setOnAudioSamplesReady(SamplesReadyCallback callback) {
-    audioSamplesReadyCallback = callback;
-  }
+  private final @Nullable AudioRecordErrorCallback errorCallback;
+  private final @Nullable SamplesReadyCallback audioSamplesReadyCallback;
+  private final boolean isAcousticEchoCancelerSupported;
+  private final boolean isNoiseSuppressorSupported;
 
   /**
    * Audio thread which keeps calling ByteBuffer.read() waiting for audio
@@ -129,12 +119,6 @@ class WebRtcAudioRecord {
             reportWebRtcAudioRecordError(errorMessage);
           }
         }
-        if (DEBUG) {
-          long nowTime = System.nanoTime();
-          long durationInMs = TimeUnit.NANOSECONDS.toMillis((nowTime - lastTime));
-          lastTime = nowTime;
-          Logging.d(TAG, "bytesRead[" + durationInMs + "] " + bytesRead);
-        }
       }
 
       try {
@@ -155,32 +139,52 @@ class WebRtcAudioRecord {
   }
 
   @CalledByNative
-  WebRtcAudioRecord(long nativeAudioRecord) {
-    Logging.d(TAG, "ctor" + WebRtcAudioUtils.getThreadInfo());
-    this.nativeAudioRecord = nativeAudioRecord;
-    if (DEBUG) {
-      WebRtcAudioUtils.logDeviceInfo(TAG);
+  WebRtcAudioRecord() {
+    this(null /* errorCallback */, null /* audioSamplesReadyCallback */,
+        WebRtcAudioEffects.isAcousticEchoCancelerSupported(),
+        WebRtcAudioEffects.isNoiseSuppressorSupported());
+  }
+
+  public WebRtcAudioRecord(@Nullable AudioRecordErrorCallback errorCallback,
+      @Nullable SamplesReadyCallback audioSamplesReadyCallback,
+      boolean isAcousticEchoCancelerSupported, boolean isNoiseSuppressorSupported) {
+    if (isAcousticEchoCancelerSupported && !WebRtcAudioEffects.isAcousticEchoCancelerSupported()) {
+      throw new IllegalArgumentException("HW AEC not supported");
     }
-    effects = WebRtcAudioEffects.create();
+    if (isNoiseSuppressorSupported && !WebRtcAudioEffects.isNoiseSuppressorSupported()) {
+      throw new IllegalArgumentException("HW NS not supported");
+    }
+    this.errorCallback = errorCallback;
+    this.audioSamplesReadyCallback = audioSamplesReadyCallback;
+    this.effects = new WebRtcAudioEffects();
+    this.isAcousticEchoCancelerSupported = isAcousticEchoCancelerSupported;
+    this.isNoiseSuppressorSupported = isNoiseSuppressorSupported;
+  }
+
+  @CalledByNative
+  public void setNativeAudioRecord(long nativeAudioRecord) {
+    this.nativeAudioRecord = nativeAudioRecord;
+  }
+
+  @CalledByNative
+  boolean isAcousticEchoCancelerSupported() {
+    return isAcousticEchoCancelerSupported;
+  }
+
+  @CalledByNative
+  boolean isNoiseSuppressorSupported() {
+    return isNoiseSuppressorSupported;
   }
 
   @CalledByNative
   private boolean enableBuiltInAEC(boolean enable) {
     Logging.d(TAG, "enableBuiltInAEC(" + enable + ')');
-    if (effects == null) {
-      Logging.e(TAG, "Built-in AEC is not supported on this platform");
-      return false;
-    }
     return effects.setAEC(enable);
   }
 
   @CalledByNative
   private boolean enableBuiltInNS(boolean enable) {
     Logging.d(TAG, "enableBuiltInNS(" + enable + ')');
-    if (effects == null) {
-      Logging.e(TAG, "Built-in NS is not supported on this platform");
-      return false;
-    }
     return effects.setNS(enable);
   }
 
@@ -231,9 +235,7 @@ class WebRtcAudioRecord {
       releaseAudioResources();
       return -1;
     }
-    if (effects != null) {
-      effects.enable(audioRecord.getAudioSessionId());
-    }
+    effects.enable(audioRecord.getAudioSessionId());
     logMainParameters();
     logMainParametersExtended();
     return framesPerBuffer;
@@ -272,9 +274,7 @@ class WebRtcAudioRecord {
       WebRtcAudioUtils.logAudioState(TAG);
     }
     audioThread = null;
-    if (effects != null) {
-      effects.release();
-    }
+    effects.release();
     releaseAudioResources();
     return true;
   }
@@ -326,7 +326,7 @@ class WebRtcAudioRecord {
 
   // Sets all recorded samples to zero if |mute| is true, i.e., ensures that
   // the microphone is muted.
-  public static void setMicrophoneMute(boolean mute) {
+  public void setMicrophoneMute(boolean mute) {
     Logging.w(TAG, "setMicrophoneMute(" + mute + ")");
     microphoneMute = mute;
   }

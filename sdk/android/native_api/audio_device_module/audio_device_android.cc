@@ -19,7 +19,7 @@
 #include "rtc_base/refcountedobject.h"
 #include "sdk/android/src/jni/audio_device/aaudio_player.h"
 #include "sdk/android/src/jni/audio_device/aaudio_recorder.h"
-#include "sdk/android/src/jni/audio_device/audio_manager.h"
+
 #include "sdk/android/src/jni/audio_device/audio_record_jni.h"
 #include "sdk/android/src/jni/audio_device/audio_track_jni.h"
 #include "sdk/android/src/jni/audio_device/opensles_player.h"
@@ -33,67 +33,72 @@ rtc::scoped_refptr<AudioDeviceModule> CreateAAudioAudioDeviceModule(
     JNIEnv* env,
     jobject application_context) {
   RTC_LOG(INFO) << __FUNCTION__;
-  const AudioDeviceModule::AudioLayer audio_layer =
-      AudioDeviceModule::kAndroidAAudioAudio;
-  auto audio_manager = rtc::MakeUnique<android_adm::AudioManager>(
-      env, audio_layer, JavaParamRef<jobject>(application_context));
-  auto audio_input =
-      rtc::MakeUnique<android_adm::AAudioRecorder>(audio_manager.get());
-  auto audio_output =
-      rtc::MakeUnique<android_adm::AAudioPlayer>(audio_manager.get());
-  return CreateAudioDeviceModuleFromInputAndOutput(
-      audio_layer, std::move(audio_manager), std::move(audio_input),
-      std::move(audio_output));
+  // const AudioDeviceModule::AudioLayer audio_layer =
+  //     AudioDeviceModule::kAndroidAAudioAudio;
+  // auto audio_manager = rtc::MakeUnique<android_adm::AudioManager>(
+  //     env, audio_layer, JavaParamRef<jobject>(application_context));
+  // auto audio_input =
+  //     rtc::MakeUnique<android_adm::AAudioRecorder>(audio_manager.get());
+  // auto audio_output =
+  //     rtc::MakeUnique<android_adm::AAudioPlayer>(audio_manager.get());
+  // return CreateAudioDeviceModuleFromInputAndOutput(
+  //     audio_layer, std::move(audio_manager), std::move(audio_input),
+  //     std::move(audio_output));
+  return nullptr;
 }
 #endif
 
 rtc::scoped_refptr<AudioDeviceModule> CreateJavaAudioDeviceModule(
     JNIEnv* env,
     jobject application_context) {
-  const AudioDeviceModule::AudioLayer audio_layer =
-      AudioDeviceModule::kAndroidJavaAudio;
-  auto audio_manager = rtc::MakeUnique<android_adm::AudioManager>(
-      env, audio_layer, JavaParamRef<jobject>(application_context));
-  auto audio_input =
-      rtc::MakeUnique<android_adm::AudioRecordJni>(audio_manager.get());
-  auto audio_output =
-      rtc::MakeUnique<android_adm::AudioTrackJni>(audio_manager.get());
-  return CreateAudioDeviceModuleFromInputAndOutput(
-      audio_layer, std::move(audio_manager), std::move(audio_input),
-      std::move(audio_output));
+  // const AudioDeviceModule::AudioLayer audio_layer =
+  //     AudioDeviceModule::kAndroidJavaAudio;
+  // auto audio_manager = rtc::MakeUnique<android_adm::AudioManager>(
+  //     env, audio_layer, JavaParamRef<jobject>(application_context));
+  // auto audio_input =
+  //     rtc::MakeUnique<android_adm::AudioRecordJni>(audio_manager.get());
+  // auto audio_output =
+  //     rtc::MakeUnique<android_adm::AudioTrackJni>(audio_manager.get());
+  // return CreateAudioDeviceModuleFromInputAndOutput(
+  //     audio_layer, std::move(audio_manager), std::move(audio_input),
+  //     std::move(audio_output));
+  return nullptr;
 }
 
 rtc::scoped_refptr<AudioDeviceModule> CreateOpenSLESAudioDeviceModule(
     JNIEnv* env,
     jobject application_context) {
-  const AudioDeviceModule::AudioLayer audio_layer =
-      AudioDeviceModule::kAndroidOpenSLESAudio;
-  auto engine_manager = rtc::MakeUnique<android_adm::OpenSLEngineManager>();
-  auto audio_manager = rtc::MakeUnique<android_adm::AudioManager>(
-      env, audio_layer, JavaParamRef<jobject>(application_context));
-  auto audio_input = rtc::MakeUnique<android_adm::OpenSLESRecorder>(
-      audio_manager.get(), engine_manager.get());
-  auto audio_output = rtc::MakeUnique<android_adm::OpenSLESPlayer>(
-      audio_manager.get(), std::move(engine_manager));
-  return CreateAudioDeviceModuleFromInputAndOutput(
-      audio_layer, std::move(audio_manager), std::move(audio_input),
-      std::move(audio_output));
+  // const AudioDeviceModule::AudioLayer audio_layer =
+  //     AudioDeviceModule::kAndroidOpenSLESAudio;
+  // auto engine_manager = rtc::MakeUnique<android_adm::OpenSLEngineManager>();
+  // auto audio_manager = rtc::MakeUnique<android_adm::AudioManager>(
+  //     env, audio_layer, JavaParamRef<jobject>(application_context));
+  // auto audio_input = rtc::MakeUnique<android_adm::OpenSLESRecorder>(
+  //     audio_manager.get(), engine_manager.get());
+  // auto audio_output = rtc::MakeUnique<android_adm::OpenSLESPlayer>(
+  //     audio_manager.get(), std::move(engine_manager));
+  // return CreateAudioDeviceModuleFromInputAndOutput(
+  //     audio_layer, std::move(audio_manager), std::move(audio_input),
+  //     std::move(audio_output));
+  return nullptr;
 }
 
 rtc::scoped_refptr<AudioDeviceModule>
 CreateJavaInputAndOpenSLESOutputAudioDeviceModule(JNIEnv* env,
                                                   jobject application_context) {
-  const AudioDeviceModule::AudioLayer audio_layer =
-      AudioDeviceModule::kAndroidJavaInputAndOpenSLESOutputAudio;
-  auto audio_manager = rtc::MakeUnique<android_adm::AudioManager>(
-      env, audio_layer, JavaParamRef<jobject>(application_context));
-  auto audio_input =
-      rtc::MakeUnique<android_adm::AudioRecordJni>(audio_manager.get());
-  auto audio_output = rtc::MakeUnique<android_adm::OpenSLESPlayer>(
-      audio_manager.get(), rtc::MakeUnique<android_adm::OpenSLEngineManager>());
-  return CreateAudioDeviceModuleFromInputAndOutput(
-      audio_layer, std::move(audio_manager), std::move(audio_input),
-      std::move(audio_output));
+  // const AudioDeviceModule::AudioLayer audio_layer =
+  //     AudioDeviceModule::kAndroidJavaInputAndOpenSLESOutputAudio;
+  // auto audio_manager = rtc::MakeUnique<android_adm::AudioManager>(
+  //     env, audio_layer, JavaParamRef<jobject>(application_context));
+  // auto audio_input =
+  //     rtc::MakeUnique<android_adm::AudioRecordJni>(audio_manager.get());
+  // auto audio_output = rtc::MakeUnique<android_adm::OpenSLESPlayer>(
+  //     audio_manager.get(),
+  //     rtc::MakeUnique<android_adm::OpenSLEngineManager>());
+  // return CreateAudioDeviceModuleFromInputAndOutput(
+  //     audio_layer, std::move(audio_manager), std::move(audio_input),
+  //     std::move(audio_output));
+  return nullptr;
 }
 
 }  // namespace webrtc

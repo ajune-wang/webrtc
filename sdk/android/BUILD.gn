@@ -159,6 +159,7 @@ rtc_source_set("native_api_audio_device_module") {
   }
 }
 
+# This target contains the different Android AudioDeviceModule implementations; the Java AudioTrack/AudioRecord implementation, OpenSLES, and AAudio.
 rtc_source_set("audio_device_jni") {
   visibility = [ "*" ]
 
@@ -166,8 +167,6 @@ rtc_source_set("audio_device_jni") {
     "src/jni/audio_device/audio_common.h",
     "src/jni/audio_device/audio_device_module.cc",
     "src/jni/audio_device/audio_device_module.h",
-    "src/jni/audio_device/audio_manager.cc",
-    "src/jni/audio_device/audio_manager.h",
     "src/jni/audio_device/audio_record_jni.cc",
     "src/jni/audio_device/audio_record_jni.h",
     "src/jni/audio_device/audio_track_jni.cc",
@@ -196,7 +195,7 @@ rtc_source_set("audio_device_jni") {
   }
   deps = [
     ":base_jni",
-    ":generated_audio_jni",
+    ":generated_audio_device_jni",
     ":native_api_jni",
     "../../api:array_view",
     "../../api:optional",
@@ -225,7 +224,7 @@ rtc_static_library("null_audio_jni") {
   ]
 }
 
-generate_jni("generated_audio_jni") {
+generate_jni("generated_audio_device_jni") {
   sources = [
     "src/java/org/webrtc/audio/BuildInfo.java",
     "src/java/org/webrtc/audio/WebRtcAudioManager.java",
@@ -519,6 +518,7 @@ generate_jni("generated_peerconnection_jni") {
     "api/org/webrtc/StatsObserver.java",
     "api/org/webrtc/StatsReport.java",
     "api/org/webrtc/TurnCustomizer.java",
+    "api/org/webrtc/audio/JavaAudioDeviceModule.java",
   ]
   jni_package = ""
   jni_generator_include = "//sdk/android/src/jni/jni_generator_helper.h"
@@ -532,6 +532,7 @@ rtc_static_library("peerconnection_jni") {
 
   sources = [
     "src/jni/androidnetworkmonitor_jni.h",
+    "src/jni/audio_device/java_audio_device_module.cc",
     "src/jni/pc/androidnetworkmonitor.h",
     "src/jni/pc/audiotrack.cc",
     "src/jni/pc/callsessionfilerotatinglogsink.cc",
@@ -732,6 +733,9 @@ rtc_android_library("base_java") {
     "api/org/webrtc/Camera1Enumerator.java",
     "api/org/webrtc/Camera2Capturer.java",
     "api/org/webrtc/Camera2Enumerator.java",
+    "api/org/webrtc/audio/AudioDeviceModule.java",
+    "api/org/webrtc/audio/JavaAudioDeviceModule.java",
+    "api/org/webrtc/audio/LegacyAudioDeviceModule.java",
     "api/org/webrtc/CameraEnumerationAndroid.java",
     "api/org/webrtc/CameraEnumerator.java",
     "api/org/webrtc/CameraVideoCapturer.java",
@@ -765,7 +769,6 @@ rtc_android_library("base_java") {
     "api/org/webrtc/VideoSink.java",
     "api/org/webrtc/YuvConverter.java",
     "api/org/webrtc/YuvHelper.java",
-    "api/org/webrtc/audio/JavaAudioDeviceModule.java",
     "src/java/org/webrtc/AndroidVideoTrackSourceObserver.java",
     "src/java/org/webrtc/CalledByNative.java",
     "src/java/org/webrtc/CalledByNativeUnchecked.java",
@@ -792,14 +795,15 @@ rtc_android_library("base_java") {
     "src/java/org/webrtc/WrappedNativeVideoDecoder.java",
     "src/java/org/webrtc/audio/BuildInfo.java",
     "src/java/org/webrtc/audio/WebRtcAudioEffects.java",
-    "src/java/org/webrtc/audio/WebRtcAudioManager.java",
     "src/java/org/webrtc/audio/VolumeLogger.java",
     "src/java/org/webrtc/audio/WebRtcAudioRecord.java",
     "src/java/org/webrtc/audio/WebRtcAudioTrack.java",
     "src/java/org/webrtc/audio/WebRtcAudioUtils.java",
+    "src/java/org/webrtc/audio/WebRtcAudioManager.java",
   ]
 
   deps = [
+    "//modules/audio_device:audio_device_java",
     "//rtc_base:base_java",
   ]
 }

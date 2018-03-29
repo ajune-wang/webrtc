@@ -70,6 +70,30 @@
       "revId": "1a18e0ac461c5cec6781149746673df2083305f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d465ebf0_745b9e58",
+        "filename": "modules/desktop_capture/desktop_and_cursor_composer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2018-03-29T17:40:47Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f06e10da_11607815",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 0
+      },
+      "revId": "1a18e0ac461c5cec6781149746673df2083305f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

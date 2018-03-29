@@ -22,6 +22,30 @@
       "revId": "da762c6ebe77ea8b18d3f1cfdc2704c961dc626c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d52ff85_f8170d46",
+        "filename": "tools_webrtc/android/release_aar.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-03-29T09:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99871da0_db4aa90f",
+      "range": {
+        "startLine": 244,
+        "startChar": 2,
+        "endLine": 244,
+        "endChar": 16
+      },
+      "revId": "da762c6ebe77ea8b18d3f1cfdc2704c961dc626c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

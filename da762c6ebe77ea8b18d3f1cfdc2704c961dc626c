@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99871da0_db4aa90f",
+        "filename": "tools_webrtc/android/release_aar.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-03-29T09:14:50Z",
+      "side": 1,
+      "message": "Can you use a bool instead of a separate directory? It looks like build_dir and tmp_dir will always be the same. And add a comment explaining what\u0027s going on.",
+      "range": {
+        "startLine": 244,
+        "startChar": 2,
+        "endLine": 244,
+        "endChar": 16
+      },
+      "revId": "da762c6ebe77ea8b18d3f1cfdc2704c961dc626c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

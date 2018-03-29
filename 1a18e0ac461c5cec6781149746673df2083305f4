@@ -46,6 +46,30 @@
       "revId": "1a18e0ac461c5cec6781149746673df2083305f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06e10da_11607815",
+        "filename": "modules/desktop_capture/desktop_and_cursor_composer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:35:56Z",
+      "side": 0,
+      "message": "blender_.CaptureFrame() should return nullptr frame if fake_screen_ returns nullptr. The fake_cursor_ should not impact this behavior. (No matter the position of mouse cursor.)",
+      "parentUuid": "fc9ee7b3_04220657",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 0
+      },
+      "revId": "1a18e0ac461c5cec6781149746673df2083305f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

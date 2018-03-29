@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0c43933_5791bec2",
+        "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T20:20:45Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "e3b410ee1becd3cca774cd94b230f498aaa51eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75697762_f2cbb91f",
+        "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.mm",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T20:20:45Z",
+      "side": 1,
+      "message": "\u003d default.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 46
+      },
+      "revId": "e3b410ee1becd3cca774cd94b230f498aaa51eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

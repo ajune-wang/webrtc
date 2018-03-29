@@ -1117,9 +1117,9 @@ TEST_F(BasicPortAllocatorTest, TestGetAllPortsWithOneSecondStepDelay) {
   allocator_->set_step_delay(kDefaultStepDelay);
   EXPECT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
-  ASSERT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 1000, fake_clock);
+  ASSERT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 1500, fake_clock);
   EXPECT_EQ(2U, ports_.size());
-  ASSERT_EQ_SIMULATED_WAIT(6U, candidates_.size(), 2000, fake_clock);
+  ASSERT_EQ_SIMULATED_WAIT(6U, candidates_.size(), 2500, fake_clock);
   EXPECT_EQ(3U, ports_.size());
   EXPECT_PRED4(HasCandidate, candidates_, "relay", "udp", kRelayUdpIntAddr);
   EXPECT_PRED4(HasCandidate, candidates_, "relay", "udp", kRelayUdpExtAddr);
@@ -1738,7 +1738,7 @@ TEST_F(BasicPortAllocatorTest,
   TestEachInterfaceHasItsOwnTurnPorts();
 }
 
-// Testing DNS resolve for the TURN server, this will test AllocationSequence
+// Testing DNS resolve for the TURN server, this will test AllocationScheduler
 // handling the unresolved address signal from TurnPort.
 // TODO(pthatcher): Make this test work with SIMULATED_WAIT. It
 // appears that it doesn't currently because of the DNS look up not
@@ -1766,8 +1766,9 @@ TEST_F(BasicPortAllocatorTestWithRealClock,
 
   EXPECT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
-
+  RTC_LOG(INFO) << "now before expect = " << rtc::TimeMillis();
   EXPECT_EQ_WAIT(2U, ports_.size(), kDefaultAllocationTimeout);
+  RTC_LOG(INFO) << "now = " << rtc::TimeMillis();
 }
 
 // Test that when PORTALLOCATOR_ENABLE_SHARED_SOCKET is enabled only one port
@@ -2007,7 +2008,7 @@ TEST_F(BasicPortAllocatorTest, TestStopGettingPorts) {
   allocator_->set_step_delay(kDefaultStepDelay);
   EXPECT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
-  ASSERT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 1000, fake_clock);
+  ASSERT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 1500, fake_clock);
   EXPECT_EQ(2U, ports_.size());
   session_->StopGettingPorts();
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_, 1000, fake_clock);
@@ -2029,7 +2030,7 @@ TEST_F(BasicPortAllocatorTest, TestClearGettingPorts) {
   allocator_->set_step_delay(kDefaultStepDelay);
   EXPECT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
-  ASSERT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 1000, fake_clock);
+  ASSERT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 1500, fake_clock);
   EXPECT_EQ(2U, ports_.size());
   session_->ClearGettingPorts();
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_, 1000, fake_clock);

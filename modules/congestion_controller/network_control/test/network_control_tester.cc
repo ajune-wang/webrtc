@@ -25,23 +25,23 @@ NetworkControlCacher::NetworkControlCacher() = default;
 NetworkControlCacher::~NetworkControlCacher() = default;
 
 void NetworkControlCacher::OnCongestionWindow(CongestionWindow msg) {
-  current_state_.congestion_window = msg;
-  RTC_LOG(LS_INFO) << "Received window=" << msg.data_window << "\n";
+  /*current_state_.congestion_window = msg;
+  RTC_LOG(LS_INFO) << "Received window=" << msg.data_window << "\n";*/
 }
 void NetworkControlCacher::OnPacerConfig(PacerConfig msg) {
-  current_state_.pacer_config = msg;
+  /*current_state_.pacer_config = msg;
   RTC_LOG(LS_INFO) << "Received pacing at:" << msg.at_time
-                   << ": rate=" << msg.data_rate() << "\n";
+                   << ": rate=" << msg.data_rate() << "\n";*/
 }
 void NetworkControlCacher::OnProbeClusterConfig(ProbeClusterConfig msg) {
-  current_state_.probe_config = msg;
+  /*current_state_.probe_config = msg;
   RTC_LOG(LS_INFO) << "Received probe at:" << msg.at_time
-                   << ": target=" << msg.target_data_rate << "\n";
+                   << ": target=" << msg.target_data_rate << "\n";*/
 }
 void NetworkControlCacher::OnTargetTransferRate(TargetTransferRate msg) {
-  current_state_.target_rate = msg;
+  /*current_state_.target_rate = msg;
   RTC_LOG(LS_INFO) << "Received target at:" << msg.at_time
-                   << ": rate=" << msg.target_rate << "\n";
+                   << ": rate=" << msg.target_rate << "\n";*/
 }
 
 SentPacket SimpleTargetRateProducer::ProduceNext(

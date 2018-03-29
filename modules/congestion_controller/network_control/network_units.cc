@@ -74,19 +74,6 @@ DataSize operator*(const TimeDelta& duration, const DataRate& rate) {
   return rate * duration;
 }
 
-std::ostream& operator<<(std::ostream& os, const DataRate& value) { // no-presubmit-check TODO(webrtc:8982)
-  return os << value.ToString();
-}
-std::ostream& operator<<(std::ostream& os, const DataSize& value) { // no-presubmit-check TODO(webrtc:8982)
-  return os << value.ToString();
-}
-std::ostream& operator<<(std::ostream& os, const Timestamp& value) { // no-presubmit-check TODO(webrtc:8982)
-  return os << value.ToString();
-}
-std::ostream& operator<<(std::ostream& os, const TimeDelta& value) { // no-presubmit-check TODO(webrtc:8982)
-  return os << value.ToString();
-}
-
 std::string DataRate::ToString() const {
   char buf[256];
   rtc::SimpleStringBuilder sb(buf);

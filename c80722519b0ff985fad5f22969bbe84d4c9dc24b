@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e42cf478_07e4251e",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-03-29T07:20:30Z",
+      "side": 1,
+      "message": "What\u0027s the reason we can\u0027t use this on mac?",
+      "range": {
+        "startLine": 174,
+        "startChar": 22,
+        "endLine": 174,
+        "endChar": 28
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "003d2905_7c9b4520",
+        "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-03-29T07:20:30Z",
+      "side": 1,
+      "message": "I guess this is the reason. Can we to this with CoreGraphics or something without much additional work so we can have this on the mac as well?",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 20
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "089b7353_62c2f87a",
+        "filename": "sdk/objc/Framework/UnitTests/frame_buffer_helpers.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-03-29T07:20:30Z",
+      "side": 1,
+      "message": "Use the constant name to be explicit about what we expect here.",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 8
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

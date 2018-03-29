@@ -4010,7 +4010,8 @@ void PeerConnection::UpdateRemoteSendersList(
     // |params.stream_ids|.
     // TODO(bugs.webrtc.org/7932): Add support for multiple stream ids.
     const std::string& stream_id =
-        (!params.stream_ids().empty() ? params.stream_ids()[0] : "");
+        (!params.stream_ids().empty() ? params.stream_ids()[0]
+                                      : kDefaultStreamId);
     const std::string& sender_id = params.id;
     uint32_t ssrc = params.first_ssrc();
 

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7d9c8224_c52eb8b9",
+        "filename": "modules/desktop_capture/desktop_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T18:25:34Z",
+      "side": 1,
+      "message": "Emmm, though it\u0027s not commonly used, let\u0027s const_cast\u003c\u003e it. Since the CGImage is internally used, nobody has the access to it except for ScreenCapturerMac.",
+      "parentUuid": "4d7b583f_ae37f5b7",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "5cb99ae9b3195fea109f1f6c95133075550cbced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ecff3de_06dfd911",
         "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.mm",
         "patchSetId": 10

@@ -18,7 +18,6 @@
 #include "modules/audio_device/include/audio_device_defines.h"
 #include "rtc_base/thread_checker.h"
 #include "sdk/android/src/jni/audio_device/audio_device_module.h"
-#include "sdk/android/src/jni/audio_device/audio_manager.h"
 
 namespace webrtc {
 
@@ -44,7 +43,10 @@ namespace android_adm {
 // guarantees that no other (possibly non attached) thread is used.
 class AudioRecordJni : public AudioInput {
  public:
-  explicit AudioRecordJni(AudioManager* audio_manager);
+  explicit AudioRecordJni(const AudioParameters& audio_parameters);
+  AudioRecordJni(const AudioParameters& audio_parameters,
+                 int total_delay_ms,
+                 const JavaRef<jobject>& j_audio_record);
   ~AudioRecordJni() override;
 
   int32_t Init() override;
@@ -58,6 +60,9 @@ class AudioRecordJni : public AudioInput {
   bool Recording() const override { return recording_; }
 
   void AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) override;
+
+  bool IsAcousticEchoCancelerSupported() const override;
+  bool IsNoiseSuppressorSupported() const override;
 
   int32_t EnableBuiltInAEC(bool enable) override;
   int32_t EnableBuiltInAGC(bool enable) override;
@@ -94,17 +99,12 @@ class AudioRecordJni : public AudioInput {
   JNIEnv* env_ = nullptr;
   ScopedJavaGlobalRef<jobject> j_audio_record_;
 
-  // Raw pointer to the audio manger.
-  const AudioManager* audio_manager_;
-
-  // Contains audio parameters provided to this class at construction by the
-  // AudioManager.
   const AudioParameters audio_parameters_;
 
   // Delay estimate of the total round-trip delay (input + output).
   // Fixed value set once in AttachAudioBuffer() and it can take one out of two
   // possible values. See audio_common.h for details.
-  int total_delay_in_milliseconds_;
+  const int total_delay_ms_;
 
   // Cached copy of address to direct audio buffer owned by |j_audio_record_|.
   void* direct_buffer_address_;

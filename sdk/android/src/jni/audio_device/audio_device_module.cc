@@ -16,6 +16,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/refcountedobject.h"
 #include "rtc_base/thread_checker.h"
+#include "sdk/android/generated_audio_jni/jni/WebRtcAudioUtils_jni.h"
 #include "system_wrappers/include/metrics.h"
 
 #define CHECKinitialized_() \
@@ -61,17 +62,20 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   };
 
   AndroidAudioDeviceModule(AudioDeviceModule::AudioLayer audio_layer,
-                           std::unique_ptr<AudioManager> audio_manager,
+                           bool is_stereo_playout_supported,
+                           bool is_stereo_record_supported,
+                           uint16_t playout_delay_ms,
                            std::unique_ptr<AudioInput> audio_input,
                            std::unique_ptr<AudioOutput> audio_output)
       : audio_layer_(audio_layer),
-        audio_manager_(std::move(audio_manager)),
+        is_stereo_playout_supported_(is_stereo_playout_supported),
+        is_stereo_record_supported_(is_stereo_record_supported),
+        playout_delay_ms_(playout_delay_ms),
         input_(std::move(audio_input)),
         output_(std::move(audio_output)),
         initialized_(false) {
     RTC_CHECK(input_);
     RTC_CHECK(output_);
-    RTC_CHECK(audio_manager_);
     RTC_LOG(INFO) << __FUNCTION__;
     thread_checker_.DetachFromThread();
   }
@@ -99,14 +103,10 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
       return 0;
     }
     InitStatus status;
-    if (!audio_manager_->Init()) {
-      status = InitStatus::OTHER_ERROR;
-    } else if (output_->Init() != 0) {
-      audio_manager_->Close();
+    if (output_->Init() != 0) {
       status = InitStatus::PLAYOUT_ERROR;
     } else if (input_->Init() != 0) {
       output_->Terminate();
-      audio_manager_->Close();
       status = InitStatus::RECORDING_ERROR;
     } else {
       initialized_ = true;
@@ -129,7 +129,6 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     int32_t err = input_->Terminate();
     err |= output_->Terminate();
-    err |= !audio_manager_->Close();
     initialized_ = false;
     RTC_DCHECK_EQ(err, 0);
     return err;
@@ -252,10 +251,6 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
       return 0;
     }
     audio_device_buffer_->StartPlayout();
-    if (!audio_manager_->IsCommunicationModeEnabled()) {
-      RTC_LOG(WARNING)
-          << "The application should use MODE_IN_COMMUNICATION audio mode!";
-    }
     int32_t result = output_->StartPlayout();
     RTC_LOG(INFO) << "output: " << result;
     RTC_HISTOGRAM_BOOLEAN("WebRTC.Audio.StartPlayoutSuccess",
@@ -266,7 +261,6 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   int32_t StopPlayout() override {
     RTC_LOG(INFO) << __FUNCTION__;
     CHECKinitialized_();
-    // Avoid using audio manger (JNI/Java cost) if playout was inactive.
     if (!Playing())
       return 0;
     RTC_LOG(INFO) << __FUNCTION__;
@@ -289,10 +283,6 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
     CHECKinitialized_();
     if (Recording()) {
       return 0;
-    }
-    if (!audio_manager_->IsCommunicationModeEnabled()) {
-      RTC_LOG(WARNING)
-          << "The application should use MODE_IN_COMMUNICATION audio mode!";
     }
     audio_device_buffer_->StartRecording();
     int32_t result = input_->StartRecording();
@@ -471,12 +461,10 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
     return -1;
   }
 
-  // Returns true if the audio manager has been configured to support stereo
-  // and false otherwised. Default is mono.
   int32_t StereoPlayoutIsAvailable(bool* available) const override {
     RTC_LOG(INFO) << __FUNCTION__;
     CHECKinitialized_();
-    *available = audio_manager_->IsStereoPlayoutSupported();
+    *available = is_stereo_playout_supported_;
     RTC_LOG(INFO) << "output: " << *available;
     return 0;
   }
@@ -488,11 +476,9 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
       RTC_LOG(WARNING) << "recording in stereo is not supported";
       return -1;
     }
-    bool available = audio_manager_->IsStereoPlayoutSupported();
-    // Android does not support changes between mono and stero on the fly.
-    // Instead, the native audio layer is configured via the audio manager
-    // to either support mono or stereo. It is allowed to call this method
-    // if that same state is not modified.
+    bool available = is_stereo_playout_supported_;
+    // Android does not support changes between mono and stero on the fly. It is
+    // allowed to call this method if that same state is not modified.
     if (enable != available) {
       RTC_LOG(WARNING) << "failed to change stereo recording";
       return -1;
@@ -508,7 +494,7 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   int32_t StereoPlayout(bool* enabled) const override {
     RTC_LOG(INFO) << __FUNCTION__;
     CHECKinitialized_();
-    *enabled = audio_manager_->IsStereoPlayoutSupported();
+    *enabled = is_stereo_playout_supported_;
     RTC_LOG(INFO) << "output: " << *enabled;
     return 0;
   }
@@ -516,7 +502,7 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   int32_t StereoRecordingIsAvailable(bool* available) const override {
     RTC_LOG(INFO) << __FUNCTION__;
     CHECKinitialized_();
-    *available = audio_manager_->IsStereoRecordSupported();
+    *available = is_stereo_record_supported_;
     RTC_LOG(INFO) << "output: " << *available;
     return 0;
   }
@@ -528,11 +514,9 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
       RTC_LOG(WARNING) << "recording in stereo is not supported";
       return -1;
     }
-    bool available = audio_manager_->IsStereoRecordSupported();
-    // Android does not support changes between mono and stero on the fly.
-    // Instead, the native audio layer is configured via the audio manager
-    // to either support mono or stereo. It is allowed to call this method
-    // if that same state is not modified.
+    bool available = is_stereo_record_supported_;
+    // Android does not support changes between mono and stero on the fly. It is
+    // allowed to call this method if that same state is not modified.
     if (enable != available) {
       RTC_LOG(WARNING) << "failed to change stereo recording";
       return -1;
@@ -548,7 +532,7 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   int32_t StereoRecording(bool* enabled) const override {
     RTC_LOG(INFO) << __FUNCTION__;
     CHECKinitialized_();
-    *enabled = audio_manager_->IsStereoRecordSupported();
+    *enabled = is_stereo_record_supported_;
     RTC_LOG(INFO) << "output: " << *enabled;
     return 0;
   }
@@ -556,7 +540,7 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   int32_t PlayoutDelay(uint16_t* delay_ms) const override {
     CHECKinitialized_();
     // Best guess we can do is to use half of the estimated total delay.
-    *delay_ms = audio_manager_->GetDelayEstimateInMilliseconds() / 2;
+    *delay_ms = playout_delay_ms_;
     RTC_DCHECK_GT(*delay_ms, 0);
     return 0;
   }
@@ -576,7 +560,7 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   bool BuiltInAECIsAvailable() const override {
     RTC_LOG(INFO) << __FUNCTION__;
     CHECKinitialized__BOOL();
-    bool isAvailable = audio_manager_->IsAcousticEchoCancelerSupported();
+    bool isAvailable = input_->IsAcousticEchoCancelerSupported();
     RTC_LOG(INFO) << "output: " << isAvailable;
     return isAvailable;
   }
@@ -600,7 +584,7 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   bool BuiltInNSIsAvailable() const override {
     RTC_LOG(INFO) << __FUNCTION__;
     CHECKinitialized__BOOL();
-    bool isAvailable = audio_manager_->IsNoiseSuppressorSupported();
+    bool isAvailable = input_->IsNoiseSuppressorSupported();
     RTC_LOG(INFO) << "output: " << isAvailable;
     return isAvailable;
   }
@@ -646,7 +630,9 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
   rtc::ThreadChecker thread_checker_;
 
   const AudioDeviceModule::AudioLayer audio_layer_;
-  const std::unique_ptr<AudioManager> audio_manager_;
+  const bool is_stereo_playout_supported_;
+  const bool is_stereo_record_supported_;
+  const uint16_t playout_delay_ms_;
   const std::unique_ptr<AudioInput> input_;
   const std::unique_ptr<AudioOutput> output_;
   std::unique_ptr<AudioDeviceBuffer> audio_device_buffer_;
@@ -656,14 +642,39 @@ class AndroidAudioDeviceModule : public AudioDeviceModule {
 
 }  // namespace
 
+void GetAudioParameters(JNIEnv* env,
+                        const JavaParamRef<jobject>& application_context,
+                        int sample_rate,
+                        bool use_stereo_input,
+                        bool use_stereo_output,
+                        AudioParameters* input_parameters,
+                        AudioParameters* output_parameters) {
+  const size_t output_channels = use_stereo_output ? 2 : 1;
+  const size_t input_channels = use_stereo_input ? 2 : 1;
+  ScopedJavaLocalRef<jobject> j_audio_manager =
+      Java_WebRtcAudioUtils_getAudioManager(env, application_context);
+  const size_t output_buffer_size = Java_WebRtcAudioUtils_getOutputBufferSize(
+      env, application_context, j_audio_manager, sample_rate, output_channels);
+  const size_t input_buffer_size = Java_WebRtcAudioUtils_getInputBufferSize(
+      env, application_context, j_audio_manager, sample_rate, input_channels);
+  output_parameters->reset(sample_rate, static_cast<size_t>(output_channels),
+                           static_cast<size_t>(output_buffer_size));
+  input_parameters->reset(sample_rate, static_cast<size_t>(input_channels),
+                          static_cast<size_t>(input_buffer_size));
+  RTC_CHECK(input_parameters->is_valid());
+  RTC_CHECK(output_parameters->is_valid());
+}
+
 rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModuleFromInputAndOutput(
     AudioDeviceModule::AudioLayer audio_layer,
-    std::unique_ptr<AudioManager> audio_manager,
+    bool is_stereo_playout_supported,
+    bool is_stereo_record_supported,
+    uint16_t playout_delay_ms,
     std::unique_ptr<AudioInput> audio_input,
     std::unique_ptr<AudioOutput> audio_output) {
   return new rtc::RefCountedObject<AndroidAudioDeviceModule>(
-      audio_layer, std::move(audio_manager), std::move(audio_input),
-      std::move(audio_output));
+      audio_layer, is_stereo_playout_supported, is_stereo_record_supported,
+      playout_delay_ms, std::move(audio_input), std::move(audio_output));
 }
 
 }  // namespace android_adm

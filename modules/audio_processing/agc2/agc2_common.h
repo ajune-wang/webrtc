@@ -39,6 +39,20 @@ constexpr float kInitialSpeechLevelEstimateDbfs = -30.f;
 
 constexpr float kInitialSaturationMarginDb = 17.f;
 
+constexpr float kPeakEnveloperSuperFrameLengthMs = 500.f;
+
+constexpr int kPeakEnveloperBufferSize =
+    static_cast<int>(kFullBufferSizeMs / kPeakEnveloperSuperFrameLengthMs + 1);
+
+// 1000, 5000 - more conservative.
+// kSatProcAttackMs = 1000
+// kSatProcDecayMs = 5000
+// 10 ** (-1/20 * frame_size_ms / satproc_attack_ms)
+constexpr float kSaturationProtectorAttackConstant = 0.9988493699365052;
+
+// 10 ** (-1/20 * frame_size_ms / satproc_decay_ms)
+constexpr float kSaturationProtectorDecayConstant = 0.9997697679981565;
+
 // This is computed from kDecayMs by
 // 10 ** (-1/20 * subframe_duration / kDecayMs).
 // |subframe_duration| is |kFrameDurationMs / kSubFramesInFrame|.

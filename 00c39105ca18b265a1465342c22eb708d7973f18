@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b6dc4907_a5ea27c9",
+        "filename": "modules/desktop_capture/mac/display_surface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T16:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ba536a4_9e4e02e3",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4ebe823_abc55786",
         "filename": "modules/desktop_capture/mac/display_surface.h",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92fada61_0f73e2b2",
+        "filename": "modules/desktop_capture/mac/display_surface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T16:25:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b4ebe823_abc55786",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9d6745f1_c2888266",
+        "filename": "modules/desktop_capture/mac/display_surface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T16:25:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dcb849a7_1e95c4f5",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 23
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de913f7e_36b3dbde",
         "filename": "modules/desktop_capture/mac/display_surface.h",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4af625dc_aa84cb52",
+        "filename": "modules/desktop_capture/mac/display_surface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T16:25:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "de913f7e_36b3dbde",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fe2989e5_759fbb7c",
+        "filename": "modules/desktop_capture/mac/display_surface_cgimage.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T16:25:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "44a62285_382f2e29",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea115e28_7d37a6de",
         "filename": "modules/desktop_capture/mac/display_surface_provider.h",
         "patchSetId": 9
@@ -137,6 +257,30 @@
       "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32806418_cebd94ec",
+        "filename": "modules/desktop_capture/mac/display_surface_provider.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T16:25:12Z",
+      "side": 1,
+      "message": "In the next CL the DisplaySurfaceProvider will maintain a map of display_id: iosurface. Alternative is to make the existing display_stream_manager_ hold this map.",
+      "parentUuid": "ea115e28_7d37a6de",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ad881ea7_9547b8cb",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T16:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12877287_f28bd222",
+      "range": {
+        "startLine": 221,
+        "startChar": 36,
+        "endLine": 221,
+        "endChar": 65
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "542417db_b4c091a6",
         "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
         "patchSetId": 9
@@ -183,6 +351,30 @@
       "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aa4e340_87e2b4c7",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 9
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T16:25:12Z",
+      "side": 1,
+      "message": "As a premilary step it is nullptr but in next CL it will be *always* the iosurface above in line 511.",
+      "parentUuid": "542417db_b4c091a6",
+      "range": {
+        "startLine": 532,
+        "startChar": 33,
+        "endLine": 532,
+        "endChar": 53
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

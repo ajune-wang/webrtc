@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67d885e5_013b7475",
+        "filename": "modules/desktop_capture/desktop_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T17:41:59Z",
+      "side": 1,
+      "message": "This seems not really necessary.\nWhy do you need to \"const\" the data? Though the data inside of a DesktopFrame is not constant, the consumer of a DesktopFrame does not change it.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "5cb99ae9b3195fea109f1f6c95133075550cbced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ecff3de_06dfd911",
+        "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T17:41:59Z",
+      "side": 1,
+      "message": "These two lines seem not necessary.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "5cb99ae9b3195fea109f1f6c95133075550cbced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

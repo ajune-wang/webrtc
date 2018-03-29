@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b331e6e8_adae7d6e",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-03-29T07:32:12Z",
+      "side": 1,
+      "message": "CoreImage is only available on certain macOS versions. We could probably support it with some more version ifdefs and @available blocks. But I figured it was a bit unnecessary since we rarely debug on macOS.",
+      "parentUuid": "e42cf478_07e4251e",
+      "range": {
+        "startLine": 174,
+        "startChar": 22,
+        "endLine": 174,
+        "endChar": 28
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "003d2905_7c9b4520",
         "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a66dd635_3f65d087",
+        "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-03-29T07:32:12Z",
+      "side": 1,
+      "message": "I looked into if it was possible to do with a one-line change or so, but the APIs for creating an NSImage from a CGContext that we can draw in is quite different from on how it\u0027s done in UIKit. If you think it\u0027s worth it having a separate implementation for macOS I can do it, but I figured it wasn\u0027t important.",
+      "parentUuid": "003d2905_7c9b4520",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 20
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "089b7353_62c2f87a",
         "filename": "sdk/objc/Framework/UnitTests/frame_buffer_helpers.mm",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-03-29T07:20:30Z",
       "side": 1,
       "message": "Use the constant name to be explicit about what we expect here.",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 8
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ad0e534_159e0cdb",
+        "filename": "sdk/objc/Framework/UnitTests/frame_buffer_helpers.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-03-29T07:32:12Z",
+      "side": 1,
+      "message": "What constant name are you thinking of? I just want to | with 0, i.e. not use this option, when the pixel format is something else.",
+      "parentUuid": "089b7353_62c2f87a",
       "range": {
         "startLine": 23,
         "startChar": 7,

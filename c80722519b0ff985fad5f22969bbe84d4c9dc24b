@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5371617b_45e38e7f",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-03-29T09:21:26Z",
+      "side": 1,
+      "message": "Roger, I see it\u0027s only available on 10.11+, and I guess we still support 10.10, at least chromium does (I think).",
+      "parentUuid": "b331e6e8_adae7d6e",
+      "range": {
+        "startLine": 174,
+        "startChar": 22,
+        "endLine": 174,
+        "endChar": 28
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "003d2905_7c9b4520",
         "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
         "patchSetId": 2
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "a2f4ab2e_75cb6148",
+        "filename": "sdk/objc/Framework/Classes/Video/RTCI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-03-29T09:21:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a66dd635_3f65d087",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 20
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "089b7353_62c2f87a",
         "filename": "sdk/objc/Framework/UnitTests/frame_buffer_helpers.mm",
         "patchSetId": 2
@@ -140,6 +188,30 @@
       "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7718fd1f_dfa29d82",
+        "filename": "sdk/objc/Framework/UnitTests/frame_buffer_helpers.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-03-29T09:21:26Z",
+      "side": 1,
+      "message": "I assumed byte-order would either be little or big, and specifying 0 implied big. If that\u0027s not the case then ignore this.",
+      "parentUuid": "4ad0e534_159e0cdb",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 8
+      },
+      "revId": "c80722519b0ff985fad5f22969bbe84d4c9dc24b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

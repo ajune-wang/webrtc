@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ba536a4_9e4e02e3",
+        "filename": "modules/desktop_capture/mac/display_surface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:55:54Z",
+      "side": 1,
+      "message": "This class is very similar with SharedDesktopFrame (https://cs.chromium.org/chromium/src/third_party/webrtc/modules/desktop_capture/shared_desktop_frame.h?sq\u003dpackage:chromium). Is it possible to reuse it? I think you may only need to implement a DesktopFrame for CGImage, and wrap it with SharedDesktopFrame.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ebe823_abc55786",
+        "filename": "modules/desktop_capture/mac/display_surface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:55:54Z",
+      "side": 1,
+      "message": "const.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcb849a7_1e95c4f5",
+        "filename": "modules/desktop_capture/mac/display_surface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:55:54Z",
+      "side": 1,
+      "message": "If my understanding is correct, this field should not be changed after DisplaySurface has been created. If so, you may also include it in the constructor.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 23
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de913f7e_36b3dbde",
+        "filename": "modules/desktop_capture/mac/display_surface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:55:54Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44a62285_382f2e29",
+        "filename": "modules/desktop_capture/mac/display_surface_cgimage.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:55:54Z",
+      "side": 1,
+      "message": "The line break is in an unusual place I believe. You can always use \"git cl format\" to format the code for you.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea115e28_7d37a6de",
+        "filename": "modules/desktop_capture/mac/display_surface_provider.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:55:54Z",
+      "side": 1,
+      "message": "I cannot quite understand this function. It looks like the functionality of DisplaySurfaceProvider is to provide a DisplaySurface. But why does it delegate the work to others?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12877287_f28bd222",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 9
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:55:54Z",
+      "side": 1,
+      "message": "I believe we usually prefer to add a pair of brackets after new operator.",
+      "range": {
+        "startLine": 221,
+        "startChar": 36,
+        "endLine": 221,
+        "endChar": 65
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542417db_b4c091a6",
+        "filename": "modules/desktop_capture/mac/screen_capturer_mac.mm",
+        "patchSetId": 9
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5029
+      },
+      "writtenOn": "2018-03-29T00:55:54Z",
+      "side": 1,
+      "message": "If the only functionality of \"SetSurfaceForDisplay\" is to release it, you may want to use \"ReleaseSurfaceForDisplay\" to make it clear.",
+      "range": {
+        "startLine": 532,
+        "startChar": 33,
+        "endLine": 532,
+        "endChar": 53
+      },
+      "revId": "00c39105ca18b265a1465342c22eb708d7973f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

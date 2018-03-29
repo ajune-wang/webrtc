@@ -393,7 +393,7 @@ bool TurnPort::CreateTurnClientSocket() {
   }
 
   if (!SharedSocket()) {
-    // If socket is shared, AllocationSequence will receive the packet.
+    // If socket is shared, AllocationScheduler will receive the packet.
     socket_->SignalReadPacket.connect(this, &TurnPort::OnReadPacket);
   }
 

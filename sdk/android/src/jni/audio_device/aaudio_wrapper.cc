@@ -13,7 +13,6 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/timeutils.h"
-#include "sdk/android/src/jni/audio_device/audio_manager.h"
 
 #define LOG_ON_ERROR(op)                                                      \
   do {                                                                        \

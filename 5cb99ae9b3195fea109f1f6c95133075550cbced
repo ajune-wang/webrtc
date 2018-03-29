@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d7b583f_ae37f5b7",
+        "filename": "modules/desktop_capture/desktop_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T18:22:05Z",
+      "side": 1,
+      "message": "This is necessary (otherwise it fails to build) because CFDataGetBytePtr returns \"const\", see doc https://developer.apple.com/documentation/corefoundation/1543330-cfdatagetbyteptr?language\u003dobjc . I have not found a non-const equivalent in Apple doc",
+      "parentUuid": "67d885e5_013b7475",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "5cb99ae9b3195fea109f1f6c95133075550cbced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ecff3de_06dfd911",
         "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.mm",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "5cb99ae9b3195fea109f1f6c95133075550cbced",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b3f993_9cde7597",
+        "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.mm",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2018-03-29T18:22:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6ecff3de_06dfd911",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "5cb99ae9b3195fea109f1f6c95133075550cbced",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

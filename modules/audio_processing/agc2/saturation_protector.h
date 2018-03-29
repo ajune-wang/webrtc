@@ -22,6 +22,21 @@ class ApmDataDumper;
 
 class SaturationProtector {
  public:
+  // Computes a delayed envelope of peaks.
+  class PeakEnveloper {
+   public:
+    PeakEnveloper();
+    void Process(float frame_peak_dbfs);
+
+    float Query() const;
+
+   private:
+    float speech_time_in_estimate_ms_ = 0;
+    float current_superframe_peak_dbfs_ = -90.f;
+    size_t elements_in_buffer_ = 0;
+    std::array<float, kPeakEnveloperBufferSize> peak_delay_buffer_ = {};
+  };
+
   explicit SaturationProtector(ApmDataDumper* apm_data_dumper);
 
   // Update and return margin estimate. This method should be called
@@ -34,6 +49,14 @@ class SaturationProtector {
   // Returns latest computed margin. Used in cases when speech is not
   // detected.
   float LastMargin() const;
+
+  void DebugDumpEstimate() const;
+
+ private:
+  ApmDataDumper* apm_data_dumper_;
+
+  float last_margin_ = kInitialSaturationMarginDb;
+  PeakEnveloper peak_enveloper_;
 };
 
 }  // namespace webrtc

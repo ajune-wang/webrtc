@@ -90,7 +90,8 @@ class BasicPortAllocator : public PortAllocator {
 };
 
 struct PortConfiguration;
-class AllocationSequence;
+class AllocationPacer;
+class AllocationScheduler;
 
 enum class SessionState {
   GATHERING,  // Actively allocating ports and gathering candidates.
@@ -148,11 +149,11 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   class PortData {
    public:
     PortData() {}
-    PortData(Port* port, AllocationSequence* seq)
+    PortData(Port* port, AllocationScheduler* seq)
         : port_(port), sequence_(seq) {}
 
     Port* port() const { return port_; }
-    AllocationSequence* sequence() const { return sequence_; }
+    AllocationScheduler* sequence() const { return sequence_; }
     bool has_pairable_candidate() const { return has_pairable_candidate_; }
     bool complete() const { return state_ == STATE_COMPLETE; }
     bool error() const { return state_ == STATE_ERROR; }
@@ -193,7 +194,7 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
                          // interface. Only TURN ports may be pruned.
     };
     Port* port_ = nullptr;
-    AllocationSequence* sequence_ = nullptr;
+    AllocationScheduler* sequence_ = nullptr;
     bool has_pairable_candidate_ = false;
     State state_ = STATE_INPROGRESS;
   };
@@ -204,19 +205,20 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   void OnAllocate();
   void DoAllocate(bool disable_equivalent_phases);
   void OnNetworksChanged();
-  void OnAllocationSequenceObjectsCreated();
+  void OnAllocationSchedulerObjectsCreated();
   void DisableEquivalentPhases(rtc::Network* network,
                                PortConfiguration* config,
                                uint32_t* flags);
-  void AddAllocatedPort(Port* port, AllocationSequence* seq,
+  void AddAllocatedPort(Port* port,
+                        AllocationScheduler* seq,
                         bool prepare_address);
   void OnCandidateReady(Port* port, const Candidate& c);
   void OnPortComplete(Port* port);
   void OnPortError(Port* port);
-  void OnProtocolEnabled(AllocationSequence* seq, ProtocolType proto);
+  void OnProtocolEnabled(AllocationScheduler* seq, ProtocolType proto);
   void OnPortDestroyed(PortInterface* port);
   void MaybeSignalCandidatesAllocationDone();
-  void OnPortAllocationComplete(AllocationSequence* seq);
+  void OnPortAllocationComplete(AllocationScheduler* seq);
   PortData* FindPort(Port* port);
   std::vector<rtc::Network*> GetNetworks();
   std::vector<rtc::Network*> GetFailedNetworks();
@@ -250,16 +252,16 @@ class BasicPortAllocatorSession : public PortAllocatorSession,
   rtc::PacketSocketFactory* socket_factory_;
   bool allocation_started_;
   bool network_manager_started_;
-  bool allocation_sequences_created_;
+  bool allocation_schedulers_created_;
   std::vector<PortConfiguration*> configs_;
-  std::vector<AllocationSequence*> sequences_;
+  std::vector<AllocationScheduler*> schedulers_;
   std::vector<PortData> ports_;
   uint32_t candidate_filter_ = CF_ALL;
   // Whether to prune low-priority ports, taken from the port allocator.
   bool prune_turn_ports_;
   SessionState state_ = SessionState::CLEARED;
 
-  friend class AllocationSequence;
+  friend class AllocationScheduler;
 };
 
 // Records configuration information useful in creating ports.
@@ -305,10 +307,47 @@ struct PortConfiguration : public rtc::MessageData {
 class UDPPort;
 class TurnPort;
 
-// Performs the allocation of ports, in a sequenced (timed) manner, for a given
+enum class PortAllocationType {
+  UDP,
+  STUN,
+  RELAY_GTURN,
+  RELAY_TURN,
+  TCP,
+};
+
+struct PortAllocationMessage : public rtc::MessageData {
+  PortAllocationMessage(PortAllocationType type,
+                        cricket::RelayServerConfig* config)
+      : type(type), config(config) {}
+  const PortAllocationType type;
+  cricket::RelayServerConfig* config;
+};
+
+class AllocationPacer {
+ public:
+  AllocationPacer();
+  ~AllocationPacer();
+
+  void Start();
+  void Stop();
+  int64_t GetNextAllocationStartingTime();
+  int64_t GetDelayOfNextAllocationFromNow();
+  uint32_t step_delay_or_default() const {
+    return step_delay_.value_or(kDefaultStepDelay);
+  }
+  void set_step_delay(rtc::Optional<uint32_t> delay) { step_delay_ = delay; }
+
+ private:
+  bool started_ = false;
+  rtc::Optional<uint32_t> step_delay_;
+  int64_t last_allocation_started_at_;
+  bool is_first_allocation_ = false;
+};
+
+// Performs the allocation of ports, in a scheduled (timed) manner, for a given
 // network and IP address.
-class AllocationSequence : public rtc::MessageHandler,
-                           public sigslot::has_slots<> {
+class AllocationScheduler : public rtc::MessageHandler,
+                            public sigslot::has_slots<> {
  public:
   enum State {
     kInit,       // Initial state.
@@ -318,11 +357,11 @@ class AllocationSequence : public rtc::MessageHandler,
 
     // kInit --> kRunning --> {kCompleted|kStopped}
   };
-  AllocationSequence(BasicPortAllocatorSession* session,
-                     rtc::Network* network,
-                     PortConfiguration* config,
-                     uint32_t flags);
-  ~AllocationSequence() override;
+  AllocationScheduler(BasicPortAllocatorSession* session,
+                      rtc::Network* network,
+                      PortConfiguration* config,
+                      uint32_t flags);
+  ~AllocationScheduler() override;
   void Init();
   void Clear();
   void OnNetworkFailed();
@@ -347,26 +386,29 @@ class AllocationSequence : public rtc::MessageHandler,
   // MessageHandler
   void OnMessage(rtc::Message* msg) override;
 
-  // Signal from AllocationSequence, when it's done with allocating ports.
+  // Signal from AllocationScheduler, when it's done with allocating ports.
   // This signal is useful, when port allocation fails which doesn't result
   // in any candidates. Using this signal BasicPortAllocatorSession can send
   // its candidate discovery conclusion signal. Without this signal,
   // BasicPortAllocatorSession doesn't have any event to trigger signal. This
   // can also be achieved by starting timer in BPAS.
-  sigslot::signal1<AllocationSequence*> SignalPortAllocationComplete;
+  sigslot::signal1<AllocationScheduler*> SignalPortAllocationComplete;
 
  protected:
   // For testing.
   void CreateTurnPort(const RelayServerConfig& config);
 
  private:
-  typedef std::vector<ProtocolType> ProtocolList;
-
   bool IsFlagSet(uint32_t flag) { return ((flags_ & flag) != 0); }
-  void CreateUDPPorts();
-  void CreateTCPPorts();
-  void CreateStunPorts();
-  void CreateRelayPorts();
+  void ScheduleAllocatingUDPPorts();
+  void ScheduleAllocatingStunPorts();
+  void ScheduleAllocatingRelayPorts();
+  void ScheduleAllocatingTCPPorts();
+
+  void CreatePort(const PortAllocationMessage& msg);
+  void CreateUDPPort();
+  void CreateTCPPort();
+  void CreateStunPort();
   void CreateGturnPort(const RelayServerConfig& config);
 
   void OnReadPacket(rtc::AsyncPacketSocket* socket,
@@ -385,12 +427,13 @@ class AllocationSequence : public rtc::MessageHandler,
   PortConfiguration* config_;
   State state_;
   uint32_t flags_;
-  ProtocolList protocols_;
   std::unique_ptr<rtc::AsyncPacketSocket> udp_socket_;
-  // There will be only one udp port per AllocationSequence.
+  // There will be only one udp port per AllocationScheduler.
   UDPPort* udp_port_;
   std::vector<Port*> relay_ports_;
-  int phase_;
+  int total_scheduled_port_allocation_ = 0;
+  int total_ports_allocated_ = 0;
+  std::unique_ptr<AllocationPacer> pacer_ = nullptr;
 };
 
 }  // namespace cricket

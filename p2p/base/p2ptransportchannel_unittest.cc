@@ -1762,8 +1762,8 @@ TEST_F(P2PTransportChannelTest, TestIceConfigWillPassDownToPort) {
 
   CreateChannels();
 
-  EXPECT_EQ_SIMULATED_WAIT(2u, ep1_ch1()->ports().size(), kShortTimeout, clock);
-
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1()->ports().size() >= 1u, kShortTimeout,
+                             clock);
   const std::vector<PortInterface*> ports_before = ep1_ch1()->ports();
   for (size_t i = 0; i < ports_before.size(); ++i) {
     EXPECT_EQ(ICEROLE_CONTROLLING, ports_before[i]->GetIceRole());

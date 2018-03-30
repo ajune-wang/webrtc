@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6eb3ed8d_ca487598",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2018-03-30T16:28:30Z",
+      "side": 1,
+      "message": "\"offer\"",
+      "revId": "1b39d78e92979544769792d7fc3d1a6c0093d436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

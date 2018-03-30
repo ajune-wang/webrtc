@@ -52,9 +52,14 @@ void SequencedTaskCheckerImpl::Detach() {
 namespace internal {
 
 SequencedTaskCheckerScope::SequencedTaskCheckerScope(
-    const SequencedTaskChecker* checker) {
-  RTC_DCHECK(checker->CalledSequentially());
+    const SequencedTaskChecker* checker)
+#if RTC_DCHECK_IS_ON
+    : condition_met_(checker->CalledSequentially()) {
 }
+#else
+{
+}
+#endif
 
 SequencedTaskCheckerScope::~SequencedTaskCheckerScope() {}
 

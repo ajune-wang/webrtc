@@ -123,7 +123,6 @@ class JsepTransportControllerTest : public testing::Test,
                        rtc::scoped_refptr<rtc::RTCCertificate> cert) {
     std::unique_ptr<cricket::AudioContentDescription> audio(
         new cricket::AudioContentDescription());
-    // Set RTCP-mux to be true because the default policy is "mux required".
     audio->set_rtcp_mux(true);
     description->AddContent(mid, cricket::MediaProtocolType::kRtp,
                             /*rejected=*/false, audio.release());
@@ -139,7 +138,6 @@ class JsepTransportControllerTest : public testing::Test,
                        rtc::scoped_refptr<rtc::RTCCertificate> cert) {
     std::unique_ptr<cricket::VideoContentDescription> video(
         new cricket::VideoContentDescription());
-    // Set RTCP-mux to be true because the default policy is "mux required".
     video->set_rtcp_mux(true);
     description->AddContent(mid, cricket::MediaProtocolType::kRtp,
                             /*rejected=*/false, video.release());
@@ -1282,30 +1280,11 @@ TEST_F(JsepTransportControllerTest, RejectFirstContentInBundleGroup) {
   EXPECT_EQ(nullptr, transport_controller_->GetDtlsTransport(kDataMid1));
 }
 
-// Tests that applying non-RTCP-mux offer would fail when kRtcpMuxPolicyRequire
-// is used.
-TEST_F(JsepTransportControllerTest, ApplyNonRtcpMuxOfferWhenMuxingRequired) {
-  JsepTransportController::Config config;
-  config.rtcp_mux_policy = PeerConnectionInterface::kRtcpMuxPolicyRequire;
-  CreateJsepTransportController(config);
-  auto local_offer = rtc::MakeUnique<cricket::SessionDescription>();
-  AddAudioSection(local_offer.get(), kAudioMid1, kIceUfrag1, kIcePwd1,
-                  cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,
-                  nullptr);
-
-  local_offer->contents()[0].media_description()->set_rtcp_mux(false);
-  // Applying a non-RTCP-mux offer is expected to fail.
-  EXPECT_FALSE(transport_controller_
-                   ->SetLocalDescription(SdpType::kOffer, local_offer.get())
-                   .ok());
-}
-
 // Tests that applying non-RTCP-mux answer would fail when kRtcpMuxPolicyRequire
 // is used.
-TEST_F(JsepTransportControllerTest, ApplyNonRtcpMuxAnswerWhenMuxingRequired) {
-  JsepTransportController::Config config;
-  config.rtcp_mux_policy = PeerConnectionInterface::kRtcpMuxPolicyRequire;
-  CreateJsepTransportController(config);
+TEST_F(JsepTransportControllerTest, ApplyNonRtcpMuxAnswer) {
+  // kRtcpMuxPolicyRequire is used by default.
+  CreateJsepTransportController(JsepTransportController::Config());
   auto local_offer = rtc::MakeUnique<cricket::SessionDescription>();
   AddAudioSection(local_offer.get(), kAudioMid1, kIceUfrag1, kIcePwd1,
                   cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,

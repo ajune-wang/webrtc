@@ -181,11 +181,17 @@ TEST_F(RtpTransportControllerTest,
       cricket::MEDIA_TYPE_AUDIO, rtp_transport2.get());
   EXPECT_TRUE(audio_receiver_result.ok());
 
-  // Do the same thing for video, reversing 1 and 2 (for variety).
+  // Do the same thing for video.
+  // Reset the packet transports for |rtp_transport1|.
+  rtp_transport_result1 = ortc_factory_->CreateRtpTransport(
+      MakeRtcpMuxParameters(), &packet_transport1, nullptr,
+      rtp_transport_controller_.get());
+  ASSERT_TRUE(rtp_transport_result1.ok());
+  rtp_transport1 = rtp_transport_result1.MoveValue();
+
   auto video_sender_result = ortc_factory_->CreateRtpSender(
       cricket::MEDIA_TYPE_VIDEO, rtp_transport2.get());
   EXPECT_TRUE(video_sender_result.ok());
-
   auto video_receiver_result = ortc_factory_->CreateRtpReceiver(
       cricket::MEDIA_TYPE_VIDEO, rtp_transport1.get());
   EXPECT_EQ(RTCErrorType::UNSUPPORTED_OPERATION,

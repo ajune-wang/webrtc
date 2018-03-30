@@ -252,9 +252,6 @@ JsepTransportController::GetRemoteSSLCertChain(
         RTC_FROM_HERE, [&] { return GetRemoteSSLCertChain(transport_name); });
   }
 
-  // Get the certificate from the RTP transport's DTLS handshake. Should be
-  // identical to the RTCP transport's, since they were given the same remote
-  // fingerprint.
   auto jsep_transport = GetJsepTransportByName(transport_name);
   if (!jsep_transport) {
     return nullptr;
@@ -467,14 +464,11 @@ JsepTransportController::CreateDtlsSrtpTransport(
     cricket::DtlsTransportInternal* rtp_dtls_transport,
     cricket::DtlsTransportInternal* rtcp_dtls_transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  auto srtp_transport =
-      rtc::MakeUnique<webrtc::SrtpTransport>(rtcp_dtls_transport == nullptr);
+  auto dtls_srtp_transport = rtc::MakeUnique<webrtc::DtlsSrtpTransport>(
+      rtcp_dtls_transport == nullptr);
   if (config_.enable_external_auth) {
-    srtp_transport->EnableExternalAuth();
+    dtls_srtp_transport->EnableExternalAuth();
   }
-
-  auto dtls_srtp_transport =
-      rtc::MakeUnique<webrtc::DtlsSrtpTransport>(std::move(srtp_transport));
 
   dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport,
                                          rtcp_dtls_transport);

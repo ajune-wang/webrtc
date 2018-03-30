@@ -91,6 +91,7 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
  public:
   enum Flags {
     RTCP_MUX = 0x1,
+    SDES = 0x4,
     SSRC_MUX = 0x8,
     DTLS = 0x10,
     // Use BaseChannel with PacketTransportInternal rather than
@@ -219,6 +220,10 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
         this, &ChannelTest<T>::OnRtcpMuxFullyActive1);
     channel2_->SignalRtcpMuxFullyActive.connect(
         this, &ChannelTest<T>::OnRtcpMuxFullyActive2);
+    if ((flags1 & DTLS) && (flags2 & DTLS)) {
+      flags1 = (flags1 & ~SDES);
+      flags2 = (flags2 & ~SDES);
+    }
     CreateContent(flags1, kPcmuCodec, kH264Codec,
                   &local_media_content1_);
     CreateContent(flags2, kPcmuCodec, kH264Codec,
@@ -239,13 +244,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     if (flags2 & SSRC_MUX) {
       AddLegacyStreamInContent(kSsrc2, flags2, &remote_media_content2_);
     }
-
-    if (!(flags1 & DTLS)) {
-      channel1_->DisableEncryption(true);
-    }
-    if (!(flags2 & DTLS)) {
-      channel2_->DisableEncryption(true);
-    }
   }
   std::unique_ptr<typename T::Channel> CreateChannel(
       rtc::Thread* worker_thread,
@@ -257,7 +255,8 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     rtc::Thread* signaling_thread = rtc::Thread::Current();
     auto channel = rtc::MakeUnique<typename T::Channel>(
         worker_thread, network_thread, signaling_thread, engine, std::move(ch),
-        cricket::CN_AUDIO, (flags & DTLS) != 0, rtc::CryptoOptions());
+        cricket::CN_AUDIO, ((flags & SDES) || (flags & DTLS)) != 0,
+        rtc::CryptoOptions());
     channel->Init_w(rtp_transport);
     return channel;
   }
@@ -275,6 +274,12 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
 
     if (flags & DTLS) {
       return CreateDtlsSrtpTransport(rtp_dtls_transport, rtcp_dtls_transport);
+    } else if (flags & SDES) {
+      if (flags & RAW_PACKET_TRANSPORT) {
+        return CreateSdesTransport(rtp_packet_transport, rtcp_packet_transport);
+      } else {
+        return CreateSdesTransport(rtp_dtls_transport, rtcp_dtls_transport);
+      }
     } else {
       if (flags & RAW_PACKET_TRANSPORT) {
         return CreateUnencryptedTransport(rtp_packet_transport,
@@ -289,9 +294,8 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
   std::unique_ptr<webrtc::RtpTransport> CreateUnencryptedTransport(
       rtc::PacketTransportInternal* rtp_packet_transport,
       rtc::PacketTransportInternal* rtcp_packet_transport) {
-    bool rtcp_mux_enabled = (rtcp_packet_transport == nullptr);
     auto rtp_transport =
-        rtc::MakeUnique<webrtc::RtpTransport>(rtcp_mux_enabled);
+        rtc::MakeUnique<webrtc::RtpTransport>(rtcp_packet_transport == nullptr);
 
     rtp_transport->SetRtpPacketTransport(rtp_packet_transport);
     if (rtcp_packet_transport) {
@@ -300,14 +304,24 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     return rtp_transport;
   }
 
+  std::unique_ptr<webrtc::SrtpTransport> CreateSdesTransport(
+      rtc::PacketTransportInternal* rtp_packet_transport,
+      rtc::PacketTransportInternal* rtcp_packet_transport) {
+    auto srtp_transport = rtc::MakeUnique<webrtc::SrtpTransport>(
+        rtcp_packet_transport == nullptr);
+
+    srtp_transport->SetRtpPacketTransport(rtp_packet_transport);
+    if (rtcp_packet_transport) {
+      srtp_transport->SetRtcpPacketTransport(rtcp_packet_transport);
+    }
+    return srtp_transport;
+  }
+
   std::unique_ptr<webrtc::DtlsSrtpTransport> CreateDtlsSrtpTransport(
       cricket::DtlsTransportInternal* rtp_dtls_transport,
       cricket::DtlsTransportInternal* rtcp_dtls_transport) {
-    bool rtcp_mux_enabled = (rtcp_dtls_transport == nullptr);
-    auto srtp_transport =
-        rtc::MakeUnique<webrtc::SrtpTransport>(rtcp_mux_enabled);
-    auto dtls_srtp_transport =
-        rtc::MakeUnique<webrtc::DtlsSrtpTransport>(std::move(srtp_transport));
+    auto dtls_srtp_transport = rtc::MakeUnique<webrtc::DtlsSrtpTransport>(
+        rtcp_dtls_transport == nullptr);
 
     dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport,
                                            rtcp_dtls_transport);
@@ -521,7 +535,7 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
   // kPcmuCodec is used as audio codec and kH264Codec is used as video codec.
   typename T::Content* CreateMediaContentWithStream(uint32_t ssrc) {
     typename T::Content* content = new typename T::Content();
-    CreateContent(0, kPcmuCodec, kH264Codec, content);
+    CreateContent(SDES, kPcmuCodec, kH264Codec, content);
     AddLegacyStreamInContent(ssrc, 0, content);
     return content;
   }
@@ -1090,6 +1104,29 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(CheckNoRtcp2());
   }
 
+  // Test that we properly send SRTP with RTCP from a thread.
+  void SendSrtpToSrtpOnThread() {
+    CreateChannels(DTLS, DTLS);
+    EXPECT_TRUE(SendInitiate());
+    EXPECT_TRUE(SendAccept());
+    ScopedCallThread send_rtp1([this] { SendRtp1(); });
+    ScopedCallThread send_rtp2([this] { SendRtp2(); });
+    ScopedCallThread send_rtcp1([this] { SendRtcp1(); });
+    ScopedCallThread send_rtcp2([this] { SendRtcp2(); });
+    rtc::Thread* involved_threads[] = {send_rtp1.thread(), send_rtp2.thread(),
+                                       send_rtcp1.thread(),
+                                       send_rtcp2.thread()};
+    WaitForThreads(involved_threads);
+    EXPECT_TRUE(CheckRtp1());
+    EXPECT_TRUE(CheckRtp2());
+    EXPECT_TRUE(CheckNoRtp1());
+    EXPECT_TRUE(CheckNoRtp2());
+    EXPECT_TRUE(CheckRtcp1());
+    EXPECT_TRUE(CheckRtcp2());
+    EXPECT_TRUE(CheckNoRtcp1());
+    EXPECT_TRUE(CheckNoRtcp2());
+  }
+
   // Test that the mediachannel retains its sending state after the transport
   // becomes non-writable.
   void SendWithWritabilityLoss() {
@@ -1177,11 +1214,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     CreateChannels(flags, flags);
     EXPECT_TRUE(SendInitiate());
     EXPECT_TRUE(SendAccept());
-    EXPECT_TRUE(channel1_->HandlesPayloadType(pl_type1));
-    EXPECT_TRUE(channel2_->HandlesPayloadType(pl_type1));
-    EXPECT_FALSE(channel1_->HandlesPayloadType(pl_type2));
-    EXPECT_FALSE(channel2_->HandlesPayloadType(pl_type2));
-
     // Both channels can receive pl_type1 only.
     SendCustomRtp1(kSsrc1, ++sequence_number1_1, pl_type1);
     SendCustomRtp2(kSsrc2, ++sequence_number2_2, pl_type1);
@@ -1191,6 +1223,8 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(CheckNoRtp1());
     EXPECT_TRUE(CheckNoRtp2());
 
+    EXPECT_TRUE(SendInitiate());
+    EXPECT_TRUE(SendAccept());
     SendCustomRtp1(kSsrc1, ++sequence_number1_1, pl_type2);
     SendCustomRtp2(kSsrc2, ++sequence_number2_2, pl_type2);
     WaitForThreads();
@@ -1494,6 +1528,11 @@ void ChannelTest<VoiceTraits>::CreateContent(
     cricket::AudioContentDescription* audio) {
   audio->AddCodec(audio_codec);
   audio->set_rtcp_mux((flags & RTCP_MUX) != 0);
+  if ((flags & SDES) && !(flags & DTLS)) {
+    audio->AddCrypto(cricket::CryptoParams(
+        1, rtc::CS_AES_CM_128_HMAC_SHA1_32,
+        "inline:" + rtc::CreateRandomString(40), std::string()));
+  }
 }
 
 template<>
@@ -1562,7 +1601,7 @@ std::unique_ptr<cricket::VideoChannel> ChannelTest<VideoTraits>::CreateChannel(
   rtc::Thread* signaling_thread = rtc::Thread::Current();
   auto channel = rtc::MakeUnique<cricket::VideoChannel>(
       worker_thread, network_thread, signaling_thread, std::move(ch),
-      cricket::CN_VIDEO, (flags & DTLS) != 0, rtc::CryptoOptions());
+      cricket::CN_VIDEO, (flags & SDES) != 0, rtc::CryptoOptions());
   channel->Init_w(rtp_transport);
   return channel;
 }
@@ -1581,6 +1620,11 @@ void ChannelTest<VideoTraits>::CreateContent(
     cricket::VideoContentDescription* video) {
   video->AddCodec(video_codec);
   video->set_rtcp_mux((flags & RTCP_MUX) != 0);
+  if (flags & SDES) {
+    video->AddCrypto(cricket::CryptoParams(
+        1, rtc::CS_AES_CM_128_HMAC_SHA1_80,
+        "inline:" + rtc::CreateRandomString(40), std::string()));
+  }
 }
 
 template<>
@@ -1696,6 +1740,9 @@ TEST_F(VoiceChannelSingleThreadTest, SendRtpToRtpOnThread) {
   Base::SendRtpToRtpOnThread();
 }
 
+TEST_F(VoiceChannelSingleThreadTest, SendSrtpToSrtpOnThread) {
+  Base::SendSrtpToSrtpOnThread();
+}
 
 TEST_F(VoiceChannelSingleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
@@ -1832,6 +1879,10 @@ TEST_F(VoiceChannelDoubleThreadTest, SendRtpToRtpOnThread) {
   Base::SendRtpToRtpOnThread();
 }
 
+TEST_F(VoiceChannelDoubleThreadTest, SendSrtpToSrtpOnThread) {
+  Base::SendSrtpToSrtpOnThread();
+}
+
 TEST_F(VoiceChannelDoubleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
 }
@@ -1963,6 +2014,10 @@ TEST_F(VideoChannelSingleThreadTest, SendEarlyMediaUsingRtcpMuxSrtp) {
 
 TEST_F(VideoChannelSingleThreadTest, SendRtpToRtpOnThread) {
   Base::SendRtpToRtpOnThread();
+}
+
+TEST_F(VideoChannelSingleThreadTest, SendSrtpToSrtpOnThread) {
+  Base::SendSrtpToSrtpOnThread();
 }
 
 TEST_F(VideoChannelSingleThreadTest, SendWithWritabilityLoss) {
@@ -2098,6 +2153,10 @@ TEST_F(VideoChannelDoubleThreadTest, SendRtpToRtpOnThread) {
   Base::SendRtpToRtpOnThread();
 }
 
+TEST_F(VideoChannelDoubleThreadTest, SendSrtpToSrtpOnThread) {
+  Base::SendSrtpToSrtpOnThread();
+}
+
 TEST_F(VideoChannelDoubleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
 }
@@ -2182,7 +2241,7 @@ std::unique_ptr<cricket::RtpDataChannel> ChannelTest<DataTraits>::CreateChannel(
   rtc::Thread* signaling_thread = rtc::Thread::Current();
   auto channel = rtc::MakeUnique<cricket::RtpDataChannel>(
       worker_thread, network_thread, signaling_thread, std::move(ch),
-      cricket::CN_DATA, (flags & DTLS) != 0, rtc::CryptoOptions());
+      cricket::CN_DATA, (flags & SDES) != 0, rtc::CryptoOptions());
   channel->Init_w(rtp_transport);
   return channel;
 }
@@ -2195,6 +2254,11 @@ void ChannelTest<DataTraits>::CreateContent(
     cricket::DataContentDescription* data) {
   data->AddCodec(kGoogleDataCodec);
   data->set_rtcp_mux((flags & RTCP_MUX) != 0);
+  if (flags & SDES) {
+    data->AddCrypto(cricket::CryptoParams(
+        1, rtc::CS_AES_CM_128_HMAC_SHA1_32,
+        "inline:" + rtc::CreateRandomString(40), std::string()));
+  }
 }
 
 template <>
@@ -2279,6 +2343,10 @@ TEST_F(RtpDataChannelSingleThreadTest, SendRtpToRtpOnThread) {
   Base::SendRtpToRtpOnThread();
 }
 
+TEST_F(RtpDataChannelSingleThreadTest, SendSrtpToSrtpOnThread) {
+  Base::SendSrtpToSrtpOnThread();
+}
+
 TEST_F(RtpDataChannelSingleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
 }
@@ -2361,6 +2429,10 @@ TEST_F(RtpDataChannelDoubleThreadTest, SendRtcpToRtcp) {
 
 TEST_F(RtpDataChannelDoubleThreadTest, SendRtpToRtpOnThread) {
   Base::SendRtpToRtpOnThread();
+}
+
+TEST_F(RtpDataChannelDoubleThreadTest, SendSrtpToSrtpOnThread) {
+  Base::SendSrtpToSrtpOnThread();
 }
 
 TEST_F(RtpDataChannelDoubleThreadTest, SendWithWritabilityLoss) {

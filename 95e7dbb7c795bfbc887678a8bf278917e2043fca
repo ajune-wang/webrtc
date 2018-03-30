@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f4ee5ee1_5d1b4b38",
+        "filename": "pc/channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 0,
+      "message": "I\u0027m not sure why if we want to do it in this patch.\nIf we do it this ways, SrtpTransport::IsWritable() means \"secure\" and \"ice writable.\" which make sense for BaseChannel.\nBut the DtlsSrtpTransport doesn\u0027t expect SrtpTransport to be secure, it just need to know the ice is writable and it can start DTLS handshake.\n\nI think the simplest solution is using \"encryption disable\" flag. Once the other CL (RtpDemuxer one) landed, the inheritance model will be changed and these issue will just go away.",
+      "parentUuid": "aff4353f_80755c88",
+      "revId": "95e7dbb7c795bfbc887678a8bf278917e2043fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4153f9b_4b02b5fa",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 17
@@ -33,6 +51,24 @@
       "revId": "95e7dbb7c795bfbc887678a8bf278917e2043fca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ebd488a_9af91d1b",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "c4153f9b_4b02b5fa",
+      "revId": "95e7dbb7c795bfbc887678a8bf278917e2043fca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

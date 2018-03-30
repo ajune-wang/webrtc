@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "29db5ee9_1344cff8",
+        "filename": "ortc/rtptransportcontroller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "If we don\u0027t set the packet transport to null in BaseChannel::Deinit(), then we don\u0027t need to do this.",
+      "parentUuid": "b3359ff1_c42fe893",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a55437c6_d9a7bb97",
         "filename": "pc/channel.cc",
         "patchSetId": 17
@@ -33,6 +51,24 @@
       "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a586809_796457b1",
+        "filename": "pc/channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "Done\n\nThe changes in rtptransportcontroller_unittest is actually related to this.",
+      "parentUuid": "a55437c6_d9a7bb97",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "47c6c355_e378608c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "Yeah, you are right.  The issue on win_more_config trybot I ran into before is caused by threading.",
+      "parentUuid": "5794e849_118f4a0b",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e235f666_5918c844",
         "filename": "pc/channel.cc",
         "patchSetId": 17
@@ -67,6 +121,24 @@
       "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57d82ee3_ad58511f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "The SetOption is called when creating the BaseChannel with init_w method.\nThe RtpTransport shouldn\u0027t be null at this point I guess.\nBut it would be safer it add one. Done",
+      "parentUuid": "e235f666_5918c844",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "6bfc5a00_951ec8b1",
+        "filename": "pc/channel.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f3f5c2d_8f87eaa1",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46047618_c63ee9ca",
         "filename": "pc/channel_unittest.cc",
         "patchSetId": 17
@@ -101,6 +191,24 @@
       "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "decefd76_84c7cb67",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46047618_c63ee9ca",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "c30dc889_7cdb1a06",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8621f264_74e7aaf7",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "612e2c0b_91a0e37b",
         "filename": "pc/jseptransportcontroller_unittest.cc",
         "patchSetId": 17
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "5d384dd0_d27c069a",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "612e2c0b_91a0e37b",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80d3635d_5bc48a32",
         "filename": "pc/jseptransportcontroller_unittest.cc",
         "patchSetId": 17
@@ -152,6 +296,24 @@
       "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3abc33a_05442c41",
+        "filename": "pc/jseptransportcontroller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 5080
+      },
+      "writtenOn": "2018-03-30T01:38:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80d3635d_5bc48a32",
+      "revId": "460a3c320fc18ad1282d3a59d96ee7a67da9ce8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

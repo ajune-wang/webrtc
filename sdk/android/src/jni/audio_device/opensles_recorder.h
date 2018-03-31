@@ -23,7 +23,6 @@
 #include "rtc_base/thread_checker.h"
 #include "sdk/android/src/jni/audio_device/audio_common.h"
 #include "sdk/android/src/jni/audio_device/audio_device_module.h"
-#include "sdk/android/src/jni/audio_device/audio_manager.h"
 #include "sdk/android/src/jni/audio_device/opensles_common.h"
 
 namespace webrtc {
@@ -63,7 +62,7 @@ class OpenSLESRecorder : public AudioInput {
   // TODO(henrika): perhaps set this value dynamically based on OS version.
   static const int kNumOfOpenSLESBuffers = 2;
 
-  OpenSLESRecorder(AudioManager* audio_manager,
+  OpenSLESRecorder(const AudioParameters& audio_parameters,
                    OpenSLEngineManager* engine_manager);
   ~OpenSLESRecorder() override;
 
@@ -80,6 +79,8 @@ class OpenSLESRecorder : public AudioInput {
   void AttachAudioBuffer(AudioDeviceBuffer* audio_buffer) override;
 
   // TODO(henrika): add support using OpenSL ES APIs when available.
+  bool IsAcousticEchoCancelerSupported() const override;
+  bool IsNoiseSuppressorSupported() const override;
   int EnableBuiltInAEC(bool enable) override;
   int EnableBuiltInAGC(bool enable) override;
   int EnableBuiltInNS(bool enable) override;
@@ -134,8 +135,6 @@ class OpenSLESRecorder : public AudioInput {
   // Detached during construction of this object.
   rtc::ThreadChecker thread_checker_opensles_;
 
-  // Contains audio parameters provided to this class at construction by the
-  // AudioManager.
   const AudioParameters audio_parameters_;
 
   // Raw pointer handle provided to us in AttachAudioBuffer(). Owned by the

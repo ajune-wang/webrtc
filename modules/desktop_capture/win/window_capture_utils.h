@@ -8,7 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <shlobj.h>
 #include <windows.h>
+#include <wrl/client.h>
 
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "rtc_base/constructormagic.h"
@@ -70,6 +72,20 @@ class AeroChecker {
   DwmIsCompositionEnabledFunc func_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AeroChecker);
+};
+
+class ComMethodHelper {
+ public:
+  ComMethodHelper();
+  ~ComMethodHelper();
+
+  bool IsWindowOnCurrentDesktop(HWND hwnd);
+
+ private:
+  // Only used on Win10+.
+  Microsoft::WRL::ComPtr<IVirtualDesktopManager> virtual_desktop_manager_;
+
+  RTC_DISALLOW_COPY_AND_ASSIGN(ComMethodHelper);
 };
 
 }  // namespace webrtc

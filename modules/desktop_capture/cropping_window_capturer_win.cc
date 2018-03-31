@@ -24,10 +24,12 @@ namespace {
 struct TopWindowVerifierContext {
   TopWindowVerifierContext(HWND selected_window,
                            HWND excluded_window,
-                           DesktopRect selected_window_rect)
+                           DesktopRect selected_window_rect,
+                           ComMethodHelper* com_methods_helper)
       : selected_window(selected_window),
         excluded_window(excluded_window),
         selected_window_rect(selected_window_rect),
+        com_methods_helper(com_methods_helper),
         is_top_window(false) {
     RTC_DCHECK_NE(selected_window, excluded_window);
   }
@@ -35,6 +37,7 @@ struct TopWindowVerifierContext {
   const HWND selected_window;
   const HWND excluded_window;
   const DesktopRect selected_window_rect;
+  ComMethodHelper* com_methods_helper;
   bool is_top_window;
 };
 
@@ -56,6 +59,11 @@ BOOL CALLBACK TopWindowVerifier(HWND hwnd, LPARAM param) {
 
   // Ignore hidden or minimized window.
   if (IsIconic(hwnd) || !IsWindowVisible(hwnd)) {
+    return TRUE;
+  }
+
+  // Ignore window on other virtual desktops.
+  if (!context->com_methods_helper->IsWindowOnCurrentDesktop(hwnd)) {
     return TRUE;
   }
 
@@ -141,6 +149,7 @@ class CroppingWindowCapturerWin : public CroppingWindowCapturer {
   DesktopRect window_region_rect_;
 
   AeroChecker aero_checker_;
+  ComMethodHelper com_method_helper_;
 };
 
 bool CroppingWindowCapturerWin::ShouldUseScreenCapturer() {
@@ -151,6 +160,11 @@ bool CroppingWindowCapturerWin::ShouldUseScreenCapturer() {
   const HWND selected = reinterpret_cast<HWND>(selected_window());
   // Check if the window is hidden or minimized.
   if (IsIconic(selected) || !IsWindowVisible(selected)) {
+    return false;
+  }
+
+  // Check if the window is on the current virtual desktop.
+  if (!com_method_helper_.IsWindowOnCurrentDesktop(selected)) {
     return false;
   }
 
@@ -223,8 +237,9 @@ bool CroppingWindowCapturerWin::ShouldUseScreenCapturer() {
   // windows, context menus, and |excluded_window_|.
   // |content_rect| is preferred, see the comments in TopWindowVerifier()
   // function.
-  TopWindowVerifierContext context(
-      selected, reinterpret_cast<HWND>(excluded_window()), content_rect);
+  TopWindowVerifierContext context(selected,
+                                   reinterpret_cast<HWND>(excluded_window()),
+                                   content_rect, &com_method_helper_);
   const LPARAM enum_param = reinterpret_cast<LPARAM>(&context);
   EnumWindows(&TopWindowVerifier, enum_param);
   if (!context.is_top_window) {

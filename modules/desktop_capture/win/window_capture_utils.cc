@@ -12,6 +12,7 @@
 
 #include "modules/desktop_capture/win/scoped_gdi_object.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/win32.h"
 
 namespace webrtc {
@@ -130,6 +131,7 @@ bool IsWindowMaximized(HWND window, bool* result) {
   return true;
 }
 
+// AeroChecker implementation.
 AeroChecker::AeroChecker() : dwmapi_library_(nullptr), func_(nullptr) {
   // Try to load dwmapi.dll dynamically since it is not available on XP.
   dwmapi_library_ = LoadLibrary(L"dwmapi.dll");
@@ -151,6 +153,33 @@ bool AeroChecker::IsAeroEnabled() {
     func_(&result);
   }
   return result != FALSE;
+}
+
+// ComMethodHelper implementation.
+ComMethodHelper::ComMethodHelper() {
+  if (rtc::IsWindows10OrLater()) {
+    if (FAILED(::CoCreateInstance(__uuidof(VirtualDesktopManager), nullptr,
+                                  CLSCTX_ALL,
+                                  IID_PPV_ARGS(&virtual_desktop_manager_)))) {
+      RTC_LOG(LS_WARNING) << "Fail to create instance of VirtualDesktopManager";
+      virtual_desktop_manager_ = nullptr;
+    }
+  }
+}
+
+ComMethodHelper::~ComMethodHelper() {}
+
+bool ComMethodHelper::IsWindowOnCurrentDesktop(HWND hwnd) {
+  // Make sure the window is on the same virtual desktop.
+  if (rtc::IsWindows10OrLater() && virtual_desktop_manager_) {
+    BOOL on_current_desktop;
+    if (SUCCEEDED(virtual_desktop_manager_->IsWindowOnCurrentVirtualDesktop(
+            hwnd, &on_current_desktop)) &&
+        !on_current_desktop) {
+      return false;
+    }
+  }
+  return true;
 }
 
 }  // namespace webrtc

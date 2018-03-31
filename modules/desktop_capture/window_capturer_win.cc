@@ -132,6 +132,7 @@ class WindowCapturerWin : public DesktopCapturer {
   DesktopSize previous_size_;
 
   AeroChecker aero_checker_;
+  ComMethodHelper com_method_helper_;
 
   // This map is used to avoid flickering for the case when SelectWindow() calls
   // are interleaved with Capture() calls.
@@ -151,6 +152,15 @@ bool WindowCapturerWin::GetSourceList(SourceList* sources) {
   // EnumWindows only enumerates root windows.
   if (!EnumWindows(&WindowsEnumerationHandler, param))
     return false;
+
+  for (auto it = result.begin(); it != result.end();) {
+    if (!com_method_helper_.IsWindowOnCurrentDesktop(
+            reinterpret_cast<HWND>(it->id))) {
+      it = result.erase(it);
+    } else {
+      ++it;
+    }
+  }
   sources->swap(result);
 
   std::map<HWND, DesktopSize> new_map;
@@ -223,9 +233,9 @@ void WindowCapturerWin::CaptureFrame() {
   // Return a 1x1 black frame if the window is minimized or invisible, to match
   // behavior on mace. Window can be temporarily invisible during the
   // transition of full screen mode on/off.
-  if (original_rect.is_empty() ||
-      IsIconic(window_) ||
-      !IsWindowVisible(window_)) {
+  if (original_rect.is_empty() || IsIconic(window_) ||
+      !IsWindowVisible(window_) ||
+      !com_method_helper_.IsWindowOnCurrentDesktop(window_)) {
     std::unique_ptr<DesktopFrame> frame(
         new BasicDesktopFrame(DesktopSize(1, 1)));
     memset(frame->data(), 0, frame->stride() * frame->size().height());

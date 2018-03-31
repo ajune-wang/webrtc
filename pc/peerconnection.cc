@@ -1784,14 +1784,28 @@ RTCError PeerConnection::HandleLegacyOfferOptions(
 void PeerConnection::RemoveRecvDirectionFromReceivingTransceiversOfType(
     cricket::MediaType media_type) {
   for (auto transceiver : GetReceivingTransceiversOfType(media_type)) {
-    transceiver->internal()->set_direction(
-        RtpTransceiverDirectionWithRecvSet(transceiver->direction(), false));
+    RtpTransceiverDirection new_direction =
+        RtpTransceiverDirectionWithRecvSet(transceiver->direction(), false);
+    if (new_direction != transceiver->direction()) {
+      RTC_LOG(LS_INFO) << "Changing " << cricket::MediaTypeToString(media_type)
+                       << " transceiver (MID="
+                       << transceiver->mid().value_or("<not set>") << ") from "
+                       << RtpTransceiverDirectionToString(
+                              transceiver->direction())
+                       << " to "
+                       << RtpTransceiverDirectionToString(new_direction)
+                       << " since CreateOffer specified offer_to_receive=0";
+      transceiver->internal()->set_direction(new_direction);
+    }
   }
 }
 
 void PeerConnection::AddUpToOneReceivingTransceiverOfType(
     cricket::MediaType media_type) {
   if (GetReceivingTransceiversOfType(media_type).empty()) {
+    RTC_LOG(LS_INFO)
+        << "Adding one recvonly " << cricket::MediaTypeToString(media_type)
+        << " transceiver since CreateOffer specified offer_to_receive=1";
     RtpTransceiverInit init;
     init.direction = RtpTransceiverDirection::kRecvOnly;
     AddTransceiver(media_type, nullptr, init, /*fire_callback=*/false);
@@ -1980,8 +1994,12 @@ RTCError PeerConnection::ApplyLocalDescription(
   if (!initial_offerer_.has_value()) {
     initial_offerer_.emplace(type == SdpType::kOffer);
     if (*initial_offerer_) {
+      RTC_LOG(LS_INFO) << "Setting ICE role to controlling since we are the "
+                          "initial offerer.";
       transport_controller_->SetIceRole(cricket::ICEROLE_CONTROLLING);
     } else {
+      RTC_LOG(LS_INFO) << "Setting ICE role to controlled since we are not the "
+                          "initial offerer.";
       transport_controller_->SetIceRole(cricket::ICEROLE_CONTROLLED);
     }
   }
@@ -2027,6 +2045,8 @@ RTCError PeerConnection::ApplyLocalDescription(
         transceiver->internal()->set_current_direction(media_desc->direction());
       }
       if (content->rejected && !transceiver->stopped()) {
+        RTC_LOG(LS_INFO) << "Stopping RtpTransceiver for MID=" << content->name
+                         << " since the media section was rejected.";
         transceiver->Stop();
       }
     }
@@ -2073,9 +2093,6 @@ RTCError PeerConnection::ApplyLocalDescription(
           FindMediaSectionForTransceiver(transceiver, local_description());
       if (!content) {
         continue;
-      }
-      if (content->rejected && !transceiver->stopped()) {
-        transceiver->Stop();
       }
       const auto& streams = content->media_description()->streams();
       if (!content->rejected && !streams.empty()) {
@@ -2361,6 +2378,8 @@ RTCError PeerConnection::ApplyRemoteDescription(
           (!transceiver->current_direction() ||
            !RtpTransceiverDirectionHasRecv(
                *transceiver->current_direction()))) {
+        RTC_LOG(LS_INFO) << "Processing the addition of a new track for MID="
+                         << content->name;
         rtc::scoped_refptr<MediaStreamInterface> stream =
             remote_streams_->find(sync_label);
         if (!stream) {
@@ -2378,12 +2397,16 @@ RTCError PeerConnection::ApplyRemoteDescription(
       if (!RtpTransceiverDirectionHasRecv(local_direction) &&
           (transceiver->current_direction() &&
            RtpTransceiverDirectionHasRecv(*transceiver->current_direction()))) {
+        RTC_LOG(LS_INFO) << "Processing the removal of a track for MID="
+                         << content->name;
         transceiver->internal()->receiver_internal()->SetStreams({});
       }
       if (type == SdpType::kPrAnswer || type == SdpType::kAnswer) {
         transceiver->internal()->set_current_direction(local_direction);
       }
       if (content->rejected && !transceiver->stopped()) {
+        RTC_LOG(LS_INFO) << "Stopping RtpTransceiver for MID=" << content->name
+                         << " since the media section was rejected.";
         transceiver->Stop();
       }
       if (!content->rejected &&
@@ -2543,6 +2566,8 @@ RTCError PeerConnection::UpdateTransceiversAndDataChannels(
     } else if (media_type == cricket::MEDIA_TYPE_DATA) {
       if (GetDataMid() && new_content.name != *GetDataMid()) {
         // Ignore all but the first data section.
+        RTC_LOG(LS_INFO) << "Ignoring data media section with MID="
+                         << new_content.name;
         continue;
       }
       RTCError error = UpdateDataChannel(source, new_content, bundle_group);
@@ -2645,6 +2670,8 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
             : old_remote_content->name;
     auto old_transceiver = GetAssociatedTransceiver(old_mid);
     if (old_transceiver) {
+      RTC_LOG(LS_INFO) << "Dissociating RtpTransceiver for MID=" << old_mid
+                       << " since the media section is being recycled.";
       old_transceiver->internal()->set_mid(rtc::nullopt);
       old_transceiver->internal()->set_mline_index(rtc::nullopt);
     }
@@ -2673,6 +2700,9 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
     // If no RtpTransceiver was found in the previous step, create one with a
     // recvonly direction.
     if (!transceiver) {
+      RTC_LOG(LS_INFO) << "Creating transceiver for MID=" << content.name
+                       << " at i=" << mline_index
+                       << " in response to the remote description.";
       auto sender =
           CreateSender(media_desc->type(), nullptr, {rtc::CreateRandomUuid()});
       std::string receiver_id;
